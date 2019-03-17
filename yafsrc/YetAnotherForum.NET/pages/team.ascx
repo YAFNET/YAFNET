@@ -18,7 +18,13 @@
                                                                  runat="server" 
                                                                  LocalizedTag="Admins" LocalizedPage="TEAM" />
             </div>
-            <div class="card-body text-center">
+            <div class="card-body">
+                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
+                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
+                                        LocalizedTag="TABLE_RESPONSIVE" 
+                                        LocalizedPage="ADMIN_COMMON" />
+                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                </YAF:Alert>
                 <div class="table-responsive">
                 <asp:DataGrid ID="AdminsGrid" runat="server"  
                               Width="100%" BorderStyle="None" GridLines="None" BorderWidth="0px" 
@@ -54,23 +60,25 @@
 			  			    <HeaderStyle CssClass="font-weight-bold"></HeaderStyle>
 			  			    <ItemStyle HorizontalAlign="Left"></ItemStyle>
 			  				    <ItemTemplate>
+                                    <div class="btn-group" role="group">
                				        <YAF:ThemeButton ID="PM" runat="server"
-                                                        CssClass="btn-sm" Visible="false" 
+                                                        Size="Small" Visible="false" 
                                                         TextLocalizedPage="POSTS" TextLocalizedTag="PM"
                                                         TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
                                                         Icon="envelope" Type="Secondary"/>
 			                        <YAF:ThemeButton ID="Email" runat="server" 
-                                                     CssClass="btn-sm" Visible="false"
+                                                     Size="Small" Visible="false"
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE"
                                                      Icon="at" Type="Secondary" />
 			                        <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
-                                                     CssClass="btn-sm" Visible="false"
+                                                     Size="Small" Visible="false"
                                                      Icon="user-cog" Type="Secondary"
                                                      NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
 			                        </YAF:ThemeButton>
+                                    </div>
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
     		         </Columns>
@@ -84,12 +92,18 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel 
+                <i class="fa fa-user-secret fa-fw"></i>&nbsp;<YAF:LocalizedLabel 
                                                                  ID="LocalizedLabel1" 
                                                                  runat="server" 
                                                                  LocalizedTag="MODS" LocalizedPage="TEAM" />
             </div>
-            <div class="card-body text-center">
+            <div class="card-body">
+                <YAF:Alert runat="server" ID="Alert1" Type="info" MobileOnly="True">
+                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
+                                        LocalizedTag="TABLE_RESPONSIVE" 
+                                        LocalizedPage="ADMIN_COMMON" />
+                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                </YAF:Alert>
                 <div class="table-responsive">
                 <asp:DataGrid ID="ModeratorsGrid" runat="server" 
                               Width="100%" BorderStyle="None" GridLines="None" BorderWidth="0px" 
@@ -119,7 +133,7 @@
                				        <asp:DropDownList ID="ModForums" runat="server" CssClass="standardSelectMenu">
                				        </asp:DropDownList>
                                      <YAF:ThemeButton ID="GoToForumButton" runat="server" 
-                                                      CssClass="btn-sm"
+                                                      Size="Small"
                                                       Icon="external-link-alt" Type="Secondary"
                                                       TextLocalizedTag="GO" OnClick="GoToForum"></YAF:ThemeButton>
 			  				    </ItemTemplate>
@@ -128,23 +142,25 @@
 			  			    <HeaderStyle CssClass="font-weight-bold"></HeaderStyle>
 			  			    <ItemStyle HorizontalAlign="Left"></ItemStyle>
 			  				    <ItemTemplate>
+                                    <div class="btn-group" role="group">
                				        <YAF:ThemeButton ID="PM" runat="server" 
-                                                        CssClass="btn-sm" Visible="false" 
+                                                        Size="Small" Visible="false" 
                                                         TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
                                                         TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
                                                         Icon="envelope" Type="Secondary" />
 			                        <YAF:ThemeButton ID="Email" runat="server" 
-                                                     CssClass="btn-sm" Visible="false" 
+                                                     Size="Small" Visible="false" 
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE"
                                                      Icon="at" Type="Secondary" />
 			                        <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                                     CssClass="btn-sm" Visible="false"
+                                                     Size="Small" Visible="false"
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                                      Icon="user-cog" Type="Secondary"
                                                      NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
 			                        </YAF:ThemeButton>
+                                    </div>
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
     		         </Columns>

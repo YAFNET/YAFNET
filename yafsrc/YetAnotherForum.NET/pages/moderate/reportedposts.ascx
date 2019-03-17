@@ -40,7 +40,7 @@
                             </span>
                             <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                             CssClass="btn-sm" Visible='<%# this.PageContext.IsAdmin %>'
+                                             Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(this.Eval("UserID")) ) %>'
                                              Icon="users-cog" Type="Secondary">
@@ -55,7 +55,7 @@
                                 </h6>
                                 <span id="Label1" runat="server" 
                                       class="badge badge-warning" 
-                                      visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
+                                      visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
                                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
                                 </span>
                                 <div class="mb-3">
@@ -82,7 +82,7 @@
                         <YAF:ThemeButton ID="CopyOverBtn" runat="server" 
                                      TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER" 
                                      CommandName="CopyOver" CommandArgument='<%# this.Eval("MessageID") %>'
-                                     Visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
+                                     Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
                                      Icon="copy" Type="Secondary" />
                         <YAF:ThemeButton ID="DeleteBtn" runat="server" 
                                      TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE" 

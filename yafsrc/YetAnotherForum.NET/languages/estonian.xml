@@ -4541,6 +4541,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Eelteade</Resource>
     <Resource tag="ASK_POLL_DELETE">Kas te soovite eemaldada küsitluse sellest teemast?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Muuda postitust</Resource>
@@ -4752,6 +4754,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Te ei saa lukustada foorumi moderaatoreid.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Te ei saa lukustada külaliskontot.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Sugu:</Resource>
     <Resource tag="GENDER0">Määramata</Resource>
     <Resource tag="GENDER1">Mees</Resource>
@@ -4784,6 +4787,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Vaata kõiki postitusi kasutaja järgi</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistika</Resource>
     <Resource tag="SUSPEND">Lukustamine</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5580,6 +5584,7 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="LASTPOST">Viimane postitus</Resource>
     <Resource tag="MARKREAD">Märgi antud foorum loetuks</Resource>
     <Resource tag="NO_POSTS">Postitusi ei ole</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Postitusi</Resource>
     <Resource tag="REPLIES">Vastuseid</Resource>

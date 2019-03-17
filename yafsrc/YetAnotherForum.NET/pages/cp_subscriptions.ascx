@@ -1,165 +1,149 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cp_subscriptions"CodeBehind="cp_subscriptions.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="TITLE" /></h2>
+    </div>
+</div>
+
 <asp:UpdatePanel ID="PreferencesUpdatePanel" runat="server">
     <ContentTemplate>
-        <table class="content" cellspacing="1" cellpadding="0" width="100%">
-            <tr>
-                <td class="header1" colspan="2">
-                    <YAF:LocalizedLabel ID="LocalizedLabel100" runat="server" LocalizedTag="TITLE" />
-                </td>
-            </tr>
-            <tr>
-                <td class="postheader">
-                    <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" LocalizedTag="NOTIFICATIONSELECTION" />
-                </td>
-                <td class="post">
-                    <asp:RadioButtonList ID="rblNotificationType" runat="server" AutoPostBack="true"
-                        OnSelectedIndexChanged="rblNotificationType_SelectionChanged">
-                    </asp:RadioButtonList>
-                </td>
-            </tr>
-            <tr runat="server" id="DailyDigestRow">
-                <td class="postheader">
-                    <YAF:LocalizedLabel ID="LocalizedLabel199" runat="server" LocalizedTag="DAILY_DIGEST" />
-                </td>
-                <td class="post">
-                    <asp:CheckBox ID="DailyDigestEnabled" runat="server" />
-                </td>
-            </tr>
-            <tr runat="server" id="PMNotificationRow">
-                <td class="postheader">
-                    <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE"
-                        LocalizedTag="PM_EMAIL_NOTIFICATION" />
-                </td>
-                <td class="post">
-                    <asp:CheckBox ID="PMNotificationEnabled" runat="server" />
-                </td>
-            </tr>
-            <tr>
-                <td class="footer1" colspan="2" align="right">
-                    <asp:Button ID="SaveUser" runat="server" OnClick="SaveUser_Click" />
-                </td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-envelope fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="TITLE" />
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <asp:Label runat="server" AssociatedControlID="rblNotificationType">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" LocalizedTag="NOTIFICATIONSELECTION" />
+                                </asp:Label>
+                                <asp:RadioButtonList ID="rblNotificationType" runat="server" AutoPostBack="true"
+                                                     OnSelectedIndexChanged="rblNotificationType_SelectionChanged">
+                                </asp:RadioButtonList>
+                            </div>
+                            <asp:PlaceHolder runat="server" id="DailyDigestRow">
+                                <div class="form-check">
+                                    <asp:CheckBox ID="DailyDigestEnabled" runat="server" CssClass="form-check-input" />
+                                    <asp:Label runat="server" AssociatedControlID="DailyDigestEnabled" CssClass="form-check-label">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel199" runat="server" LocalizedTag="DAILY_DIGEST" />
+                                    </asp:Label>
+                                    
+                                </div>
+                            </asp:PlaceHolder>
+                            <asp:PlaceHolder runat="server" id="PMNotificationRow">
+                                <div class="form-check">
+                                    <asp:CheckBox ID="PMNotificationEnabled" runat="server" CssClass="form-check-input" />
+                                    <asp:Label runat="server" AssociatedControlID="PMNotificationEnabled" CssClass="form-check-label">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE"
+                                                        LocalizedTag="PM_EMAIL_NOTIFICATION" />
+                                    </asp:Label>
+                                    
+                                </div>
+                            </asp:PlaceHolder>
+                            
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <YAF:ThemeButton ID="SaveUser" runat="server" OnClick="SaveUser_Click"
+                                         TextLocalizedTag="SAVE"
+                                         Type="Primary"
+                                         Icon="save"/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ContentTemplate>
 </asp:UpdatePanel>
-<br />
+
 <asp:UpdatePanel ID="SubscriptionsUpdatePanel" runat="server">
     <ContentTemplate>
         <asp:PlaceHolder ID="SubscribeHolder" runat="server">
-            <table class="content" cellspacing="1" cellpadding="0" width="100%">
-                <tr>
-                    <td class="header1" colspan="5">
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="forums" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="forum" />
-                    </td>
-                    <td class="header2" align="center">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="topics" />
-                    </td>
-                    <td class="header2" align="center">
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="replies" />
-                    </td>
-                    <td class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="lastpost" />
-                    </td>
-                    <td class="header2">
-                        &nbsp;
-                    </td>
-                </tr>
-                <asp:Repeater ID="ForumList" runat="server">
-                    <ItemTemplate>
-                        <asp:Label ID="tfid" runat="server" Text='<%# Container.DataItemToField<int>("WatchForumID") %>'
-                            Visible="false" />
-                        <tr>
-                            <td class="post">
-                                <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  Container.DataItemToField<int>("ForumID"), Container.DataItemToField<string>("ForumName"))%>">
-                                    <%# HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>
-                            </td>
-                            <td class="post" align="center">
-                                <%# Container.DataItemToField<int>("Topics")%>
-                            </td>
-                            <td class="post" align="center">
-                                <%# FormatForumReplies(Container.DataItem) %>
-                            </td>
-                            <td class="post">
-                                <%# FormatLastPosted(Container.DataItem) %>
-                            </td>
-                            <td class="post" align="center">
-                                <asp:CheckBox ID="unsubf" runat="server" />
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
-                <tr>
-                    <td class="footer1" colspan="5" align="right">
-                        <asp:Button ID="UnsubscribeForums" runat="server" OnClick="UnsubscribeForums_Click" />
-                    </td>
-                </tr>
-            </table>
-            <br />
-            <YAF:Pager ID="PagerTop" runat="server" PageSize="25" OnPageChange="PagerTop_PageChange"
-                UsePostBack="True" />
-            <table class="content" cellspacing="1" cellpadding="0" width="100%">
-                <tr>
-                    <td class="header1" colspan="5">
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="topic" />
-                    </td>
-                    <td class="header2" align="center">
-                        <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
-                    </td>
-                    <td class="header2" align="center">
-                        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="views" />
-                    </td>
-                    <td class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="lastpost" />
-                    </td>
-                    <td class="header2">
-                        &nbsp;
-                    </td>
-                </tr>
-                <asp:Repeater ID="TopicList" runat="server">
-                    <ItemTemplate>
-                        <asp:Label ID="ttid" runat="server" Text='<%# Container.DataItemToField<int>("WatchTopicID") %>'
-                            Visible="false" />
-                        <tr>
-                            <td class="post">
-                                <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("TopicID"))%>">
-                                    <%# HtmlEncode(Container.DataItemToField<string>("TopicName"))%></a>
-                            </td>
-                            <td class="post" align="center">
-                                <%# Container.DataItemToField<int>("Replies")%>
-                            </td>
-                            <td class="post" align="center">
-                                <%# Container.DataItemToField<int>("Views")%>
-                            </td>
-                            <td class="post">
-                                <%# FormatLastPosted(Container.DataItem) %>
-                            </td>
-                            <td class="post" align="center">
-                                <asp:CheckBox ID="unsubx" runat="server" />
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
-                <tr>
-                    <td class="footer1" colspan="5" align="right">
-                        <asp:Button ID="UnsubscribeTopics" runat="server" OnClick="UnsubscribeTopics_Click" />
-                    </td>
-                </tr>
-            </table>
-            <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
+            <asp:PlaceHolder runat="server" ID="ForumsHolder">
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="forums" />
+                        </div>
+                        <div class="card-body">
+                            <asp:Repeater ID="ForumList" runat="server">
+                                <HeaderTemplate>
+                                    <ul class="list-group list-group-flush">
+                                </HeaderTemplate>
+                                <FooterTemplate>
+                                    </ul>
+                                </FooterTemplate>
+                                <ItemTemplate>
+                                    <li class="list-group-item">
+                                        <asp:CheckBox ID="unsubf" runat="server" />
+                                        <asp:Label ID="tfid" runat="server" Text='<%# Container.DataItemToField<int>("WatchForumID") %>'
+                                               Visible="false" />
+                                        <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  Container.DataItemToField<int>("ForumID"), Container.DataItemToField<string>("ForumName"))%>">
+                                                <%#
+    this.HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                        <div class="card-footer text-center">
+                            <YAF:ThemeButton ID="UnsubscribeForums" runat="server" 
+                                             OnClick="UnsubscribeForums_Click"
+                                             TextLocalizedTag="unsubscribe"
+                                             Type="Danger"
+                                             Icon="trash"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </asp:PlaceHolder>
+            <asp:PlaceHolder runat="server" ID="TopicsHolder">
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
+                        </div>
+                        <div class="card-body">
+                            <YAF:Pager ID="PagerTop" runat="server" PageSize="25" OnPageChange="PagerTop_PageChange"
+                                       UsePostBack="True" />
+                            <asp:Repeater ID="TopicList" runat="server">
+                                <HeaderTemplate>
+                                    <ul class="list-group list-group-flush">
+                                </HeaderTemplate>
+                                <FooterTemplate>
+                                </ul>
+                                </FooterTemplate>
+                                <ItemTemplate>
+                                    <li class="list-group-item">
+                                        <asp:CheckBox ID="unsubx" runat="server" />
+                                        <asp:Label ID="ttid" runat="server" Text='<%# Container.DataItemToField<int>("WatchTopicID") %>'
+                                               Visible="false" />
+                                            <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("TopicID"))%>">
+                                                <%#
+    this.HtmlEncode(Container.DataItemToField<string>("TopicName"))%></a>
+                                    </li>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
+                        </div>
+                        <div class="card-footer text-center">
+                            <YAF:themeButton ID="UnsubscribeTopics" runat="server" 
+                                             OnClick="UnsubscribeTopics_Click"
+                                             TextLocalizedTag="unsubscribe"
+                                             Type="Danger"
+                                             Icon="trash"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </asp:PlaceHolder>
         </asp:PlaceHolder>
     </ContentTemplate>
 </asp:UpdatePanel>

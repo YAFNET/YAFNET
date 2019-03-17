@@ -560,12 +560,9 @@ namespace YAF.Pages.Admin
                 user["RealName"] = userProfile.RealName;
                 user["Blog"] = userProfile.Blog;
                 user["Gender"] = userProfile.Gender;
-                user["MSN"] = userProfile.MSN;
                 user["Birthday"] = userProfile.Birthday;
                 user["BlogServiceUsername"] = userProfile.BlogServiceUsername;
                 user["BlogServicePassword"] = userProfile.BlogServicePassword;
-                user["AIM"] = userProfile.AIM;
-                user["Google"] = userProfile.Google;
                 user["GoogleId"] = userProfile.GoogleId;
                 user["Location"] = userProfile.Location;
                 user["Country"] = userProfile.Country;
@@ -576,7 +573,6 @@ namespace YAF.Pages.Admin
                 user["Skype"] = userProfile.Skype;
                 user["ICQ"] = userProfile.ICQ;
                 user["XMPP"] = userProfile.XMPP;
-                user["YIM"] = userProfile.YIM;
                 user["Occupation"] = userProfile.Occupation;
                 user["Twitter"] = userProfile.Twitter;
                 user["TwitterId"] = userProfile.TwitterId;

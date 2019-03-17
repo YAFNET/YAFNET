@@ -114,7 +114,7 @@ namespace YAF.Modules.BBCode
                 {
                     // user doesn't have rights to download, don't show the image
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</div>",
+                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</span>",
                         fileIcon,
                         attachment.FileName,
                         this.GetText("ATTACH_NO"));
@@ -140,7 +140,7 @@ namespace YAF.Modules.BBCode
                 else
                 {
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</div>",
+                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</span>",
                         fileIcon,
                         attachment.FileName,
                         this.GetText("ATTACH_NO"));

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boardsettings"CodeBehind="boardsettings.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server" ID="Adminmenu1">
+
 <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BOARDSETTINGS" /></h1>
@@ -195,5 +195,5 @@
                     </div>
                 </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

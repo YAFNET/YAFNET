@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+
     public partial class login {
         
+
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// UpdateLoginPanel-Steuerelement
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdateLoginPanel;
+        protected UpdatePanel UpdateLoginPanel;
         
+
         /// <summary>
         /// Login1-Steuerelement
         /// </summary>
@@ -37,8 +43,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Login Login1;
+        protected Login Login1;
         
+
         /// <summary>
         /// SmartScroller1-Steuerelement
         /// </summary>
@@ -46,6 +53,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected SmartScroller SmartScroller1;
     }
 }

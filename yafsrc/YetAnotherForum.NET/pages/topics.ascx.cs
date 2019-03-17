@@ -371,7 +371,6 @@ namespace YAF.Pages
                     userId = this.PageContext.PageUserID;
                 }
             }*/
-
             int? userId = this.PageContext.PageUserID;
 
             var dt = LegacyDb.announcements_list(
@@ -405,11 +404,11 @@ namespace YAF.Pages
                         }*/
             var pagerCurrentPageIndex = this.Pager.CurrentPageIndex;
 
-            DataTable dtTopics;
+            DataTable topicList;
 
             if (this._showTopicListSelected == 0)
             {
-                dtTopics = LegacyDb.topic_list(
+                topicList = LegacyDb.topic_list(
                     this.PageContext.PageForumID,
                     userId,
                     DateTimeHelper.SqlDbMinTime(),
@@ -419,9 +418,9 @@ namespace YAF.Pages
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
                     this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
-                if (dtTopics != null)
+                if (topicList != null)
                 {
-                    dtTopics = this.StyleTransformDataTable(dtTopics);
+                    topicList = this.StyleTransformDataTable(topicList);
                 }
             }
             else
@@ -430,7 +429,7 @@ namespace YAF.Pages
 
                 var date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
 
-                dtTopics = LegacyDb.topic_list(
+                topicList = LegacyDb.topic_list(
                     this.PageContext.PageForumID,
                     userId,
                     date,
@@ -441,22 +440,42 @@ namespace YAF.Pages
                     true,
                     this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 
-                if (dtTopics != null)
+                if (topicList != null)
                 {
-                    dtTopics = this.StyleTransformDataTable(dtTopics);
+                    topicList = this.StyleTransformDataTable(topicList);
                 }
             }
 
-            this.TopicList.DataSource = dtTopics;
+            this.TopicList.DataSource = topicList;
+
+            if (topicList == null || !topicList.HasRows())
+            {
+                var showNoPosts = true;
+
+                if (dt == null || !dt.HasRows())
+                {
+                    showNoPosts = true;
+                }
+                else
+                {
+                    showNoPosts = false;
+                }
+
+                if (showNoPosts)
+                {
+
+                }
+            }
 
             this.DataBind();
 
             // setup the show topic list selection after data binding
             this.ShowList.SelectedIndex = this._showTopicListSelected;
             this.Get<IYafSession>().ShowList = this._showTopicListSelected;
-            if (dtTopics != null && dtTopics.HasRows())
+
+            if (topicList != null && topicList.HasRows())
             {
-                this.Pager.Count = dtTopics.AsEnumerable().First().Field<int>("TotalRows");
+                this.Pager.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
             }
         }
 

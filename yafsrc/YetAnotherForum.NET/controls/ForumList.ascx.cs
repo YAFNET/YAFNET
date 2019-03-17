@@ -249,55 +249,45 @@ namespace YAF.Controls
             var row = (DataRow)e.Item.DataItem;
             var flags = new ForumFlags(row["Flags"]);
 
-            var lastRead =
-                this.Get<IReadTrackCurrentUser>()
-                    .GetForumTopicRead(
-                        forumId: row["ForumID"].ToType<int>(),
-                        topicId: row["LastTopicID"].ToType<int>(),
-                        forumReadOverride: row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                        topicReadOverride: row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+            var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                forumId: row["ForumID"].ToType<int>(),
+                topicId: row["LastTopicID"].ToType<int>(),
+                forumReadOverride: row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                topicReadOverride: row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
             var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
             if (string.IsNullOrEmpty(row["ImageUrl"].ToString()))
             {
-                var forumIcon = e.Item.FindControl("ThemeForumIcon") as ThemeImage;
-                if (forumIcon != null)
-                {
-                    forumIcon.ThemeTag = "FORUM";
-                    forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                    forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-                    forumIcon.Visible = true;
+                var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
-                    try
+                var icon = new Literal { Text = "<i class=\"fa fa-comments fa-2x\" style=\"color: green\"></i>" };
+
+                try
+                {
+                    if (flags.IsLocked)
                     {
-                        if (flags.IsLocked)
-                        {
-                            forumIcon.ThemeTag = "FORUM_LOCKED";
-                            forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
-                        }
-                        else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
-                        {
-                            forumIcon.ThemeTag = "FORUM_NEW";
-                            forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            forumIcon.LocalizedTitleTag = "NEW_POSTS";
-                        }
-                        else
-                        {
-                            forumIcon.ThemeTag = "FORUM";
-                            forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-                        }
+                        icon.Text =
+                            "<span class=\"fa-stack fa-1x\"><i class=\"fa fa-comments fa-stack-2x\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\" style=\"color: orange;\"></i></span>";
                     }
-                    catch
+                    else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {
+                        icon.Text = "<i class=\"fa fa-comments fa-2x}\" style=\"color: green\"></i>";
+                    }
+                    else
+                    {
+                        icon.Text = "<i class=\"fa fa-comments fa-2x\"></i>";
                     }
                 }
+                catch
+                {
+                }
+
+                forumIcon.Controls.Add(icon);
             }
             else
             {
-                var forumImage = e.Item.FindControl("ForumImage1") as HtmlImage;
+                var forumImage = e.Item.FindControlAs<HtmlImage>("ForumImage1");
                 if (forumImage != null)
                 {
                     forumImage.Src = "{0}{1}/{2}".FormatWith(
@@ -363,51 +353,22 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
+            var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
+            var modList1 = e.Item.FindControl("ForumModeratorListMob") as ForumModeratorList;
+
+            if (modList1 != null)
             {
-                // hide moderator list...
-                var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
-                var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
-
-                if (modList == null)
-                {
-                    return;
-                }
-
                 var dra = row.GetChildRows("FK_Moderator_Forum");
-
                 if (dra.GetLength(0) > 0)
                 {
-                    modList.DataSource = dra;
-                    modList.Visible = true;
-                    modList.DataBind();
-                }
+                    modList1.DataSource = dra;
+                    modList1.Visible = true;
+                    modList1.DataBind();
 
-                // set them as visible...
-                if (moderatorColumn != null)
-                {
-                    moderatorColumn.Visible = true;
-                }
-            }
-            else
-            {
-                var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
-                var modList1 = e.Item.FindControl("ForumModeratorListMob") as ForumModeratorList;
-
-                if (modList1 != null)
-                {
-                    var dra = row.GetChildRows("FK_Moderator_Forum");
-                    if (dra.GetLength(0) > 0)
+                    // set them as visible...
+                    if (moderatorSpan != null)
                     {
-                        modList1.DataSource = dra;
-                        modList1.Visible = true;
-                        modList1.DataBind();
-
-                        // set them as visible...
-                        if (moderatorSpan != null)
-                        {
-                            moderatorSpan.Visible = true;
-                        }
+                        moderatorSpan.Visible = true;
                     }
                 }
             }
@@ -440,14 +401,13 @@ namespace YAF.Controls
 
             if (row["IsGroup"].ToType<int>() == 0)
             {
-                output =
-                    "<a href=\"{0}\">{1}</a>".FormatWith(
-                        YafBuildLink.GetLink(
-                            ForumPages.profile,
-                            "u={0}&name={1}",
-                            row["ModeratorID"],
-                            row["ModeratorName"]),
-                        row["ModeratorName"]);
+                output = "<a href=\"{0}\">{1}</a>".FormatWith(
+                    YafBuildLink.GetLink(
+                        ForumPages.profile,
+                        "u={0}&name={1}",
+                        row["ModeratorID"],
+                        row["ModeratorName"]),
+                    row["ModeratorName"]);
             }
             else
             {
@@ -495,11 +455,9 @@ namespace YAF.Controls
 
             var arlist = new ArrayList();
 
-            foreach (
-                var subrow in
-                    this.SubDataSource.Rows.Cast<DataRow>()
-                        .Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
-                        .Where(subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList))
+            foreach (var subrow in this.SubDataSource.Rows.Cast<DataRow>()
+                .Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>()).Where(
+                    subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList))
             {
                 arlist.Add(subrow);
             }
@@ -519,9 +477,9 @@ namespace YAF.Controls
         protected string GetViewing([NotNull] object o)
         {
             var row = (DataRow)o;
-            var nViewing = row["Viewing"].ToType<int>();
+            var viewing = row["Viewing"].ToType<int>();
 
-            return nViewing > 0 ? "&nbsp;{0}".FormatWith(this.GetTextFormatted("VIEWING", nViewing)) : string.Empty;
+            return viewing > 0 ? "&nbsp;{0}".FormatWith(this.GetTextFormatted("VIEWING", viewing)) : string.Empty;
         }
 
         /// <summary>
@@ -533,9 +491,8 @@ namespace YAF.Controls
         /// </returns>
         protected bool HasSubforums([NotNull] DataRow row)
         {
-            return this.SubDataSource != null
-                   && this.SubDataSource.Rows.Cast<DataRow>()
-                          .Any(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
+            return this.SubDataSource != null && this.SubDataSource.Rows.Cast<DataRow>()
+                       .Any(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
         }
 
         /// <summary>

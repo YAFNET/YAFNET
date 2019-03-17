@@ -123,6 +123,9 @@ namespace YAF.Controls
             }
         }
 
+        /// <summary>Gets the topic icon.</summary>
+        /// <param name="themeImageTag">The theme image tag.</param>
+        /// <returns>Returns the topic icon.</returns>
         private string GetTopicIcon(string themeImageTag)
         {
             switch (themeImageTag)
@@ -162,6 +165,9 @@ namespace YAF.Controls
                 case "NO_NEW_POSTS":
                     return
                         "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
+                case "MOVED":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
                 default:
                     return
                         "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";

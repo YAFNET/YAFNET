@@ -606,8 +606,8 @@ namespace YAF.Pages
             // we edit existing poll 
             if (this._choices.HasRows())
             {
-                if ((this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID) &&
-                    (!this.PageContext.IsAdmin) && (!this.PageContext.ForumModeratorAccess))
+                if (this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID &&
+                    !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
@@ -646,7 +646,7 @@ namespace YAF.Pages
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                 }
-                
+             
                 // Get isBound value using page variables. They are initialized here.
                 var pgidt = 0;
 
@@ -654,20 +654,21 @@ namespace YAF.Pages
                 if (this._topicId > 0 && this.topicInfo != null)
                 {
                     // topicid should not be null here 
-                    if (!this.topicInfo.PollID.HasValue)
+                    if (this.topicInfo.PollID != null)
                     {
                         pgidt = this.topicInfo.PollID.Value;
 
                         var pollGroupData = LegacyDb.pollgroup_stats(pgidt);
 
                         this.IsBoundCheckBox.Checked = Convert.ToBoolean(pollGroupData.Rows[0]["IsBound"]);
+
                         //// this.IsClosedBoundCheckBox.Checked = Convert.ToBoolean(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]);
                     }
                 }
                 else if (this._forumId > 0 && (!(this._topicId > 0) || (!(this._editTopicId > 0))))
                 {
                     // forumid should not be null here
-                    pgidt = (int)LegacyDb.forum_list(this.PageContext.PageBoardID, this._forumId).Rows[0]["PollGroupID"];
+                    pgidt = LegacyDb.forum_list(this.PageContext.PageBoardID, this._forumId).Rows[0]["PollGroupID"].ToType<int>();
                 }
                 else if (this._categoryId > 0)
                 {
@@ -716,9 +717,9 @@ namespace YAF.Pages
             this.PollRow1.Visible = true;
             this.PollRowExpire.Visible = true;
             this.IsClosedBound.Visible =
-                this.IsBound.Visible = this.Get<YafBoardSettings>().AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
-            this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices || PageContext.IsAdmin
-                                                   || PageContext.ForumModeratorAccess;
+                this.IsBound.Visible = this.Get<YafBoardSettings>().AllowUsersHidePollResults || this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+            this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices || this.PageContext.IsAdmin
+                                                   || this.PageContext.ForumModeratorAccess;
             this.tr_ShowVoters.Visible = true;
             this.tr_AllowSkipVote.Visible = false;
         }
@@ -978,31 +979,31 @@ namespace YAF.Pages
 
             // TODO: repeating code
             // Remove repeating PollID values   
-            var hTable = new Hashtable();
+            var hashtable = new Hashtable();
             var duplicateList = new ArrayList();
-            var dtPollGroup = LegacyDb.pollgroup_stats(pollGroupId);
+            var pollGroup = LegacyDb.pollgroup_stats(pollGroupId);
 
-            foreach (DataRow drow in dtPollGroup.Rows)
+            foreach (DataRow drow in pollGroup.Rows)
             {
-                if (hTable.Contains(drow["PollID"]))
+                if (hashtable.Contains(drow["PollID"]))
                 {
                     duplicateList.Add(drow);
                 }
                 else
                 {
-                    hTable.Add(drow["PollID"], string.Empty);
+                    hashtable.Add(drow["PollID"], string.Empty);
                 }
             }
 
             foreach (DataRow dRow in duplicateList)
             {
-                dtPollGroup.Rows.Remove(dRow);
+                pollGroup.Rows.Remove(dRow);
             }
 
-            dtPollGroup.AcceptChanges();
+            pollGroup.AcceptChanges();
 
             // frequently used
-            var pollNumber = dtPollGroup.Rows.Count;
+            var pollNumber = pollGroup.Rows.Count;
 
             return (pollNumber < this.Get<YafBoardSettings>().AllowedPollNumber) &&
                    (this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0);

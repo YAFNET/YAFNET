@@ -35,8 +35,8 @@ namespace YAF.Controls
 
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -57,13 +57,10 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Summary description for buddies.
+    /// The View Thanks List Control
     /// </summary>
     public partial class ViewThanksList : BaseUserControl
     {
-        /* Data Fields */
-
-        /* Properties */
         #region Constants and Fields
 
         /// <summary>
@@ -120,32 +117,35 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.CurrentMode == ThanksListMode.FromUser)
+            switch (this.CurrentMode)
             {
-                thanksData = thanksData.Where(x => x.Field<int>("ThanksFromUserID") == this.UserID);
-            }
-            else if (this.CurrentMode == ThanksListMode.ToUser)
-            {
-                foreach (var dr in thanksData)
-                {
-                    // update the message count
-                    int messageThanksNumber;
-                    dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out messageThanksNumber)
-                                                ? dr["MessageThanksNumber"]
-                                                : thanksData.Count(x => x.Field<int>("ThanksToUserID") == this.UserID &&
-                                                                        x.Field<int>("MessageID") == (int)dr["MessageID"]);
-                }
+                case ThanksListMode.FromUser:
+                    thanksData = thanksData.Where(x => x.Field<int>("ThanksFromUserID") == this.UserID);
+                    break;
+                case ThanksListMode.ToUser:
+                    {
+                        foreach (var dr in thanksData)
+                        {
+                            // update the message count
+                            int messageThanksNumber;
+                            dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out messageThanksNumber)
+                                                            ? dr["MessageThanksNumber"]
+                                                            : thanksData.Count(x => x.Field<int>("ThanksToUserID") == this.UserID &&
+                                                                                    x.Field<int>("MessageID") == (int)dr["MessageID"]);
+                        }
 
-                thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
+                        thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
 
-                // Remove duplicates.
-                this.DistinctMessageID(thanksData);
+                        // Remove duplicates.
+                        this.DistinctMessageID(thanksData);
 
-                // Sort by the ThanksNumber (Descensing)
-                thanksData = thanksData.OrderByDescending(x => x.Field<int>("MessageThanksNumber"));
+                        // Sort by the ThanksNumber (Descensing)
+                        thanksData = thanksData.OrderByDescending(x => x.Field<int>("MessageThanksNumber"));
 
-                // Update the datatable with changes
-                this.ThanksInfo.AcceptChanges();
+                        // Update the datatable with changes
+                        this.ThanksInfo.AcceptChanges();
+                        break;
+                    }
             }
 
             // TODO : page size definable?
@@ -226,7 +226,7 @@ namespace YAF.Controls
                 case ThanksListMode.FromUser:
                     if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
                     {
-                        var thanksNumberCell = (HtmlTableCell)e.Item.FindControl("ThanksNumberCell");
+                        var thanksNumberCell = e.Item.FindControlAs<PlaceHolder>("ThanksNumberCell");
                         thanksNumberCell.Visible = false;
                     }
 
@@ -234,7 +234,7 @@ namespace YAF.Controls
                 case ThanksListMode.ToUser:
                     if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
                     {
-                        var nameCell = (HtmlTableCell)e.Item.FindControl("NameCell");
+                        var nameCell = e.Item.FindControlAs<PlaceHolder>("NameCell");
                         nameCell.Visible = false;
                     }
 

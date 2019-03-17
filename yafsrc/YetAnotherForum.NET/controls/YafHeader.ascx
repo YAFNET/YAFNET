@@ -1,12 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YafHeader.ascx.cs" Inherits="YAF.Controls.YafHeader" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Classes" %>
-    <asp:Panel id="GuestUserMessage" CssClass="alert alert-info alert-dismissible fade show" runat="server" Visible="false" role="alert">
-       <asp:Label id="GuestMessage" runat="server"></asp:Label>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </asp:Panel>
+
+
+<%@ Register TagPrefix="YAF" TagName="AdminMenu" Src="AdminMenu.ascx" %>
+
+<YAF:Alert runat="server" Visible="False" ID="GuestUserMessage" Type="info" Dismissing="True">
+    <asp:Label id="GuestMessage" runat="server"></asp:Label>
+</YAF:Alert>
     
 <header class="mb-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,7 +24,82 @@
                 <asp:PlaceHolder ID="menuListItems" runat="server">
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="AdminModHolder" runat="server" Visible="false">
+
                     <asp:PlaceHolder ID="menuAdminItems" runat="server"></asp:PlaceHolder>
+                    
+                    <asp:PlaceHolder runat="server" ID="AdminAdminHolder" Visible="False">
+                        <YAF:AdminMenu runat="server"></YAF:AdminMenu>
+                    </asp:PlaceHolder>
+                    
+
+                    <asp:PlaceHolder runat="server" ID="HostMenuHolder" Visible="False">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="hostDropdown" data-toggle="dropdown" 
+                           href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
+                           role="button" 
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cog fa-fw"></i>&nbsp;<%= this.GetText("TOOLBAR", "HOST")  %>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="hostDropdown">
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>"
+                               class="dropdown-item">
+                            <i class="fa fa-cog fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
+                            </a>
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_boards) %>"
+                               class="dropdown-item">
+                                <i class="fa fa-globe fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedTag="admin_boards" LocalizedPage="adminmenu"></YAF:LocalizedLabel>
+                            </a>
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
+                               class="dropdown-item">
+                                <i class="fa fa-building fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
+                            </a>
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_eventloggroups) %>"
+                               class="dropdown-item">
+                                <i class="fa fa-users fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedTag="admin_eventloggroups"></YAF:LocalizedLabel>
+                            </a>
+                        </div>
+                  </li>
+                    </asp:PlaceHolder>
+                    <asp:PlaceHolder runat="server" ID="ModerateHolder" Visible="False">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="hostDropdown" data-toggle="dropdown" 
+                           href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
+                           role="button" 
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-cog fa-fw"></i>&nbsp;<%= this.GetText("TOOLBAR", "HOST")  %>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="hostDropdown">
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>"
+                               class="dropdown-item">
+                            <i class="fa fa-cog fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
+                            </a>
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_boards) %>"
+                               class="dropdown-item">
+                                <i class="fa fa-globe fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" LocalizedTag="admin_boards"></YAF:LocalizedLabel>
+                            </a>
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
+                               class="dropdown-item">
+                                <i class="fa fa-building fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
+                            </a>
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_eventloggroups) %>"
+                               class="dropdown-item">
+                                <i class="fa fa-users fa-fw"></i>&nbsp;
+                                <YAF:LocalizedLabel runat="server" LocalizedTag="admin_eventloggroups"></YAF:LocalizedLabel>
+                            </a>
+                        </div>
+                  </li>
+                    </asp:PlaceHolder>
                 </asp:PlaceHolder>
                 <li class="nav-item dropdown">
                     <asp:PlaceHolder id="LoggedInUserPanel" runat="server" Visible="false">
@@ -61,10 +137,11 @@
                     </asp:PlaceHolder>
                 </li>
             </ul>
-            <asp:Panel ID="quickSearch" runat="server" CssClass="QuickSearch" Visible="false">
-                <YAF:ModernTextBox ID="searchInput" Type="Search" runat="server"></YAF:ModernTextBox>&nbsp;
+            <asp:Panel ID="quickSearch" runat="server" CssClass="form-inline" Visible="false">
+                <YAF:ModernTextBox ID="searchInput" Type="Search" runat="server" CssClass="form-control"></YAF:ModernTextBox>&nbsp;
                 <YAF:ThemeButton ID="doQuickSearch" runat="server"
-                                 CssClass="btn btn-outline-success my-2 my-sm-0"
+                                 CssClass="my-2 my-sm-0"
+                                 Type="OutlineInfo"
                                  OnClick="QuickSearchClick"
                                  TextLocalizedTag="BTNSEARCH" TitleLocalizedTag="SEARCH"
                                  Icon="search">

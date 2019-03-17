@@ -4882,6 +4882,8 @@ public class Hello1
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Anuncio</Resource>
     <Resource tag="ASK_POLL_DELETE">¿De verdad deseas eliminar la encuesta de este tema?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancelar creación/edición del mensaje</Resource>
     <Resource tag="DESCRIPTION">Descripción:</Resource>
     <Resource tag="EDIT">Editar mensaje</Resource>
@@ -5092,6 +5094,7 @@ public class Hello1
     <Resource tag="ERROR_FORUMMODERATORS">No puedes suspender moderadores.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">No puedes suspender al visitante.</Resource>
     <Resource tag="FACEBOOK">Perfil de Facebook:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Género:</Resource>
     <Resource tag="GENDER0">No Especificado</Resource>
     <Resource tag="GENDER1">Masculino</Resource>
@@ -5124,6 +5127,7 @@ public class Hello1
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Ver todos los mensajes por usuario</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Estadísticas</Resource>
     <Resource tag="SUSPEND">Suspender</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5918,6 +5922,7 @@ Visita {forumname} en {forumlink}
     <Resource tag="LASTPOST">Ultimo mensaje</Resource>
     <Resource tag="MARKREAD">Marcar foro como leído</Resource>
     <Resource tag="NO_POSTS">No hay mensajes</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Buscar en este foro</Resource>
     <Resource tag="POSTS">Publicaciones</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>

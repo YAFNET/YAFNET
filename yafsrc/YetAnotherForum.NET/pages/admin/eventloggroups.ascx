@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.eventloggroups" Codebehind="eventloggroups.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOGGROUPS" /></h1>
@@ -43,7 +43,7 @@
                         </td>
 					<td>
 					    <span class="float-right">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
+						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
                               TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" TitleLocalizedTag="EDIT"
                               CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>' TextLocalizedTag="EDIT"
                               Icon="edit" runat="server"></YAF:ThemeButton>
@@ -56,5 +56,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

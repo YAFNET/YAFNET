@@ -43,7 +43,6 @@ namespace YAF.Pages.Admin
     public partial class test_data : AdminPage
     {
         // private string regBase = @"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$";
-
         #region Constants and Fields
 
         /// <summary>
@@ -1049,7 +1048,7 @@ namespace YAF.Pages.Admin
 
                     var pollList = new List<PollSaveList>(questionsTotal);
 
-                    var rawChoices = new string[3,2];
+                    var rawChoices = new string[3, 2];
 
                     rawChoices[0, 0] = "ans1-" + this.randomGuid;
                     rawChoices[0, 1] = "ans2-" + this.randomGuid;

@@ -7,6 +7,18 @@
 
 */
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}shoutbox_getmessages]') AND type in (N'P', N'PC'))
+    DROP PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}shoutbox_savemessage]') AND type in (N'P', N'PC'))
+    DROP PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}shoutbox_clearmessages]') AND type in (N'P', N'PC'))
+    DROP PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}exampleserverversion]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}exampleserverversion]
 GO
@@ -1434,6 +1446,7 @@ AS
                 a.TopicID,
                 a.Topic,
                 b.UserID,
+				c.UserName,
                 c.MessageID,
                 c.Posted,
                 c.[Message],
@@ -3562,7 +3575,7 @@ select top 1 @PageUserID = UserID from [{databaseOwner}].[{objectQualifier}User]
 SELECT
         m.MessageID,
         m.UserID,
-        IsNull(t.UserName, u.Name) as Name,
+        IsNull(t.UserName, u.Name) as UserName,
         IsNull(t.UserDisplayName, u.DisplayName) as DisplayName,
         m.[Message],
         m.Posted,

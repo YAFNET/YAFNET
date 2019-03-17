@@ -3,7 +3,7 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server" ID="Adminmenu1">
+
 <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" /></h1>
@@ -825,44 +825,7 @@
 
                     </p><hr />
 
-                        <h2>
-                            <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedTag="HEADER_ALBUM" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h2>
-                    <hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel127" runat="server" LocalizedTag="ENABLE_ABLBUMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableAlbum" runat="server"></asp:CheckBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel128" runat="server" LocalizedTag="MAX_IMAGE_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="AlbumImagesSizeMax" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel129" runat="server" LocalizedTag="ALBUMS_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="AlbumsPerPage" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel130" runat="server" LocalizedTag="IMAGES_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="AlbumImagesPerPage" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h2>
+                     <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel31" runat="server" LocalizedTag="HEADER_HOTTOPICS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h2>
                     <hr />
@@ -1185,14 +1148,6 @@
                         </h4>
                         <p>
                             <asp:CheckBox CssClass="form-control" ID="ShowModeratorList" runat="server"></asp:CheckBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel200" runat="server" LocalizedTag="SHOW_MODLIST_ASCOLUMN" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowModeratorListAsColumn" runat="server"></asp:CheckBox>
 
                     </p><hr />
 
@@ -2099,6 +2054,6 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <asp:HiddenField runat="server" ID="hidLastTab" Value="View1" />
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

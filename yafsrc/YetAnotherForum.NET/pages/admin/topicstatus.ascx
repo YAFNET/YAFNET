@@ -4,7 +4,6 @@
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/TopicStatusEdit.ascx" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu ID="Adminmenu1" runat="server">
 	  <asp:Repeater ID="list" runat="server">
         <HeaderTemplate>
       	<div class="row">
@@ -56,9 +55,9 @@
 				</td>
                 <td>
                     <span class="float-right">
-                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
+                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE" Icon="trash" runat="server"
                                      ReturnConfirmText='<%# this.GetText("ADMIN_TOPICSTATUS", "CONFIRM_DELETE") %>'></YAF:ThemeButton>
                         </span>
@@ -84,7 +83,7 @@
         	 </FooterTemplate>
     	 </asp:Repeater>
 
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 
 <modal:Import ID="ImportDialog" runat="server" />

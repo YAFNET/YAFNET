@@ -2,7 +2,7 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PAGEACCESSLIST" /></h1>
@@ -39,7 +39,7 @@
                         </td>
                     <td>
                         <span class="float-right">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
+						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
                               TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# this.Eval( "UserID") %>'
                               TitleLocalizedTag="EDIT"
                               Icon="edit"
@@ -56,5 +56,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

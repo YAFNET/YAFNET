@@ -2890,3 +2890,9 @@ begin
 alter table [{databaseOwner}].[{objectQualifier}User] alter column TimeZone nvarchar(max) NULL
 end
 GO
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]'))
+begin
+    drop table [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
+end
+go

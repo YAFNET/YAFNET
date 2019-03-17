@@ -117,26 +117,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The btn delete_ load.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void DeleteAlbum_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((Button)sender).Attributes["onclick"] = "return confirm(\'{0}\')".FormatWith(this.GetText("ASK_DELETEALBUM"));
-        }
-
-        /// <summary>
-        /// The Upload file delete confirmation dialog.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ImageDelete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((LinkButton)sender).Attributes["onclick"] = "return confirm('{0}')".FormatWith(this.GetText("ASK_DELETEIMAGE"));
-        }
-
-        /// <summary>
         /// The repater Item command event responsible for handling deletion of uploaded files.
         /// </summary>
         /// <param name="source">The source of the event.</param>
@@ -148,7 +128,7 @@ namespace YAF.Pages
                 case "delete":
                     var path =
                       this.Get<HttpRequestBase>().MapPath(
-                        String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                        string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
                     YafAlbum.Album_Image_Delete(path, null, this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
 
@@ -157,8 +137,7 @@ namespace YAF.Pages
 
                     var sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
-                    //int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
-
+                    // int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
                     var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
                     // Has the user uploaded maximum number of images?   
@@ -266,9 +245,6 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            this.Back.Text = this.GetText("BACK");
-            this.Upload.Text = this.GetText("UPLOAD");
 
             this.BindData();
 

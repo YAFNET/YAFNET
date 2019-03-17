@@ -61,32 +61,28 @@ namespace YAF.Controls
             using (var dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
             {
                 var html = new StringBuilder();
-                var nLastForumID = 0;
+                var lastForumId = 0;
                 foreach (DataRow row in dt2.Rows)
                 {
-                    if (nLastForumID != row["ForumID"].ToType<int>())
+                    if (lastForumId != row["ForumID"].ToType<int>())
                     {
-                        if (nLastForumID != 0)
+                        if (lastForumId != 0)
                         {
-                            html.AppendFormat("</td></tr>");
+                            html.AppendFormat("</li>");
                         }
 
                         html.AppendFormat(
-                            "<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>",
+                            "<li class=\"list-group-item\"><span class=\"font-weight-bold\">{0}:</span>&nbsp;",
                             this.HtmlEncode(row["ForumName"]));
-                        nLastForumID = row["ForumID"].ToType<int>();
-                    }
-                    else
-                    {
-                        html.AppendFormat(", ");
+                        lastForumId = row["ForumID"].ToType<int>();
                     }
 
                     html.AppendFormat("{0}", row["AccessMaskName"]);
                 }
 
-                if (nLastForumID != 0)
+                if (lastForumId != 0)
                 {
-                    html.AppendFormat("</td></tr>");
+                    html.AppendFormat("</li>");
                 }
 
                 this.AccessMaskRow.Text = html.ToString();

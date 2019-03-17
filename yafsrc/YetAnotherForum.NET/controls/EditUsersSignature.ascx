@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersSignature" Codebehind="EditUsersSignature.ascx.cs" %>
 
-    <h2 runat="server" id="trHeader">
+<h2 runat="server" id="trHeader">
             <YAF:LocalizedLabel runat="server" LocalizedPage="CP_SIGNATURE" LocalizedTag="title" />
         </h2>
     <hr />
@@ -21,16 +21,16 @@
             <!-- editor goes here -->
         </asp:PlaceHolder>
     <hr />
-   <div class="alert alert-info" role="alert">
-        <h2>
-           <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_SIGNATURE"
-                LocalizedTag="SIGNATURE_PERMISSIONS" />
-        </h2>
+<YAF:Alert runat="server" Type="info">
+    <h2>
+        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_SIGNATURE"
+                            LocalizedTag="SIGNATURE_PERMISSIONS" />
+    </h2>
     <hr />
-        <p>
-            <asp:Label ID="TagsAllowedWarning" runat="server" />
-        </p>
-       </div>
+    <p>
+        <asp:Label ID="TagsAllowedWarning" runat="server" />
+    </p>
+</YAF:Alert>
                 <div class="text-lg-center">
 
             <asp:LinkButton ID="preview" CssClass="btn btn-success" runat="server" />&nbsp;

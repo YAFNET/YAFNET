@@ -155,7 +155,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CompareVersions_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            //TODO:
+            // TODO:
         }
 
         /// <summary>
@@ -272,6 +272,7 @@ namespace YAF.Pages
             return msg;
         }
         
+
         /// <summary>
         /// Binds data to data source
         /// </summary>

@@ -3,63 +3,99 @@
 <%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-	<tr>
-		<td class="header1" colspan="2">
-			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
-		</td>
-	</tr>
-	<tr id="PreviewRow" runat="server" visible="false">
-		<td class="postformheader" valign="top">
-			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="previewtitle" />
-		</td>
-		<td class="post" valign="top" id="PreviewCell" runat="server">
-			<YAF:MessagePost ID="PreviewMessagePost" runat="server" />
-		</td>
-	</tr>
-	<tr id="ToRow" runat="server">
-		<td style="width:210px" class="postformheader">
-			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="to" />
-		</td>
-		<td class="post">
-			<asp:TextBox ID="To" runat="server" />
-			<asp:DropDownList runat="server" ID="ToList" Visible="false" CssClass="standardSelectMenu" />
-			<asp:Button runat="server" ID="FindUsers" CssClass="pbutton" OnClick="FindUsers_Click" />
-			<asp:Button runat="server" ID="AllUsers" CssClass="pbutton" OnClick="AllUsers_Click" />
-            <asp:Button runat="server" ID="AllBuddies" CssClass="pbutton" OnClick="AllBuddies_Click" />
-			<asp:Button runat="server" ID="Clear" CssClass="pbutton" OnClick="Clear_Click" Visible="false" />
-			<asp:Label ID="MultiReceiverInfo" runat="server" Visible="false" />
-		</td>
-	</tr>
-	<tr>
-		<td class="postformheader">
-			<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="subject" />
-		</td>
-		<td class="post">
-			<asp:TextBox ID="PmSubjectTextBox" style="width:99%" runat="server" />
-		</td>
-	</tr>
-	<tr>
-		<td class="postformheader" valign="top"  width="20%">
-			<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
-		</td>
-		<td id="EditorLine" class="post" runat="server">
-			<!-- editor goes here -->
-		</td>
-	</tr>
-	<tr>
-		<td class="footer1">&nbsp;
-		</td>
-		<td class="footer1">
-			<YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem"
-				TextLocalizedTag="PREVIEW" OnClick="Preview_Click" />
-			<YAF:ThemeButton ID="Save" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="SAVE"
-				OnClick="Save_Click" />
-			<YAF:ThemeButton ID="Cancel" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="CANCEL"
-				OnClick="Cancel_Click" />
-		</td>
-	</tr>
-</table>
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-envelope-open-text fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                                                                                  LocalizedTag="TITLE" />
+            </div>
+            <div class="card-body">
+                <asp:PlaceHolder id="PreviewRow" runat="server" visible="false">
+                    <div class="form-group">
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="previewtitle" />
+                        <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder id="ToRow" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="To">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="to" />
+                        </asp:Label>
+                        <asp:TextBox ID="To" runat="server" CssClass="form-control" />
+                        <asp:DropDownList runat="server" ID="ToList" Visible="false" CssClass="standardSelectMenu" />
+                        <div class="btn-group mt-3">
+                        <YAF:ThemeButton runat="server" ID="FindUsers" 
+                                         Size="Small" 
+                                         OnClick="FindUsers_Click"
+                                         TextLocalizedTag="FINDUSERS"
+                                         Type="Secondary"
+                                         Icon="search"/>
+                        <YAF:ThemeButton runat="server" ID="AllUsers" 
+                                         Size="Small" 
+                                         OnClick="AllUsers_Click"
+                                         TextLocalizedTag="ALLUSERS"
+                                         Type="Secondary"
+                                         Icon="users"/>
+                        <YAF:ThemeButton runat="server" ID="AllBuddies" 
+                                         Size="Small" 
+                                         OnClick="AllBuddies_Click"
+                                         TextLocalizedTag="ALLBUDDIES"
+                                         Type="Secondary"
+                                         Icon="user-friends"/>
+                        <YAF:ThemeButton runat="server" ID="Clear" 
+                                         Size="Small" 
+                                         OnClick="Clear_Click" 
+                                         Visible="false"
+                                         TextLocalizedTag="CLEAR"
+                                         Type="Secondary"
+                                         Icon="times"/>
+                        </div>
+                        <asp:Label ID="MultiReceiverInfo" runat="server" Visible="false" />
+                    </div>
+                </asp:PlaceHolder>
+                <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="PmSubjectTextBox">
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="subject" />
+                    </asp:Label>
+                    <asp:TextBox ID="PmSubjectTextBox" runat="server" CssClass="form-control" />
+                </div>
+                <div class="form-group">
+                    <asp:Label runat="server">
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
+                    </asp:Label>
+                    <asp:PlaceHolder id="EditorLine" runat="server">
+                        <!-- editor goes here -->
+                    </asp:PlaceHolder>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton ID="Preview" runat="server"
+                                 TextLocalizedTag="PREVIEW" 
+                                 OnClick="Preview_Click"
+                                 Icon="image"
+                                 Type="Secondary"/>
+                <YAF:ThemeButton ID="Save" runat="server" 
+                                 TextLocalizedTag="SAVE"
+                                 OnClick="Save_Click"
+                                 Icon="save"/>
+                <YAF:ThemeButton ID="Cancel" runat="server"
+                                 TextLocalizedTag="CANCEL"
+                                 OnClick="Cancel_Click"
+                                 Icon="times"
+                                 Type="Secondary"/>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

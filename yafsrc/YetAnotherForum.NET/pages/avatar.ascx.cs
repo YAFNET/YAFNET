@@ -52,16 +52,6 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   The page size.
-        /// </summary>
-        public int Pagesize = 20;
-
-        /// <summary>
-        ///   The title.
-        /// </summary>
-        protected Label title;
-
-        /// <summary>
         ///   The return user id.
         /// </summary>
         private int returnUserID;

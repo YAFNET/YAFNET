@@ -33,7 +33,7 @@
 		</h4>
 		<p>
 			<%= this.GetSuspendedTo() %>
-			&nbsp;<asp:LinkButton runat="server" ID="RemoveSuspension" Type="Danger" CssClass="btn-sm" OnClick="RemoveSuspension_Click" />
+			&nbsp;<asp:LinkButton runat="server" ID="RemoveSuspension" Type="Danger" Size="Small" OnClick="RemoveSuspension_Click" />
 		</p>
 	<hr />
     </asp:PlaceHolder>
@@ -59,9 +59,9 @@
 				runat="server" ID="SuspendUnit" CssClass="form-control" />
 		</p>
 	<hr />
-            <div class="alert alert-info" role="alert">
-                    <asp:Label runat="server" ID="SuspendInfo"></asp:Label>
-            </div>
+<YAF:Alert runat="server" Type="info">
+    <asp:Label runat="server" ID="SuspendInfo"></asp:Label>
+</YAF:Alert>
 
                 <div class="text-lg-center">
             <asp:LinkButton runat="server" ID="Suspend" OnClick="Suspend_Click" Type="Primary"  />

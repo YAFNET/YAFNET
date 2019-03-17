@@ -410,8 +410,10 @@ namespace YAF.Pages
                             this.PageContext.PageUserID,
                             toActDate,
                             DateTime.UtcNow,
+
                             // page index in db which is returned back  is +1 based!
                             0,
+
                             // set the page size here
                             20,
                             false,
@@ -530,8 +532,10 @@ namespace YAF.Pages
                             this.PageContext.PageUserID,
                             toFavDate,
                             DateTime.UtcNow,
+
                             // page index in db is 1 based!
                             0,
+
                             // set the page size here
                             20,
                             false,

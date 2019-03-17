@@ -128,6 +128,7 @@ AS
                 a.TopicID,
                 a.Topic,
                 b.UserID,
+				c.UserName,
                 c.MessageID,
                 c.Posted,
                 c.[Message],
@@ -2269,7 +2270,7 @@ select top 1 @PageUserID = UserID from [{databaseOwner}].[{objectQualifier}User]
 SELECT
         m.MessageID,
         m.UserID,
-        IsNull(t.UserName, u.Name) as Name,
+        IsNull(t.UserName, u.Name) as UserName,
         IsNull(t.UserDisplayName, u.DisplayName) as DisplayName,
         m.[Message],
         m.Posted,

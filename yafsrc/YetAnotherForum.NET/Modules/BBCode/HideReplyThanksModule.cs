@@ -47,7 +47,7 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var hiddenContent = Parameters["inner"];
+            var hiddenContent = this.Parameters["inner"];
 
             var messageId = this.MessageID;
 
@@ -56,19 +56,19 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
-            var description = LocalizedString(
+            var description = this.LocalizedString(
                      "HIDEMOD_REPLYTHANKS",
                      "Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content)");
 
-            var descriptionGuest = LocalizedString(
+            var descriptionGuest = this.LocalizedString(
                 "HIDDENMOD_GUEST",
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
-            string shownContentGuest =
+            var shownContentGuest =
                 "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
                     .FormatWith(descriptionGuest);
 
-            string shownContent =
+            var shownContent =
                 "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
                     .FormatWith(description);
 
@@ -95,7 +95,7 @@ namespace YAF.Modules.BBCode
             }
 
 
-            if (DisplayUserID == userId || 
+            if (this.DisplayUserID == userId || 
                 LegacyDb.user_ThankedMessage(messageId.ToType<int>(), userId) ||
                 LegacyDb.user_RepliedTopic(messageId.ToType<int>(), userId))
             {

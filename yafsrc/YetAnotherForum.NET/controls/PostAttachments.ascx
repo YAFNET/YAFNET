@@ -1,14 +1,10 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostAttachments"
     CodeBehind="PostAttachments.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils" %>
 
 <tr class="forumRowCat header2">
         <td colspan="2">
-            <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0"
-                ImageAlign="Bottom" PanelID="AttachmentsHolder"
-                AttachedControlID="AttachmentsHolder" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>'
-                DefaultState="Collapsed"  />
+           
             <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="BUTTON_ATTACH_TT" LocalizedPage="BUTTON" />
         </td>
 </tr>
@@ -28,7 +24,7 @@
         <div id="AttachmentsListBox" class="content">
             <div id="PostAttachmentListPlaceholder"
                 data-url='<%= YafForumInfo.ForumClientFileRoot %>'
-                data-userid='<%= YAF.Core.YafContext.Current.PageUserID %>'
+                data-userid='<%= YafContext.Current.PageUserID %>'
                 data-notext='<%= this.GetText("ATTACHMENTS", "NO_ATTACHMENTS") %>'
                 style="clear: both;">
                 <ul class="PostAttachmentList">

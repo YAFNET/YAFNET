@@ -280,8 +280,6 @@ namespace YAF.Pages
             this.DeleteReasonRow.Visible = false;
             this.LinkedPosts.Visible = false;
             
-            this.Cancel.Text = this.GetText("Cancel");
-
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") == null)
             {
                 return;
@@ -290,7 +288,7 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            var tempdb = this.GetRepository<Message>().GetReplies(
+            var tempdb = LegacyDb.message_getRepliesList(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
 
             if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
@@ -303,7 +301,7 @@ namespace YAF.Pages
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
             {
                 this.Title.Text = this.GetText("EDIT");
-                this.Delete.Text = this.GetText("DELETE");
+                this.Delete.TextLocalizedTag = "DELETE";
 
                 if (this.PageContext.IsAdmin)
                 {
@@ -313,7 +311,7 @@ namespace YAF.Pages
             else
             {
                 this.Title.Text = this.GetText("EDIT");
-                this.Delete.Text = this.GetText("UNDELETE");
+                this.Delete.TextLocalizedTag = "UNDELETE";
             }
 
             this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);

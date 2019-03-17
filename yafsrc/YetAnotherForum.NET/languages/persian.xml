@@ -4574,6 +4574,8 @@
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">اطلاعیه</Resource>
     <Resource tag="ASK_POLL_DELETE">آیا از حذف نظر سنجی مطمئن هستید؟</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">انصراف از ایجاد/ویرایش پیام</Resource>
     <Resource tag="DESCRIPTION">توضیح:</Resource>
     <Resource tag="EDIT">ویرایش ارسال</Resource>
@@ -4784,6 +4786,7 @@
     <Resource tag="ERROR_FORUMMODERATORS">شما نمی‌توانید ناظران انجمن را تعلیق نمایید.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">شما نمی‌توانید کاربران میهمان را تعلیق نمایید.</Resource>
     <Resource tag="FACEBOOK">پروفایل فیسبوک:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">جنسیت:</Resource>
     <Resource tag="GENDER0">مشخص نشده</Resource>
     <Resource tag="GENDER1">مرد</Resource>
@@ -4816,6 +4819,7 @@
     <Resource tag="REPUTATION_RECEIVED">اعتبار کسب شد</Resource>
     <Resource tag="SEARCHUSER">نمايش تمام ارسال‌های كاربر</Resource>
     <Resource tag="SKYPE">مشخصه اسکایپ:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">آمار</Resource>
     <Resource tag="SUSPEND">تعلیق</Resource>
     <Resource tag="SUSPEND_BY">تعلیق شده توسط:</Resource>
@@ -5594,6 +5598,7 @@
     <Resource tag="LASTPOST">آخرین ارسال</Resource>
     <Resource tag="MARKREAD">این انجمن بصورت خوانده شده درآید</Resource>
     <Resource tag="NO_POSTS">هیچ ارسالی وجود ندارد</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">جستجوی این انجمن</Resource>
     <Resource tag="POSTS">ارسال ها</Resource>
     <Resource tag="REPLIES">پاسخ ها</Resource>

@@ -45,10 +45,6 @@ namespace YAF.Dialogs
     /// </summary>
     public partial class DialogBox : BaseUserControl
     {
-        #region Enums
-
-        #endregion
-
         #region Properties
 
         /// <summary>

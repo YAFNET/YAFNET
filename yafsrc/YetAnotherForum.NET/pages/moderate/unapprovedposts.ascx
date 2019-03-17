@@ -40,7 +40,7 @@
                             </span>
                             <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(this.Eval("UserID")) %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                             CssClass="btn-sm" Visible='<%# this.PageContext.IsAdmin %>'
+                                             Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              Icon="users-cog" Type="Secondary"
                                              NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(this.Eval("UserID")) ) %>'>

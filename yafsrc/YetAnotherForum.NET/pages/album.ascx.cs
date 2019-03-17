@@ -110,8 +110,6 @@ namespace YAF.Pages
             this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
             this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(LegacyDb.album_gettitle(albumId));
 
-            this.Back.Text = this.GetText("BACK_ALBUMS");
-
             // Initialize the Album Image List control.
             this.AlbumImageList1.UserID = (int)userId;
             this.AlbumImageList1.AlbumID = (int)albumId;
@@ -122,7 +120,6 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
         protected void Back_Click(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(

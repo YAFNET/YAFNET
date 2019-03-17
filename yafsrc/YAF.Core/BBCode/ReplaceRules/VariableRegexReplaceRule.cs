@@ -227,7 +227,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         foreach (var tVar in this._variables)
         {
           var varName = tVar;
-          var handlingValue = String.Empty;
+          var handlingValue = string.Empty;
 
           if (varName.Contains(":"))
           {

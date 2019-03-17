@@ -58,7 +58,23 @@ namespace YAF.Controls
         /// </returns>
         protected string GetReturnUrl()
         {
-            return HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
+            var returnUrl = string.Empty;
+
+            if (this.PageContext.ForumPageType != ForumPages.login)
+            {
+                returnUrl = HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
+            }
+            else
+            {
+                // see if there is already one since we are on the login page
+                if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
+                {
+                    returnUrl = HttpContext.Current.Server.UrlEncode(
+                        General.GetSafeRawUrl(HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl")));
+                }
+            }
+
+            return returnUrl;
         }
 
         /// <summary>
@@ -147,7 +163,8 @@ namespace YAF.Controls
             bool noFollow,
             bool showUnread,
             string unread,
-            string unreadText)
+            string unreadText,
+            string icon)
         {
             var element = new HtmlGenericControl("li");
 
@@ -166,7 +183,9 @@ namespace YAF.Controls
                                Target = "_top",
                                ToolTip = linkToolTip,
                                NavigateUrl = linkUrl,
-                               Text = linkText,
+                               Text = icon.IsSet()
+                                          ? "<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;{1}".FormatWith(icon, linkText)
+                                          : linkText,
                                CssClass = cssClass
                            };
 
@@ -246,41 +265,21 @@ namespace YAF.Controls
             {
                 this.AdminModHolder.Visible = true;
 
-                // Admin
-                RenderMenuItem(
-                    this.menuAdminItems,
-                    "nav-link",
-                    this.GetText("TOOLBAR", "ADMIN"),
-                    this.GetText("TOOLBAR", "ADMIN_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.admin_admin),
-                    false,
-                    false,
-                    null,
-                    null);
+                this.AdminAdminHolder.Visible = true;
             }
 
             // Host
             if (this.PageContext.IsHostAdmin)
             {
                 this.AdminModHolder.Visible = true;
-
-                // Admin
-                RenderMenuItem(
-                    this.menuAdminItems,
-                    "nav-link",
-                    this.GetText("TOOLBAR", "HOST"),
-                    this.GetText("TOOLBAR", "HOST_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.admin_hostsettings),
-                    false,
-                    false,
-                    null,
-                    null);
+                this.HostMenuHolder.Visible = true;
             }
 
             // Moderate
             if (this.PageContext.IsModeratorInAnyForum)
             {
                 this.AdminModHolder.Visible = true;
+                //this.ModerateHolder.Visible = true;
 
                 // Admin
                 RenderMenuItem(
@@ -292,7 +291,8 @@ namespace YAF.Controls
                     false,
                     this.PageContext.ModeratePosts > 0,
                     this.PageContext.ModeratePosts.ToString(),
-                    this.GetText("TOOLBAR", "MODERATE_NEW").FormatWith(this.PageContext.ModeratePosts));
+                    this.GetText("TOOLBAR", "MODERATE_NEW").FormatWith(this.PageContext.ModeratePosts),
+                    "tasks");
             }
         }
 
@@ -311,7 +311,8 @@ namespace YAF.Controls
                 false,
                 false,
                 null,
-                null);
+                null,
+                string.Empty);
 
             // Active Topics
             if (this.PageContext.IsGuest)
@@ -325,7 +326,8 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null);
+                    null,
+                    string.Empty);
             }
 
             // Search
@@ -340,7 +342,8 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null);
+                    null,
+                    string.Empty);
             }
 
             // Members
@@ -355,7 +358,8 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null);
+                    null,
+                    string.Empty);
             }
 
             // Team
@@ -370,7 +374,8 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null);
+                    null,
+                    string.Empty);
             }
 
             // Help
@@ -385,7 +390,8 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null);
+                    null,
+                    string.Empty);
             }
 
             if (!this.PageContext.IsGuest || Config.IsAnyPortal)
@@ -405,7 +411,8 @@ namespace YAF.Controls
                     true,
                     false,
                     null,
-                    null);
+                    null,
+                    string.Empty);
             }
 
             // Register
@@ -424,7 +431,8 @@ namespace YAF.Controls
                     true,
                     false,
                     null,
-                    null);
+                    null,
+                    string.Empty);
             }
         }
 
@@ -450,13 +458,14 @@ namespace YAF.Controls
                 RenderMenuItem(
                     this.MyInboxItem,
                     "dropdown-item",
-                    "<i class=\"fa fa-envelope fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "INBOX")),
+                    this.GetText("TOOLBAR", "INBOX"),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_pm),
                     false,
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
-                    this.GetText("TOOLBAR", "NEWPM").FormatWith(this.PageContext.UnreadPrivate));
+                    this.GetText("TOOLBAR", "NEWPM").FormatWith(this.PageContext.UnreadPrivate),
+                    "envelope");
             }
 
             // My Buddies
@@ -465,13 +474,14 @@ namespace YAF.Controls
                 RenderMenuItem(
                     this.MyBuddiesItem,
                     "dropdown-item",
-                    "<i class=\"fa fa-users fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "BUDDIES")),
+                    this.GetText("TOOLBAR", "BUDDIES"),
                     this.GetText("TOOLBAR", "BUDDIES_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_editbuddies),
                     false,
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
-                    this.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(this.PageContext.PendingBuddies));
+                    this.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(this.PageContext.PendingBuddies),
+                    "users");
             }
 
             // My Albums
@@ -481,26 +491,28 @@ namespace YAF.Controls
                 RenderMenuItem(
                     this.MyAlbumsItem,
                     "dropdown-item",
-                    "<i class=\"fa fa-image fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYALBUMS")),
+                    this.GetText("TOOLBAR", "MYALBUMS"),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
                     YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
                     null,
-                    null);
+                    null,
+                    "images");
             }
 
             // My Topics
             RenderMenuItem(
                 this.MyTopicItem,
                 "dropdown-item",
-                "<i class=\"fa fa-comment fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYTOPICS")),
+                this.GetText("TOOLBAR", "MYTOPICS"),
                 this.GetText("TOOLBAR", "MYTOPICS"),
                 YafBuildLink.GetLink(ForumPages.mytopics),
                 false,
                 false,
                 string.Empty,
-                string.Empty);
+                string.Empty,
+                "comment");
 
             /*RenderMenuItem(
                 this.MyTopicItem,

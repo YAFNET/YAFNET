@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    
-    
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+
     public partial class QuickReply {
         
+
         /// <summary>
         /// QuickReplyLine-Steuerelement
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl QuickReplyLine;
+        protected HtmlGenericControl QuickReplyLine;
         
+
         /// <summary>
         /// CaptchaDiv-Steuerelement
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CaptchaDiv;
+        protected HtmlGenericControl CaptchaDiv;
         
+
         /// <summary>
         /// LocalizedLabel13-Steuerelement
         /// </summary>
@@ -37,8 +43,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel13;
+        protected LocalizedLabel LocalizedLabel13;
         
+
         /// <summary>
         /// imgCaptcha-Steuerelement
         /// </summary>
@@ -46,8 +53,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgCaptcha;
+        protected Image imgCaptcha;
         
+
         /// <summary>
         /// LocalizedLabel14-Steuerelement
         /// </summary>
@@ -55,8 +63,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel14;
+        protected LocalizedLabel LocalizedLabel14;
         
+
         /// <summary>
         /// tbCaptcha-Steuerelement
         /// </summary>
@@ -64,8 +73,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCaptcha;
+        protected TextBox tbCaptcha;
         
+
         /// <summary>
         /// QuickReplyWatchTopic-Steuerelement
         /// </summary>
@@ -73,8 +83,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder QuickReplyWatchTopic;
+        protected PlaceHolder QuickReplyWatchTopic;
         
+
         /// <summary>
         /// TopicWatch-Steuerelement
         /// </summary>
@@ -82,8 +93,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox TopicWatch;
+        protected CheckBox TopicWatch;
         
+
         /// <summary>
         /// TopicWatchLabel-Steuerelement
         /// </summary>
@@ -91,8 +103,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel TopicWatchLabel;
+        protected LocalizedLabel TopicWatchLabel;
         
+
         /// <summary>
         /// Reply-Steuerelement
         /// </summary>
@@ -100,6 +113,6 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Reply;
+        protected ThemeButton Reply;
     }
 }

@@ -4,7 +4,7 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu runat="server">
+
 <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_TASKMANAGER" /></h1>
@@ -48,7 +48,7 @@
                             <YAF:ThemeButton ID="stop" runat="server" 
                                              CommandName="stop" CommandArgument='<%# this.Eval("Key") %>'
                                              TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
-                                             Icon="hand-paper" Type="Danger" CssClass="btn-sm">
+                                             Icon="hand-paper" Type="Danger" Size="Small">
                             </YAF:ThemeButton>
                         </asp:PlaceHolder>
                     </td>
@@ -66,5 +66,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

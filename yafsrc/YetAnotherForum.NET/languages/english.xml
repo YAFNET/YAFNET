@@ -4515,6 +4515,8 @@ Spoiler Content
  <page name="POSTMESSAGE">
   <Resource tag="ANNOUNCEMENT">Announcement</Resource>
   <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+  <Resource tag="BLOG_POST">Post to blog?</Resource>
+  <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
   <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
   <Resource tag="DESCRIPTION">Description:</Resource>
   <Resource tag="EDIT">Edit post</Resource>
@@ -4725,6 +4727,7 @@ Spoiler Content
   <Resource tag="ERROR_FORUMMODERATORS">You cannot suspend forum moderators.</Resource>
   <Resource tag="ERROR_GUESTACCOUNT">You cannot suspend the guest account.</Resource>
   <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+  <Resource tag="FORUM_ACCESS">Forum Access</Resource>
   <Resource tag="GOOGLE">Google+ Profile:</Resource>
   <Resource tag="GENDER">Gender:</Resource>
   <Resource tag="GENDER0">None Specified</Resource>
@@ -4756,6 +4759,7 @@ Spoiler Content
   <Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
   <Resource tag="REPUTATION_RECEIVED">Community Reputation Received:</Resource>
   <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+  <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
   <Resource tag="SKYPE">Skype(tm) ID:</Resource>
   <Resource tag="STATISTICS">Statistics</Resource>
   <Resource tag="SUSPEND">Suspend</Resource>
@@ -5556,6 +5560,7 @@ Visit {forumname} at {forumlink}
   <Resource tag="LASTPOST">Last Post</Resource>
   <Resource tag="MARKREAD">Mark this forum as read</Resource>
   <Resource tag="NO_POSTS">No Posts</Resource>
+  <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
   <Resource tag="OK_TT">Search this Forum</Resource>
   <Resource tag="POSTS">Posts</Resource>
   <Resource tag="REPLIES">Replies</Resource>

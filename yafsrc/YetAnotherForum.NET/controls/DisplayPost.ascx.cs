@@ -162,6 +162,7 @@ namespace YAF.Controls
             return sb.ToString();
         }
         
+
         /// <summary>
         /// The get post class.
         /// </summary>

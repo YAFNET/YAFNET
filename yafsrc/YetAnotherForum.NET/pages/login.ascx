@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.login" CodeBehind="login.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Services" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
@@ -43,7 +42,7 @@
                                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
                                                 </asp:Label>
                                                 <asp:TextBox ID="Password" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox><br/>
-                                                <asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="btn btn-secondary"
+                                                <asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="btn btn-secondary btn-sm"
                                                             OnClick="PasswordRecovery_Click" />
                                                 <div class="alert alert-danger CapsLockWarning" style="display: none;" role="alert">
                                                     <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />

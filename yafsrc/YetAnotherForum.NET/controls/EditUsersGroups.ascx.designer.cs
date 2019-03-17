@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class EditUsersGroups {
         
+
         /// <summary>
         /// UserGroups-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater UserGroups;
+        protected Repeater UserGroups;
         
+
         /// <summary>
         /// SendEmail-Steuerelement
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox SendEmail;
+        protected CheckBox SendEmail;
         
+
         /// <summary>
         /// Save-Steuerelement
         /// </summary>
@@ -37,6 +40,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Save;
+        protected ThemeButton Save;
     }
 }

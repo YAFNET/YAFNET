@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class ForumWelcome {
         
+
         /// <summary>
         /// TimeNow-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TimeNow;
+        protected Label TimeNow;
         
+
         /// <summary>
         /// TimeLastVisit-Steuerelement
         /// </summary>
@@ -28,6 +30,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TimeLastVisit;
+        protected Label TimeLastVisit;
     }
 }

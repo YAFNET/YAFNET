@@ -48,7 +48,7 @@ namespace YAF.Modules
     /// </param>
     protected override void Render(HtmlTextWriter writer)
     {
-      var userName = Parameters["inner"];
+      var userName = this.Parameters["inner"];
 
       if (userName.IsNotSet() || userName.Length > 50)
       {

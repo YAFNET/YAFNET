@@ -22,24 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.UpdatePanel UpdateStatsPanel;
         
         /// <summary>
-        /// CollapsibleImage-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.CollapsibleImage CollapsibleImage;
-        
-        /// <summary>
-        /// ActiveDiscussionHeader-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ActiveDiscussionHeader;
-        
-        /// <summary>
         /// ActiveDiscussionPlaceHolder-Steuerelement
         /// </summary>
         /// <remarks>
@@ -49,13 +31,13 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.PlaceHolder ActiveDiscussionPlaceHolder;
         
         /// <summary>
-        /// LatestPostsHeader-Steuerelement
+        /// ActiveDiscussionHeader-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LatestPostsHeader;
+        protected global::YAF.Controls.LocalizedLabel ActiveDiscussionHeader;
         
         /// <summary>
         /// LatestPosts-Steuerelement

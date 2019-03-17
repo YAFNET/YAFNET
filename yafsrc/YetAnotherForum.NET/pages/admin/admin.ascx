@@ -4,21 +4,20 @@
 <%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu ID="Adminmenu1" runat="server">
                 <div class="row">
                 <div class="col-xl-12">
                     <h1>Dashboard</h1>
                 </div>
             </div>
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
-        <div class="alert alert-info" role="alert">
+        <YAF:Alert runat="server" Type="info">
             <asp:HyperLink ID="UpdateLinkHighlight" runat="server" Target="_blank"></asp:HyperLink>
-        </div>
+        </YAF:Alert>
     </asp:PlaceHolder>
     <asp:PlaceHolder ID="UpdateWarning" runat="server" Visible="false">
-        <div class="alert alert-danger" role="alert">
+        <YAF:Alert runat="server" Type="danger">
             <asp:HyperLink ID="UpdateLinkWarning" runat="server" Target="_blank"></asp:HyperLink>
-        </div>
+        </YAF:Alert>
     </asp:PlaceHolder>
     <div class="row">
              <div class="col-xl-12">
@@ -179,10 +178,10 @@
                         <div class="card-body">
                             <asp:Repeater ID="ActiveList" runat="server">
                     <HeaderTemplate>
-                        <div class="alert alert-info d-sm-none" role="alert">
+                        <YAF:Alert runat="server" Type="info" MobileOnly="True">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                        </div>
+                        </YAF:Alert>
                         <div class="table-responsive">
                         <table class="table tablesorter" id="ActiveUsers">
                             <thead>
@@ -320,14 +319,14 @@
 					    <span class="float-right">
                         <YAF:ThemeButton runat="server" CommandName="resendEmail" CommandArgument='<%# this.Eval("Email") + ";" + this.Eval("Name") %>' 
                             Icon="share" TextLocalizedTag="ADMIN_RESEND_EMAIL"
-                            Type="Info" CssClass="btn-sm">
+                            Type="Info" Size="Small">
                         </YAF:ThemeButton>&nbsp;
                         <YAF:ThemeButton runat="server" CommandName="approve" CommandArgument='<%# this.Eval("UserID") %>'
-                            Type="Primary" CssClass="btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
+                            Type="Primary" Size="Small" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
                             Icon="check" TextLocalizedTag="ADMIN_APPROVE">
                         </YAF:ThemeButton>&nbsp;
                         <YAF:ThemeButton runat="server" CommandName="delete" CommandArgument='<%# this.Eval("UserID") %>'
-                            Type="Danger" CssClass="btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                            Type="Danger" Size="Small" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
                             Icon="trash" TextLocalizedTag="ADMIN_DELETE">
                         </YAF:ThemeButton>
 
@@ -357,10 +356,10 @@
                     </div>
                </div>
                 <div class="card-footer form-inline">
-                    <YAF:ThemeButton CommandName="approveall" Type="Primary" CssClass="btn-sm" 
+                    <YAF:ThemeButton CommandName="approveall" Type="Primary" Size="Small" 
                         Icon="check" TextLocalizedTag="APROVE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
                         runat="server"/>&nbsp;
-                    <YAF:ThemeButton CommandName="deleteall" Type="Danger" CssClass="btn-sm" 
+                    <YAF:ThemeButton CommandName="deleteall" Type="Danger" Size="Small" 
                         Icon="trash" TextLocalizedTag="DELETE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
                         runat="server" />&nbsp;
                     <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="form-control Numeric" 
@@ -378,5 +377,5 @@
 
 
 
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

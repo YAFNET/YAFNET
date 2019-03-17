@@ -26,7 +26,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Web;
 
     using YAF.Classes;
     using YAF.Controls;

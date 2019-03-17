@@ -31,51 +31,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.PlaceHolder SubForums;
         
         /// <summary>
-        /// LocalizedLabel1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
-        
-        /// <summary>
-        /// LocalizedLabel2-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
-        
-        /// <summary>
-        /// LocalizedLabel3-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
-        
-        /// <summary>
-        /// LocalizedLabel4-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
-        
-        /// <summary>
-        /// LocalizedLabel5-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
-        
-        /// <summary>
         /// ForumList-Steuerelement
         /// </summary>
         /// <remarks>
@@ -121,40 +76,13 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Label PageTitle;
         
         /// <summary>
-        /// LocalizedLabel6-Steuerelement
+        /// NoPostsPlaceHolder-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
-        
-        /// <summary>
-        /// LocalizedLabel8-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
-        
-        /// <summary>
-        /// LocalizedLabel9-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
-        
-        /// <summary>
-        /// LocalizedLabel10-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
+        protected global::System.Web.UI.WebControls.PlaceHolder NoPostsPlaceHolder;
         
         /// <summary>
         /// Announcements-Steuerelement
@@ -191,6 +119,69 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ShowList;
+        
+        /// <summary>
+        /// ForumJumpHolder-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ForumJumpHolder;
+        
+        /// <summary>
+        /// ForumJumpLabel-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel ForumJumpLabel;
+        
+        /// <summary>
+        /// ForumJump1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ForumJump ForumJump1;
+        
+        /// <summary>
+        /// ForumSearchHolder-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ForumSearchHolder;
+        
+        /// <summary>
+        /// LocalizedLabel7-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        
+        /// <summary>
+        /// forumSearch-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox forumSearch;
+        
+        /// <summary>
+        /// forumSearchOK-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton forumSearchOK;
         
         /// <summary>
         /// WatchForum-Steuerelement
@@ -245,69 +236,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton NewTopic2;
-        
-        /// <summary>
-        /// ForumSearchHolder-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ForumSearchHolder;
-        
-        /// <summary>
-        /// LocalizedLabel7-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
-        
-        /// <summary>
-        /// forumSearch-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox forumSearch;
-        
-        /// <summary>
-        /// forumSearchOK-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton forumSearchOK;
-        
-        /// <summary>
-        /// ForumJumpHolder-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ForumJumpHolder;
-        
-        /// <summary>
-        /// ForumJumpLabel-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ForumJumpLabel;
-        
-        /// <summary>
-        /// ForumJump1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.ForumJump ForumJump1;
         
         /// <summary>
         /// IconLegend1-Steuerelement

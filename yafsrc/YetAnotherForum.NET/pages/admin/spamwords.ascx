@@ -5,7 +5,7 @@
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/SpamWordsEdit.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server" ID="Adminmenu1">
+
     <div class="row">
         <div class="col-xl-12">
 
@@ -14,11 +14,11 @@
     </div>
     <div class="row">
     <div class="col-xl-12">
-        <div class="alert alert-warning" role="alert">
+        <YAF:Alert runat="server" Type="warning">
             <YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server"
                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_SPAMWORDS">
             </YAF:LocalizedLabel>
-        </div>
+        </YAF:Alert>
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
@@ -32,7 +32,7 @@
                 </p>
             </div>
             <div class="card-footer text-lg-center">
-                <YAF:ThemeButton ID="search" runat="server"  Type="Primary" CssClass="btn-sm"
+                <YAF:ThemeButton ID="search" runat="server"  Type="Primary" Size="Small"
                                  TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
                                  OnClick="SearchClick">
                 </YAF:ThemeButton>
@@ -72,11 +72,11 @@
 				</td>
 				<td>
 				    <span class="float-right">
-					<YAF:ThemeButton ID="btnEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+					<YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" 
                         runat="server">
 					</YAF:ThemeButton>
-					<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" 
+					<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" 
                         ReturnConfirmText='<%# this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE") %>' CommandName='delete'
                         TextLocalizedTag="DELETE"
                         CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server">
@@ -104,7 +104,7 @@
             </asp:Repeater>
 	    <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
 	    </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 
 <modal:Import ID="ImportDialog" runat="server" />

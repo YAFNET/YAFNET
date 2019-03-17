@@ -10,7 +10,7 @@
 <%@ Register TagPrefix="uc1" TagName="KillEdit" Src="../../controls/EditUsersKill.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
         <div class="col-xl-12">
             <h1><asp:Label runat="server" ID="Header"></asp:Label></h1>
@@ -112,5 +112,5 @@
                </div>
             </div>
         </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

@@ -165,7 +165,7 @@ namespace YAF.Pages
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,
-                !PageContext.IsCrawler ? 1 : 0,
+                !this.PageContext.IsCrawler ? 1 : 0,
                 showDeleted,
                 false,
                 false,

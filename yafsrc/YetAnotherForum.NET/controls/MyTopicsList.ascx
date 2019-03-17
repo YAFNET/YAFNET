@@ -36,7 +36,8 @@
     </tr>
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
-            <%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>
+            <%#
+    this.PrintForumName((System.Data.DataRowView)Container.DataItem) %>
             <YAF:TopicLine ID="TopicLine1" runat="server" AltLastPost="<%# this.lastPostImageTT %>"
                 FindUnread="true" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
@@ -47,7 +48,7 @@
                 <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
                                  TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
                                  Type="Secondary"
-                                 CssClass="btn-sm"
+                                 Size="Small"
                                  Icon="flag-checkered"/>
                 <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="False" />
             </div>

@@ -91,8 +91,6 @@ namespace YAF.Pages
                 this.PageContext.PageTopicName,
                 YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 
-            this.SendEmail.Text = this.GetText("send");
-
             this.Subject.Text = this.PageContext.PageTopicName;
 
             var emailTopic = new YafTemplateEmail

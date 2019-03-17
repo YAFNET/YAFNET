@@ -12,6 +12,7 @@ namespace YAF.Controls {
     
     public partial class DisplayAd {
         
+
         /// <summary>
         /// AdMessage-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.MessagePost AdMessage;
+        protected MessagePost AdMessage;
         
+
         /// <summary>
         /// SponserName-Steuerelement
         /// </summary>
@@ -28,6 +30,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SponserName;
+        protected LocalizedLabel SponserName;
     }
 }

@@ -4543,6 +4543,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Annonce</Resource>
     <Resource tag="ASK_POLL_DELETE">Etes-vous sur de vouloir supprimer le sondage de ce sujet ?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Éditer le message</Resource>
@@ -4754,6 +4756,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Vous ne pouvez pas suspendre un modérateur de forum.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Vous ne pouvez pas suspendre un invité.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Sexe&amp;nbsp;:</Resource>
     <Resource tag="GENDER0">Non communiqué</Resource>
     <Resource tag="GENDER1">Masculin</Resource>
@@ -4786,6 +4789,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">View All Posts by User</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistiques</Resource>
     <Resource tag="SUSPEND">Suspendre</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5583,6 +5587,7 @@ Visitez {forumname} à l'adresse {forumlink}
     <Resource tag="LASTPOST">Dernier Message</Resource>
     <Resource tag="MARKREAD">Marquer ce forum comme lu</Resource>
     <Resource tag="NO_POSTS">Aucun Messages</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Réponses</Resource>

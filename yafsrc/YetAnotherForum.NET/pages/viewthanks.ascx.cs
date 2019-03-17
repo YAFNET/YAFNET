@@ -43,7 +43,7 @@ namespace YAF.Pages
   #endregion
 
   /// <summary>
-  /// Summary description for view thanks.
+  /// The user view thanks page.
   /// </summary>
   public partial class ViewThanks : ForumPage
   {
@@ -51,7 +51,6 @@ namespace YAF.Pages
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "ViewThanks" /> class.
-    ///   Initializes a new instance of the viewthanks class.
     /// </summary>
     public ViewThanks()
       : base("VIEWTHANKS")
@@ -76,7 +75,7 @@ namespace YAF.Pages
     /// the UserID of the control.
     /// </param>
     /// <param name="thanksInfo">
-    /// The Dataview for the control's data.
+    /// The DataView for the control's data.
     /// </param>
     public void InitializeThanksList([NotNull] ViewThanksList thanksList, ThanksListMode currentMode, int userID, [NotNull] DataTable thanksInfo)
     {

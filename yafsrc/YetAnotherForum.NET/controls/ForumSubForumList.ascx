@@ -1,12 +1,16 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.ForumSubForumList" Codebehind="ForumSubForumList.ascx.cs" %>
+
 <asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubforumList_ItemCreated">
     <HeaderTemplate>        
-        <div class="subForumList"><span class="subForumTitle"><YAF:LocalizedLabel ID="SubForums" LocalizedTag="SUBFORUMS" runat="server" />:</span>
+        <div>
+        <span class="font-weight-bold">
+            <YAF:LocalizedLabel ID="SubForums" LocalizedTag="SUBFORUMS" runat="server" />
+        </span>
  </HeaderTemplate>
     <ItemTemplate>
-        <YAF:ThemeImage ID="ThemeSubforumIcon" runat="server" /> <%# GetForumLink((System.Data.DataRow)Container.DataItem) %></ItemTemplate>
-    <SeparatorTemplate>, </SeparatorTemplate>
+        <asp:PlaceHolder ID="ForumIcon" runat="server" />&nbsp;<%#  this.GetForumLink((System.Data.DataRow)Container.DataItem) %>
+    </ItemTemplate>
     <FooterTemplate>
             <asp:Label Text="..." Visible="false" ID="CutOff" runat="server" />
         </div>

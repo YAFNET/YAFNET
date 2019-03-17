@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class EditUsersInfo {
         
+
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
         
+
         /// <summary>
         /// HelpLabel1-Steuerelement
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel1;
+        protected HelpLabel HelpLabel1;
         
+
         /// <summary>
         /// Name-Steuerelement
         /// </summary>
@@ -37,8 +40,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Name;
+        protected TextBox Name;
         
+
         /// <summary>
         /// HelpLabel2-Steuerelement
         /// </summary>
@@ -46,8 +50,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel2;
+        protected HelpLabel HelpLabel2;
         
+
         /// <summary>
         /// DisplayName-Steuerelement
         /// </summary>
@@ -55,8 +60,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DisplayName;
+        protected TextBox DisplayName;
         
+
         /// <summary>
         /// HelpLabel3-Steuerelement
         /// </summary>
@@ -64,8 +70,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel3;
+        protected HelpLabel HelpLabel3;
         
+
         /// <summary>
         /// Email-Steuerelement
         /// </summary>
@@ -73,8 +80,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Email;
+        protected TextBox Email;
         
+
         /// <summary>
         /// HelpLabel4-Steuerelement
         /// </summary>
@@ -82,8 +90,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel4;
+        protected HelpLabel HelpLabel4;
         
+
         /// <summary>
         /// RankID-Steuerelement
         /// </summary>
@@ -91,8 +100,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList RankID;
+        protected DropDownList RankID;
         
+
         /// <summary>
         /// IsHostAdminRow-Steuerelement
         /// </summary>
@@ -100,8 +110,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder IsHostAdminRow;
+        protected PlaceHolder IsHostAdminRow;
         
+
         /// <summary>
         /// HelpLabel5-Steuerelement
         /// </summary>
@@ -109,8 +120,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel5;
+        protected HelpLabel HelpLabel5;
         
+
         /// <summary>
         /// IsHostAdminX-Steuerelement
         /// </summary>
@@ -118,8 +130,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsHostAdminX;
+        protected CheckBox IsHostAdminX;
         
+
         /// <summary>
         /// IsCaptchaExcludedRow-Steuerelement
         /// </summary>
@@ -127,8 +140,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder IsCaptchaExcludedRow;
+        protected PlaceHolder IsCaptchaExcludedRow;
         
+
         /// <summary>
         /// HelpLabel6-Steuerelement
         /// </summary>
@@ -136,8 +150,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel6;
+        protected HelpLabel HelpLabel6;
         
+
         /// <summary>
         /// IsCaptchaExcluded-Steuerelement
         /// </summary>
@@ -145,8 +160,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsCaptchaExcluded;
+        protected CheckBox IsCaptchaExcluded;
         
+
         /// <summary>
         /// IsExcludedFromActiveUsersRow-Steuerelement
         /// </summary>
@@ -154,8 +170,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder IsExcludedFromActiveUsersRow;
+        protected PlaceHolder IsExcludedFromActiveUsersRow;
         
+
         /// <summary>
         /// HelpLabel7-Steuerelement
         /// </summary>
@@ -163,8 +180,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel7;
+        protected HelpLabel HelpLabel7;
         
+
         /// <summary>
         /// IsExcludedFromActiveUsers-Steuerelement
         /// </summary>
@@ -172,8 +190,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsExcludedFromActiveUsers;
+        protected CheckBox IsExcludedFromActiveUsers;
         
+
         /// <summary>
         /// HelpLabel8-Steuerelement
         /// </summary>
@@ -181,8 +200,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel8;
+        protected HelpLabel HelpLabel8;
         
+
         /// <summary>
         /// IsApproved-Steuerelement
         /// </summary>
@@ -190,8 +210,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsApproved;
+        protected CheckBox IsApproved;
         
+
         /// <summary>
         /// IsGuestRow-Steuerelement
         /// </summary>
@@ -199,8 +220,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder IsGuestRow;
+        protected PlaceHolder IsGuestRow;
         
+
         /// <summary>
         /// HelpLabel9-Steuerelement
         /// </summary>
@@ -208,8 +230,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel9;
+        protected HelpLabel HelpLabel9;
         
+
         /// <summary>
         /// IsGuestX-Steuerelement
         /// </summary>
@@ -217,8 +240,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsGuestX;
+        protected CheckBox IsGuestX;
         
+
         /// <summary>
         /// HelpLabel10-Steuerelement
         /// </summary>
@@ -226,8 +250,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel10;
+        protected HelpLabel HelpLabel10;
         
+
         /// <summary>
         /// Joined-Steuerelement
         /// </summary>
@@ -235,8 +260,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Joined;
+        protected TextBox Joined;
         
+
         /// <summary>
         /// HelpLabel11-Steuerelement
         /// </summary>
@@ -244,8 +270,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel11;
+        protected HelpLabel HelpLabel11;
         
+
         /// <summary>
         /// LastVisit-Steuerelement
         /// </summary>
@@ -253,8 +280,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox LastVisit;
+        protected TextBox LastVisit;
         
+
         /// <summary>
         /// HelpLabel12-Steuerelement
         /// </summary>
@@ -262,8 +290,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel12;
+        protected HelpLabel HelpLabel12;
         
+
         /// <summary>
         /// IsFacebookUser-Steuerelement
         /// </summary>
@@ -271,8 +300,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsFacebookUser;
+        protected CheckBox IsFacebookUser;
         
+
         /// <summary>
         /// HelpLabel13-Steuerelement
         /// </summary>
@@ -280,8 +310,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel13;
+        protected HelpLabel HelpLabel13;
         
+
         /// <summary>
         /// IsTwitterUser-Steuerelement
         /// </summary>
@@ -289,8 +320,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsTwitterUser;
+        protected CheckBox IsTwitterUser;
         
+
         /// <summary>
         /// HelpLabel14-Steuerelement
         /// </summary>
@@ -298,8 +330,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel14;
+        protected HelpLabel HelpLabel14;
         
+
         /// <summary>
         /// IsGoogleUser-Steuerelement
         /// </summary>
@@ -307,8 +340,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsGoogleUser;
+        protected CheckBox IsGoogleUser;
         
+
         /// <summary>
         /// Save-Steuerelement
         /// </summary>
@@ -316,6 +350,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Save;
+        protected LinkButton Save;
     }
 }

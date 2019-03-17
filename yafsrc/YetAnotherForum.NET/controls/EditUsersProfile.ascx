@@ -203,33 +203,6 @@
     <hr />
 
         <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="MSN" />
-        </h4>
-        <p>
-            <asp:TextBox runat="server" ID="MSN" CssClass="form-control" />
-        </p>
-    <hr />
-
-        <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="YIM" />
-        </h4>
-        <p>
-            <asp:TextBox runat="server" ID="YIM" CssClass="form-control" />
-        </p>
-    <hr />
-
-        <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="AIM" />
-        </h4>
-        <p>
-            <asp:TextBox runat="server" ID="AIM" CssClass="form-control" />
-        </p>
-    <hr />
-
-        <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="ICQ" />
         </h4>

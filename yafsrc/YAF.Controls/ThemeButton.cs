@@ -82,11 +82,6 @@ namespace YAF.Controls
         /// </summary>
         protected LocalizedLabel _localizedLabel = new LocalizedLabel();
 
-        /// <summary>
-        ///   The _theme image.
-        /// </summary>
-        protected ThemeImage _themeImage = new ThemeImage();
-
         #endregion
 
         #region Constructors and Destructors
@@ -156,6 +151,24 @@ namespace YAF.Controls
             set
             {
                 this.ViewState["Type"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        [Category("Appearance")]
+        [DefaultValue(ButtonSize.Normal)]
+        public ButtonSize Size
+        {
+            get
+            {
+                return this.ViewState["Size"] != null ? this.ViewState["Size"].ToType<ButtonSize>() : ButtonSize.Normal;
+            }
+
+            set
+            {
+                this.ViewState["Size"] = value;
             }
         }
 
@@ -290,38 +303,6 @@ namespace YAF.Controls
             set
             {
                 this.ViewState["DataToggle"] = value;
-            }
-        }
-
-        /// <summary>
-        ///    Gets or sets the ThemePage for the optional button image
-        /// </summary>
-        public string ImageThemePage
-        {
-            get
-            {
-                return this._themeImage.ThemePage;
-            }
-
-            set
-            {
-                this._themeImage.ThemePage = value;
-            }
-        }
-
-        /// <summary>
-        ///    Gets or sets the ThemeTag for the optional button image
-        /// </summary>
-        public string ImageThemeTag
-        {
-            get
-            {
-                return this._themeImage.ThemeTag;
-            }
-
-            set
-            {
-                this._themeImage.ThemeTag = value;
             }
         }
 
@@ -614,9 +595,13 @@ namespace YAF.Controls
 
             var actionClass = this.GetAttributeValue(this.Type);
 
+            var cssClass = this.CssClass.IsSet() ? "{0} {1}".FormatWith(actionClass, this.CssClass) : actionClass;
+
             output.WriteAttribute(
                 HtmlTextWriterAttribute.Class.ToString(),
-                this.CssClass.IsSet() ? "{0} {1}".FormatWith(actionClass, this.CssClass) : actionClass);
+                this.Size != ButtonSize.Normal
+                    ? "{0} {1}".FormatWith(cssClass, this.GetButtonSizeClass(this.Size))
+                    : cssClass);
 
             if (title.IsSet())
             {
@@ -645,7 +630,8 @@ namespace YAF.Controls
                         // special handling... add to it...
                         output.WriteAttribute(key, "{0};".FormatWith(this._attributeCollection[key]));
                     }
-                    else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
+                    else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on")
+                                                               || key.ToLower() == "rel" || key.ToLower() == "target")
                     {
                         // only write javascript attributes -- and a few other attributes...
                         output.WriteAttribute(key, this._attributeCollection[key]);
@@ -676,18 +662,24 @@ namespace YAF.Controls
 
             output.Write(HtmlTextWriter.TagRightChar);
 
-           // output.WriteBeginTag("span");
-           // output.Write(HtmlTextWriter.TagRightChar);
-
+            // output.WriteBeginTag("span");
+            // output.Write(HtmlTextWriter.TagRightChar);
             if (this.Icon.IsSet())
             {
-                output.Write("<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
+                if (this.CssClass.IsSet() && this.CssClass.Equals("fab"))
+                {
+                    output.Write("<i class=\"fab fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
+                }
+                else
+                {
+                    output.Write("<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
+                }
             }
 
             // render the optional controls (if any)
             base.Render(output);
-           // output.WriteEndTag("span");
 
+            // output.WriteEndTag("span");
             output.WriteEndTag("a");
             output.EndRender();
         }
@@ -699,12 +691,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ThemeButtonLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this._themeImage.ThemeTag.IsSet())
-            {
-                // add the theme image...
-                this.Controls.Add(this._themeImage);
-            }
-
             // render the text if available
             if (this._localizedLabel.LocalizedTag.IsSet())
             {
@@ -726,6 +712,8 @@ namespace YAF.Controls
                     return "btn btn-primary";
                 case ButtonAction.Secondary:
                     return "btn btn-secondary";
+                case ButtonAction.OutlineSecondary:
+                    return "btn btn-outline-secondary";
                 case ButtonAction.Success:
                     return "btn btn-success";
                 case ButtonAction.OutlineSuccess:
@@ -746,6 +734,33 @@ namespace YAF.Controls
                     return "btn btn-link";
                 case ButtonAction.None:
                     return string.Empty;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+
+        /// <summary>
+        /// Gets the css class value.
+        /// </summary>
+        /// <param name="size">
+        /// The size.
+        /// </param>
+        /// <returns>
+        /// Returns the Css Class for the button
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Exception when other value
+        /// </exception>
+        private string GetButtonSizeClass(ButtonSize size)
+        {
+            switch (size)
+            {
+                 case ButtonSize.Normal:
+                     return string.Empty;
+                case ButtonSize.Large:
+                    return "btn-lg";
+                case ButtonSize.Small:
+                    return "btn-sm";
                 default:
                     throw new InvalidOperationException();
             }

@@ -75,17 +75,24 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.Topic)
-                .Take(5);
+            try
+            {
+                var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.Topic)
+                    .Take(5);
 
-            if (!topicsList.Any())
+                if (!topicsList.Any())
+                {
+                    this.SimilarTopicsHolder.Visible = false;
+                    return;
+                }
+
+                this.Topics.DataSource = topicsList;
+                this.Topics.DataBind();
+            }
+            catch (Exception)
             {
                 this.SimilarTopicsHolder.Visible = false;
-                return;
             }
-
-            this.Topics.DataSource = topicsList;
-            this.Topics.DataBind();
 
             this.DataBind();
         }

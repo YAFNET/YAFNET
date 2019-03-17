@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/UsersImport.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server" ID="Adminmenu1">
+
 <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_USERS" /></h1>
@@ -119,15 +119,15 @@
                     </td>
                     <td>
                         <span class="float-right">
-                       <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                       <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
                            TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
                        <YAF:ThemeButton ID="ThemeButtonDelete" 
                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
-                                        Type="Danger" CssClass="btn-sm" 
+                                        Type="Danger" Size="Small" 
                                         CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
                                         TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE"
                                         Icon="trash" 
-                                        Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Classes.Config.IsDotNetNuke %>' 
+                                        Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>' 
                                         runat="server"></YAF:ThemeButton>
                     </span>
                             </td>
@@ -159,7 +159,7 @@
     </div>
     <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
     </asp:PlaceHolder>
-</YAF:AdminMenu>
+
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>

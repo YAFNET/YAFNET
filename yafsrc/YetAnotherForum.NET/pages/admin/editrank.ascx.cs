@@ -155,6 +155,7 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_EDITRANK", "TITLE"));
         }
         
+
         /// <summary>
          /// Save (New) Rank
          /// </summary>

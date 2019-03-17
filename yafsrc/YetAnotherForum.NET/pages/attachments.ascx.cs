@@ -27,13 +27,11 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -142,10 +140,9 @@ namespace YAF.Pages
                 YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.PageContext.PageUserID, displayName));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-
-            this.Back.Text = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()
-                                 ? this.GetText("BACK")
-                                 : this.GetText("COMMON", "CONTINUE");
+            this.Back.TextLocalizedTag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()
+                                 ? "BACK"
+                                 : "CONTINUE";
 
             this.BindData();
         }
@@ -173,6 +170,15 @@ namespace YAF.Pages
             return "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\"{2} style=\"max-width:30px\" />".FormatWith(url, fileName, dataUrl);
         }
 
+        /// <summary>
+        /// Delete all selected attachment(s)
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
             foreach (var item in from RepeaterItem item in this.List.Items
@@ -189,6 +195,7 @@ namespace YAF.Pages
             this.BindData();
         }
         
+
         /// <summary>
         /// Binds the data.
         /// </summary>

@@ -1,7 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.reguser" Codebehind="reguser.ascx.cs" %>
 
 <YAF:PageLinks id="PageLinks" runat="server" />
-<YAF:AdminMenu id="Adminmenu1" runat="server">
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REGUSER" /></h1>
@@ -98,5 +97,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller id="SmartScroller1" runat="server" />

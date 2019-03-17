@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class ViewThanksList {
         
+
         /// <summary>
         /// PagerTop-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerTop;
+        protected Pager PagerTop;
         
+
         /// <summary>
         /// ThanksRes-Steuerelement
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater ThanksRes;
+        protected Repeater ThanksRes;
         
+
         /// <summary>
         /// NoResults-Steuerelement
         /// </summary>
@@ -37,8 +40,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder NoResults;
+        protected PlaceHolder NoResults;
         
+
         /// <summary>
         /// LocalizedLabel7-Steuerelement
         /// </summary>
@@ -46,8 +50,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        protected LocalizedLabel LocalizedLabel7;
         
+
         /// <summary>
         /// PagerBottom-Steuerelement
         /// </summary>
@@ -55,6 +60,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerBottom;
+        protected Pager PagerBottom;
     }
 }

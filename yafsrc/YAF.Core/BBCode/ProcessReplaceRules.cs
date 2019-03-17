@@ -164,7 +164,7 @@ namespace YAF.Core.BBCode
             }
 
             // apply all rules...
-            foreach (IReplaceRule rule in localRulesList)
+            foreach (var rule in localRulesList)
             {
                 rule.Replace(ref text, mainCollection);
             }

@@ -120,17 +120,7 @@
     <Compile Include="SignaturePreview.cs" />
     <Compile Include="SmartScroller.cs" />
     <Compile Include="UserLabel.cs" />
-    <Compile Include="YafAdminMenu\AdminMenu.cs" />
-    <Compile Include="YafAdminMenu\YafMenu.cs">
-      <DependentUpon>YafMenu.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="YafAdminMenu\YafMenu.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>YafMenu.xsd</DependentUpon>
-    </Compile>
     <Compile Include="AlphaSort.cs" />
-    <Compile Include="CollapsibleImage.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
@@ -151,7 +141,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistics\MostActiveUser.cs" />
     <Compile Include="ThemeButton.cs" />
-    <Compile Include="ThemeImage.cs" />
     <Compile Include="DisplayDateTime.cs" />
     <Compile Include="UserBox.cs" />
     <Compile Include="UserLink.cs" />
@@ -204,24 +193,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="YafAdminMenu\AdminMenuDef.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="YafAdminMenu\YafMenu.xsc">
-      <DependentUpon>YafMenu.xsd</DependentUpon>
-    </None>
-    <None Include="YafAdminMenu\YafMenu.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>YafMenu.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="YafAdminMenu\YafMenu.xss">
-      <DependentUpon>YafMenu.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

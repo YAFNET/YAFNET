@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.mail" Codebehind="mail.ascx.cs" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
         <div class="col-xl-12">
             <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_MAIL" /></h1>
@@ -45,5 +45,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

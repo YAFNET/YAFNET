@@ -39,7 +39,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for cp_signature.
+    /// The edit user signature page
     /// </summary>
     public partial class cp_signature : ForumPageRegistered
     {

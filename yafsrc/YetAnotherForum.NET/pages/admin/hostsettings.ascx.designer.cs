@@ -22,15 +22,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// Adminmenu1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.AdminMenu Adminmenu1;
-        
-        /// <summary>
         /// LocalizedLabel41-Steuerelement
         /// </summary>
         /// <remarks>
@@ -1903,87 +1894,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox PrivateMessageMaxRecipients;
         
         /// <summary>
-        /// LocalizedLabel25-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel25;
-        
-        /// <summary>
-        /// HelpLabel127-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel127;
-        
-        /// <summary>
-        /// EnableAlbum-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableAlbum;
-        
-        /// <summary>
-        /// HelpLabel128-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel128;
-        
-        /// <summary>
-        /// AlbumImagesSizeMax-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AlbumImagesSizeMax;
-        
-        /// <summary>
-        /// HelpLabel129-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel129;
-        
-        /// <summary>
-        /// AlbumsPerPage-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AlbumsPerPage;
-        
-        /// <summary>
-        /// HelpLabel130-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel130;
-        
-        /// <summary>
-        /// AlbumImagesPerPage-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AlbumImagesPerPage;
-        
-        /// <summary>
         /// LocalizedLabel31-Steuerelement
         /// </summary>
         /// <remarks>
@@ -2675,24 +2585,6 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowModeratorList;
-        
-        /// <summary>
-        /// HelpLabel200-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel200;
-        
-        /// <summary>
-        /// ShowModeratorListAsColumn-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowModeratorListAsColumn;
         
         /// <summary>
         /// HelpLabel156-Steuerelement

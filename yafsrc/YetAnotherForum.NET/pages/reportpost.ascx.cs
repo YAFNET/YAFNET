@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
 
     using YAF.Classes;
@@ -65,7 +64,6 @@ namespace YAF.Pages
         #endregion
 
         //// Class constructor
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -171,7 +169,7 @@ namespace YAF.Pages
                     YafBuildLink.Redirect(ForumPages.info, "i=1");
                 }
 
-                if (!Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
                 {
                     YafBuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
                 }
@@ -189,7 +187,7 @@ namespace YAF.Pages
             if (messageRow.HasRows())
             {
                 // populate the repeater with the message datarow...
-                this.MessageList.DataSource = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+                this.MessageList.DataSource = messageRow;
                 this.MessageList.DataBind();
             }
             else

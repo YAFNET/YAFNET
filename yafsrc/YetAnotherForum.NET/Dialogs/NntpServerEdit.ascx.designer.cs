@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+
     public partial class NntpServerEdit {
         
+
         /// <summary>
         /// Title-Steuerelement
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel Title;
+        protected LocalizedLabel Title;
         
+
         /// <summary>
         /// LocalizedLabel2-Steuerelement
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel2;
+        protected HelpLabel LocalizedLabel2;
         
+
         /// <summary>
         /// Name-Steuerelement
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Name;
+        protected TextBox Name;
         
+
         /// <summary>
         /// LocalizedLabel3-Steuerelement
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel3;
+        protected HelpLabel LocalizedLabel3;
         
+
         /// <summary>
         /// Address-Steuerelement
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Address;
+        protected TextBox Address;
         
+
         /// <summary>
         /// LocalizedLabel4-Steuerelement
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
+        protected HelpLabel LocalizedLabel4;
         
+
         /// <summary>
         /// Port-Steuerelement
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Port;
+        protected TextBox Port;
         
+
         /// <summary>
         /// LocalizedLabel5-Steuerelement
         /// </summary>
@@ -82,8 +92,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel5;
+        protected HelpLabel LocalizedLabel5;
         
+
         /// <summary>
         /// UserName-Steuerelement
         /// </summary>
@@ -91,8 +102,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserName;
+        protected TextBox UserName;
         
+
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -100,8 +112,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel6;
+        protected HelpLabel LocalizedLabel6;
         
+
         /// <summary>
         /// UserPass-Steuerelement
         /// </summary>
@@ -109,8 +122,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserPass;
+        protected TextBox UserPass;
         
+
         /// <summary>
         /// Save-Steuerelement
         /// </summary>
@@ -118,6 +132,6 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Save;
+        protected ThemeButton Save;
     }
 }

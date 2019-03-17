@@ -717,7 +717,7 @@ namespace YAF.Utilities
         else
         {{
              if(password != passwordConfirm) {{
-    		    {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{4}</p>');
+    		    {0}('#passwordStrength').removeClass().addClass('alert alert-danger').html('<p><i class=""fas fa-exclamation-circle""></i> {4}</p>');
                 {0}('#passwordStrength').parent().parent('.post').show();
         	    return false;
     	     }}
@@ -748,14 +748,14 @@ namespace YAF.Utilities
         var okRegex = new RegExp(""(?=.{{{3},}}).*"", ""g"");
 
         if (okRegex.test(password) === false) {{
-            {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{5}</p>');
+            {0}('#passwordStrength').removeClass().addClass('alert alert-danger').html('<p><i class=""fas fa-exclamation-circle""></i> {5}</p>');
 
         }} else if (strongRegex.test(password)) {{
-            {0}('#passwordStrength').removeClass().addClass('ui-state-default ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-check"" />{6}</p>');
+            {0}('#passwordStrength').removeClass().addClass('alert alert-info').html('<p><i class=""fas fa-exclamation-circle""></i> {6}</p>');
         }} else if (mediumRegex.test(password)) {{
-            {0}('#passwordStrength').removeClass().addClass('ui-state-highlight ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-info"" />{7}</p>');
+            {0}('#passwordStrength').removeClass().addClass('alert alert-warning').html('<p><i class=""fas fa-exclamation-circle""></i> {7}</p>');
         }} else {{
-            {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{8}</p>');
+            {0}('#passwordStrength').removeClass().addClass('alert alert-danger').html('<p><i class=""fas fa-exclamation-circle""></i> {8}</p>');
         }}
 
         {0}('#passwordStrength').parent().parent('.post').show();

@@ -2,7 +2,7 @@
 	Inherits="YAF.Pages.Admin.editaccessmask" Codebehind="editaccessmask.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
         <div class="col-xl-12">
             <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITACCESSMASKS" /></h1>
@@ -117,5 +117,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

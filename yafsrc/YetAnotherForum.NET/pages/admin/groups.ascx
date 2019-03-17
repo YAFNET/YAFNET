@@ -5,7 +5,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_GROUPS" /></h1>
@@ -15,12 +15,16 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROVIDER_ROLES" LocalizedPage="ADMIN_GROUPS" />
+                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                                                               LocalizedTag="PROVIDER_ROLES" 
+                                                                               LocalizedPage="ADMIN_GROUPS" />
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-danger" role="alert">
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE_DELETE" LocalizedPage="ADMIN_GROUPS" />
-                    </div>
+                    <YAF:Alert runat="server" Type="danger">
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                            LocalizedTag="NOTE_DELETE" 
+                                            LocalizedPage="ADMIN_GROUPS" />
+                    </YAF:Alert>
 		<asp:Repeater ID="RoleListNet" runat="server" OnItemCommand="RoleListNetItemCommand">
 			<HeaderTemplate>
 			    <div class="table-responsive">
@@ -44,7 +48,7 @@
 					</td>
 					<td>
 					    <span class="float-right">
-						<YAF:ThemeButton ID="ThemeButtonAdd" Type="Info" CssClass="btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonAdd" Type="Info" Size="Small"
                             CommandName='add' CommandArgument='<%# Container.DataItem %>'
                             TitleLocalizedTag="ADD_ROLETOYAF"
                             TitleLocalizedPage="ADMIN_GROUPS"
@@ -53,7 +57,7 @@
                             Icon="plus-circle"
                             runat="server">
 					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
                                     CommandName='delete' CommandArgument='<%# Container.DataItem %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
@@ -73,12 +77,16 @@
                 </div></div>
                         <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_GROUPS" />
+                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                                               LocalizedTag="HEADER" 
+                                                                               LocalizedPage="ADMIN_GROUPS" />
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-danger" role="alert">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NOTE_DELETE_LINKED" LocalizedPage="ADMIN_GROUPS" />
-                    </div>
+                    <YAF:Alert runat="server" Type="danger">
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                            LocalizedTag="NOTE_DELETE_LINKED" 
+                                            LocalizedPage="ADMIN_GROUPS" />
+                    </YAF:Alert>
 		<asp:Repeater ID="RoleListYaf" runat="server" OnItemCommand="RoleListYafItemCommand">
 			<HeaderTemplate>
                 <div class="table-responsive">
@@ -104,14 +112,14 @@
 					</td>
                     <td>
                         <span class="float-right">
-						<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
                             CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"
                             TextLocalizedTag="EDIT"
                             runat="server">
 					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" Visible='<%#(!this.Eval( "Flags" ).BinaryAnd(2))%>'
+						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" Visible='<%#(!this.Eval( "Flags" ).BinaryAnd(2))%>'
                                     CommandName='delete' CommandArgument='<%# this.Eval( "GroupID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
@@ -137,7 +145,7 @@
 					<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_GROUPS" />&nbsp;
 					<asp:Label ID="Label4" runat="server" CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>&nbsp;|&nbsp;
 					<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="PMS" LocalizedPage="ADMIN_GROUPS" />&nbsp;
-					 <asp:Label ID="Label6" runat="server" CssClass='<%# this.GetItemColorString((Convert.ToInt32(this.Eval("PMLimit")) == int.MaxValue) ? "\u221E" : this.Eval("PMLimit").ToString()) %>'><%# ((Convert.ToInt32(Eval("PMLimit")) == int.MaxValue) ? "\u221E" : this.Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;
+					 <asp:Label ID="Label6" runat="server" CssClass='<%# this.GetItemColorString((Convert.ToInt32(this.Eval("PMLimit")) == int.MaxValue) ? "\u221E" : this.Eval("PMLimit").ToString()) %>'><%# ((Convert.ToInt32(this.Eval("PMLimit")) == int.MaxValue) ? "\u221E" : this.Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;
                     <br />
                     <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
                     <asp:Label ID="Label9" runat="server" CssClass='<%# this.GetItemColorString(this.Eval( "UsrAlbums" ).ToString()) %>'><%# this.Eval("UsrAlbums").ToString()%></asp:Label>&nbsp;|&nbsp;
@@ -169,5 +177,5 @@
                 </div>
             </div>
         </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

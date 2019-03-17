@@ -2,7 +2,7 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
         <div class="col-xl-12">
             <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITMEDAL" /></h1>
@@ -155,14 +155,14 @@
 					</td>
 					<td>
 					    <span class="float-right">
-					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
+					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
                             CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"
                             TextLocalizedTag="EDIT"
                             runat="server">
 					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
                                     CommandName='delete' CommandArgument='<%# this.Eval( "GroupID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
@@ -265,8 +265,8 @@
 					</td>
 					<td>
 					    <span class="float-right">
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'  Type="Info" CssClass="btn-sm"> <i class="fa fa-edit fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
-						&nbsp;<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>'  Type="Danger" CssClass="btn-sm"
+						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'  Type="Info" Size="Small"> <i class="fa fa-edit fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
+						&nbsp;<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>'  Type="Danger" Size="Small"
 							OnLoad="UserRemoveLoad"> <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="REMOVE" /></asp:LinkButton>
 
 					    </span>
@@ -293,8 +293,8 @@
 				<p>
 					<asp:TextBox ID="UserName" runat="server" CssClass="form-control" />
 					<asp:DropDownList  runat="server" ID="UserNameList" Visible="false" CssClass="custom-select" />
-					<asp:Button runat="server" ID="FindUsers" Text="Find Users" OnClick="FindUsersClick" Type="Info" CssClass="btn-sm" />
-					<asp:Button runat="server" ID="Clear" Text="Clear" OnClick="ClearClick" Visible="false" Type="Info" CssClass="btn-sm" />
+					<asp:Button runat="server" ID="FindUsers" Text="Find Users" OnClick="FindUsersClick" Type="Info" Size="Small" />
+					<asp:Button runat="server" ID="Clear" Text="Clear" OnClick="ClearClick" Visible="false" Type="Info" Size="Small" />
 					<asp:TextBox Visible="false" ID="UserID" runat="server" CssClass="form-control" />
 				</p><hr />
 			    <h4>
@@ -332,5 +332,5 @@
 		</asp:PlaceHolder>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

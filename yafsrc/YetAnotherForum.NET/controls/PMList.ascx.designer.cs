@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class PMList {
         
+
         /// <summary>
         /// PagerTop-Steuerelement
         /// </summary>
@@ -19,8 +20,29 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerTop;
+        protected Pager PagerTop;
         
+
+        /// <summary>
+        /// MobileInfo-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected Alert MobileInfo;
+        
+
+        /// <summary>
+        /// LocalizedLabel220-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected LocalizedLabel LocalizedLabel220;
+        
+
         /// <summary>
         /// MessagesView-Steuerelement
         /// </summary>
@@ -28,35 +50,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView MessagesView;
+        protected GridView MessagesView;
         
-        /// <summary>
-        /// PMInfoLink-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label PMInfoLink;
-        
-        /// <summary>
-        /// lblExportType-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblExportType;
-        
-        /// <summary>
-        /// ExportType-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList ExportType;
-        
+
         /// <summary>
         /// PagerBottom-Steuerelement
         /// </summary>
@@ -64,6 +60,36 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerBottom;
+        protected Pager PagerBottom;
+        
+
+        /// <summary>
+        /// lblExportType-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected Label lblExportType;
+        
+
+        /// <summary>
+        /// ExportType-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected RadioButtonList ExportType;
+        
+
+        /// <summary>
+        /// PMInfoLink-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected Label PMInfoLink;
     }
 }

@@ -1,7 +1,7 @@
 ﻿<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
 
 <YAF:PageLinks runat="server" id="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
         <div class="col-xl-12">
             <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EDITLANGUAGE" /></h1>
@@ -76,5 +76,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller id="SmartScroller1" runat = "server" />

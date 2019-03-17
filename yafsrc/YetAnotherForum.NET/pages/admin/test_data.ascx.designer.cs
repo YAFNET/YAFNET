@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages.Admin {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+
     public partial class test_data {
         
+
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// Adminmenu1-Steuerelement
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.AdminMenu Adminmenu1;
+        protected AdminMenu Adminmenu1;
         
+
         /// <summary>
         /// TestDataTabs-Steuerelement
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel TestDataTabs;
+        protected Panel TestDataTabs;
         
+
         /// <summary>
         /// UsersNumber-Steuerelement
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UsersNumber;
+        protected TextBox UsersNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator1-Steuerelement
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator1;
+        protected RequiredFieldValidator Requiredfieldvalidator1;
         
+
         /// <summary>
         /// UsersBoardsOptions-Steuerelement
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList UsersBoardsOptions;
+        protected RadioButtonList UsersBoardsOptions;
         
+
         /// <summary>
         /// UsersBoardsList-Steuerelement
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList UsersBoardsList;
+        protected DropDownList UsersBoardsList;
         
+
         /// <summary>
         /// Password-Steuerelement
         /// </summary>
@@ -82,8 +92,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Password;
+        protected TextBox Password;
         
+
         /// <summary>
         /// PasswordRequiredfieldvalidator-Steuerelement
         /// </summary>
@@ -91,8 +102,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator PasswordRequiredfieldvalidator;
+        protected RequiredFieldValidator PasswordRequiredfieldvalidator;
         
+
         /// <summary>
         /// Password2-Steuerelement
         /// </summary>
@@ -100,8 +112,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Password2;
+        protected TextBox Password2;
         
+
         /// <summary>
         /// PasswordConfirmComparevalidator-Steuerelement
         /// </summary>
@@ -109,8 +122,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator PasswordConfirmComparevalidator;
+        protected CompareValidator PasswordConfirmComparevalidator;
         
+
         /// <summary>
         /// Question-Steuerelement
         /// </summary>
@@ -118,8 +132,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Question;
+        protected TextBox Question;
         
+
         /// <summary>
         /// Requiredfieldvalidator3-Steuerelement
         /// </summary>
@@ -127,8 +142,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator3;
+        protected RequiredFieldValidator Requiredfieldvalidator3;
         
+
         /// <summary>
         /// Answer-Steuerelement
         /// </summary>
@@ -136,8 +152,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Answer;
+        protected TextBox Answer;
         
+
         /// <summary>
         /// Requiredfieldvalidator4-Steuerelement
         /// </summary>
@@ -145,8 +162,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator4;
+        protected RequiredFieldValidator Requiredfieldvalidator4;
         
+
         /// <summary>
         /// Location-Steuerelement
         /// </summary>
@@ -154,8 +172,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Location;
+        protected TextBox Location;
         
+
         /// <summary>
         /// HomePage-Steuerelement
         /// </summary>
@@ -163,8 +182,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox HomePage;
+        protected TextBox HomePage;
         
+
         /// <summary>
         /// TimeZones-Steuerelement
         /// </summary>
@@ -172,8 +192,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TimeZones;
+        protected DropDownList TimeZones;
         
+
         /// <summary>
         /// BoardNumber-Steuerelement
         /// </summary>
@@ -181,8 +202,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardNumber;
+        protected TextBox BoardNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator10-Steuerelement
         /// </summary>
@@ -190,8 +212,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator10;
+        protected RequiredFieldValidator Requiredfieldvalidator10;
         
+
         /// <summary>
         /// BoardMembershipName-Steuerelement
         /// </summary>
@@ -199,8 +222,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardMembershipName;
+        protected TextBox BoardMembershipName;
         
+
         /// <summary>
         /// BoardRolesName-Steuerelement
         /// </summary>
@@ -208,8 +232,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardRolesName;
+        protected TextBox BoardRolesName;
         
+
         /// <summary>
         /// BoardsUsersNumber-Steuerelement
         /// </summary>
@@ -217,8 +242,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardsUsersNumber;
+        protected TextBox BoardsUsersNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator12-Steuerelement
         /// </summary>
@@ -226,8 +252,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator12;
+        protected RequiredFieldValidator Requiredfieldvalidator12;
         
+
         /// <summary>
         /// BoardsCategoriesNumber-Steuerelement
         /// </summary>
@@ -235,8 +262,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardsCategoriesNumber;
+        protected TextBox BoardsCategoriesNumber;
         
+
         /// <summary>
         /// BoardsForumsNumber-Steuerelement
         /// </summary>
@@ -244,8 +272,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardsForumsNumber;
+        protected TextBox BoardsForumsNumber;
         
+
         /// <summary>
         /// BoardsTopicsNumber-Steuerelement
         /// </summary>
@@ -253,8 +282,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardsTopicsNumber;
+        protected TextBox BoardsTopicsNumber;
         
+
         /// <summary>
         /// BoardsMessagesNumber-Steuerelement
         /// </summary>
@@ -262,8 +292,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardsMessagesNumber;
+        protected TextBox BoardsMessagesNumber;
         
+
         /// <summary>
         /// CategoriesNumber-Steuerelement
         /// </summary>
@@ -271,8 +302,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CategoriesNumber;
+        protected TextBox CategoriesNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator5-Steuerelement
         /// </summary>
@@ -280,8 +312,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator5;
+        protected RequiredFieldValidator Requiredfieldvalidator5;
         
+
         /// <summary>
         /// CategoriesBoardsOptions-Steuerelement
         /// </summary>
@@ -289,8 +322,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList CategoriesBoardsOptions;
+        protected RadioButtonList CategoriesBoardsOptions;
         
+
         /// <summary>
         /// CategoriesBoardsList-Steuerelement
         /// </summary>
@@ -298,8 +332,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CategoriesBoardsList;
+        protected DropDownList CategoriesBoardsList;
         
+
         /// <summary>
         /// CategoriesForumsNumber-Steuerelement
         /// </summary>
@@ -307,8 +342,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CategoriesForumsNumber;
+        protected TextBox CategoriesForumsNumber;
         
+
         /// <summary>
         /// CategoriesTopicsNumber-Steuerelement
         /// </summary>
@@ -316,8 +352,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CategoriesTopicsNumber;
+        protected TextBox CategoriesTopicsNumber;
         
+
         /// <summary>
         /// CategoriesMessagesNumber-Steuerelement
         /// </summary>
@@ -325,8 +362,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CategoriesMessagesNumber;
+        protected TextBox CategoriesMessagesNumber;
         
+
         /// <summary>
         /// ForumsNumber-Steuerelement
         /// </summary>
@@ -334,8 +372,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ForumsNumber;
+        protected TextBox ForumsNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator6-Steuerelement
         /// </summary>
@@ -343,8 +382,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator6;
+        protected RequiredFieldValidator Requiredfieldvalidator6;
         
+
         /// <summary>
         /// CheckBox3-Steuerelement
         /// </summary>
@@ -352,8 +392,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox3;
+        protected CheckBox CheckBox3;
         
+
         /// <summary>
         /// ForumsCountMessages-Steuerelement
         /// </summary>
@@ -361,8 +402,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ForumsCountMessages;
+        protected CheckBox ForumsCountMessages;
         
+
         /// <summary>
         /// ForumsHideNoAccess-Steuerelement
         /// </summary>
@@ -370,8 +412,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ForumsHideNoAccess;
+        protected CheckBox ForumsHideNoAccess;
         
+
         /// <summary>
         /// ForumsStartMask-Steuerelement
         /// </summary>
@@ -379,8 +422,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumsStartMask;
+        protected DropDownList ForumsStartMask;
         
+
         /// <summary>
         /// ForumsGroups-Steuerelement
         /// </summary>
@@ -388,8 +432,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumsGroups;
+        protected DropDownList ForumsGroups;
         
+
         /// <summary>
         /// ForumsAdminMask-Steuerelement
         /// </summary>
@@ -397,8 +442,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumsAdminMask;
+        protected DropDownList ForumsAdminMask;
         
+
         /// <summary>
         /// ForumsCategory-Steuerelement
         /// </summary>
@@ -406,8 +452,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumsCategory;
+        protected DropDownList ForumsCategory;
         
+
         /// <summary>
         /// ForumsParent-Steuerelement
         /// </summary>
@@ -415,8 +462,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumsParent;
+        protected DropDownList ForumsParent;
         
+
         /// <summary>
         /// ForumsTopicsNumber-Steuerelement
         /// </summary>
@@ -424,8 +472,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ForumsTopicsNumber;
+        protected TextBox ForumsTopicsNumber;
         
+
         /// <summary>
         /// ForumsMessagesNumber-Steuerelement
         /// </summary>
@@ -433,8 +482,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ForumsMessagesNumber;
+        protected TextBox ForumsMessagesNumber;
         
+
         /// <summary>
         /// TopicsNumber-Steuerelement
         /// </summary>
@@ -442,8 +492,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TopicsNumber;
+        protected TextBox TopicsNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator7-Steuerelement
         /// </summary>
@@ -451,8 +502,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator7;
+        protected RequiredFieldValidator Requiredfieldvalidator7;
         
+
         /// <summary>
         /// CheckBox5-Steuerelement
         /// </summary>
@@ -460,8 +512,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox5;
+        protected CheckBox CheckBox5;
         
+
         /// <summary>
         /// TopicsPriorityList-Steuerelement
         /// </summary>
@@ -469,8 +522,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TopicsPriorityList;
+        protected DropDownList TopicsPriorityList;
         
+
         /// <summary>
         /// PollCreate-Steuerelement
         /// </summary>
@@ -478,8 +532,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox PollCreate;
+        protected CheckBox PollCreate;
         
+
         /// <summary>
         /// TopicsCategory-Steuerelement
         /// </summary>
@@ -487,8 +542,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TopicsCategory;
+        protected DropDownList TopicsCategory;
         
+
         /// <summary>
         /// TopicsForum-Steuerelement
         /// </summary>
@@ -496,8 +552,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TopicsForum;
+        protected DropDownList TopicsForum;
         
+
         /// <summary>
         /// TopicsMessagesNumber-Steuerelement
         /// </summary>
@@ -505,8 +562,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TopicsMessagesNumber;
+        protected TextBox TopicsMessagesNumber;
         
+
         /// <summary>
         /// PostsNumber-Steuerelement
         /// </summary>
@@ -514,8 +572,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PostsNumber;
+        protected TextBox PostsNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator8-Steuerelement
         /// </summary>
@@ -523,8 +582,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator8;
+        protected RequiredFieldValidator Requiredfieldvalidator8;
         
+
         /// <summary>
         /// CheckBox7-Steuerelement
         /// </summary>
@@ -532,8 +592,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox7;
+        protected CheckBox CheckBox7;
         
+
         /// <summary>
         /// PostsCategory-Steuerelement
         /// </summary>
@@ -541,8 +602,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PostsCategory;
+        protected DropDownList PostsCategory;
         
+
         /// <summary>
         /// PostsForum-Steuerelement
         /// </summary>
@@ -550,8 +612,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PostsForum;
+        protected DropDownList PostsForum;
         
+
         /// <summary>
         /// PostsTopic-Steuerelement
         /// </summary>
@@ -559,8 +622,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PostsTopic;
+        protected DropDownList PostsTopic;
         
+
         /// <summary>
         /// MyMessage-Steuerelement
         /// </summary>
@@ -568,8 +632,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MyMessage;
+        protected TextBox MyMessage;
         
+
         /// <summary>
         /// PMessagesNumber-Steuerelement
         /// </summary>
@@ -577,8 +642,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PMessagesNumber;
+        protected TextBox PMessagesNumber;
         
+
         /// <summary>
         /// Requiredfieldvalidator9-Steuerelement
         /// </summary>
@@ -586,8 +652,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator9;
+        protected RequiredFieldValidator Requiredfieldvalidator9;
         
+
         /// <summary>
         /// PMessagesBoardsOptions-Steuerelement
         /// </summary>
@@ -595,8 +662,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList PMessagesBoardsOptions;
+        protected RadioButtonList PMessagesBoardsOptions;
         
+
         /// <summary>
         /// PMessagesBoardsList-Steuerelement
         /// </summary>
@@ -604,8 +672,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PMessagesBoardsList;
+        protected DropDownList PMessagesBoardsList;
         
+
         /// <summary>
         /// From-Steuerelement
         /// </summary>
@@ -613,8 +682,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox From;
+        protected TextBox From;
         
+
         /// <summary>
         /// Requiredfieldvalidator2-Steuerelement
         /// </summary>
@@ -622,8 +692,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator2;
+        protected RequiredFieldValidator Requiredfieldvalidator2;
         
+
         /// <summary>
         /// To-Steuerelement
         /// </summary>
@@ -631,8 +702,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox To;
+        protected TextBox To;
         
+
         /// <summary>
         /// Requiredfieldvalidator11-Steuerelement
         /// </summary>
@@ -640,8 +712,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator11;
+        protected RequiredFieldValidator Requiredfieldvalidator11;
         
+
         /// <summary>
         /// PMessagesToAll-Steuerelement
         /// </summary>
@@ -649,8 +722,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox PMessagesToAll;
+        protected CheckBox PMessagesToAll;
         
+
         /// <summary>
         /// MarkRead-Steuerelement
         /// </summary>
@@ -658,8 +732,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox MarkRead;
+        protected CheckBox MarkRead;
         
+
         /// <summary>
         /// PMessageText-Steuerelement
         /// </summary>
@@ -667,8 +742,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PMessageText;
+        protected TextBox PMessageText;
         
+
         /// <summary>
         /// UserPrefixTB-Steuerelement
         /// </summary>
@@ -676,8 +752,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserPrefixTB;
+        protected TextBox UserPrefixTB;
         
+
         /// <summary>
         /// UserPrefixTBRequiredfieldvalidator-Steuerelement
         /// </summary>
@@ -685,8 +762,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator UserPrefixTBRequiredfieldvalidator;
+        protected RequiredFieldValidator UserPrefixTBRequiredfieldvalidator;
         
+
         /// <summary>
         /// BoardPrefixTB-Steuerelement
         /// </summary>
@@ -694,8 +772,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardPrefixTB;
+        protected TextBox BoardPrefixTB;
         
+
         /// <summary>
         /// BoardPrefixTBRequiredfieldvalidator-Steuerelement
         /// </summary>
@@ -703,8 +782,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator BoardPrefixTBRequiredfieldvalidator;
+        protected RequiredFieldValidator BoardPrefixTBRequiredfieldvalidator;
         
+
         /// <summary>
         /// CategoryPrefixTB-Steuerelement
         /// </summary>
@@ -712,8 +792,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CategoryPrefixTB;
+        protected TextBox CategoryPrefixTB;
         
+
         /// <summary>
         /// CategoryPrefixTBRequiredfieldvalidator-Steuerelement
         /// </summary>
@@ -721,8 +802,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator CategoryPrefixTBRequiredfieldvalidator;
+        protected RequiredFieldValidator CategoryPrefixTBRequiredfieldvalidator;
         
+
         /// <summary>
         /// ForumPrefixTB-Steuerelement
         /// </summary>
@@ -730,8 +812,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ForumPrefixTB;
+        protected TextBox ForumPrefixTB;
         
+
         /// <summary>
         /// ForumPrefixTBRequiredfieldvalidator-Steuerelement
         /// </summary>
@@ -739,8 +822,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ForumPrefixTBRequiredfieldvalidator;
+        protected RequiredFieldValidator ForumPrefixTBRequiredfieldvalidator;
         
+
         /// <summary>
         /// TopicPrefixTB-Steuerelement
         /// </summary>
@@ -748,8 +832,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TopicPrefixTB;
+        protected TextBox TopicPrefixTB;
         
+
         /// <summary>
         /// TopicPrefixTBRequiredfieldvalidator-Steuerelement
         /// </summary>
@@ -757,8 +842,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator TopicPrefixTBRequiredfieldvalidator;
+        protected RequiredFieldValidator TopicPrefixTBRequiredfieldvalidator;
         
+
         /// <summary>
         /// MessageContentPrefixTB-Steuerelement
         /// </summary>
@@ -766,8 +852,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MessageContentPrefixTB;
+        protected TextBox MessageContentPrefixTB;
         
+
         /// <summary>
         /// MessageContentPrefixTBRequiredfieldvalidator-Steuerelement
         /// </summary>
@@ -775,8 +862,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator MessageContentPrefixTBRequiredfieldvalidator;
+        protected RequiredFieldValidator MessageContentPrefixTBRequiredfieldvalidator;
         
+
         /// <summary>
         /// hidLastTab-Steuerelement
         /// </summary>
@@ -784,8 +872,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
+        protected HiddenField hidLastTab;
         
+
         /// <summary>
         /// LaunchGenerator-Steuerelement
         /// </summary>
@@ -793,8 +882,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button LaunchGenerator;
+        protected Button LaunchGenerator;
         
+
         /// <summary>
         /// Cancel-Steuerelement
         /// </summary>
@@ -802,8 +892,9 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Cancel;
+        protected Button Cancel;
         
+
         /// <summary>
         /// SmartScroller1-Steuerelement
         /// </summary>
@@ -811,6 +902,6 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected SmartScroller SmartScroller1;
     }
 }

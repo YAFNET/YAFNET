@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class DialogBox {
         
+
         /// <summary>
         /// YafForumPageErrorPopup-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel YafForumPageErrorPopup;
+        protected Panel YafForumPageErrorPopup;
         
+
         /// <summary>
         /// Header-Steuerelement
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Header;
+        protected Label Header;
         
+
         /// <summary>
         /// MessageText-Steuerelement
         /// </summary>
@@ -37,8 +40,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal MessageText;
+        protected Literal MessageText;
         
+
         /// <summary>
         /// OkButton-Steuerelement
         /// </summary>
@@ -46,8 +50,9 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button OkButton;
+        protected Button OkButton;
         
+
         /// <summary>
         /// CancelButton-Steuerelement
         /// </summary>
@@ -55,6 +60,6 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelButton;
+        protected Button CancelButton;
     }
 }

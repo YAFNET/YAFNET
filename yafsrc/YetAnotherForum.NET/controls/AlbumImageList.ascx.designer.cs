@@ -22,15 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Literal ltrTitleOnly;
         
         /// <summary>
-        /// spnAlbumOwner-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnAlbumOwner;
-        
-        /// <summary>
         /// ltrTitle-Steuerelement
         /// </summary>
         /// <remarks>
@@ -46,7 +37,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button EditAlbums;
+        protected global::YAF.Controls.ThemeButton EditAlbums;
         
         /// <summary>
         /// PagerTop-Steuerelement

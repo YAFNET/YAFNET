@@ -1,7 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.reindex" Codebehind="reindex.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu ID="AdminMenu1" runat="server">
+
 <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REINDEX" /></h1>
@@ -58,7 +58,7 @@
         </div>
     </div>
 </div>
-</YAF:AdminMenu>
+
 
 <div>
 	<div id="DeleteForumMessage" style="display:none">

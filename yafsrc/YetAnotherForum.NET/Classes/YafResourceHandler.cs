@@ -520,7 +520,8 @@ namespace YAF
                                        CssClass = "yafcssimagebutton",
                                        TextLocalizedPage = "POSTS",
                                        TextLocalizedTag = "PM",
-                                       ImageThemeTag = "PM",
+                                       Type = ButtonAction.Secondary,
+                                       Icon = "envelope-open-text",
                                        TitleLocalizedTag = "PM_TITLE",
                                        TitleLocalizedPage = "POSTS",
                                        NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, true, "u={0}", userId).Replace(
@@ -1589,8 +1590,10 @@ namespace YAF
                         exception));
 
                 // Output the data
-                context.Response.Redirect(
-                    "{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));
+                context.Response.Redirect(avatarUrl);
+
+                /*context.Response.Redirect(
+                                    "{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));*/
             }
         }
 

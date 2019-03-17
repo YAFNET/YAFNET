@@ -145,8 +145,6 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.ValidateKey.Text = this.GetText("validate");
-
             if (this.Request.QueryString["k"] != null)
             {
                 this.key.Text = this.Request.QueryString["k"];

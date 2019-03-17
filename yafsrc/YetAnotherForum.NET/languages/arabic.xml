@@ -131,7 +131,7 @@
     <Resource tag="RSSTOPIC">مشاهدت الملخصات  </Resource>
     <Resource tag="RULES">عرض قواعد المنتدى</Resource>
     <Resource tag="SEARCH">بحث عن مستخدم</Resource>
-    <Resource tag="SHOUTBOX">استخدام  الدردشة </Resource>
+    <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> في المنتدى </Resource>
     <Resource tag="TOPICS">مشاهدات الموضوع </Resource>
@@ -4519,6 +4519,8 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">إعلان </Resource>
     <Resource tag="ASK_POLL_DELETE">هل  تريد حقا  إلغاء الاستفتاء عن ها الموضوع ؟</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">تعديل  تعليق  </Resource>
@@ -4730,6 +4732,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="ERROR_FORUMMODERATORS">لا يمكن إستبعاد  مشرفين .</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">لا يمكن إستبعاد زائر .</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">الجنس:</Resource>
     <Resource tag="GENDER0">غير محدد</Resource>
     <Resource tag="GENDER1">ذكر</Resource>
@@ -4762,6 +4765,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">اضهار كل  مشاركات المستخدم </Resource>
     <Resource tag="SKYPE">سكاي بي(SKYPE):</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">إحصاءات</Resource>
     <Resource tag="SUSPEND">إستبعاد</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5565,6 +5569,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">آخر التعليقات </Resource>
     <Resource tag="MARKREAD">تعين هذه المنتدى مقروء</Resource>
     <Resource tag="NO_POSTS">لا يوجد تعليقات  </Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">تعليقات </Resource>
     <Resource tag="REPLIES">الردود</Resource>

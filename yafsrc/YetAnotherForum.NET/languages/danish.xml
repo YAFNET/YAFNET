@@ -4546,6 +4546,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Nyhed</Resource>
     <Resource tag="ASK_POLL_DELETE">Vil du virkelig fjerne afstemningen fra dette emne?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Rediger indlæg</Resource>
@@ -4757,6 +4759,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Du kan ikke suspendere forum moderatorer.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Du kan ikke suspendere gæste kontoen.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Køn:</Resource>
     <Resource tag="GENDER0">Ikke specificeret</Resource>
     <Resource tag="GENDER1">Hankøn</Resource>
@@ -4789,6 +4792,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Vis alle indlæg af brugeren</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
     <Resource tag="SUSPEND">Suspender</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5586,6 +5590,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Sidste indlæg</Resource>
     <Resource tag="MARKREAD">Marker dette forum som læst</Resource>
     <Resource tag="NO_POSTS">Ingen indlæg</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Indlæg</Resource>
     <Resource tag="REPLIES">Svar</Resource>

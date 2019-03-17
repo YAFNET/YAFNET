@@ -30,7 +30,6 @@ namespace YAF.Controls
   using System.Collections;
   using System.Data;
   using System.Linq;
-  using System.Web;
   using System.Web.UI.HtmlControls;
   using System.Web.UI.WebControls;
 
@@ -648,7 +647,7 @@ namespace YAF.Controls
         this.MaxImageAspect = 1;
 
         // We don't display poll command row to everyone 
-        item.FindControlRecursiveAs<HtmlTableRow>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
+        item.FindControlRecursiveAs<PlaceHolder>("PollCommandRow").Visible = this.HasOwnerExistingGroupAccess() &&
                                                                               this.ShowButtons;
 
         // Binding question image
@@ -843,19 +842,15 @@ namespace YAF.Controls
         // Poll has expiration date
         if (daystorun > 0)
         {
-          var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
-          pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_NOTCLOSED");
           if (!soon)
           {
             notificationString +=
               " {0}".FormatWith(this.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
-            pollClosedImage.Alt = this.GetTextFormatted("POLL_WILLEXPIRE", daystorun);
           }
           else
           {
             notificationString +=
               " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
-            pollClosedImage.Alt = this.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS");
           }
 
           if (isClosedBound)
@@ -863,9 +858,6 @@ namespace YAF.Controls
             notificationString +=
               " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
           }
-
-          pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
-          pollClosedImage.Visible = true;
         }
         else if (daystorun == 0)
         {
@@ -892,7 +884,7 @@ namespace YAF.Controls
         // we don't display warnings row if no info
         if (notificationString.IsSet())
         {
-          item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+          item.FindControlRecursiveAs<PlaceHolder>("PollInfoTr").Visible = true;
           var pn = item.FindControlRecursiveAs<Label>("PollNotification");
           pn.Text = notificationString;
           pn.Visible = true;
@@ -908,7 +900,7 @@ namespace YAF.Controls
       if (this._groupNotificationString.IsSet())
       {
         // we don't display warnings row if no info
-        item.FindControlRecursiveAs<HtmlTableRow>("PollInfoTr").Visible = true;
+        item.FindControlRecursiveAs<PlaceHolder>("PollInfoTr").Visible = true;
         var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
         pgn.Text = this._groupNotificationString;
         pgn.Visible = true;
@@ -1026,7 +1018,7 @@ namespace YAF.Controls
     /// </param>
     private void AddPollGroupButtonConfirmations([NotNull] RepeaterItem ri)
     {
-      var pgcr = ri.FindControlRecursiveAs<HtmlTableRow>("PollGroupCommandRow");
+      var pgcr = ri.FindControlRecursiveAs<PlaceHolder>("PollGroupCommandRow");
       pgcr.Visible = this.HasOwnerExistingGroupAccess() && this.ShowButtons;
 
       // return confirmations for poll group 
@@ -1160,16 +1152,10 @@ namespace YAF.Controls
     private void BindPollQuestionImage([NotNull] RepeaterItem item, [NotNull] DataRowView drowv)
     {
       var questionImage = item.FindControlRecursiveAs<HtmlImage>("QuestionImage");
-      var questionAnchor = item.FindControlRecursiveAs<HtmlAnchor>("QuestionAnchor");
 
       // The image is not from theme
       if (!drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField())
       {
-        // questionAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
-        questionAnchor.HRef = drowv.Row["QuestionObjectPath"].IsNullOrEmptyDBField()
-                                ? this.GetThemeContents("VOTE", "POLL_CHOICE")
-                                : this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
-
         questionImage.Src = this.HtmlEncode(drowv.Row["QuestionObjectPath"].ToString());
 
         if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
@@ -1183,10 +1169,7 @@ namespace YAF.Controls
       }
       else
       {
-        // image from theme no need to resize it
-        questionImage.Alt = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-        questionImage.Src = this.GetThemeContents("VOTE", "POLL_QUESTION");
-        questionAnchor.HRef = string.Empty;
+          questionImage.Visible = false;
       }
     }
 

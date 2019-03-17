@@ -48,7 +48,7 @@ namespace YAF.Modules
     /// </param>
     protected override void Render(HtmlTextWriter writer)
     {
-      writer.Write("Hello, you wrote this: " + Parameters["inner"]);
+      writer.Write("Hello, you wrote this: " + this.Parameters["inner"]);
     }
   }
 }

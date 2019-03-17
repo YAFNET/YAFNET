@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+
     public partial class messagehistory {
         
+
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -19,17 +22,29 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
-        /// LocalizedLabel1-Steuerelement
+        /// LocalizedLabel6-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel6;
         
+
+        /// <summary>
+        /// LocalizedLabel10-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected LocalizedLabel LocalizedLabel10;
+        
+
         /// <summary>
         /// RevisionsList-Steuerelement
         /// </summary>
@@ -37,8 +52,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RevisionsList;
+        protected Repeater RevisionsList;
         
+
         /// <summary>
         /// ReturnBtn-Steuerelement
         /// </summary>
@@ -46,8 +62,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton ReturnBtn;
+        protected ThemeButton ReturnBtn;
         
+
         /// <summary>
         /// ReturnModBtn-Steuerelement
         /// </summary>
@@ -55,8 +72,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton ReturnModBtn;
+        protected ThemeButton ReturnModBtn;
         
+
         /// <summary>
         /// LocalizedLabel4-Steuerelement
         /// </summary>
@@ -64,8 +82,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected LocalizedLabel LocalizedLabel4;
         
+
         /// <summary>
         /// LocalizedLabel8-Steuerelement
         /// </summary>
@@ -73,8 +92,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
+        protected LocalizedLabel LocalizedLabel8;
         
+
         /// <summary>
         /// SmartScroller1-Steuerelement
         /// </summary>
@@ -82,6 +102,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected SmartScroller SmartScroller1;
     }
 }

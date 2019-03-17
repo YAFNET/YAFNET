@@ -31,13 +31,22 @@ namespace YAF.Pages {
         protected global::YAF.Controls.LocalizedLabel Title;
         
         /// <summary>
+        /// LocalizedLabel2-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
         /// TitleRow-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TitleRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder TitleRow;
         
         /// <summary>
         /// LocalizedLabel1-Steuerelement
@@ -64,16 +73,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button UpdateTitle;
-        
-        /// <summary>
-        /// Delete-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Delete;
+        protected global::YAF.Controls.ThemeButton UpdateTitle;
         
         /// <summary>
         /// List-Steuerelement
@@ -91,7 +91,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow uploadtitletr;
+        protected global::System.Web.UI.WebControls.PlaceHolder uploadtitletr;
         
         /// <summary>
         /// UploadTitle-Steuerelement
@@ -109,16 +109,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow selectfiletr;
-        
-        /// <summary>
-        /// SelectFile-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SelectFile;
+        protected global::System.Web.UI.WebControls.PlaceHolder selectfiletr;
         
         /// <summary>
         /// File-Steuerelement
@@ -130,13 +121,22 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
         
         /// <summary>
+        /// SelectFile-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel SelectFile;
+        
+        /// <summary>
         /// Upload-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Upload;
+        protected global::YAF.Controls.ThemeButton Upload;
         
         /// <summary>
         /// imagesInfo-Steuerelement
@@ -148,13 +148,22 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Label imagesInfo;
         
         /// <summary>
+        /// Delete-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton Delete;
+        
+        /// <summary>
         /// Back-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Back;
+        protected global::YAF.Controls.ThemeButton Back;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

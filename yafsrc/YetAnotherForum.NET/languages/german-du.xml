@@ -4466,6 +4466,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Ankündigung</Resource>
     <Resource tag="ASK_POLL_DELETE">Wirklich die Umfrage löschen?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Beitrag bearbeiten/erstellen abbrechen</Resource>
     <Resource tag="DESCRIPTION">Beschreibung:</Resource>
     <Resource tag="EDIT">Beitrag bearbeiten</Resource>
@@ -4676,6 +4678,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Moderatoren können nicht gesperrt werden.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Das Gastkonto kann nicht gesperrt werden.</Resource>
     <Resource tag="FACEBOOK">Facebook Profil:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Geschlecht:</Resource>
     <Resource tag="GENDER0">nicht angegeben</Resource>
     <Resource tag="GENDER1">Männlich</Resource>
@@ -4708,6 +4711,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Reputation</Resource>
     <Resource tag="SEARCHUSER">Alle Beiträge des Mitglieds anschauen</Resource>
     <Resource tag="SKYPE">Skype ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistik</Resource>
     <Resource tag="SUSPEND">Sperren</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5504,6 +5508,7 @@ Der Bestätigungscode lautet
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MARKREAD">Dieses Forum als gelesen markieren</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Dieses Forum durchsuchen</Resource>
     <Resource tag="POSTS">Beiträge</Resource>
     <Resource tag="REPLIES">Antworten</Resource>

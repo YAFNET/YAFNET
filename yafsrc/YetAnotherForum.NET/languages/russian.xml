@@ -4501,6 +4501,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Объявление</Resource>
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить опрос из этой темы?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Отменить редактирование или создание</Resource>
     <Resource tag="DESCRIPTION">Описание:</Resource>
     <Resource tag="EDIT">Редактировать сообщение</Resource>
@@ -4711,6 +4713,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Вы не можете банить модераторов.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Вы не можете банить учётную запись гостя.</Resource>
     <Resource tag="FACEBOOK">Профиль Facebook:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Пол:</Resource>
     <Resource tag="GENDER0">Не указан</Resource>
     <Resource tag="GENDER1">Мужской</Resource>
@@ -4743,6 +4746,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Общая репутация</Resource>
     <Resource tag="SEARCHUSER">Просмотр всех сообщений пользователя</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Статистика</Resource>
     <Resource tag="SUSPEND">Поставить бан</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5540,6 +5544,7 @@ Password: {password}
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MARKREAD">Отметить форум как прочитанный</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Поиск по форуму</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="REPLIES">Ответы</Resource>

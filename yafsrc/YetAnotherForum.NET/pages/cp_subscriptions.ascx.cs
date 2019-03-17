@@ -140,10 +140,6 @@ namespace YAF.Pages
                     YafBuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.UnsubscribeForums.Text = this.GetText("unsubscribe");
-            this.UnsubscribeTopics.Text = this.GetText("unsubscribe");
-            this.SaveUser.Text = this.GetText("Save");
-
             this.DailyDigestRow.Visible = this.Get<YafBoardSettings>().AllowDigestEmail;
             this.PMNotificationRow.Visible = this.Get<YafBoardSettings>().AllowPMEmailNotification;
 
@@ -299,6 +295,8 @@ namespace YAF.Pages
 
             this.UnsubscribeForums.Visible = watchForums.Count() != 0;
 
+            this.ForumsHolder.Visible = watchForums.Count() != 0;
+
             // we are going to page results
             var dt = this.GetRepository<WatchTopic>().List(this.PageContext.PageUserID);
 
@@ -322,7 +320,9 @@ namespace YAF.Pages
             this.TopicList.DataSource = topicList;
 
             this.UnsubscribeTopics.Visible = topicList.Count() != 0;
-            
+
+            this.TopicsHolder.Visible = topicList.Count() != 0;
+
             this.PMNotificationEnabled.Checked = this.PageContext.CurrentUserData.PMNotification;
             this.DailyDigestEnabled.Checked = this.PageContext.CurrentUserData.DailyDigest;
 

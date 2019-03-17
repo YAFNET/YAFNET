@@ -183,10 +183,10 @@ namespace YAF.Controls
 
                 this.albumsInfo.Visible = false;
             } */
-
             if (this.AddAlbum.Visible)
             {
-                this.AddAlbum.Text = this.Get<ILocalization>().GetText("BUTTON", "BUTTON_ADDALBUM");
+                this.AddAlbum.TextLocalizedPage = "BUTTON";
+                this.AddAlbum.TextLocalizedTag = "BUTTON_ADDALBUM";
             }
         }
 

@@ -107,7 +107,7 @@ namespace YAF.Controls
                             activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
                         YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0),
                         this.GetText("COMMON", "VIEW_FULLINFO"),
-                        PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
+                        this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
             }
             else
             {
@@ -126,7 +126,7 @@ namespace YAF.Controls
                                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers),
                             YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1),
                             this.GetText("COMMON", "VIEW_FULLINFO"),
-                            PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)
+                            this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)
                         : ", {0}".FormatWith(
                             this.GetTextFormatted(
                                 activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
@@ -144,7 +144,7 @@ namespace YAF.Controls
                                 activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
                             YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2),
                             this.GetText("COMMON", "VIEW_FULLINFO"),
-                            PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
+                            this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
                 }
                 else
                 {
@@ -402,7 +402,6 @@ namespace YAF.Controls
             this.NewestMemberUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
                                                         ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
                                                         : userStatisticsDataRow["LastMember"].ToString();
-            this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
             this.GetTodaysBirthdays();
         }

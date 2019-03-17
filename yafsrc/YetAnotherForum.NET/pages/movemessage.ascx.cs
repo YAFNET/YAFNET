@@ -116,7 +116,7 @@ namespace YAF.Pages
             this.TopicsList.DataBind();
 
             this.TopicsList_SelectedIndexChanged(this.ForumList, e);
-            this.CreateAndMove.Enabled = this.ForumList.SelectedValue.ToType<int>() > 0;
+            this.CreateAndMove.Visible = this.ForumList.SelectedValue.ToType<int>() > 0;
         }
 
         /// <summary>
@@ -166,11 +166,6 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 
-            this.Move.Text = this.GetText("MOVE_MESSAGE");
-            this.Move.ToolTip = this.GetText("MOVE_TITLE");
-            this.CreateAndMove.Text = this.GetText("CREATE_TOPIC");
-            this.CreateAndMove.ToolTip = this.GetText("SPLIT_TITLE");
-
             this.ForumList.DataSource = LegacyDb.forum_listall_sorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
@@ -189,7 +184,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Move.Enabled = this.TopicsList.SelectedValue != string.Empty;
+            this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
         }
 
         /// <summary>

@@ -12,6 +12,7 @@ namespace YAF.Controls {
     
     public partial class DisplayPostFooter {
         
+
         /// <summary>
         /// btnTogglePost-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton btnTogglePost;
+        protected ThemeButton btnTogglePost;
         
+
         /// <summary>
         /// ReportPost-Steuerelement
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton ReportPost;
+        protected ThemeButton ReportPost;
         
+
         /// <summary>
         /// MarkAsAnswer-Steuerelement
         /// </summary>
@@ -37,6 +40,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton MarkAsAnswer;
+        protected ThemeButton MarkAsAnswer;
     }
 }

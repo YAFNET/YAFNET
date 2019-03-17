@@ -2,120 +2,102 @@
     Inherits="YAF.Pages.deletemessage" Codebehind="deletemessage.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="content" cellspacing="1" cellpadding="4" width="100%" align="center">
-    <tr>
-        <td class="header1" align="center" colspan="2">
-            <asp:Label ID="Title" runat="server" />
-        </td>
-    </tr>
-    <tr id="SubjectRow" runat="server">
-        <td class="postformheader" width="20%">
-            <YAF:LocalizedLabel runat="server" LocalizedTag="subject" />
-        </td>
-        <td class="post" width="80%">
-            <asp:Label runat="server" ID="Subject" />
-        </td>
-    </tr>
-    <tr id="PreviewRow" runat="server" visible="false">
-        <td class="postformheader" valign="top">
-            <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
-        </td>
-        <td class="post" valign="top">
-            <YAF:MessagePost ID="MessagePreview" runat="server">
-            </YAF:MessagePost>
-        </td>
-    </tr>
-    <tr id="DeleteReasonRow" runat="server">
-        <td class="postformheader" width="20%">
-            <% = GetReasonText() %>
-        </td>
-        <td class="post" width="80%">
-            <asp:TextBox ID="ReasonEditor" runat="server" CssClass="edit" MaxLength="100" />
-        </td>
-    </tr>
-    <tr id="EraseRow" runat="server" visible="false">
-        <td class="postformheader" width="20%">
-        </td>
-        <td class="post" width="80%">
-            <asp:CheckBox ID="EraseMessage" runat="server" Checked="false" /><YAF:LocalizedLabel
-                runat="server" LocalizedTag="erasemessage" />
-        </td>
-    </tr>
-    <tr>
-        <td align="center" colspan="2" class="footer1">
-            <asp:Button ID="Delete" CssClass="pbutton" runat="server" OnClick="ToogleDeleteStatus_Click" />
-            <asp:Button ID="Cancel" CssClass="pbutton" runat="server" OnClick="Cancel_Click" />
-            <br>
-        </td>
-    </tr>
-</table>
-<br />
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2><asp:Label ID="Title" runat="server" /></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <span class="fa-stack fa-1x">
+                    <i class="fas fa-comment fa-stack-2x"></i>
+                    <i class="fas fa-trash fa-stack-1x fa-inverse"></i>
+                </span>&nbsp; 
+                <YAF:LocalizedLabel runat="server" LocalizedTag="subject" />&nbsp;<asp:Label runat="server" ID="Subject" />
+            </div>
+            <div class="card-body">
+                <form>
+                    <asp:PlaceHolder runat="server" id="PreviewRow" visible="false">
+                    <div class="form-group">
+                        <asp:Label runat="server">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
+                        </asp:Label>
+                        <YAF:MessagePost ID="MessagePreview" runat="server">
+                        </YAF:MessagePost>
+                    </div>
+                    </asp:PlaceHolder>
+                    <asp:PlaceHolder runat="server" id="DeleteReasonRow">
+                    <div class="form-group">
+                        <asp:Label runat="server">
+                            <% = this.GetReasonText() %>
+                        </asp:Label>
+                        <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" MaxLength="100" />
+                    </div>
+                    </asp:PlaceHolder>
+                    <asp:PlaceHolder id="EraseRow" runat="server" visible="false">
+                        <div class="form-group">
+                            <asp:CheckBox ID="EraseMessage" runat="server" Checked="false" />
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="erasemessage" />
+                        </div>
+                    </asp:PlaceHolder>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton ID="Delete" runat="server" 
+                                 OnClick="ToogleDeleteStatus_Click"
+                                 Type="Danger"
+                                 Icon="trash"/>
+                <YAF:ThemeButton ID="Cancel" runat="server" 
+                                 OnClick="Cancel_Click"
+                                 TextLocalizedTag="CANCEL"
+                                 Type="Secondary"
+                                 Icon="arrow-left"/>
+            </div>
+        </div>
+    </div>
+</div>
+
 <asp:Repeater ID="LinkedPosts" runat="server" Visible="false">
     <HeaderTemplate>
-        <table class="content linkedPostsContent" cellspacing="1" cellpadding="0" width="100%" align="center">
-            <tr>
-                <td class="header2" align="center" colspan="1">
-                    <asp:CheckBox ID="DeleteAllPosts" runat="server" />
-                    Delete All Posts?
-                </td>
-                <td class="header2" align="center" colspan="1">
-                    <%# GetActionText() %>
-                </td>
-            </tr>
+        <div class="row">
+        <div class="col">
+        <div class="card mb-3">
+        <div class="card-header">
+            <span class="fa-stack fa-1x">
+                <i class="fas fa-comment fa-stack-2x"></i>
+                <i class="fas fa-trash fa-stack-1x fa-inverse"></i>
+            </span>&nbsp; 
+            <asp:CheckBox ID="DeleteAllPosts" runat="server" />
+            Delete All Posts?
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
     </HeaderTemplate>
     <FooterTemplate>
-        </table>
+            </ul>
+        </div>
+        </div>
+        </div>
+        </div>
     </FooterTemplate>
     <ItemTemplate>
-        <tr class="postheader">
-            <td width="140">
-                <strong><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}&name={1}",DataBinder.Eval(Container.DataItem, "UserID"), DataBinder.Eval(Container.DataItem, "UserName")) %>">
-                    <%# DataBinder.Eval(Container.DataItem, "UserName") %></a></strong>
-            </td>
-            <td width="80%" class="small" align="left">
-                <strong>
+        <li class="list-group-item">
+            <span class="font-weight-bold"><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}&name={1}",DataBinder.Eval(Container.DataItem, "UserID"), DataBinder.Eval(Container.DataItem, "UserName")) %>">
+                    <%# DataBinder.Eval(Container.DataItem, "UserName") %></a></span>
+                <span class="font-weight-bold">
                     <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
-                </strong>
+                </span>
                 <%# this.Get<IDateTime>().FormatDateTime( ( DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
-            </td>
-        </tr>
-        <tr class="post">
-            <td>
-                &nbsp;
-            </td>
-            <td valign="top" class="message">
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# ((System.Data.DataRowView )Container.DataItem).Row %>"
                     ShowAttachments="false" ShowSignature="false">
                 </YAF:MessagePostData>
-            </td>
-        </tr>
+        </li>
     </ItemTemplate>
-    <AlternatingItemTemplate>
-        <tr class="postheader">
-            <td width="140">
-                <strong><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
-                    <%# DataBinder.Eval(Container.DataItem, "UserName") %></a></strong>
-            </td>
-            <td width="80%" class="small" align="left">
-                <strong>
-                    <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
-                </strong>
-                <%# this.Get<IDateTime>().FormatDateTime((DateTime) ((System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
-            </td>
-        </tr>
-        <tr class="post_alt">
-            <td>
-                &nbsp;
-            </td>
-            <td valign="top" class="message">
-                <YAF:MessagePostData ID="MessagePostAlt" runat="server" DataRow="<%#((System.Data.DataRowView )Container.DataItem).Row %>"
-                    ShowAttachments="false" ShowSignature="false">
-                </YAF:MessagePostData>
-            </td>
-        </tr>
-    </AlternatingItemTemplate>
 </asp:Repeater>
 
 <div id="DivSmartScroller">

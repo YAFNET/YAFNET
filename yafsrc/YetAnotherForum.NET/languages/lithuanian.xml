@@ -4659,6 +4659,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Reklama </Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Redaguoti pranešimą </Resource>
@@ -4902,6 +4904,7 @@ Spoiler Content
     </Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Jūs negalite sustabdyti svečių sąskaitą. </Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Lytis: </Resource>
     <Resource tag="GENDER0">Nenurodyta </Resource>
     <Resource tag="GENDER1">Vyras </Resource>
@@ -4934,6 +4937,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">View All Posts by User</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistika </Resource>
     <Resource tag="SUSPEND">Sustabdyti </Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5743,6 +5747,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Last Post </Resource>
     <Resource tag="MARKREAD">Pažymėti šį forumą kaip perskaitytą </Resource>
     <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Atsakymai </Resource>

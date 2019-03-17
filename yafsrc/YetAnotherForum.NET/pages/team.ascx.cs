@@ -175,7 +175,9 @@ namespace YAF.Pages
                 for (var i = 0; i < forumsCount; i++)
                 {
                     var forumsId = new ModeratorsForums
-                        { ForumID = modList[i].ForumID, ForumName = modList[i].ForumName };
+                        {
+                           ForumID = modList[i].ForumID, ForumName = modList[i].ForumName 
+                        };
 
                     sortedMod.ForumIDs[i] = forumsId;
                 }
@@ -313,12 +315,12 @@ namespace YAF.Pages
                 return;
             }
 
-            pm.Visible = !PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
             pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
             email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
             email.ParamTitle0 = displayName;
         }
@@ -386,18 +388,20 @@ namespace YAF.Pages
                                        let forumListItem =
                                            new ListItem
                                                {
-                                                   Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName 
+                                                   Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName
                                                }
                                        where !modForums.Items.Contains(forumListItem)
                                        select forumsItem)
             {
-                modForums.Items.Add(new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName });
+                modForums.Items.Add(
+                    new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName });
             }
 
             if (modForums.Items.Count > 0)
             {
                 modForums.Items.Insert(
-                    0, new ListItem(this.GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
+                    0,
+                    new ListItem(this.GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
                 modForums.Items.Insert(1, new ListItem("--------------------------", "break"));
             }
             else
@@ -421,7 +425,10 @@ namespace YAF.Pages
             var modAvatar = (Image)e.Item.FindControl("ModAvatar");
 
             modAvatar.ImageUrl = this.GetAvatarUrlFileName(
-                userid.ToType<int>(), drowv.Avatar, drowv.AvatarImage, drowv.Email);
+                userid.ToType<int>(),
+                drowv.Avatar,
+                drowv.AvatarImage,
+                drowv.Email);
 
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;
@@ -432,20 +439,21 @@ namespace YAF.Pages
             }
 
             pm.Visible = !this.PageContext.IsGuest && this.User != null
-                         && this.Get<YafBoardSettings>().AllowPrivateMessages;
+                                                   && this.Get<YafBoardSettings>().AllowPrivateMessages;
             pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
             email.Visible = !this.PageContext.IsGuest && this.User != null
-                            && this.Get<YafBoardSettings>().AllowEmailSending;
+                                                      && this.Get<YafBoardSettings>().AllowEmailSending;
             email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
             email.ParamTitle0 = displayName;
+
             /*}
-            catch (Exception)
-            {
-                return;
-            }*/
+                        catch (Exception)
+                        {
+                            return;
+                        }*/
         }
 
         #endregion

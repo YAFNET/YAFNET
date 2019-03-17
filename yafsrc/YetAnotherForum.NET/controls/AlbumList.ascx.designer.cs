@@ -22,22 +22,13 @@ namespace YAF.Controls {
         protected global::YAF.Controls.LocalizedLabel AlbumHeaderLabel;
         
         /// <summary>
-        /// albumsInfo-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label albumsInfo;
-        
-        /// <summary>
         /// AddAlbum-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddAlbum;
+        protected global::YAF.Controls.ThemeButton AddAlbum;
         
         /// <summary>
         /// PagerTop-Steuerelement
@@ -65,6 +56,15 @@ namespace YAF.Controls {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.Pager PagerBottom;
+        
+        /// <summary>
+        /// albumsInfo-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label albumsInfo;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

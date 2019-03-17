@@ -297,12 +297,6 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.MSN.Text.IsSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"), MessageTypes.warning);
-                return;
-            }
-
             if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
@@ -607,9 +601,6 @@ namespace YAF.Controls
             this.WeblogUrl.Text = this.UserData.Profile.BlogServiceUrl;
             this.WeblogID.Text = this.UserData.Profile.BlogServicePassword;
             this.WeblogUsername.Text = this.UserData.Profile.BlogServiceUsername;
-            this.MSN.Text = this.UserData.Profile.MSN;
-            this.YIM.Text = this.UserData.Profile.YIM;
-            this.AIM.Text = this.UserData.Profile.AIM;
             this.ICQ.Text = this.UserData.Profile.ICQ;
 
             this.Facebook.Text = ValidationHelper.IsNumeric(this.UserData.Profile.Facebook)
@@ -618,7 +609,6 @@ namespace YAF.Controls
                                      : this.UserData.Profile.Facebook;
 
             this.Twitter.Text = this.UserData.Profile.Twitter;
-            this.Google.Text = this.UserData.Profile.Google;
             this.Xmpp.Text = this.UserData.Profile.XMPP;
             this.Skype.Text = this.UserData.Profile.Skype;
             this.Gender.SelectedIndex = this.UserData.Profile.Gender;
@@ -783,13 +773,9 @@ namespace YAF.Controls
             userProfile.City = this.City.Text.Trim();
             userProfile.Location = this.Location.Text.Trim();
             userProfile.Homepage = this.HomePage.Text.Trim();
-            userProfile.MSN = this.MSN.Text.Trim();
-            userProfile.YIM = this.YIM.Text.Trim();
-            userProfile.AIM = this.AIM.Text.Trim();
             userProfile.ICQ = this.ICQ.Text.Trim();
             userProfile.Facebook = this.Facebook.Text.Trim();
             userProfile.Twitter = this.Twitter.Text.Trim();
-            userProfile.Google = this.Google.Text.Trim();
             userProfile.XMPP = this.Xmpp.Text.Trim();
             userProfile.Skype = this.Skype.Text.Trim();
             userProfile.RealName = this.Realname.Text.Trim();

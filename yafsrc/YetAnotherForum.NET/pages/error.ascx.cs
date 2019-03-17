@@ -38,7 +38,7 @@ namespace YAF.Pages
   #endregion
 
   /// <summary>
-  /// Summary description for error.
+  /// the custom error page
   /// </summary>
   public partial class error : ForumPage
   {
@@ -81,7 +81,7 @@ namespace YAF.Pages
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      this.errormsg.InnerText =
+      this.ErrorMessageHolder.Text =
         "An error has occured in '{0}'.".FormatWith(
           this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("aspxerrorpath"));
     }

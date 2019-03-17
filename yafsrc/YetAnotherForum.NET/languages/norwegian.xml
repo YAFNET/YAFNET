@@ -4541,6 +4541,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Annonsert</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Rediger innlegg</Resource>
@@ -4752,6 +4754,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Du kan ikke utestenge moderatorer.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Du kan ikke utestenge gjestekontoen.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Kjønn:</Resource>
     <Resource tag="GENDER0">Ikke spesifisert</Resource>
     <Resource tag="GENDER1">Mann</Resource>
@@ -4784,6 +4787,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">View All Posts by User</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistikk</Resource>
     <Resource tag="SUSPEND">Utestend</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5581,6 +5585,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Siste innlegg</Resource>
     <Resource tag="MARKREAD">Marker dette forumet som lest</Resource>
     <Resource tag="NO_POSTS">Ingen innlegg</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Svar</Resource>

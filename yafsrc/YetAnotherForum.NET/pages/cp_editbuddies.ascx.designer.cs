@@ -22,13 +22,13 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// BuddyList-Steuerelement
+        /// LocalizedLabel6-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel BuddyList;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
         /// <summary>
         /// BuddiesTabs-Steuerelement
@@ -67,6 +67,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
+        /// LocalizedLabel4-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        
+        /// <summary>
         /// BuddyList1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.BuddyList BuddyList1;
         
         /// <summary>
+        /// LocalizedLabel5-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        
+        /// <summary>
         /// PendingBuddyList-Steuerelement
         /// </summary>
         /// <remarks>
@@ -83,6 +101,15 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.BuddyList PendingBuddyList;
+        
+        /// <summary>
+        /// LocalizedLabel7-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
         
         /// <summary>
         /// BuddyRequested-Steuerelement

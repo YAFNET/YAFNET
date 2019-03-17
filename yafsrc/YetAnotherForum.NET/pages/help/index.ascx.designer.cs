@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages.help {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+
     public partial class index {
         
+
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// Title-Steuerelement
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel Title;
+        protected LocalizedLabel Title;
         
+
         /// <summary>
         /// HelpList-Steuerelement
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater HelpList;
+        protected Repeater HelpList;
         
+
         /// <summary>
         /// SearchHolder-Steuerelement
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder SearchHolder;
+        protected PlaceHolder SearchHolder;
         
+
         /// <summary>
         /// SubTitle-Steuerelement
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SubTitle;
+        protected Label SubTitle;
         
+
         /// <summary>
         /// HelpContent-Steuerelement
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label HelpContent;
+        protected Label HelpContent;
         
+
         /// <summary>
         /// SearchFor-Steuerelement
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SearchFor;
+        protected LocalizedLabel SearchFor;
         
+
         /// <summary>
         /// search-Steuerelement
         /// </summary>
@@ -82,8 +92,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox search;
+        protected TextBox search;
         
+
         /// <summary>
         /// DoSearch-Steuerelement
         /// </summary>
@@ -91,8 +102,9 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton DoSearch;
+        protected ThemeButton DoSearch;
         
+
         /// <summary>
         /// SmartScroller1-Steuerelement
         /// </summary>
@@ -100,6 +112,6 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected SmartScroller SmartScroller1;
     }
 }

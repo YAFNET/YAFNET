@@ -123,34 +123,23 @@ namespace YAF.Controls
 
                         var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
-                        var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
+                        var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
-                        if (subForumIcon == null)
-                        {
-                            return;
-                        }
+                        var icon = new Literal { Text = "<i class=\"fa fa-comments\"></i>" };
 
                         try
                         {
                             if (lastPosted > lastRead)
                             {
-                                subForumIcon.ThemeTag = "SUBFORUM_NEW";
-                                subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                                subForumIcon.LocalizedTitleTag = "NEW_POSTS";
-                            }
-                            else
-                            {
-                                subForumIcon.ThemeTag = "SUBFORUM";
-                                subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                                subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                                icon.Text = "<i class=\"fa fa-comments\" style=\"color: green\"></i>";
                             }
                         }
                         catch
                         {
-                            subForumIcon.ThemeTag = "SUBFORUM";
-                            subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                            icon = new Literal { Text = "<i class=\"fa fa-comments\"></i>" };
                         }
+
+                        forumIcon.Controls.Add(icon);
                     }
 
                     break;

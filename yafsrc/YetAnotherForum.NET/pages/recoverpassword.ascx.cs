@@ -24,7 +24,6 @@
 namespace YAF.Pages
 {
     // YAF.Pages
-
     #region Using
 
     using System;

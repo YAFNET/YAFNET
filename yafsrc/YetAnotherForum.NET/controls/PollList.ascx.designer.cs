@@ -37,7 +37,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow NewPollRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder NewPollRow;
         
         /// <summary>
         /// CreatePoll1-Steuerelement

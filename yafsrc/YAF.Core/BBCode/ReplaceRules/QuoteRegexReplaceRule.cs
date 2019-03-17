@@ -110,10 +110,10 @@ namespace YAF.Core.BBCode.ReplaceRules
                     if (postId.IsSet())
                     {
                         quote =
-                            @"<cite>{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></cite>".FormatWith(
+                            @"<div class=""card-header text-muted"">{0} <a href=""{1}"">{2}</a></div><div class=""card-body""><p class=""card-text"">".FormatWith(
                                 localQuotePosted.Replace("{0}", userName),
                                 YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId),
-                                YafContext.Current.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),
+                                @"<i class=""fas fa-external-link-alt""></i>",
                                 YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"));
                     }
                     else

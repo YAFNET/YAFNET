@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/NntpServerEdit.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" /></h1>
@@ -55,11 +55,11 @@
                     </td>
                     <td>
 					    <span class="float-right">
-                        <YAF:ThemeButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval( "NntpServerID") %>' Type="Info" CssClass="btn-sm"
+                        <YAF:ThemeButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval( "NntpServerID") %>' Type="Info" Size="Small"
                                          Icon="edit" TextLocalizedTag="EDIT">
                         </YAF:ThemeButton>
                         &nbsp;
-                        <YAF:ThemeButton runat="server"  Type="Danger" CssClass="btn-sm"
+                        <YAF:ThemeButton runat="server"  Type="Danger" Size="Small"
                                          CommandName="delete" CommandArgument='<%# this.Eval( "NntpServerID") %>'
                                          Icon="trash" TextLocalizedTag="DELETE"
                                          ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 
 <modal:Edit ID="EditDialog" runat="server" />

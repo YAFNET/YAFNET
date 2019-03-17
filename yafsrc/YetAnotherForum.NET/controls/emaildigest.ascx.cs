@@ -317,7 +317,7 @@ namespace YAF.Controls
                     this.OutputError(
                         "No topics for the last {0} hours.".FormatWith(this.BoardSettings.DigestSendEveryXHours));
 
-                    //this.Response.Write(GetDebug());
+                    // this.Response.Write(GetDebug());
                 }
 
                 this.Response.End();

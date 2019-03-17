@@ -39,7 +39,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// The cp_editbuddies.
+    /// The user Friends Control Panel
     /// </summary>
     public partial class cp_editbuddies : ForumPageRegistered
     {

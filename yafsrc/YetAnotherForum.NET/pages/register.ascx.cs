@@ -583,8 +583,6 @@ namespace YAF.Pages
             this.SetupCreateUserStep();
 
             // handle other steps localization
-            ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ProfileNextButton")).Text =
-                    this.GetText("SAVE");
             ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ContinueButton")).Text =
                 this.GetText("CONTINUE");
 
@@ -606,22 +604,25 @@ namespace YAF.Pages
                 loginButton.Text = this.GetText("LOGIN_INSTEAD");
             }
 
-            if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
+            if (this.Get<YafBoardSettings>().AllowSingleSignOn)
             {
-                facebookRegister.Visible = authPanel.Visible = true;
-                facebookRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Facebook");
-            }
+                if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
+                {
+                    facebookRegister.Visible = authPanel.Visible = true;
+                    facebookRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Facebook");
+                }
 
-            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
-            {
-                twitterRegister.Visible = authPanel.Visible = true;
-                twitterRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Twitter");
-            }
+                if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
+                {
+                    twitterRegister.Visible = authPanel.Visible = true;
+                    twitterRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Twitter");
+                }
 
-            if (Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet())
-            {
-                googleRegister.Visible = authPanel.Visible = true;
-                googleRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Google");
+                if (Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet())
+                {
+                    googleRegister.Visible = authPanel.Visible = true;
+                    googleRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Google");
+                }
             }
 
             // get the time zone data source

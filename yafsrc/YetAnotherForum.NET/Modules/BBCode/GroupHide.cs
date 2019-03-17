@@ -46,20 +46,20 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var hiddenContent = Parameters["inner"];
+            var hiddenContent = this.Parameters["inner"];
 
-            var groupString = Parameters["group"];
+            var groupString = this.Parameters["group"];
 
             if (hiddenContent.IsNotSet())
             {
                 return;
             }
 
-           var descriptionGuest = LocalizedString(
+           var descriptionGuest = this.LocalizedString(
                 "HIDDENMOD_GUEST",
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
-            string shownContentGuest =
+            var shownContentGuest =
                 "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
                     .FormatWith(descriptionGuest);
 
@@ -80,7 +80,7 @@ namespace YAF.Modules.BBCode
                     return;
                 }
 
-                descriptionGuest = LocalizedString(
+                descriptionGuest = this.LocalizedString(
                 "HIDDENMOD_GROUP",
                 "You dont´t have the right to see the Hidden Content.");
 
@@ -88,7 +88,7 @@ namespace YAF.Modules.BBCode
                     "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
                     .FormatWith(descriptionGuest);
 
-                string[] groups = groupString.Split(';');
+                var groups = groupString.Split(';');
 
                 /*List<string> groups = new List<string>();
                 List<string> ranks = new List<string>();
@@ -129,7 +129,7 @@ namespace YAF.Modules.BBCode
             }
 
             // Override Admin, or User is Post Author
-            if (YafContext.Current.IsAdmin || DisplayUserID == YafContext.Current.CurrentUserData.UserID)
+            if (YafContext.Current.IsAdmin || this.DisplayUserID == YafContext.Current.CurrentUserData.UserID)
             {
                 shownContentGuest = hiddenContent;
             }

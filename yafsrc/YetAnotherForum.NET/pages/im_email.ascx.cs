@@ -36,7 +36,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -113,8 +112,6 @@ namespace YAF.Pages
                         this.UserId,
                         this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-                this.Send.Text = this.GetText("SEND");
             }
         }
 

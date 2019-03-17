@@ -1,11 +1,14 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.ViewThanks" Codebehind="ViewThanks.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="ViewThanksList" Src="../controls/ViewThanksList.ascx" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<div class="DivTopSeparator">
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    </div>
 </div>
 
-        <br style="clear: both" />
        <asp:Panel id="ThanksTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item">
@@ -21,10 +24,38 @@
                </ul>
               <div class="tab-content">
               <div id="ThanksFromTab" class="tab-pane" role="tabpanel">
-                   <YAF:ViewThanksList runat="server" ID="ThanksFromList" CurrentMode="FromUser" />
+                  <div class="row">
+                      <div class="col">
+                          <div class="card mb-3">
+                              <div class="card-header">
+                                  <i class="fa fa-hand-holding-heart fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                                                                    LocalizedTag="ThanksFromUser" 
+                                                                                                    LocalizedPage="VIEWTHANKS" />
+                              </div>
+                              <div class="card-body">
+
+                                  <YAF:ViewThanksList runat="server" ID="ThanksFromList" CurrentMode="FromUser" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                   
                 </div>
                 <div id="ThanksToTab" class="tab-pane" role="tabpanel">
-                  <YAF:ViewThanksList runat="server" ID="ThanksToList" CurrentMode="ToUser" />
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <i class="fa fa-heart fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                                                                      LocalizedTag="ThanksToUser" 
+                                                                                                      LocalizedPage="VIEWTHANKS" />
+                                </div>
+                                <div class="card-body">
+                                    <YAF:ViewThanksList runat="server" ID="ThanksToList" CurrentMode="ToUser" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
              </div>
              </asp:Panel>

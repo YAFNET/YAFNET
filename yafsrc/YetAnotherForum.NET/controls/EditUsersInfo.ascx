@@ -2,7 +2,7 @@
     CodeBehind="EditUsersInfo.ascx.cs" %>
 
 
-        <h2>
+<h2>
             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_USER_DETAILS" LocalizedPage="ADMIN_EDITUSER" />
         </h2>
     <hr />

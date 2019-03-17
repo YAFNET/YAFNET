@@ -236,7 +236,7 @@ namespace YAF.Pages
 
             this.Login1.DestinationPageUrl =
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                    ? HtmlEncode(this.Server.UrlDecode(this.Request.QueryString.GetFirstOrDefault("ReturnUrl")))
+                    ? this.HtmlEncode(this.Server.UrlDecode(this.Request.QueryString.GetFirstOrDefault("ReturnUrl")))
                     : YafBuildLink.GetLink(ForumPages.forum);
 
             // localize controls

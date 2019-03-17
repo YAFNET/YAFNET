@@ -2,7 +2,7 @@
     Inherits="YAF.Controls.EditUsersAvatar" Codebehind="EditUsersAvatar.ascx.cs" %>
 
 
-        <h2>
+<h2>
             <YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="title" />
         </h2>
     <hr />
@@ -44,9 +44,9 @@
         <p>
             <asp:TextBox CssClass="form-control" ID="Avatar" runat="server" TextMode="Url" />
         </p>
-        <div class="alert alert-info" role="alert">
+        <YAF:Alert runat="server" Type="info">
             <asp:Label id="noteRemote" runat="server"></asp:Label>
-        </div>
+        </YAF:Alert>
         <p>
             <asp:LinkButton ID="UpdateRemote" Type="Primary" runat="server" OnClick="RemoteUpdate_Click" />
         </p>
@@ -60,9 +60,9 @@
         <p>
             <input type="file" id="File" runat="server" class="form-control-file" />
         </p>
-        <div class="alert alert-info" role="alert">
+        <YAF:Alert runat="server" Type="info">
             <asp:Label id="noteLocal" runat="server"></asp:Label>
-        </div>
+        </YAF:Alert>
         </asp:PlaceHolder>
 
                 <div class="text-lg-center">

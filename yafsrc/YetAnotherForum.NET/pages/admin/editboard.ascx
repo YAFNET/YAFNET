@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editboard" Codebehind="editboard.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <asp:UpdatePanel ID="UppdatePanel1" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
     <div class="row">
@@ -104,5 +104,5 @@
     </div>
     </ContentTemplate>
     </asp:UpdatePanel>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

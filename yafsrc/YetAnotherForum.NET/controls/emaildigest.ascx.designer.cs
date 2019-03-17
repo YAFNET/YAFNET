@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.HtmlControls;
+
     public partial class emaildigest {
         
+
         /// <summary>
         /// YafHead-Steuerelement
         /// </summary>
@@ -19,6 +20,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlHead YafHead;
+        protected HtmlHead YafHead;
     }
 }

@@ -50,6 +50,7 @@ namespace YAF.Pages
     public partial class members : ForumPage
     {
         #region Fields
+
         /// <summary>
         /// The _userListDataTable.
         /// </summary>
@@ -212,7 +213,6 @@ namespace YAF.Pages
             this.PageLinks.AddRoot().AddLink(this.GetText("TITLE"));
 
             //// this.SetSort("Name", true);
-
             this.UserName.Text = this.GetText("username");
             this.Rank.Text = this.GetText("rank");
             this.Joined.Text = this.GetText("joined");
@@ -564,6 +564,7 @@ namespace YAF.Pages
                     break;
             }
         }
+
         #endregion
     }
 }

@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+
     public partial class ReportPost {
         
+
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -19,17 +22,29 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
-        /// ReportPostLabel-Steuerelement
+        /// LocalizedLabel2-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ReportPostLabel;
+        protected LocalizedLabel LocalizedLabel2;
         
+
+        /// <summary>
+        /// LocalizedLabel3-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected LocalizedLabel LocalizedLabel3;
+        
+
         /// <summary>
         /// MessageList-Steuerelement
         /// </summary>
@@ -37,8 +52,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater MessageList;
+        protected Repeater MessageList;
         
+
         /// <summary>
         /// EnterReportTextLabel-Steuerelement
         /// </summary>
@@ -46,8 +62,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel EnterReportTextLabel;
+        protected LocalizedLabel EnterReportTextLabel;
         
+
         /// <summary>
         /// EditorLine-Steuerelement
         /// </summary>
@@ -55,8 +72,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
+        protected PlaceHolder EditorLine;
         
+
         /// <summary>
         /// IncorrectReportLabel-Steuerelement
         /// </summary>
@@ -64,8 +82,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label IncorrectReportLabel;
+        protected Label IncorrectReportLabel;
         
+
         /// <summary>
         /// btnReport-Steuerelement
         /// </summary>
@@ -73,8 +92,9 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton btnReport;
+        protected ThemeButton btnReport;
         
+
         /// <summary>
         /// btnCancel-Steuerelement
         /// </summary>
@@ -82,6 +102,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton btnCancel;
+        protected ThemeButton btnCancel;
     }
 }

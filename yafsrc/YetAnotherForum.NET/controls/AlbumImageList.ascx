@@ -1,69 +1,63 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.AlbumImageList"
     CodeBehind="AlbumImageList.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
-<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<asp:Literal ID="ltrTitleOnly" runat="server"></asp:Literal>
-<span runat="server" id="spnAlbumOwner" visible='<%# UserID == PageContext.PageUserID %>'>
-    <span id='<%= "spnTitle0" + AlbumID %>' class="albumtitle" onclick="showTexBox(this.id)"
-        style="display: inline;">
-        <asp:Literal ID="ltrTitle" runat="server"></asp:Literal></span>
-    <input type="text" id='<%= "txtTitle0" + AlbumID %>' onkeydown="checkKey(event, this,'<%= AlbumID %>',true)"
-        onblur="blurTextBox(this.id, '<%= AlbumID %>', true)" style="display: none;" />
-    <asp:Button ID="EditAlbums" CssClass="pbutton" runat="server" OnClick="EditAlbums_Click" />
-</span>
-<table class="command" cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-        <td>
-            <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
-        </td>
-    </tr>
-</table>
-<asp:Repeater runat="server" ID="AlbumImages" OnItemDataBound="AlbumImages_ItemDataBound"
-    OnItemCommand="AlbumImages_ItemCommand">
-    <HeaderTemplate>
-        <div class="fileattach">
-    </HeaderTemplate>
+
+<div class="card-header">
+    <asp:Literal ID="ltrTitleOnly" runat="server"></asp:Literal><asp:Literal ID="ltrTitle" runat="server"></asp:Literal>
+</div>
+<div class="card-body">
+    <YAF:ThemeButton runat="server" ID="EditAlbums"
+                     OnClick="EditAlbums_Click" 
+                     TextLocalizedTag="BUTTON_EDITALBUMIMAGES"
+                     Icon="plus"/>
+
+    <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
+
+    <asp:Repeater runat="server" ID="AlbumImages" 
+                  OnItemDataBound="AlbumImages_ItemDataBound"
+                  OnItemCommand="AlbumImages_ItemCommand">
+        <HeaderTemplate>
+            <div class="row mt-3">
+        </HeaderTemplate>
+        <FooterTemplate>
+            </div>
+        </FooterTemplate>
     <ItemTemplate>
-        <div class="attachedimg" style="display: inline;">
-            <table class="albumtable" style="display: inline" width='<%# this.Get<YafBoardSettings>().ImageAttachmentResizeWidth %>'>
-                <tr>
-                    <td class="albumimagebox">
-                        <a href='<%# "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
-                            title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>'
-                            data-gallery>
-                            <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
-                                alt='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' />
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="albumtitlebox">
-                        <span runat="server" id="spnUser" visible='<%# UserID != PageContext.PageUserID %>'>
-                            <%# this.HtmlEncode(Eval("Caption"))%></span> <span runat="server" id="spnImageOwner"
-                                visible='<%# UserID == PageContext.PageUserID %>'><span class="albumtitle" id='<%# "spnTitle" + this.Eval("ImageID") %>'
-                                    onclick="showTexBox(this.id)" style="display: inline;"><%# this.Eval("Caption").ToString() == string.Empty ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(Eval("Caption"))%></span>
-                                <input type="text" id='<%# "txtTitle" + this.Eval("ImageID") %>' onkeydown="checkKey(event, this,'<%#Eval("ImageID") %>',false)"
-                                    onblur="blurTextBox(this.id, '<%# this.Eval("ImageID")%>', false)" style="display: none;" />
-                                <asp:Button ID="SetCover" runat="server" CssClass="pbutton" CommandArgument='<%# this.Eval("ImageID") %>'
-                                    Visible='<%# UserID == PageContext.PageUserID %>' />
-                            </span>
-                    </td>
-                </tr>
-            </table>
+        <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-text mb-3">
+                    <a href='<%# "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
+                       title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + this.AlbumID + "[/ALBUMIMG]"%>'
+                       data-gallery>
+                        <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
+                             alt='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />
+                    </a>
+                </div>
+                <span runat="server" id="spnUser" visible='<%#
+    this.UserID != this.PageContext.PageUserID %>'>
+                    <%# this.HtmlEncode(this.Eval("Caption"))%></span> <span runat="server" id="spnImageOwner"
+                                                                             visible='<%#
+    this.UserID == this.PageContext.PageUserID %>'><span id='<%# "spnTitle" + this.Eval("ImageID") %>'
+                                                         onclick="showTexBox(this.id)" style="display: inline;"><%# this.Eval("Caption").ToString() == string.Empty ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%></span>
+                    <input type="text" id='<%# "txtTitle" + this.Eval("ImageID") %>' onkeydown="checkKey(event, this,'<%#
+    this.Eval("ImageID") %>',false)"
+                           onblur="blurTextBox(this.id, '<%# this.Eval("ImageID")%>', false)" style="display: none;" />
+                    <YAF:ThemeButton ID="SetCover" runat="server" 
+                                     CommandArgument='<%# this.Eval("ImageID") %>'
+                                     Size="Small"
+                                     Visible='<%# this.UserID == this.PageContext.PageUserID %>'/>
+                </span>
+            </div>
         </div>
-    </ItemTemplate>
-    <FooterTemplate>
-        </div></FooterTemplate>
-</asp:Repeater>
-<table class="command" width="100%" cellspacing="0" cellpadding="0">
-    <tr>
-        <td>
-            <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
-        </td>
-    </tr>
-</table>
-<div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+        </div>
+        </ItemTemplate>
+    </asp:Repeater>
+
+    <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
+    <div id="DivSmartScroller">
+       <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+    </div>
 </div>

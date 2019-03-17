@@ -1,7 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.bbcode_edit" Codebehind="bbcode_edit.ascx.cs" %>
 
 <YAF:PageLinks runat="server" id="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BBCODE_EDIT" /></h1>
@@ -129,5 +129,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller id="SmartScroller1" runat = "server" />

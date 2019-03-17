@@ -8,10 +8,12 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
     public partial class PostOptions {
         
+
         /// <summary>
         /// OptionsRow-Steuerelement
         /// </summary>
@@ -19,8 +21,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow OptionsRow;
+        protected PlaceHolder OptionsRow;
         
+
         /// <summary>
         /// NewPostOptionsLabel-Steuerelement
         /// </summary>
@@ -28,8 +31,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel NewPostOptionsLabel;
+        protected LocalizedLabel NewPostOptionsLabel;
         
+
         /// <summary>
         /// liAddPoll-Steuerelement
         /// </summary>
@@ -37,8 +41,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAddPoll;
+        protected HtmlGenericControl liAddPoll;
         
+
         /// <summary>
         /// AddPollCheckBox-Steuerelement
         /// </summary>
@@ -46,8 +51,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AddPollCheckBox;
+        protected CheckBox AddPollCheckBox;
         
+
         /// <summary>
         /// AddPollLabel-Steuerelement
         /// </summary>
@@ -55,8 +61,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel AddPollLabel;
+        protected LocalizedLabel AddPollLabel;
         
+
         /// <summary>
         /// liQuestion-Steuerelement
         /// </summary>
@@ -64,8 +71,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liQuestion;
+        protected HtmlGenericControl liQuestion;
         
+
         /// <summary>
         /// chkIsQuestion-Steuerelement
         /// </summary>
@@ -73,8 +81,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsQuestion;
+        protected CheckBox chkIsQuestion;
         
+
         /// <summary>
         /// IsQuestionLael-Steuerelement
         /// </summary>
@@ -82,8 +91,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel IsQuestionLael;
+        protected LocalizedLabel IsQuestionLael;
         
+
         /// <summary>
         /// liPersistency-Steuerelement
         /// </summary>
@@ -91,8 +101,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liPersistency;
+        protected HtmlGenericControl liPersistency;
         
+
         /// <summary>
         /// Persistency-Steuerelement
         /// </summary>
@@ -100,8 +111,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox Persistency;
+        protected CheckBox Persistency;
         
+
         /// <summary>
         /// PersistencyLabel-Steuerelement
         /// </summary>
@@ -109,8 +121,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PersistencyLabel;
+        protected LocalizedLabel PersistencyLabel;
         
+
         /// <summary>
         /// PersistencyLabel2-Steuerelement
         /// </summary>
@@ -118,8 +131,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PersistencyLabel2;
+        protected LocalizedLabel PersistencyLabel2;
         
+
         /// <summary>
         /// liTopicWatch-Steuerelement
         /// </summary>
@@ -127,8 +141,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liTopicWatch;
+        protected HtmlGenericControl liTopicWatch;
         
+
         /// <summary>
         /// TopicWatch-Steuerelement
         /// </summary>
@@ -136,8 +151,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox TopicWatch;
+        protected CheckBox TopicWatch;
         
+
         /// <summary>
         /// TopicWatchLabel-Steuerelement
         /// </summary>
@@ -145,6 +161,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel TopicWatchLabel;
+        protected LocalizedLabel TopicWatchLabel;
     }
 }

@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Web.UI.WebControls;
 
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -89,6 +88,7 @@ namespace YAF.Pages
                 {
                     linkDays = ld;
                 }
+
                 // Ederon : 7/14/2007
                 LegacyDb.topic_move(
                     this.PageContext.PageTopicID,
@@ -140,9 +140,6 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
                 YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
-
-            this.Move.Text = this.GetText("MOVE");
-            this.Move.ToolTip = "{0}: {1}".FormatWith(this.GetText("MOVE"), this.PageContext.PageTopicName);
 
             var showMoved = this.Get<YafBoardSettings>().ShowMoved;
 

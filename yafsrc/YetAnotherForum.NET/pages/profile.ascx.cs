@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Data;
     using System.Text;
     using System.Web.Security;
-    using System.Web.UI;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -97,63 +96,6 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The albums tab is visible.
-        /// </summary>
-        /// <returns>
-        /// The true if albums tab should be visible.
-        /// </returns>
-        protected bool AlbumsTabIsVisible()
-        {
-            var albumUser = this.PageContext.PageUserID;
-
-            if (this.PageContext.IsAdmin && this.UserId > 0)
-            {
-                albumUser = this.UserId;
-            }
-
-            // Add check if Albums Tab is visible
-            if (this.PageContext.IsGuest || !this.Get<YafBoardSettings>().EnableAlbum)
-            {
-                return false;
-            }
-
-            var albumCount = LegacyDb.album_getstats(albumUser, null)[0];
-
-            // Check if the user already has albums.
-            if (albumCount > 0)
-            {
-                return true;
-            }
-
-            // If this is the album owner we show him the tab, else it should be hidden
-            if ((albumUser != this.PageContext.PageUserID) && !this.PageContext.IsAdmin)
-            {
-                return false;
-            }
-
-            // Check if a user have permissions to have albums, even if he has no albums at all.
-            var usrAlbums =
-                LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID)
-                    .GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-
-            return usrAlbums.HasValue && usrAlbums > 0;
-        }
-
-        /// <summary>
-        /// The collapsible image_ on click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void CollapsibleImage_OnClick([NotNull] object sender, [NotNull] ImageClickEventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
         /// The On PreRender event.
         /// </summary>
         /// <param name="e">
@@ -161,11 +103,6 @@ namespace YAF.Pages
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "ProfileTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID));
-
             base.OnPreRender(e);
         }
 
@@ -200,8 +137,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied(/*No such user exists*/);
             }
 
-            this.AlbumListTab.Visible = this.AlbumsTabIsVisible();
-            this.AlbumListLi.Visible = this.AlbumsTabIsVisible();
+            //this.Albums.Visible = this.AlbumsTabIsVisible();
 
             this.BindData();
         }
@@ -249,10 +185,6 @@ namespace YAF.Pages
             {
                 var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
 
-                var linkButton = (LinkButton)this.ProfileTabs.FindControl("lnkBuddy");
-
-                linkButton.Visible = false;
-
                 if (Convert.ToBoolean(strBuddyRequest[1]))
                 {
                     this.PageContext.AddLoadMessage(
@@ -261,8 +193,6 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
-                    literal.Visible = true;
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.success);
                 }
             }
@@ -337,20 +267,7 @@ namespace YAF.Pages
             else
             {
                 // BuddyList feature is disabled. don't show any link.
-                this.BuddyLi.Visible = false;
-                this.BuddyListTab.Visible = false;
-                this.lnkBuddy.Visible = false;
-                this.ltrApproval.Visible = false;
-            }
-
-            // Is album feature enabled?
-            if (this.Get<YafBoardSettings>().EnableAlbum)
-            {
-                this.AlbumList1.UserID = this.UserId;
-            }
-            else
-            {
-                this.AlbumList1.Dispose();
+                this.BuddyCard.Visible = false;
             }
 
             var userNameOrDisplayName = this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName
@@ -371,7 +288,6 @@ namespace YAF.Pages
 
             // EmailRow.Visible = PageContext.IsAdmin;
             this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
-            this.ModerateLi.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
             this.AdminUserButton.Visible = this.PageContext.IsAdmin;
 
@@ -391,6 +307,49 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// The albums tab is visible.
+        /// </summary>
+        /// <returns>
+        /// The true if albums tab should be visible.
+        /// </returns>
+        protected bool AlbumsTabIsVisible()
+        {
+            var albumUser = this.PageContext.PageUserID;
+
+            if (this.PageContext.IsAdmin && this.UserId > 0)
+            {
+                albumUser = this.UserId;
+            }
+
+            // Add check if Albums Tab is visible
+            if (this.PageContext.IsGuest || !this.Get<YafBoardSettings>().EnableAlbum)
+            {
+                return false;
+            }
+
+            var albumCount = LegacyDb.album_getstats(albumUser, null)[0];
+
+            // Check if the user already has albums.
+            if (albumCount > 0)
+            {
+                return true;
+            }
+
+            // If this is the album owner we show him the tab, else it should be hidden
+            if ((albumUser != this.PageContext.PageUserID) && !this.PageContext.IsAdmin)
+            {
+                return false;
+            }
+
+            // Check if a user have permissions to have albums, even if he has no albums at all.
+            var usrAlbums =
+                LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID)
+                    .GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+
+            return usrAlbums.HasValue && usrAlbums > 0;
+        }
+
+        /// <summary>
         /// The setup avatar.
         /// </summary>
         /// <param name="userID">
@@ -401,27 +360,7 @@ namespace YAF.Pages
         /// </param>
         private void SetupAvatar(int userID, [NotNull] CombinedUserDataHelper userData)
         {
-            if (this.Get<YafBoardSettings>().AvatarUpload && userData.HasAvatarImage)
-            {
-                this.Avatar.ImageUrl = YafForumInfo.ForumClientFileRoot + "resource.ashx?u=" + userID;
-            }
-            else if (userData.Avatar.IsSet())
-            {
-                // Took out PageContext.BoardSettings.AvatarRemote
-                this.Avatar.ImageUrl =
-                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                        this.Server.UrlEncode(userData.Avatar),
-                        this.Get<YafBoardSettings>().AvatarWidth,
-                        this.Get<YafBoardSettings>().AvatarHeight,
-                        YafForumInfo.ForumClientFileRoot);
-            }
-            else
-            {
-                this.Avatar.Visible = false;
-
-                this.AvatarTab.Visible = false;
-                this.AvatarLi.Visible = false;
-            }
+            this.Avatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
         }
 
         /// <summary>
@@ -442,7 +381,8 @@ namespace YAF.Pages
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
-                this.lnkBuddy.Text = "({0})".FormatWith(this.GetText("BUDDY", "REMOVEBUDDY"));
+                this.lnkBuddy.Text = "<i class=\"fa fa-user-minus fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("BUDDY", "REMOVEBUDDY"));
+                this.lnkBuddy.CssClass = "btn btn-warning";
                 this.lnkBuddy.CommandArgument = "removebuddy";
                 this.lnkBuddy.Attributes["onclick"] =
                     "return confirm('{0}')".FormatWith(this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
@@ -450,14 +390,16 @@ namespace YAF.Pages
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
             {
                 this.lnkBuddy.Visible = false;
-                this.ltrApproval.Visible = true;
             }
             else
             {
                 if (!this.PageContext.IsGuest)
                 {
                     this.lnkBuddy.Visible = true;
-                    this.lnkBuddy.Text = "({0})".FormatWith(this.GetText("BUDDY", "ADDBUDDY"));
+                    this.lnkBuddy.Text = "<i class=\"fa fa-user-plus fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("BUDDY", "ADDBUDDY"));
+                    this.lnkBuddy.CssClass = "btn btn-success";
+
+
                     this.lnkBuddy.CommandArgument = "addbuddy";
                     this.lnkBuddy.Attributes["onclick"] = string.Empty;
                 }
@@ -475,9 +417,8 @@ namespace YAF.Pages
         private void SetupUserLinks([NotNull] IUserData userData, string userName)
         {
             // homepage link
-            this.Home.Visible = userData.Profile.Homepage.IsSet();
-            this.SetupThemeButtonWithLink(this.Home, userData.Profile.Homepage);
-            this.Home.ParamTitle0 = userName;
+            this.HomePlaceHolder.Visible = userData.Profile.Homepage.IsSet();
+            this.Home.NavigateUrl = userData.Profile.Homepage;
 
             // blog link
             this.Blog.Visible = userData.Profile.Blog.IsSet();
@@ -500,10 +441,6 @@ namespace YAF.Pages
             this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.HtmlEncode(userData.Profile.Twitter));
             this.Twitter.ParamTitle0 = userName;
 
-            this.Google.Visible = this.User != null && userData.Profile.Google.IsSet();
-            this.Google.NavigateUrl = userData.Profile.Google;
-            this.Google.ParamTitle0 = userName;
-
             if (userData.UserID == this.PageContext.PageUserID)
             {
                 return;
@@ -525,28 +462,12 @@ namespace YAF.Pages
 
             this.Email.ParamTitle0 = userName;
 
-            this.MSN.Visible = this.User != null && userData.Profile.MSN.IsSet();
-            this.MSN.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", userData.UserID);
-            this.MSN.ParamTitle0 = userName;
-
-            this.YIM.Visible = this.User != null && userData.Profile.YIM.IsSet();
-            this.YIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", userData.UserID);
-            this.YIM.ParamTitle0 = userName;
-
-            this.AIM.Visible = this.User != null && userData.Profile.AIM.IsSet();
-            this.AIM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", userData.UserID);
-            this.AIM.ParamTitle0 = userName;
-
-            this.ICQ.Visible = this.User != null && userData.Profile.ICQ.IsSet();
-            this.ICQ.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", userData.UserID);
-            this.ICQ.ParamTitle0 = userName;
-
             this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
             this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
-            this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_skype, "u={0}", userData.UserID);
+            this.Skype.NavigateUrl = "skype:{0}?call".FormatWith(userData.Profile.Skype);
             this.Skype.ParamTitle0 = userName;
         }
 
@@ -564,15 +485,6 @@ namespace YAF.Pages
             [NotNull] string userDisplayName)
         {
             this.UserLabel1.UserID = userData.UserID;
-
-            if (this.PageContext.IsAdmin && userData.DisplayName != user.UserName)
-            {
-                this.Name.Text = this.HtmlEncode("{0} ({1})".FormatWith(userData.DisplayName, user.UserName));
-            }
-            else
-            {
-                this.Name.Text = this.HtmlEncode(userDisplayName);
-            }
 
             this.Joined.Text =
                 "{0}".FormatWith(this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined)));
@@ -654,43 +566,44 @@ namespace YAF.Pages
             if (this.User != null && userData.Profile.RealName.IsSet())
             {
                 this.RealNameTR.Visible = true;
-                this.RealName.InnerText = this.HtmlEncode(
+                this.RealName.Text = this.HtmlEncode(
                     this.Get<IBadWordReplace>().Replace(userData.Profile.RealName));
             }
 
             if (this.User != null && userData.Profile.Interests.IsSet())
             {
                 this.InterestsTR.Visible = true;
-                this.Interests.InnerText =
+                this.Interests.Text =
                     this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Interests));
             }
 
-            if (this.User != null && (userData.Profile.Gender > 0))
+            if (this.User != null && userData.Profile.Gender > 0)
             {
                 var imagePath = string.Empty;
                 var imageAlt = string.Empty;
 
                 this.GenderTR.Visible = true;
+
                 switch (userData.Profile.Gender)
                 {
                     case 1:
-                        imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
+                        imagePath = "male";
                         imageAlt = this.GetText("USERGENDER_MAS");
                         break;
                     case 2:
-                        imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
+                        imagePath = "female";
                         imageAlt = this.GetText("USERGENDER_FEM");
                         break;
                 }
 
-                this.Gender.InnerHtml =
-                    @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>&nbsp;{1}".FormatWith(imagePath, imageAlt);
+                this.Gender.Text =
+                    @"<i class=""fa fa-{0} fa-fw""></i>&nbsp;{1}".FormatWith(imagePath, imageAlt);
             }
 
             if (this.User != null && userData.Profile.Occupation.IsSet())
             {
                 this.OccupationTR.Visible = true;
-                this.Occupation.InnerText =
+                this.Occupation.Text =
                     this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
             }
 
@@ -701,77 +614,7 @@ namespace YAF.Pages
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
 
-            if (this.User != null && userData.Profile.XMPP.IsSet())
-            {
-                this.XmppTR.Visible = true;
-                this.lblxmpp.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.XMPP));
-            }
-
-            if (this.User != null && userData.Profile.AIM.IsSet())
-            {
-                this.AimTR.Visible = true;
-                this.lblaim.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.AIM));
-            }
-
-            if (this.User != null && userData.Profile.ICQ.IsSet())
-            {
-                this.IcqTR.Visible = true;
-                this.lblicq.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.ICQ));
-            }
-
-            if (this.User != null && userData.Profile.MSN.IsSet())
-            {
-                this.MsnTR.Visible = true;
-                this.lblmsn.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.MSN));
-            }
-
-            if (this.User != null && userData.Profile.Skype.IsSet())
-            {
-                this.SkypeTR.Visible = true;
-                this.lblskype.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Skype));
-            }
-
-            if (this.User != null && userData.Profile.YIM.IsSet())
-            {
-                this.YimTR.Visible = true;
-                this.lblyim.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.YIM));
-            }
-
             var loadHoverCardJs = false;
-
-            if (this.User != null && userData.Profile.Facebook.IsSet())
-            {
-                this.FacebookTR.Visible = true;
-                this.lblfacebook.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Facebook));
-
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
-                {
-                    this.lblfacebook.Attributes.Add("data-hovercard", this.lblfacebook.Text);
-                    this.Facebook.Attributes.Add("data-hovercard", this.lblfacebook.Text);
-
-                    this.lblfacebook.CssClass += " Facebook-HoverCard";
-                    this.Facebook.CssClass += " Facebook-HoverCard";
-
-                    loadHoverCardJs = true;
-                }
-            }
-
-            if (this.User != null && userData.Profile.Twitter.IsSet())
-            {
-                this.TwitterTR.Visible = true;
-                this.lbltwitter.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Twitter));
-
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
-                {
-                    this.lbltwitter.Attributes.Add("data-hovercard", this.lbltwitter.Text);
-                    this.Twitter.Attributes.Add("data-hovercard", this.lbltwitter.Text);
-
-                    this.lbltwitter.CssClass += " Twitter-HoverCard";
-                    this.Twitter.CssClass += " Twitter-HoverCard";
-
-                    loadHoverCardJs = true;
-                }
-            }
 
             if (loadHoverCardJs && this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
             {
@@ -920,7 +763,7 @@ namespace YAF.Pages
                            / userData.DBRow["NumPostsForum"].ToType<int>();
             }
 
-            this.Stats.InnerHtml = "{0:N0}<br />[{1} / {2}]".FormatWith(
+            this.Stats.Text = "{0:N0} [{1} / {2}]".FormatWith(
                 userData.DBRow["NumPosts"],
                 this.GetTextFormatted("NUMALL", allPosts),
                 this.GetTextFormatted(

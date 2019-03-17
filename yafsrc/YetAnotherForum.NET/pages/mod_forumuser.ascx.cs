@@ -196,8 +196,6 @@ namespace YAF.Pages
 
             // load localized texts for buttons
             this.FindUsers.Text = this.GetText("FIND");
-            this.Update.Text = this.GetText("UPDATE");
-            this.Cancel.Text = this.GetText("CANCEL");
 
             // bind data
             this.DataBind();
@@ -215,7 +213,7 @@ namespace YAF.Pages
                 foreach (DataRow row in dt.Rows)
                 {
                     // set username and disable its editing
-                    this.UserName.Text = PageContext.BoardSettings.EnableDisplayName
+                    this.UserName.Text = this.PageContext.BoardSettings.EnableDisplayName
                                              ? row["DisplayName"].ToString()
                                              : row["Name"].ToString();
                     this.UserName.Enabled = false;
@@ -281,7 +279,6 @@ namespace YAF.Pages
 
             // redirect to forum moderation page
             YafBuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
-
         }
 
         #endregion

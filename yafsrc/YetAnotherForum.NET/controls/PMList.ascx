@@ -5,15 +5,15 @@
 
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 
+<YAF:Alert runat="server" ID="MobileInfo" Type="info" MobileOnly="True">
+    <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+</YAF:Alert>
+<div class="table-responsive">
 <asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated"
-	DataKeyNames="UserPMessageID" Width="99%" GridLines="None" CellSpacing="1" ShowFooter="true"
-	AutoGenerateColumns="false" CssClass="content" EmptyDataText='<%#
-    this.GetLocalizedText("NO_MESSAGES", null) %>'
-	EmptyDataRowStyle-CssClass="post">
-	<HeaderStyle CssClass="header2" />
-	<RowStyle CssClass="post" />
-	<AlternatingRowStyle CssClass="post_alt" />
-	<FooterStyle CssClass="footer1" />
+              DataKeyNames="UserPMessageID" GridLines="None" ShowFooter="true"
+	          AutoGenerateColumns="false" CssClass="table table-striped" 
+              EmptyDataText='<%# this.GetLocalizedText("NO_MESSAGES", null) %>'>
 	<Columns>
 		<asp:TemplateField>
 			<HeaderTemplate>
@@ -23,20 +23,29 @@
 			<FooterTemplate>
                 <asp:UpdatePanel ID="upPanExport" runat="server">
                 <ContentTemplate>
-                  <YAF:ThemeButton runat="server" ID="MarkAsRead" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="MARK_ALL_ASREAD" OnClick="MarkAsRead_Click" />
-				  <YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" />
-                     <YAF:ThemeButton runat="server" ID="ExportSelected" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" OnLoad="ExportAll_Load" />
-				  <YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
-				  <YAF:ThemeButton runat="server" ID="ArchiveAll" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click" />
-                  <YAF:ThemeButton runat="server" ID="ExportAll" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" OnLoad="ExportAll_Load" />
-				  <YAF:ThemeButton runat="server" ID="DeleteAll" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="DELETEALL" OnLoad="DeleteAll_Load" OnClick="DeleteAll_Click" />
+                    <div class="btn-group">
+                  <YAF:ThemeButton runat="server" ID="MarkAsRead" Size="Small"
+					TextLocalizedTag="MARK_ALL_ASREAD" OnClick="MarkAsRead_Click"
+                                   Type="Secondary" Icon="eye"/>
+				  <YAF:ThemeButton runat="server" ID="ArchiveSelected" Size="Small"
+					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click"
+                                   Type="Secondary" Icon="archive" />
+                     <YAF:ThemeButton runat="server" ID="ExportSelected" Size="Small"
+					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" OnLoad="ExportAll_Load"
+                                      Type="Secondary" Icon="file-export" />
+				  <YAF:ThemeButton runat="server" ID="DeleteSelected" Size="Small"
+					TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click"
+                                   Type="Secondary" Icon="trash" />
+				  <YAF:ThemeButton runat="server" ID="ArchiveAll" Size="Small"
+					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click"
+                                   Type="Secondary" Icon="archive" />
+                  <YAF:ThemeButton runat="server" ID="ExportAll" Size="Small"
+					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" OnLoad="ExportAll_Load"
+                                   Type="Secondary" Icon="file-export" />
+				  <YAF:ThemeButton runat="server" ID="DeleteAll" Size="Small"
+					TextLocalizedTag="DELETEALL" OnLoad="DeleteAll_Load" OnClick="DeleteAll_Click"
+                                   Type="Secondary" Icon="trash" />
+                    </div>
                 </ContentTemplate> 
                 <Triggers>
                    <asp:PostBackTrigger ControlID="ExportSelected" />
@@ -99,23 +108,17 @@
 		</asp:TemplateField>
 	</Columns>
 </asp:GridView>
- <table class="content" cellspacing="1" cellpadding="0" width="99%">
-            <tr class="postheader">
-                <td class="post">
-                  <asp:Label ID="PMInfoLink" runat="server" ></asp:Label>
-                </td>
-            </tr>
-            <tr class="postheader">
-                <td class="post">
-                <hr />
-                  <asp:Label id="lblExportType" runat="server"></asp:Label>
-                  <asp:RadioButtonList runat="server" id="ExportType" RepeatDirection="Horizontal">
-                    <asp:ListItem Text="XML" Selected="True" Value="xml"></asp:ListItem>
-                    <asp:ListItem Text="CSV" Value="csv"></asp:ListItem>
-                    <asp:ListItem Text="Text" Value="txt"></asp:ListItem>
-                  </asp:RadioButtonList>
-                </td>
-            </tr>
-  </table>
-  
+</div>
 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
+<hr />
+<asp:Label id="lblExportType" runat="server"></asp:Label>
+<asp:RadioButtonList runat="server" id="ExportType" RepeatDirection="Horizontal">
+    <asp:ListItem Text="XML" Selected="True" Value="xml"></asp:ListItem>
+    <asp:ListItem Text="CSV" Value="csv"></asp:ListItem>
+    <asp:ListItem Text="Text" Value="txt"></asp:ListItem>
+</asp:RadioButtonList>
+</div>
+
+<div class="card-footer">
+    <small class="text-muted"><asp:Label ID="PMInfoLink" runat="server" ></asp:Label></small>
+</div>

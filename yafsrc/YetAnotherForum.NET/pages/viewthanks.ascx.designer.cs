@@ -8,9 +8,12 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
+    using System.Web.UI.WebControls;
 
+    using YAF.Controls;
 
     public partial class ViewThanks {
+        
 
         /// <summary>
         /// PageLinks-Steuerelement
@@ -19,7 +22,18 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
+        
+
+        /// <summary>
+        /// LocalizedLabel6-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected LocalizedLabel LocalizedLabel6;
+        
 
         /// <summary>
         /// ThanksTabs-Steuerelement
@@ -28,7 +42,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ThanksTabs;
+        protected Panel ThanksTabs;
+        
 
         /// <summary>
         /// LocalizedLabel2-Steuerelement
@@ -37,7 +52,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected LocalizedLabel LocalizedLabel2;
+        
 
         /// <summary>
         /// LocalizedLabel1-Steuerelement
@@ -46,7 +62,18 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
+        
+
+        /// <summary>
+        /// LocalizedLabel3-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected LocalizedLabel LocalizedLabel3;
+        
 
         /// <summary>
         /// ThanksFromList-Steuerelement
@@ -55,7 +82,18 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ViewThanksList ThanksFromList;
+        protected ViewThanksList ThanksFromList;
+        
+
+        /// <summary>
+        /// LocalizedLabel4-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected LocalizedLabel LocalizedLabel4;
+        
 
         /// <summary>
         /// ThanksToList-Steuerelement
@@ -64,7 +102,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ViewThanksList ThanksToList;
+        protected ViewThanksList ThanksToList;
+        
 
         /// <summary>
         /// hidLastTab-Steuerelement
@@ -73,7 +112,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
+        protected HiddenField hidLastTab;
+        
 
         /// <summary>
         /// SmartScroller2-Steuerelement
@@ -82,6 +122,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller2;
+        protected SmartScroller SmartScroller2;
     }
 }

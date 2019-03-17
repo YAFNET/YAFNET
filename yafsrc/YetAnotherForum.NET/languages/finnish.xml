@@ -4540,6 +4540,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Ilmoitus</Resource>
     <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Muokkaa viestiä</Resource>
@@ -4751,6 +4753,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Et voi laittaa moderaattoria jäähylle.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Et voi laittaa vieras-tiliä jäähylle.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Sukupuoli:</Resource>
     <Resource tag="GENDER0">Määrittelemätön</Resource>
     <Resource tag="GENDER1">Mies</Resource>
@@ -4783,6 +4786,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">View All Posts by User</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Tilastotietoa</Resource>
     <Resource tag="SUSPEND">Laita jäähylle</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5580,6 +5584,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Viimeinen viesti</Resource>
     <Resource tag="MARKREAD">Merkitse tämä alue luetuksi</Resource>
     <Resource tag="NO_POSTS">Ei viestejä</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">Vastauksia</Resource>

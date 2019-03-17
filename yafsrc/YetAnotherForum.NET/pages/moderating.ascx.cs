@@ -246,8 +246,6 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                this.AddUser.Text = this.GetText("MODERATE", "INVITE");
-
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
                     this.PageLinks.AddRoot();
@@ -260,9 +258,6 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
 
                 this.PagerTop.PageSize = 25;
-
-                this.Move.Text = this.GetText("MOVETOPIC", "MOVE");
-                this.Move.ToolTip = "{0}: {1}".FormatWith(this.GetText("MOVETOPIC", "MOVE"), this.PageContext.PageTopicName);
 
                 var showMoved = this.Get<YafBoardSettings>().ShowMoved;
 

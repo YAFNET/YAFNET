@@ -2,17 +2,23 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="Posts" runat="server">
     <ItemTemplate>
-        <table class="print" width="100%" cellspacing="0" cellpadding="0">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <%#
+    this.GetPrintHeader(Container.DataItem) %>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
             <tr>
-                <td class="printheader">
-                    <%# GetPrintHeader(Container.DataItem) %>
+                <td>
+                    <%#
+    this.GetPrintBody(Container.DataItem) %>
                 </td>
             </tr>
-            <tr>
-                <td class="printbody">
-                    <%# GetPrintBody(Container.DataItem) %>
-                </td>
-            </tr>
+            </tbody>
         </table>
     </ItemTemplate>
     <SeparatorTemplate>

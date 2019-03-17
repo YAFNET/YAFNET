@@ -1,7 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.runsql" Codebehind="runsql.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu ID="AdminMenu1" runat="server">
 <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_RUNSQL" /></h1>
@@ -45,4 +44,4 @@
                 </div>
     </div>
 		</asp:PlaceHolder>
-</YAF:AdminMenu>
+

@@ -3,7 +3,6 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Utils.Helpers" %>
 
 
 <div class="row">
@@ -48,7 +47,8 @@
                         </asp:panel> 
                     </div>
                     <div class="col-md-3">
-                            <div class="card card-body mb-3 text-center">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
                                 <YAF:UserLink  ID="UserProfileLink" runat="server" 
                                                UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
                                                ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
@@ -58,20 +58,26 @@
                                                Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
                                                CssClass="dropdown-toggle" />
                                 <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
-                                &nbsp;<YAF:ThemeButton ID="AddReputation" runat="server" 
+                                <div class="m-1">
+                                    <YAF:ThemeButton ID="AddReputation" runat="server" 
                                                        CssClass='<%# "AddReputation_" + this.DataRow["UserID"]%>'
-                                                       ImageThemeTag="VOTE_UP" 
+                                                     Size="Small"
+                                                       Icon="thumbs-up"
+                                                       Type="Success"
                                                        Visible="false" 
                                                        TitleLocalizedTag="VOTE_UP_TITLE"
                                                        OnClick="AddUserReputation">
                                 </YAF:ThemeButton>
                                 <YAF:ThemeButton ID="RemoveReputation" runat="server" 
                                                  CssClass='<%# "RemoveReputation_" + this.DataRow["UserID"]%>'
-                                                 ImageThemeTag="VOTE_DOWN" 
+                                                 Type="Danger"
+                                                 Size="Small"
+                                                 Icon="thumbs-down"
                                                  Visible="false" 
                                                  TitleLocalizedTag="VOTE_DOWN_TITLE"
                                                  OnClick="RemoveUserReputation">
                                 </YAF:ThemeButton>
+                                    </div>
                                 <asp:Label ID="TopicStarterBadge" runat="server" 
                                            CssClass="topicStarter badge badge-dark mb-2"
                                            Visible='<%# this.DataRow["TopicOwnerID"].ToType<int>().Equals(this.DataRow["UserID"].ToType<int>()) %>'
@@ -86,6 +92,7 @@
                                                  PageCache="<%# this.PageContext.CurrentForumPage.PageCache %>" 
                                                  DataRow='<%# this.DataRow %>'></YAF:UserBox>
                                 </ul>
+                                </div>
                             </div>
                     </div>
                 </div>

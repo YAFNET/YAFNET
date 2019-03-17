@@ -28,10 +28,10 @@
                 <h4>
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEAD_USER_CHANGEPASS" LocalizedPage="ADMIN_EDITUSER" />
                 </h4>
-                <div class="alert alert-warning" role="alert">
-                        <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS" LocalizedPage="ADMIN_EDITUSER" /></strong>
-                        <asp:Label ID="lblPassRequirements" runat="server"></asp:Label>
-                          </div>
+                <YAF:Alert runat="server" Type="warning">
+                    <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS" LocalizedPage="ADMIN_EDITUSER" /></strong>
+                    <asp:Label ID="lblPassRequirements" runat="server"></asp:Label>
+                </YAF:Alert>
                 <hr />
                 
                     <h4>

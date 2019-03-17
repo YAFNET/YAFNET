@@ -12,6 +12,7 @@ namespace YAF.Controls {
     
     public partial class CookieConsent {
         
+
         /// <summary>
         /// Lable1-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel Lable1;
+        protected LocalizedLabel Lable1;
         
+
         /// <summary>
         /// MoreDetails-Steuerelement
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton MoreDetails;
+        protected ThemeButton MoreDetails;
         
+
         /// <summary>
         /// close-Steuerelement
         /// </summary>
@@ -37,6 +40,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton close;
+        protected ThemeButton close;
     }
 }

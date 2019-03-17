@@ -2,7 +2,6 @@
     CodeBehind="version.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu ID="adminmenu1" runat="server">
     <div class="row">
     <div class="col-xl-12">
          <h1><yaf:localizedlabel id="LocalizedLabel1" runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel></h1>
@@ -17,10 +16,10 @@
             </div>
             <div class="card-body">
                 <asp:placeholder runat="server" id="UpgradeVersionHolder" visible="false">
-                    <div class="alert alert-info">
+                    <YAF:Alert runat="server" Type="info">
                         <yaf:localizedlabel id="Upgrade" runat="server" localizedtag="UPGRADE_VERSION"
-                        localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
-                    </div>
+                                            localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
+                    </YAF:Alert>
                 </asp:placeholder>
                 <p class="card-text">
                     <img src="~/Images/YafLogoSmall.png" alt="YAF.NET" style="float: left; padding: 10px;"
@@ -35,4 +34,4 @@
         </div>
     </div>
 </div>
-</YAF:AdminMenu>
+

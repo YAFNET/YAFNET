@@ -17,8 +17,9 @@
         <YAF:UserLink ID="UserLink1" runat="server" 
                       UserID='<%# Container.DataItemToField<int>("UserID") %>'>
         </YAF:UserLink>
-		<YAF:ThemeButton ID="PM" runat="server" CssClass="btn-sm"
-                         TextLocalizedTag="PM"  ImageThemeTag="PM"
+		<YAF:ThemeButton ID="PM" runat="server" 
+                         Size="Small"
+                         TextLocalizedTag="PM"
                          NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", Container.DataItemToField<int>("UserID"))%>'
                          Type="Secondary" Icon="envelope" />
         

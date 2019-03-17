@@ -2,7 +2,7 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
         <div class="col-xl-12">
             <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BOARDS" /></h1>
@@ -42,7 +42,7 @@
 					</td>
                     <td>
                         <span class="float-right">
-					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
+					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
                             CommandName='edit' CommandArgument='<%# this.Eval( "BoardID") %>'
                             TitleLocalizedTag="EDIT"
                             TextLocalizedTag="EDIT"
@@ -50,7 +50,7 @@
                             runat="server">
 					    </YAF:ThemeButton>
                         &nbsp;
-                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
+                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
                             CommandName='delete' CommandArgument='<%# this.Eval( "BoardID") %>'
                             TitleLocalizedTag="DELETE"
                             TextLocalizedTag="DELETE"
@@ -76,5 +76,5 @@
             </div>
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

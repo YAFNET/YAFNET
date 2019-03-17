@@ -69,10 +69,7 @@ namespace YAF.Pages
 
             // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on postback.
             // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
-            this.ShoutBox1.Visible = this.Get<YafBoardSettings>().ShowShoutbox
-                                     && this.Get<IPermissions>()
-                                            .Check(this.Get<YafBoardSettings>().ShoutboxViewPermissions);
-            this.ForumStats.Visible = this.Get<YafBoardSettings>().ShowForumStatistics;
+           this.ForumStats.Visible = this.Get<YafBoardSettings>().ShowForumStatistics;
             this.ActiveDiscussions.Visible = this.Get<YafBoardSettings>().ShowActiveDiscussions;
 
             if (this.IsPostBack)

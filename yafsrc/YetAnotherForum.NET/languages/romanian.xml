@@ -4544,6 +4544,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Anunt</Resource>
     <Resource tag="ASK_POLL_DELETE">Sigur doriti sa inlaturati sondajul din acest topic?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Edit post</Resource>
@@ -4755,6 +4757,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Nu poti suspenda moderatorii.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Nu poti suspenda contul de oaspete.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Sex:</Resource>
     <Resource tag="GENDER0">Nedefinit</Resource>
     <Resource tag="GENDER1">Barbat</Resource>
@@ -4787,6 +4790,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Vezi toate publicatiile utilizatorului</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistici</Resource>
     <Resource tag="SUSPEND">Suspenda</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5588,6 +5592,7 @@ Vizitati forumul {forumname} la adresa {forumlink}
     <Resource tag="LASTPOST">Ultimul post</Resource>
     <Resource tag="MARKREAD">Marcheaza forumul ca fiind  citit</Resource>
     <Resource tag="NO_POSTS">Nu sunt postari</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posturi</Resource>
     <Resource tag="REPLIES">Raspunsuri</Resource>

@@ -4511,6 +4511,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Zawiadomienie</Resource>
     <Resource tag="ASK_POLL_DELETE">Na pewno chcesz usunąć ankietę z tego tematu?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Anuluj edycję/tworzenie postu</Resource>
     <Resource tag="DESCRIPTION">Opis:</Resource>
     <Resource tag="EDIT">Edytuj post</Resource>
@@ -4721,6 +4723,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Nie możesz zawiesić moderatorów forum.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Nie możesz zawiesić konta gościa.</Resource>
     <Resource tag="FACEBOOK">Profil na Facebooku:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Płeć:</Resource>
     <Resource tag="GENDER0">Nieokreślona</Resource>
     <Resource tag="GENDER1">m&amp;#281;&amp;#380;czyzna</Resource>
@@ -4753,6 +4756,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Zobacz wszystkie posty napisane przez użytkownika</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statystyki</Resource>
     <Resource tag="SUSPEND">Zawieś</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5550,6 +5554,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="LASTPOST">Ostatni Post</Resource>
     <Resource tag="MARKREAD">Zaznacz to forum jako przeczytane</Resource>
     <Resource tag="NO_POSTS">Nie ma Postów</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Szukaj w tym forum</Resource>
     <Resource tag="POSTS">Posty</Resource>
     <Resource tag="REPLIES">Odpowiedzi</Resource>

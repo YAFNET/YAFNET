@@ -39,7 +39,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// The cp_editavatar.
+    /// The User Modify Avatar page
     /// </summary>
     public partial class cp_editavatar : ForumPageRegistered
     {

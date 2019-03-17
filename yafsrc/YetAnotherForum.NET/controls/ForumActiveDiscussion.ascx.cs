@@ -87,20 +87,14 @@ namespace YAF.Controls
                 ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
-            var newPostIcon = (Image)e.Item.FindControl("NewPostIcon");
+            var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
             var textMessageLink = (HyperLink)e.Item.FindControl("TextMessageLink");
-            var imageMessageLink = (HyperLink)e.Item.FindControl("ImageMessageLink");
-            var lastPostedImage = (ThemeImage)e.Item.FindControl("LastPostedImage");
-            var imageLastUnreadMessageLink = (HyperLink)e.Item.FindControl("ImageLastUnreadMessageLink");
-            var lastUnreadImage = (ThemeImage)e.Item.FindControl("LastUnreadImage");
+            var imageMessageLink = (HyperLink)e.Item.FindControl("GoToLastPost");
+            var imageLastUnreadMessageLink = (HyperLink)e.Item.FindControl("GoToLastUnread");
             var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
             var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
             var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
             imageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
-
-            // populate them...
-            newPostIcon.AlternateText = this.GetText("NEW_POSTS");
-            newPostIcon.ToolTip = this.GetText("NEW_POSTS");
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
@@ -149,7 +143,9 @@ namespace YAF.Controls
                 ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
-            lastPostedImage.LocalizedTitle = this.lastPostToolTip;
+            imageMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
+            imageMessageLink.Text =
+                "<i class=\"fa fa-fast-forward fa-fw\"></i> {0}".FormatWith(this.GetText("DEFAULT", "GO_LAST_POST"));
 
             if (imageLastUnreadMessageLink.Visible)
             {
@@ -158,7 +154,8 @@ namespace YAF.Controls
                     "t={0}&find=unread",
                     currentRow["TopicID"]);
 
-                lastUnreadImage.LocalizedTitle = this.firstUnreadPostToolTip;
+                imageLastUnreadMessageLink.ToolTip = this.firstUnreadPostToolTip;
+                imageLastUnreadMessageLink.Text = "<i class=\"fa fa-step-forward fa-fw\"></i> {0}".FormatWith(this.firstUnreadPostToolTip);
             }
             
             // Just in case...
@@ -185,17 +182,29 @@ namespace YAF.Controls
                 if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
                 {
                     this.Get<IYafSession>().UnreadTopics++;
+
+                    var newMessage = e.Item.FindControlAs<Label>("NewMessage");
+                    newMessage.Visible = true;
                 }
 
-                lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                                               ? "ICON_NEWEST_UNREAD"
-                                               : "ICON_LATEST_UNREAD";
-                lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                                               ? "ICON_NEWEST"
-                                               : "ICON_LATEST";
-
-                newPostIcon.ImageUrl = this.Get<ITheme>().GetItem(
-                    "ICONS", (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead) ? "TOPIC_NEW" : "TOPIC");
+                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
+                {
+                    postIcon.Controls.Add(
+                        new Literal
+                            {
+                                Text =
+                                    "<span class=\"fa-stack fa-1x\"><i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i></span>"
+                            });
+                }
+                else
+                {
+                    postIcon.Controls.Add(
+                        new Literal
+                            {
+                                Text =
+                                    "<span class=\"fa-stack fa-1x\"><i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i></span>"
+                            });
+                }
             }
 
             forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());
@@ -266,8 +275,6 @@ namespace YAF.Controls
                         TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ActiveDiscussionsCacheTimeout));
                 }
             }
-
-            this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
             this.RssFeed.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
 

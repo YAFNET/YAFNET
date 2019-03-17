@@ -317,12 +317,6 @@ namespace YAF.Pages
             // create page links
             this.CreatePageLinks();
 
-            // localize button labels
-            this.FindUsers.Text = this.GetText("FINDUSERS");
-            this.AllUsers.Text = this.GetText("ALLUSERS");
-            this.AllBuddies.Text = this.GetText("ALLBUDDIES");
-            this.Clear.Text = this.GetText("CLEAR");
-
             // only administrators can send messages to all users
             this.AllUsers.Visible = YafContext.Current.IsAdmin;
 
@@ -370,9 +364,9 @@ namespace YAF.Pages
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
                 this.To.Enabled = false;
-                this.FindUsers.Enabled = false;
-                this.AllUsers.Enabled = false;
-                this.AllBuddies.Enabled = false;
+                this.FindUsers.Visible = false;
+                this.AllUsers.Visible = false;
+                this.AllBuddies.Visible = false;
 
                 if (!isQuoting)
                 {
@@ -440,9 +434,9 @@ namespace YAF.Pages
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
                 this.To.Enabled = false;
-                this.FindUsers.Enabled = false;
-                this.AllUsers.Enabled = false;
-                this.AllBuddies.Enabled = false;
+                this.FindUsers.Visible = false;
+                this.AllUsers.Visible = false;
+                this.AllBuddies.Visible = false;
 
                 // Parse content with delimiter '|'  
                 var quoteList = messagesRow.Field<string>("ReportText").Split('|');
@@ -484,9 +478,9 @@ namespace YAF.Pages
                 this.To.Enabled = false;
 
                 // hide find user/all users buttons
-                this.FindUsers.Enabled = false;
-                this.AllUsers.Enabled = false;
-                this.AllBuddies.Enabled = false;
+                this.FindUsers.Visible = false;
+                this.AllUsers.Visible = false;
+                this.AllBuddies.Visible = false;
             }
             else
             {

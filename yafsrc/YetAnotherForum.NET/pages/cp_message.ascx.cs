@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
     using System.Web.UI.WebControls;
 
@@ -40,13 +39,12 @@ namespace YAF.Pages
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The cp_message.
+    /// The Private Message page
     /// </summary>
     public partial class cp_message : ForumPageRegistered
     {
@@ -166,18 +164,6 @@ namespace YAF.Pages
             this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType());
 
             this.BindData();
-        }
-
-        /// <summary>
-        /// The theme button delete_ load.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void ThemeButtonDelete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var themeButton = (ThemeButton)sender;
-            themeButton.Attributes["onclick"] = "return confirm('{0}')".FormatWith(
-                this.GetText("confirm_deletemessage"));
         }
 
         /// <summary>

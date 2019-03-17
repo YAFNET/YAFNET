@@ -48,10 +48,6 @@ namespace YAF.Controls
     /// </summary>
     public partial class DisplayPostFooter : BaseUserControl
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Properties
 
         /// <summary>

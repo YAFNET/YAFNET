@@ -38,6 +38,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -101,14 +102,23 @@ namespace YAF.Controls
                 return;
             }
 
-            var setCover = (Button)e.Item.FindControl("SetCover");
+            var setCover = e.Item.FindControlAs<ThemeButton>("SetCover");
 
             if (setCover != null)
             {
                 // Is this the cover image?
-                setCover.Text = setCover.CommandArgument == this._coverImageID
-                                    ? this.GetText("BUTTON_RESETCOVER")
-                                    : this.GetText("BUTTON_SETCOVER");
+                if (setCover.CommandArgument == this._coverImageID)
+                {
+                    setCover.TextLocalizedTag = "BUTTON_RESETCOVER";
+                    setCover.Type = ButtonAction.Danger;
+                    setCover.Icon = "trash";
+                }
+                else
+                {
+                    setCover.TextLocalizedTag = "BUTTON_SETCOVER";
+                    setCover.Type = ButtonAction.Success;
+                    setCover.Icon = "tag";
+                }
             }
         }
 
@@ -162,7 +172,6 @@ namespace YAF.Controls
 
                 // Initialize the edit control.
                 this.EditAlbums.Visible = true;
-                this.EditAlbums.Text = this.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
             }
 
             this.BindData();
@@ -193,26 +202,26 @@ namespace YAF.Controls
                                      ? this.GetText("ALBUM_CHANGE_TITLE")
                                      : this.HtmlEncode(albumTitle);
 
-            // set the Datatable
-            var dtAlbumImageList = LegacyDb.album_image_list(this.AlbumID, null);
-            var dtAlbum = LegacyDb.album_list(null, this.AlbumID);
+            // set the Data table
+            var albumImageList = LegacyDb.album_image_list(this.AlbumID, null);
+            var album = LegacyDb.album_list(null, this.AlbumID);
 
             // Does this album has a cover?
-            this._coverImageID = dtAlbum.Rows[0]["CoverImageID"] == DBNull.Value
+            this._coverImageID = album.Rows[0]["CoverImageID"] == DBNull.Value
                                      ? string.Empty
-                                     : dtAlbum.Rows[0]["CoverImageID"].ToString();
+                                     : album.Rows[0]["CoverImageID"].ToString();
 
-            if (dtAlbumImageList == null || !dtAlbumImageList.HasRows())
+            if (albumImageList == null || !albumImageList.HasRows())
             {
                 return;
             }
 
-            this.PagerTop.Count = dtAlbumImageList.Rows.Count;
+            this.PagerTop.Count = albumImageList.Rows.Count;
 
             // Create paged data source for the album image list
             var pds = new PagedDataSource
                           {
-                              DataSource = dtAlbumImageList.DefaultView,
+                              DataSource = albumImageList.DefaultView,
                               AllowPaging = true,
                               CurrentPageIndex = this.PagerTop.CurrentPageIndex,
                               PageSize = this.PagerTop.PageSize

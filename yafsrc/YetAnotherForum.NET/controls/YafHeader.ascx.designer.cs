@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel GuestUserMessage;
+        protected global::YAF.Controls.Alert GuestUserMessage;
         
         /// <summary>
         /// GuestMessage-Steuerelement
@@ -56,6 +56,33 @@ namespace YAF.Controls {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder menuAdminItems;
+        
+        /// <summary>
+        /// AdminAdminHolder-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder AdminAdminHolder;
+        
+        /// <summary>
+        /// HostMenuHolder-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder HostMenuHolder;
+        
+        /// <summary>
+        /// ModerateHolder-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ModerateHolder;
         
         /// <summary>
         /// LoggedInUserPanel-Steuerelement

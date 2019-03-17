@@ -82,7 +82,6 @@ namespace YAF.Controls
     public partial class MyTopicsList : BaseUserControl
     {
         /* Data Fields */
-
         #region Constants and Fields
 
         /// <summary>
@@ -113,7 +112,6 @@ namespace YAF.Controls
         #endregion
 
         /* Properties */
-
         #region Public Properties
 
         /// <summary>

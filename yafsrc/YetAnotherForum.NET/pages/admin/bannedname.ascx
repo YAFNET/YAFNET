@@ -8,7 +8,7 @@
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDNAME" /></h1>
@@ -29,7 +29,7 @@
                     </p>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <YAF:ThemeButton ID="search" runat="server"  Type="Primary" CssClass="btn-sm"
+                    <YAF:ThemeButton ID="search" runat="server"  Type="Primary" Size="Small"
                         TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
                         OnClick="Search_Click">
                     </YAF:ThemeButton>
@@ -81,10 +81,10 @@
 				</td>
 				<td>
 					    <span class="float-right">
-				<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+				<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                     TextLocalizedTag="EDIT"
                     TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
+                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
                     TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
                     TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
 
@@ -112,7 +112,7 @@
 	 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
                             </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 
 <modal:Import ID="ImportDialog" runat="server" />

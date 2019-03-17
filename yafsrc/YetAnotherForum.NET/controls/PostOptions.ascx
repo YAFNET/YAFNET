@@ -1,27 +1,38 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostOptions"
     CodeBehind="PostOptions.ascx.cs" %>
 
-<tr id="OptionsRow" runat="server" class="postOptions">
-    <td class="post" colspan="2">
-        <strong><YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" /></strong>
-        <br />
-        <ul style="list-style-type: none; padding-left: 0">
-            <li id="liAddPoll" runat="server">
-                <asp:CheckBox ID="AddPollCheckBox" runat="server" />
-                <YAF:LocalizedLabel ID="AddPollLabel" runat="server" LocalizedPage="POSTMESSAGE"
-                    LocalizedTag="POLLADD" />? </li>
-            <li id="liQuestion" runat="server" visible="false">
-                <asp:CheckBox ID="chkIsQuestion" runat="server" />
-                <YAF:LocalizedLabel ID="IsQuestionLael" runat="server" LocalizedTag="ISQUESTION"/>
-            </li>
-            <li id="liPersistency" runat="server">
-                <asp:CheckBox ID="Persistency" runat="server" Checked="True" />
-                <YAF:LocalizedLabel ID="PersistencyLabel" runat="server" LocalizedTag="PERSISTENCY" /> (<YAF:LocalizedLabel ID="PersistencyLabel2" runat="server" LocalizedTag="PERSISTENCY_INFO" />)
-            </li>
-            <li id="liTopicWatch" runat="server">
-                <asp:CheckBox ID="TopicWatch" runat="server" />
-                <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" />
-            </li>
-        </ul>
-    </td>
-</tr>
+<asp:PlaceHolder id="OptionsRow" runat="server">
+    <div class="row">
+        <div class="col">
+            <h6>
+                <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />
+            </h6>
+            <div id="liAddPoll" runat="server" class="form-check">
+                <asp:CheckBox ID="AddPollCheckBox" runat="server" CssClass="form-check-input" />
+                <asp:Label runat="server" AssociatedControlID="AddPollCheckBox">
+                    <YAF:LocalizedLabel ID="AddPollLabel" runat="server" LocalizedPage="POSTMESSAGE"
+                                        LocalizedTag="POLLADD" />? 
+                </asp:Label>
+            </div>
+            <div id="liQuestion" runat="server" visible="false" class="form-check">
+                <asp:CheckBox ID="chkIsQuestion" runat="server" CssClass="form-check-input" />
+                <asp:Label runat="server" AssociatedControlID="IsQuestionLael">
+                    <YAF:LocalizedLabel ID="IsQuestionLael" runat="server" LocalizedTag="ISQUESTION"/> 
+                </asp:Label>
+            </div>
+            <div id="liPersistency" runat="server" class="form-check">
+                <asp:CheckBox ID="Persistency" runat="server" Checked="True" CssClass="form-check-input" />
+                <asp:Label runat="server" AssociatedControlID="Persistency">
+                    <YAF:LocalizedLabel ID="PersistencyLabel" runat="server" LocalizedTag="PERSISTENCY" /> 
+                    (<YAF:LocalizedLabel ID="PersistencyLabel2" runat="server" LocalizedTag="PERSISTENCY_INFO" />) 
+                </asp:Label>
+            </div>
+            <div id="liTopicWatch" runat="server" class="form-check">
+                <asp:CheckBox ID="TopicWatch" runat="server" CssClass="form-check-input" />
+                <asp:Label runat="server" AssociatedControlID="TopicWatch">
+                    <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" /> 
+                </asp:Label>
+            </div>
+        </div>
+    </div>
+</asp:PlaceHolder>

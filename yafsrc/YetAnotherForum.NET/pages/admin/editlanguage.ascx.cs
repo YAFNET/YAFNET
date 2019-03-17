@@ -195,6 +195,7 @@ namespace YAF.Pages.Admin
             this.grdLocals.DataBind();
         }
         
+
         /// <summary>
         /// Creates page links for this page.
         /// </summary>
@@ -214,6 +215,7 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_EDITLANGUAGE", "TITLE"));
         }
         
+
         /// <summary>
         /// Returns Back to The Languages Page
         /// </summary>

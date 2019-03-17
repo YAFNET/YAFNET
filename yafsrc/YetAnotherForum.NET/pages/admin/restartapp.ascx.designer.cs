@@ -22,15 +22,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// adminmenu1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.AdminMenu adminmenu1;
-        
-        /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
         /// <remarks>

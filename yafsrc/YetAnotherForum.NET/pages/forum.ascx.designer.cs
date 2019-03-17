@@ -31,15 +31,6 @@ namespace YAF.Pages {
         protected global::YAF.Controls.ForumWelcome Welcome;
         
         /// <summary>
-        /// ShoutBox1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.ShoutBox ShoutBox1;
-        
-        /// <summary>
         /// PollList-Steuerelement
         /// </summary>
         /// <remarks>

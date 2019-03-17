@@ -67,6 +67,7 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Constants\ButtonSize.cs" />
     <Compile Include="Constants\ButtonAction.cs" />
     <Compile Include="Constants\PmView.cs" />
     <Compile Include="Exceptions\BaseUrlMaskRequiredException.cs" />
@@ -178,7 +179,6 @@
     <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Replace_Words.cs" />
     <Compile Include="Models\SearchResult.cs" />
-    <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Registry.cs" />
     <Compile Include="Models\Thanks.cs" />
     <Compile Include="Models\Spam_Words.cs" />

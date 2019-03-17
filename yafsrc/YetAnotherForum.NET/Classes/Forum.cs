@@ -373,9 +373,7 @@ namespace YAF
                 this.currentForumPage = (ForumPage)this.LoadControl(src);
 
                 this.Header = this.LoadControl(
-                    "{0}controls/{1}.ascx".FormatWith(
-                        YafForumInfo.ForumServerFileRoot,
-                        this.currentForumPage.IsAdminPage ? "AdminHeader" : "YafHeader"));
+                    "{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
 
                 this.Footer = new Footer();
             }
@@ -511,7 +509,8 @@ namespace YAF
             throw new YafTaskModuleNotRegisteredException(
                 @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
 #else
-// YAF is not setup properly...
+
+            // YAF is not setup properly...
             HttpContext.Current.Session["StartupException"] =
                 @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
 

@@ -28,7 +28,6 @@ namespace YAF.Pages
 
     using System;
     using System.Web.Security;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -180,8 +179,6 @@ namespace YAF.Pages
             changeButton.Text = this.GetText("CHANGE_BUTTON");
             (this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("CancelPushButton")).Text =
                 this.GetText("CANCEL");
-            (this.ChangePassword1.SuccessTemplateContainer.FindControlAs<Button>("ContinuePushButton")).Text =
-                this.GetText("CONTINUE");
 
             // make failure text...
             // 1. Password incorrect or New Password invalid.
@@ -207,7 +204,8 @@ namespace YAF.Pages
 
             if (this.Get<MembershipProvider>().RequiresQuestionAndAnswer)
             {
-                this.SecurityQuestionAndAnswer.Visible = true;
+                this.QuestionTab.Visible = true;
+                this.QuestionLink.Visible = true;
 
                 this.QuestionOld.Text = this.PageContext.CurrentUserData.Membership.PasswordQuestion;
             }

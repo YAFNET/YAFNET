@@ -4492,6 +4492,8 @@ Spoiler Inhoud
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Mededeling</Resource>
     <Resource tag="ASK_POLL_DELETE">Wil je echt de poll uit dit topic verwijderen?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Annuleer bewerken/nieuw bericht</Resource>
     <Resource tag="DESCRIPTION">Beschrijving:</Resource>
     <Resource tag="EDIT">Bericht wijzigen</Resource>
@@ -4702,6 +4704,7 @@ Spoiler Inhoud
     <Resource tag="ERROR_FORUMMODERATORS">Je kunt geen moderators bannen.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Je kunt het gast-account niet bannen.</Resource>
     <Resource tag="FACEBOOK">Facebook Profiel:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Geslacht:</Resource>
     <Resource tag="GENDER0">Niet opgegeven</Resource>
     <Resource tag="GENDER1">Man</Resource>
@@ -4734,6 +4737,7 @@ Spoiler Inhoud
     <Resource tag="REPUTATION_RECEIVED">Reputatie ontvangen van andere gebruikers</Resource>
     <Resource tag="SEARCHUSER">Bekijk alle berichte van deze gebruiker</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistieken</Resource>
     <Resource tag="SUSPEND">Blokkeren</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5532,6 +5536,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="LASTPOST">Laatste bericht</Resource>
     <Resource tag="MARKREAD">Markeer dit forum als gelezen</Resource>
     <Resource tag="NO_POSTS">Geen berichten</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Zoek in dit forum</Resource>
     <Resource tag="POSTS">Berichten</Resource>
     <Resource tag="REPLIES">Reacties</Resource>

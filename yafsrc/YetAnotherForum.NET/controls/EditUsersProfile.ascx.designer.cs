@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class EditUsersProfile {
         
+
         /// <summary>
         /// ProfilePlaceHolder-Steuerelement
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ProfilePlaceHolder;
+        protected PlaceHolder ProfilePlaceHolder;
         
+
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
         
+
         /// <summary>
         /// DisplayNamePlaceholder-Steuerelement
         /// </summary>
@@ -37,8 +40,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder DisplayNamePlaceholder;
+        protected PlaceHolder DisplayNamePlaceholder;
         
+
         /// <summary>
         /// LocalizedLabel34-Steuerelement
         /// </summary>
@@ -46,8 +50,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel34;
+        protected LocalizedLabel LocalizedLabel34;
         
+
         /// <summary>
         /// DisplayName-Steuerelement
         /// </summary>
@@ -55,8 +60,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DisplayName;
+        protected TextBox DisplayName;
         
+
         /// <summary>
         /// LocalizedLabel2-Steuerelement
         /// </summary>
@@ -64,8 +70,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected LocalizedLabel LocalizedLabel2;
         
+
         /// <summary>
         /// Realname-Steuerelement
         /// </summary>
@@ -73,8 +80,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Realname;
+        protected TextBox Realname;
         
+
         /// <summary>
         /// HideTr-Steuerelement
         /// </summary>
@@ -82,8 +90,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder HideTr;
+        protected PlaceHolder HideTr;
         
+
         /// <summary>
         /// LocalizedLabel35-Steuerelement
         /// </summary>
@@ -91,8 +100,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel35;
+        protected LocalizedLabel LocalizedLabel35;
         
+
         /// <summary>
         /// HideMe-Steuerelement
         /// </summary>
@@ -100,8 +110,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox HideMe;
+        protected CheckBox HideMe;
         
+
         /// <summary>
         /// BirthdayLabel-Steuerelement
         /// </summary>
@@ -109,8 +120,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel BirthdayLabel;
+        protected LocalizedLabel BirthdayLabel;
         
+
         /// <summary>
         /// Birthday-Steuerelement
         /// </summary>
@@ -118,8 +130,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Birthday;
+        protected TextBox Birthday;
         
+
         /// <summary>
         /// LocalizedLabel3-Steuerelement
         /// </summary>
@@ -127,8 +140,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected LocalizedLabel LocalizedLabel3;
         
+
         /// <summary>
         /// Occupation-Steuerelement
         /// </summary>
@@ -136,8 +150,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Occupation;
+        protected TextBox Occupation;
         
+
         /// <summary>
         /// LocalizedLabel4-Steuerelement
         /// </summary>
@@ -145,8 +160,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected LocalizedLabel LocalizedLabel4;
         
+
         /// <summary>
         /// Interests-Steuerelement
         /// </summary>
@@ -154,8 +170,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Interests;
+        protected TextBox Interests;
         
+
         /// <summary>
         /// LocalizedLabel5-Steuerelement
         /// </summary>
@@ -163,8 +180,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected LocalizedLabel LocalizedLabel5;
         
+
         /// <summary>
         /// Gender-Steuerelement
         /// </summary>
@@ -172,8 +190,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList Gender;
+        protected RadioButtonList Gender;
         
+
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -181,8 +200,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
+        protected LocalizedLabel LocalizedLabel6;
         
+
         /// <summary>
         /// LocalizedLabel40-Steuerelement
         /// </summary>
@@ -190,8 +210,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel40;
+        protected LocalizedLabel LocalizedLabel40;
         
+
         /// <summary>
         /// Country-Steuerelement
         /// </summary>
@@ -199,8 +220,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ImageListBox Country;
+        protected ImageListBox Country;
         
+
         /// <summary>
         /// RegionTr-Steuerelement
         /// </summary>
@@ -208,8 +230,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder RegionTr;
+        protected PlaceHolder RegionTr;
         
+
         /// <summary>
         /// LocalizedLabel41-Steuerelement
         /// </summary>
@@ -217,8 +240,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel41;
+        protected LocalizedLabel LocalizedLabel41;
         
+
         /// <summary>
         /// Region-Steuerelement
         /// </summary>
@@ -226,8 +250,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Region;
+        protected DropDownList Region;
         
+
         /// <summary>
         /// LocalizedLabel42-Steuerelement
         /// </summary>
@@ -235,8 +260,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel42;
+        protected LocalizedLabel LocalizedLabel42;
         
+
         /// <summary>
         /// City-Steuerelement
         /// </summary>
@@ -244,8 +270,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox City;
+        protected TextBox City;
         
+
         /// <summary>
         /// LocalizedLabel7-Steuerelement
         /// </summary>
@@ -253,8 +280,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        protected LocalizedLabel LocalizedLabel7;
         
+
         /// <summary>
         /// Location-Steuerelement
         /// </summary>
@@ -262,8 +290,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Location;
+        protected TextBox Location;
         
+
         /// <summary>
         /// LocalizedLabel8-Steuerelement
         /// </summary>
@@ -271,8 +300,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
+        protected LocalizedLabel LocalizedLabel8;
         
+
         /// <summary>
         /// LocalizedLabel9-Steuerelement
         /// </summary>
@@ -280,8 +310,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
+        protected LocalizedLabel LocalizedLabel9;
         
+
         /// <summary>
         /// HomePage-Steuerelement
         /// </summary>
@@ -289,8 +320,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox HomePage;
+        protected TextBox HomePage;
         
+
         /// <summary>
         /// LocalizedLabel10-Steuerelement
         /// </summary>
@@ -298,8 +330,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
+        protected LocalizedLabel LocalizedLabel10;
         
+
         /// <summary>
         /// Weblog-Steuerelement
         /// </summary>
@@ -307,8 +340,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Weblog;
+        protected TextBox Weblog;
         
+
         /// <summary>
         /// MetaWeblogAPI-Steuerelement
         /// </summary>
@@ -316,8 +350,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MetaWeblogAPI;
+        protected PlaceHolder MetaWeblogAPI;
         
+
         /// <summary>
         /// LocalizedLabel11-Steuerelement
         /// </summary>
@@ -325,8 +360,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
+        protected LocalizedLabel LocalizedLabel11;
         
+
         /// <summary>
         /// LocalizedLabel12-Steuerelement
         /// </summary>
@@ -334,8 +370,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
+        protected LocalizedLabel LocalizedLabel12;
         
+
         /// <summary>
         /// WeblogUrl-Steuerelement
         /// </summary>
@@ -343,8 +380,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox WeblogUrl;
+        protected TextBox WeblogUrl;
         
+
         /// <summary>
         /// LocalizedLabel13-Steuerelement
         /// </summary>
@@ -352,8 +390,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel13;
+        protected LocalizedLabel LocalizedLabel13;
         
+
         /// <summary>
         /// LocalizedLabel14-Steuerelement
         /// </summary>
@@ -361,8 +400,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel14;
+        protected LocalizedLabel LocalizedLabel14;
         
+
         /// <summary>
         /// WeblogID-Steuerelement
         /// </summary>
@@ -370,8 +410,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox WeblogID;
+        protected TextBox WeblogID;
         
+
         /// <summary>
         /// LocalizedLabel15-Steuerelement
         /// </summary>
@@ -379,8 +420,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel15;
+        protected LocalizedLabel LocalizedLabel15;
         
+
         /// <summary>
         /// WeblogUsername-Steuerelement
         /// </summary>
@@ -388,8 +430,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox WeblogUsername;
+        protected TextBox WeblogUsername;
         
+
         /// <summary>
         /// IMServicesPlaceHolder-Steuerelement
         /// </summary>
@@ -397,8 +440,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder IMServicesPlaceHolder;
+        protected PlaceHolder IMServicesPlaceHolder;
         
+
         /// <summary>
         /// LocalizedLabel16-Steuerelement
         /// </summary>
@@ -406,62 +450,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel16;
+        protected LocalizedLabel LocalizedLabel16;
         
-        /// <summary>
-        /// LocalizedLabel29-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel29;
-        
-        /// <summary>
-        /// MSN-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MSN;
-        
-        /// <summary>
-        /// LocalizedLabel28-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel28;
-        
-        /// <summary>
-        /// YIM-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox YIM;
-        
-        /// <summary>
-        /// LocalizedLabel27-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel27;
-        
-        /// <summary>
-        /// AIM-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AIM;
-        
+
         /// <summary>
         /// LocalizedLabel26-Steuerelement
         /// </summary>
@@ -469,8 +460,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel26;
+        protected LocalizedLabel LocalizedLabel26;
         
+
         /// <summary>
         /// ICQ-Steuerelement
         /// </summary>
@@ -478,8 +470,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ICQ;
+        protected TextBox ICQ;
         
+
         /// <summary>
         /// LocalizedLabel31-Steuerelement
         /// </summary>
@@ -487,8 +480,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel31;
+        protected LocalizedLabel LocalizedLabel31;
         
+
         /// <summary>
         /// Facebook-Steuerelement
         /// </summary>
@@ -496,8 +490,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Facebook;
+        protected TextBox Facebook;
         
+
         /// <summary>
         /// LocalizedLabel33-Steuerelement
         /// </summary>
@@ -505,8 +500,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel33;
+        protected LocalizedLabel LocalizedLabel33;
         
+
         /// <summary>
         /// Twitter-Steuerelement
         /// </summary>
@@ -514,8 +510,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Twitter;
+        protected TextBox Twitter;
         
+
         /// <summary>
         /// LocalizedLabel36-Steuerelement
         /// </summary>
@@ -523,8 +520,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel36;
+        protected LocalizedLabel LocalizedLabel36;
         
+
         /// <summary>
         /// Google-Steuerelement
         /// </summary>
@@ -532,8 +530,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Google;
+        protected TextBox Google;
         
+
         /// <summary>
         /// LocalizedLabel32-Steuerelement
         /// </summary>
@@ -541,8 +540,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel32;
+        protected LocalizedLabel LocalizedLabel32;
         
+
         /// <summary>
         /// Xmpp-Steuerelement
         /// </summary>
@@ -550,8 +550,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Xmpp;
+        protected TextBox Xmpp;
         
+
         /// <summary>
         /// LocalizedLabel30-Steuerelement
         /// </summary>
@@ -559,8 +560,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel30;
+        protected LocalizedLabel LocalizedLabel30;
         
+
         /// <summary>
         /// Skype-Steuerelement
         /// </summary>
@@ -568,8 +570,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Skype;
+        protected TextBox Skype;
         
+
         /// <summary>
         /// LocalizedLabel25-Steuerelement
         /// </summary>
@@ -577,8 +580,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel25;
+        protected LocalizedLabel LocalizedLabel25;
         
+
         /// <summary>
         /// LocalizedLabel24-Steuerelement
         /// </summary>
@@ -586,8 +590,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel24;
+        protected LocalizedLabel LocalizedLabel24;
         
+
         /// <summary>
         /// TimeZones-Steuerelement
         /// </summary>
@@ -595,8 +600,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TimeZones;
+        protected DropDownList TimeZones;
         
+
         /// <summary>
         /// ForumSettingsRows-Steuerelement
         /// </summary>
@@ -604,8 +610,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ForumSettingsRows;
+        protected PlaceHolder ForumSettingsRows;
         
+
         /// <summary>
         /// LocalizedLabel23-Steuerelement
         /// </summary>
@@ -613,8 +620,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel23;
+        protected LocalizedLabel LocalizedLabel23;
         
+
         /// <summary>
         /// UserThemeRow-Steuerelement
         /// </summary>
@@ -622,8 +630,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UserThemeRow;
+        protected PlaceHolder UserThemeRow;
         
+
         /// <summary>
         /// LocalizedLabel22-Steuerelement
         /// </summary>
@@ -631,8 +640,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel22;
+        protected LocalizedLabel LocalizedLabel22;
         
+
         /// <summary>
         /// Theme-Steuerelement
         /// </summary>
@@ -640,8 +650,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Theme;
+        protected DropDownList Theme;
         
+
         /// <summary>
         /// TrTextEditors-Steuerelement
         /// </summary>
@@ -649,8 +660,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder TrTextEditors;
+        protected PlaceHolder TrTextEditors;
         
+
         /// <summary>
         /// LocalizedLabel19-Steuerelement
         /// </summary>
@@ -658,8 +670,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel19;
+        protected LocalizedLabel LocalizedLabel19;
         
+
         /// <summary>
         /// ForumEditor-Steuerelement
         /// </summary>
@@ -667,8 +680,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumEditor;
+        protected DropDownList ForumEditor;
         
+
         /// <summary>
         /// UseMobileThemeRow-Steuerelement
         /// </summary>
@@ -676,8 +690,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UseMobileThemeRow;
+        protected PlaceHolder UseMobileThemeRow;
         
+
         /// <summary>
         /// LocalizedLabel21-Steuerelement
         /// </summary>
@@ -685,8 +700,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel21;
+        protected LocalizedLabel LocalizedLabel21;
         
+
         /// <summary>
         /// UseMobileTheme-Steuerelement
         /// </summary>
@@ -694,8 +710,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UseMobileTheme;
+        protected CheckBox UseMobileTheme;
         
+
         /// <summary>
         /// UserLanguageRow-Steuerelement
         /// </summary>
@@ -703,8 +720,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UserLanguageRow;
+        protected PlaceHolder UserLanguageRow;
         
+
         /// <summary>
         /// LocalizedLabel20-Steuerelement
         /// </summary>
@@ -712,8 +730,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel20;
+        protected LocalizedLabel LocalizedLabel20;
         
+
         /// <summary>
         /// Culture-Steuerelement
         /// </summary>
@@ -721,8 +740,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Culture;
+        protected DropDownList Culture;
         
+
         /// <summary>
         /// LoginInfo-Steuerelement
         /// </summary>
@@ -730,8 +750,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder LoginInfo;
+        protected PlaceHolder LoginInfo;
         
+
         /// <summary>
         /// LocalizedLabel18-Steuerelement
         /// </summary>
@@ -739,8 +760,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel18;
+        protected LocalizedLabel LocalizedLabel18;
         
+
         /// <summary>
         /// LocalizedLabel17-Steuerelement
         /// </summary>
@@ -748,8 +770,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel17;
+        protected LocalizedLabel LocalizedLabel17;
         
+
         /// <summary>
         /// Email-Steuerelement
         /// </summary>
@@ -757,8 +780,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Email;
+        protected TextBox Email;
         
+
         /// <summary>
         /// UpdateProfile-Steuerelement
         /// </summary>
@@ -766,8 +790,9 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton UpdateProfile;
+        protected ThemeButton UpdateProfile;
         
+
         /// <summary>
         /// Cancel-Steuerelement
         /// </summary>
@@ -775,6 +800,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Cancel;
+        protected ThemeButton Cancel;
     }
 }

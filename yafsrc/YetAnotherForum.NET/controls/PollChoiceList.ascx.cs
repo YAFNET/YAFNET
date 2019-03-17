@@ -124,24 +124,12 @@ namespace YAF.Controls
         /// The mime type.
         /// </param>
         /// <returns>
-        /// Returnes image height.
+        /// Returns image height.
         /// </returns>
         protected int GetImageHeight([NotNull] object mimeType)
         {
             var attrs = mimeType.ToString().Split('!')[1].Split(';');
             return attrs[1].ToType<int>();
-        }
-
-        /// <summary>
-        /// The get poll question.
-        /// </summary>
-        /// <returns>
-        /// Returns poll question string.
-        /// </returns>
-        [NotNull]
-        protected string GetPollQuestion()
-        {
-            return this.DataSource.Rows[0]["Question"].ToString();
         }
 
         /// <summary>
@@ -151,7 +139,7 @@ namespace YAF.Controls
         /// The Localization Page.
         /// </param>
         /// <param name="tag">
-        /// The Localisation Page Tag.
+        /// The Localization Page Tag.
         /// </param>
         /// <returns>
         /// Returns Theme Content.
@@ -241,7 +229,7 @@ namespace YAF.Controls
             LegacyDb.choice_vote(e.CommandArgument, userID, remoteIP);
 
             // save the voting cookie...
-            var cookieCurrent = String.Empty;
+            var cookieCurrent = string.Empty;
 
             // We check whether is a vote for an option  
             if (this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))] != null)
@@ -290,7 +278,7 @@ namespace YAF.Controls
         {
             var item = e.Item;
             var drowv = (DataRowView)e.Item.DataItem;
-            var trow = item.FindControlRecursiveAs<HtmlTableRow>("VoteTr");
+            var trow = item.FindControlRecursiveAs<PlaceHolder>("VoteTr");
 
             if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
             {
@@ -300,20 +288,21 @@ namespace YAF.Controls
             // Voting link 
             var myLinkButton = item.FindControlRecursiveAs<LinkButton>("MyLinkButton1");
 
-            var myChoiceMarker = item.FindControlRecursiveAs<HtmlImage>("YourChoice");
+            var myChoiceMarker = item.FindControlRecursiveAs<Label>("YourChoice");
             if (this.ChoiceId != null)
             {
-                foreach (var mychoice in this.ChoiceId.Where(mychoice => (int)drowv.Row["ChoiceID"] == mychoice))
+                foreach (var mychoice in this.ChoiceId.Where(choice => drowv.Row["ChoiceID"].ToType<int>() == choice))
                 {
                     myChoiceMarker.Visible = true;
                 }
 
-                if (Voters != null)
+                if (this.Voters != null)
                 {
-                    var himage = item.FindControlRecursiveAs<HtmlImage>("ImgVoteBar");
+                    // TODO:
+                   /* var himage = item.FindControlRecursiveAs<HtmlImage>("ImgVoteBar");
                     foreach (DataRow row in this.Voters.Rows)
                     {
-                        if ((int)row["ChoiceID"] == (int)drowv["ChoiceID"] && (int)row["PollID"] == PollId)
+                        if ((int)row["ChoiceID"] == (int)drowv["ChoiceID"] && (int)row["PollID"] == this.PollId)
                         {
                             himage.Attributes["title"] = himage.Attributes["title"] + row["UserName"] + ",";
                         }
@@ -322,7 +311,7 @@ namespace YAF.Controls
                     if (himage.Attributes["title"].IsSet())
                     {
                         himage.Attributes["title"] = himage.Attributes["alt"] = himage.Attributes["title"].TrimEnd(',');
-                    }
+                    }*/
 
                 }
             }
@@ -334,16 +323,10 @@ namespace YAF.Controls
 
             // Poll Choice image
             var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
-            var choiceAnchor = item.FindControlRecursiveAs<HtmlAnchor>("ChoiceAnchor");
 
             // Don't render if it's a standard image
             if (!drowv.Row["ObjectPath"].IsNullOrEmptyDBField())
             {
-                // choiceAnchor.Attributes["rel"] = "lightbox-group" + Guid.NewGuid().ToString().Substring(0, 5);
-                choiceAnchor.HRef = drowv.Row["ObjectPath"].IsNullOrEmptyDBField()
-                                        ? this.GetThemeContents("VOTE", "POLL_CHOICE")
-                                        : this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
-
                 // choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
                 choiceImage.Src = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
 
@@ -357,24 +340,15 @@ namespace YAF.Controls
 
                     choiceImage.Attributes["style"] =
                         "width:{0}px; height:{1}px;".FormatWith(imageWidth, choiceImage.Height);
-
-                    // reserved to get equal row heights
-                    var height = Convert.ToInt32(this.MaxImageAspect * choiceImage.Width);
-                    trow.Attributes["style"] = "height:{0}px;".FormatWith(height);
                 }
             }
             else
             {
-
-
-                choiceImage.Alt = this.GetText("POLLEDIT", "POLL_PLEASEVOTE");
-                choiceImage.Src = this.GetThemeContents("VOTE", "POLL_CHOICE");
-                choiceAnchor.HRef = string.Empty;
+                choiceImage.Visible = false;
             }
 
-            item.FindControlRecursiveAs<Panel>("MaskSpan").Visible = this.HideResults;
             item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
-            item.FindControlRecursiveAs<Panel>("VoteSpan").Visible = !this.HideResults;
+            item.FindControlRecursiveAs<Label>("VoteSpan").Visible = !this.HideResults;
         }
 
         /// <summary>

@@ -478,25 +478,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets the title.
-        /// </summary>
-        /// <returns>
-        /// The get title.
-        /// </returns>
-        protected string GetTitle()
-        {
-            switch (this.View)
-            {
-                case PmView.Outbox:
-                    return this.GetLocalizedText("SENTITEMS", null);
-                case PmView.Inbox:
-                    return this.GetLocalizedText("INBOX", null);
-                default:
-                    return this.GetLocalizedText("ARCHIVE", null);
-            }
-        }
-
-        /// <summary>
         /// The mark as read_ click.
         /// </summary>
         /// <param name="source">
@@ -547,15 +528,6 @@ namespace YAF.Controls
             {
                 case DataControlRowType.Header:
                     {
-                        var gridView = (GridView)sender;
-                        var gridViewRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
-
-                        var tableCell = new TableCell { Text = this.GetTitle(), CssClass = "header1", ColumnSpan = 5 };
-
-                        // Add Header to top with column span of 5... no need for two tables.
-                        gridViewRow.Cells.Add(tableCell);
-                        gridView.Controls[0].Controls.AddAt(0, gridViewRow);
-
                         var sortFrom = (Image)e.Row.FindControl("SortFrom");
                         var sortSubject = (Image)e.Row.FindControl("SortSubject");
                         var sortDate = (Image)e.Row.FindControl("SortDate");

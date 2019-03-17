@@ -47,20 +47,20 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var hiddenContent = Parameters["inner"];
+            var hiddenContent = this.Parameters["inner"];
 
-            int postsCount = -1;
+            var postsCount = -1;
 
-            if (Parameters.ContainsKey("posts"))
+            if (this.Parameters.ContainsKey("posts"))
             {
-                postsCount = int.Parse(Parameters["posts"]);
+                postsCount = int.Parse(this.Parameters["posts"]);
             }
 
-            int thanksCount = -1;
+            var thanksCount = -1;
 
-            if (Parameters.ContainsKey("thanks"))
+            if (this.Parameters.ContainsKey("thanks"))
             {
-                thanksCount = int.Parse(Parameters["thanks"]);
+                thanksCount = int.Parse(this.Parameters["thanks"]);
             }
 
             var messageId = this.MessageID;
@@ -70,19 +70,19 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
-            var description = LocalizedString(
+            var description = this.LocalizedString(
                 "HIDDENMOD_DESC",
                 "The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You only need to thank the Current Post");
 
-            var descriptionGuest = LocalizedString(
+            var descriptionGuest = this.LocalizedString(
                 "HIDDENMOD_GUEST",
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
-            string shownContentGuest =
+            var shownContentGuest =
                 "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
                     .FormatWith(descriptionGuest);
 
-            string shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
+            var shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
                description, YafForumInfo.GetURLToContent("images/HiddenWarnDescription.png"));
 
 
@@ -97,11 +97,11 @@ namespace YAF.Modules.BBCode
             if (postsCount > -1)
             {
                 // Handle Hide Posts Count X BBCOde
-                var descriptionPost = LocalizedString(
+                var descriptionPost = this.LocalizedString(
                     "HIDDENMOD_POST",
                     "Hidden Content (You must be registered and have {0} post(s) or more)").FormatWith(postsCount);
 
-                string shownContentPost =
+                var shownContentPost =
                     "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
                         .FormatWith(descriptionPost);
 
@@ -113,7 +113,7 @@ namespace YAF.Modules.BBCode
                 }
 
 
-                if (DisplayUserID == userId ||
+                if (this.DisplayUserID == userId ||
                     YafContext.Current.CurrentUserData.NumPosts >= postsCount)
                 {
                     shownContent = hiddenContent;
@@ -126,11 +126,11 @@ namespace YAF.Modules.BBCode
             else if (thanksCount > -1)
             {
                 // Handle Hide Thanks Count X BBCode
-                var descriptionPost = LocalizedString(
+                var descriptionPost = this.LocalizedString(
                     "HIDDENMOD_THANKS",
                     "Hidden Content (You must be registered and have at least {0} thank(s) received)").FormatWith(thanksCount);
 
-                string shownContentPost =
+                var shownContentPost =
                     "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
                         .FormatWith(descriptionPost);
 
@@ -142,7 +142,7 @@ namespace YAF.Modules.BBCode
                 }
 
 
-                if (DisplayUserID == userId ||
+                if (this.DisplayUserID == userId ||
                     LegacyDb.user_ThankFromCount(userId) >= thanksCount)
                 {
                     shownContent = hiddenContent;
@@ -168,7 +168,7 @@ namespace YAF.Modules.BBCode
                 }
 
 
-                if (DisplayUserID == userId ||
+                if (this.DisplayUserID == userId ||
                     LegacyDb.user_ThankedMessage(messageId.ToType<int>(), userId))
                 {
                     // Show hiddent content if user is the poster or have thanked the poster.

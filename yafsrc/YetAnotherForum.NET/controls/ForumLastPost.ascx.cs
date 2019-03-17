@@ -125,7 +125,7 @@ namespace YAF.Controls
 
                 var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
                                  ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                     this.DataRow["LastTopicStyles"].ToString(), false)
+                                     this.DataRow["LastTopicStyles"].ToString())
                                  : string.Empty;
 
                 if (styles.IsSet())
@@ -167,7 +167,7 @@ namespace YAF.Controls
                 this.ProfileUserLink.UserID = this.DataRow["LastUserID"].ToType<int>();
                 this.ProfileUserLink.Style = this.Get<YafBoardSettings>().UseStyledNicks
                                                  ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                     this.DataRow["Style"].ToString(), false)
+                                                     this.DataRow["Style"].ToString())
                                                  : string.Empty;
                 this.ProfileUserLink.ReplaceName =
                     this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUser"]
@@ -179,6 +179,19 @@ namespace YAF.Controls
                 }
 
                 this.LastTopicImgLink.ToolTip = this.Alt;
+                this.LastTopicImgLink.Text = "<i class=\"fa fa-fast-forward fa-fw\"></i> {0}".FormatWith(this.Alt);
+
+                this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
+
+                this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
+
+                this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
+                this.ImageLastUnreadMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+                this.ImageLastUnreadMessageLink.Text =
+                    "<i class=\"fa fa-step-forward fa-fw\"></i> {0}".FormatWith(
+                        this.GetText("DEFAULT", "GO_LASTUNREAD_POST"));
 
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
@@ -187,35 +200,26 @@ namespace YAF.Controls
                         forumReadOverride: this.DataRow["LastForumAccess"].ToType<DateTime?>(),
                         topicReadOverride: this.DataRow["LastTopicAccess"].ToType<DateTime?>());
 
-                var showNewIcon = DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) > lastRead;
-
-                this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
-
-                this.Icon.ThemeTag = showNewIcon ? "ICON_NEWEST" : "ICON_LATEST";
-
-                this.Icon.Alt = this.LastTopicImgLink.ToolTip;
-
-                this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
-
-                if (this.ImageLastUnreadMessageLink.Visible)
+                if (this.DataRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
-                    this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                        ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
-
-                    this.LastUnreadImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
-
-                    this.LastUnreadImage.ThemeTag = showNewIcon ? "ICON_NEWEST_UNREAD" : "ICON_LATEST_UNREAD";
+                    this.NewMessage.Visible = true;
+                    this.NewMessage.Text =
+                        " <span class=\"badge badge-success\">{0}</span>".FormatWith(this.GetText("NEW_POSTS"));
+                }
+                else
+                {
+                    this.NewMessage.Visible = false;
                 }
 
+
                 this.LastPostedHolder.Visible = showLastLinks;
-                this.NoPostsLabel.Visible = false;
+                this.NoPostsPlaceHolder.Visible = false;
             }
             else
             {
                 // show "no posts"
                 this.LastPostedHolder.Visible = false;
-                this.NoPostsLabel.Visible = true;
+                this.NoPostsPlaceHolder.Visible = true;
             }
         }
 

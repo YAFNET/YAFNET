@@ -21,7 +21,7 @@ function toggleItem(detailId)
 }
 </script>
 
-<YAF:AdminMenu runat="server" ID="AdminMenu1">
+
         <div class="row">
             <div class="col-xl-12">
                 <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" /></h1>
@@ -143,5 +143,5 @@ function toggleItem(detailId)
     <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
         </div>
     </div>
-</YAF:AdminMenu>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

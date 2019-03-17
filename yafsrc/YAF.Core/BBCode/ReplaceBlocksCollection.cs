@@ -137,7 +137,7 @@ namespace YAF.Core.BBCode
     {
       var sb = new StringBuilder(text);
 
-      foreach (int index in this._replacementDictionary.Keys)
+      foreach (var index in this._replacementDictionary.Keys)
       {
         sb.Replace(this.Get(index), this._replacementDictionary[index]);
       }

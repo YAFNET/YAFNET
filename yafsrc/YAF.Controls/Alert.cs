@@ -68,6 +68,11 @@ namespace YAF.Controls
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
         public override void RenderControl(HtmlTextWriter writer)
         {
+            if (!this.Visible)
+            {
+                return;
+            }
+
             writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
 
             var cssClass = this.MobileOnly ? " d-sm-none" : string.Empty;

@@ -4545,6 +4545,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">Duyuru</Resource>
     <Resource tag="ASK_POLL_DELETE">Bu konudan anketi kaldırmak istediğinizden emin misiniz?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="DESCRIPTION">Description:</Resource>
     <Resource tag="EDIT">Mesajı Düzenle</Resource>
@@ -4756,6 +4758,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">Forum denetleyicilerini askıya alamazsınız.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">Konuk kullanıcıları askıya alamazsınız.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Cinsiyetinizi Seçiniz</Resource>
     <Resource tag="GENDER0">Henüz seçilmemiş</Resource>
     <Resource tag="GENDER1">Bay</Resource>
@@ -4788,6 +4791,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">Kullanıcının Tüm Mesajlarını Gör</Resource>
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">İstatistikler</Resource>
     <Resource tag="SUSPEND">Askıya Al</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5585,6 +5589,7 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="LASTPOST">Son Mesaj</Resource>
     <Resource tag="MARKREAD">Forumu okundu olarak işaretle</Resource>
     <Resource tag="NO_POSTS">Mesaj Yok</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Mesajlar</Resource>
     <Resource tag="REPLIES">Cevaplar</Resource>
