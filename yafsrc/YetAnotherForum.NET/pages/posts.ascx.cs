@@ -1458,16 +1458,6 @@ namespace YAF.Pages
                     }
 
                     break;
-                case "googleplus":
-                    {
-                        var googlePlusUrl =
-                            "https://plusone.google.com/_/+1/confirm?hl=en&url={0}".FormatWith(
-                                this.Server.UrlEncode(topicUrl));
-
-                        this.Get<HttpResponseBase>().Redirect(googlePlusUrl);
-                    }
-
-                    break;
                 default:
                     throw new ApplicationException(e.Item);
             }
@@ -1559,10 +1549,7 @@ namespace YAF.Pages
                     this.GetText("LINKBACK_TOPIC"),
                     "prompt('{0}','{1}');return false;".FormatWith(this.GetText("LINKBACK_TOPIC_PROMT"), topicUrl),
                     "fa fa-link");
-                this.ShareMenu.AddPostBackItem(
-                    "retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
-                this.ShareMenu.AddPostBackItem(
-                    "googleplus", this.GetText("GOOGLEPLUS_TOPIC"), "fab fa-google-plus-g");
+                this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
 
                 var facebookUrl =
                     "http://www.facebook.com/plugins/like.php?href={0}".FormatWith(
