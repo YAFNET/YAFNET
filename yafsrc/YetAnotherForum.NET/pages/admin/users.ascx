@@ -179,7 +179,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SYNC_MSG" LocalizedPage="ADMIN_USERS" />
                     </p>
                     <footer>
-                        <asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
+                        <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
                     </footer>
                 </blockquote>
             </div>

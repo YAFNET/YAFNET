@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class search {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// searchInput-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox searchInput;
+        protected global::System.Web.UI.WebControls.TextBox searchInput;
         
-
         /// <summary>
         /// GoSearch-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton GoSearch;
+        protected global::YAF.Controls.ThemeButton GoSearch;
         
-
         /// <summary>
         /// txtSearchStringFromWho-Steuerelement
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox txtSearchStringFromWho;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchStringFromWho;
         
-
         /// <summary>
         /// listSearchWhat-Steuerelement
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList listSearchWhat;
+        protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
         
-
         /// <summary>
         /// listForum-Steuerelement
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList listForum;
+        protected global::System.Web.UI.WebControls.DropDownList listForum;
         
-
         /// <summary>
         /// TitleOnly-Steuerelement
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList TitleOnly;
+        protected global::System.Web.UI.WebControls.DropDownList TitleOnly;
         
-
         /// <summary>
         /// listResInPage-Steuerelement
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList listResInPage;
+        protected global::System.Web.UI.WebControls.DropDownList listResInPage;
         
-
         /// <summary>
         /// SmartScroller1-Steuerelement
         /// </summary>
@@ -102,6 +91,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.SmartScroller SmartScroller1;
     }
 }

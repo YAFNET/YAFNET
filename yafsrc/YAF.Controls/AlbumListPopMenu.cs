@@ -130,8 +130,7 @@ namespace YAF.Controls
             sb.Append("<div id=\"AlbumsListPager\"></div>");
             sb.Append("<div id=\"PostAlbumsLoader\">");
             sb.AppendFormat(
-                "<p style=\"text-align:center\"><span>{1}</span><br /><img title=\"{1}\" src=\"{0}\" alt=\"{1}\" /></p>",
-                YafForumInfo.GetURLToContent("images/loader.gif"),
+                "<p style=\"text-align:center\"><span>{0}</span><br /><div class=\"fa-3x\"><i class=\"fas fa-spinner fa-pulse\"></i></div></p>",
                 this.Get<ILocalization>().GetText("COMMON", "LOADING"));
             sb.Append("</div>");
             sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");

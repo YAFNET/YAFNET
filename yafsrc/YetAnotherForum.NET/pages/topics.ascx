@@ -89,7 +89,7 @@
                     <div class="mb-1 form-inline">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />:
                         &nbsp;<asp:TextBox id="forumSearch" runat="server"></asp:TextBox>
-                        &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" CssClass="yaflittlebutton"
+                        &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" Size="Small"
                                                TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" OnClick="ForumSearch_Click" />
                     </div>
                 </asp:PlaceHolder>

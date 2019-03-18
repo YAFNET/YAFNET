@@ -109,8 +109,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
-
             this.BindData();
 
             var forumId = this.GetQueryStringAsInt("fa");

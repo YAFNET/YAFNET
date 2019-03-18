@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.ImageGallery" CodeBehind="ImageGallery.ascx.cs" %>
 
-<div id="blueimp-gallery" class="blueimp-gallery "data-use-bootstrap-modal="true">
+<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="true">
     <div class="slides"></div>
     <div class="modal fade">
         <div class="modal-dialog" role="document">

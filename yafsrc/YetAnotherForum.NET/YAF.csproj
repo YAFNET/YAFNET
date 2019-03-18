@@ -1146,10 +1146,6 @@
     <Content Include="Content\jquery.fileupload.comb.min.css">
       <DependentUpon>jquery.fileupload.comb.css</DependentUpon>
     </Content>
-    <Content Include="Content\metisMenu.css" />
-    <Content Include="Content\metisMenu.min.css">
-      <DependentUpon>metisMenu.css</DependentUpon>
-    </Content>
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
     <Content Include="Content\css\select2-bootstrap.css" />
@@ -1444,7 +1440,6 @@
     <Content Include="pages\topics.ascx" />
     <Content Include="pages\viewthanks.ascx" />
     <Content Include="popup.aspx" />
-    <Content Include="Content\images\asc.gif" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
     <Content Include="Scripts\blueimp-gallery.js" />
@@ -1837,9 +1832,6 @@
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\metisMenu.min.js">
-      <DependentUpon>metisMenu.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js">
       <DependentUpon>moment-with-locales.js</DependentUpon>
@@ -1860,7 +1852,6 @@
       <DependentUpon>jsdifflib.js</DependentUpon>
     </Content>
     <Content Include="Scripts\ladda.js" />
-    <Content Include="Scripts\metisMenu.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
@@ -1875,7 +1866,6 @@
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>
     </Content>
-    <Content Include="Content\images\desc.gif" />
     <Content Include="Content\images\flags\ad.png" />
     <Content Include="Content\images\flags\ae.png" />
     <Content Include="Content\images\flags\af.png" />
@@ -2129,7 +2119,6 @@
     <Content Include="Content\images\flags\zm.png" />
     <Content Include="Content\images\flags\zw.png" />
     <Content Include="Content\images\HiddenWarnDescription.png" />
-    <Content Include="Content\images\loader.gif" />
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\InstallWizard.comb.js" />
     <Content Include="Scripts\InstallWizard.comb.min.js">

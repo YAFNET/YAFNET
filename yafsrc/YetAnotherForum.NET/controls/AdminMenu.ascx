@@ -1,54 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdminMenu.ascx.cs" Inherits="YAF.Controls.AdminMenu" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 
-<script>
-
-    $(document).ready(function () {
-        $('.dropdown-menu a.dropdown-toggle').on('click', function () {
-            var $el = $(this);
-            var $parent = $(this).offsetParent(".dropdown-menu");
-            if (!$(this).next().hasClass('show')) {
-                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-            }
-            var $subMenu = $(this).next(".dropdown-menu");
-            $subMenu.toggleClass('show');
-
-            $(this).parent("li").toggleClass('show');
-
-            $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function () {
-                $('.dropdown-menu .show').removeClass("show");
-            });
-
-            if (!$parent.parent().hasClass('navbar-nav')) {
-                $el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
-            }
-
-            return false;
-        });
-    });
-
-
-</script>
-
-<style>
-    .dropdown-submenu {
-        position: relative;
-    }
-
-    .dropdown-submenu .dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -1px;
-    }
-</style>
-
 <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="hostDropdown" data-toggle="dropdown" 
-                           href="<%= YafBuildLink.GetLink(ForumPages.admin_admin) %>" 
-                           role="button" 
-                           aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-tachometer-alt fa-fw"></i>&nbsp;<%= this.GetText("ADMINMENU", "ADMIN")  %>
-                        </a>
+    <a class="nav-link dropdown-toggle" id="hostDropdown" 
+       data-toggle="dropdown" 
+       href="<%= YafBuildLink.GetLink(ForumPages.admin_admin) %>" 
+       role="button" 
+       aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-tachometer-alt fa-fw"></i>&nbsp;<%= this.GetText("ADMINMENU", "ADMIN")  %>
+    </a>
                         <ul class="dropdown-menu" aria-labelledby="hostDropdown">
                             <li class="dropdown-item"><a href="<%= YafBuildLink.GetLink(ForumPages.admin_admin) %>">
                                 <i class="fa fa-tachometer-alt fa-fw"></i>&nbsp;

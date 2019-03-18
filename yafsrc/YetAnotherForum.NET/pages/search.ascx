@@ -59,12 +59,10 @@
         <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="loadModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-body">
-                        <p class="text-center">
-                        <img title='<%= this.Get<ILocalization>().GetText("COMMON", "LOADING") %>' 
-                             src='<%=YafForumInfo.GetURLToContent("images/loader.gif") %>' 
-                             alt='<%= this.Get<ILocalization>().GetText("COMMON", "LOADING") %>'  />
-                        </p>
+                    <div class="modal-body text-center">
+                        <div class="fa-3x">
+                            <i class="fas fa-spinner fa-pulse"></i>
+                        </div>
                         <h5 class="text-center"><%= this.Get<ILocalization>().GetText("COMMON", "LOADING") %></h5>
                     </div>
                 </div>

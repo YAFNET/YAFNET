@@ -30,8 +30,6 @@ namespace YAF.Controls
 
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -50,10 +48,6 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
-            this.LoadingImage.AlternateText = this.Get<ILocalization>().GetText("COMMON", "LOADING");
-            this.LoadingImage.ToolTip = this.Get<ILocalization>().GetText("COMMON", "LOADING");
-
             base.OnPreRender(e);
         }
 

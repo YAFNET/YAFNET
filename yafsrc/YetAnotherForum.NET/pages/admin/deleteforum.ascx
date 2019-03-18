@@ -61,7 +61,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_DELETEFORUM" />
                     </p>
                     <footer>
-                        <asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
+                        <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
                     </footer>
                 </blockquote>
             </div>

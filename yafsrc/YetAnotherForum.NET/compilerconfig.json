@@ -42,5 +42,13 @@
   {
     "outputFile": "Scripts/ladda.es5.js",
     "inputFile": "Scripts/ladda.js"
+  },
+  {
+    "outputFile": "Scripts/yafEditor/yafEditor.es5.js",
+    "inputFile": "Scripts/yafEditor/yafEditor.js"
+  },
+  {
+    "outputFile": "Scripts/jquery.ForumExtensions.es5.js",
+    "inputFile": "Scripts/jquery.ForumExtensions.js"
   }
 ]

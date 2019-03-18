@@ -29,7 +29,7 @@
                                 <%# this.GetPreviewImage(Container.DataItem) %>
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             
-                                <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                <YAF:ThemeButton ID="ThemeButtonDelete"
                                                  CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>' 
                                                  TitleLocalizedTag="DELETE" 
                                                  TextLocalizedTag="DELETE"

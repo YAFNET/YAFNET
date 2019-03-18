@@ -16,10 +16,10 @@
     <td class="post">
         <div id="AttachmentsListPager"></div>
         <div id="PostAttachmentLoader">
-            <p style="text-align:center">
+            <div style="text-align:center">
                 <YAF:LocalizedLabel ID="LoadingText" runat="server" LocalizedTag="LOADING"></YAF:LocalizedLabel>
-                <br /><asp:Image ID="LoadingImage" runat="server" />
-            </p>
+                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
+            </div>
         </div>
         <div id="AttachmentsListBox" class="content">
             <div id="PostAttachmentListPlaceholder"
@@ -31,7 +31,7 @@
                 </ul>
             </div>
             <span class="UploadNewFileLine">
-               <a class="OpenUploadDialog yaflittlebutton" data-toggle="modal" data-target=".UploadDialog">
+               <a class="OpenUploadDialog" data-toggle="modal" data-target=".UploadDialog">
                    <span>
                        <YAF:LocalizedLabel ID="ThemeButton1" LocalizedTag="UPLOAD_NEW" LocalizedPage="ATTACHMENTS" runat="server" />
                    </span>

@@ -294,7 +294,6 @@ namespace YAF.Pages.Admin
 
             // set since filter to last item "All time"
             this.Since.SelectedIndex = this.Since.Items.Count - 1;
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
 
             // get list of user groups for filtering
             var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);

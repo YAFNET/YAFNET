@@ -60,7 +60,6 @@
     "outputFileName": "Scripts/jquery.ForumAdminExtensions.js",
     "inputFiles": [
       "Scripts/moment-with-locales.js",
-      "Scripts/metisMenu.js",
       "Scripts/bootstrap.bundle.js",
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/bootstrap-datetimepicker.js",

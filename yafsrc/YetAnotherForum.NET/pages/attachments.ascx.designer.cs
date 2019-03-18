@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class attachments {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
-
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// PagerTop-Steuerelement
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerTop;
+        protected global::YAF.Controls.Pager PagerTop;
         
-
         /// <summary>
         /// List-Steuerelement
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater List;
+        protected global::System.Web.UI.WebControls.Repeater List;
         
-
         /// <summary>
         /// DeleteAttachment2-Steuerelement
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton DeleteAttachment2;
+        protected global::YAF.Controls.ThemeButton DeleteAttachment2;
         
-
         /// <summary>
         /// PagerBottom-Steuerelement
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerBottom;
+        protected global::YAF.Controls.Pager PagerBottom;
         
-
         /// <summary>
         /// Back-Steuerelement
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Back;
+        protected global::YAF.Controls.ThemeButton Back;
         
-
         /// <summary>
         /// SmartScroller1-Steuerelement
         /// </summary>
@@ -102,6 +91,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.SmartScroller SmartScroller1;
     }
 }

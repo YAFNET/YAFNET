@@ -77,8 +77,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
-
             // Check and see if it should make panels enable or not
             this.PanelReindex.Visible = LegacyDb.PanelReindex;
             this.PanelShrink.Visible = LegacyDb.PanelShrink;
