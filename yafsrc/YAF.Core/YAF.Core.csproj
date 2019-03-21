@@ -114,7 +114,6 @@
     <Compile Include="Model\ReplaceWordsRepositoryExtensions.cs" />
     <Compile Include="Model\IgnoreUserRepositoryExtensions.cs" />
     <Compile Include="Model\NntpForumRepositoryExtensions.cs" />
-    <Compile Include="Model\TopicStatusRepositoryExtensions.cs" />
     <Compile Include="Model\TopicRepositoryExtensions.cs" />
     <Compile Include="Model\ThanksRepositoryExtensions.cs" />
     <Compile Include="Model\SpamWordsRepositoryExtensions.cs" />
