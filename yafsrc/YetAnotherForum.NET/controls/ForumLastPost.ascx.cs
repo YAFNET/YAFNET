@@ -133,35 +133,8 @@ namespace YAF.Controls
                     this.topicLink.Attributes.Add("style", styles);
                 }
 
-                // Topic Status
-                if (this.DataRow["LastTopicStatus"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
-                {
-                    var topicStatusIcon = this.Get<ITheme>().GetItem(
-                        "TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString());
-
-                    if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
-                    {
-                        this.topicLink.Text =
-                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" class=\"topicStatusIcon\" />&nbsp;{2}"
-                                .FormatWith(
-                                    this.Get<ITheme>().GetItem(
-                                        "TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
-                                    this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
-                                    this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
-                    }
-                    else
-                    {
-                        this.topicLink.Text =
-                            "[{0}]&nbsp;{1}".FormatWith(
-                                this.GetText("TOPIC_STATUS", this.DataRow["LastTopicStatus"].ToString()),
-                                this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"])).Truncate(50));
-                    }
-                }
-                else
-                {
-                    this.topicLink.Text =
-                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())).Truncate(50);
-                }
+                this.topicLink.Text = this.Get<IBadWordReplace>()
+                    .Replace(this.HtmlEncode(this.DataRow["LastTopicName"].ToString())).Truncate(50);
 
                 // Last Topic User
                 this.ProfileUserLink.UserID = this.DataRow["LastUserID"].ToType<int>();

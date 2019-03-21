@@ -61,113 +61,27 @@ namespace YAF.Types.Models
         [Alias("RankID")]
         public int ID { get; set; }
 
-        /// <summary>
-        ///     Gets or sets the board id.
-        /// </summary>
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
+        [Required]
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the minimum posts.
-        /// </summary>
-        /// <value>
-        /// The minimum posts.
-        /// </value>
-        public int MinPosts { get; set; }
-
-        /// <summary>
-        /// Gets or sets the rank image.
-        /// </summary>
-        /// <value>
-        /// The rank image.
-        /// </value>
+        public int? MinPosts { get; set; }
         public string RankImage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        /// <value>
-        /// The flags.
-        /// </value>
+        [Required]
         public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the pm limit.
-        /// </summary>
-        /// <value>
-        /// The pm limit.
-        /// </value>
-        public int PMLimit { get; set; }
-
-        /// <summary>
-        /// Gets or sets the style.
-        /// </summary>
-        /// <value>
-        /// The style.
-        /// </value>
+        public int? PMLimit { get; set; }
         public string Style { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        /// <value>
-        /// The sort order.
-        /// </value>
-        public int SortOrder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        /// <value>
-        /// The description.
-        /// </value>
+        [Required]
+        public short SortOrder { get; set; }
         public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the usr sig chars.
-        /// </summary>
-        /// <value>
-        /// The usr sig chars.
-        /// </value>
-        public string UsrSigChars { get; set; }
-
-        /// <summary>
-        /// Gets or sets the usr sig bb codes.
-        /// </summary>
-        /// <value>
-        /// The usr sig bb codes.
-        /// </value>
+        [Required]
+        public int UsrSigChars { get; set; }
         public string UsrSigBBCodes { get; set; }
-
-        /// <summary>
-        /// Gets or sets the usr sig HTML tags.
-        /// </summary>
-        /// <value>
-        /// The usr sig HTML tags.
-        /// </value>
         public string UsrSigHTMLTags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the usr albums.
-        /// </summary>
-        /// <value>
-        /// The usr albums.
-        /// </value>
+        [Required]
         public int UsrAlbums { get; set; }
-
-        /// <summary>
-        /// Gets or sets the usr album images.
-        /// </summary>
-        /// <value>
-        /// The usr album images.
-        /// </value>
+        [Required]
         public int UsrAlbumImages { get; set; }
 
         #endregion

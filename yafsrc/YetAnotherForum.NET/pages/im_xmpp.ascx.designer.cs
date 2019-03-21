@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class im_xmpp {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
-
         /// <summary>
         /// Alert-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Alert Alert;
+        protected global::YAF.Controls.Alert Alert;
         
-
         /// <summary>
         /// NotifyLabel-Steuerelement
         /// </summary>
@@ -52,16 +46,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label NotifyLabel;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::System.Web.UI.WebControls.Label NotifyLabel;
     }
 }

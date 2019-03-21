@@ -25,7 +25,8 @@ namespace YAF.Types.Models
 {
     using System;
 
-    using YAF.Types.Interfaces;
+    using ServiceStack.DataAnnotations;
+
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -48,12 +49,17 @@ namespace YAF.Types.Models
 
         #region Public Properties
 
+        [References(typeof(Group))]
+        [Required]
         public int GroupID { get; set; }
 
+        [Required]
         public int EventTypeID { get; set; }
 
+        [Required]
         public string EventTypeName { get; set; }
 
+        [Required]
         public int DeleteAccess { get; set; }
 
         #endregion

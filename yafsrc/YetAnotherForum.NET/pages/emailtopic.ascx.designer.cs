@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class emailtopic {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
-
         /// <summary>
         /// LocalizedLabel5-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
         
-
         /// <summary>
         /// LocalizedLabel2-Steuerelement
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
-
         /// <summary>
         /// EmailAddress-Steuerelement
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox EmailAddress;
+        protected global::System.Web.UI.WebControls.TextBox EmailAddress;
         
-
         /// <summary>
         /// LocalizedLabel3-Steuerelement
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// Subject-Steuerelement
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox Subject;
+        protected global::System.Web.UI.WebControls.TextBox Subject;
         
-
         /// <summary>
         /// LocalizedLabel4-Steuerelement
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
         
-
         /// <summary>
         /// Message-Steuerelement
         /// </summary>
@@ -102,9 +91,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox Message;
+        protected global::System.Web.UI.WebControls.TextBox Message;
         
-
         /// <summary>
         /// SendEmail-Steuerelement
         /// </summary>
@@ -112,16 +100,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton SendEmail;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.ThemeButton SendEmail;
     }
 }

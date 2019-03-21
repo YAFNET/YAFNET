@@ -52,25 +52,18 @@ namespace YAF.Types.Models
         public int ID { get; set; }
 
         public string FromUser { get; set; }
-
-        public string ToUser { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public string Subject { get; set; }
-
-        public string Body { get; set; }
-
         public string FromUserName { get; set; }
-
+        public string ToUser { get; set; }
         public string ToUserName { get; set; }
-
+        [Required]
+        public DateTime Created { get; set; }
+        [Required]
+        public string Subject { get; set; }
+        public string Body { get; set; }
         public string BodyHtml { get; set; }
-
+        [Required]
         public int SendTries { get; set; }
-
         public DateTime? SendAttempt { get; set; }
-
         public int? ProcessID { get; set; }
 
 

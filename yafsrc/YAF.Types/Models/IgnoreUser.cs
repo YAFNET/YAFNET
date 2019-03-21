@@ -46,8 +46,10 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [Required]
         public int UserID { get; set; }
 
+        [Required]
         public int IgnoredUserID { get; set; }
 
 

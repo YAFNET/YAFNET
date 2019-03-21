@@ -52,8 +52,11 @@ namespace YAF.Types.Models
         [Alias("GroupID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         [Ignore]
@@ -70,28 +73,36 @@ namespace YAF.Types.Models
             }
         }
 
+        [Required]
         public int Flags { get; set; }
 
+        [Required]
         public int PMLimit { get; set; }
 
         public string Style { get; set; }
 
+        [Required]
         public short SortOrder { get; set; }
 
         public string Description { get; set; }
 
+        [Required]
         public int UsrSigChars { get; set; }
 
         public string UsrSigBBCodes { get; set; }
 
         public string UsrSigHTMLTags { get; set; }
 
+        [Required]
         public int UsrAlbums { get; set; }
 
+        [Required]
         public int UsrAlbumImages { get; set; }
 
+        [Compute]
         public bool? IsHidden { get; set; }
 
+        [Compute]
         public bool? IsUserGroup { get; set; }
 
 

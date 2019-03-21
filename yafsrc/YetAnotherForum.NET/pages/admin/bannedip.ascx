@@ -126,7 +126,7 @@
                             </div>
     </div>
 
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
 
 <modal:Import ID="ImportDialog" runat="server" />
 <modal:Edit ID="EditDialog" runat="server" />

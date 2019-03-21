@@ -35,7 +35,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "MessageReportedAudit")]
-    public partial class MessageReportedAudit : IEntity, IHaveID
+    public partial class MessageReportedAudit : IEntity
     {
         partial void OnCreated();
 
@@ -47,18 +47,15 @@ namespace YAF.Types.Models
         #region Properties
 
         [AutoIncrement]
-        [AliasAttribute("LogID")]
-        public int ID { get; set; }
-
+        public int LogID { get; set; }
         public int? UserID { get; set; }
-
+        [References(typeof(MessageReported))]
+        [Required]
         public int MessageID { get; set; }
-
         public DateTime? Reported { get; set; }
-
+        [Required]
         public int ReportedNumber { get; set; }
-
-        public string ReportedText { get; set; }
+        public string ReportText { get; set; }
 
         #endregion
     }

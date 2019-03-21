@@ -46,23 +46,27 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [Alias("PollID")]
         [AutoIncrement]
-        [AliasAttribute("PollID")]
         public int ID { get; set; }
-
+        [Required]
         public string Question { get; set; }
-
         public DateTime? Closes { get; set; }
-
+        [References(typeof(PollGroupCluster))]
         public int? PollGroupID { get; set; }
-
+        [Required]
         public int UserID { get; set; }
-
         public string ObjectPath { get; set; }
-
         public string MimeType { get; set; }
-
-        public int Flags { get; set; }
+        public int? Flags { get; set; }
+        [Compute]
+        public bool? IsClosedBound { get; set; }
+        [Compute]
+        public bool? AllowMultipleChoices { get; set; }
+        [Compute]
+        public bool? ShowVoters { get; set; }
+        [Compute]
+        public bool? AllowSkipVote { get; set; }
 
         #endregion
     }

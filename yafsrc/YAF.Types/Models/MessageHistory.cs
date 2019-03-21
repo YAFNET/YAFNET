@@ -35,7 +35,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "MessageHistory")]
-    public partial class MessageHistory : IEntity, IHaveID
+    public partial class MessageHistory : IEntity
     {
         partial void OnCreated();
 
@@ -46,22 +46,19 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
-        [AliasAttribute("MessageID")]
-        public int ID { get; set; }
-
+        [References(typeof(Message))]
+        [Required]
+        public int MessageID { get; set; }
         public string Message { get; set; }
-
+        [Required]
         public string IP { get; set; }
-
+        [Required]
         public DateTime Edited { get; set; }
-
         public int? EditedBy { get; set; }
-
         public string EditReason { get; set; }
-
+        [Required]
         public bool IsModeratorChanged { get; set; }
-
+        [Required]
         public int Flags { get; set; }
 
         #endregion

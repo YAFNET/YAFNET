@@ -499,11 +499,6 @@ namespace YAF.Types.Constants
         admin_bbcode_edit,
 
         /// <summary>
-        /// The admin_topicstatus.
-        /// </summary>
-        admin_topicstatus,
-
-        /// <summary>
         /// The admin_languages.
         /// </summary>
         admin_languages,

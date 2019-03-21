@@ -25,6 +25,7 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
 
@@ -66,9 +67,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var forum = repository.GetSingle(t => t.UserID == userId && t.ID == forumId);
+            var forum = repository.Get(t => t.UserID == userId && t.ForumID == forumId);
 
-            return forum?.LastAccessDate;
+            return forum.FirstOrDefault()?.LastAccessDate;
         }
 
         #endregion

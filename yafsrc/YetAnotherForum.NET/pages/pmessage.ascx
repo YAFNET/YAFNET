@@ -97,6 +97,6 @@
 </div>
 
 <div id="DivSmartScroller">
-	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+	
 </div>
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server"></YAF:AttachmentsUploadDialog>

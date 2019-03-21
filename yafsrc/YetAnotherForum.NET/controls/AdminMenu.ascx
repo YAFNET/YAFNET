@@ -55,12 +55,6 @@
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_bbcode" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                             </a></li>
-                        <li class="dropdown-item">  <a href="<%= YafBuildLink.GetLink(ForumPages.admin_topicstatus) %>"
-                               >
-                                <i class="fa fa-exclamation-triangle fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="admin_topicstatus" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
-                            </a>
                         <li class="dropdown-item"> <a href="<%= YafBuildLink.GetLink(ForumPages.admin_languages) %>"
                                >
                                 <i class="fa fa-language fa-fw"></i>&nbsp;

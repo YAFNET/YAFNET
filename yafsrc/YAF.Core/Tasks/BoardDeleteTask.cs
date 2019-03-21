@@ -6,9 +6,9 @@ namespace YAF.Core.Tasks
 
     using System;
 
+    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
-    using YAF.Classes.Data;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;

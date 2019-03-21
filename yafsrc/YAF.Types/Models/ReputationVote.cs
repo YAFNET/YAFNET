@@ -26,6 +26,8 @@ namespace YAF.Types.Models
     using System;
     using System.Data.Linq.Mapping;
 
+    using ServiceStack.DataAnnotations;
+
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -44,10 +46,13 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [References(typeof(User))]
+        [Required]
         public int ReputationFromUserID { get; set; }
-
+        [References(typeof(User))]
+        [Required]
         public int ReputationToUserID { get; set; }
-
+        [Required]
         public DateTime VoteDate { get; set; }
 
         #endregion

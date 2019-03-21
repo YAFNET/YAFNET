@@ -69,7 +69,7 @@ namespace YAF.Core.Tasks
 			// make collection local...
 			var taskListKeys = this.TaskManager.TaskManagerInstances;
 
-			foreach (string instanceName in taskListKeys)
+			foreach (var instanceName in taskListKeys)
 			{
 				IBackgroundTask task;
 

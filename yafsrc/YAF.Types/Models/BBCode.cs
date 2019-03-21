@@ -49,8 +49,11 @@ namespace YAF.Types.Models
         [Alias("BBCodeID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -75,6 +78,7 @@ namespace YAF.Types.Models
 
         public string ModuleClass { get; set; }
 
+        [Required]
         public int ExecOrder { get; set; }
 
         #endregion

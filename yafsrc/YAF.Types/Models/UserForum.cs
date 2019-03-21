@@ -25,6 +25,8 @@ namespace YAF.Types.Models
 {
     using System;
 
+    using ServiceStack.DataAnnotations;
+
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -42,15 +44,19 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
+        [References(typeof(Forum))]
+        [Required]
         public int ForumID { get; set; }
-
+        [References(typeof(AccessMask))]
+        [Required]
         public int AccessMaskID { get; set; }
-
+        [Required]
         public DateTime Invited { get; set; }
-
-        public int Accepted { get; set; }
+        [Required]
+        public bool Accepted { get; set; }
 
         #endregion
     }

@@ -47,22 +47,18 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
         [Alias("NntpServerID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
-        public int GroupID { get; set; }
-
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
-
+        [Required]
         public string Name { get; set; }
-
+        [Required]
         public string Address { get; set; }
-
-        public int Port { get; set; }
-
+        public int? Port { get; set; }
         public string UserName { get; set; }
-
         public string UserPass { get; set; }
 
         #endregion

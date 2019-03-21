@@ -100,7 +100,7 @@ namespace YAF.Core
         /// </returns>
         public virtual bool AreTasksRunning([NotNull] string[] instanceNames)
         {
-            bool isRunning = false;
+            var isRunning = false;
             foreach (var s in instanceNames)
             {
                 IBackgroundTask task;

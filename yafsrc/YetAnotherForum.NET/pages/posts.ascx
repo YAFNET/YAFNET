@@ -284,6 +284,6 @@
 
 
 <div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+    
 </div>
 <modal:QuickReply ID="QuickReplyDialog" runat="server" />

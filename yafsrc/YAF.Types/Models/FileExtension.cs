@@ -42,7 +42,7 @@ namespace YAF.Types.Models
 
         public FileExtension()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -51,8 +51,11 @@ namespace YAF.Types.Models
         [Alias("ExtensionID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardId { get; set; }
 
+        [Required]
         public string Extension { get; set; }
 
 

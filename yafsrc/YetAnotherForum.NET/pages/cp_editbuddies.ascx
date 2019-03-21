@@ -68,5 +68,5 @@
 
 <asp:HiddenField runat="server" ID="hidLastTab" Value="BuddyListTab" />
 <div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+    
 </div>

@@ -28,6 +28,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -49,43 +50,79 @@ namespace YAF.Types.Models
         [Alias("ForumID")]
         public int ID { get; set; }
 
+        [References(typeof(Category))]
+        [Required]
         public int CategoryID { get; set; }
 
+        [References(typeof(Forum))]
         public int ParentID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
+        [Required]
         public int SortOrder { get; set; }
 
         public DateTime? LastPosted { get; set; }
 
+        [References(typeof(Topic))]
         public int? LastTopicID { get; set; }
 
+        [References(typeof(Message))]
         public int? LastMessageID { get; set; }
 
+        [References(typeof(User))]
         public int? LastUserID { get; set; }
 
         public string LastUserName { get; set; }
 
         public string LastUserDisplayName { get; set; }
 
+        [Required]
         public int NumTopics { get; set; }
 
+        [Required]
         public int NumPosts { get; set; }
 
         public string RemoteURL { get; set; }
 
+        [Compute]
+        public bool? IsHidden { get; set; }
+
+        [Required]
         public int Flags { get; set; }
+
+        [Ignore]
+        public ForumFlags ForumFlags
+        {
+            get
+            {
+                return new ForumFlags(this.Flags);
+            }
+
+            set
+            {
+                this.Flags = value.BitValue;
+            }
+        }
 
         public string ThemeURL { get; set; }
 
+        [References(typeof(PollGroupCluster))]
         public int PollGroupID { get; set; }
 
         public string ImageURL { get; set; }
 
         public string Styles { get; set; }
+
+        [Compute]
+        public bool? IsLocked { get; set; }
+        [Compute]
+        public bool? IsNoCount { get; set; }
+        [Compute]
+        public bool? IsModerated { get; set; }
 
         public int UserID { get; set; }
 

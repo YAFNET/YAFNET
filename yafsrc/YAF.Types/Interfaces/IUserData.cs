@@ -120,11 +120,6 @@ namespace YAF.Types.Interfaces
         int? NumPosts { get; }
 
         /// <summary>
-        ///   Gets a value indicating whether UseMobileTheme.
-        /// </summary>
-        bool UseMobileTheme { get; }
-
-        /// <summary>
         ///   Gets a value indicating whether PMNotification.
         /// </summary>
         bool PMNotification { get; }

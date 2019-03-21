@@ -25,7 +25,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -41,7 +40,7 @@ namespace YAF.Types.Models
 
         public CheckEmail()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -50,12 +49,16 @@ namespace YAF.Types.Models
         [Alias("CheckEmailID")]
         public int ID { get; set; }
 
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
 
         public string Email { get; set; }
 
+        [Required]
         public DateTime Created { get; set; }
 
+        [Required]
         public string Hash { get; set; }
 
         #endregion

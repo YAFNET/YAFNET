@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages.Admin {
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class digest {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -23,9 +19,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -33,9 +28,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// LocalizedLabel9-Steuerelement
         /// </summary>
@@ -43,9 +37,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel9;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
         
-
         /// <summary>
         /// LocalizedLabel4-Steuerelement
         /// </summary>
@@ -53,9 +46,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HelpLabel LocalizedLabel4;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
         
-
         /// <summary>
         /// DigestEnabled-Steuerelement
         /// </summary>
@@ -63,9 +55,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label DigestEnabled;
+        protected global::System.Web.UI.WebControls.Label DigestEnabled;
         
-
         /// <summary>
         /// LocalizedLabel5-Steuerelement
         /// </summary>
@@ -73,9 +64,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HelpLabel LocalizedLabel5;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel5;
         
-
         /// <summary>
         /// LastDigestSendLabel-Steuerelement
         /// </summary>
@@ -83,9 +73,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label LastDigestSendLabel;
+        protected global::System.Web.UI.WebControls.Label LastDigestSendLabel;
         
-
         /// <summary>
         /// Button2-Steuerelement
         /// </summary>
@@ -93,9 +82,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Button2;
+        protected global::YAF.Controls.ThemeButton Button2;
         
-
         /// <summary>
         /// LocalizedLabel2-Steuerelement
         /// </summary>
@@ -103,9 +91,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
-
         /// <summary>
         /// DigestHtmlPlaceHolder-Steuerelement
         /// </summary>
@@ -113,9 +100,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder DigestHtmlPlaceHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder DigestHtmlPlaceHolder;
         
-
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -123,9 +109,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
-
         /// <summary>
         /// DigestFrame-Steuerelement
         /// </summary>
@@ -133,9 +118,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlIframe DigestFrame;
+        protected global::System.Web.UI.HtmlControls.HtmlIframe DigestFrame;
         
-
         /// <summary>
         /// GenerateDigest-Steuerelement
         /// </summary>
@@ -143,9 +127,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton GenerateDigest;
+        protected global::YAF.Controls.ThemeButton GenerateDigest;
         
-
         /// <summary>
         /// LocalizedLabel3-Steuerelement
         /// </summary>
@@ -153,9 +136,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// LocalizedLabel7-Steuerelement
         /// </summary>
@@ -163,9 +145,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HelpLabel LocalizedLabel7;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel7;
         
-
         /// <summary>
         /// TextSendEmail-Steuerelement
         /// </summary>
@@ -173,9 +154,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox TextSendEmail;
+        protected global::System.Web.UI.WebControls.TextBox TextSendEmail;
         
-
         /// <summary>
         /// LocalizedLabel8-Steuerelement
         /// </summary>
@@ -183,9 +163,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HelpLabel LocalizedLabel8;
+        protected global::YAF.Controls.HelpLabel LocalizedLabel8;
         
-
         /// <summary>
         /// SendMethod-Steuerelement
         /// </summary>
@@ -193,9 +172,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList SendMethod;
+        protected global::System.Web.UI.WebControls.DropDownList SendMethod;
         
-
         /// <summary>
         /// TestSend-Steuerelement
         /// </summary>
@@ -203,16 +181,6 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton TestSend;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.ThemeButton TestSend;
     }
 }

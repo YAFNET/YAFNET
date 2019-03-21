@@ -24,7 +24,6 @@
 namespace YAF.Core.Tasks
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Threading;
@@ -34,9 +33,6 @@ namespace YAF.Core.Tasks
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
 
     /// <summary>
     /// Does some user clean up tasks such as unsuspending users...
@@ -54,8 +50,8 @@ namespace YAF.Core.Tasks
         public UserCleanUpTask()
         {
             // set interval values...
-            RunPeriodMs = 3600000;
-            StartDelayMs = 30000;
+            this.RunPeriodMs = 3600000;
+            this.StartDelayMs = 30000;
         }
 
         /// <summary>
@@ -77,13 +73,13 @@ namespace YAF.Core.Tasks
             try
             {
                 // get all boards...
-                List<int> boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
+                var boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
 
                 // go through each board...
-                foreach (int boardId in boardIds)
+                foreach (var boardId in boardIds)
                 {
                     // get users for this board...
-                    List<DataRow> users = LegacyDb.user_list(boardId, null, null).Rows.Cast<DataRow>().ToList();
+                    var users = LegacyDb.user_list(boardId, null, null).Rows.Cast<DataRow>().ToList();
 
                     // handle unsuspension...
                     var suspendedUsers = from u in users

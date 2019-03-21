@@ -426,13 +426,6 @@
     <Compile Include="Dialogs\NntpServerEdit.ascx.designer.cs">
       <DependentUpon>NntpServerEdit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\TopicStatusEdit.ascx.cs">
-      <DependentUpon>TopicStatusEdit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\TopicStatusEdit.ascx.designer.cs">
-      <DependentUpon>TopicStatusEdit.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\ExtensionsEdit.ascx.cs">
       <DependentUpon>ExtensionsEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -460,13 +453,6 @@
     </Compile>
     <Compile Include="Dialogs\ExtensionsImport.ascx.designer.cs">
       <DependentUpon>ExtensionsImport.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\TopicStatusImport.ascx.cs">
-      <DependentUpon>TopicStatusImport.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\TopicStatusImport.ascx.designer.cs">
-      <DependentUpon>TopicStatusImport.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ReplaceWordsImport.ascx.cs">
       <DependentUpon>ReplaceWordsImport.ascx</DependentUpon>
@@ -742,13 +728,6 @@
     </Compile>
     <Compile Include="pages\admin\test_data.ascx.designer.cs">
       <DependentUpon>test_data.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\topicstatus.ascx.cs">
-      <DependentUpon>topicstatus.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\topicstatus.ascx.designer.cs">
-      <DependentUpon>topicstatus.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\users.ascx.designer.cs">
       <DependentUpon>users.ascx</DependentUpon>
@@ -1215,12 +1194,10 @@
     <Content Include="Dialogs\BannedEmailEdit.ascx" />
     <Content Include="Dialogs\NntpForumEdit.ascx" />
     <Content Include="Dialogs\NntpServerEdit.ascx" />
-    <Content Include="Dialogs\TopicStatusEdit.ascx" />
     <Content Include="Dialogs\ExtensionsEdit.ascx" />
     <Content Include="Dialogs\ReplaceWordsEdit.ascx" />
     <Content Include="Dialogs\UsersImport.ascx" />
     <Content Include="Dialogs\ExtensionsImport.ascx" />
-    <Content Include="Dialogs\TopicStatusImport.ascx" />
     <Content Include="Dialogs\ReplaceWordsImport.ascx" />
     <Content Include="Dialogs\SpamWordsEdit.ascx" />
     <Content Include="Dialogs\BannedEmailImport.ascx" />
@@ -1270,7 +1247,6 @@
     <Content Include="install\mssql\upgrade\providers\procedures.sql" />
     <Content Include="install\mssql\upgrade\providers\tables.sql" />
     <Content Include="install\SpamWords.xml" />
-    <Content Include="install\TopicStatusList.xml" />
     <Content Include="Images\YafLogoSmall.png" />
     <Content Include="languages\arabic.xml">
       <SubType>Designer</SubType>
@@ -1286,7 +1262,6 @@
     <Content Include="pages\admin\deleteforum.ascx" />
     <Content Include="pages\admin\spamwords.ascx" />
     <Content Include="Dialogs\SpamWordsImport.ascx" />
-    <Content Include="pages\admin\topicstatus.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
     <Content Include="Images\noavatar.gif" />
@@ -2933,7 +2908,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

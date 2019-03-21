@@ -63,11 +63,6 @@ namespace YAF.Core.Services
         private const string _FileImport = "fileExtensions.xml";
 
         /// <summary>
-        ///     The Topic Status list import xml file.
-        /// </summary>
-        private const string _TopicStatusImport = "TopicStatusList.xml";
-
-        /// <summary>
         ///     The Spam Words list import xml file.
         /// </summary>
         private const string _SpamWordsImport = "SpamWords.xml";
@@ -145,10 +140,6 @@ namespace YAF.Core.Services
         ///     Gets or sets the service locator.
         /// </summary>
         public IServiceLocator ServiceLocator { get; set; }
-
-        #endregion
-
-        #region Properties
 
         #endregion
 
@@ -430,9 +421,6 @@ namespace YAF.Core.Services
 
                 // load default extensions if available...
                 loadWrapper(_FileImport, s => DataImport.FileExtensionImport(board.ID, s));
-
-                // load default topic status if available...
-                loadWrapper(_TopicStatusImport, s => DataImport.TopicStatusImport(board.ID, s));
 
                 // load default spam word if available...
                 loadWrapper(_SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));

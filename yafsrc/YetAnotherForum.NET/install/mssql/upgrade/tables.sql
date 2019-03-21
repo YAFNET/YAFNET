@@ -602,7 +602,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
 		TextEditor		nvarchar(50) NULL,
-		OverridedefaultThemes	bit NOT NULL constraint [DF_{objectQualifier}User_OverridedefaultThemes] default (1),
 		[PMNotification] [bit] NOT NULL constraint [DF_{objectQualifier}User_PMNotification] default (1),
 		[AutoWatchTopics] [bit] NOT NULL constraint [DF_{objectQualifier}User_AutoWatchTopics] default (0),
 		[DailyDigest] [bit] NOT NULL constraint [DF_{objectQualifier}User_DailyDigest] default (0),
@@ -1325,18 +1324,6 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AutoWatchTopics')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [AutoWatchTopics] [bit] NOT NULL constraint [DF_{objectQualifier}User_AutoWatchTopics] default (0)
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='OverridedefaultThemes')
-begin
-alter table [{databaseOwner}].[{objectQualifier}User] add  [OverridedefaultThemes]	bit NOT NULL constraint [DF_{objectQualifier}User_OverridedefaultThemes] default (1)
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id =  object_id('[{databaseOwner}].[{objectQualifier}User]') and name='OverridedefaultThemes')
-begin
-	update  [{databaseOwner}].[{objectQualifier}User] SET [OverridedefaultThemes]=1 WHERE [OverridedefaultThemes] = 0
 end
 GO
 
@@ -2896,3 +2883,10 @@ begin
     drop table [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
 end
 go
+
+-- Add topicStatus icon
+if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}TopicStatus]') and name='Icon')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}TopicStatus] add Icon nvarchar(100) NULL
+end
+GO

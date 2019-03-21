@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -54,6 +53,8 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the board id.
         /// </summary>
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
         /// <summary>
@@ -69,6 +70,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the forum id.
         /// </summary>
+        [References(typeof(Forum))]
         public int? ForumID { get; set; }
 
         /// <summary>
@@ -79,11 +81,13 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the ip.
         /// </summary>
+        [Required]
         public string IP { get; set; }
 
         /// <summary>
         /// Gets or sets the last active.
         /// </summary>
+        [Required]
         public DateTime LastActive { get; set; }
 
         /// <summary>
@@ -94,6 +98,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the login.
         /// </summary>
+        [Required]
         public DateTime Login { get; set; }
 
         /// <summary>
@@ -104,16 +109,20 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the session id.
         /// </summary>
+        [Required]
         public string SessionID { get; set; }
 
         /// <summary>
         /// Gets or sets the topic id.
         /// </summary>
+        [References(typeof(Topic))]
         public int? TopicID { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
 
         #endregion

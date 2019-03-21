@@ -24,47 +24,59 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_GroupMedal table.
+    ///     A class which represents the yaf_vaccess_user views.
     /// </summary>
     [Serializable]
-    [Table(Name = "GroupMedal")]
-    public partial class GroupMedal : IEntity
+    public partial class vaccess_user : IEntity
     {
-        partial void OnCreated();
+        #region Constructors and Destructors
 
-        public GroupMedal()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="vaccess_user"/> class.
+        /// </summary>
+        public vaccess_user()
         {
             this.OnCreated();
         }
 
-        #region Properties
+        #endregion
 
-
-        [References(typeof(Group))]
-        [Required]
-        public int GroupID { get; set; }
-
-        [References(typeof(Medal))]
-        [Required]
-        public int MedalID { get; set; }
-
-        public string Message { get; set; }
+        #region Public Properties
 
         [Required]
-        public bool Hide { get; set; }
-
+        public int UserID { get; set; }
         [Required]
-        public bool OnlyRibbon { get; set; }
-
+        public int ForumID { get; set; }
         [Required]
-        public byte SortOrder { get; set; }
+        public int AccessMaskID { get; set; }
+        public int? GroupID { get; set; }
+        public int? ReadAccess { get; set; }
+        public int? PostAccess { get; set; }
+        public int? ReplyAccess { get; set; }
+        public int? PriorityAccess { get; set; }
+        public int? PollAccess { get; set; }
+        public int? VoteAccess { get; set; }
+        public int? ModeratorAccess { get; set; }
+        public int? EditAccess { get; set; }
+        public int? DeleteAccess { get; set; }
+        public int? UploadAccess { get; set; }
+        public int? DownloadAccess { get; set; }
+        public int? AdminGroup { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The on created.
+        /// </summary>
+        partial void OnCreated();
 
         #endregion
     }

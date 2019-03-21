@@ -350,23 +350,6 @@ namespace YAF.Controls
                 topicSubjectStyled = "<span style=\"{0}\">{1}</span>".FormatWith(this.HtmlEncode(styles), topicSubject);
             }
 
-            if (!this.TopicRow["Status"].ToString().IsSet() || !this.Get<YafBoardSettings>().EnableTopicStatus)
-            {
-                return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
-            }
-
-            // Render the Topic Status
-            var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString());
-
-            if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
-            {
-                return
-                    "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" class=\"topicStatusIcon\" />&nbsp;{2}".FormatWith(
-                        this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
-                        this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
-                        topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject);
-            }
-
             return "[{0}]&nbsp;{1}".FormatWith(
                 this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
                 topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject);

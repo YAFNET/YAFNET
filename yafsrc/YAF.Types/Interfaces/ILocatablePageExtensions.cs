@@ -52,7 +52,7 @@ namespace YAF.Types.Interfaces
       public static ILocatablePage GetPage([NotNull] this IEnumerable<ILocatablePage> locatablePages, [NotNull] string pageName)
       {
           return
-              locatablePages.FirstOrDefault(p => String.Equals(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase));
+              locatablePages.FirstOrDefault(p => string.Equals(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase));
       }
 
       #endregion

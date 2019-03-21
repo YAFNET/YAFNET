@@ -8,11 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using YAF.Controls;
-
+    
+    
     public partial class cp_profile {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -20,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// ProfileMenu1-Steuerelement
         /// </summary>
@@ -30,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ProfileMenu ProfileMenu1;
+        protected global::YAF.Controls.ProfileMenu ProfileMenu1;
         
-
         /// <summary>
         /// ControlPanel-Steuerelement
         /// </summary>
@@ -40,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel ControlPanel;
+        protected global::YAF.Controls.LocalizedLabel ControlPanel;
         
-
         /// <summary>
         /// YourAccount-Steuerelement
         /// </summary>
@@ -50,16 +46,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ProfileYourAccount YourAccount;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.ProfileYourAccount YourAccount;
     }
 }

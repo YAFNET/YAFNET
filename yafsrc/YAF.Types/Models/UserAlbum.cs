@@ -44,16 +44,14 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
         [Alias("AlbumID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
+        [Required]
         public int UserID { get; set; }
-
         public string Title { get; set; }
-
-        public int CoverImageID { get; set; }
-
+        public int? CoverImageID { get; set; }
+        [Required]
         public DateTime Updated { get; set; }
 
         #endregion

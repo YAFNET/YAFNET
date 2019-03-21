@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class deletemessage {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// Title-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label Title;
+        protected global::System.Web.UI.WebControls.Label Title;
         
-
         /// <summary>
         /// Subject-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label Subject;
+        protected global::System.Web.UI.WebControls.Label Subject;
         
-
         /// <summary>
         /// PreviewRow-Steuerelement
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder PreviewRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewRow;
         
-
         /// <summary>
         /// MessagePreview-Steuerelement
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected MessagePost MessagePreview;
+        protected global::YAF.Controls.MessagePost MessagePreview;
         
-
         /// <summary>
         /// DeleteReasonRow-Steuerelement
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder DeleteReasonRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder DeleteReasonRow;
         
-
         /// <summary>
         /// ReasonEditor-Steuerelement
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox ReasonEditor;
+        protected global::System.Web.UI.WebControls.TextBox ReasonEditor;
         
-
         /// <summary>
         /// EraseRow-Steuerelement
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder EraseRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder EraseRow;
         
-
         /// <summary>
         /// EraseMessage-Steuerelement
         /// </summary>
@@ -102,9 +91,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected CheckBox EraseMessage;
+        protected global::System.Web.UI.WebControls.CheckBox EraseMessage;
         
-
         /// <summary>
         /// Delete-Steuerelement
         /// </summary>
@@ -112,9 +100,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Delete;
+        protected global::YAF.Controls.ThemeButton Delete;
         
-
         /// <summary>
         /// Cancel-Steuerelement
         /// </summary>
@@ -122,9 +109,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Cancel;
+        protected global::YAF.Controls.ThemeButton Cancel;
         
-
         /// <summary>
         /// LinkedPosts-Steuerelement
         /// </summary>
@@ -132,16 +118,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater LinkedPosts;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::System.Web.UI.WebControls.Repeater LinkedPosts;
     }
 }

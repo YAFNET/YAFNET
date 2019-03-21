@@ -40,10 +40,5 @@ namespace YAF.Core.Model
     /// </summary>
     public static class RankRepositoryExtensions
     {
-        #region Public Methods and Operators
-
-        
-
-        #endregion
     }
 }

@@ -33,7 +33,7 @@ namespace YAF.Types.Models
     /// A class which represents the ForumReadTracking table.
     /// </summary>
     [Serializable]
-    public partial class ForumReadTracking : IEntity, IHaveID
+    public partial class ForumReadTracking : IEntity
     {
         partial void OnCreated();
 
@@ -44,12 +44,15 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
 
-        [AutoIncrement]
-        [Alias("ForumID")]
-        public int ID { get; set; }
+        [References(typeof(Forum))]
+        [Required]
+        public int ForumID { get; set; }
 
+        [Required]
         public DateTime LastAccessDate { get; set; }
 
 

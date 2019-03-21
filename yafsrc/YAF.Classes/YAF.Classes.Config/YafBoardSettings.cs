@@ -227,22 +227,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable topic status.
-        /// </summary>
-        public bool EnableTopicStatus
-        {
-            get
-            {
-                return this._reg.GetValue("EnableTopicStatus", false);
-            }
-
-            set
-            {
-                this._reg.SetValue("EnableTopicStatus", value);
-            }
-        }
-
-        /// <summary>
         ///  Gets or sets a value indicating whether to use the jQuery scripts from a CDN or locally.
         /// </summary>
         /// <value>
@@ -299,22 +283,6 @@ namespace YAF.Classes
             get
             {
                 return this._regBoard.GetValue("MaxUsersWhen", DateTime.UtcNow);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets Theme.
-        /// </summary>
-        public string MobileTheme
-        {
-            get
-            {
-                return this._regBoard.GetValue("MobileTheme", string.Empty);
-            }
-
-            set
-            {
-                this._regBoard.SetValue("MobileTheme", value);
             }
         }
 
@@ -2294,13 +2262,17 @@ namespace YAF.Classes
         {
             get
             {
+                return false;
+            }
+            /*get
+            {
                 return this._reg.GetValue("AllowSingleSignOn", false);
             }
 
             set
             {
                 this._reg.SetValue("AllowSingleSignOn", value);
-            }
+            }*/
         }
 
         /// <summary>

@@ -466,7 +466,6 @@ namespace YAF.Controls
                 culture,
                 theme,
                 editor,
-                this.UseMobileTheme.Checked,
                 null,
                 null,
                 null,
@@ -640,12 +639,6 @@ namespace YAF.Controls
 
             this.HideMe.Checked = this.UserData.IsActiveExcluded
                                   && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
-
-            if (this.Get<YafBoardSettings>().MobileTheme.IsSet())
-            {
-                this.UseMobileThemeRow.Visible = true;
-                this.UseMobileTheme.Checked = this.UserData.UseMobileTheme;
-            }
 
             if (this.Get<YafBoardSettings>().AllowUserTheme && this.Theme.Items.Count > 0)
             {

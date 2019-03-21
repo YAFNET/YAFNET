@@ -30,36 +30,51 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_UserAlbumImage table.
+    ///     A class which represents the yaf_vaccess_null views.
     /// </summary>
     [Serializable]
-    public partial class UserAlbumImage : IEntity, IHaveID
+    public partial class vaccess_null : IEntity
     {
-        partial void OnCreated();
+        #region Constructors and Destructors
 
-        public UserAlbumImage()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="vaccess_null"/> class.
+        /// </summary>
+        public vaccess_null()
         {
             this.OnCreated();
         }
 
-        #region Properties
+        #endregion
 
-        [Alias("ImageID")]
+        #region Public Properties
+
         [AutoIncrement]
-        public int ID { get; set; }
-        [References(typeof(UserAlbum))]
-        [Required]
-        public int AlbumID { get; set; }
-        public string Caption { get; set; }
-        [Required]
-        public string FileName { get; set; }
-        [Required]
-        public int Bytes { get; set; }
-        public string ContentType { get; set; }
-        [Required]
-        public DateTime Uploaded { get; set; }
-        [Required]
-        public int Downloads { get; set; }
+        public int UserID { get; set; }
+        public int? ForumID { get; set; }
+        public int? AccessMaskID { get; set; }
+        public int? GroupID { get; set; }
+        public int? ReadAccess { get; set; }
+        public int? PostAccess { get; set; }
+        public int? ReplyAccess { get; set; }
+        public int? PriorityAccess { get; set; }
+        public int? PollAccess { get; set; }
+        public int? VoteAccess { get; set; }
+        public int? ModeratorAccess { get; set; }
+        public int? EditAccess { get; set; }
+        public int? DeleteAccess { get; set; }
+        public int? UploadAccess { get; set; }
+        public int? DownloadAccess { get; set; }
+        public int? AdminGroup { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The on created.
+        /// </summary>
+        partial void OnCreated();
 
         #endregion
     }

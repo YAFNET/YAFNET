@@ -68,17 +68,6 @@
 
 
             <h4>
-                <YAF:HelpLabel ID="LocalizedLabel6" runat="server" LocalizedTag="BOARD_MOBILE_THEME"
-                    LocalizedPage="ADMIN_BOARDSETTINGS" />
-            </h4>
-            <p>
-                <asp:DropDownList ID="MobileTheme" runat="server" CssClass="custom-select">
-                    <asp:ListItem Text="[None Selected]" Value=""></asp:ListItem>
-                </asp:DropDownList>
-            </p><hr />
-
-
-            <h4>
                 <YAF:HelpLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BOARD_THEME_LOGO"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
@@ -196,4 +185,4 @@
                 </div>
     </div>
 
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+

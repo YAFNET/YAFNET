@@ -46,17 +46,13 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
-        [AliasAttribute("MessageID")]
+        [Alias("MessageID")]
+        [Required]
         public int ID { get; set; }
-
         public string Message { get; set; }
-
-        public bool Resolved { get; set; }
-
+        public bool? Resolved { get; set; }
         public int? ResolvedBy { get; set; }
-
-        public DateTime ResolvedDate { get; set; }
+        public DateTime? ResolvedDate { get; set; }
 
         #endregion
     }

@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-    using YAF.Dialogs;
-
+    
+    
     public partial class replacewords {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -23,19 +19,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
-        /// <summary>
-        /// Adminmenu1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected AdminMenu Adminmenu1;
-        
-
         /// <summary>
         /// list-Steuerelement
         /// </summary>
@@ -43,19 +28,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater list;
+        protected global::System.Web.UI.WebControls.Repeater list;
         
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
-        
-
         /// <summary>
         /// ImportDialog-Steuerelement
         /// </summary>
@@ -63,9 +37,8 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ReplaceWordsImport ImportDialog;
+        protected global::YAF.Dialogs.ReplaceWordsImport ImportDialog;
         
-
         /// <summary>
         /// EditDialog-Steuerelement
         /// </summary>
@@ -73,6 +46,6 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ReplaceWordsEdit EditDialog;
+        protected global::YAF.Dialogs.ReplaceWordsEdit EditDialog;
     }
 }

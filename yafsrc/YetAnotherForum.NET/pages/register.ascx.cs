@@ -1033,7 +1033,6 @@ namespace YAF.Pages
                     culture: null, 
                     themeFile: null, 
                     textEditor: null, 
-                    useMobileTheme: null, 
                     approved: null,
                     pmNotification: this.Get<YafBoardSettings>().DefaultNotificationSetting,
                     autoWatchTopics: autoWatchTopicsEnabled,

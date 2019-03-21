@@ -30,4 +30,4 @@
         </div>
     </asp:PlaceHolder>
 </YAF:HelpMenu>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+

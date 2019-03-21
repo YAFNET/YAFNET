@@ -100,7 +100,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.CurrentMessage.Edited ?? DateTime.UtcNow;
+                return this.CurrentMessage.Edited ?? this.CurrentMessage.Posted;
             }
         }
 
@@ -123,17 +123,6 @@ namespace YAF.Controls
             get
             {
                 return this.CurrentMessage.ID == 0 ? null : this.CurrentMessage.ID.ToType<int?>();
-            }
-        }
-
-        /// <summary>
-        ///   Gets Posted.
-        /// </summary>
-        public DateTime Posted
-        {
-            get
-            {
-                return this.CurrentMessage.Posted;
             }
         }
 
@@ -267,14 +256,14 @@ namespace YAF.Controls
                 // just write out the message with no formatting...
                 writer.Write(this.Message);
             }
-            else if (this.CurrentMessage.Edited.HasValue)
+            else if (this.CurrentMessage.Edited > this.CurrentMessage.Posted)
             {
-                this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
+               this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
                 // handle a message that's been edited...
-                var editedMessageDateTime = this.Posted;
+                var editedMessageDateTime = this.CurrentMessage.Posted;
 
-                if (this.Edited > this.Posted)
+                if (this.Edited > this.CurrentMessage.Posted)
                 {
                     editedMessageDateTime = this.Edited;
                 }
@@ -285,7 +274,6 @@ namespace YAF.Controls
                     false,
                     editedMessageDateTime);
 
-                // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(
                     writer,
                     formattedMessage,
@@ -295,7 +283,7 @@ namespace YAF.Controls
 
                 // Render Edit Message
                 if (this.ShowEditMessage
-                    && this.Edited > this.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
+                    && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
                 {
                     this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
                 }
@@ -314,16 +302,24 @@ namespace YAF.Controls
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags);
 
-                // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
+
                 this.RenderModulesInBBCode(
                     writer,
                     formattedMessage,
                     this.MessageFlags,
                     this.DisplayUserID,
                     this.MessageID);
+
+                // Render Go to Answer Message
+                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
+
+                if (answerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
+                {
+                    this.RenderAnswerMessage(writer, answerMessageId.Value);
+                }
             }
         }
-
+       
         #endregion
     }
 }

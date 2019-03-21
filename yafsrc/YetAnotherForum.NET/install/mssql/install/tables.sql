@@ -590,7 +590,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
 		TextEditor		nvarchar(50) NULL,
-		OverridedefaultThemes	bit NOT NULL constraint [DF_{objectQualifier}User_OverridedefaultThemes] default (1),
 		[PMNotification] [bit] NOT NULL constraint [DF_{objectQualifier}User_PMNotification] default (1),
 		[AutoWatchTopics] [bit] NOT NULL constraint [DF_{objectQualifier}User_AutoWatchTopics] default (0),
 		[DailyDigest] [bit] NOT NULL constraint [DF_{objectQualifier}User_DailyDigest] default (0),
@@ -1056,6 +1055,7 @@ BEGIN
 		TopicStatusName nvarchar(100) NOT NULL,
 		BoardID int NOT NULL,
 		defaultDescription nvarchar(100) NOT NULL,
+		Icon nvarchar(100) NULL,
 		constraint [PK_{objectQualifier}TopicStatus] PRIMARY KEY(TopicStatusID)
 	)
 END

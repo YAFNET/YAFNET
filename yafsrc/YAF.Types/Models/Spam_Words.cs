@@ -60,6 +60,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The board identifier.
         /// </value>
+        [Required]
         public int BoardID { get; set; }
 
         /// <summary>

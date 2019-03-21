@@ -2,18 +2,25 @@
     CodeBehind="PostAttachments.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 
-<tr class="forumRowCat header2">
-        <td colspan="2">
-           
-            <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="BUTTON_ATTACH_TT" LocalizedPage="BUTTON" />
-        </td>
-</tr>
+<p>
+    <a class="btn btn-secondary" 
+       data-toggle="collapse" 
+       href="#collapseExample" 
+       role="button" 
+       aria-expanded="false" 
+       aria-controls="collapseExample">
+        <i class="fa fa-paperclip fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" 
+                                                                    LocalizedTag="BUTTON_ATTACH_TT" 
+                                                                    LocalizedPage="BUTTON" />
+    </a>
+</p>
 <asp:PlaceHolder ID="AttachmentsHolder" runat="server">
-<tr>
-    <td>
-        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="CURRENT_UPLOADS" LocalizedPage="ATTACHMENTS" />
-    </td>
-    <td class="post">
+    <div class="collapse" id="collapseExample">
+        <div class="card">
+            <div class="card-header">
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="CURRENT_UPLOADS" LocalizedPage="ATTACHMENTS" />
+            </div>
+            <div class="card-body">
         <div id="AttachmentsListPager"></div>
         <div id="PostAttachmentLoader">
             <div style="text-align:center">
@@ -32,12 +39,14 @@
             </div>
             <span class="UploadNewFileLine">
                <a class="OpenUploadDialog" data-toggle="modal" data-target=".UploadDialog">
-                   <span>
+                   <span class="btn btn-primary">
+                       <i class="fa fa-file-upload fa-fw"></i>&nbsp;
                        <YAF:LocalizedLabel ID="ThemeButton1" LocalizedTag="UPLOAD_NEW" LocalizedPage="ATTACHMENTS" runat="server" />
                    </span>
                </a>
             </span>
         </div>
-    </td>
-</tr>
+            </div>
+        </div>
+    </div>
 </asp:PlaceHolder>

@@ -44,33 +44,33 @@ namespace YAF.Core.Model
     public static class NntpForumRepositoryExtensions
     {
         #region Public Methods and Operators
+
         /*
-        /// <summary>
-        ///  Get All the Thanks for the Message IDs which are in the
-        ///   delimited string variable MessageIDs
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="messageIdsSeparatedWithColon">The message ids separated with colon.</param>
-        /// <returns>
-        /// Retuns All the Thanks for the Message IDs which are in the
-        ///   delimited string variable MessageIDs
-        /// </returns>
-        public static IList<NntpForum> ListTyped(this IRepository<NntpForum> repository, int boardId, int? minutes, int? nntpForumId, bool? active)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var functionSession = repository.DbFunction.CreateSession())
-            {
-                return functionSession.GetTyped<NntpForum>(
-                    r => r.message_getallthanks(
-                        BoardID: boardId,
-                        Minutes: minutes,
-                        NntpForumID: nntpForumId,
-                        Active: active,
-                        UTCTIMESTAMP: DateTime.UtcNow));
-            }
-        }*/
-
+                /// <summary>
+                ///  Get All the Thanks for the Message IDs which are in the
+                ///   delimited string variable MessageIDs
+                /// </summary>
+                /// <param name="repository">The repository.</param>
+                /// <param name="messageIdsSeparatedWithColon">The message ids separated with colon.</param>
+                /// <returns>
+                /// Retuns All the Thanks for the Message IDs which are in the
+                ///   delimited string variable MessageIDs
+                /// </returns>
+                public static IList<NntpForum> ListTyped(this IRepository<NntpForum> repository, int boardId, int? minutes, int? nntpForumId, bool? active)
+                {
+                    CodeContracts.VerifyNotNull(repository, "repository");
+        
+                    using (var functionSession = repository.DbFunction.CreateSession())
+                    {
+                        return functionSession.GetTyped<NntpForum>(
+                            r => r.message_getallthanks(
+                                BoardID: boardId,
+                                Minutes: minutes,
+                                NntpForumID: nntpForumId,
+                                Active: active,
+                                UTCTIMESTAMP: DateTime.UtcNow));
+                    }
+                }*/
         #endregion
     }
 }

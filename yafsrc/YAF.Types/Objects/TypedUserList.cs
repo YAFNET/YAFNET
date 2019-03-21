@@ -72,7 +72,6 @@ namespace YAF.Types.Objects
             this.IsApproved = row.Field<bool?>("IsApproved");
             this.IsActiveExcluded = row.Field<bool?>("IsActiveExcluded");
             this.ProviderUserKey = row.Field<string>("ProviderUserKey");
-            this.OverrideDefaultThemes = row.Field<bool?>("OverrideDefaultThemes");
             this.AvatarImageType = row.Field<string>("AvatarImageType");
             this.AutoWatchTopics = row.Field<bool?>("AutoWatchTopics");
             this.DisplayName = row.Field<string>("DisplayName");
@@ -222,7 +221,6 @@ namespace YAF.Types.Objects
             bool? isapproved,
             bool? isactiveexcluded,
             [CanBeNull] string provideruserkey,
-            bool? overridedefaultthemes,
             [CanBeNull] string avatarimagetype,
             bool? autowatchtopics,
             [CanBeNull] string displayname,
@@ -259,7 +257,6 @@ namespace YAF.Types.Objects
             this.IsApproved = isapproved;
             this.IsActiveExcluded = isactiveexcluded;
             this.ProviderUserKey = provideruserkey;
-            this.OverrideDefaultThemes = overridedefaultthemes;
             this.AvatarImageType = avatarimagetype;
             this.AutoWatchTopics = autowatchtopics;
             this.DisplayName = displayname;
@@ -396,11 +393,6 @@ namespace YAF.Types.Objects
         /// Gets or sets NumPosts.
         /// </summary>
         public int? NumPosts { get; set; }
-
-        /// <summary>
-        /// Gets or sets OverrideDefaultThemes.
-        /// </summary>
-        public bool? OverrideDefaultThemes { get; set; }
 
         /// <summary>
         /// Gets or sets PMNotification.

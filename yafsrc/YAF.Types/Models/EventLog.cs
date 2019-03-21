@@ -25,7 +25,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -43,7 +42,7 @@ namespace YAF.Types.Models
 
         public EventLog()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -54,14 +53,17 @@ namespace YAF.Types.Models
 
         public DateTime EventTime { get; set; }
 
+        [References(typeof(User))]
         public int? UserID { get; set; }
 
         public string UserName { get; set; }
 
+        [Required]
         public string Source { get; set; }
 
         public string Description { get; set; }
-        
+
+        [Required]
         public int Type { get; set; }
 
         [Ignore]

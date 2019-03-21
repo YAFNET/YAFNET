@@ -27,10 +27,8 @@ namespace YAF.Core.Tasks
 
   using YAF.Classes.Data;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
 
-  /// <summary>
+    /// <summary>
   /// Run when we want to do migration of users in the background...
   /// </summary>
   public class PruneTopicTask : LongBackgroundTask
@@ -40,22 +38,7 @@ namespace YAF.Core.Tasks
     /// </summary>
     private const string _taskName = "PruneTopicTask";
 
-    /// <summary>
-    /// The _days.
-    /// </summary>
-    private int _days;
-
-    /// <summary>
-    /// The _forum id.
-    /// </summary>
-    private int _forumId;
-
-    /// <summary>
-    /// The _perm delete.
-    /// </summary>
-    private bool _permDelete;
-
-    /// <summary>
+      /// <summary>
     /// Initializes a new instance of the <see cref="PruneTopicTask"/> class.
     /// </summary>
     public PruneTopicTask()
@@ -76,52 +59,19 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// Gets or sets ForumId.
     /// </summary>
-    public int ForumId
-    {
-      get
-      {
-        return this._forumId;
-      }
+    public int ForumId { get; set; }
 
-      set
-      {
-        this._forumId = value;
-      }
-    }
-
-    /// <summary>
+      /// <summary>
     /// Gets or sets Days.
     /// </summary>
-    public int Days
-    {
-      get
-      {
-        return this._days;
-      }
+    public int Days { get; set; }
 
-      set
-      {
-        this._days = value;
-      }
-    }
-
-    /// <summary>
+      /// <summary>
     /// Gets or sets a value indicating whether PermDelete.
     /// </summary>
-    public bool PermDelete
-    {
-      get
-      {
-        return this._permDelete;
-      }
+    public bool PermDelete { get; set; }
 
-      set
-      {
-        this._permDelete = value;
-      }
-    }
-
-    /// <summary>
+      /// <summary>
     /// The start.
     /// </summary>
     /// <param name="boardId">
@@ -161,7 +111,7 @@ namespace YAF.Core.Tasks
       {
         this.Logger.Info("Starting Prune Task for ForumID {0}, {1} Days, Perm Delete {2}.", this.ForumId, this.Days, this.PermDelete);
 
-        int count = LegacyDb.topic_prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
+        var count = LegacyDb.topic_prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
 
         this.Logger.Info("Prune Task Complete. Pruned {0} topics.", count);
       }

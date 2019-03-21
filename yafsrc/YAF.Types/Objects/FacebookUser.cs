@@ -85,6 +85,7 @@ namespace YAF.Types.Objects
         [DataMember(Name = "link")]
         public string ProfileURL { get; set; }
         
+
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
@@ -94,6 +95,7 @@ namespace YAF.Types.Objects
         [DataMember(Name = "location")]
         public Location Location { get; set; }
         
+
         /// <summary>
         /// Gets or sets the time zone.
         /// </summary>

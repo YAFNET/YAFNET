@@ -189,54 +189,6 @@ namespace YAF.Core.Services.Import
         }
 
         /// <summary>
-        /// Topics the status import.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="inputStream">
-        /// The input stream.
-        /// </param>
-        /// <exception cref="Exception">
-        /// Import stream is not expected format.
-        /// </exception>
-        /// <returns>
-        /// Returns the Number of Imported Items.
-        /// </returns>
-        public static int TopicStatusImport(int boardId, Stream inputStream)
-        {
-            var importedCount = 0;
-
-            // import extensions...
-            var dsStates = new DataSet();
-            dsStates.ReadXml(inputStream);
-
-            if (dsStates.Tables["YafTopicStatus"] != null
-                && dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null
-                && dsStates.Tables["YafTopicStatus"].Columns["DefaultDescription"] != null)
-            {
-                var topicStatusList = YafContext.Current.GetRepository<TopicStatus>().GetByBoardId(boardId);
-
-                // import any topic status that don't exist...
-                foreach (DataRow row in dsStates.Tables["YafTopicStatus"].Rows)
-                {
-                    if (!topicStatusList.Any(t => t.TopicStatusName == row["TopicStatusName"]))
-                    {
-                        // add this...
-                        YafContext.Current.GetRepository<TopicStatus>().Save(null, row["TopicStatusName"].ToString(), row["DefaultDescription"].ToString(), boardId);
-                        importedCount++;
-                    }
-                }
-            }
-            else
-            {
-                throw new Exception("Import stream is not expected format.");
-            }
-
-            return importedCount;
-        }
-
-        /// <summary>
         /// Import List of Banned Email Addresses
         /// </summary>
         /// <param name="boardId">The board id.</param>

@@ -25,6 +25,8 @@ namespace YAF.Types.Models
 {
     using System;
 
+    using ServiceStack.DataAnnotations;
+
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -44,10 +46,16 @@ namespace YAF.Types.Models
 
         #region Public Properties
 
+        [References(typeof(Group))]
+        [Required]
         public int GroupID { get; set; }
 
+        [References(typeof(Forum))]
+        [Required]
         public int ForumID { get; set; }
 
+        [References(typeof(AccessMask))]
+        [Required]
         public int AccessMaskID { get; set; }
 
 

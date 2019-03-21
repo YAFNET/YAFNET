@@ -8,11 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI.WebControls;
-
+    
+    
     public partial class BuddyList {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -20,9 +19,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// Pager-Steuerelement
         /// </summary>
@@ -30,9 +28,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager Pager;
+        protected global::YAF.Controls.Pager Pager;
         
-
         /// <summary>
         /// rptBuddy-Steuerelement
         /// </summary>
@@ -40,9 +37,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater rptBuddy;
+        protected global::System.Web.UI.WebControls.Repeater rptBuddy;
         
-
         /// <summary>
         /// Pager1-Steuerelement
         /// </summary>
@@ -50,16 +46,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager Pager1;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.Pager Pager1;
     }
 }

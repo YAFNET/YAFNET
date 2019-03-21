@@ -46,21 +46,20 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [Alias("PMessageID")]
         [AutoIncrement]
-        [AliasAttribute("PMessage")]
         public int ID { get; set; }
-
+        [References(typeof(User))]
+        [Required]
         public int FromUserID { get; set; }
-
-        public int? ReplyTo { get; set; }
-
+        [Required]
         public DateTime Created { get; set; }
-
+        [Required]
         public string Subject { get; set; }
-
         public string Body { get; set; }
-
+        [Required]
         public int Flags { get; set; }
+        public int? ReplyTo { get; set; }
 
         #endregion
     }

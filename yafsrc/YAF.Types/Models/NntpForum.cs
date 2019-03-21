@@ -28,7 +28,6 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -47,22 +46,23 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
         [Alias("NntpForumID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
+        [References(typeof(NntpServer))]
+        [Required]
         public int NntpServerID { get; set; }
-
+        [Required]
         public string GroupName { get; set; }
-
+        [References(typeof(Forum))]
+        [Required]
         public int ForumID { get; set; }
-
-        public int? LastMessageNo { get; set; }
-
+        [Required]
+        public int LastMessageNo { get; set; }
+        [Required]
         public DateTime LastUpdate { get; set; }
-
+        [Required]
         public bool Active { get; set; }
-
         public DateTime? DateCutOff { get; set; }
 
         #endregion

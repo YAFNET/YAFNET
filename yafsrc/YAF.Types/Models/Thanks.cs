@@ -62,36 +62,14 @@ namespace YAF.Types.Models
         [Alias("ThanksID")]
         public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the thanks from user identifier.
-        /// </summary>
-        /// <value>
-        /// The thanks from user identifier.
-        /// </value>
+        [References(typeof(User))]
+        [Required]
         public int ThanksFromUserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the thanks to user identifier.
-        /// </summary>
-        /// <value>
-        /// The thanks to user identifier.
-        /// </value>
+        [Required]
         public int ThanksToUserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message identifier.
-        /// </summary>
-        /// <value>
-        /// The message identifier.
-        /// </value>
+        [Required]
         public int MessageID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the thanks date.
-        /// </summary>
-        /// <value>
-        /// The thanks date.
-        /// </value>
+        [Required]
         public DateTime ThanksDate { get; set; }
 
         #endregion

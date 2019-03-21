@@ -72,12 +72,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.ViewState["DisplayUserID"] != null)
-                {
-                    return this.ViewState["DisplayUserID"].ToType<int>();
-                }
-
-                return null;
+                return this.ViewState["DisplayUserID"]?.ToType<int>();
             }
 
             set
@@ -93,12 +88,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.ViewState["MessageID"] != null)
-                {
-                    return this.ViewState["MessageID"].ToType<int>();
-                }
-
-                return null;
+                return this.ViewState["MessageID"]?.ToType<int>();
             }
 
             set
@@ -305,7 +295,6 @@ namespace YAF.Controls
 
             var editedDateTime = new DisplayDateTime { DateTime = edited }.RenderToString();
 
-            // vzrus: TODO:  Guests doesn't have right to view change history
             // reason was specified ?!
             var editReasonText = "{0}: {1}".FormatWith(
                 this.GetText("EDIT_REASON"),
@@ -321,7 +310,9 @@ namespace YAF.Controls
 
             writer.Write(
                 @"<div class=""alert alert-secondary"" role=""alert"">
-                      <a title=""{3}"" alt=""title=""{3}"" href=""{4}""><strong>{0}</strong> {1}</a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
+                      <a title=""{3}"" alt=""title=""{3}"" href=""{4}"">
+                         <i class=""fa fa-history fa-fw""></i><strong>{0}</strong> {1}
+                      </a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
                       </button></div>"

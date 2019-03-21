@@ -45,7 +45,7 @@ namespace YAF.Types.Models
         {
             try
             {
-                this.ProviderUserKey = this.IsGuest ? null : this.ProviderUserKey;
+                this.ProviderUserKey = this.IsGuest.Value ? null : this.ProviderUserKey;
             }
             catch (Exception)
             {
@@ -58,102 +58,85 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
         [Alias("UserID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
-
-        public string Name { get; set; }
-
-        public string Password { get; set; }
-
-        public string Email { get; set; }
-
-        public DateTime Joined { get; set; }
-
-        public DateTime LastVisit { get; set; }
-
-        public string IP { get; set; }
-
-        public int NumPosts { get; set; }
-
-        public string TimeZone { get; set; }
-
-        public string Avatar { get; set; }
-
-        public string Signature { get; set; }
-
-        public byte[] AvatarImage { get; set; }
-
-        public int RankID { get; set; }
-
-        public DateTime? Suspended { get; set; }
-
-        public string SuspendedReason { get; set; }
-
-        public int SuspendedBy { get; set; }
-
-        public string LanguageFile { get; set; }
-
-        public string ThemeFile { get; set; }
-
-        public int Flags { get; set; }
-
-        public bool PMNotification { get; set; }
-
-        public int Points { get; set; }
-
-        //public bool? IsAdmin { get; set; }
-
-        public bool? IsApproved { get; set; }
-
-        public bool? IsActiveExcluded { get; set; }
-
         public string ProviderUserKey { get; set; }
-
-        public bool OverrideDefaultThemes { get; set; }
-
-        public string AvatarImageType { get; set; }
-
-        public bool AutoWatchTopics { get; set; }
-
+        [Required]
+        public string Name { get; set; }
+        [Required]
         public string DisplayName { get; set; }
-
-       // [Alias("CultureUser")]
-        public string Culture { get; set; }
-
-        public int? NotificationType { get; set; }
-
+        [Required]
+        public string Password { get; set; }
+        public string Email { get; set; }
+        [Required]
+        public DateTime Joined { get; set; }
+        [Required]
+        public DateTime LastVisit { get; set; }
+        public string IP { get; set; }
+        [Required]
+        public int NumPosts { get; set; }
+        public string TimeZone { get; set; }
+        public string Avatar { get; set; }
+        public string Signature { get; set; }
+        public byte[] AvatarImage { get; set; }
+        public string AvatarImageType { get; set; }
+        [References(typeof(Rank))]
+        [Required]
+        public int RankID { get; set; }
+        public DateTime? Suspended { get; set; }
+        public string LanguageFile { get; set; }
+        public string ThemeFile { get; set; }
+        [Required]
+        public bool PMNotification { get; set; }
+        [Required]
+        public bool AutoWatchTopics { get; set; }
+        [Required]
         public bool DailyDigest { get; set; }
-
+        public int? NotificationType { get; set; }
+        [Required]
+        public int Flags { get; set; }
+        [Required]
+        public int Points { get; set; }
+        [Compute]
+        public bool? IsApproved { get; set; }
+        [Compute]
+        public bool? IsActiveExcluded { get; set; }
+        public string Culture { get; set; }
         public string TextEditor { get; set; }
-
+        [Required]
         public bool UseSingleSignOn { get; set; }
-
-        public bool IsGuest { get; set; }
-
+        [Compute]
+        public bool? IsGuest { get; set; }
+        [Compute]
         public bool? IsCaptchaExcluded { get; set; }
-
+        [Compute]
         public bool? IsDST { get; set; }
-
+        [Compute]
         public bool? IsDirty { get; set; }
-
-        public bool IsGoogleUser { get; set; }
-
+        [Required]
         public bool IsFacebookUser { get; set; }
-
+        [Required]
         public bool IsTwitterUser { get; set; }
-
         public string UserStyle { get; set; }
-
+        [Required]
         public int StyleFlags { get; set; }
-
+        [Compute]
         public bool? IsUserStyle { get; set; }
-
+        [Compute]
         public bool? IsGroupStyle { get; set; }
-
+        [Compute]
         public bool? IsRankStyle { get; set; }
+        [Required]
+        public bool IsPossibleSpamBot { get; set; }
+        [Required]
+        public bool IsGoogleUser { get; set; }
+        public string SuspendedReason { get; set; }
+        [Required]
+        public int SuspendedBy { get; set; }
 
         #endregion
     }

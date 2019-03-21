@@ -43,7 +43,7 @@ namespace YAF.Types.Models
         /// </summary>
         public BannedEmail()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -58,8 +58,11 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets BoardId.
         /// </summary>
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
         public string Mask { get; set; }
 
         /// <summary>
@@ -68,6 +71,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The since.
         /// </value>
+        [Required]
         public DateTime Since { get; set; }
 
         /// <summary>

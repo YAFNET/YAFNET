@@ -691,14 +691,6 @@
 
                     </p><hr />
 
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel194" runat="server" LocalizedTag="ALLOW_TOPIC_STATUS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableTopicStatus" runat="server"></asp:CheckBox>
-
-                    </p><hr />
-
                         <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel38" runat="server" LocalizedTag="HEADER_HOVERCARD" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h2>
@@ -2056,4 +2048,3 @@
     </div>
 
 <asp:HiddenField runat="server" ID="hidLastTab" Value="View1" />
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />

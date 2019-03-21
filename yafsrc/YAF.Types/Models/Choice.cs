@@ -53,11 +53,15 @@ namespace YAF.Types.Models
         [Alias("ChoiceID")]
         public int ID { get; set; }
 
+        [References(typeof(Poll))]
+        [Required]
         public int PollID { get; set; }
 
         [Alias("Choice")]
+        [Required]
         public string ChoiceName { get; set; }
 
+        [Required]
         public int Votes { get; set; }
 
         public string ObjectPath { get; set; }

@@ -45,4 +45,4 @@
         </div>
     </div>
 
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+

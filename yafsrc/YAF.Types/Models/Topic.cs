@@ -50,57 +50,65 @@ namespace YAF.Types.Models
         [Alias("TopicID")]
         public int ID { get; set; }
 
+        [References(typeof(Forum))]
+        [Required]
         public int ForumID { get; set; }
-
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
         public string UserName { get; set; }
-
-        public string UserDisplayName { get; set; }
-
+        [Required]
         public DateTime Posted { get; set; }
-
+        [Required]
         [Alias("Topic")]
         public string TopicName { get; set; }
-
-        public string Description { get; set; }
-
-        public string Status { get; set; }
-
-        public string Styles { get; set; }
-
-        public DateTime? LinkDate { get; set; }
-
+        [Required]
         public int Views { get; set; }
-
-        public int Priority { get; set; }
-
+        [Required]
+        public short Priority { get; set; }
+        [References(typeof(PollGroupCluster))]
         public int? PollID { get; set; }
-
+        [References(typeof(Topic))]
         public int? TopicMovedID { get; set; }
-
         public DateTime? LastPosted { get; set; }
-
+        [References(typeof(Message))]
         public int? LastMessageID { get; set; }
-
+        [References(typeof(User))]
         public int? LastUserID { get; set; }
-
         public string LastUserName { get; set; }
-
-        public string LastUserDisplayName { get; set; }
-
+        [Required]
         public int NumPosts { get; set; }
 
+
+
+        [Ignore]
+        public TopicFlags TopicFlags
+        {
+            get
+            {
+                return new TopicFlags(this.Flags);
+            }
+
+            set
+            {
+                this.Flags = value.BitValue;
+            }
+        }
+        [Required]
         public int Flags { get; set; }
-
-        [IgnoreAttribute]
-        public TopicFlags TopicFlags { get { return new TopicFlags(this.Flags); } }
-
+        [Compute]
+        public bool? IsDeleted { get; set; }
+        [Compute]
+        public bool? IsQuestion { get; set; }
         public int? AnswerMessageId { get; set; }
-
         public int? LastMessageFlags { get; set; }
-
         public string TopicImage { get; set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public string Styles { get; set; }
+        public DateTime? LinkDate { get; set; }
+        public string UserDisplayName { get; set; }
+        public string LastUserDisplayName { get; set; }
 
 
         #endregion

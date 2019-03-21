@@ -303,16 +303,6 @@
         </p>
     <hr />
             </asp:PlaceHolder>
-    <asp:PlaceHolder runat="server" id="UseMobileThemeRow" visible="false">
-        <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="USE_MOBILE_THEME" />
-        </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" ID="UseMobileTheme" runat="server" />
-        </p>
-    <hr />
-            </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="UserLanguageRow">
         <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedPage="CP_EDITPROFILE"

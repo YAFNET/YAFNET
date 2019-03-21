@@ -33,20 +33,20 @@ namespace YAF.Core.Model
     public static class ActiveAccessRepositoryExtensions
     {
         #region Public Methods and Operators
+
         /*
-        /// <summary>
-        /// The reset.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        public static void Reset(this IRepository<ActiveAccess> repository)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.activeaccess_reset();
-        }*/
-
+                /// <summary>
+                /// The reset.
+                /// </summary>
+                /// <param name="repository">
+                /// The repository.
+                /// </param>
+                public static void Reset(this IRepository<ActiveAccess> repository)
+                {
+                    CodeContracts.VerifyNotNull(repository, "repository");
+        
+                    repository.DbFunction.Query.activeaccess_reset();
+                }*/
         #endregion
     }
 }

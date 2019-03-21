@@ -46,14 +46,15 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
         [Alias("NntpTopicID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
+        [References(typeof(NntpForum))]
+        [Required]
         public int NntpForumID { get; set; }
-
         public string Thread { get; set; }
-
+        [References(typeof(Topic))]
+        [Required]
         public int TopicID { get; set; }
 
         #endregion

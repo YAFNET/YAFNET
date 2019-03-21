@@ -8,16 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-    using YAF.Dialogs;
-
+    
+    
     public partial class posts {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -25,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// PollList-Steuerelement
         /// </summary>
@@ -35,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PollList PollList;
+        protected global::YAF.Controls.PollList PollList;
         
-
         /// <summary>
         /// Pager-Steuerelement
         /// </summary>
@@ -45,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager Pager;
+        protected global::YAF.Controls.Pager Pager;
         
-
         /// <summary>
         /// TagFavorite1-Steuerelement
         /// </summary>
@@ -55,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton TagFavorite1;
+        protected global::YAF.Controls.ThemeButton TagFavorite1;
         
-
         /// <summary>
         /// Tools1-Steuerelement
         /// </summary>
@@ -65,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Tools1;
+        protected global::YAF.Controls.ThemeButton Tools1;
         
-
         /// <summary>
         /// MoveTopic1-Steuerelement
         /// </summary>
@@ -75,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton MoveTopic1;
+        protected global::YAF.Controls.ThemeButton MoveTopic1;
         
-
         /// <summary>
         /// UnlockTopic1-Steuerelement
         /// </summary>
@@ -85,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton UnlockTopic1;
+        protected global::YAF.Controls.ThemeButton UnlockTopic1;
         
-
         /// <summary>
         /// LockTopic1-Steuerelement
         /// </summary>
@@ -95,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton LockTopic1;
+        protected global::YAF.Controls.ThemeButton LockTopic1;
         
-
         /// <summary>
         /// DeleteTopic1-Steuerelement
         /// </summary>
@@ -105,9 +91,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton DeleteTopic1;
+        protected global::YAF.Controls.ThemeButton DeleteTopic1;
         
-
         /// <summary>
         /// NewTopic1-Steuerelement
         /// </summary>
@@ -115,9 +100,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton NewTopic1;
+        protected global::YAF.Controls.ThemeButton NewTopic1;
         
-
         /// <summary>
         /// PostReplyLink1-Steuerelement
         /// </summary>
@@ -125,9 +109,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton PostReplyLink1;
+        protected global::YAF.Controls.ThemeButton PostReplyLink1;
         
-
         /// <summary>
         /// QuickReplyLink1-Steuerelement
         /// </summary>
@@ -135,9 +118,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton QuickReplyLink1;
+        protected global::YAF.Controls.ThemeButton QuickReplyLink1;
         
-
         /// <summary>
         /// TopicLink-Steuerelement
         /// </summary>
@@ -145,9 +127,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HyperLink TopicLink;
+        protected global::System.Web.UI.WebControls.HyperLink TopicLink;
         
-
         /// <summary>
         /// TopicTitle-Steuerelement
         /// </summary>
@@ -155,9 +136,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label TopicTitle;
+        protected global::System.Web.UI.WebControls.Label TopicTitle;
         
-
         /// <summary>
         /// PrevTopic-Steuerelement
         /// </summary>
@@ -165,9 +145,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton PrevTopic;
+        protected global::YAF.Controls.ThemeButton PrevTopic;
         
-
         /// <summary>
         /// NextTopic-Steuerelement
         /// </summary>
@@ -175,9 +154,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton NextTopic;
+        protected global::YAF.Controls.ThemeButton NextTopic;
         
-
         /// <summary>
         /// ShareLink-Steuerelement
         /// </summary>
@@ -185,9 +163,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton ShareLink;
+        protected global::YAF.Controls.ThemeButton ShareLink;
         
-
         /// <summary>
         /// ShareMenu-Steuerelement
         /// </summary>
@@ -195,9 +172,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PopMenu ShareMenu;
+        protected global::YAF.Controls.PopMenu ShareMenu;
         
-
         /// <summary>
         /// OptionsLink-Steuerelement
         /// </summary>
@@ -205,9 +181,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton OptionsLink;
+        protected global::YAF.Controls.ThemeButton OptionsLink;
         
-
         /// <summary>
         /// PopupMenuUpdatePanel-Steuerelement
         /// </summary>
@@ -215,9 +190,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected UpdatePanel PopupMenuUpdatePanel;
+        protected global::System.Web.UI.UpdatePanel PopupMenuUpdatePanel;
         
-
         /// <summary>
         /// WatchTopicID-Steuerelement
         /// </summary>
@@ -225,9 +199,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlGenericControl WatchTopicID;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl WatchTopicID;
         
-
         /// <summary>
         /// OptionsMenu-Steuerelement
         /// </summary>
@@ -235,9 +208,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PopMenu OptionsMenu;
+        protected global::YAF.Controls.PopMenu OptionsMenu;
         
-
         /// <summary>
         /// ViewOptions-Steuerelement
         /// </summary>
@@ -245,9 +217,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder ViewOptions;
+        protected global::System.Web.UI.WebControls.PlaceHolder ViewOptions;
         
-
         /// <summary>
         /// ViewLink-Steuerelement
         /// </summary>
@@ -255,9 +226,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton ViewLink;
+        protected global::YAF.Controls.ThemeButton ViewLink;
         
-
         /// <summary>
         /// ViewMenu-Steuerelement
         /// </summary>
@@ -265,9 +235,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PopMenu ViewMenu;
+        protected global::YAF.Controls.PopMenu ViewMenu;
         
-
         /// <summary>
         /// ImageMessageLink-Steuerelement
         /// </summary>
@@ -275,9 +244,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton ImageMessageLink;
+        protected global::YAF.Controls.ThemeButton ImageMessageLink;
         
-
         /// <summary>
         /// ImageLastUnreadMessageLink-Steuerelement
         /// </summary>
@@ -285,9 +253,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton ImageLastUnreadMessageLink;
+        protected global::YAF.Controls.ThemeButton ImageLastUnreadMessageLink;
         
-
         /// <summary>
         /// MessageList-Steuerelement
         /// </summary>
@@ -295,9 +262,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater MessageList;
+        protected global::System.Web.UI.WebControls.Repeater MessageList;
         
-
         /// <summary>
         /// RssFeed-Steuerelement
         /// </summary>
@@ -305,9 +271,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected RssFeedLink RssFeed;
+        protected global::YAF.Controls.RssFeedLink RssFeed;
         
-
         /// <summary>
         /// ForumUsers1-Steuerelement
         /// </summary>
@@ -315,9 +280,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ForumUsers ForumUsers1;
+        protected global::YAF.Controls.ForumUsers ForumUsers1;
         
-
         /// <summary>
         /// SimilarTopics-Steuerelement
         /// </summary>
@@ -325,9 +289,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected SimilarTopics SimilarTopics;
+        protected global::YAF.Controls.SimilarTopics SimilarTopics;
         
-
         /// <summary>
         /// PagerBottom-Steuerelement
         /// </summary>
@@ -335,9 +298,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerBottom;
+        protected global::YAF.Controls.Pager PagerBottom;
         
-
         /// <summary>
         /// TagFavorite2-Steuerelement
         /// </summary>
@@ -345,9 +307,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton TagFavorite2;
+        protected global::YAF.Controls.ThemeButton TagFavorite2;
         
-
         /// <summary>
         /// Tools2-Steuerelement
         /// </summary>
@@ -355,9 +316,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Tools2;
+        protected global::YAF.Controls.ThemeButton Tools2;
         
-
         /// <summary>
         /// MoveTopic2-Steuerelement
         /// </summary>
@@ -365,9 +325,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton MoveTopic2;
+        protected global::YAF.Controls.ThemeButton MoveTopic2;
         
-
         /// <summary>
         /// UnlockTopic2-Steuerelement
         /// </summary>
@@ -375,9 +334,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton UnlockTopic2;
+        protected global::YAF.Controls.ThemeButton UnlockTopic2;
         
-
         /// <summary>
         /// LockTopic2-Steuerelement
         /// </summary>
@@ -385,9 +343,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton LockTopic2;
+        protected global::YAF.Controls.ThemeButton LockTopic2;
         
-
         /// <summary>
         /// DeleteTopic2-Steuerelement
         /// </summary>
@@ -395,9 +352,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton DeleteTopic2;
+        protected global::YAF.Controls.ThemeButton DeleteTopic2;
         
-
         /// <summary>
         /// NewTopic2-Steuerelement
         /// </summary>
@@ -405,9 +361,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton NewTopic2;
+        protected global::YAF.Controls.ThemeButton NewTopic2;
         
-
         /// <summary>
         /// PostReplyLink2-Steuerelement
         /// </summary>
@@ -415,9 +370,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton PostReplyLink2;
+        protected global::YAF.Controls.ThemeButton PostReplyLink2;
         
-
         /// <summary>
         /// QuickReplyLink2-Steuerelement
         /// </summary>
@@ -425,9 +379,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton QuickReplyLink2;
+        protected global::YAF.Controls.ThemeButton QuickReplyLink2;
         
-
         /// <summary>
         /// PageLinksBottom-Steuerelement
         /// </summary>
@@ -435,9 +388,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinksBottom;
+        protected global::YAF.Controls.PageLinks PageLinksBottom;
         
-
         /// <summary>
         /// ForumJumpHolder-Steuerelement
         /// </summary>
@@ -445,9 +397,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder ForumJumpHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder ForumJumpHolder;
         
-
         /// <summary>
         /// ForumJumpLabel-Steuerelement
         /// </summary>
@@ -455,9 +406,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel ForumJumpLabel;
+        protected global::YAF.Controls.LocalizedLabel ForumJumpLabel;
         
-
         /// <summary>
         /// ForumJump1-Steuerelement
         /// </summary>
@@ -465,9 +415,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ForumJump ForumJump1;
+        protected global::YAF.Controls.ForumJump ForumJump1;
         
-
         /// <summary>
         /// PageAccess1-Steuerelement
         /// </summary>
@@ -475,19 +424,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageAccess PageAccess1;
+        protected global::YAF.Controls.PageAccess PageAccess1;
         
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
-        
-
         /// <summary>
         /// QuickReplyDialog-Steuerelement
         /// </summary>
@@ -495,6 +433,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected QuickReply QuickReplyDialog;
+        protected global::YAF.Dialogs.QuickReply QuickReplyDialog;
     }
 }

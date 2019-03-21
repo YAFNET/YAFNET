@@ -79,6 +79,6 @@
         </div>
     </div>
 
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
 
 <modal:Edit ID="EditDialog" runat="server" />

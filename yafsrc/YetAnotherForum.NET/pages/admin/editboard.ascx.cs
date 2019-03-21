@@ -555,9 +555,6 @@ namespace YAF.Pages.Admin
             // load default extensions if available...
             loadWrapper("install/fileExtensions.xml", s => DataImport.FileExtensionImport(newBoardId, s));
 
-            // load default topic status if available...
-            loadWrapper("install/TopicStatusList.xml", s => DataImport.TopicStatusImport(newBoardId, s));
-
             // load default spam word if available...
             loadWrapper("install/SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
 

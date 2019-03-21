@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages.moderate {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class index {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages.moderate {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// CategoryList-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages.moderate {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater CategoryList;
+        protected global::System.Web.UI.WebControls.Repeater CategoryList;
         
-
         /// <summary>
         /// InfoPlaceHolder-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages.moderate {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder InfoPlaceHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder InfoPlaceHolder;
         
-
         /// <summary>
         /// NoCountInfo-Steuerelement
         /// </summary>
@@ -52,16 +46,6 @@ namespace YAF.Pages.moderate {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel NoCountInfo;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.LocalizedLabel NoCountInfo;
     }
 }

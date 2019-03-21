@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class cp_subscriptions {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -23,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// LocalizedLabel11-Steuerelement
         /// </summary>
@@ -33,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel11;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
         
-
         /// <summary>
         /// PreferencesUpdatePanel-Steuerelement
         /// </summary>
@@ -43,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected UpdatePanel PreferencesUpdatePanel;
+        protected global::System.Web.UI.UpdatePanel PreferencesUpdatePanel;
         
-
         /// <summary>
         /// LocalizedLabel12-Steuerelement
         /// </summary>
@@ -53,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
         
-
         /// <summary>
         /// LocalizedLabel200-Steuerelement
         /// </summary>
@@ -63,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel200;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel200;
         
-
         /// <summary>
         /// rblNotificationType-Steuerelement
         /// </summary>
@@ -73,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected RadioButtonList rblNotificationType;
+        protected global::System.Web.UI.WebControls.RadioButtonList rblNotificationType;
         
-
         /// <summary>
         /// DailyDigestRow-Steuerelement
         /// </summary>
@@ -83,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder DailyDigestRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder DailyDigestRow;
         
-
         /// <summary>
         /// DailyDigestEnabled-Steuerelement
         /// </summary>
@@ -93,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected CheckBox DailyDigestEnabled;
+        protected global::System.Web.UI.WebControls.CheckBox DailyDigestEnabled;
         
-
         /// <summary>
         /// LocalizedLabel199-Steuerelement
         /// </summary>
@@ -103,9 +91,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel199;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel199;
         
-
         /// <summary>
         /// PMNotificationRow-Steuerelement
         /// </summary>
@@ -113,9 +100,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder PMNotificationRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder PMNotificationRow;
         
-
         /// <summary>
         /// PMNotificationEnabled-Steuerelement
         /// </summary>
@@ -123,9 +109,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected CheckBox PMNotificationEnabled;
+        protected global::System.Web.UI.WebControls.CheckBox PMNotificationEnabled;
         
-
         /// <summary>
         /// LocalizedLabel19-Steuerelement
         /// </summary>
@@ -133,9 +118,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel19;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel19;
         
-
         /// <summary>
         /// SaveUser-Steuerelement
         /// </summary>
@@ -143,9 +127,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton SaveUser;
+        protected global::YAF.Controls.ThemeButton SaveUser;
         
-
         /// <summary>
         /// SubscriptionsUpdatePanel-Steuerelement
         /// </summary>
@@ -153,9 +136,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected UpdatePanel SubscriptionsUpdatePanel;
+        protected global::System.Web.UI.UpdatePanel SubscriptionsUpdatePanel;
         
-
         /// <summary>
         /// SubscribeHolder-Steuerelement
         /// </summary>
@@ -163,9 +145,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder SubscribeHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder SubscribeHolder;
         
-
         /// <summary>
         /// ForumsHolder-Steuerelement
         /// </summary>
@@ -173,9 +154,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder ForumsHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder ForumsHolder;
         
-
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -183,9 +163,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// ForumList-Steuerelement
         /// </summary>
@@ -193,9 +172,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater ForumList;
+        protected global::System.Web.UI.WebControls.Repeater ForumList;
         
-
         /// <summary>
         /// UnsubscribeForums-Steuerelement
         /// </summary>
@@ -203,9 +181,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton UnsubscribeForums;
+        protected global::YAF.Controls.ThemeButton UnsubscribeForums;
         
-
         /// <summary>
         /// TopicsHolder-Steuerelement
         /// </summary>
@@ -213,9 +190,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder TopicsHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder TopicsHolder;
         
-
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -223,9 +199,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
-
         /// <summary>
         /// PagerTop-Steuerelement
         /// </summary>
@@ -233,9 +208,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerTop;
+        protected global::YAF.Controls.Pager PagerTop;
         
-
         /// <summary>
         /// TopicList-Steuerelement
         /// </summary>
@@ -243,9 +217,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater TopicList;
+        protected global::System.Web.UI.WebControls.Repeater TopicList;
         
-
         /// <summary>
         /// PagerBottom-Steuerelement
         /// </summary>
@@ -253,9 +226,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerBottom;
+        protected global::YAF.Controls.Pager PagerBottom;
         
-
         /// <summary>
         /// UnsubscribeTopics-Steuerelement
         /// </summary>
@@ -263,16 +235,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton UnsubscribeTopics;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::YAF.Controls.ThemeButton UnsubscribeTopics;
     }
 }

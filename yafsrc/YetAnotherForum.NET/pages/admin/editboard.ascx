@@ -105,4 +105,4 @@
     </ContentTemplate>
     </asp:UpdatePanel>
 
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+

@@ -25,6 +25,8 @@ namespace YAF.Types.Models
 {
     using System;
 
+    using ServiceStack.DataAnnotations;
+
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -50,8 +52,10 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
+        [Required]
         public int UserID { get; set; }
 
+        [Required]
         public string PageName { get; set; }
 
         #endregion

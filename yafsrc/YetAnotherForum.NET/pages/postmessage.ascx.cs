@@ -557,23 +557,6 @@ namespace YAF.Pages
                 this.Priority.Items.Add(new ListItem(this.GetText("announcement"), "2"));
                 this.Priority.SelectedIndex = 0;
 
-                if (this.PageContext.BoardSettings.EnableTopicStatus)
-                {
-                    this.StatusRow.Visible = true;
-
-                    this.TopicStatus.Items.Add(new ListItem("[{0}]".FormatWith(this.GetText("COMMON", "NONE")), "-1"));
-
-                    foreach (var item in this.GetRepository<TopicStatus>().GetByBoardId())
-                    {
-                        var text = this.GetText("TOPIC_STATUS", item.TopicStatusName);
-
-                        this.TopicStatus.Items.Add(
-                            new ListItem(text.IsSet() ? text : item.DefaultDescription, item.TopicStatusName));
-                    }
-
-                    this.TopicStatus.SelectedIndex = 0;
-                }
-
                 // Allow the Styling of Topic Titles only for Mods or Admins
                 if (this.PageContext.BoardSettings.UseStyledTopicTitles
                     && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
@@ -830,9 +813,7 @@ namespace YAF.Pages
                 this.Priority.SelectedValue,
                 this._forumEditor.Text.Trim(),
                 descriptionSave.Trim(),
-                this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0)
-                    ? string.Empty
-                    : this.TopicStatus.SelectedValue,
+                string.Empty,
                 stylesSave.Trim(),
                 subjectSave.Trim(),
                 messageFlags.BitValue,
@@ -914,9 +895,7 @@ namespace YAF.Pages
             topicId = LegacyDb.topic_save(
                 this.PageContext.PageForumID,
                 this.TopicSubjectTextBox.Text.Trim(),
-                this.TopicStatus.SelectedValue.Equals("-1") || this.TopicStatus.SelectedIndex.Equals(0)
-                    ? string.Empty
-                    : this.TopicStatus.SelectedValue,
+                string.Empty,
                 this.TopicStylesTextBox.Text.Trim(),
                 this.TopicDescriptionTextBox.Text.Trim(),
                 this._forumEditor.Text,
@@ -1494,19 +1473,11 @@ namespace YAF.Pages
                 {
                     this.DescriptionRow.Visible = true;
                 }
-
-                if (this.PageContext.BoardSettings.EnableTopicStatus)
-                {
-                    this.StatusRow.Visible = true;
-                }
-
-                this.TopicStatus.Enabled = true;
             }
             else
             {
                 this.TopicSubjectTextBox.Enabled = false;
                 this.TopicDescriptionTextBox.Enabled = false;
-                this.TopicStatus.Enabled = false;
             }
 
             // Allow the Styling of Topic Titles only for Mods or Admins
@@ -1525,16 +1496,6 @@ namespace YAF.Pages
 
             this.Priority.SelectedItem.Selected = false;
             this.Priority.Items.FindByValue(currentMessage.Priority.ToString()).Selected = true;
-
-            if (this.TopicStatus.SelectedItem != null)
-            {
-                this.TopicStatus.SelectedItem.Selected = false;
-            }
-
-            if (this.TopicStatus.Items.FindByValue(currentMessage.Status) != null)
-            {
-                this.TopicStatus.Items.FindByValue(currentMessage.Status).Selected = true;
-            }
 
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
@@ -1598,7 +1559,6 @@ namespace YAF.Pages
             this.PriorityRow.Visible = false;
             this.SubjectRow.Visible = false;
             this.DescriptionRow.Visible = false;
-            this.StatusRow.Visible = false;
             this.StyleRow.Visible = false;
             this.Title.Text = this.GetText("reply");
 

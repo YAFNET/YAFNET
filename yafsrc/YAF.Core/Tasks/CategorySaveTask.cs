@@ -129,7 +129,7 @@ namespace YAF.Core.Tasks
           get
           {
               return this._sortOrder;
-;
+
           }
 
           set
@@ -139,6 +139,7 @@ namespace YAF.Core.Tasks
       }
 
       private  static long _categoryOut;
+
       /// <summary>
       /// Gets or sets CategoryOut.
       /// </summary>
@@ -201,7 +202,7 @@ namespace YAF.Core.Tasks
       public static void Start(object boardId, object categoryId, object categoryName, object categoryImage, object sortOrder, out string failureMessage)
       {
 
-      failureMessage = String.Empty;
+      failureMessage = string.Empty;
       if (YafContext.Current.Get<ITaskModuleManager>() == null)
       {
         return;
@@ -233,10 +234,10 @@ namespace YAF.Core.Tasks
     {
         try
         {
-            this.Logger.Info("Starting Category Save Task for CategoryID {0}.",this.CategoryId);
+            this.Logger.Info("Starting Category Save Task for CategoryID {0}.", this.CategoryId);
             this.GetRepository<Category>()
                 .Save((int?)this.CategoryId, (string)this.CategoryName, (string)this.CategoryImage, (short)this.SortOrder, (int)this.BoardIdToSave);
-            this.Logger.Info("Category Save Task for CategoryID {0} is completed.", CategoryId);
+            this.Logger.Info("Category Save Task for CategoryID {0} is completed.", this.CategoryId);
         }
         catch (Exception x)
         {

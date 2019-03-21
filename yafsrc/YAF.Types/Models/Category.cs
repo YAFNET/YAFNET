@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -41,7 +40,7 @@ namespace YAF.Types.Models
 
         public Category()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -50,14 +49,19 @@ namespace YAF.Types.Models
         [Alias("CategoryID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public short SortOrder { get; set; }
 
         public string CategoryImage { get; set; }
 
+        [References(typeof(PollGroupCluster))]
         public int? PollGroupID { get; set; }
 
 

@@ -36,7 +36,7 @@ namespace YAF.Core.Tasks
 	/// <summary>
 	/// The forum delete task.
 	/// </summary>
-    public class ForumDeleteTask : LongBackgroundTask,ICriticalBackgroundTask
+    public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
 	{
 		#region Constants and Fields
 
@@ -103,6 +103,7 @@ namespace YAF.Core.Tasks
 			{
 				return false;
 			}
+
             if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
             {
                 YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName,
@@ -149,6 +150,7 @@ namespace YAF.Core.Tasks
 			{
 				return false;
 			}
+
             if (!YafContext.Current.Get<ITaskModuleManager>().IsTaskRunning("ForumSaveTask"))
             {
 			YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
@@ -158,6 +160,7 @@ namespace YAF.Core.Tasks
                 failureMessage = "You can't delete forum while ForumSaveTask is running.";
                 return false;
             }
+
             return true;
 		}
 

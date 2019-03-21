@@ -524,7 +524,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.SmartScroller1.Reset();
             this.BindData();
         }
 

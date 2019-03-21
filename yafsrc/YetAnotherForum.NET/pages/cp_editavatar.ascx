@@ -7,5 +7,5 @@
 <YAF:ProfileEdit runat="server" ID="ProfileEditor" />
 
 <div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+    
 </div>

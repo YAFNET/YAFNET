@@ -134,6 +134,10 @@
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\LoggerExtensions.cs" />
     <Compile Include="Models\AccessMask.cs" />
+    <Compile Include="Models\vaccess_group.cs" />
+    <Compile Include="Models\vaccess_null.cs" />
+    <Compile Include="Models\vaccess_user.cs" />
+    <Compile Include="Models\vaccessfull.cs" />
     <Compile Include="Models\vaccess.cs" />
     <Compile Include="Models\ForumAccess.cs" />
     <Compile Include="Models\UserMedal.cs" />
@@ -183,7 +187,6 @@
     <Compile Include="Models\Thanks.cs" />
     <Compile Include="Models\Spam_Words.cs" />
     <Compile Include="Models\Forum.cs" />
-    <Compile Include="Models\TopicStatus.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />
     <Compile Include="Models\User.cs" />

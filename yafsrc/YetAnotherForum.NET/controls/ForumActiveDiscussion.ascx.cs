@@ -107,30 +107,7 @@ namespace YAF.Controls
                 textMessageLink.Attributes.Add("style", styles);
             }
 
-            if (currentRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
-            {
-                var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString());
-
-                if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
-                {
-                    textMessageLink.Text =
-                        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""topicStatusIcon"" />&nbsp;{2}"
-                            .FormatWith(
-                                this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
-                                this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
-                                topicSubject);
-                }
-                else
-                {
-                    textMessageLink.Text =
-                        "[{0}]&nbsp;{1}".FormatWith(
-                            this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()), topicSubject);
-                }
-            }
-            else
-            {
-                textMessageLink.Text = topicSubject;
-            }
+            textMessageLink.Text = topicSubject;
 
             textMessageLink.ToolTip =
                      "{0}".FormatWith(

@@ -7245,7 +7245,6 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -7310,7 +7309,6 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -7366,7 +7364,6 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -7429,7 +7426,6 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -7773,7 +7769,6 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
     @Culture		    varchar(10) = null,
     @ThemeFile			nvarchar(50) = null,
     @TextEditor			nvarchar(50) = null,
-    @OverrideDefaultTheme	bit = null,
     @Approved			bit = null,
     @PMNotification		bit = null,
     @AutoWatchTopics    bit = null,
@@ -7793,7 +7788,6 @@ begin
     if @HideUser is null SET @HideUser = 0
     if @PMNotification is null SET @PMNotification = 1
     if @AutoWatchTopics is null SET @AutoWatchTopics = 0
-    if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
 
     if @UserID is null or @UserID<1 begin
 
@@ -7831,7 +7825,6 @@ begin
             ThemeFile = @ThemeFile,
             Culture = @Culture,
             TextEditor = @TextEditor,
-            OverridedefaultThemes = @OverrideDefaultTheme,
             PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
             AutoWatchTopics = (CASE WHEN (@AutoWatchTopics is not null) THEN  @AutoWatchTopics ELSE AutoWatchTopics END),
             NotificationType =  (CASE WHEN (@NotificationType is not null) THEN  @NotificationType ELSE NotificationType END),

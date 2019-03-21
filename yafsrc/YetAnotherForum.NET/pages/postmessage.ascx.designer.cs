@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-    using YAF.Dialogs;
-
+    
+    
     public partial class postmessage {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -23,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// PollList-Steuerelement
         /// </summary>
@@ -33,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PollList PollList;
+        protected global::YAF.Controls.PollList PollList;
         
-
         /// <summary>
         /// Title-Steuerelement
         /// </summary>
@@ -43,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label Title;
+        protected global::System.Web.UI.WebControls.Label Title;
         
-
         /// <summary>
         /// PreviewRow-Steuerelement
         /// </summary>
@@ -53,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder PreviewRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewRow;
         
-
         /// <summary>
         /// PreviewCell-Steuerelement
         /// </summary>
@@ -63,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder PreviewCell;
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewCell;
         
-
         /// <summary>
         /// PreviewMessagePost-Steuerelement
         /// </summary>
@@ -73,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected MessagePost PreviewMessagePost;
+        protected global::YAF.Controls.MessagePost PreviewMessagePost;
         
-
         /// <summary>
         /// SubjectRow-Steuerelement
         /// </summary>
@@ -83,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder SubjectRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder SubjectRow;
         
-
         /// <summary>
         /// TopicSubjectLabel-Steuerelement
         /// </summary>
@@ -93,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel TopicSubjectLabel;
+        protected global::YAF.Controls.LocalizedLabel TopicSubjectLabel;
         
-
         /// <summary>
         /// TopicSubjectTextBox-Steuerelement
         /// </summary>
@@ -103,9 +91,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox TopicSubjectTextBox;
+        protected global::System.Web.UI.WebControls.TextBox TopicSubjectTextBox;
         
-
         /// <summary>
         /// DescriptionRow-Steuerelement
         /// </summary>
@@ -113,9 +100,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder DescriptionRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder DescriptionRow;
         
-
         /// <summary>
         /// TopicDescriptionLabel-Steuerelement
         /// </summary>
@@ -123,9 +109,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel TopicDescriptionLabel;
+        protected global::YAF.Controls.LocalizedLabel TopicDescriptionLabel;
         
-
         /// <summary>
         /// TopicDescriptionTextBox-Steuerelement
         /// </summary>
@@ -133,9 +118,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox TopicDescriptionTextBox;
+        protected global::System.Web.UI.WebControls.TextBox TopicDescriptionTextBox;
         
-
         /// <summary>
         /// BlogRow-Steuerelement
         /// </summary>
@@ -143,9 +127,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder BlogRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder BlogRow;
         
-
         /// <summary>
         /// PostToBlog-Steuerelement
         /// </summary>
@@ -153,9 +136,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected CheckBox PostToBlog;
+        protected global::System.Web.UI.WebControls.CheckBox PostToBlog;
         
-
         /// <summary>
         /// BlogPassword-Steuerelement
         /// </summary>
@@ -163,9 +145,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox BlogPassword;
+        protected global::System.Web.UI.WebControls.TextBox BlogPassword;
         
-
         /// <summary>
         /// BlogPostID-Steuerelement
         /// </summary>
@@ -173,9 +154,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HiddenField BlogPostID;
+        protected global::System.Web.UI.WebControls.HiddenField BlogPostID;
         
-
         /// <summary>
         /// FromRow-Steuerelement
         /// </summary>
@@ -183,9 +163,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder FromRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder FromRow;
         
-
         /// <summary>
         /// From-Steuerelement
         /// </summary>
@@ -193,39 +172,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox From;
+        protected global::System.Web.UI.WebControls.TextBox From;
         
-
-        /// <summary>
-        /// StatusRow-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected PlaceHolder StatusRow;
-        
-
-        /// <summary>
-        /// LocalizedLabel1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
-
-        /// <summary>
-        /// TopicStatus-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected DropDownList TopicStatus;
-        
-
         /// <summary>
         /// PriorityRow-Steuerelement
         /// </summary>
@@ -233,9 +181,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder PriorityRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder PriorityRow;
         
-
         /// <summary>
         /// Priority-Steuerelement
         /// </summary>
@@ -243,9 +190,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList Priority;
+        protected global::System.Web.UI.WebControls.DropDownList Priority;
         
-
         /// <summary>
         /// StyleRow-Steuerelement
         /// </summary>
@@ -253,9 +199,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder StyleRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder StyleRow;
         
-
         /// <summary>
         /// LocalizedLabel2-Steuerelement
         /// </summary>
@@ -263,9 +208,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
-
         /// <summary>
         /// TopicStylesTextBox-Steuerelement
         /// </summary>
@@ -273,9 +217,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox TopicStylesTextBox;
+        protected global::System.Web.UI.WebControls.TextBox TopicStylesTextBox;
         
-
         /// <summary>
         /// EditorLine-Steuerelement
         /// </summary>
@@ -283,9 +226,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder EditorLine;
+        protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
         
-
         /// <summary>
         /// maxCharRow-Steuerelement
         /// </summary>
@@ -293,9 +235,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder maxCharRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder maxCharRow;
         
-
         /// <summary>
         /// LocalizedLabel3-Steuerelement
         /// </summary>
@@ -303,9 +244,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// LocalizedLblMaxNumberOfPost-Steuerelement
         /// </summary>
@@ -313,9 +253,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLblMaxNumberOfPost;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLblMaxNumberOfPost;
         
-
         /// <summary>
         /// PostOptions1-Steuerelement
         /// </summary>
@@ -323,9 +262,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PostOptions PostOptions1;
+        protected global::YAF.Controls.PostOptions PostOptions1;
         
-
         /// <summary>
         /// PostAttachments1-Steuerelement
         /// </summary>
@@ -333,9 +271,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PostAttachments PostAttachments1;
+        protected global::YAF.Controls.PostAttachments PostAttachments1;
         
-
         /// <summary>
         /// tr_captcha1-Steuerelement
         /// </summary>
@@ -343,9 +280,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder tr_captcha1;
+        protected global::System.Web.UI.WebControls.PlaceHolder tr_captcha1;
         
-
         /// <summary>
         /// imgCaptcha-Steuerelement
         /// </summary>
@@ -353,9 +289,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Image imgCaptcha;
+        protected global::System.Web.UI.WebControls.Image imgCaptcha;
         
-
         /// <summary>
         /// tr_captcha2-Steuerelement
         /// </summary>
@@ -363,9 +298,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder tr_captcha2;
+        protected global::System.Web.UI.WebControls.PlaceHolder tr_captcha2;
         
-
         /// <summary>
         /// tbCaptcha-Steuerelement
         /// </summary>
@@ -373,9 +307,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox tbCaptcha;
+        protected global::System.Web.UI.WebControls.TextBox tbCaptcha;
         
-
         /// <summary>
         /// EditReasonRow-Steuerelement
         /// </summary>
@@ -383,9 +316,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder EditReasonRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder EditReasonRow;
         
-
         /// <summary>
         /// ReasonEditor-Steuerelement
         /// </summary>
@@ -393,9 +325,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox ReasonEditor;
+        protected global::System.Web.UI.WebControls.TextBox ReasonEditor;
         
-
         /// <summary>
         /// Preview-Steuerelement
         /// </summary>
@@ -403,9 +334,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Preview;
+        protected global::YAF.Controls.ThemeButton Preview;
         
-
         /// <summary>
         /// PostReply-Steuerelement
         /// </summary>
@@ -413,9 +343,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton PostReply;
+        protected global::YAF.Controls.ThemeButton PostReply;
         
-
         /// <summary>
         /// Cancel-Steuerelement
         /// </summary>
@@ -423,9 +352,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Cancel;
+        protected global::YAF.Controls.ThemeButton Cancel;
         
-
         /// <summary>
         /// LastPosts1-Steuerelement
         /// </summary>
@@ -433,19 +361,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LastPosts LastPosts1;
+        protected global::YAF.Controls.LastPosts LastPosts1;
         
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
-        
-
         /// <summary>
         /// UploadDialog-Steuerelement
         /// </summary>
@@ -453,6 +370,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected AttachmentsUpload UploadDialog;
+        protected global::YAF.Dialogs.AttachmentsUpload UploadDialog;
     }
 }

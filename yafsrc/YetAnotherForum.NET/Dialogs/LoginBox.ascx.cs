@@ -32,9 +32,8 @@ namespace YAF.Dialogs
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -141,19 +140,19 @@ namespace YAF.Dialogs
 
             if (userName.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"));
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"), MessageTypes.danger);
                 emptyFields = true;
             }
 
             if (password.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"));
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"), MessageTypes.danger);
                 emptyFields = true;
             }
 
             if (!emptyFields)
             {
-                this.PageContext.AddLoadMessage(this.Login1.FailureText);
+                this.PageContext.AddLoadMessage(this.Login1.FailureText, MessageTypes.danger);
             }
         }
 

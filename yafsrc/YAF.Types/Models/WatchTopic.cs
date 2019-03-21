@@ -48,12 +48,14 @@ namespace YAF.Types.Models
         [Alias("WatchTopicID")]
         public int ID { get; set; }
 
+        [References(typeof(Topic))]
+        [Required]
         public int TopicID { get; set; }
-
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
+        [Required]
         public DateTime Created { get; set; }
-
         public DateTime? LastMail { get; set; }
 
         #endregion

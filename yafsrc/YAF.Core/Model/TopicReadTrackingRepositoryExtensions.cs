@@ -1,6 +1,7 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
 
@@ -42,9 +43,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var topic = repository.GetSingle(t => t.UserID == userId && t.ID == topicId);
+            var topic = repository.Get(t => t.UserID == userId && t.TopicID == topicId);
 
-            return topic?.LastAccessDate;
+            return topic.FirstOrDefault()?.LastAccessDate;
 
         }
 

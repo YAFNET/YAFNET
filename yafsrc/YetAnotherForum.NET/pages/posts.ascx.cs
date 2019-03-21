@@ -575,27 +575,6 @@ namespace YAF.Pages
 
                 var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic.TopicName));
 
-                if (this._topic.Status.IsSet() && yafBoardSettings.EnableTopicStatus)
-                {
-                    var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic.Status);
-
-                    if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
-                    {
-                        topicSubject =
-                            @"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""topicStatusIcon"" />&nbsp;{2}"
-                                .FormatWith(
-                                    this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic.Status),
-                                    this.GetText("TOPIC_STATUS", this._topic.Status),
-                                    topicSubject);
-                    }
-                    else
-                    {
-                        topicSubject =
-                            "[{0}]&nbsp;{1}".FormatWith(
-                                this.GetText("TOPIC_STATUS", this._topic.Status), topicSubject);
-                    }
-                }
-
                 if (!this._topic.Description.IsNullOrEmptyDBField()
                     && yafBoardSettings.EnableTopicDescription)
                 {

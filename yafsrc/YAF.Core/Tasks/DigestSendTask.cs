@@ -85,7 +85,6 @@ namespace YAF.Core.Tasks
         {
             //// validate DB run...
             ////this.Get<StartupInitializeDb>().Run();
-
             this.SendDigest();
         }
 
@@ -128,6 +127,7 @@ namespace YAF.Core.Tasks
        // haven't sent in X hours or more and it's 12 to 5 am.
             var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
 #else
+
             // haven't sent in X hours or more and it's 12 to 5 am.
             var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
                              && DateTime.Now < DateTime.Today.AddHours(6);
@@ -169,7 +169,7 @@ namespace YAF.Core.Tasks
                     // get users with digest enabled...
                     var usersWithDigest =
                         this.GetRepository<User>().FindUserTyped(filter: false, boardId: boardId, dailyDigest: true)
-                            .Where(x => !x.IsGuest && (x.IsApproved ?? false));
+                            .Where(x => x.IsGuest != null && !x.IsGuest.Value && (x.IsApproved ?? false));
 
                     var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
 

@@ -47,15 +47,26 @@ namespace YAF.Types.Models
         #region Properties
 
 
-        [AliasAttribute("UserPMessage")]
+        [Alias("UserPMessageID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
+        [References(typeof(PMessage))]
+        [Required]
         public int PMessageID { get; set; }
-
+        [Required]
         public int Flags { get; set; }
-
+        [Compute]
+        public bool? IsRead { get; set; }
+        [Compute]
+        public bool? IsInOutbox { get; set; }
+        [Compute]
+        public bool? IsArchived { get; set; }
+        [Compute]
+        public bool? IsDeleted { get; set; }
+        [Required]
         public bool IsReply { get; set; }
 
         #endregion

@@ -53,10 +53,9 @@ namespace YAF.Types.Models
         [Alias("RefuseID")]
         public int ID { get; set; }
 
+        [Required]
         public int PollID { get; set; }
-
-        public int UserID { get; set; }
-
+        public int? UserID { get; set; }
         public string RemoteIP { get; set; }
 
         #endregion

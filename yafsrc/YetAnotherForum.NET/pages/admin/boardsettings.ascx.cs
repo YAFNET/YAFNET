@@ -79,26 +79,6 @@ namespace YAF.Pages.Admin
                 this.Theme.DataValueField = "FileName";
             }
 
-            var mobileThemeData = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile"));
-
-            if (mobileThemeData.Any())
-            {
-                var mobileThemes = mobileThemeData.CopyToDataTable();
-
-                // Add Dummy Disabled Mobile Theme Item to allow disabling the Mobile Theme
-                var dr = mobileThemes.NewRow();
-                dr["Theme"] = "[ {0} ]".FormatWith(this.GetText("ADMIN_COMMON", "DISABLED"));
-
-                dr["FileName"] = string.Empty;
-                dr["IsMobile"] = false;
-
-                mobileThemes.Rows.InsertAt(dr, 0);
-
-                this.MobileTheme.DataSource = mobileThemes;
-                this.MobileTheme.DataTextField = "Theme";
-                this.MobileTheme.DataValueField = "FileName";
-            }
-
             this.Culture.DataSource =
                 StaticDataHelper.Cultures()
                     .AsEnumerable()
@@ -148,7 +128,6 @@ namespace YAF.Pages.Admin
                                      ?? "en-US";
 
             SetSelectedOnList(ref this.Theme, boardSettings.Theme);
-            SetSelectedOnList(ref this.MobileTheme, boardSettings.MobileTheme);
 
             // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
             /* SetSelectedOnList(
@@ -254,8 +233,6 @@ namespace YAF.Pages.Admin
             boardSettings.Theme = this.Theme.SelectedValue;
 
             // allow null/empty as a mobile theme many not be desired.
-            boardSettings.MobileTheme = this.MobileTheme.SelectedValue ?? string.Empty;
-
             boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
             boardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
             boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>()

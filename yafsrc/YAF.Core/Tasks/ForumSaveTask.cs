@@ -27,8 +27,8 @@ namespace YAF.Core.Tasks
     using System;
 
     using YAF.Classes.Data;
-    using YAF.Types.Extensions;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -210,7 +210,6 @@ namespace YAF.Core.Tasks
             }
 
             ////long newForumId = forumId.ToType<int>();
-
             if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
             {
                 YafContext.Current.Get<ITaskModuleManager>()
@@ -246,6 +245,7 @@ namespace YAF.Core.Tasks
                         BlockingTaskNames.ToDelimitedString(","));
                 ForumOut = -1;
             }
+
             return ForumOut;
         }
 

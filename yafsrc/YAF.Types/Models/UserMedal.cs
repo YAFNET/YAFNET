@@ -26,6 +26,8 @@ namespace YAF.Types.Models
     using System;
     using System.Data.Linq.Mapping;
 
+    using ServiceStack.DataAnnotations;
+
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -44,19 +46,20 @@ namespace YAF.Types.Models
 
         #region Properties
 
-
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
+        [References(typeof(Medal))]
+        [Required]
         public int MedalID { get; set; }
-
         public string Message { get; set; }
-
+        [Required]
         public bool Hide { get; set; }
-
+        [Required]
         public bool OnlyRibbon { get; set; }
-
-        public int SortOrder { get; set; }
-
+        [Required]
+        public byte SortOrder { get; set; }
+        [Required]
         public DateTime DateAwarded { get; set; }
 
         #endregion

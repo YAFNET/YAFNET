@@ -23,13 +23,7 @@
  */
 namespace YAF.Types.Interfaces.Data
 {
-	#region Using
-
-    
-
-    #endregion
-
-	/// <summary>
+    /// <summary>
 	/// The db access provider.
 	/// </summary>
 	public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>

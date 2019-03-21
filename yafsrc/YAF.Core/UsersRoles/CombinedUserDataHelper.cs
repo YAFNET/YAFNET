@@ -331,15 +331,6 @@ namespace YAF.Core
         {
             get { return this.DBRow.Field<int>("NumPosts"); }
         }
-
-        /// <summary>
-        ///   Gets a value indicating whether UseMobileTheme.
-        /// </summary>
-        public bool UseMobileTheme
-        {
-            get { return this.DBRow.Field<bool?>("OverrideDefaultThemes") ?? true; }
-        }
-
         /// <summary>
         ///   Gets a value indicating whether PMNotification.
         /// </summary>

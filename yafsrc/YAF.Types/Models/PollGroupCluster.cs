@@ -46,13 +46,15 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [Alias("PollGroupID")]
         [AutoIncrement]
-        [AliasAttribute("PollGroupID")]
         public int ID { get; set; }
-
+        [Required]
         public int UserID { get; set; }
-
+        [Required]
         public int Flags { get; set; }
+        [Compute]
+        public bool? IsBound { get; set; }
 
         #endregion
     }

@@ -24,10 +24,10 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -51,87 +51,48 @@ namespace YAF.Types.Models
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets or sets the medal id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("MedalID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
+        [Required]
         public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the category.
-        /// </summary>
-        public string Category { get; set; }
-
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
+        [Alias("MedalID")]
+        [AutoIncrement]
+        public int ID { get; set; }
+        [Required]
+        public string Name { get; set; }
         public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
+        [Required]
+        public string Message { get; set; }
+        public string Category { get; set; }
+        [Required]
+        public string MedalURL { get; set; }
+        public string RibbonURL { get; set; }
+        [Required]
+        public string SmallMedalURL { get; set; }
+        public string SmallRibbonURL { get; set; }
+        [Required]
+        public short SmallMedalWidth { get; set; }
+        [Required]
+        public short SmallMedalHeight { get; set; }
+        public short? SmallRibbonWidth { get; set; }
+        public short? SmallRibbonHeight { get; set; }
+        [Required]
+        public byte SortOrder { get; set; }
+        [Required]
         public int Flags { get; set; }
 
-        /// <summary>
-        /// Gets or sets the medal url.
-        /// </summary>
-        public string MedalURL { get; set; }
+        [Ignore]
+        public MedalFlags MedalFlags
+        {
+            get
+            {
+                return new MedalFlags(this.Flags);
+            }
 
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ribbon url.
-        /// </summary>
-        public string RibbonURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small medal height.
-        /// </summary>
-        public short SmallMedalHeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small medal url.
-        /// </summary>
-        public string SmallMedalURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small medal width.
-        /// </summary>
-        public short SmallMedalWidth { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small ribbon height.
-        /// </summary>
-        public short? SmallRibbonHeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small ribbon url.
-        /// </summary>
-        public string SmallRibbonURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small ribbon width.
-        /// </summary>
-        public short? SmallRibbonWidth { get; set; }
-
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
-        public byte SortOrder { get; set; }
+            set
+            {
+                this.Flags = value.BitValue;
+            }
+        }
 
         #endregion
 

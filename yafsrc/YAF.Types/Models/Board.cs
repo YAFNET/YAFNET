@@ -36,7 +36,7 @@ namespace YAF.Types.Models
 
         public Board()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -45,8 +45,10 @@ namespace YAF.Types.Models
         [Alias("BoardID")]
         public int ID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public bool AllowThreaded { get; set; }
 
         public string MembershipAppName { get; set; }

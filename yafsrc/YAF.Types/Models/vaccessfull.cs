@@ -21,40 +21,58 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Types.Models
 {
     using System;
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_TopicStatus table.
+    ///     A class which represents the yaf_vaccessfull views.
     /// </summary>
     [Serializable]
-    public partial class TopicStatus : IEntity, IHaveID, IHaveBoardID
+    public partial class vaccessfull : IEntity
     {
-        partial void OnCreated();
+        #region Constructors and Destructors
 
-        public TopicStatus()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="vaccessfull"/> class.
+        /// </summary>
+        public vaccessfull()
         {
             this.OnCreated();
         }
 
-        #region Properties
+        #endregion
 
-        [AutoIncrement]
-        [Alias("TopicStatusID")]
-        public int ID { get; set; }
+        #region Public Properties
 
-        public string TopicStatusName { get; set; }
+        [Required]
+        public int UserID { get; set; }
+        public int? ForumID { get; set; }
+        public int? ReadAccess { get; set; }
+        public int? PostAccess { get; set; }
+        public int? ReplyAccess { get; set; }
+        public int? PriorityAccess { get; set; }
+        public int? PollAccess { get; set; }
+        public int? VoteAccess { get; set; }
+        public int? ModeratorAccess { get; set; }
+        public int? EditAccess { get; set; }
+        public int? DeleteAccess { get; set; }
+        public int? UploadAccess { get; set; }
+        public int? DownloadAccess { get; set; }
+        public int? AdminGroup { get; set; }
 
-        public int BoardID { get; set; }
+        #endregion
 
-        public string DefaultDescription { get; set; }
+        #region Methods
+
+        /// <summary>
+        /// The on created.
+        /// </summary>
+        partial void OnCreated();
 
         #endregion
     }

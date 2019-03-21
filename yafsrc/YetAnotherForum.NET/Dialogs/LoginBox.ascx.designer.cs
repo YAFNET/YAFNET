@@ -8,12 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-
+    
+    
     public partial class LoginBox {
         
-
         /// <summary>
         /// UpdateLoginPanel-Steuerelement
         /// </summary>
@@ -21,9 +19,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected UpdatePanel UpdateLoginPanel;
+        protected global::System.Web.UI.UpdatePanel UpdateLoginPanel;
         
-
         /// <summary>
         /// Login1-Steuerelement
         /// </summary>
@@ -31,6 +28,6 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Login Login1;
+        protected global::System.Web.UI.WebControls.Login Login1;
     }
 }

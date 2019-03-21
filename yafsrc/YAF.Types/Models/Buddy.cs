@@ -60,6 +60,8 @@ namespace YAF.Types.Models
         /// <value>
         /// From user identifier.
         /// </value>
+        [References(typeof(User))]
+        [Required]
         public int FromUserID { get; set; }
 
         /// <summary>
@@ -68,6 +70,7 @@ namespace YAF.Types.Models
         /// <value>
         /// To user identifier.
         /// </value>
+        [Required]
         public int ToUserID { get; set; }
 
         /// <summary>
@@ -76,6 +79,7 @@ namespace YAF.Types.Models
         /// <value>
         ///   <c>true</c> if approved; otherwise, <c>false</c>.
         /// </value>
+        [Required]
         public bool Approved { get; set; }
 
         /// <summary>
@@ -84,6 +88,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The requested.
         /// </value>
+        [Required]
         public DateTime Requested { get; set; }
 
         #endregion

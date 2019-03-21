@@ -43,7 +43,7 @@ namespace YAF.Types.Models
         /// </summary>
         public BannedName()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -58,6 +58,8 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets BoardId.
         /// </summary>
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
         /// <summary>
@@ -66,6 +68,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The mask.
         /// </value>
+        [Required]
         public string Mask { get; set; }
 
         /// <summary>
@@ -74,6 +77,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The since.
         /// </value>
+        [Required]
         public DateTime Since { get; set; }
 
         /// <summary>

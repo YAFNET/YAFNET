@@ -58,6 +58,6 @@
 
     <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
     <div id="DivSmartScroller">
-       <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+       
     </div>
 </div>

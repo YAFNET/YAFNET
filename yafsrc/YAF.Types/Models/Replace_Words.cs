@@ -54,28 +54,9 @@ namespace YAF.Types.Models
         [AutoIncrement]
         public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the board identifier.
-        /// </summary>
-        /// <value>
-        /// The board identifier.
-        /// </value>
+        [Required]
         public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the bad word.
-        /// </summary>
-        /// <value>
-        /// The bad word.
-        /// </value>
         public string BadWord { get; set; }
-
-        /// <summary>
-        /// Gets or sets the good word.
-        /// </summary>
-        /// <value>
-        /// The good word.
-        /// </value>
         public string GoodWord { get; set; }
 
         #endregion

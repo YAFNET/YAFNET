@@ -37,7 +37,7 @@ namespace YAF.Types.Models
 
         public BannedIP()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -46,10 +46,14 @@ namespace YAF.Types.Models
         [Alias("ID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
         public string Mask { get; set; }
 
+        [Required]
         public DateTime Since { get; set; }
 
         public string Reason { get; set; }

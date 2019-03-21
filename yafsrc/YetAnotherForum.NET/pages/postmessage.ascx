@@ -82,15 +82,6 @@
                         <asp:TextBox ID="From" runat="server" CssClass="form-control" />
 		            </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder id="StatusRow" visible="false" runat="server">
-                    <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="TopicStatus">
-                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Status" />
-                        </asp:Label>
-                        <asp:DropDownList ID="TopicStatus" runat="server" CssClass="standardSelectMenu">
-                        </asp:DropDownList>
-                    </div>
-                </asp:PlaceHolder>
                 <asp:PlaceHolder id="PriorityRow" runat="server">
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="Priority">
@@ -185,6 +176,6 @@
 
 <YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
 <div id="DivSmartScroller">
-	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+	
 </div>
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>

@@ -49,17 +49,15 @@ namespace YAF.Types.Models
 
         #region Public Properties
 
-        [AutoIncrement]
         [Alias("PollVoteID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
+        [References(typeof(Poll))]
+        [Required]
         public int PollID { get; set; }
-
-        public int UserID { get; set; }
-
+        public int? UserID { get; set; }
         public string RemoteIP { get; set; }
-
-        public int ChoiceID { get; set; }
+        public int? ChoiceID { get; set; }
 
         #endregion
 

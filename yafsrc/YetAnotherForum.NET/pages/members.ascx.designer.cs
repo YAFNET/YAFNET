@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class members {
         
-
         /// <summary>
         /// PageLinks-Steuerelement
         /// </summary>
@@ -23,9 +19,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// SearchMembersLocalizedLabel-Steuerelement
         /// </summary>
@@ -33,9 +28,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel SearchMembersLocalizedLabel;
+        protected global::YAF.Controls.LocalizedLabel SearchMembersLocalizedLabel;
         
-
         /// <summary>
         /// SearchRolesLocalizedLabel-Steuerelement
         /// </summary>
@@ -43,9 +37,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel SearchRolesLocalizedLabel;
+        protected global::YAF.Controls.LocalizedLabel SearchRolesLocalizedLabel;
         
-
         /// <summary>
         /// Group-Steuerelement
         /// </summary>
@@ -53,9 +46,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList Group;
+        protected global::System.Web.UI.WebControls.DropDownList Group;
         
-
         /// <summary>
         /// SearchRankLocalizedLabel-Steuerelement
         /// </summary>
@@ -63,9 +55,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel SearchRankLocalizedLabel;
+        protected global::YAF.Controls.LocalizedLabel SearchRankLocalizedLabel;
         
-
         /// <summary>
         /// Ranks-Steuerelement
         /// </summary>
@@ -73,9 +64,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList Ranks;
+        protected global::System.Web.UI.WebControls.DropDownList Ranks;
         
-
         /// <summary>
         /// NumPostsLabel-Steuerelement
         /// </summary>
@@ -83,9 +73,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel NumPostsLabel;
+        protected global::YAF.Controls.LocalizedLabel NumPostsLabel;
         
-
         /// <summary>
         /// NumPostDDL-Steuerelement
         /// </summary>
@@ -93,9 +82,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected DropDownList NumPostDDL;
+        protected global::System.Web.UI.WebControls.DropDownList NumPostDDL;
         
-
         /// <summary>
         /// NumPostsTB-Steuerelement
         /// </summary>
@@ -103,9 +91,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox NumPostsTB;
+        protected global::System.Web.UI.WebControls.TextBox NumPostsTB;
         
-
         /// <summary>
         /// SearchMemberLocalizedLabel-Steuerelement
         /// </summary>
@@ -113,9 +100,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel SearchMemberLocalizedLabel;
+        protected global::YAF.Controls.LocalizedLabel SearchMemberLocalizedLabel;
         
-
         /// <summary>
         /// UserSearchName-Steuerelement
         /// </summary>
@@ -123,9 +109,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox UserSearchName;
+        protected global::System.Web.UI.WebControls.TextBox UserSearchName;
         
-
         /// <summary>
         /// SearchByUserName-Steuerelement
         /// </summary>
@@ -133,9 +118,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton SearchByUserName;
+        protected global::YAF.Controls.ThemeButton SearchByUserName;
         
-
         /// <summary>
         /// ResetUserSearch-Steuerelement
         /// </summary>
@@ -143,9 +127,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton ResetUserSearch;
+        protected global::YAF.Controls.ThemeButton ResetUserSearch;
         
-
         /// <summary>
         /// AlphaSort1-Steuerelement
         /// </summary>
@@ -153,9 +136,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected AlphaSort AlphaSort1;
+        protected global::YAF.Controls.AlphaSort AlphaSort1;
         
-
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -163,9 +145,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// Pager-Steuerelement
         /// </summary>
@@ -173,9 +154,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager Pager;
+        protected global::YAF.Controls.Pager Pager;
         
-
         /// <summary>
         /// LocalizedLabel6-Steuerelement
         /// </summary>
@@ -183,9 +163,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
         
-
         /// <summary>
         /// SortUserName-Steuerelement
         /// </summary>
@@ -193,9 +172,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlImage SortUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlImage SortUserName;
         
-
         /// <summary>
         /// UserName-Steuerelement
         /// </summary>
@@ -203,9 +181,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton UserName;
+        protected global::System.Web.UI.WebControls.LinkButton UserName;
         
-
         /// <summary>
         /// SortRank-Steuerelement
         /// </summary>
@@ -213,9 +190,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlImage SortRank;
+        protected global::System.Web.UI.HtmlControls.HtmlImage SortRank;
         
-
         /// <summary>
         /// Rank-Steuerelement
         /// </summary>
@@ -223,9 +199,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton Rank;
+        protected global::System.Web.UI.WebControls.LinkButton Rank;
         
-
         /// <summary>
         /// SortJoined-Steuerelement
         /// </summary>
@@ -233,9 +208,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlImage SortJoined;
+        protected global::System.Web.UI.HtmlControls.HtmlImage SortJoined;
         
-
         /// <summary>
         /// Joined-Steuerelement
         /// </summary>
@@ -243,9 +217,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton Joined;
+        protected global::System.Web.UI.WebControls.LinkButton Joined;
         
-
         /// <summary>
         /// SortPosts-Steuerelement
         /// </summary>
@@ -253,9 +226,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlImage SortPosts;
+        protected global::System.Web.UI.HtmlControls.HtmlImage SortPosts;
         
-
         /// <summary>
         /// Posts-Steuerelement
         /// </summary>
@@ -263,9 +235,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton Posts;
+        protected global::System.Web.UI.WebControls.LinkButton Posts;
         
-
         /// <summary>
         /// SortLastVisit-Steuerelement
         /// </summary>
@@ -273,9 +244,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlImage SortLastVisit;
+        protected global::System.Web.UI.HtmlControls.HtmlImage SortLastVisit;
         
-
         /// <summary>
         /// LastVisitLB-Steuerelement
         /// </summary>
@@ -283,9 +253,8 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton LastVisitLB;
+        protected global::System.Web.UI.WebControls.LinkButton LastVisitLB;
         
-
         /// <summary>
         /// MemberList-Steuerelement
         /// </summary>
@@ -293,16 +262,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater MemberList;
-        
-
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected SmartScroller SmartScroller1;
+        protected global::System.Web.UI.WebControls.Repeater MemberList;
     }
 }

@@ -148,6 +148,3 @@
 <div class="float-right">
     <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
-<div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
-</div>

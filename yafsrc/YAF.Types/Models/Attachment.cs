@@ -66,16 +66,20 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the file name.
         /// </summary>
+        [Required]
         public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets the bytes.
         /// </summary>
+        [Required]
         public int Bytes { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
 
         /// <summary>
@@ -86,6 +90,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the downloads.
         /// </summary>
+        [Required]
         public int Downloads { get; set; }
 
         /// <summary>

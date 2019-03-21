@@ -44,16 +44,17 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
         [Alias("WatchForumID")]
+        [AutoIncrement]
         public int ID { get; set; }
-
+        [References(typeof(Forum))]
+        [Required]
         public int ForumID { get; set; }
-
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
+        [Required]
         public DateTime Created { get; set; }
-
         public DateTime? LastMail { get; set; }
 
         #endregion

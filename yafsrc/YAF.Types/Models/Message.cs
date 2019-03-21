@@ -31,7 +31,6 @@ namespace YAF.Types.Models
 
     using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
-    using YAF.Types.Objects;
 
     /// <summary>
     /// A class which represents the Message table.
@@ -54,18 +53,98 @@ namespace YAF.Types.Models
             this.UserName = row.Field<string>("UserName");
             this.MessageText = row.Field<string>("Message");
             this.TopicID = row.Field<int?>("TopicID") ?? 0;
-            this.Topic = row.Field<string>("Topic");
+
+            this.Posted = row.Field<DateTime?>("Posted").Value;
+
+            try
+            {
+                this.Topic = row.Field<string>("Topic");
+            }
+            catch (ArgumentException)
+            {
+                this.Topic = row.Field<string>("Subject");
+            }
+
             this.Flags = row.Field<int?>("Flags") ?? 0;
-            this.Edited = row.Field<DateTime?>("Edited");
-            this.EditReason = row.Field<string>("EditReason");
-            this.Position = row.Field<int?>("Position") ?? 0;
-            this.IsModeratorChanged = row.Field<bool?>("IsModeratorChanged");
-            this.DeleteReason = row.Field<string>("DeleteReason");
-            this.BlogPostID = row.Field<string>("BlogPostID");
-            this.IP = row.Field<string>("IP");
-            this.ExternalMessageId = row.Field<string>("ExternalMessageId");
-            this.ReferenceMessageId = row.Field<string>("ReferenceMessageId");
-            this.HasAttachments = row.Field<bool?>("HasAttachments");
+
+            if (row.Table.Columns.Contains("Edited"))
+            {
+                this.Edited = row.Field<DateTime?>("Edited");
+                this.EditReason = row.Field<string>("EditReason");
+            }
+
+            try
+            {
+                this.Position = row.Field<int?>("Position") ?? 0;
+            }
+            catch (Exception)
+            {
+                this.Position = 0;
+            }
+
+
+            try
+            {
+                this.IsModeratorChanged = row.Field<bool?>("IsModeratorChanged");
+            }
+            catch (Exception)
+            {
+                this.IsModeratorChanged = false;
+            }
+            
+            try
+            {
+                this.DeleteReason = row.Field<string>("DeleteReason");
+            }
+            catch (Exception)
+            {
+                this.DeleteReason = string.Empty;
+            }
+            
+            try
+            {
+                this.BlogPostID = row.Field<string>("BlogPostID");
+            }
+            catch (Exception)
+            {
+                this.BlogPostID = string.Empty;
+            }
+            
+            try
+            {
+                this.IP = row.Field<string>("IP");
+            }
+            catch (Exception)
+            {
+                this.IP = string.Empty;
+            }
+           
+            try
+            {
+                this.ExternalMessageId = row.Field<string>("ExternalMessageId");
+            }
+            catch (Exception)
+            {
+                this.ExternalMessageId = string.Empty;
+            }
+            
+            try
+            {
+                this.ReferenceMessageId = row.Field<string>("ReferenceMessageId");
+            }
+            catch (Exception)
+            {
+                this.ReferenceMessageId = string.Empty;
+            }
+            
+            try
+            {
+                this.HasAttachments = row.Field<bool?>("HasAttachments");
+            }
+            catch (Exception)
+            {
+                this.HasAttachments = false;
+            }
         }
 
         #region Properties
@@ -74,53 +153,63 @@ namespace YAF.Types.Models
         [AliasAttribute("MessageID")]
         public int ID { get; set; }
 
-        public int TopicID { get; set; }
-
+        [Ignore]
         public string Topic { get; set; }
 
+        [References(typeof(Topic))]
+        [Required]
+        public int TopicID { get; set; }
+        [References(typeof(Message))]
         public int? ReplyTo { get; set; }
-
+        [Required]
         public int Position { get; set; }
-
+        [Required]
         public int Indent { get; set; }
-
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
         public string UserName { get; set; }
 
-        public DateTime Posted { get; set; }
-
+        [Ignore]
         public bool? HasAttachments { get; set; }
-
+        [Required]
+        public DateTime Posted { get; set; }
         [Alias("Message")]
         public string MessageText { get; set; }
-
+        [Required]
         public string IP { get; set; }
-
         public DateTime? Edited { get; set; }
-
+        [Required]
         public int Flags { get; set; }
 
-        public bool? IsDeleted { get; set; }
+        [Ignore]
+        public MessageFlags MessageFlags
+        {
+            get
+            {
+                return new MessageFlags(this.Flags);
+            }
 
-        public bool? IsApproved { get; set; }
-
-        public string BlogPostID { get; set; }
-
+            set
+            {
+                this.Flags = value.BitValue;
+            }
+        }
         public string EditReason { get; set; }
 
+        [Ignore]
         public string Signature { get; set; }
-
+        [Required]
         public bool? IsModeratorChanged { get; set; }
-
         public string DeleteReason { get; set; }
-
+        [Compute]
+        public bool? IsDeleted { get; set; }
+        [Compute]
+        public bool? IsApproved { get; set; }
+        public string BlogPostID { get; set; }
         public int? EditedBy { get; set; }
-
         public string ExternalMessageId { get; set; }
-
         public string ReferenceMessageId { get; set; }
-
         public string UserDisplayName { get; set; }
 
         #endregion
