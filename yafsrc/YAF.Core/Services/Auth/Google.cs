@@ -518,7 +518,6 @@ namespace YAF.Core.Services.Auth
                 culture: null,
                 themeFile: null,
                 textEditor: null,
-                useMobileTheme: null,
                 approved: null,
                 pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
                 autoWatchTopics: autoWatchTopicsEnabled,

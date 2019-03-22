@@ -309,6 +309,20 @@ namespace YAF.Core
         }
 
         /// <summary>
+        /// Helper Function that adds a "load message" to the load message class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="messageType">
+        /// The message type.
+        /// </param>
+        public void AddLoadMessage([NotNull] string message, string script, MessageTypes messageType = MessageTypes.info)
+        {
+            this.LoadMessage.Add(message, messageType, script);
+        }
+
+        /// <summary>
         /// The dispose.
         /// </summary>
         public void Dispose()
@@ -316,7 +330,7 @@ namespace YAF.Core
             this.Unload?.Invoke(this, new EventArgs());
 
             // No need to dispose the container here
-            //this._contextLifetimeContainer.Dispose();
+            // this._contextLifetimeContainer.Dispose();
         }
 
         #endregion

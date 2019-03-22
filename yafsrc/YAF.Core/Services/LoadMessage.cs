@@ -60,7 +60,6 @@ namespace YAF.Core.Services
         {
             if (this.SessionLoadString.Any())
             {
-                // get this as the current "loadstring"
                 this._loadStringList.AddRange(this.SessionLoadString);
 
                 // session load string no longer needed
@@ -73,17 +72,6 @@ namespace YAF.Core.Services
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets LoadString.
-        /// </summary>
-        /*public string LoadString
-        {
-            get
-            {
-                return !this.LoadStringList.Any() ? string.Empty : this.LoadStringDelimited("\r\n");
-            }
-        }*/
 
         /// <summary>
         ///   Gets LoadStringList.
@@ -134,6 +122,16 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// AddLoadMessage creates a message that will be returned on the next page load.
+        /// </summary>
+        /// <param name="message">The message you wish to display.</param>
+        /// <param name="messageType">Type of the message.</param>
+        public void Add([NotNull] string message, MessageTypes messageType, string script)
+        {
+            this.LoadStringList.Add(new MessageNotification(message, messageType, script));
+        }
+
+        /// <summary>
         /// AddLoadMessageSession creates a message that will be returned on the next page.
         /// </summary>
         /// <param name="message">The message you wish to display.</param>
@@ -152,23 +150,7 @@ namespace YAF.Core.Services
             this.LoadStringList.Clear();
         }
 
-        /*
-        /// <summary>
-        /// Loads the string delimited.
-        /// </summary>
-        /// <param name="delimiter">The delimiter.</param>
-        /// <returns>
-        /// The load string delimited.
-        /// </returns>
-        public string LoadStringDelimited([NotNull] string delimiter)
-        {
-            return !this.LoadStringList.Any()
-                       ? string.Empty
-                       : this.LoadStringList.Aggregate((current, next) => current + delimiter + next);
-        }
-        */
-
-        /// <summary>
+       /// <summary>
         /// Gets the message.
         /// </summary>
         /// <returns>Returns the Current Message</returns>

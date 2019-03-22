@@ -56,7 +56,7 @@ namespace YAF.Modules
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // add js for client-side error settings...
-            var javaScriptFunction = @"function {0}(newErrorStr, newErrorType) {{ if (newErrorStr != null && newErrorStr != """") {{
+            var javaScriptFunction = @"function {0}(newErrorStr, newErrorType, script) {{ if (newErrorStr != null && newErrorStr != """") {{
                       var iconFA = '';
 
                       if (newErrorType == 'warning') {{
@@ -70,6 +70,11 @@ namespace YAF.Modules
                       }}
                       else if (newErrorType == 'success') {{
                           iconFA = 'fa fa-check';
+                      }}
+
+                      if (script != null && script != """")
+                      {{
+                         $('#' + script).modal('show');
                       }}
 
                       $.notify({{

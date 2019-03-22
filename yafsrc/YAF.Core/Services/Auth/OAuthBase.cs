@@ -716,8 +716,8 @@ namespace YAF.Core.Services.Auth
             public int Compare(QueryParameter x, QueryParameter y)
             {
                 return x.Name == y.Name
-                    ? String.CompareOrdinal(x.Value, y.Value)
-                    : String.CompareOrdinal(x.Name, y.Name);
+                    ? string.CompareOrdinal(x.Value, y.Value)
+                    : string.CompareOrdinal(x.Name, y.Name);
             }
 
             #endregion

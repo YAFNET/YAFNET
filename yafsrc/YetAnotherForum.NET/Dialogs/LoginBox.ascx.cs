@@ -140,19 +140,19 @@ namespace YAF.Dialogs
 
             if (userName.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"), "LoginBox", MessageTypes.danger);
                 emptyFields = true;
             }
 
             if (password.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"), "LoginBox", MessageTypes.danger);
                 emptyFields = true;
             }
 
             if (!emptyFields)
             {
-                this.PageContext.AddLoadMessage(this.Login1.FailureText, MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.Login1.FailureText, "LoginBox", MessageTypes.danger);
             }
         }
 

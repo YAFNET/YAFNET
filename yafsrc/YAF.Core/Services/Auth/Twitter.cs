@@ -123,7 +123,7 @@ namespace YAF.Core.Services.Auth
                     // Login user if exists
                     if (checkUser == null)
                     {
-                        return CreateTwitterUser(twitterUser, oAuth, out message);
+                        return this.CreateTwitterUser(twitterUser, oAuth, out message);
                     }
 
                     // LOGIN Existing User
@@ -436,7 +436,6 @@ namespace YAF.Core.Services.Auth
                 culture: null,
                 themeFile: null,
                 textEditor: null,
-                useMobileTheme: null,
                 approved: null,
                 pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
                 autoWatchTopics: autoWatchTopicsEnabled,

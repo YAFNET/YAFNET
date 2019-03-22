@@ -93,10 +93,6 @@ namespace YAF.Core.Services.Auth
 
         #endregion
 
-        #region Enums
-
-        #endregion
-
         #region Properties
 
         /// <summary>
