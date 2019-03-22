@@ -3906,6 +3906,7 @@ begin
         d.Styles,
         d.PollID,
         d.UserID AS TopicOwnerID,
+		d.AnswerMessageId,
         TopicFlags	= d.Flags,
         ForumFlags	= g.Flags,
         m.MessageID,

@@ -2884,9 +2884,8 @@ begin
 end
 go
 
--- Add topicStatus icon
-if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}TopicStatus]') and name='Icon')
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}TopicStatus]'))
 begin
-	alter table [{databaseOwner}].[{objectQualifier}TopicStatus] add Icon nvarchar(100) NULL
+    drop table [{databaseOwner}].[{objectQualifier}TopicStatus]
 end
-GO
+go

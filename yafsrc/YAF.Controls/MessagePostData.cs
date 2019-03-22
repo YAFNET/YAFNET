@@ -289,11 +289,9 @@ namespace YAF.Controls
                 }
 
                 // Render Go to Answer Message
-                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
-
-                if (answerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
+                if (this.CurrentMessage.AnswerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
                 {
-                    this.RenderAnswerMessage(writer, answerMessageId.Value);
+                    this.RenderAnswerMessage(writer, this.CurrentMessage.AnswerMessageId.Value);
                 }
             }
             else
@@ -311,11 +309,9 @@ namespace YAF.Controls
                     this.MessageID);
 
                 // Render Go to Answer Message
-                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
-
-                if (answerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
+                if (this.CurrentMessage.AnswerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
                 {
-                    this.RenderAnswerMessage(writer, answerMessageId.Value);
+                    this.RenderAnswerMessage(writer, this.CurrentMessage.AnswerMessageId.Value);
                 }
             }
         }

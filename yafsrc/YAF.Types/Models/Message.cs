@@ -145,6 +145,8 @@ namespace YAF.Types.Models
             {
                 this.HasAttachments = false;
             }
+
+            this.AnswerMessageId = row.Field<int?>("AnswerMessageId");
         }
 
         #region Properties
@@ -211,6 +213,9 @@ namespace YAF.Types.Models
         public string ExternalMessageId { get; set; }
         public string ReferenceMessageId { get; set; }
         public string UserDisplayName { get; set; }
+
+        [Ignore]
+        public int? AnswerMessageId { get; set; }
 
         #endregion
     }

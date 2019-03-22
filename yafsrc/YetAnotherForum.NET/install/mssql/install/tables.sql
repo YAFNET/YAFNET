@@ -1048,19 +1048,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}TopicStatus]') and type in (N'U'))
-BEGIN
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}TopicStatus](
-	    TopicStatusID int IDENTITY(1,1) NOT NULL,
-		TopicStatusName nvarchar(100) NOT NULL,
-		BoardID int NOT NULL,
-		defaultDescription nvarchar(100) NOT NULL,
-		Icon nvarchar(100) NULL,
-		constraint [PK_{objectQualifier}TopicStatus] PRIMARY KEY(TopicStatusID)
-	)
-END
-GO
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}ReputationVote]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}ReputationVote](
 		ReputationFromUserID  int NOT NULL,
