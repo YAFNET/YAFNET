@@ -1578,89 +1578,89 @@ namespace YAF.Classes.Data
         ///// <param name="connectionManager">
         ///// The conn man.
         ///// </param>
-        //public static void db_getstats([NotNull] MsSqlDbConnectionManager connectionManager)
-        //{
-        //    // create statistic getting SQL...
-        //    var sb = new StringBuilder();
+        // public static void db_getstats([NotNull] MsSqlDbConnectionManager connectionManager)
+        // {
+        // // create statistic getting SQL...
+        // var sb = new StringBuilder();
 
-        //    sb.AppendLine("DECLARE @TableName sysname");
-        //    sb.AppendLine("DECLARE cur_showfragmentation CURSOR FOR");
-        //    sb.AppendFormat(
-        //      "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
-        //      Config.DatabaseObjectQualifier);
-        //    sb.AppendLine("OPEN cur_showfragmentation");
-        //    sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
-        //    sb.AppendLine("WHILE @@FETCH_STATUS = 0");
-        //    sb.AppendLine("BEGIN");
-        //    sb.AppendLine("DBCC SHOWCONTIG (@TableName)");
-        //    sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
-        //    sb.AppendLine("END");
-        //    sb.AppendLine("CLOSE cur_showfragmentation");
-        //    sb.AppendLine("DEALLOCATE cur_showfragmentation");
+        // sb.AppendLine("DECLARE @TableName sysname");
+        // sb.AppendLine("DECLARE cur_showfragmentation CURSOR FOR");
+        // sb.AppendFormat(
+        // "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
+        // Config.DatabaseObjectQualifier);
+        // sb.AppendLine("OPEN cur_showfragmentation");
+        // sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
+        // sb.AppendLine("WHILE @@FETCH_STATUS = 0");
+        // sb.AppendLine("BEGIN");
+        // sb.AppendLine("DBCC SHOWCONTIG (@TableName)");
+        // sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
+        // sb.AppendLine("END");
+        // sb.AppendLine("CLOSE cur_showfragmentation");
+        // sb.AppendLine("DEALLOCATE cur_showfragmentation");
 
-        //    using (var cmd = new SqlCommand(sb.ToString(), connectionManager.OpenDBConnection))
-        //    {
-        //        cmd.Connection = connectionManager.DBConnection;
+        // using (var cmd = new SqlCommand(sb.ToString(), connectionManager.OpenDBConnection))
+        // {
+        // cmd.Connection = connectionManager.DBConnection;
 
-        //        // up the command timeout...
-        //        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+        // // up the command timeout...
+        // cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
 
-        //        // run it...
-        //        cmd.ExecuteNonQuery();
-        //    }
-        //}
+        // // run it...
+        // cmd.ExecuteNonQuery();
+        // }
+        // }
 
-        //private static string getStatsMessage;
+        // private static string getStatsMessage;
         ///// <summary>
         ///// The db_getstats_new.
         ///// </summary>
-        //public static string db_getstats_new()
-        //{
-        //    try
-        //    {
-        //        using (var connMan = new MsSqlDbConnectionManager())
-        //        {
-        //            connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(getStats_InfoMessage);
+        // public static string db_getstats_new()
+        // {
+        // try
+        // {
+        // using (var connMan = new MsSqlDbConnectionManager())
+        // {
+        // connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(getStats_InfoMessage);
 
-        //            connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+        // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
 
-        //            // create statistic getting SQL...
-        //            var sb = new StringBuilder();
+        // // create statistic getting SQL...
+        // var sb = new StringBuilder();
 
-        //            sb.AppendLine("DECLARE @TableName sysname");
-        //            sb.AppendLine("DECLARE cur_showfragmentation CURSOR FOR");
-        //            sb.AppendFormat(
-        //                "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
-        //                Config.DatabaseObjectQualifier);
-        //            sb.AppendLine("OPEN cur_showfragmentation");
-        //            sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
-        //            sb.AppendLine("WHILE @@FETCH_STATUS = 0");
-        //            sb.AppendLine("BEGIN");
-        //            sb.AppendLine("DBCC SHOWCONTIG (@TableName)");
-        //            sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
-        //            sb.AppendLine("END");
-        //            sb.AppendLine("CLOSE cur_showfragmentation");
-        //            sb.AppendLine("DEALLOCATE cur_showfragmentation");
+        // sb.AppendLine("DECLARE @TableName sysname");
+        // sb.AppendLine("DECLARE cur_showfragmentation CURSOR FOR");
+        // sb.AppendFormat(
+        // "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
+        // Config.DatabaseObjectQualifier);
+        // sb.AppendLine("OPEN cur_showfragmentation");
+        // sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
+        // sb.AppendLine("WHILE @@FETCH_STATUS = 0");
+        // sb.AppendLine("BEGIN");
+        // sb.AppendLine("DBCC SHOWCONTIG (@TableName)");
+        // sb.AppendLine("FETCH NEXT FROM cur_showfragmentation INTO @TableName");
+        // sb.AppendLine("END");
+        // sb.AppendLine("CLOSE cur_showfragmentation");
+        // sb.AppendLine("DEALLOCATE cur_showfragmentation");
 
-        //            using (var cmd = new SqlCommand(sb.ToString(), connMan.OpenDBConnection))
-        //            {
-        //                cmd.Connection = connMan.DBConnection;
+        // using (var cmd = new SqlCommand(sb.ToString(), connMan.OpenDBConnection))
+        // {
+        // cmd.Connection = connMan.DBConnection;
 
-        //                // up the command timeout...
-        //                cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+        // // up the command timeout...
+        // cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
 
-        //                // run it...
-        //                cmd.ExecuteNonQuery();
-        //                return getStatsMessage;
-        //            }
+        // // run it...
+        // cmd.ExecuteNonQuery();
+        // return getStatsMessage;
+        // }
 
-        //        }
-        //    }
-        //    finally
-        //    {
-        //        getStatsMessage = string.Empty;
-        //    }
-        //}
+        // }
+        // }
+        // finally
+        // {
+        // getStatsMessage = string.Empty;
+        // }
+        // }
 
         ///// <summary>
         ///// The reindexDb_InfoMessage.
@@ -1671,10 +1671,10 @@ namespace YAF.Classes.Data
         ///// <param name="e">
         ///// The e.
         ///// </param>
-        //private static void getStats_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
-        //{
-        //    getStatsMessage += "\r\n{0}".FormatWith(e.Message);
-        //}
+        // private static void getStats_InfoMessage([NotNull] object sender, [NotNull] YafDBConnInfoMessageEventArgs e)
+        // {
+        // getStatsMessage += "\r\n{0}".FormatWith(e.Message);
+        // }
 
         ///// <summary>
         ///// The db_getstats_warning.
@@ -1685,11 +1685,11 @@ namespace YAF.Classes.Data
         ///// <returns>
         ///// The db_getstats_warning.
         ///// </returns>
-        //[NotNull]
-        //public static string db_getstats_warning()
-        //{
-        //    return string.Empty;
-        //}
+        // [NotNull]
+        // public static string db_getstats_warning()
+        // {
+        // return string.Empty;
+        // }
 
         /// <summary>
         /// The db_recovery_mode.
@@ -1759,10 +1759,10 @@ namespace YAF.Classes.Data
                 {
                     expressDb = "MS SQL Server Express Editions are not supported by the application.";
                 }
+
                 recoveryDbModeMessage += "\r\n{0}\r\n{1}".FormatWith(error.Message, expressDb);
                 return recoveryDbModeMessage;
             }
-
             finally
             {
                 recoveryDbModeMessage = string.Empty;
@@ -1771,6 +1771,7 @@ namespace YAF.Classes.Data
 
 
         }
+
         /// <summary>
         /// The recoveryDbMode_InfoMessage.
         /// </summary>
@@ -1871,6 +1872,7 @@ namespace YAF.Classes.Data
                 {
                     connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(reindexDb_InfoMessage);
                     connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+
                     // create statistic getting SQL...
                     var sb = new StringBuilder();
 
@@ -1878,8 +1880,8 @@ namespace YAF.Classes.Data
                     sb.AppendLine("DECLARE myCursor");
                     sb.AppendLine("CURSOR FOR");
                     sb.AppendFormat(
-                      "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
-                      Config.DatabaseObjectQualifier);
+                        "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'",
+                        Config.DatabaseObjectQualifier);
                     sb.AppendLine("OPEN myCursor");
                     sb.AppendLine("FETCH NEXT");
                     sb.AppendLine("FROM myCursor INTO @MyTable");
@@ -1903,6 +1905,7 @@ namespace YAF.Classes.Data
                         // run it...
                         cmd.ExecuteNonQuery();
                     }
+
                     return reindexDbMessage;
                 }
             }
@@ -1968,6 +1971,7 @@ namespace YAF.Classes.Data
         }
 
         private static string messageRunSql;
+
         /// <summary>
         /// The db_runsql.
         /// </summary>
@@ -2024,6 +2028,7 @@ namespace YAF.Classes.Data
         {
             messageRunSql = "\r\n" + e.Message;
         }
+
         /// <summary>
         /// The db_shrink.
         /// </summary>
@@ -2047,6 +2052,7 @@ namespace YAF.Classes.Data
         }
 
         private static string dbShinkMessage;
+
         /// <summary>
         /// The db_shrink.
         /// </summary>
@@ -2074,6 +2080,7 @@ namespace YAF.Classes.Data
                         cmd.ExecuteNonQuery();
                     }
                 }
+
                 return dbShinkMessage;
             }
             finally
@@ -2551,7 +2558,7 @@ namespace YAF.Classes.Data
                     newRow = row;
 
                     var currentIndent = (int)row["Level"];
-                    var sIndent = "";
+                    var sIndent = string.Empty;
 
                     for (var j = 0; j < currentIndent; j++)
                         sIndent += "--";
@@ -2571,6 +2578,7 @@ namespace YAF.Classes.Data
                     // import the row into the destination
                     sorted.Rows.Add(newRow);
                 }
+
                 return sorted;
             }
         }
@@ -2582,8 +2590,8 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.AddParam("BoardID", boardid);
-                cmd.AddParam("CategoryID",categoryid);
-                cmd.AddParam("ForumID",forumid);
+                cmd.AddParam("CategoryID", categoryid);
+                cmd.AddParam("ForumID", forumid);
                 cmd.AddParam("UserID", userid);
                 cmd.AddParam("NotIncluded", notincluded);
                 cmd.AddParam("ImmediateOnly", immediateonly);
@@ -2597,7 +2605,7 @@ namespace YAF.Classes.Data
                     newRow.ItemArray = row.ItemArray;
 
                     var currentIndent = (int)row["Level"];
-                    var sIndent = "";
+                    var sIndent = string.Empty;
 
 
                     if (currentIndent >= 2)
@@ -2615,12 +2623,12 @@ namespace YAF.Classes.Data
                     if ((int)row["CategoryID"] != categoryId)
                     {
                         var cRow = sorted.NewRow();
+
                         // we add a category
                         cRow["ForumID"] = -(int)row["CategoryID"];
                         cRow["Title"] = string.Format(" {0}", row["CategoryName"]);
                         categoryId = (int)row["CategoryID"];
                         sorted.Rows.Add(cRow);
-
                     }
 
                     newRow["ForumID"] = row["ForumID"];
@@ -2628,6 +2636,7 @@ namespace YAF.Classes.Data
                     sorted.Rows.Add(newRow);
 
                 }
+
                 return sorted;
 
             }
@@ -4754,10 +4763,10 @@ namespace YAF.Classes.Data
                     cmd.AddParam("@Flags", groupFlags);
                     cmd.AddParam(
                       "@QuestionObjectPath",
-                      string.IsNullOrEmpty(question.QuestionObjectPath) ? String.Empty : question.QuestionObjectPath);
+                      string.IsNullOrEmpty(question.QuestionObjectPath) ? string.Empty : question.QuestionObjectPath);
                     cmd.AddParam(
                       "@QuestionMimeType",
-                      string.IsNullOrEmpty(question.QuestionMimeType) ? String.Empty : question.QuestionMimeType);
+                      string.IsNullOrEmpty(question.QuestionMimeType) ? string.Empty : question.QuestionMimeType);
 
                     var pollFlags = question.IsClosedBound ? 0 | 4 : 0;
                     pollFlags = question.AllowMultipleChoices ? pollFlags | 8 : pollFlags;
@@ -4770,15 +4779,15 @@ namespace YAF.Classes.Data
                     {
                         if (!string.IsNullOrEmpty(question.Choice[0, choiceCount1]))
                         {
-                            cmd.AddParam(String.Format("@Choice{0}", choiceCount1), question.Choice[0, choiceCount1]);
-                            cmd.AddParam(String.Format("@Votes{0}", choiceCount1), 0);
+                            cmd.AddParam(string.Format("@Choice{0}", choiceCount1), question.Choice[0, choiceCount1]);
+                            cmd.AddParam(string.Format("@Votes{0}", choiceCount1), 0);
 
                             cmd.AddParam(
-                              String.Format("@ChoiceObjectPath{0}", choiceCount1),
-                              question.Choice[1, choiceCount1].IsNotSet() ? String.Empty : question.Choice[1, choiceCount1]);
+                              string.Format("@ChoiceObjectPath{0}", choiceCount1),
+                              question.Choice[1, choiceCount1].IsNotSet() ? string.Empty : question.Choice[1, choiceCount1]);
                             cmd.AddParam(
-                              String.Format("@ChoiceMimeType{0}", choiceCount1),
-                              question.Choice[2, choiceCount1].IsNotSet() ? String.Empty : question.Choice[2, choiceCount1]);
+                              string.Format("@ChoiceMimeType{0}", choiceCount1),
+                              question.Choice[2, choiceCount1].IsNotSet() ? string.Empty : question.Choice[2, choiceCount1]);
                         }
                     }
 
@@ -5853,6 +5862,7 @@ namespace YAF.Classes.Data
                 return DbAccess.GetData(cmd);
             }
         }
+
         /// <summary>
         /// Returns Topics Unread by a user
         /// </summary>
@@ -5904,6 +5914,7 @@ namespace YAF.Classes.Data
                 return DbAccess.GetData(cmd);
             }
         }
+
         /// <summary>
         /// Gets all topics where the pageUserid has posted
         /// </summary>
@@ -7278,10 +7289,12 @@ namespace YAF.Classes.Data
         public static DataTable User_ListProfilesByIdsList([NotNull] int boardID, [NotNull] int[] userIdsList, [CanBeNull] object useStyledNicks)
         {
             var stIds = userIdsList.Aggregate(string.Empty, (current, userId) => current + (',' + userId)).Trim(',');
+
             // Profile columns cannot yet exist when we first are gettinng data.
             try
             {
-                var sqlBuilder = new StringBuilder("SELECT up.*, u.Name as UserName,u.DisplayName as UserDisplayName, (case(@StyledNicks) when 1 then u.UserStyle ");
+                var sqlBuilder = new StringBuilder(
+                    "SELECT up.*, u.Name as UserName,u.DisplayName as UserDisplayName, (case(@StyledNicks) when 1 then u.UserStyle ");
                 sqlBuilder.Append("  else '' end) AS Style ");
                 sqlBuilder.Append(" FROM ");
                 sqlBuilder.Append(DbHelpers.GetObjectName("UserProfile"));
@@ -7299,7 +7312,7 @@ namespace YAF.Classes.Data
             }
             catch (Exception e)
             {
-                LegacyDb.eventlog_create(null, e.Source, e.Message, EventLogTypes.Error);
+                eventlog_create(null, e.Source, e.Message, EventLogTypes.Error);
             }
 
             return null;
@@ -7344,7 +7357,7 @@ namespace YAF.Classes.Data
             }
             catch (Exception e)
             {
-                LegacyDb.eventlog_create(null, e.Source, e.Message,EventLogTypes.Error);
+                eventlog_create(null, e.Source, e.Message, EventLogTypes.Error);
             }
 
             return null;
@@ -7806,9 +7819,6 @@ namespace YAF.Classes.Data
         /// <param name="textEditor">
         /// The text Editor.
         /// </param>
-        /// <param name="useMobileTheme">
-        /// The override Mobile Theme.
-        /// </param>
         /// <param name="approved">
         /// The approved.
         /// </param>
@@ -7838,7 +7848,6 @@ namespace YAF.Classes.Data
             [NotNull] object culture,
             [NotNull] object themeFile,
             [NotNull] object textEditor,
-            [NotNull] object useMobileTheme,
             [NotNull] object approved,
             [NotNull] object pmNotification,
             [NotNull] object autoWatchTopics,
@@ -7865,7 +7874,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("Culture", culture);
                 cmd.AddParam("ThemeFile", themeFile);
                 cmd.AddParam("TextEditor", textEditor);
-                cmd.AddParam("OverrideDefaultTheme", useMobileTheme);
                 cmd.AddParam("Approved", approved);
                 cmd.AddParam("PMNotification", pmNotification);
                 cmd.AddParam("AutoWatchTopics", autoWatchTopics);
@@ -8172,6 +8180,7 @@ namespace YAF.Classes.Data
             {
                 return;
             }
+
             var itemsToSave = true;
             if (dirtyOnly)
             {
@@ -8179,7 +8188,6 @@ namespace YAF.Classes.Data
             }
 
             // First make sure we have at least one item to save
-
             if (!itemsToSave)
             {
                 return;
@@ -8191,9 +8199,10 @@ namespace YAF.Classes.Data
             if (spc != null && spc.Count > 0)
             {
                 // start saving...
-                LegacyDb.SetProfileProperties(boardId, appname, userId, collection, spc, dirtyOnly);
+                SetProfileProperties(boardId, appname, userId, collection, spc, dirtyOnly);
             }
         }
+
         /// <summary>
         /// The set profile properties.
         /// </summary>
@@ -8212,13 +8221,14 @@ namespace YAF.Classes.Data
         public static void SetProfileProperties([NotNull] int boardId, [NotNull] object appName, [NotNull] int userID, [NotNull] SettingsPropertyValueCollection values, [NotNull] List<SettingsPropertyColumn> settingsColumnsList, bool dirtyOnly)
         {
             var userName = string.Empty;
-            var dtu =  LegacyDb.UserList(boardId, userID, true, null, null, true);
+            var dtu =  UserList(boardId, userID, true, null, null, true);
             foreach (var typedUserList in dtu)
             {
                 userName = typedUserList.Name;
                 break;
 
             }
+
             if (userName.IsNotSet())
             {
                 return;
@@ -8254,7 +8264,7 @@ namespace YAF.Classes.Data
                             cmd.AddParam(valueParam, values[column.Settings.Name].PropertyValue);
 
                             if ((column.DataType != SqlDbType.Timestamp) || column.Settings.Name != "LastUpdatedDate"
-                                || column.Settings.Name != "LastActivity")
+                                                                         || column.Settings.Name != "LastActivity")
                             {
                                 if (count > 0)
                                 {
@@ -8277,7 +8287,6 @@ namespace YAF.Classes.Data
                     cmd.AddParam("LastUpdatedDate", DateTime.UtcNow);
 
                     // MembershipUser mu = System.Web.Security.Membership.GetUser(userID);
-
                     columnStr.Append(",LastActivity ");
                     valueStr.Append(",@LastActivity");
                     setStr.Append(",LastActivity=@LastActivity");
@@ -8287,8 +8296,8 @@ namespace YAF.Classes.Data
                     columnStr.Append(",ApplicationName ");
                     valueStr.Append(",@ApplicationName");
                     setStr.Append(",ApplicationName=@ApplicationName");
-                    // cmd.AddParam("@ApplicationID", appId);
 
+                    // cmd.AddParam("@ApplicationID", appId);
                     columnStr.Append(",IsAnonymous ");
                     valueStr.Append(",@IsAnonymous");
                     setStr.Append(",IsAnonymous=@IsAnonymous");
@@ -8302,10 +8311,12 @@ namespace YAF.Classes.Data
                     cmd.AddParam("UserName", userName);
 
                     sqlCommand.Append("BEGIN UPDATE ").Append(table).Append(" SET ").Append(setStr.ToString());
-                    sqlCommand.Append(" WHERE UserId = ").Append(userID.ToString()).Append("");
+                    sqlCommand.Append(" WHERE UserId = ").Append(userID.ToString()).Append(string.Empty);
 
-                    sqlCommand.Append(" END ELSE BEGIN INSERT ").Append(table).Append(" (UserId").Append(columnStr.ToString());
-                    sqlCommand.Append(") VALUES (").Append(userID.ToString()).Append("").Append(valueStr.ToString()).Append(") END");
+                    sqlCommand.Append(" END ELSE BEGIN INSERT ").Append(table).Append(" (UserId")
+                        .Append(columnStr.ToString());
+                    sqlCommand.Append(") VALUES (").Append(userID.ToString()).Append(string.Empty)
+                        .Append(valueStr.ToString()).Append(") END");
 
                     cmd.CommandText = sqlCommand.ToString();
                     cmd.CommandType = CommandType.Text;
@@ -8324,7 +8335,7 @@ namespace YAF.Classes.Data
         {
             var sql = @"SELECT TOP 1 * FROM {0}".FormatWith(DbHelpers.GetObjectName("UserProfile"));
 
-            using (var cmd = DbHelpers.GetCommand(sql,true))
+            using (var cmd = DbHelpers.GetCommand(sql, true))
             {
                 cmd.CommandType = CommandType.Text;
                 return DbAccess.GetData(cmd);
@@ -8362,6 +8373,7 @@ namespace YAF.Classes.Data
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
+
         /// <summary>
         /// The get db type and size from string.
         /// </summary>
@@ -8401,7 +8413,7 @@ namespace YAF.Classes.Data
             if (chunk.Length > 2)
             {
                 // handle size...
-                if (!Int32.TryParse(chunk[2], out size))
+                if (!int.TryParse(chunk[2], out size))
                 {
                     throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
                 }
@@ -8559,6 +8571,7 @@ namespace YAF.Classes.Data
                                 results.AppendLine(messageRunSql);
                                 results.AppendLine();
                             }
+
                             results.AppendLine("No Results Returned.");
                         }
 
@@ -8905,13 +8918,13 @@ namespace YAF.Classes.Data
 
                     var uploadDir =
                         HostingEnvironment.MapPath(
-                            String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                            string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
                     foreach (DataRow row in tbAttachments.Rows)
                     {
                         try
                         {
-                            var fileName = String.Format(
+                            var fileName = string.Format(
                                 "{0}/{1}.{2}.yafupload",
                                 uploadDir,
                                 messageID,
