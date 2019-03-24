@@ -18,11 +18,11 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_BANNEDIP_IMPORT" />
                         </h4>
-                        <div class="alert alert-warning" role="alert">
+                        <YAF:Alert runat="server" Type="warning">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDIP">
                             </YAF:LocalizedLabel>
-                        </div>
+                        </YAF:Alert>
                         <p>
                             <input type="file" id="importFile" class="form-control-file" runat="server" />
                         </p>

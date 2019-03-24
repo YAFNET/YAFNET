@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.HtmlControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class BannedIpImport {
         
-
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// HelpLabel1-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HelpLabel HelpLabel1;
+        protected global::YAF.Controls.HelpLabel HelpLabel1;
         
-
         /// <summary>
         /// LocalizedLabel3-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// importFile-Steuerelement
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected HtmlInputFile importFile;
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile importFile;
         
-
         /// <summary>
         /// Import-Steuerelement
         /// </summary>
@@ -62,6 +55,6 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected ThemeButton Import;
+        protected global::YAF.Controls.ThemeButton Import;
     }
 }

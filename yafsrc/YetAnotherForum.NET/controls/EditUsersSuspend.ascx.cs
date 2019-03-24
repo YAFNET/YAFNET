@@ -381,16 +381,10 @@ namespace YAF.Controls
                                 user["Suspended"].ToType<DateTime>(),
                                 this.UserData.TimeZoneInfo);
 
-                    // localize remove suspension button
-                    this.RemoveSuspension.Text = "<i class=\"fa fa-flag fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("PROFILE", "REMOVESUSPENSION"));
-
                     this.CurrentSuspendedReason.Text = user["SuspendedReason"].ToString();
 
                     this.SuspendedBy.UserID = user["SuspendedBy"].ToType<int>();
                 }
-
-                // localize suspend button
-                this.Suspend.Text = "<i class=\"fa fa-flag fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("PROFILE", "SUSPEND"));
             }
         }
 

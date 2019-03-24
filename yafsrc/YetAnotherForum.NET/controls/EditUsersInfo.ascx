@@ -127,5 +127,9 @@
 
                 <div class="text-lg-center">
 
-            <asp:LinkButton ID="Save" runat="server" Type="Primary" OnClick="Save_Click" />
+            <YAF:ThemeButton ID="Save" runat="server" 
+                             Type="Primary"
+                             Icon="save" 
+                             TextLocalizedTag="SAVE"
+                             OnClick="Save_Click" />
             </div>

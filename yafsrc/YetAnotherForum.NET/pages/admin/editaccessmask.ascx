@@ -108,11 +108,11 @@
 				<asp:CheckBox runat="server" ID="DownloadAccess" CssClass="form-control" />
 		</p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" 
-                        Type="Primary" Icon="floppy" TextLocalizedTag="SAVE" />
+                        Type="Primary" Icon="save" TextLocalizedTag="SAVE" />
 				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick"
-                        Type="Secondary" Icon="remove" TextLocalizedTag="CANCEL" />
+                        Type="Secondary" Icon="reply" TextLocalizedTag="CANCEL" />
                 </div>
             </div>
         </div>

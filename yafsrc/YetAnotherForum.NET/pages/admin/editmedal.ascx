@@ -106,7 +106,7 @@
 				<asp:CheckBox ID="AllowReOrdering" runat="server" Checked="true" CssClass="form-control" />
 		    </p>
           </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				<YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" Type="Primary"            
 				                Icon="save" TextLocalizedTag="SAVE" />&nbsp;
 				<YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" Type="Secondary"
@@ -178,7 +178,7 @@
 		</asp:Repeater>
 		<asp:PlaceHolder runat="server" ID="AddGroupRow" Visible="false">
 			</div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				   <YAF:ThemeButton runat="server" OnClick="AddGroupClick" ID="AddGroup" Type="Primary"            
 				                   Icon="plus-square" TextLocalizedTag="ADD_GROUP"></YAF:ThemeButton>
 			    </div>
@@ -217,7 +217,7 @@
 					<asp:CheckBox runat="server" ID="GroupHide" Checked="false" CssClass="form-control"  />
 				</p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 					<YAF:ThemeButton runat="server"  OnClick="AddGroupSaveClick" ID="AddGroupSave" Type="Primary"            
 					                Icon="save" TextLocalizedTag="SAVE" />&nbsp;
 					<YAF:ThemeButton runat="server"  OnClick="AddGroupCancelClick" ID="AddGroupCancel" Type="Secondary"
@@ -279,7 +279,7 @@
 		</asp:Repeater>
 		<asp:PlaceHolder runat="server" id="AddUserRow" visible="false">
 			</div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				   <YAF:ThemeButton runat="server" OnClick="AddUserClick" ID="AddUser" Type="Primary"
 				                    Icon="plus-square" TextLocalizedTag="ADD_USER"></YAF:ThemeButton>
 			    </div>
@@ -322,7 +322,7 @@
 					<asp:CheckBox runat="server" ID="UserHide" Checked="false" CssClass="form-control" />
 				</p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 					<YAF:ThemeButton runat="server" OnClick="AddUserSaveClick" ID="AddUserSave" Type="Primary"
 					                Icon="save" TextLocalizedTag="SAVE" />&nbsp;
 					<YAF:ThemeButton runat="server" OnClick="AddUserCancelClick" ID="AddUserCancel" Type="Secondary"

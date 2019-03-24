@@ -66,7 +66,7 @@ function toggleItem(detailId)
                 <asp:DropDownList ID="Types" runat="server" CssClass="custom-select"></asp:DropDownList>
             </p>
         </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                 <YAF:ThemeButton ID="ApplyButton" Type="Primary" OnClick="ApplyButtonClick"
                     TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="APPLY" Icon="check" runat="server"></YAF:ThemeButton>
             </div>
@@ -138,7 +138,7 @@ function toggleItem(detailId)
             <FooterTemplate>
                 </table></div>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                         <YAF:ThemeButton runat="server" Visible="<%# this.List.Items.Count > 0 %>" Type="Primary"
                                          Icon="trash" OnClick="DeleteAllClick" 
                                          TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"

@@ -14,7 +14,7 @@
         <div class="col">
                        <div class="card mb-3">
                        <div class="card-header">
-                           <i class="fa fa-briefcase fa-fw"></i>&nbsp;<%# this.Eval( "Name") %>
+                           <i class="fa fa-folder fa-fw"></i>&nbsp;<%# this.Eval( "Name") %>
                        </div>
                        <div class="card-body text-center">
 			<asp:Repeater ID="ForumList" runat="server" OnItemCommand="ForumListItemCommand"

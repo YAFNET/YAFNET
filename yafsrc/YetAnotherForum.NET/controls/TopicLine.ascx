@@ -36,7 +36,7 @@
                 var tPager = this.CreatePostPager(
                     actualPostCount, this.Get<YafBoardSettings>().PostsPerPage, this.TopicRow["LinkTopicID"].ToType<int>());
 
-                if (tPager != String.Empty)
+                if (tPager != string.Empty)
                 {
                     var altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
             %>

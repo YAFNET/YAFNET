@@ -5,7 +5,9 @@
 
     <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_DELETEFORUM" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                LocalizedTag="TITLE" 
+                                LocalizedPage="ADMIN_DELETEFORUM" /></h1>
     </div>
     </div>
     <div class="row">
@@ -16,7 +18,7 @@
                     <asp:Label ID="ForumNameTitle" runat="server"></asp:Label>
                 </div>
                 <div class="card-body">
-            <h4 class="postheader">
+            <h4>
                 <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
             </h4>
             <p>
@@ -26,12 +28,12 @@
             <h4>
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
             </h4>
-            <p class="post">
+            <p>
                 <asp:DropDownList ID="ForumList" runat="server" Enabled="false" CssClass="custom-select">
                 </asp:DropDownList>
             </p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Delete" runat="server" CssClass="btn btn-danger"
                                      Icon="trash" TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM"
                                      ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE") %>'></YAF:ThemeButton>&nbsp;

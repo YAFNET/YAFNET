@@ -9,6 +9,3 @@
         <YAF:SignatureEdit runat="server" ID="SignatureEditor" />
     </ContentTemplate>
 </asp:UpdatePanel>
-<div id="DivSmartScroller">
-    
-</div>

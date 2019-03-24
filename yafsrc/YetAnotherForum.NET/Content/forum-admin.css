@@ -2273,6 +2273,20 @@ td.tablesorter-pager {
   left: 100%;
   margin-top: -1px; }
 
+span.form-check {
+  padding: 0px; }
+
+span.form-check > input[type="radio"] {
+  margin: 8px -5px 7px 0px;
+  display: block;
+  float: left; }
+
+span.form-check > label {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 0px 5px 0px 10px;
+  display: block; }
+
 .gotoPageForm {
   z-index: 99999; }
 

@@ -120,7 +120,7 @@
 				<asp:TextBox ID="txtDisplayCSS" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
 			</p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				<YAF:ThemeButton id="save" runat="server"  OnClick="Add_Click" Type="Primary"
 				                 Icon="save" TextLocalizedTag="SAVE"></YAF:ThemeButton>
 				<YAF:ThemeButton id="cancel" runat="server"  OnClick="Cancel_Click" Type="Secondary"

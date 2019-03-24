@@ -126,15 +126,7 @@ namespace YAF.Controls
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
             }
 
-            this.UpdateRemote.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
-            this.UpdateUpload.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
-            this.Back.Text = "<i class=\"fa fa-reply fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "BACK"));
-
             this.NoAvatar.Text = this.GetText("CP_EDITAVATAR", "NOAVATAR");
-
-            this.DeleteAvatar.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CP_EDITAVATAR", "AVATARDELETE"));
-            this.DeleteAvatar.Attributes["onclick"] =
-                "return confirm('{0}?')".FormatWith(this.GetText("CP_EDITAVATAR", "AVATARDELETE"));
 
             var addAdminParam = string.Empty;
             if (this.PageContext.CurrentForumPage.IsAdminPage)

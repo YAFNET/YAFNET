@@ -67,7 +67,7 @@
 	    </asp:DataGrid>
                     </div>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 	                <YAF:ThemeButton runat="server" Type="Primary" id="btnSave"
 	                                 Icon="save" TextLocalizedTag="SAVE" />&nbsp;
 	                <YAF:ThemeButton runat="server" Type="Secondary" id="btnCancel"

@@ -21,8 +21,13 @@
             <asp:TextBox runat="server" ID="txtUserPoints" ValidationGroup="UserPoints" CssClass="form-control" TextMode="Number" />
             <asp:RangeValidator ID="RangeValidator4" runat="server" ErrorMessage="Please enter a number" ControlToValidate="txtUserPoints"
                 SetFocusOnError="true" ValidationGroup="UserPoints" MaximumValue="1000000" MinimumValue="0" Type="Integer" Display="Dynamic">
-            </asp:RangeValidator>
-            <asp:LinkButton runat="server" ID="btnUserPoints" Type="Primary" OnClick="SetUserPoints_Click" />
+            </asp:RangeValidator></p>
+<p>
+            <YAF:ThemeButton runat="server" ID="btnUserPoints" 
+                             TextLocalizedTag="GO"
+                             Icon="check"
+                             Type="Secondary" 
+                             OnClick="SetUserPoints_Click" />
         </p>
     <hr />
 
@@ -34,7 +39,13 @@
             <asp:RangeValidator ID="RangeValidator1" runat="server" ErrorMessage="Number Please" ControlToValidate="txtAddPoints" SetFocusOnError="true"
                 ValidationGroup="Add" MaximumValue="1000000" MinimumValue="0" Type="Integer" Display="Dynamic">
             </asp:RangeValidator>
-            <asp:LinkButton runat="server" ID="btnAddPoints" Type="Primary" OnClick="AddPoints_Click" />
+            </p>
+<p>
+            <YAF:ThemeButton runat="server" ID="btnAddPoints"
+                             TextLocalizedTag="GO"
+                             Icon="check"
+                             Type="Secondary" 
+                             OnClick="AddPoints_Click" />
         </p>
     <hr />
 
@@ -45,6 +56,11 @@
             <asp:TextBox runat="server" ID="txtRemovePoints" ValidationGroup="Removem" CssClass="form-control" TextMode="Number" />
             <asp:RangeValidator ID="RangeValidator2" runat="server" ErrorMessage="Number Please" ControlToValidate="txtRemovePoints" SetFocusOnError="true"
                 ValidationGroup="Remove" MaximumValue="1000000" MinimumValue="0" Type="Integer" Display="Dynamic">
-            </asp:RangeValidator>
-            <asp:LinkButton runat="server" ID="Button1" Type="Primary" OnClick="RemovePoints_Click" />
+            </asp:RangeValidator></p>
+<p>
+            <YAF:ThemeButton runat="server" ID="Button1" 
+                             Type="Secondary" 
+                             TextLocalizedTag="GO"
+                             Icon="check"
+                             OnClick="RemovePoints_Click" />
         </p>

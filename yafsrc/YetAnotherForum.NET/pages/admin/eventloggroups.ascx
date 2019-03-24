@@ -14,44 +14,35 @@
                     <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOGGROUPS" />
                 </div>
                 <div class="card-body">
-                    <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                            LocalizedTag="TABLE_RESPONSIVE" 
-                                            LocalizedPage="ADMIN_COMMON" />
-                        <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                    </YAF:Alert><div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <thead>
-                                <th>
-				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPNAME"  LocalizedPage="ADMIN_EVENTLOGGROUPS" />
-			</th>
-            <th colspan="2">
-				<YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDNAME"  LocalizedPage="ADMIN_EVENTLOGGROUPS" />
-			</th>
-                                    </thead>
-		</tr>
 		<asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
+            <HeaderTemplate>
+                <ul class="list-group">
+            </HeaderTemplate>
+            <FooterTemplate>
+                </ul>
+            </FooterTemplate>
 			<ItemTemplate>
-				<tr class="post">
-				    <td>
-					    <!-- Group Name -->
-					  <i class="fa fa-users fa-fw"></i>&nbsp;<%# this.HtmlEncode(this.Eval("Name"))%>
-					</td>
-                    	<td>
-                    	 <%# this.HtmlEncode(this.Eval( "BoardName")) %>
-                        </td>
-					<td>
-					    <span class="float-right">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                              TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" TitleLocalizedTag="EDIT"
-                              CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>' TextLocalizedTag="EDIT"
-                              Icon="edit" runat="server"></YAF:ThemeButton>
-                            </span>
-					</td>
-				</tr>
+                <li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <i class="fa fa-users fa-fw"></i>&nbsp;<%# this.HtmlEncode(this.Eval("Name"))%>
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        <YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDNAME"  LocalizedPage="ADMIN_EVENTLOGGROUPS" />:
+                        <%# this.HtmlEncode(this.Eval( "BoardName")) %>
+                    </p>
+                    <small>
+                        <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
+                                         TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" 
+                                         TitleLocalizedTag="EDIT"
+                                         CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>' 
+                                         TextLocalizedTag="EDIT"
+                                         Icon="edit" runat="server"></YAF:ThemeButton>
+                    </small>
+                </li>
 			</ItemTemplate>
-		</asp:Repeater></table></div>
+		</asp:Repeater>
                 </div>
             </div>
         </div>

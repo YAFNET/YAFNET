@@ -66,7 +66,7 @@
 		<FooterTemplate>
             </table></div>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 					<YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
 					                 Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_REPLACEWORDS"> </YAF:ThemeButton>
 					&nbsp;

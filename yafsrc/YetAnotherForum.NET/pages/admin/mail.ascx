@@ -36,7 +36,7 @@
 			  <asp:TextBox ID="Body" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="16"></asp:TextBox>
             </p>
 		 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Send" runat="server" OnClick="SendClick" Type="Primary"
                                      Icon="paper-plane"
                                      TextLocalizedTag="SEND_MAIL" TextLocalizedPage="ADMIN_MAIL"

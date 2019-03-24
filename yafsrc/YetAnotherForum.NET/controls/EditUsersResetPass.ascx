@@ -20,7 +20,9 @@
                 </h4>
                 <p>
                     <asp:RadioButtonList ID="rblPasswordResetFunction" runat="server" AutoPostBack="true"
-                        OnSelectedIndexChanged="rblPasswordResetFunction_SelectedIndexChanged" CssClass="form-control">
+                        OnSelectedIndexChanged="rblPasswordResetFunction_SelectedIndexChanged" 
+                                         CssClass="form-check"
+                                         RepeatLayout="Flow" RepeatDirection="Horizontal">
                     </asp:RadioButtonList>
                 </p>
             <asp:PlaceHolder ID="ChangePasswordHolder" runat="server" Visible="false">
@@ -70,14 +72,17 @@
             
 
     
-                <div class="text-lg-center">
+                <div class="text-center">
 
                     <asp:LinkButton ID="btnChangePassword" Visible="false" runat="server"
-                        Type="Primary" ValidationGroup="passchange" OnClick="btnChangePassword_Click"
-                        CausesValidation="true" />
-                    &nbsp;
-                    <asp:LinkButton ID="btnResetPassword" runat="server" Type="Primary"
-                        OnClick="btnResetPassword_Click" CausesValidation="false" />
+                                    CssClass="btn btn-primary"
+                                    ValidationGroup="passchange" 
+                                    OnClick="btnChangePassword_Click"
+                                    CausesValidation="true" />
+                    <asp:LinkButton ID="btnResetPassword" runat="server"
+                                    CssClass="btn btn-primary"
+                                    OnClick="btnResetPassword_Click" 
+                                    CausesValidation="false" />
                     </div>
       
     </ContentTemplate>

@@ -136,7 +136,7 @@
         </asp:Repeater>
                          </table></div>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                 <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
                     <YAF:ThemeButton id="NewUser" OnClick="NewUserClick" runat="server" Type="Primary"
                                      Icon="plus-square" TextLocalizedTag="NEW_USER" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>

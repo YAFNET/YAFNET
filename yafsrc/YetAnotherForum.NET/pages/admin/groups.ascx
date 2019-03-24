@@ -171,7 +171,7 @@
                 </div>
             </FooterTemplate>
 		</asp:Repeater>
-                     <div class="card-footer text-lg-center">
+                     <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="NewGroup" runat="server" OnClick="NewGroupClick" Type="Primary"
 				                     Icon="plus-square" TextLocalizedTag="NEW_ROLE"></YAF:ThemeButton>
                 </div>

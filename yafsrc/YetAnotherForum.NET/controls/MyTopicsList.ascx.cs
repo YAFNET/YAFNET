@@ -85,11 +85,6 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The last post image tooltip.
-        /// </summary>
-        protected string lastPostImageTT = string.Empty;
-
-        /// <summary>
         ///   The _last forum name.
         /// </summary>
         private string _lastForumName = string.Empty;
@@ -249,7 +244,7 @@ namespace YAF.Controls
                     break;
                 case TopicListMode.Favorite:
                     topicList = this.GetRepository<FavoriteTopic>().Details(
-                        (YafContext.Current.Settings.CategoryID == 0)
+                        YafContext.Current.Settings.CategoryID == 0
                             ? null
                             : (int?)YafContext.Current.Settings.CategoryID,
                         this.PageContext.PageUserID,
@@ -268,7 +263,7 @@ namespace YAF.Controls
                 return;
             }
 
-            if (topicList.HasRows())
+            if (!topicList.HasRows())
             {
                 this.PagerTop.Count = 0;
                 this.TopicList.DataSource = null;
@@ -294,12 +289,21 @@ namespace YAF.Controls
                 this.Get<IStyleTransform>().DecodeStyleByTable(topicsNew, false, new[] { "LastUserStyle", "StarterStyle" });
             }
 
+            if (!topicsNew.HasRows())
+            {
+                this.PagerTop.Count = 0;
+                this.TopicList.DataSource = null;
+                this.TopicList.DataBind();
+                return;
+            }
+
             // let's page the results
             this.PagerTop.Count = topicsNew.HasRows()
                                       ? topicsNew.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
 
             this.TopicList.DataSource = topicsNew;
+            this.TopicList.DataBind();
 
             // Get new Feeds links
             this.BindFeeds();
@@ -376,8 +380,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
-
             if (!this.IsPostBack)
             {
                 this.InitSinceDropdown();
@@ -551,5 +553,12 @@ namespace YAF.Controls
         }
 
         #endregion
+
+        protected string CreateTopicLine(DataRowView containerDataItem)
+        {
+            var topicLine = new TopicContainer { DataRow = containerDataItem };
+
+            return topicLine.RenderToString();
+        }
     }
 }

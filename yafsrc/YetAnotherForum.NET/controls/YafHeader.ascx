@@ -65,6 +65,10 @@
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_eventloggroups"></YAF:LocalizedLabel>
                             </a>
+                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_test_data) %>"
+                               class="dropdown-item" runat="server" ID="debugLink" Visible="False">
+                                <i class="fa fa-vials fa-fw"></i>&nbsp;Test Data (DEBUG)
+                            </a>
                         </div>
                   </li>
                     </asp:PlaceHolder>

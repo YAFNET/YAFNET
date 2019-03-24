@@ -100,16 +100,6 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Button1.Text =
-                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.Get<ILocalization>().GetText("COMMON", "GO"));
-            this.btnAddPoints.Text =
-                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.Get<ILocalization>().GetText("COMMON", "GO"));
-            this.btnUserPoints.Text =
-                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.Get<ILocalization>().GetText("COMMON", "GO"));
-
             this.BindData();
         }
 

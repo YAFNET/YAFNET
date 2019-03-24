@@ -90,7 +90,3 @@
                          Icon="envelope-open"/>
     </div>
 </div>
-
-<div id="DivSmartScroller">
-	
-</div>

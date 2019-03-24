@@ -66,7 +66,7 @@
                     </table>
                  </div>
                 </div>
-                    <div class="card-footer text-lg-center">
+                    <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="Save" runat="server" OnClick="Save_Click" Type="Primary"            
 				                     Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                     <YAF:ThemeButton ID="GrantAll" runat="server" OnClick="GrantAll_Click" Type="Info"

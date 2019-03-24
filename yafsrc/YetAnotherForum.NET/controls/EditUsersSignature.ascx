@@ -27,13 +27,19 @@
                             LocalizedTag="SIGNATURE_PERMISSIONS" />
     </h2>
     <hr />
-    <p>
+    <div class="text-break">
         <asp:Label ID="TagsAllowedWarning" runat="server" />
-    </p>
+    </div>
 </YAF:Alert>
                 <div class="text-lg-center">
 
-            <asp:LinkButton ID="preview" CssClass="btn btn-success" runat="server" />&nbsp;
-            <asp:LinkButton ID="save" Type="Primary" runat="server" />&nbsp;
-            <asp:LinkButton ID="cancel" Type="Secondary" runat="server" />
+            <YAF:ThemeButton ID="preview" runat="server"
+                             Type="Success"
+                             TextLocalizedTag="PREVIEW"/>
+            <YAF:ThemeButton ID="save" Type="Primary" runat="server"
+                             TextLocalizedTag="SAVE"
+                             Icon="save"/>&nbsp;
+            <YAF:ThemeButton ID="cancel" Type="Secondary" runat="server"
+                             Icon="reply"
+                             TextLocalizedTag="CANCEL"/>
             </div>

@@ -12,18 +12,21 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-globe fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BOARDS" />
+                    <i class="fa fa-globe fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                                               LocalizedTag="TITLE" 
+                                                                               LocalizedPage="ADMIN_BOARDS" />
                 </div>
                 <div class="card-body">
-                    <p class="card-text">
-                        		<asp:Repeater ID="List" runat="server">
-		    <HeaderTemplate>
+                    <asp:Repeater ID="List" runat="server">
+		                <HeaderTemplate>
+                            <ul class="list-group">
+
 		        <div class="table-responsive">
 		       <table class="table">
                 <thead>
 		        <tr>
 			<th>
-				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ID" LocalizedPage="ADMIN_BOARDS" />
+				
 			</th>
 			<th>
 				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_BOARDS" />
@@ -33,15 +36,17 @@
                     </thead>
 		    </HeaderTemplate>
 			<ItemTemplate>
-				<tr id="BoardRow" class='<%# this.Eval("BoardID").ToType<int>() != this.PageContext.PageBoardID ? "" : "table-success" %>' runat="server">
-					<td>
-						<%# this.Eval( "BoardID") %>
-					</td>
-					<td>
-						<%# this.HtmlEncode(this.Eval( "Name")) %>
-					</td>
-                    <td>
-                        <span class="float-right">
+                <li 
+                    class='list-group-item list-group-item-action <%# this.Eval("BoardID").ToType<int>() != this.PageContext.PageBoardID ? "" : "active" %>'>
+				<div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        <%# this.HtmlEncode(this.Eval( "Name")) %>
+                    </h5>
+                    <small>
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ID" LocalizedPage="ADMIN_BOARDS" />: <%# this.Eval( "BoardID") %>
+                    </small>
+                </div>
+                <small>
 					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
                             CommandName='edit' CommandArgument='<%# this.Eval( "BoardID") %>'
                             TitleLocalizedTag="EDIT"
@@ -57,16 +62,13 @@
                             Icon="trash"
                             OnLoad="DeleteLoad"  runat="server">
                         </YAF:ThemeButton>
-                            </span>
-					</td>
-				</tr>
+                    </small>
+                </li>
 			</ItemTemplate>
             <FooterTemplate>
-                </table></div>
+                </ul>
             </FooterTemplate>
 		</asp:Repeater>
-
-                    </p>
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="New" runat="server" Type="Primary" 

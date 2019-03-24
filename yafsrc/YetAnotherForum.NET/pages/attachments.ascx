@@ -56,7 +56,7 @@
                <YAF:ThemeButton runat="server" ID="Back" 
                                 OnClick="Back_Click"
                                 Type="Secondary"
-                                Icon="arrow-left"/>
+                                Icon="reply"/>
             </div>
         </div>
     </div>

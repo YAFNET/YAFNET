@@ -17,23 +17,13 @@
                 <div class="card-body">
 		<asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
 		    <HeaderTemplate>
-		        <div class="table-responsive">
-                    <table class="table">
-                        <tr>
-                            <thead>
-                                <th colspan="2">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NAME"  LocalizedPage="ADMIN_ACCESSMASKS" />
-                                </th>
-                            </thead>
-                        </tr>
+                <ul class="list-group">
 		    </HeaderTemplate>
 			<ItemTemplate>
-				<tr>
-					<td>
-					  <h5><%# this.Eval( "Name") %></h5>
-					</td>
-					<td>
-					    <span class="float-right">
+				<li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1"><%# this.Eval( "Name") %></h5>
+                    <small>
 					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
                             CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
                             TitleLocalizedTag="EDIT"
@@ -48,11 +38,9 @@
                                     TextLocalizedTag="DELETE"
                                     ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'  runat="server">
                                 </YAF:ThemeButton>
-					    </span>
-                    </td>
-				</tr>
-                <tr>
-                    <td colspan="2">
+					    </small>
+                    </div>
+                    <p class="mb-1">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="READ"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
 					    <asp:Label ID="Label1" runat="server" CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %>'><%# this.GetItemName(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %></asp:Label>&nbsp;|&nbsp;
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="POST"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
@@ -85,16 +73,15 @@
 
 				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="DOWNLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
 						<asp:Label ID="Label11" runat="server" CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>'><%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.DownloadAccess)) %></asp:Label>
-					</td>
-                </tr>
+					</p>
+                </li>
 			</ItemTemplate>
             <FooterTemplate>
-                </table>
-            </div>
+            </ul>
             </FooterTemplate>
 		</asp:Repeater>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="New" runat="server" OnClick="NewClick" Type="Primary" 
                         Icon="plus-square" TextLocalizedTag="NEW_MASK" />
                 </div>

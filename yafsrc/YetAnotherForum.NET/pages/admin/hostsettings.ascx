@@ -2038,7 +2038,7 @@
           </div>
     </asp:Panel>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Save" runat="server"  Type="Primary" OnClick="SaveClick"
                     Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
                 </YAF:ThemeButton>

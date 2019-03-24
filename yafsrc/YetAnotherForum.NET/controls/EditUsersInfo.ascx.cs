@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Web.Security;
-    using System.Web.UI.WebControls;
 
     using YAF.Classes.Data;
     using YAF.Core;
@@ -79,8 +78,6 @@ namespace YAF.Controls
             {
                 return;
             }
-
-            this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
 
             this.BindData();
         }

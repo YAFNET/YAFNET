@@ -31,7 +31,7 @@
                     <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="form-control"></asp:TextBox>
                 </p>
             </div>
-            <div class="card-footer text-lg-center">
+            <div class="card-footer text-center">
                 <YAF:ThemeButton ID="search" runat="server"  Type="Primary" Size="Small"
                                  TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
                                  OnClick="SearchClick">
@@ -44,52 +44,34 @@
                 <HeaderTemplate>
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
+                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                                                    LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
 					</div>
                 <div class="card-body">
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert><div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <thead>
-                                    <th>
-                                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SPAM" LocalizedPage="ADMIN_SPAMWORDS" />
-					                </th>
-					                <th class="header2">
-					                    &nbsp;
-					                </th>
-                                </thead>
-                            </tr>
+                <ul class="list-group">
 		</HeaderTemplate>
 		<ItemTemplate>
-			<tr>
-				<td>
-					<%# this.HtmlEncode(this.Eval("spamword")) %>
-				</td>
-				<td>
-				    <span class="float-right">
-					<YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
-                        TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" 
-                        runat="server">
-					</YAF:ThemeButton>
-					<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" 
-                        ReturnConfirmText='<%# this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE") %>' CommandName='delete'
-                        TextLocalizedTag="DELETE"
-                        CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server">
-					</YAF:ThemeButton>
-                        </span>
-				</td>
-			</tr>
+            <li class="list-group-item list-group-item-action text-break">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><%# this.HtmlEncode(this.Eval("spamword")) %></h5>
+                </div>
+                <small>
+                    <YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+                                     TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" 
+                                     runat="server">
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" 
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE") %>' CommandName='delete'
+                                     TextLocalizedTag="DELETE"
+                                     CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server">
+                    </YAF:ThemeButton>
+                </small>
+			</li>
 		</ItemTemplate>
 		<FooterTemplate>
-                    </table>
-                </div>
+                </ul>
 			</div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton runat="server" Icon="plus-square" Type="Primary"
                                      TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS" CommandName="add"></YAF:ThemeButton>
 					&nbsp;

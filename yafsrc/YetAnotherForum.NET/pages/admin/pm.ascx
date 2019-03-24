@@ -32,7 +32,7 @@
 				<asp:TextBox runat="server" ID="Days2" CssClass="form-control DaysInput" TextMode="Number" />
             </p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="commit" Type="Primary" runat="server"
                         Icon="trash" TextLocalizedTag="DELETE" TextLocalizedPage="COMMON" 
                         ReturnConfirmText='<%# this.GetText("ADMIN_PM", "CONFIRM_DELETE") %>'>

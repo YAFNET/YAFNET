@@ -30,7 +30,7 @@
                         <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="form-control"></asp:TextBox>
                     </p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton ID="search" runat="server"  Type="Primary" Size="Small"
                         TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
                         OnClick="Search_Click">
@@ -108,7 +108,7 @@
 		<FooterTemplate>
                 </table></div>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton runat="server" Icon="plus-square" Type="Primary"
                                      TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDIP" CommandName="add"></YAF:ThemeButton>
                     &nbsp;

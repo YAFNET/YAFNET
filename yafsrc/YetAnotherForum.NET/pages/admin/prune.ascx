@@ -37,7 +37,7 @@
                 <asp:CheckBox ID="permDeleteChkBox" runat="server" CssClass="form-control" />
             </p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                 <YAF:ThemeButton ID="commit" runat="server" Type="Primary" OnClick="CommitClick"
                     Icon="trash" TextLocalizedTag="PRUNE_START" ReturnConfirmText='<%# this.GetText("ADMIN_PRUNE", "CONFIRM_PRUNE") %>'></YAF:ThemeButton>
                 </div>

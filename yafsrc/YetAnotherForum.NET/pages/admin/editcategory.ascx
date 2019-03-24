@@ -35,7 +35,7 @@
 			<p>
 			<asp:TextBox ID="SortOrder" runat="server" MaxLength="5" CssClass="form-control" TextMode="Number"></asp:TextBox></p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" Type="Primary"
                                      Icon="save" TextLocalizedTag="Save"></YAF:ThemeButton>
                     <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" Type="Secondary"

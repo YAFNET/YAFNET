@@ -33,7 +33,12 @@
 		</h4>
 		<p>
 			<%= this.GetSuspendedTo() %>
-			&nbsp;<asp:LinkButton runat="server" ID="RemoveSuspension" Type="Danger" Size="Small" OnClick="RemoveSuspension_Click" />
+			&nbsp;<YAF:ThemeButton runat="server" ID="RemoveSuspension" 
+                                   Type="Danger" 
+                                   Size="Small" 
+                                   OnClick="RemoveSuspension_Click"
+                                   TextLocalizedTag="REMOVESUSPENSION"
+                                   Icon="flag"/>
 		</p>
 	<hr />
     </asp:PlaceHolder>
@@ -56,13 +61,17 @@
 		</h4>
 		<p>
 			<asp:TextBox runat="server" ID="SuspendCount" CssClass="Numeric form-control" TextMode="Number" />&nbsp;<asp:RadioButtonList
-				runat="server" ID="SuspendUnit" CssClass="form-control" />
+				runat="server" ID="SuspendUnit" CssClass="form-check"
+                                                                                                                        RepeatLayout="Flow" RepeatDirection="Horizontal" />
 		</p>
 	<hr />
 <YAF:Alert runat="server" Type="info">
     <asp:Label runat="server" ID="SuspendInfo"></asp:Label>
 </YAF:Alert>
 
-                <div class="text-lg-center">
-            <asp:LinkButton runat="server" ID="Suspend" OnClick="Suspend_Click" Type="Primary"  />
+                <div class="text-center">
+            <YAF:ThemeButton runat="server" ID="Suspend" OnClick="Suspend_Click" 
+                             Type="Primary"
+                             Icon="flag"
+                             TextLocalizedTag="SUSPEND"/>
             </div>

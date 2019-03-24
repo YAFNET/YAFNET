@@ -49,7 +49,8 @@
 						</h4>
 						<p>
 						<asp:RadioButtonList ID="UsersBoardsOptions"  Enabled="true"   AutoPostBack="true" runat="server"
-							 	OnSelectedIndexChanged="UsersBoardsOptions_OnSelectedIndexChanged" />								
+							 	OnSelectedIndexChanged="UsersBoardsOptions_OnSelectedIndexChanged" CssClass="form-check"
+                                             RepeatLayout="Flow" RepeatDirection="Horizontal" />								
 						</p><hr/>
 					
 					
@@ -123,11 +124,9 @@
 							<asp:DropDownList ID="TimeZones" runat="server" DataValueField="Value" DataTextField="Name" CssClass="form-control">
 							</asp:DropDownList>
 						</p>
-													
-					
-						<div class="alert alert-danger" role="alert"> 
-							Warning! This is a test/debug feature. Never use it in production environment.
-						</div>
+					<YAF:Alert runat="server" Type="danger">
+                        Warning! This is a test/debug feature. Never use it in production environment.
+                    </YAF:Alert>	
                 </div>
                 <div id="View2" class="tab-pane" role="tabpanel">
                   
@@ -203,9 +202,9 @@
 							</p><hr/>
 										
 					
-						<div class="alert alert-danger" role="alert"> 
-							Warning! This is a test/debug feature. Never use it in production environment.
-						</div>
+                    <YAF:Alert runat="server" Type="danger">
+                        Warning! This is a test/debug feature. Never use it in production environment.
+                    </YAF:Alert>	
 				
                 </div>
                 <div id="View3" class="tab-pane" role="tabpanel">
@@ -230,7 +229,9 @@
 							Create Categories:
 						</h4>
 						<p>
-						<asp:RadioButtonList CssClass="form-control" ID="CategoriesBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
+						<asp:RadioButtonList CssClass="form-check"
+                                             RepeatLayout="Flow" RepeatDirection="Horizontal" 
+                                             ID="CategoriesBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
 							 	OnSelectedIndexChanged="CategoriesBoardsOptions_OnSelectedIndexChanged" />								
 						</p><hr/>
 					
@@ -266,12 +267,9 @@
 								datatextfield="Subject" CssClass="form-control" TextMode="Number">0</asp:TextBox>
 						</p><hr/>
 								
-								
-						<div class="alert alert-danger" role="alert"> 
-							Warning! This is a test/debug feature. Never use it in production environment.
-						</div>
-					
-				
+					  <YAF:Alert runat="server" Type="danger">
+                          Warning! This is a test/debug feature. Never use it in production environment.
+                      </YAF:Alert>
                 </div>
                 <div id="View4" class="tab-pane" role="tabpanel">
                    
@@ -320,7 +318,7 @@
 							Select common access mask for all groups:
 						</h4>
 						<p>
-							<asp:DropDownList ID="ForumsStartMask" runat="server" DataValueField="AccessMaskID"
+							<asp:DropDownList ID="ForumsStartMask" runat="server" DataValueField="ID"
 								DataTextField="Name" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="form-control">
 							</asp:DropDownList>
 						</p><hr/>
@@ -330,7 +328,7 @@
 							Select a group with special rights for the test data:
 						</h4>
 						<p>
-							<asp:DropDownList ID="ForumsGroups" runat="server" DataValueField="GroupID" DataTextField="Name"
+							<asp:DropDownList ID="ForumsGroups" runat="server" DataValueField="ID" DataTextField="Name"
 								OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="form-control">
 							</asp:DropDownList>
 						</p><hr/>
@@ -340,7 +338,7 @@
 							Select an access mask with special rights for the test data:
 						</h4>
 						<p>
-							<asp:DropDownList ID="ForumsAdminMask" runat="server" DataValueField="AccessMaskID"
+							<asp:DropDownList ID="ForumsAdminMask" runat="server" DataValueField="ID"
 								DataTextField="Name" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="form-control">
 							</asp:DropDownList>
 						</p><hr/>
@@ -350,7 +348,7 @@
 							Choose category:
 						</h4>
 						<p>
-							<asp:DropDownList ID="ForumsCategory" runat="server" AutoPostBack="true" DataValueField="CategoryID"
+							<asp:DropDownList ID="ForumsCategory" runat="server" AutoPostBack="true" DataValueField="ID"
 								DataTextField="Name" OnDataBound="ForumsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="form-control">
 							</asp:DropDownList>
 						</p><hr/>
@@ -382,12 +380,9 @@
 								datatextfield="Subject" CssClass="form-control" TextMode="Number">0</asp:TextBox>
 						</p><hr/>
 													
-					
-						<div class="alert alert-danger" role="alert"> 
-							Warning! This is a test/debug feature. Never use it in production environment.
-						</div>
-					
-				
+                    <YAF:Alert runat="server" Type="danger">
+                        Warning! This is a test/debug feature. Never use it in production environment.
+                    </YAF:Alert>
                 </div>
                 <div id="View5" class="tab-pane" role="tabpanel">
                   
@@ -433,7 +428,7 @@
 							Choose category:
 						</h4>
 						<p>
-							<asp:DropDownList ID="TopicsCategory" runat="server" AutoPostBack="true" DataValueField="CategoryID"
+							<asp:DropDownList ID="TopicsCategory" runat="server" AutoPostBack="true" DataValueField="ID"
 								DataTextField="Name" OnDataBound="TopicsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="TopicsCategory_OnSelectedIndexChanged" CssClass="form-control">
 							</asp:DropDownList>
 						</p><hr/>
@@ -457,10 +452,9 @@
 								datatextfield="Subject" CssClass="form-control" TextMode="Number">0</asp:TextBox>
 						</p><hr/>
 								
-					
-						<div class="alert alert-danger" role="alert"> 
-							Warning! This is a test/debug feature. Never use it in production environment.
-						</div>
+                    <YAF:Alert runat="server" Type="danger">
+                        Warning! This is a test/debug feature. Never use it in production environment.
+                    </YAF:Alert>
 					
 				
                 </div>
@@ -495,7 +489,7 @@
 							Choose category:
 						</h4>
 						<p>
-							<asp:DropDownList ID="PostsCategory" runat="server" AutoPostBack="true" DataValueField="CategoryID"
+							<asp:DropDownList ID="PostsCategory" runat="server" AutoPostBack="true" DataValueField="ID"
 								DataTextField="Name" OnDataBound="PostsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="PostsCategory_OnSelectedIndexChanged" CssClass="form-control">
 							</asp:DropDownList>
 						</p><hr/>
@@ -527,12 +521,9 @@
 							<asp:TextBox CssClass="form-control" ID="MyMessage" runat="server" TextMode="MultiLine"  ></asp:TextBox>							
 						</p><hr/>
 							
-					
-						<div class="alert alert-danger" role="alert"> 
-							Warning! This is a test/debug feature. Never use it in production environment.
-						</div>
-					
-				
+                    <YAF:Alert runat="server" Type="danger">
+                        Warning! This is a test/debug feature. Never use it in production environment.
+                    </YAF:Alert>
                 </div>
                 <div id="View7" class="tab-pane" role="tabpanel">
                   
@@ -556,7 +547,8 @@
 							Create Messages:
 						</h4>
 						<p>
-						<asp:RadioButtonList CssClass="form-control" ID="PMessagesBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
+						<asp:RadioButtonList CssClass="form-check"
+                                             RepeatLayout="Flow" RepeatDirection="Horizontal" ID="PMessagesBoardsOptions"  Enabled="false"   AutoPostBack="true" runat="server"
 							 	OnSelectedIndexChanged="PMessagesBoardsOptions_OnSelectedIndexChanged" />								
 						</p><hr/>
 					
@@ -612,10 +604,9 @@
 							<asp:TextBox CssClass="form-control" ID="PMessageText" runat="server" TextMode="MultiLine"  ></asp:TextBox>							
 						</p><hr/>
 												
-					
-						<div class="alert alert-danger" role="alert"> 
-							Warning! This is a test/debug feature. Never use it in production environment.
-						</div>
+                    <YAF:Alert runat="server" Type="danger">
+                        Warning! This is a test/debug feature. Never use it in production environment.
+                    </YAF:Alert>
                 </div>
                 <div id="View8" class="tab-pane" role="tabpanel">
                   
@@ -623,16 +614,15 @@
 						<h2>
 							Usage guide
 						</h2>
-                    <div class="alert alert-danger" role="alert"> 
-
-						<p>Test data generator is a utility to test Yet Another Forum performance.</p>
+                    <YAF:Alert runat="server" Type="danger">
+                        <p>Test data generator is a utility to test Yet Another Forum performance.</p>
 						
-							The operations take a lot of time, if you generate whales of data.
-							All the time browser page will look like something hangs. On completing you will see notification window.
-							If you want to generate hundreds thousands records it can take,
-							hours or even days.
-							<p>But <strong>never</strong> use it in production enviroment as you can't delete data using the test data generator.</p>							
-					    </div>
+                        The operations take a lot of time, if you generate whales of data.
+                        All the time browser page will look like something hangs. On completing you will see notification window.
+                        If you want to generate hundreds thousands records it can take,
+                        hours or even days.
+                        <p>But <strong>never</strong> use it in production enviroment as you can't delete data using the test data generator.</p>	
+                    </YAF:Alert>
                         <hr />			
 						<h2>
 							Generator Settings
@@ -704,10 +694,15 @@
              </asp:Panel>
     <asp:HiddenField runat="server" ID="hidLastTab" Value="View1" />
 </div>
-                <div class="card-footer text-lg-center">
-				<asp:Button ID="LaunchGenerator" runat="server" Text="Launch Generator" Type="Primary"
-					OnClick="CreateTestData_Click"></asp:Button>&nbsp;
-				<asp:Button ID="Cancel" runat="server" Text="Cancel" Type="Secondary" OnClick="Cancel_Click"></asp:Button>
+                <div class="card-footer text-center">
+				<YAF:ThemeButton ID="LaunchGenerator" runat="server" 
+                                 Type="Primary"
+                                 TextLocalizedTag="GO"
+                                 Icon="rocket"
+					OnClick="CreateTestData_Click"></YAF:ThemeButton>&nbsp;
+				<YAF:ThemeButton ID="Cancel" runat="server" Type="Secondary" OnClick="Cancel_Click"
+                                 TextLocalizedTag="CANCEL"
+                                 Icon="reply"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

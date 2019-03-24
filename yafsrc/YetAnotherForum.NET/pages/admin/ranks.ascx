@@ -97,7 +97,7 @@
             </FooterTemplate>
 		</asp:Repeater>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				   <YAF:ThemeButton ID="NewRank" runat="server" OnClick="NewRankClick" Type="Primary"
 				                    Icon="plus-square"
 				                    TextLocalizedTag="NEW_RANK" />

@@ -27,7 +27,7 @@
                 <p>
                     <asp:Label ID="LastDigestSendLabel" runat="server"></asp:Label></p>
             </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Button2" runat="server" OnClick="ForceSendClick" Type="Primary"
                                  Icon="paper-plane" TextLocalizedTag="FORCE_SEND">
                 </YAF:ThemeButton>
@@ -48,7 +48,7 @@
                 </p>
         </asp:PlaceHolder>
 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton ID="GenerateDigest" runat="server" OnClick="GenerateDigestClick" Type="Primary"
                                      Icon="envelope" TextLocalizedTag="GENERATE_DIGEST">
                     </YAF:ThemeButton>
@@ -76,7 +76,7 @@
                 </asp:DropDownList>
             </p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton ID="TestSend" runat="server" OnClick="TestSendClick" Type="Primary"
                                      Icon="paper-plane" TextLocalizedTag="SEND_TEST">
                     </YAF:ThemeButton>

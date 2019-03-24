@@ -13,13 +13,13 @@ namespace YAF.Controls {
     public partial class EditUsersAvatar {
         
         /// <summary>
-        /// AvatarCurrentText-Steuerelement
+        /// avatarImageTD-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder AvatarCurrentText;
+        protected global::System.Web.UI.WebControls.PlaceHolder avatarImageTD;
         
         /// <summary>
         /// LocalizedLabel1-Steuerelement
@@ -29,24 +29,6 @@ namespace YAF.Controls {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
-        
-        /// <summary>
-        /// LocalizedLabel2-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
-        
-        /// <summary>
-        /// avatarImageTD-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder avatarImageTD;
         
         /// <summary>
         /// AvatarImg-Steuerelement
@@ -73,7 +55,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton DeleteAvatar;
+        protected global::YAF.Controls.ThemeButton DeleteAvatar;
         
         /// <summary>
         /// AvatarOurs-Steuerelement
@@ -145,7 +127,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton UpdateRemote;
+        protected global::YAF.Controls.ThemeButton UpdateRemote;
         
         /// <summary>
         /// AvatarUploadRow-Steuerelement
@@ -175,6 +157,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
         
         /// <summary>
+        /// LocalizedLabel2-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
         /// noteLocal-Steuerelement
         /// </summary>
         /// <remarks>
@@ -190,7 +181,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton UpdateUpload;
+        protected global::YAF.Controls.ThemeButton UpdateUpload;
         
         /// <summary>
         /// Back-Steuerelement
@@ -199,6 +190,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Back;
+        protected global::YAF.Controls.ThemeButton Back;
     }
 }

@@ -133,7 +133,7 @@
         </asp:Repeater>
                
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" Type="Primary"
                                     Icon="save" TextLocalizedTag="SAVE"></YAF:ThemeButton>&nbsp;
                     <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" Type="Secondary"

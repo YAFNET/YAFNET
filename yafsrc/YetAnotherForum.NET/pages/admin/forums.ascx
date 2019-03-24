@@ -16,71 +16,67 @@
                 <div class="card-body">
 		<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="CategoryList_ItemCommand">
 			<HeaderTemplate>
-			    <div class="table-responsive">
-                    <table class="table">
+			    <ul class="list-group">
 			</HeaderTemplate>
             <ItemTemplate>
-				<tr class="table-active">
-					<td>
-						<%# this.HtmlEncode(this.Eval( "Name"))%>
-					</td>
-					<td>
-						<%# this.Eval( "SortOrder") %>
-					</td>
-					<td class="text-lg-right">
-                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                        CommandName='edit' CommandArgument='<%# this.Eval( "CategoryID") %>'
-                        TitleLocalizedTag="EDIT" Icon="edit"
-                        TextLocalizedTag="EDIT"
-                        runat="server">
-                    </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
-                        OnLoad="DeleteCategory_Load"  CommandName='delete' CommandArgument='<%# this.Eval( "CategoryID") %>'
-                        TitleLocalizedTag="DELETE" Icon="trash"
-                        TextLocalizedTag="DELETE"
-                        runat="server">
-                    </YAF:ThemeButton>
-                    </td>
-				</tr>
+                <li class="list-group-item list-group-item-action active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><%# this.HtmlEncode(this.Eval( "Name"))%></h5>
+                    <small><YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
+                                            CommandName='edit' CommandArgument='<%# this.Eval( "CategoryID") %>'
+                                            TitleLocalizedTag="EDIT" Icon="edit"
+                                            TextLocalizedTag="EDIT"
+                                            runat="server">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
+                                         OnLoad="DeleteCategory_Load"  CommandName='delete' CommandArgument='<%# this.Eval( "CategoryID") %>'
+                                         TitleLocalizedTag="DELETE" Icon="trash"
+                                         TextLocalizedTag="DELETE"
+                                         runat="server">
+                        </YAF:ThemeButton></small>
+                </div>
+                <small><YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER">&nbsp;</YAF:LocalizedLabel><%# this.Eval( "SortOrder") %></small>
+				</li>
 				<asp:Repeater ID="ForumList" OnItemCommand="ForumList_ItemCommand" runat="server"
 					DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'>
 					<ItemTemplate>
-						<tr>
-							<td>
-								<strong>
-									<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Name\"]")) %></strong><br />
-								<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
-							</td>
-							<td>
-								<%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>
-							</td>
-							<td>
-					    <span class="float-right">
-                             <YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small"
-                                 CommandName='edit' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
-                                 TextLocalizedTag="EDIT"
-                                 TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-							 <YAF:ThemeButton ID="btnDuplicate" Type="Info" Size="Small"
-                                 CommandName='copy' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
-                                 TextLocalizedTag="COPY"
-                                 TitleLocalizedTag="COPY" Icon="copy" runat="server"></YAF:ThemeButton>
-                             <YAF:ThemeButton ID="btnDelete" Type="Danger" Size="Small"
-                                 CommandName='delete' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
-                                 TextLocalizedTag="DELETE"
-                                 TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
-
-					    </span>
-                    </td>
-						</tr>
+                        <li class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">
+                                    <%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Name\"]")) %>
+                                </h5>
+                                <small>
+                                    <YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small"
+                                                     CommandName='edit' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
+                                                     TextLocalizedTag="EDIT"
+                                                     TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="btnDuplicate" Type="Info" Size="Small"
+                                                     CommandName='copy' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
+                                                     TextLocalizedTag="COPY"
+                                                     TitleLocalizedTag="COPY" Icon="copy" runat="server"></YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="btnDelete" Type="Danger" Size="Small"
+                                                     CommandName='delete' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
+                                                     TextLocalizedTag="DELETE"
+                                                     TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
+                                </small>
+                            </div>
+                            <p class="mb-1">
+                                <%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
+                            </p>
+                            <small>
+                                <YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER" />&nbsp;
+                                <%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>
+                            </small>
+						</li>
 					</ItemTemplate>
 				</asp:Repeater>
 			</ItemTemplate>
             <FooterTemplate>
-                </table></div>
+                </ul>
             </FooterTemplate>
 		</asp:Repeater>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				<YAF:ThemeButton ID="NewCategory" runat="server" OnClick="NewCategory_Click" Type="Primary"
 				                 Icon="plus-square" TextLocalizedTag="NEW_CATEGORY"></YAF:ThemeButton>
 				&nbsp;

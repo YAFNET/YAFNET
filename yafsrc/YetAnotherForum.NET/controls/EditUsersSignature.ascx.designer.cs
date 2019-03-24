@@ -82,7 +82,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton preview;
+        protected global::YAF.Controls.ThemeButton preview;
         
         /// <summary>
         /// save-Steuerelement
@@ -91,7 +91,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton save;
+        protected global::YAF.Controls.ThemeButton save;
         
         /// <summary>
         /// cancel-Steuerelement
@@ -100,6 +100,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton cancel;
+        protected global::YAF.Controls.ThemeButton cancel;
     }
 }

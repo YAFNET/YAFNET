@@ -56,7 +56,7 @@
                                  OnClick="Cancel_Click"
                                  TextLocalizedTag="CANCEL"
                                  Type="Secondary"
-                                 Icon="arrow-left"/>
+                                 Icon="reply"/>
             </div>
         </div>
     </div>

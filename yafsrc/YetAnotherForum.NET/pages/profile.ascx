@@ -164,7 +164,7 @@
             </div>
             </asp:PlaceHolder>
             <ul class="list-group mb-3">
-                <li class="list-group-item text-muted"><i class="fa fa-link fa-1x"></i>&nbsp;
+                <li class="list-group-item text-muted">
                     <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" />
                 </li>
                 <li class="list-group-item text-right">

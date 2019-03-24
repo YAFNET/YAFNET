@@ -14,85 +14,69 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-plug fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BBCODE" />
-                </div>
-                <div class="card-body">
-                    <asp:Repeater ID="bbCodeList" runat="server" OnItemCommand="BbCodeListItemCommand">
-                        <HeaderTemplate>
-                            <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
-                                                    LocalizedTag="TABLE_RESPONSIVE" 
-                                                    LocalizedPage="ADMIN_COMMON" />
-                                <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                            </YAF:Alert>><div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                    <th>
-                      &nbsp;
-                    </th>
-                    <th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_BBCODE" />
-                    </th>
-                    <th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_BBCODE" />
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                                        </tr>
-                                    </thead>
+                <asp:Repeater ID="bbCodeList" runat="server" OnItemCommand="BbCodeListItemCommand">
+                    <HeaderTemplate>
+                        <div class="card-header">
+                            <i class="fa fa-plug fa-fw"></i>&nbsp;<YAF:LocalizedLabel 
+                                                                      ID="LocalizedLabel2" 
+                                                                      runat="server" 
+                                                                      LocalizedTag="HEADER" 
+                                                                      LocalizedPage="ADMIN_BBCODE" />
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
                         </HeaderTemplate>
                         <ItemTemplate>
-            <tr>
-                <td>
-                    <asp:CheckBox ID="chkSelected" runat="server" />
-                    <asp:HiddenField ID="hiddenBBCodeID" runat="server" Value='<%# this.Eval("ID") %>' />
-                </td>
-                <td>
-                    <strong><%# this.Eval("Name") %></strong></td>
-                <td>
-                    <strong><%# this.Get<IBBCode>().LocalizeCustomBBCodeElement(this.Eval("Description").ToString())%></strong></td>
-                <td>
-                    <span class="float-right">
-                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
-                            TitleLocalizedTag="EDIT"
-                            Icon="edit"
-                            TextLocalizedTag="EDIT"
-                            runat="server">
-					    </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
-                                    CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
-                                    TitleLocalizedTag="DELETE"
-                                    Icon="trash"
-                                    TextLocalizedTag="DELETE"
-                                    ReturnConfirmText='<%# this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE") %>'  runat="server">
-                                </YAF:ThemeButton>
-                        </span>
-                </td>
-            </tr>
-        	            </ItemTemplate>
-                        <FooterTemplate>
-                            </table></div>
-                                            </div>
-                <div class="card-footer text-lg-center">
-                    <YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
-                                     Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_BBCODE"></YAF:ThemeButton>
-                    &nbsp;
-                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="BBCodeImportDialog" ID="Linkbutton5" Type="Info"
-                                     TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_BBCODE"></YAF:ThemeButton>
-                    &nbsp;
-                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" Type="Warning"
-                                     Icon="download" TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_BBCODE"></YAF:ThemeButton>
-                </div>
+                            <li class="list-group-item list-group-item-action">
+                                 <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">
+                                        <asp:CheckBox ID="chkSelected" runat="server" />
+                                        <asp:HiddenField ID="hiddenBBCodeID" runat="server" Value='<%# this.Eval("ID") %>' />
+                                        <%# this.Eval("Name") %>
+                                    </h5>
+                                </div>
+                                <p class="mb-1">
+                                    <%# this.Get<IBBCode>().LocalizeCustomBBCodeElement(this.Eval("Description").ToString())%></strong></p>
+                                <small>
+                                     <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
+                                                         CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
+                                                         TitleLocalizedTag="EDIT"
+                                                         Icon="edit"
+                                                         TextLocalizedTag="EDIT"
+                                                         runat="server">
+                                    </YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
+                                                     CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
+                                                     TitleLocalizedTag="DELETE"
+                                                     Icon="trash"
+                                                     TextLocalizedTag="DELETE"
+                                                     ReturnConfirmText='<%# this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE") %>'  runat="server">
+                                    </YAF:ThemeButton>
+                                </small>
+                        </li>
+        	        </ItemTemplate>
+                    <FooterTemplate>
+                       </ul>
+                    </div>
+                    <div class="card-footer text-center">
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName='add' ID="Linkbutton3" 
+                                         Type="Primary"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_BBCODE" />
+                        <YAF:ThemeButton runat="server" Icon="upload" 
+                                         DataTarget="BBCodeImportDialog" ID="Linkbutton5" 
+                                         Type="Info"
+                                         TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_BBCODE" />
+                        <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
+                                         Type="Warning"
+                                         Icon="download" 
+                                         TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_BBCODE" />
+                    </div>
         	            </FooterTemplate>
     	            </asp:Repeater>
             </div>
         </div>
     </div>
-
-
 
 <modal:Import ID="ImportDialog" runat="server" />

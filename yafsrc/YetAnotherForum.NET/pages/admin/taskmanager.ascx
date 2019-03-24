@@ -17,51 +17,43 @@
                     <i class="fa fa-tasks fa-fw"></i>&nbsp;<asp:Label ID="lblTaskCount" runat="server"></asp:Label>
                     </div>
                 <div class="card-body">
-                    <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                            LocalizedTag="TABLE_RESPONSIVE" 
-                                            LocalizedPage="ADMIN_COMMON" />
-                        <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                    </YAF:Alert><div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                               <tr>
-            <th>
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_NNTPSERVERS" />
-            </th>
-            <th>
-                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="RUNNING" LocalizedPage="ADMIN_TASKMANAGER" />
-            </th>
-            <th>
-               <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DURATION" LocalizedPage="ADMIN_TASKMANAGER" />
-            </th>
-
-</tr>
-            </thead>
         <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="TaskRepeaterItemCommand">
+            <HeaderTemplate>
+                <ul class="list-group">
+            </HeaderTemplate>
+            <FooterTemplate>
+                </ul>
+            </FooterTemplate>
             <ItemTemplate>
-                <tr>
-                    <td>
-                        <strong>
-                            <%# this.Eval("Key") %></strong>
-                            <asp:PlaceHolder ID="StopTaskHolder" runat="server" Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
-                            <YAF:ThemeButton ID="stop" runat="server" 
-                                             CommandName="stop" CommandArgument='<%# this.Eval("Key") %>'
-                                             TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
-                                             Icon="hand-paper" Type="Danger" Size="Small">
-                            </YAF:ThemeButton>
-                        </asp:PlaceHolder>
-                    </td>
-                    <td>
-                    <asp:Label ID="Label2" runat="server" CssClass='<%# this.GetItemColor(this.Eval("Value.IsRunning").ToType<bool>()) %>'><%# this.GetItemName(this.Eval("Value.IsRunning").ToType<bool>())%></asp:Label>
-                    </td>
-                    <td>
+                <li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <%# this.Eval("Key") %>
+                        </h5>
+                        <small>
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                LocalizedTag="RUNNING" LocalizedPage="ADMIN_TASKMANAGER" />: 
+                            <asp:Label ID="Label2" runat="server" 
+                                       CssClass='<%# this.GetItemColor(this.Eval("Value.IsRunning").ToType<bool>()) %>'><%# this.GetItemName(this.Eval("Value.IsRunning").ToType<bool>())%></asp:Label>
+                        </small>
+                    </div>
+                    <p class="mb-1">
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DURATION" LocalizedPage="ADMIN_TASKMANAGER" />:
                         <%# this.FormatTimeSpan(Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.Started)%>
-                    </td>
-                </tr>
+                    </p>
+                    <asp:PlaceHolder ID="StopTaskHolder" runat="server" 
+                                     Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
+                        <small>
+                        <YAF:ThemeButton ID="stop" runat="server" 
+                                         CommandName="stop" CommandArgument='<%# this.Eval("Key") %>'
+                                         TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
+                                         Icon="hand-paper" Type="Danger" Size="Small">
+                        </YAF:ThemeButton>
+                        </small>
+                    </asp:PlaceHolder>
+                </li>
             </ItemTemplate>
         </asp:Repeater>
-    </table></div>
                     </div>
             </div>
         </div>

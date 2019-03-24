@@ -12,7 +12,7 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-check-double fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
+                <i class="fa fa-user-tie fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
             </div>
             <div class="card-body">
                 <asp:DataList runat="server" ID="directories" Width="100%" RepeatColumns="5" OnItemDataBound="Directories_Bind"
@@ -37,7 +37,7 @@
                                  TextLocalizedTag="CANCEL" TitleLocalizedTag="CANCEL_TITLE" 
                                  OnClick="BtnCancel_Click"
                                  Type="Secondary"
-                                 Icon="arrow-left"/>
+                                 Icon="reply"/>
             </div>
         </div>
     </div>

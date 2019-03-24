@@ -8,11 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI.WebControls;
-
+    
+    
     public partial class EditUsersPoints {
         
-
         /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
@@ -20,9 +19,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// LocalizedLabel2-Steuerelement
         /// </summary>
@@ -30,9 +28,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
-
         /// <summary>
         /// ltrCurrentPoints-Steuerelement
         /// </summary>
@@ -40,9 +37,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Literal ltrCurrentPoints;
+        protected global::System.Web.UI.WebControls.Literal ltrCurrentPoints;
         
-
         /// <summary>
         /// LocalizedLabel3-Steuerelement
         /// </summary>
@@ -50,9 +46,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// txtUserPoints-Steuerelement
         /// </summary>
@@ -60,9 +55,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox txtUserPoints;
+        protected global::System.Web.UI.WebControls.TextBox txtUserPoints;
         
-
         /// <summary>
         /// RangeValidator4-Steuerelement
         /// </summary>
@@ -70,9 +64,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected RangeValidator RangeValidator4;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator4;
         
-
         /// <summary>
         /// btnUserPoints-Steuerelement
         /// </summary>
@@ -80,9 +73,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton btnUserPoints;
+        protected global::YAF.Controls.ThemeButton btnUserPoints;
         
-
         /// <summary>
         /// LocalizedLabel4-Steuerelement
         /// </summary>
@@ -90,9 +82,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
         
-
         /// <summary>
         /// txtAddPoints-Steuerelement
         /// </summary>
@@ -100,9 +91,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox txtAddPoints;
+        protected global::System.Web.UI.WebControls.TextBox txtAddPoints;
         
-
         /// <summary>
         /// RangeValidator1-Steuerelement
         /// </summary>
@@ -110,9 +100,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected RangeValidator RangeValidator1;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
         
-
         /// <summary>
         /// btnAddPoints-Steuerelement
         /// </summary>
@@ -120,9 +109,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton btnAddPoints;
+        protected global::YAF.Controls.ThemeButton btnAddPoints;
         
-
         /// <summary>
         /// LocalizedLabel5-Steuerelement
         /// </summary>
@@ -130,9 +118,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
         
-
         /// <summary>
         /// txtRemovePoints-Steuerelement
         /// </summary>
@@ -140,9 +127,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected TextBox txtRemovePoints;
+        protected global::System.Web.UI.WebControls.TextBox txtRemovePoints;
         
-
         /// <summary>
         /// RangeValidator2-Steuerelement
         /// </summary>
@@ -150,9 +136,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected RangeValidator RangeValidator2;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
         
-
         /// <summary>
         /// Button1-Steuerelement
         /// </summary>
@@ -160,6 +145,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LinkButton Button1;
+        protected global::YAF.Controls.ThemeButton Button1;
     }
 }

@@ -27,14 +27,13 @@
                     </FooterTemplate>
                     <ItemTemplate>
                         <div class="col-md-4">
-                            <div class="card mb-4 shadow-sm" 
-                                 style="width:400px">
+                            <div class="card mb-4 shadow-sm text-center">
                                 <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("AlbumID")) %>'
                                    target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>'>
                                 <asp:Image runat="server" ID="coverImage" ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("AlbumID"), (this.Eval("CoverImageID").ToString() == string.Empty ? "0" : this.Eval("CoverImageID"))) %>'
                                            ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>' runat="server" 
                                            AlternateText='<%# this.Eval("AlbumID") %>'
-                                           CssClass="card-img-top"/>
+                                           CssClass="img-fluid img-thumbnail mt-4"/>
                                 <div class="card-body">
                                     <div class="card-text">
                                         <div class="d-flex justify-content-between align-items-center">

@@ -50,7 +50,8 @@
             </strong>
         </h4>
         <p>
-            <asp:RadioButtonList runat="server" ID="SuspendOrDelete"  CssClass="form-control">
+            <asp:RadioButtonList runat="server" ID="SuspendOrDelete" CssClass="form-check"
+                                 RepeatLayout="Flow" RepeatDirection="Horizontal">
             </asp:RadioButtonList>
             <asp:Literal ID="SuspendedTo" runat="server"></asp:Literal>
         </p>

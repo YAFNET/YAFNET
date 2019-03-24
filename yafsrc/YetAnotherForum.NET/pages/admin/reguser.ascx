@@ -87,7 +87,7 @@
 			<asp:DropDownList CssClass="custom-select" id="TimeZones" runat="server" DataValueField="Value" DataTextField="Name"></asp:DropDownList>
                 </p>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 			<YAF:ThemeButton id="ForumRegister" runat="server" onclick="ForumRegisterClick" Type="Primary"
 			                 Icon="user-plus" TextLocalizedTag="REGISTER" TextLocalizedPage="ADMIN_REGUSER"></YAF:ThemeButton>
 			&nbsp;

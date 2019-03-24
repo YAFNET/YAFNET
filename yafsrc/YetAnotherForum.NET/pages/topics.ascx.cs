@@ -448,25 +448,6 @@ namespace YAF.Pages
 
             this.TopicList.DataSource = topicList;
 
-            if (topicList == null || !topicList.HasRows())
-            {
-                var showNoPosts = true;
-
-                if (dt == null || !dt.HasRows())
-                {
-                    showNoPosts = true;
-                }
-                else
-                {
-                    showNoPosts = false;
-                }
-
-                if (showNoPosts)
-                {
-
-                }
-            }
-
             this.DataBind();
 
             // setup the show topic list selection after data binding
@@ -476,6 +457,15 @@ namespace YAF.Pages
             if (topicList != null && topicList.HasRows())
             {
                 this.Pager.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
+            }
+
+            if (this.Announcements.Items.Count == 0 && this.TopicList.Items.Count == 0)
+            {
+                this.NoPostsPlaceHolder.Visible = true;
+            }
+            else
+            {
+                this.NoPostsPlaceHolder.Visible = false;
             }
         }
 

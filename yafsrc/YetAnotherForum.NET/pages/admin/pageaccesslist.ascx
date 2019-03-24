@@ -15,46 +15,39 @@
                     <i class="fa fa-building fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PAGEACCESSLIST" />
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-		<tr>
-		    <thead>
-			<th>
-				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER"  LocalizedPage="ADMIN_PAGEACCESSLIST" />
-			</th>
-            <th colspan="2">
-				<YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDnAME"  LocalizedPage="ADMIN_PAGEACCESSLIST" />
-			</th>
-            </thead>
-		</tr>
 		<asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
+            <HeaderTemplate>
+                <ul class="list-group">
+            </HeaderTemplate>
 			<ItemTemplate>
-				<tr class="post">
-					<td>
-					    <!-- User Name -->
-					    <i class="fa fa-user-secret fa-fw"></i>&nbsp;<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
-					</td>
-                    	<td>
-                    	 <%# this.HtmlEncode(this.Eval( "BoardName")) %>
-                        </td>
-                    <td>
-                        <span class="float-right">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                              TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# this.Eval( "UserID") %>'
-                              TitleLocalizedTag="EDIT"
-                              Icon="edit"
-                              TextLocalizedTag="EDIT"
-                              runat="server">
-						  </YAF:ThemeButton>
-                            </span>
-					</td>
-				</tr>
-			</ItemTemplate>
-		</asp:Repeater>
-                            </table></div>
+                <li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <i class="fa fa-user-secret fa-fw"></i>&nbsp;
+                            <%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
+                        </h5>
+                        <small>
+                            <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
+                                             TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# this.Eval( "UserID") %>'
+                                             TitleLocalizedTag="EDIT"
+                                             Icon="edit"
+                                             TextLocalizedTag="EDIT"
+                                             runat="server">
+                            </YAF:ThemeButton>
+                        </small>
                     </div>
+                    <p class="mb-1">
+                        <YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDnAME"  LocalizedPage="ADMIN_PAGEACCESSLIST" />:
+                        <%# this.HtmlEncode(this.Eval( "BoardName")) %>
+                    </p>
+                </li>
+			</ItemTemplate>
+            <FooterTemplate>
+                </ul>
+            </FooterTemplate>
+		</asp:Repeater>
+                    
             </div>
         </div>
     </div>
-
-
+        </div>

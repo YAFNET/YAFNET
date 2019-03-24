@@ -30,7 +30,9 @@
                     <p class="card-text">
                         <YAF:ThemeButton ID="RecoveryMode" Type="Primary" runat="server" OnClick="RecoveryModeClick"
                                          Icon="database" TextLocalizedTag="SETRECOVERY_BTN" />
-					    <asp:RadioButtonList ID="RadioButtonList1" runat="server" CssClass="form-control">
+					    <asp:RadioButtonList ID="RadioButtonList1" runat="server" 
+                                             CssClass="form-check"
+                                             RepeatLayout="Flow" RepeatDirection="Horizontal" >
 					    </asp:RadioButtonList>
                     </p>
                     <hr />

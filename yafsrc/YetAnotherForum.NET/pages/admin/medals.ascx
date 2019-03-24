@@ -99,7 +99,7 @@
             </FooterTemplate>
 		</asp:Repeater>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="NewMedal" runat="server" OnClick="NewMedalClick" Type="Primary"
 				                     Icon="plus-square" TextLocalizedTag="NEW_MEDAL" />
                 </div>

@@ -784,7 +784,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button LaunchGenerator;
+        protected global::YAF.Controls.ThemeButton LaunchGenerator;
         
         /// <summary>
         /// Cancel-Steuerelement
@@ -793,6 +793,6 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Cancel;
+        protected global::YAF.Controls.ThemeButton Cancel;
     }
 }

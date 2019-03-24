@@ -100,7 +100,8 @@
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
             <p>
-                <asp:RadioButtonList ID="FileExtensionAllow" runat="server">
+                <asp:RadioButtonList ID="FileExtensionAllow" runat="server" CssClass="form-check"
+                                     RepeatLayout="Flow" RepeatDirection="Horizontal">
                 </asp:RadioButtonList>
             </p><hr />
 

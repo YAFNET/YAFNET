@@ -100,7 +100,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton RemoveSuspension;
+        protected global::YAF.Controls.ThemeButton RemoveSuspension;
         
         /// <summary>
         /// LocalizedLabel6-Steuerelement
@@ -172,6 +172,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Suspend;
+        protected global::YAF.Controls.ThemeButton Suspend;
     }
 }

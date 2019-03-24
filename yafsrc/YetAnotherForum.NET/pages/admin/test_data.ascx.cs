@@ -191,6 +191,21 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_TEST_DATA", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_TEST_DATA", "TITLE"));
+        }
+
+        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
@@ -205,15 +220,6 @@ namespace YAF.Pages.Admin
             {
                 return;
             }
-
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_TEST_DATA", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_TEST_DATA", "TITLE"));
 
             this.Populate_Controls();
 
@@ -254,11 +260,9 @@ namespace YAF.Pages.Admin
             }
 
             this.TopicsCategory.ClearSelection();
-            this.PostsCategory.ClearSelection();
+             this.PostsCategory.ClearSelection();
 
-            this.ForumsCategory.SelectedIndex = -1;
-
-            this.TimeZones.Items.FindByValue("0").Selected = true;
+             this.ForumsCategory.SelectedIndex = -1;
 
             this.From.Text = this.PageContext.User.UserName;
             this.To.Text = this.PageContext.User.UserName;

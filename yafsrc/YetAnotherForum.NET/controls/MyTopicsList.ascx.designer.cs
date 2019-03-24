@@ -8,31 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI.WebControls;
-
+    
+    
     public partial class MyTopicsList {
         
-
-        /// <summary>
-        /// SinceLabel-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected LocalizedLabel SinceLabel;
-        
-
-        /// <summary>
-        /// Since-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected DropDownList Since;
-        
-
         /// <summary>
         /// PagerTop-Steuerelement
         /// </summary>
@@ -40,49 +19,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerTop;
+        protected global::YAF.Controls.Pager PagerTop;
         
-
-        /// <summary>
-        /// LocalizedLabel6-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
-        
-
-        /// <summary>
-        /// LocalizedLabel8-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected LocalizedLabel LocalizedLabel8;
-        
-
-        /// <summary>
-        /// LocalizedLabel9-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected LocalizedLabel LocalizedLabel9;
-        
-
-        /// <summary>
-        /// LocalizedLabel10-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected LocalizedLabel LocalizedLabel10;
-        
-
         /// <summary>
         /// TopicList-Steuerelement
         /// </summary>
@@ -90,29 +28,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Repeater TopicList;
+        protected global::System.Web.UI.WebControls.Repeater TopicList;
         
-
-        /// <summary>
-        /// MarkAll-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected ThemeButton MarkAll;
-        
-
-        /// <summary>
-        /// RssFeed-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected RssFeedLink RssFeed;
-        
-
         /// <summary>
         /// PagerBottom-Steuerelement
         /// </summary>
@@ -120,6 +37,42 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerBottom;
+        protected global::YAF.Controls.Pager PagerBottom;
+        
+        /// <summary>
+        /// SinceLabel-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel SinceLabel;
+        
+        /// <summary>
+        /// Since-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Since;
+        
+        /// <summary>
+        /// MarkAll-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton MarkAll;
+        
+        /// <summary>
+        /// RssFeed-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.RssFeedLink RssFeed;
     }
 }

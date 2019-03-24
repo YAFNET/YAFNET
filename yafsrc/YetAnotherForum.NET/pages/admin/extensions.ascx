@@ -21,40 +21,40 @@
                 <div class="card-body">
                     <asp:Repeater ID="list" runat="server">
                        <HeaderTemplate>
+                           <ul class="list-group">
                            <div class="table-responsive">
       	                      <table class="table">
         	 </HeaderTemplate>
         <ItemTemplate>
-            <tr>
-                <td>
-                    <strong>*.<%# this.HtmlEncode(this.Eval("extension")) %></strong>
-                </td>
-                <td>
-                    <span class="float-right">
+            <li class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        *.<%# this.HtmlEncode(this.Eval("extension")) %>
+                    </h5>
+                </div>
+                <small>
                     <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
-                            TitleLocalizedTag="EDIT"
-                            Icon="edit"
-                            TextLocalizedTag="EDIT"
-                            runat="server">
-					    </YAF:ThemeButton>
+                                     CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
+                                     TitleLocalizedTag="EDIT"
+                                     Icon="edit"
+                                     TextLocalizedTag="EDIT"
+                                     runat="server">
+                    </YAF:ThemeButton>
                     <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
-                                    CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
-                                    TitleLocalizedTag="DELETE"
-                                    Icon="trash"
-                                    TextLocalizedTag="DELETE"
-                                    runat="server"
-                                    ReturnConfirmText='<%# this.GetText("ADMIN_EXTENSIONS", "CONFIRM_DELETE") %>'>
-                                </YAF:ThemeButton>
-                        </span>
-                </td>
-            </tr>
+                                     CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
+                                     TitleLocalizedTag="DELETE"
+                                     Icon="trash"
+                                     TextLocalizedTag="DELETE"
+                                     runat="server"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_EXTENSIONS", "CONFIRM_DELETE") %>'>
+                    </YAF:ThemeButton>
+                </small>
+            </li>
         	 </ItemTemplate>
         <FooterTemplate>
-                </table>
-            </div>
+                </ul>
                 </div>
-                <div class="card-footer text-lg-center">
+                <div class="card-footer text-center">
                     <YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
                                      Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
                     &nbsp;
