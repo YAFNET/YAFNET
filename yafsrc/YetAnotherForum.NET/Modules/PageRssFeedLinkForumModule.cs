@@ -86,12 +86,12 @@ namespace YAF.Modules
     /// </param>
     private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      HtmlHead head = this.ForumControl.Page.Header ??
+      var head = this.ForumControl.Page.Header ??
                       this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
       if (head != null)
       {
-        bool groupAccess =
+        var groupAccess =
           this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
 
         if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
@@ -109,7 +109,6 @@ namespace YAF.Modules
             };
 
           // defaults to the "Active" rss.
-
           rssLink.Attributes.Add("rel", "alternate");
           rssLink.Attributes.Add("type", "application/rss+xml");
           rssLink.Attributes.Add(
@@ -135,7 +134,6 @@ namespace YAF.Modules
             };
 
           // defaults to the "Active" rss.
-
           atomLink.Attributes.Add("rel", "alternate");
           atomLink.Attributes.Add("type", "application/atom+xml");
           atomLink.Attributes.Add(

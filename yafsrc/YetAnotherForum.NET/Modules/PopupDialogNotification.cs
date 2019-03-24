@@ -74,6 +74,7 @@ namespace YAF.Modules
 
                       if (script != null && script != """")
                       {{
+                         $('.modal-backdrop').remove();
                          $('#' + script).modal('show');
                       }}
 

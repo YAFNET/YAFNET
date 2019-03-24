@@ -30,12 +30,12 @@ namespace YAF.Modules
 
   using YAF.Classes;
   using YAF.Core;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Types;
+  using YAF.Types.Attributes;
   using YAF.Types.Constants;
+  using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
   using YAF.Utils;
-  
 
   #endregion
 
@@ -70,7 +70,7 @@ namespace YAF.Modules
     /// </param>
     private void ForumControl_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      bool accessDenied = false;
+      var accessDenied = false;
 
       switch (this.ForumPageType)
       {

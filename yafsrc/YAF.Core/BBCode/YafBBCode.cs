@@ -661,12 +661,12 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
                         OpenQuoteUserIdRegex,
-                        @"<div class=""card text-white bg-dark mb-3"">${quote}",
+                        @"<div class=""card text-white bg-secondary mb-3"">${quote}",
                         _Options));
 
                 // simple open quote tag
                 var simpleOpenQuoteReplace =
-                    @"<div class=""cardtext-white bg-dark mb-3""><div class=""card-body""><p class=""card-text"">{0}</p></div></div>"
+                    @"<div class=""card mb-3""><div class=""card-header"">{0}</div><div class=""card-body""><p class=""card-text"">"
                         .FormatWith(localQuoteStr);
 
                 ruleEngine.AddRule(
@@ -674,7 +674,7 @@ namespace YAF.Core.BBCode
 
                 // and finally the closing quote tag
                 ruleEngine.AddRule(
-                    new SingleRegexReplaceRule(CloseQuoteRegex, "</p></div></div>", _Options) { RuleRank = 63 });
+                    new SingleRegexReplaceRule(CloseQuoteRegex, "</div></div>", _Options) { RuleRank = 63 });
             }
 
             // post and topic rules...

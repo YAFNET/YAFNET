@@ -94,13 +94,13 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            HtmlHead head = this.ForumControl.Page.Header
+            var head = this.ForumControl.Page.Header
                             ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
             if (head != null)
             {
                 // setup the title...
-                string addition = string.Empty;
+                var addition = string.Empty;
 
                 if (head.Title.IsSet())
                 {

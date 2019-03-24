@@ -116,7 +116,7 @@ namespace YAF.Modules
         /// </param>
         public void Handle([NotNull] ForumPagePreLoadEvent @event)
         {
-            string previousVisitKey = "PreviousVisit";
+            var previousVisitKey = "PreviousVisit";
 
             if (!YafContext.Current.IsGuest && YafContext.Current.Page[previousVisitKey] != DBNull.Value
                 && !this.YafSession.LastVisit.HasValue)
@@ -128,7 +128,7 @@ namespace YAF.Modules
                 if (this._requestBase.Cookies.Get(previousVisitKey) != null)
                 {
                     // have previous visit cookie...
-                    string previousVisitInsecure = this._requestBase.Cookies.Get(previousVisitKey).Value;
+                    var previousVisitInsecure = this._requestBase.Cookies.Get(previousVisitKey).Value;
                     DateTime previousVisit;
 
                     if (DateTime.TryParse(previousVisitInsecure, out previousVisit))
@@ -142,8 +142,10 @@ namespace YAF.Modules
                 }
 
                 // set the last visit cookie...
-                HttpCookie httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString())
-                    { Expires = DateTime.Now.AddMonths(6) };
+                var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString())
+                    {
+                       Expires = DateTime.Now.AddMonths(6) 
+                    };
                 this._responseBase.Cookies.Add(httpCookie);
             }
         }

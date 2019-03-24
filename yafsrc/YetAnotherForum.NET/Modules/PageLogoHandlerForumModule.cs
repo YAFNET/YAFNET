@@ -105,7 +105,7 @@ namespace YAF.Modules
                 return;
             }
 
-            string graphicSrc = this.Get<ITheme>().GetItem("FORUM", "BANNER", null);
+            var graphicSrc = this.Get<ITheme>().GetItem("FORUM", "BANNER", null);
 
             if (!graphicSrc.IsSet())
             {

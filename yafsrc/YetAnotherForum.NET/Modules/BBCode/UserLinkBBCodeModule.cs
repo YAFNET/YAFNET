@@ -23,75 +23,62 @@
  */
 namespace YAF.Modules
 {
-    using System.Linq;
     using System.Text;
     using System.Web.UI;
 
-    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     /// <summary>
     /// The BB Code UserLink Module
     /// </summary>
     public class UserLinkBBCodeModule : YafBBCodeControl
-  {
-        /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
     {
-      var userName = this.Parameters["inner"];
-
-      if (userName.IsNotSet() || userName.Length > 50)
-      {
-        return;
-      }
-
-      var userId = this.Get<IUserDisplayName>().GetId(userName.Trim());
-
-      if (userId.HasValue)
-      {
-        var stringBuilder = new StringBuilder();
-
-          var userLink = new UserLink
-              {
-                  UserID = (int)userId,
-                  CssClass = "UserLinkBBCode",
-                  BlankTarget = true,
-                  ID = "UserLinkBBCodeFor{0}".FormatWith(userId)
-              };
-
-          var showOnlineStatusImage = this.Get<YafBoardSettings>().ShowUserOnlineStatus &&
-                                    !UserMembershipHelper.IsGuestUser(userId);
-
-          var onlineStatusImage = new OnlineStatusIcon { ID = "OnlineStatusImage", UserId = userId.ToType<int>() };
-
-        stringBuilder.AppendLine("<!-- BEGIN userlink -->");
-        stringBuilder.AppendLine(@"<span class=""userLinkContainer"">");
-        stringBuilder.AppendLine(userLink.RenderToString());
-
-        if (showOnlineStatusImage)
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render(HtmlTextWriter writer)
         {
-          stringBuilder.AppendLine(onlineStatusImage.RenderToString()); 
+            var userName = this.Parameters["inner"];
+
+            if (userName.IsNotSet() || userName.Length > 50)
+            {
+                return;
+            }
+
+            var userId = this.Get<IUserDisplayName>().GetId(userName.Trim());
+
+            if (userId.HasValue)
+            {
+                var stringBuilder = new StringBuilder();
+
+                var userLink = new UserLink
+                                   {
+                                       UserID = (int)userId,
+                                       CssClass = "UserLinkBBCode",
+                                       BlankTarget = true,
+                                       ID = "UserLinkBBCodeFor{0}".FormatWith(userId)
+                                   };
+
+                stringBuilder.AppendLine("<!-- BEGIN userlink -->");
+                stringBuilder.AppendLine(@"<span class=""userLinkContainer"">");
+                stringBuilder.AppendLine(userLink.RenderToString());
+
+                stringBuilder.AppendLine("</span>");
+                stringBuilder.AppendLine("<!-- END userlink -->");
+
+                writer.Write(stringBuilder.ToString());
+            }
+            else
+            {
+                writer.Write(this.HtmlEncode(userName));
+            }
         }
-
-        stringBuilder.AppendLine("</span>");
-        stringBuilder.AppendLine("<!-- END userlink -->");
-
-        writer.Write(stringBuilder.ToString());
-      }
-      else
-      {
-        writer.Write(this.HtmlEncode(userName));
-      }
     }
-  }
 }

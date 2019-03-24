@@ -86,6 +86,7 @@ namespace YAF.Modules
             {
                 return;
             }
+
 #if DEBUG
             YafContext.Current.PageElements.RegisterJsScriptsInclude(
                 "yafForumExtensions",
