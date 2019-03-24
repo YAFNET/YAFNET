@@ -294,7 +294,6 @@ namespace YAF.Core.Services
                 /*// get the sender e-mail -- DISABLED: too much information...
                     // using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
                     // senderEmail = ( string ) dt.Rows [0] ["Email"];*/
-
                 var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
                 // send this user a PM notification e-mail

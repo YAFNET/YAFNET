@@ -75,7 +75,7 @@
       // The class for all slides:
       slideClass: 'slide',
       // The slide class for loading elements:
-      slideLoadingClass: 'slide-loading',
+          slideLoadingClass: 'slide-loading fa-3x',
       // The slide class for elements that failed to load:
       slideErrorClass: 'slide-error',
       // The class for the content element loaded into each slide:

@@ -78,14 +78,14 @@ namespace YAF.Core.Services.CheckForSpam
             {
                 var bannedEmailRepository = YafContext.Current.Get<IRepository<BannedEmail>>();
                 var bannedIPRepository = YafContext.Current.Get<IRepository<BannedIP>>();
-                /* var bannedIPs = YafContext.Current.Get<IDataCache>().GetOrSet(
-                Constants.Cache.BannedIP,
-                () => this.BannedIpRepository.ListTyped().Select(x => x.Mask.Trim()).ToList());*/
 
-                var bannedIpList = YafContext.Current.Get<IDataCache>()
-                    .GetOrSet(
-                        Constants.Cache.BannedIP,
-                        () => bannedIPRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
+                /* var bannedIPs = YafContext.Current.Get<IDataCache>().GetOrSet(
+                                Constants.Cache.BannedIP,
+                                () => this.BannedIpRepository.ListTyped().Select(x => x.Mask.Trim()).ToList());*/
+                var bannedIpList = YafContext.Current.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.BannedIP,
+                    () => bannedIPRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID)
+                        .Select(x => x.Mask.Trim()).ToList());
 
                 var bannedNameRepository = YafContext.Current.Get<IRepository<BannedName>>();
 
@@ -106,8 +106,9 @@ namespace YAF.Core.Services.CheckForSpam
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>()
-                            .Error(ex, "Error while Checking for Bot Email (Check: {0})".FormatWith(email.Mask));
+                        YafContext.Current.Get<ILogger>().Error(
+                            ex,
+                            "Error while Checking for Bot Email (Check: {0})".FormatWith(email.Mask));
                     }
                 }
 
@@ -132,8 +133,9 @@ namespace YAF.Core.Services.CheckForSpam
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>()
-                            .Error(ex, "Error while Checking for Bot Name (Check: {0})".FormatWith(name.Mask));
+                        YafContext.Current.Get<ILogger>().Error(
+                            ex,
+                            "Error while Checking for Bot Name (Check: {0})".FormatWith(name.Mask));
                     }
                 }
 

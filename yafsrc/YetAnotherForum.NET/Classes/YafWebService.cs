@@ -104,7 +104,7 @@ public class YafWebService : WebService, IHaveServiceLocator
         }
 
         long messageId = 0;
-        string subjectEncoded = this.Server.HtmlEncode(subject);
+        var subjectEncoded = this.Server.HtmlEncode(subject);
 
         return LegacyDb.topic_save(
             forumid,

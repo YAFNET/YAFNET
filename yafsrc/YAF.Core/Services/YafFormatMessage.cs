@@ -378,7 +378,9 @@ namespace YAF.Core.Services
                 var email = new VariableRegexReplaceRule(
                     _RgxEmail,
                     "${before}<a href=\"mailto:${inner}\">${inner}</a>",
-                    new[] { "before" }) { RuleRank = 31 };
+                    new[] { "before" }) {
+                                           RuleRank = 31 
+                                        };
 
                 ruleEngine.AddRule(email);
 
@@ -392,7 +394,9 @@ namespace YAF.Core.Services
                     "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
                     new[] { "before", "videoId" },
                     new[] { string.Empty },
-                    50) { RuleRank = 40 };
+                    50) {
+                           RuleRank = 40 
+                        };
 
                 ruleEngine.AddRule(youtubeVideo1);
 
@@ -401,7 +405,9 @@ namespace YAF.Core.Services
                     "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
                     new[] { "before", "videoId" },
                     new[] { string.Empty },
-                    50) { RuleRank = 41 };
+                    50) {
+                           RuleRank = 41 
+                        };
 
                 ruleEngine.AddRule(youtubeVideo2);
 
@@ -411,7 +417,9 @@ namespace YAF.Core.Services
                         .Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) { RuleRank = 42 };
+                    50) {
+                           RuleRank = 42 
+                        };
 
                 ruleEngine.AddRule(url);
 
@@ -427,7 +435,9 @@ namespace YAF.Core.Services
                         .Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) { RuleRank = 43 };
+                    50) {
+                           RuleRank = 43 
+                        };
 
                 ruleEngine.AddRule(url);
 
@@ -438,7 +448,9 @@ namespace YAF.Core.Services
                         target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) { RuleRank = 44 };
+                    50) {
+                           RuleRank = 44 
+                        };
 
                 ruleEngine.AddRule(url);
             }
@@ -927,7 +939,6 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(postfix, "postfix");
 
             //// const RegexOptions regexOptions = RegexOptions.IgnoreCase;
-
             foreach (var word in wordList.Where(w => w.Length > 3))
             {
                 MatchAndPerformAction(

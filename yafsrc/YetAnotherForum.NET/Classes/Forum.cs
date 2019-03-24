@@ -40,7 +40,6 @@ namespace YAF
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -441,6 +440,9 @@ namespace YAF
                 this.Controls.Add(
                     this.LoadControl("{0}controls/CookieConsent.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
             }
+
+            // Add smart Scroller
+            this.Controls.Add(new SmartScroller());
 
             // load plugins/functionality modules
             this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());

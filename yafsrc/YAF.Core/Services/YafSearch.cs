@@ -259,7 +259,6 @@
             /*var terms = input.Trim().Replace("-", " ").Split(' ').Where(x => !string.IsNullOrEmpty(x))
                 .Select(x => x.Trim() + "*");
             input = string.Join(" ", terms);*/
-
             return this.SearchIndex(out totalHits, forumId, userId, input, fieldName, pageIndex, pageSize);
         }
 

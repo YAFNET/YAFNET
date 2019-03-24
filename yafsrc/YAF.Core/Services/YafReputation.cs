@@ -204,7 +204,6 @@ namespace YAF.Core.Services
             }
 
             //// ((100 / (float)(maxValue * 2)) * percantage) + 50;
-
             var returnValue = ((100 / (float)testValue) * percantage) + 50;
 
             return returnValue > 100 ? 100 : returnValue;

@@ -92,7 +92,7 @@ namespace YAF.Editors
                     return string.Empty;
                 }
 
-                PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+                var pInfo = this._typEditor.GetProperty("Text");
                 return Convert.ToString(pInfo.GetValue(this._editor, null));
             }
 
@@ -102,7 +102,8 @@ namespace YAF.Editors
                 {
                     return;
                 }
-                PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+
+                var pInfo = this._typEditor.GetProperty("Text");
                 pInfo.SetValue(this._editor, value, null);
             }
         }
@@ -122,7 +123,8 @@ namespace YAF.Editors
             {
                 return;
             }
-            PropertyInfo pInfo = this._typEditor.GetProperty("SupportFolder");
+
+            var pInfo = this._typEditor.GetProperty("SupportFolder");
             pInfo.SetValue(this._editor, this.ResolveUrl("FreeTextBox/"), null);
             pInfo = this._typEditor.GetProperty("Width");
             pInfo.SetValue(this._editor, Unit.Percentage(100), null);
@@ -142,7 +144,7 @@ namespace YAF.Editors
             if (this._init)
             {
                 this.Load += this.Editor_Load;
-                PropertyInfo pInfo = this._typEditor.GetProperty("ID");
+                var pInfo = this._typEditor.GetProperty("ID");
                 pInfo.SetValue(this._editor, "edit", null);
                 pInfo = this._typEditor.GetProperty("AutoGenerateToolbarsFromString");
                 pInfo.SetValue(this._editor, true, null);

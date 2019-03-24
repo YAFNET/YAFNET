@@ -146,7 +146,7 @@ namespace YAF.Utilities
             [NotNull] string subject,
             [NotNull] string message)
         {
-            Post post = this.getPost(postid, username, password);
+            var post = this.getPost(postid, username, password);
             post.title = subject;
             post.description = message;
             this.editPost(postid, username, password, post, true);

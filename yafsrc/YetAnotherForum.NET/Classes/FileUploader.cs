@@ -26,7 +26,6 @@ namespace YAF.Classes
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.IO;
     using System.Web;
     using System.Web.Script.Serialization;
@@ -134,12 +133,12 @@ namespace YAF.Classes
         /// <param name="statuses">The statuses.</param>
         private void UploadWholeFile(HttpContext context, List<FilesUploadStatus> statuses)
         {
-            var forumID = HttpContext.Current.Request["forumID"].ToType<int>();
-            var boardID = HttpContext.Current.Request["boardID"].ToType<int>();
-            var yafUserID = HttpContext.Current.Request["userID"].ToType<int>();
+            var forumId = HttpContext.Current.Request["forumID"].ToType<int>();
+            var boardId = HttpContext.Current.Request["boardID"].ToType<int>();
+            var yafUserId = HttpContext.Current.Request["userID"].ToType<int>();
             var uploadFolder = HttpContext.Current.Request["uploadFolder"];
 
-            if (!this.CheckAccessRights(boardID, forumID))
+            if (!this.CheckAccessRights(boardId, forumId))
             {
                 throw new HttpRequestValidationException("No Access");
             }
@@ -159,8 +158,6 @@ namespace YAF.Classes
                         {
                             fileName = FileHelper.CleanFileName(fileName);
                         }
-
-                        //fileName = fileName.Unidecode();
                     }
                     else
                     {
@@ -184,14 +181,14 @@ namespace YAF.Classes
                                     this.Get<YafBoardSettings>().MaxFileSize / 1024));
                     }
 
-                    int newAttachmentID;
+                    int newAttachmentId;
 
                     if (this.Get<YafBoardSettings>().UseFileTable)
                     {
-                        newAttachmentID = this.GetRepository<Attachment>()
+                        newAttachmentId = this.GetRepository<Attachment>()
                             .Save(
                                 messageId: 0,
-                                userId: yafUserID,
+                                userId: yafUserId,
                                 fileName: fileName,
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType,
@@ -209,10 +206,10 @@ namespace YAF.Classes
                             Directory.CreateDirectory(previousDirectory);
                         }
 
-                        newAttachmentID = this.GetRepository<Attachment>()
+                        newAttachmentId = this.GetRepository<Attachment>()
                             .Save(
                                 messageId: 0,
-                                userId: yafUserID,
+                                userId: yafUserId,
                                 fileName: fileName,
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType);
@@ -220,13 +217,13 @@ namespace YAF.Classes
                         file.SaveAs(
                             "{0}/u{1}-{2}.{3}.yafupload".FormatWith(
                                 previousDirectory,
-                                yafUserID,
-                                newAttachmentID,
+                                yafUserId,
+                                newAttachmentId,
                                 fileName));
                     }
 
                     var fullName = Path.GetFileName(fileName);
-                    statuses.Add(new FilesUploadStatus(fullName, file.ContentLength, newAttachmentID));
+                    statuses.Add(new FilesUploadStatus(fullName, file.ContentLength, newAttachmentId));
                 }
             }
             catch (Exception ex)
@@ -253,12 +250,12 @@ namespace YAF.Classes
         /// <summary>
         /// Checks the access rights.
         /// </summary>
-        /// <param name="boardID">The board id.</param>
-        /// <param name="forumID">The forum identifier.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="forumId">The forum identifier.</param>
         /// <returns>
         /// The check access rights.
         /// </returns>
-        private bool CheckAccessRights([NotNull] int boardID, [NotNull] int forumID)
+        private bool CheckAccessRights([NotNull] int boardId, [NotNull] int forumId)
         {
             // Find user name
             var user = UserMembershipHelper.GetUser();
@@ -289,9 +286,9 @@ namespace YAF.Classes
                 userKey = user.ProviderUserKey;
             }
 
-            DataRow pageRow = LegacyDb.pageload(
+            var pageRow = LegacyDb.pageload(
                 HttpContext.Current.Session.SessionID,
-                boardID,
+                boardId,
                 userKey,
                 HttpContext.Current.Request.GetUserRealIPAddress(),
                 HttpContext.Current.Request.FilePath,
@@ -299,7 +296,7 @@ namespace YAF.Classes
                 browser,
                 platform,
                 null,
-                forumID,
+                forumId,
                 null,
                 null,
                 isSearchEngine, // don't track if this is a search engine

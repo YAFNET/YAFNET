@@ -31464,7 +31464,7 @@ S2.define('jquery.select2',[
       // The class for all slides:
       slideClass: 'slide',
       // The slide class for loading elements:
-      slideLoadingClass: 'slide-loading',
+          slideLoadingClass: 'slide-loading fa-3x',
       // The slide class for elements that failed to load:
       slideErrorClass: 'slide-error',
       // The class for the content element loaded into each slide:
@@ -34050,12 +34050,12 @@ jQuery.PageMethodToPage = function (pagePath, fn, successFn, errorFn, jsonParams
 /* PrismJS 1.15.0
 https://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+c+csharp+bash+basic+cpp+aspnet+css-extras+git+java+sql+python+vbnet+visual-basic&plugins=line-numbers+autolinker */
 var _self = (typeof window !== 'undefined')
-    ? window   // if in browser
-    : (
-        (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
-            ? self // if in worker
-            : {}   // if in node js
-    );
+	? window // if in browser
+	: (
+		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+			? self // if in worker
+			: {} // if in node js
+	);
 
 /**
  * Prism: Lightweight, robust, elegant syntax highlighting

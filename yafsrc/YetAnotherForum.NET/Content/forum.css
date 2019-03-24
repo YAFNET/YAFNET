@@ -2602,8 +2602,7 @@ td.tablesorter-pager {
   transition: opacity 0.2s linear; }
 
 .blueimp-gallery > .slides > .slide-loading {
-  background: url(images/loader.gif) center no-repeat;
-  background-size: 64px 64px; }
+  content: "<i class=\"fas fa-spinner fa-pulse\"></i>"; }
 
 .blueimp-gallery > .slides > .slide-loading > .slide-content {
   opacity: 0; }

@@ -27,7 +27,6 @@
     display: block;
     width: 32px;
     height: 32px;
-    background: url("../../Content/images/loader.gif") center no-repeat;
     background-size: contain;
 }
 .files audio,

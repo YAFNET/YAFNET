@@ -559,10 +559,10 @@ namespace YAF.Controls
 
             // Register Javascript
             const string AddThankBoxHTML =
-                "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span><i class=\"fa fa-thumbs-up fa-fw\"></i>&nbsp;' + res.d.Text + '</span></a>'";
 
             const string RemoveThankBoxHTML =
-                "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span><i class=\"fa fa-user-times fa-fw\"></i>&nbsp;' + res.d.Text + '</span></a>'";
 
             var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine + JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML);
 
@@ -576,12 +576,14 @@ namespace YAF.Controls
                 this.Thank.NavigateUrl = "javascript:removeThanks({0});".FormatWith(this.DataRow["MessageID"]);
                 this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
+                this.Thank.Icon = "user-times";
             }
             else
             {
                 this.Thank.NavigateUrl = "javascript:addThanks({0});".FormatWith(this.DataRow["MessageID"]);
                 this.Thank.TextLocalizedTag = "BUTTON_THANKS";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
+                this.Thank.Icon = "thumbs-up";
             }
 
             var thanksNumber = this.DataRow["MessageThanksNumber"].ToType<int>();

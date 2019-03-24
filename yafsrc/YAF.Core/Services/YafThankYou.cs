@@ -173,18 +173,12 @@ namespace YAF.Core.Services
                         YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE").FormatWith(
                             displayName);
 
-                    return
-                        "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
-                                messageID,
-                                YafContext.Current.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"),
-                                thanksText);
+                    return "<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{0}".FormatWith(thanksText);
             }
 
             thanksText = YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
 
-            return
-                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
-                    messageID, YafContext.Current.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"), thanksText);
+            return "<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{0}".FormatWith(thanksText);
         }
 
         #endregion

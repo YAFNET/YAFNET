@@ -77,6 +77,7 @@ namespace YAF.Classes
                     }
                 }
             }
+
 #if DEBUG
             catch (Exception x)
             {

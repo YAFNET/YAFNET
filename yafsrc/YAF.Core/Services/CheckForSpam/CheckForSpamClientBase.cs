@@ -375,7 +375,7 @@ namespace YAF.Core.Services.CheckForSpam
                 throw new InvalidResponseException("Akismet returned an empty response");
             }
 
-            return String.Equals("valid", result, StringComparison.InvariantCultureIgnoreCase);
+            return string.Equals("valid", result, StringComparison.InvariantCultureIgnoreCase);
         }
 
         #endregion
@@ -390,12 +390,12 @@ namespace YAF.Core.Services.CheckForSpam
         protected void SetServiceUrls()
         {
             this.submitHamUrl =
-                new Uri(String.Format(CultureInfo.InvariantCulture, this.SubmitHamUrlFormat, this.apiKey));
+                new Uri(string.Format(CultureInfo.InvariantCulture, this.SubmitHamUrlFormat, this.apiKey));
             this.submitSpamUrl =
-                new Uri(String.Format(CultureInfo.InvariantCulture, this.SubmitSpamUrlFormat, this.apiKey));
-            this.submitCheckUrl = new Uri(String.Format(CultureInfo.InvariantCulture, this.CheckUrlFormat, this.apiKey));
+                new Uri(string.Format(CultureInfo.InvariantCulture, this.SubmitSpamUrlFormat, this.apiKey));
+            this.submitCheckUrl = new Uri(string.Format(CultureInfo.InvariantCulture, this.CheckUrlFormat, this.apiKey));
             this.verifyUrl =
-                new Uri(String.Format(CultureInfo.InvariantCulture, this.SubmitVerifyKeyFormat, this.apiKey));
+                new Uri(string.Format(CultureInfo.InvariantCulture, this.SubmitVerifyKeyFormat, this.apiKey));
         }
 
         /// <summary>

@@ -31,6 +31,8 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Web;
 
+    using ServiceStack.OrmLite;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core.Helpers;
@@ -327,6 +329,12 @@ namespace YAF.Core.Services
             {
                 this.DbAccess.Information.YAFProviderInstallScripts.ForEach(script => this.ExecuteScript(script, true));
             }
+
+            // Create Tables
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AccessMask>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Active>());
+
+            //////
 
             // Run other
             this.DbAccess.Information.InstallScripts.ForEach(script => this.ExecuteScript(script, true));

@@ -31464,7 +31464,7 @@ S2.define('jquery.select2',[
       // The class for all slides:
       slideClass: 'slide',
       // The slide class for loading elements:
-      slideLoadingClass: 'slide-loading',
+          slideLoadingClass: 'slide-loading fa-3x',
       // The slide class for elements that failed to load:
       slideErrorClass: 'slide-error',
       // The class for the content element loaded into each slide:
@@ -33431,12 +33431,12 @@ jQuery.PageMethodToPage = function (pagePath, fn, successFn, errorFn, jsonParams
 /* PrismJS 1.15.0
 https://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+c+csharp+bash+basic+cpp+aspnet+css-extras+git+java+sql+python+vbnet+visual-basic&plugins=line-numbers+autolinker */
 var _self = (typeof window !== 'undefined')
-    ? window   // if in browser
-    : (
-        (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
-            ? self // if in worker
-            : {}   // if in node js
-    );
+	? window // if in browser
+	: (
+		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+			? self // if in worker
+			: {} // if in node js
+	);
 
 /**
  * Prism: Lightweight, robust, elegant syntax highlighting
@@ -52597,6 +52597,28 @@ jQuery(document).ready(function () {
 
 // Generic Functions
 jQuery(document).ready(function () {
+    // Main Menu
+    $('.dropdown-menu a.dropdown-toggle').on('click', function () {
+		var $el = $(this);
+		var $parent = $(this).offsetParent(".dropdown-menu");
+		if (!$(this).next().hasClass('show')) {
+			$(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+		}
+		var $subMenu = $(this).next(".dropdown-menu");
+		$subMenu.toggleClass('show');
+
+		$(this).parent("li").toggleClass('show');
+
+		$(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function () {
+			$('.dropdown-menu .show').removeClass("show");
+		});
+
+		if (!$parent.parent().hasClass('navbar-nav')) {
+			$el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
+		}
+
+		return false;
+	});
     // Cookie alert
     if (!getCookie("YAF-AcceptCookies")) {
         jQuery(".cookiealert").addClass("show");

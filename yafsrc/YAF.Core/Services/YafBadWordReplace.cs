@@ -51,7 +51,7 @@ namespace YAF.Core.Services
     ///   The _options.
     /// </summary>
     private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Compiled
-                               /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+        /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
     #endregion
 

@@ -57,9 +57,5 @@ namespace YAF.Editors
         }
 
         #endregion
-
-        #region Methods
-
-        #endregion
     }
 }

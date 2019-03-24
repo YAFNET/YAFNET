@@ -44,7 +44,6 @@ namespace YAF.Editors
     public class RadEditor : RichClassEditor
     {
         // base("Namespace,AssemblyName")
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace YAF.Editors
                     return string.Empty;
                 }
 
-                PropertyInfo pInfo = this._typEditor.GetProperty("Html");
+                var pInfo = this._typEditor.GetProperty("Html");
                 return Convert.ToString(pInfo.GetValue(this._editor, null));
             }
 
@@ -95,7 +94,7 @@ namespace YAF.Editors
                     return;
                 }
 
-                PropertyInfo pInfo = this._typEditor.GetProperty("Html");
+                var pInfo = this._typEditor.GetProperty("Html");
                 pInfo.SetValue(this._editor, value, null);
             }
         }
@@ -120,7 +119,7 @@ namespace YAF.Editors
                 return;
             }
 
-            PropertyInfo pInfo = this._typEditor.GetProperty("ID");
+            var pInfo = this._typEditor.GetProperty("ID");
             pInfo.SetValue(this._editor, "edit", null);
             pInfo = this._typEditor.GetProperty("Skin");
 
