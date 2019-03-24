@@ -20,20 +20,6 @@
                     <asp:Repeater ID="List" runat="server">
 		                <HeaderTemplate>
                             <ul class="list-group">
-
-		        <div class="table-responsive">
-		       <table class="table">
-                <thead>
-		        <tr>
-			<th>
-				
-			</th>
-			<th>
-				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_BOARDS" />
-			</th>
-                    <th>&nbsp;</th>
-		</tr>
-                    </thead>
 		    </HeaderTemplate>
 			<ItemTemplate>
                 <li 

@@ -43,57 +43,45 @@
                 <div class="card-body">
     <asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
-            <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
-                                    LocalizedTag="TABLE_RESPONSIVE" 
-                                    LocalizedPage="ADMIN_COMMON" />
-                <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-            </YAF:Alert>
-            <div class="table-responsive">
-				<table class="table">
-                    <tr>
-                        <thead>
-					<th>
-						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDNAME" />
-                    </th>
-					<th>
-						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDNAME" />
-                    </th>
-					<th>
-						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDNAME" />
-                    </th>
-					<th>&nbsp;
-						</th>
-                    </thead>
-				</tr>
+            <ul class="list-group">
 			</HeaderTemplate>
 		<ItemTemplate>
-			<tr>
-				<td>
-				<asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
-				<asp:Label ID="MaskBox" Text='<%# this.Eval("Mask") %>' runat="server"></asp:Label>
-				</td>
-				<td>
-					<%# this.Get<IDateTime>().FormatDateTime(this.Eval("Since")) %>
-				</td>
-				<td>
-					<%# this.Eval("Reason") %>
-				</td>
-				<td>
-					    <span class="float-right">
-				<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
-                    TextLocalizedTag="EDIT"
-                    TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
-                    TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
-                    TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
-
-					    </span>
-                    </td>
-			</tr>
+            <li class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
+                    <h5 class="mb-1">
+                        <asp:Label ID="MaskBox" Text='<%# this.Eval("Mask") %>' runat="server"></asp:Label>
+                    </h5>
+                    <small>
+                        <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                         Type="Info" Size="Small" 
+                                         CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+                                         TextLocalizedTag="EDIT"
+                                         TitleLocalizedTag="EDIT" 
+                                         Icon="edit" runat="server"></YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                         Type="Danger" Size="Small" 
+                                         CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
+                                         TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
+                                         TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
+                    </small>
+                </div>
+                <p class="mb-1">
+                    <span class="font-weight-bold">
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDNAME" />
+                    </span>
+                    <%# this.Eval("Reason") %>
+                </p>
+                <small>
+                    <span class="font-weight-bold">
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDNAME" />
+                    </span>
+                    <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Since")) %>
+                </small>
+            </li>
 			</ItemTemplate>
 		<FooterTemplate>
-                </table></div>
+        </ul>
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton runat="server" Icon="plus-square" Type="Primary"

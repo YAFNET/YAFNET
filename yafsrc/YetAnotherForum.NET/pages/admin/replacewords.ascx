@@ -20,51 +20,37 @@
                     <i class="fa fa-sticky-note fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_REPLACEWORDS" />
                 </div>
                 <div class="card-body">
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert><div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                            <th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS" />
-					</th>
-					<th>
-                       <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS" />
-					</th>
-					<th>
-						&nbsp;
-					</th>
-				</tr>
+                    <ul class="list-group">
 		</HeaderTemplate>
 		<ItemTemplate>
-			<tr>
-				<td>
-					<%# this.HtmlEncode(this.Eval("badword")) %>
-				</td>
-				<td>
-					<%# this.HtmlEncode(this.Eval("goodword")) %>
-				</td>
-				<td>
-				    <span class="float-right">
-					<YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
-                        TextLocalizedTag="EDIT"
-                        TitleLocalizedTag="EDIT" Icon="edit" runat="server">
-					</YAF:ThemeButton>
-					<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" 
-					                 CommandName='delete'
-                        TextLocalizedTag="DELETE"
-                        CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server"
-					    ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
-					</YAF:ThemeButton>
-                        </span>
-				</td>
-			</tr>
+            <li class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS" />
+                        
+                    </h5>
+                    <small><YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+                                            TextLocalizedTag="EDIT"
+                                            TitleLocalizedTag="EDIT" Icon="edit" runat="server">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" 
+                                         CommandName='delete'
+                                         TextLocalizedTag="DELETE"
+                                         CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
+                        </YAF:ThemeButton></small>
+                </div>
+                <p class="mb-1">
+                    <%# this.HtmlEncode(this.Eval("badword")) %>
+                </p>
+                <small>
+                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS" />: &nbsp;
+                    <%# this.HtmlEncode(this.Eval("goodword")) %>
+                </small>
+			</li>
 		</ItemTemplate>
 		<FooterTemplate>
-            </table></div>
+                    </ul>
                 </div>
                 <div class="card-footer text-center">
 					<YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"

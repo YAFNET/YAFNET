@@ -18,57 +18,51 @@
                 <div class="card-body">
                     <asp:Repeater ID="RankList" runat="server">
             <HeaderTemplate>
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert><div class="table-responsive">
-                <table class="table">
-                <thead>
-                <tr>
-                    <th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </th>
-                    <th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADRESS" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </th>
-                    <th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USERNAME" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </th>
-                    <th>
-                        &nbsp;
-                    </th>
-                </tr>
-                    </thead>
+                <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
-                <tr>
-                    <td>
-                        <%# this.Eval("Name") %>
-                    </td>
-                    <td>
+                <li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <%# this.Eval("Name") %>
+                        </h5>
+                        <small>
+                            <YAF:ThemeButton runat="server" 
+                                             CommandName="edit" 
+                                             CommandArgument='<%# this.Eval( "NntpServerID") %>' 
+                                             Type="Info" 
+                                             Size="Small"
+                                             Icon="edit" 
+                                             TextLocalizedTag="EDIT">
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton runat="server"  
+                                             Type="Danger" 
+                                             Size="Small"
+                                             CommandName="delete" 
+                                             CommandArgument='<%# this.Eval( "NntpServerID") %>'
+                                             Icon="trash" 
+                                             TextLocalizedTag="DELETE"
+                                             ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
+                            </YAF:ThemeButton>
+                        </small>
+                    </div>
+                    <p class="mb-1">
+                        <span class="font-weight-bold">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADRESS" LocalizedPage="ADMIN_NNTPSERVERS" />:&nbsp;
+                        </span>
                         <%# this.Eval("Address") %>
-                    </td>
-                    <td>
+                    </p>
+                    <small>
+                        <span class="font-weight-bold">
+                           <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USERNAME" LocalizedPage="ADMIN_NNTPSERVERS" />:&nbsp;
+                        </span>
                         <%# this.Eval("UserName") %>
-                    </td>
-                    <td>
-					    <span class="float-right">
-                        <YAF:ThemeButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval( "NntpServerID") %>' Type="Info" Size="Small"
-                                         Icon="edit" TextLocalizedTag="EDIT">
-                        </YAF:ThemeButton>
-                        &nbsp;
-                        <YAF:ThemeButton runat="server"  Type="Danger" Size="Small"
-                                         CommandName="delete" CommandArgument='<%# this.Eval( "NntpServerID") %>'
-                                         Icon="trash" TextLocalizedTag="DELETE"
-                                         ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
-                        </YAF:ThemeButton>
-					    </span>
-                    </td>
-                </tr>
+                    </small>
+                </li>
             </ItemTemplate>
-                        <FooterTemplate></table></div></FooterTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
         </asp:Repeater>
                     </div>
                     <div class="card-footer text-center">

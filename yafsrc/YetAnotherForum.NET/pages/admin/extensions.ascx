@@ -22,8 +22,6 @@
                     <asp:Repeater ID="list" runat="server">
                        <HeaderTemplate>
                            <ul class="list-group">
-                           <div class="table-responsive">
-      	                      <table class="table">
         	 </HeaderTemplate>
         <ItemTemplate>
             <li class="list-group-item list-group-item-action">

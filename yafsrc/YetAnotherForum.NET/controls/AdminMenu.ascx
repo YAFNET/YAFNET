@@ -31,12 +31,6 @@
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_forums" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                             </a></li>
-                        <li class="dropdown-item"> <a href="<%= YafBuildLink.GetLink(ForumPages.admin_forums) %>"
-                               >
-                                <i class="fa fa-tachometer-alt fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="admin_admin" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
-                            </a></li>
                         <li class="dropdown-item"> <a href="<%= YafBuildLink.GetLink(ForumPages.admin_replacewords) %>"
                                >
                                 <i class="fa fa-sticky-note fa-fw"></i>&nbsp;

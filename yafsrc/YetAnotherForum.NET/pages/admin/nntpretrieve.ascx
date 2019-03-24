@@ -16,41 +16,34 @@
                 <div class="card-body">
                     <asp:Repeater runat="server" ID="List">
 			<HeaderTemplate>
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert><div class="table-responsive">
-                <table class="table">
-				<tr>
-                    <thead>
-					<th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPS" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</th>
-					<th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="LAST_MESSAGE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</th>
-					<th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LAST_UPDATE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</th>
-                    </thead>
-				</tr>
+                <ul class="list-group">
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr>
-					<td>
-						<%# this.Eval("GroupName") %>
-					</td>
-					<td>
-						<%# this.LastMessageNo(Container.DataItem) %>
-					</td>
-					<td>
-						<%# this.Get<IDateTime>().FormatDateTime(this.Eval("LastUpdate")) %>
-					</td>
-				</tr>
+                <li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPS" LocalizedPage="ADMIN_NNTPRETRIEVE" />:
+                        </h5>
+                        <small>
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="LAST_MESSAGE" LocalizedPage="ADMIN_NNTPRETRIEVE" />:&nbsp;
+                            <%# this.LastMessageNo(Container.DataItem) %>
+                        </small>
+                    </div>
+                    <p class="mb-1">
+                        <%# this.Eval("GroupName") %>
+                    </p>
+                    <small>
+                        <span class="font-weight-bold">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LAST_UPDATE" LocalizedPage="ADMIN_NNTPRETRIEVE" />:&nbsp;
+                        </span>
+                        <%# this.Get<IDateTime>().FormatDateTime(this.Eval("LastUpdate")) %>
+                    </small>
+                </li>
 			</ItemTemplate>
-            <FooterTemplate></table></div></FooterTemplate>
+            <FooterTemplate>
+                </ul>
+
+            </FooterTemplate>
 		</asp:Repeater>
                         <hr class="col-lg-12" />
                         <h4><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" /></h4>

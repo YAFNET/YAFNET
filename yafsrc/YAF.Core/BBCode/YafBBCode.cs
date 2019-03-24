@@ -661,7 +661,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
                         OpenQuoteUserIdRegex,
-                        @"<div class=""card text-white bg-secondary mb-3"">${quote}",
+                        @"<div class=""card mb-3"">${quote}",
                         _Options));
 
                 // simple open quote tag
