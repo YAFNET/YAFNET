@@ -83,7 +83,7 @@
                                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="GOOGLE_LOGIN" />
                                                </a>
                                            </asp:PlaceHolder>
-                                           <asp:Button runat="server" ID="Cancel" CssClass="pbutton" Visible="False" OnClick="CancelAuthLoginClick" />
+                                           <asp:Button runat="server" ID="Cancel" Visible="False" OnClick="CancelAuthLoginClick" />
                                     </asp:PlaceHolder>
                                 </div>
                             </div>

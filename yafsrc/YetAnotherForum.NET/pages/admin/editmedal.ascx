@@ -266,9 +266,18 @@
 					</td>
 					<td>
 					    <span class="float-right">
-						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'  Type="Info" Size="Small"> <i class="fa fa-edit fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
-						&nbsp;<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>'  Type="Danger" Size="Small"
-							OnLoad="UserRemoveLoad"> <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="REMOVE" /></asp:LinkButton>
+						<YAF:ThemeButton runat="server" 
+                                         CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>' 
+                                         TextLocalizedTag="EDIT"
+                                         Type="Info" 
+                                         Size="Small"
+                                         Icon="edit"></YAF:ThemeButton>
+						<YAF:ThemeButton runat="server" 
+                                         CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>' 
+                                         TextLocalizedTag="REMOVE"
+                                         Type="Danger" 
+                                         Size="Small"
+                                         Icon="trash"></YAF:ThemeButton>
 
 					    </span>
                     </td>

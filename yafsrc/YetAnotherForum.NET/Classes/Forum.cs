@@ -408,7 +408,7 @@ namespace YAF
             if (YafContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.Controls.Add(
-                    this.LoadControl("{0}Dialogs/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
+                    this.LoadControl("{0}Dialogs/LoginBox.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
             }
 
             this.NotificationBox = (DialogBox)this.LoadControl(
@@ -426,10 +426,9 @@ namespace YAF
                 this.Controls.Add(this.Footer);
             }
 
-            // TODO Move to Dialogs
             // Add image gallery dialog
             this.Controls.Add(
-                this.LoadControl("{0}controls/ImageGallery.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                this.LoadControl("{0}Dialogs/ImageGallery.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
 
             var cookieName = "YAF-AcceptCookies";
 

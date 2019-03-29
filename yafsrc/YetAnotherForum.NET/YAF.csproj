@@ -268,11 +268,11 @@
     <Compile Include="controls\DisplayConnect.ascx.designer.cs">
       <DependentUpon>DisplayConnect.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\ImageGallery.ascx.cs">
+    <Compile Include="Dialogs\ImageGallery.ascx.cs">
       <DependentUpon>ImageGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\ImageGallery.ascx.designer.cs">
+    <Compile Include="Dialogs\ImageGallery.ascx.designer.cs">
       <DependentUpon>ImageGallery.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\PollChoiceList.ascx.cs">
@@ -1146,7 +1146,7 @@
     <Content Include="controls\BuddyList.ascx" />
     <Content Include="Dialogs\DialogBox.ascx" />
     <Content Include="controls\DisplayConnect.ascx" />
-    <Content Include="controls\ImageGallery.ascx" />
+    <Content Include="Dialogs\ImageGallery.ascx" />
     <Content Include="controls\PollChoiceList.ascx" />
     <Content Include="controls\DisplayAd.ascx" />
     <Content Include="controls\DisplayPost.ascx">
@@ -1414,7 +1414,6 @@
     <Content Include="pages\team.ascx" />
     <Content Include="pages\topics.ascx" />
     <Content Include="pages\viewthanks.ascx" />
-    <Content Include="popup.aspx" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
     <Content Include="Scripts\blueimp-gallery.js" />
@@ -1766,6 +1765,10 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
+    <Content Include="Scripts\InstallWizard.comb.js" />
+    <Content Include="Scripts\InstallWizard.comb.min.js">
+      <DependentUpon>InstallWizard.comb.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js">
       <DependentUpon>jquery-3.3.1.js</DependentUpon>
@@ -2095,10 +2098,6 @@
     <Content Include="Content\images\flags\zw.png" />
     <Content Include="Content\images\HiddenWarnDescription.png" />
     <Content Include="Scripts\forum\InstallWizard.js" />
-    <Content Include="Scripts\InstallWizard.comb.js" />
-    <Content Include="Scripts\InstallWizard.comb.min.js">
-      <DependentUpon>InstallWizard.comb.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
     <Content Include="Scripts\jquery.pagemethod.js" />
@@ -2908,7 +2907,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
