@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="German" code="de">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="German" code="de">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Betrachtet Aktive Benutzerliste</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Betrachtet Zugriffssmasken im Adminbereich</Resource>
@@ -1368,6 +1368,8 @@
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Wenn aktiviert, werden Crawlers in der Aktiven Benutzerliste angezeigt.</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Gelöschte Beiträge zeigen:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Wenn aktiviert werden Beiträge die Gelöscht wurden mit einer Nachricht hinterlassen</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Alle Gelöschte Nachrichten zeigen:</Resource>

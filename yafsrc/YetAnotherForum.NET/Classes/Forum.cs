@@ -512,8 +512,15 @@ namespace YAF
             }
 
             // Add cookie consent
-            this.Controls.Add(
-                this.LoadControl("{0}controls/CookieConsent.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+            var cookieName = "YAF-AcceptCookies";
+
+            if (YafContext.Current.Get<HttpRequestBase>().Cookies[cookieName] == null
+                && this.Get<YafBoardSettings>().ShowCookieConsent)
+            {
+                // Add cookie consent
+                this.Controls.Add(
+                    this.LoadControl("{0}controls/CookieConsent.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+            }
 
             // load plugins/functionality modules
             if (this.AfterForumPageLoad != null)

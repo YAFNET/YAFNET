@@ -1334,6 +1334,8 @@
   <Resource tag="SEARCH_PERMISS_HELP">Allow search to:</Resource>
   <Resource tag="SEO_CACHE_TIMEOUT">First Post "Title" Cache Timeout:</Resource>
   <Resource tag="SEO_CACHE_TIMEOUT_HELP">First Post "Title" for SEO Cache Timeout (in minutes)</Resource>
+   <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+   <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
   <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
   <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
   <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Spanish" code="es">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Spanish" code="es">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Ver lista de usuarios activos</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Ver máscara de acceso</Resource>
@@ -1381,6 +1381,8 @@
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Si está seleccionado, los rastreadores serán mostrados en las listas activas.</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Mostrar mensajes elimnados:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Si está marcado, los mensajes eliminados se dejarán con algunas notas.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Mostrar mensajes eliminados a todos:</Resource>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Persian" code="fa">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Persian" code="fa">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">در حال مشاهده لیست اعضای فعال</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">در حال مشاهده تنظیمات دسترسی در بخش مدیر</Resource>
@@ -1372,6 +1372,8 @@
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">با انتخاب این گزینه کراولر ها در لیست کاربران فعال نمایش داده خواهد شد.</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">نمایش پیام های حذف شده:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">با انتخاب این گزینه، پیام های حذف شدهبا یادداشتی رها می شوند.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">نمایش پیام های حذف شده به همه :</Resource>

@@ -715,6 +715,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [show cookie consent].
+        /// </summary>
+        public bool ShowCookieConsent
+        {
+            get
+            {
+                return this._regBoard.GetValue("ShowCookieConsent", true);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("ShowCookieConsent", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether 
         /// sending the user a welcome notification after register
         /// 0 = No Mail

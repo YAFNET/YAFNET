@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Dutch" code="nl">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Dutch" code="nl">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Bekijkt Actieve Gebruikers</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Bekijkt toegangsmaskers</Resource>
@@ -1370,6 +1370,8 @@
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Als deze is aangevinkt, worden Bots zichtbaar in de Actieve Gebruikerslijst.</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Laat verwijderde berichten zien:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Als deze is aangevinkt, blijven verwijderde berichten staan met een notitie.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Laat verwijderde berichten zien aan Iedereen:</Resource>
