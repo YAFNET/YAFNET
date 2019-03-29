@@ -1378,6 +1378,8 @@
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Боты будут отображаться в активных пользователях, иначе они будут обрабатываться как гости.</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Показывать удалённые сообщения:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Удалённые сообщения(пустые) будут видны с уведомлением. Не включайте обе опции одновременно.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Показывать удалённые сообщения для всех:</Resource>

@@ -37,7 +37,7 @@ namespace YAF.Utils.Helpers
     #endregion
 
     /// <summary>
-    /// The db helper.
+    /// The DB helper.
     /// </summary>
     public static class DBHelper
     {

@@ -1379,6 +1379,8 @@
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Als deze is aangevinkt, worden Bots zichtbaar in de Actieve Gebruikerslijst.</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
     <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
+    <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+    <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Laat verwijderde berichten zien:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Als deze is aangevinkt, blijven verwijderde berichten staan met een notitie.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Laat verwijderde berichten zien aan Iedereen:</Resource>

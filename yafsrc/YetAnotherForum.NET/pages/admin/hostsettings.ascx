@@ -41,7 +41,7 @@
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="SERVER_VERSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
-                            <asp:Label ID="SQLVersion" runat="server" CssClass="smallfont"></asp:Label>
+                            <asp:Label ID="SQLVersion" runat="server" CssClass="small"></asp:Label>
 
                     </p><hr />
 
@@ -49,7 +49,7 @@
                             <YAF:HelpLabel ID="HelpLabel231" runat="server" LocalizedTag="APP_OS_NAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
-                            <asp:Label ID="AppOSName" runat="server" CssClass="smallfont"></asp:Label>
+                            <asp:Label ID="AppOSName" runat="server" CssClass="small"></asp:Label>
 
                     </p><hr />
 
@@ -57,7 +57,7 @@
                             <YAF:HelpLabel ID="HelpLabel232" runat="server" LocalizedTag="APP_RUNTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
-                            <asp:Label ID="AppRuntime" runat="server" CssClass="smallfont"></asp:Label>
+                            <asp:Label ID="AppRuntime" runat="server" CssClass="small"></asp:Label>
 
                     </p><hr />
 
@@ -65,7 +65,7 @@
                             <YAF:HelpLabel ID="HelpLabel233" runat="server" LocalizedTag="APP_CORES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
-                            <asp:Label ID="AppCores" runat="server" CssClass="smallfont"></asp:Label>
+                            <asp:Label ID="AppCores" runat="server" CssClass="small"></asp:Label>
 
                     </p><hr />
 
@@ -73,7 +73,7 @@
                             <YAF:HelpLabel ID="HelpLabel234" runat="server" LocalizedTag="APP_MEMORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
-                            <asp:Label ID="AppMemory" runat="server" CssClass="smallfont"></asp:Label>
+                            <asp:Label ID="AppMemory" runat="server" CssClass="small"></asp:Label>
 
                     </p>
       </div>
@@ -177,6 +177,13 @@
                             <asp:CheckBox CssClass="form-control" ID="CreateNntpUsers" runat="server"></asp:CheckBox>
 
                     </p><hr />
+    <h4>
+        <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="SHOW_COOKIECONSET" LocalizedPage="ADMIN_HOSTSETTINGS" />
+    </h4>
+    <p>
+        <asp:CheckBox CssClass="form-control" ID="ShowCookieConsent" runat="server"></asp:CheckBox>
+
+    </p><hr />
 
                         <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedTag="HEADER_SPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1801,7 +1808,10 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ForumStatisticsCacheTimeout" />
-                            <asp:Button Type="Primary" ID="ForumStatisticsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ForumStatisticsCacheResetClick" />
+                            <YAF:ThemeButton Type="Primary" ID="ForumStatisticsCacheReset" 
+                                        TextLocalizedTag="CLEAR"  runat="server" 
+                                             Icon="trash"
+                                        OnClick="ForumStatisticsCacheResetClick" />
 
                     </p><hr />
 
@@ -1810,7 +1820,10 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardUserStatsCacheTimeout" />
-                            <asp:Button Type="Primary" ID="BoardUserStatsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardUserStatsCacheResetClick" />
+                            <YAF:ThemeButton Type="Primary" ID="BoardUserStatsCacheReset" 
+                                             TextLocalizedTag="CLEAR"  runat="server" 
+                                             Icon="trash"
+                                             OnClick="BoardUserStatsCacheResetClick" />
 
                     </p><hr />
 
@@ -1819,7 +1832,11 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ActiveDiscussionsCacheTimeout" />
-                            <asp:Button Type="Primary" ID="ActiveDiscussionsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ActiveDiscussionsCacheResetClick" />
+                            <YAF:ThemeButton Type="Primary" ID="ActiveDiscussionsCacheReset" 
+                                             TextLocalizedTag="CLEAR"  
+                                             runat="server" 
+                                             Icon="trash"
+                                             OnClick="ActiveDiscussionsCacheResetClick" />
 
                     </p><hr />
 
@@ -1828,7 +1845,10 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardCategoriesCacheTimeout" />
-                            <asp:Button Type="Primary" ID="BoardCategoriesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardCategoriesCacheResetClick" />
+                            <YAF:ThemeButton Type="Primary" ID="BoardCategoriesCacheReset" 
+                                             TextLocalizedTag="CLEAR"  runat="server" 
+                                             Icon="trash"
+                                             OnClick="BoardCategoriesCacheResetClick" />
 
                     </p><hr />
 
@@ -1837,7 +1857,10 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardModeratorsCacheTimeout" />
-                            <asp:Button Type="Primary" ID="BoardModeratorsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardModeratorsCacheResetClick" />
+                            <YAF:ThemeButton Type="Primary" ID="BoardModeratorsCacheReset" 
+                                             TextLocalizedTag="CLEAR"  runat="server" 
+                                             Icon="trash"
+                                             OnClick="BoardModeratorsCacheResetClick" />
 
                     </p><hr />
 
@@ -1846,7 +1869,11 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ReplaceRulesCacheTimeout" />
-                            <asp:Button Type="Primary" ID="ReplaceRulesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ReplaceRulesCacheResetClick" />
+                            <YAF:ThemeButton Type="Primary" ID="ReplaceRulesCacheReset" 
+                                             TextLocalizedTag="CLEAR"
+                                             runat="server" 
+                                             Icon="trash"
+                                             OnClick="ReplaceRulesCacheResetClick" />
 
                     </p><hr />
 
@@ -1874,11 +1901,17 @@
 
                     </p>
                     <p>
-                        <asp:Button Type="Primary" ID="ActiveUserLazyDataCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>' runat="server" OnClick="UserLazyDataCacheResetClick" />
+                        <YAF:ThemeButton Type="Primary" ID="ActiveUserLazyDataCacheReset" 
+                                         TextLocalizedTag="CLEAR" runat="server" 
+                                         Icon="trash"
+                                         OnClick="UserLazyDataCacheResetClick" />
                     </p>
 
                         <span class="text-lg-center">
-                           <asp:Button  Type="Primary" runat="server" ID="ResetCacheAll" Text='<%# this.GetText("ADMIN_HOSTSETTINGS", "CLEAR_CACHE") %>'  OnClick="ResetCacheAllClick" />
+                           <YAF:ThemeButton  Type="Primary" runat="server" ID="ResetCacheAll" 
+                                             TextLocalizedTag="CLEAR_CACHE"
+                                             Icon="trash"
+                                             OnClick="ResetCacheAllClick" />
                         </span>
 
 	</div>
@@ -2038,7 +2071,7 @@
           </div>
     </asp:Panel>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer text-lg-center">
                 <YAF:ThemeButton ID="Save" runat="server"  Type="Primary" OnClick="SaveClick"
                     Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
                 </YAF:ThemeButton>

@@ -29,10 +29,10 @@ namespace YAF.Utils.Helpers
   using System.Collections.Generic;
   using System.Web;
 
+  using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Utils;
   using YAF.Utils.Helpers.StringUtils;
-  using YAF.Types;
 
   #endregion
 

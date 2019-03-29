@@ -392,6 +392,7 @@ namespace YAF.Utils.Helpers
                         var mask = ~(uint.MaxValue >> bits);
                         maskBytes = BitConverter.GetBytes(mask).Reverse().ToArray();
                     }
+
                     break;
                 case AddressFamily.InterNetworkV6:
                     {
@@ -399,6 +400,7 @@ namespace YAF.Utils.Helpers
                         ShiftRight(bitArray, bits, true);
                         maskBytes = ConvertToByteArray(bitArray).Reverse().ToArray();
                     }
+
                     break;
             }
 

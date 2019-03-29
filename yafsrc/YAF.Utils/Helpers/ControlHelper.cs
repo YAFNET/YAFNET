@@ -76,30 +76,6 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// New user control.
-        /// </summary>
-        /// <typeparam name="T">the typeparameter</typeparam>
-        /// <param name="control">The control.</param>
-        /// <param name="controlPath">The control path.</param>
-        /// <returns>Returns the new Control</returns>
-        [CanBeNull]
-        public static T NewUserControl<T>([NotNull] this UserControl control, [NotNull] string controlPath)
-            where T : UserControl
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(controlPath, "controlPath");
-
-            var loaded = control.LoadControl(controlPath).ToClass<T>();
-
-            if (loaded is IRaiseControlLifeCycles)
-            {
-                (loaded as IRaiseControlLifeCycles).RaiseInit();
-            }
-
-            return loaded;
-        }
-
-        /// <summary>
         /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
         /// </summary>
         /// <param name="sourceControl">
@@ -202,12 +178,7 @@ namespace YAF.Utils.Helpers
 
             var foundControl = sourceControl.FindControl(id);
 
-            if (foundControl is T)
-            {
-                return foundControl.ToClass<T>();
-            }
-
-            return null;
+            return foundControl is T ? foundControl.ToClass<T>() : null;
         }
 
         /// <summary>
@@ -226,36 +197,8 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(id, "id");
 
             var foundControl = FindControlRecursive(sourceControl, id);
-            if (foundControl is T)
-            {
-                return foundControl.ToClass<T>();
-            }
 
-            return null;
-        }
-
-        /// <summary>
-        /// Finds the control recursive reverse as.
-        /// </summary>
-        /// <typeparam name="T">the typeparameter</typeparam>
-        /// <param name="sourceControl">The source control.</param>
-        /// <param name="id">The id.</param>
-        /// <returns>
-        /// The find control recursive reverse as.
-        /// </returns>
-        public static T FindControlRecursiveReverseAs<T>([NotNull] this Control sourceControl, [NotNull] string id)
-            where T : class
-        {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(id, "id");
-
-            var foundControl = FindControlRecursiveReverse(sourceControl, id);
-            if (foundControl is T)
-            {
-                return foundControl.ToClass<T>();
-            }
-
-            return null;
+            return foundControl is T ? foundControl.ToClass<T>() : null;
         }
 
         /// <summary>
@@ -275,12 +218,7 @@ namespace YAF.Utils.Helpers
 
             var foundControl = FindControlRecursiveBoth(sourceControl, id);
 
-            if (foundControl is T)
-            {
-                return foundControl.ToClass<T>();
-            }
-
-            return null;
+            return foundControl is T ? foundControl.ToClass<T>() : null;
         }
 
         /// <summary>
@@ -476,144 +414,6 @@ namespace YAF.Utils.Helpers
             var meta = new HtmlMeta { Name = "description", Content = description };
 
             return meta;
-        }
-
-        /* Ederon - 7/1/2007 start */
-
-        /// <summary>
-        /// The add style attribute size.
-        /// </summary>
-        /// <param name="control">
-        /// The control.
-        /// </param>
-        /// <param name="width">
-        /// The width.
-        /// </param>
-        /// <param name="height">
-        /// The height.
-        /// </param>
-        public static void AddStyleAttributeSize(
-            [NotNull] this WebControl control,
-            [NotNull] string width,
-            [NotNull] string height)
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(width, "width");
-            CodeContracts.VerifyNotNull(height, "height");
-
-            control.Attributes.Add("style", "width: {0}; height: {1};".FormatWith(width, height));
-        }
-
-        /// <summary>
-        /// The add style attribute width.
-        /// </summary>
-        /// <param name="control">
-        /// The control.
-        /// </param>
-        /// <param name="width">
-        /// The width.
-        /// </param>
-        public static void AddStyleAttributeWidth([NotNull] this WebControl control, [NotNull] string width)
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(width, "width");
-
-            control.Attributes.Add("style", "width: {0};".FormatWith(width));
-        }
-
-        /// <summary>
-        /// The add style attribute height.
-        /// </summary>
-        /// <param name="control">
-        /// The control.
-        /// </param>
-        /// <param name="height">
-        /// The height.
-        /// </param>
-        public static void AddStyleAttributeHeight([NotNull] this WebControl control, [NotNull] string height)
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(height, "height");
-
-            control.Attributes.Add("style", "height: {0};".FormatWith(height));
-        }
-
-        /// <summary>
-        /// The add MaxLength attribute to TextBox.
-        /// </summary>
-        /// <param name="control">
-        /// The control.
-        /// </param>
-        /// <param name="maxLength">
-        /// The MaxLength.
-        /// </param>
-        public static void AddAttributeMaxWidth([NotNull] this WebControl control, [NotNull] string maxLength)
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(maxLength, "maxLength");
-
-            if (control is TextBox)
-            {
-                control.Attributes.Add("MaxLength", maxLength);
-            }
-        }
-
-        /// <summary>
-        /// Adds a class to the attribute "class". If one exists, it appends the class.
-        /// </summary>
-        /// <param name="control">The control.</param>
-        /// <param name="cssClass">The CSS class.</param>
-        public static void AddClass([NotNull] this WebControl control, [NotNull] string cssClass)
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(cssClass, "cssClass");
-
-            var currentClass = control.Attributes["class"];
-
-            if (currentClass.IsSet())
-            {
-                control.Attributes["class"] = "{0} {1}".FormatWith(currentClass, cssClass);
-            }
-            else
-            {
-                control.Attributes.Add("class", cssClass);
-            }
-        }
-
-        /* Ederon - 7/1/2007 end */
-
-        /// <summary>
-        /// The add on click confirm dialog.
-        /// </summary>
-        /// <param name="control">
-        /// The control.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public static void AddOnClickConfirmDialog([NotNull] object control, [NotNull] string message)
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(message, "message");
-
-            AddOnClickConfirmDialog((WebControl)control, message);
-        }
-
-        /// <summary>
-        /// The add on click confirm dialog.
-        /// </summary>
-        /// <param name="control">
-        /// The control.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public static void AddOnClickConfirmDialog([NotNull] WebControl control, [NotNull] string message)
-        {
-            CodeContracts.VerifyNotNull(control, "control");
-            CodeContracts.VerifyNotNull(message, "message");
-
-            control.Attributes["onclick"] = "return confirm('{0}');".FormatWith(message);
         }
 
         /// <summary>

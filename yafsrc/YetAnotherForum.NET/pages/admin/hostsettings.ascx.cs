@@ -172,14 +172,13 @@ namespace YAF.Pages.Admin
                 this.BindData();
             }
 
-            // vzrus : 13/5/2010
-            this.ServerTimeCorrection.AddAttributeMaxWidth("4");
+            this.ServerTimeCorrection.MaxLength = 4;
 
-            this.UserNameMaxLength.AddAttributeMaxWidth("5");
+            this.UserNameMaxLength.MaxLength = 5;
 
-            this.UserNameMaxLength.AddAttributeMaxWidth("3");
+            this.UserNameMaxLength.MaxLength = 3;
 
-            this.PictureAttachmentDisplayTreshold.AddAttributeMaxWidth("11");
+            this.PictureAttachmentDisplayTreshold.MaxLength = 11;
 
             // CheckCache
             this.CheckCache();

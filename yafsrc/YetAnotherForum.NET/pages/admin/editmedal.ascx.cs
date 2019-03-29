@@ -643,16 +643,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Adds Java Script popup to remove user link button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void UserRemoveLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER"));
-        }
-
-        /// <summary>
         /// Registers the needed Java Scripts
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>

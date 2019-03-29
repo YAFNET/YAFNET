@@ -56,19 +56,6 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// Converts an Enum to a Dictionary
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        public static IDictionary<byte, string> EnumToDictionaryByte<T>()
-        {
-            return InternalToDictionary<T, byte>();
-        }
-
-        /// <summary>
         /// Converts an Enum to a List
         /// </summary>
         /// <typeparam name="T">

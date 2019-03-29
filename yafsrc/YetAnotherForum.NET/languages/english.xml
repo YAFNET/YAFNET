@@ -1371,8 +1371,8 @@
   <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
   <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
   <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
-  <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
-  <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
+  <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+  <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
   <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
   <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
   <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>

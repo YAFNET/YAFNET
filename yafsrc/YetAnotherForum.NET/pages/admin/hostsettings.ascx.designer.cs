@@ -481,6 +481,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox CreateNntpUsers;
         
         /// <summary>
+        /// HelpLabel7-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel7;
+        
+        /// <summary>
+        /// ShowCookieConsent-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowCookieConsent;
+        
+        /// <summary>
         /// LocalizedLabel32-Steuerelement
         /// </summary>
         /// <remarks>
@@ -3988,7 +4006,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ForumStatisticsCacheReset;
+        protected global::YAF.Controls.ThemeButton ForumStatisticsCacheReset;
         
         /// <summary>
         /// HelpLabel42-Steuerelement
@@ -4015,7 +4033,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BoardUserStatsCacheReset;
+        protected global::YAF.Controls.ThemeButton BoardUserStatsCacheReset;
         
         /// <summary>
         /// HelpLabel43-Steuerelement
@@ -4042,7 +4060,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ActiveDiscussionsCacheReset;
+        protected global::YAF.Controls.ThemeButton ActiveDiscussionsCacheReset;
         
         /// <summary>
         /// HelpLabel44-Steuerelement
@@ -4069,7 +4087,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BoardCategoriesCacheReset;
+        protected global::YAF.Controls.ThemeButton BoardCategoriesCacheReset;
         
         /// <summary>
         /// HelpLabel45-Steuerelement
@@ -4096,7 +4114,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BoardModeratorsCacheReset;
+        protected global::YAF.Controls.ThemeButton BoardModeratorsCacheReset;
         
         /// <summary>
         /// HelpLabel46-Steuerelement
@@ -4123,7 +4141,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ReplaceRulesCacheReset;
+        protected global::YAF.Controls.ThemeButton ReplaceRulesCacheReset;
         
         /// <summary>
         /// HelpLabel47-Steuerelement
@@ -4186,7 +4204,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ActiveUserLazyDataCacheReset;
+        protected global::YAF.Controls.ThemeButton ActiveUserLazyDataCacheReset;
         
         /// <summary>
         /// ResetCacheAll-Steuerelement
@@ -4195,7 +4213,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ResetCacheAll;
+        protected global::YAF.Controls.ThemeButton ResetCacheAll;
         
         /// <summary>
         /// LocalizedLabel20-Steuerelement

@@ -274,7 +274,11 @@ namespace YAF.Utilities
             var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
             {2}('#{0} a[href=""#' + tabId + '""]').tab('show');
             {2}(""#{0} a"").click(function() {{
+                var tab = {2}(this).attr(""href"").substring(1);
+                if (!tab.startsWith(""avascript""))
+{{
                 selectedTab.val({2}(this).attr(""href"").substring(1));
+}}
                 {3}
             }});
                            }});".FormatWith(tabId, hiddenId, Config.JQueryAlias, onClickEvent);

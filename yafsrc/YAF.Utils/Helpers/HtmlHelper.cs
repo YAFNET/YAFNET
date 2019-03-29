@@ -23,11 +23,11 @@
  */
 namespace YAF.Utils.Helpers
 {
-  using System.Text.RegularExpressions;
-  using System.Collections.Generic;
+    using System.Collections.Generic;
   using System.Linq;
+    using System.Text.RegularExpressions;
 
-  /// <summary>
+    /// <summary>
   /// The html helper.
   /// </summary>
   public static class HtmlHelper

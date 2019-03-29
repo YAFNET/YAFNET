@@ -167,7 +167,8 @@
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    OnLoad="GroupRemoveLoad"  runat="server">
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER") %>'
+                                    runat="server">
                                 </YAF:ThemeButton>
 					</td>
 				</tr>

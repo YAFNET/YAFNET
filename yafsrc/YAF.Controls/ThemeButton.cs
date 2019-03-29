@@ -27,6 +27,7 @@ namespace YAF.Controls
 
     using System;
     using System.ComponentModel;
+    using System.Text;
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -134,6 +135,22 @@ namespace YAF.Controls
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether enabled.
+        /// </summary>
+        public bool Enabled
+        {
+            get
+            {
+                return this.ViewState["Enabled"] == null || this.ViewState["Enabled"].ToType<bool>();
+            }
+
+            set
+            {
+                this.ViewState["Enabled"] = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the behavior mode (single-line, multiline, or password) of the <see cref="T:System.Web.UI.WebControls.TextBox" /> control.
@@ -595,13 +612,33 @@ namespace YAF.Controls
 
             var actionClass = this.GetAttributeValue(this.Type);
 
-            var cssClass = this.CssClass.IsSet() ? "{0} {1}".FormatWith(actionClass, this.CssClass) : actionClass;
+            var cssClass = new StringBuilder();
+
+            cssClass.Append(actionClass);
+
+            if (this.Size != ButtonSize.Normal)
+            {
+                cssClass.AppendFormat(" {0}", this.GetButtonSizeClass(this.Size));
+            }
+
+            if (!this.Enabled)
+            {
+                cssClass.Append(" disabled");
+
+                output.WriteAttribute(
+                    "aria-disabled",
+                    "true");
+            }
+
+            if (this.CssClass.IsSet())
+            {
+                cssClass.AppendFormat(" {0}", this.CssClass);
+            }
 
             output.WriteAttribute(
                 HtmlTextWriterAttribute.Class.ToString(),
-                this.Size != ButtonSize.Normal
-                    ? "{0} {1}".FormatWith(cssClass, this.GetButtonSizeClass(this.Size))
-                    : cssClass);
+                cssClass.ToString());
+
 
             if (title.IsSet())
             {
