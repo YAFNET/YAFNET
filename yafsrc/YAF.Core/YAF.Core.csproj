@@ -102,6 +102,7 @@
     <Compile Include="Extensions\CultureExtensions.cs" />
     <Compile Include="Extensions\HaveSortOrderExtensions.cs" />
     <Compile Include="Extensions\SqlExpressionExtensions.cs" />
+    <Compile Include="Handlers\ThemeProvider.cs" />
     <Compile Include="Helpers\ForumEditorHelper.cs" />
     <Compile Include="Helpers\DbFunctionHelpers.cs" />
     <Compile Include="Helpers\DbInformationHelper.cs" />
@@ -232,13 +233,11 @@
     <Compile Include="Extensions\IPermissionsExtensions.cs" />
     <Compile Include="Extensions\IReplaceBlocksExtensions.cs" />
     <Compile Include="Extensions\ISendMailExtensions.cs" />
-    <Compile Include="Extensions\IYafThemeExtensions.cs" />
     <Compile Include="Extensions\MailMessageExtensions.cs" />
     <Compile Include="Extensions\ResourcesExtensions.cs" />
     <Compile Include="Extensions\IHaveServiceLocatorExtensions.cs" />
     <Compile Include="GlobalContainer.cs" />
     <Compile Include="Handlers\LocalizationProvider.cs" />
-    <Compile Include="Handlers\ThemeProvider.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
