@@ -127,7 +127,7 @@ namespace YAF.Utilities
 		     moment.locale('{1}');
             {0}('abbr.timeago').html(function(index, value) {{
                  
-            return moment(value).fromNow(true);
+            return moment(value).fromNow();
             }});
 
             Prism.highlightAll();

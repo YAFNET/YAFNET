@@ -39,29 +39,6 @@ namespace YAF.Controls
     /// </summary>
     public class ImageListBox : DropDownList
     {
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the image location.
-        /// </summary>
-        /// <value>
-        /// The image location.
-        /// </value>
-        public string ImageLocation
-        {
-            get
-            {
-                return this.ViewState["ImageLocation"].ToString();
-            }
-
-            set
-            {
-                this.ViewState["ImageLocation"] = value;
-            }
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -76,9 +53,8 @@ namespace YAF.Controls
             {
                 item.Attributes.Add(
                     "data-content",
-                    "<image src=\"{0}\" alt=\"{1}\" class=\"standardSelectMenu-Icon\" /><span>&nbsp;{1}</span>".FormatWith(
-                        this.ImageLocation.FormatWith(item.Value),
-                        item.Text));
+                    "<span class=\"flag-icon flag-icon-{0} standardSelectMenu-Icon\" /><span>&nbsp;{1}</span>"
+                        .FormatWith(item.Value.ToLower(), item.Text));
             }
 
             base.Render(writer);

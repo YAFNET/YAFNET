@@ -50,7 +50,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// User Page To Manage Email Subcriptions
+    /// User Page To Manage Email Subscriptions
     /// </summary>
     public partial class cp_subscriptions : ForumPageRegistered
     {
@@ -67,56 +67,6 @@ namespace YAF.Pages
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Formats the forum replies.
-        /// </summary>
-        /// <param name="o">The o.</param>
-        /// <returns>
-        /// The format forum replies.
-        /// </returns>
-        protected string FormatForumReplies([NotNull] object o)
-        {
-            var row = o as DataRow;
-
-            return row != null ? "{0}".FormatWith((int)row["Messages"] - (int)row["Topics"]) : string.Empty;
-        }
-
-        /// <summary>
-        /// Formats the last posted.
-        /// </summary>
-        /// <param name="o">The o.</param>
-        /// <returns>
-        /// The format last posted.
-        /// </returns>
-        protected string FormatLastPosted([NotNull] object o)
-        {
-            var row = o as DataRow;
-
-            if (row == null)
-            {
-                return string.Empty;
-            }
-
-            if (row["LastPosted"].ToString().Length == 0)
-            {
-                return "&nbsp;";
-            }
-
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
-                                  ? this.HtmlEncode(row["LastUserDisplayName"])
-                                  : this.HtmlEncode(row["LastUserName"]);
-
-            var link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["LastUserID"], displayName), displayName);
-            var by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
-
-            var html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
-                @by,
-                YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]),
-                this.GetThemeContents("ICONS", "ICON_LATEST"));
-
-            return html;
-        }
 
         /// <summary>
         /// Handles the Load event of the Page control.

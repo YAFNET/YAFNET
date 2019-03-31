@@ -96,9 +96,7 @@
                                 <span class="float-left font-weight-bold">
 								<YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="country" />
                                 </span> 
-									<img id="CountryFlagImage" runat="server" alt=""
-                                    title=""
-                                    src="" />&nbsp;<asp:Label ID="CountryLabel" runat="server" />
+									<asp:Label ID="CountryLabel" runat="server" />
                                 </li>
 							</asp:PlaceHolder>
                             <asp:PlaceHolder runat="server" id="RegionTR" visible="false">

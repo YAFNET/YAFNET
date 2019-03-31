@@ -33,7 +33,6 @@ namespace YAF.Core
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -43,8 +42,6 @@ namespace YAF.Core
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Helpers.StringUtils;
-
-    using QueryCounter = YAF.Core.Data.Profiling.QueryCounter;
 
     #endregion
 
@@ -408,60 +405,6 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Gets the collapsible panel image url (expanded or collapsed).
-        /// </summary>
-        /// <param name="panelID">
-        /// ID of collapsible panel
-        /// </param>
-        /// <param name="defaultState">
-        /// Default Panel State
-        /// </param>
-        /// <returns>
-        /// Image URL
-        /// </returns>
-        public string GetCollapsiblePanelImageURL([NotNull] string panelID, CollapsiblePanelState defaultState)
-        {
-            return this.Get<ITheme>().GetCollapsiblePanelImageURL(panelID, defaultState);
-        }
-
-        /// <summary>
-        /// Get a value from the currently configured forum theme.
-        /// </summary>
-        /// <param name="page">
-        /// Page to look under
-        /// </param>
-        /// <param name="tag">
-        /// Theme item
-        /// </param>
-        /// <returns>
-        /// Converted Theme information
-        /// </returns>
-        public string GetThemeContents([NotNull] string page, [NotNull] string tag)
-        {
-            return this.Get<ITheme>().GetItem(page, tag);
-        }
-
-        /// <summary>
-        /// Get a value from the currently configured forum theme.
-        /// </summary>
-        /// <param name="page">
-        /// Page to look under
-        /// </param>
-        /// <param name="tag">
-        /// Theme item
-        /// </param>
-        /// <param name="defaultValue">
-        /// Value to return if the theme item doesn't exist
-        /// </param>
-        /// <returns>
-        /// Converted Theme information or Default Value if it doesn't exist
-        /// </returns>
-        public string GetThemeContents([NotNull] string page, [NotNull] string tag, [NotNull] string defaultValue)
-        {
-            return this.Get<ITheme>().GetItem(page, tag, defaultValue);
-        }
-
-        /// <summary>
         /// Encodes the HTML
         /// </summary>
         /// <param name="data">The data.</param>
@@ -527,7 +470,7 @@ namespace YAF.Core
         protected virtual void CreatePageLinks()
         {
             // forum index
-            //this.PageLinks.AddRoot();
+            // this.PageLinks.AddRoot();
 
             // Page link creation goes to this method (overloads in descendant classes)
         }
@@ -544,7 +487,9 @@ namespace YAF.Core
             }
 
             var refresh = new HtmlMeta
-                { HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) };
+                {
+                   HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) 
+                };
 
             addTo.Controls.Add(refresh);
         }
@@ -571,23 +516,6 @@ namespace YAF.Core
             {
                 this.ForumPageRendered(this, new ForumPageRenderedArgs(writer));
             }
-        }
-
-        /// <summary>
-        /// The setup header elements.
-        /// </summary>
-        protected void SetupHeaderElements()
-        {
-            this.InsertCssRefresh(this.TopPageControl);
-            var themeHeader = this.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
-
-            if (!themeHeader.IsSet())
-            {
-                return;
-            }
-
-            var themeLiterial = new Literal { Text = themeHeader.Replace("~", this.Get<ITheme>().ThemeDir) };
-            this.TopPageControl.Controls.Add(themeLiterial);
         }
 
         /// <summary>
@@ -643,14 +571,13 @@ namespace YAF.Core
             this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
 
             // sets up the head elements in addition to the Css and image elements));
-            this.SetupHeaderElements();
+           // this.SetupHeaderElements();
 
             // setup the forum control header & footer properties
             /*if (this.ForumHeader != null)
             {
                 this.ForumHeader.Visible = this.ShowToolBar;
             }*/
-
             this.ForumFooter.Visible = this.ShowFooter;
         }
 

@@ -631,7 +631,6 @@ namespace YAF.Pages
 
             // get the country data source
             var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
-            country.ImageLocation = YafForumInfo.GetURLToContent("images/flags/{0}.png");
             country.DataSource = StaticDataHelper.Country();
 
             if (this.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)

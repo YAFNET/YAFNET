@@ -25,6 +25,7 @@
 namespace YAF.Core.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Data;
     using System.Globalization;
@@ -33,9 +34,6 @@ namespace YAF.Core.Helpers
     using System.Web;
     using System.Xml;
 
-    using ServiceStack.OrmLite;
-
-    using YAF.Classes;
     using YAF.Core.Services.Localization;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -361,45 +359,13 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// Returns a Data Table with all Themes
         /// </returns>
-        public static DataTable Themes()
+        public static List<string> Themes()
         {
-            using (var dt = new DataTable("Themes"))
-            {
-                dt.Columns.Add("Theme", typeof(string));
-                dt.Columns.Add("FileName", typeof(string));
-                dt.Columns.Add("IsMobile", typeof(bool));
-
-                var dir = new DirectoryInfo(
+            var dir = new DirectoryInfo(
                     YafContext.Current.Get<HttpRequestBase>().MapPath(
-                        "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Themes)));
+                        "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "/Content/Themes")));
 
-                foreach (var file in dir.GetFiles("*.xml"))
-                {
-                    try
-                    {
-                        var doc = new XmlDocument();
-                        doc.Load(file.FullName);
-
-                        var dr = dt.NewRow();
-                        dr["Theme"] = doc.DocumentElement.Attributes["theme"].Value;
-                        dr["IsMobile"] = false;
-
-                        if (doc.DocumentElement.HasAttribute("ismobile"))
-                        {
-                            dr["IsMobile"] = Convert.ToBoolean(
-                                doc.DocumentElement.Attributes["ismobile"].Value ?? "false");
-                        }
-
-                        dr["FileName"] = file.Name;
-                        dt.Rows.Add(dr);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-                return dt;
-            }
+            return dir.GetDirectories().Select(folder => folder.Name).ToList();
         }
 
         /// <summary>
@@ -436,6 +402,7 @@ namespace YAF.Core.Helpers
             }
         }
         
+
         /// <summary>
         /// Gets all topic times.
         /// </summary>

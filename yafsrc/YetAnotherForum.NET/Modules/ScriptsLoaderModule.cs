@@ -173,15 +173,14 @@ namespace YAF.Modules
         {
             var element = YafContext.Current.CurrentForumPage.TopPageControl;
 
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("bootstrap-forum.min.css")));
+            element.Controls.Add(
+                ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")));
 
             // make the style sheet link controls.
             element.Controls.Add(
                 this.PageContext.CurrentForumPage.IsAdminPage
                     ? ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum-admin.min.css"))
                     : ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
-
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
         }
 
         #endregion

@@ -172,7 +172,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SortUserName;
+        protected global::System.Web.UI.WebControls.Label SortUserName;
         
         /// <summary>
         /// UserName-Steuerelement
@@ -190,7 +190,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SortRank;
+        protected global::System.Web.UI.WebControls.Label SortRank;
         
         /// <summary>
         /// Rank-Steuerelement
@@ -208,7 +208,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SortJoined;
+        protected global::System.Web.UI.WebControls.Label SortJoined;
         
         /// <summary>
         /// Joined-Steuerelement
@@ -226,7 +226,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SortPosts;
+        protected global::System.Web.UI.WebControls.Label SortPosts;
         
         /// <summary>
         /// Posts-Steuerelement
@@ -244,7 +244,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SortLastVisit;
+        protected global::System.Web.UI.WebControls.Label SortLastVisit;
         
         /// <summary>
         /// LastVisitLB-Steuerelement

@@ -97,8 +97,7 @@ namespace YAF.Pages
             YafSyndicationFeed feed = null;
 
             // var syndicationItems = new List<SyndicationItem>();
-            var lastPostIcon = BaseUrlBuilder.BaseUrl
-                                  + this.PageContext.CurrentForumPage.GetThemeContents("ICONS", "ICON_NEWEST");
+            var lastPostIcon = string.Empty;
             var lastPostName = this.GetText("DEFAULT", "GO_LAST_POST");
 
             YafRssFeeds feedType;

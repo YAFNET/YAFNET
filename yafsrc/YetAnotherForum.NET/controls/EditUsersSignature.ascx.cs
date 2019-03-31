@@ -173,7 +173,6 @@ namespace YAF.Controls
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
             this._sig.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
-            this._sig.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
             var sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
 

@@ -27,6 +27,7 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Web;
@@ -43,6 +44,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
+    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -73,11 +75,6 @@ namespace YAF.Controls
         ///   The YAF localization.
         /// </summary>
         private ILocalization _localization;
-
-        /// <summary>
-        ///   The _theme.
-        /// </summary>
-        private YafTheme _theme;
 
         /// <summary>
         ///   Numbers of hours to compute digest for...
@@ -329,22 +326,17 @@ namespace YAF.Controls
                 this.BoardID,
                 this.BoardSettings.AllowUserLanguage);
 
-            this._theme =
-                new YafTheme(
-                    UserHelper.GetUserThemeFile(
-                        this.CurrentUserID,
-                        this.BoardID,
-                        this.BoardSettings.AllowUserTheme,
-                        this.BoardSettings.Theme));
+            var theme = UserHelper.GetUserThemeFile(
+                this.CurrentUserID,
+                this.BoardID,
+                this.BoardSettings.AllowUserTheme,
+                this.BoardSettings.Theme);
 
             var subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
 
-            var digestHead = this._theme.GetItem("THEME", "DIGESTHEAD", null);
-
-            if (digestHead.IsSet())
-            {
-                this.YafHead.Controls.Add(new LiteralControl(digestHead));
-            }
+            this.YafHead.Controls.Add(
+                ControlHelper.MakeCssIncludeControl(
+                    YafForumInfo.GetURLToContentThemes(Path.Combine(theme, "bootstrap-forum.min.css"))));
 
             if (subject.IsSet())
             {

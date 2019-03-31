@@ -33,52 +33,11 @@ namespace YAF.Utils
 
     #endregion
 
-    /* Created by vzrus(c) for Yet Another Forum and can be use with any Yet Another Forum licence and modified in any way.*/
-
     /// <summary>
     /// Transforms the style.
     /// </summary>
     public class StyleTransform : IStyleTransform
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The _theme.
-        /// </summary>
-        private readonly ITheme _theme;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StyleTransform"/> class.
-        /// </summary>
-        /// <param name="theme">
-        /// The theme.
-        /// </param>
-        public StyleTransform(ITheme theme)
-        {
-            this._theme = theme;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets CurrentThemeFile.
-        /// </summary>
-        public string CurrentThemeFile
-        {
-            get
-            {
-                return this._theme != null ? this._theme.ThemeFile.ToLower().Trim() : string.Empty;
-            }
-        }
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
@@ -114,16 +73,11 @@ namespace YAF.Utils
         /// </returns>
         public string DecodeStyleByString(string styleStr, bool colorOnly = false)
         {
-            string[] styleRow = styleStr.Trim().Split('/');
+            var styleRow = styleStr.Trim().Split('/');
 
-            foreach (string[] pair in styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1))
+            foreach (var pair in styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1))
             {
-                if (pair[0].ToLowerInvariant().Trim() == "default")
-                {
-                    styleStr = colorOnly ? this.GetColorOnly(pair[1]) : pair[1];
-                }
-
-                styleStr = this.DecodeStyleByString(styleStr, colorOnly, pair);
+                styleStr = colorOnly ? this.GetColorOnly(pair[1]) : pair[1];
             }
 
             return styleStr;
@@ -147,9 +101,9 @@ namespace YAF.Utils
 
             foreach (var row in dt.Rows.Cast<DataRow>())
             {
-                foreach (string t in styleColumns)
+                foreach (var t in styleColumns)
                 {
-                    DataRow dr = row;
+                    var dr = row;
                     this.DecodeStyleByRow(dr, t, colorOnly);
                 }
             }
@@ -162,33 +116,6 @@ namespace YAF.Utils
         #region Methods
 
         /// <summary>
-        /// The decode style by string.
-        /// </summary>
-        /// <param name="styleStr">
-        /// The style str.
-        /// </param>
-        /// <param name="colorOnly">
-        /// The color only.
-        /// </param>
-        /// <param name="pair">
-        /// The pair.
-        /// </param>
-        /// <returns>
-        /// The decode style by string.
-        /// </returns>
-        private string DecodeStyleByString(string styleStr, bool colorOnly, string[] pair)
-        {
-            string styleStrResult = styleStr;
-
-            if (pair.Select(t => string.Format("{0}.xml", pair[0])).Any(filename => filename.Trim().Equals(this.CurrentThemeFile, StringComparison.CurrentCultureIgnoreCase)))
-            {
-                styleStrResult = colorOnly ? this.GetColorOnly(pair[1]) : pair[1];
-            }
-
-            return styleStrResult;
-        }
-
-        /// <summary>
         /// The get color only.
         /// </summary>
         /// <param name="styleString">
@@ -199,7 +126,7 @@ namespace YAF.Utils
         /// </returns>
         private string GetColorOnly(string styleString)
         {
-            string[] styleArray = styleString.Split(';');
+            var styleArray = styleString.Split(';');
             return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
         }
 

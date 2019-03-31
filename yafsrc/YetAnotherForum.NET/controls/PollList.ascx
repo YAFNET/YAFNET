@@ -15,6 +15,7 @@
                 :
                 <asp:Label ID="QuestionLabel"
                            Text='<%# this.GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'  runat="server"></asp:Label>
+                <asp:Label runat="server" ID="PollClosed" Visible="False"></asp:Label>
             </div>
             <div class="card-body">
                 <img id="QuestionImage" src="" alt="" runat="server" />

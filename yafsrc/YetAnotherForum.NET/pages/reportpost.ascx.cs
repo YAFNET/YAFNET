@@ -159,7 +159,6 @@ namespace YAF.Pages
         {
             // set attributes of editor
             this.reportEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
-            this.reportEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
             {

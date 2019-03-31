@@ -29,10 +29,10 @@ namespace YAF.Core
     using System.Globalization;
     using System.Threading;
 
+    using YAF.Classes.Data;
     using YAF.Core.Services.Localization;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Classes.Data;
 
     #endregion
 
@@ -147,7 +147,7 @@ namespace YAF.Core
             {
                 try
                 {
-                    string cultureCode = string.Empty;
+                    var cultureCode = string.Empty;
 
                     /*string [] tmp = YafContext.Current.Get<HttpRequestBase>().UserLanguages;
                               if ( tmp != null )
@@ -184,6 +184,7 @@ namespace YAF.Core
 					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( "en-US" );
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
 				}
+
 #endif
 
                 // mark as setup...

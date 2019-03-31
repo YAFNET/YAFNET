@@ -96,7 +96,8 @@ namespace YAF.Controls
 
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(@"<div class=""clearfix""></div><footer class=""footer""><div class=""container text-right"">");
+            footer.Append(
+                @"<div class=""clearfix""></div><footer class=""footer""><div class=""container text-right"">");
 
             this.RenderRulesLink(footer);
 
@@ -126,37 +127,37 @@ namespace YAF.Controls
             footer.Append(@"</div></footer>");
 
 #if DEBUG
-			if (!this.PageContext.IsAdmin)
-			{
-				return;
-			}
+            if (!this.PageContext.IsAdmin)
+            {
+                return;
+            }
 
-			footer.AppendFormat(
-				@"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
-			footer.Append(@"<br /><br /><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
-			footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br /><br />");
+            footer.AppendFormat(
+                @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
+            footer.Append(@"<br /><br /><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
+            footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br /><br />");
 
-			var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
+            var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
-			if (extensions.Any(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
-			{
-				footer.Append("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
-			}
+            if (extensions.Any(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
+            {
+                footer.Append("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
+            }
 
-			if (extensions.Any(x => x.Contains(".Module")))
-			{
-				footer.AppendFormat(
-					@"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
-					extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
-			}
+            if (extensions.Any(x => x.Contains(".Module")))
+            {
+                footer.AppendFormat(
+                    @"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
+                    extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
+            }
 
-			footer.AppendFormat(
-				@"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
-				QueryCounter.Count,
-				QueryCounter.Duration,
-				(100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
-				QueryCounter.Commands);
-			footer.Append("</div>");
+            footer.AppendFormat(
+                @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
+                QueryCounter.Count,
+                QueryCounter.Duration,
+                (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
+                QueryCounter.Commands);
+            footer.Append("</div>");
 #endif
         }
 
@@ -212,17 +213,6 @@ namespace YAF.Controls
                 {
                     return;
                 }
-            }
-
-            // get the theme credit info from the theme file
-            // it's not really an error if it doesn't exist
-            var themeCredit = this.Get<ITheme>().GetItem("THEME", "CREDIT", null);
-
-            // append theme Credit if it exists...
-            if (themeCredit.IsSet())
-            {
-                footer.AppendFormat(@"<span id=""themecredit"" style=""color:#999999"">{0}</span>", themeCredit);
-                footer.Append("<br />");
             }
 
             footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");

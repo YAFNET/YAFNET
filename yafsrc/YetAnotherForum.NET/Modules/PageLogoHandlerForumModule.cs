@@ -26,14 +26,11 @@ namespace YAF.Modules
     #region Using
 
     using System;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -78,47 +75,19 @@ namespace YAF.Modules
         /// </param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var htmlImgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("imgBanner");
-            var imgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("imgBanner");
             var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
 
-            if (bannerLink != null)
+            if (bannerLink == null)
             {
-                bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
-                bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
+                return;
             }
+
+            bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
+            bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
             if (!this.CurrentForumPage.ShowToolBar)
             {
-                if (htmlImgBanner != null)
-                {
-                    htmlImgBanner.Visible = false;
-                }
-                else if (imgBanner != null)
-                {
-                    imgBanner.Visible = false;
-                }
-            }
-
-            if (!this.Get<YafBoardSettings>().AllowThemedLogo || Config.IsAnyPortal)
-            {
-                return;
-            }
-
-            var graphicSrc = this.Get<ITheme>().GetItem("FORUM", "BANNER", null);
-
-            if (!graphicSrc.IsSet())
-            {
-                return;
-            }
-
-            if (htmlImgBanner != null)
-            {
-                htmlImgBanner.Src = graphicSrc;
-            }
-            else if (imgBanner != null)
-            {
-                imgBanner.ImageUrl = graphicSrc;
+                bannerLink.Visible = false;
             }
         }
 

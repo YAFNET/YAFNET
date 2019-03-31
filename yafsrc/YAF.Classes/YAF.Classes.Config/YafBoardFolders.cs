@@ -24,8 +24,6 @@
 
 namespace YAF.Classes
 {
-    using System;
-
     using YAF.Classes.Pattern;
 
     /// <summary>
@@ -64,18 +62,7 @@ namespace YAF.Classes
     {
       get
       {
-          return String.Concat(this.BoardFolder, "Uploads");
-      }
-    }
-
-    /// <summary>
-    /// Gets Themes.
-    /// </summary>
-    public string Themes
-    {
-      get
-      {
-          return String.Concat(this.BoardFolder, "Themes");
+          return string.Concat(this.BoardFolder, "Uploads");
       }
     }
 
@@ -86,7 +73,7 @@ namespace YAF.Classes
     {
       get
       {
-          return String.Concat(this.BoardFolder, "Images");
+          return string.Concat(this.BoardFolder, "Images");
       }
     }
 
@@ -97,7 +84,7 @@ namespace YAF.Classes
     {
       get
       {
-          return String.Concat(this.BoardFolder, "Images/Avatars");
+          return string.Concat(this.BoardFolder, "Images/Avatars");
       }
     }
 
@@ -108,7 +95,7 @@ namespace YAF.Classes
     {
       get
       {
-          return String.Concat(this.BoardFolder, "Images/Categories");
+          return string.Concat(this.BoardFolder, "Images/Categories");
       }
     }
 
@@ -119,7 +106,7 @@ namespace YAF.Classes
     {
         get
         {
-            return String.Concat(this.BoardFolder, "Images/Forums");
+            return string.Concat(this.BoardFolder, "Images/Forums");
         }
     }
 
@@ -130,7 +117,7 @@ namespace YAF.Classes
     {
       get
       {
-          return String.Concat(this.BoardFolder, "Images/Medals");
+          return string.Concat(this.BoardFolder, "Images/Medals");
       }
     }
 
@@ -141,7 +128,7 @@ namespace YAF.Classes
     {
       get
       {
-          return String.Concat(this.BoardFolder, "Images/Ranks");
+          return string.Concat(this.BoardFolder, "Images/Ranks");
       }
     }
   }

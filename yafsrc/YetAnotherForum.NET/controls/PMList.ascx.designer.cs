@@ -8,11 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI.WebControls;
-
+    
+    
     public partial class PMList {
         
-
         /// <summary>
         /// PagerTop-Steuerelement
         /// </summary>
@@ -20,9 +19,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerTop;
+        protected global::YAF.Controls.Pager PagerTop;
         
-
         /// <summary>
         /// MobileInfo-Steuerelement
         /// </summary>
@@ -30,9 +28,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Alert MobileInfo;
+        protected global::YAF.Controls.Alert MobileInfo;
         
-
         /// <summary>
         /// LocalizedLabel220-Steuerelement
         /// </summary>
@@ -40,9 +37,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel220;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel220;
         
-
         /// <summary>
         /// MessagesView-Steuerelement
         /// </summary>
@@ -50,9 +46,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected GridView MessagesView;
+        protected global::System.Web.UI.WebControls.GridView MessagesView;
         
-
         /// <summary>
         /// PagerBottom-Steuerelement
         /// </summary>
@@ -60,9 +55,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Pager PagerBottom;
+        protected global::YAF.Controls.Pager PagerBottom;
         
-
         /// <summary>
         /// lblExportType-Steuerelement
         /// </summary>
@@ -70,9 +64,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label lblExportType;
+        protected global::System.Web.UI.WebControls.Label lblExportType;
         
-
         /// <summary>
         /// ExportType-Steuerelement
         /// </summary>
@@ -80,9 +73,8 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected RadioButtonList ExportType;
+        protected global::System.Web.UI.WebControls.RadioButtonList ExportType;
         
-
         /// <summary>
         /// PMInfoLink-Steuerelement
         /// </summary>
@@ -90,6 +82,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label PMInfoLink;
+        protected global::System.Web.UI.WebControls.Label PMInfoLink;
     }
 }

@@ -60,7 +60,6 @@ namespace YAF.Modules.BBCode
             }
 
             var stats = this.GetText("ATTACHMENTINFO");
-            var fileIcon = this.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
             var filename = attachment.FileName.ToLower();
             var showImage = false;
 
@@ -114,8 +113,7 @@ namespace YAF.Modules.BBCode
                 {
                     // user doesn't have rights to download, don't show the image
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</span>",
-                        fileIcon,
+                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
                         attachment.FileName,
                         this.GetText("ATTACH_NO"));
                 }
@@ -129,8 +127,7 @@ namespace YAF.Modules.BBCode
                 if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                 {
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
-                        fileIcon,
+                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;<a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> <span class=""attachmentinfo"">{3}</span>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         attachment.FileName,
@@ -140,8 +137,7 @@ namespace YAF.Modules.BBCode
                 else
                 {
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</span>",
-                        fileIcon,
+                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
                         attachment.FileName,
                         this.GetText("ATTACH_NO"));
                 }

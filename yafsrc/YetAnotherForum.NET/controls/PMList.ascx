@@ -61,15 +61,14 @@
 			<HeaderTemplate>
 				&nbsp;</HeaderTemplate>
 			<ItemTemplate>
-				<img src="<%#
-    this.GetImage(Container.DataItem) %>" alt="" />
+				<%# this.GetIcon(Container.DataItem) %>
 			</ItemTemplate>
             <HeaderStyle Width="40px" />
 			<ItemStyle Width="40px" HorizontalAlign="Center" />
 		</asp:TemplateField>
 		<asp:TemplateField>
 			<HeaderTemplate>
-				<asp:Image runat="server" ID="SortFrom" AlternateText="Sort From" />
+				<asp:Label runat="server" ID="SortFrom" />
 				<asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" Text='<%#
     this.GetMessageUserHeader() %>' />
 			</HeaderTemplate>
@@ -81,7 +80,7 @@
 		</asp:TemplateField>
 		<asp:TemplateField>
 			<HeaderTemplate>
-				<asp:Image runat="server" ID="SortSubject" AlternateText="Sort Subject" />
+				<asp:Label runat="server" ID="SortSubject" />
 				<asp:LinkButton runat="server" ID="SubjectLink" OnClick="SubjectLink_Click" Text='<%#
     this.GetLocalizedText("SUBJECT", null) %>' />
 			</HeaderTemplate>
@@ -96,7 +95,7 @@
 		</asp:TemplateField>
 		<asp:TemplateField>
 			<HeaderTemplate>
-				<asp:Image runat="server" ID="SortDate" AlternateText="Sort Date" />
+				<asp:Label runat="server" ID="SortDate" />
 				<asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#
     this.GetLocalizedText("DATE", null) %>' />
 			</HeaderTemplate>

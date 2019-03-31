@@ -478,13 +478,6 @@ namespace YAF
             }*/
             string[] src = { "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this.page.PageName) };
 
-            var controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this.page.PageName.ToLower(), null);
-
-            if (controlOverride.IsSet())
-            {
-                src[0] = controlOverride;
-            }
-
             var replacementPaths = new List<string> { "moderate", "admin", "help" };
 
             foreach (var path in replacementPaths.Where(

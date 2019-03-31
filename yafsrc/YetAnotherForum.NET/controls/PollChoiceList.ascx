@@ -42,6 +42,7 @@
                 </asp:Panel>
                 <asp:Label ID="VoteSpan" Visible="false" runat="server">
                     <%# DataBinder.Eval(Container.DataItem, "Votes") %>&nbsp; <%# this.GetText("VOTES") %>
+                    <asp:Label runat="server" ID="Voters"></asp:Label>
                 </asp:Label>
                     </asp:PlaceHolder>
         </li>

@@ -149,7 +149,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2018, 01, 30);
+        public static DateTime AppVersionDate => new DateTime(2018, 05, 20);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
@@ -213,6 +213,20 @@ namespace YAF.Utils
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
             return "{1}Content/{0}".FormatWith(resourceName, ForumClientFileRoot);
+        }
+
+        /// <summary>
+        /// Helper function that creates the URL to the Content  themes folder.
+        /// </summary>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns>
+        /// Returns the URL including the Content Themes path
+        /// </returns>
+        public static string GetURLToContentThemes([NotNull] string resourceName)
+        {
+            CodeContracts.VerifyNotNull(resourceName, "resourceName");
+
+            return "{1}Content/Themes/{0}".FormatWith(resourceName, ForumClientFileRoot);
         }
 
         /// <summary>

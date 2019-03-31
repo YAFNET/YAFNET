@@ -70,13 +70,11 @@ namespace YAF.Pages.Admin
             var boardSettings = this.Get<YafBoardSettings>();
 
             // create list boxes by populating datasources from Data class
-            var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
+            var themeData = StaticDataHelper.Themes();
 
             if (themeData.Any())
             {
-                this.Theme.DataSource = themeData.CopyToDataTable();
-                this.Theme.DataTextField = "Theme";
-                this.Theme.DataValueField = "FileName";
+                this.Theme.DataSource = themeData;
             }
 
             this.Culture.DataSource =
@@ -127,7 +125,14 @@ namespace YAF.Pages.Admin
             var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
                                      ?? "en-US";
 
-            SetSelectedOnList(ref this.Theme, boardSettings.Theme);
+            if (boardSettings.Theme.Contains(".xml"))
+            {
+                SetSelectedOnList(ref this.Theme, "yaf");
+            }
+            else
+            {
+                SetSelectedOnList(ref this.Theme, boardSettings.Theme);
+            }
 
             // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
             /* SetSelectedOnList(

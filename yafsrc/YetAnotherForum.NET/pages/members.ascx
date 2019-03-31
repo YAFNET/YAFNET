@@ -90,23 +90,23 @@
                               <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="Avatar" />
                           </th>
                           <th scope="col">
-                              <img runat="server" id="SortUserName" alt="Sort User Name" style="vertical-align: middle" />
+                              <asp:Label runat="server" id="SortUserName" />
                               <asp:LinkButton runat="server" ID="UserName" OnClick="UserName_Click" />
                           </th>
                           <th scope="col">
-                              <img runat="server" id="SortRank" alt="Sort Rank" style="vertical-align: middle" />
+                              <asp:Label runat="server" id="SortRank" />
                               <asp:LinkButton runat="server" ID="Rank" OnClick="Rank_Click" />
                           </th>
                           <th scope="col">
-                              <img runat="server" id="SortJoined" alt="Sort Joined" style="vertical-align: middle" />
+                              <asp:Label runat="server" id="SortJoined" />
                               <asp:LinkButton runat="server" ID="Joined" OnClick="Joined_Click" />
                           </th>
                            <th scope="col">
-                               <img runat="server" id="SortPosts" alt="Sort Posts" style="vertical-align: middle" />
+                               <asp:Label runat="server" id="SortPosts" />
                                <asp:LinkButton runat="server" ID="Posts"  OnClick="Posts_Click" />
                            </th>
                            <th scope="col">
-                               <img runat="server" id="SortLastVisit" alt="Sort Last Visit" style="vertical-align: middle" />
+                               <asp:Label runat="server" id="SortLastVisit" />
                                <asp:LinkButton runat="server" ID="LastVisitLB" OnClick="LastVisitLB_Click" />
                            </th>
                        </tr>

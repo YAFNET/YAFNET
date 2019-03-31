@@ -24,10 +24,9 @@
 namespace YAF.Core.UsersRoles
 {
     using System;
-    using System.Data;
 
     using YAF.Classes;
-    using YAF.Core.Helpers;
+    using YAF.Core.Theme;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -85,28 +84,6 @@ namespace YAF.Core.UsersRoles
         /// Gets the user theme file.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <returns>Returns User theme</returns>
-        public static string GetUserThemeFile(int userId)
-        {
-            var row = UserMembershipHelper.GetUserRowForID(userId);
-
-            var themeFile = row != null && row["ThemeFile"] != DBNull.Value
-                               && YafContext.Current.Get<YafBoardSettings>().AllowUserTheme
-                                   ? row["ThemeFile"].ToString()
-                                   : YafContext.Current.Get<YafBoardSettings>().Theme;
-
-            if (!YafTheme.IsValidTheme(themeFile))
-            {
-                themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
-            }
-
-            return themeFile;
-        }
-
-        /// <summary>
-        /// Gets the user theme file.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
         /// <param name="boardID">The board identifier.</param>
         /// <param name="allowUserTheme">if set to <c>true</c> [allow user theme].</param>
         /// <param name="theme">The theme.</param>
@@ -117,13 +94,13 @@ namespace YAF.Core.UsersRoles
         {
             var row = UserMembershipHelper.GetUserRowForID(userId, boardID);
 
-            var themeFile = (row != null && row["ThemeFile"] != DBNull.Value && allowUserTheme)
+            var themeFile = row != null && row["ThemeFile"] != DBNull.Value && allowUserTheme
                                    ? row["ThemeFile"].ToString()
                                    : theme;
             
             if (!YafTheme.IsValidTheme(themeFile))
             {
-                themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
+                themeFile = "yaf";
             }
 
             return themeFile;

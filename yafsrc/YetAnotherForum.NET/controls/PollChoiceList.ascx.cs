@@ -133,23 +133,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Get Theme Contents
-        /// </summary>
-        /// <param name="page">
-        /// The Localization Page.
-        /// </param>
-        /// <param name="tag">
-        /// The Localization Page Tag.
-        /// </param>
-        /// <returns>
-        /// Returns Theme Content.
-        /// </returns>
-        protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
-        {
-            return this.Get<ITheme>().GetItem(page, tag);
-        }
-
-        /// <summary>
         /// The get total.
         /// </summary>
         /// <param name="pollId">
@@ -296,24 +279,23 @@ namespace YAF.Controls
                     myChoiceMarker.Visible = true;
                 }
 
-                if (this.Voters != null)
+                /*if (this.Voters != null)
                 {
                     // TODO:
-                   /* var himage = item.FindControlRecursiveAs<HtmlImage>("ImgVoteBar");
+                    var voters = item.FindControlRecursiveAs<Label>("Voters");
+                    var voterNames = string.Empty;
+
                     foreach (DataRow row in this.Voters.Rows)
                     {
-                        if ((int)row["ChoiceID"] == (int)drowv["ChoiceID"] && (int)row["PollID"] == this.PollId)
+                        if (row["ChoiceID"].ToType<int>() == drowv["ChoiceID"].ToType<int>() && row["PollID"].ToType<int>() == this.PollId)
                         {
-                            himage.Attributes["title"] = himage.Attributes["title"] + row["UserName"] + ",";
+                            voterNames += row["UserName"] + ",";
                         }
                     }
 
-                    if (himage.Attributes["title"].IsSet())
-                    {
-                        himage.Attributes["title"] = himage.Attributes["alt"] = himage.Attributes["title"].TrimEnd(',');
-                    }*/
+                    voters.Text = voterNames;
 
-                }
+                }*/
             }
 
 
@@ -349,36 +331,6 @@ namespace YAF.Controls
 
             item.FindControlRecursiveAs<Panel>("resultsSpan").Visible = !this.HideResults;
             item.FindControlRecursiveAs<Label>("VoteSpan").Visible = !this.HideResults;
-        }
-
-        /// <summary>
-        /// The remove poll_ completely load.
-        /// </summary>
-        /// <param name="sender">
-        /// The object sender.
-        /// </param>
-        /// <param name="e">
-        /// The EventArgs e.
-        /// </param>
-        protected void RemovePollCompletely_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
-        }
-
-        /// <summary>
-        /// The remove poll_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The object sender.
-        /// </param>
-        /// <param name="e">
-        /// The EventArgs e.
-        /// </param>
-        protected void RemovePoll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE"));
         }
 
         /// <summary>

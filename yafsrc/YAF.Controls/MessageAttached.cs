@@ -114,7 +114,7 @@ namespace YAF.Controls
         protected void RenderAttachedFiles([NotNull] HtmlTextWriter writer)
         {
             var stats = this.GetText("ATTACHMENTINFO");
-            var fileIcon = this.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
+            var fileIcon = "<i class=\"fa fa-file fa-fw\"></i>";
 
             var settings = this.Get<YafBoardSettings>();
 
@@ -198,7 +198,7 @@ namespace YAF.Controls
                             writer.Write(@"<div class=""attachedfile"">");
 
                             writer.Write(
-                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
+                                @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
                                 fileIcon,
                                 attachment.FileName,
                                 stats.FormatWith(kb, attachment.Downloads));
@@ -223,7 +223,7 @@ namespace YAF.Controls
                         if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                         {
                             writer.Write(
-                                @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
+                                @"{0} <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
                                 fileIcon,
                                 YafForumInfo.ForumClientFileRoot,
                                 attachment.ID,
@@ -234,7 +234,7 @@ namespace YAF.Controls
                         else
                         {
                             writer.Write(
-                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
+                                @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
                                 fileIcon,
                                 attachment.FileName,
                                 stats.FormatWith(kb, attachment.Downloads));

@@ -119,7 +119,7 @@ namespace YAF.Core
                 this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
 
             // Check access rights to the page.
-            if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || dt.Rows.Count <= 0)
+            if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || !dt.HasRows())
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }

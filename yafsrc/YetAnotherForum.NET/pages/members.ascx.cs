@@ -448,14 +448,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortNameField"].ToType<int?>())
             {
                 case 1:
-                    this.SortUserName.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
+                    this.SortUserName.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
                      this.SortUserName.Visible = true;
                     break;
                 case 2:
-                     this.SortUserName.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortUserName.Visible = true;
+                     this.SortUserName.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortUserName.Visible = true;
                     break;
                 default:
                     this.ViewState["SortNameField"] = 0;
@@ -466,14 +464,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortRankNameField"].ToType<int?>())
             {
                 case 1:
-                    this.SortRank.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortRank.Visible = true;
+                    this.SortRank.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortRank.Visible = true;
                     break;
                 case 2:
-                     this.SortRank.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortRank.Visible = true;
+                     this.SortRank.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortRank.Visible = true;
                     break;
                 default:
                     this.ViewState["SortRankNameField"] = 0;
@@ -484,14 +480,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortJoinedField"].ToType<int?>())
             {
                 case 1:
-                    this.SortJoined.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortJoined.Visible = true;
+                    this.SortJoined.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortJoined.Visible = true;
                     break;
                 case 2:
-                     this.SortJoined.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortJoined.Visible = true;
+                     this.SortJoined.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortJoined.Visible = true;
                     break;
                 default:
                     this.ViewState["SortJoinedField"] = 0;
@@ -502,14 +496,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortNumPostsField"].ToType<int?>())
             {
                 case 1:
-                    this.SortPosts.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortPosts.Visible = true;
+                    this.SortPosts.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortPosts.Visible = true;
                     break;
                 case 2:
-                     this.SortPosts.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortPosts.Visible = true;
+                     this.SortPosts.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortPosts.Visible = true;
                     break;
                 default:
                     this.ViewState["SortNumPostsField"] = 0;
@@ -520,20 +512,18 @@ namespace YAF.Pages
             switch (this.ViewState["SortLastVisitField"].ToType<int?>())
             {
                 case 1:
-                    this.SortLastVisit.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortLastVisit.Visible = true;
+                    this.SortLastVisit.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortLastVisit.Visible = true;
                     break;
                 case 2:
-                     this.SortLastVisit.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortLastVisit.Visible = true;
+                     this.SortLastVisit.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortLastVisit.Visible = true;
                     break;
                 default:
                     this.ViewState["SortLastVisitField"] = 0;
                     this.SortLastVisit.Visible = false;
                     break;
-            } 
+            }
         }
 
         /// <summary>

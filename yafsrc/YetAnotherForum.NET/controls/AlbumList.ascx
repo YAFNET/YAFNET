@@ -37,7 +37,7 @@
                                 <div class="card-body">
                                     <div class="card-text">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <YAF:ThemeButton ID="Edit" CssClass="pbutton" 
+                                            <YAF:ThemeButton ID="Edit" 
                                                              TextLocalizedTag="EDIT"
                                                              TextLocalizedPage="BUTTON"
                                                              Visible='<%#

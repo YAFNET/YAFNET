@@ -385,19 +385,6 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// Gets the theme contents.
-    /// </summary>
-    /// <param name="page">The page.</param>
-    /// <param name="tag">The tag.</param>
-    /// <returns>
-    /// Returns the Content
-    /// </returns>
-    protected string GetThemeContents([NotNull] string page, [NotNull] string tag)
-    {
-      return this.Get<ITheme>().GetItem(page, tag);
-    }
-
-    /// <summary>
     /// Gets the total.
     /// </summary>
     /// <param name="pollId">The poll Id.</param>
@@ -861,13 +848,13 @@ namespace YAF.Controls
         }
         else if (daystorun == 0)
         {
-          notificationString += " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_EXPIRED"));
+            notificationString += " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_EXPIRED"));
 
-          var pollClosedImage = item.FindControlRecursiveAs<HtmlImage>("PollClosedImage");
-          pollClosedImage.Src = this.GetThemeContents("VOTE", "POLL_CLOSED");
-          pollClosedImage.Alt = this.GetText("POLLEDIT", "POLL_CLOSED");
-          pollClosedImage.Attributes["title"] = pollClosedImage.Alt;
-          pollClosedImage.Visible = true;
+            var pollClosed = item.FindControlRecursiveAs<Label>("PollClosed");
+            pollClosed.Text =
+                "<span class=\"badge badge-danger\"><i class=\"fa fa-lock fa-fw\"></i>&nbsp;{0}</span>".FormatWith(
+                    this.GetText("POLLEDIT", "POLL_CLOSED"));
+            pollClosed.Visible = true;
         }
 
         pollChoiceList.CanVote = cvote;

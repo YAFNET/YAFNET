@@ -306,7 +306,6 @@ namespace YAF.Pages
 
             // set attributes of editor
             this._editor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
-            this._editor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
             // this needs to be done just once, not during postbacks
             if (this.IsPostBack)

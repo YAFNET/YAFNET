@@ -92,7 +92,6 @@ namespace YAF.Dialogs
             }
 
             this.quickReplyEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
-            this.quickReplyEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
             this.QuickReplyWatchTopic.Visible = !this.PageContext.IsGuest;
 

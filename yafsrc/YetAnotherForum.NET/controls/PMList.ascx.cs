@@ -389,7 +389,7 @@ namespace YAF.Controls
 
             this.BindData();
         }
-
+        
         /// <summary>
         /// Get The Icon Image indicating if Unread or Read Message
         /// </summary>
@@ -397,14 +397,12 @@ namespace YAF.Controls
         /// <returns>
         /// Returns the Image Url
         /// </returns>
-        protected string GetImage([NotNull] object dataRow)
+        protected string GetIcon([NotNull] object dataRow)
         {
             var dataRowView = dataRow as DataRowView;
             var isRead = dataRowView["IsRead"].ToType<bool>();
 
-            return dataRowView["IsReply"].ToType<bool>()
-                       ? this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ_REPLY" : "PM_NEW_REPLY")
-                       : this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ" : "PM_NEW");
+            return "<i class=\"fa fa-{0} fa-2x\"></i>".FormatWith(isRead ? "envelope-open" : "envelope");
         }
 
         /// <summary>
@@ -528,23 +526,27 @@ namespace YAF.Controls
             {
                 case DataControlRowType.Header:
                     {
-                        var sortFrom = (Image)e.Row.FindControl("SortFrom");
-                        var sortSubject = (Image)e.Row.FindControl("SortSubject");
-                        var sortDate = (Image)e.Row.FindControl("SortDate");
+                        var sortFrom = e.Row.FindControlAs<Label>("SortFrom");
+                        var sortSubject = e.Row.FindControlAs<Label>("SortSubject");
+                        var sortDate = e.Row.FindControlAs<Label>("SortDate");
 
-                        sortFrom.Visible = (this.View == PmView.Outbox)
+                        var sortOrder = this.ViewState["SortAsc"].ToType<bool>();
+
+                        var sortText = sortOrder
+                                           ? "<i class=\"fa fa-sort-up fa-fw\"></i>"
+                                           : "<i class=\"fa fa-sort-down fa-fw\"></i>";
+
+                        sortFrom.Visible = this.View == PmView.Outbox
                                                ? (string)this.ViewState["SortField"] == "ToUser"
                                                : (string)this.ViewState["SortField"] == "FromUser";
-                        sortFrom.ImageUrl = this.Get<ITheme>().GetItem(
-                            "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+
+                        sortFrom.Text = sortText;
 
                         sortSubject.Visible = (string)this.ViewState["SortField"] == "Subject";
-                        sortSubject.ImageUrl = this.Get<ITheme>().GetItem(
-                            "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+                        sortSubject.Text = sortText;
 
                         sortDate.Visible = (string)this.ViewState["SortField"] == "Created";
-                        sortDate.ImageUrl = this.Get<ITheme>().GetItem(
-                            "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+                        sortDate.Text = sortText;
                     }
 
                     break;

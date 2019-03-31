@@ -448,18 +448,18 @@ namespace YAF.Controls
                     switch (userGender)
                     {
                         case 1:
-                            imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_MALE", null);
+                            imagePath = "male";
                             imageAlt = this.GetText("USERGENDER_MAS");
                             break;
                         case 2:
-                            imagePath = this.PageContext.Get<ITheme>().GetItem("ICONS", "GENDER_FEMALE", null);
+                            imagePath = "female";
                             imageAlt = this.GetText("USERGENDER_FEM");
                             break;
                     }
 
                     filler =
                         this.Get<YafBoardSettings>().UserBoxGender.FormatWith(
-                            @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>".FormatWith(imagePath, imageAlt));
+                            @"<i class=""fa fa-{0} fa-fw""></i>&nbsp;{1}".FormatWith(imagePath, imageAlt));
                 }
             }
 
@@ -870,18 +870,14 @@ namespace YAF.Controls
             var filler = string.Empty;
             var rx = this.GetRegex(Constants.UserBox.CountryImage);
 
-            if (this.Get<YafBoardSettings>().ShowCountryInfoInUserBox && this.UserProfile.Country.IsSet() && !this.UserProfile.Country.Equals("N/A"))
+           if (this.Get<YafBoardSettings>().ShowCountryInfoInUserBox && this.UserProfile.Country.IsSet() && !this.UserProfile.Country.Equals("N/A"))
             {
-                var imagePath = this.PageContext.Get<ITheme>().GetItem(
-                    "FLAGS",
-                    "{0}_MEDIUM".FormatWith(this.UserProfile.Country.ToUpperInvariant()),
-                    YafForumInfo.GetURLToContent("images/flags/{0}.png".FormatWith(this.UserProfile.Country.Trim())));
-
                 var imageAlt = this.GetText("COUNTRY", this.UserProfile.Country.ToUpperInvariant());
 
-                filler =
-                    this.Get<YafBoardSettings>().UserBoxCountryImage.FormatWith(
-                        @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>".FormatWith(imagePath, imageAlt));
+                filler = this.Get<YafBoardSettings>().UserBoxCountryImage.FormatWith(
+                    "<span class=\"flag-icon flag-icon-{0}\"></span>&nbsp;{1}".FormatWith(
+                        this.UserProfile.Country.Trim().ToLower(),
+                        imageAlt));
             }
 
             // replaces template placeholder with actual rank image

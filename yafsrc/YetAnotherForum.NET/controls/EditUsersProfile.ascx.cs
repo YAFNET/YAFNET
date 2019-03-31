@@ -535,8 +535,6 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().AllowUserTheme)
             {
                 this.Theme.DataSource = StaticDataHelper.Themes();
-                this.Theme.DataTextField = "Theme";
-                this.Theme.DataValueField = "FileName";
             }
 
             if (this.Get<YafBoardSettings>().AllowUserLanguage)
@@ -547,7 +545,6 @@ namespace YAF.Controls
             }
 
             this.Country.DataSource = StaticDataHelper.Country();
-            this.Country.ImageLocation = YafForumInfo.GetURLToContent("images/flags/{0}.png");
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 
@@ -652,9 +649,19 @@ namespace YAF.Controls
                 }
 
                 var themeItem = this.Theme.Items.FindByValue(themeFile);
+
                 if (themeItem != null)
                 {
                     themeItem.Selected = true;
+                }
+                else
+                {
+                    themeItem = this.Theme.Items.FindByValue("yaf");
+
+                    if (themeItem != null)
+                    {
+                        themeItem.Selected = true;
+                    }
                 }
             }
 
