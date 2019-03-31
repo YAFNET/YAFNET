@@ -50,8 +50,10 @@ namespace YAF.Types.Models
         [Alias("ID")]
         public int ID { get; set; }
 
+        [Index]
         public int UserID { get; set; }
 
+        [Index]
         public int TopicID { get; set; }
 
 

@@ -46,6 +46,7 @@ namespace YAF.Types.Models
 
         [Alias("AlbumID")]
         [AutoIncrement]
+        [Index]
         public int ID { get; set; }
         [Required]
         public int UserID { get; set; }

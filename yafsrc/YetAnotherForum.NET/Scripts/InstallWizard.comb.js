@@ -24065,15 +24065,13 @@ S2.define('jquery.select2',[
 //# sourceMappingURL=bootstrap.bundle.js.map
 
 (function ($) {
-    $(document).ready(function () {
-        $(".yafWizard").modal("show", {
-            backdrop: "static",
-            keyboard: false
-        });
+	$(document).ready(function() {
+		$(".yafWizard").modal("show",
+			{
+				backdrop: "static",
+				keyboard: false
+			});
 
-        Ladda.bind(".btn-primary,.btn-info");
-
-        $(".selectConnection, .selectTimeZone, .selectCulture").select2({ theme: "bootstrap" });
-    });
-
+		Ladda.bind(".btn-primary,.btn-info");
+	});
 })(jQuery);

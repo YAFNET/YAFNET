@@ -95,6 +95,7 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether is guest x.
         /// </summary>
         [Required]
+        [Default(0)]
         public bool IsGuestX { get; set; }
 
         /// <summary>
@@ -154,6 +155,7 @@ namespace YAF.Types.Models
         /// Gets or sets the user id.
         /// </summary>
         [Required]
+        [PrimaryKey]
         public int UserID { get; set; }
 
         /// <summary>

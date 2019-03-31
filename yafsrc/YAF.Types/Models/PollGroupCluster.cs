@@ -52,6 +52,7 @@ namespace YAF.Types.Models
         [Required]
         public int UserID { get; set; }
         [Required]
+        [Default(0)]
         public int Flags { get; set; }
         [Compute]
         public bool? IsBound { get; set; }

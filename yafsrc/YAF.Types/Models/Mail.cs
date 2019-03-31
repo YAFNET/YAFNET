@@ -62,6 +62,7 @@ namespace YAF.Types.Models
         public string Body { get; set; }
         public string BodyHtml { get; set; }
         [Required]
+        [Default(0)]
         public int SendTries { get; set; }
         public DateTime? SendAttempt { get; set; }
         public int? ProcessID { get; set; }

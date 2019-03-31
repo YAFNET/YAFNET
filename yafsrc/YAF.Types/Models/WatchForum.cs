@@ -33,6 +33,8 @@ namespace YAF.Types.Models
     /// A class which represents the WatchForum table.
     /// </summary>
     [Serializable]
+
+    [UniqueConstraint(nameof(ForumID), nameof(UserID))]
     public partial class WatchForum : IEntity, IHaveID
     {
         partial void OnCreated();
@@ -47,9 +49,11 @@ namespace YAF.Types.Models
         [Alias("WatchForumID")]
         [AutoIncrement]
         public int ID { get; set; }
+
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
+
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }

@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 BjÃ¸rnar Henden
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models.Provider
 {
     #region Using
 
@@ -29,23 +29,19 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
-
-    /// <summary>
-    ///     A class which represents the yaf_AccessMask table in the Yaf Database.
-    /// </summary>
+    [Alias("prov_Membership")]
     [Serializable]
-    public partial class AccessMask : IEntity, IHaveBoardID, IHaveID
+    public partial class Membership : IEntity
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AccessMask" /> class.
+        /// Initializes a new instance of the <see cref="Membership"/> class.
         /// </summary>
-        public AccessMask()
+        public Membership()
         {
             this.OnCreated();
         }
@@ -54,39 +50,61 @@ namespace YAF.Types.Models
 
         #region Public Properties
 
-        /// <summary>
-        ///     Gets or sets the access mask id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("AccessMaskID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the board id.
-        /// </summary>
-        [References(typeof(Board))]
+        [Alias("UserID")]
         [Required]
-        public int BoardID { get; set; }
+        [Index(Clustered = true)]
 
-        /// <summary>
-        ///     Gets or sets the flags.
-        /// </summary>
-        [Required]
-        [Default(0)]
-        public int Flags { get; set; }
+        public string Id { get; set; }
 
-        /// <summary>
-        ///     Gets or sets the name.
-        /// </summary>
         [Required]
-        public string Name { get; set; }
+        [Index]
+        public Guid ApplicationID { get; set; }
 
-        /// <summary>
-        ///     Gets or sets the sort order.
-        /// </summary>
         [Required]
-        [Default(0)]
-        public short SortOrder { get; set; }
+        [Index]
+        public string Username { get; set; }
+
+        [Required]
+        public string UsernameLwd { get; set; }
+
+        public string Password { get; set; }
+
+        public string PasswordSalt { get; set; }
+
+        public string PasswordFormat { get; set; }
+
+        [Index]
+        public string Email { get; set; }
+
+        public string EmailLwd { get; set; }
+
+        public string PasswordQuestion { get; set; }
+
+        public string PasswordAnswer { get; set; }
+
+        public bool? IsApproved { get; set; }
+
+        public bool? IsLockedOut { get; set; }
+
+        public DateTime? LastLogin { get; set; }
+
+        public DateTime? LastActivity { get; set; }
+
+        public DateTime? LastPasswordChange { get; set; }
+
+        public DateTime? LastLockOut { get; set; }
+
+        public int? FailedPasswordAttempts { get; set; }
+
+        public int? FailedAnswerAttempts { get; set; }
+
+        public DateTime? FailedPasswordWindow { get; set; }
+
+        public DateTime? FailedAnswerWindow { get; set; }
+
+        public DateTime? Joined { get; set; }
+
+        public string Comment { get; set; }
 
         #endregion
 

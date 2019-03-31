@@ -34,6 +34,7 @@ namespace YAF.Types.Models
     /// The Banned Name Table
     /// </summary>
     [Serializable]
+    [UniqueConstraint(nameof(BoardID), nameof(Mask))]
     public partial class BannedName : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
@@ -60,6 +61,7 @@ namespace YAF.Types.Models
         /// </summary>
         [References(typeof(Board))]
         [Required]
+        
         public int BoardID { get; set; }
 
         /// <summary>

@@ -1,5 +1,5 @@
-﻿/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bj�rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
@@ -21,67 +21,59 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Models
+namespace YAF.Types.Models.Provider
 {
+    #region Using
+
     using System;
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
+    #endregion
+
     /// <summary>
-    /// The Banned Email Table
+    /// The application.
     /// </summary>
+    [Alias("prov_Application")]
     [Serializable]
-    [UniqueConstraint(nameof(BoardID), nameof(Mask))]
-    public partial class BannedEmail : IEntity, IHaveID, IHaveBoardID
+    public partial class Application : IEntity
     {
-        partial void OnCreated();
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BannedEmail"/> class.
+        /// Initializes a new instance of the <see cref="Application"/> class.
         /// </summary>
-        public BannedEmail()
+        public Application()
         {
             this.OnCreated();
         }
 
-        #region Properties
+        #endregion
 
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("ID")]
-        public int ID { get; set; }
+        #region Public Properties
 
-        /// <summary>
-        /// Gets BoardId.
-        /// </summary>
-        [References(typeof(Board))]
+        [Alias("ApplicationID")]
         [Required]
-        public int BoardID { get; set; }
+        [Index(Clustered = true)]
+        public Guid Id { get; set; }
 
-        [Required]
-        public string Mask { get; set; }
+        [Index]
+        public string ApplicationName { get; set; }
+
+        public string ApplicationNameLwd { get; set; }
+
+        public string Description { get; set; }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
-        /// Gets or sets the since.
+        ///     The on created.
         /// </summary>
-        /// <value>
-        /// The since.
-        /// </value>
-        [Required]
-        public DateTime Since { get; set; }
-
-        /// <summary>
-        /// Gets or sets the reason.
-        /// </summary>
-        /// <value>
-        /// The reason.
-        /// </value>
-        public string Reason { get; set; }
+        partial void OnCreated();
 
         #endregion
     }

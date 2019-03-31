@@ -55,10 +55,12 @@ namespace YAF.Types.Models
         [References(typeof(PollGroupCluster))]
         public int? PollGroupID { get; set; }
         [Required]
+        [Default(1)]
         public int UserID { get; set; }
         public string ObjectPath { get; set; }
         public string MimeType { get; set; }
-        public int? Flags { get; set; }
+        [Default(0)]
+        public int Flags { get; set; }
         [Compute]
         public bool? IsClosedBound { get; set; }
         [Compute]

@@ -52,6 +52,7 @@ namespace YAF.Types.Models
 
         [References(typeof(Forum))]
         [Required]
+        [Index]
         public int ForumID { get; set; }
 
         [References(typeof(AccessMask))]

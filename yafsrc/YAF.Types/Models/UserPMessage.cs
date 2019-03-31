@@ -52,11 +52,13 @@ namespace YAF.Types.Models
         public int ID { get; set; }
         [References(typeof(User))]
         [Required]
+        [Index]
         public int UserID { get; set; }
         [References(typeof(PMessage))]
         [Required]
         public int PMessageID { get; set; }
         [Required]
+        [Default(0)]
         public int Flags { get; set; }
         [Compute]
         public bool? IsRead { get; set; }

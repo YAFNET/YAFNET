@@ -34,6 +34,8 @@ namespace YAF.Types.Models
     /// A class which represents the Category table.
     /// </summary>
     [Serializable]
+
+    [UniqueConstraint(nameof(BoardID), nameof(Name))]
     public partial class Category : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
@@ -51,9 +53,11 @@ namespace YAF.Types.Models
 
         [References(typeof(Board))]
         [Required]
+        [Index]
         public int BoardID { get; set; }
 
         [Required]
+        [Index]
         public string Name { get; set; }
 
         [Required]

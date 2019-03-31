@@ -64,10 +64,13 @@ namespace YAF.Types.Models
 
         [References(typeof(User))]
         [Required]
+        [Index]
         public int ThanksFromUserID { get; set; }
         [Required]
+        [Index]
         public int ThanksToUserID { get; set; }
         [Required]
+        [Index]
         public int MessageID { get; set; }
         [Required]
         public DateTime ThanksDate { get; set; }

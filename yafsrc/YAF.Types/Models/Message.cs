@@ -54,8 +54,6 @@ namespace YAF.Types.Models
             this.MessageText = row.Field<string>("Message");
             this.TopicID = row.Field<int?>("TopicID") ?? 0;
 
-            this.Posted = row.Field<DateTime?>("Posted").Value;
-
             try
             {
                 this.Topic = row.Field<string>("Topic");
@@ -145,8 +143,6 @@ namespace YAF.Types.Models
             {
                 this.HasAttachments = false;
             }
-
-            this.AnswerMessageId = row.Field<int?>("AnswerMessageId");
         }
 
         #region Properties
@@ -160,6 +156,8 @@ namespace YAF.Types.Models
 
         [References(typeof(Topic))]
         [Required]
+        [Index]
+
         public int TopicID { get; set; }
         [References(typeof(Message))]
         public int? ReplyTo { get; set; }
@@ -169,6 +167,8 @@ namespace YAF.Types.Models
         public int Indent { get; set; }
         [References(typeof(User))]
         [Required]
+        [Index]
+
         public int UserID { get; set; }
         public string UserName { get; set; }
 
@@ -182,6 +182,9 @@ namespace YAF.Types.Models
         public string IP { get; set; }
         public DateTime? Edited { get; set; }
         [Required]
+        [Default(23)]
+        [Index]
+
         public int Flags { get; set; }
 
         [Ignore]
@@ -202,6 +205,7 @@ namespace YAF.Types.Models
         [Ignore]
         public string Signature { get; set; }
         [Required]
+        [Default(0)]
         public bool? IsModeratorChanged { get; set; }
         public string DeleteReason { get; set; }
         [Compute]
@@ -213,9 +217,6 @@ namespace YAF.Types.Models
         public string ExternalMessageId { get; set; }
         public string ReferenceMessageId { get; set; }
         public string UserDisplayName { get; set; }
-
-        [Ignore]
-        public int? AnswerMessageId { get; set; }
 
         #endregion
     }

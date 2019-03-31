@@ -54,10 +54,13 @@ namespace YAF.Types.Models
         public int MedalID { get; set; }
         public string Message { get; set; }
         [Required]
+        [Default(0)]
         public bool Hide { get; set; }
         [Required]
+        [Default(0)]
         public bool OnlyRibbon { get; set; }
         [Required]
+        [Default(255)]
         public byte SortOrder { get; set; }
         [Required]
         public DateTime DateAwarded { get; set; }

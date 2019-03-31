@@ -31,6 +31,7 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     [Serializable]
+    [UniqueConstraint(nameof(BoardID), nameof(Mask))]
     public partial class BannedIP : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();

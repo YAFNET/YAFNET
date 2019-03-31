@@ -54,8 +54,12 @@ namespace YAF.Types.Models
         public int ID { get; set; }
         [References(typeof(Poll))]
         [Required]
+        [Index]
         public int PollID { get; set; }
+        [Index]
         public int? UserID { get; set; }
+
+        [Index]
         public string RemoteIP { get; set; }
         public int? ChoiceID { get; set; }
 

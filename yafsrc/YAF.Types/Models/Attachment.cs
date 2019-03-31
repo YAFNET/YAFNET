@@ -61,6 +61,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the message id.
         /// </summary>
+        [Default(0)]
         public int MessageID { get; set; }
 
         /// <summary>
@@ -80,6 +81,7 @@ namespace YAF.Types.Models
         /// </summary>
         [References(typeof(User))]
         [Required]
+        [Default(0)]
         public int UserID { get; set; }
 
         /// <summary>

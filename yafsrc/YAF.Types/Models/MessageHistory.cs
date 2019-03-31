@@ -57,8 +57,10 @@ namespace YAF.Types.Models
         public int? EditedBy { get; set; }
         public string EditReason { get; set; }
         [Required]
+        [Default(0)]
         public bool IsModeratorChanged { get; set; }
         [Required]
+        [Default(23)]
         public int Flags { get; set; }
 
         #endregion

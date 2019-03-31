@@ -27,6 +27,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -50,7 +51,7 @@ namespace YAF.Types.Models
         [AutoIncrement]
         [Alias("EventLogID")]
         public int ID { get; set; }
-
+        [Default(OrmLiteVariables.SystemUtc)]
         public DateTime EventTime { get; set; }
 
         [References(typeof(User))]
@@ -64,6 +65,7 @@ namespace YAF.Types.Models
         public string Description { get; set; }
 
         [Required]
+        [Default(0)]
         public int Type { get; set; }
 
         [Ignore]

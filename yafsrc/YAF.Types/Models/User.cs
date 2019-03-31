@@ -26,6 +26,7 @@ namespace YAF.Types.Models
 {
     using System;
     using System.Data.Linq.Mapping;
+    using System.Xml.Serialization;
 
     using ServiceStack.DataAnnotations;
 
@@ -36,6 +37,8 @@ namespace YAF.Types.Models
     /// A class which represents the User table.
     /// </summary>
     [Serializable]
+
+    [UniqueConstraint(nameof(BoardID), nameof(Name))]
     [Table(Name = "User")]
     public partial class User : IEntity, IHaveBoardID, IHaveID
     {
@@ -63,16 +66,20 @@ namespace YAF.Types.Models
         public int ID { get; set; }
         [References(typeof(Board))]
         [Required]
+        [Index(NonClustered = true)]
         public int BoardID { get; set; }
         public string ProviderUserKey { get; set; }
         [Required]
+        [Index]
         public string Name { get; set; }
         [Required]
+        [Index]
         public string DisplayName { get; set; }
         [Required]
         public string Password { get; set; }
         public string Email { get; set; }
         [Required]
+        [Index]
         public DateTime Joined { get; set; }
         [Required]
         public DateTime LastVisit { get; set; }
@@ -91,15 +98,23 @@ namespace YAF.Types.Models
         public string LanguageFile { get; set; }
         public string ThemeFile { get; set; }
         [Required]
+        [Default(1)]
         public bool PMNotification { get; set; }
         [Required]
+        [Default(0)]
         public bool AutoWatchTopics { get; set; }
+
         [Required]
+        [Default(0)]
         public bool DailyDigest { get; set; }
+
+        [Default(10)]
         public int? NotificationType { get; set; }
         [Required]
+        [Default(0)]
         public int Flags { get; set; }
         [Required]
+        [Default(1)]
         public int Points { get; set; }
         [Compute]
         public bool? IsApproved { get; set; }
@@ -107,8 +122,6 @@ namespace YAF.Types.Models
         public bool? IsActiveExcluded { get; set; }
         public string Culture { get; set; }
         public string TextEditor { get; set; }
-        [Required]
-        public bool UseSingleSignOn { get; set; }
         [Compute]
         public bool? IsGuest { get; set; }
         [Compute]
@@ -118,11 +131,15 @@ namespace YAF.Types.Models
         [Compute]
         public bool? IsDirty { get; set; }
         [Required]
+        [Default(0)]
         public bool IsFacebookUser { get; set; }
         [Required]
+        [Default(0)]
         public bool IsTwitterUser { get; set; }
+        [Index]
         public string UserStyle { get; set; }
         [Required]
+        [Default(0)]
         public int StyleFlags { get; set; }
         [Compute]
         public bool? IsUserStyle { get; set; }
@@ -131,11 +148,11 @@ namespace YAF.Types.Models
         [Compute]
         public bool? IsRankStyle { get; set; }
         [Required]
-        public bool IsPossibleSpamBot { get; set; }
-        [Required]
+        [Default(0)]
         public bool IsGoogleUser { get; set; }
         public string SuspendedReason { get; set; }
         [Required]
+        [Default(0)]
         public int SuspendedBy { get; set; }
 
         #endregion

@@ -33,6 +33,7 @@ namespace YAF.Types.Models
     /// A class which represents the Buddy table.
     /// </summary>
     [Serializable]
+    [UniqueConstraint(nameof(FromUserID), nameof(ToUserID))]
     public partial class Buddy : IEntity, IHaveID
     {
         partial void OnCreated();
@@ -51,7 +52,6 @@ namespace YAF.Types.Models
         /// Gets or sets the id.
         /// </summary>
         [AutoIncrement]
-        [Alias("BuddyID")]
         public int ID { get; set; }
 
         /// <summary>
@@ -62,6 +62,7 @@ namespace YAF.Types.Models
         /// </value>
         [References(typeof(User))]
         [Required]
+        [Index]
         public int FromUserID { get; set; }
 
         /// <summary>
@@ -71,6 +72,7 @@ namespace YAF.Types.Models
         /// To user identifier.
         /// </value>
         [Required]
+        [Index]
         public int ToUserID { get; set; }
 
         /// <summary>

@@ -55,6 +55,8 @@ namespace YAF.Types.Models
         public int ForumID { get; set; }
         [References(typeof(User))]
         [Required]
+        [Index]
+
         public int UserID { get; set; }
         public string UserName { get; set; }
         [Required]
@@ -70,8 +72,9 @@ namespace YAF.Types.Models
         public int? PollID { get; set; }
         [References(typeof(Topic))]
         public int? TopicMovedID { get; set; }
+        [Index]
         public DateTime? LastPosted { get; set; }
-        [References(typeof(Message))]
+       // [References(typeof(Message))]
         public int? LastMessageID { get; set; }
         [References(typeof(User))]
         public int? LastUserID { get; set; }
@@ -95,6 +98,8 @@ namespace YAF.Types.Models
             }
         }
         [Required]
+        [Index]
+
         public int Flags { get; set; }
         [Compute]
         public bool? IsDeleted { get; set; }

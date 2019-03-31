@@ -34,6 +34,7 @@ namespace YAF.Types.Models
     /// A class which represents the yaf_UserProfile table.
     /// </summary>
     [Serializable]
+    [UniqueConstraint(nameof(ID), nameof(ApplicationName))]
     [Table(Name = "UserProfile")]
     public partial class UserProfile : IEntity, IHaveID
     {

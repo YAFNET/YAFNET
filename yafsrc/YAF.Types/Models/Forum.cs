@@ -35,6 +35,7 @@ namespace YAF.Types.Models
     /// A class which represents the yaf_Forum table.
     /// </summary>
     [Serializable]
+    [UniqueConstraint(nameof(CategoryID), nameof(Name))]
     public partial class Forum : IEntity, IHaveID
     {
         partial void OnCreated();
@@ -52,10 +53,12 @@ namespace YAF.Types.Models
 
         [References(typeof(Category))]
         [Required]
+        [Index]
         public int CategoryID { get; set; }
 
         [References(typeof(Forum))]
-        public int ParentID { get; set; }
+        [Index]
+        public int? ParentID { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -67,10 +70,10 @@ namespace YAF.Types.Models
 
         public DateTime? LastPosted { get; set; }
 
-        [References(typeof(Topic))]
+       // [References(typeof(Topic))]
         public int? LastTopicID { get; set; }
 
-        [References(typeof(Message))]
+//        [References(typeof(Message))]
         public int? LastMessageID { get; set; }
 
         [References(typeof(User))]
@@ -92,6 +95,8 @@ namespace YAF.Types.Models
         public bool? IsHidden { get; set; }
 
         [Required]
+        [Index]
+        [Default(0)]
         public int Flags { get; set; }
 
         [Ignore]
@@ -111,7 +116,7 @@ namespace YAF.Types.Models
         public string ThemeURL { get; set; }
 
         [References(typeof(PollGroupCluster))]
-        public int PollGroupID { get; set; }
+        public int? PollGroupID { get; set; }
 
         public string ImageURL { get; set; }
 
@@ -124,10 +129,11 @@ namespace YAF.Types.Models
         [Compute]
         public bool? IsModerated { get; set; }
 
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
 
-        public int ModeratedPostCount { get; set; }
+        public int? ModeratedPostCount { get; set; }
 
+        [Default(0)]
         public bool IsModeratedNewTopicOnly { get; set; }
 
 

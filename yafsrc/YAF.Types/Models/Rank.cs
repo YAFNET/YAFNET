@@ -38,6 +38,8 @@ namespace YAF.Types.Models
     ///     A class which represents the YAF_Rank table in the YAF Database.
     /// </summary>
     [Serializable]
+
+    [UniqueConstraint(nameof(BoardID), nameof(Name))]
     public partial class Rank : IEntity, IHaveID, IHaveBoardID
     {
         #region Constructors and Destructors
@@ -69,19 +71,26 @@ namespace YAF.Types.Models
         public int? MinPosts { get; set; }
         public string RankImage { get; set; }
         [Required]
+        [Default(0)]
         public int Flags { get; set; }
+
+        [Default(0)]
         public int? PMLimit { get; set; }
         public string Style { get; set; }
         [Required]
+        [Default(0)]
         public short SortOrder { get; set; }
         public string Description { get; set; }
         [Required]
+        [Default(0)]
         public int UsrSigChars { get; set; }
         public string UsrSigBBCodes { get; set; }
         public string UsrSigHTMLTags { get; set; }
         [Required]
+        [Default(0)]
         public int UsrAlbums { get; set; }
         [Required]
+        [Default(0)]
         public int UsrAlbumImages { get; set; }
 
         #endregion

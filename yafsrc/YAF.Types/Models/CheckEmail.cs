@@ -34,6 +34,8 @@ namespace YAF.Types.Models
     /// A class which represents the CheckEmail table.
     /// </summary>
     [Serializable]
+
+    [UniqueConstraint(nameof(Hash))]
     public partial class CheckEmail : IEntity, IHaveID
     {
         partial void OnCreated();
@@ -59,6 +61,7 @@ namespace YAF.Types.Models
         public DateTime Created { get; set; }
 
         [Required]
+        [Index]
         public string Hash { get; set; }
 
         #endregion

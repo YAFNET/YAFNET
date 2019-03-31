@@ -28,7 +28,6 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -53,6 +52,8 @@ namespace YAF.Types.Models
 
         [References(typeof(Board))]
         [Required]
+
+        [Default(1)]
         public int BoardId { get; set; }
 
         [Required]

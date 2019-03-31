@@ -49,6 +49,7 @@ namespace YAF.Types.Models
 
         [References(typeof(User))]
         [Required]
+        [Index]
         public int UserID { get; set; }
         [References(typeof(Group))]
         [Required]

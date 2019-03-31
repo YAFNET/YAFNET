@@ -132,8 +132,14 @@
     <Compile Include="Interfaces\IPager.cs" />
     <Compile Include="Interfaces\ISpamWordCheck.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
+    <Compile Include="Interfaces\ITheme.cs" />
     <Compile Include="Interfaces\LoggerExtensions.cs" />
     <Compile Include="Models\AccessMask.cs" />
+    <Compile Include="Models\Provider\Application.cs" />
+    <Compile Include="Models\Provider\Membership.cs" />
+    <Compile Include="Models\Provider\Profile.cs" />
+    <Compile Include="Models\Provider\Role.cs" />
+    <Compile Include="Models\Provider\RoleMembership.cs" />
     <Compile Include="Models\vaccess_group.cs" />
     <Compile Include="Models\vaccess_null.cs" />
     <Compile Include="Models\vaccess_user.cs" />
@@ -320,7 +326,6 @@
     <Compile Include="Interfaces\Data\IDbConnectionManager.cs" />
     <Compile Include="Interfaces\IWriteValue.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />
-    <Compile Include="Interfaces\ITheme.cs" />
     <Compile Include="Interfaces\IYafUserProfile.cs" />
     <Compile Include="MessageCleaned.cs" />
     <Compile Include="LanguageResources.cs" />

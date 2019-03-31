@@ -39,7 +39,7 @@ namespace YAF.Types.Models
     ///     A class which represents the YAF_Registry table in the YAF Database.
     /// </summary>
     [Serializable]
-    public partial class Registry : IEntity, IHaveID, IHaveBoardID
+    public partial class Registry : IEntity, IHaveID//, IHaveBoardID
     {
         #region Constructors and Destructors
 
@@ -63,10 +63,14 @@ namespace YAF.Types.Models
         public int ID { get; set; }
 
         [Required]
+        [Index]
         public string Name { get; set; }
+
         public string Value { get; set; }
+
         [References(typeof(Board))]
-        public int BoardID { get; set; }
+        [Index]
+        public int? BoardID { get; set; }
 
         #endregion
 

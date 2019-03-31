@@ -76,8 +76,10 @@ namespace YAF.Types.Models
         public short? SmallRibbonWidth { get; set; }
         public short? SmallRibbonHeight { get; set; }
         [Required]
+        [Default(255)]
         public byte SortOrder { get; set; }
         [Required]
+        [Default(0)]
         public int Flags { get; set; }
 
         [Ignore]

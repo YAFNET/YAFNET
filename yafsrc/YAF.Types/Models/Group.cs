@@ -37,6 +37,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Group")]
+
+    [UniqueConstraint(nameof(BoardID), nameof(Name))]
     public partial class Group : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
@@ -74,19 +76,25 @@ namespace YAF.Types.Models
         }
 
         [Required]
+        [Default(0)]
         public int Flags { get; set; }
 
         [Required]
+        [Default(30)]
         public int PMLimit { get; set; }
 
+        [Index]
         public string Style { get; set; }
 
         [Required]
+        [Index]
+        [Default(0)]
         public short SortOrder { get; set; }
 
         public string Description { get; set; }
 
         [Required]
+        [Default(0)]
         public int UsrSigChars { get; set; }
 
         public string UsrSigBBCodes { get; set; }
@@ -94,9 +102,11 @@ namespace YAF.Types.Models
         public string UsrSigHTMLTags { get; set; }
 
         [Required]
+        [Default(0)]
         public int UsrAlbums { get; set; }
 
         [Required]
+        [Default(0)]
         public int UsrAlbumImages { get; set; }
 
         [Compute]

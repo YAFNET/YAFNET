@@ -54,6 +54,7 @@ namespace YAF.Types.Models
         public int MessageID { get; set; }
         public DateTime? Reported { get; set; }
         [Required]
+        [Default(1)]
         public int ReportedNumber { get; set; }
         public string ReportText { get; set; }
 

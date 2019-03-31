@@ -58,6 +58,7 @@ namespace YAF.Types.Models
         public string Subject { get; set; }
         public string Body { get; set; }
         [Required]
+        [Default(23)]
         public int Flags { get; set; }
         public int? ReplyTo { get; set; }
 

@@ -55,6 +55,7 @@ namespace YAF.Types.Models
         public int ID { get; set; }
 
         [Required]
+        [Default(1)]
         public int BoardID { get; set; }
         public string BadWord { get; set; }
         public string GoodWord { get; set; }
