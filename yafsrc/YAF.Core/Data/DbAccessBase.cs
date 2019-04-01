@@ -30,16 +30,12 @@ namespace YAF.Core.Data
     using System.Data;
     using System.Data.Common;
 
-    using ServiceStack.OrmLite;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-
-    using QueryCounter = YAF.Core.Data.Profiling.QueryCounter;
 
     #endregion
 
@@ -99,6 +95,7 @@ namespace YAF.Core.Data
 
         #region Public Methods and Operators
         
+
         /// <summary>
         /// The execute.
         /// </summary>
@@ -120,7 +117,7 @@ namespace YAF.Core.Data
         {
             var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
 
-            OrmLiteConfig.ClearCache();
+           // OrmLiteConfig.ClearCache();
 
             using (var p = this._profiler.Start(command.CommandText))
             {

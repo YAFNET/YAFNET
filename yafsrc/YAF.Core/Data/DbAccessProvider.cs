@@ -133,6 +133,7 @@ namespace YAF.Core.Data
             {
                 return this._providerName ?? (this._providerName = Config.ConnectionProviderName);
             }
+
             set
             {
                 this._providerName = value;

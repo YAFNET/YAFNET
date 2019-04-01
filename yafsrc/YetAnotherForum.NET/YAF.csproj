@@ -958,10 +958,124 @@
     <Content Include="auth.aspx" />
     <Content Include="Content\blueimp-gallery.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
-    <Content Include="Content\bootstrap-forum.css">
+    <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-forum.min.css">
+    <Content Include="Content\Themes\cerulean\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\cosmo\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\cosmo\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\darkly\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\darkly\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\flatly\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\flatly\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\journal\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\journal\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\litera\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\litera\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lumen\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lumen\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lux\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lux\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\materia\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\materia\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\minty\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\minty\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\pulse\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\pulse\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\simplex\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\simplex\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\slate\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\slate\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\solar\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\solar\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\superhero\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\superhero\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\united\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\united\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\yaf\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\yaf\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-image-gallery.css" />
@@ -1653,91 +1767,17 @@
     <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\fontawesome\v4-shims.css" />
-    <Content Include="Content\Themes\cerulean\bootstrap.css" />
-    <Content Include="Content\Themes\cerulean\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\cosmo\bootstrap.css" />
-    <Content Include="Content\Themes\cosmo\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\cyborg\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
-    <Content Include="Content\Themes\darkly\bootstrap.css" />
-    <Content Include="Content\Themes\darkly\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
+    <Content Include="Content\Themes\yeti\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
-    <Content Include="Content\Themes\flatly\bootstrap.css" />
-    <Content Include="Content\Themes\flatly\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\journal\bootstrap.css" />
-    <Content Include="Content\Themes\journal\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\litera\bootstrap.css" />
-    <Content Include="Content\Themes\litera\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lumen\bootstrap.css" />
-    <Content Include="Content\Themes\lumen\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lux\bootstrap.css" />
-    <Content Include="Content\Themes\lux\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\materia\bootstrap.css" />
-    <Content Include="Content\Themes\materia\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\minty\bootstrap.css" />
-    <Content Include="Content\Themes\minty\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\pulse\bootstrap.css" />
-    <Content Include="Content\Themes\pulse\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sandstone\bootstrap.css" />
-    <Content Include="Content\Themes\sandstone\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\simplex\bootstrap.css" />
-    <Content Include="Content\Themes\simplex\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sketchy\bootstrap.css" />
-    <Content Include="Content\Themes\sketchy\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\slate\bootstrap.css" />
-    <Content Include="Content\Themes\slate\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\solar\bootstrap.css" />
-    <Content Include="Content\Themes\solar\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\spacelab\bootstrap.css" />
-    <Content Include="Content\Themes\spacelab\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\superhero\bootstrap.css" />
-    <Content Include="Content\Themes\superhero\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\united\bootstrap.css" />
-    <Content Include="Content\Themes\united\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\yeti\bootstrap.css" />
-    <Content Include="Content\Themes\yeti\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
+    <Content Include="Content\Themes\yeti\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
@@ -1810,7 +1850,7 @@
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
-    <Content Include="forumlogo.jpg" />
+    <Content Include="Content\images\forumlogo.jpg" />
     <Content Include="Images\Avatars\Common\SampleAvatar.gif" />
     <Content Include="Images\Medals\award_star_bronze_3.png" />
     <Content Include="Images\Medals\award_star_bronze_3_small.png" />
@@ -2419,10 +2459,6 @@
     <Content Include="Scripts\moment-with-locales.min.js">
       <DependentUpon>moment-with-locales.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js">
-      <DependentUpon>moment.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
     </Content>
@@ -2919,9 +2955,9 @@
       <DependentUpon>topics.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Content Include="app.config">
+    <None Include="app.config">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
     <Content Include="App_Browsers\ie.browser" />
     <Content Include="App_Browsers\ie11.browser" />
     <Content Include="App_Browsers\MozillaPatch.browser" />
@@ -2941,7 +2977,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Content\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\yaf\bootstrap-forum.scss" />
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\editor.scss" />
     <Content Include="Content\forum\social-icons.scss" />
@@ -3005,6 +3041,26 @@
     <Content Include="Content\Themes\yeti\_bootswatch.scss" />
     <Content Include="Content\Themes\yeti\_variables.scss" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\pulse\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\minty\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\materia\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\lux\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\lumen\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\litera\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\journal\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\flatly\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\darkly\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\cosmo\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\cerulean\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\simplex\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\slate\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\solar\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\united\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\yeti\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\superhero\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.scss" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3271,8 +3327,26 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>cd $(TargetDir)
+del Lucene.Net.Contrib.SpellChecker.dll
+del Lucene.Net.Contrib.SpellChecker.pdb
+del Lucene.Net.Contrib.Snowball.dll
+del Lucene.Net.Contrib.Snowball.pdb
+del Lucene.Net.Contrib.SimpleFacetedSearch.dll
+del Lucene.Net.Contrib.SimpleFacetedSearch.pdb
+del Lucene.Net.Contrib.Regex.dll
+del Lucene.Net.Contrib.Regex.pdb
+del Lucene.Net.Contrib.Queries.dll
+del Lucene.Net.Contrib.Queries.pdb
+del Lucene.Net.Contrib.Memory.dll
+del Lucene.Net.Contrib.Memory.pdb
+del Lucene.Net.Contrib.FastVectorHighlighter.dll
+del Lucene.Net.Contrib.FastVectorHighlighter.pdb
+del Lucene.Net.Contrib.Core.dll
+del Lucene.Net.Contrib.Core.pdb
+del Lucene.Net.Contrib.Analyzers.dll
+del Lucene.Net.Contrib.Analyzers.pdb
+</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>

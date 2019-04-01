@@ -146,7 +146,15 @@ namespace YAF.Types.Models
                 this.HasAttachments = false;
             }
 
-            this.AnswerMessageId = row.Field<int?>("AnswerMessageId");
+            try
+            {
+                this.AnswerMessageId = row.Field<int?>("AnswerMessageId");
+            }
+            catch (Exception)
+            {
+                this.AnswerMessageId = null;
+            }
+            
         }
 
         #region Properties
