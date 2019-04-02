@@ -71,8 +71,6 @@
 
         var ajaxUrl = $("#SearchResultsPlaceholder").data("url") + "YafAjax.asmx/GetSearchResults";
 
-        console.log(defaultParameters);
-
         $.ajax({
             type: "POST",
             url: ajaxUrl,

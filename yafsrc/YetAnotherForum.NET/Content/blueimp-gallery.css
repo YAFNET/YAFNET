@@ -80,10 +80,9 @@
        -o-transition: opacity 0.2s linear;
           transition: opacity 0.2s linear;
 }
-.blueimp-gallery > .slides > .slide-loading {
-  background: url(../Content/images/loader.gif) center no-repeat;
-  background-size: 64px 64px;
-}
+    .blueimp-gallery > .slides > .slide-loading {
+        content: "<i class=\"fas fa-spinner fa-pulse\"></i>";
+    }
 .blueimp-gallery > .slides > .slide-loading > .slide-content {
   opacity: 0;
 }
