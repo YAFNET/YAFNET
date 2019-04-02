@@ -2179,13 +2179,34 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatelastpost](@ForumID int) as
 begin
-        update [{databaseOwner}].[{objectQualifier}Forum] set
-        LastPosted = (select top 1 y.Posted from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0 order by y.Posted desc),
-        LastTopicID = (select top 1 y.TopicID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
-        LastMessageID = (select top 1 y.MessageID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
-        LastUserID = (select top 1 y.UserID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
-        LastUserName = (select top 1 y.UserName from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
-        LastUserDisplayName = (select top 1 y.UserDisplayName from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0 order by y.Posted desc)
+    DECLARE @Posted DATETIME
+    DECLARE @TopidID INT
+    DECLARE @MessageID INT
+    DECLARE @UserID INT
+    DECLARE @UserName NVARCHAR(MAX)
+    DECLARE @UserDisplayName NVARCHAR(MAX)
+
+    select top 1
+        @Posted = y.Posted,
+        @TopidID = y.TopicID,
+        @MessageID = y.MessageID,
+        @UserID = y.UserID,
+        @UserName = y.UserName,
+        @UserDisplayName = y.UserDisplayName
+    from [[{databaseOwner}]].[{objectQualifier}Topic] x
+    join [[{databaseOwner}]].[{objectQualifier}Message] y on y.TopicID=x.TopicID
+    where x.ForumID = @ForumID
+    and (y.Flags & 24)=16
+    and x.IsDeleted = 0
+    order by y.Posted desc
+
+    update [[{databaseOwner}]].[{objectQualifier}Forum] set
+    LastPosted			= @Posted,
+    LastTopicID         = @TopidID,
+    LastMessageID		= @MessageID,
+    LastUserID			= @UserID,
+    LastUserName		= @UserName,
+    LastUserDisplayName = @UserDisplayName
     where ForumID = @ForumID
 end
 GO
@@ -7865,7 +7886,6 @@ BEGIN
     @OldTopicID int,
     @OldForumID int
 
-
     declare @NewForumID		int
     declare @MessageCount	int
     declare @LastMessageID	int
@@ -7873,39 +7893,38 @@ BEGIN
     -- Find TopicID and ForumID
 --	select @OldTopicID=b.TopicID,@ForumID=b.ForumID from [{databaseOwner}].[{objectQualifier}Message] a,{objectQualifier}Topic b where a.MessageID=@MessageID and b.TopicID=a.TopicID
 
-SET 	@NewForumID = (SELECT     ForumID
-                FROM         [{databaseOwner}].[{objectQualifier}Topic]
-                WHERE     (TopicID = @MoveToTopic))
+SET 	@NewForumID =   (SELECT TOP(1) ForumID
+                        FROM [{databaseOwner}].[{objectQualifier}Topic]
+                        WHERE (TopicID = @MoveToTopic))
 
+SET 	@OldTopicID = 	(SELECT TOP(1) TopicID
+                        FROM [{databaseOwner}].[{objectQualifier}Message]
+                        WHERE (MessageID = @MessageID))
 
-SET 	@OldTopicID = 	(SELECT     TopicID
-                FROM         [{databaseOwner}].[{objectQualifier}Message]
-                WHERE     (MessageID = @MessageID))
+SET 	@OldForumID =   (SELECT TOP(1) ForumID
+                        FROM [{databaseOwner}].[{objectQualifier}Topic]
+                        WHERE (TopicID = @OldTopicID))
 
-SET 	@OldForumID = (SELECT     ForumID
-                FROM         [{databaseOwner}].[{objectQualifier}Topic]
-                WHERE     (TopicID = @OldTopicID))
+SET	@ReplyToID =    (SELECT TOP(1) MessageID
+                    FROM [{databaseOwner}].[{objectQualifier}Message]
+                    WHERE ([Position] = 0) AND (TopicID = @MoveToTopic))
 
-SET	@ReplyToID = (SELECT     MessageID
-            FROM         [{databaseOwner}].[{objectQualifier}Message]
-            WHERE     ([Position] = 0) AND (TopicID = @MoveToTopic))
+DECLARE @Posted DATETIME
+SET @Posted = (SELECT TOP(1) Posted FROM [{databaseOwner}].[{objectQualifier}Message] AS Msg WHERE MessageID = @MessageID)
 
-SET	@Position = 	(SELECT     MAX([Position]) + 1 AS Expr1
-            FROM         [{databaseOwner}].[{objectQualifier}Message]
-            WHERE     (TopicID = @MoveToTopic) and Posted < (select Posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID ) )
+SET	@Position = (SELECT TOP(1) MAX([Position]) + 1 AS Expr1
+                FROM [{databaseOwner}].[{objectQualifier}Message]
+                WHERE (TopicID = @MoveToTopic) and Posted < @Posted)
 
 if @Position is null  set @Position = 0
 
 update [{databaseOwner}].[{objectQualifier}Message] set
         Position = Position+1
-     WHERE     (TopicID = @MoveToTopic) and Posted > (select Posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
+     WHERE     (TopicID = @MoveToTopic) and Posted > @Posted
 
 update [{databaseOwner}].[{objectQualifier}Message] set
         Position = Position-1
-     WHERE     (TopicID = @OldTopicID) and Posted > (select Posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
-
-
-
+     WHERE     (TopicID = @OldTopicID) and Posted > @Posted
 
     -- Update LastMessageID in Topic and Forum
     update [{databaseOwner}].[{objectQualifier}Topic] set
