@@ -154,7 +154,17 @@ namespace YAF.Types.Models
             {
                 this.AnswerMessageId = null;
             }
+
+            try
+            {
+                this.Signature = row.Field<string>("Signature");
+            }
+            catch (Exception)
+            {
+                this.Signature = string.Empty;
+            }
             
+
         }
 
         #region Properties
