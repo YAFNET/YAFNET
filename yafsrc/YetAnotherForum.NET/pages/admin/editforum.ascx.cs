@@ -406,8 +406,6 @@ namespace YAF.Pages.Admin
             this.AccessMaskID.DataBind();
 
             this.ThemeList.DataSource = StaticDataHelper.Themes();
-            this.ThemeList.DataTextField = "Theme";
-            this.ThemeList.DataValueField = "FileName";
             this.ThemeList.DataBind();
             this.ThemeList.Items.Insert(0, listheader);
         }
