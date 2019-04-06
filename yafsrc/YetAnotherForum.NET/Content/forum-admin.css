@@ -7847,9 +7847,6 @@ td.tablesorter-pager {
     opacity: 1;
     transform: translateY(0%);
     transition-delay: 1000ms; }
-  .cookiealert .acceptcookies {
-    margin-right: 10px !important;
-    vertical-align: baseline; }
 
 #YafBody {
   margin: 0;

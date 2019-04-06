@@ -96,7 +96,7 @@ namespace YAF.Core.Syndication
       this.LastUpdatedTime = DateTime.UtcNow;
       this.Language = YafContext.Current.Get<ILocalization>().LanguageCode;
       this.ImageUrl =
-        new Uri("{0}/YAFLogo.png".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
+        new Uri("{0}/Content/Images/YAFLogo.png".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl)));
 
       this.Id =
         "urn:{0}:{1}:{2}:{3}:{4}".FormatWith(

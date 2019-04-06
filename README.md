@@ -1,4 +1,4 @@
-[![YAF logo](http://yetanotherforum.net/forum/images/YafLogo.png)](http://www.yetanotherforum.net)
+[![YAF logo](http://yetanotherforum.net/forum/Content/images/YafLogo.png)](http://www.yetanotherforum.net)
 
 **YetAnotherForum.NET** (YAF.NET) ASP.NET Open Source Forum solution! The **YAF.NET** project is an international collaboration of like-minded, skilled, and creative individuals who are striving to make **YAF.NET** the most robust and malleable forum solutions available.
 
@@ -25,7 +25,7 @@ A "sandbox" test forum is available here: http://testforum.yetanotherforum.net/.
 
 ## Community Support Forum
 
-See a real live YAF Forum by visiting the [YAF Community Support forum](http://forum.yetanotherforum.net). Also, get your questions answered by the YAF community.
+See a real live YAF Forum by visiting the YetAnotherForum.NET community support forum: http://forum.yetanotherforum.net. Also, get your questions answered by the YAF community.
 
 ## License
 
@@ -34,5 +34,5 @@ Yet Another Forum.NET is licensed under the Apache 2.0 license.
 
 ### Yet Another Forum Community Support
 
-If you have any questions, please visit the [YAF Community Support forum](http://forum.yetanotherforum.net), or visit the [Wiki](https://github.com/YAFNET/YAFNET/wiki) for More Informations.
+If you have any questions, please visit the YAF Community Support forum: [http://forum.yetanotherforum.net](http://forum.yetanotherforum.net), or visit the Wiki for More Informations.
 

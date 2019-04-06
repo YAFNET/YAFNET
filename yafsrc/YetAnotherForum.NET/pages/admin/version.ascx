@@ -22,7 +22,7 @@
                     </YAF:Alert>
                 </asp:placeholder>
                 <p class="card-text">
-                    <img src="~/Images/YafLogoSmall.png" alt="YAF.NET" style="float: left; padding: 10px;"
+                    <img src="~/Content/Images/YafLogoSmall.png" alt="YAF.NET" style="float: left; padding: 10px;"
                     runat="server" /></p>
                     <p class="card-text">
                         <asp:label id="RunningVersion" runat="server"></asp:label>

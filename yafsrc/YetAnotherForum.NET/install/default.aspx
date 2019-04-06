@@ -144,7 +144,7 @@
                     <h4>
                             YAF.NET Database Connection
                     </h4>
-                    <div class="input-group">
+                    <div class="form-group">
                         <asp:RadioButtonList ID="rblYAFDatabase" runat="server" AutoPostBack="true" 
                             OnSelectedIndexChanged="YAFDatabase_SelectedIndexChanged">
                             <asp:ListItem Text="Use Existing DB Connection String" Selected="true" Value="existing"></asp:ListItem>
@@ -156,7 +156,7 @@
                             Select Existing Connection String
                         </h4>
                         Select SQL Server Database Connection String:&nbsp;
-                        <asp:DropDownList ID="lbConnections" runat="server" CssClass="selectConnection custom-select">
+                        <asp:DropDownList ID="lbConnections" runat="server" CssClass="custom-select">
                         </asp:DropDownList>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder ID="NewConnectionHolder" runat="server" Visible="false">
@@ -168,54 +168,58 @@
                             Connection String will be saved as "<asp:Label ID="lblConnStringAppSettingName"
                             runat="server" Text="yafnet" />".
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter1_Name" runat="server" AssociatedControlID="Parameter1_Value" />
                             <YAF:ModernTextBox runat="server" ID="Parameter1_Value" Text="(local)" 
                                 Placeholder="Enter the Data Source (Name or address of the sql server)"/>
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter2_Name" runat="server" AssociatedControlID="Parameter2_Value" />
                             <YAF:ModernTextBox runat="server" ID="Parameter2_Value" 
                                 Placeholder="Enter the Database Name"/>
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter3_Name" runat="server" AssociatedControlID="Parameter3_Value" />
                             <asp:TextBox runat="server" ID="Parameter3_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter4_Name" runat="server" AssociatedControlID="Parameter4_Value" />
                             <asp:TextBox runat="server" ID="Parameter4_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter5_Name" runat="server" AssociatedControlID="Parameter5_Value" />
                             <asp:TextBox runat="server" ID="Parameter5_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter6_Name" runat="server" AssociatedControlID="Parameter6_Value" />
                             <asp:TextBox runat="server" ID="Parameter6_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter7_Name" runat="server" AssociatedControlID="Parameter7_Value" />
                             <asp:TextBox runat="server" ID="Parameter7_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter8_Name" runat="server" AssociatedControlID="Parameter8_Value" />
                             <asp:TextBox runat="server" ID="Parameter8_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter9_Name" runat="server" AssociatedControlID="Parameter9_Value" />
                             <asp:TextBox runat="server" ID="Parameter9_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="input-group">
+                        <div class="form-group">
                             <asp:Label ID="Parameter10_Name" runat="server" AssociatedControlID="Parameter10_Value" />
                             <asp:TextBox runat="server" ID="Parameter10_Value" CssClass="standardTextInput" />
                         </div>
                         </asp:PlaceHolder>
                         
-                        <div class="checkbox">
-                            <asp:CheckBox ID="Parameter11_Value" runat="server" Checked="true" Text="Use Integrated Security"
-                            AutoPostBack="true" OnCheckedChanged="Parameter11_Value_CheckChanged" />
+                        <div class="form-group form-check">
+                            <asp:CheckBox ID="Parameter11_Value" runat="server" 
+                                          Checked="true" 
+                                          Text="Use Integrated Security"
+                                          AutoPostBack="true" 
+                                          OnCheckedChanged="Parameter11_Value_CheckChanged"
+                                          CssClass="form-check-input"/>
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
                             <asp:CheckBox ID="Parameter12_Value" runat="server" Checked="true" AutoPostBack="true" />
@@ -322,9 +326,6 @@
                     <p class="descriptionText">
                         Clicking "Next" will <%# this.IsForumInstalled ? "upgrade" : "initialize"%> your database to the latest version.
                     </p>
-                    <div class="checkbox">
-                       
-                    </div>
                     <asp:PlaceHolder runat="server"  Visible="<%# this.IsForumInstalled %>">
                     <div class="form-check">
                         <asp:CheckBox ID="UpgradeExtensions" Checked="True" runat="server" 
@@ -342,17 +343,17 @@
                     <YAF:ModernTextBox ID="TheForumName" runat="server" 
                         Placeholder="Enter the name of the new Board"
                         RenderWrapper="True" LabelText="Board Name"/>
-                    <div class="input-group">
+                    <div class="form-group">
                         <asp:Label AssociatedControlId="TimeZones" id="Label6" 
                             runat="server">Guest User Time Zone</asp:Label>
                         <asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" 
-                            CssClass="selectTimeZone custom-select" data-width="100%" />
+                            CssClass="custom-select" />
                     </div>
-                    <div class="input-group">
+                    <div class="form-group">
                         <asp:Label AssociatedControlId="Culture" id="Label7" 
                             runat="server">Guest User Culture (Language)</asp:Label>
                         <asp:DropDownList ID="Culture" runat="server" 
-                            CssClass="selectCulture custom-select" data-width="100%" />
+                            CssClass="custom-select" />
                     </div>
                     <YAF:ModernTextBox ID="ForumEmailAddress" runat="server" 
                         Placeholder="Enter the forum email address"  RenderWrapper="True"
@@ -363,7 +364,7 @@
                         LabelText="Forum Base Url Mask"
                         Type="Url"/>
                     <hr/>
-                    <div class="input-group">
+                    <div class="form-group">
                         <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" 
                             OnSelectedIndexChanged="UserChoice_SelectedIndexChanged">
                             <asp:ListItem Text="Create New Admin User" Selected="true" Value="create"></asp:ListItem>
@@ -428,7 +429,7 @@
                         <ContentTemplate>
                             <asp:Timer ID="UpdateStatusTimer" runat="server" Interval="5000" OnTick="UpdateStatusTimer_Tick" />
                             <div style="text-align: center" class="infoMessage">
-                                <asp:Image ID="LoadingImage" runat="server" ImageUrl="../Content/images/loader.gif" />
+                                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
                                 <br />
                                 <strong>Migrating Roles and Users...</strong>
                             </div>
@@ -454,7 +455,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel"><img src="../Images/YafLogoSmall.png" 
+                                <h4 class="modal-title" id="myModalLabel"><img src="../Content/Images/YafLogoSmall.png" 
                                     width="100" height="50" alt="small YAF.NET logo"/> <%# this.IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
                                 </h4>
                                 <asp:PlaceHolder ID="headerPlaceHolder" runat="server" />
