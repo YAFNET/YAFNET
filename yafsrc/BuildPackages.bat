@@ -1,7 +1,10 @@
+@SET FrameworkDir=C:\Windows\Microsoft.NET\Framework\v4.0.30319
+@SET FrameworkVersion=v4.0.30319
 @SET FrameworkSDKDir=
 @SET PATH=%FrameworkDir%;%FrameworkSDKDir%;%PATH%
 @SET LANGDIR=EN
-@SET MSBUILDPATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MsBuild.exe"
-@SET CONFIGURATION=Release
 
-%MSBUILDPATH%  YAF.NET.sln /t:restore /p:Configuration=Release /p:Platform="Any CPU" /p:WarningLevel=0;CreatePackages=true
+.nuget\nuget.exe restore YAF.NET.sln
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MsBuild.exe" YAF.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /p:WarningLevel=0;CreatePackages=true
+
+pause
