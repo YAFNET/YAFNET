@@ -260,7 +260,7 @@
                 <div class="card-body">
                     <YAF:ThemeButton ID="SearchUser" runat="server"
                                      TextLocalizedPage="POSTS" TextLocalizedTag="SEARCHUSER"
-                                     Icon="search" Type="Secondary"/>
+                                     Icon="search" Type="Secondary" CssClass="mb-3"/>
                    
                         <asp:Repeater ID="LastPosts" runat="server">
                             <ItemTemplate>

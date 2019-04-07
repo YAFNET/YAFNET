@@ -259,12 +259,27 @@ namespace YAF.Core.Services
                         LegacyDb.unencode_all_topics_subjects(HttpUtility.HtmlDecode);
                     }
 
-                    if (prevVersion < 49)
+                    if (prevVersion < 70)
                     {
                         // Reset The UserBox Template
                         try
                         {
                             this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
+                            this.Get<YafBoardSettings>().UserBoxAvatar = @"<li class=""list-group-item"">{0}</li>";
+                            this.Get<YafBoardSettings>().UserBoxMedals = @"<li class=""list-group-item""><strong>{0}</strong><br /> {1}{2}</li>";
+                            this.Get<YafBoardSettings>().UserBoxRankImage = @"<li class=""list-group-item"">{0}</li>";
+                            this.Get<YafBoardSettings>().UserBoxRank = @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxGroups = @"<li class=""list-group-item""><strong>{0}:</strong><br /> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxJoinDate = @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxPosts = @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
+                            this.Get<YafBoardSettings>().UserBoxReputation = @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
+                            this.Get<YafBoardSettings>().UserBoxCountryImage = @"{0}";
+                            this.Get<YafBoardSettings>().UserBoxLocation = @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxGender = @"{0}&nbsp;";
+                            this.Get<YafBoardSettings>().UserBoxThanksFrom = @"<li class=""list-group-item"">{0}</li>";
+                            this.Get<YafBoardSettings>().UserBoxThanksTo = @"<li class=""list-group-item"">{0}</li>";
+
+
                             ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
                         }
                         catch (Exception)
@@ -349,6 +364,69 @@ namespace YAF.Core.Services
             }
 
             this.DbAccess.Information.UpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+        }
+
+        /// <summary>
+        /// Create missing tables
+        /// </summary>
+        private void CreateTables()
+        {
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Board>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Rank>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<User>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollGroupCluster>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Category>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Forum>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Topic>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Message>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Thanks>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Buddy>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<FavoriteTopic>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbum>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbumImage>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Active>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ActiveAccess>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AdminPageUserAccess>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Group>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<EventLogGroupAccess>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedIP>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedName>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedEmail>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<CheckEmail>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Poll>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Choice>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollVote>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollVoteRefuse>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AccessMask>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumAccess>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Mail>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageHistory>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReported>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReportedAudit>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserProfile>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchForum>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchTopic>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Attachment>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserGroup>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserForum>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpServer>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpForum>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpTopic>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserPMessage>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Registry>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<EventLog>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<FileExtension>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BBCode>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Medal>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<GroupMedal>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserMedal>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<IgnoreUser>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicReadTracking>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumReadTracking>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ReputationVote>());
         }
 
         /// <summary>

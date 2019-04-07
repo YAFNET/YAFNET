@@ -567,21 +567,11 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(_RgxIndent, "<div style=\"margin-left:40px\">${inner}</div>", _Options));
 
-                // add max-width and max-height to posted Image
-                var maxWidth = this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
-                var maxHeight = this.Get<YafBoardSettings>().ImageAttachmentResizeHeight;
-
-                var styleAttribute = this.Get<YafBoardSettings>().ResizePostedImages
-                                         ? " style=\"max-width:{0}px;max-height:{1}px\"".FormatWith(maxWidth, maxHeight)
-                                         : string.Empty;
-
                 // image
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImg,
-                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
-                            "{0}",
-                            styleAttribute),
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage img-thumbnail\" />",
                         new[] { "http" },
                         new[] { "http://" }) {
                                                 RuleRank = 70 
@@ -590,9 +580,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgEmptyTitle,
-                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
-                            "{0}",
-                            styleAttribute),
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage img-thumbnail\" />",
                         new[] { "http" },
                         new[] { "http://" }) {
                                                 RuleRank = 71 
@@ -601,8 +589,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
-                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"UserPostedImage\"{0} />"
-                            .Replace("{0}", styleAttribute),
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"UserPostedImage img-thumbnail\" />",
                         new[] { "http", "description" },
                         new[] { "http://", string.Empty }) {
                                                               RuleRank = 72 

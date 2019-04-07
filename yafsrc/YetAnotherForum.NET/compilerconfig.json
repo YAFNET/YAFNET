@@ -8,10 +8,6 @@
     "inputFile": "Content/InstallWizard.scss"
   },
   {
-    "outputFile": "Content/bootstrap-forum.css",
-    "inputFile": "Content/bootstrap-forum.scss"
-  },
-  {
     "outputFile": "Content/jquery.hovercard.css",
     "inputFile": "Content/jquery.hovercard.scss"
   },
@@ -20,35 +16,11 @@
     "inputFile": "Content/jsdifflib.scss"
   },
   {
-    "outputFile": "Content/jquery.tablesorter.css",
-    "inputFile": "Content/jquery.tablesorter.scss"
-  },
-  {
     "outputFile": "Content/forum-admin.css",
     "inputFile": "Content/forum-admin.scss"
   },
   {
     "outputFile": "Content/bootstrap/bootstrap.css",
     "inputFile": "Content/bootstrap/bootstrap.scss"
-  },
-  {
-    "outputFile": "Content/bootstrap-datetimepicker-build.css",
-    "inputFile": "Content/bootstrap-datetimepicker-build.scss"
-  },
-  {
-    "outputFile": "Scripts/bootstrap-datetimepicker.es5.js",
-    "inputFile": "Scripts/bootstrap-datetimepicker.js"
-  },
-  {
-    "outputFile": "Scripts/ladda.es5.js",
-    "inputFile": "Scripts/ladda.js"
-  },
-  {
-    "outputFile": "Scripts/yafEditor/yafEditor.es5.js",
-    "inputFile": "Scripts/yafEditor/yafEditor.js"
-  },
-  {
-    "outputFile": "Scripts/jquery.ForumExtensions.es5.js",
-    "inputFile": "Scripts/jquery.ForumExtensions.js"
   }
 ]

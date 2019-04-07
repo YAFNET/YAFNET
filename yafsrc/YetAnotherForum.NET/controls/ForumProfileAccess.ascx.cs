@@ -77,7 +77,7 @@ namespace YAF.Controls
                         lastForumId = row["ForumID"].ToType<int>();
                     }
 
-                    html.AppendFormat("{0}", row["AccessMaskName"]);
+                    html.AppendFormat("<span class=\"badge badge-pill badge-info mr-1\">{0}</span>", row["AccessMaskName"]);
                 }
 
                 if (lastForumId != 0)
