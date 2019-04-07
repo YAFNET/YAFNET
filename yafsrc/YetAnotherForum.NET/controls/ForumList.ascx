@@ -42,6 +42,7 @@
                                    Visible='<%# this.HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
         </p>
     </div>
+    <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value %>'>
     <div class="col-md-2">
         <ul>
             <li class="list-unstyled">
@@ -56,7 +57,7 @@
             </li>
         </ul>
     </div>
-    <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value %>'>
+    
     <div class="col-md-4">
         <YAF:ForumLastPost DataRow="<%# Container.DataItem %>" Visible='<%# (((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value) %>'
                            ID="lastPost" runat="server" />
