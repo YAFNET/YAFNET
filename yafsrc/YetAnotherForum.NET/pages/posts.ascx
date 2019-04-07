@@ -84,7 +84,7 @@
     <div class="col">
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-round">
         <asp:HyperLink ID="TopicLink" runat="server" CssClass="navbar-brand">
-            <asp:Label ID="TopicTitle" runat="server" />
+            <asp:Label ID="TopicTitle" runat="server" CssClass="topic-title" />
         </asp:HyperLink>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
