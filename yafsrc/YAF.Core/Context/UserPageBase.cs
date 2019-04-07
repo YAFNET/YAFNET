@@ -373,11 +373,6 @@ namespace YAF.Core
         public int UnreadPrivate => this.Page["UnreadPrivate"].ToType<int>();
 
         /// <summary>
-        ///   Gets the number of posts that needs moderating
-        /// </summary>
-        public int ModeratePosts => this.Page["ModeratePosts"].ToType<int>();
-
-        /// <summary>
         ///   Gets a value indicating whether a user has buddies
         /// </summary>
         public bool UserHasBuddies => this.PageValueAsBool("UserHasBuddies");
