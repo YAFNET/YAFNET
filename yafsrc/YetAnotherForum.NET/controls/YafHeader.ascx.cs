@@ -142,9 +142,7 @@ namespace YAF.Controls
             YafBuildLink.Redirect(ForumPages.search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
         }
 
-        /// <summary>
-        /// Render Li and a Item
-        /// </summary>
+        /// <summary>Render Li and a Item</summary>
         /// <param name="holder">The holder.</param>
         /// <param name="cssClass">The CSS class.</param>
         /// <param name="linkText">The link text.</param>
@@ -154,6 +152,7 @@ namespace YAF.Controls
         /// <param name="showUnread">The show unread.</param>
         /// <param name="unread">The unread.</param>
         /// <param name="unreadText">The unread text.</param>
+        /// <param name="icon">The icon.</param>
         private static void RenderMenuItem(
             Control holder,
             string cssClass,
@@ -293,9 +292,9 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "MODERATE_TITLE"),
                     YafBuildLink.GetLink(ForumPages.moderate_index),
                     false,
-                    this.PageContext.ModeratePosts > 0,
-                    this.PageContext.ModeratePosts.ToString(),
-                    this.GetText("TOOLBAR", "MODERATE_NEW").FormatWith(this.PageContext.ModeratePosts),
+                    false,
+                    null,
+                    null,
                     "tasks");
             }
         }
