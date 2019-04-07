@@ -136,7 +136,7 @@
                 <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="FORUM_IMAGE" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
             <p>
-                <img align="middle" runat="server" id="Preview" alt="" />
+                <img align="middle" runat="server" id="Preview" alt="" class="img-thumbnail" />
             </p>
             <p>
                 <asp:DropDownList ID="ForumImages" runat="server" CssClass="custom-select" />

@@ -158,16 +158,16 @@ namespace YAF.Pages
 
             var fileName = attach.FileName;
             var isImage = fileName.IsImageName();
-            var url = isImage
-                          ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
-                              YafForumInfo.ForumClientFileRoot,
-                              attach.ID,
-                              this.PageContext.PageBoardID)
-                          : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
+            var url = "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
+                YafForumInfo.ForumClientFileRoot,
+                attach.ID,
+                this.PageContext.PageBoardID);
 
-            var dataUrl = isImage ? " data-url=\"{0}\"".FormatWith(url) : string.Empty;
-
-            return "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\"{2} style=\"max-width:30px\" />".FormatWith(url, fileName, dataUrl);
+            return isImage
+                       ? "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" data-url=\"{0}\"style=\"max-width:30px\" />".FormatWith(
+                           url,
+                           fileName)
+                       : "<i class=\"far fa-file-alt attachment-icon\"></i>";
         }
 
         /// <summary>

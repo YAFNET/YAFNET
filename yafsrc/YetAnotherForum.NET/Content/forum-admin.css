@@ -7681,6 +7681,9 @@ td.tablesorter-pager {
       padding: 0 0 0 10px;
       vertical-align: super; }
 
+.AttachmentsListPager {
+  padding: 10px; }
+
 .AttachmentList {
   padding: 10px 0 4px 5px; }
   .AttachmentList span {
@@ -7691,8 +7694,12 @@ td.tablesorter-pager {
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis; }
+  .AttachmentList .attachment-icon {
+    vertical-align: top;
+    padding-left: 5px; }
 
-.AttachmentList li img, .PostAttachmentList li img {
+.AttachmentList li img,
+.PostAttachmentList li img {
   width: 24px;
   height: 24px;
   vertical-align: top;
@@ -7701,6 +7708,9 @@ td.tablesorter-pager {
 .PostAttachmentList {
   padding: 0;
   list-style: none; }
+  .PostAttachmentList .attachment-icon {
+    vertical-align: top;
+    padding-left: 5px; }
   .PostAttachmentList li {
     border-bottom: 1px dotted black;
     padding: 5px 0 5px 0; }
@@ -7721,9 +7731,8 @@ td.tablesorter-pager {
   display: block; }
 
 .OpenUploadDialog {
-  width: 150px;
   margin-top: -25px;
-  padding-bottom: 10px; }
+  padding-left: 80px; }
 
 #dropzone {
   width: auto;

@@ -12,48 +12,65 @@
     }
   }
 }
+.AttachmentsListPager {
+    padding: 10px;
+}
 .AttachmentList {
     padding: 10px 0 4px 5px;
 
-  span {
-      width: 210px;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      -ms-text-overflow: ellipsis;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-  }
+    span {
+        width: 210px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
+
+    .attachment-icon {
+        vertical-align: top;
+        padding-left: 5px;
+    }
 }
 
-.AttachmentList li img, .PostAttachmentList li img {
-  width: 24px;
-  height: 24px;
-  vertical-align: top;
-  padding-left:5px;
+.AttachmentList li img,
+.PostAttachmentList li img {
+    width: 24px;
+    height: 24px;
+    vertical-align: top;
+    padding-left: 5px;
 }
 
 
 
 .PostAttachmentList {
-  padding: 0;
-  list-style: none;
-  li {
-    border-bottom: 1px dotted black;
-    padding: 5px 0 5px 0;
-    span {
-      text-decoration: underline;
-      padding: 0 0 0 5px;
-      vertical-align: super;
-      width: 400px;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      -ms-text-overflow: ellipsis;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
+    padding: 0;
+    list-style: none;
+
+
+    .attachment-icon {
+        vertical-align: top;
+        padding-left: 5px;
     }
-  }
+
+    li {
+        border-bottom: 1px dotted black;
+        padding: 5px 0 5px 0;
+
+        span {
+            text-decoration: underline;
+            padding: 0 0 0 5px;
+            vertical-align: super;
+            width: 400px;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+        }
+    }
 }
 
 .UploadNewFileLine {
@@ -62,7 +79,8 @@
 }
 
 .OpenUploadDialog {
-    width: 150px;margin-top: -25px;padding-bottom:10px
+    margin-top: -25px;
+    padding-left: 80px;
 }
 
 #dropzone {

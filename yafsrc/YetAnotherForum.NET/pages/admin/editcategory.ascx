@@ -24,7 +24,7 @@
 			  <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="CATEGORY_IMAGE" LocalizedPage="ADMIN_EDITCATEGORY" />
 			</h4>
 			<p>
-				<img align="middle" alt="Preview" runat="server" id="Preview" />
+				<img align="middle" alt="Preview" runat="server" id="Preview" class="img-thumbnail" />
                 </p>
                     <p>
                 <asp:DropDownList ID="CategoryImages" runat="server" CssClass="custom-select" />

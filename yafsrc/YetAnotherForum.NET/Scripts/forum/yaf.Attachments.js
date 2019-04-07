@@ -29,7 +29,7 @@
                 listItem.attr("onclick", data.OnClick);
 
                 if (data.DataURL) {
-                    listItem.attr("title", "<img src=\"" + data.DataURL + "\" style=\"max-width:200px\" />");
+                    listItem.attr("title", "<img src=\"" + data.DataURL + "\" class=\"img-thumbnail\" />");
                     listItem.attr("data-toggle", "tooltip");
 				}
 
@@ -38,16 +38,15 @@
 				list.append(listItem);
             });
 
-		    setPageNumberAttach(pageSize, pageNumber, data.d.TotalRecords);
+            setPageNumberAttach(pageSize, pageNumber, data.d.TotalRecords);
 
-		    if (isPageChange) {
-                jQuery(".attachments-toggle").dropdown('toggle');
-                jQuery('[data-toggle="tooltip"]').tooltip({
-                    html: true,
-                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                    placement: 'top'
-                });
-			}
+            jQuery(".attachments-toggle").dropdown('toggle');
+            jQuery('[data-toggle="tooltip"]').tooltip({
+	            html: true,
+                template:
+	                '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+	            placement: 'top'
+            });
 		}),
 		error: (function Error(request, status, error) {
 			$("#PostAttachmentLoader").hide();
