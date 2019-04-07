@@ -3023,14 +3023,14 @@ begin
         @UserID = y.UserID,
         @UserName = y.UserName,
         @UserDisplayName = y.UserDisplayName
-    from [[{databaseOwner}]].[{objectQualifier}Topic] x
-    join [[{databaseOwner}]].[{objectQualifier}Message] y on y.TopicID=x.TopicID
+    from [{databaseOwner}].[{objectQualifier}Topic] x
+    join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID
     where x.ForumID = @ForumID
     and (y.Flags & 24)=16
     and x.IsDeleted = 0
     order by y.Posted desc
 
-    update [[{databaseOwner}]].[{objectQualifier}Forum] set
+    update [{databaseOwner}].[{objectQualifier}Forum] set
     LastPosted			= @Posted,
     LastTopicID         = @TopidID,
     LastMessageID		= @MessageID,
