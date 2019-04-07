@@ -21,6 +21,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+using YAF.Core.Data.Profiling;
+
 namespace YAF.Core
 {
     #region Using

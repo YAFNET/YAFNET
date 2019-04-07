@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Exceptions;
+
 namespace YAF
 {
     #region Using
