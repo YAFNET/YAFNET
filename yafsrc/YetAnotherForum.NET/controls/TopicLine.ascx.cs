@@ -592,9 +592,9 @@ namespace YAF.Controls
                 if (favoriteCount > 0)
                 {
                     this.FavoriteCount.Visible = true;
-                    this.FavoriteCount.Text = " <span title=\"{0}\">+{1}</span>".FormatWith(
-                        this.GetText("FAVORITE_COUNT_TT"),
-                        favoriteCount);
+                    this.FavoriteCount.Text =
+                        " <span class=\"badge badge-info\" title=\"{0}\"><i class=\"fas fa-star\"></i> +{1}</span>"
+                            .FormatWith(this.GetText("FAVORITE_COUNT_TT"), favoriteCount);
                 }
             }
             catch (Exception)

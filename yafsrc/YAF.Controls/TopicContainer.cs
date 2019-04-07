@@ -568,7 +568,7 @@ namespace YAF.Controls
 
             if (priorityMessage.IsSet())
             {
-                writer.Write(priorityMessage);
+                writer.Write("{0}&nbsp;",priorityMessage);
 
             }
 
@@ -637,7 +637,7 @@ namespace YAF.Controls
 
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
-                    writer.Write("<span class=\"badge badge-success\">{0}</span>", this.GetText("NEW_POSTS"));
+                    writer.Write("&nbsp;<span class=\"badge badge-success\">{0}</span>", this.GetText("NEW_POSTS"));
                 }
             }
 
@@ -647,7 +647,7 @@ namespace YAF.Controls
 
             if (favoriteCount > 0)
             {
-                writer.Write("<span title=\"{0}\">+{1}</span>", this.GetText("FAVORITE_COUNT_TT"), favoriteCount);
+                writer.Write("&nbsp;<span class=\"badge badge-info\" title=\"{0}\"><i class=\"fas fa-star\"></i> +{1}</span>", this.GetText("FAVORITE_COUNT_TT"), favoriteCount);
             }
 
             writer.Write(" </h5>");
@@ -680,7 +680,7 @@ namespace YAF.Controls
             {
 
                 var altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
-                writer.Write("<span> - <i class=\"fa fa-file fa-fw\"></i>{0}</span>", pager);
+                writer.Write("<span> - <i class=\"fa fa-copy fa-fw\"></i>{0}</span>", pager);
             }
 
             writer.Write("</p>");
@@ -688,11 +688,11 @@ namespace YAF.Controls
             writer.Write("<div class=\"col-md-2\">");
             writer.Write("<ul>");
             writer.Write("<li class=\"list-unstyled\">");
-            writer.Write(this.GetText("MODERATE", "REPLIES"));
+            writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
             writer.Write(this.FormatReplies());
             writer.Write(" </li>");
             writer.Write("<li class=\"list-unstyled\">");
-            writer.Write(this.GetText("MODERATE", "VIEWS"));
+            writer.Write("{0}: ", this.GetText("MODERATE", "VIEWS"));
             writer.Write(this.FormatViews());
             writer.Write("   </li>");
             writer.Write("  </ul>");

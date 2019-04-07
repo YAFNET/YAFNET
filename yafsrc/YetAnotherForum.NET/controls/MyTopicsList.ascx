@@ -1,14 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.MyTopicsList" CodeBehind="MyTopicsList.ascx.cs"  EnableViewState="true" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="System.Data" %>
-<%@ Register TagPrefix="YAF" TagName="TopicLine" Src="TopicLine.ascx" %>
-
 
 <div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-comments fa-fw"></i>&nbsp;
+                <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" ID="Title"></YAF:LocalizedLabel>
             </div>
             <div class="card-body">
                 <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />

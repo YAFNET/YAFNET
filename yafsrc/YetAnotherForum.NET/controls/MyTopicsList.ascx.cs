@@ -189,60 +189,73 @@ namespace YAF.Controls
             this.PagerTop.PageSize = basePageSize;
 
             // page index in db which is returned back  is +1 based!
-            var nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            var currentPageIndex = this.PagerTop.CurrentPageIndex;
+
+            this.Title.LocalizedPage = "MyTopics";
+
 
             // now depending on mode fill the table
             switch (this.CurrentMode)
             {
                 case TopicListMode.Active:
+                    this.Title.LocalizedTag = "ActiveTopics";
+
                     topicList = LegacyDb.topic_active(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unanswered:
+                    this.Title.LocalizedTag = "UnansweredTopics";
+
                     topicList = LegacyDb.topic_unanswered(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unread:
+                    this.Title.LocalizedTag = "UnreadTopics";
+
                     topicList = LegacyDb.topic_unread(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
+                    this.Title.LocalizedTag = "MyTopics";
+
                     topicList = LegacyDb.Topics_ByUser(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
+                    this.Title.LocalizedTag = "FavoriteTopics";
+
                     topicList = this.GetRepository<FavoriteTopic>().Details(
                         YafContext.Current.Settings.CategoryID == 0
                             ? null
@@ -250,7 +263,7 @@ namespace YAF.Controls
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
