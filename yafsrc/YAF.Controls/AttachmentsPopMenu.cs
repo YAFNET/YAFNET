@@ -142,7 +142,7 @@ namespace YAF.Controls
             sb.Append("<ul class=\"AttachmentList\">");
             sb.Append("</ul>");
             sb.Append("</div>");
-            sb.Append("<div class=\"m-x-auto OpenUploadDialog\">");
+            sb.Append("<div class=\"OpenUploadDialog\">");
             sb.AppendFormat(
                 "<button type=\"button\" class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" data-target=\".UploadDialog\">{0}</button>",
                 this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_NEW"));
