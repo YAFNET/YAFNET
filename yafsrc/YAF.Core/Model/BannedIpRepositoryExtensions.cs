@@ -23,13 +23,15 @@
  */
 namespace YAF.Core.Model
 {
+    using System;
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
-    ///     The banned ip repository extensions.
+    ///     The banned IP repository extensions.
     /// </summary>
     public static class BannedIpRepositoryExtensions
     {
@@ -73,8 +75,9 @@ namespace YAF.Core.Model
                         ID = id ?? 0,
                         Mask = mask,
                         Reason = reason,
-                        UserID = userId
-                    });
+                        UserID = userId,
+                        Since = DateTime.Now
+                });
         }
 
         #endregion

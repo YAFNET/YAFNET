@@ -23,6 +23,8 @@
  */
 namespace YAF.Core.Model
 {
+    using System;
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
@@ -68,8 +70,9 @@ namespace YAF.Core.Model
                         BoardID = boardId ?? repository.BoardID,
                         ID = id ?? 0,
                         Mask = mask,
-                        Reason = reason
-                    });
+                        Reason = reason,
+                        Since = DateTime.Now
+                });
         }
 
         #endregion

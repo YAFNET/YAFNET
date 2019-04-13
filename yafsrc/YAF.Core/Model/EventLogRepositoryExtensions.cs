@@ -26,10 +26,7 @@ namespace YAF.Core.Model
     using System;
     using System.Data;
 
-    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
