@@ -2301,6 +2301,8 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
@@ -3205,7 +3207,6 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\ckeditor\yarn.lock" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
