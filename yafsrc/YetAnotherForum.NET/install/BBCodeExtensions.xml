@@ -98,25 +98,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.yafnet .userLinkContainer
-{
-    background: url(Content/icons/user.png) #fff no-repeat 4px 50%;
-    border: 1px solid #eee;
-    padding: 4px 2px 4px 25px;
-    margin: 3px;
-    font-size: 80%;
-    font-weight: bold;    
-    background-color: #fff;
-    -webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;	    
-}
-
-.yafnet .userLinkContainer:hover
-{
-    border: 1px solid #ddd;
-    background-color: #eee;
-}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[userlink\](?&lt;inner&gt;.+?)\[\/userlink\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
@@ -147,7 +129,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
@@ -162,7 +144,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage {float: left; margin-right: .3em;}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[group-hide\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]|\[group-hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]</SearchRegex>
     <ReplaceRegex />
     <Variables>group</Variables>
@@ -177,7 +159,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-thanks=(?&lt;thanks&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-thanks\]</SearchRegex>
     <ReplaceRegex />
     <Variables>thanks</Variables>
@@ -192,7 +174,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-reply-thanks\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply-thanks\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
@@ -207,7 +189,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-reply\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
@@ -222,7 +204,7 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-posts=(?&lt;posts&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-posts\]</SearchRegex>
     <ReplaceRegex />
     <Variables>posts</Variables>
