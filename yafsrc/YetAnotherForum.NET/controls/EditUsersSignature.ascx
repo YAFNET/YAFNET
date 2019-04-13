@@ -34,7 +34,8 @@
                 <div class="text-lg-center">
 
             <YAF:ThemeButton ID="preview" runat="server"
-                             Type="Success"
+                             Type="Secondary"
+                             Icon="image"
                              TextLocalizedTag="PREVIEW"/>
             <YAF:ThemeButton ID="save" Type="Primary" runat="server"
                              TextLocalizedTag="SAVE"
