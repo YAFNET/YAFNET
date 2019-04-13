@@ -60,14 +60,14 @@ namespace YAF.Modules
 
                 var userLink = new UserLink
                                    {
-                                       UserID = (int)userId,
-                                       CssClass = "UserLinkBBCode",
+                                       UserID = userId.ToType<int>(),
+                                       CssClass = "btn btn-outline-primary",
                                        BlankTarget = true,
                                        ID = "UserLinkBBCodeFor{0}".FormatWith(userId)
                                    };
 
                 stringBuilder.AppendLine("<!-- BEGIN userlink -->");
-                stringBuilder.AppendLine(@"<span class=""userLinkContainer"">");
+                stringBuilder.AppendLine(@"<span>");
                 stringBuilder.AppendLine(userLink.RenderToString());
 
                 stringBuilder.AppendLine("</span>");

@@ -24,14 +24,12 @@
 
 namespace YAF.Modules.BBCode
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI;
 
     using YAF.Controls;
     using YAF.Core;
     using YAF.Types.Extensions;
-    using YAF.Utils;
 
     /// <summary>
     /// Hide Group BBCode Module
@@ -60,7 +58,7 @@ namespace YAF.Modules.BBCode
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest =
-                "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
                     .FormatWith(descriptionGuest);
 
             if (groupString.IsNotSet())
@@ -85,7 +83,7 @@ namespace YAF.Modules.BBCode
                 "You dont´t have the right to see the Hidden Content.");
 
                 shownContentGuest =
-                    "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                    "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
                     .FormatWith(descriptionGuest);
 
                 var groups = groupString.Split(';');
@@ -110,8 +108,8 @@ namespace YAF.Modules.BBCode
                 }*/
 
                 // Check For Role Hiding
-                if (RoleMembershipHelper.GetRolesForUser(YafContext.Current.User.UserName).Where(
-                            role => !groups.Any(role.Equals)).Any())
+                if (RoleMembershipHelper.GetRolesForUser(
+                            YafContext.Current.User.UserName).Any(role => !groups.Any(role.Equals)))
                 {
                     shownContentGuest = hiddenContent;
                 }
@@ -133,7 +131,6 @@ namespace YAF.Modules.BBCode
             {
                 shownContentGuest = hiddenContent;
             }
-
 
             writer.Write(shownContentGuest);
         }

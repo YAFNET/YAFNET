@@ -55,9 +55,9 @@ namespace YAF.Modules
       var spoilerTitle = this.HtmlEncode(this.LocalizedString("SPOILERMOD_TOOLTIP", "Click here to show or hide the hidden text (also known as a spoiler)"));
 
       sb.AppendLine("<!-- BEGIN spoiler -->");
-      sb.AppendLine(@"<div class=""spoilertitle"">");
+      sb.AppendLine(@"<div class=""mb-3"">");
       sb.AppendFormat(
-        @"<input type=""button"" value=""{2}"" class=""spoilerbutton"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' title=""{3}"" /></div><div class=""spoilerbox"" id=""{1}"" style=""display:none"">", 
+        @"<input type=""button"" value=""{2}"" class=""btn btn-secondary btn-sm"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' title=""{3}"" /></div><div class=""card card-body"" id=""{1}"" style=""display:none"">", 
         this.GetUniqueID("spoilerBtn"), 
         this.GetUniqueID("spoil_"), 
         this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")), 
