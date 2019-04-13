@@ -62,22 +62,6 @@
     <ExecOrder>2</ExecOrder>
   </YafBBCode>
   <YafBBCode>
-    <Name>GOOGLEWIDGET</Name>
-    <Description>[GOOGLEWIDGET]&amp;lt;script src=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;[/GOOGLEWIDGET]</Description>
-    <OnClickJS />
-    <DisplayJS />
-    <EditJS />
-    <DisplayCSS />
-    <SearchRegex>\[googlewidget\]&amp;lt;script src=\&amp;quot;(?&lt;prefix&gt;.+?)gmodules.com/ig/ifr\?url=(?&lt;url&gt;.+?)&amp;quot;\&amp;gt;\&amp;lt;/script\&amp;gt;\[/googlewidget\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN Google Widget --&gt;
-&lt;script type="text/javascript" src="http://www.gmodules.com/ig/ifr?url=${url}"&gt;&lt;/script&gt;
-&lt;!-- END Google Widget --&gt;</ReplaceRegex>
-    <Variables>url:decode;</Variables>
-    <UseModule>false</UseModule>
-    <ModuleClass />
-    <ExecOrder>1</ExecOrder>
-  </YafBBCode>
-  <YafBBCode>
     <Name>SPOILER</Name>
     <Description>[SPOILER][localization=SPOILERMOD_DESCRIPTION]Put Spoiler Text Here[/localization][/SPOILER]</Description>
     <OnClickJS />
@@ -99,15 +83,7 @@
       }
     </DisplayJS>
     <EditJS />
-    <DisplayCSS>      .spoilerbox
-      {
-      margin: 5px;
-      padding: 4px;
-      background-color: #eeeeee;
-      border: solid 1px #808080;
-      color: #000000;
-      }
-    </DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[spoiler\](?&lt;inner&gt;.+?)\[\/spoiler\]</SearchRegex>
     <ReplaceRegex />
     <Variables />

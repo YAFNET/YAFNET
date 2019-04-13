@@ -131,7 +131,6 @@
   <Resource tag="RSSTOPIC">Views RSS/Atom feed</Resource>
   <Resource tag="RULES">Views forum rules</Resource>
   <Resource tag="SEARCH">Uses search</Resource>
-  <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
   <Resource tag="TEAM">Views team page</Resource>
   <Resource tag="TOPICINFORUM"> in forum </Resource>
   <Resource tag="TOPICS">Views topic </Resource>
@@ -1179,7 +1178,6 @@
   <Resource tag="HEADER_SEARCH">Search Settings</Resource>
   <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
   <Resource tag="HEADER_SETUP">Host Setup</Resource>
-  <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
   <Resource tag="HEADER_SPAM">Spam Settings (Content Checking)</Resource>
   <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
   <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
@@ -1396,8 +1394,6 @@
   <Resource tag="BOT_MESSAGE_2">Block User</Resource>
   <Resource tag="SERVERTIME_CORRECT">Server Time Zone Correction:</Resource>
   <Resource tag="SERVERTIME_CORRECT_HELP">Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: </Resource>
-  <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
-  <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
   <Resource tag="SHOW_ACTIVE_DISCUSSION">Show Active Discussions:</Resource>
   <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Enable or disable display of active discussions list on board index page.</Resource>
   <Resource tag="SHOW_ATOM_LINKS">Show Atom Links:</Resource>
@@ -1444,8 +1440,6 @@
   <Resource tag="SHOW_RENDERTIME_HELP">Enable or disable display of page generation text at the bottom of the page.</Resource>
   <Resource tag="SHOW_RSS_LINKS">Show RSS Links:</Resource>
   <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
-  <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
-  <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
   <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
   <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
   <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
@@ -1531,10 +1525,6 @@
   <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
   <Resource tag="EXPANDED">Expanded</Resource>
   <Resource tag="COLLAPSED">Collapsed</Resource>
-  <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
-  <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
-  <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
-  <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
  </page>
  <page name="ADMIN_LANGUAGES">
   <Resource tag="CULTURE_TAG">Culture Tag</Resource>
@@ -2812,1020 +2802,851 @@
 &lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
 &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
   <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
-  <Resource tag="BBCODESCONTENT">&lt;p&gt;On this Page you find a list  of the BB code tags you can use to format your messages.&lt;/p&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes for Text formatting
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;
-      Bold Text
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [noparse][b] tag allows you to create text that is bold.
-    &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [noparse][b]This text is bold[/b][/noparse]
-    &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;strong&gt;This text is bold&lt;/strong&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;
-      Italic Text&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [i] tag allows you to create text that italic.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [i]This text is italic[/i]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;em&gt;This text is italic&lt;/em&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Underline Text&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [u] tag allows you to create text underlined.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [u]This text is underlined[/u]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/td&gt;
-    &lt;td&gt;
-      &lt;u&gt;This text is underlined&lt;/u&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Strike Text&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      Wrap these tags to strike through text&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [s]This text is Strike through[/strike]&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;s&gt;This text is Strike through&lt;/s&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Color&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [color] tag allows you to change the color of your text, by parsing the color you want.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [color=blue]this text is blue[/color]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;span style="color:blue"&gt;this text is blue&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-       &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Size&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [size=9]This Text has the font size of 180%[/size]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;span style="font-size:180%"&gt;This Text has the font size of 180%&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Font&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [font] tag allows you to change the font family of your text.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [font=courier]this text is in the courier font[/font]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;span style="font-family:courier"&gt;this text is in the courier font&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Left / Right / Center Direction&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [left], [right] and [center] tags allow you to change the alignment of your text.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [left]this text is left aligned[/left]&lt;br /&gt;
-	  [center]this text is center aligned[/center]&lt;br /&gt;
-      [right]this text is right aligned[/right]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;div align="left"&gt;this text is left aligned&lt;/div&gt;
-			&lt;div align="center"&gt;this text is center aligned&lt;/div&gt;
-			&lt;div align="right"&gt;this text is right aligned&lt;/div&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Highlight&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [highlight] tag allows you to highlight your text.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [highlight]this text is highlighted[/highlight]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;span class="highlight"&gt;this text is highlighted&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to create various Links
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Email Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [email]someone@mydomain.com[/email]&lt;br /&gt;
-			[email=someone@mydomain.com]Click Here to Email Me[/email]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="mailto:someone@mydomain.com" title="someone@mydomain.com"&gt;someone@mydomain.com&lt;/a&gt;&lt;br /&gt;
-			&lt;a href="mailto:someone@mydomain.com" title="Click Here to Email Me"&gt;Click Here to Email Me&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;URL Hyper Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [url]{0}[/url]&lt;br /&gt;
-	 [url={0}]mydomain[/url]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}" target="_blank" title="{0}"&gt;{0}&lt;/a&gt;&lt;br /&gt;
-     &lt;a href="{0}" target="_blank" title="{0}"&gt;mydomain&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Modal URL Hyper Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [modalurl]{0}[/modalurl]&lt;br /&gt;
-	 [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a class="ceebox" href="{0}" target="_blank" title="{0}"&gt;{0}&lt;/a&gt;&lt;br /&gt;
-     &lt;a class="ceebox" href="{0}" target="_blank" title="{0}"&gt;mydomain&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
+  <Resource tag="BBCODESCONTENT">
 
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Topic Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [topic] tag allows you to link to topics inside the forum, by specifying the topic id and the Link Name.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [topic=123]Go to Topic[/thread]
-     &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postst123_topic_title.aspx" target="_blank" title="Go to Topic"&gt;Go to Topic&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Post Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [post] tag allows you to link to a specific post from a topic inside the forum, by specifying the post id and the Link Name.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [post=123]Go to Post[/post]
-     &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postsm123_topic_title.aspx#post123" target="_blank" title="Go to Post"&gt;Go to Post&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to create Lists
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Bullet Lists&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [list]&lt;br /&gt;
-      [*]list item 1&lt;br /&gt;
-      [*]list item 2&lt;br /&gt;
-      [/list]
-    &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;ul&gt;
-            &lt;li&gt;list item 1&lt;/li&gt;
-            &lt;li&gt;list item 2&lt;/li&gt;
-         &lt;/ul&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
+    &lt;h3&gt;
+    BB Codes for Text formatting
+    &lt;/h3&gt;
 
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Numbered and Alphabetic Lists&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [list=1]&lt;br /&gt;
-      [*]list item 1&lt;br /&gt;
-      [*]list item 2&lt;br /&gt;
-      [/list]&lt;br /&gt;
-      &lt;br /&gt;
-      [list=a]&lt;br /&gt;
-      [*]list item a&lt;br /&gt;
-      [*]list item b&lt;br /&gt;
-      [/list]
-      &lt;br /&gt;&lt;br /&gt;
-      [list=A]&lt;br /&gt;
-      [*]list item A&lt;br /&gt;
-      [*]list item B&lt;br /&gt;
-      [/list]
-      &lt;br /&gt;&lt;br /&gt;
-      [list=i]&lt;br /&gt;
-      [*]list item i&lt;br /&gt;
-      [*]list item ii&lt;br /&gt;
-      [/list]&lt;br /&gt;&lt;br /&gt;
-      [list=I]&lt;br /&gt;
-      [*]list item I&lt;br /&gt;
-      [*]list item II&lt;br /&gt;
-      [/list]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;ol&gt;
-        &lt;li&gt;list item 1&lt;/li&gt;
-        &lt;li&gt;list item 2&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="a"&gt;
-        &lt;li&gt;list item a&lt;/li&gt;
-        &lt;li&gt;list item b&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="A"&gt;
-        &lt;li&gt;list item A&lt;/li&gt;
-        &lt;li&gt;list item B&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="i"&gt;
-        &lt;li&gt;list item i&lt;/li&gt;
-        &lt;li&gt;list item ii&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="I"&gt;
-        &lt;li&gt;list item I&lt;/li&gt;
-        &lt;li&gt;list item II&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to add Media Elements (Images, Videos)
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Images&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;p&gt;The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. &lt;/p&gt;
-      &lt;p&gt;There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.&lt;/p&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [img]{0}forumlogo.jpg[/img]&lt;br /&gt;&lt;br /&gt;
-      [img={0}forumlogo.jpg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-	  [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
-	&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;img src="{0}forumlogo.jpg" alt="" /&gt;&lt;br /&gt;
-		&lt;br /&gt;&lt;img src="{0}forumlogo.jpg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
-		&lt;br /&gt;
-		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}forumlogo.jpg" alt="" /&gt;&lt;/a&gt; (Linked)
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;You Tube&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [youtube] tag allows the embedding of an &lt;a href="http://www.youtube.com/" title="http://www.youtube.com/"&gt;Youtube&lt;/a&gt; video, by using the Url to the Video.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]&lt;br /&gt;&lt;br /&gt;
-      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;!-- BEGIN youtube --&gt;&lt;object width="425" height="350"&gt;&lt;param name="movie" value="http://www.youtube.com/v/jqxENMKaeCU"&gt;&lt;/param&gt;&lt;embed src="http://www.youtube.com/v/jqxENMKaeCU" type="application/x-shockwave-flash" width="425" height="350"&gt;&lt;/embed&gt;&lt;/object&gt;&lt;!-- END youtube --&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Vimeo&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [vimeo] tag allows the embedding of an &lt;a href="http://www.vimeo.com/" title="http://www.vimeo.com/"&gt;Vimeo&lt;/a&gt; video, by using the Url to the Video.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [vimeo]http://vimeo.com/25451551[/vimeo]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;      &lt;object width="425" height="350"&gt;
-      &lt;param name="allowfullscreen" value="true" /&gt;
-      &lt;param name="allowscriptaccess" value="always" /&gt;
-      &lt;param name="movie" value="http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;amp;server=www.vimeo.com&amp;amp;show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1" /&gt;
-      &lt;embed src="http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="425" height="350"&gt;
-      &lt;/embed&gt;
-      &lt;/object&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Google Maps&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5[/googlemaps]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5&amp;amp;output=embed"&gt;&lt;/iframe&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Google Gadgets (Widget)&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the &lt;a href="http://www.google.com/ig/directory?synd=open"&gt;Google Gadget Gallery&lt;/a&gt;. Select a Gadget and Copy the Html Code for the gadget.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [googlewidget]
-      &amp;lt;script src=
-      &amp;quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml
-      &amp;amp;synd=open&amp;amp;w=320&amp;amp;h=200&amp;amp;title=&amp;amp;
-      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-      [/googlewidget]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;!-- BEGIN Google Widget --&gt;
-&lt;script type="text/javascript" src="http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"&gt;&lt;/script&gt;
-&lt;!-- END Google Widget --&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;/table&gt;
-  &lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to Quote other Postings, and BB Codes to include Code Text
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Quoting&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [quote] tag allows you to quote a text from a posting.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [quote]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe;123]Quoted Text.[/quote]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;div class="quote"&gt;&lt;span class="quotetitle"&gt;Quote:&lt;/span&gt;&lt;div class="innerquote"&gt;Quoted Text&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;
-      &lt;div class="quote"&gt;&lt;span class="quotetitle"&gt;John Doe wrote:&lt;/span&gt;&lt;div class="innerquote"&gt;Quoted Text&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;
-      &lt;div class="quote"&gt;&lt;span class="quotetitle"&gt;Originally Posted by: John Doe &lt;a href="{0}yaf_postsm123_posts.aspx#post123"&gt;&lt;img src="{0}Themes/GreenGrey/icon_latest_reply.gif" title="Go to Quoted Post" alt="Go to Quoted Post" /&gt;&lt;/a&gt;&lt;/span&gt;&lt;div class="innerquote"&gt;Quoted Text&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Code&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [code]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
-public class Hello1&lt;br /&gt;
-{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
-&amp;nbsp;{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
-}}&lt;br /&gt;
-		[/code]&lt;br /&gt;&lt;br /&gt;
-        [code=csharp]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
-public class Hello1&lt;br /&gt;
-{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
-&amp;nbsp;{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
-}}&lt;br /&gt;
-		[/code]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-&lt;div class="code"&gt;&lt;strong&gt;Code:&lt;/strong&gt;&lt;div class="innercode"&gt;
-// Hello1.cs&lt;br /&gt;
-public class Hello1&lt;br /&gt;
-{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
-&amp;nbsp;{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
-}}&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;div class="code"&gt;&lt;strong&gt;Code:&lt;/strong&gt;&lt;div class="innercode"&gt;&lt;pre class="brush:csharp;"&gt;
-// Hello1.cs
-public class Hello1
-{{
-   public static void Main()
-   {{
-      System.Console.WriteLine(&amp;quot;Hello, World!&amp;quot;);
-   }}
-}}&lt;/pre&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-     BB Codes to show/Hide its Content only to specific users
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide] tag hides content from people until they press the thank you button for the post.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide]Hidden Content[/hide]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" title="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" /&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;
+    Bold Text
+    &lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [noparse][b] tag allows you to create text that is bold.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+
+    [noparse][b]This text is bold[/b][/noparse]
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;strong&gt;This text is bold&lt;/strong&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;
+    Italic Text
+    &lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+
+    The [i] tag allows you to create text that italic.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+
+    [i]This text is italic[/i]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;em&gt;This text is italic&lt;/em&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Underline Text&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+
+    The [u] tag allows you to create text underlined.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [u]This text is underlined[/u]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;u&gt;This text is underlined&lt;/u&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Strike Text&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+
+    Wrap these tags to strike through text
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    [s]This text is Strike through[/s]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;s&gt;This text is Strike through&lt;/s&gt;
+    &lt;/div&gt; &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Color&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [color] tag allows you to change the color of your text, by parsing the color you want.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [color=blue]this text is blue[/color]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;span style=&quot;color:blue&quot;&gt;this text is blue&lt;/span&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Size&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    [size=9]This Text has the font size of 180%[/size]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;span style=&quot;font-size:180%&quot;&gt;This Text has the font size of 180%&lt;/span&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Font&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [font] tag allows you to change the font family of your text.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [font=courier]this text is in the courier font[/font]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    &lt;span style=&quot;font-family:courier&quot;&gt;this text is in the courier font&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Left / Right / Center Direction&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [left], [right] and [center] tags allow you to change the alignment of your text.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [left]this text is left aligned[/left]&lt;br /&gt;
+    [center]this text is center aligned[/center]&lt;br /&gt;
+    [right]this text is right aligned[/right]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div align=&quot;left&quot;&gt;this text is left aligned&lt;/div&gt;
+    &lt;div align=&quot;center&quot;&gt;this text is center aligned&lt;/div&gt;
+    &lt;div align=&quot;right&quot;&gt;this text is right aligned&lt;/div&gt;
+    &lt;/div&gt;        &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Highlight&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [h] tag allows you to highlight your text.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [h]this text is highlighted[/h]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;mark&gt;this text is highlighted&lt;/mark&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;h3&gt;
+    BB Codes to create various Links
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Email Links&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [email]someone@mydomain.com[/email]&lt;br /&gt;
+    [email=someone@mydomain.com]Click Here to Email Me[/email]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;a href=&quot;mailto:someone@mydomain.com&quot; title=&quot;someone@mydomain.com&quot;&gt;someone@mydomain.com&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br /&gt;
+    &lt;a href=&quot;mailto:someone@mydomain.com&quot; title=&quot;Click Here to Email Me&quot;&gt;Click Here to Email Me&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;URL Hyper Links&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [url] tag allows you to link to other websites and files. You can include an optional parameter to &#39;name&#39; your link. You can also combine [url] tags with [img] tags to create image links.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [url]{0}[/url]&lt;br /&gt;
+    [url={0}]mydomain[/url]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;{0}&quot;&gt;{0}&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br /&gt;
+    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;{0}&quot;&gt;mydomain&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;/div&gt; &lt;/div&gt;
+
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Topic Links&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [topic] tag allows you to link to topics inside the forum, by specifying the topic id and the Link Name.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [topic=123]Go to Topic[/thread]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;a href=&quot;{0}yaf_postst123_topic_title.aspx&quot; target=&quot;_blank&quot; title=&quot;Go to Topic&quot;&gt;Go to Topic&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Post Links&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [post] tag allows you to link to a specific post from a topic inside the forum, by specifying the post id and the Link Name.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [post=123]Go to Post[/post]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;a href=&quot;{0}yaf_postsm123_topic_title.aspx#post123&quot; target=&quot;_blank&quot; title=&quot;Go to Post&quot;&gt;Go to Post&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;h3&gt;
+    BB Codes to create Lists
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Bullet Lists&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [list]&lt;br /&gt;
+    [*]list item 1&lt;br /&gt;
+    [*]list item 2&lt;br /&gt;
+    [/list]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;ul&gt;
+    &lt;li&gt;list item 1&lt;/li&gt;
+    &lt;li&gt;list item 2&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Numbered and Alphabetic Lists&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [list=1]&lt;br /&gt;
+    [*]list item 1&lt;br /&gt;
+    [*]list item 2&lt;br /&gt;
+    [/list]&lt;br /&gt;
+    &lt;br /&gt;
+    [list=a]&lt;br /&gt;
+    [*]list item a&lt;br /&gt;
+    [*]list item b&lt;br /&gt;
+    [/list]
+    &lt;br /&gt;&lt;br /&gt;
+    [list=A]&lt;br /&gt;
+    [*]list item A&lt;br /&gt;
+    [*]list item B&lt;br /&gt;
+    [/list]
+    &lt;br /&gt;&lt;br /&gt;
+    [list=i]&lt;br /&gt;
+    [*]list item i&lt;br /&gt;
+    [*]list item ii&lt;br /&gt;
+    [/list]&lt;br /&gt;&lt;br /&gt;
+    [list=I]&lt;br /&gt;
+    [*]list item I&lt;br /&gt;
+    [*]list item II&lt;br /&gt;
+    [/list]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;ol&gt;
+    &lt;li&gt;list item 1&lt;/li&gt;
+    &lt;li&gt;list item 2&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;a&quot;&gt;
+    &lt;li&gt;list item a&lt;/li&gt;
+    &lt;li&gt;list item b&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;A&quot;&gt;
+    &lt;li&gt;list item A&lt;/li&gt;
+    &lt;li&gt;list item B&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;i&quot;&gt;
+    &lt;li&gt;list item i&lt;/li&gt;
+    &lt;li&gt;list item ii&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;I&quot;&gt;
+    &lt;li&gt;list item I&lt;/li&gt;
+    &lt;li&gt;list item II&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;h3&gt;
+    BB Codes to add Media Elements (Images, Videos)
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Images&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    &lt;p&gt;The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. &lt;/p&gt;
+    &lt;p&gt;There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.&lt;/p&gt;
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [img]{0}Content/images/YafLogo.png[/img]&lt;br /&gt;&lt;br /&gt;
+    [img={0}Content/images/YafLogo.png]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
+    [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;img src=&quot;{0}Content/images/YafLogo.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+    &lt;br /&gt;&lt;img src=&quot;{0}Content/images/YafLogo.png&quot; alt=&quot;YAF Logo&quot; title=&quot;YAF Logo&quot; /&gt;&lt;br /&gt;
+    &lt;br /&gt;
+    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;YAF Logo&quot;&gt;&lt;img class=&quot;inlineimg&quot; src=&quot;{0}Content/images/YafLogo.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt; (Linked)
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;You Tube&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [youtube] tag allows the embedding of an &lt;a href=&quot;http://www.youtube.com/&quot; title=&quot;http://www.youtube.com/&quot;&gt;Youtube&lt;/a&gt; video, by using the Url to the Video.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]&lt;br /&gt;&lt;br /&gt;
+    [youtube]http://youtu.be/jqxENMKaeCU[/youtube]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;!-- BEGIN youtube --&gt;
+    &lt;div&gt;
+    &lt;iframe width=&quot;560&quot; height=&quot;350&quot; src=&quot;//youtube.com/embed/jqxENMKaeCU?hd=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/div&gt;&lt;!-- END youtube --&gt;
+    &lt;br /&gt;&lt;br /&gt;
+    &lt;!-- BEGIN youtube --&gt;
+    &lt;div&gt;
+    &lt;iframe width=&quot;560&quot; height=&quot;350&quot; src=&quot;//youtube.com/embed/jqxENMKaeCU?hd=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/div&gt;&lt;!-- END youtube --&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Vimeo&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [vimeo] tag allows the embedding of an &lt;a href=&quot;http://www.vimeo.com/&quot; title=&quot;http://www.vimeo.com/&quot;&gt;Vimeo&lt;/a&gt; video, by using the Url to the Video.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [vimeo]http://vimeo.com/25451551[/vimeo]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div&gt;
+    &lt;iframe width=&quot;560&quot; height=&quot;350&quot;
+    src=&quot;http://player.vimeo.com/video/25451551?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Google Maps&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5[/googlemaps]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;350&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; src=&quot;http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5&amp;amp;output=embed&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;h3&gt;
+    BB Codes to Quote other Postings, and BB Codes to include Code Text
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Quoting&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [quote] tag allows you to quote a text from a posting.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [quote]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
+    [quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
+    [quote=John Doe;123]Quoted Text.[/quote]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header text-muted&quot;&gt;Quote:&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;p class=&quot;card-text&quot;&gt;Quoted Text.&lt;/div&gt;
+    &lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header text-muted&quot;&gt;John Doe wrote:&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;p class=&quot;card-text&quot;&gt;Quoted Text.&lt;/div&gt;
+    &lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header text-muted&quot;&gt;Originally Posted by: John Doe &lt;a href=&quot;#post123&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;p class=&quot;card-text&quot;&gt;Quoted Text.&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Code&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [code]&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
+    public class Hello1&lt;br /&gt;
+    {{
+    &lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
+    &amp;nbsp;{{&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine(&quot;Hello, World!&quot;);&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;
+    }}&lt;br /&gt;
+    }}&lt;br /&gt;
+    [/code]&lt;br /&gt;&lt;br /&gt;
+    [code=csharp]&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
+    public class Hello1&lt;br /&gt;
+    {{
+    &lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
+    &amp;nbsp;{{&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine(&quot;Hello, World!&quot;);&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;
+    }}&lt;br /&gt;
+    }}&lt;br /&gt;
+    [/code]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div class=&quot;code&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;code class=&quot;language-markup&quot;&gt;
+
+    // Hello1.cs&lt;br /&gt;
+    public class Hello1&lt;br /&gt;
+    {{
+    &lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
+    &amp;nbsp;{{&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine(&quot;Hello, World!&quot;);&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;
+    }}&lt;br /&gt;
+    }}
+    &lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div class=&quot;code&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;
+
+    // Hello1.cs
+    public class Hello1
+    {{
+    public static void Main()
+    {{
+    System.Console.WriteLine(&amp;quot;Hello, World!&amp;quot;);
+    }}
+    }}&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;h3&gt;
+    BB Codes to show/Hide its Content only to specific users
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+    The [hide] tag hides content from people until they press the thank you button for the post.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    [hide]Hidden Content[/hide]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    &lt;h4 class=&quot;alert-heading&quot;&gt;Hidden Content&lt;/h4&gt;
+    &lt;hr&gt;
+    &lt;p class=&quot;mb-0&quot;&gt;
+    The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post
+    &lt;/p&gt;
+    &lt;/div&gt;
+
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Group Hide&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [group-hide]Hidden Content[/group-hide]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;/div&gt;    &lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;You have insufficient rights to see the hidden content.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Group Hide&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [group-hide] tag Hide the Content from Guests, or other Roles if defined.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [group-hide]Hidden Content[/group-hide]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    You have insufficient rights to see the hidden content.
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Thanks&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-thanks] tag hides content from people who have below X thanks received.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-thanks=2]Hidden Content[/hide-thanks]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered, and have at least 2 thank(s) received.)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Thanks&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-thanks] tag hides content from people who have below X thanks received.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-thanks=2]Hidden Content[/hide-thanks]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered, and have at least 2 thank(s) received.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Posts&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-posts] tag hides content from people who have below X posts.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-posts=10]Hidden Content[/hide-posts]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Posts&lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and have 10 post(s) or more.)&lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-posts] tag hides content from people who have below X posts.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-posts=10]Hidden Content[/hide-posts]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered and have 10 post(s) or more.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Reply&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-reply] tag hides content from people until they replied in the same thread.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-reply]Hidden Content[/hide-reply]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and reply to the message to see the hidden Content.)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Reply&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-reply] tag hides content from people until they replied in the same thread.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-reply]Hidden Content[/hide-reply]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered and reply to the message to see the hidden Content.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Reply-Thanks&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Reply-Thanks&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-reply-thanks]Hidden Content[/hide-reply-thanks]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Spoiler&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [spoiler] tag hides content from people until they click on "Show Spoiler".&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [spoiler]Spoiler Content[/spoiler]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Spoiler&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [spoiler] tag hides content from people until they click on &quot;Show Spoiler&quot;.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [spoiler]Spoiler Content[/spoiler]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
     &lt;!-- BEGIN spoiler --&gt;
-    &lt;script type="text/javascript"&gt;
-	function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}
-	&lt;/script&gt;
-&lt;div class="spoilertitle"&gt;
-&lt;input type="button" value="Show Spoiler" class="spoilerbutton" name="spoilerBtn4360a" onclick="toggleSpoiler(this,'spoil_c3a3b');"/&gt;
-&lt;/div&gt;
-&lt;div class="spoilerbox" id="spoil_c3a3b" style="display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;"&gt;
-Spoiler Content
-&lt;/div&gt;
-&lt;!-- END spoiler --&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-     Other
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;User Link&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [userlink]Username[/userlink]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
-	&lt;/style&gt;
-    &lt;span class="userLinkContainer"&gt;
-&lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor12224" class="UserLinkBBCode"&gt;Username&lt;/a&gt;
-&lt;img id="OnlineStatusImage" src="{0}/Themes/OrangeGrey/icon_useronline.png" alt="Online" style="vertical-align: bottom" title="User is Online"/&gt;
-&lt;/span&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Stop BB Code Parsing&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [noparse] tag allows you to stop the parsing of BB code inside the tag.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;[noparse][b]Sample text.[/b][/noparse]
-	&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==&#39;&#39;){{el.style.display=&#39;none&#39;;btn.value=&#39;Show Spoiler&#39;}}else{{el.style.display=&#39;&#39;;btn.value=&#39;Hide Spoiler&#39;}}}}
+    &lt;/script&gt;
+    &lt;div class=&quot;mb-3&quot;&gt;
+    &lt;input type=&quot;button&quot; value=&quot;Show Spoiler&quot; class=&quot;btn btn-secondary btn-sm&quot; name=&quot;spoilerBtn4360a&quot; onclick=&quot;toggleSpoiler(this,&#39;spoil_c3a3b&#39;);&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card card-body&quot; id=&quot;spoil_c3a3b&quot; style=&quot;display: none;&quot;&gt;
+    Spoiler Content
+    &lt;/div&gt;
+    &lt;!-- END spoiler --&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-&lt;p&gt;NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.&lt;/p&gt;</Resource>
+
+    &lt;h3&gt;
+    Other
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;User Link&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [userlink]Username[/userlink]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+
+    &lt;span class=&quot;userLinkContainer&quot;&gt;
+    &lt;a href=&quot;{0}yaf_profile1234.aspx&quot;
+    rel=&quot;nofollow&quot;
+    title=&quot;View profile&quot;
+    target=&quot;_blank&quot;
+    id=&quot;UserLinkBBCodeFor12224&quot;
+    class=&quot;btn btn-outline-primary&quot;&gt;
+    &lt;span class=&quot;text-danger&quot; title=&quot;User is Offline&quot;&gt;&lt;i class=&quot;fas fa-user-circle&quot; style=&quot;font-size: 1.5em&quot;&gt;&lt;/i&gt;&lt;/span&gt;&amp;nbsp;Username
+    &lt;/a&gt;
+    &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Stop BB Code Parsing&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [noparse] tag allows you to stop the parsing of BB code inside the tag.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    [noparse][b]Sample text.[/b][/noparse]
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p&gt;NOTE: Don&#39;t forget to close an open BB Code tag. Tags that are not closed will be not formatted.&lt;/p&gt;
+  </Resource>
   <Resource tag="BBCODESTITLE">BB Codes List</Resource>
   <Resource tag="BUDDIESCONTENT">&lt;p&gt;Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
 &lt;/p&gt;
@@ -5183,14 +5004,6 @@ Spoiler Content
   <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
   <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
   <Resource tag="TOPIC">Topic:</Resource>
- </page>
- <page name="SHOUTBOX">
-  <Resource tag="CLEAR">Clear</Resource>
-  <Resource tag="FLYOUT">Fly Out</Resource>
-  <Resource tag="HEADING">Chat with other members</Resource>
-  <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
-  <Resource tag="SUBMIT">Submit</Resource>
-  <Resource tag="TITLE">ShoutBox</Resource>
  </page>
  <page name="TEAM">
   <Resource tag="ADMINS">Administrators</Resource>
