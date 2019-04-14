@@ -48,13 +48,13 @@
         </p>
     </div>
     <div class="col-md-2">
-        <ul>
-            <li class="list-unstyled">
+        <ul class="list-unstyled">
+            <li>
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                     LocalizedTag="REPLIES" LocalizedPage="MODERATE" />:
                 <%=this.FormatReplies() %>
             </li>
-            <li class="list-unstyled">
+            <li>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedPage="MODERATE" LocalizedTag="VIEWS" />:
                 <%=this.FormatViews()%>
