@@ -4,11 +4,15 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
+<div class="row">
+<div class="col-sm-auto">
+    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+</div>
+<div class="col">
 <asp:UpdatePanel ID="ProfileUpdatePanel" runat="server">
     <ContentTemplate>
         <YAF:ProfileEdit runat="server" ID="ProfileEditor" />
     </ContentTemplate>
 </asp:UpdatePanel>
-<div id="DivSmartScroller">
-    
+    </div>
 </div>

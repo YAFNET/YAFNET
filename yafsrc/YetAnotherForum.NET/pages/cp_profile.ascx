@@ -3,9 +3,10 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
-
-<div class="row mt-3">
+<div class="row">
+    <div class="col-sm-auto">
+        <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+    </div>
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">

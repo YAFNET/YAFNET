@@ -2,14 +2,22 @@
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../controls/PMList.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
+
+
 <div class="row">
-    <div class="col">
-        <YAF:ThemeButton ID="NewPM" runat="server" 
-                         TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT"
-                         Type="Secondary"
-                         Icon="envelope-open"/>
-    </div>
+<div class="col-sm-auto">
+    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
 </div>
+<div class="col">
+    
+    <div class="row">
+        <div class="col">
+            <YAF:ThemeButton ID="NewPM" runat="server" 
+                             TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT"
+                             Type="Secondary"
+                             Icon="envelope-open"/>
+        </div>
+    </div>
 
 <div class="row mt-3">
     <div class="col">
@@ -90,3 +98,6 @@
                          Icon="envelope-open"/>
     </div>
 </div>
+    
+    </div>
+    </div>
