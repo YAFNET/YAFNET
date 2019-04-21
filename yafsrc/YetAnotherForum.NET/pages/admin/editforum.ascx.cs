@@ -478,6 +478,7 @@ namespace YAF.Pages.Admin
 
             if (this.remoteurl.Text.IsSet())
             {
+                /*
                 // add http:// by default
                 if (!Regex.IsMatch(this.remoteurl.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
                 {
@@ -488,7 +489,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_INVALID_URL"));
                     return;
-                }
+                }*/
             }
 
             // Forum
