@@ -372,20 +372,12 @@
 .yafnet .content a		{ color: #C02020; text-decoration: none; }
 .yafnet .content a:hover	{ color: #C00000; text-decoration: underline; }
 /* used for quoting messages */
-.yafnet .quote {
-	margin-left: 16px;
-	padding-left: 16px;
-}
 .yafnet .innerquote {
 	padding: 4px;
 	background-color: #d1d1d1;
 	border: solid 1px #505050;
 }
 /* used for code */
-.yafnet .code {
-	margin-left: 16px;
-	padding-left: 16px;	
-}
 .yafnet span.highlight {
 	background-color: Yellow;
 	color: Black;

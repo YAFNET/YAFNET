@@ -1772,7 +1772,8 @@ pre[class*="language-"].line-numbers > code {
   background: #212327;
   transform: translateY(100%);
   transition: all 500ms ease-out;
-  color: #ecf0f1; }
+  color: #ecf0f1;
+  word-break: break-all; }
   .cookiealert.show {
     opacity: 1;
     transform: translateY(0%);

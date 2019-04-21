@@ -10,5 +10,9 @@
   {
     "outputFile": "Content/forum.css",
     "inputFile": "Content/forum.scss"
+  },
+  {
+    "outputFile": "themes/cleanSlate/theme.css",
+    "inputFile": "themes/cleanSlate/theme.less"
   }
 ]

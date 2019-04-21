@@ -1524,7 +1524,10 @@ namespace YAF
 
             try
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls
+                                                                                 | SecurityProtocolType.Tls11
+                                                                                 | SecurityProtocolType.Tls12;
 
                 ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => true;
 
@@ -1591,8 +1594,9 @@ namespace YAF
                         exception));
 
                 // Output the data
-                context.Response.Redirect(
-                    "{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));
+                context.Response.Redirect(avatarUrl);
+                /*context.Response.Redirect(
+                    "{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));*/
             }
         }
 

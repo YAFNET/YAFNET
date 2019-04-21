@@ -21,6 +21,7 @@
     transform: translateY(100%);
     transition: all 500ms ease-out;
     color: #ecf0f1;
+    word-break: break-all;
 
     &.show {
         opacity: 1;

@@ -384,20 +384,12 @@ padding-right: 5px !important;
 .yafnet .content a		{ color: #222; text-decoration: none; }
 .yafnet .content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
 /* used for quoting messages */
-.yafnet .quote {
-	margin-left: 16px;
-	padding-left: 16px;
-}
 .yafnet .innerquote {
 	padding: 4px;
 	background-color: #E4EAF2;
 	border: 1px solid #8394B2;
 }
 /* used for code */
-.yafnet .code {
-	margin-left: 16px;
-	padding-left: 16px;	
-}
 .yafnet span.highlight {
 	background-color: Yellow;
 	color: Black;
