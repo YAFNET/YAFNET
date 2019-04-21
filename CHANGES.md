@@ -1,6 +1,17 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.4.16
+## New Features:
+* Added Setting to enable/disable cookie consent popup
+
+## Fixed Issues:
+* updated twitter bbcode extension
+* fixed issue with code blocks on mobile devices
+* improved "message_move" and "forum_updatelastpost" performance
+* [FIXED] XSS Issue
+
+
 # YetAnotherForum.NET v2.2.4.15
 ## New Features:
 * Added Instagram BBCode
