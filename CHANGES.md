@@ -18,7 +18,20 @@ YetAnotherForum.NET Changelog
 
 ## Fixed Issues:
 
+# YetAnotherForum.NET v2.2.4.16
+## New Features:
+* Added Setting to enable/disable cookie consent popup
+
+## Fixed Issues:
+* updated twitter bbcode extension
+* fixed issue with code blocks on mobile devices
+* improved "message_move" and "forum_updatelastpost" performance
+* [FIXED] XSS Issue
+
 # YetAnotherForum.NET v2.2.4.15
+## New Features:
+* Added Instagram BBCode
+
 ## Fixed Issues:
 * [FIXED] Issue when search box is empty
 * updated vimeo bb code extension
@@ -26,6 +39,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] emaildigest
 * [FIXED #413] shows username instead of diplay name of deleted user
 * Posts Pages with querystring "m" now contains noindex tag
+* [FIXED] unread topics
 
 # YetAnotherForum.NET v2.2.4.14
 ## Fixed Issues:

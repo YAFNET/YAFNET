@@ -66,7 +66,7 @@ namespace YAFProviders.Passthru
     /// </exception>
     public override void Initialize(string name, NameValueCollection config)
     {
-      string realProviderName = config["passThru"];
+      var realProviderName = config["passThru"];
 
 
       if (realProviderName == null || realProviderName.Length < 1)
@@ -179,7 +179,7 @@ namespace YAFProviders.Passthru
     /// </returns>
     public override string[] GetUsersInRole(string roleName)
     {
-      return GetUsersInRole(roleName);
+      return this.GetUsersInRole(roleName);
     }
 
     /// <summary>
@@ -196,7 +196,7 @@ namespace YAFProviders.Passthru
     /// </returns>
     public override bool IsUserInRole(string username, string roleName)
     {
-      return IsUserInRole(username, roleName);
+      return this.IsUserInRole(username, roleName);
     }
 
     /// <summary>

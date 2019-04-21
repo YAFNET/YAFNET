@@ -43,6 +43,7 @@ namespace YAF.Core.Helpers
                     if (returnInstance == null)
                     {
                         returnInstance = this._create();
+
                         // call this setter...
                         this.Instance = returnInstance;
                     }
@@ -54,6 +55,7 @@ namespace YAF.Core.Helpers
 
                 return returnInstance;
             }
+
             set
             {
                 this._slimLock.EnterWriteLock();

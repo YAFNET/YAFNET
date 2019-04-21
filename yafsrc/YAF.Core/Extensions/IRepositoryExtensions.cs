@@ -70,6 +70,7 @@ namespace YAF.Core.Extensions
             return success;
         }
         
+
         /// <summary>
         /// The delete.
         /// </summary>
@@ -93,6 +94,7 @@ namespace YAF.Core.Extensions
             return repository.DeleteById(haveId.ID);
         }
         
+
         /// <summary>
         /// The delete by id.
         /// </summary>

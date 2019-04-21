@@ -62,7 +62,7 @@ namespace YAF.Providers.Utils
     /// </returns>
     public static string ToStringDBNull(this object obj)
     {
-      return ToStringDBNull(obj, String.Empty);
+      return ToStringDBNull(obj, string.Empty);
     }
 
     /// <summary>
@@ -165,7 +165,7 @@ namespace YAF.Providers.Utils
 
       var hashedSB = new StringBuilder((hashedBytes.Length * 2) + 2);
 
-      foreach (byte b in hashedBytes)
+      foreach (var b in hashedBytes)
       {
         hashedSB.AppendFormat("{0:X2}", b);
       }

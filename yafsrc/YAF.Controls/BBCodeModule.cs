@@ -39,10 +39,6 @@ namespace YAF.Controls
     /// </summary>
     public class YafBBCodeControl : BaseControl
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Properties
 
         /// <summary>

@@ -27,6 +27,7 @@ namespace YAF.Types
     using System;
 
 #pragma warning disable 1591
+
     // ReSharper disable UnusedMember.Global
     // ReSharper disable MemberCanBePrivate.Global
     // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -47,9 +48,10 @@ namespace YAF.Types
     /// </code>
     /// </example>
     [AttributeUsage(
-        AttributeTargets.Method | AttributeTargets.Parameter |
-        AttributeTargets.Property | AttributeTargets.Delegate |
-        AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+        AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate
+        | AttributeTargets.Field,
+        AllowMultiple = false,
+        Inherited = true)]
     public sealed class CanBeNullAttribute : Attribute
     {
     }
@@ -65,9 +67,10 @@ namespace YAF.Types
     /// </code>
     /// </example>
     [AttributeUsage(
-        AttributeTargets.Method | AttributeTargets.Parameter |
-        AttributeTargets.Property | AttributeTargets.Delegate |
-        AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+        AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate
+        | AttributeTargets.Field,
+        AllowMultiple = false,
+        Inherited = true)]
     public sealed class NotNullAttribute : Attribute
     {
     }
@@ -86,9 +89,7 @@ namespace YAF.Types
     /// }
     /// </code>
     /// </example>
-    [AttributeUsage(
-        AttributeTargets.Constructor | AttributeTargets.Method,
-        AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class StringFormatMethodAttribute : Attribute
     {
         #region Constructors and Destructors
@@ -281,6 +282,7 @@ namespace YAF.Types
         #region Public Properties
 
         public string Contract { get; private set; }
+
         public bool ForceFullStates { get; private set; }
 
         #endregion
@@ -343,8 +345,9 @@ namespace YAF.Types
     /// </code>
     /// </example>
     [AttributeUsage(
-        AttributeTargets.Interface | AttributeTargets.Class |
-        AttributeTargets.Struct, AllowMultiple = false, Inherited = true)]
+        AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct,
+        AllowMultiple = false,
+        Inherited = true)]
     public sealed class CannotApplyEqualityOperatorAttribute : Attribute
     {
     }
@@ -407,9 +410,7 @@ namespace YAF.Types
         {
         }
 
-        public UsedImplicitlyAttribute(
-            ImplicitUseKindFlags useKindFlags,
-            ImplicitUseTargetFlags targetFlags)
+        public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
             this.UseKindFlags = useKindFlags;
             this.TargetFlags = targetFlags;
@@ -420,6 +421,7 @@ namespace YAF.Types
         #region Public Properties
 
         public ImplicitUseTargetFlags TargetFlags { get; private set; }
+
         public ImplicitUseKindFlags UseKindFlags { get; private set; }
 
         #endregion
@@ -450,9 +452,7 @@ namespace YAF.Types
         {
         }
 
-        public MeansImplicitUseAttribute(
-            ImplicitUseKindFlags useKindFlags,
-            ImplicitUseTargetFlags targetFlags)
+        public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
             this.UseKindFlags = useKindFlags;
             this.TargetFlags = targetFlags;
@@ -790,9 +790,7 @@ namespace YAF.Types
     {
     }
 
-    [AttributeUsage(
-        AttributeTargets.Parameter | AttributeTargets.Property |
-        AttributeTargets.Field, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field, Inherited = true)]
     public sealed class HtmlElementAttributesAttribute : Attribute
     {
         #region Constructors and Destructors
@@ -816,9 +814,7 @@ namespace YAF.Types
         #endregion
     }
 
-    [AttributeUsage(
-        AttributeTargets.Parameter | AttributeTargets.Field |
-        AttributeTargets.Property, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property, Inherited = true)]
     public sealed class HtmlAttributeValueAttribute : Attribute
     {
         #region Constructors and Destructors

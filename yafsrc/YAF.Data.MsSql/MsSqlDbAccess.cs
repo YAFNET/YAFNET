@@ -47,10 +47,6 @@ namespace YAF.Data.MsSql
     {
         public const string ProviderTypeName = "System.Data.SqlClient";
 
-        #region Static Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>

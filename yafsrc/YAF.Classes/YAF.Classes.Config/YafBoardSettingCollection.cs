@@ -47,7 +47,7 @@ namespace YAF.Classes
     public YafBoardSettingCollection(YafBoardSettings boardSettings)
     {
       // load up the settings...
-      Type boardSettingsType = boardSettings.GetType();
+      var boardSettingsType = boardSettings.GetType();
       this._settings = boardSettingsType.GetProperties().ToList();
     }
 

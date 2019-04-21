@@ -64,7 +64,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
 
         switch (format)
         {
@@ -114,7 +114,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateLong(dateTime);
       }
       catch
@@ -143,7 +143,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateShort(dateTime);
       }
       catch
@@ -172,7 +172,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTime(dateTime);
       }
       catch
@@ -201,7 +201,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTimeShort(dateTime);
       }
       catch
@@ -230,7 +230,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTimeTopic(dateTime);
       }
       catch
@@ -259,7 +259,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTime(dateTime);
       }
       catch

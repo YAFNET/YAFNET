@@ -54,10 +54,10 @@ namespace YAF.Utils.Extensions
         /// <returns>Deserialised Json Strin</returns>
         public static T Deserialise<T>(string json)
         {
-            T obj = Activator.CreateInstance<T>();
-            using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
+            var obj = Activator.CreateInstance<T>();
+            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                var serializer = new DataContractJsonSerializer(obj.GetType());
                 obj = (T)serializer.ReadObject(ms);
                 return obj;
             }

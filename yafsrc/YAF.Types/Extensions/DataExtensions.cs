@@ -63,7 +63,7 @@ namespace YAF.Types.Extensions
             {
                 var rowDictionary = new Dictionary<string, object>(comparer ?? StringComparer.OrdinalIgnoreCase);
 
-                for (int fieldIndex = 0; fieldIndex < reader.FieldCount; fieldIndex++)
+                for (var fieldIndex = 0; fieldIndex < reader.FieldCount; fieldIndex++)
                 {
                     rowDictionary.Add(reader.GetName(fieldIndex), reader.GetValue(fieldIndex));
                 }

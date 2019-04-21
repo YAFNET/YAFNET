@@ -126,6 +126,7 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string GuestGroupsCache = "GuestGroupsCache";
             
+
             /// <summary>
             ///   The group rank styles.
             /// </summary>
@@ -252,6 +253,7 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string Location = @"<yaf:location\s*/>";
             
+
             /// <summary>
             ///   The rank image.
             /// </summary>

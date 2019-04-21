@@ -89,14 +89,14 @@ namespace YAF.Providers.Profile
         public void AddProfileColumn([NotNull] string name, SqlDbType columnType, int size)
         {
             // get column type...
-            string type = columnType.ToString();
+            var type = columnType.ToString();
 
             if (size > 0)
             {
                 type += "(" + size + ")";
             }
 
-            string sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
+            var sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
                 DbHelpers.GetObjectName("prov_Profile"), name, type);
 
             using (var cmd = new SqlCommand(sql))
@@ -120,7 +120,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public int DeleteInactiveProfiles([NotNull] object appName, [NotNull] object inactiveSinceDate)
         {
-            using (SqlCommand cmd = DbHelpers.GetCommand("prov_profile_deleteinactive"))
+            using (var cmd = DbHelpers.GetCommand("prov_profile_deleteinactive"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -143,7 +143,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public int DeleteProfiles([NotNull] object appName, [NotNull] object userNames)
         {
-            using (SqlCommand cmd = DbHelpers.GetCommand("prov_profile_deleteprofiles"))
+            using (var cmd = DbHelpers.GetCommand("prov_profile_deleteprofiles"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -166,7 +166,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public int GetNumberInactiveProfiles([NotNull] object appName, [NotNull] object inactiveSinceDate)
         {
-            using (SqlCommand cmd = DbHelpers.GetCommand("prov_profile_getnumberinactiveprofiles"))
+            using (var cmd = DbHelpers.GetCommand("prov_profile_getnumberinactiveprofiles"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -182,7 +182,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public DataTable GetProfileStructure()
         {
-            string sql = @"SELECT TOP 1 * FROM {0}".FormatWith(DbHelpers.GetObjectName("prov_Profile"));
+            var sql = @"SELECT TOP 1 * FROM {0}".FormatWith(DbHelpers.GetObjectName("prov_Profile"));
 
             using (var cmd = new SqlCommand(sql))
             {
@@ -214,7 +214,7 @@ namespace YAF.Providers.Profile
         public DataSet GetProfiles([NotNull] object appName, [NotNull] object pageIndex, [NotNull] object pageSize,
             [NotNull] object userNameToMatch, [NotNull] object inactiveSinceDate)
         {
-            using (SqlCommand cmd = DbHelpers.GetCommand("prov_profile_getprofiles"))
+            using (var cmd = DbHelpers.GetCommand("prov_profile_getprofiles"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -262,7 +262,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public object GetProviderUserKey([NotNull] object appName, [NotNull] object username)
         {
-            DataRow row = Membership.DB.Current.GetUser(appName.ToString(), null, username.ToString(), false);
+            var row = Membership.DB.Current.GetUser(appName.ToString(), null, username.ToString(), false);
 
             if (row != null)
             {
@@ -292,9 +292,9 @@ namespace YAF.Providers.Profile
         {
             using (var cmd = new SqlCommand())
             {
-                string table = DbHelpers.GetObjectName("prov_Profile");
+                var table = DbHelpers.GetObjectName("prov_Profile");
 
-                StringBuilder sqlCommand = new StringBuilder("IF EXISTS (SELECT 1 FROM ").Append(table);
+                var sqlCommand = new StringBuilder("IF EXISTS (SELECT 1 FROM ").Append(table);
                 sqlCommand.Append(" WHERE UserId = @UserID) ");
                 cmd.Parameters.AddWithValue("@UserID", userID);
 
@@ -302,9 +302,9 @@ namespace YAF.Providers.Profile
                 var columnStr = new StringBuilder();
                 var valueStr = new StringBuilder();
                 var setStr = new StringBuilder();
-                int count = 0;
+                var count = 0;
 
-                foreach (SettingsPropertyColumn column in settingsColumnsList)
+                foreach (var column in settingsColumnsList)
                 {
                     // only write if it's dirty
                     if (values[column.Settings.Name].IsDirty)
@@ -312,7 +312,7 @@ namespace YAF.Providers.Profile
                         columnStr.Append(", ");
                         valueStr.Append(", ");
                         columnStr.Append(column.Settings.Name);
-                        string valueParam = "@Value" + count;
+                        var valueParam = "@Value" + count;
                         valueStr.Append(valueParam);
                         cmd.Parameters.AddWithValue(valueParam, values[column.Settings.Name].PropertyValue);
 

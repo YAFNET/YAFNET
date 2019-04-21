@@ -33,12 +33,12 @@ namespace YAF.Providers.Roles
 
     using YAF.Classes.Pattern;
     using YAF.Core;
+    using YAF.Providers.Utils;
+    using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Constants;
-    using YAF.Types;
     using YAF.Utils;
-    using YAF.Providers.Utils;
 
     /// <summary>
     /// The yaf role provider.
@@ -108,7 +108,7 @@ namespace YAF.Providers.Roles
         {
             get
             {
-                string key = this.GenerateCacheKey("UserRoleDictionary");
+                var key = this.GenerateCacheKey("UserRoleDictionary");
 
                 return this._userRoleCache ??
                        (this._userRoleCache =
@@ -143,12 +143,12 @@ namespace YAF.Providers.Roles
             }
 
             // Loop through username
-            foreach (string username in usernames)
+            foreach (var username in usernames)
             {
                 var allRoles = this.GetAllRoles().ToList();
 
                 // Loop through roles
-                foreach (string roleName in roleNames)
+                foreach (var roleName in roleNames)
                 {
                     // only add user if this role actually exists...
                     if (roleName.IsSet() && allRoles.Contains(roleName))
@@ -189,7 +189,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         public override bool DeleteRole(string roleName, bool throwOnPopulatedRole)
         {
-            int returnValue = DB.Current.DeleteRole(this.ApplicationName, roleName, throwOnPopulatedRole);
+            var returnValue = DB.Current.DeleteRole(this.ApplicationName, roleName, throwOnPopulatedRole);
 
             this.ClearUserRoleCache();
 
@@ -217,7 +217,7 @@ namespace YAF.Providers.Roles
             }
 
             // Roles
-            DataTable users = DB.Current.FindUsersInRole(this.ApplicationName, roleName);
+            var users = DB.Current.FindUsersInRole(this.ApplicationName, roleName);
             var usernames = new StringCollection();
             foreach (DataRow user in users.Rows)
             {
@@ -235,7 +235,7 @@ namespace YAF.Providers.Roles
         public override string[] GetAllRoles()
         {
             // get all roles...
-            DataTable roles = DB.Current.GetRoles(this.ApplicationName, null);
+            var roles = DB.Current.GetRoles(this.ApplicationName, null);
 
             // make a string collection to store the role list...
             var roleNames = new StringCollection();
@@ -270,7 +270,7 @@ namespace YAF.Providers.Roles
             {
                 roleNames = new StringCollection();
 
-                DataTable roles = DB.Current.GetRoles(this.ApplicationName, username);
+                var roles = DB.Current.GetRoles(this.ApplicationName, username);
 
                 foreach (DataRow dr in roles.Rows)
                 {
@@ -304,7 +304,7 @@ namespace YAF.Providers.Roles
                 ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
             }
 
-            DataTable users = DB.Current.FindUsersInRole(this.ApplicationName, roleName);
+            var users = DB.Current.FindUsersInRole(this.ApplicationName, roleName);
 
             var userNames = new StringCollection();
 
@@ -361,7 +361,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         public override bool IsUserInRole(string username, string roleName)
         {
-            DataTable roles = DB.Current.IsUserInRole(this.ApplicationName, username, roleName);
+            var roles = DB.Current.IsUserInRole(this.ApplicationName, username, roleName);
 
             return roles.HasRows();
         }
@@ -378,10 +378,10 @@ namespace YAF.Providers.Roles
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
         {
             // Loop through username
-            foreach (string username in usernames)
+            foreach (var username in usernames)
             {
                 // Loop through roles
-                foreach (string roleName in roleNames)
+                foreach (var roleName in roleNames)
                 {
                     DB.Current.RemoveUserFromRole(this.ApplicationName, username, roleName); // Remove role
 
@@ -403,7 +403,7 @@ namespace YAF.Providers.Roles
         public override bool RoleExists(string roleName)
         {
             // get this role...
-            object exists = DB.Current.GetRoleExists(this.ApplicationName, roleName);
+            var exists = DB.Current.GetRoleExists(this.ApplicationName, roleName);
 
             // if there are any rows then this role exists...
             if (Convert.ToInt32(exists) > 0)
@@ -424,7 +424,7 @@ namespace YAF.Providers.Roles
         /// </summary>
         private void ClearUserRoleCache()
         {
-            string key = this.GenerateCacheKey("UserRoleDictionary");
+            var key = this.GenerateCacheKey("UserRoleDictionary");
             YafContext.Current.Get<IObjectStore>().Remove(key);
         }
 

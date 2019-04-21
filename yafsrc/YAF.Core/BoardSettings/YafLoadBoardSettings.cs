@@ -89,7 +89,7 @@ namespace YAF.Core
 
                 var dataTable = YafContext.Current.GetRepository<Board>().List(this._boardID);
 
-                if (dataTable.Rows.Count == 0)
+                if (!dataTable.HasRows())
                 {
                     throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
                 }
@@ -158,12 +158,12 @@ namespace YAF.Core
         public void SaveRegistry()
         {
             // loop through all values and commit them to the DB
-            foreach (string key in this._reg.Keys)
+            foreach (var key in this._reg.Keys)
             {
                 LegacyDb.registry_save(key, this._reg[key]);
             }
 
-            foreach (string key in this._regBoard.Keys)
+            foreach (var key in this._regBoard.Keys)
             {
                 LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
             }

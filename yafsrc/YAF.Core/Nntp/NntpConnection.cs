@@ -217,7 +217,7 @@ namespace YAF.Core.Nntp
       }
 
       string line = null;
-      int code = 0;
+      var code = 0;
 
       // vzrus: Here can be an IO exception
       // No connecting newsserver or the connection was broken because of an invalid request.
@@ -286,7 +286,7 @@ namespace YAF.Core.Nntp
       string[] values2 = null;
       Match m = null;
       part = null;
-      int i = -1;
+      var i = -1;
       while ((response = this.sr.ReadLine()) != null && response != string.Empty)
       {
         m = Regex.Match(response, @"^\s+(\S+)$");
@@ -356,6 +356,7 @@ namespace YAF.Core.Nntp
                 part.Boundary = m.Groups[1].ToString();
                 part.EmbeddedPartList = new ArrayList();
               }
+
               m = Regex.Match(response, @"CHARSET=""?([^""\s;]+)", RegexOptions.IgnoreCase);
               if (m.Success)
               {
@@ -403,7 +404,7 @@ namespace YAF.Core.Nntp
       var sb = new StringBuilder();
       MemoryStream ms = null;
       this.sr.Read(buff, 0, 1);
-      int i = 0;
+      var i = 0;
       Match m = null;
 
       while ((response = this.sr.ReadLine()) != null)
@@ -430,9 +431,9 @@ namespace YAF.Core.Nntp
             }
 
             ms.Seek(0, SeekOrigin.Begin);
-            byte[] bytes = new byte[ms.Length];
+            var bytes = new byte[ms.Length];
             ms.Read(bytes, 0, (int) ms.Length);
-            Attachment attach = new Attachment(messageId + " - " + m.Groups[1].ToString(), m.Groups[1].ToString(), bytes);
+            var attach = new Attachment(messageId + " - " + m.Groups[1].ToString(), m.Groups[1].ToString(), bytes);
             list.Add(attach);
             ms.Close();
             i++;
@@ -449,7 +450,9 @@ namespace YAF.Core.Nntp
       }
 
       var ab = new ArticleBody
-        { IsHtml = false, Text = sb.ToString(), Attachments = (Attachment[])list.ToArray(typeof(Attachment)) };
+        {
+           IsHtml = false, Text = sb.ToString(), Attachments = (Attachment[])list.ToArray(typeof(Attachment)) 
+        };
       return ab;
     }
 
@@ -571,7 +574,7 @@ namespace YAF.Core.Nntp
       if (this.connectedServer != server)
       {
         this.tcpClient.Connect(server, port);
-        NetworkStream stream = this.tcpClient.GetStream();
+        var stream = this.tcpClient.GetStream();
         if (stream == null)
         {
           throw new NntpException("Fail to setup connection.");
@@ -580,7 +583,7 @@ namespace YAF.Core.Nntp
         this.sr = new StreamReader(stream, Encoding.Default);
         this.sw = new StreamWriter(stream, Encoding.ASCII);
         this.sw.AutoFlush = true;
-        Response res = this.MakeRequest(null);
+        var res = this.MakeRequest(null);
         if (res.Code != 200 && res.Code != 201)
         {
           this.Reset();
@@ -631,7 +634,7 @@ namespace YAF.Core.Nntp
         return false;
       }
 
-      Response res = this.MakeRequest("AUTHINFO USER " + this.username);
+      var res = this.MakeRequest("AUTHINFO USER " + this.username);
       if (res.Code == 381)
       {
         res = this.MakeRequest("AUTHINFO PASS " + this.password);
@@ -666,14 +669,14 @@ namespace YAF.Core.Nntp
 
       if (this.connectedGroup == null || this.connectedGroup.Group != group)
       {
-        Response res = this.MakeRequest("GROUP " + group);
+        var res = this.MakeRequest("GROUP " + group);
         if (res.Code != 211)
         {
           this.connectedGroup = null;
           throw new NntpException(res.Code, res.Request);
         }
 
-        string[] values = res.Message.Split(' ');
+        var values = res.Message.Split(' ');
         this.connectedGroup = new Newsgroup(group, int.Parse(values[1]), int.Parse(values[2]));
       }
 
@@ -695,7 +698,7 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsserver.");
       }
 
-      Response res = this.MakeRequest("LIST");
+      var res = this.MakeRequest("LIST");
       if (res.Code != 215)
       {
         throw new NntpException(res.Code, res.Request);
@@ -737,14 +740,14 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsgroup.");
       }
 
-      Response res = this.MakeRequest("STAT " + articleId);
+      var res = this.MakeRequest("STAT " + articleId);
       if (res.Code != 223)
       {
         throw new NntpException(res.Code, res.Request);
       }
 
-      int i = res.Message.IndexOf('<');
-      int j = res.Message.IndexOf('>');
+      var i = res.Message.IndexOf('<');
+      var j = res.Message.IndexOf('>');
       return res.Message.Substring(i, j - i + 1);
     }
 
@@ -772,13 +775,13 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsgroup.");
       }
 
-      Response res = this.MakeRequest("STAT " + messageId);
+      var res = this.MakeRequest("STAT " + messageId);
       if (res.Code != 223)
       {
         throw new NntpException(res.Code, res.Request);
       }
 
-      int i = res.Message.IndexOf(' ');
+      var i = res.Message.IndexOf(' ');
       return int.Parse(res.Message.Substring(0, i));
     }
 
@@ -810,7 +813,7 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsgroup.");
       }
 
-      Response res = this.MakeRequest("XOVER " + low + "-" + high);
+      var res = this.MakeRequest("XOVER " + low + "-" + high);
       if (res.Code != 224)
       {
         throw new NntpException(res.Code, res.Request);
@@ -837,7 +840,7 @@ namespace YAF.Core.Nntp
           article.Header.From = NntpUtil.Base64HeaderDecode(values[2]);
           
           // date
-          int i = values[3].IndexOf(',');
+          var i = values[3].IndexOf(',');
           int offTz;
           article.Header.Date = NntpUtil.DecodeUTC(values[3].Substring(i + 1, values[3].Length - 7 - i), out offTz);
           article.Header.TimeZoneOffset = offTz;
@@ -909,15 +912,15 @@ namespace YAF.Core.Nntp
       }
 
       var article = new Article();
-      Response res = this.MakeRequest("Article " + messageId);
+      var res = this.MakeRequest("Article " + messageId);
       if (res.Code != 220)
       {
         throw new NntpException(res.Code);
       }
 
-      int i = res.Message.IndexOf(' ');
+      var i = res.Message.IndexOf(' ');
       article.ArticleId = int.Parse(res.Message.Substring(0, i));
-      int end = res.Message.Substring(i, res.Message.Length - i - 1).Trim().IndexOf(' ');
+      var end = res.Message.Substring(i, res.Message.Length - i - 1).Trim().IndexOf(' ');
       if (end == -1)
       {
         end = res.Message.Length - (i + 1);
@@ -955,7 +958,7 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsgroup.");
       }
 
-      Response res = this.MakeRequest("POST");
+      var res = this.MakeRequest("POST");
       if (res.Code != 340)
       {
         throw new NntpException(res.Code, res.Request);
@@ -1006,7 +1009,7 @@ namespace YAF.Core.Nntp
           }
         }
 
-        Response res = this.MakeRequest("QUIT");
+        var res = this.MakeRequest("QUIT");
         if (res.Code != 205)
         {
           throw new NntpException(res.Code, res.Request);

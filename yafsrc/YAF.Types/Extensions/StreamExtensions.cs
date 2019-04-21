@@ -58,7 +58,7 @@ namespace YAF.Types.Extensions
         public static void CopyTo(this Stream input, Stream output)
         {
             var buffer = new byte[1024];
-            int count = buffer.Length;
+            var count = buffer.Length;
 
             while (count > 0)
             {

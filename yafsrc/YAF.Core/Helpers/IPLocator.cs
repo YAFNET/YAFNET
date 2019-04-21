@@ -87,14 +87,14 @@ namespace YAF.Core
 
             try
             {
-                string path = YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.FormatWith(Utils.Helpers.IPHelper.GetIp4Address(ip));
+                var path = YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.FormatWith(Utils.Helpers.IPHelper.GetIp4Address(ip));
                 var client = new WebClient();
-                string[] result = client.DownloadString(path).Split(';');
-                string[] sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
+                var result = client.DownloadString(path).Split(';');
+                var sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
                 if (result.Length > 0 && result.Length == sray.Length)
                 {
-                    int i = 0;
-                    foreach (string str in result)
+                    var i = 0;
+                    foreach (var str in result)
                     {
                         res.Add(sray[i].Trim(), str);
                         i++;

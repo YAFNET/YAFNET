@@ -81,7 +81,7 @@ namespace YAF.Controls
             CodeContracts.VerifyNotNull(supportedItem, "supportedItem");
             CodeContracts.VerifyNotNull(currentControl, "currentControl");
 
-            string localizedItem = supportedItem.Localize(currentControl);
+            var localizedItem = supportedItem.Localize(currentControl);
 
             // convert from YafBBCode to HTML
             if (supportedItem.EnableBBCode)

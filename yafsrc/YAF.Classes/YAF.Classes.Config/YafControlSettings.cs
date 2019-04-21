@@ -48,12 +48,13 @@ namespace YAF.Classes
         /// </summary>
         public YafControlSettings()
         {
-            Popup = false;
-            LockedForum = 0;
+            this.Popup = false;
+            this.LockedForum = 0;
             if (!int.TryParse(Config.CategoryID, out this._categoryId))
             {
                 this._categoryId = 0; // Ederon : 6/16/2007 - changed from 1 to 0
             }
+
             if (!int.TryParse(Config.BoardID, out this._boardId))
             {
                 this._boardId = 1;

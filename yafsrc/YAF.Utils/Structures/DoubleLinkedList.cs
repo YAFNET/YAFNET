@@ -132,8 +132,8 @@ namespace YAF.Utils.Structures
     {
       get
       {
-        int i = 0;
-        LinkItem current = this.HeadLink;
+        var i = 0;
+        var current = this.HeadLink;
         object item = null;
 
         // Skip to the index
@@ -152,8 +152,8 @@ namespace YAF.Utils.Structures
 
       set
       {
-        int i = 0;
-        LinkItem current = this.HeadLink;
+        var i = 0;
+        var current = this.HeadLink;
 
         // Skip past existing items
         for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
@@ -216,8 +216,8 @@ namespace YAF.Utils.Structures
 
       if (item != this.HeadLink)
       {
-        LinkItem prev = item.Previous;
-        LinkItem next = item.Next;
+        var prev = item.Previous;
+        var next = item.Next;
 
         if (prev != null)
         {
@@ -290,8 +290,8 @@ namespace YAF.Utils.Structures
         return;
       }
 
-      LinkItem next = item.Next;
-      LinkItem prev = item.Previous;
+      var next = item.Next;
+      var prev = item.Previous;
 
       if (this.HeadLink == item)
       {
@@ -334,7 +334,7 @@ namespace YAF.Utils.Structures
     /// </param>
     public void CopyTo(Array array, int index)
     {
-      int i = 0;
+      var i = 0;
       LinkItem current = null;
 
       for (i = 0, current = this.HeadLink; current != null && (i + index) < array.Length; i++, current = current.Next)
@@ -411,8 +411,8 @@ namespace YAF.Utils.Structures
     /// </returns>
     public bool Contains(object value)
     {
-      LinkItem current = this.HeadLink;
-      bool hasItem = false;
+      var current = this.HeadLink;
+      var hasItem = false;
 
       // Skip past existing items
       for (current = this.HeadLink; current != null && current.Item != value; current = current.Next)
@@ -438,8 +438,8 @@ namespace YAF.Utils.Structures
     /// </returns>
     public int IndexOf(object value)
     {
-      LinkItem current = this.HeadLink;
-      int index = -1;
+      var current = this.HeadLink;
+      var index = -1;
 
       // Skip past existing items
       for (index = 0, current = this.HeadLink;
@@ -468,8 +468,8 @@ namespace YAF.Utils.Structures
     /// </param>
     public void Insert(int index, object value)
     {
-      int i = 0;
-      LinkItem current = this.HeadLink;
+      var i = 0;
+      var current = this.HeadLink;
 
       // Skip past existing items
       for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
@@ -517,8 +517,8 @@ namespace YAF.Utils.Structures
 
       if (current != null)
       {
-        LinkItem prev = current.Previous;
-        LinkItem next = current.Next;
+        var prev = current.Previous;
+        var next = current.Next;
 
         if (current == this.HeadLink)
         {
@@ -551,8 +551,8 @@ namespace YAF.Utils.Structures
     /// </param>
     public void RemoveAt(int index)
     {
-      int i = 0;
-      LinkItem current = this.HeadLink;
+      var i = 0;
+      var current = this.HeadLink;
 
       // Skip past existing items
       for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
@@ -562,8 +562,8 @@ namespace YAF.Utils.Structures
 
       if (i == index && current != null)
       {
-        LinkItem prev = current.Previous;
-        LinkItem next = current.Next;
+        var prev = current.Previous;
+        var next = current.Next;
 
         if (current == this.HeadLink)
         {
@@ -654,7 +654,7 @@ namespace YAF.Utils.Structures
       /// </returns>
       public bool MoveNext()
       {
-        bool result = false;
+        var result = false;
 
         if (this.m_current == null)
         {

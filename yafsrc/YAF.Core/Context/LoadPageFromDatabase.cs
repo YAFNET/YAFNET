@@ -147,6 +147,7 @@ namespace YAF.Core
                         @event.Data.ForumID,
                         @event.Data.TopicID,
                         @event.Data.MessageID,
+
                         // don't track if this is a search engine
                         @event.Data.IsSearchEngine,
                         @event.Data.IsMobileDevice,
@@ -207,8 +208,7 @@ namespace YAF.Core
                     this.Get<HttpRequestBase>().Url.ToString());
 
                 // log the user out...
-                //FormsAuthentication.SignOut();
-
+                // FormsAuthentication.SignOut();
                 if (YafContext.Current.ForumPageType != ForumPages.info)
                 {
                     // show a failure notice since something is probably up with membership...
@@ -219,6 +219,7 @@ namespace YAF.Core
                     // totally failing... just re-throw the exception...
                     throw;
                 }
+
 #else
     // re-throw exception...
 				throw;

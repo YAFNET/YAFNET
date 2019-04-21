@@ -66,7 +66,7 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(list, "list");
             CodeContracts.VerifyNotNull(action, "action");
 
-            bool isFirst = true;
+            var isFirst = true;
             foreach (var item in list.ToList())
             {
                 action(item, isFirst);
@@ -85,7 +85,7 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(list, "list");
             CodeContracts.VerifyNotNull(action, "action");
 
-            int i = 0;
+            var i = 0;
             foreach (var item in list.ToList())
             {
                 action(item, i++);

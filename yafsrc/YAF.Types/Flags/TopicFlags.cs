@@ -190,12 +190,12 @@ namespace YAF.Types.Flags
       // int value 1024
       get
       {
-        return this[EnumToIndex(Flags.IsQuestion)];
+        return this[this.EnumToIndex(Flags.IsQuestion)];
       }
 
       set
       {
-        this[EnumToIndex(Flags.IsQuestion)] = value;
+        this[this.EnumToIndex(Flags.IsQuestion)] = value;
       }
     }
 

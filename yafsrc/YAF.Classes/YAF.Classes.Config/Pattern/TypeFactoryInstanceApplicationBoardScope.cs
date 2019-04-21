@@ -43,7 +43,7 @@ namespace YAF.Classes.Pattern
     public TypeFactoryInstanceApplicationBoardScope(string typeName)
     {
       this.TypeName = typeName;
-      this.TypeInstanceKey = String.Format("{0}{1}", typeName, YafControlSettings.Current.BoardID);
+      this.TypeInstanceKey = string.Format("{0}{1}", typeName, YafControlSettings.Current.BoardID);
     }
 
     #endregion

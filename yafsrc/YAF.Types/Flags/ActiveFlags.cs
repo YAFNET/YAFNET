@@ -127,6 +127,7 @@ namespace YAF.Types.Flags
     {
       None = 0,
         
+
       /// <summary>
       /// The Is Active Now.
       /// </summary>

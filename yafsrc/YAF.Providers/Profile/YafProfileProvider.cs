@@ -119,7 +119,7 @@ namespace YAF.Providers.Profile
         {
             get
             {
-                string key = this.GenerateCacheKey("UserProfileDictionary");
+                var key = this.GenerateCacheKey("UserProfileDictionary");
 
                 return this._userProfileCache ??
                        (this._userProfileCache =
@@ -213,13 +213,13 @@ namespace YAF.Providers.Profile
 
             var usernames = new string[profiles.Count];
 
-            int index = 0;
+            var index = 0;
             foreach (ProfileInfo profile in profiles)
             {
                 usernames[index++] = profile.UserName;
             }
 
-            return DeleteProfiles(usernames);
+            return this.DeleteProfiles(usernames);
         }
 
         /// <summary>
@@ -386,7 +386,7 @@ namespace YAF.Providers.Profile
                 return settingPropertyCollection;
             }
 
-            string username = context["UserName"].ToString();
+            var username = context["UserName"].ToString();
 
             if (username.IsNotSet())
             {
@@ -408,6 +408,7 @@ namespace YAF.Providers.Profile
                 // just use the cached version...
                 return this.UserProfileCache[username.ToLower()];
             }
+
             // transfer properties regardless...
             foreach (SettingsProperty prop in collection)
             {
@@ -415,17 +416,17 @@ namespace YAF.Providers.Profile
             }
 
             // get this profile from the DB
-            DataSet profileDS = DB.Current.GetProfiles(this.ApplicationName, 0, 1, username, null);
-            DataTable profileDT = profileDS.Tables[0];
+            var profileDS = DB.Current.GetProfiles(this.ApplicationName, 0, 1, username, null);
+            var profileDT = profileDS.Tables[0];
 
             if (profileDT.HasRows())
             {
-                DataRow row = profileDT.Rows[0];
+                var row = profileDT.Rows[0];
 
                 // load the data into the collection...
                 foreach (SettingsPropertyValue prop in settingPropertyCollection)
                 {
-                    object val = row[prop.Name];
+                    var val = row[prop.Name];
 
                     // Only initialize a SettingsPropertyValue for non-null values
                     if (val is DBNull || val == null)
@@ -440,7 +441,10 @@ namespace YAF.Providers.Profile
             }
 
             // save this collection to the cache
-            this.UserProfileCache.AddOrUpdate(username.ToLower(), (k) => settingPropertyCollection, (k, v) => settingPropertyCollection);
+            this.UserProfileCache.AddOrUpdate(
+                username.ToLower(),
+                (k) => settingPropertyCollection,
+                (k, v) => settingPropertyCollection);
 
             return settingPropertyCollection;
         }
@@ -509,7 +513,7 @@ namespace YAF.Providers.Profile
             // load the data for the configuration
             this.LoadFromPropertyValueCollection(collection);
 
-            object userID = DB.Current.GetProviderUserKey(this.ApplicationName, username);
+            var userID = DB.Current.GetProviderUserKey(this.ApplicationName, username);
             if (userID != null)
             {
                 // start saving...
@@ -561,10 +565,10 @@ namespace YAF.Providers.Profile
                 }
 
                 // sync profile table structure with the db...
-                DataTable structure = DB.Current.GetProfileStructure();
+                var structure = DB.Current.GetProfileStructure();
 
                 // verify all the columns are there...
-                foreach (SettingsPropertyColumn column in this._settingsColumnsList)
+                foreach (var column in this._settingsColumnsList)
                 {
                     // see if this column exists
                     if (!structure.Columns.Contains(column.Settings.Name))
@@ -612,10 +616,10 @@ namespace YAF.Providers.Profile
                 }
 
                 // sync profile table structure with the db...
-                DataTable structure = DB.Current.GetProfileStructure();
+                var structure = DB.Current.GetProfileStructure();
 
                 // verify all the columns are there...
-                foreach (SettingsPropertyColumn column in this._settingsColumnsList)
+                foreach (var column in this._settingsColumnsList)
                 {
                     // see if this column exists
                     if (!structure.Columns.Contains(column.Settings.Name))
@@ -713,19 +717,19 @@ namespace YAF.Providers.Profile
             }
 
             // get all the profiles...
-            DataSet allProfilesDS = DB.Current.GetProfiles(this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate);
+            var allProfilesDS = DB.Current.GetProfiles(this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate);
 
             // create an instance for the profiles...
             var profiles = new ProfileInfoCollection();
 
-            DataTable allProfilesDT = allProfilesDS.Tables[0];
-            DataTable profilesCountDT = allProfilesDS.Tables[1];
+            var allProfilesDT = allProfilesDS.Tables[0];
+            var profilesCountDT = allProfilesDS.Tables[1];
 
             foreach (DataRow profileRow in allProfilesDT.Rows)
             {
-                string username = profileRow["Username"].ToString();
-                DateTime lastActivity = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastActivity"]), DateTimeKind.Utc);
-                DateTime lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdatedDate"]), DateTimeKind.Utc);
+                var username = profileRow["Username"].ToString();
+                var lastActivity = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastActivity"]), DateTimeKind.Utc);
+                var lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdatedDate"]), DateTimeKind.Utc);
 
                 profiles.Add(new ProfileInfo(username, false, lastActivity, lastUpdated, 0));
             }

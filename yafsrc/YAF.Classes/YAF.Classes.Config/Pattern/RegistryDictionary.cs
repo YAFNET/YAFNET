@@ -211,14 +211,14 @@ namespace YAF.Classes.Pattern
                 return defaultValue;
             }
 
-            object value = this[name];
+            var value = this[name];
 
             if (value == null)
             {
                 return defaultValue;
             }
 
-            Type objectType = typeof(T);
+            var objectType = typeof(T);
 
             if (objectType.BaseType == typeof(Enum))
             {

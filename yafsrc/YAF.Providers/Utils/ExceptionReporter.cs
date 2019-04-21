@@ -73,10 +73,10 @@ namespace YAF.Providers.Utils
         /// </returns>
         public static string GetReport([NotNull] string providerSection, [NotNull] string tag)
         {
-            string select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(
+            var select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(
                 providerSection.ToUpper(),
                 tag.ToUpper());
-            XmlNode node = ExceptionXML().SelectSingleNode(select);
+            var node = ExceptionXML().SelectSingleNode(select);
 
             return node != null
                        ? node.InnerText

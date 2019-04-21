@@ -24,6 +24,7 @@
 
 namespace YAF.Controls
 {
+    using System;
     using System.ComponentModel;
     using System.Web;
     using System.Web.UI;
@@ -48,6 +49,7 @@ namespace YAF.Controls
         [DefaultValue(false)]
         public bool EnableLoadingAnimation { get; set; }
         
+
         /// <summary>
         /// Gets or sets the text caption displayed in the <see cref="T:System.Web.UI.WebControls.Button" /> control.
         /// </summary>
@@ -93,7 +95,7 @@ namespace YAF.Controls
         /// Determines whether the button has been clicked prior to rendering on the client.
         /// </summary>
         /// <param name="e">The event data.</param>
-        protected override void OnPreRender(System.EventArgs e)
+        protected override void OnPreRender(EventArgs e)
         {
             if (this.EnableLoadingAnimation)
             {

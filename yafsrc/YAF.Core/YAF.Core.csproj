@@ -32,7 +32,7 @@
     <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
@@ -376,6 +376,7 @@
     </PackageReference>
     <PackageReference Include="Lucene.Net.Contrib">
       <Version>3.0.3</Version>
+      <ExcludeAssets>True</ExcludeAssets>
     </PackageReference>
     <PackageReference Include="ServiceStack.OrmLite">
       <Version>5.1.0</Version>
@@ -385,6 +386,14 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

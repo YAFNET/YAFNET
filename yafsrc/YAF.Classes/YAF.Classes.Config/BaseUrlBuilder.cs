@@ -85,13 +85,7 @@ namespace YAF.Classes
         /// <summary>
         /// Gets App Path.
         /// </summary>
-        public static string AppPath
-        {
-            get
-            {
-                return TreatPathStr(Config.AppRoot);
-            }
-        }
+        public static string AppPath => TreatPathStr(Config.AppRoot);
 
         /// <summary>
         /// Gets ScriptName.

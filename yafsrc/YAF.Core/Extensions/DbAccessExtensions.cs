@@ -71,7 +71,7 @@ namespace YAF.Classes.Data
         public static bool TestConnection([NotNull] this IDbAccess dbAccess, [NotNull] out string exceptionMessage)
         {
             exceptionMessage = string.Empty;
-            bool success = false;
+            var success = false;
 
             try
             {

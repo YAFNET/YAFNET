@@ -176,7 +176,7 @@ namespace YAFProviders.Passthru
     /// </exception>
     public override void Initialize(string name, NameValueCollection config)
     {
-      string realProviderName = config["passThru"];
+      var realProviderName = config["passThru"];
 
 
       if (realProviderName == null || realProviderName.Length < 1)

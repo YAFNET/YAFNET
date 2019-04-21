@@ -55,7 +55,7 @@ namespace YAF.Types.Attributes
     /// </param>
     public AltStringValueAttribute(string value)
     {
-      AltStringValue = value;
+        this.AltStringValue = value;
     }
 
     #endregion

@@ -37,10 +37,6 @@ namespace YAF.Controls
     /// </summary>
     public class LocalizedCustomValidator : CustomValidator, ILocalizationSupport
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Properties
 
         /// <summary>

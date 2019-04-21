@@ -405,11 +405,11 @@ namespace YAF.Providers.Membership
       string hashRemoveChars, 
       bool msCompliant)
     {
-      DataTable userData = DB.Current.GetUserPasswordInfo(appName, username, updateUser);
+      var userData = DB.Current.GetUserPasswordInfo(appName, username, updateUser);
 
       if (userData.HasRows())
       {
-        DataRow userInfo = userData.Rows[0];
+        var userInfo = userData.Rows[0];
 
         // create a new instance of the UserPasswordInfo class
         return new UserPasswordInfo(

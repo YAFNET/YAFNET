@@ -25,20 +25,18 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-  using System.Web.UI;
-  using System.Web.UI.HtmlControls;
+    using System;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
 
-  using YAF.Core;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Types;
-  using YAF.Utils;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
   /// <summary>
-  /// Summary description for SmartScroller.
+  /// Smart Scroller Control.
   /// </summary>
   public class SmartScroller : BaseControl
   {
@@ -48,12 +46,12 @@ namespace YAF.Controls
     /// <summary>
     ///   The _hid scroll left.
     /// </summary>
-    private readonly HtmlInputHidden _hidScrollLeft = new HtmlInputHidden();
+    private readonly HtmlInputHidden hidScrollLeft = new HtmlInputHidden();
 
     /// <summary>
     ///   The _hid scroll top.
     /// </summary>
-    private readonly HtmlInputHidden _hidScrollTop = new HtmlInputHidden();
+    private readonly HtmlInputHidden hidScrollTop = new HtmlInputHidden();
 
     #endregion
 
@@ -65,8 +63,8 @@ namespace YAF.Controls
     public void RegisterStartupReset()
     {
       this.Reset();
-      const string script = @"Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);";
-      YafContext.Current.PageElements.RegisterJsBlockStartup("SmartScrollerResetJs", script);
+      const string Script = @"Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);";
+      YafContext.Current.PageElements.RegisterJsBlockStartup("SmartScrollerResetJs", Script);
     }
 
     /// <summary>
@@ -74,8 +72,8 @@ namespace YAF.Controls
     /// </summary>
     public void Reset()
     {
-      this._hidScrollLeft.Value = "0";
-      this._hidScrollTop.Value = "0";
+      this.hidScrollLeft.Value = "0";
+      this.hidScrollTop.Value = "0";
     }
 
     #endregion
@@ -90,11 +88,11 @@ namespace YAF.Controls
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      this._hidScrollLeft.ID = "scrollLeft";
-      this._hidScrollTop.ID = "scrollTop";
+      this.hidScrollLeft.ID = "scrollLeft";
+      this.hidScrollTop.ID = "scrollTop";
 
-      this.Controls.Add(this._hidScrollLeft);
-      this.Controls.Add(this._hidScrollTop);
+      this.Controls.Add(this.hidScrollLeft);
+      this.Controls.Add(this.hidScrollTop);
     }
 
     /// <summary>
@@ -152,7 +150,7 @@ namespace YAF.Controls
 	jQuery(window).bind('keypress', yaf_SmartScroller_GetCoords);
 	jQuery(document).ready(yaf_SmartScroller_Scroll);
 "
-                .FormatWith(this._hidScrollLeft.ClientID, this._hidScrollTop.ClientID);
+                .FormatWith(this.hidScrollLeft.ClientID, this.hidScrollTop.ClientID);
 
       YafContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
 

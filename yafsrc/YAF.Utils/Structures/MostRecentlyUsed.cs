@@ -221,7 +221,7 @@ namespace YAF.Utils.Structures
       CodeContracts.VerifyNotNull(key, "key");
       CodeContracts.VerifyNotNull(value, "value");
 
-      DoubleLinkedList.LinkItem link = this.m_list.Prepend(value);
+      var link = this.m_list.Prepend(value);
 
       this.Dictionary.Add(key, link);
 
@@ -242,7 +242,7 @@ namespace YAF.Utils.Structures
     {
       CodeContracts.VerifyNotNull(key, "key");
 
-      bool hasKey = this.Dictionary.Contains(key);
+      var hasKey = this.Dictionary.Contains(key);
 
       // Update the reference for this link
       if (hasKey)
@@ -288,7 +288,7 @@ namespace YAF.Utils.Structures
 
       buff.Append("[");
 
-      foreach (object item in this.m_list)
+      foreach (var item in this.m_list)
       {
         if (buff.Length > 1)
         {
@@ -324,11 +324,11 @@ namespace YAF.Utils.Structures
       if (this.Dictionary.Keys.Count >= this.m_max)
       {
         // Purge an item from the cache
-        DoubleLinkedList.LinkItem tail = this.m_list.TailLink;
+        var tail = this.m_list.TailLink;
 
         if (tail != null)
         {
-          object purgeKey = this.m_linkToKey[tail];
+          var purgeKey = this.m_linkToKey[tail];
 
           if (purgeKey != null)
           {

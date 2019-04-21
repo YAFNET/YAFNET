@@ -40,12 +40,15 @@ namespace YAF.Core.Data
     #endregion
 
     /// <summary>
-    ///     The db access base.
+    ///     The DB access base.
     /// </summary>
     public abstract class DbAccessBase : IDbAccess
     {
         #region Fields
 
+        /// <summary>
+        /// The _profiler.
+        /// </summary>
         private readonly IProfileQuery _profiler;
 
         /// <summary>

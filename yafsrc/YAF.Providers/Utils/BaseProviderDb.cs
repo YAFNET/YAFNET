@@ -18,7 +18,7 @@ namespace YAF.Providers.Utils
 
         protected IDbAccess DbAccess
         {
-            get { return _dbAccess.Value; }
+            get { return this._dbAccess.Value; }
         }
 
         /// <summary>
