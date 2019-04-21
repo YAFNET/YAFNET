@@ -87,7 +87,7 @@
 
             </div>
         </asp:Panel>
-        <asp:HiddenField runat="server" ID="hidLastTab" Value="View1" />
+        <asp:HiddenField runat="server" ID="hidLastTab" Value="View0" />
     </div>
 </div>
 <div class="row">
