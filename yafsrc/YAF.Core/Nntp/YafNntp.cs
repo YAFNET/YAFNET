@@ -120,12 +120,12 @@ namespace YAF.Core.Nntp
         return 0;
       }
 
-      int guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
+      var guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
 
       // string hostAddress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;     
-      DateTime dateTimeStart = DateTime.UtcNow;
-      int articleCount = 0;
-      int count = 0;
+      var dateTimeStart = DateTime.UtcNow;
+      var articleCount = 0;
+      var count = 0;
 
       try
       {
@@ -136,18 +136,18 @@ namespace YAF.Core.Nntp
         {
           using (var nntpConnection = GetNntpConnection(nntpForum))
           {
-            Newsgroup group = nntpConnection.ConnectGroup(nntpForum.GroupName);
+            var group = nntpConnection.ConnectGroup(nntpForum.GroupName);
 
             var lastMessageNo = nntpForum.LastMessageNo ?? 0;
 
             // start at the bottom...
-            int currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
+            var currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
             var nntpForumID = nntpForum.NntpForumID;
             var cutOffDate = nntpForum.DateCutOff ?? DateTime.MinValue;
 
             if (nntpForum.DateCutOff.HasValue)
             {
-              bool behindCutOff = true;
+              var behindCutOff = true;
 
               // advance if needed...
               do
@@ -188,17 +188,17 @@ namespace YAF.Core.Nntp
                 }
                 catch (InvalidOperationException ex)
                 {
-                  Logger.Error(ex, "Error Downloading Message ID {0}", currentMessage);
+                    this.Logger.Error(ex, "Error Downloading Message ID {0}", currentMessage);
 
                   // just advance to the next message
                   currentMessage++;
                   continue;
                 }
 
-                string subject = article.Header.Subject.Trim();
-                string originalName = article.Header.From.Trim();
-                string fromName = originalName;
-                DateTime dateTime = article.Header.Date;
+                var subject = article.Header.Subject.Trim();
+                var originalName = article.Header.From.Trim();
+                var fromName = originalName;
+                var dateTime = article.Header.Date;
 
                 if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
@@ -214,7 +214,7 @@ namespace YAF.Core.Nntp
                 if (fromName.IsSet() && fromName.LastIndexOf('<') > 0)
                 {
                   fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
-                  fromName = fromName.Replace("\"", String.Empty).Trim();
+                  fromName = fromName.Replace("\"", string.Empty).Trim();
                 }
                 else if (fromName.IsSet() && fromName.LastIndexOf('(') > 0)
                 {
@@ -226,27 +226,27 @@ namespace YAF.Core.Nntp
                   fromName = originalName;
                 }
 
-                string externalMessageId = article.MessageId;
+                var externalMessageId = article.MessageId;
 
-                string referenceId = article.Header.ReferenceIds.LastOrDefault();
+                var referenceId = article.Header.ReferenceIds.LastOrDefault();
 
                 if (createUsers)
                 {
                   guestUserId = LegacyDb.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
-                string body = this.ReplaceBody(article.Body.Text.Trim());
+                var body = this.ReplaceBody(article.Body.Text.Trim());
 
                 LegacyDb.nntptopic_savemessage(
                   nntpForumID,
                   subject.Truncate(75),
                   body,
                   guestUserId,
-                  fromName.Truncate(100, String.Empty),
+                  fromName.Truncate(100, string.Empty),
                   "NNTP",
                   dateTime,
-                  externalMessageId.Truncate(255, String.Empty),
-                  referenceId.Truncate(255, String.Empty));
+                  externalMessageId.Truncate(255, string.Empty),
+                  referenceId.Truncate(255, string.Empty));
 
                 lastMessageNo = currentMessage;
 

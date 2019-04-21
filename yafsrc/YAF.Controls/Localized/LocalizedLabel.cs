@@ -36,10 +36,6 @@ namespace YAF.Controls
     /// </summary>
     public class LocalizedLabel : BaseControl, ILocalizationSupport
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>

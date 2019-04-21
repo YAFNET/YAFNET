@@ -26,13 +26,10 @@ namespace YAF.Modules.BBCode
 {
     using System.Web.UI;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// Hide Reply BBCode Module
@@ -65,13 +62,12 @@ namespace YAF.Modules.BBCode
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest =
-                "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
                     .FormatWith(descriptionGuest);
 
             var shownContent =
-                "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                "<div class=\"alert alert-warning\" role=\"alert\">{0}</div>"
                     .FormatWith(description);
-
 
             if (YafContext.Current.IsAdmin)
             {
@@ -87,11 +83,10 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
-
             if (this.DisplayUserID == userId ||
                 LegacyDb.user_RepliedTopic(messageId.ToType<int>(), userId))
             {
-                // Show hiddent content if user is the poster or have thanked the poster.
+                // Show hidden content if user is the poster or have thanked the poster.
                 shownContent = hiddenContent;
             }
 

@@ -135,7 +135,7 @@ namespace YAF.Core
 				var decl = (XmlDeclaration)doc.FirstChild;
 				try
 				{
-					Encoding currentEncoding = Encoding.GetEncoding(decl.Encoding);
+					var currentEncoding = Encoding.GetEncoding(decl.Encoding);
 					return currentEncoding;
 				}
 				catch

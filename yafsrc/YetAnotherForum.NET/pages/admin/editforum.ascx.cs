@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -498,6 +497,7 @@ namespace YAF.Pages.Admin
 
             if (this.remoteurl.Text.IsSet())
             {
+                /*
                 // add http:// by default
                 if (!Regex.IsMatch(this.remoteurl.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
                 {
@@ -510,7 +510,7 @@ namespace YAF.Pages.Admin
                         this.GetText("ADMIN_EDITFORUM", "MSG_INVALID_URL"),
                         MessageTypes.warning);
                     return;
-                }
+                }*/
             }
 
             // Forum

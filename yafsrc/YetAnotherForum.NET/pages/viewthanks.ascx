@@ -9,6 +9,12 @@
     </div>
 </div>
 
+<div class="row">
+<div class="col-sm-auto">
+    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+</div>
+<div class="col">
+
        <asp:Panel id="ThanksTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item">
@@ -60,6 +66,5 @@
              </div>
              </asp:Panel>
         <asp:HiddenField runat="server" ID="hidLastTab" Value="ThanksFromTab" />
-<div id="Div1">
-    <YAF:SmartScroller ID="SmartScroller2" runat="server" />
 </div>
+    </div>

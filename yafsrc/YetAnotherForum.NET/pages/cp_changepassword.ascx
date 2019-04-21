@@ -2,9 +2,11 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<div class="row">
+<div class="row">     
+    <div class="col-sm-auto">
+        <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+    </div>
     <div class="col">
-        
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="password-tab" 
@@ -103,24 +105,11 @@
         </div>
         </ChangePasswordTemplate>
         <SuccessTemplate>
+            <div class="card-header">
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
+            </div>
             <div class="card-body">
-            <table class="content" border="0" cellpadding="1" cellspacing="0" style="border-collapse: collapse"
-                width="700">
-                <tr>
-                    <td colspan="2" class="header1">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="post">
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CHANGE_SUCCESS" />
-                </tr>
-                <tr>
-                    <td colspan="2" class="footer1" align="center">
-                        
-                    </td>
-                </tr>
-            </table>
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CHANGE_SUCCESS" />
             </div>
         </SuccessTemplate>
     </asp:ChangePassword>
@@ -186,8 +175,4 @@
             </asp:PlaceHolder>
         </div>
     </div>
-</div>
-
-<div id="DivSmartScroller">
-    
 </div>

@@ -27,10 +27,10 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
-    using System.Globalization;
     using System.Text;
     using System.Threading;
     using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
 
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -95,10 +95,8 @@ namespace YAF.Controls
             var showGuestTotal = (activeGuests > 0) &&
                                   (this.Get<YafBoardSettings>().ShowGuestsInDetailedActiveList ||
                                    this.Get<YafBoardSettings>().ShowCrawlersInActiveList);
-            var showActiveHidden = (activeHidden > 0) && this.PageContext.IsAdmin;
             if (canViewActive &&
-                (showGuestTotal || (activeMembers > 0 && (activeGuests <= 0)) ||
-                 (showActiveHidden && (activeMembers > 0) && showGuestTotal)))
+                (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
             {
                 // always show active users...       
                 sb.Append(
@@ -182,7 +180,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets the todays birthdays.
+        /// Gets the today's birthdays.
         /// </summary>
         /// TODO: Make DST shift for the user
         private void GetTodaysBirthdays()
@@ -192,7 +190,12 @@ namespace YAF.Controls
                 return;
             }
 
-            this.StatsTodaysBirthdays.Text = this.GetText("stats_birthdays");
+            this.StatsTodaysBirthdays.Controls.Add(
+                new Literal
+                    {
+                        Text = "<i class=\"fas fa-birthday-cake\"></i>&nbsp;{0}".FormatWith(
+                            this.GetText("stats_birthdays"))
+                    });
 
             var users = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.TodaysBirthdays,
@@ -230,20 +233,20 @@ namespace YAF.Controls
                     continue;
                 }
 
-                this.BirthdayUsers.Controls.Add(
+                this.StatsTodaysBirthdays.Controls.Add(
                     new UserLink
                     {
-                        UserID = (int)user["UserID"],
+                        UserID = user["UserID"].ToType<int>(),
                         ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
                                               ? user["UserDisplayName"].ToString()
                                               : user["UserName"].ToString(),
-                        Style = this.Get<IStyleTransform>().DecodeStyleByString(user["Style"].ToString(), false),
+                        Style = this.Get<IStyleTransform>().DecodeStyleByString(user["Style"].ToString()),
                         PostfixText = " ({0})".FormatWith(DateTime.Now.Year - user["Birthday"].ToType<DateTime>().Year)
                     });
 
                 var separator = new HtmlGenericControl { InnerHtml = "&nbsp;,&nbsp;" };
 
-                this.BirthdayUsers.Controls.Add(separator);
+                this.StatsTodaysBirthdays.Controls.Add(separator);
                 if (!this.BirthdayUsers.Visible)
                 {
                     this.BirthdayUsers.Visible = true;
@@ -253,7 +256,7 @@ namespace YAF.Controls
             if (this.BirthdayUsers.Visible)
             {
                 // Remove last Separator
-                this.BirthdayUsers.Controls.RemoveAt(this.BirthdayUsers.Controls.Count - 1);
+                this.StatsTodaysBirthdays.Controls.RemoveAt(this.StatsTodaysBirthdays.Controls.Count - 1);
             }
         }
 
@@ -333,7 +336,7 @@ namespace YAF.Controls
                   // Set colorOnly parameter to false, as we get here color from data field in the place
                   dr["LastUserStyle"] = this.Get<YafBoardSettings>().UseStyledNicks
                                           ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                            dr["LastUserStyle"].ToString(), false)
+                                            dr["LastUserStyle"].ToString())
                                           : null;
                   return dr.Table;
               },

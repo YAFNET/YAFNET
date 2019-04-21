@@ -22,6 +22,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
+        /// ProfileMenu1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ProfileMenu ProfileMenu1;
+        
+        /// <summary>
         /// NewPM-Steuerelement
         /// </summary>
         /// <remarks>

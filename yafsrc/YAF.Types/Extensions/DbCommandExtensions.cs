@@ -55,7 +55,7 @@ namespace YAF.Types.Extensions
 			CodeContracts.VerifyNotNull(cmd, "cmd");
 			CodeContracts.VerifyNotNull(parameters, "parameters");
 
-			IDictionary<string, object> dictionary = ((object)parameters).AnyToDictionary();
+			var dictionary = ((object)parameters).AnyToDictionary();
 
 			var excludeList = new List<string>();
 
@@ -153,6 +153,7 @@ namespace YAF.Types.Extensions
 
                     p.Value = item;
                 }
+
                 if (item is Guid)
                 {
                     p.Value = item.ToString();

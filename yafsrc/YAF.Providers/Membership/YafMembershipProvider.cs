@@ -60,7 +60,6 @@ namespace YAF.Providers.Membership
         #endregion
 
         // Instance Variables
-
         #region Fields
 
         /// <summary>
@@ -369,8 +368,8 @@ namespace YAF.Providers.Membership
         /// </returns>
         public static byte[] GeneratePasswordBuffer(string salt, string clearString, bool standardComp)
         {
-            byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
-            byte[] saltBytes = Convert.FromBase64String(salt);
+            var unencodedBytes = Encoding.Unicode.GetBytes(clearString);
+            var saltBytes = Convert.FromBase64String(salt);
             var buffer = new byte[unencodedBytes.Length + saltBytes.Length];
 
             if (standardComp)
@@ -435,12 +434,12 @@ namespace YAF.Providers.Membership
             }
             else
             {
-                byte[] unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
+                var unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
                 buffer = new byte[unencodedBytes.Length];
                 Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
             }
 
-            byte[] hashedBytes = Hash(buffer, hashType); // Hash
+            var hashedBytes = Hash(buffer, hashType); // Hash
 
             string hashedString;
 
@@ -482,8 +481,8 @@ namespace YAF.Providers.Membership
         /// </returns>
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            string passwordSalt = string.Empty;
-            string newEncPassword = string.Empty;
+            var passwordSalt = string.Empty;
+            var newEncPassword = string.Empty;
 
             // Clean input
 
@@ -493,7 +492,7 @@ namespace YAF.Providers.Membership
                 return false;
             }
 
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
+            var currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
                 this.ApplicationName,
                 username,
                 false,
@@ -579,7 +578,7 @@ namespace YAF.Providers.Membership
                 throw new ArgumentException("Username, Password, Password Question or Password Answer cannot be null");
             }
 
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
+            var currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
                 this.ApplicationName,
                 username,
                 false,
@@ -694,7 +693,7 @@ namespace YAF.Providers.Membership
             if (!(providerUserKey == null))
             {
                 // IS not a duplicate key
-                if (!(GetUser(providerUserKey, false) == null))
+                if (!(this.GetUser(providerUserKey, false) == null))
                 {
                     status = MembershipCreateStatus.DuplicateProviderUserKey;
                     return null;
@@ -734,7 +733,7 @@ namespace YAF.Providers.Membership
                 this.MSCompliant);
 
             // Encode Password Answer
-            string encodedPasswordAnswer = EncodeString(
+            var encodedPasswordAnswer = EncodeString(
                 passwordAnswer,
                 (int)this.PasswordFormat,
                 salt,
@@ -967,7 +966,7 @@ namespace YAF.Providers.Membership
                 ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMEPASSWORDNULL");
             }
 
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
+            var currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
                 this.ApplicationName,
                 username,
                 false,
@@ -1010,7 +1009,7 @@ namespace YAF.Providers.Membership
                 return null;
             }
 
-            DataRow dr = DB.Current.GetUser(this.ApplicationName, null, username, userIsOnline);
+            var dr = DB.Current.GetUser(this.ApplicationName, null, username, userIsOnline);
 
             return dr != null ? this.UserFromDataRow(dr) : null;
         }
@@ -1034,7 +1033,7 @@ namespace YAF.Providers.Membership
                 ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERKEYNULL");
             }
 
-            DataRow dr = DB.Current.GetUser(this.ApplicationName, providerUserKey, null, userIsOnline);
+            var dr = DB.Current.GetUser(this.ApplicationName, providerUserKey, null, userIsOnline);
 
             return dr != null ? this.UserFromDataRow(dr) : null;
         }
@@ -1055,7 +1054,7 @@ namespace YAF.Providers.Membership
                 ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "EMAILNULL");
             }
 
-            DataTable users = DB.Current.GetUserNameByEmail(this.ApplicationName, email);
+            var users = DB.Current.GetUserNameByEmail(this.ApplicationName, email);
 
             if (this.RequiresUniqueEmail && users.Rows.Count > 1)
             {
@@ -1127,7 +1126,7 @@ namespace YAF.Providers.Membership
 
             this._requiresUniqueEmail = (config["requiresUniqueEmail"] ?? "true").ToBool();
 
-            string strPasswordFormat = config["passwordFormat"].ToStringDBNull("Hashed");
+            var strPasswordFormat = config["passwordFormat"].ToStringDBNull("Hashed");
 
             switch (strPasswordFormat)
             {
@@ -1182,7 +1181,7 @@ namespace YAF.Providers.Membership
             }
 
             // get an instance of the current password information class
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
+            var currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(
                 this.ApplicationName,
                 username,
                 false,
@@ -1290,7 +1289,7 @@ namespace YAF.Providers.Membership
             }
 
             // Update User
-            int updateStatus = DB.Current.UpdateUser(this.ApplicationName, user, this.RequiresUniqueEmail);
+            var updateStatus = DB.Current.UpdateUser(this.ApplicationName, user, this.RequiresUniqueEmail);
 
             // Check update was not successful
             if (updateStatus != 0)
@@ -1334,7 +1333,7 @@ namespace YAF.Providers.Membership
         /// </returns>
         public override bool ValidateUser(string username, string password)
         {
-            UserPasswordInfo currentUser = UserPasswordInfo.CreateInstanceFromDB(
+            var currentUser = UserPasswordInfo.CreateInstanceFromDB(
                 this.ApplicationName,
                 username,
                 false,
@@ -1396,7 +1395,7 @@ namespace YAF.Providers.Membership
             string hashRemoveChars,
             bool msCompliant)
         {
-            string encodedPass = string.Empty;
+            var encodedPass = string.Empty;
 
             var passwordFormat = (MembershipPasswordFormat)Enum.ToObject(typeof(MembershipPasswordFormat), encFormat);
 
@@ -1404,7 +1403,7 @@ namespace YAF.Providers.Membership
             if (clearString.IsNotSet())
             {
                 // Check to ensure string is not null or empty.
-                return String.Empty;
+                return string.Empty;
             }
 
             if (useSalt && salt.IsNotSet())
@@ -1462,8 +1461,8 @@ namespace YAF.Providers.Membership
                     ExceptionReporter.Throw("MEMBERSHIP", "DECODEHASH");
                     break;
                 case MembershipPasswordFormat.Encrypted:
-                    byte[] bIn = Convert.FromBase64String(pass);
-                    byte[] bRet = (new YafMembershipProvider()).DecryptPassword(bIn);
+                    var bIn = Convert.FromBase64String(pass);
+                    var bRet = (new YafMembershipProvider()).DecryptPassword(bIn);
                     if (bRet == null)
                     {
                         return null;
@@ -1475,7 +1474,7 @@ namespace YAF.Providers.Membership
                     break;
             }
 
-            return String.Empty; // Removes "Not all paths return a value" warning.
+            return string.Empty; // Removes "Not all paths return a value" warning.
         }
 
         /// <summary>
@@ -1495,7 +1494,7 @@ namespace YAF.Providers.Membership
         /// </returns>
         private static string Encrypt(string clearString, string saltString, bool standardComp)
         {
-            byte[] buffer = GeneratePasswordBuffer(saltString, clearString, standardComp);
+            var buffer = GeneratePasswordBuffer(saltString, clearString, standardComp);
             return Convert.ToBase64String((new YafMembershipProvider()).EncryptPassword(buffer));
         }
 
@@ -1545,7 +1544,7 @@ namespace YAF.Providers.Membership
         private static byte[] Hash(byte[] clearBytes, string hashType)
         {
             // MD5, SHA1, SHA256, SHA384, SHA512
-            byte[] hash = HashAlgorithm.Create(hashType).ComputeHash(clearBytes);
+            var hash = HashAlgorithm.Create(hashType).ComputeHash(clearBytes);
             return hash;
         }
 
@@ -1598,7 +1597,7 @@ namespace YAF.Providers.Membership
             }
 
             // Count Non alphanumerics
-            int symbolCount = password.ToCharArray().Count(checkChar => !char.IsLetterOrDigit(checkChar));
+            var symbolCount = password.ToCharArray().Count(checkChar => !char.IsLetterOrDigit(checkChar));
 
             // Check password meets minimum alphanumeric criteria
             if (!(symbolCount >= minNonAlphaNumerics))

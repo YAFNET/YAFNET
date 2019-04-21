@@ -33,6 +33,7 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -52,142 +53,237 @@ namespace YAF.Controls
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             var html = new StringBuilder();
+            var htmlDropDown = new StringBuilder();
 
-            html.Append(@"<div class=""dropdown"">");
+            htmlDropDown.Append(@"<div class=""dropdown d-lg-none mb-3"">");
 
-            html.Append(@"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
-            html.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
-            html.Append(@"</button>");
+            htmlDropDown.Append(
+                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+            htmlDropDown.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
+            htmlDropDown.Append(@"</button>");
 
-            html.Append(@"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");
+            htmlDropDown.Append(
+                @"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");
+
+            html.Append(@"<div class=""list-group d-none d-md-block"">");
+
+            this.RenderMenuItem(html, "list-group-item", ForumPages.cp_profile, this.GetText("YOUR_ACCOUNT"));
+
+            this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_profile, this.GetText("YOUR_ACCOUNT"));
 
             // Render Mailbox Items
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
-                html.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("MESSENGER"));
-
                 html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{3}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_pm, "v=in"),
-                    this.GetText("INBOX"),
+                    @"<h6 class=""list-group-item disabled"">{0}</h6>",
+                    this.GetText("CP_PROFILE", "MESSENGER"));
+
+                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_pm, this.GetText("INBOX"), "v=in");
+
+                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_pm, this.GetText("SENTITEMS"), "v=out");
+                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_pm, this.GetText("ARCHIVE"), "v=arch");
+                this.RenderMenuItem(html, "list-group-item", ForumPages.pmessage, this.GetText("NEW_MESSAGE"));
+
+                htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("MESSENGER"));
+
+                this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_pm, this.GetText("INBOX"), "v=in");
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
                     ForumPages.cp_pm,
-                    this.GetText("TOOLBAR", "INBOX_TITLE"));
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_pm, "v=out"),
                     this.GetText("SENTITEMS"),
-                    ForumPages.cp_pm);
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_pm, "v=arch"),
-                    this.GetText("ARCHIVE"), 
-                    ForumPages.cp_pm);
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.pmessage),
-                    this.GetText("NEW_MESSAGE"),
-                    ForumPages.pmessage);
-
-                html.AppendFormat(@"</ul></td></tr>");
+                    "v=out");
+                this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_pm, this.GetText("ARCHIVE"), "v=arch");
+                this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.pmessage, this.GetText("NEW_MESSAGE"));
             }
 
             // Render Personal Profile Items
-            html.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
-            
-            html.AppendFormat(
-                @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.PageContext.PageUserID),
+            html.AppendFormat(@"<h6 class=""list-group-item disabled"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
+
+            this.RenderMenuItem(
+                html,
+                "list-group-item",
+                ForumPages.profile,
                 this.GetText("VIEW_PROFILE"),
-                    ForumPages.profile);
+                "u={0}".FormatWith(this.PageContext.PageUserID));
+
+            htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
+
+            this.RenderMenuItem(
+                htmlDropDown,
+                "dropdown-item",
+                ForumPages.profile,
+                this.GetText("VIEW_PROFILE"),
+                "u={0}".FormatWith(this.PageContext.PageUserID));
 
             if (!Config.IsDotNetNuke)
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_editprofile),
-                    this.GetText("EDIT_PROFILE"),
-                    ForumPages.cp_editprofile);
+                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editprofile, this.GetText("EDIT_PROFILE"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_editprofile,
+                    this.GetText("EDIT_PROFILE"));
             }
 
             if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.viewthanks, "u={0}", this.PageContext.PageUserID),
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item",
+                    ForumPages.viewthanks,
                     this.GetText("ViewTHANKS", "TITLE"),
-                    ForumPages.viewthanks);
+                    "u={0}".FormatWith(this.PageContext.PageUserID));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.viewthanks,
+                    this.GetText("ViewTHANKS", "TITLE"),
+                    "u={0}".FormatWith(this.PageContext.PageUserID));
             }
-            
+
             if (!this.PageContext.IsGuest)
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.attachments),
-                    this.GetText("ATTACHMENTS", "TITLE"),
-                    ForumPages.attachments);
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item",
+                    ForumPages.attachments,
+                    this.GetText("ATTACHMENTS", "TITLE"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.attachments,
+                    this.GetText("ATTACHMENTS", "TITLE"));
             }
 
             if (!this.PageContext.IsGuest
                 && this.Get<YafBoardSettings>().EnableBuddyList & this.PageContext.UserHasBuddies)
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{3}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_editbuddies),
-                    this.GetText("EDIT_BUDDIES"),
+                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editbuddies, this.GetText("EDIT_BUDDIES"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
                     ForumPages.cp_editbuddies,
-                    this.GetText("TOOLBAR", "BUDDIES_TITLE"));
+                    this.GetText("EDIT_BUDDIES"));
             }
 
             if (!this.PageContext.IsGuest
                 && (this.Get<YafBoardSettings>().EnableAlbum || (this.PageContext.NumAlbums > 0)))
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item",
+                    ForumPages.albums,
                     this.GetText("EDIT_ALBUMS"),
-                    ForumPages.albums);
+                    "u={0}".FormatWith(this.PageContext.PageUserID));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.albums,
+                    this.GetText("EDIT_ALBUMS"),
+                    "u={0}".FormatWith(this.PageContext.PageUserID));
             }
 
-            if (!Config.IsDotNetNuke && (this.Get<YafBoardSettings>().AvatarRemote || this.Get<YafBoardSettings>().AvatarUpload
-                || this.Get<YafBoardSettings>().AvatarGallery || this.Get<YafBoardSettings>().AvatarGravatar))
+            if (!Config.IsDotNetNuke && (this.Get<YafBoardSettings>().AvatarRemote
+                                         || this.Get<YafBoardSettings>().AvatarUpload
+                                         || this.Get<YafBoardSettings>().AvatarGallery
+                                         || this.Get<YafBoardSettings>().AvatarGravatar))
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_editavatar),
-                    this.GetText("EDIT_AVATAR"),
-                    ForumPages.cp_editavatar);
+                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editavatar, this.GetText("EDIT_AVATAR"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_editavatar,
+                    this.GetText("EDIT_AVATAR"));
             }
 
             if (this.Get<YafBoardSettings>().AllowSignatures)
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_signature),
-                    this.GetText("SIGNATURE"),
-                    ForumPages.cp_signature);
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item",
+                    ForumPages.cp_signature,
+                    this.GetText("CP_PROFILE", "SIGNATURE"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_signature,
+                    this.GetText("CP_PROFILE", "SIGNATURE"));
             }
 
-            html.AppendFormat(
-                @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                YafBuildLink.GetLink(ForumPages.cp_subscriptions),
-                this.GetText("SUBSCRIPTIONS"),
-                    ForumPages.cp_subscriptions);
+            this.RenderMenuItem(html, "list-group-item", ForumPages.cp_subscriptions, this.GetText("SUBSCRIPTIONS"));
+
+            this.RenderMenuItem(
+                htmlDropDown,
+                "dropdown-item",
+                ForumPages.cp_subscriptions,
+                this.GetText("SUBSCRIPTIONS"));
 
             if (!Config.IsDotNetNuke && this.Get<YafBoardSettings>().AllowPasswordChange)
             {
-                html.AppendFormat(
-                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
-                    YafBuildLink.GetLink(ForumPages.cp_changepassword),
-                    this.GetText("CHANGE_PASSWORD"),
-                    ForumPages.cp_changepassword);
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item",
+                    ForumPages.cp_changepassword,
+                    this.GetText("CHANGE_PASSWORD"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_changepassword,
+                    this.GetText("CHANGE_PASSWORD"));
             }
 
-            html.Append(@"</div></div>");
+            htmlDropDown.Append(@"</div></div>");
+
+            html.Append(@"</div>");
 
             writer.Write(html.ToString());
+            writer.Write(htmlDropDown.ToString());
+        }
+
+        /// <summary>
+        /// The render menu item.
+        /// </summary>
+        /// <param name="stringBuilder">
+        /// The string builder.
+        /// </param>
+        /// <param name="cssClass">
+        /// The CSS class.
+        /// </param>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <param name="getText">
+        /// The get text.
+        /// </param>
+        /// <param name="parameter">
+        /// The URL Parameter
+        /// </param>
+        private void RenderMenuItem(
+            StringBuilder stringBuilder,
+            string cssClass,
+            ForumPages page,
+            string getText,
+            string parameter = null)
+        {
+            stringBuilder.AppendFormat(
+                this.PageContext.ForumPageType == page
+                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"">{1}</a>"
+                    : @"<a class=""{3}"" href=""{0}"" title=""{2}"">{1}</a>",
+                YafBuildLink.GetLink(page, parameter),
+                getText,
+                getText,
+                cssClass);
         }
 
         #endregion
     }
 }
- 

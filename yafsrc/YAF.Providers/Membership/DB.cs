@@ -391,7 +391,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
                 cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
                 cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
-                using (DataTable dt = this.DbAccess.GetData(cmd))
+                using (var dt = this.DbAccess.GetData(cmd))
                 {
                     return dt.HasRows() ? dt.Rows[0] : null;
                 }

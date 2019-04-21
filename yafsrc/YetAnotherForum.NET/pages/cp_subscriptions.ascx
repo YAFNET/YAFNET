@@ -10,6 +10,11 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-sm-auto">
+        <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+    </div>
+    <div class="col">
 <asp:UpdatePanel ID="PreferencesUpdatePanel" runat="server">
     <ContentTemplate>
         <div class="row">
@@ -147,6 +152,5 @@
         </asp:PlaceHolder>
     </ContentTemplate>
 </asp:UpdatePanel>
-<div id="DivSmartScroller">
-    
+    </div>
 </div>

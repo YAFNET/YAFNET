@@ -46,7 +46,7 @@ namespace YAF.Providers.Utils
                 return;
             }
 
-            string connStr = connectionStringSettings.ConnectionString;
+            var connStr = connectionStringSettings.ConnectionString;
 
             if (!BaseProviderDb.ProviderConnectionStrings.ContainsKey(appKeyName))
             {

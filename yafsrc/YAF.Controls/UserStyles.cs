@@ -31,7 +31,6 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Utils;
 
     #endregion
 

@@ -47,6 +47,7 @@ namespace YAF.Core.Helpers
     {
         #region Constants and Fields
         
+
         /// <summary>
         /// The cache size.
         /// </summary>
@@ -251,7 +252,7 @@ namespace YAF.Core.Helpers
                       : HttpContext.Current.Server.HtmlDecode(inputString.Trim());
 
             // fix ampersand...
-            inputString = inputString.Replace("&", "and").Replace("ـ", string.Empty);
+            inputString = inputString.Replace(" & ", "and").Replace("ـ", string.Empty);
 
             inputString = Regex.Replace(inputString, @"\p{Cs}", string.Empty);
 
@@ -262,7 +263,7 @@ namespace YAF.Core.Helpers
             {
                 case "Unicode":
                     {
-                        foreach (char currentChar in inputString)
+                        foreach (var currentChar in inputString)
                         {
                             if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
                             {
@@ -275,7 +276,7 @@ namespace YAF.Core.Helpers
                             }
                         }
 
-                        string strNew = sb.ToString();
+                        var strNew = sb.ToString();
 
                         while (strNew.EndsWith("-"))
                         {
@@ -298,7 +299,7 @@ namespace YAF.Core.Helpers
                             strUnidecode = inputString;
                         }
 
-                        foreach (char currentChar in strUnidecode)
+                        foreach (var currentChar in strUnidecode)
                         {
                             if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
                             {
@@ -311,7 +312,7 @@ namespace YAF.Core.Helpers
                             }
                         }
 
-                        string strNew = sb.ToString();
+                        var strNew = sb.ToString();
 
                         while (strNew.EndsWith("-"))
                         {
@@ -323,7 +324,7 @@ namespace YAF.Core.Helpers
 
                 default:
                     {
-                        foreach (char currentChar in inputString)
+                        foreach (var currentChar in inputString)
                         {
                             if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
                             {
@@ -336,7 +337,7 @@ namespace YAF.Core.Helpers
                             }
                         }
 
-                        string strNew = sb.ToString();
+                        var strNew = sb.ToString();
 
                         while (strNew.EndsWith("-"))
                         {

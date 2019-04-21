@@ -32,7 +32,6 @@ namespace YAF.Modules.BBCode
     using YAF.Core;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// Hidden BBCode Module
@@ -79,12 +78,10 @@ namespace YAF.Modules.BBCode
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest =
-                "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
                     .FormatWith(descriptionGuest);
 
-            var shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
-               description, YafForumInfo.GetURLToContent("images/HiddenWarnDescription.png"));
-
+            string shownContent;
 
             if (YafContext.Current.IsAdmin)
             {
@@ -102,16 +99,14 @@ namespace YAF.Modules.BBCode
                     "Hidden Content (You must be registered and have {0} post(s) or more)").FormatWith(postsCount);
 
                 var shownContentPost =
-                    "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                    "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
                         .FormatWith(descriptionPost);
-
 
                 if (YafContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
                 }
-
 
                 if (this.DisplayUserID == userId ||
                     YafContext.Current.CurrentUserData.NumPosts >= postsCount)
@@ -131,16 +126,14 @@ namespace YAF.Modules.BBCode
                     "Hidden Content (You must be registered and have at least {0} thank(s) received)").FormatWith(thanksCount);
 
                 var shownContentPost =
-                    "<div class=\"ui-widget\"><div class=\"ui-state-error ui-corner-all  HiddenGuestBox\"><p><span class=\"ui-icon ui-icon-alert HiddenGuestBoxImage\"></span>{0}</p></div></div>"
+                    "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
                         .FormatWith(descriptionPost);
-
 
                 if (YafContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
                 }
-
 
                 if (this.DisplayUserID == userId ||
                     LegacyDb.user_ThankFromCount(userId) >= thanksCount)
@@ -167,17 +160,20 @@ namespace YAF.Modules.BBCode
                     return;
                 }
 
-
                 if (this.DisplayUserID == userId ||
                     LegacyDb.user_ThankedMessage(messageId.ToType<int>(), userId))
                 {
-                    // Show hiddent content if user is the poster or have thanked the poster.
+                    // Show hidden content if user is the poster or have thanked the poster.
                     shownContent = hiddenContent;
                 }
                 else
                 {
-                    shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
-                        description, YafForumInfo.GetURLToContent("images/HiddenWarnDescription.png"));
+                    shownContent = @"<div class=""alert alert-danger"" role=""alert"">
+                <h4 class=""alert-heading"">Hidden Content</h4>
+                <hr>
+                <p class=""mb-0"">{0}</p>
+</div>".FormatWith(
+                        description);
                 }
             }
 

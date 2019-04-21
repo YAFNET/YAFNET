@@ -43,6 +43,8 @@
     <UseGlobalApplicationHostFile />
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <Use64BitIISExpress />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -154,6 +156,7 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web">
@@ -1602,33 +1605,9 @@
     <Content Include="Content\flags\4x3\za.svg" />
     <Content Include="Content\flags\4x3\zm.svg" />
     <Content Include="Content\flags\4x3\zw.svg" />
-    <Content Include="Content\fontawesome\brands.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css">
       <DependentUpon>select2.css</DependentUpon>
-    </Content>
-    <Content Include="Content\fontawesome\brands.min.css">
-      <DependentUpon>brands.css</DependentUpon>
-    </Content>
-    <Content Include="Content\fontawesome\fontawesome-all.css" />
-    <Content Include="Content\fontawesome\fontawesome-all.min.css">
-      <DependentUpon>fontawesome-all.css</DependentUpon>
-    </Content>
-    <Content Include="Content\fontawesome\fontawesome.css" />
-    <Content Include="Content\fontawesome\fontawesome.min.css">
-      <DependentUpon>fontawesome.css</DependentUpon>
-    </Content>
-    <Content Include="Content\fontawesome\regular.min.css">
-      <DependentUpon>regular.css</DependentUpon>
-    </Content>
-    <Content Include="Content\fontawesome\solid.min.css">
-      <DependentUpon>solid.css</DependentUpon>
-    </Content>
-    <Content Include="Content\fontawesome\svg-with-js.min.css">
-      <DependentUpon>svg-with-js.css</DependentUpon>
-    </Content>
-    <Content Include="Content\fontawesome\v4-shims.min.css">
-      <DependentUpon>v4-shims.css</DependentUpon>
     </Content>
     <Content Include="Content\forum-admin.css">
       <DependentUpon>forum-admin.scss</DependentUpon>
@@ -1731,6 +1710,25 @@
     <Content Include="Content\flag-icons\_flag-icon-base.scss" />
     <Content Include="Content\flag-icons\_flag-icon-list.scss" />
     <Content Include="Content\flag-icons\_variables.scss" />
+    <Content Include="Content\fontawesome\brands.scss" />
+    <Content Include="Content\fontawesome\fontawesome.scss" />
+    <Content Include="Content\fontawesome\regular.scss" />
+    <Content Include="Content\fontawesome\solid.scss" />
+    <Content Include="Content\fontawesome\v4-shims.scss" />
+    <Content Include="Content\fontawesome\_animated.scss" />
+    <Content Include="Content\fontawesome\_bordered-pulled.scss" />
+    <Content Include="Content\fontawesome\_core.scss" />
+    <Content Include="Content\fontawesome\_fixed-width.scss" />
+    <Content Include="Content\fontawesome\_icons.scss" />
+    <Content Include="Content\fontawesome\_larger.scss" />
+    <Content Include="Content\fontawesome\_list.scss" />
+    <Content Include="Content\fontawesome\_mixins.scss" />
+    <Content Include="Content\fontawesome\_rotated-flipped.scss" />
+    <Content Include="Content\fontawesome\_screen-reader.scss" />
+    <Content Include="Content\fontawesome\_shims.scss" />
+    <Content Include="Content\fontawesome\_stacked.scss" />
+    <Content Include="Content\fontawesome\_variables.scss" />
+    <Content Include="Content\fontawesome\fontawesome-all.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\icons\authIcons.png" />
@@ -1769,12 +1767,8 @@
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
     <Content Include="Content\css\select2-bootstrap.css" />
-    <Content Include="Content\fontawesome\regular.css" />
-    <Content Include="Content\fontawesome\solid.css" />
-    <Content Include="Content\fontawesome\svg-with-js.css" />
     <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
-    <Content Include="Content\fontawesome\v4-shims.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -2301,6 +2295,8 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sr.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
@@ -2419,12 +2415,12 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js">
-      <DependentUpon>jquery-3.3.1.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.4.0.js" />
+    <Content Include="Scripts\jquery-3.4.0.min.js">
+      <DependentUpon>jquery-3.4.0.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.3.1.min.map">
-      <DependentUpon>jquery-3.3.1.min.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.4.0.min.map">
+      <DependentUpon>jquery-3.4.0.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
@@ -2484,7 +2480,6 @@
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>
     </Content>
-    <Content Include="Content\images\HiddenWarnDescription.png" />
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
@@ -3206,7 +3201,6 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\ckeditor\yarn.lock" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
@@ -3217,9 +3211,6 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js">
-      <DependentUpon>jquery-3.3.1.js</DependentUpon>
-    </None>
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -3375,7 +3366,7 @@ del Lucene.Net.Contrib.Analyzers.pdb</PreBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

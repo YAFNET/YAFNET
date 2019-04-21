@@ -64,15 +64,20 @@ namespace YAF.Core.Syndication
     /// The posted.
     /// </param>
     public static void AddSyndicationItem(
-      this List<SyndicationItem> currentList, string title, string content, string summary,string link, string id, DateTime posted, YafSyndicationFeed feed, List<SyndicationLink> mlinks)
+      this List<SyndicationItem> currentList, string title, string content, string summary, string link, string id, DateTime posted, YafSyndicationFeed feed, List<SyndicationLink> mlinks)
     {
       var si = new SyndicationItem(
-        YafContext.Current.Get<IBadWordReplace>().Replace(title),
-        new TextSyndicationContent(YafContext.Current.Get<IBadWordReplace>().Replace(content),TextSyndicationContentKind.Html),
-        // Alternate Link
-        new Uri(link),
-        id,
-        new DateTimeOffset(posted)) {PublishDate = new DateTimeOffset(posted)};
+                   YafContext.Current.Get<IBadWordReplace>().Replace(title),
+                   new TextSyndicationContent(
+                       YafContext.Current.Get<IBadWordReplace>().Replace(content),
+                       TextSyndicationContentKind.Html),
+
+                   // Alternate Link
+                   new Uri(link),
+                   id,
+                   new DateTimeOffset(posted)) {
+                                                  PublishDate = new DateTimeOffset(posted)
+                                               };
       if (mlinks != null)
       {
 
@@ -81,7 +86,8 @@ namespace YAF.Core.Syndication
           si.Links.Add(syndicationLink);
         }
       }
-      si.Authors.Add(new SyndicationPerson(String.Empty, feed.Contributors[feed.Contributors.Count - 1].Name, String.Empty));
+
+      si.Authors.Add(new SyndicationPerson(string.Empty, feed.Contributors[feed.Contributors.Count - 1].Name, string.Empty));
       si.SourceFeed = feed;
       if (summary.IsNotSet())
       {
@@ -188,6 +194,7 @@ namespace YAF.Core.Syndication
         new DateTimeOffset(posted));
       currentList.Add(si);
     }
+
     #endregion
   }
 }

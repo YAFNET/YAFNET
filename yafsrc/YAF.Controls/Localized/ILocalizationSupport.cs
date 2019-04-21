@@ -23,11 +23,7 @@
  */
 namespace YAF.Controls
 {
-  #region Using  
-
-  #endregion
-
-  /// <summary>
+    /// <summary>
   /// The localization support interface
   /// </summary>
   public interface ILocalizationSupport

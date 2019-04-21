@@ -44,13 +44,13 @@
     </div>
     <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value %>'>
     <div class="col-md-2">
-        <ul>
-            <li class="list-unstyled">
+        <ul class="list-unstyled">
+            <li>
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                     LocalizedTag="TOPICS" />:
                 <%# this.Topics(Container.DataItem) %>
             </li>
-            <li class="list-unstyled">
+            <li>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedTag="POSTS" />:
                 <%# this.Posts(Container.DataItem) %>

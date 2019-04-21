@@ -51,7 +51,7 @@ namespace YAF.Types
         {
             if (obj == null)
             {
-                throw new ArgumentNullException(argumentName, String.Format("{0} cannot be null", argumentName));
+                throw new ArgumentNullException(argumentName, string.Format("{0} cannot be null", argumentName));
             }
         }
 

@@ -84,7 +84,7 @@ namespace YAF.Controls.ReCAPTCHA
 
             set
             {
-                IPAddress address = IPAddress.Parse(value);
+                var address = IPAddress.Parse(value);
                 if ((address == null) ||
                     ((address.AddressFamily != AddressFamily.InterNetwork) &&
                      (address.AddressFamily != AddressFamily.InterNetworkV6)))
@@ -141,20 +141,20 @@ namespace YAF.Controls.ReCAPTCHA
             request.UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16";
             request.ContentType = "application/x-www-form-urlencoded";
 
-            string s = "secret={0}&remoteip={1}&response={2}".FormatWith(
+            var s = "secret={0}&remoteip={1}&response={2}".FormatWith(
                 HttpUtility.UrlEncode(this.SecretKey),
                 HttpUtility.UrlEncode(this.RemoteIP),
                 HttpUtility.UrlEncode(this.Response));
             
-            byte[] bytes = Encoding.ASCII.GetBytes(s);
-            using (Stream stream = request.GetRequestStream())
+            var bytes = Encoding.ASCII.GetBytes(s);
+            using (var stream = request.GetRequestStream())
             {
                 stream.Write(bytes, 0, bytes.Length);
             }
 
             try
             {
-                using (WebResponse webResponse = request.GetResponse())
+                using (var webResponse = request.GetResponse())
                 {
                     using (TextReader reader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8))
                     {

@@ -71,7 +71,7 @@ namespace YAF.Core
         public YafContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
         {
             this._lifetimeScope = lifetimeScope;
-            _injectServices = injectServices;
+            this._injectServices = injectServices;
         }
 
         #endregion

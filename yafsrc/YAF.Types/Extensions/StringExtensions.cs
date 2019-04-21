@@ -116,11 +116,11 @@ namespace YAF.Types.Extensions
                 return newText.Trim();
             }
 
-            string[] texArr = text.Trim().Split(' ');
+            var texArr = text.Trim().Split(' ');
 
-            int length = 0;
-            int count = 0;
-            foreach (string s in texArr)
+            var length = 0;
+            var count = 0;
+            foreach (var s in texArr)
             {
                 length += s.Length;
                 if (length > maxStringLength)
@@ -163,18 +163,18 @@ namespace YAF.Types.Extensions
                 return source.IndexOf(pattern[0]);
             }
 
-            int limit = source.Length - pattern.Length + 1;
+            var limit = source.Length - pattern.Length + 1;
             if (limit < 1)
             {
                 return -1;
             }
 
             // Store the first 2 characters of "pattern"
-            char c0 = pattern[0];
-            char c1 = pattern[1];
+            var c0 = pattern[0];
+            var c1 = pattern[1];
 
             // Find the first occurrence of the first character
-            int first = source.IndexOf(c0, 0, limit);
+            var first = source.IndexOf(c0, 0, limit);
             while (first != -1)
             {
                 // Check if the following character is the same like
@@ -186,8 +186,8 @@ namespace YAF.Types.Extensions
                 }
 
                 // Check the rest of "pattern" (starting with the 3rd character)
-                bool found = true;
-                for (int j = 2; j < pattern.Length; j++)
+                var found = true;
+                for (var j = 2; j < pattern.Length; j++)
                 {
                     if (source[first + j] == pattern[j])
                     {
@@ -221,7 +221,7 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(input, "input");
             CodeContracts.VerifyNotNull(forEachAction, "forEachAction");
 
-            foreach (char c in input)
+            foreach (var c in input)
             {
                 forEachAction(c);
             }
@@ -242,7 +242,7 @@ namespace YAF.Types.Extensions
         [StringFormatMethod("s")]
         public static string FormatWith(this string s, params object[] args)
         {
-            return s.IsNotSet() ? null : String.Format(s, args);
+            return s.IsNotSet() ? null : string.Format(s, args);
         }
 
         /// <summary>
@@ -262,12 +262,12 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(pickfrom, "pickfrom");
 
             var r = new Random();
-            string result = string.Empty;
-            int picklen = pickfrom.Length - 1;
+            var result = string.Empty;
+            var picklen = pickfrom.Length - 1;
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
-                int index = r.Next(picklen);
+                var index = r.Next(picklen);
                 result = result + pickfrom.Substring(index, 1);
             }
 
@@ -386,7 +386,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static string RemoveMultipleSingleQuotes(this string text)
         {
-            string result = String.Empty;
+            var result = string.Empty;
             if (text.IsNotSet())
             {
                 return result;
@@ -405,7 +405,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static string RemoveMultipleWhitespace(this string text)
         {
-            string result = String.Empty;
+            var result = string.Empty;
             if (text.IsNotSet())
             {
                 return result;
@@ -424,7 +424,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static string StringToHexBytes(this string inputString)
         {
-            string result = string.Empty;
+            var result = string.Empty;
             if (inputString.IsNotSet())
             {
                 return result;
@@ -432,12 +432,12 @@ namespace YAF.Types.Extensions
 
             var cryptoServiceProvider = new MD5CryptoServiceProvider();
 
-            byte[] emailBytes = Encoding.UTF8.GetBytes(inputString);
+            var emailBytes = Encoding.UTF8.GetBytes(inputString);
             emailBytes = cryptoServiceProvider.ComputeHash(emailBytes);
 
             var s = new StringBuilder();
 
-            foreach (byte b in emailBytes)
+            foreach (var b in emailBytes)
             {
                 s.Append(b.ToString("x2").ToLower());
             }
@@ -550,7 +550,7 @@ namespace YAF.Types.Extensions
             input.ForEachChar(
                 c =>
                     {
-                        if (!Char.IsWhiteSpace(c) && !Char.IsLetterOrDigit(c) && c != '_')
+                        if (!char.IsWhiteSpace(c) && !char.IsLetterOrDigit(c) && c != '_')
                         {
                             sb.Append("\\");
                         }
@@ -573,7 +573,7 @@ namespace YAF.Types.Extensions
         {
             CodeContracts.VerifyNotNull(str, "str");
 
-            byte[] byteArray = Encoding.ASCII.GetBytes(str);
+            var byteArray = Encoding.ASCII.GetBytes(str);
             return new MemoryStream(byteArray);
         }
 
@@ -596,14 +596,14 @@ namespace YAF.Types.Extensions
         {
             CodeContracts.VerifyNotNull(cutOfString, "cutOfString");
 
-            string output = input;
+            var output = input;
 
             if (input.IsNotSet())
             {
                 return null;
             }
 
-            int limit = inputLimit - cutOfString.Length;
+            var limit = inputLimit - cutOfString.Length;
 
             // Check if the string is longer than the allowed amount
             // otherwise do nothing
@@ -617,7 +617,7 @@ namespace YAF.Types.Extensions
                 // need to cut out the rest of it
                 if (input.Substring(output.Length, 1) != " ")
                 {
-                    int lastSpace = output.LastIndexOf(" ");
+                    var lastSpace = output.LastIndexOf(" ");
 
                     // if we found a space then, cut back to that space
                     if (lastSpace != -1)
@@ -652,7 +652,7 @@ namespace YAF.Types.Extensions
                 return null;
             }
 
-            string output = input;
+            var output = input;
             const string middle = "...";
 
             // Check if the string is longer than the allowed amount
@@ -660,8 +660,8 @@ namespace YAF.Types.Extensions
             if (output.Length > limit && limit > 0)
             {
                 // figure out how much to make it fit...
-                int left = (limit / 2) - (middle.Length / 2);
-                int right = limit - left - (middle.Length / 2);
+                var left = (limit / 2) - (middle.Length / 2);
+                var right = limit - left - (middle.Length / 2);
 
                 if ((left + right + middle.Length) < limit)
                 {

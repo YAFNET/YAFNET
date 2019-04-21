@@ -62,8 +62,9 @@ namespace YAF.Core
         /// <summary>
         ///     The _injection cache.
         /// </summary>
-        private static readonly ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> _injectionCache =
-            new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>>();
+        private static readonly
+            ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
+                new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>>();
 
         #endregion
 
@@ -254,7 +255,7 @@ namespace YAF.Core
 
             IList<Tuple<Type, Type, Action<object, object>>> properties;
 
-            if (!_injectionCache.TryGetValue(keyPair, out properties))
+            if (!InjectionCache.TryGetValue(keyPair, out properties))
             {
                 // find them...
                 properties =
@@ -263,12 +264,12 @@ namespace YAF.Core
                         .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType, new Action<object, object>((i, v) => p.SetValue(i, v, null))))
                         .ToList();
 
-                _injectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
+                InjectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
             }
 
             foreach (var injectProp in properties)
             {
-                object serviceInstance = injectProp.Item1 == typeof(ILogger)
+                var serviceInstance = injectProp.Item1 == typeof(ILogger)
                                              ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
                                              : this.Container.Resolve(injectProp.Item1);
 

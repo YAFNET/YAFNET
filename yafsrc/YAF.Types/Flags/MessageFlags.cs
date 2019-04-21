@@ -87,7 +87,7 @@ namespace YAF.Types.Flags
 
         #endregion
 
-        //#region Operators
+        // #region Operators
 
         ///// <summary>
         ///// The op_ implicit.
@@ -97,10 +97,10 @@ namespace YAF.Types.Flags
         ///// </param>
         ///// <returns>
         ///// </returns>
-        //public static implicit operator MessageFlags(int newBitValue)
-        //{
-        //  return new MessageFlags(newBitValue);
-        //}
+        // public static implicit operator MessageFlags(int newBitValue)
+        // {
+        // return new MessageFlags(newBitValue);
+        // }
 
         ///// <summary>
         ///// The op_ implicit.
@@ -110,13 +110,12 @@ namespace YAF.Types.Flags
         ///// </param>
         ///// <returns>
         ///// </returns>
-        //public static implicit operator MessageFlags(Flags flags)
-        //{
-        //  return new MessageFlags(flags);
-        //}
+        // public static implicit operator MessageFlags(Flags flags)
+        // {
+        // return new MessageFlags(flags);
+        // }
 
-        //#endregion
-
+        // #endregion
         #region Flags Enumeration
 
         /// <summary>

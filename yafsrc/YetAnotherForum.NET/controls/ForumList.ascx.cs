@@ -56,12 +56,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The Go to last post Image ToolTip.
         /// </summary>
-        private string _altLastPost;
+        private string altLastPost;
 
         /// <summary>
         /// The Data Source
         /// </summary>
-        private IEnumerable _dataSource;
+        private IEnumerable dataSource;
 
         #endregion
 
@@ -75,12 +75,12 @@ namespace YAF.Controls
         {
             get
             {
-                return string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
+                return string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
             }
 
             set
             {
-                this._altLastPost = value;
+                this.altLastPost = value;
             }
         }
 
@@ -91,25 +91,25 @@ namespace YAF.Controls
         {
             get
             {
-                return this._dataSource;
+                return this.dataSource;
             }
 
             set
             {
-                this._dataSource = value;
+                this.dataSource = value;
                 DataRow[] arr;
-                var t = this._dataSource.GetType();
+                var t = this.dataSource.GetType();
                 var arlist = new List<DataRow>();
                 var subLIst = new List<DataRow>();
                 var parents = new List<int>();
                 if (t.Name == "DataRowCollection")
                 {
-                    arr = new DataRow[((DataRowCollection)this._dataSource).Count];
-                    ((DataRowCollection)this._dataSource).CopyTo(arr, 0);
+                    arr = new DataRow[((DataRowCollection)this.dataSource).Count];
+                    ((DataRowCollection)this.dataSource).CopyTo(arr, 0);
 
                     for (var i = 0; i < arr.Count(); i++)
                     {
-                        // these are all subforums related to start page forums
+                        // these are all sub forums related to start page forums
                         if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
                         {
                             if (this.SubDataSource == null)
@@ -141,7 +141,7 @@ namespace YAF.Controls
                 else
                 {
                     // (t.Name == "DataRow[]")
-                    arr = (DataRow[])this._dataSource;
+                    arr = (DataRow[])this.dataSource;
                     for (var i = 0; i < arr.Count(); i++)
                     {
                         if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
@@ -168,9 +168,9 @@ namespace YAF.Controls
                     this.SubDataSource.AcceptChanges();
                 }
 
-                this._dataSource = arlist;
+                this.dataSource = arlist;
 
-                this.ForumList1.DataSource = this._dataSource;
+                this.ForumList1.DataSource = this.dataSource;
             }
         }
 
@@ -202,14 +202,14 @@ namespace YAF.Controls
             var forumID = row["ForumID"].ToType<int>();
 
             // get the Forum Description
-            var output = Convert.ToString(row["Forum"]);
+            var output = row["Forum"].ToString();
 
             if (row["ReadAccess"].ToType<int>() > 0)
             {
                 if (row["RemoteURL"] != DBNull.Value)
                 {
-                    output = "<a href=\"{0}\" title=\"{1}\" target=\"_blank\">{2}</a>".FormatWith(
-                        (string)row["RemoteURL"],
+                    output = "<a href=\"{0}\" title=\"{1}\" target=\"_blank\">{2}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".FormatWith(
+                        row["RemoteURL"].ToString(),
                         this.GetText("COMMON", "VIEW_FORUM"),
                         this.Page.HtmlEncode(output));
                 }
@@ -257,7 +257,7 @@ namespace YAF.Controls
 
             var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
-            if (string.IsNullOrEmpty(row["ImageUrl"].ToString()))
+            if (row["ImageUrl"].ToString().IsNotSet())
             {
                 var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
@@ -387,41 +387,6 @@ namespace YAF.Controls
         }
 
         // Suppress rendering of footer if there is one or more 
-
-        /// <summary>
-        /// Gets the moderator link.
-        /// </summary>
-        /// <param name="row">The row.</param>
-        /// <returns>
-        /// The get moderator link.
-        /// </returns>
-        protected string GetModeratorLink([NotNull] DataRow row)
-        {
-            string output;
-
-            if (row["IsGroup"].ToType<int>() == 0)
-            {
-                output = "<a href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(
-                        ForumPages.profile,
-                        "u={0}&name={1}",
-                        row["ModeratorID"],
-                        row["ModeratorName"]),
-                    row["ModeratorName"]);
-            }
-            else
-            {
-                // TODO : group link should point to group info page (yet unavailable)
-                /*output = String.Format(
-                        "<strong><a href=\"{0}\">{1}</a></strong>",
-                        YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
-                        row["ModeratorName"]
-                        );*/
-                output = "<strong>{0}</strong>".FormatWith(row["ModeratorName"]);
-            }
-
-            return output;
-        }
 
         /// <summary>
         /// Gets the moderators footer.

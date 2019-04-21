@@ -83,7 +83,7 @@ namespace YAF.Classes.Pattern
         return _instance ?? (_instance = (T)Activator.CreateInstance(typeof(T)));
       }
 
-      string typeStr = typeof(T).ToString();
+      var typeStr = typeof(T).ToString();
 
       return
         (T)

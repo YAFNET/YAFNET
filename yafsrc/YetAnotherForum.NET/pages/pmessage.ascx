@@ -11,6 +11,11 @@
 </div>
 
 <div class="row">
+<div class="col-sm-auto">
+    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+</div>
+<div class="col">
+<div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
@@ -96,7 +101,6 @@
     </div>
 </div>
 
-<div id="DivSmartScroller">
-	
+</div>
 </div>
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server"></YAF:AttachmentsUploadDialog>

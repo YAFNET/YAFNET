@@ -130,7 +130,7 @@ namespace YAF.Classes.Pattern
       {
         if (HttpContext.Current == null)
         {
-          _instance = value;
+            this._instance = value;
         }
         else
         {
@@ -174,7 +174,7 @@ namespace YAF.Classes.Pattern
     /// </returns>
     private T CreateTypeInstance()
     {
-      Type typeGetType = Type.GetType(this.TypeName);
+      var typeGetType = Type.GetType(this.TypeName);
 
       // validate this type is proper for this type instance.
       if (typeof(T).IsAssignableFrom(typeGetType))

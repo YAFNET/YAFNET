@@ -38,7 +38,7 @@ namespace YAF.Core.Extensions
             return sortEnumerable.Select(
                 m =>
                 {
-                    int sortOrder = defaultSortOrder;
+                    var sortOrder = defaultSortOrder;
                     var haveSortOrder = (m as IHaveSortOrder);
 
                     if (haveSortOrder != null)

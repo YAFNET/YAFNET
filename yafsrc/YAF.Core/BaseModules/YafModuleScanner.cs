@@ -93,8 +93,8 @@ namespace YAF.Core
     [NotNull]
     private static string GetAppBaseDirectory()
     {
-      string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-      string searchPath = AppDomain.CurrentDomain.RelativeSearchPath;
+      var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+      var searchPath = AppDomain.CurrentDomain.RelativeSearchPath;
 
       return searchPath.IsNotSet() ? baseDirectory : Path.Combine(baseDirectory, searchPath);
     }
@@ -110,8 +110,8 @@ namespace YAF.Core
     [NotNull]
     private static IEnumerable<string> GetMatchingFiles([NotNull] string pattern)
     {
-      string path = CleanPath(Path.GetDirectoryName(pattern));
-      string glob = Path.GetFileName(pattern);
+      var path = CleanPath(Path.GetDirectoryName(pattern));
+      var glob = Path.GetFileName(pattern);
 
       return Directory.GetFiles(path, glob);
     }

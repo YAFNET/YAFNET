@@ -97,8 +97,8 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                     try
                     {
-                        postId = quote.Substring(quote.LastIndexOf(";") + 1);
-                        userName = quote = quote.Remove(quote.LastIndexOf(";"));
+                        postId = quote.Substring(quote.LastIndexOf(";", StringComparison.Ordinal) + 1);
+                        userName = quote = quote.Remove(quote.LastIndexOf(";", StringComparison.Ordinal));
                     }
                     catch (Exception)
                     {
@@ -118,19 +118,23 @@ namespace YAF.Core.BBCode.ReplaceRules
                     }
                     else
                     {
-                        quote = localQuoteWrote.Replace("{0}", quote);
+                        quote =
+                            @"<div class=""card-header text-muted"">{0}</div><div class=""card-body""><p class=""card-text"">"
+                                .FormatWith(localQuoteWrote.Replace("{0}", quote));
                     }
                 }
                 else
                 {
-                    quote = localQuoteWrote.Replace("{0}", quote);
+                    quote =
+                        @"<div class=""card-header text-muted"">{0}</div><div class=""card-body""><p class=""card-text"">"
+                            .FormatWith(localQuoteWrote.Replace("{0}", quote));
                 }
 
                 innerReplace.Replace("${quote}", quote);
 
-                foreach (var tVar in this._variables)
+                foreach (var variable in this._variables)
                 {
-                    var varName = tVar;
+                    var varName = variable;
                     var handlingValue = string.Empty;
 
                     if (varName.Contains(":"))
@@ -141,24 +145,24 @@ namespace YAF.Core.BBCode.ReplaceRules
                         handlingValue = tmpSplit[1];
                     }
 
-                    var tValue = match.Groups[varName].Value;
+                    var value = match.Groups[varName].Value;
 
-                    if (this._variableDefaults != null && tValue.Length == 0)
+                    if (this._variableDefaults != null && value.Length == 0)
                     {
                         // use default instead
-                        tValue = this._variableDefaults[i];
+                        value = this._variableDefaults[i];
                     }
 
-                    innerReplace.Replace("${" + varName + "}", this.ManageVariableValue(varName, tValue, handlingValue));
+                    innerReplace.Replace("${" + varName + "}", this.ManageVariableValue(varName, value, handlingValue));
                     i++;
                 }
 
                 innerReplace.Replace("${inner}", match.Groups["inner"].Value);
 
-                // pulls the htmls into the replacement collection before it's inserted back into the main text
+                // pulls the html's into the replacement collection before it's inserted back into the main text
                 replacement.ReplaceHtmlFromText(ref innerReplace);
 
-                // remove old bbcode...
+                // remove old BBCode...
                 sb.Remove(match.Groups[0].Index, match.Groups[0].Length);
 
                 // insert replaced value(s)

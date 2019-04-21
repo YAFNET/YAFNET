@@ -46,10 +46,6 @@ namespace YAF.Controls.Statistics
     [ToolboxData("<{0}:MostActiveUsers runat=\"server\"></{0}:MostActiveUsers>")]
     public class MostActiveUsers : BaseControl
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Properties
 
         /// <summary>

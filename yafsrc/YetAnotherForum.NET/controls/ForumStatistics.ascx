@@ -63,12 +63,12 @@
                                 <asp:Label ID="StatsMembersCount" runat="server" />
                             </li>
                             <li class="list-group-item">
-                                <asp:Label ID="StatsNewestMember" runat="server" />&nbsp;<YAF:UserLink ID="NewestMemberUserLink"
+                                <asp:Label ID="StatsNewestMember" runat="server" />:&nbsp;<YAF:UserLink ID="NewestMemberUserLink"
                                                                                                                                runat="server" />.
                             </li>
                             <asp:PlaceHolder ID="BirthdayUsers" runat="server" Visible="false">
                                 <li class="list-group-item">
-                                    <asp:Label ID="StatsTodaysBirthdays" runat="server" />
+                                    <asp:PlaceHolder ID="StatsTodaysBirthdays" runat="server" />
                                 </li>
                            </asp:PlaceHolder>
                         </ul>

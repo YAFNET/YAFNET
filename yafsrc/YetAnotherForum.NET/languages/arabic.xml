@@ -131,7 +131,6 @@
     <Resource tag="RSSTOPIC">مشاهدت الملخصات  </Resource>
     <Resource tag="RULES">عرض قواعد المنتدى</Resource>
     <Resource tag="SEARCH">بحث عن مستخدم</Resource>
-    <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> في المنتدى </Resource>
     <Resource tag="TOPICS">مشاهدات الموضوع </Resource>
@@ -1179,7 +1178,6 @@
     <Resource tag="HEADER_SEARCH">Search Settings</Resource>
     <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Setup</Resource>
-    <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings (Content Checking)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
     <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
@@ -1371,10 +1369,6 @@
     <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
     <Resource tag="SERVERTIME_CORRECT">Server Time Zone Correction:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: </Resource>
-    <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
-    <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Show Active Discussions:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Enable or disable display of active discussions list on board index page.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Show Atom Links:</Resource>

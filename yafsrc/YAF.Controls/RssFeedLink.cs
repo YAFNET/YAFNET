@@ -97,10 +97,6 @@ namespace YAF.Controls
 
             output.BeginRender();
 
-            output.WriteBeginTag("div");
-            output.WriteAttribute("class", "dropdown");
-            output.Write(HtmlTextWriter.TagRightChar);
-
             // write button
             output.WriteBeginTag("button");
             output.WriteAttribute("class", "btn btn-warning btn-sm dropdown-toggle");
@@ -164,9 +160,6 @@ namespace YAF.Controls
                 output.WriteEndTag("a");
             }
 
-            output.WriteEndTag("div");
-
-            // write end tag
             output.WriteEndTag("div");
 
             output.EndRender();

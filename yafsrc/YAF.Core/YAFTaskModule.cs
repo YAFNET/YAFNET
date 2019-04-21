@@ -82,7 +82,7 @@ namespace YAF.Core
     {
       CodeContracts.VerifyNotNull(httpApplication, "httpApplication");
 
-      if (_moduleInitialized)
+      if (this._moduleInitialized)
       {
         return;
       }
@@ -90,9 +90,9 @@ namespace YAF.Core
       // create a lock so no other instance can affect the static variable
       lock (this)
       {
-        if (!_moduleInitialized)
+        if (!this._moduleInitialized)
         {
-          _appInstance = httpApplication;
+            this._appInstance = httpApplication;
 
           // set the httpApplication as early as possible...
           GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
@@ -100,14 +100,14 @@ namespace YAF.Core
 
           GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
 
-          _moduleInitialized = true;
+            this._moduleInitialized = true;
 
-          _appInstance.PreRequestHandlerExecute += this.ApplicationPreRequestHandlerExecute;
+            this._appInstance.PreRequestHandlerExecute += this.ApplicationPreRequestHandlerExecute;
         }
       }
 
       // app init notification...
-      this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(_appInstance), null);
+      this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this._appInstance), null);
     }
 
     /// <summary>

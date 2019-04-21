@@ -4,8 +4,11 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
+<div class="row">
+<div class="col-sm-auto">
+    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+</div>
+<div class="col">
 <YAF:ProfileEdit runat="server" ID="ProfileEditor" />
-
-<div id="DivSmartScroller">
-    
+    </div>
 </div>

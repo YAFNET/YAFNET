@@ -275,12 +275,12 @@ namespace YAF.Controls
                 output.WriteEncodedText(displayName);
             }
 
-            output.WriteEndTag(!isGuest ? "a" : "span");
-
             if (this.PostfixText.IsSet())
             {
                 output.Write(this.PostfixText);
             }
+
+            output.WriteEndTag(!isGuest ? "a" : "span");
 
             output.EndRender();
         }

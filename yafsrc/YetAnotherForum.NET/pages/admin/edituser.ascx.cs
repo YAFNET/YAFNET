@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
-    using System.Web.Security;
 
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -135,9 +134,9 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var userName = this.Get<YafBoardSettings>().EnableDisplayName
+            var userName = this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName
                                ? userRow["DisplayName"].ToString()
-                               : userRow["Name"].ToString();
+                               : userRow["Name"].ToString());
 
             var header = this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName);
 

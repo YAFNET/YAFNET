@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Threading;
 
     using Lucene.Net.Analysis;
     using Lucene.Net.Analysis.Standard;
@@ -25,7 +26,6 @@
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The YAF Search Functions
@@ -35,7 +35,7 @@
     public class YafSearch : ISearch, IHaveServiceLocator
     {
         /// <summary>
-        /// The lucene dir.
+        /// The Lucene directory.
         /// </summary>
         private static readonly string LuceneDir = Path.Combine(
             AppDomain.CurrentDomain.GetData("DataDirectory").ToString(),
@@ -80,17 +80,33 @@
                     IndexWriter.Unlock(directoryTemp);
                 }
 
-                var lockFilePath = Path.Combine(LuceneDir, "write.lock");
+               /*Ü try
+                {*/
+                    var lockFilePath = Path.Combine(LuceneDir, "write.lock");
 
-                if (File.Exists(lockFilePath))
+                    if (File.Exists(lockFilePath))
+                    {
+                        var file = new FileInfo(lockFilePath);
+
+                        while (IsFileLocked(file))
+                        {
+                            Thread.Sleep(1000);
+                        }
+
+                        File.Delete(lockFilePath);
+                    }
+               /* }
+                catch (Exception e)
                 {
-                    File.Delete(lockFilePath);
-                }
-
+                    //Console.WriteLine(e);
+                   // throw;
+                }*/
+               
                 return directoryTemp;
             }
         }
 
+        
         /// <summary>
         /// Optimizes the Search Index
         /// </summary>
@@ -109,7 +125,7 @@
         /// Clears the search Index.
         /// </summary>
         /// <returns>
-        /// Returns if clearing was sucessfull
+        /// Returns if clearing was successful
         /// </returns>
         public bool ClearSearchIndex()
         {
@@ -333,6 +349,39 @@
             }
 
             writer.AddDocument(doc);
+        }
+
+
+        /// <summary>
+        /// Determines whether [is file locked] [the specified file].
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>
+        ///   <c>true</c> if [is file locked] [the specified file]; otherwise, <c>false</c>.
+        /// </returns>
+        private static bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                stream?.Close();
+            }
+
+            //file is not locked
+            return false;
         }
 
         /// <summary>

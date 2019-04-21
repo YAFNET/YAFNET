@@ -2603,13 +2603,6 @@ begin
         end
         close fc
         deallocate fc */
- 
-        update d
-       set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] f
-          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID), 
-           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] f
-          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID ))      
-       from  [{databaseOwner}].[{objectQualifier}ShoutboxMessage] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
          
     /*  declare sbc cursor for
         where UserDisplayName IS NULL

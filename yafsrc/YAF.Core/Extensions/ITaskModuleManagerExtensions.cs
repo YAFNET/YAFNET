@@ -58,7 +58,7 @@ namespace YAF.Core
       CodeContracts.VerifyNotNull(taskModuleManager, "taskModuleManager");
       CodeContracts.VerifyNotNull(createTask, "createTask");
 
-      string taskName = typeof(T).ToString();
+      var taskName = typeof(T).ToString();
 
     	return taskModuleManager.StartTask(taskName, () => createTask());
     }

@@ -46,7 +46,7 @@ namespace YAF.Classes.Pattern
     /// </returns>
     public T AsType<T>(string key, T defaultValue)
     {
-      if (!ContainsKey(key))
+      if (!this.ContainsKey(key))
       {
         return defaultValue;
       }
@@ -79,12 +79,12 @@ namespace YAF.Classes.Pattern
     /// </returns>
     public bool? AsBoolean(string key)
     {
-      if (!ContainsKey(key))
+      if (!this.ContainsKey(key))
       {
         return null;
       }
 
-      return AsType<bool>(key);
+      return this.AsType<bool>(key);
     }
 
     /// <summary>
@@ -97,12 +97,12 @@ namespace YAF.Classes.Pattern
     /// </returns>
     public int? AsInt(string key)
     {
-      if (!ContainsKey(key))
+      if (!this.ContainsKey(key))
       {
         return null;
       }
 
-      return AsType<int>(key);
+      return this.AsType<int>(key);
     }
 
     /// <summary>
@@ -116,12 +116,12 @@ namespace YAF.Classes.Pattern
     /// </returns>
     public string AsString(string key)
     {
-      if (!ContainsKey(key))
+      if (!this.ContainsKey(key))
       {
         return null;
       }
 
-      return AsType<string>(key);
+      return this.AsType<string>(key);
     }
   }
 }

@@ -55,7 +55,7 @@ namespace YAF.Types.Attributes
     /// </param>
     public StringValueAttribute(string value)
     {
-      StringValue = value;
+        this.StringValue = value;
     }
 
     #endregion
