@@ -34,7 +34,7 @@ namespace YAF.Core.Tasks
     #endregion
 
     /// <summary>
-    /// The Update Search Index Rask
+    /// The Update Search Index Task
     /// </summary>
     /// <seealso cref="YAF.Core.BaseForumModule" />
     [YafModule("Update Search Index Task Forum Module", "Tiny Gecko", 1)]

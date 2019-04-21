@@ -37,7 +37,7 @@ namespace YAF.Core.Tasks
     #endregion
 
     /// <summary>
-    /// The Update SearchI ndex task.
+    /// The Update Search Index task.
     /// </summary>
     public class UpdateSearchIndexTask : IntermittentBackgroundTask
     {

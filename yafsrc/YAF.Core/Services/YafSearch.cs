@@ -80,33 +80,34 @@
                     IndexWriter.Unlock(directoryTemp);
                 }
 
-               /*Ü try
-                {*/
-                    var lockFilePath = Path.Combine(LuceneDir, "write.lock");
+                var lockFilePath = Path.Combine(LuceneDir, "write.lock");
 
-                    if (File.Exists(lockFilePath))
-                    {
-                        var file = new FileInfo(lockFilePath);
-
-                        while (IsFileLocked(file))
-                        {
-                            Thread.Sleep(1000);
-                        }
-
-                        File.Delete(lockFilePath);
-                    }
-               /* }
-                catch (Exception e)
+                if (!File.Exists(lockFilePath))
                 {
-                    //Console.WriteLine(e);
-                   // throw;
-                }*/
-               
+                    return directoryTemp;
+                }
+
+                var file = new FileInfo(lockFilePath);
+
+                while (IsFileLocked(file))
+                {
+                    try
+                    {
+                        Thread.Sleep(1000);
+                    }
+                    catch (ThreadAbortException)
+                    {
+                        // ignore
+                    }
+
+                }
+
+                File.Delete(lockFilePath);
+
                 return directoryTemp;
             }
         }
 
-        
         /// <summary>
         /// Optimizes the Search Index
         /// </summary>
@@ -351,7 +352,6 @@
             writer.AddDocument(doc);
         }
 
-
         /// <summary>
         /// Determines whether [is file locked] [the specified file].
         /// </summary>
@@ -369,10 +369,6 @@
             }
             catch (IOException)
             {
-                //the file is unavailable because it is:
-                //still being written to
-                //or being processed by another thread
-                //or does not exist (has already been processed)
                 return true;
             }
             finally
@@ -380,7 +376,6 @@
                 stream?.Close();
             }
 
-            //file is not locked
             return false;
         }
 
