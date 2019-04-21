@@ -48,7 +48,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The Go to last post Image ToolTip.
         /// </summary>
-        private string _alt;
+        private string alt;
 
         #endregion
 
@@ -74,12 +74,12 @@ namespace YAF.Controls
         {
             get
             {
-                return string.IsNullOrEmpty(this._alt) ? string.Empty : this._alt;
+                return string.IsNullOrEmpty(this.alt) ? string.Empty : this.alt;
             }
 
             set
             {
-                this._alt = value;
+                this.alt = value;
             }
         }
 
@@ -152,7 +152,7 @@ namespace YAF.Controls
                 }
 
                 this.LastTopicImgLink.ToolTip = this.Alt;
-                this.LastTopicImgLink.Text = "<i class=\"fa fa-fast-forward fa-fw\"></i> {0}".FormatWith(this.Alt);
+                this.LastTopicImgLink.Text = "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.Alt);
 
                 this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
@@ -163,7 +163,7 @@ namespace YAF.Controls
                     ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
                 this.ImageLastUnreadMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
                 this.ImageLastUnreadMessageLink.Text =
-                    "<i class=\"fa fa-step-forward fa-fw\"></i> {0}".FormatWith(
+                    "&nbsp;<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(
                         this.GetText("DEFAULT", "GO_LASTUNREAD_POST"));
 
                 var lastRead =
@@ -183,7 +183,6 @@ namespace YAF.Controls
                 {
                     this.NewMessage.Visible = false;
                 }
-
 
                 this.LastPostedHolder.Visible = showLastLinks;
                 this.NoPostsPlaceHolder.Visible = false;

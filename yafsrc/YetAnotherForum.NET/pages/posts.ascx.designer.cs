@@ -238,24 +238,6 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PopMenu ViewMenu;
         
         /// <summary>
-        /// ImageMessageLink-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton ImageMessageLink;
-        
-        /// <summary>
-        /// ImageLastUnreadMessageLink-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton ImageLastUnreadMessageLink;
-        
-        /// <summary>
         /// MessageList-Steuerelement
         /// </summary>
         /// <remarks>

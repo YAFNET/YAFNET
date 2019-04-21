@@ -120,9 +120,9 @@ namespace YAF.Controls
                 ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
-            imageMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
+            imageMessageLink.ToolTip = this.lastPostToolTip;
             imageMessageLink.Text =
-                "<i class=\"fa fa-fast-forward fa-fw\"></i> {0}".FormatWith(this.GetText("DEFAULT", "GO_LAST_POST"));
+                "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.lastPostToolTip);
 
             if (imageLastUnreadMessageLink.Visible)
             {
@@ -132,7 +132,7 @@ namespace YAF.Controls
                     currentRow["TopicID"]);
 
                 imageLastUnreadMessageLink.ToolTip = this.firstUnreadPostToolTip;
-                imageLastUnreadMessageLink.Text = "<i class=\"fa fa-step-forward fa-fw\"></i> {0}".FormatWith(this.firstUnreadPostToolTip);
+                imageLastUnreadMessageLink.Text = "<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(this.firstUnreadPostToolTip);
             }
             
             // Just in case...

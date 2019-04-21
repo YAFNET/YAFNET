@@ -34,6 +34,46 @@ function toggleItem(detailId)
                     <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
             </div>
                 <div class="card-body">
+                    <h4>
+                        <YAF:HelpLabel ID="SinceDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
+                    </h4>
+                    <div class='input-group mb-3 date datepickerinput'>
+                        <span class="input-group-prepend">
+                            <button class="btn btn-secondary datepickerbutton" type="button">
+                                <i class="fa fa-calendar fa-fw"></i>
+                            </button>
+                        </span>
+                            <asp:TextBox ID="SinceDate" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                   <hr />
+                    <h4>
+                <YAF:HelpLabel ID="ToDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
+                        </h4>
+                    <div class='input-group mb-3 date datepickerinput'>
+                        <span class="input-group-prepend">
+                            <button class="btn btn-secondary datepickerbutton" type="button">
+                                <i class="fa fa-calendar fa-fw"></i>
+                            </button>
+                        </span>
+                            <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                   <hr />
+        </div>
+                <div class="card-footer text-center">
+                <YAF:ThemeButton ID="ApplyButton" Type="Primary" OnClick="ApplyButtonClick"
+                    TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="APPLY" Icon="check" runat="server"></YAF:ThemeButton>
+            </div>
+           </div>
+         </div>
+    </div>
+        <div class="row">
+        <div class="col-xl-12">
+                <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" />
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
+            </div>
+                <div class="card-body">
         <asp:Repeater runat="server" ID="List">
             <HeaderTemplate>
                 <ul class="list-group">

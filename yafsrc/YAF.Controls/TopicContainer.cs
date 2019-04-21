@@ -710,9 +710,8 @@ namespace YAF.Controls
                                                "m={0}#post{0}",
                                                this.TopicRow["LastMessageID"]),
                                            ToolTip = this.AltLastPost,
-                                           Text = "<i class=\"fa fa-fast-forward fa-fw\"></i> {0}".FormatWith(
-                                               this.AltLastPost)
-                                       };
+                                           Text = "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.AltLastPost)
+                };
 
                 var goToLastUnread = new HyperLink
                                          {
@@ -722,7 +721,7 @@ namespace YAF.Controls
                                                      "t={0}&find=unread",
                                                      this.TopicRow["TopicID"]),
                                              ToolTip = this.AltLastUnreadPost,
-                                             Text = "<i class=\"fa fa-step-forward fa-fw\"></i> {0}".FormatWith(
+                                             Text = "<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(
                                                  this.AltLastUnreadPost),
                                              Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost
                                          };

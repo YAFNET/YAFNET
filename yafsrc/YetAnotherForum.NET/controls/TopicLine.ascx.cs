@@ -28,12 +28,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The last post tooltip string.
         /// </summary>
-        private string _altLastPost;
+        private string altLastPost;
 
         /// <summary>
         ///   The first unread post tooltip string.
         /// </summary>
-        private string _altFirstUnreadPost;
+        private string altFirstUnreadPost;
 
         /// <summary>
         ///   The _the topic row.
@@ -73,12 +73,12 @@ namespace YAF.Controls
         {
             get
             {
-                return string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
+                return string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
             }
 
             set
             {
-                this._altLastPost = value;
+                this.altLastPost = value;
             }
         }
 
@@ -90,12 +90,12 @@ namespace YAF.Controls
         {
             get
             {
-                return string.IsNullOrEmpty(this._altFirstUnreadPost) ? string.Empty : this._altFirstUnreadPost;
+                return string.IsNullOrEmpty(this.altFirstUnreadPost) ? string.Empty : this.altFirstUnreadPost;
             }
 
             set
             {
-                this._altFirstUnreadPost = value;
+                this.altFirstUnreadPost = value;
             }
         }
 
@@ -108,22 +108,6 @@ namespace YAF.Controls
             {
                 this.theTopicRow = value as DataRowView;
                 this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
-            }
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether FindUnread.
-        /// </summary>
-        public bool FindUnread
-        {
-            get
-            {
-                return this.ViewState["FindUnread"] != null && Convert.ToBoolean(this.ViewState["FindUnread"]);
-            }
-
-            set
-            {
-                this.ViewState["FindUnread"] = value;
             }
         }
 
@@ -171,11 +155,6 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.ViewState["TopicRowID"] == null)
-                {
-                    return null;
-                }
-
                 return (int?)this.ViewState["TopicRowID"];
             }
 
@@ -351,27 +330,6 @@ namespace YAF.Controls
             }
 
             return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
-        }
-
-        /// <summary>
-        /// The get avatar url from id.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url for the User
-        /// </returns>
-        protected string GetAvatarUrlFromID(int userID)
-        {
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
-
-            if (avatarUrl.IsNotSet())
-            {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-            }
-
-            return avatarUrl;
         }
 
         /// <summary>
@@ -651,21 +609,21 @@ namespace YAF.Controls
 
                 this.GoToLastPost.NavigateUrl = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.TopicRow["LastMessageID"]);
                 this.GoToLastPost.ToolTip = this.AltLastPost;
-                this.GoToLastPost.Text = "<i class=\"fa fa-fast-forward fa-fw\"></i> {0}".FormatWith(this.AltLastPost);
+                this.GoToLastPost.Text = "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.AltLastPost);
 
                 this.GoToLastUnread.NavigateUrl = YafBuildLink.GetLink(
                     ForumPages.posts,
                     "t={0}&find=unread",
                     this.TopicRow["TopicID"]);
                 this.GoToLastUnread.ToolTip = this.AltLastUnreadPost;
-                this.GoToLastUnread.Text = "<i class=\"fa fa-step-forward fa-fw\"></i> {0}".FormatWith(this.AltLastUnreadPost);
+                this.GoToLastUnread.Text = "&nbsp;<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(this.AltLastUnreadPost);
                 this.GoToLastUnread.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
                     this.NewMessage.Visible = true;
                     this.NewMessage.Text =
-                        " <span class=\"badge badge-success\">{0}</span>".FormatWith(this.GetText("NEW_POSTS"));
+                        " <span class=\"fa-stack fa-1x\"><i class=\"far fa-square fa-stack-2x\"></i><i class=\"fab fa-twitter fa-stack-1x\"></i></span>";
                 }
                 else
                 {

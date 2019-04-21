@@ -43,7 +43,7 @@
                              TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
                              Type="Secondary"
                              Size="Small"
-                             Icon="flag-checkered"/>
+                             Icon="glasses"/>
             <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="False" />
         </div>
     </div>

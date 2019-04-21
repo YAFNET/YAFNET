@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -181,10 +182,18 @@ namespace YAF.Pages
                     var row = dt.Rows[0];
 
                     // if the pm isn't from or two the current user--then it's access denied
-                    if ((int)row["ToUserID"] != this.PageContext.PageUserID
-                        && (int)row["FromUserID"] != this.PageContext.PageUserID)
+                    if (row["ToUserID"].ToType<int>() != this.PageContext.PageUserID
+                        && row["FromUserID"].ToType<int>() != this.PageContext.PageUserID)
                     {
                         YafBuildLink.AccessDenied();
+                    }
+
+                    // Check if Message is Reply
+                    if (!row["ReplyTo"].IsNullOrEmptyDBField())
+                    {
+                        // TODO : Get orginal Message
+
+                        // TODO: get all other replies
                     }
 
                     this.SetMessageView(

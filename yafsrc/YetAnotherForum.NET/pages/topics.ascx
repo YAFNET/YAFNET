@@ -108,7 +108,7 @@
             <YAF:ThemeButton runat="server" 
                              Type="Secondary" 
                              Size="Small" 
-                             Icon="flag-checkered"
+                             Icon="glasses"
                              ID="MarkRead"
                              TextLocalizedTag="MARKREAD"/>
             <YAF:RssFeedLink ID="RssFeed" runat="server" 

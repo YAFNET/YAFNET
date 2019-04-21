@@ -141,14 +141,13 @@ namespace YAF.Controls
             // Ban User Email?
             if (this.BanEmail.Checked)
             {
-                this.GetRepository<BannedEmail>()
-                    .Save(
-                        null,
-                        user.Email,
-                        "Email was reported by: {0}".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName));
+                this.GetRepository<BannedEmail>().Save(
+                    null,
+                    user.Email,
+                    "Email was reported by: {0}".FormatWith(
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.PageContext.CurrentUserData.DisplayName
+                            : this.PageContext.CurrentUserData.UserName));
             }
 
             // Ban User IP?
@@ -160,14 +159,13 @@ namespace YAF.Controls
             // Ban User IP?
             if (this.BanName.Checked)
             {
-                this.GetRepository<BannedName>()
-                    .Save(
-                        null,
-                        user.UserName,
-                        "Name was reported by: {0}".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName));
+                this.GetRepository<BannedName>().Save(
+                    null,
+                    user.UserName,
+                    "Name was reported by: {0}".FormatWith(
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.PageContext.CurrentUserData.DisplayName
+                            : this.PageContext.CurrentUserData.UserName));
             }
 
             this.DeleteAllUserMessages();
@@ -237,7 +235,7 @@ namespace YAF.Controls
                             {
                                 if (row["IsGuest"].ToType<int>() > 0)
                                 {
-                                    // we cannot detele guest
+                                    // we cannot delete guest
                                     this.PageContext.AddLoadMessage(
                                         this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                                         MessageTypes.danger);

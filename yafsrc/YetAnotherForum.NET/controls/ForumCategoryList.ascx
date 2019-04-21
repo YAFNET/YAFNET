@@ -36,7 +36,7 @@
                                 <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
                                                  Type="Secondary"
                                                  Size="Small"
-                                                 Icon="flag-checkered"
+                                                 Icon="glasses"
                                                  TextLocalizedTag="MARKALL" />
                                 <YAF:RssFeedLink ID="RssFeed1" runat="server"
                                                  FeedType="Forum" 

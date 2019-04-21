@@ -361,7 +361,6 @@ namespace YAF.Pages
                 return;
             }
 
-
             var connectControl = e.Item.FindControlAs<DisplayConnect>("DisplayConnect");
 
             if (connectControl != null && this.PageContext.IsGuest
@@ -369,7 +368,6 @@ namespace YAF.Pages
             {
                 connectControl.Visible = true;
             }
-
 
             // first message... show the ad below this message
             var adControl = e.Item.FindControlAs<DisplayAd>("DisplayAd");
@@ -575,7 +573,7 @@ namespace YAF.Pages
 
                 var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic.TopicName));
 
-                if (!this._topic.Description.IsNullOrEmptyDBField()
+                if (this._topic.Description.IsSet()
                     && yafBoardSettings.EnableTopicDescription)
                 {
                     this.TopicTitle.Text = "{0} - <em>{1}</em>".FormatWith(
@@ -726,16 +724,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The print topic_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PrintTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
-        }
-
-        /// <summary>
         /// The show poll buttons.
         /// </summary>
         /// <returns>
@@ -820,10 +808,18 @@ namespace YAF.Pages
         /// </param>
         private void AddMetaData([NotNull] object firstMessage)
         {
-            if (firstMessage.IsNullOrEmptyDBField())
+            try
             {
-                return;
+                if (firstMessage.IsNullOrEmptyDBField())
+                {
+                    return;
+                }
             }
+            catch (Exception)
+            {
+               return;
+            }
+           
 
             if (this.Page.Header == null || !this.Get<YafBoardSettings>().AddDynamicPageMetaTags)
             {
@@ -1119,31 +1115,6 @@ namespace YAF.Pages
                             _dtPoll = DB.poll_stats(this._topic["PollID"]);
                             Poll.DataSource = _dtPoll;
             }*/
-            this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
-
-            this.ImageMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.posts, "t={0}&find=lastpost", this.PageContext.PageTopicID);
-
-            if (this.ImageLastUnreadMessageLink.Visible)
-            {
-                this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "t={0}&find=unread", this.PageContext.PageTopicID);
-            }
-
-            if (this._topic.LastPosted.HasValue)
-            {
-                var lastRead =
-                    this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                        forumId: this.PageContext.PageForumID, topicId: this.PageContext.PageTopicID);
-
-               /* this.LastUnreadImage.ThemeTag = (DateTime.Parse(this._topic["LastPosted"].ToString()) > lastRead)
-                                                    ? "ICON_NEWEST_UNREAD"
-                                                    : "ICON_LATEST_UNREAD";
-
-                this.LastPostedImage.ThemeTag = (DateTime.Parse(this._topic["LastPosted"].ToString()) > lastRead)
-                                                    ? "ICON_NEWEST"
-                                                    : "ICON_LATEST";*/
-            }
 
             this.DataBind();
         }
@@ -1346,7 +1317,7 @@ namespace YAF.Pages
                     break;
                 case "tumblr":
                     {
-                        // process message... clean html, strip html, remove bbcode, etc...
+                        // process message... clean html, strip html, remove BBCode, etc...
                         var tumblrMsg =
                             BBCodeHelper.StripBBCode(
                                 HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this._topic.TopicName))).RemoveMultipleWhitespace();
@@ -1389,7 +1360,7 @@ namespace YAF.Pages
                                 this.Server.UrlEncode(
                                     "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
 
-                        // Send Retweet Directlly thru the Twitter API if User is Twitter User
+                        // Send Re-tweet directly thru the Twitter API if User is Twitter User
                         if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()
                             && this.Get<IYafSession>().TwitterToken.IsSet()
                             && this.Get<IYafSession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)

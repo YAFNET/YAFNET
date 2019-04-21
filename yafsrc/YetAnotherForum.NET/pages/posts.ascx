@@ -151,16 +151,6 @@
                     </asp:PlaceHolder>
                     <YAF:PopMenu ID="ViewMenu" runat="server" Control="ViewLink" />
                 </li>
-                <li class="nav-item">
-                    <YAF:ThemeButton ID="ImageMessageLink" runat="server" Type="Link" Icon="fast-forward"
-                                     TextLocalizedTag="GO_LAST_POST" TextLocalizedPage="DEFAULT">
-                    </YAF:ThemeButton>
-                </li>
-                <li class="nav-item">
-                    <YAF:ThemeButton ID="ImageLastUnreadMessageLink" runat="server" Type="Link" Icon="step-forward"
-                                     TextLocalizedTag="GO_LASTUNREAD_POST" TextLocalizedPage="DEFAULT">
-                    </YAF:ThemeButton>
-                </li>
             </ul>
         </div>
     </nav>

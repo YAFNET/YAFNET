@@ -12,10 +12,6 @@
     "inputFile": "Content/jquery.hovercard.scss"
   },
   {
-    "outputFile": "Content/jsdifflib.css",
-    "inputFile": "Content/jsdifflib.scss"
-  },
-  {
     "outputFile": "Content/forum-admin.css",
     "inputFile": "Content/forum-admin.scss"
   },
