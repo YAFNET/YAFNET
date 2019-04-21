@@ -3335,9 +3335,7 @@ del Lucene.Net.Contrib.FastVectorHighlighter.pdb
 del Lucene.Net.Contrib.Core.dll
 del Lucene.Net.Contrib.Core.pdb
 del Lucene.Net.Contrib.Analyzers.dll
-del Lucene.Net.Contrib.Analyzers.pdb
-
-copy /Y  "$(SolutionDir)\packages\ServiceStack.OrmLite.dll" "$(TargetDir)\ServiceStack.OrmLite.dll"</PreBuildEvent>
+del Lucene.Net.Contrib.Analyzers.pdb</PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
