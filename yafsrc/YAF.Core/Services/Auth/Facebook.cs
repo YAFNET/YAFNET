@@ -73,7 +73,7 @@ namespace YAF.Core.Services.Auth
             var redirectUrl = GetRedirectURL(request);
 
             return
-                "https://graph.facebook.com/v2.9/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
+                "https://graph.facebook.com/v3.1/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
                     Config.FacebookAPIKey,
                     redirectUrl,
                     redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty,
@@ -95,13 +95,14 @@ namespace YAF.Core.Services.Auth
         public string GetAccessToken(string authorizationCode, HttpRequest request)
         {
             var urlGetAccessToken =
-                "https://graph.facebook.com/v2.9/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
+                "https://graph.facebook.com/v2.9/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}&grant_type=client_credentials"
                     .FormatWith(
                         Config.FacebookAPIKey,
                         Config.FacebookSecretKey,
-                        GetRedirectURL(request),
+                        HttpUtility.UrlEncode(GetRedirectURL(request)),
                         authorizationCode);
 
+          
             var responseData = AuthUtilities.WebRequest(AuthUtilities.Method.GET, urlGetAccessToken, null);
 
             if (responseData.IsNotSet())
@@ -129,7 +130,6 @@ namespace YAF.Core.Services.Auth
         public FacebookUser GetFacebookUser(HttpRequest request, string access_token)
         {
             var url = "https://graph.facebook.com/me?access_token={0}".FormatWith(access_token);
-
             return AuthUtilities.WebRequest(AuthUtilities.Method.GET, url, string.Empty).FromJson<FacebookUser>();
         }
 

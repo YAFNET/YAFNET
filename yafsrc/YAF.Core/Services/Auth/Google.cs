@@ -96,7 +96,7 @@ namespace YAF.Core.Services.Auth
             return
                AuthUtilities.WebRequest(
                 AuthUtilities.Method.POST,
-                "https://accounts.google.com/o/oauth2/token",
+                "https://www.googleapis.com/oauth2/v4/token",
                 "{0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type={4}".FormatWith(
                     code,
                     Config.GoogleClientID,

@@ -100,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.9.1</Version>
+      <Version>4.9.2</Version>
     </PackageReference>
     <PackageReference Include="ServiceStack.OrmLite.SqlServer">
       <Version>5.1.0</Version>

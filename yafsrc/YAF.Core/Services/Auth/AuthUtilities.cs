@@ -30,9 +30,12 @@
 
 namespace YAF.Core.Services.Auth
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
+
+    using YAF.Types.Interfaces;
 
     /// <summary>
     /// AUTH Utilities
@@ -98,6 +101,7 @@ namespace YAF.Core.Services.Auth
         public static string WebRequest(Method method, string url, string postData, List<KeyValuePair<string, string>> headers)
         {
             HttpWebRequest webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
+
             webRequest.Method = method.ToString();
             webRequest.ServicePoint.Expect100Continue = false;
 
