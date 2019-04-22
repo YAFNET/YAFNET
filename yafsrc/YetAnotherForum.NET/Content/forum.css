@@ -8801,9 +8801,10 @@ body:last-child .blueimp-gallery-playing > .play-pause {
     transition-delay: 1000ms; }
 
 #YafBody {
-  margin: 0;
-  padding: 5px;
-  width: 99%; }
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto; }
 
 .topic-title {
   white-space: pre-wrap; }
