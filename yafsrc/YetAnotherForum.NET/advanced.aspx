@@ -1,7 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" %>
-<%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
-<%@ Register TagPrefix="YAF" Assembly="YAF.Controls" Namespace="YAF" %>
-<%@ Register TagPrefix="url" Namespace="Intelligencia.UrlRewriter" Assembly="Intelligencia.UrlRewriter" %>
+<%@ Register TagPrefix="url" Namespace="YAF.UrlRewriter" Assembly="YAF.UrlRewriter" %>
 
 <!doctype html>
 <html lang="en">
@@ -18,7 +16,7 @@
 </head>
 <body>
     <div class="yafnet">
-        <img src="~/forumlogo.jpg" runat="server" alt="logo" style="border: 0;" id="imgBanner" />
+        <img src="~/Content/Images/YafLogo.png" runat="server" alt="logo" style="border: 0;" id="imgBanner" />
         <br />
         <url:Form id="Form1" runat="server" enctype="multipart/form-data">
         <br />
