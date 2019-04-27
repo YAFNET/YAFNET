@@ -14,12 +14,16 @@
                     <div class="col">
                     <div class="card mb-3">
                     <div class="card-header">
+                        <YAF:CollapseButton ID="CollapsibleImage" runat="server"
+                                            PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID") %>'
+                                            AttachedControlID="body">
+                        </YAF:CollapseButton>
                         <i class="fa fa-folder fa-fw"></i>&nbsp;<asp:Image ID="uxCategoryImage" CssClass="category_image" AlternateText=" " ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>'
                                                                              Visible='<%# !DataBinder.Eval(Container.DataItem, "CategoryImage").ToString().IsNotSet() %>'
                                                                              runat="server" />
                         <%# this.Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="body" runat="server">
                                 <YAF:ForumList runat="server" 
                                                Visible="true" 
                                                ID="forumList" 

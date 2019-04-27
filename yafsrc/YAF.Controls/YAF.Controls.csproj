@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="CollapseButton.cs" />
     <Compile Include="TopicContainer.cs" />
     <Compile Include="AttachmentsPopMenu.cs" />
     <Compile Include="AlbumListPopMenu.cs" />
