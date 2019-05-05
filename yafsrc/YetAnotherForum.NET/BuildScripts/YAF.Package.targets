@@ -43,9 +43,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.pager.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ui.datepicker-farsi.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.3.1.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.3.1-vsdoc.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.4.1.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.js" />
@@ -112,7 +110,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
+      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
     </ItemGroup>
 
     <Delete Files="$(MSBuildProjectDirectory)\bin\YAF.DotNetNuke.Module.dll" />

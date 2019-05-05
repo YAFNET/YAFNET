@@ -133,10 +133,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
-    </Reference>
     <Reference Include="FarsiLibrary.Localization, Version=2.7.0.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
       <HintPath>..\packages\Farsi.Library.2.7.0\lib\net46\FarsiLibrary.Localization.dll</HintPath>
     </Reference>
@@ -205,9 +201,6 @@
     <Compile Include="Classes\LatestInformationService.cs" />
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
     <Compile Include="Classes\Utilities\JavaScriptBlocks.cs" />
-    <Compile Include="Classes\Utilities\MetaWeblog.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Classes\YafAjax.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -724,13 +717,6 @@
     </Compile>
     <Compile Include="pages\admin\taskmanager.ascx.designer.cs">
       <DependentUpon>taskmanager.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\test_data.ascx.cs">
-      <DependentUpon>test_data.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\test_data.ascx.designer.cs">
-      <DependentUpon>test_data.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\users.ascx.designer.cs">
       <DependentUpon>users.ascx</DependentUpon>
@@ -1751,12 +1737,6 @@
     <Content Include="Content\jquery.hovercard.min.css">
       <DependentUpon>jquery.hovercard.css</DependentUpon>
     </Content>
-    <Content Include="Content\jsdifflib.css">
-      <DependentUpon>jsdifflib.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\jsdifflib.min.css">
-      <DependentUpon>jsdifflib.css</DependentUpon>
-    </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\images\progressbar.gif" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
@@ -2003,7 +1983,6 @@
     <Content Include="pages\admin\restartapp.ascx" />
     <Content Include="pages\admin\runsql.ascx" />
     <Content Include="pages\admin\taskmanager.ascx" />
-    <Content Include="pages\admin\test_data.ascx" />
     <Content Include="pages\admin\users.ascx" />
     <Content Include="pages\admin\version.ascx" />
     <Content Include="pages\album.ascx" />
@@ -2422,6 +2401,11 @@
     <Content Include="Scripts\jquery-3.4.0.min.map">
       <DependentUpon>jquery-3.4.0.min.js</DependentUpon>
     </Content>
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
@@ -3216,6 +3200,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\umd\popper-utils.js.map" />
     <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -3237,15 +3223,11 @@
     <Content Include="v1.9.1.upgrade.web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="web.config">
+    <None Include="web.config">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
-      <Project>{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}</Project>
-      <Name>Intelligencia.UrlRewriter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
@@ -3366,7 +3348,7 @@ del Lucene.Net.Contrib.Analyzers.pdb</PreBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
