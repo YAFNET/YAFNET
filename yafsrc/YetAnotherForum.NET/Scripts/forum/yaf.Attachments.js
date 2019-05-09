@@ -40,14 +40,16 @@
 
             setPageNumberAttach(pageSize, pageNumber, data.d.TotalRecords);
 
-            jQuery(".attachments-toggle").dropdown('toggle');
-            jQuery('[data-toggle="tooltip"]').tooltip({
-	            html: true,
-                template:
-	                '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-	            placement: 'top'
-            });
-		}),
+            if (isPageChange) {
+                jQuery(".attachments-toggle").dropdown('toggle');
+                jQuery('[data-toggle="tooltip"]').tooltip({
+                    html: true,
+                    template:
+                        '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+                    placement: 'top'
+                });
+            }
+        }),
 		error: (function Error(request, status, error) {
 			$("#PostAttachmentLoader").hide();
 
