@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/zero2cool/49d54d01-53c3-45c3-9e35-64d7faa37093/2c8287f5-2f24-4955-ac5b-ab3988c2b153/_apis/work/boardbadge/5705dbf4-b931-4db0-8483-4aefa5632e57)](https://dev.azure.com/zero2cool/49d54d01-53c3-45c3-9e35-64d7faa37093/_boards/board/t/2c8287f5-2f24-4955-ac5b-ab3988c2b153/Microsoft.RequirementCategory)
 [![YAF logo](http://yetanotherforum.net/forum/Content/images/YafLogo.png)](http://www.yetanotherforum.net)
 
 **YetAnotherForum.NET** (YAF.NET) ASP.NET Open Source Forum solution! The **YAF.NET** project is an international collaboration of like-minded, skilled, and creative individuals who are striving to make **YAF.NET** the most robust and malleable forum solutions available.
