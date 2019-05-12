@@ -30,7 +30,7 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
@@ -73,7 +73,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>Bin\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -152,6 +152,7 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -160,6 +161,8 @@
     </Reference>
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services">
       <Name>System.Web.Services</Name>
@@ -2394,18 +2397,13 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.4.0.js" />
-    <Content Include="Scripts\jquery-3.4.0.min.js">
-      <DependentUpon>jquery-3.4.0.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.4.0.min.map">
-      <DependentUpon>jquery-3.4.0.min.js</DependentUpon>
-    </Content>
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js">
+      <DependentUpon>jquery-3.4.1.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.4.1.min.map">
+      <DependentUpon>jquery-3.4.1.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
@@ -3200,8 +3198,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\umd\popper-utils.js.map" />
     <Content Include="Scripts\README.md" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -3232,10 +3228,6 @@
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
-      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
-      <Name>YAF.Classes.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Controls\YAF.Controls.csproj">
       <Project>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</Project>
       <Name>YAF.Controls</Name>
@@ -3251,6 +3243,10 @@
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
       <Name>YAF.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.UrlRewriter\YAF.UrlRewriter.csproj">
+      <Project>{f8516c67-92be-43ff-a8a9-b71a3ea4be0d}</Project>
+      <Name>YAF.UrlRewriter</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
       <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
@@ -3317,9 +3313,9 @@ del Lucene.Net.Contrib.FastVectorHighlighter.pdb
 del Lucene.Net.Contrib.Core.dll
 del Lucene.Net.Contrib.Core.pdb
 del Lucene.Net.Contrib.Analyzers.dll
-del Lucene.Net.Contrib.Analyzers.pdb</PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+del Lucene.Net.Contrib.Analyzers.pdb
+del ServiceStack.Client.dll</PreBuildEvent>
+    <PostBuildEvent>del YAF.dll.config</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -3348,7 +3344,7 @@ del Lucene.Net.Contrib.Analyzers.pdb</PreBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
