@@ -572,15 +572,11 @@ namespace YAF.Controls
                 }
 
                 this.GoToLastPost.NavigateUrl = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.TopicRow["LastMessageID"]);
-                this.GoToLastPost.ToolTip = this.AltLastPost;
-                this.GoToLastPost.Text = "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.AltLastPost);
 
                 this.GoToLastUnread.NavigateUrl = YafBuildLink.GetLink(
                     ForumPages.posts,
                     "t={0}&find=unread",
                     this.TopicRow["TopicID"]);
-                this.GoToLastUnread.ToolTip = this.AltLastUnreadPost;
-                this.GoToLastUnread.Text = "&nbsp;<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(this.AltLastUnreadPost);
                 this.GoToLastUnread.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)

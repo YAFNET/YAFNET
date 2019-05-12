@@ -64,8 +64,18 @@
     <asp:PlaceHolder runat="server" Visible='<%# !this.TopicRow["LastMessageID"].IsNullOrEmptyDBField() %>'>
     <div class="col-md-4">
         <h6>
-            <asp:HyperLink runat="server" ID="GoToLastPost"></asp:HyperLink>
-            <asp:HyperLink runat="server" ID="GoToLastUnread"></asp:HyperLink>
+            <YAF:ThemeButton runat="server" ID="GoToLastPost" 
+                             Size="Small"
+                             Icon="share-square"
+                             Type="OutlineSecondary"
+                             TextLocalizedTag="GO_LAST_POST"
+                             CssClass="mt-1 mr-1"></YAF:ThemeButton>
+            <YAF:ThemeButton runat="server" ID="GoToLastUnread" 
+                             Size="Small"
+                             Icon="book-reader"
+                             Type="OutlineSecondary"
+                             TextLocalizedTag="GO_LASTUNREAD_POST"
+                             CssClass="mt-1"></YAF:ThemeButton>
         </h6>
         <hr/>
         <h6><YAF:UserLink runat="server" ID="UserLast"></YAF:UserLink>

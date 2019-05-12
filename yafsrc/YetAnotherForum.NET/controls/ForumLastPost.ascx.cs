@@ -145,9 +145,6 @@ namespace YAF.Controls
                     this.Alt = this.GetText("GO_LAST_POST");
                 }
 
-                this.LastTopicImgLink.ToolTip = this.Alt;
-                this.LastTopicImgLink.Text = "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.Alt);
-
                 this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
 
@@ -155,10 +152,6 @@ namespace YAF.Controls
 
                 this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
-                this.ImageLastUnreadMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
-                this.ImageLastUnreadMessageLink.Text =
-                    "&nbsp;<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(
-                        this.GetText("DEFAULT", "GO_LASTUNREAD_POST"));
 
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(

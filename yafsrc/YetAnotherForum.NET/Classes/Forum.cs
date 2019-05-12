@@ -418,7 +418,10 @@ namespace YAF
             }
 
             // Add smart Scroller
-            this.Controls.Add(new SmartScroller());
+            if (Config.IsAnyPortal)
+            {
+                this.Controls.Add(new SmartScroller());
+            }
 
             // load plugins/functionality modules
             this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());

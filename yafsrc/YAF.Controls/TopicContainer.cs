@@ -41,7 +41,7 @@ namespace YAF.Controls
     using YAF.Utils.Helpers;
 
     /// <summary>
-    /// Alert Message Control
+    /// Topic Container Control
     /// </summary>
     [ToolboxData("<{0}:TopicContainer runat=server></{0}:TopicContainer>")]
     public class TopicContainer : BaseControl
@@ -670,26 +670,30 @@ namespace YAF.Controls
                 writer.Write(" <div class=\"col-md-4\">");
                 writer.Write(" <h6>");
 
-                var goToLastPost = new HyperLink
+                var goToLastPost = new ThemeButton
                                        {
                                            NavigateUrl = YafBuildLink.GetLink(
                                                ForumPages.posts,
                                                "m={0}#post{0}",
                                                this.TopicRow["LastMessageID"]),
-                                           ToolTip = this.AltLastPost,
-                                           Text = "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.AltLastPost)
-                };
+                                           Size = ButtonSize.Small,
+                                           Icon = "share-square",
+                                           Type = ButtonAction.OutlineSecondary,
+                                           TextLocalizedTag = "GO_LAST_POST",
+                                           CssClass = "mr-1"
+                                       };
 
-                var goToLastUnread = new HyperLink
+                var goToLastUnread = new ThemeButton
                                          {
                                              NavigateUrl =
                                                  YafBuildLink.GetLink(
                                                      ForumPages.posts,
                                                      "t={0}&find=unread",
                                                      this.TopicRow["TopicID"]),
-                                             ToolTip = this.AltLastUnreadPost,
-                                             Text = "<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(
-                                                 this.AltLastUnreadPost),
+                                             Size = ButtonSize.Small,
+                                             Icon = "book-reader",
+                                             Type = ButtonAction.OutlineSecondary,
+                                             TextLocalizedTag = "GO_LASTUNREAD_POST",
                                              Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost
                                          };
 

@@ -127,7 +127,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink GoToLastPost;
+        protected global::YAF.Controls.ThemeButton GoToLastPost;
         
         /// <summary>
         /// GoToLastUnread-Steuerelement
@@ -136,7 +136,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink GoToLastUnread;
+        protected global::YAF.Controls.ThemeButton GoToLastUnread;
         
         /// <summary>
         /// UserLast-Steuerelement

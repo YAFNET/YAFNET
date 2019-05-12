@@ -7,8 +7,18 @@
         </asp:PlaceHolder>
         <asp:Label runat="server" ID="NewMessage"></asp:Label>
         <br/>
-        <asp:HyperLink runat="server" ID="LastTopicImgLink"></asp:HyperLink>
-        <asp:HyperLink runat="server" ID="ImageLastUnreadMessageLink"></asp:HyperLink>
+        <YAF:ThemeButton runat="server" ID="LastTopicImgLink" 
+                         Size="Small"
+                         Icon="share-square"
+                         Type="OutlineSecondary"
+                         TextLocalizedTag="GO_LAST_POST"
+                         CssClass="mt-1 mr-1"></YAF:ThemeButton>
+        <YAF:ThemeButton runat="server" ID="ImageLastUnreadMessageLink" 
+                         Size="Small"
+                         Icon="book-reader"
+                         Type="OutlineSecondary"
+                         TextLocalizedTag="GO_LASTUNREAD_POST"
+                         CssClass="mt-1"></YAF:ThemeButton>
     </h6>
     <hr/>
     <h6><YAF:UserLink ID="ProfileUserLink" runat="server" />

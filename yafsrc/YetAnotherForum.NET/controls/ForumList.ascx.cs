@@ -435,7 +435,11 @@ namespace YAF.Controls
             var row = (DataRow)o;
             var viewing = row["Viewing"].ToType<int>();
 
-            return viewing > 0 ? "&nbsp;{0}".FormatWith(this.GetTextFormatted("VIEWING", viewing)) : string.Empty;
+            return viewing > 0
+                       ? "<i class=\"far fa-eye\" title=\"{0}\"></i> {1}".FormatWith(
+                           this.GetTextFormatted("VIEWING", viewing),
+                           viewing)
+                       : string.Empty;
         }
 
         /// <summary>

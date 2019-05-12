@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LastTopicImgLink;
+        protected global::YAF.Controls.ThemeButton LastTopicImgLink;
         
         /// <summary>
         /// ImageLastUnreadMessageLink-Steuerelement
@@ -64,7 +64,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ImageLastUnreadMessageLink;
+        protected global::YAF.Controls.ThemeButton ImageLastUnreadMessageLink;
         
         /// <summary>
         /// ProfileUserLink-Steuerelement

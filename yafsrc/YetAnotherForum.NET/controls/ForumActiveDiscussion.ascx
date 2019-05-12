@@ -27,8 +27,18 @@
                                                     </asp:Label>
                                                     &nbsp;<asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />
                                                     (<asp:HyperLink ID="ForumLink" runat="server" />)
-                                                    <asp:HyperLink runat="server" ID="GoToLastPost" Size="Small"></asp:HyperLink>
-                                                    <asp:HyperLink runat="server" ID="GoToLastUnread" Size="Small"></asp:HyperLink>
+                                                    <YAF:ThemeButton runat="server" 
+                                                                     ID="GoToLastPost" 
+                                                                     Size="Small"
+                                                                     Icon="share-square"
+                                                                     Type="OutlineSecondary"
+                                                                     TextLocalizedTag="GO_LAST_POST"></YAF:ThemeButton>
+                                                    <YAF:ThemeButton runat="server" 
+                                                                     ID="GoToLastUnread" 
+                                                                     Size="Small"
+                                                                     Icon="book-reader"
+                                                                     Type="OutlineSecondary"
+                                                                     TextLocalizedTag="GO_LASTUNREAD_POST"></YAF:ThemeButton>
                                                 </h5>
                                                 <small>
                                                     <YAF:LocalizedLabel ID="ByLabel" runat="server" 

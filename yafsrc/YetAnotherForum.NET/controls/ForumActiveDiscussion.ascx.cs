@@ -90,8 +90,8 @@ namespace YAF.Controls
             // get the controls
             var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
             var textMessageLink = (HyperLink)e.Item.FindControl("TextMessageLink");
-            var imageMessageLink = (HyperLink)e.Item.FindControl("GoToLastPost");
-            var imageLastUnreadMessageLink = (HyperLink)e.Item.FindControl("GoToLastUnread");
+            var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
+            var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
             var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
             var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
             var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
@@ -121,9 +121,6 @@ namespace YAF.Controls
                 ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
-            imageMessageLink.ToolTip = this.lastPostToolTip;
-            imageMessageLink.Text =
-                "<i class=\"fa fa-share-square fa-fw\"></i> {0}".FormatWith(this.lastPostToolTip);
 
             if (imageLastUnreadMessageLink.Visible)
             {
@@ -131,9 +128,6 @@ namespace YAF.Controls
                     ForumPages.posts,
                     "t={0}&find=unread",
                     currentRow["TopicID"]);
-
-                imageLastUnreadMessageLink.ToolTip = this.firstUnreadPostToolTip;
-                imageLastUnreadMessageLink.Text = "<i class=\"fa fa-glasses fa-fw\" style=\"color:green\"></i> {0}".FormatWith(this.firstUnreadPostToolTip);
             }
             
             // Just in case...

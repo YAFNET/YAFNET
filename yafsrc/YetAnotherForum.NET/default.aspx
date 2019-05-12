@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" MaintainScrollPositionOnPostback="true" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 <%@ Register TagPrefix="url" Namespace="YAF.UrlRewriter" Assembly="YAF.UrlRewriter" %>
 <script runat="server">
