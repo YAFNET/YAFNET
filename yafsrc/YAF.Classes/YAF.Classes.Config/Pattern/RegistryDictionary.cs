@@ -50,15 +50,9 @@ namespace YAF.Classes.Pattern
         /// </summary>
         public bool DefaultGetOverride
         {
-            get
-            {
-                return this._defaultGetOverride;
-            }
+            get => this._defaultGetOverride;
 
-            set
-            {
-                this._defaultGetOverride = value;
-            }
+            set => this._defaultGetOverride = value;
         }
 
         /// <summary>

@@ -82,15 +82,9 @@ namespace YAF.Classes.Pattern
     /// </summary>
     protected string TypeInstanceKey
     {
-      get
-      {
-        return this._typeInstanceKey;
-      }
+      get => this._typeInstanceKey;
 
-      set
-      {
-        this._typeInstanceKey = value;
-      }
+      set => this._typeInstanceKey = value;
     }
 
     /// <summary>
@@ -98,15 +92,9 @@ namespace YAF.Classes.Pattern
     /// </summary>
     public string TypeName
     {
-      get
-      {
-        return this._typeName;
-      }
+      get => this._typeName;
 
-      protected set
-      {
-        this._typeName = value;
-      }
+      protected set => this._typeName = value;
     }
 
     private object _instance = null;

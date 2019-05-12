@@ -23,9 +23,7 @@
  */
 namespace YAF.Classes.Pattern
 {
-  using System;
-
-  /// <summary>
+    /// <summary>
   /// The type board application factory instance.
   /// </summary>
   /// <typeparam name="T">

@@ -54,18 +54,7 @@ namespace YAF.Classes.Pattern
     /// <summary>
     ///   Gets Instance.
     /// </summary>
-    public static T Instance
-    {
-      get
-      {
-        return GetInstance();
-      }
-
-      private set
-      {
-        _instance = value;
-      }
-    }
+    public static T Instance => GetInstance();
 
     #endregion
 

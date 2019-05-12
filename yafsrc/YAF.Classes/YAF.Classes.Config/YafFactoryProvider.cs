@@ -146,15 +146,10 @@ namespace YAF.Classes
         /// <summary>
         /// Gets UserDisplayNameType.
         /// </summary>
-        private static string UserDisplayNameType
-        {
-            get
-            {
-                return Config.GetProvider("UserDisplayName").IsSet()
-                           ? Config.GetProvider("UserDisplayName")
-                           : "YAF.Classes.Core.DefaultUserDisplayName,YAF.Classes.Core";
-            }
-        }
+        private static string UserDisplayNameType =>
+            Config.GetProvider("UserDisplayName").IsSet()
+                ? Config.GetProvider("UserDisplayName")
+                : "YAF.Classes.Core.DefaultUserDisplayName,YAF.Classes.Core";
 
         #endregion
     }

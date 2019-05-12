@@ -34,102 +34,49 @@ namespace YAF.Classes
     /// <summary>
     /// Gets Current.
     /// </summary>
-    public static YafBoardFolders Current
-    {
-      get
-      {
-        return PageSingleton<YafBoardFolders>.Instance;
-      }
-    }
+    public static YafBoardFolders Current => PageSingleton<YafBoardFolders>.Instance;
 
     /// <summary>
     /// Gets BoardFolder.
     /// </summary>
-    public string BoardFolder
-    {
-      get
-      {
-          return Config.MultiBoardFolders
-                     ? string.Format(Config.BoardRoot + "{0}/", YafControlSettings.Current.BoardID)
-                     : Config.BoardRoot;
-      }
-    }
+    public string BoardFolder =>
+        Config.MultiBoardFolders
+            ? string.Format(Config.BoardRoot + "{0}/", YafControlSettings.Current.BoardID)
+            : Config.BoardRoot;
 
     /// <summary>
     /// Gets Uploads.
     /// </summary>
-    public string Uploads
-    {
-      get
-      {
-          return string.Concat(this.BoardFolder, "Uploads");
-      }
-    }
+    public string Uploads => string.Concat(this.BoardFolder, "Uploads");
 
     /// <summary>
     /// Gets Images.
     /// </summary>
-    public string Images
-    {
-      get
-      {
-          return string.Concat(this.BoardFolder, "Images");
-      }
-    }
+    public string Images => string.Concat(this.BoardFolder, "Images");
 
     /// <summary>
     /// Gets Avatars.
     /// </summary>
-    public string Avatars
-    {
-      get
-      {
-          return string.Concat(this.BoardFolder, "Images/Avatars");
-      }
-    }
+    public string Avatars => string.Concat(this.BoardFolder, "Images/Avatars");
 
     /// <summary>
     /// Gets Categories.
     /// </summary>
-    public string Categories
-    {
-      get
-      {
-          return string.Concat(this.BoardFolder, "Images/Categories");
-      }
-    }
+    public string Categories => string.Concat(this.BoardFolder, "Images/Categories");
 
     /// <summary>
     /// Gets Categories.
     /// </summary>
-    public string Forums
-    {
-        get
-        {
-            return string.Concat(this.BoardFolder, "Images/Forums");
-        }
-    }
+    public string Forums => string.Concat(this.BoardFolder, "Images/Forums");
 
     /// <summary>
     /// Gets Medals.
     /// </summary>
-    public string Medals
-    {
-      get
-      {
-          return string.Concat(this.BoardFolder, "Images/Medals");
-      }
-    }
+    public string Medals => string.Concat(this.BoardFolder, "Images/Medals");
 
     /// <summary>
     /// Gets Ranks.
     /// </summary>
-    public string Ranks
-    {
-      get
-      {
-          return string.Concat(this.BoardFolder, "Images/Ranks");
-      }
-    }
+    public string Ranks => string.Concat(this.BoardFolder, "Images/Ranks");
   }
 }

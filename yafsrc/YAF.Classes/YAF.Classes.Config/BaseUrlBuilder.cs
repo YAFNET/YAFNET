@@ -99,18 +99,6 @@ namespace YAF.Classes
             }
         }
 
-        /// <summary>
-        /// Gets ScriptNamePath.
-        /// </summary>
-        public static string ScriptNamePath
-        {
-            get
-            {
-                var scriptName = HttpContext.Current.Request.FilePath.ToLower();
-                return scriptName.Substring(0, scriptName.LastIndexOf('/'));
-            }
-        }
-
         #endregion
 
         #region Public Methods

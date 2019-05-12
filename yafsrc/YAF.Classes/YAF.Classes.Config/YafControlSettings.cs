@@ -64,28 +64,16 @@ namespace YAF.Classes
         /// <summary>
         /// Gets Current.
         /// </summary>
-        public static YafControlSettings Current
-        {
-            get
-            {
-                return PageSingleton<YafControlSettings>.Instance;
-            }
-        }
+        public static YafControlSettings Current => PageSingleton<YafControlSettings>.Instance;
 
         /// <summary>
         /// Gets or sets BoardID.
         /// </summary>
         public int BoardID
         {
-            get
-            {
-                return this._boardId;
-            }
+            get => this._boardId;
 
-            set
-            {
-                this._boardId = value;
-            }
+            set => this._boardId = value;
         }
 
         /// <summary>
@@ -93,15 +81,9 @@ namespace YAF.Classes
         /// </summary>
         public int CategoryID
         {
-            get
-            {
-                return this._categoryId;
-            }
+            get => this._categoryId;
 
-            set
-            {
-                this._categoryId = value;
-            }
+            set => this._categoryId = value;
         }
 
         /// <summary>

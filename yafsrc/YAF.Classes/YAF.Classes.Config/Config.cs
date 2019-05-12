@@ -74,16 +74,6 @@ namespace YAF.Classes
         public static string BoardRoot => GetConfigValueAsString("YAF.BoardRoot") ?? string.Empty;
 
         /// <summary>
-        ///     Gets BotScout API Key.
-        /// </summary>
-        public static string BotScoutApiKey => GetConfigValueAsString("YAF.BotScoutApiKey");
-
-        /// <summary>
-        ///     Gets the Allowed browser JS version.
-        /// </summary>
-        public static string BrowserJSVersion => GetConfigValueAsString("YAF.BrowserJSVersion") ?? "1.0";
-
-        /// <summary>
         ///     Gets the Current CategoryID -- default is null.
         /// </summary>
         public static string CategoryID => GetConfigValueAsString("YAF.CategoryID");
@@ -322,19 +312,6 @@ namespace YAF.Classes
                                                    ?? string.Empty;
 
         /// <summary>
-        /// Gets a value indicating whether YAF should be optimized for use with very large number of forums.
-        /// Before enabling you should know exactly what you do and what's it all for. Ask developers.
-        /// </summary>
-        [NotNull]
-        public static bool LargeForumTree => GetConfigValueAsBool("YAF.LargeForumTree", false);
-
-        /// <summary>
-        ///     Gets LogToMail.
-        /// </summary>
-        [Obsolete("Legacy: Phasing out")]
-        public static string LogToMail => GetConfigValueAsString("YAF.LogToMail");
-
-        /// <summary>
         ///     Gets MembershipProvider.
         /// </summary>
         [NotNull]
@@ -351,12 +328,6 @@ namespace YAF.Classes
         ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false
         /// </summary>
         public static bool MultiBoardFolders => GetConfigValueAsBool("YAF.MultiBoardFolders", false);
-
-        /// <summary>
-        ///     Gets the NNTP post domain.
-        /// </summary>
-        [NotNull]
-        public static string NntpPostDomain => GetConfigValueAsString("YAF.NntpPostDomain") ?? "myforum.com";
 
         /// <summary>
         ///     Gets ProviderKeyType.
