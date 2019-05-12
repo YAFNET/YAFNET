@@ -73,15 +73,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get
-            {
-                return string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
-            }
+            get => string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
 
-            set
-            {
-                this.altLastPost = value;
-            }
+            set => this.altLastPost = value;
         }
 
         /// <summary>
@@ -89,10 +83,7 @@ namespace YAF.Controls
         /// </summary>
         public IEnumerable DataSource
         {
-            get
-            {
-                return this.dataSource;
-            }
+            get => this.dataSource;
 
             set
             {
@@ -272,7 +263,7 @@ namespace YAF.Controls
                     }
                     else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {
-                        icon.Text = "<i class=\"fa fa-comments fa-2x}\" style=\"color: green\"></i>";
+                        icon.Text = "<i class=\"fa fa-comments fa-2x\" style=\"color: green\"></i>";
                     }
                     else
                     {

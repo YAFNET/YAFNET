@@ -26,10 +26,12 @@ namespace YAF.Modules.BBCode
 {
     using System.Web.UI;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     /// <summary>
     /// Hide Reply BBCode Module
@@ -84,7 +86,7 @@ namespace YAF.Modules.BBCode
             }
 
             if (this.DisplayUserID == userId ||
-                LegacyDb.user_RepliedTopic(messageId.ToType<int>(), userId))
+                this.GetRepository<User>().RepliedTopic(messageId.ToType<int>(), userId))
             {
                 // Show hidden content if user is the poster or have thanked the poster.
                 shownContent = hiddenContent;

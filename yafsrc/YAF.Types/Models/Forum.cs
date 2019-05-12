@@ -102,15 +102,9 @@ namespace YAF.Types.Models
         [Ignore]
         public ForumFlags ForumFlags
         {
-            get
-            {
-                return new ForumFlags(this.Flags);
-            }
+            get => new ForumFlags(this.Flags);
 
-            set
-            {
-                this.Flags = value.BitValue;
-            }
+            set => this.Flags = value.BitValue;
         }
 
         public string ThemeURL { get; set; }

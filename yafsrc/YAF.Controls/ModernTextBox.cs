@@ -78,15 +78,9 @@ namespace YAF.Controls
         [Localizable(true)]
         public string Placeholder
         {
-            get
-            {
-                return this.placeholder;
-            }
+            get => this.placeholder;
 
-            set
-            {
-                this.placeholder = value;
-            }
+            set => this.placeholder = value;
         }
 
         /// <summary>
@@ -119,15 +113,9 @@ namespace YAF.Controls
         [DefaultValue("formElement")]
         public string WrapperCssClass
         {
-            get
-            {
-                return this.wrapperCssClass;
-            }
+            get => this.wrapperCssClass;
 
-            set
-            {
-                this.wrapperCssClass = value;
-            }
+            set => this.wrapperCssClass = value;
         }
 
         /// <summary>
@@ -140,15 +128,9 @@ namespace YAF.Controls
         [Category("Appearance")]
         public string LabelText
         {
-            get
-            {
-                return this.labelText;
-            }
+            get => this.labelText;
 
-            set
-            {
-                this.labelText = value;
-            }
+            set => this.labelText = value;
         }
 
         /// <summary>

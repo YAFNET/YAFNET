@@ -26,6 +26,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
 
     using ServiceStack.OrmLite;
 
@@ -40,6 +41,44 @@ namespace YAF.Core.Model
     public static class ForumAcessRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// The forumaccess_group.
+        /// </summary>
+        /// <param name="groupID">
+        /// The group id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable GroupAsDataTable(this IRepository<ForumAccess> repository, [NotNull] int groupID)
+        {
+            var dt = repository.DbFunction.GetData.forumaccess_group(GroupID: groupID);
+
+            return repository.SortList((DataTable)dt, 0, 0, 0);
+        }
+
+        /// <summary>
+        /// The user_accessmasks.
+        /// </summary>
+        /// <param name="boardID">
+        /// The board id.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable UserAccessMasksAsDataTable(
+            this IRepository<ForumAccess> repository,
+            [NotNull] int boardID,
+            [NotNull] int userID)
+        {
+            var dt = repository.DbFunction.GetData.user_accessmasks(BoardID: boardID, UserID: userID);
+
+            ///TODO: Recursion doesn't work here correctly at all because of UNION in underlying sql script.
+            /// Possibly the only acceptable solution will be splitting the UNIONed queries and displaying 2 "trees". Maybe another solution exists.
+            return repository.SortList((DataTable)dt, 0, 0, 0);
+        }
 
         /// <summary>
         /// Save Updated Forum Access
@@ -96,6 +135,113 @@ namespace YAF.Core.Model
         }
 
         #endregion
+
+        /// <summary>
+        /// The userforumaccess_sort_list.
+        /// </summary>
+        /// <param name="listSource">
+        /// The list source.
+        /// </param>
+        /// <param name="parentID">
+        /// The parent id.
+        /// </param>
+        /// <param name="categoryID">
+        /// The category id.
+        /// </param>
+        /// <param name="startingIndent">
+        /// The starting indent.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [NotNull]
+        private static DataTable SortList(
+            [NotNull] this IRepository<ForumAccess> repository, [NotNull] DataTable listSource, int parentID, int categoryID, int startingIndent)
+        {
+            var listDestination = new DataTable();
+
+            listDestination.Columns.Add("ForumID", typeof(String));
+            listDestination.Columns.Add("ForumName", typeof(String));
+
+            // it is uset in two different procedures with different tables,
+            // so, we must add correct columns
+            if (listSource.Columns.IndexOf("AccessMaskName") >= 0)
+            {
+                listDestination.Columns.Add("AccessMaskName", typeof(String));
+            }
+            else
+            {
+                listDestination.Columns.Add("BoardName", typeof(String));
+                listDestination.Columns.Add("CategoryName", typeof(String));
+                listDestination.Columns.Add("AccessMaskId", typeof(Int32));
+            }
+
+            var dv = listSource.DefaultView;
+            repository.SortListRecursive(dv.ToTable(), listDestination, parentID, categoryID, startingIndent);
+            return listDestination;
+        }
+
+        /// <summary>
+        /// The userforumaccess_sort_list_recursive.
+        /// </summary>
+        /// <param name="listSource">
+        /// The list source.
+        /// </param>
+        /// <param name="listDestination">
+        /// The list destination.
+        /// </param>
+        /// <param name="parentID">
+        /// The parent id.
+        /// </param>
+        /// <param name="categoryID">
+        /// The category id.
+        /// </param>
+        /// <param name="currentIndent">
+        /// The current indent.
+        /// </param>
+        private static void SortListRecursive(
+            [NotNull] this IRepository<ForumAccess> repository, [NotNull] DataTable listSource, [NotNull] DataTable listDestination, int parentID, int categoryID, int currentIndent)
+        {
+            foreach (DataRow row in listSource.Rows)
+            {
+                // see if this is a root-forum
+                if (row["ParentID"] == DBNull.Value)
+                {
+                    row["ParentID"] = 0;
+                }
+
+                if ((int)row["ParentID"] == parentID)
+                {
+                    var sIndent = string.Empty;
+
+                    for (var j = 0; j < currentIndent; j++)
+                    {
+                        sIndent += "--";
+                    }
+
+                    // import the row into the destination
+                    var newRow = listDestination.NewRow();
+
+                    newRow["ForumID"] = row["ForumID"];
+                    newRow["ForumName"] = string.Format("{0} {1}", sIndent, row["ForumName"]);
+                    if (listDestination.Columns.IndexOf("AccessMaskName") >= 0)
+                    {
+                        newRow["AccessMaskName"] = row["AccessMaskName"];
+                    }
+                    else
+                    {
+                        newRow["BoardName"] = row["BoardName"];
+                        newRow["CategoryName"] = row["CategoryName"];
+                        newRow["AccessMaskId"] = row["AccessMaskId"];
+                    }
+
+                    listDestination.Rows.Add(newRow);
+
+                    // recurse through the list...
+                    repository.SortListRecursive(
+                      listSource, listDestination, (int)row["ForumID"], categoryID, currentIndent + 1);
+                }
+            }
+        }
     }
 
     [Serializable]

@@ -32,15 +32,16 @@ namespace YAF.Controls
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Services.Auth;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -225,7 +226,7 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            LegacyDb.user_addpoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
+            this.GetRepository<User>().AddPoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
 
             this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
 
@@ -262,7 +263,7 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            LegacyDb.user_removepoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
+            this.GetRepository<User>().RemovePoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
 
             this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
 

@@ -29,9 +29,9 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -123,7 +123,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.forumlist.DataSource = LegacyDb.forum_listread(
+            this.forumlist.DataSource = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
                 this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false, false);
 
             this.forumlist.DataValueField = "ForumID";

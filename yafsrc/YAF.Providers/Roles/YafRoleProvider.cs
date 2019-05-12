@@ -26,19 +26,14 @@ namespace YAF.Providers.Roles
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Specialized;
-    using System.Configuration;
     using System.Data;
     using System.Linq;
     using System.Web.Security;
 
-    using YAF.Classes.Pattern;
     using YAF.Core;
     using YAF.Providers.Utils;
-    using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// The yaf role provider.
@@ -69,23 +64,14 @@ namespace YAF.Providers.Roles
         /// <summary>
         /// Gets the Connection String App Key Name.
         /// </summary>
-        public static string ConnStrAppKeyName
-        {
-            get
-            {
-                return _connStrAppKeyName;
-            }
-        }
+        public static string ConnStrAppKeyName => _connStrAppKeyName;
 
         /// <summary>
         /// Gets or sets ApplicationName.
         /// </summary>
         public override string ApplicationName
         {
-            get
-            {
-                return this._appName;
-            }
+            get => this._appName;
 
             set
             {

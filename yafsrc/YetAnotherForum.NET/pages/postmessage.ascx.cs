@@ -35,7 +35,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -49,7 +48,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -111,28 +109,16 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets EditMessageID.
         /// </summary>
-        protected long? EditMessageID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["m"];
-            }
-        }
+        protected long? EditMessageID => this.PageContext.QueryIDs["m"];
 
         /// <summary>
         ///   Gets or sets OriginalMessage.
         /// </summary>
         protected string OriginalMessage
         {
-            get
-            {
-                return this._originalMessage;
-            }
+            get => this._originalMessage;
 
-            set
-            {
-                this._originalMessage = value;
-            }
+            set => this._originalMessage = value;
         }
 
         /// <summary>
@@ -143,24 +129,12 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets Quoted Message ID.
         /// </summary>
-        protected long? QuotedMessageID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["q"];
-            }
-        }
+        protected long? QuotedMessageID => this.PageContext.QueryIDs["q"];
 
         /// <summary>
         ///   Gets TopicID.
         /// </summary>
-        protected long? TopicID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["t"];
-            }
-        }
+        protected long? TopicID => this.PageContext.QueryIDs["t"];
 
         #endregion
 
@@ -194,47 +168,6 @@ namespace YAF.Pages
         protected int? GetPollGroupID()
         {
             return this.PollGroupId;
-        }
-
-        /// <summary>
-        /// The handle post to blog.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <returns>
-        /// Returns the Blog Post ID
-        /// </returns>
-        protected string HandlePostToBlog([NotNull] string message, [NotNull] string subject)
-        {
-            var blogPostId = string.Empty;
-
-            // Does user wish to post this to their blog?
-            if (!this.PageContext.BoardSettings.AllowPostToBlog || !this.PostToBlog.Checked)
-            {
-                return blogPostId;
-            }
-
-            try
-            {
-                // Post to blogblog
-                var blog = new MetaWeblog(this.PageContext.Profile.BlogServiceUrl);
-                blogPostId = blog.newPost(
-                    this.PageContext.Profile.BlogServicePassword,
-                    this.PageContext.Profile.BlogServiceUsername,
-                    this.BlogPassword.Text,
-                    subject,
-                    message);
-            }
-            catch
-            {
-                this.PageContext.AddLoadMessage(this.GetText("POSTTOBLOG_FAILED"), MessageTypes.danger);
-            }
-
-            return blogPostId;
         }
 
         /// <summary>
@@ -358,7 +291,7 @@ namespace YAF.Pages
             }
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
-                && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null
+                && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim()) && this.TopicID == null
                 && this.EditMessageID == null)
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
@@ -433,7 +366,7 @@ namespace YAF.Pages
             if (this.QuotedMessageID != null)
             {
                 currentMessage =
-                    LegacyDb.MessageList(this.QuotedMessageID.ToType<int>())
+                    this.GetRepository<Message>().MessageList(this.QuotedMessageID.ToType<int>())
                         .FirstOrDefault();
 
                 if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text") != null)
@@ -475,7 +408,7 @@ namespace YAF.Pages
             }
             else if (this.EditMessageID != null)
             {
-                currentMessage = LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
+                currentMessage = this.GetRepository<Message>().MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
 
                 if (currentMessage != null)
                 {
@@ -635,7 +568,7 @@ namespace YAF.Pages
                                         multiQuote);
                             }
 
-                            var messages = LegacyDb.post_list(
+                            var messages = this.GetRepository<Message>().PostListAsDataTable(
                                 this.TopicID,
                                 this.PageContext.PageUserID,
                                 this.PageContext.PageUserID,
@@ -807,9 +740,9 @@ namespace YAF.Pages
 
             var isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
 
-            LegacyDb.message_update(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
-                this.Priority.SelectedValue,
+            this.GetRepository<Message>().Update(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                this.Priority.SelectedValue.ToType<int>(),
                 this._forumEditor.Text.Trim(),
                 descriptionSave.Trim(),
                 string.Empty,
@@ -825,8 +758,6 @@ namespace YAF.Pages
             var messageId = this.EditMessageID.Value;
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-
-            this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
             // remove cache if it exists...
             this.Get<IDataCache>()
@@ -854,14 +785,11 @@ namespace YAF.Pages
             }
 
             // Check if Forum is Moderated
-            DataRow forumInfo;
             var isForumModerated = false;
 
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-            {
-                forumInfo = dt.Rows[0];
-            }
-
+            var forumInfo = this.GetRepository<Forum>()
+                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
+            
             if (forumInfo != null)
             {
                 isForumModerated = this.CheckForumModerateStatus(forumInfo, true);
@@ -888,10 +816,8 @@ namespace YAF.Pages
                                    IsApproved = this.spamApproved
                                };
 
-            var blogPostId = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
-
             // Save to Db
-            topicId = LegacyDb.topic_save(
+            topicId = this.GetRepository<Topic>().Save(
                 this.PageContext.PageForumID,
                 this.TopicSubjectTextBox.Text.Trim(),
                 string.Empty,
@@ -899,11 +825,11 @@ namespace YAF.Pages
                 this.TopicDescriptionTextBox.Text.Trim(),
                 this._forumEditor.Text,
                 this.PageContext.PageUserID,
-                this.Priority.SelectedValue,
+                this.Priority.SelectedValue.ToType<int>(),
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                blogPostId,
+                string.Empty,
                 messageFlags.BitValue,
                 ref messageId);
 
@@ -940,13 +866,10 @@ namespace YAF.Pages
             }
 
             // Check if Forum is Moderated
-            DataRow forumInfo;
             var isForumModerated = false;
 
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-            {
-                forumInfo = dt.Rows[0];
-            }
+            var forumInfo = this.GetRepository<Forum>()
+                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
 
             if (forumInfo != null)
             {
@@ -976,14 +899,14 @@ namespace YAF.Pages
                                    IsApproved = isSpamApproved
                                };
 
-             LegacyDb.message_save(
-                this.TopicID.Value,
+            this.GetRepository<Message>().Save(
+               this.TopicID.Value,
                 this.PageContext.PageUserID,
                 this._forumEditor.Text,
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                replyTo,
+                replyTo.ToType<int>(),
                 messageFlags.BitValue,
                 ref messageId);
 
@@ -1194,7 +1117,7 @@ namespace YAF.Pages
 
             // Check if message is approved
             var isApproved = false;
-            using (var dt = LegacyDb.message_list(messageId))
+            using (var dt = this.GetRepository<Message>().ListAsDataTable(messageId.ToType<int>()))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -1260,7 +1183,7 @@ namespace YAF.Pages
                 // Not Approved
                 if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
                 {
-                    // not approved, notifiy moderators
+                    // not approved, notify moderators
                     this.Get<ISendNotification>()
                         .ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
@@ -1358,19 +1281,15 @@ namespace YAF.Pages
                 }
             }
 
-            DataRow forumInfo;
-
             // get  forum information
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-            {
-                forumInfo = dt.Rows[0];
-            }
+            var forumInfo = this.GetRepository<Types.Models.Forum>()
+                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
 
             // Ederon : 9/9/2007 - moderator can edit in locked topics
-            return ((!postLocked && !forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked)
-                     && !topicInfo.TopicFlags.IsLocked
-                     && (message.UserID.ToType<int>() == this.PageContext.PageUserID))
-                    || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumEditAccess;
+            return !postLocked && !forumInfo.ForumFlags.IsLocked
+                               && !topicInfo.TopicFlags.IsLocked
+                               && message.UserID.ToType<int>() == this.PageContext.PageUserID
+                    || this.PageContext.ForumModeratorAccess && this.PageContext.ForumEditAccess;
         }
 
         /// <summary>
@@ -1384,13 +1303,9 @@ namespace YAF.Pages
         /// </returns>
         private bool CanQuotePostCheck(Topic topicInfo)
         {
-            DataRow forumInfo;
-
             // get topic and forum information
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-            {
-                forumInfo = dt.Rows[0];
-            }
+            var forumInfo = this.GetRepository<Types.Models.Forum>()
+                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
 
             if (topicInfo == null || forumInfo == null)
             {
@@ -1398,8 +1313,8 @@ namespace YAF.Pages
             }
 
             // Ederon : 9/9/2007 - moderator can reply to locked topics
-            return (!forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked)
-                    && !topicInfo.TopicFlags.IsLocked || this.PageContext.ForumModeratorAccess)
+            return !forumInfo.ForumFlags.IsLocked
+                    && !topicInfo.TopicFlags.IsLocked || this.PageContext.ForumModeratorAccess
                    && this.PageContext.ForumReplyAccess;
         }
 
@@ -1609,26 +1524,26 @@ namespace YAF.Pages
         /// <returns>
         /// Returns if the forum needs to be moderated
         /// </returns>
-        private bool CheckForumModerateStatus(DataRow forumInfo, bool isNewTopic)
+        private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
         {
-            var forumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+            var forumModerated = forumInfo.ForumFlags.IsModerated;
 
             if (!forumModerated)
             {
                 return false;
             }
 
-            if (forumInfo["IsModeratedNewTopicOnly"].ToType<bool>() && !isNewTopic)
+            if (forumInfo.IsModeratedNewTopicOnly && !isNewTopic)
             {
                 return false;
             }
 
-            if (forumInfo["ModeratedPostCount"].IsNullOrEmptyDBField() || this.PageContext.IsGuest)
+            if (!forumInfo.ModeratedPostCount.HasValue || this.PageContext.IsGuest)
             {
                 return true;
             }
 
-            var moderatedPostCount = forumInfo["ModeratedPostCount"].ToType<int>();
+            var moderatedPostCount = forumInfo.ModeratedPostCount;
 
             return !(this.PageContext.CurrentUserData.NumPosts >= moderatedPostCount);
         }

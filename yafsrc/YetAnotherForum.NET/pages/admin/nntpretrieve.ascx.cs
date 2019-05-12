@@ -27,15 +27,16 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utilities;
     using YAF.Utils;
 
@@ -59,8 +60,8 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string LastMessageNo([NotNull] object _o)
         {
-            var row = (DataRowView)_o;
-            return "{0:N0}".FormatWith(row["LastMessageNo"]);
+            var row = (TypedNntpForum)_o;
+            return "{0:N0}".FormatWith(row.LastMessageNo);
         }
 
         /// <summary>
@@ -142,7 +143,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.List.DataSource = LegacyDb.nntpforum_list(this.PageContext.PageBoardID, 10, null, true);
+            this.List.DataSource = this.GetRepository<NntpForum>()
+                .NntpForumList(this.PageContext.PageBoardID, 10, null, true);
             this.DataBind();
         }
 

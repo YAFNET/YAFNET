@@ -29,15 +29,14 @@ namespace YAF.Core
     using System.Collections;
     using System.Web.Security;
     using System.Web.UI;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Core.Data.Profiling;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -153,13 +152,7 @@ namespace YAF.Core
         ///   Gets a value indicating whether CanLogin.
         /// </summary>
         [Obsolete("Useless property that always returns true. Do not use anymore.")]
-        public bool CanLogin
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public bool CanLogin => true;
 
         /// <summary>
         ///   Gets or sets DataCache.
@@ -185,13 +178,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets ForumURL.
         /// </summary>
-        public string ForumURL
-        {
-            get
-            {
-                return YafBuildLink.GetLink(ForumPages.forum, true);
-            }
-        }
+        public string ForumURL => YafBuildLink.GetLink(ForumPages.forum, true);
 
         /// <summary>
         ///   Gets or sets a value indicating whether Is Admin Page.
@@ -201,28 +188,16 @@ namespace YAF.Core
         /// <summary>
         ///   Gets a value indicating whether Is Host Admin Only.
         /// </summary>
-        public virtual bool IsHostAdminOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool IsHostAdminOnly => false;
 
         /// <summary>
         ///   Gets or sets a value indicating whether Is Protected.
         /// </summary>
         public virtual bool IsProtected
         {
-            get
-            {
-                return this._isProtected;
-            }
+            get => this._isProtected;
 
-            protected set
-            {
-                this._isProtected = value;
-            }
+            protected set => this._isProtected = value;
         }
 
         /// <summary>
@@ -233,13 +208,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the Localization.
         /// </summary>
-        public ILocalization Localization
-        {
-            get
-            {
-                return this.Get<ILocalization>();
-            }
-        }
+        public ILocalization Localization => this.Get<ILocalization>();
 
         /// <summary>
         ///   Gets or sets Logger.
@@ -255,36 +224,18 @@ namespace YAF.Core
         /// <summary>
         ///   Gets cache associated with this page.
         /// </summary>
-        public Hashtable PageCache
-        {
-            get
-            {
-                return this._pageCache;
-            }
-        }
+        public Hashtable PageCache => this._pageCache;
 
         /// <summary>
         ///   Gets the current forum Context (helper reference)
         /// </summary>
-        public YafContext PageContext
-        {
-            get
-            {
-                return this.PageContext();
-            }
-        }
+        public YafContext PageContext => this.PageContext();
 
         /// <summary>
         ///   Gets PageName.
         /// </summary>
         [NotNull]
-        public virtual string PageName
-        {
-            get
-            {
-                return this.GetType().Name.Replace("aspx", string.Empty);
-            }
-        }
+        public virtual string PageName => this.GetType().Name.Replace("aspx", string.Empty);
 
         /// <summary>
         ///   Gets or sets RefreshTime.
@@ -299,28 +250,16 @@ namespace YAF.Core
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return this.PageContext().ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => this.PageContext().ServiceLocator;
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowFooter.
         /// </summary>
         public bool ShowFooter
         {
-            get
-            {
-                return this._showFooter;
-            }
+            get => this._showFooter;
 
-            protected set
-            {
-                this._showFooter = value;
-            }
+            protected set => this._showFooter = value;
         }
 
         /// <summary>
@@ -330,15 +269,9 @@ namespace YAF.Core
         /// </summary>
         public bool ShowToolBar
         {
-            get
-            {
-                return this._showToolBar;
-            }
+            get => this._showToolBar;
 
-            protected set
-            {
-                this._showToolBar = value;
-            }
+            protected set => this._showToolBar = value;
         }
 
         /// <summary>
@@ -369,23 +302,14 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the current user.
         /// </summary>
-        public MembershipUser User
-        {
-            get
-            {
-                return this.PageContext.User;
-            }
-        }
+        public MembershipUser User => this.PageContext.User;
 
         /// <summary>
         ///   Sets a value indicating whether  Set to <see langword = "true" /> if this is the start page. Should only be set by the page that initialized the database.
         /// </summary>
         protected bool NoDataBase
         {
-            set
-            {
-                this._noDataBase = value;
-            }
+            set => this._noDataBase = value;
         }
 
         #endregion
@@ -473,25 +397,6 @@ namespace YAF.Core
             // this.PageLinks.AddRoot();
 
             // Page link creation goes to this method (overloads in descendant classes)
-        }
-
-        /// <summary>
-        /// Inserts the CSS refresh.
-        /// </summary>
-        /// <param name="addTo">The control to add.</param>
-        protected void InsertCssRefresh([NotNull] Control addTo)
-        {
-            if (this.RefreshURL == null || this.RefreshTime < 0)
-            {
-                return;
-            }
-
-            var refresh = new HtmlMeta
-                {
-                   HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) 
-                };
-
-            addTo.Controls.Add(refresh);
         }
 
         /// <summary>

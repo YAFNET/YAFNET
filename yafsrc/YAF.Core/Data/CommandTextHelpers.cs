@@ -26,6 +26,7 @@ namespace YAF.Core.Data
 {
     using YAF.Classes;
     using YAF.Types;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// Command Text Helpers
@@ -48,6 +49,20 @@ namespace YAF.Core.Data
             commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
             return commandText;
+        }
+
+        /// <summary>
+        /// Gets qualified object name
+        /// </summary>
+        /// <param name="name">
+        /// Base name of an object
+        /// </param>
+        /// <returns>
+        /// Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+        /// </returns>
+        public static string GetObjectName([NotNull] string name)
+        {
+            return "[{0}].[{1}{2}]".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
         }
     }
 }

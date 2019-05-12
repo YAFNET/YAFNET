@@ -63,13 +63,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserId
-        {
-            get
-            {
-                return Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]);
-            }
-        }
+        public int UserId => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]);
 
         #endregion
 

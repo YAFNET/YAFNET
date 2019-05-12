@@ -124,35 +124,17 @@ namespace YAF.Types
     /// <summary>
     ///   Gets BadWord.
     /// </summary>
-    public string BadWord
-    {
-      get
-      {
-        return this._badWord;
-      }
-    }
+    public string BadWord => this._badWord;
 
     /// <summary>
     ///   Gets BadWordRegEx.
     /// </summary>
-    public Regex BadWordRegEx
-    {
-      get
-      {
-        return this._regEx;
-      }
-    }
+    public Regex BadWordRegEx => this._regEx;
 
     /// <summary>
     ///   Gets GoodWord.
     /// </summary>
-    public string GoodWord
-    {
-      get
-      {
-        return this._goodWord;
-      }
-    }
+    public string GoodWord => this._goodWord;
 
     /// <summary>
     /// Gets or sets Options.

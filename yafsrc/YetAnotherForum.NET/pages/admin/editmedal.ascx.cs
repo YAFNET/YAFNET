@@ -35,9 +35,9 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
             }
 
             // save group, if there is no message specified, pass null
-            LegacyDb.group_medal_save(
+            this.GetRepository<Medal>().GroupMedalSave(
               this.AvailableGroupList.SelectedValue,
               this.CurrentMedalId,
               this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
@@ -213,13 +213,13 @@ namespace YAF.Pages.Admin
             }
 
             // save user, if there is no message specified, pass null
-            LegacyDb.user_medal_save(
-              this.UserID.Text,
+            this.GetRepository<UserMedal>().Save(
+              this.UserID.Text.ToType<int>(),
               this.CurrentMedalId,
               this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
               this.UserHide.Checked,
               this.UserOnlyRibbon.Checked,
-              this.UserSortOrder.Text,
+              this.UserSortOrder.Text.ToType<int>(),
               null);
 
             if (this.Get<YafBoardSettings>().EmailUserOnMedalAward)
@@ -413,7 +413,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // load group-medal to the controls
-                    using (var dt = LegacyDb.group_medal_list(e.CommandArgument, this.CurrentMedalId))
+                    using (var dt = this.GetRepository<Medal>().GroupMedalListAsDataTable(e.CommandArgument, this.CurrentMedalId))
                     {
                         // prepare editing interface
                         this.AddGroupClick(null, e);
@@ -439,7 +439,9 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "remove":
-                    LegacyDb.group_medal_delete(e.CommandArgument, this.CurrentMedalId);
+                    this.GetRepository<GroupMedal>().Delete(
+                        medal => medal.GroupID == e.CommandArgument.ToType<int>()
+                                 && medal.MedalID == this.CurrentMedalId);
 
                     // remove all user medals...
                     this.RemoveMedalsFromCache();
@@ -607,7 +609,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // load user-medal to the controls
-                    using (var dt = LegacyDb.user_medal_list(e.CommandArgument, this.CurrentMedalId))
+                    using (var dt = this.GetRepository<UserMedal>().ListAsDataTable(e.CommandArgument.ToType<int>(), this.CurrentMedalId))
                     {
                         // prepare editing interface
                         this.AddUserClick(null, e);
@@ -633,7 +635,9 @@ namespace YAF.Pages.Admin
                 case "remove":
 
                     // delete user-medal
-                    LegacyDb.user_medal_delete(e.CommandArgument, this.CurrentMedalId);
+                    this.GetRepository<UserMedal>().Delete(
+                        medal => medal.UserID == e.CommandArgument.ToType<int>()
+                                 && medal.MedalID == this.CurrentMedalId);
 
                     // clear cache...
                     this.RemoveUserFromCache(this.CurrentMedalId.Value);
@@ -719,9 +723,10 @@ namespace YAF.Pages.Admin
             if (this.CurrentMedalId.HasValue)
             {
                 // load users and groups who has been assigned this medal
-                this.UserList.DataSource = LegacyDb.user_medal_list(null, this.CurrentMedalId);
+                this.UserList.DataSource = this.GetRepository<UserMedal>().GetSingle(m => m.MedalID == this.CurrentMedalId.Value);
                 this.UserList.DataBind();
-                this.GroupList.DataSource = LegacyDb.group_medal_list(null, this.CurrentMedalId);
+
+                this.GroupList.DataSource = this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
                 this.GroupList.DataBind();
 
                 // enable adding users/groups

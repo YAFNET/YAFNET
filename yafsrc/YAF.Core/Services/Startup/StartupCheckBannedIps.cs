@@ -30,7 +30,6 @@ namespace YAF.Core.Services.Startup
 
     using YAF.Classes;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

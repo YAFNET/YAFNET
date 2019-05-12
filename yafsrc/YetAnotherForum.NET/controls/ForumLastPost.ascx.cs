@@ -72,15 +72,9 @@ namespace YAF.Controls
         [NotNull]
         public string Alt
         {
-            get
-            {
-                return string.IsNullOrEmpty(this.alt) ? string.Empty : this.alt;
-            }
+            get => string.IsNullOrEmpty(this.alt) ? string.Empty : this.alt;
 
-            set
-            {
-                this.alt = value;
-            }
+            set => this.alt = value;
         }
 
         /// <summary>

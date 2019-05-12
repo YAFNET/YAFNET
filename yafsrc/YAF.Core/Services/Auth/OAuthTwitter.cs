@@ -27,7 +27,6 @@ namespace YAF.Core.Services.Auth
     #region
 
     using System;
-    using System.Collections.Specialized;
     using System.Web;
 
     using YAF.Types.Extensions;
@@ -103,15 +102,9 @@ namespace YAF.Core.Services.Auth
         /// </value>
         public string CallBackUrl
         {
-            get
-            {
-                return this._callBackUrl;
-            }
+            get => this._callBackUrl;
 
-            set
-            {
-                this._callBackUrl = value;
-            }
+            set => this._callBackUrl = value;
         }
 
         /// <summary>
@@ -119,15 +112,9 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         public string ConsumerKey
         {
-            get
-            {
-                return this._consumerKey;
-            }
+            get => this._consumerKey;
 
-            set
-            {
-                this._consumerKey = value;
-            }
+            set => this._consumerKey = value;
         }
 
         /// <summary>
@@ -135,15 +122,9 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         public string ConsumerSecret
         {
-            get
-            {
-                return this._consumerSecret;
-            }
+            get => this._consumerSecret;
 
-            set
-            {
-                this._consumerSecret = value;
-            }
+            set => this._consumerSecret = value;
         }
 
         /// <summary>
@@ -151,15 +132,9 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         public string OAuthToken
         {
-            get
-            {
-                return this._oauthToken;
-            }
+            get => this._oauthToken;
 
-            set
-            {
-                this._oauthToken = value;
-            }
+            set => this._oauthToken = value;
         }
 
         /// <summary>
@@ -167,15 +142,9 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         public string PIN
         {
-            get
-            {
-                return this._pin;
-            }
+            get => this._pin;
 
-            set
-            {
-                this._pin = value;
-            }
+            set => this._pin = value;
         }
 
         /// <summary>
@@ -183,15 +152,9 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         public string Token
         {
-            get
-            {
-                return this._token;
-            }
+            get => this._token;
 
-            set
-            {
-                this._token = value;
-            }
+            set => this._token = value;
         }
 
         /// <summary>
@@ -199,15 +162,9 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         public string TokenSecret
         {
-            get
-            {
-                return this._tokenSecret;
-            }
+            get => this._tokenSecret;
 
-            set
-            {
-                this._tokenSecret = value;
-            }
+            set => this._tokenSecret = value;
         }
 
         #endregion

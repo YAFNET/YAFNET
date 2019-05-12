@@ -32,7 +32,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -41,7 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -220,16 +218,14 @@ namespace YAF.Pages.Admin
 
             if (!forumId.HasValue)
             {
-                // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
-                using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null))
+                var sortOrder = 1;
+
+                try
                 {
-                    var sortOrder = 1;
+                        // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
+                        var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null).OrderByDescending(a => a.SortOrder).FirstOrDefault();
 
-                    try
-                    {
-                        var highestRow = dt.Rows[dt.Rows.Count - 1];
-
-                        sortOrder = (short)highestRow["SortOrder"] + sortOrder;
+                        sortOrder = forum.SortOrder + sortOrder;
                     }
                     catch
                     {
@@ -239,26 +235,25 @@ namespace YAF.Pages.Admin
                     this.SortOrder.Text = sortOrder.ToString();
 
                     return;
-                }
+                
             }
 
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
-            {
-                var row = dt.Rows[0];
-                var flags = new ForumFlags(row["Flags"]);
-                this.Name.Text = row["Name"].ToString();
-                this.Description.Text = row["Description"].ToString();
-                this.SortOrder.Text = row["SortOrder"].ToString();
-                this.HideNoAccess.Checked = flags.IsHidden;
-                this.Locked.Checked = flags.IsLocked;
-                this.IsTest.Checked = flags.IsTest;
+            var dt = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId.Value);
+            
+                var row = dt.FirstOrDefault();
+                this.Name.Text = row.Name;
+                this.Description.Text = row.Description;
+                this.SortOrder.Text = row.SortOrder.ToString();
+                this.HideNoAccess.Checked = row.ForumFlags.IsHidden;
+                this.Locked.Checked = row.ForumFlags.IsLocked;
+                this.IsTest.Checked = row.ForumFlags.IsTest;
                 this.ForumNameTitle.Text = this.Label1.Text = this.Name.Text;
-                this.Moderated.Checked = flags.IsModerated;
+                this.Moderated.Checked = row.ForumFlags.IsModerated;
 
                 this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
                 this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;
 
-                if (row["ModeratedPostCount"].IsNullOrEmptyDBField())
+                if (!row.ModeratedPostCount.HasValue)
                 {
                     this.ModerateAllPosts.Checked = true;
                 }
@@ -266,43 +261,43 @@ namespace YAF.Pages.Admin
                 {
                     this.ModerateAllPosts.Checked = false;
                     this.ModeratedPostCount.Visible = true;
-                    this.ModeratedPostCount.Text = row["ModeratedPostCount"].ToString();
+                    this.ModeratedPostCount.Text = row.ModeratedPostCount.Value.ToString();
                 }
 
-                this.ModerateNewTopicOnly.Checked = row["IsModeratedNewTopicOnly"].ToType<bool>();
+                this.ModerateNewTopicOnly.Checked = row.IsModeratedNewTopicOnly;
 
-                this.Styles.Text = row["Styles"].ToString();
+                this.Styles.Text = row.Styles;
 
-                this.CategoryList.SelectedValue = row["CategoryID"].ToString();
+                this.CategoryList.SelectedValue = row.CategoryID.ToString();
 
                 this.Preview.Src =
                     YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
 
-                var item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
+                var item = this.ForumImages.Items.FindByText(row.ImageURL);
                 if (item != null)
                 {
                     item.Selected = true;
                     this.Preview.Src = "{0}{2}/{1}".FormatWith(
                         YafForumInfo.ForumClientFileRoot,
-                        row["ImageURL"],
+                        row.ImageURL,
                         YafBoardFolders.Current.Forums); // path corrected
                 }
 
                 // populate parent forums list with forums according to selected category
                 this.BindParentList();
 
-                if (!row.IsNull("ParentID"))
+                if (row.ParentID.HasValue)
                 {
-                    this.ParentList.SelectedValue = row["ParentID"].ToString();
+                    this.ParentList.SelectedValue = row.ParentID.ToString();
                 }
 
-                if (!row.IsNull("ThemeURL"))
+                if (row.ThemeURL.IsSet())
                 {
-                    this.ThemeList.SelectedValue = row["ThemeURL"].ToString();
+                    this.ThemeList.SelectedValue = row.ThemeURL;
                 }
 
-                this.remoteurl.Text = row["RemoteURL"].ToString();
-            }
+                this.remoteurl.Text = row.RemoteURL;
+            
 
             this.NewGroupRow.Visible = false;
         }
@@ -414,9 +409,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ParentList.DataSource = LegacyDb.forum_listall_fromCat(
+            this.ParentList.DataSource = this.GetRepository<Forum>().ListAllFromCatAsDataTable(
                 this.PageContext.PageBoardID,
-                this.CategoryList.SelectedValue);
+                this.CategoryList.SelectedValue.ToType<int>());
+
             this.ParentList.DataValueField = "ForumID";
             this.ParentList.DataTextField = "Title";
             this.ParentList.DataBind();
@@ -518,11 +514,11 @@ namespace YAF.Pages.Admin
             var forumId = this.GetQueryStringAsInt("fa");
             var forumCopyId = this.GetQueryStringAsInt("copy");
 
-            object parentId = null;
+            int? parentId = null;
 
             if (this.ParentList.SelectedValue.Length > 0)
             {
-                parentId = this.ParentList.SelectedValue;
+                parentId = this.ParentList.SelectedValue.ToType<int>();
             }
 
             // parent selection check.
@@ -536,7 +532,7 @@ namespace YAF.Pages.Admin
             // If we update a forum ForumID > 0 
             if (forumId.HasValue && parentId != null)
             {
-                var dependency = LegacyDb.forum_save_parentschecker(forumId.Value, parentId);
+                var dependency = this.GetRepository<Forum>().SaveParentschecker(forumId.Value, parentId.Value);
                 if (dependency > 0)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
@@ -559,10 +555,10 @@ namespace YAF.Pages.Admin
             // duplicate name checking...
             if (!forumId.HasValue)
             {
-                var forumList = LegacyDb.forum_list(this.PageContext.PageBoardID, null).AsEnumerable();
+                var forumList = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null);
 
                 if (forumList.Any() && !this.Get<YafBoardSettings>().AllowForumsWithSameName
-                                    && forumList.Any(dr => dr.Field<string>("Name") == this.Name.Text.Trim()))
+                                    && forumList.Any(dr => dr.Name == this.Name.Text.Trim()))
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
@@ -578,7 +574,7 @@ namespace YAF.Pages.Admin
                 themeUrl = this.ThemeList.SelectedValue;
             }
 
-            var newForumId = LegacyDb.forum_save(
+            var newForumId = this.GetRepository<Forum>().Save(
                 forumId,
                 this.CategoryList.SelectedValue,
                 parentId,

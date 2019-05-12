@@ -31,7 +31,6 @@ namespace YAF.Core
     using System.Web.Security;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Exceptions;
@@ -51,7 +50,7 @@ namespace YAF.Core
         /// <summary>
         /// The _current board row.
         /// </summary>
-        private DataRow _currentBoardRow;
+        private DataRow currentBoardRow;
 
         #endregion
 
@@ -60,12 +59,12 @@ namespace YAF.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="YafLoadBoardSettings"/> class.
         /// </summary>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
-        public YafLoadBoardSettings([NotNull] int boardID)
+        public YafLoadBoardSettings([NotNull] int boardId)
         {
-            this._boardID = boardID;
+            this._boardID = boardId;
 
             // get all the registry values for the forum
             this.LoadBoardSettingsFromDB();
@@ -82,9 +81,9 @@ namespace YAF.Core
         {
             get
             {
-                if (this._currentBoardRow != null)
+                if (this.currentBoardRow != null)
                 {
-                    return this._currentBoardRow;
+                    return this.currentBoardRow;
                 }
 
                 var dataTable = YafContext.Current.GetRepository<Board>().List(this._boardID);
@@ -94,9 +93,9 @@ namespace YAF.Core
                     throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
                 }
 
-                this._currentBoardRow = dataTable.Rows[0];
+                this.currentBoardRow = dataTable.Rows[0];
 
-                return this._currentBoardRow;
+                return this.currentBoardRow;
             }
         }
 
@@ -160,12 +159,12 @@ namespace YAF.Core
             // loop through all values and commit them to the DB
             foreach (var key in this._reg.Keys)
             {
-                LegacyDb.registry_save(key, this._reg[key]);
+                YafContext.Current.GetRepository<Registry>().Save(key, this._reg[key]);
             }
 
             foreach (var key in this._regBoard.Keys)
             {
-                LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
+                YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID);
             }
         }
 
@@ -178,7 +177,7 @@ namespace YAF.Core
 
             if (this._regBoard.ContainsKey(key))
             {
-                LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
+                YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID);
             }
         }
 
@@ -193,7 +192,7 @@ namespace YAF.Core
         {
             DataTable dataTable;
 
-            using (dataTable = LegacyDb.registry_list())
+            using (dataTable = YafContext.Current.GetRepository<Registry>().List())
             {
                 // get all the registry settings into our hash table
                 foreach (DataRow dr in dataTable.Rows)
@@ -202,7 +201,7 @@ namespace YAF.Core
                 }
             }
 
-            using (dataTable = LegacyDb.registry_list(null, this._boardID))
+            using (dataTable = YafContext.Current.GetRepository<Registry>().List(null, this._boardID))
             {
                 // get all the registry settings into our hash table
                 foreach (DataRow dr in dataTable.Rows)

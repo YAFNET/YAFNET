@@ -32,7 +32,6 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
@@ -67,10 +66,7 @@ namespace YAF.Controls
         /// </summary>
         public DataRow DataRow
         {
-            set
-            {
-                this.CurrentMessage = value != null ? new Message(value) : null;
-            }
+            set => this.CurrentMessage = value != null ? new Message(value) : null;
         }
 
         /// <summary>
@@ -81,10 +77,7 @@ namespace YAF.Controls
         /// </value>
         public Message CurrentMessage
         {
-            get
-            {
-                return this.currentMessage;
-            }
+            get => this.currentMessage;
 
             set
             {
@@ -96,35 +89,17 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets Edited.
         /// </summary>
-        public DateTime Edited
-        {
-            get
-            {
-                return this.CurrentMessage.Edited ?? this.CurrentMessage.Posted;
-            }
-        }
+        public DateTime Edited => this.CurrentMessage.Edited ?? this.CurrentMessage.Posted;
 
         /// <summary>
         ///   Gets Message.
         /// </summary>
-        public override string Message
-        {
-            get
-            {
-                return TruncateMessage(this.CurrentMessage.MessageText ?? string.Empty);
-            }
-        }
+        public override string Message => TruncateMessage(this.CurrentMessage.MessageText ?? string.Empty);
 
         /// <summary>
         ///   Gets Message Id.
         /// </summary>
-        public int? MessageId
-        {
-            get
-            {
-                return this.CurrentMessage.ID == 0 ? null : this.CurrentMessage.ID.ToType<int?>();
-            }
-        }
+        public int? MessageId => this.CurrentMessage.ID == 0 ? null : this.CurrentMessage.ID.ToType<int?>();
 
         /// <summary>
         ///   Gets or sets a value indicating whether Show the Edit Message if needed.

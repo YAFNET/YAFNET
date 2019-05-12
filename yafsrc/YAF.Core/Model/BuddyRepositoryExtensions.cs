@@ -24,18 +24,13 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
-    using System.Runtime.CompilerServices;
 
     using ServiceStack.OrmLite;
-    using ServiceStack.OrmLite.Dapper;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -47,21 +42,6 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Gets all the buddies of a certain user.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="fromUserID">From user identifier.</param>
-        /// <returns>
-        /// The <see cref="DataTable" /> containing the buddy list.
-        /// </returns>
-        public static DataTable List(this IRepository<Buddy> repository, int fromUserID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.buddy_list(FromUserID: fromUserID);
-        }
-        /*
-        /// <summary>
         /// Adds a buddy request. (Should be approved later by "ToUserID")
         /// </summary>
         /// <param name="FromUserID">The from user id.</param>
@@ -70,30 +50,34 @@ namespace YAF.Core.Model
         /// <returns>
         /// The name of the second user + Whether this request is approved or not.
         /// </returns>
+        [NotNull]
         public static string[] AddRequest(
-            this IRepository<Buddy> repository, 
-            int fromUserID,
-            int toUserID,
-            bool useDisplayName)
+            this IRepository<Buddy> repository,
+            [NotNull] int FromUserId,
+            [NotNull] int ToUserId,
+            [NotNull] bool useDisplayName)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            IDbDataParameter parameterOutput = null;
+            IDbDataParameter parameterApproved = null;
 
-            bool approved = false;
-            string paramOutput = null;
+            repository.SqlList(
+                "buddy_addrequest",
+                cmd =>
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-            repository.DbFunction.Query.buddy_addrequest(
-                    FromUserID: fromUserID,
-                    ToUserID: toUserID,
-                    UTCTIMESTAMP: DateTime.UtcNow,
-                    approved: out approved,
-                    UseDisplayName: useDisplayName,
-                    paramOutput: out paramOutput);
+                        cmd.AddParam("FromUserID", FromUserId);
+                        cmd.AddParam("ToUserID", ToUserId);
+                        cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+                        cmd.AddParam("UseDisplayName", useDisplayName);
 
-            //return new[] { paramOutput, approved.ToString() };
+                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
+                        parameterApproved = cmd.AddParam("approved", direction: ParameterDirection.Output);
+                    });
 
-            
-        }*/
-        
+            return new[] { parameterOutput.Value.ToString(), parameterApproved.Value.ToString() };
+        }
+
         /// <summary>
         /// Approves a buddy request.
         /// </summary>
@@ -109,24 +93,34 @@ namespace YAF.Core.Model
         /// <returns>
         /// the name of the second user.
         /// </returns>
-        public static string ApproveRequest(this IRepository<Buddy> repository, int fromUserID, int toUserID, bool mutual, bool useDisplayName)
+        [NotNull]
+        public static string ApproveRequest(
+            this IRepository<Buddy> repository,
+            [NotNull] int FromUserID,
+            [NotNull] int ToUserID,
+            [NotNull] bool Mutual,
+            [NotNull] bool useDisplayName)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            IDbDataParameter parameterOutput = null;
 
-            var parameters = new DynamicParameters();
+            repository.SqlList(
+                "buddy_approverequest",
+                cmd =>
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-            parameters.Add("@FromUserID", fromUserID);
-            parameters.Add("@ToUserID", toUserID);
-            parameters.Add("@mutual", mutual);
-            parameters.Add("@UTCTIMESTAMP", DateTime.UtcNow);
-            parameters.Add("@UseDisplayName", useDisplayName);
-            parameters.Add("@paramOutput", dbType: DbType.String, direction: ParameterDirection.Output);
+                        cmd.AddParam("FromUserID", FromUserID);
+                        cmd.AddParam("ToUserID", ToUserID);
+                        cmd.AddParam("mutual", Mutual);
+                        cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+                        cmd.AddParam("UseDisplayName", useDisplayName);
 
-            repository.DbAccess.GetCommand().Execute("buddy_addrequest", parameters, CommandType.StoredProcedure);
+                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
+                    });
 
-            return parameters.Get<string>("@paramOutput");
+            return parameterOutput.Value.ToString();
         }
-        /*
+
         /// <summary>
         /// Denies a buddy request.
         /// </summary>
@@ -137,22 +131,29 @@ namespace YAF.Core.Model
         /// the name of the second user.
         /// </returns>
         [NotNull]
-        public static string DenyRequest(this IRepository<Buddy> repository, int fromUserID, int toUserID, bool useDisplayName)
+        public static string DenyRequest(
+            this IRepository<Buddy> repository,
+            [NotNull] int FromUserID,
+            [NotNull] int ToUserID,
+            [NotNull] bool useDisplayName)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            IDbDataParameter parameterOutput = null;
 
-            string paramOutput = null;
+            repository.SqlList(
+                "buddy_denyrequest",
+                cmd =>
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-            repository.DbFunction.Query.buddy_denyrequest(
-                    FromUserID: fromUserID,
-                    ToUserID: toUserID,
-                    UseDisplayName: useDisplayName,
-                    paramOutput: out paramOutput);
+                        cmd.AddParam("FromUserID", FromUserID);
+                        cmd.AddParam("ToUserID", ToUserID);
+                        cmd.AddParam("UseDisplayName", useDisplayName);
 
-            return paramOutput;
+                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
+                    });
+
+            return parameterOutput.Value.ToString();
         }
-
-        
 
         /// <summary>
         /// Removes the "ToUserID" from "FromUserID"'s buddy list.
@@ -164,21 +165,44 @@ namespace YAF.Core.Model
         /// The name of the second user.
         /// </returns>
         [NotNull]
-        public static string Remove(this IRepository<Buddy> repository, int fromUserID, int toUserID, bool useDisplayName)
+        public static string Remove(
+            this IRepository<Buddy> repository,
+            [NotNull] int FromUserID,
+            [NotNull] int ToUserID,
+            [NotNull] bool useDisplayName)
+        {
+            IDbDataParameter parameterOutput = null;
+
+            repository.SqlList(
+                "buddy_remove",
+                cmd =>
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.AddParam("FromUserID", FromUserID);
+                        cmd.AddParam("ToUserID", ToUserID);
+                        cmd.AddParam("UseDisplayName", useDisplayName);
+
+                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
+                    });
+
+            return parameterOutput.Value.ToString();
+        }
+
+        /// <summary>
+        /// Gets all the buddies of a certain user.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="fromUserID">From user identifier.</param>
+        /// <returns>
+        /// The <see cref="DataTable" /> containing the buddy list.
+        /// </returns>
+        public static DataTable List(this IRepository<Buddy> repository, int fromUserID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            string paramOutput = null;
-
-            var test = repository.DbFunction.Query.buddy_remove(
-                    FromUserID: fromUserID,
-                    ToUserID: toUserID,
-                    UseDisplayName: useDisplayName,
-                    paramOutput: out paramOutput);
-
-
-           return test.ToString();
-        }*/
+            return repository.DbFunction.GetData.buddy_list(FromUserID: fromUserID);
+        }
 
         #endregion
     }

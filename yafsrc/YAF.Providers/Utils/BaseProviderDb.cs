@@ -8,18 +8,12 @@ using YAF.Types.Interfaces.Data;
 namespace YAF.Providers.Utils
 {
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
-
-    using YAF.Types.Interfaces;
 
     public class BaseProviderDb
     {
         internal static ConcurrentDictionary<string, string> ProviderConnectionStrings = new ConcurrentDictionary<string, string>();
 
-        protected IDbAccess DbAccess
-        {
-            get { return this._dbAccess.Value; }
-        }
+        protected IDbAccess DbAccess => this._dbAccess.Value;
 
         /// <summary>
         ///   The _db access.

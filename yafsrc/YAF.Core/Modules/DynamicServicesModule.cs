@@ -40,13 +40,7 @@ namespace YAF.Core.Modules
     {
         #region Public Properties
 
-        public override int SortOrder
-        {
-            get
-            {
-                return 500;
-            }
-        }
+        public override int SortOrder => 500;
 
         #endregion
 

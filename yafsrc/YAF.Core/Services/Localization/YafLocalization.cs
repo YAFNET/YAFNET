@@ -120,15 +120,10 @@ namespace YAF.Core.Services.Localization
         ///   Gets LanguageCode.
         /// </summary>
         [NotNull]
-        public string LanguageCode
-        {
-            get
-            {
-                return this.localizer != null
-                           ? this.localizer.CurrentCulture.TwoLetterISOLanguageName
-                           : this.LoadTranslation().TwoLetterISOLanguageName;
-            }
-        }
+        public string LanguageCode =>
+            this.localizer != null
+                ? this.localizer.CurrentCulture.TwoLetterISOLanguageName
+                : this.LoadTranslation().TwoLetterISOLanguageName;
 
         /// <summary>
         ///   Gets LanguageFileName.
@@ -143,13 +138,7 @@ namespace YAF.Core.Services.Localization
         /// <summary>
         ///   Gets a value indicating whether TranslationLoaded.
         /// </summary>
-        public bool TranslationLoaded
-        {
-            get
-            {
-                return this.localizer != null;
-            }
-        }
+        public bool TranslationLoaded => this.localizer != null;
 
         #endregion
 

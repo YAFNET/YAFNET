@@ -35,13 +35,14 @@ namespace YAF.Controls
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -80,7 +81,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAvatar_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            LegacyDb.user_deleteavatar(this.currentUserId);
+            this.GetRepository<User>().DeleteAvatar(this.currentUserId);
 
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
@@ -114,7 +115,7 @@ namespace YAF.Controls
             if (this.Request.QueryString.GetFirstOrDefault("av") != null)
             {
                 // save the avatar right now...
-                LegacyDb.user_saveavatar(
+                this.GetRepository<User>().SaveAvatar(
                     this.currentUserId,
                     "{0}{1}".FormatWith(
                         BaseUrlBuilder.BaseUrl,
@@ -164,7 +165,7 @@ namespace YAF.Controls
             }
 
             // update
-            LegacyDb.user_saveavatar(this.currentUserId, this.Avatar.Text.Trim(), null, null);
+            this.GetRepository<User>().SaveAvatar(this.currentUserId, this.Avatar.Text.Trim(), null, null);
 
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
@@ -211,7 +212,7 @@ namespace YAF.Controls
                 }
 
                 // Delete old first...
-                LegacyDb.user_deleteavatar(this.currentUserId);
+                this.GetRepository<User>().DeleteAvatar(this.currentUserId);
 
                 if (this.Get<YafBoardSettings>().UseFileTable)
                 {
@@ -221,7 +222,7 @@ namespace YAF.Controls
                     image.Save(memoryStream, image.RawFormat);
                     memoryStream.Position = 0;
 
-                    LegacyDb.user_saveavatar(this.currentUserId, null, memoryStream, this.File.PostedFile.ContentType);
+                    this.GetRepository<User>().SaveAvatar(this.currentUserId, null, memoryStream, this.File.PostedFile.ContentType);
                 }
                 else
                 {
@@ -272,7 +273,7 @@ namespace YAF.Controls
                         }
                     }
 
-                    LegacyDb.user_saveavatar(
+                    this.GetRepository<User>().SaveAvatar(
                         this.currentUserId,
                         "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Uploads, newFileName),
                         null,
@@ -315,7 +316,7 @@ namespace YAF.Controls
         {
             DataRow row;
 
-            using (var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserId, null))
+            using (var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.currentUserId, null))
             {
                 row = dt.Rows[0];
             }

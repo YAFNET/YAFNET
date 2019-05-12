@@ -67,7 +67,7 @@ namespace YAF.Controls
             {
                 if (this.activeUserTable == null)
                 {
-                    // read there data from viewstate
+                    // read there data from view state
                     if (this.ViewState["ActiveUserTable"] != null)
                     {
                         // cast it
@@ -75,13 +75,13 @@ namespace YAF.Controls
                     }
                 }
 
-                // return datatable
+                // return data table
                 return this.activeUserTable;
             }
 
             set
             {
-                // save it to viewstate
+                // save it to view state
                 this.ViewState["ActiveUserTable"] = value;
 
                 // save it also to local variable to avoid repetitive casting from viewstate in getter
@@ -94,16 +94,11 @@ namespace YAF.Controls
         /// </summary>
         public bool TreatGuestAsHidden
         {
-            get
-            {
-                return this.ViewState["TreatGuestAsHidden"] != null
-                       && Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
-            }
+            get =>
+                this.ViewState["TreatGuestAsHidden"] != null
+                && Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
 
-            set
-            {
-                this.ViewState["TreatGuestAsHidden"] = value;
-            }
+            set => this.ViewState["TreatGuestAsHidden"] = value;
         }
 
         /// <summary> 
@@ -116,16 +111,9 @@ namespace YAF.Controls
         /// </remarks> 
         public string InstantId
         {
-            get
-            {
-                // return string.empty for null. 
-                return (this.ViewState["InstantId"] as string) + string.Empty;
-            }
+            get => (this.ViewState["InstantId"] as string) + string.Empty;
 
-            set
-            {
-                this.ViewState["InstantId"] = value;
-            }
+            set => this.ViewState["InstantId"] = value;
         }
 
         #endregion

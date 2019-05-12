@@ -158,10 +158,7 @@ namespace YAF.Core.Services.CheckForSpam
         [NotNull]
         public string ApiKey
         {
-            get
-            {
-                return this.apiKey ?? string.Empty;
-            }
+            get => this.apiKey ?? string.Empty;
 
             set
             {
@@ -176,15 +173,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// <value>The proxy.</value>
         public IWebProxy Proxy
         {
-            get
-            {
-                return this.proxy;
-            }
+            get => this.proxy;
 
-            set
-            {
-                this.proxy = value;
-            }
+            set => this.proxy = value;
         }
 
         /// <summary>
@@ -193,15 +184,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// <value>The blog URL.</value>
         public Uri RootUrl
         {
-            get
-            {
-                return this.rootUrl;
-            }
+            get => this.rootUrl;
 
-            set
-            {
-                this.rootUrl = value;
-            }
+            set => this.rootUrl = value;
         }
 
         /// <summary>
@@ -211,15 +196,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// <value>The timeout.</value>
         public int Timeout
         {
-            get
-            {
-                return this.timeout;
-            }
+            get => this.timeout;
 
-            set
-            {
-                this.timeout = value;
-            }
+            set => this.timeout = value;
         }
 
         /// <summary>
@@ -231,15 +210,9 @@ namespace YAF.Core.Services.CheckForSpam
         [NotNull]
         public string UserAgent
         {
-            get
-            {
-                return this.userAgent ?? BuildUserAgent("Subkismet");
-            }
+            get => this.userAgent ?? BuildUserAgent("Subkismet");
 
-            set
-            {
-                this.userAgent = value;
-            }
+            set => this.userAgent = value;
         }
 
         /// <summary>

@@ -26,8 +26,6 @@ namespace YAF.Types.Flags
   #region Using
 
   using System;
-  using System.Runtime.Serialization;
-  using System.Security;
 
   #endregion
 
@@ -103,15 +101,9 @@ namespace YAF.Types.Flags
     /// </summary>
     public int BitValue
     {
-      get
-      {
-        return this._bitValue;
-      }
+      get => this._bitValue;
 
-      set
-      {
-        this._bitValue = value;
-      }
+      set => this._bitValue = value;
     }
 
     #endregion
@@ -125,15 +117,9 @@ namespace YAF.Types.Flags
     /// <returns>Boolean value indicating whether bit at position specified by index is set or not.</returns>
     public bool this[int index]
     {
-      get
-      {
-        return GetBitAsBool(this._bitValue, index);
-      }
+      get => GetBitAsBool(this._bitValue, index);
 
-      set
-      {
-        this._bitValue = SetBitFromBool(this._bitValue, index, value);
-      }
+      set => this._bitValue = SetBitFromBool(this._bitValue, index, value);
     }
 
     #endregion

@@ -30,14 +30,15 @@ namespace YAF.Pages.Admin
     using System.Data;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -54,24 +55,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserId
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"].ToType<int>();
-            }
-        }
+        protected int CurrentUserId => this.PageContext.QueryIDs["u"].ToType<int>();
 
         /// <summary>
         ///   Gets a value indicating whether Is Guest User.
         /// </summary>
-        protected bool IsGuestUser
-        {
-            get
-            {
-                return UserMembershipHelper.IsGuestUser(this.CurrentUserId);
-            }
-        }
+        protected bool IsGuestUser => UserMembershipHelper.IsGuestUser(this.CurrentUserId);
 
         #endregion
 
@@ -113,7 +102,7 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserId, null);
+            var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserId, null);
 
             if (dt.Rows.Count != 1)
             {

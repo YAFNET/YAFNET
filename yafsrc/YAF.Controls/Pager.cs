@@ -75,15 +75,9 @@ namespace YAF.Controls
         /// </summary>
         public int Count
         {
-            get
-            {
-                return this.ViewState["Count"].ToType<int?>() ?? 0;
-            }
+            get => this.ViewState["Count"].ToType<int?>() ?? 0;
 
-            set
-            {
-                this.ViewState["Count"] = value;
-            }
+            set => this.ViewState["Count"] = value;
         }
 
         /// <summary>
@@ -91,15 +85,9 @@ namespace YAF.Controls
         /// </summary>
         public int CurrentPageIndex
         {
-            get
-            {
-                return (this.ViewState["CurrentPageIndex"] ?? 0).ToType<int>();
-            }
+            get => (this.ViewState["CurrentPageIndex"] ?? 0).ToType<int>();
 
-            set
-            {
-                this.ViewState["CurrentPageIndex"] = value;
-            }
+            set => this.ViewState["CurrentPageIndex"] = value;
         }
 
         /// <summary>
@@ -107,15 +95,9 @@ namespace YAF.Controls
         /// </summary>
         public string LinkedPager
         {
-            get
-            {
-                return (string)this.ViewState["LinkedPager"];
-            }
+            get => (string)this.ViewState["LinkedPager"];
 
-            set
-            {
-                this.ViewState["LinkedPager"] = value;
-            }
+            set => this.ViewState["LinkedPager"] = value;
         }
 
         /// <summary>
@@ -123,15 +105,9 @@ namespace YAF.Controls
         /// </summary>
         public int PageSize
         {
-            get
-            {
-                return (int?)this.ViewState["PageSize"] ?? 20;
-            }
+            get => (int?)this.ViewState["PageSize"] ?? 20;
 
-            set
-            {
-                this.ViewState["PageSize"] = value;
-            }
+            set => this.ViewState["PageSize"] = value;
         }
 
         /// <summary>

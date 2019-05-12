@@ -4012,27 +4012,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}rank_list](@BoardID int,@RankID int=null) as begin
-        if @RankID is null
-        select
-            a.*
-        from
-            [{databaseOwner}].[{objectQualifier}Rank] a
-        where
-            a.BoardID=@BoardID
-        order by
-            a.SortOrder,
-            a.Name
-    else
-        select
-            a.*
-        from
-            [{databaseOwner}].[{objectQualifier}Rank] a
-        where
-            a.RankID = @RankID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}rank_save](
     @RankID		int,
     @BoardID	int,
@@ -6775,29 +6754,6 @@ begin
         join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND f.Style IS NOT NULL ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where r.RankID = [{databaseOwner}].[{objectQualifier}User].RankID))
         WHERE UserID = @UserID
     end
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}userpmessage_list](@UserPMessageID int) as
-begin
-
-    SELECT
-        a.*,
-        FromUser = b.Name,
-        ToUserID = c.UserID,
-        ToUser = c.Name,
-        d.IsRead,
-        d.IsReply,
-        d.UserPMessageID
-    FROM
-        [{databaseOwner}].[{objectQualifier}PMessage] a
-        INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] d ON d.PMessageID = a.PMessageID
-        INNER JOIN [{databaseOwner}].[{objectQualifier}User] b ON b.UserID = a.FromUserID
-        inner join [{databaseOwner}].[{objectQualifier}User] c ON c.UserID = d.UserID
-    WHERE
-        d.UserPMessageID = @UserPMessageID
-    AND
-        d.IsDeleted=0
 end
 GO
 

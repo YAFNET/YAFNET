@@ -29,17 +29,20 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -149,7 +152,7 @@ namespace YAF.Pages
         /// </returns>
         protected DataTable GetUserList(string literals, int lastUserId, bool specialSymbol, out int totalCount)
         {
-            this._userListDataTable = LegacyDb.user_listmembers(
+            this._userListDataTable = this.GetRepository<User>().ListMembersAsDataTable(
                 this.PageContext.PageBoardID,
                 null,
                 true,
@@ -218,8 +221,9 @@ namespace YAF.Pages
             this.Joined.Text = this.GetText("joined");
             this.Posts.Text = this.GetText("posts");
             this.LastVisitLB.Text = this.GetText("members", "lastvisit");
-       
-            using (var dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
+
+            using (var dt = this.Get<IDbFunction>()
+                .GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty item for no filtering
                 var newRow = dt.NewRow();
@@ -249,36 +253,20 @@ namespace YAF.Pages
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3"));
-           
+
             this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
-            using (var dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.rank_list(this.PageContext.PageBoardID, null)))
-            {
-                // add empty for for no filtering
-                var newRow = dt.NewRow();
-                newRow["Name"] = this.GetText("ALL");
-                newRow["RankID"] = DBNull.Value;
-                dt.Rows.InsertAt(newRow, 0);
+            var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
 
-                var guestRows = dt.Select("Name='Guest'");
+            ranks.Insert(0, new Rank { Name = this.GetText("ALL"), ID = 0 });
 
-                if (guestRows.Length > 0)
-                {
-                    foreach (var row in guestRows)
-                    {
-                        row.Delete();
-                    }
-                }
+            ranks.RemoveAll(r => r.Name == "Guest");
 
-                // commits the deletes to the table
-                dt.AcceptChanges();
-
-                this.Ranks.DataSource = dt;
-                this.Ranks.DataTextField = "Name";
-                this.Ranks.DataValueField = "RankID";
-                this.Ranks.DataBind();
-            }
+            this.Ranks.DataSource = ranks;
+            this.Ranks.DataTextField = "Name";
+            this.Ranks.DataValueField = "ID";
+            this.Ranks.DataBind();
 
             this.BindData();
         }

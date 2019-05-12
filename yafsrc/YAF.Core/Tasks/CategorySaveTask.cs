@@ -28,12 +28,10 @@ namespace YAF.Core.Tasks
 {
   using System;
 
-  using YAF.Classes.Data;
   using YAF.Core.Model;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Types.Models;
-  using YAF.Utils;
 
   /// <summary>
   /// Run when we want to do migration of users in the background...
@@ -51,15 +49,9 @@ namespace YAF.Core.Tasks
       /// </summary>
       public object BoardIdToSave
       {
-          get
-          {
-              return this._boardIdToSave;
-          }
+          get => this._boardIdToSave;
 
-          set
-          {
-              this._boardIdToSave = value;
-          }
+          set => this._boardIdToSave = value;
       }
 
       /// <summary>
@@ -72,15 +64,9 @@ namespace YAF.Core.Tasks
       /// </summary>
       public object CategoryId
       {
-          get
-          {
-              return this._categoryId;
-          }
+          get => this._categoryId;
 
-          set
-          {
-              this._categoryId = value;
-          }
+          set => this._categoryId = value;
       }
 
       private object _categoryName;
@@ -90,15 +76,9 @@ namespace YAF.Core.Tasks
       /// </summary>
       public object CategoryName
       {
-          get
-          {
-              return this._categoryName;
-          }
+          get => this._categoryName;
 
-          set
-          {
-              this._categoryName = value;
-          }
+          set => this._categoryName = value;
       }
 
       private object _categoryImage;
@@ -108,15 +88,9 @@ namespace YAF.Core.Tasks
       /// </summary>
       public object CategoryImage
       {
-          get
-          {
-              return this._categoryImage;
-          }
+          get => this._categoryImage;
 
-          set
-          {
-              this._categoryImage = value;
-          }
+          set => this._categoryImage = value;
       }
 
       private object _sortOrder;
@@ -126,16 +100,9 @@ namespace YAF.Core.Tasks
       /// </summary>
       public object SortOrder
       {
-          get
-          {
-              return this._sortOrder;
+          get => this._sortOrder;
 
-          }
-
-          set
-          {
-              this._sortOrder = value;
-          }
+          set => this._sortOrder = value;
       }
 
       private  static long _categoryOut;
@@ -145,15 +112,9 @@ namespace YAF.Core.Tasks
       /// </summary>
       public static long CategoryOut
       {
-          get
-          {
-              return _categoryOut;
-          }
+          get => _categoryOut;
 
-          set
-          {
-              _categoryOut = value;
-          }
+          set => _categoryOut = value;
       }
 
    
@@ -166,13 +127,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// Gets TaskName.
     /// </summary>
-    public static string TaskName
-    {
-        get
-        {
-            return _taskName;
-        }
-    }
+    public static string TaskName => _taskName;
 
     /// <summary>
     /// The Blocking Task Names.

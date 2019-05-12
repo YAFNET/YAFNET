@@ -36,7 +36,6 @@ namespace YAF.Providers.Profile
     using System.Text;
     using System.Web.Profile;
 
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Providers.Utils;
     using YAF.Types.Extensions;
@@ -86,28 +85,16 @@ namespace YAF.Providers.Profile
         /// <summary>
         /// Gets the Connection String App Key Name.
         /// </summary>
-        public static string ConnStrAppKeyName
-        {
-            get
-            {
-                return _connStrAppKeyName;
-            }
-        }
+        public static string ConnStrAppKeyName => _connStrAppKeyName;
 
         /// <summary>
         /// Gets or sets ApplicationName.
         /// </summary>
         public override string ApplicationName
         {
-            get
-            {
-                return this._appName;
-            }
+            get => this._appName;
 
-            set
-            {
-                this._appName = value;
-            }
+            set => this._appName = value;
         }
 
         private ConcurrentDictionary<string, SettingsPropertyValueCollection> _userProfileCache = null;

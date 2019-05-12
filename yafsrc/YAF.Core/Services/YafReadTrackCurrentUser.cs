@@ -106,13 +106,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the current user id.
         /// </summary>
-        protected int CurrentUserId
-        {
-            get
-            {
-                return YafContext.Current.PageUserID;
-            }
-        }
+        protected int CurrentUserId => YafContext.Current.PageUserID;
 
         /// <summary>
         ///     Gets a value indicating whether this user is guest.
@@ -120,13 +114,7 @@ namespace YAF.Core.Services
         /// <value>
         ///     <c>true</c> if this user is guest; otherwise, <c>false</c>.
         /// </value>
-        protected bool IsGuest
-        {
-            get
-            {
-                return YafContext.Current.IsGuest;
-            }
-        }
+        protected bool IsGuest => YafContext.Current.IsGuest;
 
         /// <summary>
         /// Gets a value indicating whether [use database read tracking].
@@ -134,13 +122,7 @@ namespace YAF.Core.Services
         /// <value>
         ///   <c>true</c> if [use database read tracking]; otherwise, <c>false</c>.
         /// </value>
-        protected bool UseDatabaseReadTracking
-        {
-            get
-            {
-                return this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
-            }
-        }
+        protected bool UseDatabaseReadTracking => this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
 
         #endregion
 

@@ -36,7 +36,6 @@ namespace YAF.Core.Services
     using System.Web.Security;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -272,7 +271,7 @@ namespace YAF.Core.Services
                 var toEMail = string.Empty;
 
                 var userList =
-                    LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
+                    this.GetRepository<User>().UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
 
                 if (userList.Any())
                 {
@@ -286,10 +285,8 @@ namespace YAF.Core.Services
                 }
 
                 // get the PM ID
-                // Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
-                // using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
-                var userPMessageId =
-                    LegacyDb.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
+                var userPMessageId = this.GetRepository<PMessage>().ListAsDataTable(toUserId, null, null).GetFirstRow()
+                    .Field<int>("UserPMessageID");
 
                 /*// get the sender e-mail -- DISABLED: too much information...
                     // using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
@@ -356,7 +353,7 @@ namespace YAF.Core.Services
             var boardName = this.BoardSettings.Name;
             var forumEmail = this.BoardSettings.ForumEmail;
 
-            var message = LegacyDb.MessageList(newMessageId).FirstOrDefault();
+            var message = this.GetRepository<Message>().MessageList(newMessageId).FirstOrDefault();
 
             var messageAuthorUserID = message.UserID ?? 0;
 
@@ -464,7 +461,13 @@ namespace YAF.Core.Services
         /// <param name="medalName">Name of the medal.</param>
         public void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName)
         {
-            var userList = LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
+            var userList = this.GetRepository<User>().UserList(
+                YafContext.Current.PageBoardID,
+                toUserId,
+                true,
+                null,
+                null,
+                null).ToList();
 
             TypedUserList toUser;
 
@@ -619,7 +622,7 @@ namespace YAF.Core.Services
                 return;
             }
 
-            using (var dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupId))
+            using (var dt = this.GetRepository<User>().EmailsAsDataTable(YafContext.Current.PageBoardID, adminGroupId))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -689,11 +692,23 @@ namespace YAF.Core.Services
             if (this.BoardSettings.AllowPrivateMessages
                 && this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(2))
             {
-                var users = LegacyDb.UserList(YafContext.Current.PageBoardID, null, true, null, null, null).ToList();
+                var users = this.GetRepository<User>().UserList(
+                    YafContext.Current.PageBoardID,
+                    null,
+                    true,
+                    null,
+                    null,
+                    null).ToList();
 
                 var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
 
-                LegacyDb.pmessage_save(hostUser.UserID.Value, userId, subject, emailBody, messageFlags.BitValue, -1);
+                YafContext.Current.GetRepository<PMessage>().SendMessage(
+                    hostUser.UserID.Value,
+                    userId.Value,
+                    subject,
+                    emailBody,
+                    messageFlags.BitValue,
+                    -1);
             }
             else
             {

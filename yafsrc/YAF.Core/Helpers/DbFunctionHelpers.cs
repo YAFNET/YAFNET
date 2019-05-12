@@ -85,20 +85,65 @@ namespace YAF.Core.Helpers
             return dbFunction.ValidateAndExecute("GetSQLEngine", f => f.GetScalar<string>(s => s.GetSQLEngine()));
         }
 
-        /// <summary>
-        /// Determines whether [is full text supported].
-        /// </summary>
-        /// <param name="dbFunction">The database function.</param>
-        /// <returns>
-        /// Returns if full text is supported by the server or not
-        /// </returns>
-        public static bool IsFullTextSupported([NotNull] this IDbFunction dbFunction)
+        public static void ShrinkDatabase([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ShrinkDatabase()));
+        }
+
+        public static string ReIndexDatabase([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            return dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ReIndexDatabase()));
+        }
+
+        public static void SystemInitializeExecutescripts(
+            [NotNull] this IDbFunction dbFunction,
+            [NotNull] string script,
+            [NotNull] string scriptFile,
+            bool useTransactions)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            dbFunction.ValidateAndExecute(
+                "SystemInitializeExecutescripts",
+                f => f.Scalar.SystemInitializeExecutescripts(script, scriptFile, useTransactions));
+        }
+
+        public static void SystemInitializeFixaccess(
+            [NotNull] this IDbFunction dbFunction,
+            bool grantAccess)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            dbFunction.ValidateAndExecute(
+                "SystemInitializeFixaccess",
+                f => f.Scalar.SystemInitializeFixaccess(grantAccess));
+        }
+
+        public static string RunSQL(
+            [NotNull] this IDbFunction dbFunction,
+            string sql,
+            bool useTransaction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+           return dbFunction.ValidateAndExecute(
+                "RunSQL",
+                f => f.Scalar.RunSQL(sql, useTransaction));
+        }
+
+        public static string ChangeRecoveryMode(
+            [NotNull] this IDbFunction dbFunction,
+            string recoveryMode)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
             return dbFunction.ValidateAndExecute(
-                "IsFullTextSupported",
-                f => f.GetScalar<bool>(s => s.IsFullTextSupported()));
+                "ChangeRecoveryMode",
+                f => f.Scalar.ChangeRecoveryMode(recoveryMode));
         }
     }
 }

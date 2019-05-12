@@ -71,15 +71,9 @@ namespace YAF.Types.Models
         [Ignore]
         public EventLogTypes EventType
         {
-            get
-            {
-                return this.Type.ToType<EventLogTypes>();
-            }
+            get => this.Type.ToType<EventLogTypes>();
 
-            set
-            {
-                this.Type = (int)value;
-            }
+            set => this.Type = (int)value;
         }
 
         #endregion

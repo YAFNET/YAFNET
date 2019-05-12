@@ -31,12 +31,13 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -218,9 +219,9 @@ namespace YAF.Controls
 
                 if (YafContext.Current.Settings.CategoryID > 0)
                 {
-                    activeTopics = LegacyDb.topic_latest_in_category(
-                        boardID: this.PageContext.PageBoardID,
-                        categoryID: YafContext.Current.Settings.CategoryID,
+                    activeTopics = this.GetRepository<Topic>().LatestInCategoryAsDataTable(
+                        boardId: this.PageContext.PageBoardID,
+                        categoryId: YafContext.Current.Settings.CategoryID,
                         numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
                         pageUserId: this.PageContext.PageUserID,
                         useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
@@ -229,13 +230,13 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    activeTopics = LegacyDb.topic_latest(
-                         boardID: this.PageContext.PageBoardID,
-                         numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
-                         pageUserId: this.PageContext.PageUserID,
-                         useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
-                         showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                         findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    activeTopics = this.GetRepository<Topic>().LatestAsDataTable(
+                        boardId: this.PageContext.PageBoardID,
+                        numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        pageUserId: this.PageContext.PageUserID,
+                        useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
+                        showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                        findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                 }
 
                 // Set colorOnly parameter to true, as we get all but color from css in the place

@@ -33,7 +33,6 @@ namespace YAF.Core.Services.Auth
     using System.Web.Security;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -285,7 +284,7 @@ namespace YAF.Core.Services.Auth
                 userProfile.Save();
 
                 // save avatar
-                LegacyDb.user_saveavatar(YafContext.Current.PageUserID, googleUser.ProfileImage, null, null);
+                YafContext.Current.GetRepository<User>().SaveAvatar(YafContext.Current.PageUserID, googleUser.ProfileImage, null, null);
 
                 YafSingleSignOnUser.LoginSuccess(AuthService.google, null, YafContext.Current.PageUserID, false);
 
@@ -507,7 +506,7 @@ namespace YAF.Core.Services.Auth
             var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            LegacyDb.user_save(
+            YafContext.Current.GetRepository<User>().Save(
                 userID: userId,
                 boardID: YafContext.Current.PageBoardID,
                 userName: googleUser.UserName,
@@ -526,7 +525,7 @@ namespace YAF.Core.Services.Auth
                 notificationType: null);
 
             // save the settings...
-            LegacyDb.user_savenotification(
+            YafContext.Current.GetRepository<User>().SaveNotification(
                 userId,
                 true,
                 autoWatchTopicsEnabled,
@@ -534,7 +533,7 @@ namespace YAF.Core.Services.Auth
                 YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
-            LegacyDb.user_saveavatar(userId, googleUser.ProfileImage, null, null);
+            YafContext.Current.GetRepository<User>().SaveAvatar(userId, googleUser.ProfileImage, null, null);
 
             YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 

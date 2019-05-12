@@ -77,13 +77,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     ///   Gets ReplacementDictionary.
     /// </summary>
-    public Dictionary<int, string> ReplacementDictionary
-    {
-      get
-      {
-        return this._replacementDictionary;
-      }
-    }
+    public Dictionary<int, string> ReplacementDictionary => this._replacementDictionary;
 
     #endregion
 

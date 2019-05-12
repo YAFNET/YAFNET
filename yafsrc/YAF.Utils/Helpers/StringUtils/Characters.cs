@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using System.Collections.Concurrent;
-
 namespace YAF.Utils.Helpers.StringUtils
 {
 	using System;

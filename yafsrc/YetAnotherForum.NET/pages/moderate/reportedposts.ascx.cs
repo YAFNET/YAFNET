@@ -31,16 +31,15 @@ namespace YAF.Pages.moderate
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Services.CheckForSpam;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -153,7 +152,7 @@ namespace YAF.Pages.moderate
         private void BindData()
         {
             // get reported posts for this forum
-            this.List.DataSource = LegacyDb.message_listreported(this.PageContext.PageForumID);
+            this.List.DataSource = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
 
             // bind data to controls
             this.DataBind();
@@ -180,7 +179,7 @@ namespace YAF.Pages.moderate
                 case "delete":
 
                     // delete message
-                    LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
+                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
 
                     // Update statistics
                     this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
@@ -202,7 +201,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // update message text
-                    LegacyDb.message_reportcopyover(e.CommandArgument);
+                    this.GetRepository<Message>().ReportCopyOver(e.CommandArgument.ToType<int>());
                     break;
                 case "viewhistory":
 
@@ -214,7 +213,7 @@ namespace YAF.Pages.moderate
                 case "resolved":
 
                     // mark message as resolved
-                    LegacyDb.message_reportresolve(7, e.CommandArgument, this.PageContext.PageUserID);
+                    this.GetRepository<Message>().ReportResolve(7, e.CommandArgument.ToType<int>(), this.PageContext.PageUserID);
 
                     // re-bind data
                     this.BindData();
@@ -222,39 +221,16 @@ namespace YAF.Pages.moderate
                     // tell user message was flagged as resolved
                     this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
                     break;
-                case "spam":
-
-                    this.ReportSpam((string)e.CommandArgument);
-
-                    break;
             }
 
             // see if there are any items left...
-            var dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
+            var dt = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
 
             if (!dt.HasRows())
             {
                 // nope -- redirect back to the moderate main...
                 YafBuildLink.Redirect(ForumPages.moderate_index);
             }
-        }
-
-        /// <summary>
-        /// Report Message as Spam
-        /// </summary>
-        /// <param name="comment">
-        /// The comment.
-        /// </param>
-        private void ReportSpam(string comment)
-        {
-            if (!this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
-            {
-                return;
-            }
-
-            var message = BlogSpamNet.ClassifyComment(comment, true);
-
-            this.PageContext.AddLoadMessage(message);
         }
 
         #endregion

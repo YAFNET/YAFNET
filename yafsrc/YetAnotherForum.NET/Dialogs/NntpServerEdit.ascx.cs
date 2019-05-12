@@ -28,12 +28,14 @@ namespace YAF.Dialogs
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -53,15 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ServerId
         {
-            get
-            {
-                return this.ViewState["ServerId"].ToType<int?>();
-            }
+            get => this.ViewState["ServerId"].ToType<int?>();
 
-            set
-            {
-                this.ViewState["ServerId"] = value;
-            }
+            set => this.ViewState["ServerId"] = value;
         }
 
         /// <summary>
@@ -78,17 +74,13 @@ namespace YAF.Dialogs
             if (this.ServerId.HasValue)
             {
                 // Edit
-                using (
-                    var dt = LegacyDb.nntpserver_list(
-                        this.PageContext.PageBoardID, this.ServerId.Value))
-                {
-                    var row = dt.Rows[0];
-                    this.Name.Text = row["Name"].ToString();
-                    this.Address.Text = row["Address"].ToString();
-                    this.Port.Text = row["Port"].ToString();
-                    this.UserName.Text = row["UserName"].ToString();
-                    this.UserPass.Text = row["UserPass"].ToString();
-                }
+                var row = this.GetRepository<NntpServer>().GetById(this.ServerId.Value);
+
+                this.Name.Text = row.Name;
+                this.Address.Text = row.Address;
+                this.Port.Text = row.Port.ToString();
+                this.UserName.Text = row.UserName;
+                this.UserPass.Text = row.UserPass;
 
                 this.Title.LocalizedTag = "TITLE_EDIT";
                 this.Save.TextLocalizedTag = "SAVE";
@@ -116,22 +108,26 @@ namespace YAF.Dialogs
         {
             if (this.Name.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_NAME"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_NAME"),
+                    MessageTypes.danger);
                 return;
             }
 
             if (this.Address.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_ADR"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_ADR"),
+                    MessageTypes.danger);
                 return;
             }
 
-           LegacyDb.nntpserver_save(
+            this.GetRepository<NntpServer>().Save(
                 this.ServerId,
                 this.PageContext.PageBoardID,
                 this.Name.Text,
                 this.Address.Text,
-                this.Port.Text.Length > 0 ? this.Port.Text : null,
+                this.Port.Text.Length > 0 ? this.Port.Text.ToType<int?>() : null,
                 this.UserName.Text.Length > 0 ? this.UserName.Text : null,
                 this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
 

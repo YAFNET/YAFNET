@@ -159,15 +159,9 @@ namespace YAF.Types.Flags
     public bool IsActiveNow
     {
         // int value 1
-        get
-        {
-            return this[0];
-        }
+        get => this[0];
 
-        set
-        {
-            this[0] = value;
-        }
+        set => this[0] = value;
     }
 
     /// <summary>
@@ -176,15 +170,9 @@ namespace YAF.Types.Flags
     public bool IsGuest
     {
         // int value 2
-        get
-        {
-            return this[1];
-        }
+        get => this[1];
 
-        set
-        {
-            this[1] = value;
-        }
+        set => this[1] = value;
     }
 
     /// <summary>
@@ -193,15 +181,9 @@ namespace YAF.Types.Flags
     public bool IsRegistered
     {
       // int value 4
-      get
-      {
-        return this[2];
-      }
+      get => this[2];
 
-      set
-      {
-        this[2] = value;
-      }
+      set => this[2] = value;
     }
 
 
@@ -211,15 +193,9 @@ namespace YAF.Types.Flags
     public bool IsCrawler
     {
       // int value 8
-      get
-      {
-        return this[3];
-      }
+      get => this[3];
 
-      set
-      {
-        this[3] = value;
-      }
+      set => this[3] = value;
     }
 
     #endregion

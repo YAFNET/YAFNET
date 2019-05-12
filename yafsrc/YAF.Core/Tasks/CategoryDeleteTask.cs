@@ -26,7 +26,6 @@ namespace YAF.Core.Tasks
     using System;
 
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -60,13 +59,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         ///     Gets TaskName.
         /// </summary>
-        public static string TaskName
-        {
-            get
-            {
-                return _TaskName;
-            }
-        }
+        public static string TaskName => _TaskName;
 
         /// <summary>
         ///     Gets or sets CategoryId.

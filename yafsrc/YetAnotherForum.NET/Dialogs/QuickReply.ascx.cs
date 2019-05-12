@@ -26,12 +26,11 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
     using System.Threading;
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -183,13 +182,13 @@ namespace YAF.Dialogs
                 // SPAM Check
 
                 // Check if Forum is Moderated
-                DataRow forumInfo;
                 var isForumModerated = false;
 
-                using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-                {
-                    forumInfo = dt.Rows[0];
-                }
+                var dt = this.GetRepository<Forum>().List(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageForumID);
+
+                var forumInfo = dt.FirstOrDefault();
 
                 if (forumInfo != null)
                 {
@@ -380,14 +379,14 @@ namespace YAF.Dialogs
                                        };
 
                 // Bypass Approval if Admin or Moderator.
-                LegacyDb.message_save(
+                this.GetRepository<Message>().Save(
                     topicId,
                     this.PageContext.PageUserID,
                     message,
                     null,
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    null,
-                    replyTo,
+                    DateTime.UtcNow, 
+                    replyTo.ToType<int>(),
                     messageFlags.BitValue,
                     ref messageId);
 
@@ -484,26 +483,26 @@ namespace YAF.Dialogs
         /// </summary>
         /// <param name="forumInfo">The forum information.</param>
         /// <returns>Returns if the forum needs to be moderated</returns>
-        private bool CheckForumModerateStatus(DataRow forumInfo)
+        private bool CheckForumModerateStatus(Forum forumInfo)
         {
-            var forumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+            var forumModerated = forumInfo.Flags.BinaryAnd(ForumFlags.Flags.IsModerated);
 
             if (!forumModerated)
             {
                 return false;
             }
 
-            if (forumInfo["IsModeratedNewTopicOnly"].ToType<bool>())
+            if (forumInfo.IsModeratedNewTopicOnly)
             {
                 return false;
             }
 
-            if (forumInfo["ModeratedPostCount"].IsNullOrEmptyDBField() || this.PageContext.IsGuest)
+            if (!forumInfo.ModeratedPostCount.HasValue || this.PageContext.IsGuest)
             {
                 return true;
             }
 
-            var moderatedPostCount = forumInfo["ModeratedPostCount"].ToType<int>();
+            var moderatedPostCount = forumInfo.ModeratedPostCount.Value;
 
             return !(this.PageContext.CurrentUserData.NumPosts >= moderatedPostCount);
         }

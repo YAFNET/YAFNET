@@ -32,9 +32,6 @@ namespace YAF.Core.Nntp
   using System.Text;
   using System.Text.RegularExpressions;
 
-  using YAF.Types;
-  using YAF.Utils;
-
   /// <summary>
   /// The nntp connection.
   /// </summary>
@@ -101,10 +98,7 @@ namespace YAF.Core.Nntp
     /// </summary>
     public int Timeout
     {
-      get
-      {
-        return this.timeout;
-      }
+      get => this.timeout;
 
       [MethodImpl(MethodImplOptions.Synchronized)]
       set
@@ -118,35 +112,17 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// Gets ConnectedServer.
     /// </summary>
-    public string ConnectedServer
-    {
-      get
-      {
-        return this.connectedServer;
-      }
-    }
+    public string ConnectedServer => this.connectedServer;
 
     /// <summary>
     /// Gets ConnectedGroup.
     /// </summary>
-    public Newsgroup ConnectedGroup
-    {
-      get
-      {
-        return this.connectedGroup;
-      }
-    }
+    public Newsgroup ConnectedGroup => this.connectedGroup;
 
     /// <summary>
     /// Gets Port.
     /// </summary>
-    public int Port
-    {
-      get
-      {
-        return this.port;
-      }
-    }
+    public int Port => this.port;
 
     /// <summary>
     /// The on request.
@@ -154,16 +130,10 @@ namespace YAF.Core.Nntp
     public event OnRequestDelegate OnRequest
     {
       [MethodImpl(MethodImplOptions.Synchronized)]
-      add
-      {
-        this.onRequest += value;
-      }
+      add => this.onRequest += value;
 
       [MethodImpl(MethodImplOptions.Synchronized)]
-      remove
-      {
-        this.onRequest -= value;
-      }
+      remove => this.onRequest -= value;
     }
 
     #endregion
@@ -1067,15 +1037,9 @@ namespace YAF.Core.Nntp
       /// </summary>
       public int Code
       {
-        get
-        {
-          return this.code;
-        }
+        get => this.code;
 
-        set
-        {
-          this.code = value;
-        }
+        set => this.code = value;
       }
 
       /// <summary>
@@ -1083,15 +1047,9 @@ namespace YAF.Core.Nntp
       /// </summary>
       public string Message
       {
-        get
-        {
-          return this.message;
-        }
+        get => this.message;
 
-        set
-        {
-          this.message = value;
-        }
+        set => this.message = value;
       }
 
       /// <summary>
@@ -1099,15 +1057,9 @@ namespace YAF.Core.Nntp
       /// </summary>
       public string Request
       {
-        get
-        {
-          return this.request;
-        }
+        get => this.request;
 
-        set
-        {
-          this.request = value;
-        }
+        set => this.request = value;
       }
     }
 

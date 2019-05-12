@@ -69,17 +69,12 @@ namespace YAF.Controls
         /// </summary>
         public string LocalizedHelpTag
         {
-            get
-            {
-                return string.IsNullOrEmpty(this._localizedHelpTag)
-                           ? "{0}_HELP".FormatWith(this.LocalizedTag)
-                           : this._localizedHelpTag;
-            }
+            get =>
+                string.IsNullOrEmpty(this._localizedHelpTag)
+                    ? "{0}_HELP".FormatWith(this.LocalizedTag)
+                    : this._localizedHelpTag;
 
-            set
-            {
-                this._localizedHelpTag = value;
-            }
+            set => this._localizedHelpTag = value;
         }
 
         /// <summary>

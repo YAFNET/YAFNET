@@ -55,15 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? BannedId
         {
-            get
-            {
-                return this.ViewState["BannedId"].ToType<int?>();
-            }
+            get => this.ViewState["BannedId"].ToType<int?>();
 
-            set
-            {
-                this.ViewState["BannedId"] = value;
-            }
+            set => this.ViewState["BannedId"] = value;
         }
 
         /// <summary>

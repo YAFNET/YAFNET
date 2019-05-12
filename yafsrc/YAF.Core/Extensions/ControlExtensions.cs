@@ -89,6 +89,11 @@ namespace YAF.Core
         /// </returns>
         public static string HtmlEncode(this Control currentControl, object data)
         {
+            if (data == null)
+            {
+                return null;
+            }
+
             return YafContext.Current != null
                        ? new UnicodeEncoder().XSSEncode(data.ToString())
                        : YafContext.Current.CurrentForumPage.HtmlEncode(data.ToString());

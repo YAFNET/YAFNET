@@ -26,7 +26,6 @@ namespace YAF.Editors
     #region Using
 
     using System;
-    using System.Web.UI;
 
     using YAF.Classes.Editors;
     using YAF.Core;
@@ -47,15 +46,9 @@ namespace YAF.Editors
         /// </summary>
         public override string Text
         {
-            get
-            {
-                return this._textCtl.InnerText;
-            }
+            get => this._textCtl.InnerText;
 
-            set
-            {
-                this._textCtl.InnerText = value;
-            }
+            set => this._textCtl.InnerText = value;
         }
 
         /// <summary>

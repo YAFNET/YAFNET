@@ -66,15 +66,9 @@ namespace YAF.Controls
         /// </summary>
         public string UserName
         {
-            get
-            {
-                return this._userName;
-            }
+            get => this._userName;
 
-            set
-            {
-                this._userName = value;
-            }
+            set => this._userName = value;
         }
 
         #endregion

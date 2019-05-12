@@ -26,11 +26,9 @@ namespace YAF.Types.Models
     #region Using
 
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -75,14 +73,14 @@ namespace YAF.Types.Models
         [Required]
         public DateTime ThanksDate { get; set; }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
-        /// <summary>
-        ///     The on created.
-        /// </summary>
-        partial void OnCreated();
+/// <summary>
+///     The on created.
+/// </summary>
+partial void OnCreated();
 
         #endregion
     }

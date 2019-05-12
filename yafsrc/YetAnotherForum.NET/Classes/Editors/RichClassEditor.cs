@@ -99,7 +99,7 @@ namespace YAF.Editors
 #if DEBUG
 				throw new Exception( "Unable to load editor class/dll: " + classBinStr + " Exception: " + x.Message );
 #else
-				YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Error);
+				//YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Error);
 #endif
 */
             }
@@ -112,74 +112,38 @@ namespace YAF.Editors
         /// <summary>
         ///   Gets a value indicating whether Active.
         /// </summary>
-        public override bool Active
-        {
-            get
-            {
-                return this._typEditor != null;
-            }
-        }
+        public override bool Active => this._typEditor != null;
 
         /// <summary>
         ///   Gets a value indicating whether IsInitialized.
         /// </summary>
-        public bool IsInitialized
-        {
-            get
-            {
-                return this._init;
-            }
-        }
+        public bool IsInitialized => this._init;
 
         /// <summary>
         ///   Gets or sets StyleSheet.
         /// </summary>
         public override string StyleSheet
         {
-            get
-            {
-                return this._styleSheet;
-            }
+            get => this._styleSheet;
 
-            set
-            {
-                this._styleSheet = value;
-            }
+            set => this._styleSheet = value;
         }
 
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public override bool UsesBBCode
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool UsesBBCode => false;
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public override bool UsesHTML
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool UsesHTML => true;
 
         /// <summary>
         ///   Gets SafeID.
         /// </summary>
         [NotNull]
-        protected virtual string SafeID
-        {
-            get
-            {
-                return this._init ? this._editor.ClientID.Replace("$", "_") : string.Empty;
-            }
-        }
+        protected virtual string SafeID => this._init ? this._editor.ClientID.Replace("$", "_") : string.Empty;
 
         #endregion
 

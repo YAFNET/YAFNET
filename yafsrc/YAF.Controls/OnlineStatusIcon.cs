@@ -54,15 +54,9 @@ namespace YAF.Controls
         /// </value>
         public int UserId
         {
-            get
-            {
-                return this.ViewState["UserId"].ToType<int>();
-            }
+            get => this.ViewState["UserId"].ToType<int>();
 
-            set
-            {
-                this.ViewState["UserId"] = value;
-            }
+            set => this.ViewState["UserId"] = value;
         }
 
         /// <summary>
@@ -74,15 +68,9 @@ namespace YAF.Controls
         [NotNull]
         public bool Suspended
         {
-            get
-            {
-                return this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
-            }
+            get => this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
 
-            set
-            {
-                this.ViewState["Style"] = value;
-            }
+            set => this.ViewState["Style"] = value;
         }
 
         #endregion

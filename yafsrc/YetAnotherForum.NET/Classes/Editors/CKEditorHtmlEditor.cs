@@ -40,47 +40,22 @@ namespace YAF.Editors
         ///   Gets Description.
         /// </summary>
         [NotNull]
-        public override string Description
-        {
-            get
-            {
-                return "CKEditor (HTML)";
-            }
-        }
+        public override string Description => "CKEditor (HTML)";
 
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId
-        {
-            get
-            {
-                // backward compatibility...
-                return this.Description.GetHashCode().ToString();
-            }
-        }
+        public override string ModuleId => this.Description.GetHashCode().ToString();
 
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public override bool UsesBBCode
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool UsesBBCode => false;
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public override bool UsesHTML
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool UsesHTML => true;
 
         #endregion
 

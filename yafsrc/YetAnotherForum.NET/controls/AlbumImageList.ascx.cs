@@ -27,15 +27,17 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -75,18 +77,17 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
         protected void AlbumImages_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
         {
-            using (var dt = LegacyDb.album_list(null, this.AlbumID))
-            {
-                if (dt.Rows[0]["CoverImageID"].ToString() == e.CommandArgument.ToString())
+            var dt = this.GetRepository<UserAlbum>().List(this.AlbumID).FirstOrDefault();
+            
+                if (dt.CoverImageID.ToString() == e.CommandArgument.ToString())
                 {
-                    LegacyDb.album_save(this.AlbumID, null, null, 0);
+                    this.GetRepository<UserAlbum>().UpdateCover(this.AlbumID, null);
                 }
                 else
                 {
-                    LegacyDb.album_save(dt.Rows[0]["AlbumID"], null, null, e.CommandArgument);
+                    this.GetRepository<UserAlbum>().UpdateCover(this.AlbumID, e.CommandArgument.ToType<int>());
                 }
-            }
-
+  
             this.BindData();
         }
 
@@ -193,7 +194,7 @@ namespace YAF.Controls
         private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumImagesPerPage;
-            var albumTitle = LegacyDb.album_gettitle(this.AlbumID);
+            var albumTitle = this.GetRepository<UserAlbum>().GetTitle(this.AlbumID);
 
             // if (UserID == PageContext.PageUserID)
             // ltrTitle.Visible = false;
@@ -203,25 +204,25 @@ namespace YAF.Controls
                                      : this.HtmlEncode(albumTitle);
 
             // set the Data table
-            var albumImageList = LegacyDb.album_image_list(this.AlbumID, null);
-            var album = LegacyDb.album_list(null, this.AlbumID);
+            var albumImageList = this.GetRepository<UserAlbumImage>().List(this.AlbumID);
+            var album = this.GetRepository<UserAlbum>().List(this.AlbumID).FirstOrDefault();
 
             // Does this album has a cover?
-            this._coverImageID = album.Rows[0]["CoverImageID"] == DBNull.Value
+            this._coverImageID = album.CoverImageID == null
                                      ? string.Empty
-                                     : album.Rows[0]["CoverImageID"].ToString();
+                                     : album.CoverImageID.ToString();
 
-            if (albumImageList == null || !albumImageList.HasRows())
+            if (albumImageList == null || !albumImageList.Any())
             {
                 return;
             }
 
-            this.PagerTop.Count = albumImageList.Rows.Count;
-
+            this.PagerTop.Count = albumImageList.Count;
+            
             // Create paged data source for the album image list
             var pds = new PagedDataSource
                           {
-                              DataSource = albumImageList.DefaultView,
+                              DataSource = albumImageList,
                               AllowPaging = true,
                               CurrentPageIndex = this.PagerTop.CurrentPageIndex,
                               PageSize = this.PagerTop.PageSize

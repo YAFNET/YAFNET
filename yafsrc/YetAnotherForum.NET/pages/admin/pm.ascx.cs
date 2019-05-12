@@ -28,13 +28,14 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
 
@@ -110,7 +111,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (var dataTable = LegacyDb.pmessage_info())
+            using (var dataTable = this.GetRepository<UserPMessage>().InfoAsDataTable())
             {
                 this.Count.Text = dataTable.Rows[0]["NumTotal"].ToString();
             }
@@ -123,7 +124,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            LegacyDb.pmessage_prune(this.Days1.Text, this.Days2.Text);
+            this.GetRepository<PMessage>().PruneAll(
+                this.Days1.Text.ToType<DateTime>(),
+                this.Days2.Text.ToType<DateTime>());
+
             this.BindData();
         }
 

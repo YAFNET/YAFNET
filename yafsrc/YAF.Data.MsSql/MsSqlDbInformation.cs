@@ -130,79 +130,37 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// Gets Full Text Upgrade Script.
         /// </summary>
-        public string FullTextUpgradeScript
-        {
-            get
-            {
-                return "mssql/upgrade/fulltext.sql";
-            }
-        }
+        public string FullTextUpgradeScript => "mssql/upgrade/fulltext.sql";
 
         /// <summary>
         /// Gets the Azure Script List.
         /// </summary>
-        public IEnumerable<string> AzureScripts
-        {
-            get
-            {
-                return AzureScriptList;
-            }
-        }
+        public IEnumerable<string> AzureScripts => AzureScriptList;
 
         /// <summary>
         /// Gets the Install Script List.
         /// </summary>
-        public IEnumerable<string> InstallScripts
-        {
-            get
-            {
-                return InstallScriptList;
-            }
-        }
+        public IEnumerable<string> InstallScripts => InstallScriptList;
 
         /// <summary>
         /// Gets the Upgrade Script List.
         /// </summary>
-        public IEnumerable<string> UpgradeScripts
-        {
-            get
-            {
-                return UpgradeScriptList;
-            }
-        }
+        public IEnumerable<string> UpgradeScripts => UpgradeScriptList;
 
         /// <summary>
         /// Gets the YAF Provider Install Script List.
         /// </summary>
-        public IEnumerable<string> YAFProviderInstallScripts
-        {
-            get
-            {
-                return YafProviderInstallScriptList;
-            }
-        }
+        public IEnumerable<string> YAFProviderInstallScripts => YafProviderInstallScriptList;
 
         /// <summary>
         /// Gets the YAF Provider Upgrade Script List.
         /// </summary>
-        public IEnumerable<string> YAFProviderUpgradeScripts
-        {
-            get
-            {
-                return YafProviderUpgradeScriptList;
-            }
-        }
+        public IEnumerable<string> YAFProviderUpgradeScripts => YafProviderUpgradeScriptList;
 
         /// <summary>
         /// Gets the DB Connection Parameters.
         /// </summary>
-        public IDbConnectionParam[] DbConnectionParameters
-        {
-            get
-            {
-                return this.dbParameters.OfType<IDbConnectionParam>().ToArray();
-            }
-        }
+        public IDbConnectionParam[] DbConnectionParameters => this.dbParameters.OfType<IDbConnectionParam>().ToArray();
 
         /// <summary>
         /// Builds a connection string.

@@ -30,31 +30,15 @@ namespace YAF.Controls
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
 
     #endregion
-
-    /// <summary>
-    /// The thanks list mode.
-    /// </summary>
-    public enum ThanksListMode
-    {
-        /// <summary>
-        ///   The from user.
-        /// </summary>
-        FromUser,
-
-        /// <summary>
-        ///   The to user.
-        /// </summary>
-        ToUser
-    }
 
     /// <summary>
     /// The View Thanks List Control

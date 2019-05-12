@@ -23,10 +23,7 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Collections.Generic;
     using System.Data;
-
-    using ServiceStack;
 
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -61,6 +58,59 @@ namespace YAF.Core.Model
 
             repository.DbFunction.Query.medal_delete(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category);
             repository.FireDeleted(medalID);
+        }
+
+        /// <summary>
+        /// Lists medal(s) assigned to the group
+        /// </summary>
+        /// <param name="groupID">
+        /// ID of group of which to list medals.
+        /// </param>
+        /// <param name="medalID">
+        /// ID of medal to list.
+        /// </param>
+        public static DataTable GroupMedalListAsDataTable(this IRepository<Medal> repository, 
+                                                 [NotNull] object groupID, [NotNull] object medalID)
+        {
+            return repository.DbFunction.GetData.group_medal_list(GroupID: groupID, MedalID: medalID);
+        }
+
+        /// <summary>
+        /// Saves new or update existing group-medal allocation.
+        /// </summary>
+        /// <param name="groupID">
+        /// ID of user group.
+        /// </param>
+        /// <param name="medalID">
+        /// ID of medal.
+        /// </param>
+        /// <param name="message">
+        /// Medal message, to override medal's default one. Can be null.
+        /// </param>
+        /// <param name="hide">
+        /// Hide medal in user box.
+        /// </param>
+        /// <param name="onlyRibbon">
+        /// Show only ribbon bar in user box.
+        /// </param>
+        /// <param name="sortOrder">
+        /// Sort order in user box. Overrides medal's default sort order.
+        /// </param>
+        public static void GroupMedalSave(
+            this IRepository<Medal> repository,
+            [NotNull] object groupID,
+            [NotNull] object medalID,
+            [NotNull] object message,
+            [NotNull] object hide,
+            [NotNull] object onlyRibbon,
+            [NotNull] object sortOrder)
+        {
+            repository.DbFunction.Scalar.group_medal_save(GroupID: groupID,
+                MedalID: medalID,
+                Message: message,
+                Hide: hide,
+                OnlyRibbon: onlyRibbon,
+                SortOrder: sortOrder);
         }
 
         /// <summary>

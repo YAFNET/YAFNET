@@ -62,13 +62,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets Item.
         /// </summary>
-        public string Item
-        {
-            get
-            {
-                return this._item;
-            }
-        }
+        public string Item => this._item;
 
         #endregion
     }

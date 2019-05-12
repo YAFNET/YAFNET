@@ -35,17 +35,18 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -330,7 +331,7 @@ namespace YAF.Pages
 
                 // get quoted message
                 var row =
-                    LegacyDb.pmessage_list(
+                    this.GetRepository<PMessage>().ListAsDataTable(
                         Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
                 // there is such a message
@@ -410,11 +411,9 @@ namespace YAF.Pages
 
                 // get quoted message
                 var messagesRow =
-                    LegacyDb.message_listreporters(
-                        Security.StringToLongOrRedirect(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
-                        Security.StringToLongOrRedirect(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>())
+                    this.GetRepository<Message>().ListReportedAsDataTable(
+                        Security.StringToIntOrRedirect(
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")))
                         .GetFirstRow();
 
                 // there is such a message
@@ -466,7 +465,7 @@ namespace YAF.Pages
                 }
 
                 var currentRow =
-                    LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
+                    this.GetRepository<User>().ListAsDataTable(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 
                 if (currentRow == null)
                 {
@@ -523,7 +522,7 @@ namespace YAF.Pages
             }
 
             using (
-                var userDT = LegacyDb.user_list(
+                var userDT = this.GetRepository<User>().ListAsDataTable(
                     YafContext.Current.PageBoardID,
                     YafContext.Current.PageUserID,
                     true))
@@ -589,7 +588,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                LegacyDb.pmessage_save(
+                this.GetRepository<PMessage>().SendMessage(
                     YafContext.Current.PageUserID,
                     0,
                     this.PmSubjectTextBox.Text,
@@ -668,7 +667,7 @@ namespace YAF.Pages
                         recipientIds.Add(userId.Value);
                     }
 
-                    var receivingPMInfo = LegacyDb.user_pmcount(userId.Value).Rows[0];
+                    var receivingPMInfo = this.GetRepository<PMessage>().UserMessageCount(userId.Value).Rows[0];
 
                     // test receiving user's PM count
                     if ((receivingPMInfo["NumberTotal"].ToType<int>() + 1
@@ -699,7 +698,7 @@ namespace YAF.Pages
                                                IsBBCode = this._editor.UsesBBCode
                                            };
 
-                    LegacyDb.pmessage_save(
+                    this.GetRepository<PMessage>().SendMessage(
                         YafContext.Current.PageUserID,
                         userId,
                         this.PmSubjectTextBox.Text,
@@ -889,9 +888,9 @@ namespace YAF.Pages
 
             // test sending user's PM count
             // get user's name
-            var drPMInfo = LegacyDb.user_pmcount(YafContext.Current.PageUserID).Rows[0];
+            var drPMInfo = this.GetRepository<PMessage>().UserMessageCount(YafContext.Current.PageUserID).Rows[0];
 
-            if ((drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>())
+            if (drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>()
                 || YafContext.Current.IsAdmin)
             {
                 return true;

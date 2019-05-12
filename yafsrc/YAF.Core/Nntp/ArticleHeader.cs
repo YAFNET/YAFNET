@@ -75,15 +75,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string[] ReferenceIds
     {
-      get
-      {
-        return this._referenceIds;
-      }
+      get => this._referenceIds;
 
-      set
-      {
-        this._referenceIds = value;
-      }
+      set => this._referenceIds = value;
     }
 
     /// <summary>
@@ -91,15 +85,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public int TimeZoneOffset
     {
-      get
-      {
-        return this._timeZoneOffset;
-      }
+      get => this._timeZoneOffset;
 
-      set
-      {
-        this._timeZoneOffset = value;
-      }
+      set => this._timeZoneOffset = value;
     }     
 
     /// <summary>
@@ -107,15 +95,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Subject
     {
-      get
-      {
-        return this._subject;
-      }
+      get => this._subject;
 
-      set
-      {
-        this._subject = value;
-      }
+      set => this._subject = value;
     }
 
     /// <summary>
@@ -123,15 +105,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public DateTime Date
     {
-      get
-      {
-        return this._date;
-      }
+      get => this._date;
 
-      set
-      {
-        this._date = value;
-      }
+      set => this._date = value;
     }
 
     /// <summary>
@@ -139,15 +115,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string From
     {
-      get
-      {
-        return this._from;
-      }
+      get => this._from;
 
-      set
-      {
-        this._from = value;
-      }
+      set => this._from = value;
     }
 
     /// <summary>
@@ -155,15 +125,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Sender
     {
-      get
-      {
-        return this._sender;
-      }
+      get => this._sender;
 
-      set
-      {
-        this._sender = value;
-      }
+      set => this._sender = value;
     }
 
     /// <summary>
@@ -171,15 +135,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string PostingHost
     {
-      get
-      {
-        return this._postingHost;
-      }
+      get => this._postingHost;
 
-      set
-      {
-        this._postingHost = value;
-      }
+      set => this._postingHost = value;
     }
 
     /// <summary>
@@ -187,15 +145,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public int LineCount
     {
-      get
-      {
-        return this._lineCount;
-      }
+      get => this._lineCount;
 
-      set
-      {
-        this._lineCount = value;
-      }
+      set => this._lineCount = value;
     }
   }
 }

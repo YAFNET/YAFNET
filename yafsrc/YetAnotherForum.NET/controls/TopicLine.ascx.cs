@@ -59,10 +59,7 @@ namespace YAF.Controls
                 return (bool)this.ViewState["AllowSelection"];
             }
 
-            set
-            {
-                this.ViewState["AllowSelection"] = value;
-            }
+            set => this.ViewState["AllowSelection"] = value;
         }
 
         /// <summary>
@@ -71,15 +68,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get
-            {
-                return string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
-            }
+            get => string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
 
-            set
-            {
-                this.altLastPost = value;
-            }
+            set => this.altLastPost = value;
         }
 
         /// <summary>
@@ -88,15 +79,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastUnreadPost
         {
-            get
-            {
-                return string.IsNullOrEmpty(this.altFirstUnreadPost) ? string.Empty : this.altFirstUnreadPost;
-            }
+            get => string.IsNullOrEmpty(this.altFirstUnreadPost) ? string.Empty : this.altFirstUnreadPost;
 
-            set
-            {
-                this.altFirstUnreadPost = value;
-            }
+            set => this.altFirstUnreadPost = value;
         }
 
         /// <summary>
@@ -119,13 +104,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets a value indicating whether IsSelected.
         /// </summary>
-        public bool IsSelected
-        {
-            get
-            {
-                return this.chkSelected.Checked;
-            }
-        }
+        public bool IsSelected => this.chkSelected.Checked;
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowTopicPosted.
@@ -142,10 +121,7 @@ namespace YAF.Controls
                 return (bool)this.ViewState["ShowTopicPosted"];
             }
 
-            set
-            {
-                this.ViewState["ShowTopicPosted"] = value;
-            }
+            set => this.ViewState["ShowTopicPosted"] = value;
         }
 
         /// <summary>
@@ -153,27 +129,15 @@ namespace YAF.Controls
         /// </summary>
         public int? TopicRowID
         {
-            get
-            {
-                return (int?)this.ViewState["TopicRowID"];
-            }
+            get => (int?)this.ViewState["TopicRowID"];
 
-            set
-            {
-                this.ViewState["TopicRowID"] = value;
-            }
+            set => this.ViewState["TopicRowID"] = value;
         }
 
         /// <summary>
         ///  Gets the TopicRow.
         /// </summary>
-        protected DataRowView TopicRow
-        {
-            get
-            {
-                return this.theTopicRow;
-            }
-        }
+        protected DataRowView TopicRow => this.theTopicRow;
 
         #endregion
 

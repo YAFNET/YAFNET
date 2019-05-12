@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.WebControls;
-
-    using YAF.Controls;
-
+    
+    
     public partial class AttachmentsUpload {
         
-
         /// <summary>
         /// SelectFile-Steuerelement
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel SelectFile;
+        protected global::YAF.Controls.LocalizedLabel SelectFile;
         
-
         /// <summary>
         /// AddFiles-Steuerelement
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel AddFiles;
+        protected global::YAF.Controls.LocalizedLabel AddFiles;
         
-
         /// <summary>
         /// UploadNodePlaceHold-Steuerelement
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected PlaceHolder UploadNodePlaceHold;
+        protected global::System.Web.UI.WebControls.PlaceHolder UploadNodePlaceHold;
         
-
         /// <summary>
         /// UploadNote-Steuerelement
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label UploadNote;
+        protected global::System.Web.UI.WebControls.Label UploadNote;
         
-
         /// <summary>
         /// ExtensionTitle-Steuerelement
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected LocalizedLabel ExtensionTitle;
+        protected global::YAF.Controls.LocalizedLabel ExtensionTitle;
         
-
         /// <summary>
         /// ExtensionsList-Steuerelement
         /// </summary>
@@ -72,6 +64,6 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected Label ExtensionsList;
+        protected global::System.Web.UI.WebControls.Label ExtensionsList;
     }
 }

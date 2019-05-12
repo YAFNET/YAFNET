@@ -39,13 +39,7 @@ namespace YAF.Core.Events
         /// <summary>
         ///     Gets the order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public int Order => 1000;
 
         #endregion
 

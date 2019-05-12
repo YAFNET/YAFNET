@@ -44,15 +44,9 @@ namespace YAF.Controls
     /// </summary>
     public bool IsQuestionChecked
     {
-      get
-      {
-        return this.chkIsQuestion.Checked;
-      }
+      get => this.chkIsQuestion.Checked;
 
-      set
-      {
-        this.chkIsQuestion.Checked = value;
-      }
+      set => this.chkIsQuestion.Checked = value;
     }
 
     /// <summary>
@@ -60,15 +54,9 @@ namespace YAF.Controls
     /// </summary>
     public bool IsQuestionVisible
     {
-      get
-      {
-        return this.liQuestion.Visible;
-      }
+      get => this.liQuestion.Visible;
 
-      set
-      {
-        this.liQuestion.Visible = value;
-      }
+      set => this.liQuestion.Visible = value;
     }
 
     /// <summary>
@@ -76,15 +64,9 @@ namespace YAF.Controls
     /// </summary>
     public bool PersistantChecked
     {
-      get
-      {
-        return this.Persistency.Checked;
-      }
+      get => this.Persistency.Checked;
 
-      set
-      {
-        this.Persistency.Checked = value;
-      }
+      set => this.Persistency.Checked = value;
     }
 
     /// <summary>
@@ -92,15 +74,9 @@ namespace YAF.Controls
     /// </summary>
     public bool PersistentOptionVisible
     {
-      get
-      {
-        return this.liPersistency.Visible;
-      }
+      get => this.liPersistency.Visible;
 
-      set
-      {
-        this.liPersistency.Visible = value;
-      }
+      set => this.liPersistency.Visible = value;
     }
 
     /// <summary>
@@ -108,15 +84,9 @@ namespace YAF.Controls
     /// </summary>
     public bool PollChecked
     {
-      get
-      {
-        return this.AddPollCheckBox.Checked;
-      }
+      get => this.AddPollCheckBox.Checked;
 
-      set
-      {
-        this.AddPollCheckBox.Checked = value;
-      }
+      set => this.AddPollCheckBox.Checked = value;
     }
 
     /// <summary>
@@ -124,15 +94,9 @@ namespace YAF.Controls
     /// </summary>
     public bool PollOptionVisible
     {
-      get
-      {
-        return this.liAddPoll.Visible;
-      }
+      get => this.liAddPoll.Visible;
 
-      set
-      {
-        this.liAddPoll.Visible = value;
-      }
+      set => this.liAddPoll.Visible = value;
     }
 
     /// <summary>
@@ -140,15 +104,9 @@ namespace YAF.Controls
     /// </summary>
     public bool WatchChecked
     {
-      get
-      {
-        return this.TopicWatch.Checked;
-      }
+      get => this.TopicWatch.Checked;
 
-      set
-      {
-        this.TopicWatch.Checked = value;
-      }
+      set => this.TopicWatch.Checked = value;
     }
 
     /// <summary>
@@ -156,15 +114,9 @@ namespace YAF.Controls
     /// </summary>
     public bool WatchOptionVisible
     {
-      get
-      {
-        return this.liTopicWatch.Visible;
-      }
+      get => this.liTopicWatch.Visible;
 
-      set
-      {
-        this.liTopicWatch.Visible = value;
-      }
+      set => this.liTopicWatch.Visible = value;
     }
 
     #endregion

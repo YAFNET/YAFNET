@@ -108,13 +108,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// Gets Started.
     /// </summary>
-    public virtual DateTime Started
-    {
-      get
-      {
-        return this._started;
-      }
-    }
+    public virtual DateTime Started => this._started;
 
     /// <summary>
     /// The run.

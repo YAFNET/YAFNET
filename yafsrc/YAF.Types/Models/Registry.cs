@@ -26,11 +26,9 @@ namespace YAF.Types.Models
     #region Using
 
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -62,12 +60,21 @@ namespace YAF.Types.Models
         [Alias("RegistryID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [Required]
         [Index]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Index]
         public int? BoardID { get; set; }

@@ -90,13 +90,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
-    public override string RuleDescription
-    {
-      get
-      {
-        return "RegExSearch = \"{0}\"".FormatWith(this._regExSearch);
-      }
-    }
+    public override string RuleDescription => "RegExSearch = \"{0}\"".FormatWith(this._regExSearch);
 
     #endregion
 

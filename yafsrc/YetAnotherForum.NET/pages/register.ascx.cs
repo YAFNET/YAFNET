@@ -37,7 +37,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -83,24 +82,12 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
         /// </summary>
-        public override bool IsProtected
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsProtected => false;
 
         /// <summary>
         ///   Gets CreateUserStepContainer.
         /// </summary>
-        private Control CreateUserStepContainer
-        {
-            get
-            {
-                return this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
-            }
-        }
+        private Control CreateUserStepContainer => this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
 
         /// <summary>
         /// Gets or sets a value indicating whether the user is possible spam bot.
@@ -1021,7 +1008,7 @@ namespace YAF.Pages
                                              == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
                 // save the time zone...
-                LegacyDb.user_save(
+                this.GetRepository<User>().Save(
                     userID: userId, 
                     boardID: this.PageContext.PageBoardID, 
                     userName: null, 
@@ -1040,8 +1027,8 @@ namespace YAF.Pages
                     notificationType: null);
 
                 // save the settings...
-                LegacyDb.user_savenotification(
-                    userId, 
+                this.GetRepository<User>().SaveNotification(
+                     userId, 
                     true, 
                     autoWatchTopicsEnabled, 
                     this.Get<YafBoardSettings>().DefaultNotificationSetting, 

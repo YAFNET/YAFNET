@@ -64,59 +64,27 @@ namespace YAF.Utils.Structures
     /// <summary>
     /// Gets Count.
     /// </summary>
-    public int Count
-    {
-      get
-      {
-        return this.m_count;
-      }
-    }
+    public int Count => this.m_count;
 
     /// <summary>
     /// Gets a value indicating whether IsFixedSize.
     /// </summary>
-    public bool IsFixedSize
-    {
-      get
-      {
-        return false;
-      }
-    }
+    public bool IsFixedSize => false;
 
     /// <summary>
     /// Gets a value indicating whether IsReadOnly.
     /// </summary>
-    public bool IsReadOnly
-    {
-      get
-      {
-        // TODO:  Add DoubleLinkedList.IsReadOnly getter implementation
-        return false;
-      }
-    }
+    public bool IsReadOnly => false;
 
     /// <summary>
     /// Gets a value indicating whether IsSynchronized.
     /// </summary>
-    public bool IsSynchronized
-    {
-      get
-      {
-        // TODO:  Add DoubleLinkedList.IsSynchronized getter implementation
-        return false;
-      }
-    }
+    public bool IsSynchronized => false;
 
     /// <summary>
     /// Gets SyncRoot.
     /// </summary>
-    public object SyncRoot
-    {
-      get
-      {
-        return this.m_syncRoot;
-      }
-    }
+    public object SyncRoot => this.m_syncRoot;
 
     #endregion
 
@@ -632,13 +600,7 @@ namespace YAF.Utils.Structures
       /// <summary>
       /// Gets Current.
       /// </summary>
-      public object Current
-      {
-        get
-        {
-          return this.m_current;
-        }
-      }
+      public object Current => this.m_current;
 
       #endregion
 

@@ -35,7 +35,6 @@ namespace YAF.Core
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -83,13 +82,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 5;
-            }
-        }
+        public int Order => 5;
 
         /// <summary>
         /// Gets or sets ServiceLocator.

@@ -524,11 +524,6 @@ namespace YAF.Types.Constants
         admin_taskmanager,
 
         /// <summary>
-        /// The admin_test_data.
-        /// </summary>
-        admin_test_data,
-
-        /// <summary>
         /// The admin_restartapp.
         /// </summary>
         admin_restartapp,

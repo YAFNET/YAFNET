@@ -121,71 +121,35 @@ namespace YAF.Core.Data
         /// </summary>
         public IDbTransaction DbTransaction
         {
-            get
-            {
-                return this._dbTransaction;
-            }
+            get => this._dbTransaction;
 
-            protected set
-            {
-                this._dbTransaction = value;
-            }
+            protected set => this._dbTransaction = value;
         }
 
         /// <summary>
         ///     Gets GetData.
         /// </summary>
-        public dynamic GetData
-        {
-            get
-            {
-                return this._getDataProxy.ToDynamic();
-            }
-        }
+        public dynamic GetData => this._getDataProxy.ToDynamic();
 
         /// <summary>
         ///     Gets GetDataSet.
         /// </summary>
-        public dynamic GetDataSet
-        {
-            get
-            {
-                return this._getDataSetProxy.ToDynamic();
-            }
-        }
+        public dynamic GetDataSet => this._getDataSetProxy.ToDynamic();
 
         /// <summary>
         ///     Gets the get reader.
         /// </summary>
-        public dynamic GetReader
-        {
-            get
-            {
-                return this._getReaderProxy.ToDynamic();
-            }
-        }
+        public dynamic GetReader => this._getReaderProxy.ToDynamic();
 
         /// <summary>
         ///     Gets Query.
         /// </summary>
-        public dynamic Query
-        {
-            get
-            {
-                return this._queryProxy.ToDynamic();
-            }
-        }
+        public dynamic Query => this._queryProxy.ToDynamic();
 
         /// <summary>
         ///     Gets Scalar.
         /// </summary>
-        public dynamic Scalar
-        {
-            get
-            {
-                return this._scalarProxy.ToDynamic();
-            }
-        }
+        public dynamic Scalar => this._scalarProxy.ToDynamic();
 
         #endregion
 
@@ -234,16 +198,11 @@ namespace YAF.Core.Data
 
         #region Methods
 
-        public IEnumerable<IDbSpecificFunction> DbSpecificFunctions
-        {
-            get
-            {
-                return this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
-                    .WhereProviderName(this._dbAccessProvider.ProviderName)
-                    .BySortOrder()
-                    .ToList();
-            }
-        }
+        public IEnumerable<IDbSpecificFunction> DbSpecificFunctions =>
+            this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
+                .WhereProviderName(this._dbAccessProvider.ProviderName)
+                .BySortOrder()
+                .ToList();
 
         /// <summary>
         /// The db function execute.

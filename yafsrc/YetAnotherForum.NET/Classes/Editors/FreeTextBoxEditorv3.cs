@@ -23,9 +23,6 @@
  */
 namespace YAF.Editors
 {
-    using YAF.Core;
-    using YAF.Types.Extensions;
-
     /// <summary>
     /// The free text box editorv 3.
     /// </summary>
@@ -36,25 +33,12 @@ namespace YAF.Editors
         /// <summary>
         ///   Gets Description.
         /// </summary>
-        public override string Description
-        {
-            get
-            {
-                return "Free Text Box v3 (HTML)";
-            }
-        }
+        public override string Description => "Free Text Box v3 (HTML)";
 
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId
-        {
-            get
-            {
-                // backward compatibility...
-                return "6";
-            }
-        }
+        public override string ModuleId => "6";
 
         #endregion
     }

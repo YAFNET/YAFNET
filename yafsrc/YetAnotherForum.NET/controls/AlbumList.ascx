@@ -28,11 +28,12 @@
                     <ItemTemplate>
                         <div class="col-md-4">
                             <div class="card mb-4 shadow-sm text-center">
-                                <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("AlbumID")) %>'
+                                <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("ID")) %>'
                                    target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>'>
-                                <asp:Image runat="server" ID="coverImage" ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("AlbumID"), (this.Eval("CoverImageID").ToString() == string.Empty ? "0" : this.Eval("CoverImageID"))) %>'
-                                           ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>' runat="server" 
-                                           AlternateText='<%# this.Eval("AlbumID") %>'
+                                <asp:Image runat="server" ID="coverImage" 
+                                           ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
+                                           ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>' 
+                                           AlternateText='<%# this.Eval("ID") %>'
                                            CssClass="img-fluid img-thumbnail mt-4"/>
                                 <div class="card-body">
                                     <div class="card-text">
@@ -42,7 +43,7 @@
                                                              TextLocalizedPage="BUTTON"
                                                              Visible='<%#
     this.UserID == this.PageContext.PageUserID %>' runat="server" CommandName="edit"
-                                                             CommandArgument='<%# this.Eval("AlbumID") %>'
+                                                             CommandArgument='<%# this.Eval("ID") %>'
                                                              Size="Small"
                                                              Type="OutlineSecondary"/>
                                             <small class="text-muted">

@@ -61,13 +61,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
         /// </summary>
-        public override bool IsProtected
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsProtected => false;
 
         #endregion
 

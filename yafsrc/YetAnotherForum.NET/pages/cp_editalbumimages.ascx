@@ -55,7 +55,7 @@
                     <YAF:ThemeButton ID="ImageDelete" runat="server" 
                                      ReturnConfirmText='<%# this.GetText("ASK_DELETEIMAGE") %>' 
                                      CommandName="delete" 
-                                     CommandArgument='<%# this.Eval( "ImageID") %>'
+                                     CommandArgument='<%# this.Eval( "ID") %>'
                                      TextLocalizedTag="DELETE"
                                      Type="Danger"
                                      Icon="trash" />

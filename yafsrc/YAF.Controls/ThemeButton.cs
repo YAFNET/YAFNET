@@ -105,15 +105,9 @@ namespace YAF.Controls
         /// </summary>
         public event EventHandler Click
         {
-            add
-            {
-                this.Events.AddHandler(_clickEvent, value);
-            }
+            add => this.Events.AddHandler(_clickEvent, value);
 
-            remove
-            {
-                this.Events.RemoveHandler(_clickEvent, value);
-            }
+            remove => this.Events.RemoveHandler(_clickEvent, value);
         }
 
         /// <summary>
@@ -121,15 +115,9 @@ namespace YAF.Controls
         /// </summary>
         public event CommandEventHandler Command
         {
-            add
-            {
-                this.Events.AddHandler(_commandEvent, value);
-            }
+            add => this.Events.AddHandler(_commandEvent, value);
 
-            remove
-            {
-                this.Events.RemoveHandler(_commandEvent, value);
-            }
+            remove => this.Events.RemoveHandler(_commandEvent, value);
         }
 
         #endregion
@@ -141,15 +129,9 @@ namespace YAF.Controls
         /// </summary>
         public bool Enabled
         {
-            get
-            {
-                return this.ViewState["Enabled"] == null || this.ViewState["Enabled"].ToType<bool>();
-            }
+            get => this.ViewState["Enabled"] == null || this.ViewState["Enabled"].ToType<bool>();
 
-            set
-            {
-                this.ViewState["Enabled"] = value;
-            }
+            set => this.ViewState["Enabled"] = value;
         }
 
         /// <summary>
@@ -160,15 +142,9 @@ namespace YAF.Controls
         [DefaultValue(ButtonAction.Primary)]
         public ButtonAction Type
         {
-            get
-            {
-                return this.ViewState["Type"] != null ? this.ViewState["Type"].ToType<ButtonAction>() : ButtonAction.Primary;
-            }
+            get => this.ViewState["Type"] != null ? this.ViewState["Type"].ToType<ButtonAction>() : ButtonAction.Primary;
 
-            set
-            {
-                this.ViewState["Type"] = value;
-            }
+            set => this.ViewState["Type"] = value;
         }
 
         /// <summary>
@@ -178,15 +154,9 @@ namespace YAF.Controls
         [DefaultValue(ButtonSize.Normal)]
         public ButtonSize Size
         {
-            get
-            {
-                return this.ViewState["Size"] != null ? this.ViewState["Size"].ToType<ButtonSize>() : ButtonSize.Normal;
-            }
+            get => this.ViewState["Size"] != null ? this.ViewState["Size"].ToType<ButtonSize>() : ButtonSize.Normal;
 
-            set
-            {
-                this.ViewState["Size"] = value;
-            }
+            set => this.ViewState["Size"] = value;
         }
 
         /// <summary>
@@ -199,15 +169,9 @@ namespace YAF.Controls
         /// </summary>
         public string CommandArgument
         {
-            get
-            {
-                return this.ViewState["commandArgument"]?.ToString();
-            }
+            get => this.ViewState["commandArgument"]?.ToString();
 
-            set
-            {
-                this.ViewState["commandArgument"] = value;
-            }
+            set => this.ViewState["commandArgument"] = value;
         }
 
         /// <summary>
@@ -215,15 +179,9 @@ namespace YAF.Controls
         /// </summary>
         public string CommandName
         {
-            get
-            {
-                return this.ViewState["commandName"]?.ToString();
-            }
+            get => this.ViewState["commandName"]?.ToString();
 
-            set
-            {
-                this.ViewState["commandName"] = value;
-            }
+            set => this.ViewState["commandName"] = value;
         }
 
         /// <summary>
@@ -232,15 +190,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string CssClass
         {
-            get
-            {
-                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"] as string : string.Empty;
-            }
+            get => this.ViewState["CssClass"] != null ? this.ViewState["CssClass"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["CssClass"] = value;
-            }
+            set => this.ViewState["CssClass"] = value;
         }
 
         /// <summary>
@@ -252,15 +204,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string Icon
         {
-            get
-            {
-                return this.ViewState["Icon"] != null ? this.ViewState["Icon"] as string : string.Empty;
-            }
+            get => this.ViewState["Icon"] != null ? this.ViewState["Icon"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["Icon"] = value;
-            }
+            set => this.ViewState["Icon"] = value;
         }
 
         /// <summary>
@@ -272,15 +218,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string ReturnConfirmText
         {
-            get
-            {
-                return this.ViewState["ReturnConfirmText"] != null ? this.ViewState["ReturnConfirmText"] as string : string.Empty;
-            }
+            get => this.ViewState["ReturnConfirmText"] != null ? this.ViewState["ReturnConfirmText"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["ReturnConfirmText"] = value;
-            }
+            set => this.ViewState["ReturnConfirmText"] = value;
         }
 
         /// <summary>
@@ -292,15 +232,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string DataTarget
         {
-            get
-            {
-                return this.ViewState["DataTarget"] != null ? this.ViewState["DataTarget"] as string : string.Empty;
-            }
+            get => this.ViewState["DataTarget"] != null ? this.ViewState["DataTarget"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["DataTarget"] = value;
-            }
+            set => this.ViewState["DataTarget"] = value;
         }
 
         /// <summary>
@@ -312,15 +246,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string DataToggle
         {
-            get
-            {
-                return this.ViewState["DataToggle"] != null ? this.ViewState["DataToggle"] as string : string.Empty;
-            }
+            get => this.ViewState["DataToggle"] != null ? this.ViewState["DataToggle"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["DataToggle"] = value;
-            }
+            set => this.ViewState["DataToggle"] = value;
         }
 
         /// <summary>
@@ -329,15 +257,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string NavigateUrl
         {
-            get
-            {
-                return this.ViewState["NavigateUrl"] != null ? this.ViewState["NavigateUrl"] as string : string.Empty;
-            }
+            get => this.ViewState["NavigateUrl"] != null ? this.ViewState["NavigateUrl"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["NavigateUrl"] = value;
-            }
+            set => this.ViewState["NavigateUrl"] = value;
         }
 
         /// <summary>
@@ -345,15 +267,9 @@ namespace YAF.Controls
         /// </summary>
         public string TextLocalizedPage
         {
-            get
-            {
-                return this._localizedLabel.LocalizedPage;
-            }
+            get => this._localizedLabel.LocalizedPage;
 
-            set
-            {
-                this._localizedLabel.LocalizedPage = value;
-            }
+            set => this._localizedLabel.LocalizedPage = value;
         }
 
         /// <summary>
@@ -361,15 +277,9 @@ namespace YAF.Controls
         /// </summary>
         public string TextLocalizedTag
         {
-            get
-            {
-                return this._localizedLabel.LocalizedTag;
-            }
+            get => this._localizedLabel.LocalizedTag;
 
-            set
-            {
-                this._localizedLabel.LocalizedTag = value;
-            }
+            set => this._localizedLabel.LocalizedTag = value;
         }
 
         /// <summary>
@@ -378,15 +288,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string TitleLocalizedPage
         {
-            get
-            {
-                return this.ViewState["TitleLocalizedPage"] != null ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
-            }
+            get => this.ViewState["TitleLocalizedPage"] != null ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
 
-            set
-            {
-                this.ViewState["TitleLocalizedPage"] = value;
-            }
+            set => this.ViewState["TitleLocalizedPage"] = value;
         }
 
         /// <summary>
@@ -394,15 +298,9 @@ namespace YAF.Controls
         /// </summary>
         public string ParamTitle0
         {
-            get
-            {
-                return this._paramTitle0;
-            }
+            get => this._paramTitle0;
 
-            set
-            {
-                this._paramTitle0 = value;
-            }
+            set => this._paramTitle0 = value;
         }
 
         /// <summary>
@@ -410,15 +308,9 @@ namespace YAF.Controls
         /// </summary>
         public string ParamTitle1
         {
-            get
-            {
-                return this._paramTitle1;
-            }
+            get => this._paramTitle1;
 
-            set
-            {
-                this._paramTitle1 = value;
-            }
+            set => this._paramTitle1 = value;
         }
 
         /// <summary>
@@ -426,15 +318,9 @@ namespace YAF.Controls
         /// </summary>
         public string ParamTitle2
         {
-            get
-            {
-                return this._paramTitle2;
-            }
+            get => this._paramTitle2;
 
-            set
-            {
-                this._paramTitle2 = value;
-            }
+            set => this._paramTitle2 = value;
         }
 
         /// <summary>
@@ -442,15 +328,9 @@ namespace YAF.Controls
         /// </summary>
         public string ParamText0
         {
-            get
-            {
-                return this._localizedLabel.Param0;
-            }
+            get => this._localizedLabel.Param0;
 
-            set
-            {
-                this._localizedLabel.Param0 = value;
-            }
+            set => this._localizedLabel.Param0 = value;
         }
 
         /// <summary>
@@ -458,15 +338,9 @@ namespace YAF.Controls
         /// </summary>
         public string ParamText1
         {
-            get
-            {
-                return this._localizedLabel.Param1;
-            }
+            get => this._localizedLabel.Param1;
 
-            set
-            {
-                this._localizedLabel.Param1 = value;
-            }
+            set => this._localizedLabel.Param1 = value;
         }
 
         /// <summary>
@@ -474,15 +348,9 @@ namespace YAF.Controls
         /// </summary>
         public string ParamText2
         {
-            get
-            {
-                return this._localizedLabel.Param2;
-            }
+            get => this._localizedLabel.Param2;
 
-            set
-            {
-                this._localizedLabel.Param2 = value;
-            }
+            set => this._localizedLabel.Param2 = value;
         }
 
         /// <summary>
@@ -491,15 +359,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string TitleLocalizedTag
         {
-            get
-            {
-                return this.ViewState["TitleLocalizedTag"] != null ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
-            }
+            get => this.ViewState["TitleLocalizedTag"] != null ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["TitleLocalizedTag"] = value;
-            }
+            set => this.ViewState["TitleLocalizedTag"] = value;
         }
 
         /// <summary>
@@ -508,15 +370,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string TitleNonLocalized
         {
-            get
-            {
-                return this.ViewState["TitleNonLocalized"] != null ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
-            }
+            get => this.ViewState["TitleNonLocalized"] != null ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
 
-            set
-            {
-                this.ViewState["TitleNonLocalized"] = value;
-            }
+            set => this.ViewState["TitleNonLocalized"] = value;
         }
 
         #endregion

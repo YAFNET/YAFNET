@@ -27,18 +27,20 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Data;
     using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -109,14 +111,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    if (this.IsOutbox)
-                    {
-                        LegacyDb.pmessage_delete(e.CommandArgument, true);
-                    }
-                    else
-                    {
-                        LegacyDb.pmessage_delete(e.CommandArgument);
-                    }
+                    this.GetRepository<PMessage>().DeleteMessage(e.CommandArgument.ToType<int>());
 
                     this.BindData();
                     this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
@@ -174,7 +169,7 @@ namespace YAF.Pages
         {
             using (
                 var dt =
-                    LegacyDb.pmessage_list(
+                    this.GetRepository<PMessage>().ListAsDataTable(
                         Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
             {
                 if (dt.HasRows())
@@ -182,19 +177,28 @@ namespace YAF.Pages
                     var row = dt.Rows[0];
 
                     // if the pm isn't from or two the current user--then it's access denied
-                    if (row["ToUserID"].ToType<int>() != this.PageContext.PageUserID
+                    /*if (row["ToUserID"].ToType<int>() != this.PageContext.PageUserID
                         && row["FromUserID"].ToType<int>() != this.PageContext.PageUserID)
                     {
                         YafBuildLink.AccessDenied();
-                    }
+                    }*/
 
                     // Check if Message is Reply
                     if (!row["ReplyTo"].IsNullOrEmptyDBField())
                     {
-                        // TODO : Get orginal Message
+                        var replyTo = row["ReplyTo"].ToType<int>();
 
-                        // TODO: get all other replies
+                        var message = new PMessage
+                                          {
+                                              ReplyTo = row["ReplyTo"].ToType<int>(),
+                                              ID = row["PMessageID"].ToType<int>()
+                                          };
+
+                        dt.Merge(this.GetRepository<PMessage>().GetReplies(message, replyTo));
                     }
+
+                    var dataView = dt.DefaultView;
+                    dataView.Sort = "Created ASC";
 
                     this.SetMessageView(
                         row["FromUserID"],
@@ -220,7 +224,7 @@ namespace YAF.Pages
 
                     this.PageLinks.AddLink(row["Subject"].ToString());
 
-                    this.Inbox.DataSource = dt;
+                    this.Inbox.DataSource = dataView;
                 }
                 else
                 {
@@ -235,9 +239,9 @@ namespace YAF.Pages
                 return;
             }
 
-            var userPmessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm").ToType<int>();
+            var userPmessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("pm");
 
-            LegacyDb.pmessage_markread(userPmessageId);
+            this.GetRepository<UserPMessage>().MarkAsRead(userPmessageId);
             this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID));
             this.Get<IRaiseEvent>().Raise(
                 new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, userPmessageId));

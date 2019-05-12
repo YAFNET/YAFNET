@@ -30,9 +30,6 @@ namespace YAF.UrlRewriter.Transforms
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public string Name
-        {
-            get { return Constants.TransformBase64Decode; }
-        }
+        public string Name => Constants.TransformBase64Decode;
     }
 }

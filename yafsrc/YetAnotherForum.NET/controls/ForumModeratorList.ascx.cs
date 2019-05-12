@@ -58,10 +58,7 @@ namespace YAF.Controls
     /// </summary>
     public IEnumerable DataSource
     {
-      set
-      {
-        this.ModeratorList.DataSource = value;
-      }
+      set => this.ModeratorList.DataSource = value;
     }
 
     #endregion

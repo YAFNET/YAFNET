@@ -30,14 +30,12 @@ namespace YAF.Core.Services
     using System.Data;
     using System.Web;
 
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     #endregion
 

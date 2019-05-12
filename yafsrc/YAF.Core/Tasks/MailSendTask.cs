@@ -26,10 +26,8 @@ namespace YAF.Core.Tasks
     #region Using
 
     using System;
-    using System.Diagnostics;
 
     using YAF.Types.Attributes;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion

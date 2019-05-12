@@ -30,16 +30,15 @@ namespace YAF.Install
     using System.Configuration;
     using System.Linq;
     using System.Security.Permissions;
-    using System.Web;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Types;
@@ -47,6 +46,7 @@ namespace YAF.Install
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -143,13 +143,7 @@ namespace YAF.Install
         /// <value>
         /// The database access.
         /// </value>
-        public IDbAccess DbAccess
-        {
-            get
-            {
-                return this.Get<IDbAccess>();
-            }
-        }
+        public IDbAccess DbAccess => this.Get<IDbAccess>();
 
         /// <summary>
         ///     Gets CurrentConnString.
@@ -160,7 +154,7 @@ namespace YAF.Install
             {
                 if (this.rblYAFDatabase.SelectedValue != "existing")
                 {
-                    return DbHelpers.GetConnectionString(
+                    return DbInformationHelper.BuildConnectionString(
                         this.Parameter1_Value.Text.Trim(),
                         this.Parameter2_Value.Text.Trim(),
                         this.Parameter3_Value.Text.Trim(),
@@ -197,10 +191,7 @@ namespace YAF.Install
         /// </summary>
         private string CurrentWizardStepID
         {
-            get
-            {
-                return this.InstallWizard.WizardSteps[this.InstallWizard.ActiveStepIndex].ID;
-            }
+            get => this.InstallWizard.WizardSteps[this.InstallWizard.ActiveStepIndex].ID;
 
             set
             {
@@ -562,7 +553,7 @@ namespace YAF.Install
                     }
                     else
                     {
-                        var version = (this.Cache["DBVersion"] ?? LegacyDb.GetDBVersion()).ToType<int>();
+                        var version = (this.Cache["DBVersion"] ?? this.GetRepository<Registry>().GetDBVersion()).ToType<int>();
 
                         if (version >= 30 || version == -1)
                         {
@@ -577,7 +568,7 @@ namespace YAF.Install
                     if (this.CurrentWizardStepID == "WizMigrateUsers")
                     {
                         this.lblMigrateUsersCount.Text =
-                            LegacyDb.user_list(this.PageBoardID, null, true).Rows.Count.ToString();
+                            this.GetRepository<User>().ListAsDataTable(this.PageBoardID, null, true).Rows.Count.ToString();
                     }
 
                     break;
@@ -738,12 +729,12 @@ namespace YAF.Install
                         // move to upgrade..
                         this.CurrentWizardStepID = this.IsForumInstalled ? "WizWelcomeUpgrade" : "WizDatabaseConnection";
 
-                        var dbVersionName = LegacyDb.GetDBVersionName();
-                        var dbVersion = LegacyDb.GetDBVersion();
+                        var versionName = this.GetRepository<Registry>().GetDBVersionName();
+                        var version = this.GetRepository<Registry>().GetDBVersion();
 
-                        this.CurrentVersionName.Text = dbVersion < 0
+                        this.CurrentVersionName.Text = version < 0
                                                            ? "New"
-                                                           : "{0} ({1})".FormatWith(dbVersionName, dbVersion);
+                                                           : "{0} ({1})".FormatWith(versionName, version);
                         this.UpgradeVersionName.Text = "{0} ({1})".FormatWith(YafForumInfo.AppVersionName, YafForumInfo.AppVersion);
                     }
                     else
@@ -1162,7 +1153,7 @@ namespace YAF.Install
             }
             else
             {
-                this.Cache["DBVersion"] = LegacyDb.GetDBVersion();
+                this.Cache["DBVersion"] = this.GetRepository<Registry>().GetDBVersion();
 
                 this.CurrentWizardStepID = this.IsConfigPasswordSet && this.IsForumInstalled ? "WizEnterPassword" : "WizWelcome";
 
@@ -1190,7 +1181,7 @@ namespace YAF.Install
 
                 this.ForumBaseUrlMask.Text = BaseUrlBuilder.GetBaseUrlFromVariables();
 
-                this.DBUsernamePasswordHolder.Visible = LegacyDb.PasswordPlaceholderVisible;
+                this.DBUsernamePasswordHolder.Visible = false;
 
                 // Connection string parameters text boxes
                 foreach (var paramNumber in Enumerable.Range(1, 20))

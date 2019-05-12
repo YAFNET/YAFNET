@@ -29,14 +29,15 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -127,7 +128,7 @@ namespace YAF.Pages
             {
                 string senderEmail;
 
-                using (var dataTable = LegacyDb.user_list(
+                using (var dataTable = this.GetRepository<User>().ListAsDataTable(
                     this.PageContext.PageBoardID,
                     this.PageContext.PageUserID,
                     true))

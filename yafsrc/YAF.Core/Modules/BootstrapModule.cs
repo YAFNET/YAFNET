@@ -34,13 +34,7 @@ namespace YAF.Core.Modules
         /// <summary>
         /// Bootstrap module is always called first
         /// </summary>
-        public override int SortOrder
-        {
-            get
-            {
-                return 1;
-            }
-        }
+        public override int SortOrder => 1;
 
         protected override void Load(ContainerBuilder builder)
         {

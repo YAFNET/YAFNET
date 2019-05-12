@@ -30,12 +30,13 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
 
     #endregion
@@ -99,7 +100,7 @@ namespace YAF.Pages
             this.listSearchWhat.SelectedIndex = 2;
 
             // Load forum's combo
-            this.listForum.DataSource = LegacyDb.forum_listall_sorted(
+            this.listForum.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

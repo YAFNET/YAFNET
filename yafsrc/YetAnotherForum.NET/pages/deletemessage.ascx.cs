@@ -31,7 +31,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -98,27 +97,15 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether CanDeletePost.
         /// </summary>
-        public bool CanDeletePost
-        {
-            get
-            {
-                // Ederon : 9/9/2007 - moderators can delete in locked topics
-                return ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
-                         && this._messageRow["UserID"].ToType<int>() == this.PageContext.PageUserID)
-                        || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
-            }
-        }
+        public bool CanDeletePost =>
+            ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
+              && this._messageRow["UserID"].ToType<int>() == this.PageContext.PageUserID)
+             || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
 
         /// <summary>
         ///   Gets a value indicating whether CanUnDeletePost.
         /// </summary>
-        public bool CanUnDeletePost
-        {
-            get
-            {
-                return this.PostDeleted && this.CanDeletePost;
-            }
-        }
+        public bool CanUnDeletePost => this.PostDeleted && this.CanDeletePost;
 
         /// <summary>
         ///   Gets a value indicating whether PostDeleted.
@@ -229,10 +216,9 @@ namespace YAF.Pages
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
             {
-                this._messageRow =
-                    LegacyDb.message_list(
-                        Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
-                        .GetFirstRowOrInvalid();
+                this._messageRow = this.GetRepository<Message>().ListAsDataTable(
+                        Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
+                    .GetFirstRowOrInvalid();
 
                 if (!this.PageContext.ForumModeratorAccess
                     && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
@@ -288,7 +274,7 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            var tempdb = LegacyDb.message_getRepliesList(
+            var tempdb = this.GetRepository<Message>().RepliesListAsDataTable(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
 
             if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
@@ -358,8 +344,7 @@ namespace YAF.Pages
             // Toogle delete message -- if the message is currently deleted it will be undeleted.
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
-            LegacyDb.message_delete(
-                tmpMessageID,
+            this.GetRepository<Message>().Delete(tmpMessageID.ToType<int>(),
                 this._isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),
                 this.PostDeleted ? 0 : 1,

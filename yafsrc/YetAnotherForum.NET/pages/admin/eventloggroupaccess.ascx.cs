@@ -32,14 +32,14 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -123,7 +123,7 @@ namespace YAF.Pages.Admin
             // retrieve access mask ID from parameter (if applicable)
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
-                object groupId = this.Request.QueryString.GetFirstOrDefault("r");
+                var groupId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
 
                 foreach (RepeaterItem ri in this.AccessList.Items)
                 {
@@ -138,7 +138,7 @@ namespace YAF.Pages.Admin
                         Enum.TryParse(eventTypeName, true, out eventTypeId);
 
                         // save it
-                        LegacyDb.eventloggroupaccess_save(
+                        this.GetRepository<EventLogGroupAccess>().Save(
                             groupId, eventTypeId.ToType<int>(), eventTypeName, deleteAccess);
                     }
                     else
@@ -146,7 +146,8 @@ namespace YAF.Pages.Admin
                         var etn = ((Label)ri.FindControl("EventTypeName")).Text.Trim();
                         EventLogTypes eventTypeId;
                         Enum.TryParse(etn, true, out eventTypeId);
-                        LegacyDb.eventloggroupaccess_delete(groupId, eventTypeId.ToType<int>(), etn);
+
+                        this.GetRepository<EventLogGroupAccess>().Delete(groupId, eventTypeId.ToType<int>(), etn);
                     }
                 }
             }
@@ -168,7 +169,7 @@ namespace YAF.Pages.Admin
             // save permissions to table -  checked only
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
-                object groupId = this.Request.QueryString.GetFirstOrDefault("r");
+                var groupId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
 
                 foreach (
                     var etn in
@@ -180,7 +181,7 @@ namespace YAF.Pages.Admin
                     Enum.TryParse(etn, true, out eventTypeId);
 
                     // save it
-                    LegacyDb.eventloggroupaccess_save(groupId, eventTypeId.ToType<int>(), etn, false);
+                    this.GetRepository<EventLogGroupAccess>().Save(groupId, eventTypeId.ToType<int>(), etn, false);
                 }
             }
 
@@ -201,7 +202,7 @@ namespace YAF.Pages.Admin
             // save permissions to table -  checked only
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
-                object groupId = this.Request.QueryString.GetFirstOrDefault("r");
+                var groupId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
                 foreach (var etn in from RepeaterItem ri in this.AccessList.Items
                                     where ((CheckBox)ri.FindControl("ViewAccess")).Checked
                                     select ((Label)ri.FindControl("EventTypeName")).Text.Trim())
@@ -211,7 +212,7 @@ namespace YAF.Pages.Admin
                     Enum.TryParse(etn, true, out eventTypeId);
 
                     // save it
-                    LegacyDb.eventloggroupaccess_save(groupId, eventTypeId.ToType<int>(), etn, true);
+                    this.GetRepository<EventLogGroupAccess>().Save(groupId, eventTypeId.ToType<int>(), etn, true);
                 }
             }
 
@@ -232,7 +233,7 @@ namespace YAF.Pages.Admin
             // revoke permissions by deleting records from table. Number of records ther should be minimal.
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
-                object groupId = this.Request.QueryString.GetFirstOrDefault("r");
+                var groupId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
                 foreach (var etn in from RepeaterItem ri in this.AccessList.Items
                                     where ((CheckBox)ri.FindControl("ViewAccess")).Checked
                                     select ((Label)ri.FindControl("EventTypeName")).Text.Trim())
@@ -242,7 +243,7 @@ namespace YAF.Pages.Admin
                     Enum.TryParse(etn, true, out eventTypeId);
 
                     // save it
-                    LegacyDb.eventloggroupaccess_save(groupId, eventTypeId.ToType<int>(), etn, false);
+                    this.GetRepository<EventLogGroupAccess>().Save(groupId, eventTypeId.ToType<int>(), etn, false);
                 }
             }
 
@@ -263,7 +264,7 @@ namespace YAF.Pages.Admin
             // revoke permissions by deleting records from table. Number of records ther should be minimal.
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
-                object groupId = this.Request.QueryString.GetFirstOrDefault("r");
+                var groupId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
                 foreach (var etn in
                     from RepeaterItem ri in this.AccessList.Items
                     select ((Label)ri.FindControl("EventTypeName")).Text.Trim())
@@ -273,7 +274,7 @@ namespace YAF.Pages.Admin
                     Enum.TryParse(etn, true, out eventTypeId);
 
                     // save it
-                    LegacyDb.eventloggroupaccess_delete(groupId, eventTypeId.ToType<int>(), etn);
+                    this.GetRepository<EventLogGroupAccess>().Delete(groupId, eventTypeId.ToType<int>(), etn);
                 }
             }
 
@@ -292,7 +293,9 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
                 // Load the page access list.
-                var dt = LegacyDb.eventloggroupaccess_list(this.Request.QueryString.GetFirstOrDefault("r"), null);
+                var dt = this.GetRepository<EventLogGroupAccess>().ListAsTable(
+                    this.Request.QueryString.GetFirstOrDefaultAs<int>("r"),
+                    null);
 
                 // Get admin pages by page prefixes.
                 var listEnumValues = Enum.GetValues(typeof(EventLogTypes));

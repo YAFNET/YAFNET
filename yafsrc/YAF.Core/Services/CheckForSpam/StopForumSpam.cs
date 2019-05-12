@@ -168,15 +168,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </value>
         public bool Success
         {
-            get
-            {
-                return this.SuccessString == "1";
-            }
+            get => this.SuccessString == "1";
 
-            set
-            {
-                this.SuccessString = value ? "1" : "0";
-            }
+            set => this.SuccessString = value ? "1" : "0";
         }
 
         /// <summary>
@@ -239,15 +233,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </value>
         public bool Appears
         {
-            get
-            {
-                return this.AppearsString == "1";
-            }
+            get => this.AppearsString == "1";
 
-            set
-            {
-                this.AppearsString = value ? "1" : "0";
-            }
+            set => this.AppearsString = value ? "1" : "0";
         }
     }
 
@@ -283,15 +271,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </value>
         public bool Appears
         {
-            get
-            {
-                return this.AppearsString == "1";
-            }
+            get => this.AppearsString == "1";
 
-            set
-            {
-                this.AppearsString = value ? "1" : "0";
-            }
+            set => this.AppearsString = value ? "1" : "0";
         }
     }
 
@@ -327,15 +309,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </value>
         public bool Appears
         {
-            get
-            {
-                return this.AppearsString == "1";
-            }
+            get => this.AppearsString == "1";
 
-            set
-            {
-                this.AppearsString = value ? "1" : "0";
-            }
+            set => this.AppearsString = value ? "1" : "0";
         }
     }
 }

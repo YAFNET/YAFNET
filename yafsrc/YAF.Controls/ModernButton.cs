@@ -56,40 +56,22 @@ namespace YAF.Controls
         /// <returns>The text caption displayed in the <see cref="T:System.Web.UI.WebControls.Button" /> control. The default value is <see cref="F:System.String.Empty" />.</returns>
         public new string Text
         {
-            get
-            {
-                return this.ViewState["NewText"] as string;
-            }
+            get => this.ViewState["NewText"] as string;
 
-            set
-            {
-                this.ViewState["NewText"] = HttpUtility.HtmlDecode(value);
-            }
+            set => this.ViewState["NewText"] = HttpUtility.HtmlDecode(value);
         }
 
         /// <summary>
         /// Gets the name of the control tag. This property is used primarily by control developers.
         /// </summary>
         /// <returns>The name of the control tag.</returns>
-        protected override string TagName
-        {
-            get
-            {
-                return "button";
-            }
-        }
+        protected override string TagName => "button";
 
         /// <summary>
         /// Gets the <see cref="T:System.Web.UI.HtmlTextWriterTag" /> value that corresponds to this Web server control. This property is used primarily by control developers.
         /// </summary>
         /// <returns>One of the <see cref="T:System.Web.UI.HtmlTextWriterTag" /> enumeration values.</returns>
-        protected override HtmlTextWriterTag TagKey
-        {
-            get
-            {
-                return HtmlTextWriterTag.Button;
-            }
-        }
+        protected override HtmlTextWriterTag TagKey => HtmlTextWriterTag.Button;
 
         /// <summary>
         /// Determines whether the button has been clicked prior to rendering on the client.

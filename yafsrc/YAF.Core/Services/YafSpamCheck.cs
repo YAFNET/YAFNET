@@ -72,14 +72,13 @@ namespace YAF.Core.Services
 
             switch (YafContext.Current.Get<YafBoardSettings>().SpamServiceType)
             {
-                case 1:
-                    return this.CheckWithBlogSpam(userName, postMessage, ipAddress, out result);
                 case 2:
                     {
                         return YafContext.Current.Get<YafBoardSettings>().AkismetApiKey.IsSet()
                                && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
                     }
 
+                case 1:
                 case 3:
                     {
                         return YafContext.Current.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
@@ -174,46 +173,6 @@ namespace YAF.Core.Services
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Checks with blog spam.
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="postMessage">The post message.</param>
-        /// <param name="ipAddress">The IP Address.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        /// Returns if the Content or the User was flagged as Spam, or not
-        /// </returns>
-        private bool CheckWithBlogSpam([NotNull]string userName, [NotNull]string postMessage, [NotNull]string ipAddress, out string result)
-        {
-            var isLocal = YafContext.Current.Get<HttpRequestBase>().IsLocal;
-
-            var whiteList = isLocal ? "whitelist=127.0.0.1" : string.Empty;
-
-            try
-            {
-                return
-                    BlogSpamNet.CommentIsSpam(
-                        new BlogSpamComment
-                        {
-                            comment = postMessage,
-                            ip = ipAddress,
-                            agent = YafContext.Current.Get<HttpRequestBase>().UserAgent,
-                            name = userName,
-                            options = whiteList,
-                        },
-                        true,
-                        out result);
-            }
-            catch (Exception ex)
-            {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Spam via BlogSpam");
-
-                result = string.Empty;
-                return false;
-            }
         }
 
         /// <summary>

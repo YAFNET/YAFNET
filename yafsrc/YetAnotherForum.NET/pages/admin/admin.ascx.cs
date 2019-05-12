@@ -37,7 +37,6 @@ namespace YAF.Pages.Admin
     using FarsiLibrary.Utils;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
@@ -134,7 +133,7 @@ namespace YAF.Pages.Admin
                         UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
                     }
 
-                    LegacyDb.user_delete(e.CommandArgument);
+                    this.GetRepository<User>().Delete(e.CommandArgument.ToType<int>());
 
                     this.BindData();
                     break;
@@ -158,14 +157,14 @@ namespace YAF.Pages.Admin
                         UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
                     }
 
-                    LegacyDb.user_deleteold(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
+                    this.GetRepository<User>().DeleteOld(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
                     this.BindData();
                     break;
                 case "approveall":
                     UserMembershipHelper.ApproveAll();
 
                     // vzrus: Should delete users from send email list
-                    LegacyDb.user_approveall(this.PageContext.PageBoardID);
+                    this.GetRepository<User>().ApproveAll(this.PageContext.PageBoardID);
                     this.BindData();
                     break;
             }
@@ -392,7 +391,7 @@ namespace YAF.Pages.Admin
 
             if (this.UnverifiedUsersHolder.Visible)
             {
-                var unverifiedUsers = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
+                var unverifiedUsers = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, null, false);
 
                 if (unverifiedUsers.HasRows())
                 {

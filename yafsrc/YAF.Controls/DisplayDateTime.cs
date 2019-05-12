@@ -59,15 +59,9 @@ namespace YAF.Controls
         /// </summary>
         public object DateTime
         {
-            get
-            {
-                return this.ViewState["DateTime"];
-            }
+            get => this.ViewState["DateTime"];
 
-            set
-            {
-                this.ViewState["DateTime"] = value;
-            }
+            set => this.ViewState["DateTime"] = value;
         }
 
         /// <summary>
@@ -75,15 +69,9 @@ namespace YAF.Controls
         /// </summary>
         public DateTimeFormat Format
         {
-            get
-            {
-                return this.ViewState["Format"]?.ToEnum<DateTimeFormat>() ?? DateTimeFormat.Both;
-            }
+            get => this.ViewState["Format"]?.ToEnum<DateTimeFormat>() ?? DateTimeFormat.Both;
 
-            set
-            {
-                this.ViewState["Format"] = value;
-            }
+            set => this.ViewState["Format"] = value;
         }
 
         /// <summary>

@@ -28,6 +28,7 @@ namespace YAF.Types.Extensions
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
 
     using YAF.Types;
@@ -129,21 +130,6 @@ namespace YAF.Types.Extensions
             {
                 yield return default(T);
             }
-        }
-
-        /// <summary>
-        ///     Converts an <see cref="IEnumerable" /> to a HashSet -- similar to ToList()
-        /// </summary>
-        /// <param name="list"> The list. </param>
-        /// <typeparam name="T"> </typeparam>
-        /// <returns> </returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        [NotNull]
-        public static HashSet<T> ToHashSet<T>([NotNull] this IEnumerable<T> list)
-        {
-            CodeContracts.VerifyNotNull(list, "list");
-
-            return new HashSet<T>(list);
         }
 
         #endregion

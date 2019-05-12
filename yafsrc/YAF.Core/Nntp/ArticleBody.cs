@@ -48,15 +48,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public bool IsHtml
     {
-      get
-      {
-        return this._isHtml;
-      }
+      get => this._isHtml;
 
-      set
-      {
-        this._isHtml = value;
-      }
+      set => this._isHtml = value;
     }
 
     /// <summary>
@@ -64,15 +58,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Text
     {
-      get
-      {
-        return this._text;
-      }
+      get => this._text;
 
-      set
-      {
-        this._text = value;
-      }
+      set => this._text = value;
     }
 
     /// <summary>
@@ -80,15 +68,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public Attachment[] Attachments
     {
-      get
-      {
-        return this._attachments;
-      }
+      get => this._attachments;
 
-      set
-      {
-        this._attachments = value;
-      }
+      set => this._attachments = value;
     }
   }
 }

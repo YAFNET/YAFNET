@@ -31,13 +31,14 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Types;
@@ -97,7 +98,7 @@ namespace YAF.Pages.Admin
 
                     // get user(s) we are about to delete
                     using (
-                        var dataTable = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
+                        var dataTable = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, e.CommandArgument.ToType<int>(), DBNull.Value))
                     {
                         // examine each if he's possible to delete
                         foreach (DataRow row in dataTable.Rows)
@@ -306,19 +307,16 @@ namespace YAF.Pages.Admin
             this.group.DataBind();
 
             // get list of user ranks for filtering
-            using (var dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))
-            {
+            var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
+            
                 // add empty for for no filtering
-                var newRow = dt.NewRow();
-                newRow["Name"] = this.GetText("FILTER_NO");
-                newRow["RankID"] = 0;
-                dt.Rows.InsertAt(newRow, 0);
+                ranks.Insert(0, new Rank { Name = this.GetText("FILTER_NO"), ID = 0 });
 
-                this.rank.DataSource = dt;
+                this.rank.DataSource = ranks;
                 this.rank.DataTextField = "Name";
-                this.rank.DataValueField = "RankID";
+                this.rank.DataValueField = "ID";
                 this.rank.DataBind();
-            }
+            
 
             // TODO : page size difinable?
             this.PagerTop.PageSize = 25;
@@ -429,7 +427,7 @@ namespace YAF.Pages.Admin
 
             // get users, eventually filter by groups or ranks
             using (
-                var dt = LegacyDb.user_list(
+                var dt = this.GetRepository<User>().ListAsDataTable(
                     this.PageContext.PageBoardID,
                     null,
                     null,
@@ -491,7 +489,7 @@ namespace YAF.Pages.Admin
         /// </param>
         private void ExportAllUsers(string type)
         {
-            var usersList = LegacyDb.user_list(this.PageContext.PageBoardID, null, true);
+            var usersList = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, null, true);
 
             usersList.DataSet.DataSetName = "YafUserList";
 

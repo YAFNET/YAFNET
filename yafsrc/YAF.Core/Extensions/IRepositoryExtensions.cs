@@ -69,23 +69,7 @@ namespace YAF.Core.Extensions
 
             return success;
         }
-        
 
-        /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="haveId">
-        /// The have id.
-        /// </param>
-        /// <typeparam name="T">
-        /// The type parameter.
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
         public static bool Delete<T>([NotNull] this IRepository<T> repository, [NotNull] IHaveID haveId) where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(haveId, "haveId");
@@ -93,7 +77,14 @@ namespace YAF.Core.Extensions
 
             return repository.DeleteById(haveId.ID);
         }
-        
+
+        public static int Delete<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : class, IEntity, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
+        }
+
 
         /// <summary>
         /// The delete by id.
@@ -194,7 +185,7 @@ namespace YAF.Core.Extensions
         /// The <see cref="bool"/> . 
         /// </returns>
         public static int Insert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
-            where T : class, IEntity, IHaveID, new()
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -362,7 +353,7 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="T" /> .
         /// </returns>
-        public static T GetSingle<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : IEntity, IHaveID, new()
+        public static T GetSingle<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -411,6 +402,22 @@ namespace YAF.Core.Extensions
         }
 
         /// <summary>
+        /// Returns results from an arbitrary parameterized raw sql query with a dbCmd filter. E.g:
+        /// <para>db.SqlList&lt;Person&gt;("EXEC GetRockstarsAged @age", dbCmd => ...)</para>
+        /// </summary>
+        public static List<T> SqlList<T>(
+            [NotNull] this IRepository<T> repository,
+            string sql,
+            Action<IDbCommand> dbCmdFilter)
+        {
+            return repository.DbAccess.Execute(
+                dbCmd => dbCmd.Connection.SqlList<T>(
+                    string.Format("{0}{1}", Config.DatabaseObjectQualifier, sql),
+                    dbCmdFilter));
+        }
+
+
+        /// <summary>
         /// Gets the paged list of entities by the criteria.
         /// </summary>
         /// <typeparam name="T">The type parameter.</typeparam>
@@ -435,5 +442,7 @@ namespace YAF.Core.Extensions
         }
 
         #endregion
+
+       
     }
 }

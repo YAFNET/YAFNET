@@ -50,35 +50,17 @@ namespace YAF.Modules
     /// <summary>
     ///   Gets CurrentForumPage.
     /// </summary>
-    public ForumPage CurrentForumPage
-    {
-      get
-      {
-        return this.PageContext.CurrentForumPage;
-      }
-    }
+    public ForumPage CurrentForumPage => this.PageContext.CurrentForumPage;
 
     /// <summary>
     ///   Gets ForumControl.
     /// </summary>
-    public Forum ForumControl
-    {
-      get
-      {
-        return (Forum)this.ForumControlObj;
-      }
-    }
+    public Forum ForumControl => (Forum)this.ForumControlObj;
 
     /// <summary>
     ///   Gets ForumPageType.
     /// </summary>
-    public ForumPages ForumPageType
-    {
-      get
-      {
-        return this.PageContext.ForumPageType;
-      }
-    }
+    public ForumPages ForumPageType => this.PageContext.ForumPageType;
 
     #endregion
 

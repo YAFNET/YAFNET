@@ -42,15 +42,9 @@ namespace YAFProviders.Passthru
     /// </summary>
     public override string ApplicationName
     {
-      get
-      {
-        return this._realProvider.ApplicationName;
-      }
+      get => this._realProvider.ApplicationName;
 
-      set
-      {
-        this._realProvider.ApplicationName = value;
-      }
+      set => this._realProvider.ApplicationName = value;
     }
 
     /// <summary>

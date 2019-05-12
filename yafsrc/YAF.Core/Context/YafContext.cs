@@ -151,15 +151,9 @@ namespace YAF.Core
         /// </summary>
         public YafBoardSettings BoardSettings
         {
-            get
-            {
-                return this.Get<YafBoardSettings>();
-            }
+            get => this.Get<YafBoardSettings>();
 
-            set
-            {
-                this.Get<CurrentBoardSettings>().Instance = value;
-            }
+            set => this.Get<CurrentBoardSettings>().Instance = value;
         }
 
         /// <summary>
@@ -167,15 +161,9 @@ namespace YAF.Core
         /// </summary>
         public ForumPage CurrentForumPage
         {
-            get
-            {
-                return this._currentForumPage;
-            }
+            get => this._currentForumPage;
 
-            set
-            {
-                this._currentForumPage = value;
-            }
+            set => this._currentForumPage = value;
         }
 
         /// <summary>
@@ -251,15 +239,9 @@ namespace YAF.Core
         /// </summary>
         public MembershipUser User
         {
-            get
-            {
-                return this._user ?? (this._user = UserMembershipHelper.GetUser(true));
-            }
+            get => this._user ?? (this._user = UserMembershipHelper.GetUser(true));
 
-            set
-            {
-                this._user = value;
-            }
+            set => this._user = value;
         }
 
         /// <summary>
@@ -279,15 +261,9 @@ namespace YAF.Core
         /// </returns>
         public object this[[NotNull] string varName]
         {
-            get
-            {
-                return this._variables.ContainsKey(varName) ? this._variables[varName] : null;
-            }
+            get => this._variables.ContainsKey(varName) ? this._variables[varName] : null;
 
-            set
-            {
-                this._variables[varName] = value;
-            }
+            set => this._variables[varName] = value;
         }
 
         #endregion

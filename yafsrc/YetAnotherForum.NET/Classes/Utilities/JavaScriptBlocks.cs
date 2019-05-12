@@ -564,7 +564,7 @@ namespace YAF.Utilities
                     {0}('#fileupload').find('.files tr:first').remove();
 
                     if ({0}('#fileupload').find('.files tr').length == 0) {{
-                        {0}('.UploadDialog').modal('hide');
+                        {0}('#UploadDialog').modal('hide');
 
                         var pageSize = 5;
                         var pageNumber = 0;
@@ -578,7 +578,7 @@ namespace YAF.Utilities
                     uploadFolder: '{7}',
                     allowedUpload: true
                 }},
-                dropZone: {0}('.UploadDialog')
+                dropZone: {0}('#UploadDialog')
             }});
             {0}(document).bind('dragover', function (e) {{
                 var dropZone = {0}('#dropzone'),

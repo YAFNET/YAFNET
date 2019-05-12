@@ -103,15 +103,9 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public object this[[NotNull] string key]
     {
-      get
-      {
-        return this.Get(key);
-      }
+      get => this.Get(key);
 
-      set
-      {
-        this.Set(key, value);
-      }
+      set => this.Set(key, value);
     }
 
     #endregion

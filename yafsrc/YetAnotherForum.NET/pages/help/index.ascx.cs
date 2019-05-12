@@ -72,13 +72,7 @@ namespace YAF.Pages.help
         /// <summary>
         /// Gets PageName.
         /// </summary>
-        public override string PageName
-        {
-            get
-            {
-                return "help_index";
-            }
-        }
+        public override string PageName => "help_index";
 
         #endregion
 

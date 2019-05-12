@@ -137,15 +137,9 @@ namespace YAF.Types.Flags
     public virtual bool IsLocked
     {
       // int value 1
-      get
-      {
-        return this[0];
-      }
+      get => this[0];
 
-      set
-      {
-        this[0] = value;
-      }
+      set => this[0] = value;
     }
 
     /// <summary>
@@ -154,15 +148,9 @@ namespace YAF.Types.Flags
     public virtual bool IsDeleted
     {
       // int value 8
-      get
-      {
-        return this[3];
-      }
+      get => this[3];
 
-      set
-      {
-        this[3] = value;
-      }
+      set => this[3] = value;
     }
 
     /// <summary>
@@ -171,15 +159,9 @@ namespace YAF.Types.Flags
     public virtual bool IsPersistent
     {
       // int value 512
-      get
-      {
-        return this[9];
-      }
+      get => this[9];
 
-      set
-      {
-        this[9] = value;
-      }
+      set => this[9] = value;
     }
 
     /// <summary>
@@ -188,15 +170,9 @@ namespace YAF.Types.Flags
     public virtual bool IsQuestion
     {
       // int value 1024
-      get
-      {
-        return this[this.EnumToIndex(Flags.IsQuestion)];
-      }
+      get => this[this.EnumToIndex(Flags.IsQuestion)];
 
-      set
-      {
-        this[this.EnumToIndex(Flags.IsQuestion)] = value;
-      }
+      set => this[this.EnumToIndex(Flags.IsQuestion)] = value;
     }
 
     #endregion

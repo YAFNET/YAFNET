@@ -54,15 +54,9 @@ namespace YAF.Controls
         /// </summary>
         public virtual bool IsAlt
         {
-            get
-            {
-                return this.ViewState["IsAlt"] != null && Convert.ToBoolean(this.ViewState["IsAlt"]);
-            }
+            get => this.ViewState["IsAlt"] != null && Convert.ToBoolean(this.ViewState["IsAlt"]);
 
-            set
-            {
-                this.ViewState["IsAlt"] = value;
-            }
+            set => this.ViewState["IsAlt"] = value;
         }
 
         /// <summary>
@@ -70,15 +64,9 @@ namespace YAF.Controls
         /// </summary>
         public virtual int? DisplayUserID
         {
-            get
-            {
-                return this.ViewState["DisplayUserID"]?.ToType<int>();
-            }
+            get => this.ViewState["DisplayUserID"]?.ToType<int>();
 
-            set
-            {
-                this.ViewState["DisplayUserID"] = value;
-            }
+            set => this.ViewState["DisplayUserID"] = value;
         }
 
         /// <summary>
@@ -86,15 +74,9 @@ namespace YAF.Controls
         /// </summary>
         public virtual int? MessageID
         {
-            get
-            {
-                return this.ViewState["MessageID"]?.ToType<int>();
-            }
+            get => this.ViewState["MessageID"]?.ToType<int>();
 
-            set
-            {
-                this.ViewState["MessageID"] = value;
-            }
+            set => this.ViewState["MessageID"] = value;
         }
 
         /// <summary>
@@ -103,15 +85,9 @@ namespace YAF.Controls
         [CanBeNull]
         public virtual IList<string> HighlightWords
         {
-            get
-            {
-                return this.ViewState["HighlightWords"] as IList<string> ?? new List<string>();
-            }
+            get => this.ViewState["HighlightWords"] as IList<string> ?? new List<string>();
 
-            set
-            {
-                this.ViewState["HighlightWords"] = value;
-            }
+            set => this.ViewState["HighlightWords"] = value;
         }
 
         /// <summary>
@@ -119,16 +95,11 @@ namespace YAF.Controls
         /// </summary>
         public virtual bool IsModeratorChanged
         {
-            get
-            {
-                return this.ViewState["IsModeratorChanged"] != null
-                       && Convert.ToBoolean(this.ViewState["IsModeratorChanged"]);
-            }
+            get =>
+                this.ViewState["IsModeratorChanged"] != null
+                && Convert.ToBoolean(this.ViewState["IsModeratorChanged"]);
 
-            set
-            {
-                this.ViewState["IsModeratorChanged"] = value;
-            }
+            set => this.ViewState["IsModeratorChanged"] = value;
         }
 
         /// <summary>
@@ -136,15 +107,9 @@ namespace YAF.Controls
         /// </summary>
         public virtual string Message
         {
-            get
-            {
-                return this.ViewState["Message"] != null ? this.ViewState["Message"].ToString() : null;
-            }
+            get => this.ViewState["Message"] != null ? this.ViewState["Message"].ToString() : null;
 
-            set
-            {
-                this.ViewState["Message"] = value;
-            }
+            set => this.ViewState["Message"] = value;
         }
 
         /// <summary>
@@ -152,15 +117,9 @@ namespace YAF.Controls
         /// </summary>
         public virtual MessageFlags MessageFlags
         {
-            get
-            {
-                return this.ViewState["MessageFlags"] as MessageFlags ?? new MessageFlags(0);
-            }
+            get => this.ViewState["MessageFlags"] as MessageFlags ?? new MessageFlags(0);
 
-            set
-            {
-                this.ViewState["MessageFlags"] = value;
-            }
+            set => this.ViewState["MessageFlags"] = value;
         }
 
         /// <summary>
@@ -168,15 +127,9 @@ namespace YAF.Controls
         /// </summary>
         public virtual string Signature
         {
-            get
-            {
-                return this.ViewState["Signature"] != null ? this.ViewState["Signature"].ToString() : null;
-            }
+            get => this.ViewState["Signature"] != null ? this.ViewState["Signature"].ToString() : null;
 
-            set
-            {
-                this.ViewState["Signature"] = value;
-            }
+            set => this.ViewState["Signature"] = value;
         }
 
         #endregion

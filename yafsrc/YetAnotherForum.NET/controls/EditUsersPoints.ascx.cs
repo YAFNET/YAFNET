@@ -27,14 +27,12 @@ namespace YAF.Controls
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -49,13 +47,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"].ToType<int>();
-            }
-        }
+        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
 
         #endregion
 
@@ -77,7 +69,7 @@ namespace YAF.Controls
                 return;
             }
 
-            LegacyDb.user_addpoints(this.CurrentUserID, null, this.txtAddPoints.Text);
+            this.GetRepository<User>().AddPoints(this.CurrentUserID, null, this.txtAddPoints.Text.ToType<int>());
 
             this.BindData();
         }
@@ -119,7 +111,7 @@ namespace YAF.Controls
                 return;
             }
 
-            LegacyDb.user_removepoints(this.CurrentUserID, null, this.txtRemovePoints.Text);
+            this.GetRepository<User>().RemovePoints(this.CurrentUserID, null, this.txtRemovePoints.Text.ToType<int>());
             this.BindData();
         }
 

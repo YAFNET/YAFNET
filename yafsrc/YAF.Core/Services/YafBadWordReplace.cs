@@ -31,7 +31,6 @@ namespace YAF.Core.Services
   using System.Text.RegularExpressions;
 
   using YAF.Core.Extensions;
-  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;

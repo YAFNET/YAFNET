@@ -32,7 +32,6 @@ namespace YAF.Core
     using System.Threading.Tasks;
     using System.Web.Security;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -107,7 +106,7 @@ namespace YAF.Core
 
             try
             {
-                userID = LegacyDb.user_aspnet(
+                userID = YafContext.Current.GetRepository<User>().Aspnet(
                     pageBoardID,
                     user.UserName,
                     displayName,
@@ -117,7 +116,7 @@ namespace YAF.Core
 
                 foreach (var role in GetRolesForUser(user.UserName))
                 {
-                    LegacyDb.user_setrole(pageBoardID, user.ProviderUserKey, role);
+                    YafContext.Current.GetRepository<User>().SetRole(pageBoardID, user.ProviderUserKey.ToString(), role);
                 }
 
                 // YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}", user.UserName));
@@ -247,19 +246,6 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Roles the in role array.
-        /// </summary>
-        /// <param name="roleName">The role name.</param>
-        /// <param name="roleArray">The role array.</param>
-        /// <returns>
-        /// The role in role array.
-        /// </returns>
-        public static bool RoleInRoleArray([NotNull] string roleName, [NotNull] string[] roleArray)
-        {
-            return roleArray.Any(role => role == roleName);
-        }
-
-        /// <summary>
         /// Sets up the user roles from the "start" settings for a given group/role
         /// </summary>
         /// <param name="pageBoardID">Current BoardID</param>
@@ -328,13 +314,13 @@ namespace YAF.Core
         public static void SyncUsers(int pageBoardID)
         {
             // first sync unapproved users...
-            using (var dt = LegacyDb.user_list(pageBoardID, DBNull.Value, false))
+            using (var dt = YafContext.Current.GetRepository<User>().ListAsDataTable(pageBoardID, null, false))
             {
                 MigrateUsersFromDataTable(false, dt);
             }
 
             // then sync approved users...
-            using (var dt = LegacyDb.user_list(pageBoardID, DBNull.Value, true))
+            using (var dt = YafContext.Current.GetRepository<User>().ListAsDataTable(pageBoardID, null, true))
             {
                 MigrateUsersFromDataTable(true, dt);
             }
@@ -381,7 +367,7 @@ namespace YAF.Core
             // is this a new user?
             var isNewUser = userId <= 0;
 
-            userId = LegacyDb.user_aspnet(
+            userId = YafContext.Current.GetRepository<User>().Aspnet(
                 pageBoardID,
                 user.UserName,
                 null,
@@ -390,7 +376,7 @@ namespace YAF.Core
                 user.IsApproved);
 
             // get user groups...
-            var groupTable = LegacyDb.group_member(pageBoardID, userId);
+            var groupTable = YafContext.Current.GetRepository<Group>().MemberAsDataTable(pageBoardID, userId);
             var userRoles = GetRolesForUser(user.UserName);
 
             if (Config.IsDotNetNuke && roles != null)
@@ -409,7 +395,7 @@ namespace YAF.Core
             foreach (var role in userRoles.Where(role => !GroupInGroupTable(role, groupTable)))
             {
                 // add the role...
-                LegacyDb.user_setrole(pageBoardID, user.ProviderUserKey, role);
+                YafContext.Current.GetRepository<User>().SetRole(pageBoardID, user.ProviderUserKey.ToString(), role);
             }
 
             // remove groups...
@@ -417,7 +403,7 @@ namespace YAF.Core
                 groupTable.AsEnumerable().Where(row => !userRoles.Contains(row["Name"].ToString())))
             {
                 // remove since there is no longer an association in the membership...
-                LegacyDb.usergroup_save(userId, row["GroupID"], 0);
+                YafContext.Current.GetRepository<UserGroup>().Save(userId, row["GroupID"], 0);
             }
 
             if (!isNewUser || userId <= 0)
@@ -437,7 +423,7 @@ namespace YAF.Core
                                               == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
                 // save the settings...
-                LegacyDb.user_savenotification(
+                YafContext.Current.GetRepository<User>().SaveNotification(
                     userId,
                     true,
                     autoWatchTopicsEnabled,
@@ -560,7 +546,7 @@ namespace YAF.Core
                             else
                             {
                                 // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
-                                LegacyDb.user_migrate(row["UserID"], user.ProviderUserKey, isYafProvider);
+                                YafContext.Current.GetRepository<User>().Migrate(row["UserID"].ToType<int>(), user.ProviderUserKey.ToString(), isYafProvider);
 
                                 user.Comment = "Migrated from YetAnotherForum.NET";
 
@@ -631,11 +617,11 @@ namespace YAF.Core
                         else
                         {
                             // just update the link just in case...
-                            LegacyDb.user_migrate(row["UserID"], user.ProviderUserKey, false);
+                            YafContext.Current.GetRepository<User>().Migrate(row["UserID"].ToType<int>(), user.ProviderUserKey.ToString(), false);
                         }
 
                         // setup roles for this user...
-                        using (var dtGroups = LegacyDb.usergroup_list(row["UserID"]))
+                        using (var dtGroups = YafContext.Current.GetRepository<UserGroup>().ListAsDataTable(row["UserID"]))
                         {
                             foreach (DataRow rowGroup in dtGroups.Rows)
                             {

@@ -33,7 +33,6 @@ namespace YAF.Core.Helpers
     using System.Web.Caching;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -47,11 +46,10 @@ namespace YAF.Core.Helpers
     {
         #region Constants and Fields
         
-
         /// <summary>
         /// The cache size.
         /// </summary>
-        private static int _cacheSize = 500;
+        private static int cacheSize = 500;
 
         #endregion
 
@@ -62,16 +60,13 @@ namespace YAF.Core.Helpers
         /// </summary>
         protected static int CacheSize
         {
-            get
-            {
-                return _cacheSize;
-            }
+            get => cacheSize;
 
             set
             {
-                if (_cacheSize > 0)
+                if (cacheSize > 0)
                 {
-                    _cacheSize = value;
+                    cacheSize = value;
                 }
             }
         }
@@ -101,7 +96,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = YafContext.Current.GetRepository<Category>().Simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Category>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -130,7 +125,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.forum_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Forum>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -170,7 +165,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.user_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<User>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -199,7 +194,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.topic_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Topic>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, TSype, id, PrimaryKey);
@@ -227,7 +222,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.message_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Message>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -358,7 +353,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         protected static int HighRange(int id)
         {
-            return (Math.Ceiling((id / _cacheSize).ToType<double>()) * _cacheSize).ToType<int>();
+            return (Math.Ceiling((id / cacheSize).ToType<double>()) * cacheSize).ToType<int>();
         }
 
         /// <summary>
@@ -370,7 +365,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         protected static int LowRange(int id)
         {
-            return (Math.Floor((id / _cacheSize).ToType<double>()) * _cacheSize).ToType<int>();
+            return (Math.Floor((id / cacheSize).ToType<double>()) * cacheSize).ToType<int>();
         }
 
         /// <summary>

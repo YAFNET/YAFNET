@@ -31,13 +31,14 @@ namespace YAF.Core.Services.Auth
     using System.Web.Security;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -225,7 +226,7 @@ namespace YAF.Core.Services.Auth
                         // save avatar
                         if (twitterUser.ProfileImageUrl.IsSet())
                         {
-                            LegacyDb.user_saveavatar(
+                            YafContext.Current.GetRepository<User>().SaveAvatar(
                                 YafContext.Current.PageUserID, 
                                 twitterUser.ProfileImageUrl, 
                                 null, 
@@ -425,7 +426,7 @@ namespace YAF.Core.Services.Auth
             var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            LegacyDb.user_save(
+            YafContext.Current.GetRepository<User>().Save(
                 userID: userId,
                 boardID: YafContext.Current.PageBoardID,
                 userName: twitterUser.UserName,
@@ -444,8 +445,8 @@ namespace YAF.Core.Services.Auth
                 notificationType: null);
 
             // save the settings...
-            LegacyDb.user_savenotification(
-                userId, 
+            YafContext.Current.GetRepository<User>().SaveNotification(
+                 userId, 
                 true, 
                 autoWatchTopicsEnabled, 
                 YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting, 
@@ -454,7 +455,7 @@ namespace YAF.Core.Services.Auth
             // save avatar
             if (twitterUser.ProfileImageUrl.IsSet())
             {
-                LegacyDb.user_saveavatar(userId, twitterUser.ProfileImageUrl, null, null);
+                YafContext.Current.GetRepository<User>().SaveAvatar(userId, twitterUser.ProfileImageUrl, null, null);
             }
 
             LoginTwitterSuccess(true, oAuth, userId, user);
@@ -554,7 +555,7 @@ namespace YAF.Core.Services.Auth
 
             if (YafContext.Current.Get<YafBoardSettings>().AllowPrivateMessages)
             {
-                LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue, -1);
+                YafContext.Current.GetRepository<PMessage>().SendMessage(2, userId, subject, emailBody, messageFlags.BitValue, -1);
             }
             else
             {

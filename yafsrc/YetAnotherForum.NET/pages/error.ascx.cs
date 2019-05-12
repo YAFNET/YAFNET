@@ -33,7 +33,6 @@ namespace YAF.Pages
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
   #endregion
 

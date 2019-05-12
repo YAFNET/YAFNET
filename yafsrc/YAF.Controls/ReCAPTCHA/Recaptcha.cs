@@ -97,15 +97,9 @@ namespace YAF.Controls
         [Localizable(true)]
         public string ErrorMessage
         {
-            get
-            {
-                return this.errorMessage ?? "The verification words are incorrect.";
-            }
+            get => this.errorMessage ?? "The verification words are incorrect.";
 
-            set
-            {
-                this.errorMessage = value;
-            }
+            set => this.errorMessage = value;
         }
 
         /// <summary>
@@ -129,10 +123,7 @@ namespace YAF.Controls
                 return (this.recaptchaResponse != null) && this.recaptchaResponse.IsValid;
             }
 
-            set
-            {
-                throw new NotImplementedException("This setter is not implemented.");
-            }
+            set => throw new NotImplementedException("This setter is not implemented.");
         }
 
         /// <summary>
@@ -157,15 +148,9 @@ namespace YAF.Controls
         [Category("Settings")]
         public bool SkipRecaptcha
         {
-            get
-            {
-                return this.skipRecaptcha;
-            }
+            get => this.skipRecaptcha;
 
-            set
-            {
-                this.skipRecaptcha = value;
-            }
+            set => this.skipRecaptcha = value;
         }
 
         #endregion

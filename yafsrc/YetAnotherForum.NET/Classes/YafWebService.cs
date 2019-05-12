@@ -27,16 +27,14 @@ using System;
 using System.Web.Services;
 
 using YAF.Classes;
-using YAF.Classes.Data;
 using YAF.Core;
+using YAF.Core.Model;
 using YAF.Types;
-using YAF.Types.Constants;
 using YAF.Types.EventProxies;
 using YAF.Types.Exceptions;
 using YAF.Types.Extensions;
-using YAF.Types.Flags;
 using YAF.Types.Interfaces;
-using YAF.Utils;
+using YAF.Types.Models;
 
 #endregion
 
@@ -50,13 +48,7 @@ public class YafWebService : WebService, IHaveServiceLocator
     /// <summary>
     /// Gets ServiceLocator.
     /// </summary>
-    public IServiceLocator ServiceLocator
-    {
-        get
-        {
-            return YafContext.Current.ServiceLocator;
-        }
-    }
+    public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
     #region Public Methods
 
@@ -106,7 +98,7 @@ public class YafWebService : WebService, IHaveServiceLocator
         long messageId = 0;
         var subjectEncoded = this.Server.HtmlEncode(subject);
 
-        return LegacyDb.topic_save(
+        return this.GetRepository<Topic>().Save(
             forumid,
             subjectEncoded,
             status,
@@ -167,9 +159,9 @@ public class YafWebService : WebService, IHaveServiceLocator
                         displayName));
             }
 
-            var userFields = LegacyDb.user_list(Config.BoardID, userId, null).Rows[0];
+            var userFields = YafContext.Current.GetRepository<User>().ListAsDataTable(Config.BoardID.ToType<int>(), userId, null).Rows[0];
 
-            LegacyDb.user_save(
+            this.GetRepository<User>().Save(
                 userId,
                 Config.BoardID,
                 null,

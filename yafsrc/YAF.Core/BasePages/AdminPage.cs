@@ -28,9 +28,12 @@ namespace YAF.Core
 
     using System;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -71,13 +74,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Page Name.
         /// </summary>
-        public override string PageName
-        {
-            get
-            {
-                return "admin_{0}".FormatWith(base.PageName);
-            }
-        }
+        public override string PageName => "admin_{0}".FormatWith(base.PageName);
 
         /// <summary>
         /// Creates page links for this page.
@@ -115,7 +112,7 @@ namespace YAF.Core
             }
 
             // Load the page access list.
-            var dt = LegacyDb.adminpageaccess_list(
+            var dt = this.GetRepository<AdminPageUserAccess>().List(
                 this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
 
             // Check access rights to the page.

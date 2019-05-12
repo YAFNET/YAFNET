@@ -6,13 +6,11 @@ namespace YAF.Core.Tasks
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -40,13 +38,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName
-        {
-            get
-            {
-                return _TaskName;
-            }
-        }
+        public static string TaskName => _TaskName;
 
         /// <summary>
         /// Gets or sets BoardIdToDelete.

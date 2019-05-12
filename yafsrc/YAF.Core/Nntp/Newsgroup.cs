@@ -76,15 +76,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Group
     {
-      get
-      {
-        return this.group;
-      }
+      get => this.group;
 
-      set
-      {
-        this.group = value;
-      }
+      set => this.group = value;
     }
 
     /// <summary>
@@ -92,15 +86,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public int Low
     {
-      get
-      {
-        return this.low;
-      }
+      get => this.low;
 
-      set
-      {
-        this.low = value;
-      }
+      set => this.low = value;
     }
 
     /// <summary>
@@ -108,15 +96,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public int High
     {
-      get
-      {
-        return this.high;
-      }
+      get => this.high;
 
-      set
-      {
-        this.high = value;
-      }
+      set => this.high = value;
     }
 
     #region IComparable Members

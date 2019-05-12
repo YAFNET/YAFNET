@@ -35,8 +35,8 @@ namespace YAF.Controls
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -45,6 +45,8 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+
+    using Group = YAF.Types.Models.Group;
 
     #endregion
 
@@ -84,10 +86,7 @@ namespace YAF.Controls
         /// </summary>
         public DataRow DataRow
         {
-            get
-            {
-                return this.row;
-            }
+            get => this.row;
 
             set
             {
@@ -180,48 +179,25 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets UserId.
         /// </summary>
-        protected int UserId
-        {
-            get
-            {
-                return this.DataRow?["UserID"].ToType<int>() ?? 0;
-            }
-        }
+        protected int UserId => this.DataRow?["UserID"].ToType<int>() ?? 0;
 
         /// <summary>
         ///   Gets UserProfile.
         /// </summary>
-        protected YafUserProfile UserProfile
-        {
-            get
-            {
-                return this.userProfile ??
-                       (this.userProfile =
-                        YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId)));
-            }
-        }
+        protected YafUserProfile UserProfile =>
+            this.userProfile ??
+            (this.userProfile =
+                 YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId)));
 
         /// <summary>
         ///   Gets a value indicating whether PostDeleted.
         /// </summary>
-        private bool PostDeleted
-        {
-            get
-            {
-                return this.messageFlags.IsDeleted;
-            }
-        }
+        private bool PostDeleted => this.messageFlags.IsDeleted;
 
         /// <summary>
         ///   Gets Refines style string from other skins info
         /// </summary>
-        private IStyleTransform TransformStyle
-        {
-            get
-            {
-                return this.styleTransforum ?? (this.styleTransforum = this.Get<IStyleTransform>());
-            }
-        }
+        private IStyleTransform TransformStyle => this.styleTransforum ?? (this.styleTransforum = this.Get<IStyleTransform>());
 
         #endregion
 
@@ -242,7 +218,7 @@ namespace YAF.Controls
             // this should be called once for groups and for rank for each user/post.
             var roleRankStyleTable = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.GroupRankStyles,
-                () => LegacyDb.group_rank_style(YafContext.Current.PageBoardID),
+                () => this.GetRepository<Group>().RankStyleAsDataTable(YafContext.Current.PageBoardID),
                 TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
 
             // Avatar
@@ -543,7 +519,9 @@ namespace YAF.Controls
                 {
                     var dt = this.Get<IDataCache>().GetOrSet(
                         Constants.Cache.GuestGroupsCache,
-                        () => LegacyDb.group_member(this.PageContext.PageBoardID, this.DataRow["UserID"]),
+                        () => this.GetRepository<Group>().MemberAsDataTable(
+                            this.PageContext.PageBoardID,
+                            this.DataRow["UserID"]),
                         TimeSpan.FromMinutes(60));
 
                     foreach (var guestRole in

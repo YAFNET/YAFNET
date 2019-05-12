@@ -21,14 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Classes.Data
+namespace YAF.Core.Extensions
 {
-    using System;
-    using System.Data;
     using System.Data.Common;
 
+    using YAF.Classes;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>

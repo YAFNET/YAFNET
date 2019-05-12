@@ -31,8 +31,8 @@ namespace YAF.Providers.Membership
     using System.Data.SqlClient;
     using System.Web.Security;
 
-    using YAF.Classes.Data;
     using YAF.Classes.Pattern;
+    using YAF.Core.Data;
     using YAF.Providers.Utils;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -62,10 +62,7 @@ namespace YAF.Providers.Membership
         /// <summary>
         ///   Gets Current.
         /// </summary>
-        public static DB Current
-        {
-            get { return PageSingleton<DB>.Instance; }
-        }
+        public static DB Current => PageSingleton<DB>.Instance;
 
         #endregion
 
@@ -95,7 +92,7 @@ namespace YAF.Providers.Membership
         public void ChangePassword([NotNull] string appName, [NotNull] string username, [NotNull] string newPassword,
             [NotNull] string newSalt, int passwordFormat, [NotNull] string newPasswordAnswer)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_changepassword")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_changepassword")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -129,7 +126,7 @@ namespace YAF.Providers.Membership
         public void ChangePasswordQuestionAndAnswer([NotNull] string appName, [NotNull] string username,
             [NotNull] string passwordQuestion, [NotNull] string passwordAnswer)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_changepasswordquestionandanswer")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_changepasswordquestionandanswer")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -181,7 +178,7 @@ namespace YAF.Providers.Membership
             [NotNull] string passwordAnswer,
             bool isApproved, [NotNull] object providerUserKey)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_createuser")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_createuser")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -225,7 +222,7 @@ namespace YAF.Providers.Membership
         /// </param>
         public void DeleteUser([NotNull] string appName, [NotNull] string username, bool deleteAllRelatedData)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_deleteuser")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_deleteuser")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -257,7 +254,7 @@ namespace YAF.Providers.Membership
         public DataTable FindUsersByEmail([NotNull] string appName, [NotNull] string emailToMatch, int pageIndex,
             int pageSize)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_findusersbyemail")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_findusersbyemail")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -290,7 +287,7 @@ namespace YAF.Providers.Membership
         public DataTable FindUsersByName([NotNull] string appName, [NotNull] string usernameToMatch, int pageIndex,
             int pageSize)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_findusersbyname")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_findusersbyname")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -319,7 +316,7 @@ namespace YAF.Providers.Membership
         /// </returns>
         public DataTable GetAllUsers([NotNull] string appName, int pageIndex, int pageSize)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_getallusers")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_getallusers")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -345,7 +342,7 @@ namespace YAF.Providers.Membership
         /// </returns>
         public int GetNumberOfUsersOnline([NotNull] string appName, int timeWindow)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_getnumberofusersonline")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_getnumberofusersonline")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -381,7 +378,7 @@ namespace YAF.Providers.Membership
         public DataRow GetUser([NotNull] string appName, [NotNull] object providerUserKey, [NotNull] string userName,
             bool userIsOnline)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_getuser")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_getuser")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -411,7 +408,7 @@ namespace YAF.Providers.Membership
         /// </returns>
         public DataTable GetUserNameByEmail([NotNull] string appName, [NotNull] string email)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_getusernamebyemail")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_getusernamebyemail")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -438,7 +435,7 @@ namespace YAF.Providers.Membership
         /// </returns>
         public DataTable GetUserPasswordInfo([NotNull] string appName, [NotNull] string username, bool updateUser)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_getuser")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_getuser")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -481,7 +478,7 @@ namespace YAF.Providers.Membership
             int maxInvalidPasswordAttempts,
             int passwordAttemptWindow)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_resetpassword")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_resetpassword")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -510,7 +507,7 @@ namespace YAF.Providers.Membership
         /// </param>
         public void UnlockUser([NotNull] string appName, [NotNull] string userName)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_unlockuser")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_unlockuser")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -538,7 +535,7 @@ namespace YAF.Providers.Membership
         /// </returns>
         public int UpdateUser([NotNull] object appName, [NotNull] MembershipUser user, bool requiresUniqueEmail)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_updateuser")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_updateuser")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -574,7 +571,7 @@ namespace YAF.Providers.Membership
         /// </param>
         public void UpgradeMembership(int previousVersion, int newVersion)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_upgrade")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_upgrade")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
 

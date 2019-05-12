@@ -27,16 +27,18 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
 
@@ -168,21 +170,6 @@ namespace YAF.Controls
                 this.albumsInfo.Visible = true;
             }
 
-            // vzrus: used if someone moderates usuful if a moderation is implemented 
-            /* else 
-            {
-                DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-                var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-                var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
-          
-                if (allowedAlbums.HasValue && allowedAlbums > 0 && numAlbums < allowedAlbums)
-                {
-                    this.AddAlbum.Visible = true;
-                }
-
-                this.albumsInfo.Visible = false;
-            } */
             if (this.AddAlbum.Visible)
             {
                 this.AddAlbum.TextLocalizedPage = "BUTTON";
@@ -208,19 +195,19 @@ namespace YAF.Controls
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumsPerPage;
 
             // set the Datatable
-            var albumListDT = LegacyDb.album_list(this.UserID, null);
+            var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.UserID);
 
-            if (albumListDT == null || !albumListDT.HasRows())
+            if (albumListDT == null || !albumListDT.Any())
             {
                 return;
             }
 
-            this.PagerTop.Count = albumListDT.Rows.Count;
+            this.PagerTop.Count = albumListDT.Count;
 
             // create paged data source for the albumlist
             var pds = new PagedDataSource
                 {
-                    DataSource = albumListDT.DefaultView,
+                    DataSource = albumListDT,
                     AllowPaging = true,
                     CurrentPageIndex = this.PagerTop.CurrentPageIndex,
                     PageSize = this.PagerTop.PageSize

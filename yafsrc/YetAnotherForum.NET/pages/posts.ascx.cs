@@ -36,7 +36,6 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -71,7 +70,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _forum.
         /// </summary>
-        private DataRow _forum;
+        private Forum _forum;
 
         /// <summary>
         ///   The _forum flags.
@@ -124,10 +123,7 @@ namespace YAF.Pages
                 return (bool)this.Session["IsThreaded"];
             }
 
-            set
-            {
-                this.Session["IsThreaded"] = value;
-            }
+            set => this.Session["IsThreaded"] = value;
         }
 
         /// <summary>
@@ -145,10 +141,7 @@ namespace YAF.Pages
                 return 0;
             }
 
-            set
-            {
-                this.ViewState["CurrentMessage"] = value;
-            }
+            set => this.ViewState["CurrentMessage"] = value;
         }
 
         #endregion
@@ -187,7 +180,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            LegacyDb.topic_delete(this.PageContext.PageTopicID, true);
+            this.GetRepository<Topic>().Delete(this.PageContext.PageTopicID, true);
             YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 
@@ -414,16 +407,15 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NextTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            using (var dt = LegacyDb.topic_findnext(this.PageContext.PageTopicID))
-            {
-                if (!dt.HasRows())
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
-                    return;
-                }
+            var topic = this.GetRepository<Topic>().FindNextTopic(this._topic);
 
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", dt.Rows[0]["TopicID"]);
+            if (topic == null)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
+                return;
             }
+
+            YafBuildLink.Redirect(ForumPages.posts, "t={0}", topic.ID.ToString());
         }
 
         /// <summary>
@@ -512,12 +504,14 @@ namespace YAF.Pages
                 YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-            {
-                this._forum = dt.Rows[0];
-            }
+            var dt = this.GetRepository<Forum>().List(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageForumID);
 
-            this._forumFlags = new ForumFlags(this._forum["Flags"]);
+            this._forum = dt.FirstOrDefault();
+            
+
+            this._forumFlags = this._forum.ForumFlags;
 
             if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
             {
@@ -711,16 +705,15 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PrevTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            using (var dt = LegacyDb.topic_findprev(this.PageContext.PageTopicID))
-            {
-                if (!dt.HasRows())
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
-                    return;
-                }
+            var topic = this.GetRepository<Topic>().FindPreviousTopic(this._topic);
 
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", dt.Rows[0]["TopicID"]);
+            if (topic == null)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
+                return;
             }
+
+            YafBuildLink.Redirect(ForumPages.posts, "t={0}", topic.ID.ToString());
         }
 
         /// <summary>
@@ -952,7 +945,7 @@ namespace YAF.Pages
             this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
             this.Pager.PageSize = this.Get<YafBoardSettings>().PostsPerPage;
 
-            var postListDataTable = LegacyDb.post_list(
+            var postListDataTable = this.GetRepository<Message>().PostListAsDataTable(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,
@@ -1109,13 +1102,6 @@ namespace YAF.Pages
             // }
             this.MessageList.DataSource = pagedData;
 
-            /*if (this._topic["PollID"] != DBNull.Value)
-            {
-                            Poll.Visible = true;
-                            _dtPoll = DB.poll_stats(this._topic["PollID"]);
-                            Poll.DataSource = _dtPoll;
-            }*/
-
             this.DataBind();
         }
 
@@ -1154,12 +1140,12 @@ namespace YAF.Pages
                         {
                             // we find message position always by time.
                             using (
-                                var lastPost = LegacyDb.message_findunread(
-                                    topicID: this.PageContext.PageTopicID,
+                                var lastPost = this.GetRepository<Message>().FindUnreadAsDataTable(
+                                    topicId: this.PageContext.PageTopicID,
                                     messageId: messageId,
                                     lastRead: DateTimeHelper.SqlDbMinTime(),
                                     showDeleted: showDeleted,
-                                    authorUserID: userId))
+                                    authorUserId: userId))
                             {
                                 var unreadFirst = lastPost.AsEnumerable().FirstOrDefault();
                                 if (unreadFirst != null)
@@ -1197,12 +1183,12 @@ namespace YAF.Pages
 
                                     using (
                                         var unread =
-                                            LegacyDb.message_findunread(
-                                                topicID: this.PageContext.PageTopicID,
+                                            this.GetRepository<Message>().FindUnreadAsDataTable(
+                                                topicId: this.PageContext.PageTopicID,
                                                 messageId: 0,
                                                 lastRead: lastRead,
                                                 showDeleted: showDeleted,
-                                                authorUserID: userId))
+                                                authorUserId: userId))
                                     {
                                         var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                                         if (unreadFirst != null)
@@ -1223,12 +1209,12 @@ namespace YAF.Pages
                                 break;
                             case "lastpost":
                                 using (
-                                    var unread = LegacyDb.message_findunread(
-                                        topicID: this.PageContext.PageTopicID,
+                                    var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
+                                        topicId: this.PageContext.PageTopicID,
                                         messageId: 0,
                                         lastRead: DateTime.UtcNow,
                                         showDeleted: showDeleted,
-                                        authorUserID: userId))
+                                        authorUserId: userId))
                                 {
                                     var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                                     if (unreadFirst != null)

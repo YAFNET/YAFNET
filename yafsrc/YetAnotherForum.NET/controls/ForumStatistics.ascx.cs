@@ -29,11 +29,8 @@ namespace YAF.Controls
     using System.Data;
     using System.Text;
     using System.Threading;
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -177,87 +174,6 @@ namespace YAF.Controls
                   "ACTIVE_USERS_TIME", this.Get<YafBoardSettings>().ActiveListTime)));
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// Gets the today's birthdays.
-        /// </summary>
-        /// TODO: Make DST shift for the user
-        private void GetTodaysBirthdays()
-        {
-            if (!this.Get<YafBoardSettings>().ShowTodaysBirthdays)
-            {
-                return;
-            }
-
-            this.StatsTodaysBirthdays.Controls.Add(
-                new Literal
-                    {
-                        Text = "<i class=\"fas fa-birthday-cake\"></i>&nbsp;{0}".FormatWith(
-                            this.GetText("stats_birthdays"))
-                    });
-
-            var users = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.TodaysBirthdays,
-                () => LegacyDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
-                TimeSpan.FromHours(1));
-
-            if (users == null || !users.HasRows())
-            {
-                return;
-            }
-
-            foreach (DataRow user in users.Rows)
-            {
-                DateTime birth;
-
-                if (!DateTime.TryParse(user["Birthday"].ToString(), out birth))
-                {
-                    continue;
-                }
-
-                int tz;
-
-                if (!int.TryParse(user["TimeZone"].ToString(), out tz))
-                {
-                    tz = 0;
-                }
-
-                // Get the user birhday based on his timezone date.
-                var dtt = birth.AddYears(DateTime.UtcNow.Year - birth.Year);
-
-                // The user can be congratulated. The time zone in profile is saved in the list user timezone
-                if (DateTime.UtcNow <= dtt.AddMinutes(-tz).ToUniversalTime()
-                    || DateTime.UtcNow >= dtt.AddMinutes(-tz + 1440).ToUniversalTime())
-                {
-                    continue;
-                }
-
-                this.StatsTodaysBirthdays.Controls.Add(
-                    new UserLink
-                    {
-                        UserID = user["UserID"].ToType<int>(),
-                        ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
-                                              ? user["UserDisplayName"].ToString()
-                                              : user["UserName"].ToString(),
-                        Style = this.Get<IStyleTransform>().DecodeStyleByString(user["Style"].ToString()),
-                        PostfixText = " ({0})".FormatWith(DateTime.Now.Year - user["Birthday"].ToType<DateTime>().Year)
-                    });
-
-                var separator = new HtmlGenericControl { InnerHtml = "&nbsp;,&nbsp;" };
-
-                this.StatsTodaysBirthdays.Controls.Add(separator);
-                if (!this.BirthdayUsers.Visible)
-                {
-                    this.BirthdayUsers.Visible = true;
-                }
-            }
-
-            if (this.BirthdayUsers.Visible)
-            {
-                // Remove last Separator
-                this.StatsTodaysBirthdays.Controls.RemoveAt(this.StatsTodaysBirthdays.Controls.Count - 1);
-            }
         }
 
         /// <summary>
@@ -405,8 +321,6 @@ namespace YAF.Controls
             this.NewestMemberUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
                                                         ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
                                                         : userStatisticsDataRow["LastMember"].ToString();
-
-            this.GetTodaysBirthdays();
         }
 
         #endregion

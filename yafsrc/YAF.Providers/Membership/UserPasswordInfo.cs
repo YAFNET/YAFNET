@@ -26,7 +26,6 @@ namespace YAF.Providers.Membership
   #region Using
 
   using System;
-  using System.Data;
 
   using YAF.Providers.Utils;
   using YAF.Types.Extensions;
@@ -200,167 +199,77 @@ namespace YAF.Providers.Membership
     /// <summary>
     /// Gets FailedAnswerAttempts.
     /// </summary>
-    public int FailedAnswerAttempts
-    {
-      get
-      {
-        return this._failedAnswerAttempts;
-      }
-    }
+    public int FailedAnswerAttempts => this._failedAnswerAttempts;
 
     /// <summary>
     /// Gets FailedPasswordAttempts.
     /// </summary>
-    public int FailedPasswordAttempts
-    {
-      get
-      {
-        return this._failedPasswordAttempts;
-      }
-    }
+    public int FailedPasswordAttempts => this._failedPasswordAttempts;
 
     /// <summary>
     /// Gets hashCase.
     /// </summary>
-    public string hashCase
-    {
-      get
-      {
-        return this._hashCase;
-      }
-    }
+    public string hashCase => this._hashCase;
 
     /// <summary>
     /// Gets a value indicating whether HashHex.
     /// </summary>
-    public bool HashHex
-    {
-      get
-      {
-        return this._hashHex;
-      }
-    }
+    public bool HashHex => this._hashHex;
 
     /// <summary>
     /// Gets hashRemoveChars.
     /// </summary>
-    public string hashRemoveChars
-    {
-      get
-      {
-        return this._hashRemoveChars;
-      }
-    }
+    public string hashRemoveChars => this._hashRemoveChars;
 
     /// <summary>
     /// Gets a value indicating whether IsApproved.
     /// </summary>
-    public bool IsApproved
-    {
-      get
-      {
-        return this._isApproved;
-      }
-    }
+    public bool IsApproved => this._isApproved;
 
     /// <summary>
     /// Gets LastActivity.
     /// </summary>
-    public DateTime LastActivity
-    {
-      get
-      {
-        return this._lastActivity;
-      }
-    }
+    public DateTime LastActivity => this._lastActivity;
 
     /// <summary>
     /// Gets LastLogin.
     /// </summary>
-    public DateTime LastLogin
-    {
-      get
-      {
-        return this._lastLogin;
-      }
-    }
+    public DateTime LastLogin => this._lastLogin;
 
     /// <summary>
     /// Gets a value indicating whether msCompliant.
     /// </summary>
-    public bool msCompliant
-    {
-      get
-      {
-        return this._msCompliant;
-      }
-    }
+    public bool msCompliant => this._msCompliant;
 
     /// <summary>
     /// Gets Password.
     /// </summary>
-    public string Password
-    {
-      get
-      {
-        return this._password;
-      }
-    }
+    public string Password => this._password;
 
     /// <summary>
     /// Gets PasswordAnswer.
     /// </summary>
-    public string PasswordAnswer
-    {
-      get
-      {
-        return this._passwordAnswer;
-      }
-    }
+    public string PasswordAnswer => this._passwordAnswer;
 
     /// <summary>
     /// Gets PasswordFormat.
     /// </summary>
-    public int PasswordFormat
-    {
-      get
-      {
-        return this._passwordFormat;
-      }
-    }
+    public int PasswordFormat => this._passwordFormat;
 
     /// <summary>
     /// Gets PasswordQuestion.
     /// </summary>
-    public string PasswordQuestion
-    {
-      get
-      {
-        return this._passwordQuestion;
-      }
-    }
+    public string PasswordQuestion => this._passwordQuestion;
 
     /// <summary>
     /// Gets PasswordSalt.
     /// </summary>
-    public string PasswordSalt
-    {
-      get
-      {
-        return this._passwordSalt;
-      }
-    }
+    public string PasswordSalt => this._passwordSalt;
 
     /// <summary>
     /// Gets a value indicating whether UseSalt.
     /// </summary>
-    public bool UseSalt
-    {
-      get
-      {
-        return this._useSalt;
-      }
-    }
+    public bool UseSalt => this._useSalt;
 
     #endregion
 

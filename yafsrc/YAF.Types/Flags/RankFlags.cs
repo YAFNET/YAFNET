@@ -158,15 +158,9 @@ namespace YAF.Types.Flags
     public bool IsStart
     {
       // int value 1
-      get
-      {
-        return this[0];
-      }
+      get => this[0];
 
-      set
-      {
-        this[0] = value;
-      }
+      set => this[0] = value;
     }
 
 
@@ -176,15 +170,9 @@ namespace YAF.Types.Flags
     public bool IsLadder
     {
       // int value 2
-      get
-      {
-        return this[1];
-      }
+      get => this[1];
 
-      set
-      {
-        this[1] = value;
-      }
+      set => this[1] = value;
     }
 
     #endregion

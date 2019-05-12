@@ -42,126 +42,60 @@ namespace YAFProviders.Passthru
     /// </summary>
     public override string ApplicationName
     {
-      get
-      {
-        return this._realProvider.ApplicationName;
-      }
+      get => this._realProvider.ApplicationName;
 
-      set
-      {
-        this._realProvider.ApplicationName = value;
-      }
+      set => this._realProvider.ApplicationName = value;
     }
 
     /// <summary>
     /// Gets a value indicating whether EnablePasswordReset.
     /// </summary>
-    public override bool EnablePasswordReset
-    {
-      get
-      {
-        return this._realProvider.EnablePasswordReset;
-      }
-    }
+    public override bool EnablePasswordReset => this._realProvider.EnablePasswordReset;
 
     /// <summary>
     /// Gets a value indicating whether EnablePasswordRetrieval.
     /// </summary>
-    public override bool EnablePasswordRetrieval
-    {
-      get
-      {
-        return this._realProvider.EnablePasswordRetrieval;
-      }
-    }
+    public override bool EnablePasswordRetrieval => this._realProvider.EnablePasswordRetrieval;
 
     /// <summary>
     /// Gets MaxInvalidPasswordAttempts.
     /// </summary>
-    public override int MaxInvalidPasswordAttempts
-    {
-      get
-      {
-        return this._realProvider.MaxInvalidPasswordAttempts;
-      }
-    }
+    public override int MaxInvalidPasswordAttempts => this._realProvider.MaxInvalidPasswordAttempts;
 
     /// <summary>
     /// Gets MinRequiredNonAlphanumericCharacters.
     /// </summary>
-    public override int MinRequiredNonAlphanumericCharacters
-    {
-      get
-      {
-        return this._realProvider.MinRequiredNonAlphanumericCharacters;
-      }
-    }
+    public override int MinRequiredNonAlphanumericCharacters => this._realProvider.MinRequiredNonAlphanumericCharacters;
 
     /// <summary>
     /// Gets MinRequiredPasswordLength.
     /// </summary>
-    public override int MinRequiredPasswordLength
-    {
-      get
-      {
-        return this._realProvider.MinRequiredPasswordLength;
-      }
-    }
+    public override int MinRequiredPasswordLength => this._realProvider.MinRequiredPasswordLength;
 
     /// <summary>
     /// Gets PasswordAttemptWindow.
     /// </summary>
-    public override int PasswordAttemptWindow
-    {
-      get
-      {
-        return this._realProvider.PasswordAttemptWindow;
-      }
-    }
+    public override int PasswordAttemptWindow => this._realProvider.PasswordAttemptWindow;
 
     /// <summary>
     /// Gets PasswordFormat.
     /// </summary>
-    public override MembershipPasswordFormat PasswordFormat
-    {
-      get
-      {
-        return this._realProvider.PasswordFormat;
-      }
-    }
+    public override MembershipPasswordFormat PasswordFormat => this._realProvider.PasswordFormat;
 
     /// <summary>
     /// Gets PasswordStrengthRegularExpression.
     /// </summary>
-    public override string PasswordStrengthRegularExpression
-    {
-      get
-      {
-        return this._realProvider.PasswordStrengthRegularExpression;
-      }
-    }
+    public override string PasswordStrengthRegularExpression => this._realProvider.PasswordStrengthRegularExpression;
 
     /// <summary>
     /// Gets a value indicating whether RequiresQuestionAndAnswer.
     /// </summary>
-    public override bool RequiresQuestionAndAnswer
-    {
-      get
-      {
-        return this._realProvider.RequiresQuestionAndAnswer;
-      }
-    }
+    public override bool RequiresQuestionAndAnswer => this._realProvider.RequiresQuestionAndAnswer;
 
     /// <summary>
     /// Gets a value indicating whether RequiresUniqueEmail.
     /// </summary>
-    public override bool RequiresUniqueEmail
-    {
-      get
-      {
-        return this._realProvider.RequiresUniqueEmail;
-      }
-    }
+    public override bool RequiresUniqueEmail => this._realProvider.RequiresUniqueEmail;
 
     /// <summary>
     /// The initialize.

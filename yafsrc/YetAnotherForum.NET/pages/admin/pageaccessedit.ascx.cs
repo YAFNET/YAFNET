@@ -32,13 +32,14 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -112,7 +113,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            object userId = this.Request.QueryString.GetFirstOrDefault("u");
+            var userId = this.Request.QueryString.GetFirstOrDefaultAs<int>("u");
 
             foreach (RepeaterItem ri in this.AccessList.Items)
             {
@@ -121,11 +122,11 @@ namespace YAF.Pages.Admin
                 if (readAccess || "admin_admin".ToLowerInvariant() == pageName.ToLowerInvariant())
                 {
                     // save it
-                    LegacyDb.adminpageaccess_save(userId, pageName);
+                   this.GetRepository<AdminPageUserAccess>().Save(userId, pageName);
                 }
                 else
                 {
-                    LegacyDb.adminpageaccess_delete(userId, pageName);
+                    this.GetRepository<AdminPageUserAccess>().Delete(userId, pageName);
                 }
             }
 
@@ -142,11 +143,11 @@ namespace YAF.Pages.Admin
             // save permissions to table -  checked only
             if (this.Request.QueryString.GetFirstOrDefault("u") != null)
             {
-                object userId = this.Request.QueryString.GetFirstOrDefault("u");
+                var userId = this.Request.QueryString.GetFirstOrDefaultAs<int>("u");
                 foreach (RepeaterItem ri in this.AccessList.Items)
                 {
                     // save it
-                    LegacyDb.adminpageaccess_save(userId, ((Label)ri.FindControl("PageName")).Text.Trim());
+                    this.GetRepository<AdminPageUserAccess>().Save(userId, ri.FindControlAs<Label>("PageName").Text.Trim());
                 }
             }
 
@@ -163,7 +164,7 @@ namespace YAF.Pages.Admin
             // revoke permissions by deleting records from table. Number of records ther should be minimal.
             if (this.Request.QueryString.GetFirstOrDefault("u") != null)
             {
-                object userId = this.Request.QueryString.GetFirstOrDefault("u");
+                var userId = this.Request.QueryString.GetFirstOrDefaultAs<int>("u");
                 foreach (RepeaterItem ri in this.AccessList.Items)
                 {
                     var pageName = ((Label)ri.FindControl("PageName")).Text.Trim();
@@ -171,7 +172,7 @@ namespace YAF.Pages.Admin
                     // save it - admin index should be always available
                     if ("admin_admin".ToLowerInvariant() != pageName.ToLowerInvariant())
                     {
-                        LegacyDb.adminpageaccess_delete(userId, ((Label)ri.FindControl("PageName")).Text.Trim());
+                        this.GetRepository<AdminPageUserAccess>().Delete(userId, ri.FindControlAs<Label>("PageName").Text.Trim());
                     }
                 }
             }
@@ -212,7 +213,9 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("u") != null)
             {
                 // Load the page access list.
-                var dt = LegacyDb.adminpageaccess_list(this.Request.QueryString.GetFirstOrDefault("u"), null);
+                var dt = this.GetRepository<AdminPageUserAccess>().List(
+                    this.Request.QueryString.GetFirstOrDefaultAs<int>("u"),
+                    null);
 
                 // Get admin pages by page prefixes.
                 var listPages = Enum.GetNames(typeof(ForumPages))

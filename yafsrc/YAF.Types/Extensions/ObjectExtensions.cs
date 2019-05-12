@@ -32,7 +32,6 @@ namespace YAF.Types.Extensions
     using System.ComponentModel;
     using System.Dynamic;
     using System.Linq;
-    using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web.UI;

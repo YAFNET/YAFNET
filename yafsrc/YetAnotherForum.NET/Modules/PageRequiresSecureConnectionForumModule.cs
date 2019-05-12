@@ -28,13 +28,9 @@ namespace YAF.Modules
   using System;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Core;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Constants;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
   using YAF.Utils;
 
   #endregion

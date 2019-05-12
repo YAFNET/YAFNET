@@ -268,27 +268,6 @@ namespace YAF.UrlRewriter
             return false;
         }
 
-        private void VerifyResultExists(IRewriteContext context)
-        {
-            if ((string.Compare(context.Location, this._httpContext.RawUrl) != 0) && ((int)context.StatusCode < 300))
-            {
-                var uri = new Uri(this._httpContext.RequestUrl, context.Location);
-                if (uri.Host == this._httpContext.RequestUrl.Host)
-                {
-                    var filename = this._httpContext.MapPath(uri.AbsolutePath);
-                    if (!File.Exists(filename))
-                    {
-                        this._configuration.Logger.Debug(MessageProvider.FormatString(Message.ResultNotFound, filename));
-                        context.StatusCode = HttpStatusCode.NotFound;
-                    }
-                    else
-                    {
-                        this.HandleDefaultDocument(context);
-                    }
-                }
-            }
-        }
-
         private void HandleError(IRewriteContext context)
         {
             // Return the status code.
@@ -362,9 +341,8 @@ namespace YAF.UrlRewriter
         /// </summary>
         public string RawUrl
         {
-            get { return (string)this._httpContext.Items[ContextRawUrl]; }
-            set {
-                this._httpContext.Items[ContextRawUrl] = value; }
+            get => (string)this._httpContext.Items[ContextRawUrl];
+            set => this._httpContext.Items[ContextRawUrl] = value;
         }
 
         /// <summary>
@@ -372,14 +350,8 @@ namespace YAF.UrlRewriter
         /// </summary>
         public string OriginalQueryString
         {
-            get
-            {
-                return (string)this._httpContext.Items[ContextOriginalQueryString];
-            }
-            set
-            {
-                this._httpContext.Items[ContextOriginalQueryString] = value;
-            }
+            get => (string)this._httpContext.Items[ContextOriginalQueryString];
+            set => this._httpContext.Items[ContextOriginalQueryString] = value;
         }
 
         /// <summary>
@@ -387,14 +359,8 @@ namespace YAF.UrlRewriter
         /// </summary>
         public string QueryString
         {
-            get
-            {
-                return (string)this._httpContext.Items[ContextQueryString];
-            }
-            set
-            {
-                this._httpContext.Items[ContextQueryString] = value;
-            }
+            get => (string)this._httpContext.Items[ContextQueryString];
+            set => this._httpContext.Items[ContextQueryString] = value;
         }
 
         private string Reduce(IRewriteContext context, StringReader reader)

@@ -29,12 +29,14 @@ namespace YAF.Pages.moderate
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -120,9 +122,9 @@ namespace YAF.Pages.moderate
         private void BindData()
         {
             // get list of forums and their moderating data
-            using (var ds = LegacyDb.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
+            using (var ds = this.GetRepository<Forum>().ModerateListADataSet(this.PageContext.PageUserID, this.PageContext.PageBoardID))
             {
-                this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
+                this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
             }
 
             // bind data to controls

@@ -29,13 +29,15 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
 
@@ -109,7 +111,11 @@ namespace YAF.Pages.Admin
                         JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
                     break;
                 case "delete":
-                    LegacyDb.nntpforum_delete(e.CommandArgument);
+                    var forumId = e.CommandArgument.ToType<int>();
+
+                    this.GetRepository<NntpTopic>().Delete(n => n.NntpForumID == forumId);
+                    this.GetRepository<NntpForum>().Delete(n => n.ID == forumId);
+
                     this.BindData();
                     break;
             }
@@ -120,7 +126,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.RankList.DataSource = LegacyDb.nntpforum_list(this.PageContext.PageBoardID, null, null, DBNull.Value);
+            this.RankList.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageContext.PageBoardID, null, null, null);
             this.DataBind();
         }
 

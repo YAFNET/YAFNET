@@ -31,7 +31,6 @@ namespace YAF.Core.BBCode
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
@@ -39,10 +38,8 @@ namespace YAF.Core.BBCode
     using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 

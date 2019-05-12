@@ -35,26 +35,17 @@ namespace YAF.UrlRewriter.Utilities
         /// <summary>
         /// Retrieves the application path.
         /// </summary>
-        public string ApplicationPath
-        {
-            get { return HttpContext.Current.Request.ApplicationPath; }
-        }
+        public string ApplicationPath => HttpContext.Current.Request.ApplicationPath;
 
         /// <summary>
         /// Retrieves the raw URL.
         /// </summary>
-        public string RawUrl
-        {
-            get { return HttpContext.Current.Request.RawUrl; }
-        }
+        public string RawUrl => HttpContext.Current.Request.RawUrl;
 
         /// <summary>
         /// Retrieves the current request URL.
         /// </summary>
-        public Uri RequestUrl
-        {
-            get { return HttpContext.Current.Request.Url; }
-        }
+        public Uri RequestUrl => HttpContext.Current.Request.Url;
 
         /// <summary>
         /// Sets the status code for the response.
@@ -114,41 +105,26 @@ namespace YAF.UrlRewriter.Utilities
         /// <summary>
         /// The Items collection for the current request.
         /// </summary>
-        public IDictionary Items
-        {
-            get { return HttpContext.Current.Items; }
-        }
+        public IDictionary Items => HttpContext.Current.Items;
 
         /// <summary>
         /// Retrieves the HTTP method used by the request (GET, POST, HEAD, PUT, DELETE).
         /// </summary>
-        public string HttpMethod
-        {
-            get { return HttpContext.Current.Request.HttpMethod; }
-        }
+        public string HttpMethod => HttpContext.Current.Request.HttpMethod;
 
         /// <summary>
         /// Gets a collection of server variables.
         /// </summary>
-        public NameValueCollection ServerVariables
-        {
-            get { return HttpContext.Current.Request.ServerVariables; }
-        }
+        public NameValueCollection ServerVariables => HttpContext.Current.Request.ServerVariables;
 
         /// <summary>
         /// Gets a collection of the request headers.
         /// </summary>
-        public NameValueCollection RequestHeaders
-        {
-            get { return HttpContext.Current.Request.Headers; }
-        }
+        public NameValueCollection RequestHeaders => HttpContext.Current.Request.Headers;
 
         /// <summary>
         /// Gets a collection of request cookies.
         /// </summary>
-        public HttpCookieCollection RequestCookies
-        {
-            get { return HttpContext.Current.Request.Cookies; }
-        }
+        public HttpCookieCollection RequestCookies => HttpContext.Current.Request.Cookies;
     }
 }

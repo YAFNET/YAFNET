@@ -27,15 +27,17 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Data;
     using System.IO;
+    using System.Linq;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -69,11 +71,11 @@ namespace YAF.Core.Services
         {
             if (albumID != null)
             {
-                var dt = LegacyDb.album_image_list(albumID, null);
+                var dt = YafContext.Current.GetRepository<UserAlbumImage>().List(albumID.ToType<int>());
 
-                foreach (DataRow dr in dt.Rows)
+                foreach (var dr in dt)
                 {
-                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]);
+                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr.FileName);
                     var file = new FileInfo(fullName);
 
                     try
@@ -86,19 +88,22 @@ namespace YAF.Core.Services
                     }
                     finally
                     {
-                        LegacyDb.album_image_delete(dr["ImageID"]);
+                        var imageId = dr.ID;
+                        YafContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageId);
+                        YafContext.Current.GetRepository<UserAlbum>().DeleteCover(imageId);
                     }
                 }
 
-                LegacyDb.album_delete(albumID);
+                YafContext.Current.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumID.ToType<int>());
+
+                YafContext.Current.GetRepository<UserAlbum>().Delete(a => a.ID == albumID.ToType<int>());
             }
             else
             {
-                using (var dt = LegacyDb.album_image_list(null, imageID))
-                {
-                    var dr = dt.Rows[0];
-                    var fileName = dr["FileName"].ToString();
-                    var imgAlbumId = dr["albumID"].ToString();
+                var dt = YafContext.Current.GetRepository<UserAlbumImage>().ListImage(imageID.ToType<int>()).FirstOrDefault();
+                
+                    var fileName = dt.Item1.FileName;
+                    var imgAlbumId = dt.Item1.AlbumID.ToString();
                     var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, imgAlbumId, fileName);
                     var file = new FileInfo(fullName);
 
@@ -110,11 +115,13 @@ namespace YAF.Core.Services
                             File.Delete(fullName);
                         }
                     }
-                    finally 
+                    finally
                     {
-                        LegacyDb.album_image_delete(imageID);
+                        var imageId = imageID.ToType<int>();
+                        YafContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageId);
+                        YafContext.Current.GetRepository<UserAlbum>().DeleteCover(imageId);
                     }
-                }
+                
             }
         }
 
@@ -138,7 +145,7 @@ namespace YAF.Core.Services
             YafContext.Current.Get<StartupInitializeDb>().Run();
 
             // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
-            LegacyDb.album_save(albumId, null, newTitle, null);
+            YafContext.Current.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
 
             var returnObject = new ReturnClass { NewTitle = newTitle };
 
@@ -169,7 +176,7 @@ namespace YAF.Core.Services
             YafContext.Current.Get<StartupInitializeDb>().Run();
 
             // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
-            LegacyDb.album_image_save(imageId, null, newCaption, null, null, null);
+            YafContext.Current.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
             var returnObject = new ReturnClass { NewTitle = newCaption };
 
             returnObject.NewTitle = (newCaption == string.Empty)

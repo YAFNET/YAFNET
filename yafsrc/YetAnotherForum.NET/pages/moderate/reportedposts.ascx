@@ -74,11 +74,6 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <YAF:ThemeButton ID="ReportAsSpamBtn" runat="server" 
-                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="REPORT_SPAM" 
-                                         CommandName="spam" CommandArgument='<%# this.FormatMessage((System.Data.DataRowView)Container.DataItem) %>'
-                                         Visible='<%# this.Get<YafBoardSettings>().SpamServiceType.Equals(1)%>'
-                                         Icon="flag" Type="Secondary"/>
                         <YAF:ThemeButton ID="CopyOverBtn" runat="server" 
                                      TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER" 
                                      CommandName="CopyOver" CommandArgument='<%# this.Eval("MessageID") %>'

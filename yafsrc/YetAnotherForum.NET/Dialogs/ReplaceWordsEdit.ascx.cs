@@ -55,15 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ReplaceWordId
         {
-            get
-            {
-                return this.ViewState["ReplaceWordId"].ToType<int?>();
-            }
+            get => this.ViewState["ReplaceWordId"].ToType<int?>();
 
-            set
-            {
-                this.ViewState["ReplaceWordId"] = value;
-            }
+            set => this.ViewState["ReplaceWordId"] = value;
         }
 
         /// <summary>

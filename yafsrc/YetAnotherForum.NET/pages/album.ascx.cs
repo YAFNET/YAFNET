@@ -30,13 +30,14 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
 
@@ -108,7 +109,7 @@ namespace YAF.Pages
 
             // Set the title text.
             this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
-            this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(LegacyDb.album_gettitle(albumId));
+            this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(this.GetRepository<UserAlbum>().GetTitle(albumId.ToType<int>()));
 
             // Initialize the Album Image List control.
             this.AlbumImageList1.UserID = (int)userId;

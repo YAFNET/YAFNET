@@ -29,12 +29,13 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.UI;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -51,15 +52,9 @@ namespace YAF.Controls
         /// </summary>
         public virtual int MessageID
         {
-            get
-            {
-                return this.ViewState["MessageID"] != null ? this.ViewState["MessageID"].ToType<int>() : 0;
-            }
+            get => this.ViewState["MessageID"] != null ? this.ViewState["MessageID"].ToType<int>() : 0;
 
-            set
-            {
-                this.ViewState["MessageID"] = value;
-            }
+            set => this.ViewState["MessageID"] = value;
         }
 
         /// <summary>
@@ -68,15 +63,9 @@ namespace YAF.Controls
         [NotNull]
         public virtual string Resolved
         {
-            get
-            {
-                return this.ViewState["Resolved"].ToString();
-            }
+            get => this.ViewState["Resolved"].ToString();
 
-            set
-            {
-                this.ViewState["Resolved"] = value;
-            }
+            set => this.ViewState["Resolved"] = value;
         }
 
         /// <summary>
@@ -85,15 +74,9 @@ namespace YAF.Controls
         [NotNull]
         public virtual string ResolvedBy
         {
-            get
-            {
-                return this.ViewState["ResolvedBy"].ToString();
-            }
+            get => this.ViewState["ResolvedBy"].ToString();
 
-            set
-            {
-                this.ViewState["ResolvedBy"] = value;
-            }
+            set => this.ViewState["ResolvedBy"] = value;
         }
 
         /// <summary>
@@ -102,15 +85,9 @@ namespace YAF.Controls
         [NotNull]
         public virtual string ResolvedDate
         {
-            get
-            {
-                return this.ViewState["ResolvedDate"].ToString();
-            }
+            get => this.ViewState["ResolvedDate"].ToString();
 
-            set
-            {
-                this.ViewState["ResolvedDate"] = value;
-            }
+            set => this.ViewState["ResolvedDate"] = value;
         }
 
         #endregion
@@ -125,7 +102,7 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var reportersList = LegacyDb.message_listreporters(this.MessageID);
+            var reportersList = this.GetRepository<Message>().ListReportersAsDataTable(this.MessageID);
 
             if (!reportersList.HasRows())
             {
@@ -148,7 +125,7 @@ namespace YAF.Controls
                 // and can add an info about last user who resolved the message
                 if (this.ResolvedDate.IsSet())
                 {
-                    var resolvedByName = LegacyDb.user_list(
+                    var resolvedByName = this.GetRepository<User>().ListAsDataTable(
                         this.PageContext.PageBoardID,
                         this.ResolvedBy.ToType<int>(),
                         true).Rows[0]["Name"].ToString();

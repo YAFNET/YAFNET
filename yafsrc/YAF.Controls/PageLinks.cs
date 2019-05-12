@@ -31,12 +31,13 @@ namespace YAF.Controls
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
 
@@ -109,7 +110,7 @@ namespace YAF.Controls
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            using (var links = LegacyDb.forum_listpath(forumId))
+            using (var links = YafContext.Current.GetRepository<Forum>().ListPathAsDataTable(forumId))
             {
                 foreach (DataRow row in links.Rows)
                 {
@@ -143,15 +144,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string LinkedPageLinkID
         {
-            get
-            {
-                return this.ViewState["LinkedPageLinkID"].ToType<string>();
-            }
+            get => this.ViewState["LinkedPageLinkID"].ToType<string>();
 
-            set
-            {
-                this.ViewState["LinkedPageLinkID"] = value;
-            }
+            set => this.ViewState["LinkedPageLinkID"] = value;
         }
 
         /// <summary>
@@ -160,15 +155,9 @@ namespace YAF.Controls
         [CanBeNull]
         public List<PageLink> PageLinkList
         {
-            get
-            {
-                return this.ViewState["PageLinkList"] as List<PageLink>;
-            }
+            get => this.ViewState["PageLinkList"] as List<PageLink>;
 
-            set
-            {
-                this.ViewState["PageLinkList"] = value;
-            }
+            set => this.ViewState["PageLinkList"] = value;
         }
 
         #endregion

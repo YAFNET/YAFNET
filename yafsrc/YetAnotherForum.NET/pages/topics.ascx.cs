@@ -32,7 +32,6 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -65,7 +64,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _forum.
         /// </summary>
-        private DataRow _forum;
+        private Forum _forum;
 
         /// <summary>
         ///   The _forum flags.
@@ -265,24 +264,25 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-            {
-                this._forum = dt.Rows[0];
-            }
+            var dt = this.GetRepository<Forum>().List(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageForumID);
 
-            if (this._forum["RemoteURL"] != DBNull.Value)
+            this._forum = dt.FirstOrDefault();
+
+            if (this._forum.RemoteURL.IsSet())
             {
                 this.Response.Clear();
-                this.Response.Redirect((string)this._forum["RemoteURL"]);
+                this.Response.Redirect(this._forum.RemoteURL);
             }
 
-            this._forumFlags = new ForumFlags(this._forum["Flags"]);
+            this._forumFlags = this._forum.ForumFlags;
 
-            this.PageTitle.Text = this._forum["Description"].ToString().IsSet()
+            this.PageTitle.Text = this._forum.Description.IsSet()
                                       ? "{0} - <em>{1}</em>".FormatWith(
-                                          this.HtmlEncode(this._forum["Name"]),
-                                          this.HtmlEncode(this._forum["Description"]))
-                                      : this.HtmlEncode(this._forum["Name"]);
+                                          this.HtmlEncode(this._forum.Name),
+                                          this.HtmlEncode(this._forum.Description))
+                                      : this.HtmlEncode(this._forum.Name);
 
             this.BindData(); // Always because of yaf:TopicLine
 
@@ -373,7 +373,7 @@ namespace YAF.Pages
             }*/
             int? userId = this.PageContext.PageUserID;
 
-            var dt = LegacyDb.announcements_list(
+            var dt = this.GetRepository<Topic>().AnnouncementsAsDataTable(
                 this.PageContext.PageForumID,
                 userId,
                 null,
@@ -408,7 +408,7 @@ namespace YAF.Pages
 
             if (this._showTopicListSelected == 0)
             {
-                topicList = LegacyDb.topic_list(
+                topicList = this.GetRepository<Topic>().ListAsDataTable(
                     this.PageContext.PageForumID,
                     userId,
                     DateTimeHelper.SqlDbMinTime(),
@@ -429,7 +429,7 @@ namespace YAF.Pages
 
                 var date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
 
-                topicList = LegacyDb.topic_list(
+                topicList = this.GetRepository<Topic>().ListAsDataTable(
                     this.PageContext.PageForumID,
                     userId,
                     date,

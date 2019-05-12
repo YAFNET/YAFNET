@@ -29,8 +29,8 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -73,7 +73,7 @@ namespace YAF.Controls
         {
             var markAll = (LinkButton)sender;
 
-            object categoryId = null;
+            int? categoryId = null;
 
             int icategoryId;
             if (int.TryParse(markAll.CommandArgument, out icategoryId))
@@ -81,7 +81,7 @@ namespace YAF.Controls
                 categoryId = icategoryId;
             }
 
-            var dt = LegacyDb.forum_listread(
+            var dt = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
                 boardID: this.PageContext.PageBoardID,
                 userID: this.PageContext.PageUserID,
                 categoryID: categoryId,

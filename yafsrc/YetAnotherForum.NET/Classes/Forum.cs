@@ -40,6 +40,7 @@ namespace YAF
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -163,15 +164,9 @@ namespace YAF
         /// </summary>
         public int BoardID
         {
-            get
-            {
-                return YafControlSettings.Current.BoardID;
-            }
+            get => YafControlSettings.Current.BoardID;
 
-            set
-            {
-                YafControlSettings.Current.BoardID = value;
-            }
+            set => YafControlSettings.Current.BoardID = value;
         }
 
         /// <summary>
@@ -179,15 +174,9 @@ namespace YAF
         /// </summary>
         public int CategoryID
         {
-            get
-            {
-                return YafControlSettings.Current.CategoryID;
-            }
+            get => YafControlSettings.Current.CategoryID;
 
-            set
-            {
-                YafControlSettings.Current.CategoryID = value;
-            }
+            set => YafControlSettings.Current.CategoryID = value;
         }
 
         /// <summary>
@@ -205,15 +194,9 @@ namespace YAF
         /// </summary>
         public int LockedForum
         {
-            get
-            {
-                return YafControlSettings.Current.LockedForum;
-            }
+            get => YafControlSettings.Current.LockedForum;
 
-            set
-            {
-                YafControlSettings.Current.LockedForum = value;
-            }
+            set => YafControlSettings.Current.LockedForum = value;
         }
 
         /// <summary>
@@ -236,15 +219,9 @@ namespace YAF
         /// </summary>
         public bool Popup
         {
-            get
-            {
-                return YafControlSettings.Current.Popup;
-            }
+            get => YafControlSettings.Current.Popup;
 
-            set
-            {
-                YafControlSettings.Current.Popup = value;
-            }
+            set => YafControlSettings.Current.Popup = value;
         }
 
         /// <summary>

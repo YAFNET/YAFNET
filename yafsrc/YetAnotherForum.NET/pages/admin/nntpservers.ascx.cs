@@ -27,22 +27,24 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// Summary description for ranks.
+    /// The Admin NNTP server page
     /// </summary>
     public partial class nntpservers : AdminPage
     {
@@ -109,7 +111,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.RankList.DataSource = LegacyDb.nntpserver_list(this.PageContext.PageBoardID, null);
+            this.RankList.DataSource = this.GetRepository<NntpServer>().GetByBoardId();
             this.DataBind();
         }
 
@@ -139,7 +141,18 @@ namespace YAF.Pages.Admin
                         JavaScriptBlocks.OpenModalJs("NntpServerEditDialog"));
                     break;
                 case "delete":
-                    LegacyDb.nntpserver_delete(e.CommandArgument);
+                    var serverId = e.CommandArgument.ToType<int>();
+                    var forums = new List<int>();
+
+                    foreach (var forum in this.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId))
+                    {
+                        forums.Add(forum.ForumID);
+                    }
+
+                    this.GetRepository<NntpTopic>().DeleteByIds(forums);
+                    this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
+                    this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
+
                     this.BindData();
                     break;
             }

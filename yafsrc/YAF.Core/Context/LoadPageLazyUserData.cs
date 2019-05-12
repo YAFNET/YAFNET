@@ -31,8 +31,6 @@ namespace YAF.Core
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Utils.Extensions;
 
     /// <summary>
     /// The load page lazy user data.
@@ -73,13 +71,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 3000;
-            }
-        }
+        public int Order => 3000;
 
         /// <summary>
         ///   Gets or sets ServiceLocator.

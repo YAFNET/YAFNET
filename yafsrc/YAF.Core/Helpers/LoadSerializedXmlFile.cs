@@ -35,9 +35,8 @@ namespace YAF.Core
 	using System.Xml.Serialization;
 
 	using YAF.Types.Extensions;
-	using YAF.Utils;
 
-	#endregion
+    #endregion
 
 	/// <summary>
 	/// The load serialized xml file.

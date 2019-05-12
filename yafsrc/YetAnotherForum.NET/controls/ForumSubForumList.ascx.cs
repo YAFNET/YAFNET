@@ -54,10 +54,7 @@ namespace YAF.Controls
         /// </summary>
         public IEnumerable DataSource
         {
-            set
-            {
-                this.SubforumList.DataSource = value;
-            }
+            set => this.SubforumList.DataSource = value;
         }
 
         #endregion

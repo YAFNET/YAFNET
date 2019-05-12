@@ -171,15 +171,9 @@ namespace YAF.Types.Flags
     public bool IsClosedBound
     {
       // int value 4
-      get
-      {
-        return this[0];
-      }
+      get => this[0];
 
-      set
-      {
-        this[0] = value;
-      }
+      set => this[0] = value;
     }
    
 

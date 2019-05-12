@@ -62,13 +62,7 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         ///   Gets SortOrder.
         /// </summary>
-        public override int SortOrder
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public override int SortOrder => 1000;
 
         #endregion
 
@@ -87,6 +81,55 @@ namespace YAF.Data.MsSql.Functions
         {
             return operationName.Equals("getstats", StringComparison.InvariantCultureIgnoreCase);
         }
+
+        /// <summary>
+        /// The get db type and size from string.
+        /// </summary>
+        /// <param name="providerData">
+        ///  The provider data.
+        /// </param>
+        /// <param name="dbType">
+        /// The db type.
+        /// </param>
+        /// <param name="size">
+        /// The size.
+        /// </param>
+        /// <returns>
+        /// The get db type and size from string.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// </exception>
+        public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
+        {
+            size = -1;
+            dbType = SqlDbType.NVarChar;
+
+            if (providerData.IsNotSet())
+            {
+                return false;
+            }
+
+            // split the data
+            var chunk = providerData.Split(new[] { ';' });
+
+            // first item is the column name...
+            var columnName = chunk[0];
+
+            // get the datatype and ignore case...
+            dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
+
+            if (chunk.Length > 2)
+            {
+                // handle size...
+                if (!int.TryParse(chunk[2], out size))
+                {
+                    throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
+                }
+            }
+
+            return true;
+        }
+
 
         #endregion
 

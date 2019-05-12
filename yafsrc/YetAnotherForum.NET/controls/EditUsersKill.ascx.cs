@@ -33,7 +33,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -59,7 +58,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _all posts by user.
         /// </summary>
-        private DataTable allPostsByUser;
+        private IOrderedEnumerable<Message> allPostsByUser;
 
         #endregion
 
@@ -68,11 +67,10 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets AllPostsByUser.
         /// </summary>
-        public DataTable AllPostsByUser
-            =>
-                this.allPostsByUser
-                ?? (this.allPostsByUser =
-                    LegacyDb.post_alluser_simple(this.PageContext.PageBoardID, this.CurrentUserId));
+        public IOrderedEnumerable<Message> AllPostsByUser =>
+            this.allPostsByUser ?? (this.allPostsByUser =
+                                        this.GetRepository<Message>()
+                                            .GetAllUserMessages(this.CurrentUserId.Value.ToType<int>()));
 
         /// <summary>
         ///   Gets IPAddresses.
@@ -82,7 +80,7 @@ namespace YAF.Controls
         {
             get
             {
-                var list = this.AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
+                var list = this.AllPostsByUser.Select(m => m.IP).OrderBy(x => x).Distinct().ToList();
 
                 if (list.Count.Equals(0))
                 {
@@ -171,7 +169,7 @@ namespace YAF.Controls
             this.DeleteAllUserMessages();
 
             if (this.ReportUser.Checked && this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet()
-                && this.IPAddresses.Any())
+                                        && this.IPAddresses.Any())
             {
                 try
                 {
@@ -224,11 +222,10 @@ namespace YAF.Controls
                         }
 
                         // get user(s) we are about to delete
-                        using (
-                            var dt = LegacyDb.user_list(
-                                this.PageContext.PageBoardID,
-                                this.CurrentUserId,
-                                DBNull.Value))
+                        using (var dt = this.GetRepository<User>().ListAsDataTable(
+                            this.PageContext.PageBoardID,
+                            this.CurrentUserId,
+                            DBNull.Value))
                         {
                             // examine each if he's possible to delete
                             foreach (DataRow row in dt.Rows)
@@ -266,7 +263,9 @@ namespace YAF.Controls
                 case "suspend":
                     if (this.CurrentUserId > 0)
                     {
-                        this.GetRepository<User>().Suspend(this.CurrentUserId.ToType<int>(), DateTime.UtcNow.AddYears(5));
+                        this.GetRepository<User>().Suspend(
+                            this.CurrentUserId.ToType<int>(),
+                            DateTime.UtcNow.AddYears(5));
                     }
 
                     break;
@@ -310,7 +309,8 @@ namespace YAF.Controls
         /// </summary>
         private void BanUserIps()
         {
-            var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageContext.PageBoardID).Select(x => x.Mask).ToList();
+            var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageContext.PageBoardID)
+                .Select(x => x.Mask).ToList();
 
             // ban user ips...
             var name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserId?.ToType<int>() ?? -1);
@@ -327,13 +327,10 @@ namespace YAF.Controls
                     continue;
                 }
 
-                var linkUserBan =
-                    this.Get<ILocalization>()
-                        .GetText("ADMIN_EDITUSER", "LINK_USER_BAN")
-                        .FormatWith(
-                            this.CurrentUserId,
-                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
-                            this.HtmlEncode(name));
+                var linkUserBan = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN").FormatWith(
+                    this.CurrentUserId,
+                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
+                    this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
             }
@@ -361,11 +358,10 @@ namespace YAF.Controls
             // load ip address history for user...
             foreach (var ipAddress in this.IPAddresses.Take(5))
             {
-                this.IpAddresses.Text +=
-                    "<a href=\"{0}\" target=\"_blank\" title=\"{1}\">{2}</a><br />".FormatWith(
-                        this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ipAddress),
-                        this.GetText("COMMON", "TT_IPDETAILS"),
-                        ipAddress);
+                this.IpAddresses.Text += "<a href=\"{0}\" target=\"_blank\" title=\"{1}\">{2}</a><br />".FormatWith(
+                    this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ipAddress),
+                    this.GetText("COMMON", "TT_IPDETAILS"),
+                    ipAddress);
             }
 
             // if no ip disable BanIp checkbox
@@ -377,17 +373,16 @@ namespace YAF.Controls
             }
 
             // show post count...
-            this.PostCount.Text = this.AllPostsByUser.Rows.Count.ToString();
+            this.PostCount.Text = this.AllPostsByUser.Count().ToString();
 
             // get user's info
-            this.CurrentUser =
-                LegacyDb.UserList(
-                    this.PageContext.PageBoardID,
-                    this.CurrentUserId.ToType<int?>(),
-                    null,
-                    null,
-                    null,
-                    false).FirstOrDefault();
+            this.CurrentUser = this.GetRepository<User>().UserList(
+                this.PageContext.PageBoardID,
+                this.CurrentUserId.ToType<int?>(),
+                null,
+                null,
+                null,
+                false).FirstOrDefault();
 
             // there is no such user
             if (this.CurrentUser?.Suspended != null)
@@ -409,10 +404,9 @@ namespace YAF.Controls
         private void DeleteAllUserMessages()
         {
             // delete posts...
-            var messageIds =
-                (from m in this.AllPostsByUser.AsEnumerable() select m.Field<int>("MessageID")).Distinct().ToList();
+            var messageIds = this.AllPostsByUser.Select(m => m.ID).Distinct().ToList();
 
-            messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true, true));
+            messageIds.ForEach(x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true, true));
         }
 
         #endregion

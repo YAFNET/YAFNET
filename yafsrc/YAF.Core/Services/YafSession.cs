@@ -29,7 +29,6 @@ namespace YAF.Core.Services
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Data;
     using System.Web;
 
     using YAF.Types;
@@ -79,10 +78,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["UserTopicSince"] = value;
-            }
+            set => this.SessionState["UserTopicSince"] = value;
         }
 
         /// <summary>
@@ -100,10 +96,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["TwitterToken"] = value;
-            }
+            set => this.SessionState["TwitterToken"] = value;
         }
 
         /// <summary>
@@ -121,10 +114,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["TwitterTokenSecret"] = value;
-            }
+            set => this.SessionState["TwitterTokenSecret"] = value;
         }
 
         /// <summary>
@@ -145,10 +135,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["MultiQuoteIds"] = value;
-            }
+            set => this.SessionState["MultiQuoteIds"] = value;
         }
 
         /// <summary>
@@ -166,10 +153,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["UnreadTopicSince"] = value;
-            }
+            set => this.SessionState["UnreadTopicSince"] = value;
         }
 
         /// <summary>
@@ -187,10 +171,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["ActiveTopicSince"] = value;
-            }
+            set => this.SessionState["ActiveTopicSince"] = value;
         }
 
         /// <summary>
@@ -208,10 +189,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["UnansweredTopicSince"] = value;
-            }
+            set => this.SessionState["UnansweredTopicSince"] = value;
         }
 
         /// <summary>
@@ -229,10 +207,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["FavoriteTopicSince"] = value;
-            }
+            set => this.SessionState["FavoriteTopicSince"] = value;
         }
 
         /// <summary>
@@ -240,15 +215,9 @@ namespace YAF.Core.Services
         /// </summary>
         public Hashtable ForumRead
         {
-            get
-            {
-                return this.SessionState["forumread"] != null ? (Hashtable)this.SessionState["forumread"] : null;
-            }
+            get => this.SessionState["forumread"] != null ? (Hashtable)this.SessionState["forumread"] : null;
 
-            set
-            {
-                this.SessionState["forumread"] = value;
-            }
+            set => this.SessionState["forumread"] = value;
         }
 
         /// <summary>
@@ -266,10 +235,7 @@ namespace YAF.Core.Services
                 return DateTimeHelper.SqlDbMinTime();
             }
 
-            set
-            {
-                this.SessionState["lastpendingbuddies"] = value;
-            }
+            set => this.SessionState["lastpendingbuddies"] = value;
         }
 
         /// <summary>
@@ -287,10 +253,7 @@ namespace YAF.Core.Services
                 return DateTimeHelper.SqlDbMinTime();
             }
 
-            set
-            {
-                this.SessionState["lastpm"] = value;
-            }
+            set => this.SessionState["lastpm"] = value;
         }
 
         /// <summary>
@@ -308,10 +271,7 @@ namespace YAF.Core.Services
                 return DateTimeHelper.SqlDbMinTime();
             }
 
-            set
-            {
-                this.SessionState["lastpost"] = value;
-            }
+            set => this.SessionState["lastpost"] = value;
         }
 
         /// <summary>
@@ -346,14 +306,7 @@ namespace YAF.Core.Services
         ///   Gets PanelState.
         /// </summary>
         [NotNull]
-        public IPanelSessionState PanelState
-        {
-            get
-            {
-                // TODO: Get rid of this and replace with DI.
-                return new PanelSessionState();
-            }
-        }
+        public IPanelSessionState PanelState => new PanelSessionState();
 
         /// <summary>
         ///   Gets or sets SearchData.
@@ -371,10 +324,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["SearchResults"] = value;
-            }
+            set => this.SessionState["SearchResults"] = value;
         }
 
         /// <summary>
@@ -398,10 +348,7 @@ namespace YAF.Core.Services
                 return -1;
             }
 
-            set
-            {
-                this.SessionState["showlist"] = value;
-            }
+            set => this.SessionState["showlist"] = value;
         }
 
         /// <summary>
@@ -419,10 +366,7 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            set
-            {
-                this.SessionState["topicread"] = value;
-            }
+            set => this.SessionState["topicread"] = value;
         }
 
         /// <summary>
@@ -440,10 +384,7 @@ namespace YAF.Core.Services
                 return 0;
             }
 
-            set
-            {
-                this.SessionState["unreadtopics"] = value;
-            }
+            set => this.SessionState["unreadtopics"] = value;
         }
 
         #endregion

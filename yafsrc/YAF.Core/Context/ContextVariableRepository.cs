@@ -68,27 +68,15 @@ namespace YAF.Core
     /// </summary>
     public bool IsSuspendCheckEnabled
     {
-      get
-      {
-        return this.Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
-      }
+      get => this.Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
 
-      set
-      {
-        this.Vars["IsSuspendCheckEnabled"] = value;
-      }
+      set => this.Vars["IsSuspendCheckEnabled"] = value;
     }
 
     /// <summary>
     ///   Gets Vars.
     /// </summary>
-    protected TypeDictionary Vars
-    {
-      get
-      {
-        return this._dic;
-      }
-    }
+    protected TypeDictionary Vars => this._dic;
 
     #endregion
   }

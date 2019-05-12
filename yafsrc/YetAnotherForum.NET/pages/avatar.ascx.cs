@@ -82,15 +82,9 @@ namespace YAF.Pages
         /// </summary>
         protected string CurrentDirectory
         {
-            get
-            {
-                return this.ViewState["CurrentDir"] != null ? (string)this.ViewState["CurrentDir"] : string.Empty;
-            }
+            get => this.ViewState["CurrentDir"] != null ? (string)this.ViewState["CurrentDir"] : string.Empty;
 
-            set
-            {
-                this.ViewState["CurrentDir"] = value;
-            }
+            set => this.ViewState["CurrentDir"] = value;
         }
 
         #endregion

@@ -33,13 +33,11 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -128,7 +126,7 @@ namespace YAF.Core.Services
                 this.DataCache.GetOrSet(
                     Constants.Cache.ActiveUserLazyData.FormatWith(userId),
                     () =>
-                    LegacyDb.user_lazydata(
+                    this.GetRepository<User>().LazyDataRow(
                         userId,
                         YafContext.Current.PageBoardID,
                         this.BoardSettings.AllowEmailSending,
@@ -155,7 +153,7 @@ namespace YAF.Core.Services
 
             // Iterate through all the thanks relating to this topic and make appropriate
             // changes in columns.
-            var allThanks = LegacyDb.MessageGetAllThanks(messageIds.ToDelimitedString(",")).ToList();
+            var allThanks = this.GetRepository<Thanks>().MessageGetAllThanks(messageIds.ToDelimitedString(",")).ToList();
 
             foreach (var f in
                 allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID)
@@ -272,7 +270,7 @@ namespace YAF.Core.Services
                     categoryTable.AcceptChanges();
                 }
 
-                var forum = LegacyDb.forum_listread(
+                var forum = this.GetRepository<Forum>().ListReadAsDataTable(
                     boardID,
                     userID,
                     categoryID,
@@ -503,7 +501,7 @@ namespace YAF.Core.Services
             if (forumData.Any())
             {
                 // If the user is not logged in (Active Access Table is empty), we need to make sure the Active Access Tables are set
-                LegacyDb.pageaccess(boardId, userId, false);
+                this.GetRepository<ActiveAccess>().PageAccessAsDataTable(boardId, userId, false);
 
                 forumData =
                     this.DbFunction.GetAsDataTable(cdb => cdb.forum_listall(boardId, userId))
@@ -519,7 +517,7 @@ namespace YAF.Core.Services
 
                 // add topics
                 var topics =
-                    LegacyDb.topic_list(
+                    this.GetRepository<Topic>().ListAsDataTable(
                         forum1.ForumID,
                         userId,
                         timeFrame,
@@ -708,7 +706,7 @@ namespace YAF.Core.Services
                                UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("LastUserID")),
                            LastMessageID = row.Field<int>("LastMessageID"),
                            FirstMessage = row.Field<string>("FirstMessage"),
-                           LastMessage = LegacyDb.MessageList(row.Field<int>("LastMessageID")).First().Message,
+                           LastMessage = this.GetRepository<Message>().MessageList(row.Field<int>("LastMessageID")).First().Message,
                            Forum = forum
                        };
         }

@@ -79,46 +79,22 @@ namespace YAF.Utils
     /// <summary>
     ///   Gets Anchor.
     /// </summary>
-    public string Anchor
-    {
-      get
-      {
-        return this._urlAnchor;
-      }
-    }
+    public string Anchor => this._urlAnchor;
 
     /// <summary>
     ///   Gets Count.
     /// </summary>
-    public int Count
-    {
-      get
-      {
-        return this._nameValues.Count;
-      }
-    }
+    public int Count => this._nameValues.Count;
 
     /// <summary>
     ///   Gets a value indicating whether HasAnchor.
     /// </summary>
-    public bool HasAnchor
-    {
-      get
-      {
-        return this._urlAnchor != string.Empty;
-      }
-    }
+    public bool HasAnchor => this._urlAnchor != string.Empty;
 
     /// <summary>
     ///   Gets Parameters.
     /// </summary>
-    public NameValueCollection Parameters
-    {
-      get
-      {
-        return this._nameValues;
-      }
-    }
+    public NameValueCollection Parameters => this._nameValues;
 
     #endregion
 
@@ -132,13 +108,7 @@ namespace YAF.Utils
     /// </value>
     /// <param name="name">The name.</param>
     /// <returns></returns>
-    public string this[string name]
-    {
-      get
-      {
-        return this._nameValues[name];
-      }
-    }
+    public string this[string name] => this._nameValues[name];
 
     /// <summary>
     /// The this.
@@ -148,13 +118,7 @@ namespace YAF.Utils
     /// </value>
     /// <param name="index">The index.</param>
     /// <returns></returns>
-    public string this[int index]
-    {
-      get
-      {
-        return this._nameValues[index];
-      }
-    }
+    public string this[int index] => this._nameValues[index];
 
     #endregion
 

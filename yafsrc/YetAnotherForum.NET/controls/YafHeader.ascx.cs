@@ -272,10 +272,6 @@ namespace YAF.Controls
             {
                 this.AdminModHolder.Visible = true;
                 this.HostMenuHolder.Visible = true;
-
-#if DEBUG
-                this.debugLink.Visible = true;
-#endif
             }
 
             // Moderate

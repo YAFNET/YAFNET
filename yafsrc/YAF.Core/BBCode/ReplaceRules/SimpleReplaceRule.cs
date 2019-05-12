@@ -72,13 +72,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
-    public override string RuleDescription
-    {
-      get
-      {
-        return "Find = \"{0}\"".FormatWith(this._find);
-      }
-    }
+    public override string RuleDescription => "Find = \"{0}\"".FormatWith(this._find);
 
     #endregion
 

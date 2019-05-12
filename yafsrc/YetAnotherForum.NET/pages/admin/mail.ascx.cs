@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -86,11 +85,11 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            object groupId = null;
+            int? groupId = null;
 
             if (this.ToList.SelectedItem.Value != "0")
             {
-                groupId = this.ToList.SelectedValue;
+                groupId = this.ToList.SelectedValue.ToType<int>();
             }
 
             var subject = this.Subject.Text.Trim();
@@ -101,7 +100,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                using (var dt = LegacyDb.user_emails(this.PageContext.PageBoardID, groupId))
+                using (var dt = this.GetRepository<User>().EmailsAsDataTable(this.PageContext.PageBoardID, groupId))
                 {
                     foreach (DataRow row in dt.Rows)
                     {

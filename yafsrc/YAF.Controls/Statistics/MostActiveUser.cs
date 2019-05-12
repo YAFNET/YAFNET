@@ -31,12 +31,13 @@ namespace YAF.Controls.Statistics
     using System.Text;
     using System.Web.UI;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -71,7 +72,7 @@ namespace YAF.Controls.Statistics
             var rankDt = this.Get<IDataCache>().GetOrSet(
               Constants.Cache.MostActiveUsers,
               () =>
-              LegacyDb.user_activity_rank(
+              this.GetRepository<User>().ActivityRankAsDataTable(
                 this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber),
               TimeSpan.FromMinutes(5));
 

@@ -29,11 +29,14 @@ namespace YAF.Core.Services.Startup
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -49,13 +52,7 @@ namespace YAF.Core.Services.Startup
         ///     Gets InitVarName.
         /// </summary>
         [NotNull]
-        protected override string InitVarName
-        {
-            get
-            {
-                return "YafInitializeDb_Init";
-            }
-        }
+        protected override string InitVarName => "YafInitializeDb_Init";
 
         #endregion
 
@@ -93,7 +90,7 @@ namespace YAF.Core.Services.Startup
             }
 
             // attempt to init the db...
-            if (!LegacyDb.forumpage_initdb(out errorString, debugging))
+            if (!YafContext.Current.Get<IDbAccess>().TestConnection(out errorString))
             {
                 // unable to connect to the DB...
                 YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
@@ -104,7 +101,7 @@ namespace YAF.Core.Services.Startup
             }
 
             // step 2: validate the database version...
-            var redirectString = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
+            var redirectString = YafContext.Current.GetRepository<Registry>().ValidateVersion(YafForumInfo.AppVersion);
 
             if (!redirectString.IsSet())
             {

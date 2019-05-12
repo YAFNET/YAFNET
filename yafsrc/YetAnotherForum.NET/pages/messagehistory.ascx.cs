@@ -31,14 +31,15 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -129,7 +130,7 @@ namespace YAF.Pages
                 this.ReturnModBtn.Visible = true;
             }
 
-            this.originalRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+            this.originalRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
 
             if (this.originalRow.Rows.Count <= 0)
             {
@@ -189,11 +190,11 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
-                    var currentMessage = LegacyDb.MessageList(this.messageID).FirstOrDefault();
+                    var currentMessage = this.GetRepository<Message>().MessageList(this.messageID).FirstOrDefault();
 
                     DataRow restoreMessage = null;
 
-                    var revisionsTable = LegacyDb.messagehistory_list(
+                    var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
                         this.messageID,
                         this.PageContext.BoardSettings.MessageHistoryDaysToLog).AsEnumerable();
 
@@ -205,16 +206,16 @@ namespace YAF.Pages
                     if (restoreMessage != null)
                     {
 
-                        LegacyDb.message_update(
+                        this.GetRepository<Message>().Update(
                             this.messageID,
-                            currentMessage.Priority,
-                            restoreMessage["Message"],
+                            currentMessage.Priority.Value,
+                            restoreMessage["Message"].ToString(),
                             currentMessage.Description,
                             currentMessage.Status,
                             currentMessage.Styles,
                             currentMessage.Topic,
                             currentMessage.Flags.BitValue,
-                            restoreMessage["EditReason"],
+                            restoreMessage["EditReason"].ToString(),
                             this.PageContext.PageUserID != currentMessage.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                             currentMessage.Message,
@@ -279,13 +280,13 @@ namespace YAF.Pages
         private void BindData()
         {
             // Fill revisions list repeater.
-            var revisionsTable = LegacyDb.messagehistory_list(
+            var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
                 this.messageID,
                 this.PageContext.BoardSettings.MessageHistoryDaysToLog);
 
             revisionsTable.AcceptChanges();
 
-            revisionsTable.Merge(LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID));
+            revisionsTable.Merge(this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID));
 
             this.RevisionsCount = revisionsTable.Rows.Count;
 

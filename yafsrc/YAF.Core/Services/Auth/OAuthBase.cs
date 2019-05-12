@@ -670,24 +670,12 @@ namespace YAF.Core.Services.Auth
             /// <summary>
             /// Gets Name.
             /// </summary>
-            public string Name
-            {
-                get
-                {
-                    return this.name;
-                }
-            }
+            public string Name => this.name;
 
             /// <summary>
             /// Gets Value.
             /// </summary>
-            public string Value
-            {
-                get
-                {
-                    return this.value;
-                }
-            }
+            public string Value => this.value;
 
             #endregion
         }

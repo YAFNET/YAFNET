@@ -47,13 +47,7 @@ namespace YAF.Providers.Utils
         ///   Gets the Exception XML File Name from AppSettings
         /// </summary>
         [NotNull]
-        private static string ProviderExceptionFile
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.ProviderExceptionXML") ?? "ProviderExceptions.xml";
-            }
-        }
+        private static string ProviderExceptionFile => Config.GetConfigValueAsString("YAF.ProviderExceptionXML") ?? "ProviderExceptions.xml";
 
         #endregion
 

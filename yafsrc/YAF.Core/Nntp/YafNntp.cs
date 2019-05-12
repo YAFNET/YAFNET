@@ -26,17 +26,16 @@ namespace YAF.Core.Nntp
   #region Using
 
   using System;
-  using System.Data;
   using System.Data.SqlClient;
   using System.Linq;
   using System.Web;
 
-  using YAF.Classes.Data;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Types.Objects;
-  using YAF.Utils;
 
   #endregion
 
@@ -132,7 +131,7 @@ namespace YAF.Core.Nntp
         this._applicationStateBase["WorkingInYafNNTP"] = true;
 
         // Only those not updated in the last 30 minutes
-        foreach (var nntpForum in LegacyDb.NntpForumList(boardID, lastUpdate, null, true))
+        foreach (var nntpForum in YafContext.Current.GetRepository<NntpForum>().NntpForumList(boardID, lastUpdate, null, true))
         {
           using (var nntpConnection = GetNntpConnection(nntpForum))
           {
@@ -173,7 +172,7 @@ namespace YAF.Core.Nntp
               while (behindCutOff);
 
               // update the group lastMessage info...
-              LegacyDb.nntpforum_update(nntpForum.NntpForumID, currentMessage, guestUserId);
+              YafContext.Current.GetRepository<NntpForum>().Update(nntpForum.NntpForumID, currentMessage, guestUserId);
             }
 
             for (; currentMessage <= group.High; currentMessage++)
@@ -232,13 +231,13 @@ namespace YAF.Core.Nntp
 
                 if (createUsers)
                 {
-                  guestUserId = LegacyDb.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
+                  guestUserId = YafContext.Current.GetRepository<User>().Nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
                 var body = this.ReplaceBody(article.Body.Text.Trim());
 
-                LegacyDb.nntptopic_savemessage(
-                  nntpForumID,
+                YafContext.Current.GetRepository<NntpTopic>().SaveMessage(
+                  nntpForumID.Value,
                   subject.Truncate(75),
                   body,
                   guestUserId,
@@ -262,7 +261,7 @@ namespace YAF.Core.Nntp
                 if (count++ > 1000)
                 {
                   count = 0;
-                  LegacyDb.nntpforum_update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
+                  YafContext.Current.GetRepository<NntpForum>().Update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
                 }
               }
               catch (NntpException exception)
@@ -282,7 +281,7 @@ namespace YAF.Core.Nntp
               }
             }
 
-            LegacyDb.nntpforum_update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
+            YafContext.Current.GetRepository<NntpForum>().Update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
 
             // Total time x seconds for all groups
             if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
@@ -300,6 +299,15 @@ namespace YAF.Core.Nntp
       return articleCount;
     }
 
+    /// <summary>
+    /// The get nntp connection.
+    /// </summary>
+    /// <param name="nntpForum">
+    /// The nntp forum.
+    /// </param>
+    /// <returns>
+    /// The <see cref="NntpConnection"/>.
+    /// </returns>
     [NotNull]
     public static NntpConnection GetNntpConnection([NotNull] TypedNntpForum nntpForum)
     {

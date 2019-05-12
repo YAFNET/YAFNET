@@ -87,15 +87,9 @@ namespace YAF.Types.Models
         [Ignore]
         public TopicFlags TopicFlags
         {
-            get
-            {
-                return new TopicFlags(this.Flags);
-            }
+            get => new TopicFlags(this.Flags);
 
-            set
-            {
-                this.Flags = value.BitValue;
-            }
+            set => this.Flags = value.BitValue;
         }
         [Required]
         [Index]

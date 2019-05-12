@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
@@ -78,10 +77,10 @@ namespace YAF.Pages.Admin
             }
 
             // Check and see if it should make panels enable or not
-            this.PanelReindex.Visible = LegacyDb.PanelReindex;
-            this.PanelShrink.Visible = LegacyDb.PanelShrink;
-            this.PanelRecoveryMode.Visible = LegacyDb.PanelRecoveryMode;
-            this.PanelGetStats.Visible = LegacyDb.PanelGetStats;
+            this.PanelReindex.Visible = true;
+            this.PanelShrink.Visible = true;
+            this.PanelRecoveryMode.Visible = true;
+            this.PanelGetStats.Visible = true;
 
             this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
             this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
@@ -151,19 +150,7 @@ namespace YAF.Pages.Admin
                     break;
             }
 
-            var error = LegacyDb.db_recovery_mode_new(recoveryMode);
-
-            if (error.IsSet())
-            {
-                this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning()
-                                               + this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error);
-            }
-            else
-            {
-                this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS").FormatWith(recoveryMode);
-                this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning()
-                                               + "\r\n{0}".FormatWith(LegacyDb.db_recovery_mode_new(recoveryMode));
-            }
+            this.txtIndexStatistics.Text = this.Get<IDbFunction>().ChangeRecoveryMode(recoveryMode);
         }
 
         /// <summary>
@@ -173,7 +160,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.txtIndexStatistics.Text = LegacyDb.db_reindex_warning() + LegacyDb.db_reindex_new();
+            this.txtIndexStatistics.Text = string.Empty + this.Get<IDbFunction>().ReIndexDatabase();
         }
 
         /// <summary>
@@ -186,8 +173,8 @@ namespace YAF.Pages.Admin
         {
             try
             {
-                this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning()
-                                               + @"\r\n\{0}\r\n\".FormatWith(LegacyDb.db_shrink_new());
+                this.Get<IDbFunction>().ShrinkDatabase();
+                this.txtIndexStatistics.Text = string.Empty;
                 this.txtIndexStatistics.Text =
                     this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(this.Get<IDbFunction>().GetDBSize());
 

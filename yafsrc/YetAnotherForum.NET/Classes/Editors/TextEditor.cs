@@ -30,7 +30,6 @@ namespace YAF.Classes.Editors
 
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 
@@ -71,15 +70,9 @@ namespace YAF.Classes.Editors
         /// </summary>
         public override string Text
         {
-            get
-            {
-                return this._textCtl.InnerText;
-            }
+            get => this._textCtl.InnerText;
 
-            set
-            {
-                this._textCtl.InnerText = value;
-            }
+            set => this._textCtl.InnerText = value;
         }
 
         /// <summary>

@@ -24,7 +24,9 @@
 
 namespace YAF.Core.Model
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
 
@@ -39,6 +41,76 @@ namespace YAF.Core.Model
     public static class UserAlbumImageRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Gets the number of images in the album with AlbumID.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="albumId">
+        /// The album Id.
+        /// </param>
+        /// <returns>
+        /// Returns the number of images in the album with AlbumID.
+        /// </returns>
+        [NotNull]
+        public static long CountAlbumImages([NotNull] this IRepository<UserAlbumImage> repository, [NotNull] int albumId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.Count(albumImage => albumImage.AlbumID == albumId);
+        }
+
+        /// <summary>
+        /// Lists all the images associated with the AlbumID or
+        ///   the image with the ImageID.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="albumId">
+        /// The album Id.
+        /// </param>
+        /// <returns>
+        /// a Datatable containing the image(s).
+        /// </returns>
+        public static List<UserAlbumImage> List(
+            [NotNull] this IRepository<UserAlbumImage> repository,
+            int albumId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Lists all the images associated with the AlbumID or
+        ///   the image with the ImageID.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="albumId">
+        /// The album Id.
+        /// </param>
+        /// <returns>
+        /// a Datatable containing the image(s).
+        /// </returns>
+        public static List<Tuple<UserAlbumImage, UserAlbum>> ListImage(
+            [NotNull] this IRepository<UserAlbumImage> repository,
+            int imageId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
+
+            expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
+                .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => image.ID == imageId);
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<UserAlbumImage, UserAlbum>(expression));
+        }
 
         /// <summary>
         /// Gets the paged list of all users Album Images
@@ -64,7 +136,7 @@ namespace YAF.Core.Model
                 .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId)
                 .OrderByDescending<UserAlbumImage>(item => item.ID).Page(pageIndex + 1, pageSize);
 
-            return repository.DbAccess.Execute(db => db.Connection.Select(expression));
+            return repository.DbAccess.Execute(db => db.Connection.Select(expression)); 
         }
 
         /// <summary>
@@ -95,6 +167,61 @@ namespace YAF.Core.Model
         public static void IncrementDownload(this IRepository<UserAlbumImage> repository, [NotNull] int imageId)
         {
             repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, where: u => u.ID == imageId);
+        }
+
+        public static void UpdateCaption(
+            this IRepository<UserAlbumImage> repository,
+            [NotNull] int imageId,
+            [NotNull] string caption)
+        {
+            repository.UpdateOnly(
+                () => new UserAlbumImage { Caption = caption },
+                f => f.ID == imageId);
+
+        }
+
+        /// <summary>
+        /// Inserts/Saves a user image.
+        /// </summary>
+        /// <param name="imageID">
+        /// the image id of an existing image.
+        /// </param>
+        /// <param name="albumID">
+        /// the album id for adding a new image.
+        /// </param>
+        /// <param name="caption">
+        /// the caption of the existing/new image.
+        /// </param>
+        /// <param name="fileName">
+        /// the file name of the new image.
+        /// </param>
+        /// <param name="bytes">
+        /// the size of the new image.
+        /// </param>
+        /// <param name="contentType">
+        /// the content type.
+        /// </param>
+        public static void Save(
+            this IRepository<UserAlbumImage> repository,
+            [NotNull] int? imageId,
+            [NotNull] int albumID,
+            [NotNull] string caption,
+            [NotNull] string fileName,
+            [NotNull] int bytes,
+            [NotNull] string contentType)
+        {
+            repository.Insert(
+                new UserAlbumImage
+                    {
+                        ID = imageId ?? 0,
+                        AlbumID = albumID,
+                        Caption = caption,
+                        Bytes = bytes,
+                        ContentType = contentType,
+                        Uploaded = DateTime.UtcNow,
+                        Downloads = 0
+                    });
+
         }
 
         #endregion

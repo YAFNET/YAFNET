@@ -26,13 +26,10 @@ namespace YAF.Editors
     #region Using
 
     using System;
-    using System.Reflection;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 

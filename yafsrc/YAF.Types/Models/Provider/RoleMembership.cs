@@ -29,7 +29,6 @@ namespace YAF.Types.Models.Provider
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion

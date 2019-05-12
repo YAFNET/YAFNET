@@ -155,15 +155,9 @@ namespace YAF.Types.Flags
     public bool IsBound
     {
       // int value 2
-      get
-      {
-        return this[0];
-      }
+      get => this[0];
 
-      set
-      {
-        this[0] = value;
-      }
+      set => this[0] = value;
     }
 
     #endregion

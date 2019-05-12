@@ -53,22 +53,13 @@ namespace YAF.Core.Services.Startup
         return Convert.ToBoolean(YafContext.Current[this.InitVarName]);
       }
 
-      private set
-      {
-        YafContext.Current[this.InitVarName] = value;
-      }
+      private set => YafContext.Current[this.InitVarName] = value;
     }
 
     /// <summary>
     ///   Gets Priority.
     /// </summary>
-    public virtual int Priority
-    {
-      get
-      {
-        return 1000;
-      }
-    }
+    public virtual int Priority => 1000;
 
     /// <summary>
     ///   Gets InitVarName.

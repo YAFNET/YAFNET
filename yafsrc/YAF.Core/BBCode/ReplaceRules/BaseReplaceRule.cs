@@ -48,13 +48,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
-    public virtual string RuleDescription
-    {
-      get
-      {
-        return string.Empty;
-      }
-    }
+    public virtual string RuleDescription => string.Empty;
 
     #endregion
 

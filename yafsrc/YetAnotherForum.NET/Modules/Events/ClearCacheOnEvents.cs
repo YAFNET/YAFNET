@@ -33,7 +33,6 @@ namespace YAF.Modules
   using YAF.Types.EventProxies;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
   using YAF.Utils.Structures;
 
   #endregion
@@ -79,13 +78,7 @@ namespace YAF.Modules
     /// <summary>
     ///   Gets Order.
     /// </summary>
-    public int Order
-    {
-      get
-      {
-        return 10000;
-      }
-    }
+    public int Order => 10000;
 
     /// <summary>
     ///   Gets or sets ServiceLocator.

@@ -32,7 +32,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
@@ -44,6 +43,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
 
             // bind poll group list
             var pollGroup =
-                LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID)
+                this.GetRepository<Poll>().PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID)
                         .Distinct(new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID))
                         .ToList();
 

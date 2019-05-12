@@ -71,15 +71,9 @@ namespace YAF.Types.Attributes
     /// </summary>
     public string ModuleName
     {
-      get
-      {
-        return this._moduleName;
-      }
+      get => this._moduleName;
 
-      set
-      {
-        this._moduleName = value;
-      }
+      set => this._moduleName = value;
     }
 
     /// <summary>
@@ -87,15 +81,9 @@ namespace YAF.Types.Attributes
     /// </summary>
     public string ModuleAuthor
     {
-      get
-      {
-        return this._moduleAuthor;
-      }
+      get => this._moduleAuthor;
 
-      set
-      {
-        this._moduleAuthor = value;
-      }
+      set => this._moduleAuthor = value;
     }
 
     /// <summary>
@@ -103,15 +91,9 @@ namespace YAF.Types.Attributes
     /// </summary>
     public int ModuleVersion
     {
-      get
-      {
-        return this._moduleVersion;
-      }
+      get => this._moduleVersion;
 
-      set
-      {
-        this._moduleVersion = value;
-      }
+      set => this._moduleVersion = value;
     }
   }
 }

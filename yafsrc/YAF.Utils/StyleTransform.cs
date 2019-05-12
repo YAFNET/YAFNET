@@ -25,7 +25,6 @@ namespace YAF.Utils
 {
     #region Using
 
-    using System;
     using System.Data;
     using System.Linq;
 

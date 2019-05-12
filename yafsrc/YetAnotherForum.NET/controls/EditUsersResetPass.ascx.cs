@@ -51,13 +51,7 @@ namespace YAF.Controls
     /// <summary>
     ///   Gets CurrentUserID.
     /// </summary>
-    public long? CurrentUserID
-    {
-      get
-      {
-        return this.PageContext.QueryIDs["u"];
-      }
-    }
+    public long? CurrentUserID => this.PageContext.QueryIDs["u"];
 
     #endregion
 

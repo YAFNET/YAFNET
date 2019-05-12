@@ -109,10 +109,7 @@ namespace YAF.Core.Data
         [CanBeNull]
         public IDbAccess Instance
         {
-            get
-            {
-                return this._dbAccessSafe.Instance;
-            }
+            get => this._dbAccessSafe.Instance;
 
             set
             {
@@ -129,10 +126,7 @@ namespace YAF.Core.Data
         /// </summary>
         public string ProviderName
         {
-            get
-            {
-                return this._providerName ?? (this._providerName = Config.ConnectionProviderName);
-            }
+            get => this._providerName ?? (this._providerName = Config.ConnectionProviderName);
 
             set
             {

@@ -75,15 +75,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public byte[] BinaryData
     {
-      get
-      {
-        return this.binaryData;
-      }
+      get => this.binaryData;
 
-      set
-      {
-        this.binaryData = value;
-      }
+      set => this.binaryData = value;
     }
 
     /// <summary>
@@ -91,15 +85,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Boundary
     {
-      get
-      {
-        return this.boundary;
-      }
+      get => this.boundary;
 
-      set
-      {
-        this.boundary = value;
-      }
+      set => this.boundary = value;
     }
 
     /// <summary>
@@ -107,15 +95,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string ContentType
     {
-      get
-      {
-        return this.contentType;
-      }
+      get => this.contentType;
 
-      set
-      {
-        this.contentType = value;
-      }
+      set => this.contentType = value;
     }
 
     /// <summary>
@@ -123,15 +105,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string ContentTransferEncoding
     {
-      get
-      {
-        return this.contentTransferEncoding;
-      }
+      get => this.contentTransferEncoding;
 
-      set
-      {
-        this.contentTransferEncoding = value;
-      }
+      set => this.contentTransferEncoding = value;
     }
 
     /// <summary>
@@ -139,15 +115,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Charset
     {
-      get
-      {
-        return this.charset;
-      }
+      get => this.charset;
 
-      set
-      {
-        this.charset = value;
-      }
+      set => this.charset = value;
     }
 
     /// <summary>
@@ -155,15 +125,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Filename
     {
-      get
-      {
-        return this.filename;
-      }
+      get => this.filename;
 
-      set
-      {
-        this.filename = value;
-      }
+      set => this.filename = value;
     }
 
     /// <summary>
@@ -171,15 +135,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string Text
     {
-      get
-      {
-        return this.text;
-      }
+      get => this.text;
 
-      set
-      {
-        this.text = value;
-      }
+      set => this.text = value;
     }
 
     /// <summary>
@@ -187,15 +145,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public ArrayList EmbeddedPartList
     {
-      get
-      {
-        return this.embeddedPartList;
-      }
+      get => this.embeddedPartList;
 
-      set
-      {
-        this.embeddedPartList = value;
-      }
+      set => this.embeddedPartList = value;
     }
   }
 }

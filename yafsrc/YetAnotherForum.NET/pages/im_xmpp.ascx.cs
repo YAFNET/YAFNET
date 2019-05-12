@@ -60,13 +60,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserID
-        {
-            get
-            {
-                return (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-            }
-        }
+        public int UserID => (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
         #endregion
 

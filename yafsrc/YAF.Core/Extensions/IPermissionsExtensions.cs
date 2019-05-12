@@ -25,7 +25,6 @@ namespace YAF.Core
 {
   #region Using
 
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;

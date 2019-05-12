@@ -26,7 +26,9 @@ namespace YAF.Types.Extensions
 {
     #region Using
 
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     using YAF.Types;
 
@@ -48,6 +50,8 @@ namespace YAF.Types.Extensions
         {
             return table.Rows.Count > 0;
         }
+
+        
 
         #endregion
     }

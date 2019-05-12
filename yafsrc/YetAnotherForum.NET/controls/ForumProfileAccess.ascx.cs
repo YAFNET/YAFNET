@@ -29,10 +29,12 @@ namespace YAF.Controls
     using System.Data;
     using System.Text;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -58,7 +60,7 @@ namespace YAF.Controls
 
             var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
-            using (var dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
+            using (var dt2 = this.GetRepository<ForumAccess>().UserAccessMasksAsDataTable(this.PageContext.PageBoardID, userID))
             {
                 var html = new StringBuilder();
                 var lastForumId = 0;

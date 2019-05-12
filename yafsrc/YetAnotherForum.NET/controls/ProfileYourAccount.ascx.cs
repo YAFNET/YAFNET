@@ -26,14 +26,13 @@ namespace YAF.Controls
   #region Using
 
   using System;
-  using System.Data;
 
-  using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
+  using YAF.Types.Models;
 
   #endregion
 
@@ -66,7 +65,7 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      var dt = LegacyDb.usergroup_list(this.PageContext.PageUserID);
+      var dt = this.GetRepository<UserGroup>().ListAsDataTable(this.PageContext.PageUserID);
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {

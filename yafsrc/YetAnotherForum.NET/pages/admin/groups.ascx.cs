@@ -33,7 +33,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -204,7 +203,7 @@ namespace YAF.Pages.Admin
                     // save role and get its ID
                     const int InitialPMessages = 0;
 
-                    var groupId = LegacyDb.group_save(
+                    var groupId = this.GetRepository<Group>().Save(
                         DBNull.Value,
                         this.PageContext.PageBoardID,
                         e.CommandArgument.ToString(),
@@ -259,7 +258,10 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // delete role
-                    this.GetRepository<Group>().Delete(e.CommandArgument.ToType<int>());
+                    this.GetRepository<EventLogGroupAccess>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
+                    this.GetRepository<ForumAccess>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
+                    this.GetRepository<UserGroup>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
+                    this.GetRepository<Group>().Delete(g => g.ID == e.CommandArgument.ToType<int>());
 
                     // remove cache of forum moderators
                     this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
@@ -276,7 +278,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list roles of this board
-            var dt = this.GetRepository<Group>().ListAsTable(boardId: this.PageContext.PageBoardID);
+            var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
             // set repeater datasource
             this.RoleListYaf.DataSource = dt;
@@ -286,9 +288,8 @@ namespace YAF.Pages.Admin
 
             // get all provider roles
             foreach (var role in from role in RoleMembershipHelper.GetAllRoles()
-                                 let filter = "Name='{0}'".FormatWith(role.Replace("'", "''"))
-                                 let rows = dt.Select(filter)
-                                 where rows.Length == 0
+                                 let rows = dt.Select(g => g.Name == role)
+                                 where dt.Count == 0
                                  select role)
             {
                 // doesn't exist in the Yaf Groups

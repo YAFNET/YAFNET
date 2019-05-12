@@ -26,12 +26,9 @@ namespace YAF.Editors
     #region Using
 
     using System;
-    using System.Reflection;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 
@@ -59,25 +56,12 @@ namespace YAF.Editors
         ///   Gets Description.
         /// </summary>
         [NotNull]
-        public override string Description
-        {
-            get
-            {
-                return "Free Text Box v2 (HTML)";
-            }
-        }
+        public override string Description => "Free Text Box v2 (HTML)";
 
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId
-        {
-            get
-            {
-                // backward compatibility...
-                return "3";
-            }
-        }
+        public override string ModuleId => "3";
 
         /// <summary>
         ///   Gets or sets Text.

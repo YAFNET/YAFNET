@@ -27,13 +27,11 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -178,9 +176,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (var ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
+            using (var ds = this.GetRepository<Forum>().ForumAdminAsDataSet(this.PageContext.PageBoardID))
             {
-                this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
+                this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
             }
 
             // Hide the New Forum Button if there are no Categories.

@@ -30,7 +30,6 @@ namespace YAF.Pages.moderate
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -148,7 +147,7 @@ namespace YAF.Pages.moderate
         /// </summary>
         private void BindData()
         {
-            var messageList = LegacyDb.message_unapproved(this.PageContext.PageForumID);
+            var messageList = this.GetRepository<Message>().UnapprovedAsDataTable(this.PageContext.PageForumID);
 
             if (!messageList.HasRows())
             {
@@ -194,7 +193,7 @@ namespace YAF.Pages.moderate
                 case "delete":
 
                     // delete message
-                    LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
+                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
 
                     // Update statistics
                     this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);

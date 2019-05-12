@@ -44,13 +44,7 @@ namespace YAF.Types
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
-    public IServiceLocator ServiceLocator
-    {
-      get
-      {
-        return CurrentServiceProvider;
-      }
-    }
+    public IServiceLocator ServiceLocator => CurrentServiceProvider;
 
     #endregion
   }

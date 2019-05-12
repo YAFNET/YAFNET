@@ -27,11 +27,11 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -111,17 +111,15 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            var forumId = this.GetQueryStringAsInt("fa");
+            int? forumId = this.GetQueryStringAsInt("fa");
 
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
-            {
-                var row = dt.Rows[0];
+            var forum = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId).FirstOrDefault();
 
-                this.ForumNameTitle.Text = (string)row["Name"];
+            this.ForumNameTitle.Text = forum.Name;
 
                 // populate parent forums list with forums according to selected category
                 this.BindParentList();
-            }
+            
         }
 
         /// <summary>
@@ -183,8 +181,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ForumList.DataSource = LegacyDb.forum_listall(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID);
+            this.ForumList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllAsDataTable(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID);
 
             this.ForumList.DataValueField = "ForumID";
             this.ForumList.DataTextField = "Forum";

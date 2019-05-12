@@ -26,16 +26,10 @@ namespace YAF.Core.Services
     #region Using
 
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Web;
     using System.Web.UI;
 
-    using FarsiLibrary;
-
-    using YAF.Classes;
     using YAF.Core;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -61,13 +55,7 @@ namespace YAF.Core.Services
         ///   Gets elements (using in the head or header) that are registered on the page.
         ///   Used mostly by RegisterPageElementHelper.
         /// </summary>
-        public List<string> RegisteredElements
-        {
-            get
-            {
-                return this._registeredElements;
-            }
-        }
+        public List<string> RegisteredElements => this._registeredElements;
 
         #endregion
 

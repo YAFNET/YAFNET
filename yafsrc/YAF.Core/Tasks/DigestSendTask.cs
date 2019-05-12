@@ -33,7 +33,6 @@ namespace YAF.Core.Tasks
     using YAF.Classes;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Attributes;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;

@@ -34,9 +34,9 @@ namespace YAF.Controls
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
-  using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Core.Extensions;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
@@ -574,7 +574,7 @@ namespace YAF.Controls
         // ChangePollShowStatus(false);
         if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
         {
-          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, false);
+          this.GetRepository<Poll>().Remove(this.PollGroupId, e.CommandArgument, this.BoardId, false);
           this.ReturnToPage();
 
           // BindData();
@@ -585,7 +585,7 @@ namespace YAF.Controls
       {
         if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
         {
-          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, true);
+                    this.GetRepository<Poll>().Remove(this.PollGroupId, e.CommandArgument, this.BoardId, true);
           this.ReturnToPage();
 
           // BindData();
@@ -594,7 +594,7 @@ namespace YAF.Controls
 
       if (e.CommandName == "removegroup" && this.PageContext.ForumVoteAccess)
       {
-        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
+          this.GetRepository<Poll>().PollGroupRemove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, false, false);
         this.ReturnToPage();
 
         // BindData();
@@ -602,7 +602,7 @@ namespace YAF.Controls
 
       if (e.CommandName == "removegroupall" && this.PageContext.ForumVoteAccess)
       {
-        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, false);
+          this.GetRepository<Poll>().PollGroupRemove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, false);
         this.ReturnToPage();
 
         // BindData();
@@ -691,7 +691,7 @@ namespace YAF.Controls
 
         if (showVoters)
         {
-            var dtAllPollGroupVotesShow = LegacyDb.pollgroup_votecheck(drowv.Row["PollGroupID"].ToType<int>(), null, null);
+            var dtAllPollGroupVotesShow = this.GetRepository<Poll>().PollGroupVotecheckAsDataTable(drowv.Row["PollGroupID"].ToType<int>(), null, null);
             dtAllPollGroupVotesShow.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
             pollChoiceList.Voters = dtAllPollGroupVotesShow;
         }
@@ -1046,12 +1046,12 @@ namespace YAF.Controls
     private void BindData()
     {
       this.PollNumber = 0;
-      this._dtPollAllChoices = LegacyDb.pollgroup_stats(this.PollGroupId);
+      this._dtPollAllChoices = this.GetRepository<Poll>().PollGroupStatsAsDataTable(this.PollGroupId);
 
       // Here should be a poll group, remove the value to avoid exception if a deletion was not safe. 
       if (!this._dtPollAllChoices.HasRows())
       {
-        LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, true);          
+          this.GetRepository<Poll>().PollGroupRemove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, true);          
         return;
       }
 
@@ -1114,7 +1114,7 @@ namespace YAF.Controls
           userId = this.PageContext.PageUserID;
         }
          
-        this._dtAllPollGroupVotes = LegacyDb.pollgroup_votecheck(this._dtPollGroupAllChoices.Rows[0]["PollGroupID"].ToType<int>(), userId, remoteIp);
+        this._dtAllPollGroupVotes = this.GetRepository<Poll>().PollGroupVotecheckAsDataTable(this._dtPollGroupAllChoices.Rows[0]["PollGroupID"].ToType<int>(), userId, remoteIp);
 
         this._isBound = this._dtPollGroupAllChoices.Rows[0]["IsBound"].ToType<bool>();
 

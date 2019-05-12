@@ -27,12 +27,10 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -40,7 +38,6 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -151,18 +148,15 @@ namespace YAF.Pages.Admin
             this.NewGroupRow.Visible = false;
 
             // get data about edited role
-            using (var dt = this.GetRepository<Group>().ListAsTable(
-                boardId: this.PageContext.PageBoardID,
-                groupId: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
-            {
-                // get it as row
-                var row = dt.Rows[0];
-
-                // get role flags
-                var flags = new GroupFlags(row["Flags"]);
+            var row = this.GetRepository<Group>().List(
+                groupId: this.Request.QueryString.GetFirstOrDefaultAs<int>("i"),
+                boardId: this.PageContext.PageBoardID).FirstOrDefault();
+            
+               // get role flags
+                var flags = row.GroupFlags;
 
                 // set controls to role values
-                this.Name.Text = (string)row["Name"];
+                this.Name.Text = row.Name;
 
                 this.IsAdminX.Checked = flags.IsAdmin;
                 this.IsAdminX.Enabled = !flags.IsGuest;
@@ -173,29 +167,29 @@ namespace YAF.Pages.Admin
                 this.IsModeratorX.Checked = flags.IsModerator;
                 this.IsModeratorX.Enabled = !flags.IsGuest;
 
-                this.PMLimit.Text = row["PMLimit"].ToString();
+                this.PMLimit.Text = row.PMLimit.ToString();
                 this.PMLimit.Enabled = !flags.IsGuest;
 
-                this.StyleTextBox.Text = row["Style"].ToString();
+                this.StyleTextBox.Text = row.Style;
 
-                this.Priority.Text = row["SortOrder"].ToString();
+                this.Priority.Text = row.SortOrder.ToString();
 
-                this.UsrAlbums.Text = row["UsrAlbums"].ToString();
+                this.UsrAlbums.Text = row.UsrAlbums.ToString();
                 this.UsrAlbums.Enabled = !flags.IsGuest;
 
-                this.UsrAlbumImages.Text = row["UsrAlbumImages"].ToString();
+                this.UsrAlbumImages.Text = row.UsrAlbumImages.ToString();
                 this.UsrAlbumImages.Enabled = !flags.IsGuest;
 
-                this.UsrSigChars.Text = row["UsrSigChars"].ToString();
+                this.UsrSigChars.Text = row.UsrSigChars.ToString();
                 this.UsrSigChars.Enabled = !flags.IsGuest;
 
-                this.UsrSigBBCodes.Text = row["UsrSigBBCodes"].ToString();
+                this.UsrSigBBCodes.Text = row.UsrSigBBCodes;
                 this.UsrSigBBCodes.Enabled = !flags.IsGuest;
 
-                this.UsrSigHTMLTags.Text = row["UsrSigHTMLTags"].ToString();
+                this.UsrSigHTMLTags.Text = row.UsrSigHTMLTags;
                 this.UsrSigHTMLTags.Enabled = !flags.IsGuest;
 
-                this.Description.Text = row["Description"].ToString();
+                this.Description.Text = row.Description;
 
                 this.IsGuestX.Checked = flags.IsGuest;
 
@@ -206,7 +200,7 @@ namespace YAF.Pages.Admin
                     this.IsGuestX.Enabled = !flags.IsGuest;
                     this.AccessList.Visible = false;
                 }
-            }
+            
         }
 
         /// <summary>
@@ -280,7 +274,7 @@ namespace YAF.Pages.Admin
             }
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)
-            roleId = LegacyDb.group_save(
+            roleId = this.GetRepository<Group>().Save(
                 roleId,
                 this.PageContext.PageBoardID,
                 roleName,
@@ -399,7 +393,7 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
                 this.AccessList.DataSource =
-                    LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
+                    this.GetRepository<ForumAccess>().GroupAsDataTable(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
             }
 
             this.AccessMasksList = this.GetRepository<AccessMask>().GetByBoardId();

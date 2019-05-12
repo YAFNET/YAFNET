@@ -65,13 +65,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The last version.
         /// </value>
-        protected string LastVersion
-        {
-            get
-            {
-                return YafForumInfo.AppVersionNameFromCode(this.lastVersion);
-            }
-        }
+        protected string LastVersion => YafForumInfo.AppVersionNameFromCode(this.lastVersion);
 
         /// <summary>
         /// Gets the last version date.
@@ -79,13 +73,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The last version date.
         /// </value>
-        protected string LastVersionDate
-        {
-            get
-            {
-                return this.Get<IDateTime>().FormatDateShort(this.lastVersionDate);
-            }
-        }
+        protected string LastVersionDate => this.Get<IDateTime>().FormatDateShort(this.lastVersionDate);
 
         #endregion
 

@@ -55,15 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ExtensionId
         {
-            get
-            {
-                return this.ViewState["ExtensionId"].ToType<int?>();
-            }
+            get => this.ViewState["ExtensionId"].ToType<int?>();
 
-            set
-            {
-                this.ViewState["ExtensionId"] = value;
-            }
+            set => this.ViewState["ExtensionId"] = value;
         }
 
         /// <summary>

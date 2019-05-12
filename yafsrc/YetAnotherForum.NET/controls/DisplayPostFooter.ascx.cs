@@ -56,27 +56,15 @@ namespace YAF.Controls
         [CanBeNull]
         public DataRow DataRow
         {
-            get
-            {
-                return this.PostData.DataRow;
-            }
+            get => this.PostData.DataRow;
 
-            set
-            {
-                this.PostData = new PostDataHelperWrapper(value);
-            }
+            set => this.PostData = new PostDataHelperWrapper(value);
         }
 
         /// <summary>
         ///   Gets a value indicating whether IsGuest.
         /// </summary>
-        public bool IsGuest
-        {
-            get
-            {
-                return this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
-            }
-        }
+        public bool IsGuest => this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
 
         /// <summary>
         ///   Gets access Post Data helper functions.
@@ -86,13 +74,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets the Provides access to the Toggle Post button.
         /// </summary>
-        public ThemeButton TogglePost
-        {
-            get
-            {
-                return this.btnTogglePost;
-            }
-        }
+        public ThemeButton TogglePost => this.btnTogglePost;
 
         #endregion
 

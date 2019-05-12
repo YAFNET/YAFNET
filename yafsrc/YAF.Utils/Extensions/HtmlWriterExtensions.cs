@@ -27,7 +27,6 @@ namespace YAF.Utils
   using System.Web.UI;
 
   using YAF.Types.Extensions;
-  using YAF.Utils.Helpers.StringUtils;
 
   public static class HtmlWriterExtensions
   {

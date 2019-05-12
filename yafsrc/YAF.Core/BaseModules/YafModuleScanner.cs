@@ -25,17 +25,12 @@ namespace YAF.Core
 {
   using System;
   using System.Collections.Generic;
-  using System.Diagnostics;
   using System.IO;
   using System.Linq;
   using System.Reflection;
-  using System.Security;
-  using System.Security.Permissions;
-  using System.Security.Policy;
 
   using YAF.Types;
   using YAF.Types.Extensions;
-  using YAF.Utils;
 
   /// <summary>
   /// The module scanner

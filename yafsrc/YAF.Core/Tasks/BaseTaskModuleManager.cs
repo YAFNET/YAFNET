@@ -54,25 +54,13 @@ namespace YAF.Core
         /// <summary>
         ///     Gets TaskCount.
         /// </summary>
-        public virtual int TaskCount
-        {
-            get
-            {
-                return _taskManager.Count;
-            }
-        }
+        public virtual int TaskCount => _taskManager.Count;
 
         /// <summary>
         ///     All the names of tasks running.
         /// </summary>
         [NotNull]
-        public virtual IList<string> TaskManagerInstances
-        {
-            get
-            {
-                return _taskManager.Keys.ToList();
-            }
-        }
+        public virtual IList<string> TaskManagerInstances => _taskManager.Keys.ToList();
 
         /// <summary>
         ///     Gets TaskManagerSnapshot.

@@ -60,57 +60,32 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// Gets the persian calendar.
         /// </summary>
-        public static Calendar PersianCalendar
-        {
-            get
-            {
-                return pc;
-            }
-        }
+        public static Calendar PersianCalendar => pc;
 
         /// <summary>
         /// Gets the Currently selected UICulture
         /// </summary>
-        public static CultureInfo CurrentCulture
-        {
-            get
-            {
-                return CultureInfo.CurrentUICulture;
-            }
-        }
+        public static CultureInfo CurrentCulture => CultureInfo.CurrentUICulture;
 
         /// <summary>
         /// Instance of Farsi culture
         /// </summary>
-        public static CultureInfo FarsiCulture
-        {
-            get
-            {
-                if (faCulture == null)
-                    faCulture = new CultureInfo("fa-IR");
-
-                return faCulture;
-            }
-        }
+        public static CultureInfo FarsiCulture => faCulture ?? (faCulture = new CultureInfo("fa-IR"));
 
         /// <summary>
         /// Instance of Persian Culture with correct date formatting.
         /// </summary>
-        public static CultureInfo PersianCulture
-        {
-            get
-            {
-                if (internalfaCulture == null)
-                    internalfaCulture = new PersianCultureInfo();
+        public static CultureInfo PersianCulture => internalfaCulture ?? (internalfaCulture = new PersianCultureInfo());
 
-                return internalfaCulture;
-            }
-        }
-       public static bool IsFarsiCulture()
-        {
-            return IsFarsiCulture(CurrentCulture);
-        }
-
+        /// <summary>
+        /// The is farsi culture.
+        /// </summary>
+        /// <param name="culture">
+        /// The culture.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool IsFarsiCulture(this CultureInfo culture)
         {
             return culture.Name.Equals(FarsiCulture.Name) || culture.Name.Equals(PersianCulture.Name)

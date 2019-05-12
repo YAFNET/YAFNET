@@ -61,7 +61,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the message id.
         /// </summary>
-        [Default(0)]
+        //[Default(0)]
         public int MessageID { get; set; }
 
         /// <summary>

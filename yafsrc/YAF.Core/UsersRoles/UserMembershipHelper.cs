@@ -32,7 +32,6 @@ namespace YAF.Core
     using System.Web.Security;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -42,7 +41,6 @@ namespace YAF.Core
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;
-    using YAF.Utils.Structures;
 
     /// <summary>
     /// This is a stop-gap class to help with syncing operations
@@ -65,7 +63,7 @@ namespace YAF.Core
                     () =>
                         {
                             // get the guest user for this board...
-                            guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
+                            guestUserID = YafContext.Current.GetRepository<User>().GetGuestUserId(YafContext.Current.PageBoardID);
 
                             if (!guestUserID.HasValue)
                             {
@@ -73,7 +71,7 @@ namespace YAF.Core
                                 // FixGuestUserForBoard(YafContext.Current.PageBoardID);
 
                                 // attempt to get the guestUser again...
-                                guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
+                                guestUserID = YafContext.Current.GetRepository<User>().GetGuestUserId(YafContext.Current.PageBoardID);
                             }
 
                             if (!guestUserID.HasValue)
@@ -107,15 +105,9 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Username of the Guest user for the current board.
         /// </summary>
-        public static string GuestUserName
-        {
-            get
-            {
-                return
-                    LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, true)
-                        .GetFirstRowColumnAsValue<string>("Name", null);
-            }
-        }
+        public static string GuestUserName =>
+            YafContext.Current.GetRepository<User>().ListAsDataTable(YafContext.Current.PageBoardID, GuestUserId, true)
+                .GetFirstRowColumnAsValue<string>("Name", null);
 
         #endregion
 
@@ -145,7 +137,7 @@ namespace YAF.Core
                     var id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
                     if (id > 0)
                     {
-                        LegacyDb.user_approve(id);
+                        YafContext.Current.GetRepository<User>().Approve(id);
                     }
                 }
 
@@ -176,28 +168,9 @@ namespace YAF.Core
             }
 
             YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
-            LegacyDb.user_approve(userID);
+            YafContext.Current.GetRepository<User>().Approve(userID);
 
             return true;
-        }
-
-        /// <summary>
-        /// Verifies that the the user no longer has a cache...
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        public static void ClearCacheForUserId(long userId)
-        {
-            YafContext.Current.Get<IUserDisplayName>().Clear((int)userId);
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UserListForID.FormatWith(userId));
-
-            var cache = YafContext.Current.Get<IDataCache>()
-                .GetOrSet(Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
-
-            // remove from the the signature cache...
-            cache.Remove((int)userId);
-
-            // Clearing cache with old Active User Lazy Data ...
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
         }
 
         /// <summary>
@@ -222,7 +195,7 @@ namespace YAF.Core
                     allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved && user.CreationDate < createdCutoff))
                 {
                     // delete this user...
-                    LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
+                    YafContext.Current.GetRepository<User>().Delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
                     YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
                     YafContext.Current.Get<ILogger>()
                         .Log(
@@ -260,13 +233,13 @@ namespace YAF.Core
                 HttpContext.Current.Server.MapPath(
                     string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-            using (var dt = LegacyDb.album_list(userID, null))
-            {
-                foreach (DataRow dr in dt.Rows)
+            var dt = YafContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
+            
+                foreach (var dr in dt)
                 {
-                    YafAlbum.Album_Image_Delete(uploadFolderPath, dr["AlbumID"], userID, null);
+                    YafAlbum.Album_Image_Delete(uploadFolderPath, dr.ID, userID, null);
                 }
-            }
+            
 
             // Check if there are any avatar images in the uploads folder
             if (!YafContext.Current.Get<YafBoardSettings>().UseFileTable
@@ -284,7 +257,7 @@ namespace YAF.Core
             }
 
             YafContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
-            LegacyDb.user_delete(userID);
+            YafContext.Current.GetRepository<User>().Delete(userID);
             YafContext.Current.Get<ILogger>()
                 .Log(
                     YafContext.Current.PageUserID,
@@ -350,25 +323,24 @@ namespace YAF.Core
                 HttpContext.Current.Server.MapPath(
                     string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-            using (var dt = LegacyDb.album_list(userID, null))
-            {
-                foreach (DataRow dr in dt.Rows)
+            var dt = YafContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
+            
+                foreach (var dr in dt)
                 {
-                    YafAlbum.Album_Image_Delete(uploadDir, dr["AlbumID"], userID, null);
+                    YafAlbum.Album_Image_Delete(uploadDir, dr.ID, userID, null);
                 }
-            }
+            
 
             // delete posts...
             var messageIds =
-                (from m in LegacyDb.post_alluser_simple(
-                               YafContext.Current.PageBoardID,
-                               userID).AsEnumerable()
-                 select m.Field<int>("MessageID")).Distinct().ToList();
+                YafContext.Current.GetRepository<Message>()
+                    .GetAllUserMessages(userID)
+                    .Select(m => m.ID).Distinct().ToList();
 
-            messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true));
+            messageIds.ForEach(x => YafContext.Current.GetRepository<Message>().Delete(x, true, string.Empty, 1, true));
 
             YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
-            LegacyDb.user_delete(userID);
+            YafContext.Current.GetRepository<User>().Delete(userID);
             YafContext.Current.Get<ILogger>()
                 .Log(
                     YafContext.Current.PageUserID,
@@ -658,8 +630,9 @@ namespace YAF.Core
         /// </returns>
         public static int GetUserIDFromProviderUserKey(object providerUserKey)
         {
-            var userID = LegacyDb.user_get(YafContext.Current.PageBoardID, providerUserKey.ToString());
-            return userID;
+            return YafContext.Current.GetRepository<User>().GetUserId(
+                YafContext.Current.PageBoardID,
+                providerUserKey.ToString());
         }
 
         /// <summary>
@@ -742,14 +715,11 @@ namespace YAF.Core
         /// </returns>
         public static DataRow GetUserRowForID(long userID, int? boardID, bool allowCached)
         {
-            if (!boardID.HasValue)
-            {
-                boardID = YafContext.Current.PageBoardID;
-            }
+            var boardId = boardID ?? YafContext.Current.PageBoardID;
 
             if (!allowCached)
             {
-                return LegacyDb.user_list(boardID, userID, DBNull.Value).GetFirstRow();
+                return YafContext.Current.GetRepository<User>().ListAsDataTable(boardId, userID.ToType<int>(), DBNull.Value).GetFirstRow();
             }
 
             // get the item cached...
@@ -757,7 +727,7 @@ namespace YAF.Core
                 YafContext.Current.Get<IDataCache>()
                     .GetOrSet(
                         Constants.Cache.UserListForID.FormatWith(userID),
-                        () => LegacyDb.user_list(boardID, userID, DBNull.Value),
+                        () => YafContext.Current.GetRepository<User>().ListAsDataTable(boardId, userID.ToType<int>(), DBNull.Value),
                         TimeSpan.FromMinutes(5))
                     .GetFirstRow();
         }
@@ -868,7 +838,7 @@ namespace YAF.Core
 
             YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
 
-            LegacyDb.user_aspnet(
+            YafContext.Current.GetRepository<User>().Aspnet(
                 YafContext.Current.PageBoardID,
                 user.UserName,
                 null,

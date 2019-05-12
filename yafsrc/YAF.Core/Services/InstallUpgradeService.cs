@@ -34,7 +34,7 @@ namespace YAF.Core.Services
     using ServiceStack.OrmLite;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
@@ -57,26 +57,26 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The BBCode extensions import xml file.
         /// </summary>
-        private const string _BbcodeImport = "bbCodeExtensions.xml";
+        private const string BbcodeImport = "bbCodeExtensions.xml";
 
         /// <summary>
         ///     The File type extensions import xml file.
         /// </summary>
-        private const string _FileImport = "fileExtensions.xml";
+        private const string FileImport = "fileExtensions.xml";
 
         /// <summary>
         ///     The Spam Words list import xml file.
         /// </summary>
-        private const string _SpamWordsImport = "SpamWords.xml";
+        private const string SpamWordsImport = "SpamWords.xml";
 
         #endregion
 
         #region Fields
 
         /// <summary>
-        ///     The _messages.
+        ///     The messages.
         /// </summary>
-        private readonly List<string> _messages = new List<string>();
+        private readonly List<string> messages = new List<string>();
 
         #endregion
 
@@ -123,7 +123,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the messages.
         /// </summary>
-        public string[] Messages => this._messages.ToArray();
+        public string[] Messages => this.messages.ToArray();
 
         /// <summary>
         ///     Gets or sets the raise event.
@@ -169,7 +169,7 @@ namespace YAF.Core.Services
                 langFile = (string)drow["CultureFile"];
             }
 
-            LegacyDb.system_initialize(
+            this.GetRepository<Board>().SystemInitialize(
                 forumName,
                 timeZone,
                 culture,
@@ -182,10 +182,9 @@ namespace YAF.Core.Services
                 adminProviderUserKey,
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
-            LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+            this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
+            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
 
-            // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
-            // YAF.Classes.Data.DB.system_deleteinstallobjects();
             this.ImportStatics();
         }
 
@@ -214,7 +213,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool UpgradeDatabase(bool upgradeExtensions)
         {
-            this._messages.Clear();
+            this.messages.Clear();
             {
                 var isForumInstalled = this.IsForumInstalled;
 
@@ -234,9 +233,10 @@ namespace YAF.Core.Services
 
                 this.FixAccess(true);
 
-                var prevVersion = LegacyDb.GetDBVersion();
+                var prevVersion = this.GetRepository<Registry>().GetDBVersion();
 
-                LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+                this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
+                this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
 
                 // Ederon : 9/7/2007
                 // resync all boards - necessary for propr last post bubbling
@@ -256,7 +256,7 @@ namespace YAF.Core.Services
                     if (prevVersion < 42)
                     {
                         // un-html encode all topic subject names...
-                        LegacyDb.unencode_all_topics_subjects(HttpUtility.HtmlDecode);
+                        this.GetRepository<Topic>().UnencodeAllTopicsSubjects(HttpUtility.HtmlDecode);
                     }
 
                     if (prevVersion < 70)
@@ -279,12 +279,11 @@ namespace YAF.Core.Services
                             this.Get<YafBoardSettings>().UserBoxThanksFrom = @"<li class=""list-group-item"">{0}</li>";
                             this.Get<YafBoardSettings>().UserBoxThanksTo = @"<li class=""list-group-item"">{0}</li>";
 
-
                             ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
                         }
                         catch (Exception)
                         {
-                            LegacyDb.registry_save("userbox", Constants.UserBox.DisplayTemplateDefault);
+                            this.GetRepository<Registry>().Save("userbox", Constants.UserBox.DisplayTemplateDefault);
                         }
                     }
 
@@ -300,7 +299,7 @@ namespace YAF.Core.Services
                     }
                     catch (Exception)
                     {
-                        LegacyDb.registry_save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
+                        this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
                     }
                 }
 
@@ -413,7 +412,6 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpServer>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpForum>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpTopic>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserPMessage>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Registry>());
@@ -456,7 +454,7 @@ namespace YAF.Core.Services
                 throw new IOException("Failed to read {0}".FormatWith(fileName), x);
             }
 
-            LegacyDb.system_initialize_executescripts(script, scriptFile, useTransactions);
+            this.Get<IDbFunction>().SystemInitializeExecutescripts(script, scriptFile, useTransactions);
         }
 
         /// <summary>
@@ -465,7 +463,7 @@ namespace YAF.Core.Services
         /// <param name="grantAccess">if set to <c>true</c> [grant access].</param>
         private void FixAccess(bool grantAccess)
         {
-            LegacyDb.system_initialize_fixaccess(grantAccess);
+            this.Get<IDbFunction>().SystemInitializeFixaccess(grantAccess);
         }
 
         /// <summary>
@@ -499,13 +497,13 @@ namespace YAF.Core.Services
                 this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(board.ID));
 
                 // load default bbcode if available...
-                loadWrapper(_BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
+                loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
 
                 // load default extensions if available...
-                loadWrapper(_FileImport, s => DataImport.FileExtensionImport(board.ID, s));
+                loadWrapper(FileImport, s => DataImport.FileExtensionImport(board.ID, s));
 
                 // load default spam word if available...
-                loadWrapper(_SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
+                loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
             }
         }
 

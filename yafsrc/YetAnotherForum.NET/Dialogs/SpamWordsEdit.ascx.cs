@@ -55,15 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? SpamWordId
         {
-            get
-            {
-                return this.ViewState["SpamWordId"].ToType<int?>();
-            }
+            get => this.ViewState["SpamWordId"].ToType<int?>();
 
-            set
-            {
-                this.ViewState["SpamWordId"] = value;
-            }
+            set => this.ViewState["SpamWordId"] = value;
         }
 
         /// <summary>

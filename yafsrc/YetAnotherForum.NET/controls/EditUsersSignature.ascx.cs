@@ -27,11 +27,9 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Text;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Editors;
@@ -92,15 +90,9 @@ namespace YAF.Controls
         /// </summary>
         public bool ShowHeader
         {
-            get
-            {
-                return this.ViewState["ShowHeader"] == null || Convert.ToBoolean(this.ViewState["ShowHeader"]);
-            }
+            get => this.ViewState["ShowHeader"] == null || Convert.ToBoolean(this.ViewState["ShowHeader"]);
 
-            set
-            {
-                this.ViewState["ShowHeader"] = value;
-            }
+            set => this.ViewState["ShowHeader"] = value;
         }
 
         /// <summary>
@@ -174,7 +166,7 @@ namespace YAF.Controls
 
             this._sig.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
 
-            var sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
+            var sigData = this.GetRepository<User>().SignatureDataAsDataTable(this.CurrentUserID, this.PageContext.PageBoardID);
 
             if (sigData.HasRows())
             {

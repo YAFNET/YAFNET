@@ -203,11 +203,6 @@ namespace YAF.Types.Constants
             public const string UsersOnlineStatus = "UsersOnlineStatus";
 
             /// <summary>
-            ///  The Todays Birthdays
-            /// </summary>
-            public const string TodaysBirthdays = "TodaysBirthdays";
-
-            /// <summary>
             /// The Visitors In The Last 30 Days
             /// </summary>
             public const string VisitorsInTheLast30Days = "VisitorsInTheLast30Days";

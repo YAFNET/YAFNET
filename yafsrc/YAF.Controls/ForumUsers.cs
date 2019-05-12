@@ -72,15 +72,9 @@ namespace YAF.Controls
         /// </summary>
         public bool TreatGuestAsHidden
         {
-            get
-            {
-                return this.activeUsers.TreatGuestAsHidden;
-            }
+            get => this.activeUsers.TreatGuestAsHidden;
 
-            set
-            {
-                this.activeUsers.TreatGuestAsHidden = value;
-            }
+            set => this.activeUsers.TreatGuestAsHidden = value;
         }
 
         #endregion

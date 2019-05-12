@@ -62,15 +62,9 @@ namespace YAF.Types.Objects
     /// </summary>
     public List<SimpleTopic> Topics
     {
-      get
-      {
-        return this._topics;
-      }
+      get => this._topics;
 
-      set
-      {
-        this._topics = value;
-      }
+      set => this._topics = value;
     }
 
     #endregion

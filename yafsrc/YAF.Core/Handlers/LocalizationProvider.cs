@@ -29,7 +29,6 @@ namespace YAF.Core
     using System.Globalization;
     using System.Threading;
 
-    using YAF.Classes.Data;
     using YAF.Core.Services.Localization;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -114,10 +113,7 @@ namespace YAF.Core
         /// </summary>
         public string TranslationPage
         {
-            get
-            {
-                return this._transPage;
-            }
+            get => this._transPage;
 
             set
             {

@@ -75,38 +75,20 @@ namespace YAF.Core.Data
         /// </summary>
         public int ID
         {
-            get
-            {
-                return this._id;
-            }
+            get => this._id;
 
-            set
-            {
-                this._id = value;
-            }
+            set => this._id = value;
         }
 
         /// <summary>
         ///     Gets or sets Label.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-        }
+        public string Name => this._name;
 
         /// <summary>
         ///     Gets or sets DefaultValue.
         /// </summary>
-        public string Value
-        {
-            get
-            {
-                return this._value;
-            }
-        }
+        public string Value => this._value;
 
         #endregion
     }

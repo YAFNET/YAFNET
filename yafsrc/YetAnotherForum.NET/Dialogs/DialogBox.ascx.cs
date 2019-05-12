@@ -52,17 +52,12 @@ namespace YAF.Dialogs
         /// </summary>
         public ForumLink CancelButtonLink
         {
-            get
-            {
-                return this.ViewState["CancelButtonLink"] != null
-                           ? (ForumLink)this.ViewState["CancelButtonLink"]
-                           : new ForumLink();
-            }
+            get =>
+                this.ViewState["CancelButtonLink"] != null
+                    ? (ForumLink)this.ViewState["CancelButtonLink"]
+                    : new ForumLink();
 
-            set
-            {
-                this.ViewState["CancelButtonLink"] = value;
-            }
+            set => this.ViewState["CancelButtonLink"] = value;
         }
 
         /// <summary>
@@ -70,17 +65,12 @@ namespace YAF.Dialogs
         /// </summary>
         public ForumLink OkButtonLink
         {
-            get
-            {
-                return this.ViewState["OkButtonLink"] != null
-                           ? (ForumLink)this.ViewState["OkButtonLink"]
-                           : new ForumLink();
-            }
+            get =>
+                this.ViewState["OkButtonLink"] != null
+                    ? (ForumLink)this.ViewState["OkButtonLink"]
+                    : new ForumLink();
 
-            set
-            {
-                this.ViewState["OkButtonLink"] = value;
-            }
+            set => this.ViewState["OkButtonLink"] = value;
         }
 
         #endregion

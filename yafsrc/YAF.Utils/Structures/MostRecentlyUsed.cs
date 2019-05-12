@@ -116,38 +116,20 @@ namespace YAF.Utils.Structures
     /// </summary>
     public uint Capacity
     {
-      get
-      {
-        return this.m_max;
-      }
+      get => this.m_max;
 
-      set
-      {
-        this.m_max = value;
-      }
+      set => this.m_max = value;
     }
 
     /// <summary>
     /// Gets Keys.
     /// </summary>
-    public ICollection Keys
-    {
-      get
-      {
-        return this.Dictionary.Keys;
-      }
-    }
+    public ICollection Keys => this.Dictionary.Keys;
 
     /// <summary>
     /// Gets Values.
     /// </summary>
-    public ICollection Values
-    {
-      get
-      {
-        return this.Dictionary.Values;
-      }
-    }
+    public ICollection Values => this.Dictionary.Values;
 
     #endregion
 

@@ -74,11 +74,7 @@ namespace YAF.Core
     [CanBeNull]
     public ITaskModuleManager Instance
     {
-      get
-      {
-        // Note: not treated with "BoardID" at all -- only one instance per application.
-        return this._httpApplicationState[Constants.Cache.TaskModule] as ITaskModuleManager;
-      }
+      get => this._httpApplicationState[Constants.Cache.TaskModule] as ITaskModuleManager;
 
       set
       {

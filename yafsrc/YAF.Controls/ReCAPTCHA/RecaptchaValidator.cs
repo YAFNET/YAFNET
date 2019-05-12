@@ -77,10 +77,7 @@ namespace YAF.Controls.ReCAPTCHA
         /// </summary>
         public string RemoteIP
         {
-            get
-            {
-                return this.remoteIp;
-            }
+            get => this.remoteIp;
 
             set
             {
@@ -101,15 +98,9 @@ namespace YAF.Controls.ReCAPTCHA
         /// </summary>
         public string Response
         {
-            get
-            {
-                return this.response;
-            }
+            get => this.response;
 
-            set
-            {
-                this.response = value;
-            }
+            set => this.response = value;
         }
 
         #endregion

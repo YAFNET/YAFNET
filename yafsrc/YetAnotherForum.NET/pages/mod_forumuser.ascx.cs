@@ -30,10 +30,10 @@ namespace YAF.Pages
     using System.Collections.Generic;
     using System.Data;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -206,7 +206,7 @@ namespace YAF.Pages
                 return;
             }
 
-            using (var dt = LegacyDb.userforum_list(
+            using (var dt = this.GetRepository<UserForum>().ListAsDataTable(
                 this.Request.QueryString.GetFirstOrDefault("u"),
                 this.PageContext.PageForumID))
             {
@@ -271,7 +271,7 @@ namespace YAF.Pages
             }
 
             // save permission
-            LegacyDb.userforum_save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
+            this.GetRepository<UserForum>().Save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
 
             // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);

@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <span class="UploadNewFileLine">
-               <a class="OpenUploadDialog" data-toggle="modal" data-target=".UploadDialog">
+               <a class="OpenUploadDialog" data-toggle="modal" data-target="#UploadDialog">
                    <span class="btn btn-primary">
                        <i class="fa fa-file-upload fa-fw"></i>&nbsp;
                        <YAF:LocalizedLabel ID="ThemeButton1" LocalizedTag="UPLOAD_NEW" LocalizedPage="ATTACHMENTS" runat="server" />

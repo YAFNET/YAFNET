@@ -32,7 +32,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -46,37 +45,6 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// The topic list mode.
-    /// </summary>
-    public enum TopicListMode
-    {
-        /// <summary>
-        ///   The active topics list.
-        /// </summary>
-        Active,
-
-        /// <summary>
-        ///   The unanswered topics list.
-        /// </summary>
-        Unanswered,
-
-        /// <summary>
-        ///   The favorite topics list.
-        /// </summary>
-        Favorite,
-
-        /// <summary>
-        ///   The Unread topics list.
-        /// </summary>
-        Unread,
-
-        /// <summary>
-        ///   The User topics list.
-        /// </summary>
-        User
-    }
-
-    /// <summary>
     /// My Topics List Control.
     /// </summary>
     public partial class MyTopicsList : BaseUserControl
@@ -87,7 +55,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _last forum name.
         /// </summary>
-        private string _lastForumName = string.Empty;
+        private string lastForumName = string.Empty;
 
         /// <summary>
         ///   default since date is now
@@ -173,7 +141,7 @@ namespace YAF.Controls
             }
 
             // filter by category
-            object categoryIdObject = null;
+            int? categoryIdObject = null;
 
             // is category set?
             if (this.PageContext.Settings.CategoryID != 0)
@@ -193,16 +161,15 @@ namespace YAF.Controls
 
             this.Title.LocalizedPage = "MyTopics";
 
-
             // now depending on mode fill the table
             switch (this.CurrentMode)
             {
                 case TopicListMode.Active:
                     this.Title.LocalizedTag = "ActiveTopics";
 
-                    topicList = LegacyDb.topic_active(
+                    topicList = this.GetRepository<Topic>().ActiveAsDataTable(
                         this.PageContext.PageBoardID,
-                        categoryIdObject,
+                        categoryIdObject.ToType<int>(),
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -214,9 +181,9 @@ namespace YAF.Controls
                 case TopicListMode.Unanswered:
                     this.Title.LocalizedTag = "UnansweredTopics";
 
-                    topicList = LegacyDb.topic_unanswered(
+                    topicList = this.GetRepository<Topic>().UnansweredAsDataTable(
                         this.PageContext.PageBoardID,
-                        categoryIdObject,
+                        categoryIdObject.ToType<int>(),
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -228,9 +195,9 @@ namespace YAF.Controls
                 case TopicListMode.Unread:
                     this.Title.LocalizedTag = "UnreadTopics";
 
-                    topicList = LegacyDb.topic_unread(
+                    topicList = this.GetRepository<Topic>().UnreadAsDataTable(
                         this.PageContext.PageBoardID,
-                        categoryIdObject,
+                        categoryIdObject.ToType<int>(),
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -242,7 +209,7 @@ namespace YAF.Controls
                 case TopicListMode.User:
                     this.Title.LocalizedTag = "MyTopics";
 
-                    topicList = LegacyDb.Topics_ByUser(
+                    topicList = this.GetRepository<Topic>().ByUserAsDataTable(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
@@ -342,11 +309,10 @@ namespace YAF.Controls
                     this.GetTextFormatted(
                         "last_visit",
                         !this.PageContext.IsMobileDevice
-                            ? this.Get<IDateTime>()
-                                  .FormatDateTime(
-                                      lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
-                                          ? lastVisit.Value
-                                          : DateTime.UtcNow)
+                            ? this.Get<IDateTime>().FormatDateTime(
+                                lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                                    ? lastVisit.Value
+                                    : DateTime.UtcNow)
                             : string.Empty),
                     "0"));
 
@@ -472,7 +438,7 @@ namespace YAF.Controls
             var forumName = this.HtmlEncode(row["ForumName"]);
             var html = string.Empty;
 
-            if (forumName == this._lastForumName)
+            if (forumName == this.lastForumName)
             {
                 return html;
             }
@@ -483,7 +449,7 @@ namespace YAF.Controls
                         forumName,
                         YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName),
                         this.GetText("COMMON", "VIEW_FORUM"));
-            this._lastForumName = forumName;
+            this.lastForumName = forumName;
 
             return html;
         }
@@ -567,6 +533,15 @@ namespace YAF.Controls
 
         #endregion
 
+        /// <summary>
+        /// The create topic line.
+        /// </summary>
+        /// <param name="containerDataItem">
+        /// The container data item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         protected string CreateTopicLine(DataRowView containerDataItem)
         {
             var topicLine = new TopicContainer { DataRow = containerDataItem };

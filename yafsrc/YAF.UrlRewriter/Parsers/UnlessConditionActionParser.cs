@@ -17,9 +17,6 @@ namespace YAF.UrlRewriter.Parsers
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public override string Name
-        {
-            get { return Constants.ElementUnless; }
-        }
+        public override string Name => Constants.ElementUnless;
     }
 }

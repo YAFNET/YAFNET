@@ -29,14 +29,16 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.Security;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -51,13 +53,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"].ToType<int>();
-            }
-        }
+        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
 
         #endregion
 
@@ -131,14 +127,14 @@ namespace YAF.Controls
                                     IsApproved = this.IsApproved.Checked
                                 };
 
-            LegacyDb.user_adminsave(
+            this.GetRepository<User>().AdminSave(
                 this.PageContext.PageBoardID,
                 this.CurrentUserID,
                 this.Name.Text.Trim(),
                 this.DisplayName.Text.Trim(),
                 this.Email.Text.Trim(),
                 userFlags.BitValue,
-                this.RankID.SelectedValue);
+                this.RankID.SelectedValue.ToType<int>());
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
@@ -150,12 +146,12 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.RankID.DataSource = LegacyDb.rank_list(this.PageContext.PageBoardID, null);
-            this.RankID.DataValueField = "RankID";
+            this.RankID.DataSource = this.GetRepository<Rank>().GetByBoardId();
+            this.RankID.DataValueField = "ID";
             this.RankID.DataTextField = "Name";
             this.RankID.DataBind();
 
-            using (var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
+            using (var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID, null))
             {
                 var row = dt.Rows[0];
                 var userFlags = new UserFlags(row["Flags"]);

@@ -27,10 +27,11 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
+    using System.Linq;
 
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -55,15 +56,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ForumId
         {
-            get
-            {
-                return this.ViewState["ForumId"].ToType<int?>();
-            }
+            get => this.ViewState["ForumId"].ToType<int?>();
 
-            set
-            {
-                this.ViewState["ForumId"] = value;
-            }
+            set => this.ViewState["ForumId"] = value;
         }
 
         /// <summary>
@@ -72,12 +67,12 @@ namespace YAF.Dialogs
         /// <param name="forumId">The forum identifier.</param>
         public void BindData(int? forumId)
         {
-            this.NntpServerID.DataSource = LegacyDb.nntpserver_list(this.PageContext.PageBoardID, null);
-            this.NntpServerID.DataValueField = "NntpServerID";
+            this.NntpServerID.DataSource = this.GetRepository<NntpServer>().GetByBoardId().OrderBy(s => s.Name);
+            this.NntpServerID.DataValueField = "ID";
             this.NntpServerID.DataTextField = "Name";
             this.NntpServerID.DataBind();
 
-            this.ForumID.DataSource = LegacyDb.forum_listall_sorted(
+            this.ForumID.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID, this.PageContext.PageUserID);
             this.ForumID.DataValueField = "ForumID";
             this.ForumID.DataTextField = "Title";
@@ -144,11 +139,11 @@ namespace YAF.Dialogs
                 dateCutOff = DateTime.MinValue;
             }
 
-            LegacyDb.nntpforum_save(
+            this.GetRepository<NntpForum>().Save(
                 this.ForumId,
-                this.NntpServerID.SelectedValue,
+                this.NntpServerID.SelectedValue.ToType<int>(),
                 this.GroupName.Text,
-                this.ForumID.SelectedValue,
+                this.ForumID.SelectedValue.ToType<int>(),
                 this.Active.Checked,
                 dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
 

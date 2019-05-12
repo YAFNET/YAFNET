@@ -33,12 +33,13 @@ namespace YAF.Dialogs
     using System.Web.Security;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -399,7 +400,7 @@ namespace YAF.Dialogs
             var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            LegacyDb.user_save(
+            this.GetRepository<User>().Save(
                 userId,
                 YafContext.Current.PageBoardID,
                 row["Name"],
@@ -419,7 +420,7 @@ namespace YAF.Dialogs
                 null);
 
             // save the settings...
-            LegacyDb.user_savenotification(
+            this.GetRepository<User>().SaveNotification(
                 userId,
                 true,
                 autoWatchTopicsEnabled,

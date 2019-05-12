@@ -119,13 +119,7 @@ namespace YAF.Core.Services.CheckForSpam
         ///   Gets the HTTP status returned by the service.
         /// </summary>
         /// <value>The HTTP status.</value>
-        public HttpStatusCode HttpStatus
-        {
-            get
-            {
-                return this.status;
-            }
-        }
+        public HttpStatusCode HttpStatus => this.status;
 
         #endregion
     }

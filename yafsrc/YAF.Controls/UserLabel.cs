@@ -25,7 +25,6 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
     using System.Web.UI;
 
     using YAF.Core;
@@ -48,15 +47,9 @@ namespace YAF.Controls
         [NotNull]
         public string CssClass
         {
-            get
-            {
-                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"].ToString() : string.Empty;
-            }
+            get => this.ViewState["CssClass"] != null ? this.ViewState["CssClass"].ToString() : string.Empty;
 
-            set
-            {
-                this.ViewState["CssClass"] = value;
-            }
+            set => this.ViewState["CssClass"] = value;
         }
 
         /// <summary>
@@ -65,15 +58,9 @@ namespace YAF.Controls
         [NotNull]
         public string OnClick
         {
-            get
-            {
-                return this.ViewState["OnClick"] != null ? this.ViewState["OnClick"].ToString() : string.Empty;
-            }
+            get => this.ViewState["OnClick"] != null ? this.ViewState["OnClick"].ToString() : string.Empty;
 
-            set
-            {
-                this.ViewState["OnClick"] = value;
-            }
+            set => this.ViewState["OnClick"] = value;
         }
 
         /// <summary>
@@ -82,15 +69,9 @@ namespace YAF.Controls
         [NotNull]
         public string OnMouseOver
         {
-            get
-            {
-                return this.ViewState["OnMouseOver"] != null ? this.ViewState["OnMouseOver"].ToString() : string.Empty;
-            }
+            get => this.ViewState["OnMouseOver"] != null ? this.ViewState["OnMouseOver"].ToString() : string.Empty;
 
-            set
-            {
-                this.ViewState["OnMouseOver"] = value;
-            }
+            set => this.ViewState["OnMouseOver"] = value;
         }
 
         /// <summary>
@@ -99,15 +80,9 @@ namespace YAF.Controls
         [NotNull]
         public string PostfixText
         {
-            get
-            {
-                return this.ViewState["PostfixText"] != null ? this.ViewState["PostfixText"].ToString() : string.Empty;
-            }
+            get => this.ViewState["PostfixText"] != null ? this.ViewState["PostfixText"].ToString() : string.Empty;
 
-            set
-            {
-                this.ViewState["PostfixText"] = value;
-            }
+            set => this.ViewState["PostfixText"] = value;
         }
 
         /// <summary>
@@ -116,15 +91,9 @@ namespace YAF.Controls
         [NotNull]
         public string CrawlerName
         {
-            get
-            {
-                return this.ViewState["CrawlerName"] != null ? this.ViewState["CrawlerName"].ToString() : string.Empty;
-            }
+            get => this.ViewState["CrawlerName"] != null ? this.ViewState["CrawlerName"].ToString() : string.Empty;
 
-            set
-            {
-                this.ViewState["CrawlerName"] = value;
-            }
+            set => this.ViewState["CrawlerName"] = value;
         }
 
         /// <summary>
@@ -133,15 +102,9 @@ namespace YAF.Controls
         [NotNull]
         public string Style
         {
-            get
-            {
-                return this.ViewState["Style"] != null ? this.ViewState["Style"].ToString() : string.Empty;
-            }
+            get => this.ViewState["Style"] != null ? this.ViewState["Style"].ToString() : string.Empty;
 
-            set
-            {
-                this.ViewState["Style"] = value;
-            }
+            set => this.ViewState["Style"] = value;
         }
 
         /// <summary>
@@ -150,15 +113,9 @@ namespace YAF.Controls
         [NotNull]
         public string ReplaceName
         {
-            get
-            {
-                return this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
-            }
+            get => this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
 
-            set
-            {
-                this.ViewState["ReplaceName"] = value;
-            }
+            set => this.ViewState["ReplaceName"] = value;
         }
 
         /// <summary>
@@ -176,10 +133,7 @@ namespace YAF.Controls
                 return -1;
             }
 
-            set
-            {
-                this.ViewState["UserID"] = value;
-            }
+            set => this.ViewState["UserID"] = value;
         }
 
         #endregion

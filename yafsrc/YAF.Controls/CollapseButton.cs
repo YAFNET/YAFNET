@@ -48,15 +48,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string AttachedControlID
         {
-            get
-            {
-                return this.ViewState["AttachedControlID"]?.ToString();
-            }
+            get => this.ViewState["AttachedControlID"]?.ToString();
 
-            set
-            {
-                this.ViewState["AttachedControlID"] = value;
-            }
+            set => this.ViewState["AttachedControlID"] = value;
         }
 
         /// <summary>
@@ -81,10 +75,7 @@ namespace YAF.Controls
                 return defaultState;
             }
 
-            set
-            {
-                this.ViewState["DefaultState"] = value;
-            }
+            set => this.ViewState["DefaultState"] = value;
         }
 
         /// <summary>
@@ -110,15 +101,9 @@ namespace YAF.Controls
         [CanBeNull]
         public string PanelID
         {
-            get
-            {
-                return this.ViewState["PanelID"]?.ToString();
-            }
+            get => this.ViewState["PanelID"]?.ToString();
 
-            set
-            {
-                this.ViewState["PanelID"] = value;
-            }
+            set => this.ViewState["PanelID"] = value;
         }
 
         /// <summary>
@@ -126,15 +111,9 @@ namespace YAF.Controls
         /// </summary>
         public CollapsiblePanelState PanelState
         {
-            get
-            {
-                return YafContext.Current.Get<IYafSession>().PanelState[this.PanelID];
-            }
+            get => YafContext.Current.Get<IYafSession>().PanelState[this.PanelID];
 
-            set
-            {
-                YafContext.Current.Get<IYafSession>().PanelState[this.PanelID] = value;
-            }
+            set => YafContext.Current.Get<IYafSession>().PanelState[this.PanelID] = value;
         }
 
         #endregion

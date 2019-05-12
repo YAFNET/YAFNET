@@ -29,13 +29,14 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -106,7 +107,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list admins but not host admins
-            this.List.DataSource = LegacyDb.admin_pageaccesslist(null, true);
+            this.List.DataSource = this.GetRepository<vaccess>().List(null, true);
             this.DataBind();
         }
 

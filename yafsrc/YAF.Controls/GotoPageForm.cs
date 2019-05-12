@@ -111,15 +111,9 @@ namespace YAF.Controls
         /// </summary>
         public int GotoPageValue
         {
-            get
-            {
-                return this.gotoPageValue;
-            }
+            get => this.gotoPageValue;
 
-            set
-            {
-                this.gotoPageValue = value;
-            }
+            set => this.gotoPageValue = value;
         }
 
         /// <summary>

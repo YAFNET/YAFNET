@@ -70,13 +70,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public virtual string ModuleId
-        {
-            get
-            {
-                return this.Description.GetHashCode().ToString();
-            }
-        }
+        public virtual string ModuleId => this.Description.GetHashCode().ToString();
 
         /// <summary>
         ///   Gets or sets StyleSheet.
@@ -84,10 +78,7 @@ namespace YAF.Core
         [NotNull]
         public virtual string StyleSheet
         {
-            get
-            {
-                return string.Empty;
-            }
+            get => string.Empty;
 
             set
             {
@@ -103,24 +94,12 @@ namespace YAF.Core
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public virtual bool UsesBBCode
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool UsesBBCode => false;
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public virtual bool UsesHTML
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool UsesHTML => false;
 
         /// <summary>
         /// Gets a value indicating whether [allows uploads].
@@ -128,13 +107,7 @@ namespace YAF.Core
         /// <value>
         ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool AllowsUploads
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool AllowsUploads => false;
 
         /// <summary>
         /// Gets or sets a value indicating whether [user can upload].
@@ -144,15 +117,9 @@ namespace YAF.Core
         /// </value>
         public virtual bool UserCanUpload
         {
-            get
-            {
-                return this._userCanUpload;
-            }
+            get => this._userCanUpload;
 
-            set
-            {
-                this._userCanUpload = value;
-            }
+            set => this._userCanUpload = value;
         }
 
         #endregion

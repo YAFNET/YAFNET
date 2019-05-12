@@ -42,13 +42,7 @@ namespace YAF.Core.Services.Cache
         /// <summary>
         /// Gets the order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 10000;
-            }
-        }
+        public int Order => 10000;
 
         #endregion
 

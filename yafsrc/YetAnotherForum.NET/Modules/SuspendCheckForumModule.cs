@@ -27,10 +27,10 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Attributes;
+    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;

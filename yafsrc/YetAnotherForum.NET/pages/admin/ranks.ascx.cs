@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -203,7 +202,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.RankList.DataSource = LegacyDb.rank_list(this.PageContext.PageBoardID, null);
+            this.RankList.DataSource = this.GetRepository<Rank>().GetByBoardId();
             this.DataBind();
         }
 

@@ -44,6 +44,49 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// The system_initialize.
+        /// </summary>
+        /// <param name="forumName">The forum name.</param>
+        /// <param name="timeZone">The time zone.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="languageFile">The language File.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
+        /// <param name="smtpServer">The smtp server.</param>
+        /// <param name="userName">The user name.</param>
+        /// <param name="userEmail">The user email.</param>
+        /// <param name="providerUserKey">The provider user key.</param>
+        /// <param name="rolePrefix">The role Prefix.</param>
+        public static void SystemInitialize(
+            this IRepository<Board> repository,
+            [NotNull] string forumName,
+            [NotNull] string timeZone,
+            [NotNull] string culture,
+            [NotNull] string languageFile,
+            [NotNull] string forumEmail,
+            [NotNull] string forumBaseUrlMask,
+            [NotNull] string smtpServer,
+            [NotNull] string userName,
+            [NotNull] string userEmail,
+            [NotNull] object providerUserKey,
+            [NotNull] string rolePrefix)
+        {
+            repository.DbFunction.Scalar.system_initialize(
+                Name: forumName,
+                TimeZone: timeZone,
+                Culture: culture,
+                LanguageFile: languageFile,
+                ForumEmail: forumEmail,
+                ForumBaseUrlMask: forumBaseUrlMask,
+                SmtpServer: string.Empty,
+                User: userName,
+                UserEmail: userEmail,
+                UserKey: providerUserKey,
+                RolePrefix: rolePrefix,
+                UTCTIMESTAMP: DateTime.UtcNow);
+        }
+
+        /// <summary>
         /// The create.
         /// </summary>
         /// <param name="repository">

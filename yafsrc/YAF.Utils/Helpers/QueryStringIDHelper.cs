@@ -30,9 +30,9 @@ namespace YAF.Utils.Helpers
   using System.Web;
 
   using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
 
   #endregion
 

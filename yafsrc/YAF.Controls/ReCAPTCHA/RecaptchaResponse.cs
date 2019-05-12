@@ -84,24 +84,12 @@ namespace YAF.Controls.ReCAPTCHA
     /// <summary>
     ///   Gets ErrorCode.
     /// </summary>
-    public string ErrorCode
-    {
-      get
-      {
-        return this.errorCode;
-      }
-    }
+    public string ErrorCode => this.errorCode;
 
     /// <summary>
     ///   Gets a value indicating whether IsValid.
     /// </summary>
-    public bool IsValid
-    {
-      get
-      {
-        return this.isValid;
-      }
-    }
+    public bool IsValid => this.isValid;
 
     #endregion
 

@@ -30,7 +30,6 @@ namespace YAF.Core
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// The load page variables from query.
@@ -60,13 +59,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 10;
-            }
-        }
+        public int Order => 10;
 
         /// <summary>
         /// Gets or sets ServiceLocator.

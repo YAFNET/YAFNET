@@ -30,6 +30,7 @@ namespace YAF.Editors
     using YAF.Classes.Editors;
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -46,15 +47,9 @@ namespace YAF.Editors
         /// </summary>
         public override string Text
         {
-            get
-            {
-                return this._textCtl.InnerText;
-            }
+            get => this._textCtl.InnerText;
 
-            set
-            {
-                this._textCtl.InnerText = value;
-            }
+            set => this._textCtl.InnerText = value;
         }
 
         /// <summary>
@@ -78,6 +73,8 @@ namespace YAF.Editors
 
             YafContext.Current.PageElements.RegisterJsInclude("ckeditor-jQuery-Adapter", this.ResolveUrl("ckeditor/adapters/jquery.js"));
 
+            this.RegisterSmilieyScript();
+
             this.RegisterCKEditorCustomJS();
 
             // register custom YafBBCode javascript (if there is any)
@@ -96,6 +93,17 @@ namespace YAF.Editors
 
             this._textCtl.Attributes.CssStyle.Add("width", "100%");
             this._textCtl.Attributes.CssStyle.Add("height", "350px");
+        }
+
+        /// <summary>
+        /// The register smiley script.
+        /// </summary>
+        protected virtual void RegisterSmilieyScript()
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "insertsmiley",
+                @"function insertAttachment(id,url) {{var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );}}"
+                    .FormatWith(this._textCtl.ClientID));
         }
 
         /// <summary>

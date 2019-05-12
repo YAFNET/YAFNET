@@ -29,9 +29,6 @@ namespace YAF.UrlRewriter.Configuration
         /// <summary>
         /// Gets the AppSettings from the web application's config file.
         /// </summary>
-        public NameValueCollection AppSettings
-        {
-            get { return ConfigurationManager.AppSettings; }
-        }
+        public NameValueCollection AppSettings => ConfigurationManager.AppSettings;
     }
 }

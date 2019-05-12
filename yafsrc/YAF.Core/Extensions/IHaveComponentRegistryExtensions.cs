@@ -42,41 +42,6 @@ namespace YAF.Core
     #region Public Methods
 
     /// <summary>
-    /// Is not registered in the component registry.
-    /// </summary>
-    /// <param name="haveComponentRegistry">
-    /// The have component registry.
-    /// </param>
-    /// <typeparam name="TRegistered">
-    /// </typeparam>
-    /// <returns>
-    /// The is registered.
-    /// </returns>
-    public static bool IsNotRegistered<TRegistered>([NotNull] this IHaveComponentRegistry haveComponentRegistry)
-    {
-      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
-
-      return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(typeof(TRegistered)));
-    }
-
-    /// <summary>
-    /// Is not registered in the component registry.
-    /// </summary>
-    /// <param name="haveComponentRegistry">
-    /// The have component registry.
-    /// </param>
-    /// <param name="registeredType"></param>
-    /// <returns>
-    /// The is registered.
-    /// </returns>
-    public static bool IsNotRegistered([NotNull] this IHaveComponentRegistry haveComponentRegistry, Type registeredType)
-    {
-      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
-
-      return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(registeredType));
-    }
-
-    /// <summary>
     /// The is registered.
     /// </summary>
     /// <param name="haveComponentRegistry">

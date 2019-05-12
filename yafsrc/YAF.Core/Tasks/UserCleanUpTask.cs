@@ -28,7 +28,6 @@ namespace YAF.Core.Tasks
     using System.Linq;
     using System.Threading;
 
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -57,13 +56,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName
-        {
-            get
-            {
-                return _taskName;
-            }
-        }
+        public static string TaskName => _taskName;
 
         /// <summary>
         /// The run once.
@@ -79,7 +72,7 @@ namespace YAF.Core.Tasks
                 foreach (var boardId in boardIds)
                 {
                     // get users for this board...
-                    var users = LegacyDb.user_list(boardId, null, null).Rows.Cast<DataRow>().ToList();
+                    var users = this.GetRepository<User>().ListAsDataTable(boardId, null, null).Rows.Cast<DataRow>().ToList();
 
                     // handle unsuspension...
                     var suspendedUsers = from u in users

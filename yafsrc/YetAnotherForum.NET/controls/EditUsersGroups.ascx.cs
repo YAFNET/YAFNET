@@ -39,7 +39,6 @@ namespace YAF.Controls
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -56,13 +55,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"].ToType<int>();
-            }
-        }
+        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
 
         #endregion
 
@@ -157,7 +150,7 @@ namespace YAF.Controls
                 var isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
 
                 // save user in role
-                this.Get<IDbFunction>().Query.usergroup_save(this.CurrentUserID, roleID, isChecked);
+                this.GetRepository<UserGroup>().Save(this.CurrentUserID, roleID, isChecked);
 
                 // empty out access table(s)
                 this.GetRepository<Active>().DeleteAll();
@@ -216,8 +209,7 @@ namespace YAF.Controls
         private void BindData()
         {
             // get user roles
-            this.UserGroups.DataSource = this.Get<IDbFunction>()
-                .GetAsDataTable(cdb => cdb.group_member(this.PageContext.PageBoardID, this.CurrentUserID));
+            this.UserGroups.DataSource = this.GetRepository<Group>().MemberAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID);
 
             // bind data to controls
             this.DataBind();

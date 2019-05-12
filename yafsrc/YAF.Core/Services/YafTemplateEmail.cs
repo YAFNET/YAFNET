@@ -97,13 +97,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the service locator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         /// <summary>
         ///     Gets or sets TemplateLanguageFile.
@@ -120,15 +114,9 @@ namespace YAF.Core.Services
         /// </summary>
         public IDictionary<string, string> TemplateParams
         {
-            get
-            {
-                return this.templateParams;
-            }
+            get => this.templateParams;
 
-            set
-            {
-                this.templateParams = value;
-            }
+            set => this.templateParams = value;
         }
 
         #endregion

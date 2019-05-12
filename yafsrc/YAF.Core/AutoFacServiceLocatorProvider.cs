@@ -95,13 +95,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the tag.
         /// </summary>
-        public object Tag
-        {
-            get
-            {
-                return this.Container.Tag;
-            }
-        }
+        public object Tag => this.Container.Tag;
 
         #endregion
 

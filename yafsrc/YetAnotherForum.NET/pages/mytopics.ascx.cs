@@ -34,7 +34,6 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utilities;
-    using YAF.Utils;
 
     #endregion
 
@@ -86,10 +85,7 @@ namespace YAF.Pages
                 return TopicListMode.Active;
             }
 
-            set
-            {
-                this.ViewState["CurrentTab"] = value;
-            }
+            set => this.ViewState["CurrentTab"] = value;
         }
 
         #region Constructors and Destructors

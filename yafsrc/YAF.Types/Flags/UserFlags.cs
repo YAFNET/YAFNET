@@ -152,15 +152,9 @@ namespace YAF.Types.Flags
         public bool IsHostAdmin
         {
             // int value 1
-            get
-            {
-                return this[0];
-            }
+            get => this[0];
 
-            set
-            {
-                this[0] = value;
-            }
+            set => this[0] = value;
         }
 
         /// <summary>
@@ -169,15 +163,9 @@ namespace YAF.Types.Flags
         public bool IsApproved
         {
             // int value 2
-            get
-            {
-                return this[1];
-            }
+            get => this[1];
 
-            set
-            {
-                this[1] = value;
-            }
+            set => this[1] = value;
         }
 
         /// <summary>
@@ -186,15 +174,9 @@ namespace YAF.Types.Flags
         public bool IsGuest
         {
             // int value 4
-            get
-            {
-                return this[2];
-            }
+            get => this[2];
 
-            set
-            {
-                this[2] = value;
-            }
+            set => this[2] = value;
         }
 
         /// <summary>
@@ -203,15 +185,9 @@ namespace YAF.Types.Flags
         public bool IsCaptchaExcluded
         {
             // int value 8
-            get
-            {
-                return this[3];
-            }
+            get => this[3];
 
-            set
-            {
-                this[3] = value;
-            }
+            set => this[3] = value;
         }
 
         /// <summary>
@@ -220,15 +196,9 @@ namespace YAF.Types.Flags
         public bool IsActiveExcluded
         {
             // int value 16
-            get
-            {
-                return this[4];
-            }
+            get => this[4];
 
-            set
-            {
-                this[4] = value;
-            }
+            set => this[4] = value;
         }
 
         /// <summary>
@@ -238,15 +208,9 @@ namespace YAF.Types.Flags
         public bool IsDST
         {
             // int value 32
-            get
-            {
-                return this[5];
-            }
+            get => this[5];
 
-            set
-            {
-                this[5] = value;
-            }
+            set => this[5] = value;
         }
 
         /// <summary>
@@ -257,15 +221,9 @@ namespace YAF.Types.Flags
         public bool IsDirty
         {
             // int value 64
-            get
-            {
-                return this[6];
-            }
+            get => this[6];
 
-            set
-            {
-                this[6] = value;
-            }
+            set => this[6] = value;
         }
 
         #endregion

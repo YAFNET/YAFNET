@@ -79,13 +79,7 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     The _board settings.
         /// </summary>
-        public YafBoardSettings BoardSettings
-        {
-            get
-            {
-                return this.Get<YafBoardSettings>();
-            }
-        }
+        public YafBoardSettings BoardSettings => this.Get<YafBoardSettings>();
 
         /// <summary>
         /// Gets or sets the service locator.
@@ -95,24 +89,12 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     Gets the sort order.
         /// </summary>
-        public int SortOrder
-        {
-            get
-            {
-                return 100;
-            }
-        }
+        public int SortOrder => 100;
 
         /// <summary>
         ///     The _style transform.
         /// </summary>
-        public IStyleTransform StyleTransform
-        {
-            get
-            {
-                return this.Get<IStyleTransform>();
-            }
-        }
+        public IStyleTransform StyleTransform => this.Get<IStyleTransform>();
 
         #endregion
 

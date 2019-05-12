@@ -23,9 +23,11 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Collections.Generic;
+    using System;
     using System.Data;
+    using System.Data.SqlClient;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -66,7 +68,7 @@ namespace YAF.Core.Model
         public static void Save(
             this IRepository<Registry> repository,
             string settingName,
-            string settingValue,
+            object settingValue,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -104,6 +106,85 @@ namespace YAF.Core.Model
             }
 
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the Current DB Version Name
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <returns>
+        /// Returns the Current DB Version Name
+        /// </returns>
+        public static string GetDBVersionName(this IRepository<Registry> repository)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.GetSingle(r => r.Name.ToLower() == "versionname").Value;
+        }
+
+        /// <summary>
+        /// Gets the Current YAF DB Version
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <returns>
+        /// Returns the Current YAF DB Version
+        /// </returns>
+        public static int GetDBVersion(this IRepository<Registry> repository)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            int version;
+
+            try
+            {
+                var registry = repository.GetSingle(r => r.Name.ToLower() == "version");
+
+                if (registry == null)
+                {
+                    version = -1;
+                }
+                else
+                {
+                    version = registry.Value.ToType<int>();
+                }
+            }
+            catch (Exception)
+            {
+                version = -1;
+            }
+
+            return version;
+        }
+
+        public static string ValidateVersion(this IRepository<Registry> repository, int appVersion)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var redirect = string.Empty;
+
+            try
+            {
+                var registry = repository.GetSingle(r => r.Name.ToLower() == "version");
+
+                var registryVersion = registry.Value.ToType<int>();
+
+                if (registryVersion < appVersion)
+                {
+                    // needs upgrading...
+                    redirect = "install/default.aspx?upgrade={0}".FormatWith(registryVersion);
+                }
+            }
+            catch (SqlException)
+            {
+                // needs to be setup...
+                redirect = "install/default.aspx";
+            }
+
+            return redirect;
         }
 
         #endregion

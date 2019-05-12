@@ -103,13 +103,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// <summary>
         ///   IPAddress of the submitter
         /// </summary>
-        public IPAddress IPAddress
-        {
-            get
-            {
-                return this.ipAddress;
-            }
-        }
+        public IPAddress IPAddress => this.ipAddress;
 
         /// <summary>
         ///   Permanent location of the entry the comment was 
@@ -126,24 +120,12 @@ namespace YAF.Core.Services.CheckForSpam
         /// <summary>
         ///   Optional collection of various server environment variables.
         /// </summary>
-        public NameValueCollection ServerEnvironmentVariables
-        {
-            get
-            {
-                return this.serverEnvironmentVariables;
-            }
-        }
+        public NameValueCollection ServerEnvironmentVariables => this.serverEnvironmentVariables;
 
         /// <summary>
         ///   User agent of the requester. (Required)
         /// </summary>
-        public string UserAgent
-        {
-            get
-            {
-                return this.userAgent;
-            }
-        }
+        public string UserAgent => this.userAgent;
 
         #endregion
     }

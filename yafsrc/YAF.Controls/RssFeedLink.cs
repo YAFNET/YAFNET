@@ -48,15 +48,9 @@ namespace YAF.Controls
         /// </summary>
         public string AdditionalParameters
         {
-            get
-            {
-                return this.ViewState.ToTypeOrDefault("AdditionalParameters", string.Empty);
-            }
+            get => this.ViewState.ToTypeOrDefault("AdditionalParameters", string.Empty);
 
-            set
-            {
-                this.ViewState["AdditionalParameters"] = value;
-            }
+            set => this.ViewState["AdditionalParameters"] = value;
         }
 
         /// <summary>
@@ -67,17 +61,12 @@ namespace YAF.Controls
         /// </value>
         public YafRssFeeds FeedType
         {
-            get
-            {
-                return this.ViewState["FeedType"] != null
-                           ? this.ViewState["FeedType"].ToEnum<YafRssFeeds>()
-                           : YafRssFeeds.Forum;
-            }
+            get =>
+                this.ViewState["FeedType"] != null
+                    ? this.ViewState["FeedType"].ToEnum<YafRssFeeds>()
+                    : YafRssFeeds.Forum;
 
-            set
-            {
-                this.ViewState["FeedType"] = value;
-            }
+            set => this.ViewState["FeedType"] = value;
         }
 
         #endregion

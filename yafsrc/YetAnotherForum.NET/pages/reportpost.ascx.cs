@@ -30,14 +30,15 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -114,7 +115,7 @@ namespace YAF.Pages
             }
 
             // Save the reported message
-            LegacyDb.message_report(
+            this.GetRepository<Message>().Report(
                 this.messageID,
                 this.PageContext.PageUserID,
                 DateTime.UtcNow,
@@ -180,7 +181,7 @@ namespace YAF.Pages
             }
 
             // Get reported message text for better quoting                    
-            var messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+            var messageRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
 
             // Checking if the user has a right to view the message and getting data  
             if (messageRow.HasRows())

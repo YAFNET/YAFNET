@@ -27,8 +27,6 @@ namespace YAF.Types.Interfaces
 
     using System;
 
-    using YAF.Types.Interfaces;
-
     #endregion
 
   /// <summary>

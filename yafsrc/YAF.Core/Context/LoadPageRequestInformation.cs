@@ -31,7 +31,6 @@ namespace YAF.Core
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -70,13 +69,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 10;
-            }
-        }
+        public int Order => 10;
 
         /// <summary>
         ///   Gets or sets ServiceLocator.

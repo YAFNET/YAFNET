@@ -31,8 +31,6 @@ namespace YAF.Core
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -125,10 +123,7 @@ namespace YAF.Core
                         });
             }
 
-            set
-            {
-                this._applicationStateBase.Set(this._treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
-            }
+            set => this._applicationStateBase.Set(this._treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
         }
 
         #endregion

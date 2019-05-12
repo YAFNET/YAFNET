@@ -34,7 +34,6 @@
      using System.Web.Script.Services;
      using System.Web.Services;
 
-     using YAF.Classes.Data;
      using YAF.Core;
      using YAF.Core.Extensions;
      using YAF.Core.Model;
@@ -63,13 +62,7 @@
          /// <summary>
          ///   Gets ServiceLocator.
          /// </summary>
-         public IServiceLocator ServiceLocator
-         {
-             get
-             {
-                 return YafContext.Current.ServiceLocator;
-             }
-         }
+         public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
          #endregion
 
@@ -223,7 +216,7 @@
              {
                  var topics = this.Get<IDataCache>().GetOrSet(
                      "TopicsList_{0}".FormatWith(forumID),
-                     () => LegacyDb.topic_list(
+                     () => this.GetRepository<Topic>().ListAsDataTable(
                          forumID,
                          null,
                          DateTimeHelper.SqlDbMinTime(),
@@ -248,7 +241,7 @@
              }
              else
              {
-                 var topics = LegacyDb.topic_list(
+                 var topics = this.GetRepository<Topic>().ListAsDataTable(
                      forumID,
                      null,
                      DateTimeHelper.SqlDbMinTime(),
@@ -471,7 +464,7 @@
                  return null;
              }
 
-             var username = LegacyDb.message_AddThanks(
+             var username = this.GetRepository<Thanks>().AddMessageThanks(
                  UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey),
                  messageId,
                  this.Get<YafBoardSettings>().EnableDisplayName);
@@ -501,7 +494,7 @@
          {
              var messageID = msgID.ToType<int>();
 
-             var username = LegacyDb.message_RemoveThanks(
+             var username = this.GetRepository<Thanks>().RemoveMessageThanks(
                  UserMembershipHelper.GetUserIDFromProviderUserKey(UserMembershipHelper.GetUser().ProviderUserKey),
                  messageID,
                  this.Get<YafBoardSettings>().EnableDisplayName);

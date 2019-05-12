@@ -28,19 +28,20 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The runsql.
+    /// The run SQL Query Page.
     /// </summary>
     public partial class runsql : AdminPage
     {
@@ -90,18 +91,7 @@ namespace YAF.Pages.Admin
             this.txtResult.Text = string.Empty;
             this.ResultHolder.Visible = true;
 
-            /*  using (var connMan = new MsSqlDbConnectionManager())
-              {
-                connMan.InfoMessage += this.connMan_InfoMessage;
-                string sql = this.txtQuery.Text.Trim();
-        
-                // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-                sql = sql.Replace("{databaseOwner}", Config.DatabaseOwner);
-                sql = sql.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
-        
-                this.txtResult.Text = LegacyDb.db_runsql(sql, connMan, this.chkRunInTransaction.Checked);
-              } */
-            this.txtResult.Text = LegacyDb.db_runsql_new(this.txtQuery.Text.Trim(), this.chkRunInTransaction.Checked);
+            this.txtResult.Text = this.Get<IDbFunction>().RunSQL(this.txtQuery.Text.Trim(), this.chkRunInTransaction.Checked);
         }
 
         /// <summary>

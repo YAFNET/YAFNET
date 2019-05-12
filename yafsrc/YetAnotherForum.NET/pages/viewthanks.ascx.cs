@@ -30,13 +30,14 @@ namespace YAF.Pages
   using System;
   using System.Data;
 
-  using YAF.Classes.Data;
   using YAF.Controls;
   using YAF.Core;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Utilities;
   using YAF.Utils;
 
@@ -116,24 +117,24 @@ namespace YAF.Pages
       /// </param>
       protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
       {
-          var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+          var userId = Security.StringToIntOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
           if (!this.IsPostBack)
           {
               var displayName = this.PageContext.BoardSettings.EnableDisplayName
-                                    ? UserMembershipHelper.GetDisplayNameFromID(userID)
-                                    : UserMembershipHelper.GetUserNameFromID(userID);
+                                    ? UserMembershipHelper.GetDisplayNameFromID(userId)
+                                    : UserMembershipHelper.GetUserNameFromID(userId);
               this.PageLinks.Clear();
               this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
               this.PageLinks.AddLink(
                   displayName,
-                  YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID, displayName));
+                  YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId, displayName));
               this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
           }
 
-          var thanksInfo = LegacyDb.user_viewallthanks(userID, this.PageContext.PageUserID);
-          this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
-          this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
+          var thanksInfo = this.GetRepository<Thanks>().ViewAllThanksByUserAsDataTable(userId, this.PageContext.PageUserID);
+          this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userId, thanksInfo);
+          this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userId, thanksInfo);
       }
 
       #endregion

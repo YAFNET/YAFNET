@@ -51,15 +51,9 @@ namespace YAF.Types.Handlers
     /// </summary>
     public string Message
     {
-      get
-      {
-        return this._message;
-      }
+      get => this._message;
 
-      set
-      {
-        this._message = value;
-      }
+      set => this._message = value;
     }
   }
 }

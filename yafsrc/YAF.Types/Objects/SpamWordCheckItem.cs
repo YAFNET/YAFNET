@@ -115,13 +115,7 @@ namespace YAF.Types.Objects
         /// <value>
         /// The spam word reg ex.
         /// </value>
-        public Regex SpamWordRegEx
-        {
-            get
-            {
-                return this._regEx;
-            }
-        }
+        public Regex SpamWordRegEx => this._regEx;
 
         /// <summary>
         /// Gets or sets Options.

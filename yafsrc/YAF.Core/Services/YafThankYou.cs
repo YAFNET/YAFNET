@@ -27,10 +27,10 @@ namespace YAF.Core.Services
     using System.Data;
     using System.Text;
     using System.Web;
-    using System.Web.Security;
+
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -61,7 +61,7 @@ namespace YAF.Core.Services
         {
             var filler = new StringBuilder();
 
-            using (var dt = LegacyDb.message_GetThanks(messageId))
+            using (var dt = YafContext.Current.GetRepository<Thanks>().MessageGetThanksAsDataTable(messageId))
             {
                 foreach (DataRow dr in dt.Rows)
                 {

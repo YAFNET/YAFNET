@@ -27,14 +27,14 @@ namespace YAF.Core.Model
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
 
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -45,32 +45,88 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
-        /*
-                /// <summary>
-                ///  Get All the Thanks for the Message IDs which are in the
-                ///   delimited string variable MessageIDs
-                /// </summary>
-                /// <param name="repository">The repository.</param>
-                /// <param name="messageIdsSeparatedWithColon">The message ids separated with colon.</param>
-                /// <returns>
-                /// Retuns All the Thanks for the Message IDs which are in the
-                ///   delimited string variable MessageIDs
-                /// </returns>
-                public static IList<NntpForum> ListTyped(this IRepository<NntpForum> repository, int boardId, int? minutes, int? nntpForumId, bool? active)
-                {
-                    CodeContracts.VerifyNotNull(repository, "repository");
-        
-                    using (var functionSession = repository.DbFunction.CreateSession())
-                    {
-                        return functionSession.GetTyped<NntpForum>(
-                            r => r.message_getallthanks(
-                                BoardID: boardId,
-                                Minutes: minutes,
-                                NntpForumID: nntpForumId,
-                                Active: active,
-                                UTCTIMESTAMP: DateTime.UtcNow));
-                    }
-                }*/
+        public static void Update(this IRepository<NntpForum> repository, [NotNull] object nntpForumId, [NotNull] object lastMessageNo, [NotNull] object userId)
+        {
+
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.DbFunction.Scalar.nntpforum_update(
+                NntpForumID: nntpForumId,
+                LastMessageNo: lastMessageNo,
+                UserID: userId,
+                UTCTIMESTAMP: DateTime.UtcNow);
+        }
+
+        /// <summary>
+        /// The nntpforum_list.
+        /// </summary>
+        /// <param name="boardID">
+        /// The board id.
+        /// </param>
+        /// <param name="minutes">
+        /// The minutes.
+        /// </param>
+        /// <param name="nntpForumID">
+        /// The nntp forum id.
+        /// </param>
+        /// <param name="active">
+        /// The active.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static IEnumerable<TypedNntpForum> NntpForumList(this IRepository<NntpForum> repository, int boardId, int? minutes, int? nntpForumID, bool? active)
+        {
+            return repository.DbFunction
+                .GetAsDataTable(
+                    cdb => cdb.nntpforum_list(
+                        BoardID: boardId,
+                        Minutes: minutes,
+                        NntpForumID: nntpForumID,
+                        Active: active,
+                        UTCTIMESTAMP: DateTime.UtcNow)).SelectTypedList(t => new TypedNntpForum(t));
+        }
+
+        public static void Save(
+            this IRepository<NntpForum> repository,
+            [NotNull] int? nntpForumId,
+            [NotNull] int nntpServerId,
+            [NotNull] string groupName,
+            [NotNull] int forumID,
+            [NotNull] bool active,
+            [NotNull] DateTime? datecutoff)
+        {
+            if (nntpForumId.HasValue)
+            {
+                repository.UpdateOnly(
+                    () => new NntpForum
+                              {
+                                  NntpServerID = nntpServerId,
+                                  GroupName = groupName,
+                                  ForumID = forumID,
+                                  Active = active,
+                                  DateCutOff = datecutoff
+                              },
+                    n => n.ID == nntpForumId);
+            }
+            else
+            {
+                var entity = new NntpForum
+                                 {
+                                     NntpServerID = nntpServerId,
+                                     GroupName = groupName,
+                                     ForumID = forumID,
+                                     Active = active,
+                                     DateCutOff = datecutoff,
+                                     LastUpdate = DateTime.UtcNow,
+                                     LastMessageNo = 0,
+                                 };
+
+                repository.Insert(entity);
+
+                repository.FireNew(entity);
+            }
+        }
+
         #endregion
     }
 }

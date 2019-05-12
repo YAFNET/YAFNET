@@ -29,7 +29,6 @@ namespace YAF.Modules
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Dialogs;
     using YAF.Types;

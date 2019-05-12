@@ -25,13 +25,9 @@ namespace YAF.Core
 {
     #region Using
 
-    using System.Reflection;
-
     using Autofac;
 
-    using YAF.Core.Helpers;
     using YAF.Core.Modules;
-    using YAF.Core.Services.Logger;
     using YAF.Types;
     using YAF.Types.Interfaces;
 
@@ -63,13 +59,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Container.
         /// </summary>
-        public static IContainer Container
-        {
-            get
-            {
-                return _container;
-            }
-        }
+        public static IContainer Container => _container;
 
         #endregion
 

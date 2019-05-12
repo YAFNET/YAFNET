@@ -67,35 +67,17 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// Gets Id.
     /// </summary>
-    public string Id
-    {
-      get
-      {
-        return this.id;
-      }
-    }
+    public string Id => this.id;
 
     /// <summary>
     /// Gets Filename.
     /// </summary>
-    public string Filename
-    {
-      get
-      {
-        return this.filename;
-      }
-    }
+    public string Filename => this.filename;
 
     /// <summary>
     /// Gets BinaryData.
     /// </summary>
-    public byte[] BinaryData
-    {
-      get
-      {
-        return this.binaryData;
-      }
-    }
+    public byte[] BinaryData => this.binaryData;
 
     /// <summary>
     /// The save as.

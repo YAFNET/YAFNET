@@ -29,9 +29,6 @@ namespace YAF.UrlRewriter.Transforms
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public string Name
-        {
-            get { return Constants.TransformEncode; }
-        }
+        public string Name => Constants.TransformEncode;
     }
 }

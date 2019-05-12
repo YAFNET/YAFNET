@@ -30,14 +30,15 @@ namespace YAF.Pages.Admin
     using System.Web.Security;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -116,7 +117,7 @@ namespace YAF.Pages.Admin
                 .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
             // save the time zone...
-            LegacyDb.user_save(
+            this.GetRepository<User>().Save(
                 UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey),
                 this.PageContext.PageBoardID,
                 null,
@@ -140,7 +141,7 @@ namespace YAF.Pages.Admin
                 this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
             }
 
-            LegacyDb.user_savenotification(
+            this.GetRepository<User>().SaveNotification(
                 UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey),
                 true,
                 autoWatchTopicsEnabled,

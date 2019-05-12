@@ -25,15 +25,9 @@ namespace YAF.Utils.Extensions
 {
     #region Using
 
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-
     using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     #endregion
 

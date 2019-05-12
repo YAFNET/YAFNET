@@ -122,26 +122,11 @@ namespace YAF.Core.Model
                 });
         }
 
-        /// <summary>
-        /// Get Category as simple list
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="startID">
-        /// The start id.
-        /// </param>
-        /// <param name="limit">
-        /// The limit.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable Simplelist(this IRepository<Category> repository, int startID, int limit)
+        public static DataTable SimpleListAsDataTable(this IRepository<Category> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.category_simplelist(StartID: startID, Limit: limit);
+            return repository.DbFunction.GetData.category_simplelist(StartID: startId, Limit: limit);
         }
 
         #endregion

@@ -40,13 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     /// Gets Watch.
     /// </summary>
-    public Stopwatch Watch
-    {
-      get
-      {
-        return this._stopWatch;
-      }
-    }
+    public Stopwatch Watch => this._stopWatch;
 
     /// <summary>
     /// Gets Duration.

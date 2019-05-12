@@ -32,7 +32,6 @@ namespace YAF.Dialogs
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

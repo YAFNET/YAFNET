@@ -35,9 +35,6 @@ namespace YAF.UrlRewriter.Transforms
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public string Name
-        {
-            get { return Constants.TransformUpper; }
-        }
+        public string Name => Constants.TransformUpper;
     }
 }

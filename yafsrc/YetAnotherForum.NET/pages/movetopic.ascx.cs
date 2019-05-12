@@ -29,13 +29,14 @@ namespace YAF.Pages
     using System;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -90,11 +91,11 @@ namespace YAF.Pages
                 }
 
                 // Ederon : 7/14/2007
-                LegacyDb.topic_move(
+                this.GetRepository<Topic>().MoveTopic(
                     this.PageContext.PageTopicID,
-                    this.ForumList.SelectedValue,
+                    this.ForumList.SelectedValue.ToType<int>(),
                     this.LeavePointer.Checked,
-                    linkDays);
+                    linkDays.Value);
             }
 
             YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
@@ -154,7 +155,7 @@ namespace YAF.Pages
                 this.LinkDays.Text = "1";
             }
 
-            this.ForumList.DataSource = LegacyDb.forum_listall_sorted(
+            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

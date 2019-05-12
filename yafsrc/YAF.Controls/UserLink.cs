@@ -52,15 +52,9 @@ namespace YAF.Controls
         /// </summary>
         public bool BlankTarget
         {
-            get
-            {
-                return this.ViewState["BlankTarget"] != null && Convert.ToBoolean(this.ViewState["BlankTarget"]);
-            }
+            get => this.ViewState["BlankTarget"] != null && Convert.ToBoolean(this.ViewState["BlankTarget"]);
 
-            set
-            {
-                this.ViewState["BlankTarget"] = value;
-            }
+            set => this.ViewState["BlankTarget"] = value;
         }
 
         /// <summary>
@@ -71,15 +65,9 @@ namespace YAF.Controls
         /// </value>
         public bool EnableHoverCard
         {
-            get
-            {
-                return this.ViewState["EnableHoverCard"] == null || this.ViewState["EnableHoverCard"].ToType<bool>();
-            }
+            get => this.ViewState["EnableHoverCard"] == null || this.ViewState["EnableHoverCard"].ToType<bool>();
 
-            set
-            {
-                this.ViewState["EnableHoverCard"] = value;
-            }
+            set => this.ViewState["EnableHoverCard"] = value;
         }
 
         /// <summary>
@@ -88,15 +76,9 @@ namespace YAF.Controls
         /// </summary>
         public bool IsGuest
         {
-            get
-            {
-                return this.ViewState["IsGuest"] != null && Convert.ToBoolean(this.ViewState["IsGuest"]);
-            }
+            get => this.ViewState["IsGuest"] != null && Convert.ToBoolean(this.ViewState["IsGuest"]);
 
-            set
-            {
-                this.ViewState["IsGuest"] = value;
-            }
+            set => this.ViewState["IsGuest"] = value;
         }
 
         /// <summary>
@@ -108,15 +90,9 @@ namespace YAF.Controls
         [NotNull]
         public bool Suspended
         {
-            get
-            {
-                return this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
-            }
+            get => this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
 
-            set
-            {
-                this.ViewState["Style"] = value;
-            }
+            set => this.ViewState["Style"] = value;
         }
 
         #endregion

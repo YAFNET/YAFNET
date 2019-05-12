@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -85,10 +84,7 @@ namespace YAF.Pages
                 return (int)this.ViewState["UserId"];
             }
 
-            set
-            {
-                this.ViewState["UserId"] = value;
-            }
+            set => this.ViewState["UserId"] = value;
         }
 
         #endregion
@@ -294,7 +290,7 @@ namespace YAF.Pages
             if (this.LastPosts.Visible)
             {
                 this.LastPosts.DataSource =
-                    LegacyDb.post_alluser(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10)
+                    this.GetRepository<Message>().AllUserAsDataTable(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10)
                             .AsEnumerable();
 
                 this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
@@ -327,7 +323,7 @@ namespace YAF.Pages
                 return false;
             }
 
-            var albumCount = LegacyDb.album_getstats(albumUser, null)[0];
+            var albumCount = this.GetRepository<UserAlbum>().CountUserAlbum(albumUser);
 
             // Check if the user already has albums.
             if (albumCount > 0)
@@ -343,7 +339,7 @@ namespace YAF.Pages
 
             // Check if a user have permissions to have albums, even if he has no albums at all.
             var usrAlbums =
-                LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID)
+                this.GetRepository<User>().AlbumsDataAsDataTable(albumUser, YafContext.Current.PageBoardID)
                     .GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
             return usrAlbums.HasValue && usrAlbums > 0;
@@ -603,7 +599,11 @@ namespace YAF.Pages
 
             this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(userData.DBRow["userID"].ToType<int>())
                 .ToString();
-            var thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
+
+            var thanksToArray = this.GetRepository<Thanks>().GetuserThanksTo(
+                userData.DBRow["userID"].ToType<int>(),
+                this.PageContext.PageUserID);
+
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);

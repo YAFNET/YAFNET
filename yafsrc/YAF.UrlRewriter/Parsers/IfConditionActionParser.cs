@@ -24,26 +24,17 @@ namespace YAF.UrlRewriter.Parsers
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public override string Name
-        {
-            get { return Constants.ElementIf; }
-        }
+        public override string Name => Constants.ElementIf;
 
         /// <summary>
         /// Whether the action allows nested actions.
         /// </summary>
-        public override bool AllowsNestedActions
-        {
-            get { return true; }
-        }
+        public override bool AllowsNestedActions => true;
 
         /// <summary>
         /// Whether the action allows attributes.
         /// </summary>
-        public override bool AllowsAttributes
-        {
-            get { return true; }
-        }
+        public override bool AllowsAttributes => true;
 
         /// <summary>
         /// Parses the action.

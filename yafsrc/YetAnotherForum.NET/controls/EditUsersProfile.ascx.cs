@@ -37,7 +37,6 @@ namespace YAF.Controls
     using FarsiLibrary.Utils;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -86,15 +85,9 @@ namespace YAF.Controls
         /// </summary>
         protected bool UpdateEmailFlag
         {
-            get
-            {
-                return this.ViewState["bUpdateEmail"] != null && this.ViewState["bUpdateEmail"].ToType<bool>();
-            }
+            get => this.ViewState["bUpdateEmail"] != null && this.ViewState["bUpdateEmail"].ToType<bool>();
 
-            set
-            {
-                this.ViewState["bUpdateEmail"] = value;
-            }
+            set => this.ViewState["bUpdateEmail"] = value;
         }
 
         /// <summary>
@@ -123,13 +116,7 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private CombinedUserDataHelper UserData
-        {
-            get
-            {
-                return this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
-            }
-        }
+        private CombinedUserDataHelper UserData => this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
 
         #endregion
 
@@ -455,7 +442,7 @@ namespace YAF.Controls
             }
 
             // save remaining settings to the DB
-            LegacyDb.user_save(
+            this.GetRepository<User>().Save(
                 this.currentUserId,
                 this.PageContext.PageBoardID,
                 null,
@@ -474,11 +461,11 @@ namespace YAF.Controls
                 null);
 
             // vzrus: If it's a guest edited by an admin registry value should be changed
-            var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserId, true, null, null, false);
+            var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.currentUserId, true, null, null, false);
 
             if (dt.HasRows() && dt.Rows[0]["IsGuest"].ToType<bool>())
             {
-                LegacyDb.registry_save("timezone", this.TimeZones.SelectedValue, this.PageContext.PageBoardID);
+                this.GetRepository<Registry>().Save("timezone", this.TimeZones.SelectedValue, this.PageContext.PageBoardID);
             }
 
             // clear the cache for this user...)
@@ -819,6 +806,7 @@ namespace YAF.Controls
             userProfile.BlogServiceUsername = this.WeblogUsername.Text.Trim();
             userProfile.BlogServicePassword = this.WeblogID.Text.Trim();
 
+            /* TODO
             try
             {
                 // Sync to User Profile Mirror table while it's dirty
@@ -838,7 +826,7 @@ namespace YAF.Controls
                     this.PageContext.PageUserName,
                     "Edit User Profile page",
                     ex);
-            }
+            }*/
 
             userProfile.Save();
         }

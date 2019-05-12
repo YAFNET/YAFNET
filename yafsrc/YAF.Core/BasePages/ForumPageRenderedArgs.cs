@@ -48,9 +48,6 @@ namespace YAF.Core
     /// <summary>
     /// Gets the writer.
     /// </summary>
-    public HtmlTextWriter Writer
-    {
-      get { return this._writer; }
-    }
+    public HtmlTextWriter Writer => this._writer;
   }
 }

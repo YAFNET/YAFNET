@@ -46,10 +46,7 @@ namespace YAF.UrlRewriter
         /// <summary>
         /// The raw URL for the current request, before any rewriting.
         /// </summary>
-        public static string RawUrl
-        {
-            get { return _rewriter.RawUrl; }
-        }
+        public static string RawUrl => _rewriter.RawUrl;
 
         /// <summary>
         /// Event handler for the "BeginRequest" event.

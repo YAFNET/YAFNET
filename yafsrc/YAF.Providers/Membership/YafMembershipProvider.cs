@@ -156,137 +156,65 @@ namespace YAF.Providers.Membership
         /// </summary>
         public override string ApplicationName
         {
-            get
-            {
-                return this._appName;
-            }
+            get => this._appName;
 
-            set
-            {
-                this._appName = value;
-            }
+            set => this._appName = value;
         }
 
         /// <summary>
         ///     Gets or sets provider Description. The standard string used to identify provider as a build-in one.
         /// </summary>
-        public override string Description
-        {
-            get
-            {
-                return "YAF Native Membership Provider";
-            }
-        }
+        public override string Description => "YAF Native Membership Provider";
 
         /// <summary>
         ///     Gets a value indicating whether EnablePasswordReset.
         /// </summary>
-        public override bool EnablePasswordReset
-        {
-            get
-            {
-                return this._enablePasswordReset;
-            }
-        }
+        public override bool EnablePasswordReset => this._enablePasswordReset;
 
         /// <summary>
         ///     Gets a value indicating whether EnablePasswordRetrieval.
         /// </summary>
-        public override bool EnablePasswordRetrieval
-        {
-            get
-            {
-                return this._enablePasswordRetrieval;
-            }
-        }
+        public override bool EnablePasswordRetrieval => this._enablePasswordRetrieval;
 
         /// <summary>
         ///     Gets MaxInvalidPasswordAttempts.
         /// </summary>
-        public override int MaxInvalidPasswordAttempts
-        {
-            get
-            {
-                return this._maxInvalidPasswordAttempts;
-            }
-        }
+        public override int MaxInvalidPasswordAttempts => this._maxInvalidPasswordAttempts;
 
         /// <summary>
         ///     Gets MinRequiredNonAlphanumericCharacters.
         /// </summary>
-        public override int MinRequiredNonAlphanumericCharacters
-        {
-            get
-            {
-                return this._minRequiredNonAlphanumericCharacters;
-            }
-        }
+        public override int MinRequiredNonAlphanumericCharacters => this._minRequiredNonAlphanumericCharacters;
 
         /// <summary>
         ///     Gets MinRequiredPasswordLength.
         /// </summary>
-        public override int MinRequiredPasswordLength
-        {
-            get
-            {
-                return this._minimumRequiredPasswordLength;
-            }
-        }
+        public override int MinRequiredPasswordLength => this._minimumRequiredPasswordLength;
 
         /// <summary>
         ///     Gets PasswordAttemptWindow.
         /// </summary>
-        public override int PasswordAttemptWindow
-        {
-            get
-            {
-                return this._passwordAttemptWindow;
-            }
-        }
+        public override int PasswordAttemptWindow => this._passwordAttemptWindow;
 
         /// <summary>
         ///     Gets PasswordFormat.
         /// </summary>
-        public override MembershipPasswordFormat PasswordFormat
-        {
-            get
-            {
-                return this._passwordFormat;
-            }
-        }
+        public override MembershipPasswordFormat PasswordFormat => this._passwordFormat;
 
         /// <summary>
         ///     Gets PasswordStrengthRegularExpression.
         /// </summary>
-        public override string PasswordStrengthRegularExpression
-        {
-            get
-            {
-                return this._passwordStrengthRegularExpression;
-            }
-        }
+        public override string PasswordStrengthRegularExpression => this._passwordStrengthRegularExpression;
 
         /// <summary>
         ///     Gets a value indicating whether RequiresQuestionAndAnswer.
         /// </summary>
-        public override bool RequiresQuestionAndAnswer
-        {
-            get
-            {
-                return this._requiresQuestionAndAnswer;
-            }
-        }
+        public override bool RequiresQuestionAndAnswer => this._requiresQuestionAndAnswer;
 
         /// <summary>
         ///     Gets a value indicating whether RequiresUniqueEmail.
         /// </summary>
-        public override bool RequiresUniqueEmail
-        {
-            get
-            {
-                return this._requiresUniqueEmail;
-            }
-        }
+        public override bool RequiresUniqueEmail => this._requiresUniqueEmail;
 
         #endregion
 
@@ -295,57 +223,27 @@ namespace YAF.Providers.Membership
         /// <summary>
         ///     Gets HashCase.
         /// </summary>
-        internal string HashCase
-        {
-            get
-            {
-                return this._hashCase;
-            }
-        }
+        internal string HashCase => this._hashCase;
 
         /// <summary>
         ///     Gets a value indicating whether HashHex.
         /// </summary>
-        internal bool HashHex
-        {
-            get
-            {
-                return this._hashHex;
-            }
-        }
+        internal bool HashHex => this._hashHex;
 
         /// <summary>
         ///     Gets HashRemoveChars.
         /// </summary>
-        internal string HashRemoveChars
-        {
-            get
-            {
-                return this._hashRemoveChars;
-            }
-        }
+        internal string HashRemoveChars => this._hashRemoveChars;
 
         /// <summary>
         ///     Gets a value indicating whether MSCompliant.
         /// </summary>
-        internal bool MSCompliant
-        {
-            get
-            {
-                return this._msCompliant;
-            }
-        }
+        internal bool MSCompliant => this._msCompliant;
 
         /// <summary>
         ///     Gets a value indicating whether UseSalt.
         /// </summary>
-        internal bool UseSalt
-        {
-            get
-            {
-                return this._useSalt;
-            }
-        }
+        internal bool UseSalt => this._useSalt;
 
         #endregion
 

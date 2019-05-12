@@ -40,13 +40,7 @@ namespace YAF.Classes
         /// <summary>
         /// Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         /// <summary>
         /// Gets the latest version information.

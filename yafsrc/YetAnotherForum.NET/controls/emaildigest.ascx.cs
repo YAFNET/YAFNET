@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Linq;
     using System.Text;
     using System.Web;
-    using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Core;
@@ -148,14 +147,9 @@ namespace YAF.Controls
         ///   Gets UserData.
         /// </summary>
         [NotNull]
-        public CombinedUserDataHelper UserData
-        {
-            get
-            {
-                return this._combinedUserData
-                       ?? (this._combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
-            }
-        }
+        public CombinedUserDataHelper UserData =>
+            this._combinedUserData
+            ?? (this._combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
 
         /// <summary>
         /// Gets a value indicating whether [show errors].

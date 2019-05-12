@@ -28,7 +28,6 @@ namespace YAF.Core
 
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
 
@@ -43,7 +42,7 @@ namespace YAF.Core
     #endregion
 
     /// <summary>
-    /// 
+    /// The base module.
     /// </summary>
     public abstract class BaseModule : IModule, IHaveComponentRegistry, IHaveSortOrder
     {
@@ -59,25 +58,17 @@ namespace YAF.Core
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes the <see cref="BaseModule"/> class.
+        /// Initializes static members of the <see cref="BaseModule"/> class.
         /// </summary>
         static BaseModule()
         {
-            ExtensionAssemblies =
-                new YafModuleScanner().GetModules("YAF*.dll")
-                    .Concat(
-                        AppDomain.CurrentDomain.GetAssemblies()
-                            .Where(
-                                a =>
-                                a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("CookComputing.XmlRpcV2")
-                                && a.FullName.StartsWith("FarsiLibrary")
-                                && a.FullName.StartsWith("Intelligencia.UrlRewriter")
-                                && a.FullName.StartsWith("ServiceStack.")))
-                    .Except(new[] { Assembly.GetExecutingAssembly() })
-                    .Where(a => !a.IsDynamic)
-                    .Distinct()
-                    .OrderByDescending(x => x.GetAssemblySortOrder())
-                    .ToArray();
+            ExtensionAssemblies = new YafModuleScanner().GetModules("YAF*.dll")
+                .Concat(
+                    AppDomain.CurrentDomain.GetAssemblies().Where(
+                        a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
+                                                              && a.FullName.StartsWith("ServiceStack.")))
+                .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
+                .OrderByDescending(x => x.GetAssemblySortOrder()).ToArray();
 #if DEBUG
             foreach (var s in ExtensionAssemblies)
             {
@@ -101,13 +92,7 @@ namespace YAF.Core
         /// <value>
         /// The sort order.
         /// </value>
-        public virtual int SortOrder
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public virtual int SortOrder => 1000;
 
         #endregion
 

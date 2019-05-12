@@ -134,26 +134,17 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Avatar.
         /// </summary>
-        public string Avatar
-        {
-            get { return this.DBRow.Field<string>("Avatar"); }
-        }
+        public string Avatar => this.DBRow.Field<string>("Avatar");
 
         /// <summary>
         ///   Gets Culture.
         /// </summary>
-        public string CultureUser
-        {
-            get { return this.DBRow.Field<string>("CultureUser"); }
-        }
+        public string CultureUser => this.DBRow.Field<string>("CultureUser");
 
         /// <summary>
         ///   Gets User's Text Editor.
         /// </summary>
-        public string TextEditor
-        {
-            get { return this.DBRow.Field<string>("TextEditor"); }
-        }
+        public string TextEditor => this.DBRow.Field<string>("TextEditor");
 
         /// <summary>
         ///   Gets DBRow.
@@ -195,22 +186,14 @@ namespace YAF.Core
         /// <summary>
         /// Gets a value indicating whether DailyDigest.
         /// </summary>
-        public bool DailyDigest
-        {
-            get
-            {
-                return this.DBRow.Field<bool?>("DailyDigest") ??
-                       YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
-            }
-        }
+        public bool DailyDigest =>
+            this.DBRow.Field<bool?>("DailyDigest") ??
+            YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
 
         /// <summary>
         ///   Gets DisplayName.
         /// </summary>
-        public string DisplayName
-        {
-            get { return this.userId.HasValue ? this.DBRow.Field<string>("DisplayName") : this.UserName; }
-        }
+        public string DisplayName => this.userId.HasValue ? this.DBRow.Field<string>("DisplayName") : this.UserName;
 
         /// <summary>
         ///   Gets Email.
@@ -241,56 +224,32 @@ namespace YAF.Core
         /// <summary>
         ///   Gets a value indicating whether HasAvatarImage.
         /// </summary>
-        public bool HasAvatarImage
-        {
-            get
-            {
-                return this.DBRow != null && (this.DBRow["HasAvatarImage"].ToType<bool?>() ?? false);
-            }
-        }
+        public bool HasAvatarImage => this.DBRow != null && (this.DBRow["HasAvatarImage"].ToType<bool?>() ?? false);
 
         /// <summary>
         ///   Gets a value indicating whether IsActiveExcluded.
         /// </summary>
-        public bool IsActiveExcluded
-        {
-            get
-            {
-                return this.DBRow != null && new UserFlags(this.DBRow["Flags"]).IsActiveExcluded;
-            }
-        }
+        public bool IsActiveExcluded => this.DBRow != null && new UserFlags(this.DBRow["Flags"]).IsActiveExcluded;
 
         /// <summary>
         ///   Gets a value indicating whether IsGuest.
         /// </summary>
-        public bool IsGuest
-        {
-            get { return this.DBRow != null && (this.DBRow["IsGuest"].ToType<bool?>() ?? false); }
-        }
+        public bool IsGuest => this.DBRow != null && (this.DBRow["IsGuest"].ToType<bool?>() ?? false);
 
         /// <summary>
         ///   Gets Joined.
         /// </summary>
-        public DateTime? Joined
-        {
-            get { return this.DBRow.Field<DateTime>("Joined"); }
-        }
+        public DateTime? Joined => this.DBRow.Field<DateTime>("Joined");
 
         /// <summary>
         ///   Gets LanguageFile.
         /// </summary>
-        public string LanguageFile
-        {
-            get { return this.DBRow.Field<string>("LanguageFile"); }
-        }
+        public string LanguageFile => this.DBRow.Field<string>("LanguageFile");
 
         /// <summary>
         ///   Gets LastVisit.
         /// </summary>
-        public DateTime? LastVisit
-        {
-            get { return this.DBRow.Field<DateTime>("LastVisit"); }
-        }
+        public DateTime? LastVisit => this.DBRow.Field<DateTime>("LastVisit");
 
         /// <summary>
         /// Gets the last IP.
@@ -298,18 +257,12 @@ namespace YAF.Core
         /// <value>
         /// The last IP.
         /// </value>
-        public string LastIP
-        {
-            get { return this.DBRow.Field<string>("IP"); }
-        }
+        public string LastIP => this.DBRow.Field<string>("IP");
 
         /// <summary>
         ///   Gets Membership.
         /// </summary>
-        public MembershipUser Membership
-        {
-            get { return this.MembershipUser; }
-        }
+        public MembershipUser Membership => this.MembershipUser;
 
         /// <summary>
         /// Gets NotificationSetting.
@@ -327,25 +280,17 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Number of Posts.
         /// </summary>
-        public int? NumPosts
-        {
-            get { return this.DBRow.Field<int>("NumPosts"); }
-        }
+        public int? NumPosts => this.DBRow.Field<int>("NumPosts");
+
         /// <summary>
         ///   Gets a value indicating whether PMNotification.
         /// </summary>
-        public bool PMNotification
-        {
-            get { return this.DBRow.Field<bool?>("PMNotification") ?? true; }
-        }
+        public bool PMNotification => this.DBRow.Field<bool?>("PMNotification") ?? true;
 
         /// <summary>
         ///   Gets Points.
         /// </summary>
-        public int? Points
-        {
-            get { return this.DBRow.Field<int>("Points"); }
-        }
+        public int? Points => this.DBRow.Field<int>("Points");
 
         /// <summary>
         ///   Gets Profile.
@@ -367,26 +312,17 @@ namespace YAF.Core
         /// <summary>
         ///   Gets RankName.
         /// </summary>
-        public string RankName
-        {
-            get { return this.DBRow.Field<string>("RankName"); }
-        }
+        public string RankName => this.DBRow.Field<string>("RankName");
 
         /// <summary>
         ///   Gets Signature.
         /// </summary>
-        public string Signature
-        {
-            get { return this.DBRow.Field<string>("Signature"); }
-        }
+        public string Signature => this.DBRow.Field<string>("Signature");
 
         /// <summary>
         ///   Gets ThemeFile.
         /// </summary>
-        public string ThemeFile
-        {
-            get { return this.DBRow.Field<string>("ThemeFile"); }
-        }
+        public string ThemeFile => this.DBRow.Field<string>("ThemeFile");
 
         /// <summary>
         ///   Gets TimeZone.
@@ -413,24 +349,12 @@ namespace YAF.Core
         /// <summary>
         ///   Gets TimeZone.
         /// </summary>
-        public int? TimeZone
-        {
-            get
-            {
-               return DateTimeHelper.GetTimeZoneOffset(this.TimeZoneInfo);
-            }
-        }
+        public int? TimeZone => DateTimeHelper.GetTimeZoneOffset(this.TimeZoneInfo);
 
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserID
-        {
-            get
-            {
-                return this.userId != null ? this.userId.ToType<int>() : 0;
-            }
-        }
+        public int UserID => this.userId != null ? this.userId.ToType<int>() : 0;
 
         /// <summary>
         ///   Gets UserName.
@@ -463,10 +387,7 @@ namespace YAF.Core
                 return this.membershipUser;
             }
 
-            set
-            {
-                this.membershipUser = value;
-            }
+            set => this.membershipUser = value;
         }
 
         #endregion

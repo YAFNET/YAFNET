@@ -66,15 +66,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public string MessageId
     {
-      get
-      {
-        return this.messageId;
-      }
+      get => this.messageId;
 
-      set
-      {
-        this.messageId = value;
-      }
+      set => this.messageId = value;
     }
 
     /// <summary>
@@ -82,15 +76,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public int ArticleId
     {
-      get
-      {
-        return this.articleId;
-      }
+      get => this.articleId;
 
-      set
-      {
-        this.articleId = value;
-      }
+      set => this.articleId = value;
     }
 
     /// <summary>
@@ -98,15 +86,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public ArticleHeader Header
     {
-      get
-      {
-        return this.header;
-      }
+      get => this.header;
 
-      set
-      {
-        this.header = value;
-      }
+      set => this.header = value;
     }
 
     /// <summary>
@@ -114,15 +96,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public ArticleBody Body
     {
-      get
-      {
-        return this.body;
-      }
+      get => this.body;
 
-      set
-      {
-        this.body = value;
-      }
+      set => this.body = value;
     }
 
     /// <summary>
@@ -130,15 +106,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public DateTime LastReply
     {
-      get
-      {
-        return this.lastReply;
-      }
+      get => this.lastReply;
 
-      set
-      {
-        this.lastReply = value;
-      }
+      set => this.lastReply = value;
     }
 
     /// <summary>
@@ -146,15 +116,9 @@ namespace YAF.Core.Nntp
     /// </summary>
     public ArrayList Children
     {
-      get
-      {
-        return this.children;
-      }
+      get => this.children;
 
-      set
-      {
-        this.children = value;
-      }
+      set => this.children = value;
     }
 
     public MIMEPart MimePart { get; set; }

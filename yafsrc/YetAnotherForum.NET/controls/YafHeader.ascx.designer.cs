@@ -76,15 +76,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.PlaceHolder HostMenuHolder;
         
         /// <summary>
-        /// debugLink-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor debugLink;
-        
-        /// <summary>
         /// ModerateHolder-Steuerelement
         /// </summary>
         /// <remarks>

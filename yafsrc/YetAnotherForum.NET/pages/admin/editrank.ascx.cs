@@ -30,17 +30,18 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.IO;
     using System.Linq;
-    using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -87,38 +88,41 @@ namespace YAF.Pages.Admin
 
                 if (this.Request.QueryString.GetFirstOrDefault("r") != null)
                 {
-                    using (
-                        var dt = LegacyDb.rank_list(
-                            this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("r")))
+                    var rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
+
+
+                    var rank = this.GetRepository<Rank>()
+                        .GetSingle(r => r.ID == rankId);
+
+                    var flags = new RankFlags(rank.Flags);
+                    this.Name.Text = rank.Name;
+                    this.IsStart.Checked = flags.IsStart;
+                    this.IsLadder.Checked = flags.IsLadder;
+                    this.MinPosts.Text = rank.MinPosts.ToString();
+                    this.PMLimit.Text = rank.PMLimit.ToString();
+                    this.Style.Text = rank.Style;
+                    this.RankPriority.Text = rank.SortOrder.ToString();
+                    this.UsrAlbums.Text = rank.UsrAlbums.ToString();
+                    this.UsrAlbumImages.Text = rank.UsrAlbumImages.ToString();
+                    this.UsrSigChars.Text = rank.UsrSigChars.ToString();
+                    this.UsrSigBBCodes.Text = rank.UsrSigBBCodes;
+                    this.UsrSigHTMLTags.Text = rank.UsrSigHTMLTags;
+                    this.Description.Text = rank.Description;
+
+                    var item = this.RankImage.Items.FindByText(rank.RankImage);
+
+                    if (item != null)
                     {
-                        var row = dt.Rows[0];
-                        var flags = new RankFlags(row["Flags"]);
-                        this.Name.Text = (string)row["Name"];
-                        this.IsStart.Checked = flags.IsStart;
-                        this.IsLadder.Checked = flags.IsLadder;
-                        this.MinPosts.Text = row["MinPosts"].ToString();
-                        this.PMLimit.Text = row["PMLimit"].ToString();
-                        this.Style.Text = row["Style"].ToString();
-                        this.RankPriority.Text = row["SortOrder"].ToString();
-                        this.UsrAlbums.Text = row["UsrAlbums"].ToString();
-                        this.UsrAlbumImages.Text = row["UsrAlbumImages"].ToString();
-                        this.UsrSigChars.Text = row["UsrSigChars"].ToString();
-                        this.UsrSigBBCodes.Text = row["UsrSigBBCodes"].ToString();
-                        this.UsrSigHTMLTags.Text = row["UsrSigHTMLTags"].ToString();
-                        this.Description.Text = row["Description"].ToString();
-
-                        var item = this.RankImage.Items.FindByText(row["RankImage"].ToString());
-
-                        if (item != null)
-                        {
-                            item.Selected = true;
-                            this.Preview.Src = "{0}{1}/{2}".FormatWith(
-                                YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, row["RankImage"]);
-                        }
-                        else
-                        {
-                            this.Preview.Src = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-                        }
+                        item.Selected = true;
+                        this.Preview.Src = "{0}{1}/{2}".FormatWith(
+                            YafForumInfo.ForumClientFileRoot,
+                            YafBoardFolders.Current.Ranks,
+                            rank.RankImage);
+                    }
+                    else
+                    {
+                        this.Preview.Src =
+                            YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                     }
                 }
                 else
@@ -206,7 +210,7 @@ namespace YAF.Pages.Admin
                 rankImage = this.RankImage.SelectedValue;
             }
 
-            LegacyDb.rank_save(
+            this.GetRepository<Rank>().Save(
                 rankID,
                 this.PageContext.PageBoardID,
                 this.Name.Text,

@@ -31,14 +31,15 @@ namespace YAF.Pages
     using System.Data;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -161,7 +162,7 @@ namespace YAF.Pages
                 userId = this.PageContext.PageUserID;
             }
 
-            var dt = LegacyDb.post_list(
+            var dt = this.GetRepository<Message>().PostListAsDataTable(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,

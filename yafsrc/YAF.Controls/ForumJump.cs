@@ -32,12 +32,13 @@ namespace YAF.Controls
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -56,15 +57,9 @@ namespace YAF.Controls
         /// </summary>
         private int ForumId
         {
-            get
-            {
-                return this.ViewState["ForumID"].ToType<int>();
-            }
+            get => this.ViewState["ForumID"].ToType<int>();
 
-            set
-            {
-                this.ViewState["ForumID"] = value;
-            }
+            set => this.ViewState["ForumID"] = value;
         }
 
         #endregion
@@ -141,7 +136,7 @@ namespace YAF.Controls
                 this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.ForumJump.FormatWith(
                         this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
-                    () => LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID),
+                    () => this.GetRepository<Forum>().ListAllSortedAsDataTable(this.PageContext.PageBoardID, this.PageContext.PageUserID),
                     TimeSpan.FromMinutes(5));
 
             writer.WriteLine(

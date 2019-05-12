@@ -99,13 +99,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the mail repository.
         /// </summary>
-        public IRepository<Mail> MailRepository
-        {
-            get
-            {
-                return this.GetRepository<Mail>();
-            }
-        }
+        public IRepository<Mail> MailRepository => this.GetRepository<Mail>();
 
         /// <summary>
         ///     Gets or sets SendMail.
@@ -122,13 +116,7 @@ namespace YAF.Core.Services
         /// <value>
         /// The unique process identifier.
         /// </value>
-        protected int UniqueProcessId
-        {
-            get
-            {
-                return this._uniqueId.Value ^ Thread.CurrentThread.ManagedThreadId;
-            }
-        }
+        protected int UniqueProcessId => this._uniqueId.Value ^ Thread.CurrentThread.ManagedThreadId;
 
         #endregion
 

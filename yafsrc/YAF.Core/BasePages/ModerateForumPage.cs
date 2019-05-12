@@ -68,13 +68,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets PageName.
         /// </summary>
-        public override string PageName
-        {
-            get
-            {
-                return "moderate_{0}".FormatWith(base.PageName);
-            }
-        }
+        public override string PageName => "moderate_{0}".FormatWith(base.PageName);
 
         #endregion
 

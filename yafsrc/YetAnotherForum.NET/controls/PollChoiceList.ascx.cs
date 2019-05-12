@@ -33,11 +33,12 @@ namespace YAF.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -196,8 +197,8 @@ namespace YAF.Controls
                 return;
             }
 
-            object userID = null;
-            object remoteIP = null;
+            int? userID = null;
+            string remoteIP = string.Empty;
 
             if (this.PageContext.BoardSettings.PollVoteTiedToIP)
             {
@@ -209,7 +210,11 @@ namespace YAF.Controls
                 userID = this.PageContext.PageUserID;
             }
 
-            LegacyDb.choice_vote(e.CommandArgument, userID, remoteIP);
+            var choiceId = e.CommandArgument.ToType<int>();
+
+            this.GetRepository<Choice>().Vote(choiceId);
+
+            this.GetRepository<PollVote>().Vote(choiceId, userID, this.PollId, remoteIP);
 
             // save the voting cookie...
             var cookieCurrent = string.Empty;

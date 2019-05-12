@@ -1,20 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YAF.Controls</RootNamespace>
-    <AssemblyName>YAF.Controls</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFramework>net472</TargetFramework>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -30,181 +19,46 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\YetAnotherForum.NET\Bin</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\YetAnotherForum.NET\Bin</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>none</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>C:\Users\Watcher\source\repos\YAFNET\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
-    <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>
-    </DocumentationFile>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
-    <OutputPath>bin\Package\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Controls.XML</DocumentationFile>
     <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.*" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core">
-    </Reference>
-    <Reference Include="System.Web.Extensions">
-    </Reference>
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="ActiveLocation.cs" />
-    <Compile Include="ActiveUsers.cs" />
-    <Compile Include="CollapseButton.cs" />
-    <Compile Include="TopicContainer.cs" />
-    <Compile Include="AttachmentsPopMenu.cs" />
-    <Compile Include="AlbumListPopMenu.cs" />
-    <Compile Include="GoToPageForm.cs" />
-    <Compile Include="ModernButton.cs" />
-    <Compile Include="Alert.cs" />
-    <Compile Include="ModernTextBox.cs" />
-    <Compile Include="ImageListBox.cs" />
-    <Compile Include="ReCAPTCHA\ReCaptchaJson.cs" />
-    <Compile Include="UserStyles.cs" />
-    <Compile Include="Localized\ILocalizationSupport.cs" />
-    <Compile Include="Localized\LocalizationSupportExtensions.cs" />
-    <Compile Include="Localized\LocalizedCustomValidator.cs" />
-    <Compile Include="Localized\LocalizedRequiredFieldValidator.cs" />
-    <Compile Include="HelpLabel.cs" />
-    <Compile Include="PopEventArgs.cs" />
-    <Compile Include="ReCAPTCHA\Recaptcha.cs" />
-    <Compile Include="ReCAPTCHA\RecaptchaResponse.cs" />
-    <Compile Include="ReCAPTCHA\RecaptchaValidator.cs" />
-    <Compile Include="BaseReportedPosts.cs">
+    <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+    <Compile Update="BaseReportedPosts.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OnlineStatusIcon.cs" />
-    <Compile Include="RssFeedLink.cs" />
-    <Compile Include="SignaturePreview.cs" />
-    <Compile Include="SmartScroller.cs" />
-    <Compile Include="UserLabel.cs" />
-    <Compile Include="AlphaSort.cs" />
-    <Compile Include="Footer.cs" />
-    <Compile Include="ForumJump.cs" />
-    <Compile Include="ForumUsers.cs" />
-    <Compile Include="HelpMenu.cs" />
-    <Compile Include="IconLegend.cs" />
-    <Compile Include="Localized\LocalizedLabel.cs" />
-    <Compile Include="MessageAttached.cs" />
-    <Compile Include="MessageBase.cs" />
-    <Compile Include="MessagePost.cs" />
-    <Compile Include="MessagePostData.cs" />
-    <Compile Include="MessageSignature.cs" />
-    <Compile Include="BBCodeModule.cs" />
-    <Compile Include="PageAccess.cs" />
-    <Compile Include="PageLinks.cs" />
-    <Compile Include="Pager.cs" />
-    <Compile Include="PopMenu.cs" />
-    <Compile Include="ProfileMenu.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Statistics\MostActiveUser.cs" />
-    <Compile Include="ThemeButton.cs" />
-    <Compile Include="DisplayDateTime.cs" />
-    <Compile Include="UserBox.cs" />
-    <Compile Include="UserLink.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
-      <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
-      <Name>YAF.Classes.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
-      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
-      <Name>YAF.Classes.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
-      <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
-      <Name>YAF.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
-      <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
-      <Name>YAF.Types</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
-      <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
-      <Name>YAF.Utils</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj" />
+    <ProjectReference Include="..\YAF.Core\YAF.Core.csproj" />
+    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

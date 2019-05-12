@@ -135,46 +135,22 @@ namespace YAF.Utils
     /// <summary>
     ///   Gets Height.
     /// </summary>
-    public int Height
-    {
-      get
-      {
-        return this.height;
-      }
-    }
+    public int Height => this.height;
 
     /// <summary>
     ///   Gets Image.
     /// </summary>
-    public Bitmap Image
-    {
-      get
-      {
-        return this.image;
-      }
-    }
+    public Bitmap Image => this.image;
 
     /// <summary>
     ///   Gets Text.
     /// </summary>
-    public string Text
-    {
-      get
-      {
-        return this.text;
-      }
-    }
+    public string Text => this.text;
 
     /// <summary>
     ///   Gets Width.
     /// </summary>
-    public int Width
-    {
-      get
-      {
-        return this.width;
-      }
-    }
+    public int Width => this.width;
 
     #endregion
 

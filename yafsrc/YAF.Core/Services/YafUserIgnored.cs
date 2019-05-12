@@ -28,15 +28,12 @@ namespace YAF.Core.Services
   using System.Collections.Generic;
   using System.Web;
 
-  using YAF.Classes.Data;
   using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Types.Interfaces.Data;
   using YAF.Types.Models;
-  using YAF.Utils;
 
   #endregion
 
@@ -99,7 +96,7 @@ namespace YAF.Core.Services
     /// </param>
     public void AddIgnored(int ignoredUserId)
     {
-      LegacyDb.user_addignoreduser(YafContext.Current.PageUserID, ignoredUserId);
+        YafContext.Current.GetRepository<User>().AddIgnoredUser(YafContext.Current.PageUserID, ignoredUserId);
       this.ClearIgnoreCache();
     }
 

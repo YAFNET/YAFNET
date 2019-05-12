@@ -27,7 +27,6 @@ namespace YAF.Core
 
   using System;
 
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Flags;
   using YAF.Types.Interfaces;

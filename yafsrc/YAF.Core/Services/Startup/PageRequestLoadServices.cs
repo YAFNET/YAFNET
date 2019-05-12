@@ -64,13 +64,7 @@ namespace YAF.Core.Services.Startup
     /// <summary>
     ///   Gets Order.
     /// </summary>
-    public int Order
-    {
-      get
-      {
-        return 10;
-      }
-    }
+    public int Order => 10;
 
     /// <summary>
     ///   Gets or sets ServiceLocator.

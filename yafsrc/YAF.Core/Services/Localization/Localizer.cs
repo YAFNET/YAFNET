@@ -96,13 +96,7 @@ namespace YAF.Core.Services.Localization
         /// <summary>
         ///   Gets LanguageCode.
         /// </summary>
-        public CultureInfo CurrentCulture
-        {
-            get
-            {
-                return this._currentCulture;
-            }
-        }
+        public CultureInfo CurrentCulture => this._currentCulture;
 
         #endregion
 

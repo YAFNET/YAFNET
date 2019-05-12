@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data;
     using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;

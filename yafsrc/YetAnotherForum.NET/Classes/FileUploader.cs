@@ -31,7 +31,6 @@ namespace YAF.Classes
     using System.Web.Script.Serialization;
     using System.Web.SessionState;
 
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
@@ -286,7 +285,7 @@ namespace YAF.Classes
                 userKey = user.ProviderUserKey;
             }
 
-            var pageRow = LegacyDb.pageload(
+            var pageRow = this.GetRepository<ActiveAccess>().PageLoad(
                 HttpContext.Current.Session.SessionID,
                 boardId,
                 userKey,

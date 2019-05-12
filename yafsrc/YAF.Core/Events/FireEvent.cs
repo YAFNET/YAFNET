@@ -54,13 +54,7 @@ namespace YAF.Core
     /// <summary>
     ///   Gets Order.
     /// </summary>
-    public int Order
-    {
-      get
-      {
-        return 10000;
-      }
-    }
+    public int Order => 10000;
 
     #endregion
 

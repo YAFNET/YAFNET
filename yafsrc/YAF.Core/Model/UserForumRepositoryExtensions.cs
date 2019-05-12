@@ -24,6 +24,9 @@
 
 namespace YAF.Core.Model
 {
+    using System;
+    using System.Data;
+
     using ServiceStack.OrmLite;
 
     using YAF.Types;
@@ -59,6 +62,49 @@ namespace YAF.Core.Model
             }
 
             return success;
+        }
+
+        /// <summary>
+        /// The userforum_list.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable ListAsDataTable(
+            this IRepository<UserForum> repository,
+            [NotNull] object userID,
+            [NotNull] object forumID)
+        {
+            return repository.DbFunction.GetData.userforum_list(UserID: userID, ForumID: forumID);
+        }
+
+        /// <summary>
+        /// The userforum_save.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
+        /// <param name="accessMaskID">
+        /// The access mask id.
+        /// </param>
+        public static void Save(this IRepository<UserForum> repository,
+            [NotNull] object userID,
+            [NotNull] object forumID,
+            [NotNull] object accessMaskID)
+        {
+            repository.DbFunction.Scalar.userforum_save(
+                UserID: userID,
+                ForumID: forumID,
+                AccessMaskID: accessMaskID,
+                UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         #endregion

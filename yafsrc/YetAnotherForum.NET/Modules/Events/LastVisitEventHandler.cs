@@ -76,13 +76,7 @@ namespace YAF.Modules
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public int Order => 1000;
 
         /// <summary>
         /// Gets or sets YafSession.

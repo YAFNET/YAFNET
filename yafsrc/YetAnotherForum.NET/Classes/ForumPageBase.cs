@@ -49,13 +49,7 @@ namespace YAF
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         /// <summary>
         /// Gets the page context.
@@ -63,13 +57,7 @@ namespace YAF
         /// <value>
         /// The page context.
         /// </value>
-        public YafContext PageContext
-        {
-            get
-            {
-                return YafContext.Current;
-            }
-        }
+        public YafContext PageContext => YafContext.Current;
 
         #endregion
 

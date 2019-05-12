@@ -212,15 +212,9 @@ namespace YAF.Types.Models
         [Ignore]
         public MessageFlags MessageFlags
         {
-            get
-            {
-                return new MessageFlags(this.Flags);
-            }
+            get => new MessageFlags(this.Flags);
 
-            set
-            {
-                this.Flags = value.BitValue;
-            }
+            set => this.Flags = value.BitValue;
         }
         public string EditReason { get; set; }
 

@@ -26,10 +26,11 @@ namespace YAF.Core.Tasks
 {
     using System;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     /// <summary>
     /// Run when we want to do migration of users in the background...
@@ -263,7 +264,7 @@ namespace YAF.Core.Tasks
                     this.CategoryId,
                     this.ParentId);
 
-                ForumOut = LegacyDb.forum_save(
+                ForumOut = this.GetRepository<Forum>().Save(
                     this.ForumId,
                     this.CategoryId,
                     this.ParentId,
@@ -282,6 +283,7 @@ namespace YAF.Core.Tasks
                     this.ImageURL,
                     this.Styles,
                     this.Dummy);
+
                 this.Logger.Info("Forum Update||Add Task is completed. Handled forum {0}.", ForumOut);
             }
             catch (Exception x)

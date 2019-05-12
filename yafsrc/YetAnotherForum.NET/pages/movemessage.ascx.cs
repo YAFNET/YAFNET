@@ -28,13 +28,14 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -79,11 +80,16 @@ namespace YAF.Pages
         {
             if (this.TopicSubject.Text.IsSet())
             {
-                var topicId = LegacyDb.topic_create_by_message(
-                    this.Request.QueryString.GetFirstOrDefault("m"),
-                    this.ForumList.SelectedValue,
+                var topicId = this.GetRepository<Topic>().CreateByMessage(
+                    this.Request.QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.ForumList.SelectedValue.ToType<int>(),
                     this.TopicSubject.Text);
-                LegacyDb.message_move(this.Request.QueryString.GetFirstOrDefault("m"), topicId, true);
+
+                this.GetRepository<Message>().Move(
+                    this.Request.QueryString.GetFirstOrDefaultAs<int>("m"),
+                    topicId.ToType<int>(),
+                    true);
+
                 YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
             else
@@ -99,8 +105,8 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.TopicsList.DataSource = LegacyDb.topic_list(
-                this.ForumList.SelectedValue,
+            this.TopicsList.DataSource = this.GetRepository<Topic>().ListAsDataTable(
+                this.ForumList.SelectedValue.ToType<int>(),
                 null,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
@@ -128,9 +134,9 @@ namespace YAF.Pages
         {
             if (this.TopicsList.SelectedValue.ToType<int>() != this.PageContext.PageTopicID)
             {
-                LegacyDb.message_move(
-                    this.Request.QueryString.GetFirstOrDefault("m"),
-                    this.TopicsList.SelectedValue,
+                this.GetRepository<Message>().Move(
+                    this.Request.QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.TopicsList.SelectedValue.ToType<int>(),
                     true);
             }
 
@@ -166,7 +172,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 
-            this.ForumList.DataSource = LegacyDb.forum_listall_sorted(
+            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
             this.ForumList.DataTextField = "Title";

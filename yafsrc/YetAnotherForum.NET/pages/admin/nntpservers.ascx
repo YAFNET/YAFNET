@@ -29,7 +29,7 @@
                         <small>
                             <YAF:ThemeButton runat="server" 
                                              CommandName="edit" 
-                                             CommandArgument='<%# this.Eval( "NntpServerID") %>' 
+                                             CommandArgument='<%# this.Eval( "ID") %>' 
                                              Type="Info" 
                                              Size="Small"
                                              Icon="edit" 
@@ -39,7 +39,7 @@
                                              Type="Danger" 
                                              Size="Small"
                                              CommandName="delete" 
-                                             CommandArgument='<%# this.Eval( "NntpServerID") %>'
+                                             CommandArgument='<%# this.Eval( "ID") %>'
                                              Icon="trash" 
                                              TextLocalizedTag="DELETE"
                                              ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>

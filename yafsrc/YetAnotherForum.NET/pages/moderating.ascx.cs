@@ -32,7 +32,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -85,7 +84,7 @@ namespace YAF.Pages
             var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
 
-            var topicList = LegacyDb.topic_list(
+            var topicList = this.GetRepository<Topic>().ListAsDataTable(
                 this.PageContext.PageForumID,
                 null,
                 DateTimeHelper.SqlDbMinTime(),
@@ -97,14 +96,14 @@ namespace YAF.Pages
                 false);
 
             this.topiclist.DataSource = topicList;
-            this.UserList.DataSource = LegacyDb.userforum_list(null, this.PageContext.PageForumID);
+            this.UserList.DataSource = this.GetRepository<UserForum>().ListAsDataTable(null, this.PageContext.PageForumID);
            
             if (topicList != null && topicList.HasRows())
             {
                 this.PagerTop.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
             }
 
-            this.ForumList.DataSource = LegacyDb.forum_listall_sorted(
+            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
@@ -139,7 +138,7 @@ namespace YAF.Pages
             }
             else
             {
-                list.ForEach(x => LegacyDb.topic_delete(x.TopicRowID));
+                list.ForEach(x => this.GetRepository<Topic>().Delete(x.TopicRowID.Value));
 
                 this.PageContext.AddLoadMessage(this.GetText("moderate", "deleted"), MessageTypes.success);
 
@@ -188,11 +187,11 @@ namespace YAF.Pages
                 else
                 {
                     list.ForEach(
-                        x => LegacyDb.topic_move(
-                            x.TopicRowID,
-                            this.ForumList.SelectedValue,
+                        x => this.GetRepository<Topic>().MoveTopic(
+                            x.TopicRowID.Value,
+                            this.ForumList.SelectedValue.ToType<int>(),
                             this.LeavePointer.Checked,
-                            linkDays));
+                            linkDays.Value));
 
                     this.PageContext.AddLoadMessage(this.GetText("MODERATE", "MOVED"), MessageTypes.success);
 
@@ -321,7 +320,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    LegacyDb.topic_delete(e.CommandArgument);
+                    this.GetRepository<Topic>().Delete(e.CommandArgument.ToType<int>());
                     this.PageContext.AddLoadMessage(this.GetText("deleted"), MessageTypes.success);
                     this.BindData();
                     break;

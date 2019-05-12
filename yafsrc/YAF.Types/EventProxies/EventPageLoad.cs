@@ -58,25 +58,13 @@ namespace YAF.Types.EventProxies
 		/// <summary>
 		/// Gets Data.
 		/// </summary>
-		public dynamic Data
-		{
-			get
-			{
-				return this._theExpandoData;
-			}
-		}
+		public dynamic Data => this._theExpandoData;
 
-		/// <summary>
+        /// <summary>
 		///   Gets or sets PageLoadData.
 		/// </summary>
-		public IDictionary<string, object> DataDictionary
-		{
-			get
-			{
-				return (IDictionary<string, object>)this._theExpandoData;
-			}
-		}
+		public IDictionary<string, object> DataDictionary => (IDictionary<string, object>)this._theExpandoData;
 
-		#endregion
+        #endregion
 	}
 }

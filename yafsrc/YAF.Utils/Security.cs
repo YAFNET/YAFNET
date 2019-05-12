@@ -27,6 +27,8 @@ namespace YAF.Utils
     using System;
     using System.Web;
 
+    using YAF.Types.Constants;
+
     /// <summary>
     /// The security.
     /// </summary>

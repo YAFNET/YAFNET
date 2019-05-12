@@ -106,35 +106,17 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// Gets ErrorCode.
     /// </summary>
-    public int ErrorCode
-    {
-      get
-      {
-        return this._errorCode;
-      }
-    }
+    public int ErrorCode => this._errorCode;
 
     /// <summary>
     /// Gets Request.
     /// </summary>
-    public string Request
-    {
-      get
-      {
-        return this._request;
-      }
-    }
+    public string Request => this._request;
 
     /// <summary>
     /// Gets Message.
     /// </summary>
-    public override string Message
-    {
-      get
-      {
-        return this._message;
-      }
-    }
+    public override string Message => this._message;
 
     /// <summary>
     /// The build nntp exception.

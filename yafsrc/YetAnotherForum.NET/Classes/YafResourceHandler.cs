@@ -39,7 +39,6 @@ namespace YAF
     using System.Web;
     using System.Web.SessionState;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -48,7 +47,6 @@ namespace YAF
     using YAF.Core.Services.Auth;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
-    using YAF.Modules.BBCode;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -744,7 +742,7 @@ namespace YAF
                 userKey = user.ProviderUserKey;
             }
 
-            var pageRow = LegacyDb.pageload(
+            var pageRow = this.GetRepository<ActiveAccess>().PageLoad(
                 HttpContext.Current.Session.SessionID,
                 boardID,
                 userKey,
@@ -797,27 +795,26 @@ namespace YAF
                 }
                 else
                 {
-                    using (
-                        var dt = LegacyDb.album_image_list(
-                            null, context.Request.QueryString.GetFirstOrDefault("cover")))
-                    {
-                        if (dt.HasRows())
+                    var dt = this.GetRepository<UserAlbumImage>()
+                        .ListImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("cover"));
+
+                    
+                        if (dt.Any())
                         {
-                            var row = dt.Rows[0];
+                            var row = dt.FirstOrDefault();
                             var sUpDir = YafBoardFolders.Current.Uploads;
 
                             var oldFileName =
                                 context.Server.MapPath(
-                                    "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                                    "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row.Item2.UserID, row.Item1.AlbumID, row.Item1.FileName));
                             var newFileName =
                                 context.Server.MapPath(
                                     "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                                        sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                                        sUpDir, row.Item2.UserID, row.Item1.AlbumID, row.Item1.FileName));
 
                             // use the new fileName (with extension) if it exists...
                             fileName = File.Exists(newFileName) ? newFileName : oldFileName;
                         }
-                    }
                 }
 
                 using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -831,13 +828,13 @@ namespace YAF
                 // reset position...
                 data.Position = 0;
                 var imagesNumber =
-                    LegacyDb.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1];
+                    this.GetRepository<UserAlbumImage>().CountAlbumImages(context.Request.QueryString.GetFirstOrDefaultAs<int>("album"));
                 var ms = GetAlbumOrAttachmentImageResized(
                     data,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
                     previewCropped,
-                    imagesNumber,
+                    imagesNumber.ToType<int>(),
                     localizationFile,
                     "ALBUM");
 
@@ -880,15 +877,11 @@ namespace YAF
                     return;
                 }
 
-                /*var image = this.GetRepository<UserAlbumImage>()
-                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));*/
-                
                 // ImageID
-                using (
-                    var dt = LegacyDb.album_image_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("image")))
-                {
-                    foreach (DataRow row in dt.Rows)
+                var dt = this.GetRepository<UserAlbumImage>()
+                    .ListImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));
+
+                    foreach (var row in dt)
                     {
                         byte[] data;
 
@@ -896,11 +889,11 @@ namespace YAF
 
                         var oldFileName =
                             context.Server.MapPath(
-                                "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                                "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row.Item2.UserID, row.Item1.AlbumID, row.Item1.FileName));
                         var newFileName =
                             context.Server.MapPath(
                                 "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                                    sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                                    sUpDir, row.Item2.UserID, row.Item1.AlbumID, row.Item1.FileName));
 
                         // use the new fileName (with extension) if it exists...
                         var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
@@ -912,7 +905,7 @@ namespace YAF
                             input.Close();
                         }
 
-                        context.Response.ContentType = row["ContentType"].ToString();
+                        context.Response.ContentType = row.Item1.ContentType.ToString();
 
                         if (context.Response.ContentType.Contains("text"))
                         {
@@ -931,7 +924,7 @@ namespace YAF
                         }
                         
                         break;
-                    }
+                    
                 }
             }
             catch (Exception x)
@@ -974,11 +967,10 @@ namespace YAF
             try
             {
                 // ImageID
-                using (
-                    var dt = LegacyDb.album_image_list(
-                        null, context.Request.QueryString.GetFirstOrDefault("imgprv")))
-                {
-                    foreach (DataRow row in dt.Rows)
+                var dt = this.GetRepository<UserAlbumImage>()
+                    .ListImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("imgprv"));
+
+                    foreach (var row in dt)
                     {
                         var data = new MemoryStream();
 
@@ -986,11 +978,11 @@ namespace YAF
 
                         var oldFileName =
                             context.Server.MapPath(
-                                "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                                "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row.Item2.UserID, row.Item1.AlbumID, row.Item1.FileName));
                         var newFileName =
                             context.Server.MapPath(
                                 "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                                    sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
+                                    sUpDir, row.Item2.UserID, row.Item1.AlbumID, row.Item1.FileName));
 
                         // use the new fileName (with extension) if it exists...
                         var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
@@ -1011,7 +1003,7 @@ namespace YAF
                             this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
                             this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
                             previewCropped,
-                            row["Downloads"].ToType<int>(),
+                            row.Item1.Downloads.ToType<int>(),
                             localizationFile,
                             "POSTS");
 
@@ -1028,7 +1020,7 @@ namespace YAF
                         ms.Dispose();
 
                         break;
-                    }
+                    
                 }
             }
             catch (Exception x)
@@ -1346,18 +1338,8 @@ namespace YAF
             }
 
             // defaults
-            var previewMaxWidth = 200;
-            var previewMaxHeight = 200;
-
-            if (context.Session["imagePreviewWidth"] is int)
-            {
-                previewMaxWidth = context.Session["imagePreviewWidth"].ToType<int>();
-            }
-
-            if (context.Session["imagePreviewHeight"] is int)
-            {
-                previewMaxHeight = context.Session["imagePreviewHeight"].ToType<int>();
-            }
+            const int PreviewMaxWidth = 200;
+            const int PreviewMaxHeight = 200;
 
             try
             {
@@ -1452,8 +1434,8 @@ namespace YAF
 
                 var ms = GetAlbumOrAttachmentImageResized(
                     data,
-                    previewMaxWidth,
-                    previewMaxHeight,
+                    PreviewMaxWidth,
+                    PreviewMaxHeight,
                     previewCropped,
                     attachment.Downloads,
                     localizationFile,

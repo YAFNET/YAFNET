@@ -27,11 +27,9 @@ namespace YAF.Core.Tasks
 
   using System;
 
-  using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
   #endregion
 
@@ -55,13 +53,7 @@ namespace YAF.Core.Tasks
     ///   Gets TaskName.
     /// </summary>
     [NotNull]
-    public static string TaskName
-    {
-      get
-      {
-        return _taskName;
-      }
-    }
+    public static string TaskName => _taskName;
 
     #endregion
 

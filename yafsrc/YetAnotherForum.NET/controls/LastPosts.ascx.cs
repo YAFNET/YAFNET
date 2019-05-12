@@ -30,12 +30,13 @@ namespace YAF.Controls
     using System.Data;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils.Helpers;
 
@@ -63,10 +64,7 @@ namespace YAF.Controls
                 return null;
             }
 
-            set
-            {
-                this.ViewState["TopicID"] = value;
-            }
+            set => this.ViewState["TopicID"] = value;
         }
 
         #endregion
@@ -146,7 +144,7 @@ namespace YAF.Controls
                     userId = this.PageContext.PageUserID;
                 }
 
-                var dt = LegacyDb.post_list(
+                var dt = this.GetRepository<Message>().PostListAsDataTable(
                     this.TopicID,
                     this.PageContext.PageUserID,
                     userId,

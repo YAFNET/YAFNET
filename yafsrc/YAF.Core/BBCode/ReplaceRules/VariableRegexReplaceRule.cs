@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.BBCode.ReplaceRules
 {
-    using System;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;

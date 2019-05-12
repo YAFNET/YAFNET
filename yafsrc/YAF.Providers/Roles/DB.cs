@@ -30,8 +30,8 @@ namespace YAF.Providers.Roles
     using System.Data;
     using System.Data.SqlClient;
 
-    using YAF.Classes.Data;
     using YAF.Classes.Pattern;
+    using YAF.Core.Data;
     using YAF.Providers.Utils;
     using YAF.Types.Interfaces.Data;
 
@@ -59,10 +59,7 @@ namespace YAF.Providers.Roles
         /// <summary>
         ///   Gets Current.
         /// </summary>
-        public static DB Current
-        {
-            get { return PageSingleton<DB>.Instance; }
-        }
+        public static DB Current => PageSingleton<DB>.Instance;
 
         #endregion
 
@@ -82,7 +79,7 @@ namespace YAF.Providers.Roles
         /// </param>
         public void AddUserToRole(object appName, object userName, object roleName)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_addusertorole")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_addusertorole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -103,7 +100,7 @@ namespace YAF.Providers.Roles
         /// </param>
         public void CreateRole(object appName, object roleName)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_createrole")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_createrole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -129,7 +126,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         public int DeleteRole(object appName, object roleName, object deleteOnlyIfRoleIsEmpty)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_deleterole")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_deleterole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -160,7 +157,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         public DataTable FindUsersInRole(object appName, object roleName)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_findusersinrole")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_findusersinrole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -183,7 +180,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         public object GetRoleExists(object appName, object roleName)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_exists")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_exists")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -206,7 +203,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         public DataTable GetRoles(object appName, object username)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_getroles")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_getroles")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -232,7 +229,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         public DataTable IsUserInRole(object appName, object userName, object roleName)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_isuserinrole")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_isuserinrole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
@@ -256,7 +253,7 @@ namespace YAF.Providers.Roles
         /// </param>
         public void RemoveUserFromRole(object appName, string userName, string roleName)
         {
-            using (var cmd = new SqlCommand(DbHelpers.GetObjectName("prov_role_removeuserfromrole")))
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("prov_role_removeuserfromrole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);

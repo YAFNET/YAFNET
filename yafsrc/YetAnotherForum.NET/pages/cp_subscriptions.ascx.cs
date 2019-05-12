@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web.UI.WebControls;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -151,7 +150,7 @@ namespace YAF.Pages
             }
 
             // save the settings...
-            LegacyDb.user_savenotification(
+            this.GetRepository<User>().SaveNotification(
                 this.PageContext.PageUserID,
                 this.PMNotificationEnabled.Checked,
                 autoWatchTopicsEnabled,

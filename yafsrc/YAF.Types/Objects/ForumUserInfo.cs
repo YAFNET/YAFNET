@@ -25,7 +25,6 @@
 namespace YAF.Types.Objects
 {
     using System;
-    using System.Xml.Serialization;
 
     /// <summary>
     /// The Forum User Info
