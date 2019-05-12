@@ -106,7 +106,8 @@ namespace YAF.Core.Model
 
             var entity = new Attachment
                              {
-                                 MessageID = messageId,
+                                 MessageID = 0,
+                                 Downloads = 0,
                                  UserID = userId,
                                  FileName = fileName,
                                  Bytes = bytes,

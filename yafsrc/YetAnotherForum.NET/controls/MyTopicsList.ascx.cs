@@ -141,7 +141,7 @@ namespace YAF.Controls
             }
 
             // filter by category
-            int? categoryIdObject = null;
+            object categoryIdObject = null;
 
             // is category set?
             if (this.PageContext.Settings.CategoryID != 0)
@@ -169,7 +169,7 @@ namespace YAF.Controls
 
                     topicList = this.GetRepository<Topic>().ActiveAsDataTable(
                         this.PageContext.PageBoardID,
-                        categoryIdObject.ToType<int>(),
+                        categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -183,7 +183,7 @@ namespace YAF.Controls
 
                     topicList = this.GetRepository<Topic>().UnansweredAsDataTable(
                         this.PageContext.PageBoardID,
-                        categoryIdObject.ToType<int>(),
+                        categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -197,7 +197,7 @@ namespace YAF.Controls
 
                     topicList = this.GetRepository<Topic>().UnreadAsDataTable(
                         this.PageContext.PageBoardID,
-                        categoryIdObject.ToType<int>(),
+                        categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,

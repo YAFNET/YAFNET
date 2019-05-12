@@ -151,7 +151,7 @@ namespace YAF.Core.Model
         public static DataTable UnansweredAsDataTable(
             this IRepository<Topic> repository,
             [NotNull] int boardId,
-            [CanBeNull] int? categoryId,
+            [CanBeNull] object categoryId,
             [NotNull] int pageUserId,
             [NotNull] DateTime sinceDate,
             [NotNull] DateTime toDate,
@@ -208,7 +208,7 @@ namespace YAF.Core.Model
         public static DataTable ActiveAsDataTable(
             this IRepository<Topic> repository,
             [NotNull] int boardId,
-            [CanBeNull] int? categoryId,
+            [CanBeNull] object categoryId,
             [NotNull] int pageUserId,
             [NotNull] DateTime sinceDate,
             [NotNull] DateTime toDate,
@@ -265,7 +265,7 @@ namespace YAF.Core.Model
         public static DataTable UnreadAsDataTable(
             this IRepository<Topic> repository,
             [NotNull] int boardId,
-            [CanBeNull] int? categoryId,
+            [CanBeNull] object categoryId,
             [NotNull] int pageUserId,
             [NotNull] DateTime sinceDate,
             [NotNull] DateTime toDate,
@@ -322,7 +322,7 @@ namespace YAF.Core.Model
         public static DataTable ByUserAsDataTable(
             this IRepository<Topic> repository,
             [NotNull] int boardId,
-            [CanBeNull] int? categoryId,
+            [CanBeNull] object categoryId,
             [NotNull] int pageUserId,
             [NotNull] DateTime sinceDate,
             [NotNull] DateTime toDate,
