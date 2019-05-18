@@ -40,7 +40,7 @@ function toggleItem(detailId)
                         <div class='input-group mb-3 date datepickerinput'>
                             <span class="input-group-prepend">
                                 <button class="btn btn-secondary datepickerbutton" type="button">
-                                    <i class="fa fa-calendar fa-fw"></i>
+                                    <i class="fa fa-calendar-day fa-fw"></i>
                                 </button>
                             </span>
                             <asp:TextBox ID="SinceDate" runat="server" CssClass="form-control"></asp:TextBox>
@@ -53,7 +53,7 @@ function toggleItem(detailId)
                     <div class='input-group mb-3 date datepickerinput'>
                         <span class="input-group-prepend">
                             <button class="btn btn-secondary datepickerbutton" type="button">
-                                <i class="fa fa-calendar fa-fw"></i>
+                                <i class="fa fa-calendar-day fa-fw"></i>
                             </button>
                         </span>
                             <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
@@ -97,11 +97,14 @@ function toggleItem(detailId)
                             <%# this.HtmlEncode(this.Eval( "Source")).IsSet() ? this.HtmlEncode(this.Eval( "Source")) : "N/A" %>
                         </h5>
                         <small>
-                            <a class="showEventItem btn btn-info btn-sm" href="#event<%# this.Eval("EventLogID")%>" id="Show<%# this.Eval("EventLogID") %>"><i class="fa fa-caret-square-down fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" LocalizedPage="ADMIN_EVENTLOG" /></a>&nbsp;&nbsp;
-                            <YAF:ThemeButton runat="server" CssClass="deleteEventItem btn btn-danger btn-sm" 
+                            <a class="showEventItem btn btn-info btn-sm" 
+                               href="#event<%# this.Eval("EventLogID")%>" id="Show<%# this.Eval("EventLogID") %>"><i class="fa fa-caret-square-down fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" LocalizedPage="ADMIN_EVENTLOG" /></a>&nbsp;&nbsp;
+                            <YAF:ThemeButton runat="server" 
+                                             Type="Danger"
                                              CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
                                              ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
-                                             Icon="trash" TextLocalizedTag="DELETE">
+                                             Icon="trash" 
+                                             TextLocalizedTag="DELETE">
                             </YAF:ThemeButton>
                         </small>
                     </div>
@@ -133,8 +136,11 @@ function toggleItem(detailId)
         </asp:Repeater>
                 </div>
             <div class="card-footer text-center">
-                <YAF:ThemeButton runat="server" Visible="<%# this.List.Items.Count > 0 %>" Type="Primary"
-                                 Icon="trash" OnClick="DeleteAllClick" 
+                <YAF:ThemeButton runat="server" 
+                                 Visible="<%# this.List.Items.Count > 0 %>" 
+                                 Type="Danger"
+                                 Icon="trash" 
+                                 OnClick="DeleteAllClick" 
                                  TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
                                  ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>
                 </YAF:ThemeButton>

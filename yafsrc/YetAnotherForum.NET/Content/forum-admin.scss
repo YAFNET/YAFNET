@@ -98,3 +98,9 @@ span.form-check > label {
 .dropdown-menu > li > span > a {
     color: #333;
 }
+
+// --Event log
+.pre-scrollable {
+    overflow: auto;
+    white-space: initial;
+}

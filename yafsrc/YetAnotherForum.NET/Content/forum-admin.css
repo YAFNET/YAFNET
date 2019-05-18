@@ -7947,3 +7947,7 @@ span.form-check > label {
 
 .dropdown-menu > li > span > a {
   color: #333; }
+
+.pre-scrollable {
+  overflow: auto;
+  white-space: initial; }

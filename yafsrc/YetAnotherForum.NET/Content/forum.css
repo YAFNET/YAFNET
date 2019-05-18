@@ -84,16 +84,20 @@ ins {
   background-color: #99EE99 !important;
   text-decoration: underline !important; }
 
-/* PrismJS 1.9.0
-http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+c+aspnet+bash+cpp+csharp+css-extras+git+java+python+sql&plugins=line-highlight+line-numbers+autolinker */
+/* PrismJS 1.16.0
+https://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+c+csharp+bash+basic+cpp+aspnet+css-extras+git+java+sql+python+visual-basic+vbnet&plugins=line-highlight+line-numbers+autolinker+toolbar+normalize-whitespace+copy-to-clipboard */
 /**
- * prism.js Funky theme
- * Based on “Polyfilling the gaps” talk slides http://lea.verou.me/polyfilling-the-gaps/
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
  * @author Lea Verou
  */
 code[class*="language-"],
 pre[class*="language-"] {
+  color: black;
+  background: none;
+  text-shadow: 0 1px white;
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1em;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
@@ -108,31 +112,42 @@ pre[class*="language-"] {
   -ms-hyphens: none;
   hyphens: none; }
 
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+  text-shadow: none;
+  background: #b3d4fc; }
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+  text-shadow: none;
+  background: #b3d4fc; }
+
+@media print {
+  code[class*="language-"],
+  pre[class*="language-"] {
+    text-shadow: none; } }
+
 /* Code blocks */
 pre[class*="language-"] {
-  padding: .4em .8em;
+  padding: 1em;
   margin: .5em 0;
-  overflow: auto;
-  background: url('data:image/svg+xml;charset=utf-8,<svg%20version%3D"1.1"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20width%3D"100"%20height%3D"100"%20fill%3D"rgba(0%2C0%2C0%2C.2)">%0D%0A<polygon%20points%3D"0%2C50%2050%2C0%200%2C0"%20%2F>%0D%0A<polygon%20points%3D"0%2C100%2050%2C100%20100%2C50%20100%2C0"%20%2F>%0D%0A<%2Fsvg>');
-  background-size: 1em 1em; }
+  overflow: auto; }
 
-code[class*="language-"] {
-  background: black;
-  color: white;
-  box-shadow: -.3em 0 0 .3em black, .3em 0 0 .3em black; }
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #f5f2f0; }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-  padding: .2em;
+  padding: .1em;
   border-radius: .3em;
-  box-shadow: none;
   white-space: normal; }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #aaa; }
+  color: slategray; }
 
 .token.punctuation {
   color: #999; }
@@ -145,32 +160,39 @@ code[class*="language-"] {
 .token.boolean,
 .token.number,
 .token.constant,
-.token.symbol {
-  color: #0cf; }
+.token.symbol,
+.token.deleted {
+  color: #905; }
 
 .token.selector,
 .token.attr-name,
 .token.string,
 .token.char,
-.token.builtin {
-  color: yellow; }
+.token.builtin,
+.token.inserted {
+  color: #690; }
 
 .token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
-.toke.variable,
-.token.inserted {
-  color: yellowgreen; }
+.style .token.string {
+  color: #9a6e3a;
+  background: rgba(255, 255, 255, 0.5); }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  color: deeppink; }
+  color: #07a; }
+
+.token.function,
+.token.class-name {
+  color: #DD4A68; }
 
 .token.regex,
-.token.important {
-  color: orange; }
+.token.important,
+.token.variable {
+  color: #e90; }
 
 .token.important,
 .token.bold {
@@ -181,9 +203,6 @@ code[class*="language-"] {
 
 .token.entity {
   cursor: help; }
-
-.token.deleted {
-  color: red; }
 
 pre[data-line] {
   position: relative;
@@ -228,12 +247,12 @@ pre[data-line] {
 .line-numbers .line-highlight:after {
   content: none; }
 
-pre.line-numbers {
+pre[class*="language-"].line-numbers {
   position: relative;
   padding-left: 3.8em;
   counter-reset: linenumber; }
 
-pre.line-numbers > code {
+pre[class*="language-"].line-numbers > code {
   position: relative;
   white-space: inherit; }
 
@@ -266,6 +285,58 @@ pre.line-numbers > code {
 
 .token a {
   color: inherit; }
+
+div.code-toolbar {
+  position: relative; }
+
+div.code-toolbar > .toolbar {
+  position: absolute;
+  top: .3em;
+  right: .2em;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0; }
+
+div.code-toolbar:hover > .toolbar {
+  opacity: 1; }
+
+div.code-toolbar > .toolbar .toolbar-item {
+  display: inline-block; }
+
+div.code-toolbar > .toolbar a {
+  cursor: pointer; }
+
+div.code-toolbar > .toolbar button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-user-select: none;
+  /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none; }
+
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+div.code-toolbar > .toolbar span {
+  color: #bbb;
+  font-size: .8em;
+  padding: 0 .5em;
+  background: #f5f2f0;
+  background: rgba(224, 224, 224, 0.2);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+  border-radius: .5em; }
+
+div.code-toolbar > .toolbar a:hover,
+div.code-toolbar > .toolbar a:focus,
+div.code-toolbar > .toolbar button:hover,
+div.code-toolbar > .toolbar button:focus,
+div.code-toolbar > .toolbar span:hover,
+div.code-toolbar > .toolbar span:focus {
+  color: inherit;
+  text-decoration: none; }
 
 /*
  * Selected-Quoting for Messages based on the
