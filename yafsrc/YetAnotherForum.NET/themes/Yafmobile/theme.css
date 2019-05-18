@@ -313,7 +313,7 @@
 
 /*make code div not occupy higher width than mobile device width*/
 .yafnet div.code div, .yafnet div.code {
-    max-width: 85vw;
+    max-width: 65vw;
 }
 
 .yafnet .code {
