@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.4.17
+## New Features:
+* You can now use relative urls for remote forum urls
+
+## Fixed Issues:
+* Image attachment thumbnails are now always max 200 x 200
+
+
 # YetAnotherForum.NET v2.2.4.16
 ## New Features:
 * Added Setting to enable/disable cookie consent popup
