@@ -1341,18 +1341,8 @@ namespace YAF
             }
 
             // defaults
-            var previewMaxWidth = 200;
-            var previewMaxHeight = 200;
-
-            if (context.Session["imagePreviewWidth"] is int)
-            {
-                previewMaxWidth = context.Session["imagePreviewWidth"].ToType<int>();
-            }
-
-            if (context.Session["imagePreviewHeight"] is int)
-            {
-                previewMaxHeight = context.Session["imagePreviewHeight"].ToType<int>();
-            }
+            const int PreviewMaxWidth = 200;
+            const int PreviewMaxHeight = 200;
 
             try
             {
@@ -1448,8 +1438,8 @@ namespace YAF
 
                 MemoryStream ms = GetAlbumOrAttachmentImageResized(
                     data,
-                    previewMaxWidth,
-                    previewMaxHeight,
+                    PreviewMaxWidth,
+                    PreviewMaxHeight,
                     previewCropped,
                     attachment.Downloads,
                     localizationFile,
