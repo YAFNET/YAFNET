@@ -196,7 +196,6 @@ namespace YAF.Controls
             this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
             this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
             this.UserLanguageRow.Visible = this.Get<YafBoardSettings>().AllowUserLanguage;
-            this.MetaWeblogAPI.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
             this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
             this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName
                                                   && this.Get<YafBoardSettings>().AllowDisplayNameModification;
@@ -581,9 +580,6 @@ namespace YAF.Controls
             this.Occupation.Text = this.UserData.Profile.Occupation;
             this.Interests.Text = this.UserData.Profile.Interests;
             this.Weblog.Text = this.UserData.Profile.Blog;
-            this.WeblogUrl.Text = this.UserData.Profile.BlogServiceUrl;
-            this.WeblogID.Text = this.UserData.Profile.BlogServicePassword;
-            this.WeblogUsername.Text = this.UserData.Profile.BlogServiceUsername;
             this.ICQ.Text = this.UserData.Profile.ICQ;
 
             this.Facebook.Text = ValidationHelper.IsNumeric(this.UserData.Profile.Facebook)
@@ -801,32 +797,6 @@ namespace YAF.Controls
                     userProfile.Birthday = userBirthdate.Date;
                 }
             }
-
-            userProfile.BlogServiceUrl = this.WeblogUrl.Text.Trim();
-            userProfile.BlogServiceUsername = this.WeblogUsername.Text.Trim();
-            userProfile.BlogServicePassword = this.WeblogID.Text.Trim();
-
-            /* TODO
-            try
-            {
-                // Sync to User Profile Mirror table while it's dirty
-                var settingsPropertyValueCollection = userProfile.PropertyValues;
-
-                LegacyDb.SetPropertyValues(
-                    this.PageContext.PageBoardID,
-                    UserMembershipHelper.ApplicationName(),
-                    this.currentUserId,
-                    settingsPropertyValueCollection);
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Log(
-                    "Error while syncinng the User Profile",
-                    EventLogTypes.Error,
-                    this.PageContext.PageUserName,
-                    "Edit User Profile page",
-                    ex);
-            }*/
 
             userProfile.Save();
         }

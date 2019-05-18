@@ -1471,24 +1471,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox LockPosts;
         
         /// <summary>
-        /// HelpLabel111-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel111;
-        
-        /// <summary>
-        /// AllowPostToBlog-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowPostToBlog;
-        
-        /// <summary>
         /// HelpLabel113-Steuerelement
         /// </summary>
         /// <remarks>
@@ -2747,24 +2729,6 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowRecentUsers;
-        
-        /// <summary>
-        /// HelpLabel201-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel201;
-        
-        /// <summary>
-        /// ShowTodaysBirthdays-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowTodaysBirthdays;
         
         /// <summary>
         /// HelpLabel163-Steuerelement

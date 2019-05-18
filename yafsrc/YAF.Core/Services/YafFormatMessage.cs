@@ -413,7 +413,7 @@ namespace YAF.Core.Services
 
                 var url = new VariableRegexReplaceRule(
                     _RgxUrl1,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target)
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".Replace("{0}", target)
                         .Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
@@ -431,7 +431,7 @@ namespace YAF.Core.Services
                 // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
                 url = new VariableRegexReplaceRule(
                     _RgxUrl2,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target)
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".Replace("{0}", target)
                         .Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
@@ -443,7 +443,7 @@ namespace YAF.Core.Services
 
                 url = new VariableRegexReplaceRule(
                     _RgxUrl3,
-                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
+                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".Replace(
                         "{0}",
                         target).Replace("{1}", nofollow),
                     new[] { "before" },

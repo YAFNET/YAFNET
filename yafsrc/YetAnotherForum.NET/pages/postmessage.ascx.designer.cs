@@ -121,42 +121,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.TextBox TopicDescriptionTextBox;
         
         /// <summary>
-        /// BlogRow-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder BlogRow;
-        
-        /// <summary>
-        /// PostToBlog-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox PostToBlog;
-        
-        /// <summary>
-        /// BlogPassword-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BlogPassword;
-        
-        /// <summary>
-        /// BlogPostID-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField BlogPostID;
-        
-        /// <summary>
         /// FromRow-Steuerelement
         /// </summary>
         /// <remarks>

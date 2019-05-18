@@ -504,10 +504,6 @@ namespace YAF.Pages
 
                 this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
 
-                // Show post to blog option only to a new post
-                this.BlogRow.Visible = this.PageContext.BoardSettings.AllowPostToBlog && isNewTopic
-                                       && !this.PageContext.IsGuest;
-
                 // update options...
                 this.PostOptions1.Visible = !this.PageContext.IsGuest;
                 this.PostOptions1.PersistentOptionVisible = this.PageContext.ForumPriorityAccess;
@@ -1363,17 +1359,6 @@ namespace YAF.Pages
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
-
-            var blogPostID = currentMessage.BlogPostID;
-
-            if (blogPostID != string.Empty)
-            {
-                // The user used this post to blog
-                this.BlogPostID.Value = blogPostID;
-                this.PostToBlog.Checked = true;
-
-                this.BlogRow.Visible = this.PageContext.BoardSettings.AllowPostToBlog;
-            }
 
             this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(currentMessage.Topic);
             this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(currentMessage.Description);

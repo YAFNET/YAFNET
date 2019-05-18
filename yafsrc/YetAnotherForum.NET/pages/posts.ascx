@@ -28,10 +28,11 @@
             <YAF:ThemeButton ID="TagFavorite1" runat="server" 
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                             Icon="star" />
+                             Icon="star"
+                             CssClass="mt-1"/>
         </span>
         <YAF:ThemeButton ID="Tools1" runat="server" 
-                             CssClass="dropdown-toggle"
+                             CssClass="dropdown-toggle mt-1"
                              Type="Danger"
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
@@ -68,16 +69,19 @@
                              Type="Secondary"
                              OnClick="NewTopic_Click" 
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
-                             Icon="comment" />
+                             Icon="comment"
+                             CssClass="mt-1" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server" 
                              Type="Primary"
                              OnClick="PostReplyLink_Click" 
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply" />
+                             Icon="reply"
+                             CssClass="mt-1" />
             <YAF:ThemeButton ID="QuickReplyLink1" runat="server" 
                              Type="Primary"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply" DataTarget="QuickReplyDialog"/>
+                             Icon="reply" DataTarget="QuickReplyDialog"
+                             CssClass="mt-1"/>
     </div>
 </div>
 <div class="row mb-3">
@@ -208,10 +212,11 @@
             <YAF:ThemeButton ID="TagFavorite2" runat="server" 
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                             Icon="star" />
+                             Icon="star"
+                             CssClass="mt-1" />
         </span>
         <YAF:ThemeButton ID="Tools2" runat="server" 
-                             CssClass="dropdown-toggle"
+                             CssClass="dropdown-toggle mt-1"
                              Type="Danger"
                              DataToggle="dropdown"
                              TextLocalizedTag="TOOLS"
@@ -247,16 +252,20 @@
                              Type="Secondary"
                              OnClick="NewTopic_Click" 
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
-                             Icon="comment" />
+                             Icon="comment"
+                             CssClass="mt-1" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server" 
                              Type="Primary"
                              OnClick="PostReplyLink_Click" 
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply" />
+                             Icon="reply"
+                             CssClass="mt-1" />
             <YAF:ThemeButton ID="QuickReplyLink2" runat="server" 
                              Type="Primary"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply" DataTarget="QuickReplyDialog"/>
+                             Icon="reply" 
+                             DataTarget="QuickReplyDialog"
+                             CssClass="mt-1"/>
     </div>
 </div>
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />

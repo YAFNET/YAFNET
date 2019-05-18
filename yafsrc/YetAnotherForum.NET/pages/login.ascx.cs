@@ -239,7 +239,7 @@ namespace YAF.Pages
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
             var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
-            var cancelAuthLogin = this.Login1.FindControlAs<Button>("Cancel");
+            var cancelAuthLogin = this.Login1.FindControlAs<ThemeButton>("Cancel");
 
             var userNameRow = this.Login1.FindControlAs<PlaceHolder>("UserNameRow");
             var passwordRow = this.Login1.FindControlAs<PlaceHolder>("PasswordRow");
@@ -355,7 +355,6 @@ namespace YAF.Pages
                     rememberMe.Visible = false;
 
                     cancelAuthLogin.Visible = true;
-                    cancelAuthLogin.Text = this.GetText("CANCEL");
 
                     switch ((AuthService)Enum.Parse(typeof(AuthService), loginAuth, true))
                     {

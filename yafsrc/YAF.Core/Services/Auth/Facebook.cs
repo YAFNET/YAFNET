@@ -70,7 +70,7 @@ namespace YAF.Core.Services.Auth
             var redirectUrl = GetRedirectURL(request);
 
             return
-                "https://graph.facebook.com/v2.9/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
+                "https://graph.facebook.com/v3.3/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
                     Config.FacebookAPIKey,
                     redirectUrl,
                     redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty,
@@ -92,7 +92,7 @@ namespace YAF.Core.Services.Auth
         public string GetAccessToken(string authorizationCode, HttpRequest request)
         {
             var urlGetAccessToken =
-                "https://graph.facebook.com/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
+                "https://graph.facebook.com/v3.3/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
                     .FormatWith(
                         Config.FacebookAPIKey,
                         Config.FacebookSecretKey,
@@ -125,7 +125,9 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public FacebookUser GetFacebookUser(HttpRequest request, string access_token)
         {
-            var url = "https://graph.facebook.com/me?access_token={0}".FormatWith(access_token);
+            var url =
+                "https://graph.facebook.com/v3.3/me?fields=email,first_name,last_name,location,birthday,gender,name,link&access_token={0}"
+                    .FormatWith(access_token);
 
             return AuthUtilities.WebRequest(AuthUtilities.Method.GET, url, string.Empty).FromJson<FacebookUser>();
         }
@@ -332,7 +334,7 @@ namespace YAF.Core.Services.Auth
                 // save avatar
                 YafContext.Current.GetRepository<User>().SaveAvatar(
                     YafContext.Current.PageUserID,
-                    "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID),
+                    "https://graph.facebook.com/v3.3/{0}/picture".FormatWith(facebookUser.UserID),
                     null,
                     null);
 
@@ -591,7 +593,7 @@ namespace YAF.Core.Services.Auth
             // save avatar
             YafContext.Current.GetRepository<User>().SaveAvatar(
                 userId,
-                "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID),
+                "https://graph.facebook.com/v3.3/{0}/picture".FormatWith(facebookUser.UserID),
                 null,
                 null);
 

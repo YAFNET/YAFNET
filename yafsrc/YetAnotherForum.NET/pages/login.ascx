@@ -20,13 +20,12 @@
                                 <div class="card-body">
                                     <form>
                                         <asp:PlaceHolder runat="server" id="SingleSignOnOptionsRow" Visible="False">
-                                            <div class="form-group">
-                                                <asp:RadioButtonList runat="server" id="SingleSignOnOptions"
-                                                                     AutoPostBack="true"
-                                                                     CssClass="form-control"
-                                                                     OnSelectedIndexChanged="SingleSignOnOptionsChanged">
-                                                </asp:RadioButtonList>
-                                            </div>
+                                            <asp:RadioButtonList runat="server" id="SingleSignOnOptions"
+                                                                 AutoPostBack="true"
+                                                                 OnSelectedIndexChanged="SingleSignOnOptionsChanged"
+                                                                 RepeatLayout="Flow"
+                                                                 CssClass="form-check form-radio-group">
+                                            </asp:RadioButtonList>
                                         </asp:PlaceHolder>
                                         <asp:PlaceHolder runat="server" id="UserNameRow">
                                             <div class="form-group">
@@ -83,7 +82,12 @@
                                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="GOOGLE_LOGIN" />
                                                </a>
                                            </asp:PlaceHolder>
-                                           <asp:Button runat="server" ID="Cancel" Visible="False" OnClick="CancelAuthLoginClick" />
+                                           <YAF:ThemeButton runat="server" ID="Cancel" Visible="False" 
+                                                            OnClick="CancelAuthLoginClick"
+                                                            TextLocalizedTag="CANCEL" 
+                                                            Type="Secondary" 
+                                                            Icon="ban"
+                                                            CssClass="ml-1"/>
                                     </asp:PlaceHolder>
                                 </div>
                             </div>

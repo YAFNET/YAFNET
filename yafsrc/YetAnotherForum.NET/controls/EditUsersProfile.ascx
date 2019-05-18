@@ -153,47 +153,7 @@
         </p>
     <hr />
     </asp:PlaceHolder>
-    <asp:PlaceHolder runat="server" ID="MetaWeblogAPI" Visible="true">
-
-            <h4>
-                <strong>
-                    <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedPage="CP_EDITPROFILE"
-                        LocalizedTag="METAWEBLOG_TITLE" />
-                </strong>
-            </h4>
-        <hr />
-
-            <h4>
-                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_URL" />
-            </h4>
-            <p>
-                <asp:TextBox runat="server" ID="WeblogUrl" CssClass="form-control" TextMode="Url" />
-            </p>
-        <hr />
-
-            <h4>
-                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_ID" />
-                <br />
-                <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_ID_INSTRUCTIONS" />
-            </h4>
-            <p>
-                <asp:TextBox runat="server" ID="WeblogID" CssClass="form-control" />
-            </p>
-        <hr />
-
-            <h4>
-                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_USERNAME" />
-            </h4>
-            <p>
-                <asp:TextBox runat="server" ID="WeblogUsername" CssClass="form-control" />
-            </p>
-        <hr />
-    </asp:PlaceHolder>
-    <asp:PlaceHolder ID="IMServicesPlaceHolder" runat="server">
+<asp:PlaceHolder ID="IMServicesPlaceHolder" runat="server">
 
         <h4>
             <strong>

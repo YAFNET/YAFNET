@@ -68,7 +68,7 @@ namespace YAF.Core.Services.Auth
             var redirectUrl = GetRedirectURL(request);
 
             return
-                "https://accounts.google.com/o/oauth2/auth?client_id={0}&redirect_uri={1}&scope={2}&response_type=code"
+                "https://accounts.google.com/o/oauth2/v2/auth?client_id={0}&redirect_uri={1}&scope={2}&response_type=code"
                     .FormatWith(
                         Config.GoogleClientID,
                         HttpUtility.UrlEncode(redirectUrl),
@@ -95,7 +95,7 @@ namespace YAF.Core.Services.Auth
             return
                AuthUtilities.WebRequest(
                 AuthUtilities.Method.POST,
-                "https://accounts.google.com/o/oauth2/token",
+                "https://www.googleapis.com/oauth2/v4/token",
                 "{0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type={4}".FormatWith(
                     code,
                     Config.GoogleClientID,
@@ -130,7 +130,7 @@ namespace YAF.Core.Services.Auth
             return
                 AuthUtilities.WebRequest(
                     AuthUtilities.Method.GET,
-                    "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+                    "https://www.googleapis.com/oauth2/v2/userinfo?alt=json",
                     string.Empty,
                     headers).FromJson<GoogleUser>();
         }

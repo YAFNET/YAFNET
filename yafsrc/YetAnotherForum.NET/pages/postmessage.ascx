@@ -58,22 +58,6 @@
                                      autocomplete="off" />
                     </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder id="BlogRow" runat="server" visible="false">
-                    <div class="form-check">
-                        <asp:CheckBox ID="PostToBlog" runat="server" CssClass="form-check-input" />
-                        <asp:Label runat="server" AssociatedControlID="PostToBlog" CssClass="form-check-label">
-                            <YAF:LocalizedLabel runat="server" LocalizedTag="BLOG_POST" />
-                        </asp:Label>
-		            </div>
-                    <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="BlogPassword">
-                            <YAF:LocalizedLabel runat="server" LocalizedTag="BLOG_PASSWORD" />
-                        </asp:Label>
-                        <asp:TextBox ID="BlogPassword" runat="server" TextMode="Password" 
-                                     CssClass="form-control" />
-			            <asp:HiddenField ID="BlogPostID" runat="server" />
-                    </div>
-                </asp:PlaceHolder>
                 <asp:PlaceHolder id="FromRow" runat="server">
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="From">

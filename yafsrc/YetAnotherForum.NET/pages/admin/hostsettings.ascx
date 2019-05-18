@@ -631,14 +631,6 @@
                     </p><hr />
 
                         <h4>
-                            <YAF:HelpLabel ID="HelpLabel111" runat="server" LocalizedTag="ALLOW_POSTBLOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowPostToBlog" runat="server"></asp:CheckBox>
-
-                    </p><hr />
-
-                        <h4>
                             <YAF:HelpLabel ID="HelpLabel113" runat="server" LocalizedTag="ALLOW_QUICK_ANSWER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
@@ -1221,14 +1213,6 @@
                     </p><hr />
 
                     <h4>
-                    <YAF:HelpLabel ID="HelpLabel201" runat="server" LocalizedTag="SHOW_TODAYS_BIRTHDAYS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                     </h4>
-                      <p>
-                      <asp:CheckBox CssClass="form-control" ID="ShowTodaysBirthdays" runat="server"></asp:CheckBox>
-
-                      </p><hr />
-
-                        <h4>
                             <YAF:HelpLabel ID="HelpLabel163" runat="server" LocalizedTag="SHOW_ACTIVE_DISCUSSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
