@@ -13,8 +13,8 @@ namespace ServiceStack.Text.Support
 
         public HashedStringSegment(StringSegment value)
         {
-            Value = value;
-            hash = ComputeHashCode(value);
+            this.Value = value;
+            this.hash = ComputeHashCode(value);
         }
 
         public HashedStringSegment(string value) : this(new StringSegment(value))
@@ -23,10 +23,10 @@ namespace ServiceStack.Text.Support
 
         public override bool Equals(object obj)
         {
-            return Value.Equals(((HashedStringSegment)obj).Value, StringComparison.OrdinalIgnoreCase);
+            return this.Value.Equals(((HashedStringSegment)obj).Value, StringComparison.OrdinalIgnoreCase);
         }
 
-        public override int GetHashCode() => hash;
+        public override int GetHashCode() => this.hash;
 
         public static int ComputeHashCode(StringSegment value)
         {
@@ -37,12 +37,12 @@ namespace ServiceStack.Text.Support
             var offset = value.Offset;
             var hash = 37 * length;
 
-            char c1 = Char.ToUpperInvariant(value.Buffer[offset]);
+            char c1 = char.ToUpperInvariant(value.Buffer[offset]);
             hash += 53 * c1;
 
             if (length > 1)
             {
-                char c2 = Char.ToUpperInvariant(value.Buffer[offset + length - 1]);
+                char c2 = char.ToUpperInvariant(value.Buffer[offset + length - 1]);
                 hash += 37 * c2;
             }
 

@@ -110,17 +110,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Handles the Load event of the ArchiveAll control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void ArchiveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_ARCHIVEALL"));
-        }
-
-        /// <summary>
         /// Handles the Load event of the ExportAll control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -219,19 +208,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The delete all_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_DELETEALL"));
-        }
-
-        /// <summary>
         /// The delete selected_ click.
         /// </summary>
         /// <param name="source">
@@ -258,19 +234,6 @@ namespace YAF.Controls
             this.PageContext.AddLoadMessage(
                 itemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", itemCount));
             this.ClearCache();
-        }
-
-        /// <summary>
-        /// The delete selected_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void DeleteSelected_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_DELETE"));
         }
 
         /// <summary>

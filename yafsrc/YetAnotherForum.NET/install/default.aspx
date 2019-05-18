@@ -146,7 +146,7 @@
                     </h4>
                     <div class="form-group">
                         <asp:RadioButtonList ID="rblYAFDatabase" runat="server" AutoPostBack="true" 
-                            OnSelectedIndexChanged="YAFDatabase_SelectedIndexChanged">
+                            OnSelectedIndexChanged="YafDatabaseSelectedIndexChanged">
                             <asp:ListItem Text="Use Existing DB Connection String" Selected="true" Value="existing"></asp:ListItem>
                             <asp:ListItem Text="Create New DB Connection String" Value="create"></asp:ListItem>
                         </asp:RadioButtonList>

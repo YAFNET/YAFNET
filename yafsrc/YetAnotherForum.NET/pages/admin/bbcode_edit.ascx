@@ -129,5 +129,3 @@
             </div>
         </div>
     </div>
-
-<YAF:SmartScroller id="SmartScroller1" runat = "server" />

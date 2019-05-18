@@ -28,6 +28,7 @@ namespace ServiceStack.Text
             {
                 return tsItemSeperatorString ?? sItemSeperatorString ?? JsWriter.ItemSeperatorString;
             }
+
             set
             {
                 tsItemSeperatorString = value;
@@ -45,6 +46,7 @@ namespace ServiceStack.Text
             {
                 return tsItemDelimiterString ?? sItemDelimiterString ?? JsWriter.QuoteString;
             }
+
             set
             {
                 tsItemDelimiterString = value;
@@ -65,6 +67,7 @@ namespace ServiceStack.Text
             {
                 return tsEscapedItemDelimiterString ?? sEscapedItemDelimiterString ?? DefaultEscapedItemDelimiterString;
             }
+
             set
             {
                 tsEscapedItemDelimiterString = value;
@@ -83,6 +86,7 @@ namespace ServiceStack.Text
             {
                 return tsEscapeStrings ?? sEscapeStrings ?? defaultEscapeStrings;
             }
+
             private set
             {
                 tsEscapeStrings = value;
@@ -109,6 +113,7 @@ namespace ServiceStack.Text
             {
                 return tsRowSeparatorString ?? sRowSeparatorString ?? "\r\n";
             }
+
             set
             {
                 tsRowSeparatorString = value;
@@ -139,6 +144,7 @@ namespace ServiceStack.Text
             {
                 return customHeadersMap;
             }
+
             set
             {
                 customHeadersMap = value;
@@ -169,6 +175,7 @@ namespace ServiceStack.Text
                     if (oValue == null) continue;
                     customHeadersMap[pi.Name] = oValue.ToString();
                 }
+
                 CsvWriter<T>.ConfigureCustomHeaders(customHeadersMap);
             }
         }

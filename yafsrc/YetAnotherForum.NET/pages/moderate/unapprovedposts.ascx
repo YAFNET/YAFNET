@@ -67,6 +67,3 @@
         </div>
     </ItemTemplate>
 </asp:Repeater>
-<div id="DivSmartScroller">
-    
-</div>

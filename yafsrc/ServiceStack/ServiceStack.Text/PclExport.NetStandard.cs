@@ -96,7 +96,7 @@ namespace ServiceStack
 
         public override string ReadAllText(string filePath)
         {
-            //NET Standard 1.1 does not supported Stream Reader with string constructor
+            // NET Standard 1.1 does not supported Stream Reader with string constructor
 #if NETSTANDARD2_0
             using (StreamReader rdr = File.OpenText(filePath))
             {
@@ -148,9 +148,9 @@ namespace ServiceStack
 
         public override void RegisterLicenseFromConfig()
         {
-            //Automatically register license key stored in <appSettings/> is done in .NET Core AppHost
+            // Automatically register license key stored in <appSettings/> is done in .NET Core AppHost
 
-            //or SERVICESTACK_LICENSE Environment variable
+            // or SERVICESTACK_LICENSE Environment variable
             var licenceKeyText = GetEnvironmentVariable(EnvironmentKey)?.Trim();
             if (!string.IsNullOrEmpty(licenceKeyText))
             {
@@ -211,9 +211,10 @@ namespace ServiceStack
         public override void AddCompression(WebRequest webReq)
         {
             var httpReq = (HttpWebRequest)webReq;
-            //TODO: Restore when AutomaticDecompression added to WebRequest
-            //httpReq.Headers[HttpRequestHeader.AcceptEncoding] = "gzip,deflate";
-            //httpReq.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            
+// TODO: Restore when AutomaticDecompression added to WebRequest
+            // httpReq.Headers[HttpRequestHeader.AcceptEncoding] = "gzip,deflate";
+            // httpReq.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
         }
 
         public override void AddHeader(WebRequest webReq, string name, string value)
@@ -355,13 +356,12 @@ namespace ServiceStack
                      .Prepare(parsedAsUtc: true);
         }
 
-        //public override DateTime ToStableUniversalTime(DateTime dateTime)
-        //{
-        //    // .Net 2.0 - 3.5 has an issue with DateTime.ToUniversalTime, but works ok with TimeZoneInfo.ConvertTimeToUtc.
-        //    // .Net 4.0+ does this under the hood anyway.
-        //    return TimeZoneInfo.ConvertTimeToUtc(dateTime);
-        //}
-
+        // public override DateTime ToStableUniversalTime(DateTime dateTime)
+        // {
+        // // .Net 2.0 - 3.5 has an issue with DateTime.ToUniversalTime, but works ok with TimeZoneInfo.ConvertTimeToUtc.
+        // // .Net 4.0+ does this under the hood anyway.
+        // return TimeZoneInfo.ConvertTimeToUtc(dateTime);
+        // }
 #if NETSTANDARD2_0
         public override ParseStringDelegate GetSpecializedCollectionParseMethod<TSerializer>(Type type)
         {
@@ -474,12 +474,14 @@ namespace ServiceStack
             string userAgent = null,
             bool? preAuthenticate = null)
         {
-            //req.MaximumResponseHeadersLength = int.MaxValue; //throws "The message length limit was exceeded" exception
+            // req.MaximumResponseHeadersLength = int.MaxValue; //throws "The message length limit was exceeded" exception
             if (allowAutoRedirect.HasValue) SetAllowAutoRedirect(req, allowAutoRedirect.Value);
-            //if (readWriteTimeout.HasValue) req.ReadWriteTimeout = (int)readWriteTimeout.Value.TotalMilliseconds;
-            //if (timeout.HasValue) req.Timeout = (int)timeout.Value.TotalMilliseconds;
+            
+// if (readWriteTimeout.HasValue) req.ReadWriteTimeout = (int)readWriteTimeout.Value.TotalMilliseconds;
+            // if (timeout.HasValue) req.Timeout = (int)timeout.Value.TotalMilliseconds;
             if (userAgent != null) SetUserAgent(req, userAgent);
-            //if (preAuthenticate.HasValue) req.PreAuthenticate = preAuthenticate.Value;
+            
+// if (preAuthenticate.HasValue) req.PreAuthenticate = preAuthenticate.Value;
         }
         
 #if NETSTANDARD2_0
@@ -542,8 +544,7 @@ namespace ServiceStack
             RegisterElement<Poco, double?>();
             RegisterElement<Poco, decimal?>();
 
-            //RegisterElement<Poco, JsonValue>();
-
+            // RegisterElement<Poco, JsonValue>();
             RegisterTypeForAot<DayOfWeek>(); // used by DateTime
 
             // register built in structs
@@ -612,7 +613,7 @@ namespace ServiceStack
                 if (jsvReader.GetParseFn<T>() != null) i++;
                 if (jsvWriter.GetWriteFn<T>() != null) i++;
 
-                //RegisterCsvSerializer<T>();
+                // RegisterCsvSerializer<T>();
                 RegisterQueryStringWriter();
                 return i;
             }
@@ -640,7 +641,8 @@ namespace ServiceStack
                 if (JsonReader.Instance.GetParseFn<T>() != null) i++;
                 if (JsonReader<T>.Parse(null) != null) i++;
                 if (JsonReader<T>.GetParseFn() != null) i++;
-                //if (JsWriter.GetTypeSerializer<JsonTypeSerializer>().GetWriteFn<T>() != null) i++;
+                
+// if (JsWriter.GetTypeSerializer<JsonTypeSerializer>().GetWriteFn<T>() != null) i++;
                 if (new List<T>() != null) i++;
                 if (new T[0] != null) i++;
 
@@ -650,8 +652,9 @@ namespace ServiceStack
                 if (JsConfig<T>.HasDeserializeFn) i++;
                 if (JsConfig<T>.SerializeFn != null) i++;
                 if (JsConfig<T>.DeSerializeFn != null) i++;
-                //JsConfig<T>.SerializeFn = arg => "";
-                //JsConfig<T>.DeSerializeFn = arg => default(T);
+                
+// JsConfig<T>.SerializeFn = arg => "";
+                // JsConfig<T>.DeSerializeFn = arg => default(T);
                 if (TypeConfig<T>.Properties != null) i++;
 
                 WriteListsOfElements<T, TSerializer>.WriteList(null, null);
@@ -685,7 +688,6 @@ namespace ServiceStack
                 // Cannot use the line below for some unknown reason - when trying to compile to run on device, mtouch bombs during native code compile.
                 // Something about this line or its inner workings is offensive to mtouch. Luckily this was not needed for my List<Guide> issue.
                 // DeserializeCollection<JsonTypeSerializer>.ParseCollection<TElement>(null, null, null);
-
                 TranslateListWithElements<TElement>.LateBoundTranslateToGenericICollection(null, typeof(List<TElement>));
                 TranslateListWithConvertibleElements<TElement, TElement>.LateBoundTranslateToGenericICollection(null, typeof(List<TElement>));
             }

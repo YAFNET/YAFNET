@@ -254,6 +254,11 @@ namespace YAF.Controls
             this.firstUnreadPostToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();
+
+            if (activeTopics.Rows.Count == 0)
+            {
+                this.ActiveDiscussionPlaceHolder.Visible = false;
+            }
         }
 
         #endregion

@@ -124,7 +124,3 @@
 </div>
 
 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
-
-<div id="DivSmartScroller">
-    
-</div>

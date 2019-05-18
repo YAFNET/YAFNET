@@ -25,7 +25,8 @@ namespace ServiceStack.Text.Json
                 newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
                 newCache.Remove(forType);
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
         }
 
@@ -50,7 +51,8 @@ namespace ServiceStack.Text.Json
                         [type] = writeFn
                     };
 
-                } while (!ReferenceEquals(
+                }
+ while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -85,7 +87,8 @@ namespace ServiceStack.Text.Json
                         [type] = writeFn
                     };
 
-                } while (!ReferenceEquals(
+                }
+ while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref JsonTypeInfoCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -138,10 +141,10 @@ namespace ServiceStack.Text.Json
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
-            Text.Json.JsonWriter<T>.WriteFn();
-            Text.Json.JsonWriter.Instance.GetWriteFn<T>();
-            Text.Json.JsonWriter.Instance.GetValueTypeToStringMethod(typeof(T));
-            JsWriter.GetTypeSerializer<Text.Json.JsonTypeSerializer>().GetWriteFn<T>();
+            JsonWriter<T>.WriteFn();
+            Instance.GetWriteFn<T>();
+            Instance.GetValueTypeToStringMethod(typeof(T));
+            JsWriter.GetTypeSerializer<JsonTypeSerializer>().GetWriteFn<T>();
         }
     }
 

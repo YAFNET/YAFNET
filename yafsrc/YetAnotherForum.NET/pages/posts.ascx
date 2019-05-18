@@ -280,9 +280,4 @@
             <YAF:PageAccess ID="PageAccess1" runat="server" />
         </div>
 </div>
-
-
-<div id="DivSmartScroller">
-    
-</div>
 <modal:QuickReply ID="QuickReplyDialog" runat="server" />

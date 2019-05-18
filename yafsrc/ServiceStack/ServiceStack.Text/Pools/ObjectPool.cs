@@ -4,14 +4,12 @@
 
     // define TRACE_LEAKS to get additional diagnostics that can lead to the leak sources. note: it will
     // make everything about 2-3x slower
-    // 
     // #define TRACE_LEAKS
 
     // define DETECT_LEAKS to detect possible leaks
     // #if DEBUG
     // #define DETECT_LEAKS  //for now always enable DETECT_LEAKS in debug.
     // #endif
-
     using System;
     using System.Diagnostics;
     using System.Threading;
@@ -19,6 +17,7 @@
 #if DETECT_LEAKS
 using System.Runtime.CompilerServices;
 #endif
+
     /// <summary>
     /// Generic implementation of object pooling pattern with predefined pool size limit. The main
     /// purpose is that limited number of frequently used objects can be kept in the pool for
@@ -82,7 +81,7 @@ using System.Runtime.CompilerServices;
             private string GetTrace()
             {
 #if TRACE_LEAKS
-                return Trace == null ? "" : Trace.ToString();
+                return Trace == null ? string.Empty : Trace.ToString();
 #else
                 return "Leak tracing information is disabled. Define TRACE_LEAKS on ObjectPool`1.cs to get more info \n";
 #endif
@@ -112,13 +111,13 @@ using System.Runtime.CompilerServices;
 #if !PCL
             Debug.Assert(size >= 1);
 #endif
-            _factory = factory;
-            _items = new Element[size - 1];
+            this._factory = factory;
+            this._items = new Element[size - 1];
         }
 
         private T CreateInstance()
         {
-            var inst = _factory();
+            var inst = this._factory();
             return inst;
         }
 
@@ -136,10 +135,10 @@ using System.Runtime.CompilerServices;
             // Note that the initial read is optimistically not synchronized. That is intentional. 
             // We will interlock only when we have a candidate. in a worst case we may miss some
             // recently returned objects. Not a big deal.
-            T inst = _firstItem;
-            if (inst == null || inst != Interlocked.CompareExchange(ref _firstItem, null, inst))
+            T inst = this._firstItem;
+            if (inst == null || inst != Interlocked.CompareExchange(ref this._firstItem, null, inst))
             {
-                inst = AllocateSlow();
+                inst = this.AllocateSlow();
             }
 
 #if DETECT_LEAKS
@@ -156,7 +155,7 @@ using System.Runtime.CompilerServices;
 
         private T AllocateSlow()
         {
-            var items = _items;
+            var items = this._items;
 
             for (int i = 0; i < items.Length; i++)
             {
@@ -173,7 +172,7 @@ using System.Runtime.CompilerServices;
                 }
             }
 
-            return CreateInstance();
+            return this.CreateInstance();
         }
 
         /// <summary>
@@ -186,25 +185,25 @@ using System.Runtime.CompilerServices;
         /// </remarks>
         public void Free(T obj)
         {
-            Validate(obj);
-            ForgetTrackedObject(obj);
+            this.Validate(obj);
+            this.ForgetTrackedObject(obj);
 
-            if (_firstItem == null)
+            if (this._firstItem == null)
             {
                 // Intentionally not using interlocked here. 
                 // In a worst case scenario two objects may be stored into same slot.
                 // It is very unlikely to happen and will only mean that one of the objects will get collected.
-                _firstItem = obj;
+                this._firstItem = obj;
             }
             else
             {
-                FreeSlow(obj);
+                this.FreeSlow(obj);
             }
         }
 
         private void FreeSlow(T obj)
         {
-            var items = _items;
+            var items = this._items;
             for (int i = 0; i < items.Length; i++)
             {
                 if (items[i].Value == null)
@@ -267,10 +266,10 @@ using System.Runtime.CompilerServices;
 #if !PCL
             Debug.Assert(obj != null, "freeing null?");
 
-            Debug.Assert(_firstItem != obj, "freeing twice?");
+            Debug.Assert(this._firstItem != obj, "freeing twice?");
 #endif
 
-            var items = _items;
+            var items = this._items;
             for (int i = 0; i < items.Length; i++)
             {
                 var value = items[i].Value;

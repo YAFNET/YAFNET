@@ -1,15 +1,17 @@
 //Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Runtime.CompilerServices;
-using ServiceStack.Text.Common;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #else
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading;
+
+using ServiceStack.Text.Common;
 using ServiceStack.Text.Support;
+
 #endif
 
 namespace ServiceStack.Text.Jsv
@@ -40,7 +42,8 @@ namespace ServiceStack.Text.Jsv
                 newCache = new Dictionary<Type, ParseFactoryDelegate>(ParseFnCache);
                 newCache[type] = parseFactoryFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseFnCache, newCache, snapshot), snapshot));
 
             return parseFactoryFn();
@@ -49,10 +52,10 @@ namespace ServiceStack.Text.Jsv
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
-            Text.Jsv.JsvReader.Instance.GetParseFn<T>();
-            Text.Jsv.JsvReader<T>.Parse(null);
-            Text.Jsv.JsvReader<T>.GetParseFn();
-            Text.Jsv.JsvReader<T>.GetParseStringSegmentFn();
+            Instance.GetParseFn<T>();
+            JsvReader<T>.Parse(null);
+            JsvReader<T>.GetParseFn();
+            JsvReader<T>.GetParseStringSegmentFn();
         }
     }
 

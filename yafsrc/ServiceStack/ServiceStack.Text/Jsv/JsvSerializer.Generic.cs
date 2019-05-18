@@ -17,7 +17,7 @@ namespace ServiceStack.Text.Jsv
         public T DeserializeFromString(string value, Type type)
         {
             ParseStringDelegate parseFn;
-            if (DeserializerCache.TryGetValue(type, out parseFn)) return (T)parseFn(value);
+            if (this.DeserializerCache.TryGetValue(type, out parseFn)) return (T)parseFn(value);
 
             var genericType = typeof(T).MakeGenericType(type);
             var mi = genericType.GetMethodInfo("DeserializeFromString", new[] { typeof(string) });
@@ -26,12 +26,13 @@ namespace ServiceStack.Text.Jsv
             Dictionary<Type, ParseStringDelegate> snapshot, newCache;
             do
             {
-                snapshot = DeserializerCache;
-                newCache = new Dictionary<Type, ParseStringDelegate>(DeserializerCache);
+                snapshot = this.DeserializerCache;
+                newCache = new Dictionary<Type, ParseStringDelegate>(this.DeserializerCache);
                 newCache[type] = parseFn;
 
-            } while (!ReferenceEquals(
-                Interlocked.CompareExchange(ref DeserializerCache, newCache, snapshot), snapshot));
+            }
+ while (!ReferenceEquals(
+                Interlocked.CompareExchange(ref this.DeserializerCache, newCache, snapshot), snapshot));
 
             return (T)parseFn(value);
         }

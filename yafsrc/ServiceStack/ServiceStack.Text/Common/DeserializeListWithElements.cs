@@ -10,18 +10,18 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using System.Threading;
-using ServiceStack.Text.Json;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #endif
-using ServiceStack.Text.Support;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
 
+using ServiceStack.Text.Json;
+using ServiceStack.Text.Support;
 
 namespace ServiceStack.Text.Common
 {
@@ -62,7 +62,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, ParseListDelegate>(ParseDelegateCache);
                 newCache[elementType] = parseDelegate;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 
             return parseDelegate.Invoke;
@@ -208,8 +209,10 @@ namespace ServiceStack.Text.Common
                         {
                             to.Add(default(T));
                         }
+
                         Serializer.EatWhitespace(value, ref i);
-                    } while (++i < value.Length);
+                    }
+ while (++i < value.Length);
                 }
                 else
                 {
@@ -247,8 +250,8 @@ namespace ServiceStack.Text.Common
                 }
             }
 
-            //TODO: 8-10-2011 -- this CreateInstance call should probably be moved over to ReflectionExtensions, 
-            //but not sure how you'd like to go about caching constructors with parameters -- I would probably build a NewExpression, .Compile to a LambdaExpression and cache
+            // TODO: 8-10-2011 -- this CreateInstance call should probably be moved over to ReflectionExtensions, 
+            // but not sure how you'd like to go about caching constructors with parameters -- I would probably build a NewExpression, .Compile to a LambdaExpression and cache
             return isReadOnly ? (ICollection<T>)Activator.CreateInstance(createListType, to) : to;
         }
     }
@@ -275,7 +278,7 @@ namespace ServiceStack.Text.Common
             if (listInterface == null)
                 throw new ArgumentException($"Type {typeof(T).FullName} is not of type IList<>");
 
-            //optimized access for regularly used types
+            // optimized access for regularly used types
             if (typeof(T) == typeof(List<string>))
                 return DeserializeListWithElements<TSerializer>.ParseStringList;
 
@@ -321,7 +324,7 @@ namespace ServiceStack.Text.Common
             if (enumerableInterface == null)
                 throw new ArgumentException($"Type {typeof(T).FullName} is not of type IEnumerable<>");
 
-            //optimized access for regularly used types
+            // optimized access for regularly used types
             if (typeof(T) == typeof(IEnumerable<string>))
                 return DeserializeListWithElements<TSerializer>.ParseStringList;
 
@@ -333,7 +336,7 @@ namespace ServiceStack.Text.Common
             var supportedTypeParseMethod = DeserializeListWithElements<TSerializer>.Serializer.GetParseStringSegmentFn(elementType);
             if (supportedTypeParseMethod != null)
             {
-                const Type createListTypeWithNull = null; //Use conversions outside this class. see: Queue
+                const Type createListTypeWithNull = null; // Use conversions outside this class. see: Queue
 
                 var parseFn = DeserializeListWithElements<TSerializer>.GetListTypeParseStringSegmentFn(
                     createListTypeWithNull, elementType, supportedTypeParseMethod);

@@ -37,7 +37,7 @@ namespace ServiceStack.Text
 
         public T DeserializeFromReader(TextReader reader)
         {
-            return DeserializeFromString(reader.ReadToEnd());
+            return this.DeserializeFromString(reader.ReadToEnd());
         }
 
         public string SerializeToString(T value)

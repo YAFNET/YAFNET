@@ -67,6 +67,7 @@ namespace ServiceStack
             {
                 safeTexts.Add(FromCsvField(text));
             }
+
             return safeTexts;
         }
 
@@ -78,6 +79,7 @@ namespace ServiceStack
             {
                 safeTexts[i] = FromCsvField(texts[i]);
             }
+
             return safeTexts;
         }
 

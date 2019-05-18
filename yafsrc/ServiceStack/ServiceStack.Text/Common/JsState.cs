@@ -5,7 +5,7 @@ namespace ServiceStack.Text.Common
 {
     internal static class JsState
     {
-        //Exposing field for perf
+        // Exposing field for perf
         [ThreadStatic]
         internal static int WritingKeyCount = 0;
 

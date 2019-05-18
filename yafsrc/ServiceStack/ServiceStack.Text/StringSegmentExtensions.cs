@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ServiceStack.Text.Json;
 
 #if NETSTANDARD2_0
@@ -35,11 +36,12 @@ namespace ServiceStack.Text
                 if (!char.IsWhiteSpace(value.GetChar(index)))
                     return false;
             }
+
             return true;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Char GetChar(this StringSegment value, int index) => value.Buffer[value.Offset + index];
+        public static char GetChar(this StringSegment value, int index) => value.Buffer[value.Offset + index];
 
         public static int IndexOfAny(this StringSegment value, char[] chars, int start, int count)
         {
@@ -161,13 +163,13 @@ namespace ServiceStack.Text
         {
             switch (maxValue)
             {
-                case SByte.MaxValue:
+                case sbyte.MaxValue:
                     return nameof(SByte);
-                case Int16.MaxValue:
+                case short.MaxValue:
                     return nameof(Int16);
-                case Int32.MaxValue:
+                case int.MaxValue:
                     return nameof(Int32);
-                case Int64.MaxValue:
+                case long.MaxValue:
                     return nameof(Int64);
                 default:
                     return "Unknown";
@@ -178,13 +180,13 @@ namespace ServiceStack.Text
         {
             switch (maxValue)
             {
-                case Byte.MaxValue:
+                case byte.MaxValue:
                     return nameof(Byte);
-                case UInt16.MaxValue:
+                case ushort.MaxValue:
                     return nameof(UInt16);
-                case UInt32.MaxValue:
+                case uint.MaxValue:
                     return nameof(UInt32);
-                case UInt64.MaxValue:
+                case ulong.MaxValue:
                     return nameof(UInt64);
                 default:
                     return "Unknown";
@@ -204,16 +206,16 @@ namespace ServiceStack.Text
         public static ushort ParseUInt16(this StringSegment value) => (ushort)ParseUnsignedInteger(value, ushort.MaxValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ParseInt32(this StringSegment value) => (int)ParseSignedInteger(value, Int32.MaxValue, Int32.MinValue);
+        public static int ParseInt32(this StringSegment value) => (int)ParseSignedInteger(value, int.MaxValue, int.MinValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint ParseUInt32(this StringSegment value) => (uint)ParseUnsignedInteger(value, UInt32.MaxValue);
+        public static uint ParseUInt32(this StringSegment value) => (uint)ParseUnsignedInteger(value, uint.MaxValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long ParseInt64(this StringSegment value) => ParseSignedInteger(value, Int64.MaxValue, Int64.MinValue);
+        public static long ParseInt64(this StringSegment value) => ParseSignedInteger(value, long.MaxValue, long.MinValue);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ulong ParseUInt64(this StringSegment value) => ParseUnsignedInteger(value, UInt64.MaxValue);
+        public static ulong ParseUInt64(this StringSegment value) => ParseUnsignedInteger(value, ulong.MaxValue);
 
         public static ulong ParseUnsignedInteger(this StringSegment value, ulong maxValue)
         {
@@ -225,13 +227,13 @@ namespace ServiceStack.Text
             int end = value.Offset + value.Length;
             var state = ParseState.LeadingWhite;
 
-            //skip leading whitespaces
+            // skip leading whitespaces
             while (i < end && JsonUtils.IsWhiteSpace(value.Buffer[i])) i++;
 
             if (i == end)
                 throw new FormatException(BadFormat);
 
-            //skip leading zeros
+            // skip leading zeros
             while (i < end && value.Buffer[i] == '0')
             {
                 state = ParseState.Number;
@@ -265,7 +267,8 @@ namespace ServiceStack.Text
                             {
                                 result = 10 * result + (ulong)(c - '0');
                             }
-                            if (result > maxValue) //check only minvalue, because in absolute value it's greater than maxvalue
+
+                            if (result > maxValue) // check only minvalue, because in absolute value it's greater than maxvalue
                                 throw CreateOverflowException(maxValue);
                         }
                         else if (JsonUtils.IsWhiteSpace(c))
@@ -304,13 +307,13 @@ namespace ServiceStack.Text
             var state = ParseState.LeadingWhite;
             bool negative = false;
 
-            //skip leading whitespaces
+            // skip leading whitespaces
             while (i < end && JsonUtils.IsWhiteSpace(value.Buffer[i])) i++;
 
             if (i == end)
                 throw new FormatException(BadFormat);
 
-            //skip leading zeros
+            // skip leading zeros
             while (i < end && value.Buffer[i] == '0')
             {
                 state = ParseState.Number;
@@ -359,7 +362,8 @@ namespace ServiceStack.Text
                             {
                                 result = 10 * result - (c - '0');
                             }
-                            if (result < minValue) //check only minvalue, because in absolute value it's greater than maxvalue
+
+                            if (result < minValue) // check only minvalue, because in absolute value it's greater than maxvalue
                                 throw CreateOverflowException(maxValue);
                         }
                         else if (JsonUtils.IsWhiteSpace(c))
@@ -543,6 +547,7 @@ namespace ServiceStack.Text
                                     result = preResult;
                                 }
                             }
+
                             scale++;
                         }
                         else throw new FormatException(BadFormat);
@@ -564,7 +569,7 @@ namespace ServiceStack.Text
                             c = value.Buffer[i++];
                         }
 
-                        //skip leading zeroes
+                        // skip leading zeroes
                         while (c == '0' && i < end) c = value.Buffer[i++];
 
                         if (c > '0' && c <= '9')
@@ -600,10 +605,11 @@ namespace ServiceStack.Text
                                         }
                                     }
                                 }
+
                                 scale = 0;
                             }
 
-                            //set i to end of string, because ParseInt16 eats number and all trailing whites
+                            // set i to end of string, because ParseInt16 eats number and all trailing whites
                             i = end;
                         }
                         else throw new FormatException(BadFormat);
@@ -629,6 +635,7 @@ namespace ServiceStack.Text
 
             return result;
         }
+
         private static readonly byte[] lo16 = {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -665,11 +672,10 @@ namespace ServiceStack.Text
             if (value.Length == 0)
                 throw new FormatException(BadFormat);
 
-            //Guid can be in one of 3 forms:
-            //1. General `{dddddddd-dddd-dddd-dddd-dddddddddddd}` or `(dddddddd-dddd-dddd-dddd-dddddddddddd)` 8-4-4-4-12 chars
-            //2. Hex `{0xdddddddd,0xdddd,0xdddd,{0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd}}`  8-4-4-8x2 chars
-            //3. No style `dddddddddddddddddddddddddddddddd` 32 chars
-
+            // Guid can be in one of 3 forms:
+            // 1. General `{dddddddd-dddd-dddd-dddd-dddddddddddd}` or `(dddddddd-dddd-dddd-dddd-dddddddddddd)` 8-4-4-4-12 chars
+            // 2. Hex `{0xdddddddd,0xdddd,0xdddd,{0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd}}`  8-4-4-8x2 chars
+            // 3. No style `dddddddddddddddddddddddddddddddd` 32 chars
             int i = value.Offset;
             int end = value.Offset + value.Length;
             while (i < end && JsonUtils.IsWhiteSpace(value.Buffer[i])) i++;
@@ -1080,12 +1086,14 @@ namespace ServiceStack.Text
                 while (start < value.Length && char.IsWhiteSpace(value.GetChar(start)))
                     ++start;
             }
+
             if (trimType != 0)
             {
                 end = value.Length - 1;
                 while (end >= start && char.IsWhiteSpace(value.GetChar(end)))
                     --end;
             }
+
             return value.CreateTrimmedString(start, end);
         }
 
@@ -1105,6 +1113,7 @@ namespace ServiceStack.Text
                         break;
                 }
             }
+
             if (trimType != 0)
             {
                 for (end = value.Length - 1; end >= start; --end)
@@ -1117,6 +1126,7 @@ namespace ServiceStack.Text
                         break;
                 }
             }
+
             return value.CreateTrimmedString(start, end);
         }
 
@@ -1192,6 +1202,7 @@ namespace ServiceStack.Text
                     to.Add(item.ToString());
                 }
             }
+
             return to;
         }
 

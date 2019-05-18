@@ -86,7 +86,7 @@ namespace ServiceStack.Text.Common
 
         public static Type ExtractType(string strType) => ExtractType(new StringSegment(strType));
 
-        //TODO: optimize ExtractType
+        // TODO: optimize ExtractType
         public static Type ExtractType(StringSegment strType)
         {
             if (!strType.HasValue || strType.Length <= 1) return null;
@@ -118,6 +118,7 @@ namespace ServiceStack.Text.Common
 
                 return PclExport.Instance.UseType(type);
             }
+
             return null;
         }
 
@@ -133,9 +134,11 @@ namespace ServiceStack.Text.Common
                 {
                     return Serializer.GetParseStringSegmentFn(concreteType)(value);
                 }
+
                 Tracer.Instance.WriteWarning(
                     "Could not deserialize Abstract Type with unknown concrete type: " + typeof(T).FullName);
             }
+
             return null;
         }
 
@@ -208,6 +211,7 @@ namespace ServiceStack.Text.Common
                     ? ParseQuotedPrimitive(value)
                     : ParsePrimitive(value);
             }
+
             return (ParsePrimitive(value) ?? ParseQuotedPrimitive(value));
         }
     }
@@ -246,6 +250,7 @@ namespace ServiceStack.Text.Common
 
                 return type;
             }
+
             return null;
         }
 
@@ -284,6 +289,7 @@ namespace ServiceStack.Text.Common
                     };
                 }
             }
+
             return getPropertyFn;
         }
 
@@ -350,8 +356,9 @@ namespace ServiceStack.Text.Common
             if (value.Length == 1)
             {
                 int singleDigit = value.GetChar(0);
-                if (singleDigit >= 48 || singleDigit <= 57) // 0 - 9
+                if (singleDigit >= 48 || singleDigit <= 57)
                 {
+                    // 0 - 9
                     var result = singleDigit - 48;
                     if (bestFit)
                         return (byte) result;
@@ -372,17 +379,17 @@ namespace ServiceStack.Text.Common
                     return (byte)decimalValue;
                 if (parseAs.Has(ParseAsType.SByte) && decimalValue <= sbyte.MaxValue && decimalValue >= sbyte.MinValue)
                     return (sbyte)decimalValue;
-                if (parseAs.Has(ParseAsType.Int16) && decimalValue <= Int16.MaxValue && decimalValue >= Int16.MinValue)
+                if (parseAs.Has(ParseAsType.Int16) && decimalValue <= short.MaxValue && decimalValue >= short.MinValue)
                     return (Int16)decimalValue;
-                if (parseAs.Has(ParseAsType.UInt16) && decimalValue <= UInt16.MaxValue && decimalValue >= UInt16.MinValue)
+                if (parseAs.Has(ParseAsType.UInt16) && decimalValue <= ushort.MaxValue && decimalValue >= ushort.MinValue)
                     return (UInt16)decimalValue;
-                if (parseAs.Has(ParseAsType.Int32) && decimalValue <= Int32.MaxValue && decimalValue >= Int32.MinValue)
+                if (parseAs.Has(ParseAsType.Int32) && decimalValue <= int.MaxValue && decimalValue >= int.MinValue)
                     return (Int32)decimalValue;
-                if (parseAs.Has(ParseAsType.UInt32) && decimalValue <= UInt32.MaxValue && decimalValue >= UInt32.MinValue)
+                if (parseAs.Has(ParseAsType.UInt32) && decimalValue <= uint.MaxValue && decimalValue >= uint.MinValue)
                     return (UInt32)decimalValue;
-                if (parseAs.Has(ParseAsType.Int64) && decimalValue <= Int64.MaxValue && decimalValue >= Int64.MinValue)
+                if (parseAs.Has(ParseAsType.Int64) && decimalValue <= long.MaxValue && decimalValue >= long.MinValue)
                     return (Int64)decimalValue;
-                if (parseAs.Has(ParseAsType.UInt64) && decimalValue <= UInt64.MaxValue && decimalValue >= UInt64.MinValue)
+                if (parseAs.Has(ParseAsType.UInt64) && decimalValue <= ulong.MaxValue && decimalValue >= ulong.MinValue)
                     return (UInt64)decimalValue;
                 return decimalValue;
             }

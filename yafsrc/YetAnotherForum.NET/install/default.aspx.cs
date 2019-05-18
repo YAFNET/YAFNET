@@ -71,17 +71,17 @@ namespace YAF.Install
         /// <summary>
         ///     The _config.
         /// </summary>
-        private readonly ConfigHelper _config = new ConfigHelper();
+        private readonly ConfigHelper config = new ConfigHelper();
 
         /// <summary>
         ///     The _load message.
         /// </summary>
-        private string _loadMessage = string.Empty;
+        private string loadMessage = string.Empty;
 
         /// <summary>
         /// The _is forum installed.
         /// </summary>
-        private bool? _isForumInstalled;
+        private bool? isForumInstalled;
 
         #endregion
 
@@ -120,12 +120,12 @@ namespace YAF.Install
         /// <summary>
         ///     Gets a value indicating whether IsInstalled.
         /// </summary>
-        public bool IsConfigPasswordSet => this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
+        public bool IsConfigPasswordSet => this.config.GetConfigValueAsString(_AppPasswordKey).IsSet();
 
         /// <summary>
         /// Gets a value indicating whether is forum installed.
         /// </summary>
-        public bool IsForumInstalled => (this._isForumInstalled ?? (this._isForumInstalled = this.InstallUpgradeService.IsForumInstalled))
+        public bool IsForumInstalled => (this.isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled))
             .Value;
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace YAF.Install
 
             set
             {
-                var index = this.IndexOfWizardID(value);
+                var index = this.IndexOfWizardId(value);
                 if (index >= 0)
                 {
                     this.InstallWizard.ActiveStepIndex = index;
@@ -699,7 +699,7 @@ namespace YAF.Install
                     e.Cancel = false;
 
                     this.CurrentWizardStepID =
-                        this._config.WriteAppSetting(_AppPasswordKey, this.txtCreatePassword1.Text)
+                        this.config.WriteAppSetting(_AppPasswordKey, this.txtCreatePassword1.Text)
                             ? "WizDatabaseConnection"
                             : "WizManuallySetPassword";
 
@@ -720,9 +720,9 @@ namespace YAF.Install
                     e.Cancel = false;
                     break;
                 case "WizEnterPassword":
-                    if (this._config.GetConfigValueAsString(_AppPasswordKey)
+                    if (this.config.GetConfigValueAsString(_AppPasswordKey)
                         == FormsAuthentication.HashPasswordForStoringInConfigFile(this.txtEnteredPassword.Text, "md5")
-                        || this._config.GetConfigValueAsString(_AppPasswordKey) == this.txtEnteredPassword.Text.Trim())
+                        || this.config.GetConfigValueAsString(_AppPasswordKey) == this.txtEnteredPassword.Text.Trim())
                     {
                         e.Cancel = false;
 
@@ -761,10 +761,10 @@ namespace YAF.Install
 
                     if (messages.Any())
                     {
-                        this._loadMessage += messages.ToDelimitedString("\r\n");
+                        this.loadMessage += messages.ToDelimitedString("\r\n");
                     }
 
-                    this.ShowErrorMessage(this._loadMessage);
+                    this.ShowErrorMessage(this.loadMessage);
 
                     break;
                 case "WizMigrateUsers":
@@ -834,7 +834,7 @@ namespace YAF.Install
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
-        protected void YAFDatabase_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void YafDatabaseSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             switch (this.rblYAFDatabase.SelectedValue)
             {
@@ -937,9 +937,9 @@ namespace YAF.Install
             msg = msg.Replace("\r\n", "<br /><br />");
             msg = msg.Replace("\n", "<br />");
             msg = msg.Replace("\"", "\\\"");
-            this._loadMessage += msg;
+            this.loadMessage += msg;
 
-            if (!this._loadMessage.IsSet())
+            if (!this.loadMessage.IsSet())
             {
                 return;
             }
@@ -948,9 +948,9 @@ namespace YAF.Install
             var errorMessageContent = this.InstallWizard.FindControlAs<Literal>("ErrorMessageContent");
 
             errorMessage.Visible = true;
-            errorMessageContent.Text = this._loadMessage;
+            errorMessageContent.Text = this.loadMessage;
 
-            this._loadMessage = string.Empty;
+            this.loadMessage = string.Empty;
         }
 
         /// <summary>
@@ -1115,7 +1115,7 @@ namespace YAF.Install
         /// <returns>
         /// The index of wizard id.
         /// </returns>
-        private int IndexOfWizardID([NotNull] string id)
+        private int IndexOfWizardId([NotNull] string id)
         {
             var step = this.InstallWizard.FindWizardControlRecursive(id) as WizardStepBase;
 
@@ -1136,7 +1136,7 @@ namespace YAF.Install
         {
             var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage");
 
-            if (this._loadMessage.IsNotSet())
+            if (this.loadMessage.IsNotSet())
             {
                 errorMessage.Visible = false;
             }
@@ -1186,22 +1186,22 @@ namespace YAF.Install
                 // Connection string parameters text boxes
                 foreach (var paramNumber in Enumerable.Range(1, 20))
                 {
-                    var dbParam =
+                    var param =
                         this.DbAccess.Information.DbConnectionParameters.FirstOrDefault(p => p.ID == paramNumber);
 
                     var label = this.FindControlRecursiveAs<Label>("Parameter{0}_Name".FormatWith(paramNumber));
                     if (label != null)
                     {
-                        label.Text = dbParam != null ? dbParam.Name : string.Empty;
+                        label.Text = param != null ? param.Name : string.Empty;
                     }
 
                     var control = this.FindControlRecursive("Parameter{0}_Value".FormatWith(paramNumber));
                     if (control is TextBox)
                     {
                         var textBox = control as TextBox;
-                        if (dbParam != null)
+                        if (param != null)
                         {
-                            textBox.Text = dbParam.Value;
+                            textBox.Text = param.Value;
                             textBox.Visible = true;
                         }
                         else
@@ -1213,9 +1213,9 @@ namespace YAF.Install
                     else if (control is CheckBox)
                     {
                         var checkBox = control as CheckBox;
-                        if (dbParam != null)
+                        if (param != null)
                         {
-                            checkBox.Checked = dbParam.Value.ToType<bool>();
+                            checkBox.Checked = param.Value.ToType<bool>();
                             checkBox.Visible = true;
                         }
                         else
@@ -1259,7 +1259,7 @@ namespace YAF.Install
                 try
                 {
                     // have to write to the appSettings...
-                    if (!this._config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
+                    if (!this.config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
                     {
                         this.lblConnectionStringName.Text = selectedConnection;
 
@@ -1277,7 +1277,7 @@ namespace YAF.Install
                 try
                 {
                     if (
-                        !this._config.WriteConnectionString(
+                        !this.config.WriteConnectionString(
                             Config.ConnectionStringName,
                             this.CurrentConnString,
                             this.DbAccess.Information.ProviderName))

@@ -21,9 +21,9 @@ namespace ServiceStack.Text
         /// </param>
         public StringSegment(string buffer)
         {
-            Buffer = buffer;
-            Offset = 0;
-            Length = buffer?.Length ?? 0;
+            this.Buffer = buffer;
+            this.Offset = 0;
+            this.Length = buffer?.Length ?? 0;
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace ServiceStack.Text
                 ThrowInvalidArguments(buffer, offset, length);
             }
 
-            Buffer = buffer;
-            Offset = offset;
-            Length = length;
+            this.Buffer = buffer;
+            this.Offset = offset;
+            this.Length = length;
         }
 
         private static void ThrowInvalidArguments(string buffer, int offset, int length)
@@ -96,13 +96,13 @@ namespace ServiceStack.Text
         {
             get
             {
-                if (!HasValue)
+                if (!this.HasValue)
                 {
                     return null;
                 }
                 else
                 {
-                    return Buffer.Substring(Offset, Length);
+                    return this.Buffer.Substring(this.Offset, this.Length);
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace ServiceStack.Text
         /// </summary>
         public bool HasValue
         {
-            get { return Buffer != null; }
+            get { return this.Buffer != null; }
         }
 
         /// <inheritdoc />
@@ -123,7 +123,7 @@ namespace ServiceStack.Text
                 return false;
             }
 
-            return obj is StringSegment && Equals((StringSegment)obj);
+            return obj is StringSegment && this.Equals((StringSegment)obj);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace ServiceStack.Text
         /// <returns><code>true</code> if the current object is equal to the other parameter; otherwise, <code>false</code>.</returns>
         public bool Equals(StringSegment other)
         {
-            return Equals(other, StringComparison.Ordinal);
+            return this.Equals(other, StringComparison.Ordinal);
         }
 
 
@@ -146,12 +146,12 @@ namespace ServiceStack.Text
         public bool Equals(StringSegment other, StringComparison comparisonType)
         {
             int textLength = other.Length;
-            if (Length != textLength)
+            if (this.Length != textLength)
             {
                 return false;
             }
 
-            return string.Compare(Buffer, Offset, other.Buffer, other.Offset, textLength, comparisonType) == 0;
+            return string.Compare(this.Buffer, this.Offset, other.Buffer, other.Offset, textLength, comparisonType) == 0;
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace ServiceStack.Text
         /// <returns><code>true</code> if the specified <see cref="string"/> is equal to the current <see cref="StringSegment"/>; otherwise, <code>false</code>.</returns>
         public bool Equals(string text)
         {
-            return Equals(text, StringComparison.Ordinal);
+            return this.Equals(text, StringComparison.Ordinal);
         }
 
         /// <summary>
@@ -178,12 +178,12 @@ namespace ServiceStack.Text
             }
 
             int textLength = text.Length;
-            if (!HasValue || Length != textLength)
+            if (!this.HasValue || this.Length != textLength)
             {
                 return false;
             }
 
-            return string.Compare(Buffer, Offset, text, 0, textLength, comparisonType) == 0;
+            return string.Compare(this.Buffer, this.Offset, text, 0, textLength, comparisonType) == 0;
         }
 
         /// <inheritdoc />
@@ -194,13 +194,13 @@ namespace ServiceStack.Text
         /// </remarks>
         public override int GetHashCode()
         {
-            if (!HasValue)
+            if (!this.HasValue)
             {
                 return 0;
             }
             else
             {
-                return Value.GetHashCode();
+                return this.Value.GetHashCode();
             }
         }
 
@@ -240,12 +240,12 @@ namespace ServiceStack.Text
             }
 
             var textLength = text.Length;
-            if (!HasValue || Length < textLength)
+            if (!this.HasValue || this.Length < textLength)
             {
                 return false;
             }
 
-            return string.Compare(Buffer, Offset, text, 0, textLength, comparisonType) == 0;
+            return string.Compare(this.Buffer, this.Offset, text, 0, textLength, comparisonType) == 0;
         }
 
         /// <summary>
@@ -262,12 +262,12 @@ namespace ServiceStack.Text
             }
 
             var textLength = text.Length;
-            if (!HasValue || Length < textLength)
+            if (!this.HasValue || this.Length < textLength)
             {
                 return false;
             }
 
-            return string.Compare(Buffer, Offset + Length - textLength, text, 0, textLength, comparisonType) == 0;
+            return string.Compare(this.Buffer, this.Offset + this.Length - textLength, text, 0, textLength, comparisonType) == 0;
         }
 
         /// <summary>
@@ -279,22 +279,22 @@ namespace ServiceStack.Text
         /// <returns>A <see cref="string"/> that is equivalent to the substring of length <paramref name="length"/> that begins at <paramref name="offset"/> in this <see cref="StringSegment"/></returns>
         public string Substring(int offset, int length)
         {
-            if (!HasValue)
+            if (!this.HasValue)
             {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            if (offset < 0 || offset + length > Length)
+            if (offset < 0 || offset + length > this.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            if (length < 0 || Offset + offset + length > Buffer.Length)
+            if (length < 0 || this.Offset + offset + length > this.Buffer.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
 
-            return Buffer.Substring(Offset + offset, length);
+            return this.Buffer.Substring(this.Offset + offset, length);
         }
 
         /// <summary>
@@ -306,22 +306,22 @@ namespace ServiceStack.Text
         /// <returns>A <see cref="StringSegment"/> that is equivalent to the substring of length <paramref name="length"/> that begins at <paramref name="offset"/> in this <see cref="StringSegment"/></returns>
         public StringSegment Subsegment(int offset, int length)
         {
-            if (!HasValue)
+            if (!this.HasValue)
             {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            if (offset < 0 || offset + length > Length)
+            if (offset < 0 || offset + length > this.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            if (length < 0 || Offset + offset + length > Buffer.Length)
+            if (length < 0 || this.Offset + offset + length > this.Buffer.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
 
-            return new StringSegment(Buffer, Offset + offset, length);
+            return new StringSegment(this.Buffer, this.Offset + offset, length);
         }
 
         /// <summary>
@@ -334,19 +334,20 @@ namespace ServiceStack.Text
         /// <returns>The zero-based index position of <paramref name="c"/> from the beginning of the <see cref="StringSegment"/> if that character is found, or -1 if it is not.</returns>
         public int IndexOf(char c, int start, int count)
         {
-            if (start < 0 || Offset + start > Buffer.Length)
+            if (start < 0 || this.Offset + start > this.Buffer.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(start));
             }
 
-            if (count < 0 || Offset + start + count > Buffer.Length)
+            if (count < 0 || this.Offset + start + count > this.Buffer.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
-            var index = Buffer.IndexOf(c, start + Offset, count);
+
+            var index = this.Buffer.IndexOf(c, start + this.Offset, count);
             if (index != -1)
             {
-                return index - Offset;
+                return index - this.Offset;
             }
             else
             {
@@ -363,7 +364,7 @@ namespace ServiceStack.Text
         /// <returns>The zero-based index position of <paramref name="c"/> from the beginning of the <see cref="StringSegment"/> if that character is found, or -1 if it is not.</returns>
         public int IndexOf(char c, int start)
         {
-            return IndexOf(c, start, Length - start);
+            return this.IndexOf(c, start, this.Length - start);
         }
 
         /// <summary>
@@ -373,7 +374,7 @@ namespace ServiceStack.Text
         /// <returns>The zero-based index position of <paramref name="c"/> from the beginning of the <see cref="StringSegment"/> if that character is found, or -1 if it is not.</returns>
         public int IndexOf(char c)
         {
-            return IndexOf(c, 0, Length);
+            return this.IndexOf(c, 0, this.Length);
         }
 
         /// <summary>
@@ -382,7 +383,7 @@ namespace ServiceStack.Text
         /// <returns>The trimmed <see cref="StringSegment"/>.</returns>
         public StringSegment Trim()
         {
-            return TrimStart().TrimEnd();
+            return this.TrimStart().TrimEnd();
         }
 
         /// <summary>
@@ -391,10 +392,10 @@ namespace ServiceStack.Text
         /// <returns>The trimmed <see cref="StringSegment"/>.</returns>
         public StringSegment TrimStart()
         {
-            var trimmedStart = Offset;
-            while (trimmedStart < Offset + Length)
+            var trimmedStart = this.Offset;
+            while (trimmedStart < this.Offset + this.Length)
             {
-                if (!char.IsWhiteSpace(Buffer, trimmedStart))
+                if (!char.IsWhiteSpace(this.Buffer, trimmedStart))
                 {
                     break;
                 }
@@ -402,7 +403,7 @@ namespace ServiceStack.Text
                 trimmedStart++;
             }
 
-            return new StringSegment(Buffer, trimmedStart, Offset + Length - trimmedStart);
+            return new StringSegment(this.Buffer, trimmedStart, this.Offset + this.Length - trimmedStart);
         }
 
         /// <summary>
@@ -411,10 +412,10 @@ namespace ServiceStack.Text
         /// <returns>The trimmed <see cref="StringSegment"/>.</returns>
         public StringSegment TrimEnd()
         {
-            var trimmedEnd = Offset + Length - 1;
-            while (trimmedEnd >= Offset)
+            var trimmedEnd = this.Offset + this.Length - 1;
+            while (trimmedEnd >= this.Offset)
             {
-                if (!char.IsWhiteSpace(Buffer, trimmedEnd))
+                if (!char.IsWhiteSpace(this.Buffer, trimmedEnd))
                 {
                     break;
                 }
@@ -422,7 +423,7 @@ namespace ServiceStack.Text
                 trimmedEnd--;
             }
 
-            return new StringSegment(Buffer, Offset, trimmedEnd - Offset + 1);
+            return new StringSegment(this.Buffer, this.Offset, trimmedEnd - this.Offset + 1);
         }
 
         /// <summary>
@@ -431,7 +432,7 @@ namespace ServiceStack.Text
         /// <returns>The <see cref="string"/> represented by this <see cref="StringSegment"/> or <code>String.Empty</code> if the <see cref="StringSegment"/> does not contain a value.</returns>
         public override string ToString()
         {
-            return Value ?? string.Empty;
+            return this.Value ?? string.Empty;
         }
     }
 }

@@ -96,10 +96,11 @@ namespace ServiceStack.Text.Common
             var index = 0;
             if (!Serializer.EatMapStartChar(value, ref index))
             {
-                //Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
+                // Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
                 Tracer.Instance.WriteDebug("WARN: Map definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
                                            JsWriter.MapStartChar, createMapType != null ? createMapType.Name : "Dictionary<,>", value.Substring(0, value.Length < 50 ? value.Length : 50));
             }
+
             return index;
         }
 
@@ -136,7 +137,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<string, ParseKeyValuePairDelegate>(ParseDelegateCache);
                 newCache[key] = parseDelegate;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 
             return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
@@ -152,6 +154,7 @@ namespace ServiceStack.Text.Common
 
                 sb.Append(type.FullName);
             }
+
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
     }

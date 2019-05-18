@@ -99,6 +99,3 @@
         </div>
     </ContentTemplate>
 </asp:UpdatePanel>
-<div id="DivSmartScroller">
-    
-</div>

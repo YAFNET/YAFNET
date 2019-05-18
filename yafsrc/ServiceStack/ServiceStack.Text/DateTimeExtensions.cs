@@ -10,12 +10,13 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Globalization;
-using ServiceStack.Text.Common;
-
 namespace ServiceStack.Text
 {
+    using System;
+    using System.Globalization;
+
+    using ServiceStack.Text.Common;
+
     /// <summary>
     /// A fast, standards-based, serialization-issue free DateTime serailizer.
     /// </summary>
@@ -31,19 +32,9 @@ namespace ServiceStack.Text
             return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
         }
 
-        public static DateTime FromUnixTime(this double unixTime)
-        {
-            return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
-        }
-
         public static DateTime FromUnixTime(this long unixTime)
         {
             return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
-        }
-
-        public static long ToUnixTimeMsAlt(this DateTime dateTime)
-        {
-            return (dateTime.ToStableUniversalTime().Ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
         }
 
         public static long ToUnixTimeMs(this DateTime dateTime)
@@ -91,34 +82,6 @@ namespace ServiceStack.Text
             return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
         }
 
-        public static DateTime FromUnixTimeMs(this double msSince1970, TimeSpan offset)
-        {
-            return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
-        }
-
-        public static DateTime FromUnixTimeMs(string msSince1970)
-        {
-            long ms;
-            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs();
-
-            // Do we really need to support fractional unix time ms time strings??
-            return double.Parse(msSince1970).FromUnixTimeMs();
-        }
-
-        public static DateTime FromUnixTimeMs(string msSince1970, TimeSpan offset)
-        {
-            long ms;
-            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs(offset);
-
-            // Do we really need to support fractional unix time ms time strings??
-            return double.Parse(msSince1970).FromUnixTimeMs(offset);
-        }
-
-        public static DateTime RoundToMs(this DateTime dateTime)
-        {
-            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerMillisecond) * TimeSpan.TicksPerMillisecond, dateTime.Kind);
-        }
-
         public static DateTime RoundToSecond(this DateTime dateTime)
         {
             return new DateTime((dateTime.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond, dateTime.Kind);
@@ -132,16 +95,6 @@ namespace ServiceStack.Text
         public static string ToShortestXsdDateTimeString(this DateTime dateTime)
         {
             return DateTimeSerializer.ToShortestXsdDateTimeString(dateTime);
-        }
-
-        public static DateTime FromShortestXsdDateTimeString(this string xsdDateTime)
-        {
-            return DateTimeSerializer.ParseShortestXsdDateTime(xsdDateTime);
-        }
-
-        public static bool IsEqualToTheSecond(this DateTime dateTime, DateTime otherDateTime)
-        {
-            return dateTime.ToStableUniversalTime().RoundToSecond().Equals(otherDateTime.ToStableUniversalTime().RoundToSecond());
         }
 
         public static string ToTimeOffsetString(this TimeSpan offset, string seperator = "")

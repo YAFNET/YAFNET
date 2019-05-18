@@ -6,6 +6,7 @@
 
 <asp:Repeater ID="ModeratorList" runat="server">
     <HeaderTemplate>
+        <p><small>
         <span class="font-weight-bold">
             <i class="fa fa-user-secret fa-fw"></i>&nbsp;<%# this.GetText("DEFAULT", "MODERATORS")%>:
         </span>
@@ -18,9 +19,11 @@
         </asp:PlaceHolder>
         <asp:PlaceHolder ID="ModeratorGroup" runat="server" 
                          Visible='<%# ((DataRow)Container.DataItem)["IsGroup"].ToType<int>() != 0 %>'>
-            <span class="font-weight-bold"><%# this.Get<YafBoardSettings>().EnableDisplayName ? ((DataRow)Container.DataItem)["ModeratorDisplayName"].ToString() : ((DataRow)Container.DataItem)["ModeratorName"].ToString()%>
-            </span>
+            <%# this.Get<YafBoardSettings>().EnableDisplayName ? ((DataRow)Container.DataItem)["ModeratorDisplayName"].ToString() : ((DataRow)Container.DataItem)["ModeratorName"].ToString()%>
         </asp:PlaceHolder>
     </ItemTemplate>
+    <FooterTemplate>
+        </small></p>
+    </FooterTemplate>
 </asp:Repeater>
 <asp:PlaceHolder ID="BlankDash" runat="server">- </asp:PlaceHolder>

@@ -73,6 +73,3 @@
 <div class="float-left">
     <YAF:IconLegend ID="IconLegend1" runat="server" />
 </div>
-<div id="DivSmartScroller">
-    
-</div>

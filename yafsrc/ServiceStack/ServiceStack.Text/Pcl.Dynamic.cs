@@ -3,23 +3,25 @@
 
 #if !(PCL || LITE || NO_DYNAMIC)
 
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using ServiceStack.Text;
-using ServiceStack.Text.Common;
-using ServiceStack.Text.Json;
-using System.Linq;
-using System.Text;
 #if NETSTANDARD2_0 
 using Microsoft.Extensions.Primitives;
 #else
-using ServiceStack.Text.Support;
 #endif
 
 #if !(__IOS__)
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text;
+
+using ServiceStack.Text;
+using ServiceStack.Text.Common;
+using ServiceStack.Text.Json;
+using ServiceStack.Text.Support;
+
 #endif
 
 namespace ServiceStack
@@ -30,6 +32,7 @@ namespace ServiceStack
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
         private static readonly ParseStringSegmentDelegate CachedParseFn;
+
         static DeserializeDynamic()
         {
             CachedParseFn = ParseDynamic;
@@ -49,7 +52,7 @@ namespace ServiceStack
 
             if (JsonTypeSerializer.IsEmptyMap(value)) return result;
 
-            var container = (IDictionary<String, Object>)result;
+            var container = (IDictionary<string, object>)result;
 
             var tryToParsePrimitiveTypes = JsConfig.TryToParsePrimitiveTypeValues;
 
@@ -72,7 +75,8 @@ namespace ServiceStack
                 }
                 else if (tryToParsePrimitiveTypes)
                 {
-                    container[mapKey] = DeserializeType<TSerializer>.ParsePrimitive(elementValue) ?? Serializer.UnescapeString(elementValue);
+                    container[mapKey] = DeserializeType<TSerializer>.ParsePrimitive(elementValue)
+                                        ?? Serializer.UnescapeString(elementValue);
                 }
                 else
                 {
@@ -90,16 +94,19 @@ namespace ServiceStack
             var index = 0;
             if (!Serializer.EatMapStartChar(value, ref index))
             {
-                //Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
-                Tracer.Instance.WriteDebug("WARN: Map definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
-                    JsWriter.MapStartChar, createMapType != null ? createMapType.Name : "Dictionary<,>", value.Substring(0, value.Length < 50 ? value.Length : 50));
+                // Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
+                Tracer.Instance.WriteDebug(
+                    "WARN: Map definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
+                    JsWriter.MapStartChar,
+                    createMapType != null ? createMapType.Name : "Dictionary<,>",
+                    value.Substring(0, value.Length < 50 ? value.Length : 50));
             }
+
             return index;
         }
     }
 
-//TODO: Workout how to fix broken CoreCLR SL5 build that uses dynamic
-
+    // TODO: Workout how to fix broken CoreCLR SL5 build that uses dynamic
     public class DynamicJson : DynamicObject
     {
         private readonly IDictionary<string, object> _hash = new Dictionary<string, object>();
@@ -114,42 +121,44 @@ namespace ServiceStack
         {
             // Support arbitrary nesting by using JsonObject
             var deserialized = JsonSerializer.DeserializeFromString<JsonObject>(json);
-            var hash = deserialized.ToDictionary<KeyValuePair<string, string>, string, object>(entry => entry.Key, entry => entry.Value);
+            var hash = deserialized.ToDictionary<KeyValuePair<string, string>, string, object>(
+                entry => entry.Key,
+                entry => entry.Value);
             return new DynamicJson(hash);
         }
 
         public DynamicJson(IEnumerable<KeyValuePair<string, object>> hash)
         {
-            _hash.Clear();
+            this._hash.Clear();
             foreach (var entry in hash)
             {
-                _hash.Add(Underscored(entry.Key), entry.Value);
+                this._hash.Add(Underscored(entry.Key), entry.Value);
             }
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
             var name = Underscored(binder.Name);
-            _hash[name] = value;
-            return _hash[name] == value;
+            this._hash[name] = value;
+            return this._hash[name] == value;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             var name = Underscored(binder.Name);
-            return YieldMember(name, out result);
+            return this.YieldMember(name, out result);
         }
 
         public override string ToString()
         {
-            return JsonSerializer.SerializeToString(_hash);
+            return JsonSerializer.SerializeToString(this._hash);
         }
 
         private bool YieldMember(string name, out object result)
         {
-            if (_hash.ContainsKey(name))
+            if (this._hash.ContainsKey(name))
             {
-                var json = _hash[name].ToString();
+                var json = this._hash[name].ToString();
                 if (json.TrimStart(' ').StartsWith("{", StringComparison.Ordinal))
                 {
                     result = Deserialize(json);
@@ -157,16 +166,21 @@ namespace ServiceStack
                 }
                 else if (json.TrimStart(' ').StartsWith("[", StringComparison.Ordinal))
                 {
-                    result = JsonArrayObjects.Parse(json).Select(a =>
-                    {
-                        var hash = a.ToDictionary<KeyValuePair<string, string>, string, object>(entry => entry.Key, entry => entry.Value);
-                        return new DynamicJson(hash);
-                    }).ToArray();
+                    result = JsonArrayObjects.Parse(json).Select(
+                        a =>
+                            {
+                                var hash = a.ToDictionary<KeyValuePair<string, string>, string, object>(
+                                    entry => entry.Key,
+                                    entry => entry.Value);
+                                return new DynamicJson(hash);
+                            }).ToArray();
                     return true;
                 }
+
                 result = json;
-                return _hash[name] == result;
+                return this._hash[name] == result;
             }
+
             result = null;
             return false;
         }
@@ -186,9 +200,11 @@ namespace ServiceStack
                 {
                     sb.Append("_");
                 }
+
                 sb.Append(c);
                 i++;
             }
+
             return StringBuilderCache.ReturnAndFree(sb).ToLowerInvariant();
         }
     }
@@ -202,7 +218,9 @@ namespace ServiceStack
         }
 
         static readonly ModuleBuilder ModuleBuilder;
+
         static readonly AssemblyBuilder DynamicAssembly;
+
         static readonly Type[] EmptyTypes = new Type[0];
 
         public static object GetInstanceFor(Type targetType)
@@ -226,7 +244,9 @@ namespace ServiceStack
 #if NETSTANDARD2_0
             DynamicAssembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
 #else
-            DynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+            DynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(
+                assemblyName,
+                AssemblyBuilderAccess.RunAndSave);
 #endif
             ModuleBuilder = DynamicAssembly.DefineDynamicModule("DynImplModule");
         }
@@ -259,7 +279,8 @@ namespace ServiceStack
             var methodInfos = typeOfT.GetMethods();
             foreach (var methodInfo in methodInfos)
             {
-                if (methodInfo.Name.StartsWith("set_", StringComparison.Ordinal)) continue; // we always add a set for a get.
+                if (methodInfo.Name.StartsWith("set_", StringComparison.Ordinal))
+                    continue; // we always add a set for a get.
 
                 if (methodInfo.Name.StartsWith("get_", StringComparison.Ordinal))
                 {
@@ -280,8 +301,7 @@ namespace ServiceStack
                 methodInfo.Name,
                 MethodAttributes.Public | MethodAttributes.Virtual,
                 methodInfo.ReturnType,
-                methodInfo.GetParameters().Select(p => p.GetType()).ToArray()
-                );
+                methodInfo.GetParameters().Select(p => p.GetType()).ToArray());
             var methodILGen = methodBuilder.GetILGenerator();
             if (methodInfo.ReturnType == typeof(void))
             {
@@ -302,33 +322,43 @@ namespace ServiceStack
                 {
                     methodILGen.Emit(OpCodes.Ldnull);
                 }
+
                 methodILGen.Emit(OpCodes.Ret);
             }
+
             typeBuilder.DefineMethodOverride(methodBuilder, methodInfo);
         }
 
         public static void BindProperty(TypeBuilder typeBuilder, MethodInfo methodInfo)
         {
             // Backing Field
-            string propertyName = methodInfo.Name.Replace("get_", "");
+            string propertyName = methodInfo.Name.Replace("get_", string.Empty);
             Type propertyType = methodInfo.ReturnType;
-            FieldBuilder backingField = typeBuilder.DefineField("_" + propertyName, propertyType, FieldAttributes.Private);
+            FieldBuilder backingField = typeBuilder.DefineField(
+                "_" + propertyName,
+                propertyType,
+                FieldAttributes.Private);
 
-            //Getter
-            MethodBuilder backingGet = typeBuilder.DefineMethod("get_" + propertyName, MethodAttributes.Public |
-                MethodAttributes.SpecialName | MethodAttributes.Virtual |
-                MethodAttributes.HideBySig, propertyType, EmptyTypes);
+            // Getter
+            MethodBuilder backingGet = typeBuilder.DefineMethod(
+                "get_" + propertyName,
+                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
+                | MethodAttributes.HideBySig,
+                propertyType,
+                EmptyTypes);
             ILGenerator getIl = backingGet.GetILGenerator();
 
             getIl.Emit(OpCodes.Ldarg_0);
             getIl.Emit(OpCodes.Ldfld, backingField);
             getIl.Emit(OpCodes.Ret);
 
-
-            //Setter
-            MethodBuilder backingSet = typeBuilder.DefineMethod("set_" + propertyName, MethodAttributes.Public |
-                MethodAttributes.SpecialName | MethodAttributes.Virtual |
-                MethodAttributes.HideBySig, null, new[] { propertyType });
+            // Setter
+            MethodBuilder backingSet = typeBuilder.DefineMethod(
+                "set_" + propertyName,
+                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
+                | MethodAttributes.HideBySig,
+                null,
+                new[] { propertyType });
 
             ILGenerator setIl = backingSet.GetILGenerator();
 
@@ -338,12 +368,15 @@ namespace ServiceStack
             setIl.Emit(OpCodes.Ret);
 
             // Property
-            PropertyBuilder propertyBuilder = typeBuilder.DefineProperty(propertyName, PropertyAttributes.None, propertyType, null);
+            PropertyBuilder propertyBuilder = typeBuilder.DefineProperty(
+                propertyName,
+                PropertyAttributes.None,
+                propertyType,
+                null);
             propertyBuilder.SetGetMethod(backingGet);
             propertyBuilder.SetSetMethod(backingSet);
         }
     }
 #endif
-
 }
 #endif

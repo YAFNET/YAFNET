@@ -64,12 +64,12 @@ namespace ServiceStack
 
     public enum QuotaType
     {
-        Operations,      //ServiceStack
-        Types,           //Text, Redis
-        Fields,          //ServiceStack, Text, Redis, OrmLite
-        RequestsPerHour, //Redis
-        Tables,          //OrmLite, Aws
-        PremiumFeature,  //AdminUI, Advanced Redis APIs, etc
+        Operations,      // ServiceStack
+        Types,           // Text, Redis
+        Fields,          // ServiceStack, Text, Redis, OrmLite
+        RequestsPerHour, // Redis
+        Tables,          // OrmLite, Aws
+        PremiumFeature,  // AdminUI, Advanced Redis APIs, etc
     }
 
     /// <summary>
@@ -128,7 +128,7 @@ namespace ServiceStack
         private static bool hasInit;
         public static void Init()
         {
-            hasInit = true; //Dummy method to init static constructor
+            hasInit = true; // Dummy method to init static constructor
         }
 
         public static class ErrorMessages
@@ -169,7 +169,7 @@ namespace ServiceStack
         {
             JsConfig.InitStatics();
 
-            if (__activatedLicense != null) //Skip multple license registrations. Use RemoveLicense() to reset.
+            if (__activatedLicense != null) // Skip multple license registrations. Use RemoveLicense() to reset.
                 return;
 
             string subId = null;
@@ -259,10 +259,10 @@ namespace ServiceStack
         public static void AssertValidUsage(LicenseFeature feature, QuotaType quotaType, int count)
         {
             var licensedFeatures = ActivatedLicenseFeatures();
-            if ((LicenseFeature.All & licensedFeatures) == LicenseFeature.All) //Standard Usage
+            if ((LicenseFeature.All & licensedFeatures) == LicenseFeature.All) // Standard Usage
                 return;
 
-            //Free Quotas
+            // Free Quotas
             switch (feature)
             {
                 case LicenseFeature.Redis:
@@ -364,7 +364,7 @@ namespace ServiceStack
 
         public static LicenseKey ToLicenseKey(this string licenseKeyText)
         {
-            licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "");
+            licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", string.Empty);
             var parts = licenseKeyText.SplitOnFirst('-');
             var refId = parts[0];
             var base64 = parts[1];
@@ -394,7 +394,7 @@ namespace ServiceStack
 
         public static LicenseKey ToLicenseKeyFallback(this string licenseKeyText)
         {
-            licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "");
+            licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", string.Empty);
             var parts = licenseKeyText.SplitOnFirst('-');
             var refId = parts[0];
             var base64 = parts[1];
@@ -423,11 +423,12 @@ namespace ServiceStack
 
         public static Exception GetInnerMostException(this Exception ex)
         {
-            //Extract true exception from static intializers (e.g. LicenseException)
+            // Extract true exception from static intializers (e.g. LicenseException)
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
             }
+
             return ex;
         }
     }

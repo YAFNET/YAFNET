@@ -20,7 +20,7 @@ namespace ServiceStack.Text
 
             var sb = ret.GetStringBuilder();
             sb.Length = 0;
-            cache = null;  //don't re-issue cached instance until it's freed
+            cache = null;  // don't re-issue cached instance until it's freed
             return ret;
         }
 
@@ -53,7 +53,7 @@ namespace ServiceStack.Text
 
             var sb = ret.GetStringBuilder();
             sb.Length = 0;
-            cache = null;  //don't re-issue cached instance until it's freed
+            cache = null;  // don't re-issue cached instance until it's freed
             return ret;
         }
 
@@ -70,7 +70,7 @@ namespace ServiceStack.Text
         }
     }
 
-    //Use separate cache internally to avoid reallocations and cache misses
+    // Use separate cache internally to avoid reallocations and cache misses
     internal static class StringWriterThreadStatic
     {
         [ThreadStatic]
@@ -84,7 +84,7 @@ namespace ServiceStack.Text
 
             var sb = ret.GetStringBuilder();
             sb.Length = 0;
-            cache = null;  //don't re-issue cached instance until it's freed
+            cache = null;  // don't re-issue cached instance until it's freed
             return ret;
         }
 

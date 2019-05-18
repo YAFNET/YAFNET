@@ -14,9 +14,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Linq;
 
 namespace ServiceStack.Text.Common
 {
@@ -43,7 +43,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(ListCacheFns);
                 newCache[elementType] = writeFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ListCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -68,7 +69,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(IListCacheFns);
                 newCache[elementType] = writeFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref IListCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -92,7 +94,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(CacheFns);
                 newCache[elementType] = writeFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref CacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -116,7 +119,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(EnumerableCacheFns);
                 newCache[elementType] = writeFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref EnumerableCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -140,7 +144,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(ListValueTypeCacheFns);
                 newCache[elementType] = writeFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ListValueTypeCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -165,7 +170,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(IListValueTypeCacheFns);
                 newCache[elementType] = writeFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref IListValueTypeCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -246,7 +252,7 @@ namespace ServiceStack.Text.Common
 
         public static void WriteGenericListValueType(TextWriter writer, List<T> list)
         {
-            if (list == null) return; //AOT
+            if (list == null) return; // AOT
 
             writer.Write(JsWriter.ListStartChar);
 
@@ -287,6 +293,7 @@ namespace ServiceStack.Text.Common
                 Tracer.Instance.WriteError(ex);
                 throw;
             }
+
             writer.Write(JsWriter.ListEndChar);
         }
 
@@ -297,7 +304,7 @@ namespace ServiceStack.Text.Common
 
         public static void WriteGenericIListValueType(TextWriter writer, IList<T> list)
         {
-            if (list == null) return; //AOT
+            if (list == null) return; // AOT
 
             writer.Write(JsWriter.ListStartChar);
 
@@ -353,6 +360,7 @@ namespace ServiceStack.Text.Common
                 else
                     ElementWriteFn(writer, array.GetValue(indices));
             }
+
             writer.Write(JsWriter.ListEndChar);
         }
 
@@ -360,6 +368,7 @@ namespace ServiceStack.Text.Common
         {
             WriteGenericArrayMultiDimension(writer, array, 0, new int[array.Rank]);
         }
+
         public static void WriteEnumerable(TextWriter writer, object oEnumerable)
         {
             WriteGenericEnumerable(writer, (IEnumerable<T>)oEnumerable);
@@ -483,7 +492,7 @@ namespace ServiceStack.Text.Common
             if (listInterface == null)
                 throw new ArgumentException(string.Format("Type {0} is not of type IList<>", type.FullName));
 
-            //optimized access for regularly used types
+            // optimized access for regularly used types
             if (type == typeof(List<string>))
                 return (w, x) => WriteLists.WriteListString(Serializer, w, x);
             if (type == typeof(IList<string>))

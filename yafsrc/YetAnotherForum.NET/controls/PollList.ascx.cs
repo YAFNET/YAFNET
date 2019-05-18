@@ -897,36 +897,6 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The remove poll_ completely load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void RemovePollCompletely_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
-    }
-
-    /// <summary>
-    /// The remove poll_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void RemovePoll_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      ((ThemeButton)sender).Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE"));
-    }
-
-    /// <summary>
     /// The event initiated in PollChoiceList.
     /// </summary>
     /// <param name="sender">

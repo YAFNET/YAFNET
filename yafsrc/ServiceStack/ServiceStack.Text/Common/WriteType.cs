@@ -133,8 +133,8 @@ namespace ServiceStack.Text.Common
             var shouldSerializeDynamic = ShouldSerialize(typeof(T));
 
             // NOTE: very limited support for DataContractSerialization (DCS)
-            //	NOT supporting Serializable
-            //	support for DCS is intended for (re)Name of properties and Ignore by NOT having a DataMember present
+            // 	NOT supporting Serializable
+            // 	support for DCS is intended for (re)Name of properties and Ignore by NOT having a DataMember present
             var isDataContract = typeof(T).IsDto();
             for (var i = 0; i < propertyNamesLength; i++)
             {
@@ -262,10 +262,10 @@ namespace ServiceStack.Text.Common
                 get
                 {
                     return JsConfig<T>.EmitCamelCaseNames.GetValueOrDefault(JsConfig.EmitCamelCaseNames)
-                        ? propertyNameCLSFriendly
+                        ? this.propertyNameCLSFriendly
                         : JsConfig<T>.EmitLowercaseUnderscoreNames.GetValueOrDefault(JsConfig.EmitLowercaseUnderscoreNames)
-                            ? propertyNameLowercaseUnderscore
-                            : propertyName;
+                            ? this.propertyNameLowercaseUnderscore
+                            : this.propertyName;
                 }
             }
 
@@ -309,16 +309,16 @@ namespace ServiceStack.Text.Common
 
             public bool ShouldWriteProperty(object propertyValue)
             {
-                if ((!isEnum || !JsConfig.IncludeDefaultEnums) && (propertySuppressDefaultAttribute || JsConfig.ExcludeDefaultValues) && Equals(DefaultValue, propertyValue))
+                if ((!this.isEnum || !JsConfig.IncludeDefaultEnums) && (this.propertySuppressDefaultAttribute || JsConfig.ExcludeDefaultValues) && Equals(this.DefaultValue, propertyValue))
                     return false;
 
                 if (!Serializer.IncludeNullValues
-                    && (propertyValue == null || (propertySuppressDefaultConfig && Equals(DefaultValue, propertyValue))))
+                    && (propertyValue == null || (this.propertySuppressDefaultConfig && Equals(this.DefaultValue, propertyValue))))
                 {
                     return false;
                 }
 
-                if (isEnum && !JsConfig.IncludeDefaultEnums && Equals(DefaultValue, propertyValue))
+                if (this.isEnum && !JsConfig.IncludeDefaultEnums && Equals(this.DefaultValue, propertyValue))
                     return false;
 
                 return true;
@@ -339,9 +339,11 @@ namespace ServiceStack.Text.Common
                 {
                     TryWriteTypeInfo(writer, value);
                 }
+
                 writer.Write(JsWriter.MapEndChar);
                 return;
             }
+
             writer.Write(JsWriter.EmptyMap);
         }
 
@@ -352,6 +354,7 @@ namespace ServiceStack.Text.Common
                 writer.Write(JsWriter.EmptyMap);
                 return;
             }
+
             var valueType = value.GetType();
             if (valueType.IsAbstract)
             {
@@ -507,7 +510,7 @@ namespace ServiceStack.Text.Common
                         propertyValueType.IsUserType() && 
                         !propertyValueType.HasInterface(typeof(IEnumerable)))
                     {
-                        //Nested Complex Type: legal_entity[dob][day]=1
+                        // Nested Complex Type: legal_entity[dob][day]=1
                         var prefix = "{0}[{1}]".Fmt(typeName, propertyWriter.PropertyName);
                         var props = propertyValueType.GetSerializableProperties();
                         for (int j = 0; j < props.Length; j++)
@@ -599,10 +602,10 @@ namespace ServiceStack.Text.Common
                     }
                     else
                     {
-                        //Trim brackets in top-level lists in QueryStrings, e.g: ?a=[1,2,3] => ?a=1,2,3
+                        // Trim brackets in top-level lists in QueryStrings, e.g: ?a=[1,2,3] => ?a=1,2,3
                         using (var ms = MemoryStreamFactory.GetStream())
                         {
-                            var enumerableWriter = new StreamWriter(ms); //ms disposed in using 
+                            var enumerableWriter = new StreamWriter(ms); // ms disposed in using 
                             propertyWriter.WriteFn(enumerableWriter, propertyValue);
                             enumerableWriter.Flush();
                             var output = ms.ToArray().FromUtf8Bytes();

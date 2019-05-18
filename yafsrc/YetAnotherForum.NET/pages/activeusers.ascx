@@ -123,7 +123,3 @@
         </div>
     </FooterTemplate>
 </asp:Repeater>
-
-<div id="DivSmartScroller">
-	
-</div>

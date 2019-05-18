@@ -13,9 +13,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Linq;
+
 using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text
@@ -42,7 +43,8 @@ namespace ServiceStack.Text
                 newCache = new Dictionary<Type, ConvertInstanceDelegate>(TranslateICollectionCache);
                 newCache[elementType] = translateToFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TranslateICollectionCache, newCache, snapshot), snapshot));
 
             return translateToFn(from, toInstanceOfType);
@@ -70,7 +72,8 @@ namespace ServiceStack.Text
                 newCache = new Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate>(TranslateConvertibleICollectionCache);
                 newCache[typeKey] = translateToFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TranslateConvertibleICollectionCache, newCache, snapshot), snapshot));
 
             return translateToFn(from, toInstanceOfType);
@@ -121,15 +124,15 @@ namespace ServiceStack.Text
 
         public ConvertibleTypeKey(Type toInstanceType, Type fromElemenetType)
         {
-            ToInstanceType = toInstanceType;
-            FromElemenetType = fromElemenetType;
+            this.ToInstanceType = toInstanceType;
+            this.FromElemenetType = fromElemenetType;
         }
 
         public bool Equals(ConvertibleTypeKey other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(other.ToInstanceType, ToInstanceType) && Equals(other.FromElemenetType, FromElemenetType);
+            return Equals(other.ToInstanceType, this.ToInstanceType) && Equals(other.FromElemenetType, this.FromElemenetType);
         }
 
         public override bool Equals(object obj)
@@ -137,15 +140,15 @@ namespace ServiceStack.Text
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != typeof(ConvertibleTypeKey)) return false;
-            return Equals((ConvertibleTypeKey)obj);
+            return this.Equals((ConvertibleTypeKey)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((ToInstanceType != null ? ToInstanceType.GetHashCode() : 0) * 397)
-                    ^ (FromElemenetType != null ? FromElemenetType.GetHashCode() : 0);
+                return ((this.ToInstanceType != null ? this.ToInstanceType.GetHashCode() : 0) * 397)
+                    ^ (this.FromElemenetType != null ? this.FromElemenetType.GetHashCode() : 0);
             }
         }
     }
@@ -173,6 +176,7 @@ namespace ServiceStack.Text
             {
                 to.Add(item);
             }
+
             return to;
         }
 
@@ -180,7 +184,7 @@ namespace ServiceStack.Text
             object fromList, Type toInstanceOfType)
         {
             if (fromList == null)
-                return null; //AOT
+                return null; // AOT
 
             if (toInstanceOfType.IsArray)
             {
@@ -201,6 +205,7 @@ namespace ServiceStack.Text
             {
                 to.Add((T)item);
             }
+
             return to;
         }
     }
@@ -224,7 +229,7 @@ namespace ServiceStack.Text
         public static ICollection<TTo> TranslateToGenericICollection(
             ICollection<TFrom> fromList, Type toInstanceOfType)
         {
-            if (fromList == null) return null; //AOT
+            if (fromList == null) return null; // AOT
 
             var to = (ICollection<TTo>)TranslateListWithElements<TTo>.CreateInstance(toInstanceOfType);
 
@@ -233,6 +238,7 @@ namespace ServiceStack.Text
                 var toItem = ConvertFn(item);
                 to.Add(toItem);
             }
+
             return to;
         }
 
@@ -242,10 +248,12 @@ namespace ServiceStack.Text
             {
                 return x => (TTo)(object)TypeSerializer.SerializeToString(x);
             }
+
             if (typeof(TFrom) == typeof(string))
             {
                 return x => TypeSerializer.DeserializeFromString<TTo>((string)(object)x);
             }
+
             return x => TypeSerializer.DeserializeFromString<TTo>(TypeSerializer.SerializeToString(x));
         }
     }

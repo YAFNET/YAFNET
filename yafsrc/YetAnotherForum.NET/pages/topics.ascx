@@ -26,12 +26,12 @@
     </div>
     <div class="col">
         <YAF:ThemeButton ID="moderate1" runat="server"
-                         CssClass="float-right mr-1"
+                         CssClass="float-right mr-1 mt-1"
                          TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
                          Type="Secondary"
                          Icon="tasks"/>
         <YAF:ThemeButton ID="NewTopic1" runat="server" 
-                         CssClass="float-right mr-1"
+                         CssClass="float-right mr-1 mt-1"
                          TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
                          OnClick="NewTopic_Click"
                          Icon="plus"/>
@@ -88,9 +88,12 @@
                 <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
                     <div class="mb-1 form-inline">
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />:
-                        &nbsp;<asp:TextBox id="forumSearch" runat="server"></asp:TextBox>
-                        &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" Size="Small"
-                                               TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" OnClick="ForumSearch_Click" />
+                        &nbsp;<asp:TextBox id="forumSearch" CssClass="form-control" runat="server"></asp:TextBox>
+                        &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" 
+                                               Size="Small"
+                                               CssClass="mt-1"
+                                               TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" 
+                                               OnClick="ForumSearch_Click" />
                     </div>
                 </asp:PlaceHolder>
             </div>
@@ -130,12 +133,12 @@
     </div>
     <div class="col">
             <YAF:ThemeButton ID="moderate2" runat="server" 
-                             CssClass="float-right mr-1"
+                             CssClass="float-right mr-1 mt-1"
                              TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
                              Type="Secondary"
                              Icon="tasks"/>
             <YAF:ThemeButton ID="NewTopic2" runat="server" 
-                             CssClass="float-right mr-1"
+                             CssClass="float-right mr-1 mt-1"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
                              OnClick="NewTopic_Click"
                              Icon="plus"/>

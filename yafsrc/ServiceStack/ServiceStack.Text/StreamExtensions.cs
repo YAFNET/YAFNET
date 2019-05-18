@@ -100,11 +100,13 @@ namespace ServiceStack
             using (var tempStream = MemoryStreamFactory.GetStream())
             {
                 CopyTo(input, tempStream, buffer);
+
                 // No need to copy the buffer if it's the right size
                 if (tempStream.Length == tempStream.GetBuffer().Length)
                 {
                     return tempStream.GetBuffer();
                 }
+
                 // Okay, make a copy that's the right size
                 return tempStream.ToArray();
             }
@@ -156,6 +158,7 @@ namespace ServiceStack
                 output.Write(buffer, 0, read);
                 total += read;
             }
+
             return total;
         }
 
@@ -218,10 +221,11 @@ namespace ServiceStack
                 var read = fromStream.Read(intoBuffer, startAtIndex + index, bytesToRead - index);
                 if (read == 0)
                     throw new EndOfStreamException
-                        ($"End of stream reached with {bytesToRead - index} byte{(bytesToRead - index == 1 ? "s" : "")} left to read.");
+                        ($"End of stream reached with {bytesToRead - index} byte{(bytesToRead - index == 1 ? "s" : string.Empty)} left to read.");
 
                 index += read;
             }
+
             return intoBuffer;
         }
 
@@ -241,6 +245,7 @@ namespace ServiceStack
                     if (lastChar == 32)
                         continue; // Only write one space character
                 }
+
                 sb.Append(c);
                 lastChar = c;
             }
@@ -284,6 +289,7 @@ namespace ServiceStack
             {
                 sb.Append(b.ToString("x2"));
             }
+
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
@@ -295,6 +301,7 @@ namespace ServiceStack
             {
                 sb.Append(b.ToString("x2"));
             }
+
             return StringBuilderCache.ReturnAndFree(sb);
         }
         

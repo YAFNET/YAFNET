@@ -43,7 +43,7 @@ namespace ServiceStack
 
         public static TaskScheduler SafeTaskScheduler()
         {
-            //Unit test runner
+            // Unit test runner
             if (SynchronizationContext.Current != null)
                 return TaskScheduler.FromCurrentSynchronizationContext();
 
@@ -83,7 +83,7 @@ namespace ServiceStack
             return tcs.Task;
         }
 
-        //http://stackoverflow.com/a/13904811/85785
+        // http://stackoverflow.com/a/13904811/85785
         public static Task EachAsync<T>(this IEnumerable<T> items, Func<T, int, Task> fn)
         {
             var tcs = new TaskCompletionSource<object>();

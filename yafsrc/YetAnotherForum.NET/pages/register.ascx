@@ -266,7 +266,3 @@
 </asp:CreateUserWizard>
 </div>
 </div>
-
-<div id="DivSmartScroller">
-	
-</div>

@@ -102,7 +102,3 @@
         </div>
     </div>
 </div>
-
-<div id="DivSmartScroller">
-    
-</div>

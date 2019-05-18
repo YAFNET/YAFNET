@@ -42,7 +42,7 @@ namespace ServiceStack.Text.Common
                 switch (typeCode)
                 {
                     case TypeCode.Boolean:
-                        //Lots of kids like to use '1', HTML checkboxes use 'on' as a soft convention
+                        // Lots of kids like to use '1', HTML checkboxes use 'on' as a soft convention
                         return value =>
                             value.Length == 1 ?
                               value.Equals("1")

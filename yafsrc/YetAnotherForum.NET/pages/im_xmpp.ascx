@@ -17,7 +17,3 @@
         </YAF:Alert>
     </div>
 </div>
-
-<div id="DivSmartScroller">
-    
-</div>

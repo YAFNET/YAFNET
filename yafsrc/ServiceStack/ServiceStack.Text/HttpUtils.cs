@@ -1082,35 +1082,35 @@ namespace ServiceStack
 
         public HttpResultsFilter(string stringResult = null, byte[] bytesResult = null)
         {
-            StringResult = stringResult;
-            BytesResult = bytesResult;
+            this.StringResult = stringResult;
+            this.BytesResult = bytesResult;
 
-            previousFilter = HttpUtils.ResultsFilter;
+            this.previousFilter = HttpUtils.ResultsFilter;
             HttpUtils.ResultsFilter = this;
         }
 
         public void Dispose()
         {
-            HttpUtils.ResultsFilter = previousFilter;
+            HttpUtils.ResultsFilter = this.previousFilter;
         }
 
         public string GetString(HttpWebRequest webReq, string reqBody)
         {
-            return StringResultFn != null
-                ? StringResultFn(webReq, reqBody)
-                : StringResult;
+            return this.StringResultFn != null
+                ? this.StringResultFn(webReq, reqBody)
+                : this.StringResult;
         }
 
         public byte[] GetBytes(HttpWebRequest webReq, byte[] reqBody)
         {
-            return BytesResultFn != null
-                ? BytesResultFn(webReq, reqBody)
-                : BytesResult;
+            return this.BytesResultFn != null
+                ? this.BytesResultFn(webReq, reqBody)
+                : this.BytesResult;
         }
 
         public void UploadStream(HttpWebRequest webRequest, Stream fileStream, string fileName)
         {
-            UploadFileFn?.Invoke(webRequest, fileStream, fileName);
+            this.UploadFileFn?.Invoke(webRequest, fileStream, fileName);
         }
     }
 }

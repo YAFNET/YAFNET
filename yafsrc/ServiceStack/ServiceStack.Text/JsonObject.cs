@@ -42,7 +42,7 @@ namespace ServiceStack.Text
 
         public static JsonArrayObjects ArrayObjects(this string json)
         {
-            return Text.JsonArrayObjects.Parse(json);
+            return JsonArrayObjects.Parse(json);
         }
 
         public static List<T> ConvertAll<T>(this JsonArrayObjects jsonArrayObjects, Func<JsonObject, T> converter)
@@ -145,6 +145,7 @@ namespace ServiceStack.Text
                     return;
                 }
             }
+
             JsonUtils.WriteString(writer, strValue);
         }
 
@@ -166,6 +167,7 @@ namespace ServiceStack.Text
                 {
                     return longValue < JsonUtils.MaxInteger && longValue > JsonUtils.MinInteger;
                 }
+
                 return false;
             }
 
@@ -174,6 +176,7 @@ namespace ServiceStack.Text
             {
                 return doubleValue < JsonUtils.MaxInteger && doubleValue > JsonUtils.MinInteger;
             }
+
             return false;
         }
 
@@ -217,10 +220,10 @@ namespace ServiceStack.Text
             this.json = json;
         }
 
-        public T As<T>() => JsonSerializer.DeserializeFromString<T>(json);
+        public T As<T>() => JsonSerializer.DeserializeFromString<T>(this.json);
 
-        public override string ToString() => json;
+        public override string ToString() => this.json;
 
-        public void WriteTo(ITypeSerializer serializer, TextWriter writer) => writer.Write(json ?? JsonUtils.Null);
+        public void WriteTo(ITypeSerializer serializer, TextWriter writer) => writer.Write(this.json ?? JsonUtils.Null);
     }
 }

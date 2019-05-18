@@ -40,8 +40,9 @@ namespace ServiceStack.Text.Support
                     secFmt = secFmt.TrimEnd('0').TrimEnd('.');
                     sb.Append(secFmt + "S");
                 }
-                else if (sb.Length == 2) //PT
+                else if (sb.Length == 2)
                 {
+                    // PT
                     sb.Append("0S");
                 }
             }
@@ -60,10 +61,10 @@ namespace ServiceStack.Text.Support
             if (xsdDuration.StartsWith("-", StringComparison.Ordinal))
             {
                 sign = -1;
-                xsdDuration = xsdDuration.Substring(1); //strip sign
+                xsdDuration = xsdDuration.Substring(1); // strip sign
             }
 
-            string[] t = xsdDuration.Substring(1).SplitOnFirst('T'); //strip P
+            string[] t = xsdDuration.Substring(1).SplitOnFirst('T'); // strip P
 
             var hasTime = t.Length == 2;
 
@@ -74,6 +75,7 @@ namespace ServiceStack.Text.Support
                 if (int.TryParse(d[0], out day))
                     days = day;
             }
+
             if (hasTime)
             {
                 string[] h = t[1].SplitOnFirst('H');

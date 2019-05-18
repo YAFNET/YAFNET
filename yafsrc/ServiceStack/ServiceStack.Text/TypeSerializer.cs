@@ -78,11 +78,6 @@ namespace ServiceStack.Text
                        : JsvReader.GetParseFn(type)(value);
         }
 
-        public static object DeserializeFromReader(TextReader reader, Type type)
-        {
-            return DeserializeFromString(reader.ReadToEnd(), type);
-        }
-        
         public static string SerializeToString<T>(T value)
         {
             if (value == null || value is Delegate) return null;
@@ -90,6 +85,7 @@ namespace ServiceStack.Text
             {
                 return SerializeToString(value, value.GetType());
             }
+
             if (typeof(T).IsAbstract || typeof(T).IsInterface)
             {
                 JsState.IsWritingDynamic = true;
@@ -219,6 +215,7 @@ namespace ServiceStack.Text
                 {
                     to[kvp.Key] = kvp.Value;
                 }
+
                 return to;
             }
 
@@ -229,6 +226,7 @@ namespace ServiceStack.Text
                 {
                     to[kvp.Key] = kvp.Value.ToJsv();
                 }
+
                 return to;
             }
 
@@ -366,64 +364,6 @@ namespace ServiceStack.Text
         }
 
         private const string Indent = "    ";
-        public static string IndentJson(this string json)
-        {
-            var indent = 0;
-            var quoted = false;
-            var sb = StringBuilderThreadStatic.Allocate();
-
-            for (var i = 0; i < json.Length; i++)
-            {
-                var ch = json[i];
-                switch (ch)
-                {
-                    case '{':
-                    case '[':
-                        sb.Append(ch);
-                        if (!quoted)
-                        {
-                            sb.AppendLine();
-                            times(++indent, () => sb.Append(Indent));
-                        }
-                        break;
-                    case '}':
-                    case ']':
-                        if (!quoted)
-                        {
-                            sb.AppendLine();
-                            times(--indent, () => sb.Append(Indent));
-                        }
-                        sb.Append(ch);
-                        break;
-                    case '"':
-                        sb.Append(ch);
-                        var escaped = false;
-                        var index = i;
-                        while (index > 0 && json[--index] == '\\')
-                            escaped = !escaped;
-                        if (!escaped)
-                            quoted = !quoted;
-                        break;
-                    case ',':
-                        sb.Append(ch);
-                        if (!quoted)
-                        {
-                            sb.AppendLine();
-                            times(indent, () => sb.Append(Indent));
-                        }
-                        break;
-                    case ':':
-                        sb.Append(ch);
-                        if (!quoted)
-                            sb.Append(" ");
-                        break;
-                    default:
-                        sb.Append(ch);
-                        break;
-                }
-            }
-            return StringBuilderThreadStatic.ReturnAndFree(sb);
-        }
     }
 
     public class JsvStringSerializer : IStringSerializer

@@ -25,7 +25,7 @@ namespace ServiceStack.Text.Common
             if (!strType.HasValue)
                 return null;
 
-            //if (!Serializer.EatMapStartChar(strType, ref index))
+            // if (!Serializer.EatMapStartChar(strType, ref index))
             if (strType.GetChar(index++) != JsWriter.MapStartChar)
                 throw DeserializeTypeRef.CreateSerializationError(type, strType.Value);
 
@@ -42,7 +42,7 @@ namespace ServiceStack.Text.Common
             {
                 var propertyName = Serializer.EatMapKey(strType, ref index);
 
-                //Serializer.EatMapKeySeperator(strType, ref index);
+                // Serializer.EatMapKeySeperator(strType, ref index);
                 index++;
 
                 var propertyValueStr = Serializer.EatValue(strType, ref index);
@@ -69,7 +69,7 @@ namespace ServiceStack.Text.Common
 
                     if (instance != null)
                     {
-                        //If __type info doesn't match, ignore it.
+                        // If __type info doesn't match, ignore it.
                         if (!type.IsInstanceOfType(instance))
                         {
                             instance = null;
@@ -89,7 +89,7 @@ namespace ServiceStack.Text.Common
                         }
                     }
 
-                    //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
+                    // Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
                     if (index != strType.Length) index++;
 
                     continue;
@@ -113,7 +113,7 @@ namespace ServiceStack.Text.Common
                             typeAccessor.SetProperty(instance, propertyValue);
                         }
 
-                        //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
+                        // Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
                         if (index != strType.Length) index++;
 
                         continue;
@@ -149,7 +149,7 @@ namespace ServiceStack.Text.Common
                     typeConfig.OnDeserializing?.Invoke(instance, propertyName.Value, propertyValueStr);
                 }
 
-                //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
+                // Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
                 if (index != strType.Length) index++;
             }
 
@@ -157,5 +157,5 @@ namespace ServiceStack.Text.Common
         }
     }
 
-    //The same class above but JSON-specific to enable inlining in this hot class.
+    // The same class above but JSON-specific to enable inlining in this hot class.
 }

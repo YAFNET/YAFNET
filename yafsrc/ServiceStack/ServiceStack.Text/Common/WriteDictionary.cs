@@ -14,9 +14,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Linq;
+
 using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text.Common
@@ -39,15 +40,15 @@ namespace ServiceStack.Text.Common
 
             public MapKey(Type keyType, Type valueType)
             {
-                KeyType = keyType;
-                ValueType = valueType;
+                this.KeyType = keyType;
+                this.ValueType = valueType;
             }
 
             public bool Equals(MapKey other)
             {
                 if (ReferenceEquals(null, other)) return false;
                 if (ReferenceEquals(this, other)) return true;
-                return Equals(other.KeyType, KeyType) && Equals(other.ValueType, ValueType);
+                return Equals(other.KeyType, this.KeyType) && Equals(other.ValueType, this.ValueType);
             }
 
             public override bool Equals(object obj)
@@ -55,22 +56,21 @@ namespace ServiceStack.Text.Common
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
                 if (obj.GetType() != typeof(MapKey)) return false;
-                return Equals((MapKey)obj);
+                return this.Equals((MapKey)obj);
             }
 
             public override int GetHashCode()
             {
                 unchecked
                 {
-                    return ((KeyType != null ? KeyType.GetHashCode() : 0) * 397) ^ (ValueType != null ? ValueType.GetHashCode() : 0);
+                    return ((this.KeyType != null ? this.KeyType.GetHashCode() : 0) * 397) ^ (this.ValueType != null ? this.ValueType.GetHashCode() : 0);
                 }
             }
         }
 
         static Dictionary<MapKey, WriteMapDelegate> CacheFns = new Dictionary<MapKey, WriteMapDelegate>();
 
-        public static Action<TextWriter, object, WriteObjectDelegate, WriteObjectDelegate>
-            GetWriteGenericDictionary(Type keyType, Type valueType)
+        public static Action<TextWriter, object, WriteObjectDelegate, WriteObjectDelegate> GetWriteGenericDictionary(Type keyType, Type valueType)
         {
             WriteMapDelegate writeFn;
             var mapKey = new MapKey(keyType, valueType);
@@ -87,7 +87,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<MapKey, WriteMapDelegate>(CacheFns);
                 newCache[mapKey] = writeFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref CacheFns, newCache, snapshot), snapshot));
 
             return writeFn.Invoke;
@@ -127,7 +128,7 @@ namespace ServiceStack.Text.Common
                 {
                     if (encodeMapKey)
                     {
-                        JsState.IsWritingValue = true; //prevent ""null""
+                        JsState.IsWritingValue = true; // prevent ""null""
                         try
                         {
                             writer.Write(JsWriter.QuoteChar);
@@ -191,7 +192,7 @@ namespace ServiceStack.Text.Common
             WriteObjectDelegate writeKeyFn,
             WriteObjectDelegate writeValueFn)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
             WriteGenericIDictionary(writer, (IDictionary<TKey, TValue>)oMap, writeKeyFn, writeValueFn);
         }
 
@@ -206,6 +207,7 @@ namespace ServiceStack.Text.Common
                 writer.Write(JsonUtils.Null);
                 return;
             }
+
             writer.Write(JsWriter.MapStartChar);
 
             var encodeMapKey = Serializer.GetTypeInfo(typeof(TKey)).EncodeMapKey;
@@ -223,7 +225,7 @@ namespace ServiceStack.Text.Common
                 {
                     if (encodeMapKey)
                     {
-                        JsState.IsWritingValue = true; //prevent ""null""
+                        JsState.IsWritingValue = true; // prevent ""null""
                         try
                         {
                             writer.Write(JsWriter.QuoteChar);

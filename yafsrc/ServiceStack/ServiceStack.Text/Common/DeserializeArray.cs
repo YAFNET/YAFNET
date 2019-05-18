@@ -10,14 +10,15 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq;
-using System.Threading;
 #if NETSTANDARD2_0 
 using Microsoft.Extensions.Primitives;
 #endif
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+
 using ServiceStack.Text.Support;
 
 namespace ServiceStack.Text.Common
@@ -54,7 +55,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, ParseArrayOfElementsDelegate>(ParseDelegateCache);
                 newCache[type] = parseFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 
             return parseFn.Invoke;
@@ -82,13 +84,15 @@ namespace ServiceStack.Text.Common
                 {
                     itemValues.Add(Serializer.EatTypeValue(value, ref i));
                     Serializer.EatItemSeperatorOrMapEndChar(value, ref i);
-                } while (i < value.Length);
+                }
+ while (i < value.Length);
 
                 var results = new T[itemValues.Count];
                 for (var j = 0; j < itemValues.Count; j++)
                 {
                     results[j] = (T)elementParseFn(itemValues[j]);
                 }
+
                 return results;
             }
             else
@@ -142,7 +146,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, ParseStringSegmentDelegate>(ParseDelegateCache);
                 newCache[type] = parseFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 
             return parseFn;
@@ -185,6 +190,7 @@ namespace ServiceStack.Text.Common
                 var parseFn = DeserializeArrayWithElements<TSerializer>.GetParseStringSegmentFn(elementType);
                 return value => parseFn(value, elementParseFn);
             }
+
             return null;
         }
 

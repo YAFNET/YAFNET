@@ -21,11 +21,11 @@ namespace ServiceStack.Text.Common
             var onDeserializedFn = JsConfig<T>.OnDeserializedFn;
             if (onDeserializedFn != null)
             {
-                var parseFn = GetCoreParseFn<T>();
+                var parseFn = this.GetCoreParseFn<T>();
                 return value => onDeserializedFn((T)parseFn(value));
             }
 
-            return GetCoreParseFn<T>();
+            return this.GetCoreParseFn<T>();
         }
 
         public ParseStringSegmentDelegate GetParseStringSegmentFn<T>()
@@ -33,16 +33,16 @@ namespace ServiceStack.Text.Common
             var onDeserializedFn = JsConfig<T>.OnDeserializedFn;
             if (onDeserializedFn != null)
             {
-                var parseFn = GetCoreParseStringSegmentFn<T>();
+                var parseFn = this.GetCoreParseStringSegmentFn<T>();
                 return value => onDeserializedFn((T)parseFn(value));
             }
 
-            return GetCoreParseStringSegmentFn<T>();
+            return this.GetCoreParseStringSegmentFn<T>();
         }
 
         private ParseStringDelegate GetCoreParseFn<T>()
         {
-            return v => GetCoreParseStringSegmentFn<T>()(new StringSegment(v));
+            return v => this.GetCoreParseStringSegmentFn<T>()(new StringSegment(v));
         }
 
         private ParseStringSegmentDelegate GetCoreParseStringSegmentFn<T>()
@@ -121,12 +121,12 @@ namespace ServiceStack.Text.Common
 
             if (type.IsValueType)
             {
-                //at first try to find more faster `ParseStringSegment` method
+                // at first try to find more faster `ParseStringSegment` method
                 var staticParseStringSegmentMethod = StaticParseMethod<T>.ParseStringSegment;
                 if (staticParseStringSegmentMethod != null)
                     return value => staticParseStringSegmentMethod(Serializer.UnescapeSafeString(value));
                 
-                //then try to find `Parse` method
+                // then try to find `Parse` method
                 var staticParseMethod = StaticParseMethod<T>.Parse;
                 if (staticParseMethod != null)
                     return value => staticParseMethod(Serializer.UnescapeSafeString(value).Value);

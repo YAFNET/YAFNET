@@ -30,7 +30,7 @@ namespace ServiceStack.Text.Controller
 			this.contextMap = new Dictionary<string, object>();
             foreach (var x in controllers.ToList())
             {
-                contextMap[x.GetType().Name] = x;
+                this.contextMap[x.GetType().Name] = x;
             }
         }
 
@@ -74,6 +74,7 @@ namespace ServiceStack.Text.Controller
 				var argValue = TypeSerializer.DeserializeFromString(propertyValueString, propertyValueType);
 				convertedValues[i] = argValue;
 			}
+
 			return convertedValues;
 		}
 	}

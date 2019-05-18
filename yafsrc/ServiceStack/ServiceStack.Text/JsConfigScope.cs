@@ -16,7 +16,7 @@ namespace ServiceStack.Text
         {
             PclExport.Instance.BeginThreadAffinity();
 
-            parent = head;
+            this.parent = head;
             head = this;
         }
 
@@ -38,10 +38,10 @@ namespace ServiceStack.Text
 
         public void Dispose()
         {
-            if (!disposed)
+            if (!this.disposed)
             {
-                disposed = true;
-                head = parent;
+                this.disposed = true;
+                head = this.parent;
 
                 PclExport.Instance.EndThreadAffinity();
             }

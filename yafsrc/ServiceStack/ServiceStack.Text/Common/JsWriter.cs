@@ -43,7 +43,8 @@ namespace ServiceStack.Text.Common
             {
                 EscapeCharFlags[escapeChar] = true;
             }
-            var loadConfig = JsConfig.EmitCamelCaseNames; //force load
+
+            var loadConfig = JsConfig.EmitCamelCaseNames; // force load
         }
 
         public static void WriteDynamic(Action callback)
@@ -73,6 +74,7 @@ namespace ServiceStack.Text.Common
                 if (c >= LengthFromLargestChar || !EscapeCharFlags[c]) continue;
                 return true;
             }
+
             return false;
         }
 
@@ -207,7 +209,7 @@ namespace ServiceStack.Text.Common
             this.SpecialTypes = new Dictionary<Type, WriteObjectDelegate>
             {
                 { typeof(Uri), Serializer.WriteObjectString },
-                { typeof(Type), WriteType },
+                { typeof(Type), this.WriteType },
                 { typeof(Exception), Serializer.WriteException },
             };
         }
@@ -296,7 +298,7 @@ namespace ServiceStack.Text.Common
                 return Serializer.WriteFormattableObjectString;
 
             if (type.HasInterface(typeof(IValueWriter)))
-                return WriteValue;
+                return this.WriteValue;
 
             return Serializer.WriteObjectString;
         }
@@ -313,7 +315,7 @@ namespace ServiceStack.Text.Common
             var onSerializingFn = JsConfig<T>.OnSerializingFn;
             if (onSerializingFn != null)
             {
-                var writeFn = GetCoreWriteFn<T>();
+                var writeFn = this.GetCoreWriteFn<T>();
                 ret = (w, x) => writeFn(w, onSerializingFn((T)x));
             }
 
@@ -324,7 +326,7 @@ namespace ServiceStack.Text.Common
 
             if (ret == null)
             {
-                ret = GetCoreWriteFn<T>();
+                ret = this.GetCoreWriteFn<T>();
             }
 
             var onSerializedFn = JsConfig<T>.OnSerializedFn;
@@ -353,10 +355,10 @@ namespace ServiceStack.Text.Common
             {
                 return JsConfig<T>.HasSerializeFn
                     ? JsConfig<T>.WriteFn<TSerializer>
-                    : GetValueTypeToStringMethod(typeof(T));
+                    : this.GetValueTypeToStringMethod(typeof(T));
             }
 
-            var specialWriteFn = GetSpecialWriteFn(typeof(T));
+            var specialWriteFn = this.GetSpecialWriteFn(typeof(T));
             if (specialWriteFn != null)
             {
                 return specialWriteFn;
@@ -381,8 +383,9 @@ namespace ServiceStack.Text.Common
             }
 
             if (typeof(T).HasGenericType() ||
-                typeof(T).HasInterface(typeof(IDictionary<string, object>))) // is ExpandoObject?
+                typeof(T).HasInterface(typeof(IDictionary<string, object>)))
             {
+                // is ExpandoObject?
                 if (typeof(T).IsOrHasGenericInterfaceTypeOf(typeof(IList<>)))
                     return WriteLists<T, TSerializer>.Write;
 
@@ -425,7 +428,7 @@ namespace ServiceStack.Text.Common
             }
 
             if (typeof(T).HasInterface(typeof(IValueWriter)))
-                return WriteValue;
+                return this.WriteValue;
 
             if (typeof(T).IsClass || typeof(T).IsInterface || JsConfig.TreatAsRefType(typeof(T)))
             {
@@ -443,11 +446,11 @@ namespace ServiceStack.Text.Common
 
         public WriteObjectDelegate GetSpecialWriteFn(Type type)
         {
-            if (SpecialTypes.TryGetValue(type, out var writeFn))
+            if (this.SpecialTypes.TryGetValue(type, out var writeFn))
                 return writeFn;
 
             if (type.IsInstanceOfType(typeof(Type)))
-                return WriteType;
+                return this.WriteType;
 
             if (type.IsInstanceOf(typeof(Exception)))
                 return Serializer.WriteException;

@@ -25,7 +25,8 @@ namespace ServiceStack.Text.Jsv
                 newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
                 newCache.Remove(forType);
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
         }
 
@@ -49,7 +50,8 @@ namespace ServiceStack.Text.Jsv
                     newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
                     newCache[type] = writeFn;
 
-                } while (!ReferenceEquals(
+                }
+ while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -99,10 +101,10 @@ namespace ServiceStack.Text.Jsv
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
-            Text.Jsv.JsvWriter<T>.WriteFn();
-            Text.Jsv.JsvWriter.Instance.GetWriteFn<T>();
-            Text.Jsv.JsvWriter.Instance.GetValueTypeToStringMethod(typeof(T));
-            JsWriter.GetTypeSerializer<Text.Jsv.JsvTypeSerializer>().GetWriteFn<T>();
+            JsvWriter<T>.WriteFn();
+            Instance.GetWriteFn<T>();
+            Instance.GetValueTypeToStringMethod(typeof(T));
+            JsWriter.GetTypeSerializer<JsvTypeSerializer>().GetWriteFn<T>();
         }
     }
 
@@ -144,7 +146,7 @@ namespace ServiceStack.Text.Jsv
 
         public static void WriteObject(TextWriter writer, object value)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             TypeConfig<T>.Init();
 
@@ -167,7 +169,7 @@ namespace ServiceStack.Text.Jsv
 
         public static void WriteRootObject(TextWriter writer, object value)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             TypeConfig<T>.Init();
 

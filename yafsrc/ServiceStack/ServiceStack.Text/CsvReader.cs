@@ -76,7 +76,7 @@ namespace ServiceStack.Text
             return to;
         }
 
-        //Originally from JsvTypeSerializer.EatValue()
+        // Originally from JsvTypeSerializer.EatValue()
         public static string EatValue(string value, ref int i)
         {
             var tokenStartPos = i;
@@ -93,8 +93,9 @@ namespace ServiceStack.Text
             if (valueChar == itemSeperator || valueChar == JsWriter.MapEndChar)
                 return null;
 
-            if (valueChar == JsWriter.QuoteChar) //Is Within Quotes, i.e. "..."
+            if (valueChar == JsWriter.QuoteChar)
             {
+                // Is Within Quotes, i.e. "..."
                 while (++i < valueLength)
                 {
                     valueChar = value[i];
@@ -103,14 +104,17 @@ namespace ServiceStack.Text
 
                     var isLiteralQuote = i + 1 < valueLength && value[i + 1] == JsWriter.QuoteChar;
 
-                    i++; //skip quote
+                    i++; // skip quote
                     if (!isLiteralQuote)
                         break;
                 }
+
                 return value.Substring(tokenStartPos, i - tokenStartPos);
             }
-            if (valueChar == JsWriter.MapStartChar) //Is Type/Map, i.e. {...}
+
+            if (valueChar == JsWriter.MapStartChar)
             {
+                // Is Type/Map, i.e. {...}
                 while (++i < valueLength && endsToEat > 0)
                 {
                     valueChar = value[i];
@@ -127,17 +131,20 @@ namespace ServiceStack.Text
                     if (valueChar == JsWriter.MapEndChar)
                         endsToEat--;
                 }
+
                 if (endsToEat > 0)
                 { 
-                    //Unmatched start and end char, give up
+                    // Unmatched start and end char, give up
                     i = tokenStartPos;
                     valueChar = value[i];
                 }
                 else
                     return value.Substring(tokenStartPos, i - tokenStartPos);
             }
-            if (valueChar == JsWriter.ListStartChar) //Is List, i.e. [...]
+
+            if (valueChar == JsWriter.ListStartChar)
             {
+                // Is List, i.e. [...]
                 while (++i < valueLength && endsToEat > 0)
                 {
                     valueChar = value[i];
@@ -154,9 +161,10 @@ namespace ServiceStack.Text
                     if (valueChar == JsWriter.ListEndChar)
                         endsToEat--;
                 }
+
                 if (endsToEat > 0)
                 {
-                    //Unmatched start and end char, give up
+                    // Unmatched start and end char, give up
                     i = tokenStartPos;
                     valueChar = value[i];
                 }
@@ -164,13 +172,14 @@ namespace ServiceStack.Text
                     return value.Substring(tokenStartPos, i - tokenStartPos);
             }
 
-            //if value starts with MapStartChar, check MapEndChar to terminate
+            // if value starts with MapStartChar, check MapEndChar to terminate
             char specEndChar = itemSeperator;
             if (value[tokenStartPos] == JsWriter.MapStartChar)
                 specEndChar = JsWriter.MapEndChar;
 
-            while (++i < valueLength) //Is Value
+            while (++i < valueLength)
             {
+                // Is Value
                 valueChar = value[i];
 
                 if (valueChar == itemSeperator || valueChar == specEndChar)
@@ -272,6 +281,7 @@ namespace ServiceStack.Text
 
                 row.Add(to);
             }
+
             return row;
         }
 
@@ -293,6 +303,7 @@ namespace ServiceStack.Text
                 {
                     propertySetter(to, record);
                 }
+
                 rows.Add(to);
             }
 
@@ -301,21 +312,21 @@ namespace ServiceStack.Text
 
         public static object ReadObject(string csv)
         {
-            if (csv == null) return null; //AOT
+            if (csv == null) return null; // AOT
 
             return Read(CsvReader.ParseLines(csv));
         }
 
         public static object ReadObjectRow(string csv)
         {
-            if (csv == null) return null; //AOT
+            if (csv == null) return null; // AOT
 
             return ReadRow(csv);
         }
 
         public static List<Dictionary<string, string>> ReadStringDictionary(IEnumerable<string> rows)
         {
-            if (rows == null) return null; //AOT
+            if (rows == null) return null; // AOT
 
             var to = new List<Dictionary<string, string>>();
 
@@ -345,7 +356,7 @@ namespace ServiceStack.Text
         public static List<T> Read(List<string> rows)
         {
             var to = new List<T>();
-            if (rows == null || rows.Count == 0) return to; //AOT
+            if (rows == null || rows.Count == 0) return to; // AOT
 
             if (typeof(T).IsAssignableFrom(typeof(Dictionary<string, string>)))
             {
@@ -401,7 +412,7 @@ namespace ServiceStack.Text
 
         public static T ReadRow(string value)
         {
-            if (value == null) return default(T); //AOT
+            if (value == null) return default(T); // AOT
 
             return Read(CsvReader.ParseLines(value)).FirstOrDefault();
         }

@@ -50,7 +50,7 @@ namespace ServiceStack.Text
                 IsWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows);
                 IsOSX  = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX);
             }
-            catch (Exception) {} //throws PlatformNotSupportedException in AWS lambda
+            catch (Exception) {} // throws PlatformNotSupportedException in AWS lambda
             IsUnix = IsOSX || IsLinux;
             HasMultiplePlatformTargets = true;
 #elif NET45
@@ -71,7 +71,7 @@ namespace ServiceStack.Text
 
             VersionString = ServiceStackVersion.ToString(CultureInfo.InvariantCulture);
 
-            __releaseDate = new DateTime(2001,01,01);
+            __releaseDate = new DateTime(2001, 01, 01);
         }
 
         public static string VersionString { get; set; }
@@ -140,9 +140,10 @@ namespace ServiceStack.Text
                             var gacPath = winPath + @"\Microsoft.NET\Framework\";
                             v4Dirs = PclExport.Instance.GetDirectoryNames(gacPath, "v4*");                            
                         }
+
                         if (v4Dirs.Length > 0)
                         {
-                            referenceAssembyPath = v4Dirs[v4Dirs.Length - 1] + @"\"; //latest v4
+                            referenceAssembyPath = v4Dirs[v4Dirs.Length - 1] + @"\"; // latest v4
                         }
                         else
                         {
@@ -152,8 +153,10 @@ namespace ServiceStack.Text
                         }
                     }
                 }
+
                 return referenceAssembyPath;
             }
+
             set { referenceAssembyPath = value; }
         }
     }

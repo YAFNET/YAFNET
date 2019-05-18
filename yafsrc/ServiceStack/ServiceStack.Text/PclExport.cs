@@ -244,7 +244,7 @@ namespace ServiceStack
 
         public virtual string GetAsciiString(byte[] bytes)
         {
-            return GetAsciiString(bytes, 0, bytes.Length);
+            return this.GetAsciiString(bytes, 0, bytes.Length);
         }
 
         public virtual string GetAsciiString(byte[] bytes, int index, int count)
@@ -269,7 +269,7 @@ namespace ServiceStack
 
         public virtual SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo)
         {
-            return (o,x) => fieldInfo.SetValue(o,x);
+            return (o, x) => fieldInfo.SetValue(o, x);
         }
 
         public virtual GetMemberDelegate CreateGetter(FieldInfo fieldInfo)
@@ -458,7 +458,7 @@ namespace ServiceStack
         {
             stream.Write(bytes, 0, bytes.Length);
             stream.Flush();
-            return EmptyTask;
+            return this.EmptyTask;
         }
     }
 

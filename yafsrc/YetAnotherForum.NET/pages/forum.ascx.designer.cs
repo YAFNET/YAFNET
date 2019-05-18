@@ -49,6 +49,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.ForumCategoryList ForumCategoryList;
         
         /// <summary>
+        /// IconLegend-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ForumIconLegend IconLegend;
+        
+        /// <summary>
         /// ActiveDiscussions-Steuerelement
         /// </summary>
         /// <remarks>
@@ -65,14 +74,5 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.ForumStatistics ForumStats;
-        
-        /// <summary>
-        /// IconLegend-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.ForumIconLegend IconLegend;
     }
 }

@@ -15,12 +15,12 @@ namespace ServiceStack.Text
 
         internal TypeConfig(Type type)
         {
-            Type = type;
-            EnableAnonymousFieldSetters = false;
-            Properties = TypeConstants.EmptyPropertyInfoArray;
-            Fields = TypeConstants.EmptyFieldInfoArray;
+            this.Type = type;
+            this.EnableAnonymousFieldSetters = false;
+            this.Properties = TypeConstants.EmptyPropertyInfoArray;
+            this.Fields = TypeConstants.EmptyFieldInfoArray;
 
-            JsConfig.AddUniqueType(Type);
+            JsConfig.AddUniqueType(this.Type);
         }
     }
 

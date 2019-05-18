@@ -59,7 +59,7 @@ namespace ServiceStack.Text.Jsv
                 var strValue = value as string;
                 if (strValue != null)
                 {
-                    WriteString(writer, strValue);
+                    this.WriteString(writer, strValue);
                 }
                 else
                 {
@@ -76,11 +76,11 @@ namespace ServiceStack.Text.Jsv
         public void WriteString(TextWriter writer, string value)
         {
             if (JsState.QueryStringMode && !string.IsNullOrEmpty(value) && value.StartsWith(JsWriter.QuoteString) && value.EndsWith(JsWriter.QuoteString))
-                value = String.Concat(JsWriter.QuoteChar, value, JsWriter.QuoteChar);
+                value = string.Concat(JsWriter.QuoteChar, value, JsWriter.QuoteChar);
             else if (JsState.QueryStringMode && !string.IsNullOrEmpty(value) && value.Contains(JsWriter.ItemSeperatorString))
-                value = String.Concat(JsWriter.QuoteChar, value, JsWriter.QuoteChar);
+                value = string.Concat(JsWriter.QuoteChar, value, JsWriter.QuoteChar);
 
-            writer.Write(value == "" ? "\"\"" : value.EncodeJsv());
+            writer.Write(value == string.Empty ? "\"\"" : value.EncodeJsv());
         }
 
         public void WriteFormattableObjectString(TextWriter writer, object value)
@@ -108,7 +108,7 @@ namespace ServiceStack.Text.Jsv
         public void WriteNullableDateTime(TextWriter writer, object dateTime)
         {
             if (dateTime == null) return;
-            WriteDateTime(writer, dateTime);
+            this.WriteDateTime(writer, dateTime);
         }
 
         public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
@@ -294,11 +294,11 @@ namespace ServiceStack.Text.Jsv
 
         public StringSegment UnescapeString(StringSegment value) => new StringSegment(value.Value.FromCsvField());
 
-        public string EatTypeValue(string value, ref int i) => EatValue(new StringSegment(value), ref i).Value;
+        public string EatTypeValue(string value, ref int i) => this.EatValue(new StringSegment(value), ref i).Value;
 
-        public StringSegment EatTypeValue(StringSegment value, ref int i) => EatValue(value, ref i);
+        public StringSegment EatTypeValue(StringSegment value, ref int i) => this.EatValue(value, ref i);
 
-        public bool EatMapStartChar(string value, ref int i) => EatMapStartChar(new StringSegment(value), ref i);
+        public bool EatMapStartChar(string value, ref int i) => this.EatMapStartChar(new StringSegment(value), ref i);
 
         public bool EatMapStartChar(StringSegment value, ref int i)
         {
@@ -307,7 +307,7 @@ namespace ServiceStack.Text.Jsv
             return success;
         }
 
-        public string EatMapKey(string value, ref int i) => EatMapKey(new StringSegment(value), ref i).Value;
+        public string EatMapKey(string value, ref int i) => this.EatMapKey(new StringSegment(value), ref i).Value;
 
         public StringSegment EatMapKey(StringSegment value, ref int i)
         {
@@ -328,13 +328,14 @@ namespace ServiceStack.Text.Jsv
 
                         var isLiteralQuote = i + 1 < valueLength && value.GetChar(i + 1) == JsWriter.QuoteChar;
 
-                        i++; //skip quote
+                        i++; // skip quote
                         if (!isLiteralQuote)
                             break;
                     }
+
                     return value.Subsegment(tokenStartPos, i - tokenStartPos);
 
-                //Is Type/Map, i.e. {...}
+                // Is Type/Map, i.e. {...}
                 case JsWriter.MapStartChar:
                     var endsToEat = 1;
                     var withinQuotes = false;
@@ -354,6 +355,7 @@ namespace ServiceStack.Text.Jsv
                         if (valueChar == JsWriter.MapEndChar)
                             endsToEat--;
                     }
+
                     return value.Subsegment(tokenStartPos, i - tokenStartPos);
             }
 
@@ -399,7 +401,7 @@ namespace ServiceStack.Text.Jsv
 
         public string EatValue(string value, ref int i)
         {
-            return EatValue(new StringSegment(value), ref i).Value;
+            return this.EatValue(new StringSegment(value), ref i).Value;
         }
 
         public StringSegment EatValue(StringSegment value, ref int i)
@@ -414,12 +416,12 @@ namespace ServiceStack.Text.Jsv
 
             switch (valueChar)
             {
-                //If we are at the end, return.
+                // If we are at the end, return.
                 case JsWriter.ItemSeperator:
                 case JsWriter.MapEndChar:
                     return default(StringSegment);
 
-                //Is Within Quotes, i.e. "..."
+                // Is Within Quotes, i.e. "..."
                 case JsWriter.QuoteChar:
                     while (++i < valueLength)
                     {
@@ -429,13 +431,14 @@ namespace ServiceStack.Text.Jsv
 
                         var isLiteralQuote = i + 1 < valueLength && value.GetChar(i + 1) == JsWriter.QuoteChar;
 
-                        i++; //skip quote
+                        i++; // skip quote
                         if (!isLiteralQuote)
                             break;
                     }
+
                     return value.Subsegment(tokenStartPos, i - tokenStartPos);
 
-                //Is Type/Map, i.e. {...}
+                // Is Type/Map, i.e. {...}
                 case JsWriter.MapStartChar:
                     while (++i < valueLength && endsToEat > 0)
                     {
@@ -453,9 +456,10 @@ namespace ServiceStack.Text.Jsv
                         if (valueChar == JsWriter.MapEndChar)
                             endsToEat--;
                     }
+
                     return value.Subsegment(tokenStartPos, i - tokenStartPos);
 
-                //Is List, i.e. [...]
+                // Is List, i.e. [...]
                 case JsWriter.ListStartChar:
                     while (++i < valueLength && endsToEat > 0)
                     {
@@ -473,10 +477,11 @@ namespace ServiceStack.Text.Jsv
                         if (valueChar == JsWriter.ListEndChar)
                             endsToEat--;
                     }
+
                     return value.Subsegment(tokenStartPos, i - tokenStartPos);
             }
 
-            //Is Value
+            // Is Value
             while (++i < valueLength)
             {
                 valueChar = value.GetChar(i);

@@ -43,7 +43,7 @@ namespace ServiceStack
 
         public Net40PclExport()
         {
-            this.SupportsEmit = SupportsExpression = true;
+            this.SupportsEmit = this.SupportsExpression = true;
             this.DirSep = Path.DirectorySeparatorChar;
             this.AltDirSep = Path.DirectorySeparatorChar == '/' ? '\\' : '/';
             this.RegexOptions = RegexOptions.Compiled;
@@ -291,9 +291,9 @@ namespace ServiceStack
         {
             return
 #if NET472
-                SupportsEmit ? PropertyInvoker.GetEmit(propertyInfo) :
+                this.SupportsEmit ? PropertyInvoker.GetEmit(propertyInfo) :
 #endif
-                SupportsExpression
+                    this.SupportsExpression
                     ? PropertyInvoker.GetExpression(propertyInfo)
                     : base.CreateGetter(propertyInfo);
         }
@@ -302,9 +302,9 @@ namespace ServiceStack
         {
             return
 #if NET472
-                SupportsEmit ? PropertyInvoker.GetEmit<T>(propertyInfo) :
+                this.SupportsEmit ? PropertyInvoker.GetEmit<T>(propertyInfo) :
 #endif
-                    SupportsExpression
+                    this.SupportsExpression
                         ? PropertyInvoker.GetExpression<T>(propertyInfo)
                         : base.CreateGetter<T>(propertyInfo);
         }
@@ -313,16 +313,16 @@ namespace ServiceStack
         {
             return
 #if NET472
-                SupportsEmit ? PropertyInvoker.SetEmit(propertyInfo) :
+                this.SupportsEmit ? PropertyInvoker.SetEmit(propertyInfo) :
 #endif
-                SupportsExpression
+                    this.SupportsExpression
                     ? PropertyInvoker.SetExpression(propertyInfo)
                     : base.CreateSetter(propertyInfo);
         }
 
         public override SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo)
         {
-            return SupportsExpression
+            return this.SupportsExpression
                 ? PropertyInvoker.SetExpression<T>(propertyInfo)
                 : base.CreateSetter<T>(propertyInfo);
         }
@@ -331,9 +331,9 @@ namespace ServiceStack
         {
             return
 #if NET472
-                SupportsEmit ? FieldInvoker.GetEmit(fieldInfo) :
+                this.SupportsEmit ? FieldInvoker.GetEmit(fieldInfo) :
 #endif
-                SupportsExpression
+                    this.SupportsExpression
                     ? FieldInvoker.GetExpression(fieldInfo)
                     : base.CreateGetter(fieldInfo);
         }
@@ -342,9 +342,9 @@ namespace ServiceStack
         {
             return
 #if NET472
-                SupportsEmit ? FieldInvoker.GetEmit<T>(fieldInfo) :
+                this.SupportsEmit ? FieldInvoker.GetEmit<T>(fieldInfo) :
 #endif
-                SupportsExpression
+                    this.SupportsExpression
                     ? FieldInvoker.GetExpression<T>(fieldInfo)
                     : base.CreateGetter<T>(fieldInfo);
         }
@@ -353,16 +353,16 @@ namespace ServiceStack
         {
             return
 #if NET472
-                SupportsEmit ? FieldInvoker.SetEmit(fieldInfo) :
+                this.SupportsEmit ? FieldInvoker.SetEmit(fieldInfo) :
 #endif
-                SupportsExpression
+                    this.SupportsExpression
                     ? FieldInvoker.SetExpression(fieldInfo)
                     : base.CreateSetter(fieldInfo);
         }
 
         public override SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo)
         {
-            return SupportsExpression
+            return this.SupportsExpression
                 ? FieldInvoker.SetExpression<T>(fieldInfo)
                 : base.CreateSetter<T>(fieldInfo);
         }
@@ -598,7 +598,7 @@ namespace ServiceStack
 
         public Net45PclExport()
         {
-            PlatformName = "NET45 " + Environment.OSVersion.Platform.ToString();
+            this.PlatformName = "NET45 " + Environment.OSVersion.Platform.ToString();
         }
 
         public new static void Configure()
@@ -976,21 +976,21 @@ namespace ServiceStack.Text.FastMember
         /// </summary>
         public override bool Equals(object obj)
         {
-            return Target.Equals(obj);
+            return this.Target.Equals(obj);
         }
         /// <summary>
         /// Obtain the hash of the target object
         /// </summary>
         public override int GetHashCode()
         {
-            return Target.GetHashCode();
+            return this.Target.GetHashCode();
         }
         /// <summary>
         /// Use the target's definition of a string representation
         /// </summary>
         public override string ToString()
         {
-            return Target.ToString();
+            return this.Target.ToString();
         }
 
         /// <summary>
@@ -1015,12 +1015,13 @@ namespace ServiceStack.Text.FastMember
             }
             public override object this[string name]
             {
-                get { return accessor[target, name.ToUpperInvariant()]; }
-                set { accessor[target, name.ToUpperInvariant()] = value; }
+                get { return this.accessor[this.target, name.ToUpperInvariant()]; }
+                set {
+                    this.accessor[this.target, name.ToUpperInvariant()] = value; }
             }
             public override object Target
             {
-                get { return target; }
+                get { return this.target; }
             }
         }
 
@@ -1219,16 +1220,16 @@ namespace ServiceStack.Text.FastMember
                 this.setter = setter;
                 this.ctor = ctor;
             }
-            public override bool CreateNewSupported => ctor != null;
+            public override bool CreateNewSupported => this.ctor != null;
 
             public override object CreateNew()
             {
-                return ctor != null ? ctor() : base.CreateNew();
+                return this.ctor != null ? this.ctor() : base.CreateNew();
             }
             public override object this[object target, string name]
             {
-                get => getter(target, name);
-                set => setter(target, name, value);
+                get => this.getter(target, name);
+                set => this.setter(target, name, value);
             }
         }
 

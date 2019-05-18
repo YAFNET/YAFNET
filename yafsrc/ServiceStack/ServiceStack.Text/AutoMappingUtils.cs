@@ -3,12 +3,13 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading;
+
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 
@@ -140,6 +141,7 @@ namespace ServiceStack
                     Tracer.Instance.WriteError(ex);
                 }
             }
+
             return TypeSerializer.DeserializeFromString(strValue, type);
         }
 
@@ -155,13 +157,9 @@ namespace ServiceStack
                     propertyNames = type.Properties().ToList().ConvertAll(x => x.Name);
                     TypePropertyNamesMap[type] = propertyNames;
                 }
+
                 return propertyNames;
             }
-        }
-
-        public static string GetAssemblyPath(this Type source)
-        {
-            return PclExport.Instance.GetAssemblyPath(source);
         }
 
         public static bool IsDebugBuild(this Assembly assembly)
@@ -217,6 +215,7 @@ namespace ServiceStack
                     SetValue(fieldInfo, propertyInfo, obj, value);
                 }
             }
+
             return obj;
         }
 
@@ -237,7 +236,8 @@ namespace ServiceStack
                 snapshot = DefaultValueTypes;
                 newCache = new Dictionary<Type, object>(DefaultValueTypes) { [type] = defaultValue };
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref DefaultValueTypes, newCache, snapshot), snapshot));
 
             return defaultValue;
@@ -375,41 +375,6 @@ namespace ServiceStack
             return to;
         }
 
-        public static To PopulateWithNonDefaultValues<To, From>(this To to, From from)
-        {
-            if (Equals(to, default(To)) || Equals(from, default(From))) return default(To);
-
-            var assignmentDefinition = GetAssignmentDefinition(to.GetType(), from.GetType());
-
-            assignmentDefinition.PopulateWithNonDefaultValues(to, from);
-
-            return to;
-        }
-
-        public static To PopulateFromPropertiesWithAttribute<To, From>(this To to, From from,
-            Type attributeType)
-        {
-            if (Equals(to, default(To)) || Equals(from, default(From))) return default(To);
-
-            var assignmentDefinition = GetAssignmentDefinition(to.GetType(), from.GetType());
-
-            assignmentDefinition.PopulateFromPropertiesWithAttribute(to, from, attributeType);
-
-            return to;
-        }
-
-        public static To PopulateFromPropertiesWithoutAttribute<To, From>(this To to, From from,
-            Type attributeType)
-        {
-            if (Equals(to, default(To)) || Equals(from, default(From))) return default(To);
-
-            var assignmentDefinition = GetAssignmentDefinition(to.GetType(), from.GetType());
-
-            assignmentDefinition.PopulateFromPropertiesWithoutAttribute(to, from, attributeType);
-
-            return to;
-        }
-
         public static void SetProperty(this PropertyInfo propertyInfo, object obj, object value)
         {
             if (!propertyInfo.CanWrite)
@@ -460,7 +425,6 @@ namespace ServiceStack
             // Properties on non-user defined classes should not be set
             // Currently we define those properties as properties declared on
             // types defined in mscorlib
-
             if (propertyInfo != null && propertyInfo.ReflectedType != null)
             {
                 return PclExport.Instance.InSameAssembly(propertyInfo.DeclaringType, typeof(object));
@@ -476,6 +440,7 @@ namespace ServiceStack
             {
                 values.Add(CreateDefaultValue(type, recursionInfo));
             }
+
             return values.ToArray();
         }
 
@@ -501,10 +466,11 @@ namespace ServiceStack
             if (recurseLevel > MaxRecursionLevelForDefaultValues) return null;
 
             recursionInfo[type] = recurseLevel + 1; // increase recursion level for this type
-            try // use a try/finally block to make sure we decrease the recursion level for this type no matter which code path we take,
+            try
             {
+                // use a try/finally block to make sure we decrease the recursion level for this type no matter which code path we take,
 
-                //when using KeyValuePair<TKey, TValue>, TKey must be non-default to stuff in a Dictionary
+                // when using KeyValuePair<TKey, TValue>, TKey must be non-default to stuff in a Dictionary
                 if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
                 {
                     var genericTypes = type.GetGenericArguments();
@@ -535,9 +501,10 @@ namespace ServiceStack
                         SetGenericCollection(genericCollectionType, value, recursionInfo);
                     }
 
-                    //when the object might have nested properties such as enums with non-0 values, etc
+                    // when the object might have nested properties such as enums with non-0 values, etc
                     return PopulateObjectInternal(value, recursionInfo);
                 }
+
                 return null;
             }
             finally
@@ -575,7 +542,7 @@ namespace ServiceStack
             return objArray;
         }
 
-        //TODO: replace with InAssignableFrom
+        // TODO: replace with InAssignableFrom
         public static bool CanCast(Type toType, Type fromType)
         {
             if (toType.IsInterface)
@@ -598,25 +565,6 @@ namespace ServiceStack
 
             return false;
         }
-
-        public static IEnumerable<KeyValuePair<PropertyInfo, T>> GetPropertyAttributes<T>(Type fromType)
-        {
-            var attributeType = typeof(T);
-            var baseType = fromType;
-            do
-            {
-                var propertyInfos = baseType.AllProperties();
-                foreach (var propertyInfo in propertyInfos)
-                {
-                    var attributes = propertyInfo.GetCustomAttributes(attributeType, true);
-                    foreach (var attribute in attributes)
-                    {
-                        yield return new KeyValuePair<PropertyInfo, T>(propertyInfo, (T)(object)attribute);
-                    }
-                }
-            }
-            while ((baseType = baseType.BaseType) != null);
-        }
     }
 
     public class AssignmentEntry
@@ -630,13 +578,13 @@ namespace ServiceStack
 
         public AssignmentEntry(string name, AssignmentMember @from, AssignmentMember to)
         {
-            Name = name;
-            From = @from;
-            To = to;
+            this.Name = name;
+            this.From = @from;
+            this.To = to;
 
-            GetValueFn = From.CreateGetter();
-            SetValueFn = To.CreateSetter();
-            ConvertValueFn = TypeConverter.CreateTypeConverter(From.Type, To.Type);
+            this.GetValueFn = this.From.CreateGetter();
+            this.SetValueFn = this.To.CreateSetter();
+            this.ConvertValueFn = TypeConverter.CreateTypeConverter(this.From.Type, this.To.Type);
         }
     }
 
@@ -644,20 +592,20 @@ namespace ServiceStack
     {
         public AssignmentMember(Type type, PropertyInfo propertyInfo)
         {
-            Type = type;
-            PropertyInfo = propertyInfo;
+            this.Type = type;
+            this.PropertyInfo = propertyInfo;
         }
 
         public AssignmentMember(Type type, FieldInfo fieldInfo)
         {
-            Type = type;
-            FieldInfo = fieldInfo;
+            this.Type = type;
+            this.FieldInfo = fieldInfo;
         }
 
         public AssignmentMember(Type type, MethodInfo methodInfo)
         {
-            Type = type;
-            MethodInfo = methodInfo;
+            this.Type = type;
+            this.MethodInfo = methodInfo;
         }
 
         public Type Type;
@@ -667,20 +615,20 @@ namespace ServiceStack
 
         public GetMemberDelegate CreateGetter()
         {
-            if (PropertyInfo != null)
-                return PropertyInfo.CreateGetter();
-            if (FieldInfo != null)
-                return FieldInfo.CreateGetter();
-            return (GetMemberDelegate) MethodInfo?.CreateDelegate(typeof(GetMemberDelegate));
+            if (this.PropertyInfo != null)
+                return this.PropertyInfo.CreateGetter();
+            if (this.FieldInfo != null)
+                return this.FieldInfo.CreateGetter();
+            return (GetMemberDelegate)this.MethodInfo?.CreateDelegate(typeof(GetMemberDelegate));
         }
 
         public SetMemberDelegate CreateSetter()
         {
-            if (PropertyInfo != null)
-                return PropertyInfo.CreateSetter();
-            if (FieldInfo != null)
-                return FieldInfo.CreateSetter();
-            return (SetMemberDelegate) MethodInfo?.MakeDelegate(typeof(SetMemberDelegate));
+            if (this.PropertyInfo != null)
+                return this.PropertyInfo.CreateSetter();
+            if (this.FieldInfo != null)
+                return this.FieldInfo.CreateSetter();
+            return (SetMemberDelegate)this.MethodInfo?.MakeDelegate(typeof(SetMemberDelegate));
         }
     }
 
@@ -705,14 +653,14 @@ namespace ServiceStack
         {
             var hasAttributePredicate = (Func<PropertyInfo, bool>)
                 (x => x.AllAttributes(attributeType).Length > 0);
-            Populate(to, from, hasAttributePredicate, null);
+            this.Populate(to, from, hasAttributePredicate, null);
         }
 
         public void PopulateFromPropertiesWithoutAttribute(object to, object from, Type attributeType)
         {
             var hasAttributePredicate = (Func<PropertyInfo, bool>)
                 (x => x.AllAttributes(attributeType).Length == 0);
-            Populate(to, from, hasAttributePredicate, null);
+            this.Populate(to, from, hasAttributePredicate, null);
         }
 
         public void PopulateWithNonDefaultValues(object to, object from)
@@ -721,19 +669,19 @@ namespace ServiceStack
                     x != null && !Equals(x, t.GetDefaultValue())
                 );
 
-            Populate(to, from, null, nonDefaultPredicate);
+            this.Populate(to, from, null, nonDefaultPredicate);
         }
 
         public void Populate(object to, object from)
         {
-            Populate(to, from, null, null);
+            this.Populate(to, from, null, null);
         }
 
         public void Populate(object to, object from,
             Func<PropertyInfo, bool> propertyInfoPredicate,
             Func<object, Type, bool> valuePredicate)
         {
-            foreach (var assignmentEntryMap in AssignmentMemberMap)
+            foreach (var assignmentEntryMap in this.AssignmentMemberMap)
             {
                 var assignmentEntry = assignmentEntryMap.Value;
                 var fromMember = assignmentEntry.From;
@@ -766,8 +714,8 @@ namespace ServiceStack
                 catch (Exception ex)
                 {
                     Tracer.Instance.WriteWarning("Error trying to set properties {0}.{1} > {2}.{3}:\n{4}",
-                        FromType.FullName, fromType.Name,
-                        ToType.FullName, toType.Name, ex);
+                        this.FromType.FullName, fromType.Name,
+                        this.ToType.FullName, toType.Name, ex);
                 }
             }
         }

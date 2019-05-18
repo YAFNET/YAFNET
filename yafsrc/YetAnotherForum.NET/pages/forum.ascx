@@ -19,17 +19,11 @@
 
 <YAF:ForumCategoryList ID="ForumCategoryList" runat="server"></YAF:ForumCategoryList>
 
+<YAF:ForumIconLegend ID="IconLegend" runat="server" />
+
 <div class="row">
     <div class="col">
         <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
         <YAF:ForumStatistics ID="ForumStats" runat="Server" />
     </div>
-</div>
-
-
-
-<YAF:ForumIconLegend ID="IconLegend" runat="server" />
-
-<div id="DivSmartScroller">
-	
 </div>

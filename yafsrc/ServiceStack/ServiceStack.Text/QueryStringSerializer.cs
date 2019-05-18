@@ -62,7 +62,8 @@ namespace ServiceStack
                     newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
                     newCache[type] = writeFn;
 
-                } while (!ReferenceEquals(
+                }
+ while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 
                 return writeFn;

@@ -14,14 +14,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
-using ServiceStack.Text.Support;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Threading;
 
 using ServiceStack.Text;
+using ServiceStack.Text.Support;
 
 namespace ServiceStack
 {
@@ -57,6 +57,7 @@ namespace ServiceStack
 
                 type = type.BaseType;
             }
+
             return false;
         }
 
@@ -69,6 +70,7 @@ namespace ServiceStack
 
                 type = type.BaseType;
             }
+
             return null;
         }
 
@@ -85,6 +87,7 @@ namespace ServiceStack
                 if (genericType != null)
                     return genericType;
             }
+
             return null;
         }
 
@@ -133,6 +136,7 @@ namespace ServiceStack
                 if (t == interfaceType)
                     return true;
             }
+
             return false;
         }
 
@@ -143,6 +147,7 @@ namespace ServiceStack
             {
                 if (assignableFromType.GetTypeWithInterfaceOf(type) == null) return false;
             }
+
             return true;
         }
 
@@ -160,8 +165,9 @@ namespace ServiceStack
         {
             if (type == null) return false;
 
-            if (type.IsEnum) //TypeCode can be TypeCode.Int32
+            if (type.IsEnum)
             {
+                // TypeCode can be TypeCode.Int32
                 return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
             }
 
@@ -185,10 +191,12 @@ namespace ServiceStack
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
+
                     if (type.IsEnum)
                     {
                         return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
                     }
+
                     return false;
             }
             return false;
@@ -215,6 +223,7 @@ namespace ServiceStack
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
+
                     return false;
             }
             return false;
@@ -236,6 +245,7 @@ namespace ServiceStack
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
+
                     return false;
             }
             return false;
@@ -328,6 +338,7 @@ namespace ServiceStack
             {
                 if (!(type == typeof(string) || type.IsValueType)) return false;
             }
+
             return true;
         }
 
@@ -346,7 +357,8 @@ namespace ServiceStack
                 newCache = new Dictionary<Type, EmptyCtorDelegate>(ConstructorMethods);
                 newCache[type] = emptyCtorFn;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ConstructorMethods, newCache, snapshot), snapshot));
 
             return emptyCtorFn;
@@ -370,7 +382,8 @@ namespace ServiceStack
                     [typeName] = emptyCtorFn
                 };
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TypeNamesMap, newCache, snapshot), snapshot));
 
             return emptyCtorFn;
@@ -380,7 +393,7 @@ namespace ServiceStack
         {
             if (type == typeof(string))
             {
-                return () => String.Empty;
+                return () => string.Empty;
             }
             else if (type.IsInterface)
             {
@@ -442,7 +455,7 @@ namespace ServiceStack
                 return () => Activator.CreateInstance(type);
             }
 
-            //Anonymous types don't have empty constructors
+            // Anonymous types don't have empty constructors
             return () => FormatterServices.GetUninitializedObject(type);
         }
 

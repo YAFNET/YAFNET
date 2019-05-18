@@ -15,9 +15,9 @@ namespace ServiceStack.Text
     {
         static JsConfig()
         {
-            //In-built default serialization, to Deserialize Color struct do:
-            //JsConfig<System.Drawing.Color>.SerializeFn = c => c.ToString().Replace("Color ", "").Replace("[", "").Replace("]", "");
-            //JsConfig<System.Drawing.Color>.DeSerializeFn = System.Drawing.Color.FromName;
+            // In-built default serialization, to Deserialize Color struct do:
+            // JsConfig<System.Drawing.Color>.SerializeFn = c => c.ToString().Replace("Color ", "").Replace("[", "").Replace("]", "");
+            // JsConfig<System.Drawing.Color>.DeSerializeFn = System.Drawing.Color.FromName;
             Reset();
             LicenseUtils.Init();
         }
@@ -652,6 +652,7 @@ namespace ServiceStack.Text
                 if (!sSkipDateTimeConversion.HasValue) sSkipDateTimeConversion = value;
             }
         }
+
         /// <summary>
         /// Gets or sets a value indicating if the framework should always assume <see cref="DateTime"/> is in UTC format if Kind is Unspecified. 
         /// </summary>
@@ -737,6 +738,7 @@ namespace ServiceStack.Text
         public static HashSet<Type> TreatValueAsRefTypes = new HashSet<Type>();
 
         private static bool? sPreferInterfaces;
+
         /// <summary>
         /// If set to true, Interface types will be prefered over concrete types when serializing.
         /// </summary>
@@ -828,8 +830,8 @@ namespace ServiceStack.Text
 
         public static string[] IgnoreAttributesNamed
         {
-            set => ReflectionExtensions.IgnoreAttributesNamed = value;
             get => ReflectionExtensions.IgnoreAttributesNamed;
+            set => ReflectionExtensions.IgnoreAttributesNamed = value;
         }
 
         public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; }
@@ -848,10 +850,12 @@ namespace ServiceStack.Text
             {
                 Reset(rawSerializeType);
             }
+
             foreach (var rawSerializeType in HasIncludeDefaultValue.ToArray())
             {
                 Reset(rawSerializeType);
             }
+
             foreach (var uniqueType in __uniqueTypes.ToArray())
             {
                 Reset(uniqueType);
@@ -954,7 +958,9 @@ namespace ServiceStack.Text
                 newTypes = new HashSet<Type>(__uniqueTypes) { type };
                 __uniqueTypesCount = newTypes.Count;
 
-            } while (!ReferenceEquals(
+            }
+
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref __uniqueTypes, newTypes, snapshot), snapshot));
         }
     }
@@ -1227,6 +1233,7 @@ namespace ServiceStack.Text
         /// The property names on target types must match property names in the JSON source
         /// </summary>
         Strict,
+
         /// <summary>
         /// The property names on target types may not match the property names in the JSON source
         /// </summary>
@@ -1251,6 +1258,7 @@ namespace ServiceStack.Text
         /// Uses the xsd format like PT15H10M20S
         /// </summary>
         DurationFormat,
+
         /// <summary>
         /// Uses the standard .net ToString method of the TimeSpan class
         /// </summary>

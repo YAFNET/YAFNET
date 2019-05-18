@@ -37,9 +37,9 @@ namespace ServiceStack.Text.Controller
 
 		public PathInfo(string actionName, List<string> arguments, Dictionary<string, string> options)
 		{
-			ActionName = actionName;
-			Arguments = arguments ?? new List<string>();
-			Options = options ?? new Dictionary<string, string>();
+            this.ActionName = actionName;
+            this.Arguments = arguments ?? new List<string>();
+            this.Options = options ?? new Dictionary<string, string>();
 		}
 
 		public string FirstArgument
@@ -88,6 +88,7 @@ namespace ServiceStack.Text.Controller
 													? true.ToString()
 													: keyValuePair[1].UrlDecode();
 				}
+
 				pathInfo = pathInfo.Substring(0, optionsPos);
 			}
 

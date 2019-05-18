@@ -21,14 +21,15 @@
 // ---------------------------------------------------------------------
 
 using System;
-using System.IO;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
-namespace ServiceStack.Text //Internalize to avoid conflicts
+namespace ServiceStack.Text
 {
+    // Internalize to avoid conflicts
     using Events = RecyclableMemoryStreamManager.Events;
 
     public static class MemoryStreamFactory
@@ -268,6 +269,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 {
                     free += pool.Count;
                 }
+
                 return free;
             }
         }
@@ -382,6 +384,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                     // Grab the stack -- we want to know who requires such large buffers
                     callStack = PclExport.Instance.GetStackTrace();
                 }
+
                 Events.Write.MemoryStreamNonPooledLargeBufferCreated(requiredSize, tag, callStack);
 
                 if (this.LargeBufferCreated != null)
@@ -510,6 +513,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                     {
                         this.BlockDiscarded();
                     }
+
                     break;
                 }
             }
@@ -623,7 +627,8 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <param name="offset">The offset from the start of the buffer to copy from.</param>
         /// <param name="count">The number of bytes to copy from the buffer.</param>
         /// <returns>A MemoryStream.</returns>
-        //[SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+
+        // [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         public MemoryStream GetStream(string tag, byte[] buffer, int offset, int count)
         {
             var stream = new RecyclableMemoryStream(this, tag, count);
@@ -715,7 +720,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     /// </remarks>
     public sealed class RecyclableMemoryStream : MemoryStream
     {
-        private const long MaxStreamLength = Int32.MaxValue;
+        private const long MaxStreamLength = int.MaxValue;
 
         /// <summary>
         /// All of these blocks must be the same size
@@ -739,6 +744,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         private List<byte[]> dirtyBuffers;
 
         private readonly Guid id;
+
         /// <summary>
         /// Unique identifier for this stream across it's entire lifetime
         /// </summary>
@@ -746,6 +752,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         internal Guid Id { get { this.CheckDisposed(); return this.id; } }
 
         private readonly string tag;
+
         /// <summary>
         /// A temporary identifier for the current usage of this stream.
         /// </summary>
@@ -791,6 +798,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         private readonly byte[] byteBuffer = new byte[1];
 
         #region Constructors
+
         /// <summary>
         /// Allocate a new RecyclableMemoryStream object.
         /// </summary>
@@ -859,6 +867,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             Events.Write.MemoryStreamCreated(this.id, this.tag, requestedSize);
             this.memoryManager.ReportStreamCreated();
         }
+
         #endregion
 
         #region Dispose and Finalize
@@ -872,7 +881,8 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// </summary>
         /// <param name="disposing">Whether we're disposing (true), or being called by the finalizer (false)</param>
         /// <remarks>This method is not thread safe and it may not be called more than once.</remarks>
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1816:CallGCSuppressFinalizeCorrectly", Justification = "We have different disposal semantics, so SuppressFinalize is in a different spot.")]
+
+        // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1816:CallGCSuppressFinalizeCorrectly", Justification = "We have different disposal semantics, so SuppressFinalize is in a different spot.")]
         protected override void Dispose(bool disposing)
         {
             if (this.disposed)
@@ -883,7 +893,12 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                     doubleDisposeStack = PclExport.Instance.GetStackTrace();
                 }
 
-                Events.Write.MemoryStreamDoubleDispose(this.id, this.tag, this.allocationStack, this.disposeStack, doubleDisposeStack);
+                Events.Write.MemoryStreamDoubleDispose(
+                    this.id,
+                    this.tag,
+                    this.allocationStack,
+                    this.disposeStack,
+                    doubleDisposeStack);
                 return;
             }
 
@@ -906,7 +921,6 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             else
             {
                 // We're being finalized.
-
                 Events.Write.MemoryStreamFinalized(this.id, this.tag, this.allocationStack);
 
                 if (AppDomain.CurrentDomain.IsFinalizingForUnload())
@@ -948,9 +962,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         {
             this.Dispose(true);
         }
+
         #endregion
 
         #region MemoryStream overrides
+
         /// <summary>
         /// Gets or sets the capacity
         /// </summary>
@@ -975,8 +991,10 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 {
                     return this.blocks.Count * this.memoryManager.BlockSize;
                 }
+
                 return 0;
             }
+
             set
             {
                 this.CheckDisposed();
@@ -1012,6 +1030,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 this.CheckDisposed();
                 return this.position;
             }
+
             set
             {
                 this.CheckDisposed();
@@ -1182,7 +1201,10 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
 
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", offset, "Offset must be in the range of 0 - buffer.Length-1");
+                throw new ArgumentOutOfRangeException(
+                    "offset",
+                    offset,
+                    "Offset must be in the range of 0 - buffer.Length-1");
             }
 
             if (count < 0)
@@ -1197,6 +1219,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
 
             int blockSize = this.memoryManager.BlockSize;
             long end = (long)this.position + count;
+
             // Check for overflow
             if (end > MaxStreamLength)
             {
@@ -1224,7 +1247,12 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                     int remainingInBlock = blockSize - blockAndOffset.Offset;
                     int amountToWriteInBlock = Math.Min(remainingInBlock, bytesRemaining);
 
-                    Buffer.BlockCopy(buffer, offset + bytesWritten, currentBlock, blockAndOffset.Offset, amountToWriteInBlock);
+                    Buffer.BlockCopy(
+                        buffer,
+                        offset + bytesWritten,
+                        currentBlock,
+                        blockAndOffset.Offset,
+                        amountToWriteInBlock);
 
                     bytesRemaining -= amountToWriteInBlock;
                     bytesWritten += amountToWriteInBlock;
@@ -1237,6 +1265,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             {
                 Buffer.BlockCopy(buffer, offset, this.largeBuffer, this.position, count);
             }
+
             this.position = (int)end;
             this.length = Math.Max(this.position, this.length);
         }
@@ -1273,6 +1302,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             {
                 return -1;
             }
+
             byte value = 0;
             if (this.largeBuffer == null)
             {
@@ -1281,8 +1311,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
             else
             {
-                value = this.largeBuffer[position];
+                value = this.largeBuffer[this.position];
             }
+
             this.position++;
             return value;
         }
@@ -1346,6 +1377,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             {
                 throw new IOException("Seek before beginning");
             }
+
             this.position = newPosition;
             return this.position;
         }
@@ -1383,6 +1415,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 stream.Write(this.largeBuffer, 0, this.length);
             }
         }
+
         #endregion
 
         #region Helper Methods
@@ -1400,6 +1433,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             {
                 return 0;
             }
+
             if (this.largeBuffer == null)
             {
                 var blockAndOffset = this.GetBlockAndRelativeOffset(fromPosition);
@@ -1417,6 +1451,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                     ++blockAndOffset.Block;
                     blockAndOffset.Offset = 0;
                 }
+
                 return bytesWritten;
             }
             else
@@ -1467,7 +1502,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             {
                 while (this.Capacity < newCapacity)
                 {
-                    blocks.Add((this.memoryManager.GetBlock()));
+                    this.blocks.Add((this.memoryManager.GetBlock()));
                 }
             }
         }
@@ -1488,20 +1523,23 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                     // We most likely will only ever need space for one
                     this.dirtyBuffers = new List<byte[]>(1);
                 }
+
                 this.dirtyBuffers.Add(this.largeBuffer);
             }
 
             this.largeBuffer = null;
         }
+
         #endregion
     }
 
-    //Avoid taking on an extra dep
+    // Avoid taking on an extra dep
     public sealed partial class RecyclableMemoryStreamManager
     {
-        //[EventSource(Name = "Microsoft-IO-RecyclableMemoryStream", Guid = "{B80CD4E4-890E-468D-9CBA-90EB7C82DFC7}")]
-        public sealed class Events// : EventSource
+        // [EventSource(Name = "Microsoft-IO-RecyclableMemoryStream", Guid = "{B80CD4E4-890E-468D-9CBA-90EB7C82DFC7}")]
+        public sealed class Events
         {
+            // : EventSource
             public static Events Write = new Events();
 
             public enum MemoryStreamBufferType
@@ -1516,107 +1554,107 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 EnoughFree
             }
 
-            //[Event(1, Level = EventLevel.Verbose)]
+            // [Event(1, Level = EventLevel.Verbose)]
             public void MemoryStreamCreated(Guid guid, string tag, int requestedSize)
             {
-                //if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
-                //{
-                //    WriteEvent(1, guid, tag ?? string.Empty, requestedSize);
-                //}
+                // if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
+                // {
+                // WriteEvent(1, guid, tag ?? string.Empty, requestedSize);
+                // }
             }
 
-            //[Event(2, Level = EventLevel.Verbose)]
+            // [Event(2, Level = EventLevel.Verbose)]
             public void MemoryStreamDisposed(Guid guid, string tag)
             {
-                //if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
-                //{
-                //    WriteEvent(2, guid, tag ?? string.Empty);
-                //}
+                // if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
+                // {
+                // WriteEvent(2, guid, tag ?? string.Empty);
+                // }
             }
 
-            //[Event(3, Level = EventLevel.Critical)]
+            // [Event(3, Level = EventLevel.Critical)]
             public void MemoryStreamDoubleDispose(Guid guid, string tag, string allocationStack, string disposeStack1,
                                                   string disposeStack2)
             {
-                //if (this.IsEnabled())
-                //{
-                //    this.WriteEvent(3, guid, tag ?? string.Empty, allocationStack ?? string.Empty,
-                //                    disposeStack1 ?? string.Empty, disposeStack2 ?? string.Empty);
-                //}
+                // if (this.IsEnabled())
+                // {
+                // this.WriteEvent(3, guid, tag ?? string.Empty, allocationStack ?? string.Empty,
+                // disposeStack1 ?? string.Empty, disposeStack2 ?? string.Empty);
+                // }
             }
 
-            //[Event(4, Level = EventLevel.Error)]
+            // [Event(4, Level = EventLevel.Error)]
             public void MemoryStreamFinalized(Guid guid, string tag, string allocationStack)
             {
-                //if (this.IsEnabled())
-                //{
-                //    WriteEvent(4, guid, tag ?? string.Empty, allocationStack ?? string.Empty);
-                //}
+                // if (this.IsEnabled())
+                // {
+                // WriteEvent(4, guid, tag ?? string.Empty, allocationStack ?? string.Empty);
+                // }
             }
 
-            //[Event(5, Level = EventLevel.Verbose)]
+            // [Event(5, Level = EventLevel.Verbose)]
             public void MemoryStreamToArray(Guid guid, string tag, string stack, int size)
             {
-                //if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
-                //{
-                //    WriteEvent(5, guid, tag ?? string.Empty, stack ?? string.Empty, size);
-                //}
+                // if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
+                // {
+                // WriteEvent(5, guid, tag ?? string.Empty, stack ?? string.Empty, size);
+                // }
             }
 
-            //[Event(6, Level = EventLevel.Informational)]
+            // [Event(6, Level = EventLevel.Informational)]
             public void MemoryStreamManagerInitialized(int blockSize, int largeBufferMultiple, int maximumBufferSize)
             {
-                //if (this.IsEnabled())
-                //{
-                //    WriteEvent(6, blockSize, largeBufferMultiple, maximumBufferSize);
-                //}
+                // if (this.IsEnabled())
+                // {
+                // WriteEvent(6, blockSize, largeBufferMultiple, maximumBufferSize);
+                // }
             }
 
-            //[Event(7, Level = EventLevel.Verbose)]
+            // [Event(7, Level = EventLevel.Verbose)]
             public void MemoryStreamNewBlockCreated(long smallPoolInUseBytes)
             {
-                //if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
-                //{
-                //    WriteEvent(7, smallPoolInUseBytes);
-                //}
+                // if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
+                // {
+                // WriteEvent(7, smallPoolInUseBytes);
+                // }
             }
 
-            //[Event(8, Level = EventLevel.Verbose)]
+            // [Event(8, Level = EventLevel.Verbose)]
             public void MemoryStreamNewLargeBufferCreated(int requiredSize, long largePoolInUseBytes)
             {
-                //if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
-                //{
-                //    WriteEvent(8, requiredSize, largePoolInUseBytes);
-                //}
+                // if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
+                // {
+                // WriteEvent(8, requiredSize, largePoolInUseBytes);
+                // }
             }
 
-            //[Event(9, Level = EventLevel.Verbose)]
+            // [Event(9, Level = EventLevel.Verbose)]
             public void MemoryStreamNonPooledLargeBufferCreated(int requiredSize, string tag, string allocationStack)
             {
-                //if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
-                //{
-                //    WriteEvent(9, requiredSize, tag ?? string.Empty, allocationStack ?? string.Empty);
-                //}
+                // if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
+                // {
+                // WriteEvent(9, requiredSize, tag ?? string.Empty, allocationStack ?? string.Empty);
+                // }
             }
 
-            //[Event(10, Level = EventLevel.Warning)]
+            // [Event(10, Level = EventLevel.Warning)]
             public void MemoryStreamDiscardBuffer(MemoryStreamBufferType bufferType, string tag,
                                                   MemoryStreamDiscardReason reason)
             {
-                //if (this.IsEnabled())
-                //{
-                //    WriteEvent(10, bufferType, tag ?? string.Empty, reason);
-                //}
+                // if (this.IsEnabled())
+                // {
+                // WriteEvent(10, bufferType, tag ?? string.Empty, reason);
+                // }
             }
 
-            //[Event(11, Level = EventLevel.Error)]
+            // [Event(11, Level = EventLevel.Error)]
             public void MemoryStreamOverCapacity(int requestedCapacity, long maxCapacity, string tag,
                                                  string allocationStack)
             {
-                //if (this.IsEnabled())
-                //{
-                //    WriteEvent(11, requestedCapacity, maxCapacity, tag ?? string.Empty, allocationStack ?? string.Empty);
-                //}
+                // if (this.IsEnabled())
+                // {
+                // WriteEvent(11, requestedCapacity, maxCapacity, tag ?? string.Empty, allocationStack ?? string.Empty);
+                // }
             }
         }
     }

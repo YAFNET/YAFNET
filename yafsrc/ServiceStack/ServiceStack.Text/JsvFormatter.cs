@@ -42,7 +42,7 @@ namespace ServiceStack.Text
                         if (next == JsWriter.MapEndChar || next == JsWriter.ListEndChar)
                         {
                             sb.Append(current);
-                            sb.Append(serializedText[++i]); //eat next
+                            sb.Append(serializedText[++i]); // eat next
                             continue;
                         }
 

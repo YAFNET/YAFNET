@@ -34,9 +34,7 @@
         </asp:Label>
 
         <p class="card-text">
-            <span id="ModListMob_Span" Visible="false" runat="server">
-                <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
-            </span>
+            <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
             <YAF:ForumSubForumList ID="SubForumList" runat="server" 
                                    DataSource='<%# this.GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
                                    Visible='<%# this.HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
@@ -59,7 +57,8 @@
     </div>
     
     <div class="col-md-4">
-        <YAF:ForumLastPost DataRow="<%# Container.DataItem %>" Visible='<%# (((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value) %>'
+        <YAF:ForumLastPost DataRow="<%# (System.Data.DataRow)Container.DataItem %>"
+                           Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value %>'
                            ID="lastPost" runat="server" />
     </div>
     </asp:PlaceHolder>

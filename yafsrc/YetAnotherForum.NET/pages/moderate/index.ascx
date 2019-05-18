@@ -69,8 +69,3 @@
                         runat="server">
     </YAF:LocalizedLabel>
 </asp:PlaceHolder>
-
-
-<div id="DivSmartScroller">
-	
-</div>

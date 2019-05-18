@@ -1,13 +1,13 @@
+#if NET472 || NETSTANDARD2_0
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Threading;
+
 using ServiceStack.Text;
 
-using System.Linq.Expressions;
-
-#if NET472 || NETSTANDARD2_0
-using System.Reflection.Emit;
 #endif
 
 namespace ServiceStack
@@ -22,9 +22,9 @@ namespace ServiceStack
             GetMemberDelegate publicGetter,
             SetMemberDelegate publicSetter)
         {
-            PropertyInfo = propertyInfo;
-            PublicGetter = publicGetter;
-            PublicSetter = publicSetter;
+            this.PropertyInfo = propertyInfo;
+            this.PublicGetter = publicGetter;
+            this.PublicSetter = publicSetter;
         }
 
         public PropertyInfo PropertyInfo { get; }
@@ -90,7 +90,8 @@ namespace ServiceStack
                 {
                     [type] = instance
                 };
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref CacheMap, newCache, snapshot), snapshot));
 
             return instance;
@@ -98,7 +99,7 @@ namespace ServiceStack
 
         public PropertyAccessor GetAccessor(string propertyName)
         {
-            return PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
+            return this.PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
                 ? info
                 : null;
         }
@@ -112,34 +113,35 @@ namespace ServiceStack
 
         public PropertyInfo GetPublicProperty(string name)
         {
-            foreach (var pi in PublicPropertyInfos)
+            foreach (var pi in this.PublicPropertyInfos)
             {
                 if (pi.Name == name)
                     return pi;
             }
+
             return null;
         }
 
-        public GetMemberDelegate GetPublicGetter(PropertyInfo pi) => GetPublicGetter(pi?.Name);
+        public GetMemberDelegate GetPublicGetter(PropertyInfo pi) => this.GetPublicGetter(pi?.Name);
 
         public GetMemberDelegate GetPublicGetter(string name)
         {
             if (name == null)
                 return null;
 
-            return PropertyMap.TryGetValue(name, out PropertyAccessor info)
+            return this.PropertyMap.TryGetValue(name, out PropertyAccessor info)
                 ? info.PublicGetter
                 : null;
         }
 
-        public SetMemberDelegate GetPublicSetter(PropertyInfo pi) => GetPublicSetter(pi?.Name);
+        public SetMemberDelegate GetPublicSetter(PropertyInfo pi) => this.GetPublicSetter(pi?.Name);
 
         public SetMemberDelegate GetPublicSetter(string name)
         {
             if (name == null)
                 return null;
 
-            return PropertyMap.TryGetValue(name, out PropertyAccessor info)
+            return this.PropertyMap.TryGetValue(name, out PropertyAccessor info)
                 ? info.PublicSetter
                 : null;
         }
@@ -147,10 +149,6 @@ namespace ServiceStack
 
     public static class PropertyInvoker
     {
-        [Obsolete("Use CreateGetter")]
-        public static GetMemberDelegate GetPropertyGetterFn(this PropertyInfo propertyInfo) =>
-            PclExport.Instance.CreateGetter(propertyInfo);
-
         [Obsolete("Use CreateSetter")]
         public static SetMemberDelegate GetPropertySetterFn(this PropertyInfo propertyInfo) =>
             PclExport.Instance.CreateSetter(propertyInfo);
@@ -199,7 +197,7 @@ namespace ServiceStack
             if (getMethodInfo == null) return null;
 
             var oInstanceParam = Expression.Parameter(typeof(object), "oInstanceParam");
-            var instanceParam = Expression.Convert(oInstanceParam, propertyInfo.ReflectedType); //propertyInfo.DeclaringType doesn't work on Proxy types
+            var instanceParam = Expression.Convert(oInstanceParam, propertyInfo.ReflectedType); // propertyInfo.DeclaringType doesn't work on Proxy types
 
             var exprCallPropertyGetFn = Expression.Call(instanceParam, getMethodInfo);
             var oExprCallPropertyGetFn = Expression.Convert(exprCallPropertyGetFn, typeof(object));
@@ -218,8 +216,9 @@ namespace ServiceStack
                 var lambda = SetExpressionLambda<T>(propertyInfo);
                 return lambda?.Compile();
             }
-            catch //fallback for Android
+            catch
             {
+                // fallback for Android
                 var mi = propertyInfo.GetSetMethod(nonPublic: true);
                 return (o, convertedValue) =>
                     mi.Invoke(o, new[] { convertedValue });
@@ -266,8 +265,9 @@ namespace ServiceStack
 
                 return Expression.Lambda<SetMemberDelegate>(setterCall, instance, argument).Compile();
             }
-            catch //fallback for Android
+            catch
             {
+                // fallback for Android
                 return (o, convertedValue) =>
                     propertySetMethod.Invoke(o, new[] { convertedValue });
             }
@@ -380,6 +380,7 @@ namespace ServiceStack
 
             return (SetMemberDelegate)setter.CreateDelegate(typeof(SetMemberDelegate));
         }
+
 #endif
     }
 }

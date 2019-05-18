@@ -41,16 +41,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicByte : IDynamicNumber
@@ -71,16 +72,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicShort : IDynamicNumber
@@ -101,16 +103,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicUShort : IDynamicNumber
@@ -131,16 +134,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicInt : IDynamicNumber
@@ -161,16 +165,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicUInt : IDynamicNumber
@@ -191,16 +196,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicLong : IDynamicNumber
@@ -221,16 +227,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicULong : IDynamicNumber
@@ -251,16 +258,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString();
+        public string ToString(object value) => this.Convert(value).ToString();
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicFloat : IDynamicNumber
@@ -281,16 +289,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString("r", CultureInfo.InvariantCulture);
+        public string ToString(object value) => this.Convert(value).ToString("r", CultureInfo.InvariantCulture);
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicDouble : IDynamicNumber
@@ -311,16 +320,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString("r", CultureInfo.InvariantCulture);
+        public string ToString(object value) => this.Convert(value).ToString("r", CultureInfo.InvariantCulture);
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public class DynamicDecimal : IDynamicNumber
@@ -341,16 +351,17 @@ namespace ServiceStack
                 result = value;
                 return true;
             }
+
             result = null;
             return false;
         }
 
-        public string ToString(object value) => Convert(value).ToString(CultureInfo.InvariantCulture);
+        public string ToString(object value) => this.Convert(value).ToString(CultureInfo.InvariantCulture);
 
-        public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
-        public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
-        public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
-        public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+        public object add(object lhs, object rhs) => this.Convert(lhs) + this.Convert(rhs);
+        public object sub(object lhs, object rhs) => this.Convert(lhs) - this.Convert(rhs);
+        public object mul(object lhs, object rhs) => this.Convert(lhs) * this.Convert(rhs);
+        public object div(object lhs, object rhs) => this.Convert(lhs) / this.Convert(rhs);
     }
 
     public static class DynamicNumber
@@ -490,8 +501,9 @@ namespace ServiceStack
             if (strValue.Length == 1)
             {
                 int singleDigit = strValue[0];
-                if (singleDigit >= 48 || singleDigit <= 57) // 0 - 9
+                if (singleDigit >= 48 || singleDigit <= 57)
                 {
+                    // 0 - 9
                     result = singleDigit - 48; // 0 
                     return true;
                 }
@@ -505,11 +517,13 @@ namespace ServiceStack
                     result = intValue;
                     return true;
                 }
+
                 if (long.TryParse(strValue, out long longValue))
                 {
                     result = longValue;
                     return true;
                 }
+
                 if (ulong.TryParse(strValue, out ulong ulongValue))
                 {
                     result = ulongValue;

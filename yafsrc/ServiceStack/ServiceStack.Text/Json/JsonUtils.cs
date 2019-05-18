@@ -187,6 +187,7 @@ namespace ServiceStack.Text.Json
                 if (escapeHtmlChars && (c == '<' || c == '>' || c == '&' || c == '=' || c == '\\'))
                     return true;
             }
+
             return false;
         }
 

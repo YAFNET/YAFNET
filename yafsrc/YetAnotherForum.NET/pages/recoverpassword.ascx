@@ -127,6 +127,3 @@
 	</asp:PasswordRecovery>
     </div>
 </div>
-<div id="DivSmartScroller">
-	
-</div>

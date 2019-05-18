@@ -33,18 +33,29 @@
                      <YAF:ThemeButton runat="server" ID="ExportSelected" Size="Small"
 					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" OnLoad="ExportAll_Load"
                                       Type="Secondary" Icon="file-export" />
-				  <YAF:ThemeButton runat="server" ID="DeleteSelected" Size="Small"
-					TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click"
-                                   Type="Secondary" Icon="trash" />
-				  <YAF:ThemeButton runat="server" ID="ArchiveAll" Size="Small"
-					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click"
+				  <YAF:ThemeButton runat="server" ID="DeleteSelected" 
+                                   Size="Small"
+                                   TextLocalizedTag="DELETESELECTED" 
+                                   ReturnConfirmText='<%#this.GetText("CONFIRM_DELETE") %>'
+                                   OnClick="DeleteSelected_Click"
+                                   Type="Secondary" 
+                                   Icon="trash" />
+				  <YAF:ThemeButton runat="server" ID="ArchiveAll" 
+                                   Size="Small"
+                                   TextLocalizedTag="ARCHIVEALL" 
+                                   ReturnConfirmText='<%#this.GetText("CONFIRM_ARCHIVEALL") %>'
+                                   OnClick="ArchiveAll_Click"
                                    Type="Secondary" Icon="archive" />
                   <YAF:ThemeButton runat="server" ID="ExportAll" Size="Small"
 					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" OnLoad="ExportAll_Load"
                                    Type="Secondary" Icon="file-export" />
-				  <YAF:ThemeButton runat="server" ID="DeleteAll" Size="Small"
-					TextLocalizedTag="DELETEALL" OnLoad="DeleteAll_Load" OnClick="DeleteAll_Click"
-                                   Type="Secondary" Icon="trash" />
+				  <YAF:ThemeButton runat="server" ID="DeleteAll" 
+                                   Size="Small"
+                                   TextLocalizedTag="DELETEALL" 
+                                   ReturnConfirmText='<%#this.GetText("CONFIRM_DELETEALL") %>'
+                                   OnClick="DeleteAll_Click"
+                                   Type="Secondary" 
+                                   Icon="trash" />
                     </div>
                 </ContentTemplate> 
                 <Triggers>

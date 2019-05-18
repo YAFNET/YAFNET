@@ -15,7 +15,7 @@ namespace ServiceStack.Text
         private bool needFlush = false;
 
         private Encoding encoding;
-        public override Encoding Encoding => encoding;
+        public override Encoding Encoding => this.encoding;
 
         public DirectStreamWriter(Stream stream, Encoding encoding)
         {
@@ -30,21 +30,20 @@ namespace ServiceStack.Text
 
             if (s.Length <= optimizedBufferLength)
             {
-                if (needFlush) 
+                if (this.needFlush) 
                 {
-                    writer.Flush();
-                    needFlush = false;
+                    this.writer.Flush();
+                    this.needFlush = false;
                 }
 
-                byte[] buffer = Encoding.GetBytes(s);
-                stream.Write(buffer, 0, buffer.Length);
+                byte[] buffer = this.Encoding.GetBytes(s);
+                this.stream.Write(buffer, 0, buffer.Length);
             } else 
             {
-                if (writer == null)
-                    writer = new StreamWriter(stream, Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
-                
-                writer.Write(s);
-                needFlush = true;
+                if (this.writer == null) this.writer = new StreamWriter(this.stream, this.Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
+
+                this.writer.Write(s);
+                this.needFlush = true;
             }
         }
 
@@ -52,33 +51,32 @@ namespace ServiceStack.Text
         {
             if ((int)c < 128)
             {
-                if (needFlush)
+                if (this.needFlush)
                 {
-                    writer.Flush();
-                    needFlush = false;
+                    this.writer.Flush();
+                    this.needFlush = false;
                 }
 
-                curChar[0] = (byte)c;
-                stream.Write(curChar, 0, 1);
+                this.curChar[0] = (byte)c;
+                this.stream.Write(this.curChar, 0, 1);
             } else
             {
-                if (writer == null)
-                    writer = new StreamWriter(stream, Encoding, optimizedBufferLength);
-                
-                writer.Write(c);
-                needFlush = true;
+                if (this.writer == null) this.writer = new StreamWriter(this.stream, this.Encoding, optimizedBufferLength);
+
+                this.writer.Write(c);
+                this.needFlush = true;
             }
         }
 
         public override void Flush()
         {
-            if (writer != null)
+            if (this.writer != null)
             {
-                writer.Flush();
+                this.writer.Flush();
             }
             else
             {
-                stream.Flush();
+                this.stream.Flush();
             }
         }
     }

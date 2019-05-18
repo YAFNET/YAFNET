@@ -77,6 +77,3 @@
     </FooterTemplate>
 </asp:Repeater>
 <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
-<div id="DivSmartScroller">
-    
-</div>

@@ -1,13 +1,13 @@
+#if NET472 || NETSTANDARD2_0
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Threading;
+
 using ServiceStack.Text;
 
-using System.Linq.Expressions;
-
-#if NET472 || NETSTANDARD2_0
-using System.Reflection.Emit;
 #endif
 
 namespace ServiceStack
@@ -20,10 +20,10 @@ namespace ServiceStack
             SetMemberDelegate publicSetter,
             SetMemberRefDelegate publicSetterRef)
         {
-            FieldInfo = fieldInfo;
-            PublicGetter = publicGetter;
-            PublicSetter = publicSetter;
-            PublicSetterRef = publicSetterRef;
+            this.FieldInfo = fieldInfo;
+            this.PublicGetter = publicGetter;
+            this.PublicSetter = publicSetter;
+            this.PublicSetterRef = publicSetterRef;
         }
 
         public FieldInfo FieldInfo { get; }
@@ -97,7 +97,8 @@ namespace ServiceStack
                 {
                     [type] = instance
                 };
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref CacheMap, newCache, snapshot), snapshot));
 
             return instance;
@@ -105,7 +106,7 @@ namespace ServiceStack
 
         public FieldAccessor GetAccessor(string propertyName)
         {
-            return FieldsMap.TryGetValue(propertyName, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(propertyName, out FieldAccessor info)
                 ? info
                 : null;
         }
@@ -119,34 +120,35 @@ namespace ServiceStack
 
         public virtual FieldInfo GetPublicField(string name)
         {
-            foreach (var fi in PublicFieldInfos)
+            foreach (var fi in this.PublicFieldInfos)
             {
                 if (fi.Name == name)
                     return fi;
             }
+
             return null;
         }
 
-        public virtual GetMemberDelegate GetPublicGetter(FieldInfo fi) => GetPublicGetter(fi?.Name);
+        public virtual GetMemberDelegate GetPublicGetter(FieldInfo fi) => this.GetPublicGetter(fi?.Name);
 
         public virtual GetMemberDelegate GetPublicGetter(string name)
         {
             if (name == null)
                 return null;
 
-            return FieldsMap.TryGetValue(name, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(name, out FieldAccessor info)
                 ? info.PublicGetter
                 : null;
         }
 
-        public virtual SetMemberDelegate GetPublicSetter(FieldInfo fi) => GetPublicSetter(fi?.Name);
+        public virtual SetMemberDelegate GetPublicSetter(FieldInfo fi) => this.GetPublicSetter(fi?.Name);
 
         public virtual SetMemberDelegate GetPublicSetter(string name)
         {
             if (name == null)
                 return null;
 
-            return FieldsMap.TryGetValue(name, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(name, out FieldAccessor info)
                 ? info.PublicSetter
                 : null;
         }
@@ -156,7 +158,7 @@ namespace ServiceStack
             if (name == null)
                 return null;
 
-            return FieldsMap.TryGetValue(name, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(name, out FieldAccessor info)
                 ? info.PublicSetterRef
                 : null;
         }
@@ -213,15 +215,11 @@ namespace ServiceStack
             var instanceParam = GetCastOrConvertExpression(oInstanceParam, fieldDeclaringType);
 
             var exprCallFieldGetFn = Expression.Field(instanceParam, fieldInfo);
-            //var oExprCallFieldGetFn = this.GetCastOrConvertExpression(exprCallFieldGetFn, typeof(object));
+
+            // var oExprCallFieldGetFn = this.GetCastOrConvertExpression(exprCallFieldGetFn, typeof(object));
             var oExprCallFieldGetFn = Expression.Convert(exprCallFieldGetFn, typeof(object));
 
-            var fieldGetterFn = Expression.Lambda<GetMemberDelegate>
-                (
-                    oExprCallFieldGetFn,
-                    oInstanceParam
-                )
-                .Compile();
+            var fieldGetterFn = Expression.Lambda<GetMemberDelegate>(oExprCallFieldGetFn, oInstanceParam).Compile();
 
             return fieldGetterFn;
         }
@@ -428,6 +426,7 @@ namespace ServiceStack
                 ? new DynamicMethod(name, returnType, DynamicSetMethodArgs, memberInfo.DeclaringType, true)
                 : new DynamicMethod(name, returnType, DynamicSetMethodArgs, memberInfo.Module, true);
         }
+
 #endif
     }
 }

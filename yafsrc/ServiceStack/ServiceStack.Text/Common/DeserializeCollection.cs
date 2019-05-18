@@ -10,15 +10,17 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
-using System.Linq;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #else
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+
 using ServiceStack.Text.Support;
+
 #endif
 
 namespace ServiceStack.Text.Common
@@ -36,7 +38,7 @@ namespace ServiceStack.Text.Common
             if (collectionInterface == null)
                 throw new ArgumentException(string.Format("Type {0} is not of type ICollection<>", type.FullName));
 
-            //optimized access for regularly used types
+            // optimized access for regularly used types
             if (type.HasInterface(typeof(ICollection<string>)))
                 return value => ParseStringCollection(value, type);
 
@@ -111,7 +113,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, ParseCollectionDelegate>(ParseDelegateCache);
                 newCache[elementType] = parseDelegate;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 
             return parseDelegate(value, createType, parseFn);

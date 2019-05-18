@@ -10,7 +10,7 @@ namespace ServiceStack.Text
     {
         public static void WriteRow(TextWriter writer, IEnumerable<string> row)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             var ranOnce = false;
             foreach (var field in row)
@@ -19,12 +19,13 @@ namespace ServiceStack.Text
 
                 writer.Write(field.ToCsvField());
             }
+
             writer.Write(CsvConfig.RowSeparatorString);
         }
 
         public static void WriteObjectRow(TextWriter writer, IEnumerable<object> row)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             var ranOnce = false;
             foreach (var field in row)
@@ -33,12 +34,13 @@ namespace ServiceStack.Text
 
                 writer.Write(field.ToCsvField());
             }
+
             writer.Write(CsvConfig.RowSeparatorString);
         }
 
         public static void Write(TextWriter writer, IEnumerable<KeyValuePair<string, object>> records)
         {
-            if (records == null) return; //AOT
+            if (records == null) return; // AOT
 
             var requireHeaders = !CsvConfig<IEnumerable<KeyValuePair<string, object>>>.OmitHeaders;
             if (requireHeaders)
@@ -53,7 +55,7 @@ namespace ServiceStack.Text
 
         public static void Write(TextWriter writer, IEnumerable<KeyValuePair<string, string>> records)
         {
-            if (records == null) return; //AOT
+            if (records == null) return; // AOT
 
             var requireHeaders = !CsvConfig<IEnumerable<KeyValuePair<string, string>>>.OmitHeaders;
             if (requireHeaders)
@@ -68,7 +70,7 @@ namespace ServiceStack.Text
 
         public static void Write(TextWriter writer, IEnumerable<IDictionary<string, object>> records) 
         {
-            if (records == null) return; //AOT
+            if (records == null) return; // AOT
 
             var requireHeaders = !CsvConfig<Dictionary<string, object>>.OmitHeaders;
             foreach (var record in records)
@@ -80,6 +82,7 @@ namespace ServiceStack.Text
 
                     requireHeaders = false;
                 }
+
                 if (record != null) 
                     WriteObjectRow(writer, record.Values);
             }
@@ -87,7 +90,7 @@ namespace ServiceStack.Text
 
         public static void Write(TextWriter writer, IEnumerable<IDictionary<string, string>> records)
         {
-            if (records == null) return; //AOT
+            if (records == null) return; // AOT
 
             var allKeys = new HashSet<string>();
             var cachedRecords = new List<IDictionary<string, string>>();
@@ -101,6 +104,7 @@ namespace ServiceStack.Text
                         allKeys.Add(key);
                     }
                 }
+
                 cachedRecords.Add(record);
             }
 
@@ -109,6 +113,7 @@ namespace ServiceStack.Text
             {
                 WriteRow(writer, headers);
             }
+
             foreach (var cachedRecord in cachedRecords)
             {
                 var fullRecord = headers.ConvertAll(header => 
@@ -176,6 +181,7 @@ namespace ServiceStack.Text
                     if (dcsDataMemberName != null)
                         propertyName = dcsDataMemberName;
                 }
+
                 Headers.Add(propertyName);
             }
         }
@@ -210,6 +216,7 @@ namespace ServiceStack.Text
 
                 row.Add(strValue);
             }
+
             return row;
         }
 
@@ -230,13 +237,14 @@ namespace ServiceStack.Text
                 var row = new List<string>();
                 foreach (var propertyGetter in PropertyGetters)
                 {
-                    var value = propertyGetter(record) ?? "";
+                    var value = propertyGetter(record) ?? string.Empty;
 
                     var valueStr = value as string;
                     var strValue = valueStr ?? TypeSerializer.SerializeToString(value);
 
                     row.Add(strValue);
                 }
+
                 rows.Add(row);
             }
 
@@ -245,21 +253,21 @@ namespace ServiceStack.Text
 
         public static void WriteObject(TextWriter writer, object records)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             Write(writer, (IEnumerable<T>)records);
         }
 
         public static void WriteObjectRow(TextWriter writer, object record)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             WriteRow(writer, (T)record);
         }
 
         public static void Write(TextWriter writer, IEnumerable<T> records)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             if (typeof(T) == typeof(Dictionary<string, string>) || typeof(T) == typeof(IDictionary<string, string>))
             {
@@ -267,8 +275,9 @@ namespace ServiceStack.Text
                 return;
             }
 
-            if (typeof(T).IsAssignableFrom(typeof(Dictionary<string, object>))) //also does `object`
+            if (typeof(T).IsAssignableFrom(typeof(Dictionary<string, object>)))
             {
+                // also does `object`
                 var dynamicList = records.Select(x => x.ToObjectDictionary()).ToList();
                 CsvDictionaryWriter.Write(writer, dynamicList);
                 return;
@@ -289,6 +298,7 @@ namespace ServiceStack.Text
 
                     writer.Write(header);
                 }
+
                 writer.Write(CsvConfig.RowSeparatorString);
             }
 
@@ -307,7 +317,7 @@ namespace ServiceStack.Text
                 for (var i = 0; i < PropertyGetters.Count; i++)
                 {
                     var propertyGetter = PropertyGetters[i];
-                    var value = propertyGetter(record) ?? "";
+                    var value = propertyGetter(record) ?? string.Empty;
 
                     var strValue = value is string
                        ? (string)value
@@ -315,13 +325,14 @@ namespace ServiceStack.Text
 
                     row[i] = strValue;
                 }
+
                 WriteRow(writer, row);
             }
         }
 
         public static void WriteRow(TextWriter writer, T row)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             if (row is IEnumerable<KeyValuePair<string, object>> kvps)
             {
@@ -339,7 +350,7 @@ namespace ServiceStack.Text
 
         public static void WriteRow(TextWriter writer, IEnumerable<string> row)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             var ranOnce = false;
             foreach (var field in row)
@@ -348,12 +359,13 @@ namespace ServiceStack.Text
 
                 writer.Write(field.ToCsvField());
             }
+
             writer.Write(CsvConfig.RowSeparatorString);
         }
 
         public static void Write(TextWriter writer, IEnumerable<List<string>> rows)
         {
-            if (writer == null) return; //AOT
+            if (writer == null) return; // AOT
 
             if (Headers.Count > 0)
             {
@@ -364,6 +376,7 @@ namespace ServiceStack.Text
 
                     writer.Write(header);
                 }
+
                 writer.Write(CsvConfig.RowSeparatorString);
             }
 

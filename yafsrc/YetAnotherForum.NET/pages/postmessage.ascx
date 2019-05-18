@@ -159,7 +159,4 @@
 </script>
 
 <YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
-<div id="DivSmartScroller">
-	
-</div>
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>

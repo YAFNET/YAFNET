@@ -60,7 +60,7 @@ namespace ServiceStack.Text.Json
             }
             else
             {
-                WriteRawString(writer, value);
+                this.WriteRawString(writer, value);
             }
         }
 
@@ -73,7 +73,7 @@ namespace ServiceStack.Text.Json
         {
             if (JsState.WritingKeyCount > 0 && !JsState.IsWritingValue) writer.Write(JsonUtils.QuoteChar);
 
-            WriteRawString(writer, value.ToString());
+            this.WriteRawString(writer, value.ToString());
 
             if (JsState.WritingKeyCount > 0 && !JsState.IsWritingValue) writer.Write(JsonUtils.QuoteChar);
         }
@@ -91,7 +91,7 @@ namespace ServiceStack.Text.Json
 
         public void WriteException(TextWriter writer, object value)
         {
-            WriteString(writer, ((Exception)value).Message);
+            this.WriteString(writer, ((Exception)value).Message);
         }
 
         public void WriteDateTime(TextWriter writer, object oDateTime)
@@ -116,8 +116,7 @@ namespace ServiceStack.Text.Json
         {
             if (dateTime == null)
                 writer.Write(JsonUtils.Null);
-            else
-                WriteDateTime(writer, dateTime);
+            else this.WriteDateTime(writer, dateTime);
         }
 
         public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
@@ -131,8 +130,7 @@ namespace ServiceStack.Text.Json
         {
             if (dateTimeOffset == null)
                 writer.Write(JsonUtils.Null);
-            else
-                WriteDateTimeOffset(writer, dateTimeOffset);
+            else this.WriteDateTimeOffset(writer, dateTimeOffset);
         }
 
         public void WriteTimeSpan(TextWriter writer, object oTimeSpan)
@@ -140,39 +138,38 @@ namespace ServiceStack.Text.Json
             var stringValue = JsConfig.TimeSpanHandler == TimeSpanHandler.StandardFormat
                 ? oTimeSpan.ToString()
                 : DateTimeSerializer.ToXsdTimeSpanString((TimeSpan)oTimeSpan);
-            WriteRawString(writer, stringValue);
+            this.WriteRawString(writer, stringValue);
         }
 
         public void WriteNullableTimeSpan(TextWriter writer, object oTimeSpan)
         {
 
             if (oTimeSpan == null) return;
-            WriteTimeSpan(writer, ((TimeSpan?)oTimeSpan).Value);
+            this.WriteTimeSpan(writer, ((TimeSpan?)oTimeSpan).Value);
         }
 
         public void WriteGuid(TextWriter writer, object oValue)
         {
-            WriteRawString(writer, ((Guid)oValue).ToString("N"));
+            this.WriteRawString(writer, ((Guid)oValue).ToString("N"));
         }
 
         public void WriteNullableGuid(TextWriter writer, object oValue)
         {
             if (oValue == null) return;
-            WriteRawString(writer, ((Guid)oValue).ToString("N"));
+            this.WriteRawString(writer, ((Guid)oValue).ToString("N"));
         }
 
         public void WriteBytes(TextWriter writer, object oByteValue)
         {
             if (oByteValue == null) return;
-            WriteRawString(writer, Convert.ToBase64String((byte[])oByteValue));
+            this.WriteRawString(writer, Convert.ToBase64String((byte[])oByteValue));
         }
 
         public void WriteChar(TextWriter writer, object charValue)
         {
             if (charValue == null)
                 writer.Write(JsonUtils.Null);
-            else
-                WriteString(writer, ((char)charValue).ToString());
+            else this.WriteString(writer, ((char)charValue).ToString());
         }
 
         public void WriteByte(TextWriter writer, object byteValue)
@@ -288,10 +285,9 @@ namespace ServiceStack.Text.Json
         public void WriteEnum(TextWriter writer, object enumValue)
         {
             if (enumValue == null) return;
-            if (GetTypeInfo(enumValue.GetType()).IsNumeric)
+            if (this.GetTypeInfo(enumValue.GetType()).IsNumeric)
                 JsWriter.WriteEnumFlags(writer, enumValue);
-            else
-                WriteRawString(writer, enumValue.ToString());
+            else this.WriteRawString(writer, enumValue.ToString());
         }
 
         public void WriteEnumFlags(TextWriter writer, object enumFlagValue)
@@ -307,7 +303,7 @@ namespace ServiceStack.Text.Json
             var mi = enumType.GetMember(enumValue.ToString());
             var enumMemberAttr = mi[0].FirstAttribute<EnumMemberAttribute>();
             var useValue = enumMemberAttr?.Value ?? enumValue;
-            WriteRawString(writer, useValue.ToString());
+            this.WriteRawString(writer, useValue.ToString());
         }
 
         public ParseStringDelegate GetParseFn<T>()
@@ -337,19 +333,19 @@ namespace ServiceStack.Text.Json
 
         public string ParseString(StringSegment value)
         {
-            return value.IsNullOrEmpty() ? value.Value : ParseRawString(value.Value);
+            return value.IsNullOrEmpty() ? value.Value : this.ParseRawString(value.Value);
         }
 
         public string ParseString(string value)
         {
-            return string.IsNullOrEmpty(value) ? value : ParseRawString(value);
+            return string.IsNullOrEmpty(value) ? value : this.ParseRawString(value);
         }
 
         public static bool IsEmptyMap(string value, int i = 1) => IsEmptyMap(new StringSegment(value));
 
         public static bool IsEmptyMap(StringSegment value, int i = 1)
         {
-            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
             if (value.Length == i) return true;
             return value.GetChar(i++) == JsWriter.MapEndChar;
         }
@@ -380,7 +376,8 @@ namespace ServiceStack.Text.Json
                 {
                     index += 4;
                 }
-            } while (index++ < jsonLength);
+            }
+ while (index++ < jsonLength);
             if (index == jsonLength)
                 throw new Exception("Invalid unquoted string ending with: " + json.Value.SafeSubstring(json.Length - 50, 50));
             index++;
@@ -399,7 +396,7 @@ namespace ServiceStack.Text.Json
             return UnEscapeJsonString(value, ref i);
         }
 
-        public string UnescapeSafeString(string value) => UnescapeSafeString(new StringSegment(value)).Value;
+        public string UnescapeSafeString(string value) => this.UnescapeSafeString(new StringSegment(value)).Value;
 
         public StringSegment UnescapeSafeString(StringSegment value)
         {
@@ -408,17 +405,17 @@ namespace ServiceStack.Text.Json
                 ? value.Subsegment(1, value.Length - 2)
                 : value;
 
-            //if (value[0] != JsonUtils.QuoteChar)
-            //    throw new Exception("Invalid unquoted string starting with: " + value.SafeSubstring(50));
+            // if (value[0] != JsonUtils.QuoteChar)
+            // throw new Exception("Invalid unquoted string starting with: " + value.SafeSubstring(50));
 
-            //return value.Substring(1, value.Length - 2);
+            // return value.Substring(1, value.Length - 2);
         }
 
         static readonly char[] IsSafeJsonChars = new[] { JsonUtils.QuoteChar, JsonUtils.EscapeChar };
 
         internal static StringSegment ParseJsonString(StringSegment json, ref int index)
         {
-            for (; index < json.Length; index++) { var ch = json.GetChar(index); if (!JsonUtils.IsWhiteSpace(ch)) break; } //Whitespace inline
+            for (; index < json.Length; index++) { var ch = json.GetChar(index); if (!JsonUtils.IsWhiteSpace(ch)) break; } // Whitespace inline
 
             return UnEscapeJsonString(json, ref index);
         }
@@ -440,7 +437,7 @@ namespace ServiceStack.Text.Json
             {
                 index++;
 
-                //MicroOp: See if we can short-circuit evaluation (to avoid StringBuilder)
+                // MicroOp: See if we can short-circuit evaluation (to avoid StringBuilder)
                 var strEndPos = json.IndexOfAny(IsSafeJsonChars, index);
                 if (strEndPos == -1) return json.Subsegment(index, jsonLength - index);
 
@@ -463,6 +460,7 @@ namespace ServiceStack.Text.Json
                         break;
                     i++;
                 }
+
                 if (i == end) return new StringSegment(buffer, offset + index, jsonLength - index);
             }
 
@@ -492,6 +490,7 @@ namespace ServiceStack.Text.Json
                         {
                             output.Append(input.Buffer, input.Offset + start, count - start);
                         }
+
                         count++;
                         start = count;
                         continue;
@@ -504,11 +503,12 @@ namespace ServiceStack.Text.Json
                     {
                         output.Append(input.Buffer, input.Offset + start, count - start);
                     }
+
                     start = count;
                     count++;
                     if (count >= length) continue;
 
-                    //we will always be parsing an escaped char here
+                    // we will always be parsing an escaped char here
                     var c = input.GetChar(count);
 
                     switch (c)
@@ -545,7 +545,7 @@ namespace ServiceStack.Text.Json
                             if (count + 4 < length)
                             {
                                 var unicodeString = input.Substring(count + 1, 4);
-                                var unicodeIntVal = UInt32.Parse(unicodeString, NumberStyles.HexNumber);
+                                var unicodeIntVal = uint.Parse(unicodeString, NumberStyles.HexNumber);
                                 output.Append(ConvertFromUtf32((int)unicodeIntVal));
                                 count += 5;
                             }
@@ -553,6 +553,7 @@ namespace ServiceStack.Text.Json
                             {
                                 output.Append(c);
                             }
+
                             break;
                         case 'x':
                             if (count + 4 < length)
@@ -574,6 +575,7 @@ namespace ServiceStack.Text.Json
                             {
                                 output.Append(input.Buffer, input.Offset + start, count - start);
                             }
+
                             break;
                         default:
                             output.Append(c);
@@ -587,6 +589,7 @@ namespace ServiceStack.Text.Json
                     count++;
                 }
             }
+
             output.Append(input.Buffer, input.Offset + start, length - start);
             return new StringSegment(StringBuilderThreadStatic.ReturnAndFree(output));
         }
@@ -610,53 +613,53 @@ namespace ServiceStack.Text.Json
 
         public string EatTypeValue(string value, ref int i)
         {
-            return EatValue(value, ref i);
+            return this.EatValue(value, ref i);
         }
 
         public StringSegment EatTypeValue(StringSegment value, ref int i)
         {
-            return EatValue(value, ref i);
+            return this.EatValue(value, ref i);
         }
 
-        public bool EatMapStartChar(string value, ref int i) => EatMapStartChar(new StringSegment(value), ref i);
+        public bool EatMapStartChar(string value, ref int i) => this.EatMapStartChar(new StringSegment(value), ref i);
 
         public bool EatMapStartChar(StringSegment value, ref int i)
         {
-            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
             return value.GetChar(i++) == JsWriter.MapStartChar;
         }
 
-        public string EatMapKey(string value, ref int i) => EatMapKey(new StringSegment(value), ref i).Value;
+        public string EatMapKey(string value, ref int i) => this.EatMapKey(new StringSegment(value), ref i).Value;
 
         public StringSegment EatMapKey(StringSegment value, ref int i)
         {
             var valueLength = value.Length;
-            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
 
             var tokenStartPos = i;
             var valueChar = value.GetChar(i);
 
             switch (valueChar)
             {
-                //If we are at the end, return.
+                // If we are at the end, return.
                 case JsWriter.ItemSeperator:
                 case JsWriter.MapEndChar:
                     return default(StringSegment);
 
-                //Is Within Quotes, i.e. "..."
+                // Is Within Quotes, i.e. "..."
                 case JsWriter.QuoteChar:
                     return ParseString(value, ref i);
             }
 
-            //Is Value
+            // Is Value
             while (++i < valueLength)
             {
                 valueChar = value.GetChar(i);
 
                 if (valueChar == JsWriter.ItemSeperator
-                    //If it doesn't have quotes it's either a keyword or number so also has a ws boundary
-                    || (JsonUtils.IsWhiteSpace(valueChar))
-                )
+
+                    // If it doesn't have quotes it's either a keyword or number so also has a ws boundary
+                    || (JsonUtils.IsWhiteSpace(valueChar)))
                 {
                     break;
                 }
@@ -665,24 +668,24 @@ namespace ServiceStack.Text.Json
             return value.Subsegment(tokenStartPos, i - tokenStartPos);
         }
 
-        public bool EatMapKeySeperator(string value, ref int i) => EatMapKeySeperator(new StringSegment(value), ref i);
+        public bool EatMapKeySeperator(string value, ref int i) => this.EatMapKeySeperator(new StringSegment(value), ref i);
 
 
         public bool EatMapKeySeperator(StringSegment value, ref int i)
         {
-            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
             if (value.Length == i) return false;
             return value.GetChar(i++) == JsWriter.MapKeySeperator;
         }
 
         public bool EatItemSeperatorOrMapEndChar(string value, ref int i)
         {
-            return EatItemSeperatorOrMapEndChar(new StringSegment(value), ref i);
+            return this.EatItemSeperatorOrMapEndChar(new StringSegment(value), ref i);
         }
 
         public bool EatItemSeperatorOrMapEndChar(StringSegment value, ref int i)
         {
-            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
 
             if (i == value.Length) return false;
 
@@ -693,7 +696,7 @@ namespace ServiceStack.Text.Json
 
             if (success)
             {
-                for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+                for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
             }
 
             return success;
@@ -701,17 +704,17 @@ namespace ServiceStack.Text.Json
 
         public void EatWhitespace(StringSegment value, ref int i)
         {
-            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value.GetChar(i); if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
         }
 
         public void EatWhitespace(string value, ref int i)
         {
-            for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } // Whitespace inline
         }
 
         public string EatValue(string value, ref int i)
         {
-            return EatValue(new StringSegment(value), ref i).Value;
+            return this.EatValue(new StringSegment(value), ref i).Value;
         }
 
         public StringSegment EatValue(StringSegment value, ref int i)
@@ -721,7 +724,7 @@ namespace ServiceStack.Text.Json
             var offset = value.Offset;
             if (i == valueLength) return default(StringSegment);
 
-            while (i < valueLength && JsonUtils.IsWhiteSpace(buf[offset + i])) i++; //Whitespace inline
+            while (i < valueLength && JsonUtils.IsWhiteSpace(buf[offset + i])) i++; // Whitespace inline
             if (i == valueLength) return default(StringSegment);
 
             var tokenStartPos = i;
@@ -731,16 +734,16 @@ namespace ServiceStack.Text.Json
 
             switch (valueChar)
             {
-                //If we are at the end, return.
+                // If we are at the end, return.
                 case JsWriter.ItemSeperator:
                 case JsWriter.MapEndChar:
                     return default(StringSegment);
 
-                //Is Within Quotes, i.e. "..."
+                // Is Within Quotes, i.e. "..."
                 case JsWriter.QuoteChar:
                     return ParseString(value, ref i);
 
-                //Is Type/Map, i.e. {...}
+                // Is Type/Map, i.e. {...}
                 case JsWriter.MapStartChar:
                     while (++i < valueLength)
                     {
@@ -767,9 +770,10 @@ namespace ServiceStack.Text.Json
                             break;
                         }
                     }
+
                     return value.Subsegment(tokenStartPos, i - tokenStartPos);
 
-                //Is List, i.e. [...]
+                // Is List, i.e. [...]
                 case JsWriter.ListStartChar:
                     while (++i < valueLength)
                     {
@@ -796,19 +800,19 @@ namespace ServiceStack.Text.Json
                             break;
                         }
                     }
+
                     return value.Subsegment(tokenStartPos, i - tokenStartPos);
             }
 
-            //Is Value
+            // Is Value
             while (++i < valueLength)
             {
                 valueChar = buf[offset + i];
 
-                if (valueChar == JsWriter.ItemSeperator
-                    || valueChar == JsWriter.MapEndChar
-                    //If it doesn't have quotes it's either a keyword or number so also has a ws boundary
-                    || JsonUtils.IsWhiteSpace(valueChar)
-                )
+                if (valueChar == JsWriter.ItemSeperator || valueChar == JsWriter.MapEndChar
+
+                                                        // If it doesn't have quotes it's either a keyword or number so also has a ws boundary
+                                                        || JsonUtils.IsWhiteSpace(valueChar))
                 {
                     break;
                 }

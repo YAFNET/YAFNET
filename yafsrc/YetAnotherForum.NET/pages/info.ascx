@@ -12,6 +12,3 @@
         <YAF:ThemeButton runat="server" ID="Continue" Type="Danger" />
     </div>
 </div>
-<div id="DivSmartScroller">
-	
-</div>

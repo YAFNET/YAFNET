@@ -134,29 +134,29 @@ namespace ServiceStack
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this Type type, string name)
         {
-            var normalizedAttr = name.Replace("Attribute", "").ToLower();
-            return type.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
+            var normalizedAttr = name.Replace("Attribute", string.Empty).ToLower();
+            return type.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", string.Empty).ToLower() == normalizedAttr);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this PropertyInfo pi, string name)
         {
-            var normalizedAttr = name.Replace("Attribute", "").ToLower();
-            return pi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
+            var normalizedAttr = name.Replace("Attribute", string.Empty).ToLower();
+            return pi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", string.Empty).ToLower() == normalizedAttr);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this FieldInfo fi, string name)
         {
-            var normalizedAttr = name.Replace("Attribute", "").ToLower();
-            return fi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
+            var normalizedAttr = name.Replace("Attribute", string.Empty).ToLower();
+            return fi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", string.Empty).ToLower() == normalizedAttr);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this MemberInfo mi, string name)
         {
-            var normalizedAttr = name.Replace("Attribute", "").ToLower();
-            return mi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
+            var normalizedAttr = name.Replace("Attribute", string.Empty).ToLower();
+            return mi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", string.Empty).ToLower() == normalizedAttr);
         }
 
         const string DataContract = "DataContractAttribute";
@@ -182,7 +182,7 @@ namespace ServiceStack
         public static PropertyInfo[] AllProperties(this Type type) => 
             type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
-        //Should only register Runtime Attributes on StartUp, So using non-ThreadSafe Dictionary is OK
+        // Should only register Runtime Attributes on StartUp, So using non-ThreadSafe Dictionary is OK
         static Dictionary<string, List<Attribute>> propertyAttributesMap
             = new Dictionary<string, List<Attribute>>();
 
@@ -397,7 +397,7 @@ namespace ServiceStack
             }
             catch (NotSupportedException)
             {
-                //Ignore assembly.Location not supported in a dynamic assembly.
+                // Ignore assembly.Location not supported in a dynamic assembly.
                 return true;
             }
         }
@@ -536,7 +536,7 @@ namespace ServiceStack
         public static Type GetCollectionType(this Type type)
         {
             return type.GetElementType() 
-                ?? type.GetGenericArguments().LastOrDefault(); //new[] { str }.Select(x => new Type()) => WhereSelectArrayIterator<string,Type>
+                ?? type.GetGenericArguments().LastOrDefault(); // new[] { str }.Select(x => new Type()) => WhereSelectArrayIterator<string,Type>
         }
 
         static Dictionary<string, Type> GenericTypeCache = new Dictionary<string, Type>();
@@ -572,7 +572,8 @@ namespace ServiceStack
                 newCache = new Dictionary<string, Type>(GenericTypeCache);
                 newCache[key] = genericType;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref GenericTypeCache, newCache, snapshot), snapshot));
 
             return genericType;
@@ -589,8 +590,8 @@ namespace ServiceStack
 
             public void Add(string name, ObjectDictionaryFieldDefinition fieldDef)
             {
-                Fields.Add(fieldDef);
-                FieldsMap[name] = fieldDef;
+                this.Fields.Add(fieldDef);
+                this.FieldsMap[name] = fieldDef;
             }
         }
 
@@ -607,33 +608,33 @@ namespace ServiceStack
 
             public void SetValue(object instance, object value)
             {
-                if (SetValueFn == null)
+                if (this.SetValueFn == null)
                     return;
 
-                if (!Type.IsInstanceOfType(value))
+                if (!this.Type.IsInstanceOfType(value))
                 {
                     lock (this)
                     {
-                        //Only caches object converter used on first use
-                        if (ConvertType == null)
+                        // Only caches object converter used on first use
+                        if (this.ConvertType == null)
                         {
-                            ConvertType = value.GetType();
-                            ConvertValueFn = TypeConverter.CreateTypeConverter(ConvertType, Type);
+                            this.ConvertType = value.GetType();
+                            this.ConvertValueFn = TypeConverter.CreateTypeConverter(this.ConvertType, this.Type);
                         }
                     }
 
-                    if (ConvertType.IsInstanceOfType(value))
+                    if (this.ConvertType.IsInstanceOfType(value))
                     {
-                        value = ConvertValueFn(value);
+                        value = this.ConvertValueFn(value);
                     }
                     else
                     {
-                        var tempConvertFn = TypeConverter.CreateTypeConverter(value.GetType(), Type);
+                        var tempConvertFn = TypeConverter.CreateTypeConverter(value.GetType(), this.Type);
                         value = tempConvertFn(value);
                     }
                 }
 
-                SetValueFn(instance, value);
+                this.SetValueFn(instance, value);
             }
         }
 
@@ -655,6 +656,7 @@ namespace ServiceStack
                 {
                     to[entry.Key] = entry.Value;
                 }
+
                 return to;
             }
 
@@ -692,6 +694,7 @@ namespace ServiceStack
 
                 fieldDef.SetValue(to, entry.Value);
             }
+
             return to;
         }
 
@@ -731,6 +734,7 @@ namespace ServiceStack
                     });
                 }
             }
+
             return def;
         }
 
@@ -773,6 +777,7 @@ namespace ServiceStack
                     }
                 }
             }
+
             return to;
         }
 
@@ -784,6 +789,7 @@ namespace ServiceStack
             {
                 to[entry.Key] = entry.Value;
             }
+
             return to;
         }
     }

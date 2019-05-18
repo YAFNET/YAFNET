@@ -10,14 +10,16 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Reflection;
-using System.Linq;
-using ServiceStack.Text.Jsv;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #else
+using System;
+using System.Linq;
+using System.Reflection;
+
+using ServiceStack.Text.Jsv;
 using ServiceStack.Text.Support;
+
 #endif
 
 namespace ServiceStack.Text.Common
@@ -40,9 +42,10 @@ namespace ServiceStack.Text.Common
                 {
                     parseDelegate = (ParseDelegate)parseMethodInfo.MakeDelegate(typeof(ParseDelegate), false);
                 }
+
                 if (parseDelegate == null)
                 {
-                    //Try wrapping strongly-typed return with wrapper fn.
+                    // Try wrapping strongly-typed return with wrapper fn.
                     var typedParseDelegate = (Func<string, T>)parseMethodInfo.MakeDelegate(typeof(Func<string, T>));
                     parseDelegate = x => typedParseDelegate(x);
                 }
@@ -72,9 +75,10 @@ namespace ServiceStack.Text.Common
                 {
                     parseDelegate = (ParseStringSegmentDelegate)parseMethodInfo.MakeDelegate(typeof(ParseStringSegmentDelegate), false);
                 }
+
                 if (parseDelegate == null)
                 {
-                    //Try wrapping strongly-typed return with wrapper fn.
+                    // Try wrapping strongly-typed return with wrapper fn.
                     var typedParseDelegate = (Func<StringSegment, T>)parseMethodInfo.MakeDelegate(typeof(Func<StringSegment, T>));
                     parseDelegate = x => typedParseDelegate(x);
                 }

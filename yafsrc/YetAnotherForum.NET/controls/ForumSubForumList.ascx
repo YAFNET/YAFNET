@@ -5,7 +5,7 @@
     <HeaderTemplate>        
         <div>
         <span class="font-weight-bold">
-            <YAF:LocalizedLabel ID="SubForums" LocalizedTag="SUBFORUMS" runat="server" />
+            <YAF:LocalizedLabel ID="SubForums" LocalizedTag="SUBFORUMS" runat="server" />:
         </span>
  </HeaderTemplate>
     <ItemTemplate>

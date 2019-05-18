@@ -29,6 +29,7 @@ namespace ServiceStack
             {
                 collection.Add(item);
             }
+
             return collection;
         }
 

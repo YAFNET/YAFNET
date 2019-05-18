@@ -11,26 +11,29 @@ namespace ServiceStack.Text.Common
     {
         internal static SerializationException CreateSerializationError(Type type, string strType)
         {
-            return new SerializationException(String.Format(
+            return new SerializationException(string.Format(
             "Type definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
             JsWriter.MapStartChar, type.Name, strType.Substring(0, strType.Length < 50 ? strType.Length : 50)));
         }
 
         internal static SerializationException GetSerializationException(string propertyName, string propertyValueString, Type propertyType, Exception e)
         {
-            var serializationException = new SerializationException(String.Format("Failed to set property '{0}' with '{1}'", propertyName, propertyValueString), e);
+            var serializationException = new SerializationException(string.Format("Failed to set property '{0}' with '{1}'", propertyName, propertyValueString), e);
             if (propertyName != null)
             {
                 serializationException.Data.Add("propertyName", propertyName);
             }
+
             if (propertyValueString != null)
             {
                 serializationException.Data.Add("propertyValueString", propertyValueString);
             }
+
             if (propertyType != null)
             {
                 serializationException.Data.Add("propertyType", propertyType);
             }
+
             return serializationException;
         }
 
@@ -58,6 +61,7 @@ namespace ServiceStack.Text.Common
                             propertyName = dcsDataMember.Name;
                         }
                     }
+
                     map[new HashedStringSegment(propertyName)] = TypeAccessor.Create(serializer, typeConfig, propertyInfo);
                 }
             }
@@ -75,9 +79,11 @@ namespace ServiceStack.Text.Common
                             fieldName = dcsDataMember.Name;
                         }
                     }
+
                     map[new HashedStringSegment(fieldName)] = TypeAccessor.Create(serializer, typeConfig, fieldInfo);
                 }
             }
+
             return map;
         }
 
@@ -178,5 +184,5 @@ namespace ServiceStack.Text.Common
         */
     }
 
-    //The same class above but JSON-specific to enable inlining in this hot class.
+    // The same class above but JSON-specific to enable inlining in this hot class.
 }

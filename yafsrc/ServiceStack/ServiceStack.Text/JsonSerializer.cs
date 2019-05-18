@@ -61,6 +61,7 @@ namespace ServiceStack.Text
             {
                 return SerializeToString(value, value.GetType());
             }
+
             if (typeof(T).IsAbstract || typeof(T).IsInterface)
             {
                 JsState.IsWritingDynamic = true;
@@ -78,6 +79,7 @@ namespace ServiceStack.Text
             {
                 JsonWriter<T>.WriteRootObject(writer, value);
             }
+
             return StringWriterThreadStatic.ReturnAndFree(writer);
         }
 
@@ -94,6 +96,7 @@ namespace ServiceStack.Text
             {
                 JsonWriter.GetWriteFn(type)(writer, value);
             }
+
             return StringWriterThreadStatic.ReturnAndFree(writer);
         }
 

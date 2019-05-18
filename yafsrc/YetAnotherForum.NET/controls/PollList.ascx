@@ -40,12 +40,14 @@
                                      CommandName="removeall" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' 
                                      CssClass="btn-sm mr-1"
                                      TextLocalizedTag="REMOVEPOLL_ALL"
+                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL") %>'
                                      Type="Secondary"
                                      Icon="trash"/>
                     <YAF:ThemeButton ID="RemovePoll" runat="server" Visible="false" 
                                      CommandName="remove" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' 
                                      CssClass="btn-sm mr-1"
                                      TextLocalizedTag="REMOVEPOLL"
+                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE")  %>'
                                      Type="Secondary"
                                      Icon="trash"/>
                     <YAF:ThemeButton ID="EditPoll" runat="server" Visible='<%#  this.CanEditPoll(DataBinder.Eval(Container.DataItem, "PollID")) %>'

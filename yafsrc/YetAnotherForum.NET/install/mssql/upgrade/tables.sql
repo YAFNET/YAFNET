@@ -699,7 +699,7 @@ GO
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Attachment]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Attachment](
 		AttachmentID	int IDENTITY (1,1) not null,
-		MessageID		int not null default (0),
+		MessageID		int not null,
 		UserID          int not null default (0),		
 		[FileName]		nvarchar(255) not null,
 		Bytes			int not null,

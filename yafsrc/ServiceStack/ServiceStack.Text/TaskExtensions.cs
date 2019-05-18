@@ -19,6 +19,7 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(t.Result), taskOptions);
             }
+
             return task;
         }
 
@@ -35,6 +36,7 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(), taskOptions);
             }
+
             return task;
         }
 
@@ -51,6 +53,7 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(t.UnwrapIfSingleException()), taskOptions);
             }
+
             return task;
         }
 
@@ -67,6 +70,7 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(t.UnwrapIfSingleException()), taskOptions);
             }
+
             return task;
         }
 

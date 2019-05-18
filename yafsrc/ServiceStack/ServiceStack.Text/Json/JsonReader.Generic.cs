@@ -41,7 +41,8 @@ namespace ServiceStack.Text.Json
                     [type] = parseFactoryFn
                 };
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseFnCache, newCache, snapshot), snapshot));
 
             return parseFactoryFn();
@@ -50,10 +51,10 @@ namespace ServiceStack.Text.Json
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
-            Text.Json.JsonReader.Instance.GetParseFn<T>();
-            Text.Json.JsonReader<T>.Parse(null);
-            Text.Json.JsonReader<T>.GetParseFn();
-            Text.Json.JsonReader<T>.GetParseStringSegmentFn();
+            Instance.GetParseFn<T>();
+            JsonReader<T>.Parse(null);
+            JsonReader<T>.GetParseFn();
+            JsonReader<T>.GetParseStringSegmentFn();
         }
     }
 
@@ -100,6 +101,7 @@ namespace ServiceStack.Text.Json
                     {
                         return JsonReader.GetParseStringSegmentFn(concreteType)(value);
                     }
+
                     throw new NotSupportedException("Can not deserialize interface type: "
                         + typeof(T).Name);
                 }

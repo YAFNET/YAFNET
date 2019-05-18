@@ -32,12 +32,14 @@
                                                                      Size="Small"
                                                                      Icon="share-square"
                                                                      Type="OutlineSecondary"
+                                                                     CssClass="mt-1"
                                                                      TextLocalizedTag="GO_LAST_POST"></YAF:ThemeButton>
                                                     <YAF:ThemeButton runat="server" 
                                                                      ID="GoToLastUnread" 
                                                                      Size="Small"
                                                                      Icon="book-reader"
                                                                      Type="OutlineSecondary"
+                                                                     CssClass="mt-1"
                                                                      TextLocalizedTag="GO_LASTUNREAD_POST"></YAF:ThemeButton>
                                                 </h5>
                                                 <small>

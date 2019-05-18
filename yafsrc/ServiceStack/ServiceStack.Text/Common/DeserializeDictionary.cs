@@ -13,10 +13,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Linq;
+
 using ServiceStack.Text.Json;
 using ServiceStack.Text.Pools;
 using ServiceStack.Text.Support;
@@ -50,6 +51,7 @@ namespace ServiceStack.Text.Common
                 {
                     return GetParseStringSegmentMethod(typeof(Dictionary<object, object>));
                 }
+
                 if (typeof(IDictionary).IsAssignableFrom(type))
                 {
                     return s => ParseIDictionary(s, type);
@@ -58,11 +60,12 @@ namespace ServiceStack.Text.Common
                 throw new ArgumentException(string.Format("Type {0} is not of type IDictionary<,>", type.FullName));
             }
 
-            //optimized access for regularly used types
+            // optimized access for regularly used types
             if (type == typeof(Dictionary<string, string>))
             {
                 return ParseStringDictionary;
             }
+
             if (type == typeof(JsonObject))
             {
                 return ParseJsonObject;
@@ -275,10 +278,11 @@ namespace ServiceStack.Text.Common
             var index = 0;
             if (value.Length > 0 && !Serializer.EatMapStartChar(value, ref index))
             {
-                //Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
+                // Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
                 Tracer.Instance.WriteDebug("WARN: Map definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
                     JsWriter.MapStartChar, createMapType != null ? createMapType.Name : "Dictionary<,>", value.Substring(0, value.Length < 50 ? value.Length : 50));
             }
+
             return index;
         }
 
@@ -315,7 +319,8 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<TypesKey, ParseDictionaryDelegate>(ParseDelegateCache);
                 newCache[key] = parseDelegate;
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
 
             return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
@@ -330,11 +335,11 @@ namespace ServiceStack.Text.Common
 
             public TypesKey(Type type1, Type type2)
             {
-                Type1 = type1;
-                Type2 = type2;
+                this.Type1 = type1;
+                this.Type2 = type2;
                 unchecked
                 {
-                    hashcode = Type1.GetHashCode() ^ (37 * Type2.GetHashCode());
+                    this.hashcode = this.Type1.GetHashCode() ^ (37 * this.Type2.GetHashCode());
                 }
             }
 
@@ -342,10 +347,10 @@ namespace ServiceStack.Text.Common
             {
                 var types = (TypesKey)obj;
 
-                return Type1 == types.Type1 && Type2 == types.Type2;
+                return this.Type1 == types.Type1 && this.Type2 == types.Type2;
             }
 
-            public override int GetHashCode() => hashcode;
+            public override int GetHashCode() => this.hashcode;
         }
     }
 }

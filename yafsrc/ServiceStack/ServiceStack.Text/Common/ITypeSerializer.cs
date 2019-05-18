@@ -56,8 +56,7 @@ namespace ServiceStack.Text.Common
         void WriteEnumFlags(TextWriter writer, object enumFlagValue);
         void WriteEnumMember(TextWriter writer, object enumFlagValue);
 
-        //object EncodeMapKey(object value);
-
+        // object EncodeMapKey(object value);
         ParseStringDelegate GetParseFn<T>();
         ParseStringSegmentDelegate GetParseStringSegmentFn<T>();
         ParseStringDelegate GetParseFn(Type type);

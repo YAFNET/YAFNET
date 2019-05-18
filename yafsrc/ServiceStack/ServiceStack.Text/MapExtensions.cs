@@ -34,6 +34,7 @@ namespace ServiceStack
 
                 sb.Append(entry.Key).Append(keySeperator).Append(entry.Value);
             }
+
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
     }

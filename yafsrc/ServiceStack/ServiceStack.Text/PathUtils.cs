@@ -11,6 +11,8 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    using System.Collections;
+
     public static class PathUtils
     {
         public static string MapAbsolutePath(this string relativePath, string appendPartialPathModifier)
@@ -32,6 +34,7 @@ namespace ServiceStack
                 ? PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..{sep}..{sep}..")
                 : PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..{sep}..");
         }
+
         /// <summary>
         /// Maps the path of a file in the context of a VS 2017+ multi-platform project in a Console App
         /// </summary>
@@ -109,7 +112,7 @@ namespace ServiceStack
         public static string CombineWith(this string path, params string[] thesePaths)
         {
             if (path == null)
-                path = "";
+                path = string.Empty;
 
             if (thesePaths.Length == 1 && thesePaths[0] == null) return path;
             var startPath = path.Length > 1 ? path.TrimEnd('/', '\\') : path;
@@ -138,7 +141,7 @@ namespace ServiceStack
             var schemePos = path.IndexOf("://", StringComparison.Ordinal);
             var prefix = schemePos >= 0
                 ? path.Substring(0, schemePos + 3)
-                : "";
+                : string.Empty;
 
             var parts = path.Substring(prefix.Length).Split('/').ToList();
             var combinedPaths = new List<string>();
@@ -169,10 +172,11 @@ namespace ServiceStack
             {
                 to[i] = thesePaths[i].ToString();
             }
+
             return to;
         }
 
-        internal static List<To> Map<To>(System.Collections.IEnumerable items, Func<object, To> converter)
+        internal static List<To> Map<To>(IEnumerable items, Func<object, To> converter)
         {
             if (items == null)
                 return new List<To>();
@@ -182,6 +186,7 @@ namespace ServiceStack
             {
                 list.Add(converter(item));
             }
+
             return list;
         }    
     }

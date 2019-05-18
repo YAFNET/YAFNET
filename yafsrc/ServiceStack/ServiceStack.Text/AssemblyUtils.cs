@@ -44,7 +44,8 @@ namespace ServiceStack.Text
                 snapshot = TypeCache;
                 newCache = new Dictionary<string, Type>(TypeCache) { [typeName] = type };
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TypeCache, newCache, snapshot), snapshot));
 
             return type;
@@ -62,6 +63,7 @@ namespace ServiceStack.Text
                 var interfaceType = t.GetInterfaces().FirstOrDefault(i => !t.GetInterfaces().Any(i2 => i2.GetInterfaces().Contains(i)));
                 if (interfaceType != null) return interfaceType;
             }
+
             return t; // not safe to use interface, as it might be a superclass's one.
         }
 
@@ -93,6 +95,7 @@ namespace ServiceStack.Text
                     return type;
                 }
             }
+
             return null;
         }
 
@@ -110,13 +113,14 @@ namespace ServiceStack.Text
             {
                 assemblyPath = assemblyPath.Remove(0, FileUri.Length);
             }
+
             return assemblyPath;
         }
 
         static readonly Regex versionRegEx = new Regex(", Version=[^\\]]+", PclExport.Instance.RegexOptions);
         public static string ToTypeString(this Type type)
         {
-            return versionRegEx.Replace(type.AssemblyQualifiedName, "");
+            return versionRegEx.Replace(type.AssemblyQualifiedName, string.Empty);
         }
 
         public static string WriteType(Type type)

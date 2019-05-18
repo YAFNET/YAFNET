@@ -26,6 +26,7 @@ namespace ServiceStack
                     sb.Append(seperator);
                 sb.Append(value);
             }
+
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
@@ -34,7 +35,7 @@ namespace ServiceStack
             return list == null || list.Count == 0;
         }
 
-        //TODO: make it work
+        // TODO: make it work
         public static IEnumerable<TFrom> SafeWhere<TFrom>(this List<TFrom> list, Func<TFrom, bool> predicate)
         {
             return list.Where(predicate);

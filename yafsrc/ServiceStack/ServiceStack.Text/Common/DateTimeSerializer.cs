@@ -14,25 +14,26 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using ServiceStack.Text.Json;
-using ServiceStack.Text.Support;
 using System.Text.RegularExpressions;
+
+using ServiceStack.Text.Json;
 using ServiceStack.Text.Pools;
+using ServiceStack.Text.Support;
 
 namespace ServiceStack.Text.Common
 {
     public static class DateTimeSerializer
     {
-        public const string CondensedDateTimeFormat = "yyyyMMdd";                             //8
-        public const string ShortDateTimeFormat = "yyyy-MM-dd";                               //11
-        public const string DefaultDateTimeFormat = "dd/MM/yyyy HH:mm:ss";                    //20
-        public const string DefaultDateTimeFormatWithFraction = "dd/MM/yyyy HH:mm:ss.fff";    //24
-        public const string XsdDateTimeFormat = "yyyy-MM-ddTHH:mm:ss.fffffffZ";               //29
-        public const string XsdDateTimeFormat3F = "yyyy-MM-ddTHH:mm:ss.fffZ";                 //25
-        public const string XsdDateTimeFormatSeconds = "yyyy-MM-ddTHH:mm:ssZ";                //21
-        public const string DateTimeFormatSecondsUtcOffset = "yyyy-MM-ddTHH:mm:sszzz";        //22
+        public const string CondensedDateTimeFormat = "yyyyMMdd";                             // 8
+        public const string ShortDateTimeFormat = "yyyy-MM-dd";                               // 11
+        public const string DefaultDateTimeFormat = "dd/MM/yyyy HH:mm:ss";                    // 20
+        public const string DefaultDateTimeFormatWithFraction = "dd/MM/yyyy HH:mm:ss.fff";    // 24
+        public const string XsdDateTimeFormat = "yyyy-MM-ddTHH:mm:ss.fffffffZ";               // 29
+        public const string XsdDateTimeFormat3F = "yyyy-MM-ddTHH:mm:ss.fffZ";                 // 25
+        public const string XsdDateTimeFormatSeconds = "yyyy-MM-ddTHH:mm:ssZ";                // 21
+        public const string DateTimeFormatSecondsUtcOffset = "yyyy-MM-ddTHH:mm:sszzz";        // 22
         public const string DateTimeFormatSecondsNoOffset = "yyyy-MM-ddTHH:mm:ss";
-        public const string DateTimeFormatTicksUtcOffset = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";  //30
+        public const string DateTimeFormatTicksUtcOffset = "yyyy-MM-ddTHH:mm:ss.fffffffzzz";  // 30
         public const string DateTimeFormatTicksNoUtcOffset = "yyyy-MM-ddTHH:mm:ss.fffffff";
 
         public const string EscapedWcfJsonPrefix = "\\/Date(";
@@ -202,6 +203,7 @@ namespace ServiceStack.Text.Common
                 kind = DateTimeKind.Local;
                 return dateTimeStr.Substring(0, startOfTz.Index);
             }
+
             kind = dateTimeStr.Contains("Z") ? DateTimeKind.Utc : DateTimeKind.Unspecified;
             return dateTimeStr;
         }
@@ -380,16 +382,6 @@ namespace ServiceStack.Text.Common
             return ParseDateTimeOffset(dateTimeOffsetStr);
         }
 
-        public static string ToXsdDateTimeString(DateTime dateTime)
-        {
-            return PclExport.Instance.ToXsdDateTimeString(dateTime);
-        }
-
-        public static string ToLocalXsdDateTimeString(DateTime dateTime)
-        {
-            return PclExport.Instance.ToLocalXsdDateTimeString(dateTime);
-        }
-
         public static string ToXsdTimeSpanString(TimeSpan timeSpan)
         {
             return TimeSpanConverter.ToXsdDuration(timeSpan);
@@ -398,12 +390,6 @@ namespace ServiceStack.Text.Common
         public static string ToXsdTimeSpanString(TimeSpan? timeSpan)
         {
             return (timeSpan != null) ? ToXsdTimeSpanString(timeSpan.Value) : null;
-        }
-
-        public static DateTime ParseXsdDateTime(string dateTimeStr)
-        {
-            dateTimeStr = RepairXsdTimeSeparator(dateTimeStr);
-            return PclExport.Instance.ParseXsdDateTime(dateTimeStr);
         }
 
         public static TimeSpan ParseTimeSpan(string dateTimeStr)
@@ -581,7 +567,7 @@ namespace ServiceStack.Text.Common
             }
             catch (Exception)
             {
-                return TimeZoneInfo.Utc; //Fallback for Mono on Windows.
+                return TimeZoneInfo.Utc; // Fallback for Mono on Windows.
             }
         }
 
@@ -593,6 +579,7 @@ namespace ServiceStack.Text.Common
             {
                 return DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
             }
+
             return dateTime;
         }
 
@@ -638,6 +625,7 @@ namespace ServiceStack.Text.Common
             {
                 writer.Write(offset);
             }
+
             writer.Write(EscapedWcfJsonSuffix);
         }
 
@@ -670,6 +658,7 @@ namespace ServiceStack.Text.Common
             {
                 writer.Write(offset);
             }
+
             writer.Write(EscapedWcfJsonSuffix);
         }
 

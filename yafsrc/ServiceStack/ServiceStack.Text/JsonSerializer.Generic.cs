@@ -12,8 +12,9 @@
 
 using System;
 using System.IO;
-using System.Text;
 using System.Reflection;
+using System.Text;
+
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
 using ServiceStack.Text.Pools;
@@ -40,7 +41,7 @@ namespace ServiceStack.Text
 
         public T DeserializeFromReader(TextReader reader)
         {
-            return DeserializeFromString(reader.ReadToEnd());
+            return this.DeserializeFromString(reader.ReadToEnd());
         }
 
         public string SerializeToString(T value)
@@ -68,6 +69,7 @@ namespace ServiceStack.Text
                 writer.Write(value);
                 return;
             }
+
             if (typeof(T) == typeof(object) || typeof(T).IsAbstract || typeof(T).IsInterface)
             {
                 if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = true;
