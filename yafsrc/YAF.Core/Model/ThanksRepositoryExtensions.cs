@@ -49,12 +49,18 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Retuns All the Thanks for the Message IDs which are in the
+        /// Gets All the Thanks for the Message IDs which are in the
         ///   delimited string variable MessageIDs
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageIdsSeparatedWithColon">
         /// The message i ds.
         /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
         public static IEnumerable<TypedAllThanks> MessageGetAllThanks(
             this IRepository<Thanks> repository,
@@ -67,6 +73,18 @@ namespace YAF.Core.Model
                 .SelectTypedList(t => new TypedAllThanks(t));
         }
 
+        /// <summary>
+        /// The thanks from user.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="thanksFromUserId">
+        /// The thanks from user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="long"/>.
+        /// </returns>
         public static long ThanksFromUser(this IRepository<Thanks> repository, int thanksFromUserId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -74,11 +92,13 @@ namespace YAF.Core.Model
             return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
         }
 
-        // <summary> Returns the number of times and posts that other users have thanked the
-        // user with the provided userID.
         /// <summary>
-        /// The user_getthanks_to.
+        /// Gets the number of times and posts that other users have thanked the
+        /// user with the provided userID.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userId">
         /// The user id.
         /// </param>
@@ -86,14 +106,15 @@ namespace YAF.Core.Model
         /// The page User Id.
         /// </param>
         /// <returns>
+        /// Returns the number of times and posts that other users have thanked the
+        /// user with the provided userID.
         /// </returns>
         [NotNull]
-        public static int[] GetuserThanksTo(
+        public static int[] GetUserThanksTo(
             this IRepository<Thanks> repository,
             [NotNull] int userId,
             [NotNull] int pageUserId)
         {
-
             IDbDataParameter parameterThanksToNumber = null;
             IDbDataParameter parameterThanksToPostsNumber = null;
 
@@ -101,10 +122,9 @@ namespace YAF.Core.Model
                 "user_getthanks_to",
                 cmd =>
                     {
-
+                        cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.AddParam("UserID", userId);
-
                         cmd.AddParam("PageUserID", pageUserId);
 
                         parameterThanksToNumber = cmd.AddParam("ThanksToNumber", direction: ParameterDirection.Output);
@@ -120,32 +140,40 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Returns the posts which is thanked by the user + the posts which are posted by the user and
+        /// Gets the posts which is thanked by the user + the posts which are posted by the user and
         ///   are thanked by other users.
         /// </summary>
-        /// <param name="UserID">
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="pageUserID">
+        /// <param name="pageUserId">
         /// The page User ID.
         /// </param>
         /// <returns>
+        /// Returns the posts which is thanked by the user + the posts which are posted by the user and
+        ///   are thanked by other users.
         /// </returns>
         public static DataTable ViewAllThanksByUserAsDataTable(
             this IRepository<Thanks> repository,
-            [NotNull] int UserID,
-            [NotNull] int pageUserID)
+            [NotNull] int userId,
+            [NotNull] int pageUserId)
         {
-            return repository.DbFunction.GetData.user_viewallthanks(UserID: UserID, PageUserID: pageUserID);
+            return repository.DbFunction.GetData.user_viewallthanks(UserID: userId, PageUserID: pageUserId);
         }
 
         /// <summary>
-        /// The message_ add thanks.
+        /// Add thanks to the Message
         /// </summary>
-        /// <param name="fromUserID">
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="fromUserId">
         /// The from user id.
         /// </param>
-        /// <param name="messageID">
+        /// <param name="messageId">
         /// The message id.
         /// </param>
         /// <param name="useDisplayName">
@@ -156,7 +184,7 @@ namespace YAF.Core.Model
         /// </returns>
         [NotNull]
         public static string AddMessageThanks(
-            this IRepository<Thanks> repository, [NotNull] int fromUserID, [NotNull] int messageID, [NotNull] bool useDisplayName)
+            this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int messageId, [NotNull] bool useDisplayName)
         {
             IDbDataParameter parameterOutput = null;
             IDbDataParameter parameterThanksToPostsNumber = null;
@@ -165,8 +193,10 @@ namespace YAF.Core.Model
                 "message_addthanks",
                 cmd =>
                     {
-                        cmd.AddParam("FromUserID", fromUserID);
-                        cmd.AddParam("MessageID", messageID);
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.AddParam("FromUserID", fromUserId);
+                        cmd.AddParam("MessageID", messageId);
                         cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
                         cmd.AddParam("UseDisplayName", useDisplayName);
 
@@ -177,32 +207,46 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Returns the UserIDs and UserNames who have thanked the message
+        /// Gets the UserIDs and UserNames who have thanked the message
         ///   with the provided messageID.
         /// </summary>
-        /// <param name="MessageID">
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
         /// The message id.
         /// </param>
         /// <returns>
+        /// Returns the UserIDs and UserNames who have thanked the message
+        ///   with the provided messageID.
         /// </returns>
         public static DataTable MessageGetThanksAsDataTable(
-            this IRepository<Thanks> repository, [NotNull] int MessageID)
+            this IRepository<Thanks> repository, [NotNull] int messageId)
         {
-            return repository.DbFunction.GetData.message_getthanks(MessageID: MessageID);
+            return repository.DbFunction.GetData.message_getthanks(MessageID: messageId);
         }
 
         /// <summary>
         /// The message_ remove thanks.
         /// </summary>
-        /// <param name="FromUserID">The from user id.</param>
-        /// <param name="MessageID">The message id.</param>
-        /// <param name="useDisplayName">use the display name.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="useDisplayName">
+        /// use the display name.
+        /// </param>
         /// <returns>
         /// Returns the name of the user
         /// </returns>
         [NotNull]
         public static string RemoveMessageThanks(
-            this IRepository<Thanks> repository, [NotNull] int FromUserID, [NotNull] int MessageID, [NotNull] bool useDisplayName)
+            this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int messageId, [NotNull] bool useDisplayName)
         {
             IDbDataParameter parameterOutput = null;
 
@@ -210,8 +254,10 @@ namespace YAF.Core.Model
                 "message_Removethanks",
                 cmd =>
                     {
-                        cmd.AddParam("FromUserID", FromUserID);
-                        cmd.AddParam("MessageID", MessageID);
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.AddParam("FromUserID", fromUserId);
+                        cmd.AddParam("MessageID", messageId);
                         cmd.AddParam("UseDisplayName", useDisplayName);
 
                         parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);

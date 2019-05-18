@@ -213,6 +213,7 @@
 								</li>
                             </asp:PlaceHolder>
             </ul>
+            <asp:PlaceHolder runat="server" ID="SocialMediaHolder">
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:LocalizedLabel runat="server"
@@ -239,6 +240,7 @@
                     
                 </div>
             </div>
+            </asp:PlaceHolder>
         </div>
         <!--/col-3-->
         <div class="col-md-9" contenteditable="false" style="">

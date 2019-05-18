@@ -45,7 +45,7 @@ namespace YAF.Core.Model
         /// <param name="sessionID">
         /// The session id.
         /// </param>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
         /// <param name="boardUid">
@@ -98,7 +98,7 @@ namespace YAF.Core.Model
         public static DataRow PageLoad(
             this IRepository<ActiveAccess> repository,
             [NotNull] object sessionID,
-            [NotNull] object boardID,
+            [NotNull] object boardId,
             [NotNull] object userKey,
             [NotNull] object ip,
             [NotNull] object location,
@@ -113,14 +113,14 @@ namespace YAF.Core.Model
             [NotNull] object isMobileDevice,
             [NotNull] object donttrack)
         {
-            var nTries = 0;
+            var tries = 0;
             while (true)
             {
                 try
                 {
                     using (DataTable dt = repository.DbFunction.GetData.pageload(
                         SessionID: sessionID,
-                        BoardID: boardID,
+                        BoardID: boardId ?? repository.BoardID,
                         UserKey: userKey ?? DBNull.Value,
                         IP: ip,
                         Location: location,
@@ -141,47 +141,50 @@ namespace YAF.Core.Model
                 }
                 catch (SqlException x)
                 {
-                    if (x.Number == 1205 && nTries < 3)
+                    if (x.Number == 1205 && tries < 3)
                     {
                         // Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
                     }
                     else
                     {
                         throw new ApplicationException(
-                            string.Format("Sql Exception with error number {0} (Tries={1})", x.Number, nTries),
+                            $"Sql Exception with error number {x.Number} (Tries={tries})",
                             x);
                     }
                 }
 
-                ++nTries;
+                ++tries;
             }
         }
 
         /// <summary>
         /// The usergroup_list.
         /// </summary>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable ListAsDataTable(
-            this IRepository<ActiveAccess> repository, [NotNull] object userID)
+        public static DataTable ListAsDataTable(this IRepository<ActiveAccess> repository, [NotNull] object userId)
         {
-            return repository.DbFunction.GetData.usergroup_list(UserID: userID);
+            return repository.DbFunction.GetData.usergroup_list(UserID: userId);
         }
 
         /// <summary>
         /// Sets the Page Access for the specified user
         /// </summary>
-        /// <param name="boardID">The board identifier.</param>
+        /// <param name="boardId">The board identifier.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="isGuest">The is guest.</param>
         /// <returns></returns>
-        public static DataTable PageAccessAsDataTable(this IRepository<ActiveAccess> repository, object boardID, [NotNull] object userId, [NotNull] object isGuest)
+        public static DataTable PageAccessAsDataTable(
+            this IRepository<ActiveAccess> repository,
+            object boardId,
+            [NotNull] object userId,
+            [NotNull] object isGuest)
         {
             return repository.DbFunction.GetData.pageaccess(
-                BoardID: boardID,
+                BoardID: boardId ?? repository.BoardID,
                 UserID: userId,
                 IsGuest: isGuest,
                 UTCTIMESTAMP: DateTime.UtcNow);

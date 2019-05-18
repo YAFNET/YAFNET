@@ -61,8 +61,7 @@
 		</h4>
 		<p>
 			<asp:TextBox runat="server" ID="SuspendCount" CssClass="Numeric form-control" TextMode="Number" />&nbsp;<asp:RadioButtonList
-				runat="server" ID="SuspendUnit" CssClass="form-check"
-                                                                                                                        RepeatLayout="Flow" RepeatDirection="Horizontal" />
+				runat="server" ID="SuspendUnit" CssClass="form-check form-check-inline" RepeatLayout="Flow" RepeatDirection="Horizontal" />
 		</p>
 	<hr />
 <YAF:Alert runat="server" Type="info">

@@ -39,6 +39,7 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The Forum Repository Extensions
@@ -128,6 +129,24 @@ namespace YAF.Core.Model
             [NotNull] this IRepository<Forum> repository, [NotNull] int forumID, [NotNull] int parentID)
         {
             return repository.DbFunction.GetData.forum_save_parentschecker(ForumID: forumID, ParentID: parentID);
+        }
+
+        /// <summary>
+        /// The forum list all.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// Returns The forum list all.
+        /// </returns>
+        [NotNull]
+        public static IEnumerable<TypedForumListAll> ForumListAll([NotNull] this IRepository<Forum> repository, int boardId, int userId)
+        {
+            return repository.ListAllAsDataTable(boardId, userId, 0).AsEnumerable().Select(r => new TypedForumListAll(r));
         }
 
         /// <summary>

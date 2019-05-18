@@ -465,6 +465,12 @@ namespace YAF.Pages
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
             this.Skype.NavigateUrl = "skype:{0}?call".FormatWith(userData.Profile.Skype);
             this.Skype.ParamTitle0 = userName;
+
+            if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible && !this.Twitter.Visible)
+            {
+                this.SocialMediaHolder.Visible = false;
+            }
+
         }
 
         /// <summary>
@@ -600,7 +606,7 @@ namespace YAF.Pages
             this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(userData.DBRow["userID"].ToType<int>())
                 .ToString();
 
-            var thanksToArray = this.GetRepository<Thanks>().GetuserThanksTo(
+            var thanksToArray = this.GetRepository<Thanks>().GetUserThanksTo(
                 userData.DBRow["userID"].ToType<int>(),
                 this.PageContext.PageUserID);
 
