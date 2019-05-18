@@ -3224,6 +3224,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServiceStack\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
+      <Project>{a99e354c-9e16-4775-ba36-83d1d98fdce3}</Project>
+      <Name>ServiceStack.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack\ServiceStack.Text\ServiceStack.Text.csproj">
+      <Project>{36423383-f6df-4c0e-9b73-cd53e304b383}</Project>
+      <Name>ServiceStack.Text</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack\ServiceStack\ServiceStack.csproj">
+      <Project>{A188180B-D366-457B-AE92-91C1FC0F7DF4}</Project>
+      <Name>ServiceStack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
@@ -3315,7 +3327,8 @@ del Lucene.Net.Contrib.Core.pdb
 del Lucene.Net.Contrib.Analyzers.dll
 del Lucene.Net.Contrib.Analyzers.pdb
 del ServiceStack.Client.dll</PreBuildEvent>
-    <PostBuildEvent>del YAF.dll.config</PostBuildEvent>
+    <PostBuildEvent>del YAF.dll.config
+del ServiceStack.Client.dll</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
