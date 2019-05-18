@@ -1778,9 +1778,8 @@ pre[class*="language-"].line-numbers > code {
     opacity: 1;
     transform: translateY(0%);
     transition-delay: 1000ms; }
-  .cookiealert .acceptcookies {
-    margin-right: 10px !important;
-    vertical-align: baseline; }
+  .cookiealert span {
+    padding: 0 !important; }
 
 .content {
   padding: 0; }
