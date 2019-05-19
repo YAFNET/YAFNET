@@ -39,10 +39,17 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagemethod.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.selectedQuoting.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.syntaxhighligher.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.pager.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-datetimepicker.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-image-gallery.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-notify.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\cookiealert-standalone.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blueimp-gallery.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.bootstrap-touchspin.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensions.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.4.1.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
@@ -53,7 +60,16 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yaf.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\emojipicker\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\esm\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\i18n\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\tablesorter\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\umd\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafEditor\yafEditor.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\**\*.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\tablesorter\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.FileUpload\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.css" />
@@ -63,11 +79,14 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.fileupload.comb.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.min.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.notification.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.notification.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\blueimp-gallery.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-datetimepicker.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-image-gallery.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-notify.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum-admin.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.bootstrap-touchspin.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.emojipicker.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.selectedQuoting.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.css" />
@@ -104,6 +123,8 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.eof" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.svg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.woff" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.woff2" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.eot" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config;$(MSBuildProjectDirectory)\recommended-azure.web.config;$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config;$(MSBuildProjectDirectory)\..\.nuget\NuGet.Config" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
