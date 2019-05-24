@@ -331,7 +331,7 @@
                         <asp:CheckBox ID="UpgradeExtensions" Checked="True" runat="server" 
                                       CssClass="form-check-input" />
                         <label class="form-check-label" for="<%# this.UpgradeExtensions.ClientID %>">
-                            Upgrade BBCode Extensions, File Extensions, Topic Status Lists and Spam Words
+                            Upgrade BBCode Extensions, File Extensions and Spam Words
                         </label>
                     </div>
                     </asp:PlaceHolder>
