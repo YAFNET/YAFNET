@@ -485,18 +485,16 @@ namespace YAF.Types.Extensions
 
                 // if this is an unsigned long then the only
                 // value that can hold it would be a ulong
-                if (compare.Equals(_UInt32) || compare.Equals(_UInt64))
+                if (compare == _UInt32 || compare == _UInt64)
                 {
                     this.Unsigned = Convert.ToUInt64(value);
                 }
-                else if (compare.Equals(_Int32))
+                else if (compare == _Int32)
                 {
                     this.Int = Convert.ToInt32(value);
                 }
-
-                  // otherwise, a long should cover anything else
                 else
-                {
+                {// otherwise, a long should cover anything else
                     this.Signed = Convert.ToInt64(value);
                 }
             }

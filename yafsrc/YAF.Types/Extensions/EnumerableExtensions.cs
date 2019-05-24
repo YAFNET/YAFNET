@@ -28,7 +28,6 @@ namespace YAF.Types.Extensions
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
 
     using YAF.Types;
@@ -102,12 +101,7 @@ namespace YAF.Types.Extensions
         /// <returns> </returns>
         public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
         {
-            if (currentEnumerable == null)
-            {
-                return Enumerable.Empty<T>();
-            }
-
-            return currentEnumerable;
+            return currentEnumerable ?? Enumerable.Empty<T>();
         }
 
         /// <summary>
@@ -128,7 +122,7 @@ namespace YAF.Types.Extensions
 
             while (true)
             {
-                yield return default(T);
+                yield return default;
             }
         }
 

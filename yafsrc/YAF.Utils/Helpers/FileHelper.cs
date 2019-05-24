@@ -37,9 +37,8 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// FileName Validator Expression
         /// </summary>
-        private static readonly string FileNameValidatorExpression = string.Format(
-            "^[^{0}]+$",
-            string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString()))));
+        private static readonly string FileNameValidatorExpression =
+            $"^[^{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]+$";
 
         /// <summary>
         /// FileName Validator Regex
@@ -49,9 +48,8 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// FileName Cleaner Expression
         /// </summary>
-        private static readonly string FileNameCleanerExpression = string.Format(
-            "[{0}]",
-            string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString()))));
+        private static readonly string FileNameCleanerExpression =
+            $"[{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]";
 
         /// <summary>
         /// FileName Cleaner Regex

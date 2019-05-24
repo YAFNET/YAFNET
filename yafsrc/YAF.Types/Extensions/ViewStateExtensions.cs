@@ -23,74 +23,33 @@
  */
 namespace YAF.Types.Extensions
 {
-  #region Using
+    #region Using
 
-    using System;
     using System.Web.UI;
 
     #endregion
 
-  /// <summary>
-  /// The view state extensions.
-  /// </summary>
-  public static class ViewStateExtensions
-  {
-    #region Public Methods
-
     /// <summary>
-    /// Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
-    /// <paramref name="defaultValue"/> if it's <see langword="null"/>.
+    /// The view state extensions.
     /// </summary>
-    /// <param name="viewState">
-    /// The view state.
-    /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="defaultValue">
-    /// The default value.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// </returns>
-    public static T ToTypeOrDefault<T>(this StateBag viewState, string key, T defaultValue)
+    public static class ViewStateExtensions
     {
-      if (viewState[key] != null)
-      {
-        return viewState[key].ToType<T>();
-      }
+        #region Public Methods
 
-      return default(T);
+        /// <summary>
+        /// Returns the converted type (T) if ViewState[key] != <span class="keyword"><span class="languageSpecificText"><span class="cs">null</span><span class="vb">Nothing</span><span class="cpp">nullptr</span></span></span><span class="nu">a null reference (<span class="keyword">Nothing</span> in Visual Basic)</span> or
+        /// <paramref name="defaultValue" /> if it's <span class="keyword"><span class="languageSpecificText"><span class="cs">null</span><span class="vb">Nothing</span><span class="cpp">nullptr</span></span></span><span class="nu">a null reference (<span class="keyword">Nothing</span> in Visual Basic)</span>.
+        /// </summary>
+        /// <typeparam name="T">The type</typeparam>
+        /// <param name="viewState">The view state.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>Returns the converted type (T)</returns>
+        public static T ToTypeOrDefault<T>(this StateBag viewState, string key, T defaultValue)
+        {
+            return viewState[key] != null ? viewState[key].ToType<T>() : default;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Returns the converted type (T) if ViewState[key] != <see langword="null"/> or
-    /// <paramref name="defaultFunc"/> if it's <see langword="null"/>.
-    /// </summary>
-    /// <param name="viewState">
-    /// The view state.
-    /// </param>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="defaultFunc">
-    /// The default func.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// </returns>
-    public static T ToTypeOrFunc<T>(this StateBag viewState, string key, Func<T> defaultFunc)
-    {
-      if (viewState[key] != null)
-      {
-        return viewState[key].ToType<T>();
-      }
-
-      return defaultFunc();
-    }
-
-    #endregion
-  }
 }

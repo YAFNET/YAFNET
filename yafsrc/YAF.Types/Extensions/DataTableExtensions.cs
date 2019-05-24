@@ -51,8 +51,6 @@ namespace YAF.Types.Extensions
             return table.Rows.Count > 0;
         }
 
-        
-
         #endregion
     }
 }

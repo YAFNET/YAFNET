@@ -13,8 +13,8 @@
 @import "tablesorter/jquery.tablesorter.pager.min";
 
 // --Bootstrap extensions
-@import "css/select2";
-@import "css/select2-bootstrap";
+@import "select2/select2";
+@import "select2/select2-bootstrap";
 @import "jquery.bootstrap-touchspin";
 @import "bootstrap-datetimepicker";
 @import "blueimp-gallery";
@@ -97,4 +97,4 @@ span.form-check > label {
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
-} 
+}

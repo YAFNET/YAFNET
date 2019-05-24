@@ -94,53 +94,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Function to remove words in a string based on a max string length, used i.e. in search.
-        /// </summary>
-        /// <param name="text">
-        /// The raw string to format
-        /// </param>
-        /// <param name="maxStringLength">
-        /// The max string length.
-        /// </param>
-        /// <returns>
-        /// The formatted string
-        /// </returns>
-        public static string TrimWordsOverMaxLengthWordsPreserved([NotNull] this string text, int maxStringLength)
-        {
-            CodeContracts.VerifyNotNull(text, "text");
-            
-            var newText = string.Empty;
-
-            if (maxStringLength <= 0 || text.Length <= 0)
-            {
-                return newText.Trim();
-            }
-
-            var texArr = text.Trim().Split(' ');
-
-            var length = 0;
-            var count = 0;
-            foreach (var s in texArr)
-            {
-                length += s.Length;
-                if (length > maxStringLength)
-                {
-                    if (count == 0)
-                    {
-                        newText = string.Empty;
-                    }
-
-                    break;
-                }
-
-                count++;
-                newText = newText + " " + s;
-            }
-
-            return newText.Trim();
-        }
-
-        /// <summary>
         /// Fast index of.
         /// </summary>
         /// <param name="source">The source.</param>
@@ -240,6 +193,7 @@ namespace YAF.Types.Extensions
         /// The formatted string
         /// </returns>
         [StringFormatMethod("s")]
+        [Obsolete("Use string interpolation instead")]
         public static string FormatWith(this string s, params object[] args)
         {
             return s.IsNotSet() ? null : string.Format(s, args);
@@ -375,25 +329,6 @@ namespace YAF.Types.Extensions
             }
 
             return text;
-        }
-
-        /// <summary>
-        /// Removes multiple single quote ' characters from a string.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns>
-        /// The remove multiple single quotes.
-        /// </returns>
-        public static string RemoveMultipleSingleQuotes(this string text)
-        {
-            var result = string.Empty;
-            if (text.IsNotSet())
-            {
-                return result;
-            }
-
-            var r = new Regex(@"\'");
-            return r.Replace(text, @"'");
         }
 
         /// <summary>
@@ -577,18 +512,11 @@ namespace YAF.Types.Extensions
             return new MemoryStream(byteArray);
         }
 
-        /// <summary>
-        /// Truncates a string with the specified limits and adds (...) to the end if truncated
-        /// </summary>
-        /// <param name="input">
-        /// input string
-        /// </param>
-        /// <param name="limit">
-        /// max size of string
-        /// </param>
-        /// <returns>
-        /// truncated string
-        /// </returns>
+        /// <summary>Truncates a string with the specified limits and adds (...) to the end if truncated</summary>
+        /// <param name="input">input string</param>
+        /// <param name="inputLimit"></param>
+        /// <param name="cutOfString"></param>
+        /// <returns>truncated string</returns>
         public static string Truncate(
             [CanBeNull] this string input,
             int inputLimit,
@@ -607,28 +535,30 @@ namespace YAF.Types.Extensions
 
             // Check if the string is longer than the allowed amount
             // otherwise do nothing
-            if (output.Length > limit && limit > 0)
+            if (output.Length <= limit || limit <= 0)
             {
-                // cut the string down to the maximum number of characters
-                output = output.Substring(0, limit);
-
-                // Check if the space right after the truncate point 
-                // was a space. if not, we are in the middle of a word and 
-                // need to cut out the rest of it
-                if (input.Substring(output.Length, 1) != " ")
-                {
-                    var lastSpace = output.LastIndexOf(" ");
-
-                    // if we found a space then, cut back to that space
-                    if (lastSpace != -1)
-                    {
-                        output = output.Substring(0, lastSpace);
-                    }
-                }
-
-                // Finally, add the the cut off string...
-                output += cutOfString;
+                return output;
             }
+
+            // cut the string down to the maximum number of characters
+            output = output.Substring(0, limit);
+
+            // Check if the space right after the truncate point 
+            // was a space. if not, we are in the middle of a word and 
+            // need to cut out the rest of it
+            if (input.Substring(output.Length, 1) != " ")
+            {
+                var lastSpace = output.LastIndexOf(" ");
+
+                // if we found a space then, cut back to that space
+                if (lastSpace != -1)
+                {
+                    output = output.Substring(0, lastSpace);
+                }
+            }
+
+            // Finally, add the the cut off string...
+            output += cutOfString;
 
             return output;
         }
@@ -653,66 +583,38 @@ namespace YAF.Types.Extensions
             }
 
             var output = input;
-            const string middle = "...";
+            const string Middle = "...";
 
             // Check if the string is longer than the allowed amount
             // otherwise do nothing
-            if (output.Length > limit && limit > 0)
+            if (output.Length <= limit || limit <= 0)
             {
-                // figure out how much to make it fit...
-                var left = (limit / 2) - (middle.Length / 2);
-                var right = limit - left - (middle.Length / 2);
-
-                if ((left + right + middle.Length) < limit)
-                {
-                    right++;
-                }
-                else if ((left + right + middle.Length) > limit)
-                {
-                    right--;
-                }
-
-                // cut the left side
-                output = input.Substring(0, left);
-
-                // add the middle
-                output += middle;
-
-                // add the right side...
-                output += input.Substring(input.Length - right, right);
+                return output;
             }
+
+            // figure out how much to make it fit...
+            var left = (limit / 2) - (Middle.Length / 2);
+            var right = limit - left - (Middle.Length / 2);
+
+            if ((left + right + Middle.Length) < limit)
+            {
+                right++;
+            }
+            else if ((left + right + Middle.Length) > limit)
+            {
+                right--;
+            }
+
+            // cut the left side
+            output = input.Substring(0, left);
+
+            // add the middle
+            output += Middle;
+
+            // add the right side...
+            output += input.Substring(input.Length - right, right);
 
             return output;
-        }
-
-        /// <summary>
-        /// Convert a input string to a byte array and compute the hash.
-        /// </summary>
-        /// <param name="value">Input string.</param>
-        /// <returns>The Hexadecimal string.</returns>
-        public static string ToMd5Hash(this string value)
-        {
-            if (value.IsNotSet())
-            {
-                return value;
-            }
-
-            using (MD5 md5 = new MD5CryptoServiceProvider())
-            {
-                var originalBytes = Encoding.Default.GetBytes(value);
-                var encodedBytes = md5.ComputeHash(originalBytes);
-                return BitConverter.ToString(encodedBytes).Replace("-", string.Empty);
-            }
-        }
-
-        /// <summary>
-        /// Convert a input string to a byte array
-        /// </summary>
-        /// <param name="value">Input string.</param>
-        /// <returns>The Byte String</returns>
-        public static byte[] ToBytes(this string value)
-        {
-            return Encoding.UTF8.GetBytes(value);
         }
 
         /// <summary>
