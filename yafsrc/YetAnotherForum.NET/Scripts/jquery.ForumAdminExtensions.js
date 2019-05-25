@@ -52806,13 +52806,13 @@ jQuery(document).ready(function () {
     });
 
     jQuery(".yaf-net .standardSelectMenu").select2({
-        theme: "bootstrap",
+        theme: "bootstrap4",
         dropdownAutoWidth: true,
         width: 'style'
     });
 
     jQuery(".yaf-net .selectpicker").select2({
-        theme: "bootstrap",
+        theme: "bootstrap4",
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,

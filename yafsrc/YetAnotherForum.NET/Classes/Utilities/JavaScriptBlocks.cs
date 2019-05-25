@@ -657,7 +657,7 @@ namespace YAF.Utilities
                 }}
             }},
             width: 'style',
-            theme: 'bootstrap',
+            theme: 'bootstrap4',
             allowClear: true,
             cache: true,
             {3}
@@ -677,17 +677,17 @@ namespace YAF.Utilities
         [NotNull]
         public static string SelectedQuotingJs([NotNull] string postURL, string toolTipText)
         {
-            return @"{0}('.selectionQuoteable').each(function () {{
+            return $@"{Config.JQueryAlias}('.selectionQuoteable').each(function () {{
                          var $this = jQuery(this);
-                         $this.selectedQuoting({{ URL: '{1}', ToolTip: '{2}' }});
-                     }});".FormatWith(Config.JQueryAlias, postURL, toolTipText);
+                         $this.selectedQuoting({{ URL: '{postURL}', ToolTip: '{toolTipText}' }});
+                     }});";
         }
 
         /// <summary>
         /// Gets the Passwords strength checker Java Script.
         /// </summary>
-        /// <param name="passwordClientID">The password client identifier.</param>
-        /// <param name="confirmPasswordClientID">The confirm password client identifier.</param>
+        /// <param name="passwordClientId">The password client identifier.</param>
+        /// <param name="confirmPasswordClientId">The confirm password client identifier.</param>
         /// <param name="minimumChars">The minimum chars.</param>
         /// <param name="notMatchText">The not match text.</param>
         /// <param name="passwordMinText">The password minimum text.</param>
@@ -697,8 +697,8 @@ namespace YAF.Utilities
         /// <returns>Returns the Passwords strength checker Java Script</returns>
         [NotNull]
         public static string PasswordStrengthCheckerJs(
-            [NotNull] string passwordClientID,
-            [NotNull] string confirmPasswordClientID,
+            [NotNull] string passwordClientId,
+            [NotNull] string confirmPasswordClientId,
             [NotNull] int minimumChars,
             [NotNull] string notMatchText,
             [NotNull] string passwordMinText,
@@ -768,8 +768,8 @@ namespace YAF.Utilities
     }});
 }});".FormatWith(
                 Config.JQueryAlias,
-                passwordClientID,
-                confirmPasswordClientID,
+                passwordClientId,
+                confirmPasswordClientId,
                 minimumChars,
                 notMatchText,
                 passwordMinText,
@@ -788,7 +788,7 @@ namespace YAF.Utilities
         [NotNull]
         public static string OpenModalJs([NotNull] string clientId)
         {
-            return "{0}('#{1}').modal('show');".FormatWith(Config.JQueryAlias, clientId);
+            return $"{Config.JQueryAlias}('#{clientId}').modal('show');";
         }
 
         /// <summary>
