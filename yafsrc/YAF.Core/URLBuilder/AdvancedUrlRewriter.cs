@@ -267,12 +267,12 @@ namespace YAF.Core.URLBuilder
                     newUrl += "-{0}".FormatWith(description);
                 }
 
-                var restURL = parser.CreateQueryString(new[] { "g", useKey, "name" });
+                var restUrl = parser.CreateQueryString(new[] { "g", useKey, "name" });
 
                 // append to the url if there are additional (unsupported) parameters
-                if (restURL.Length > 0)
+                if (restUrl.Length > 0)
                 {
-                    newUrl += "?{0}".FormatWith(restURL);
+                    newUrl += "?{0}".FormatWith(restUrl);
                 }
 
                 if (newUrl.EndsWith("/forum"))

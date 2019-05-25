@@ -71,7 +71,9 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsInclude("ckeditor", this.ResolveUrl("ckeditor/ckeditor.js"));
 
-            YafContext.Current.PageElements.RegisterJsInclude("ckeditor-jQuery-Adapter", this.ResolveUrl("ckeditor/adapters/jquery.js"));
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "ckeditor-jQuery-Adapter",
+                this.ResolveUrl("ckeditor/adapters/jquery.js"));
 
             this.RegisterSmilieyScript();
 

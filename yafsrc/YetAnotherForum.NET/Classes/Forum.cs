@@ -489,7 +489,7 @@ namespace YAF
                 @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
 
             // go immediately to the error page.
-            HttpContext.Current.Response.Redirect(string.Format("{0}error.aspx", YafForumInfo.ForumClientFileRoot));
+            HttpContext.Current.Response.Redirect($"{YafForumInfo.ForumClientFileRoot}error.aspx");
 
 #endif
         }

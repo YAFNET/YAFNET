@@ -424,22 +424,10 @@ namespace YAF.Classes
                                                && TwitterTokenSecret.IsSet();
 
         /// <summary>
-        ///     Gets the Url Rewriting Format -- default is "advanced".
-        /// </summary>
-        [NotNull]
-        public static string UrlRewritingFormat => GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "advanced";
-
-        /// <summary>
         ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
         /// </summary>
         [NotNull]
         public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets the Prefix used for Url Rewriting -- default is "yaf_"
-        /// </summary>
-        [NotNull]
-        public static string UrlRewritingPrefix => GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
 
         /// <summary>
         ///     Gets a value indicating whether UseRadEditorToolsFile.
