@@ -72,7 +72,7 @@ namespace YAF.Core
 #if DEBUG
             foreach (var s in ExtensionAssemblies)
             {
-                Debug.WriteLine("Extension Assembly: {0}", s);
+                System.Diagnostics.Debug.WriteLine("Extension Assembly: {0}", s);
             }
 #endif
         }

@@ -163,7 +163,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsNullOrEmptyDBField([NotNull] this object columnValue)
         {
-            return columnValue == DBNull.Value || columnValue.ToString().IsNotSet();
+            return columnValue == null || columnValue == DBNull.Value || columnValue.ToString().IsNotSet();
         }
 
         /// <summary>
