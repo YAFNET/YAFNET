@@ -159,7 +159,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set attributes of editor
-            this.reportEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this.reportEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
             {
@@ -199,7 +199,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.btnReport.Attributes.Add(
                 "onclick",
-                "return confirm('{0}');".FormatWith(this.GetText("CONFIRM_REPORTPOST")));
+                $"return confirm('{this.GetText("CONFIRM_REPORTPOST")}');");
         }
 
         /// <summary>

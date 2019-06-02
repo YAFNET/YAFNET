@@ -128,7 +128,7 @@
                 <YAF:ThemeButton ID="SavePoll" runat="server"
                                  OnClick="SavePoll_Click"  TextLocalizedTag="POLLSAVE"
                                  Icon="save"/>
-                <YAF:ThemeButton ID="Cancel" runat="server" CssClass="yafcssbigbutton leftItem"
+                <YAF:ThemeButton ID="Cancel" runat="server"
                                  OnClick="Cancel_Click" TextLocalizedTag="CANCEL"
                                  Icon="times"
                                  Type="Secondary"/>

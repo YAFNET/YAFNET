@@ -3,6 +3,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <TargetFramework>net472</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
