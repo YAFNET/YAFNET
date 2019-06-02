@@ -650,8 +650,7 @@ namespace YAF.Core.BBCode
 
                 // simple open quote tag
                 var simpleOpenQuoteReplace =
-                    @"<div class=""card mb-3""><div class=""card-header text-muted"">{0}</div><div class=""card-body""><p class=""card-text"">"
-                        .FormatWith(localQuoteStr);
+                    $@"<div class=""card mb-3""><div class=""card-header text-muted"">{localQuoteStr}</div><div class=""card-body""><p class=""card-text"">";
 
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(OpenQuoteRegex, simpleOpenQuoteReplace, _Options) { RuleRank = 62 });
@@ -1050,7 +1049,7 @@ namespace YAF.Core.BBCode
 
                 if (displayScript.IsSet() || editScript.IsSet())
                 {
-                    jsScriptBuilder.AppendLine("{0}\r\n{1}".FormatWith(displayScript, editScript));
+                    jsScriptBuilder.AppendLine($"{displayScript}\r\n{editScript}");
                 }
 
                 // see if there is any CSS associated with this YafBBCode
@@ -1064,13 +1063,14 @@ namespace YAF.Core.BBCode
             if (jsScriptBuilder.ToString().Trim().Length > 0)
             {
                 YafContext.Current.PageElements.RegisterJsBlock(
-                    currentPage, "{0}_script".FormatWith(ScriptID), jsScriptBuilder.ToString());
+                    currentPage,
+                    $"{ScriptID}_script", jsScriptBuilder.ToString());
             }
 
             if (cssBuilder.ToString().Trim().Length > 0)
             {
                 // register the CSS from all custom bbcode...
-                YafContext.Current.PageElements.RegisterCssBlock("{0}_css".FormatWith(ScriptID), cssBuilder.ToString());
+                YafContext.Current.PageElements.RegisterCssBlock($"{ScriptID}_css", cssBuilder.ToString());
             }
         }
 

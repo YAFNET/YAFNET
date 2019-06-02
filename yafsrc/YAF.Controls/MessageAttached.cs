@@ -167,10 +167,7 @@ namespace YAF.Controls
                             else
                             {
                                 var attachFilesText =
-                                    "{0} {1}".FormatWith(
-                                        this.GetText("IMAGE_ATTACHMENT_TEXT")
-                                            .FormatWith(this.HtmlEncode(Convert.ToString(this.UserName))),
-                                        this.HtmlEncode(attachment.FileName));
+                                    $"{string.Format(this.GetText("IMAGE_ATTACHMENT_TEXT"), this.HtmlEncode(Convert.ToString(this.UserName)))} {this.HtmlEncode(attachment.FileName)}";
 
                                 // TommyB: Start MOD: Preview Images
                                 writer.Write(
@@ -195,7 +192,7 @@ namespace YAF.Controls
                                 @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
                                 fileIcon,
                                 attachment.FileName,
-                                stats.FormatWith(kb, attachment.Downloads));
+                                string.Format(stats, kb,attachment.Downloads));
 
                             writer.Write(@"</div>");
                         }
@@ -222,7 +219,7 @@ namespace YAF.Controls
                                 YafForumInfo.ForumClientFileRoot,
                                 attachment.ID,
                                 attachment.FileName,
-                                stats.FormatWith(kb, attachment.Downloads),
+                                string.Format(stats, kb,attachment.Downloads),
                                 settings.BoardID);
                         }
                         else
@@ -231,7 +228,7 @@ namespace YAF.Controls
                                 @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
                                 fileIcon,
                                 attachment.FileName,
-                                stats.FormatWith(kb, attachment.Downloads));
+                                string.Format(stats, kb,attachment.Downloads));
                         }
 
                         writer.Write(@"</div>");

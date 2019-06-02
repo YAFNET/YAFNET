@@ -190,7 +190,7 @@
         <div class="col">
             <YAF:RssFeedLink ID="RssFeed" runat="server"
                              FeedType="Posts"  
-                             AdditionalParameters='<%# "t={0}".FormatWith(this.PageContext.PageTopicID) %>' 
+                             AdditionalParameters='<%# $"t={this.PageContext.PageTopicID}" %>' 
                              Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>" 
             />
         </div>

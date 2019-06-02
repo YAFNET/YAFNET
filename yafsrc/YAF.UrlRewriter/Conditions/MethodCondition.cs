@@ -42,7 +42,7 @@ namespace YAF.UrlRewriter.Conditions
         private static string GetMethodPattern(string method)
         {
             // Convert the "GET,POST,*" pattern to a regex, e.g. "^GET|POST|.+$".
-            return string.Format("^{0}$", Regex.Replace(method, @"[^a-zA-Z,\*]+", string.Empty).Replace(",", "|").Replace("*", ".+"));
+            return $"^{Regex.Replace(method, @"[^a-zA-Z,\*]+", string.Empty).Replace(",", "|").Replace("*", ".+")}$";
         }
     }
 }

@@ -114,8 +114,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_DIGEST", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_DIGEST", "TITLE")}";
         }
 
         /// <summary>
@@ -144,13 +144,13 @@ namespace YAF.Pages.Admin
                             this.SendMethod.SelectedItem.Text == "Queued");
 
                     this.PageContext.AddLoadMessage(
-                        this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC").FormatWith(this.SendMethod.SelectedItem.Text),
+                        string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC"), this.SendMethod.SelectedItem.Text),
                         MessageTypes.success);
                 }
                 catch (Exception ex)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR").FormatWith(ex),
+                        string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
                         MessageTypes.danger);
                 }
             }

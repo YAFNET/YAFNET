@@ -125,15 +125,8 @@ namespace YAF.Core.Services
         {
             var yafBoardSettings = boardSettings as YafBoardSettings;
 
-            return "{0}{1}{2}?{3}".FormatWith(
-                yafBoardSettings.BaseUrlMask,
-                BaseUrlBuilder.AppPath,
-                "digest.aspx",
-                "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(
-                    yafBoardSettings.WebServiceToken,
-                    userId,
-                    yafBoardSettings.BoardID,
-                    showErrors.ToString().ToLower()));
+            return
+                $"{yafBoardSettings.BaseUrlMask}{BaseUrlBuilder.AppPath}{"digest.aspx"}?{$"token={yafBoardSettings.WebServiceToken}&userid={userId}&boardid={yafBoardSettings.BoardID}&showerror={showErrors.ToString().ToLower()}"}";
         }
 
         /// <summary>
@@ -158,7 +151,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            var subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
+            var subject = $"Active Topics and New Topics on {forumName}";
             var match = Regex.Match(
                 digestHtml, @"\<title\>(?<inner>(.*?))\<\/title\>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 

@@ -157,7 +157,7 @@ namespace YAF.Pages.Admin
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.langPath =
-                HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot));
+                HttpContext.Current.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}languages");
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x") != null)
             {
@@ -209,10 +209,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_LANGUAGES", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_languages));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_LANGUAGES", "TITLE"),
-                this.GetText("ADMIN_EDITLANGUAGE", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_LANGUAGES", "TITLE")} - {this.GetText("ADMIN_EDITLANGUAGE", "TITLE")}";
         }
         
 
@@ -418,7 +416,7 @@ namespace YAF.Pages.Admin
             }
             catch (Exception exception)
             {
-                this.Logger.Log(null, this, "Error loading files. {0}".FormatWith(exception.Message));
+                this.Logger.Log(null, this, $"Error loading files. {exception.Message}");
             }
         }
 

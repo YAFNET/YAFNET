@@ -175,7 +175,7 @@ namespace YAF.Core.Model
                 if (registryVersion < appVersion)
                 {
                     // needs upgrading...
-                    redirect = "install/default.aspx?upgrade={0}".FormatWith(registryVersion);
+                    redirect = $"install/default.aspx?upgrade={registryVersion}";
                 }
             }
             catch (SqlException)

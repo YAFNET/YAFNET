@@ -90,7 +90,7 @@ namespace YAF.Core
 
                 if (!dataTable.HasRows())
                 {
-                    throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
+                    throw new EmptyBoardSettingException($"No data for board ID: {this._boardID}");
                 }
 
                 this.currentBoardRow = dataTable.Rows[0];

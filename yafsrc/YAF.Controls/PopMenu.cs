@@ -277,7 +277,7 @@ namespace YAF.Controls
 
                 if (thisItem.Icon.IsSet())
                 {
-                    iconImage = @"<i class=""{0}""></i>&nbsp;".FormatWith(thisItem.Icon);
+                    iconImage = $@"<i class=""{thisItem.Icon}""></i>&nbsp;";
                 }
 
                 sb.AppendFormat(

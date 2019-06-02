@@ -41,6 +41,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Forum WebService for various Functions
 /// </summary>
+[Obsolete]
 [WebService(Namespace = "http://yetanotherforum.net/services")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 public class YafWebService : WebService, IHaveServiceLocator
@@ -74,6 +75,8 @@ public class YafWebService : WebService, IHaveServiceLocator
     /// Invalid Secure Web Service Token: Operation Failed
     /// </exception>
     [WebMethod]
+
+    [Obsolete]
     public long CreateNewTopic(
         [NotNull] string token,
         int forumid,
@@ -132,6 +135,7 @@ public class YafWebService : WebService, IHaveServiceLocator
     ///   </exception>
     /// <exception cref="SecurityFailureInvalidWebServiceTokenException">Invalid Secure Web Service Token: Operation Failed</exception>
     [WebMethod]
+    [Obsolete]
     public bool SetDisplayNameFromUsername(
         [NotNull] string token, [NotNull] string username, [NotNull] string displayName)
     {
@@ -155,8 +159,7 @@ public class YafWebService : WebService, IHaveServiceLocator
             {
                 // problem...
                 throw new NonUniqueDisplayNameException(
-                    "Display Name must be unique. {0} display name already exists in the database.".FormatWith(
-                        displayName));
+                    $"Display Name must be unique. {displayName} display name already exists in the database.");
             }
 
             var userFields = YafContext.Current.GetRepository<User>().ListAsDataTable(Config.BoardID.ToType<int>(), userId, null).Rows[0];

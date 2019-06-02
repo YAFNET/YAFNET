@@ -104,7 +104,7 @@ namespace YAF.Modules
 
                 if (head.Title.IsSet())
                 {
-                    addition = " - {0}".FormatWith(head.Title.Trim());
+                    addition = $" - {head.Title.Trim()}";
                 }
 
                 head.Title = this._forumPageTitle + addition;
@@ -138,7 +138,7 @@ namespace YAF.Modules
 
                 if (currentPager != null && currentPager.CurrentPageIndex != 0)
                 {
-                    pageString = "- Page {0}".FormatWith(currentPager.CurrentPageIndex + 1);
+                    pageString = $"- Page {currentPager.CurrentPageIndex + 1}";
                 }
             }
 

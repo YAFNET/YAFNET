@@ -61,12 +61,12 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets ControlOnClick.
         /// </summary>
-        public string ControlOnClick => "yaf_popit('{0}')".FormatWith(this.ClientID);
+        public string ControlOnClick => $"yaf_popit('{this.ClientID}')";
 
         /// <summary>
         ///   Gets ControlOnMouseOver.
         /// </summary>
-        public string ControlOnMouseOver => "yaf_mouseover('{0}')".FormatWith(this.ClientID);
+        public string ControlOnMouseOver => $"yaf_mouseover('{this.ClientID}')";
 
         #endregion
 

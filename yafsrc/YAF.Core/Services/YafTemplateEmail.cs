@@ -140,8 +140,8 @@ namespace YAF.Core.Services
         /// </param>
         public void CreateWatch(int topicId, int userId, MailAddress fromAddress, string subject)
         {
-            var textBody = this.ProcessTemplate("{0}_TEXT".FormatWith(this.TemplateName)).Trim();
-            var htmlBody = this.ProcessTemplate("{0}_HTML".FormatWith(this.TemplateName)).Trim();
+            var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
+            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
 
             // null out html if it's not desired
             if (!this.HtmlEnabled || htmlBody.IsNotSet())
@@ -214,8 +214,8 @@ namespace YAF.Core.Services
         /// </param>
         public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject, bool useSendThread)
         {
-            var textBody = this.ProcessTemplate("{0}_TEXT".FormatWith(this.TemplateName)).Trim();
-            var htmlBody = this.ProcessTemplate("{0}_HTML".FormatWith(this.TemplateName)).Trim();
+            var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
+            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
 
             // null out html if it's not desired
             if (!this.HtmlEnabled || htmlBody.IsNotSet())

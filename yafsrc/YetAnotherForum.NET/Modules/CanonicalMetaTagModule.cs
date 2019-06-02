@@ -47,7 +47,7 @@ namespace YAF.Modules
                 var topicId = this.PageContext.PageTopicID;
                 var topicUrl = YafBuildLink.GetLink(ForumPages.posts, true, topicLinkParams, topicId);
 
-                tag = "<link rel=\"canonical\" href=\"{0}\" />".FormatWith(topicUrl);
+                tag = $"<link rel=\"canonical\" href=\"{topicUrl}\" />";
             }
             else
             {

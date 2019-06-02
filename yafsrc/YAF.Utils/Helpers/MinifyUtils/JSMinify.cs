@@ -132,8 +132,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
 
                         if (this.theA <= '\n')
                         {
-                            throw new Exception(
-                                "Error: JSMIN unterminated string literal: {0}\n".FormatWith(this.theA));
+                            throw new Exception($"Error: JSMIN unterminated string literal: {this.theA}\n");
                         }
 
                         if (this.theA == '\\')
@@ -173,7 +172,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
                         else if (this.theA <= '\n')
                         {
                             throw new Exception(
-                                "Error: JSMIN unterminated Regular Expression literal : {0}.\n".FormatWith(this.theA));
+                                $"Error: JSMIN unterminated Regular Expression literal : {this.theA}.\n");
                         }
 
                         this.Put(this.theA);

@@ -81,9 +81,8 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_BANNEDIP", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BANNEDIP", "TITLE")}";
         }
 
         /// <summary>
@@ -153,11 +152,7 @@ namespace YAF.Pages.Admin
                                 .Log(
                                     this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
-                                    "IP or mask {0} was deleted by {1}.".FormatWith(
-                                        ipAddress,
-                                        this.Get<YafBoardSettings>().EnableDisplayName
-                                            ? this.PageContext.CurrentUserData.DisplayName
-                                            : this.PageContext.CurrentUserData.UserName),
+                                    $"IP or mask {ipAddress} was deleted by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
                                     EventLogTypes.IpBanLifted);
                         }
                     }

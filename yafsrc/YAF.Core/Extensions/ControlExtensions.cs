@@ -75,7 +75,7 @@ namespace YAF.Core
         public static string GetUniqueID(this Control currentControl, string prefix)
         {
             return prefix.IsSet()
-                       ? "{0}{1}".FormatWith(prefix, Guid.NewGuid().ToString().Substring(0, 5))
+                       ? $"{prefix}{Guid.NewGuid().ToString().Substring(0, 5)}"
                        : Guid.NewGuid().ToString().Substring(0, 10);
         }
 

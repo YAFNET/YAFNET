@@ -81,8 +81,7 @@ namespace YAF.Pages
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       this.ErrorMessageHolder.Text =
-        "An error has occured in '{0}'.".FormatWith(
-          this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("aspxerrorpath"));
+          $"An error has occured in '{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("aspxerrorpath")}'.";
     }
 
     /// <summary>

@@ -328,10 +328,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITMEDAL", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"),
-               this.GetText("ADMIN_MEDALS", "TITLE"),
-               this.GetText("ADMIN_EDITMEDAL", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_MEDALS", "TITLE")} - {this.GetText("ADMIN_EDITMEDAL", "TITLE")}";
         }
 
         /// <summary>
@@ -380,8 +378,8 @@ namespace YAF.Pages.Admin
         {
             var dr = (DataRowView)data;
 
-            return "<a href=\"{1}\">{0}</a>".FormatWith(
-              dr["GroupName"], YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
+            return string.Format(
+              "<a href=\"{1}\">{0}</a>", dr["GroupName"], YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
         }
 
         /// <summary>
@@ -397,8 +395,8 @@ namespace YAF.Pages.Admin
         {
             var dr = (DataRowView)data;
 
-            return "<a href=\"{2}\">{0}({1})</a>".FormatWith(
-              this.HtmlEncode(dr["DisplayName"]), this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
+            return string.Format(
+              "<a href=\"{2}\">{0}({1})</a>", this.HtmlEncode(dr["DisplayName"]), this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
         }
 
         /// <summary>
@@ -459,7 +457,7 @@ namespace YAF.Pages.Admin
         protected void GroupRemoveLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP"));
+                $"return confirm('{this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP")}')";
         }
 
         /// <summary>
@@ -489,7 +487,7 @@ namespace YAF.Pages.Admin
         protected void RemoveMedalsFromCache()
         {
             // remove all user medals...
-          this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.UserMedals.FormatWith(string.Empty)));
+          this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
         }
 
         /// <summary>
@@ -499,7 +497,7 @@ namespace YAF.Pages.Admin
         protected void RemoveUserFromCache(int userId)
         {
             // remove user from cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.UserMedals.FormatWith(userId));
+            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.UserMedals, userId));
         }
 
         /// <summary>
@@ -678,7 +676,7 @@ namespace YAF.Pages.Admin
                 // add files from medals folder
                 var dir =
                   new DirectoryInfo(
-                    this.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals)));
+                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}"));
                 var files = dir.GetFiles("*.*");
 
                 long fileId = 1;
@@ -794,8 +792,7 @@ namespace YAF.Pages.Admin
             using (
               var img =
                 Image.FromFile(
-                  this.Server.MapPath(
-                    "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals, filename))))
+                  this.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}/{filename}")))
             {
                 return img.Size;
             }
@@ -841,8 +838,7 @@ namespace YAF.Pages.Admin
                 item.Selected = true;
 
                 // set preview image
-                preview.Src = "{0}{1}/{2}".FormatWith(
-                  YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageUrl);
+                preview.Src = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Medals}/{imageUrl}";
             }
             else
             {
@@ -860,8 +856,8 @@ namespace YAF.Pages.Admin
         {
             // create javascript
             imageSelector.Attributes["onchange"] =
-              "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(
-                YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imagePreview.ClientID);
+              string.Format(
+                "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot,YafBoardFolders.Current.Medals, imagePreview.ClientID);
         }
 
         #endregion

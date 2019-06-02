@@ -89,7 +89,7 @@ namespace YAF.Controls
                 localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, false, true, false);
             }
 
-            return localizedItem.FormatWith(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
+            return string.Format(localizedItem, supportedItem.Param0,supportedItem.Param1, supportedItem.Param2);
         }
 
         #endregion

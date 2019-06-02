@@ -216,7 +216,7 @@ namespace YAF.Pages
                 userId, avatarString, hasAvatarImage, email);
 
             return avatarUrl.IsNotSet()
-                       ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)
+                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif"
                        : avatarUrl;
         }
 
@@ -384,24 +384,16 @@ namespace YAF.Pages
 
             var mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
-            foreach (var forumsItem in from forumsItem in mod.ForumIDs
-                                       let forumListItem =
-                                           new ListItem
-                                               {
-                                                   Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName
-                                               }
-                                       where !modForums.Items.Contains(forumListItem)
-                                       select forumsItem)
-            {
-                modForums.Items.Add(
-                    new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName });
-            }
+            (from forumsItem in mod.ForumIDs
+             let forumListItem = new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName }
+             where !modForums.Items.Contains(forumListItem)
+             select forumsItem).ForEach(
+                forumsItem => modForums.Items.Add(
+                    new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName }));
 
             if (modForums.Items.Count > 0)
             {
-                modForums.Items.Insert(
-                    0,
-                    new ListItem(this.GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
+                modForums.Items.Insert(0, new ListItem(this.GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
                 modForums.Items.Insert(1, new ListItem("--------------------------", "break"));
             }
             else
@@ -424,11 +416,7 @@ namespace YAF.Pages
 
             var modAvatar = (Image)e.Item.FindControl("ModAvatar");
 
-            modAvatar.ImageUrl = this.GetAvatarUrlFileName(
-                userid.ToType<int>(),
-                drowv.Avatar,
-                drowv.AvatarImage,
-                drowv.Email);
+            modAvatar.ImageUrl = this.GetAvatarUrlFileName(userid.ToType<int>(), drowv.Avatar, drowv.AvatarImage, drowv.Email);
 
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;
@@ -438,14 +426,12 @@ namespace YAF.Pages
                 return;
             }
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null
-                                                   && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
             pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null
-                                                      && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
             email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
             email.ParamTitle0 = displayName;
 

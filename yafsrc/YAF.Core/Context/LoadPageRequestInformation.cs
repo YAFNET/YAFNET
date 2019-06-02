@@ -88,8 +88,7 @@ namespace YAF.Core
         /// <param name="event">The @event.</param>
         public void Handle([NotNull] InitPageLoadEvent @event)
         {
-            var browser = "{0} {1}".FormatWith(
-                this.HttpRequestBase.Browser.Browser, this.HttpRequestBase.Browser.Version);
+            var browser = $"{this.HttpRequestBase.Browser.Browser} {this.HttpRequestBase.Browser.Version}";
             var platform = this.HttpRequestBase.Browser.Platform;
 
             bool isSearchEngine;

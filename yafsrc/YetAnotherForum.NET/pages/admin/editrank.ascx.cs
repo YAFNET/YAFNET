@@ -114,10 +114,8 @@ namespace YAF.Pages.Admin
                     if (item != null)
                     {
                         item.Selected = true;
-                        this.Preview.Src = "{0}{1}/{2}".FormatWith(
-                            YafForumInfo.ForumClientFileRoot,
-                            YafBoardFolders.Current.Ranks,
-                            rank.RankImage);
+                        this.Preview.Src =
+                            $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Ranks}/{rank.RankImage}";
                     }
                     else
                     {
@@ -132,8 +130,8 @@ namespace YAF.Pages.Admin
             }
 
             this.RankImage.Attributes["onchange"] =
-                "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.Preview.ClientID);
+                string.Format(
+                    "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot,YafBoardFolders.Current.Ranks, this.Preview.ClientID);
         }
 
 
@@ -153,10 +151,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_RANKS", "TITLE"),
-                this.GetText("ADMIN_EDITRANK", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RANKS", "TITLE")} - {this.GetText("ADMIN_EDITRANK", "TITLE")}";
         }
         
 
@@ -230,7 +226,7 @@ namespace YAF.Pages.Admin
 
             // Clearing cache with old permisssions data...
             this.Get<IDataCache>()
-                .RemoveOf<object>(k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+                .RemoveOf<object>(k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
             // Clear Styling Caching
             this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
@@ -256,8 +252,7 @@ namespace YAF.Pages.Admin
 
                 var dir =
                     new DirectoryInfo(
-                        this.Request.MapPath(
-                            "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Ranks)));
+                        this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Ranks}"));
                 var files = dir.GetFiles("*.*");
                 long nFileID = 1;
 

@@ -123,8 +123,8 @@ namespace YAF.Utils
                     {
                         if (openSubKey?.GetValue("Release") != null)
                         {
-                            return "Framework Version: {0}".FormatWith(
-                                CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>()));
+                            return
+                                $"Framework Version: {CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>())}";
                         }
 
                         return Environment.Version.ToString();

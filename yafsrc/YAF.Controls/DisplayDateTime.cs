@@ -117,9 +117,10 @@ namespace YAF.Controls
             }
 
             writer.Write(
-                this.controlHtml.FormatWith(
+                string.Format(
+                    this.controlHtml,
                     this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
-                    this.Get<IDateTime>().Format(this.Format, this.DateTime)));
+                        this.Get<IDateTime>().Format(this.Format, this.DateTime)));
             writer.WriteLine();
         }
 

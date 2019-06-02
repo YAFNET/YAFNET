@@ -123,7 +123,7 @@ namespace YAF.Controls
                         0,
                         this.AdditionalParameters.IsNotSet()
                             ? string.Empty
-                            : "&{0}".FormatWith(this.AdditionalParameters)));
+                            : $"&{this.AdditionalParameters}"));
                 output.Write(HtmlTextWriter.TagRightChar);
                 output.Write(@"<i class=""fa fa-rss""></i>&nbsp;{0}", this.GetText("ATOMFEED"));
                 output.WriteEndTag("a");
@@ -143,7 +143,7 @@ namespace YAF.Controls
                         1,
                         this.AdditionalParameters.IsNotSet()
                             ? string.Empty
-                            : "&{0}".FormatWith(this.AdditionalParameters)));
+                            : $"&{this.AdditionalParameters}"));
                 output.Write(HtmlTextWriter.TagRightChar);
                 output.Write(@"<i class=""fa fa-rss""></i>&nbsp;{0}", this.GetText("RSSFEED"));
                 output.WriteEndTag("a");

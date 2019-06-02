@@ -104,7 +104,8 @@ namespace YAF.Controls
     protected override void OnPreRender([NotNull] EventArgs e)
     {
         var scriptString =
-            @"
+            string
+                .Format(@"
   function yaf_SmartScroller_GetCoords()
   {{
     var scrollX, scrollY;
@@ -149,8 +150,7 @@ namespace YAF.Controls
 	jQuery(window).bind('click', yaf_SmartScroller_GetCoords);
 	jQuery(window).bind('keypress', yaf_SmartScroller_GetCoords);
 	jQuery(document).ready(yaf_SmartScroller_Scroll);
-"
-                .FormatWith(this.hidScrollLeft.ClientID, this.hidScrollTop.ClientID);
+", this.hidScrollLeft.ClientID,this.hidScrollTop.ClientID);
 
       YafContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
 

@@ -67,14 +67,12 @@ namespace YAF.Providers.Utils
         /// </returns>
         public static string GetReport([NotNull] string providerSection, [NotNull] string tag)
         {
-            var select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(
-                providerSection.ToUpper(),
-                tag.ToUpper());
+            var select = $"//provider[@name='{providerSection.ToUpper()}']/Resource[@tag='{tag.ToUpper()}']";
             var node = ExceptionXML().SelectSingleNode(select);
 
             return node != null
                        ? node.InnerText
-                       : "Exception({1}:{0}) cannot be found in Exception file!".FormatWith(tag, providerSection);
+                       : string.Format("Exception({1}:{0}) cannot be found in Exception file!", tag, providerSection);
         }
 
         /// <summary>
@@ -182,10 +180,7 @@ namespace YAF.Providers.Utils
             var exceptionXmlDoc = new XmlDocument();
             exceptionXmlDoc.Load(
                 HttpContext.Current.Server.MapPath(
-                    "{0}{1}Resources/{2}".FormatWith(
-                        Config.ServerFileRoot,
-                        Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/",
-                        ProviderExceptionFile)));
+                    $"{Config.ServerFileRoot}{(Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/")}Resources/{ProviderExceptionFile}"));
 
             return exceptionXmlDoc;
         }

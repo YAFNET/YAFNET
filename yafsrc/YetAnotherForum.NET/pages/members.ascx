@@ -129,7 +129,7 @@
                     <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
                 </td>
                 <td>
-                    <%# "{0:N0}".FormatWith(((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
+                    <%# $"{((System.Data.DataRowView)Container.DataItem)["NumPosts"]:N0}" %>
                 </td>
                 <td>
                     <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>

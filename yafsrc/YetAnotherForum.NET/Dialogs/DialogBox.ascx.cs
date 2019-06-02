@@ -133,14 +133,12 @@ namespace YAF.Dialogs
                 if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
                 {
                     this.CancelButton.OnClientClick =
-                        "jQuery('#{0}').modal('hide');return false;".FormatWith(
-                            this.YafForumPageErrorPopup.ClientID);
+                        $"jQuery('#{this.YafForumPageErrorPopup.ClientID}').modal('hide');return false;";
                 }
                 else
                 {
                     this.CancelButton.OnClientClick =
-                        "jQuery('#{0}').modal('hide');".FormatWith(
-                            this.YafForumPageErrorPopup.ClientID);
+                        $"jQuery('#{this.YafForumPageErrorPopup.ClientID}').modal('hide');";
                 }
             }
             else
@@ -158,19 +156,16 @@ namespace YAF.Dialogs
                 "function ShowNotificationPopup() {{ jQuery(document).ready(function() {{jQuery('#{0}').modal('show');return false; }});}}",
                 this.YafForumPageErrorPopup.ClientID);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(this.Page, "PopUp{0}".FormatWith(Guid.NewGuid()), script.ToString());
+            this.PageContext.PageElements.RegisterJsBlockStartup(this.Page, $"PopUp{Guid.NewGuid()}", script.ToString());
 
             if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
             {
                 this.OkButton.OnClientClick =
-                    "jQuery('#{0}').modal('hide');return false;".FormatWith(
-                        this.YafForumPageErrorPopup.ClientID);
+                    $"jQuery('#{this.YafForumPageErrorPopup.ClientID}').modal('hide');return false;";
             }
             else
             {
-                this.OkButton.OnClientClick =
-                    "jQuery('#{0}').modal('hide');".FormatWith(
-                        this.YafForumPageErrorPopup.ClientID);
+                this.OkButton.OnClientClick = $"jQuery('#{this.YafForumPageErrorPopup.ClientID}').modal('hide');";
             }
         }
 

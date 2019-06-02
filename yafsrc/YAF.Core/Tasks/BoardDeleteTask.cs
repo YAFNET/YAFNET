@@ -78,8 +78,7 @@ namespace YAF.Core.Tasks
             else
             {
                 failureMessage =
-                    "You can't delete the board while some of the blocking {0} tasks are running.".FormatWith(
-                        BlockingTaskNames.ToDelimitedString(","));
+                    $"You can't delete the board while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
 
             }
 
@@ -102,7 +101,7 @@ namespace YAF.Core.Tasks
             {
                 this.Logger.Error(
                     x,
-                    "Error In Board (ID: {0}) Delete Task: {1}".FormatWith(this.BoardIdToDelete),
+                    string.Format("Error In Board (ID: {0}) Delete Task: {1}", this.BoardIdToDelete),
                     TaskName);
             }
         }

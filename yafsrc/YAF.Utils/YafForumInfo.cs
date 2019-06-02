@@ -78,7 +78,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
         /// </summary>
-        public static string ForumBaseUrl => "{0}{1}".FormatWith(BaseUrlBuilder.BaseUrl, BaseUrlBuilder.AppPath);
+        public static string ForumBaseUrl => $"{BaseUrlBuilder.BaseUrl}{BaseUrlBuilder.AppPath}";
 
         /// <summary>
         /// Gets full URL to the Root of the Forum
@@ -212,7 +212,7 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return "{1}Content/{0}".FormatWith(resourceName, ForumClientFileRoot);
+            return string.Format("{1}Content/{0}", resourceName, ForumClientFileRoot);
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return "{1}Content/Themes/{0}".FormatWith(resourceName, ForumClientFileRoot);
+            return string.Format("{1}Content/Themes/{0}", resourceName, ForumClientFileRoot);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return "{1}Scripts/{0}".FormatWith(resourceName, ForumClientFileRoot);
+            return string.Format("{1}Scripts/{0}", resourceName, ForumClientFileRoot);
         }
     }
 }

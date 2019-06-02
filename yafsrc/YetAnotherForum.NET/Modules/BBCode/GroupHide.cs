@@ -57,9 +57,7 @@ namespace YAF.Modules.BBCode
                 "HIDDENMOD_GUEST",
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
-            var shownContentGuest =
-                "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
-                    .FormatWith(descriptionGuest);
+            var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
             if (groupString.IsNotSet())
             {
@@ -82,9 +80,7 @@ namespace YAF.Modules.BBCode
                 "HIDDENMOD_GROUP",
                 "You dont´t have the right to see the Hidden Content.");
 
-                shownContentGuest =
-                    "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
-                    .FormatWith(descriptionGuest);
+                shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
                 var groups = groupString.Split(';');
 

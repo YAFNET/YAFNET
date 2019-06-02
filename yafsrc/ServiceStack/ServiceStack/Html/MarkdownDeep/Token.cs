@@ -80,7 +80,7 @@ namespace MarkdownDeep
 			}
 			else
 			{
-				return $"{this.type.ToString()} - {this.startOffset} - {this.length} -> {this.data.ToString()}";
+				return $"{this.type.ToString()} - {this.startOffset} - {this.length} -> {this.data}";
 			}
 		}
 

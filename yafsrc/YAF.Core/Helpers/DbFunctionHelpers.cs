@@ -37,14 +37,24 @@ namespace YAF.Core.Helpers
     public static class DbFunctionHelper
     {
         /// <summary>
-        /// Validates the and execute.
+        /// The validate and execute.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dbFunction">The database function.</param>
-        /// <param name="operationName">Name of the operation.</param>
-        /// <param name="func">The function.</param>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">@Database Provider does not support operation {0}..FormatWith(operationName)</exception>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <param name="func">
+        /// The func.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// </exception>
         private static T ValidateAndExecute<T>(
             this IDbFunction dbFunction,
             string operationName,
@@ -53,7 +63,7 @@ namespace YAF.Core.Helpers
             if (!dbFunction.DbSpecificFunctions.WhereOperationSupported(operationName).Any())
             {
                 throw new InvalidOperationException(
-                    @"Database Provider does not support operation ""{0}"".".FormatWith(operationName));
+                    $@"Database Provider does not support operation ""{operationName}"".");
             }
 
             return func(dbFunction);

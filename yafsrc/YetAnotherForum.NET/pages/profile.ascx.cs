@@ -113,7 +113,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.lnkThanks.Text = "({0})".FormatWith(this.GetText("VIEWTHANKS", "TITLE"));
+            this.lnkThanks.Text = $"({this.GetText("VIEWTHANKS", "TITLE")})";
             this.lnkThanks.Visible = this.Get<YafBoardSettings>().EnableThanksMod;
 
             // admin or moderator, set edit control to moderator mode...
@@ -184,7 +184,7 @@ namespace YAF.Pages
                 if (Convert.ToBoolean(strBuddyRequest[1]))
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]),
+                        string.Format(this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]),
                         MessageTypes.success);
                 }
                 else
@@ -195,7 +195,7 @@ namespace YAF.Pages
             else
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(this.Get<IBuddy>().Remove(this.UserId)),
+                    string.Format(this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IBuddy>().Remove(this.UserId)),
                     MessageTypes.success);
             }
 
@@ -377,11 +377,12 @@ namespace YAF.Pages
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
-                this.lnkBuddy.Text = "<i class=\"fa fa-user-minus fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("BUDDY", "REMOVEBUDDY"));
+                this.lnkBuddy.Text =
+                    $"<i class=\"fa fa-user-minus fa-fw\"></i>&nbsp;{this.GetText("BUDDY", "REMOVEBUDDY")}";
                 this.lnkBuddy.CssClass = "btn btn-warning";
                 this.lnkBuddy.CommandArgument = "removebuddy";
                 this.lnkBuddy.Attributes["onclick"] =
-                    "return confirm('{0}')".FormatWith(this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"));
+                    $"return confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')";
             }
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
             {
@@ -392,7 +393,8 @@ namespace YAF.Pages
                 if (!this.PageContext.IsGuest)
                 {
                     this.lnkBuddy.Visible = true;
-                    this.lnkBuddy.Text = "<i class=\"fa fa-user-plus fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("BUDDY", "ADDBUDDY"));
+                    this.lnkBuddy.Text =
+                        $"<i class=\"fa fa-user-plus fa-fw\"></i>&nbsp;{this.GetText("BUDDY", "ADDBUDDY")}";
                     this.lnkBuddy.CssClass = "btn btn-success";
 
 
@@ -426,15 +428,14 @@ namespace YAF.Pages
             if (userData.Profile.Facebook.IsSet())
             {
                 this.Facebook.NavigateUrl = ValidationHelper.IsNumeric(userData.Profile.Facebook)
-                                                ? "https://www.facebook.com/profile.php?id={0}".FormatWith(
-                                                    userData.Profile.Facebook)
+                                                ? $"https://www.facebook.com/profile.php?id={userData.Profile.Facebook}"
                                                 : userData.Profile.Facebook;
             }
 
             this.Facebook.ParamTitle0 = userName;
 
             this.Twitter.Visible = this.User != null && userData.Profile.Twitter.IsSet();
-            this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.HtmlEncode(userData.Profile.Twitter));
+            this.Twitter.NavigateUrl = $"http://twitter.com/{this.HtmlEncode(userData.Profile.Twitter)}";
             this.Twitter.ParamTitle0 = userName;
 
             if (userData.UserID == this.PageContext.PageUserID)
@@ -463,7 +464,7 @@ namespace YAF.Pages
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
-            this.Skype.NavigateUrl = "skype:{0}?call".FormatWith(userData.Profile.Skype);
+            this.Skype.NavigateUrl = $"skype:{userData.Profile.Skype}?call";
             this.Skype.ParamTitle0 = userName;
 
             if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible && !this.Twitter.Visible)
@@ -488,8 +489,7 @@ namespace YAF.Pages
         {
             this.UserLabel1.UserID = userData.UserID;
 
-            this.Joined.Text =
-                "{0}".FormatWith(this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined)));
+            this.Joined.Text = $"{this.Get<IDateTime>().FormatDateLong(Convert.ToDateTime(userData.Joined))}";
 
             // vzrus: Show last visit only to admins if user is hidden
             if (!this.PageContext.IsAdmin && Convert.ToBoolean(userData.DBRow["IsActiveExcluded"]))
@@ -519,11 +519,7 @@ namespace YAF.Pages
             {
                 this.CountryTR.Visible = true;
                 this.CountryLabel.Text =
-                    "<span class=\"flag-icon flag-icon-{0}\"></span>&nbsp;{1}".FormatWith(
-                        userData.Profile.Country.Trim().ToLower(),
-                        this.HtmlEncode(
-                            this.Get<IBadWordReplace>()
-                                .Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim()))));
+                    $"<span class=\"flag-icon flag-icon-{userData.Profile.Country.Trim().ToLower()}\"></span>&nbsp;{this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())))}";
             }
 
             if (this.User != null && userData.Profile.Region.IsSet())
@@ -533,11 +529,7 @@ namespace YAF.Pages
                 try
                 {
                     var tag =
-                        "RGN_{0}_{1}".FormatWith(
-                            userData.Profile.Country.Trim().IsSet()
-                                ? userData.Profile.Country.Trim()
-                                : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant(),
-                            userData.Profile.Region);
+                        $"RGN_{(userData.Profile.Country.Trim().IsSet() ? userData.Profile.Country.Trim() : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant())}_{userData.Profile.Region}";
                     this.RegionLabel.Text =
                         this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("REGION", tag)));
                 }
@@ -592,8 +584,7 @@ namespace YAF.Pages
                         break;
                 }
 
-                this.Gender.Text =
-                    @"<i class=""fa fa-{0} fa-fw""></i>&nbsp;{1}".FormatWith(imagePath, imageAlt);
+                this.Gender.Text = $@"<i class=""fa fa-{imagePath} fa-fw""></i>&nbsp;{imageAlt}";
             }
 
             if (this.User != null && userData.Profile.Occupation.IsSet())
@@ -633,9 +624,7 @@ namespace YAF.Pages
                         "Twitter",
                         this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD").ToJsString(),
                         this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD").ToJsString(),
-                        "{0}{1}resource.ashx?twitterinfo=".FormatWith(
-                            BaseUrlBuilder.BaseUrl.TrimEnd('/'),
-                            BaseUrlBuilder.AppPath)));
+                        $"{BaseUrlBuilder.BaseUrl.TrimEnd('/')}{BaseUrlBuilder.AppPath}resource.ashx?twitterinfo="));
 
                 // Setup Hover Card JS
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -698,9 +687,8 @@ namespace YAF.Pages
                             inRow = 0;
                         }
 
-                        var title = "{0}{1}".FormatWith(
-                            r["Name"],
-                            f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty);
+                        var title =
+                            $"{r["Name"]}{(f.ShowMessage ? $": {r["Message"]}" : string.Empty)}";
 
                         ribbonBar.AppendFormat(
                             "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" />",
@@ -734,7 +722,7 @@ namespace YAF.Pages
                             r["SmallMedalWidth"],
                             r["SmallMedalHeight"],
                             r["Name"],
-                            f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty,
+                            f.ShowMessage ? $": {r["Message"]}" : string.Empty,
                             YafBoardFolders.Current.Medals);
                     }
 
@@ -742,7 +730,7 @@ namespace YAF.Pages
                     i++;
                 }
 
-                this.MedalsPlaceHolder.Text = "{0}<br />{1}".FormatWith(ribbonBar, medals);
+                this.MedalsPlaceHolder.Text = $"{ribbonBar}<br />{medals}";
                 this.MedalsRow.Visible = true;
             }
         }
@@ -763,11 +751,8 @@ namespace YAF.Pages
                            / userData.DBRow["NumPostsForum"].ToType<int>();
             }
 
-            this.Stats.Text = "{0:N0} [{1} / {2}]".FormatWith(
-                userData.DBRow["NumPosts"],
-                this.GetTextFormatted("NUMALL", allPosts),
-                this.GetTextFormatted(
-                    "NUMDAY", (double)userData.DBRow["NumPosts"].ToType<int>() / userData.DBRow["NumDays"].ToType<int>()));
+            this.Stats.Text =
+                $"{userData.DBRow["NumPosts"]:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)userData.DBRow["NumPosts"].ToType<int>() / userData.DBRow["NumDays"].ToType<int>())}]";
         }
 
         #endregion

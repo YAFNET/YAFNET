@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
             {
                 // error of some kind
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_REGUSER", "MSG_ERROR_CREATE").FormatWith(status),
+                    string.Format(this.GetText("ADMIN_REGUSER", "MSG_ERROR_CREATE"), status),
                     MessageTypes.danger);
                 return;
             }
@@ -150,7 +150,7 @@ namespace YAF.Pages.Admin
 
             // success
             this.PageContext.AddLoadMessage(
-                this.GetText("ADMIN_REGUSER", "MSG_CREATED").FormatWith(this.UserName.Text.Trim()));
+                string.Format(this.GetText("ADMIN_REGUSER", "MSG_CREATED"), this.UserName.Text.Trim()));
             YafBuildLink.Redirect(ForumPages.admin_reguser);
         }
 
@@ -185,10 +185,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_REGUSER", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_USERS", "TITLE"),
-                this.GetText("ADMIN_REGUSER", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_USERS", "TITLE")} - {this.GetText("ADMIN_REGUSER", "TITLE")}";
         }
 
         /// <summary>

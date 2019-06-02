@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin
                                ? userRow["DisplayName"].ToString()
                                : userRow["Name"].ToString());
 
-            var header = this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName);
+            var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
 
             this.Header.Text = this.Header2.Text = header;
 
@@ -136,10 +136,8 @@ namespace YAF.Pages.Admin
                 header,
                 string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_USERS", "TITLE"),
-                this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_USERS", "TITLE")} - {string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName)}";
 
             // do a quick user membership sync...
             var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);

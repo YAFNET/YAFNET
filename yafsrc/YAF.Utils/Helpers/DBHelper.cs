@@ -215,15 +215,14 @@ namespace YAF.Utils.Helpers
                     var sqlParams =
                         parameters.Select(
                             p =>
-                            @"@{0} = {1}".FormatWith(
-                                p.ParameterName, p.Value == null ? "NULL" : "'{0}'".FormatWith(p.Value.ToString().Replace("'", "''"))));
+                                $@"@{p.ParameterName} = {(p.Value == null ? "NULL" : $"'{p.Value.ToString().Replace("'", "''")}'")}");
 
                     debugString += " " + sqlParams.ToDelimitedString(", ");
                 }
             }
             catch (Exception ex)
             {
-                debugString += "Error in getting parameters {0}".FormatWith(ex);
+                debugString += $"Error in getting parameters {ex}";
             }
 
             return debugString;

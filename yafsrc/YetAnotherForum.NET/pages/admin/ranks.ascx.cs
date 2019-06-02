@@ -130,7 +130,7 @@ namespace YAF.Pages.Admin
             var isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
 
             return isLadder
-                       ? "{0} ({1} {2})".FormatWith(this.GetItemName(true), dr["MinPosts"], this.GetText("ADMIN_RANKS", "POSTS"))
+                       ? $"{this.GetItemName(true)} ({dr["MinPosts"]} {this.GetText("ADMIN_RANKS", "POSTS")})"
                        : this.GetItemName(false);
         }
 
@@ -169,9 +169,8 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_RANKS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RANKS", "TITLE")}";
         }
 
         /// <summary>

@@ -131,7 +131,7 @@ namespace YAF.Modules.BBCode
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         attachment.FileName,
-                        stats.FormatWith(kb, attachment.Downloads),
+                        string.Format(stats, kb,attachment.Downloads),
                         this.PageContext.PageBoardID);
                 }
                 else

@@ -194,8 +194,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName), forumName);
+                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
         }
 
         /// <summary>
@@ -218,8 +217,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicId), topicName);
+                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicId)}\">{topicName}</a>";
         }
 
         /// <summary>
@@ -411,32 +409,33 @@ namespace YAF.Pages.Admin
             // get stats for current board, selected board or all boards (see function)
             var row = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
 
-            this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
-            this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
-            this.NumUsers.Text = "{0:N0}".FormatWith(row["NumUsers"]);
+            this.NumPosts.Text = $"{row["NumPosts"]:N0}";
+            this.NumTopics.Text = $"{row["NumTopics"]:N0}";
+            this.NumUsers.Text = $"{row["NumUsers"]:N0}";
 
             var span = DateTime.UtcNow - (DateTime)row["BoardStart"];
             double days = span.Days;
 
             this.BoardStart.Text =
-                this.GetText("ADMIN_ADMIN", "DAYS_AGO").FormatWith(
+                string.Format(
+                    this.GetText("ADMIN_ADMIN", "DAYS_AGO"),
                     this.Get<YafBoardSettings>().UseFarsiCalender
-                        ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
-                        : row["BoardStart"],
-                    days);
+                            ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
+                            : row["BoardStart"],
+                        days);
 
             if (days < 1)
             {
                 days = 1;
             }
 
-            this.DayPosts.Text = "{0:N2}".FormatWith(row["NumPosts"].ToType<int>() / days);
-            this.DayTopics.Text = "{0:N2}".FormatWith(row["NumTopics"].ToType<int>() / days);
-            this.DayUsers.Text = "{0:N2}".FormatWith(row["NumUsers"].ToType<int>() / days);
+            this.DayPosts.Text = $"{row["NumPosts"].ToType<int>() / days:N2}";
+            this.DayTopics.Text = $"{row["NumTopics"].ToType<int>() / days:N2}";
+            this.DayUsers.Text = $"{row["NumUsers"].ToType<int>() / days:N2}";
 
             try
             {
-                this.DBSize.Text = "{0} MB".FormatWith(this.Get<IDbFunction>().GetDBSize());
+                this.DBSize.Text = $"{this.Get<IDbFunction>().GetDBSize()} MB";
             }
             catch (SqlException)
             {

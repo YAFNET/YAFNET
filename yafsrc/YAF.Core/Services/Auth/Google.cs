@@ -68,12 +68,7 @@ namespace YAF.Core.Services.Auth
             var redirectUrl = GetRedirectURL(request);
 
             return
-                "https://accounts.google.com/o/oauth2/v2/auth?client_id={0}&redirect_uri={1}&scope={2}&response_type=code"
-                    .FormatWith(
-                        Config.GoogleClientID,
-                        HttpUtility.UrlEncode(redirectUrl),
-                        HttpUtility.UrlEncode(
-                            "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"));
+                $"https://accounts.google.com/o/oauth2/v2/auth?client_id={Config.GoogleClientID}&redirect_uri={HttpUtility.UrlEncode(redirectUrl)}&scope={HttpUtility.UrlEncode("https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email")}&response_type=code";
         }
 
         /// <summary>
@@ -90,18 +85,13 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public GoogleTokens GetAccessToken(string authorizationCode, HttpRequest request)
         {
-            var code = "code={0}".FormatWith(HttpUtility.UrlEncode(authorizationCode));
+            var code = $"code={HttpUtility.UrlEncode(authorizationCode)}";
 
             return
                AuthUtilities.WebRequest(
                 AuthUtilities.Method.POST,
                 "https://www.googleapis.com/oauth2/v4/token",
-                "{0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type={4}".FormatWith(
-                    code,
-                    Config.GoogleClientID,
-                    Config.GoogleClientSecret,
-                    HttpUtility.UrlEncode(GetRedirectURL(request)),
-                    "authorization_code")).FromJson<GoogleTokens>();
+                $"{code}&client_id={Config.GoogleClientID}&client_secret={Config.GoogleClientSecret}&redirect_uri={HttpUtility.UrlEncode(GetRedirectURL(request))}&grant_type={"authorization_code"}").FromJson<GoogleTokens>();
         }
 
         #region Get Current Google User Profile
@@ -124,7 +114,7 @@ namespace YAF.Core.Services.Auth
                               {
                                   new KeyValuePair<string, string>(
                                       "Authorization",
-                                      "OAuth {0}".FormatWith(access_token))
+                                      $"OAuth {access_token}")
                               };
 
             return
@@ -151,10 +141,8 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false)
         {
-            var authUrl = "{0}auth.aspx?auth={1}{2}".FormatWith(
-                YafForumInfo.ForumBaseUrl,
-                AuthService.google,
-                connectCurrentUser ? "&connectCurrent=true" : string.Empty);
+            var authUrl =
+                $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.google}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}";
 
             return authUrl;
         }
@@ -324,10 +312,10 @@ namespace YAF.Core.Services.Auth
             foreach (string key in nvc)
             {
                 queryString += queryString == string.Empty ? "?" : "&";
-                queryString += "{0}={1}".FormatWith(key, nvc[key]);
+                queryString += $"{key}={nvc[key]}";
             }
 
-            return "{0}{1}".FormatWith(urlCurrentPage, queryString);
+            return $"{urlCurrentPage}{queryString}";
         }
 
         /// <summary>
@@ -354,20 +342,18 @@ namespace YAF.Core.Services.Auth
             }
 
             // Check user for bot
-            var spamChecker = new YafSpamCheck();
             string result;
             var isPossibleSpamBot = false;
 
             var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (spamChecker.CheckUserForSpamBot(googleUser.UserName, googleUser.Email, userIpAddress, out result))
+            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(googleUser.UserName, googleUser.Email, userIpAddress, out result))
             {
                 YafContext.Current.Get<ILogger>().Log(
                     null,
                     "Bot Detected",
-                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
-                        .FormatWith(googleUser.UserName, googleUser.Email, userIpAddress, result),
+                    $"Bot Check detected a possible SPAM BOT: (user name : '{googleUser.UserName}', email : '{googleUser.Email}', ip: '{userIpAddress}', reason : {result}), user was rejected.",
                     EventLogTypes.SpamBotDetected);
 
                 if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
@@ -388,7 +374,7 @@ namespace YAF.Core.Services.Auth
                         .Save(
                             null,
                             userIpAddress,
-                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                            $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                             YafContext.Current.PageUserID);
 
                     // Clear cache
@@ -400,8 +386,7 @@ namespace YAF.Core.Services.Auth
                             .Log(
                                 null,
                                 "IP BAN of Bot During Registration",
-                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                    userIpAddress),
+                                $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                                 EventLogTypes.IpBanSet);
                     }
 

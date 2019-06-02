@@ -352,7 +352,7 @@ namespace YAF.Classes
         /// </summary>
         [NotNull]
         public static string RadEditorToolsFile => GetConfigValueAsString("YAF.RadEditorToolsFile")
-                                                   ?? "{0}/Scripts/RadEditor/ToolsFile.xml".FormatWith(ServerFileRoot);
+                                                   ?? $"{ServerFileRoot}/Scripts/RadEditor/ToolsFile.xml";
 
         /// <summary>
         ///     Gets RoleProvider.
@@ -513,7 +513,7 @@ namespace YAF.Classes
         /// <returns> Provider type string or <see langword="null" /> if none exist. </returns>
         public static string GetProvider([NotNull] string providerName)
         {
-            var key = "YAF.Provider.{0}".FormatWith(providerName);
+            var key = $"YAF.Provider.{providerName}";
             return GetConfigValueAsString(key);
         }
 

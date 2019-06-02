@@ -358,8 +358,7 @@ namespace YAF.Core
                     .Log(
                         userId,
                         "UpdateForumUser",
-                        "Null User Provider Key for UserName {0}. Please check your provider key settings for your ASP.NET membership provider."
-                            .FormatWith(user.UserName));
+                        $"Null User Provider Key for UserName {user.UserName}. Please check your provider key settings for your ASP.NET membership provider.");
 
                 return userId;
             }
@@ -436,7 +435,7 @@ namespace YAF.Core
                     .Log(
                         userId,
                         "UpdateForumUser",
-                        "Failed to save default notifications for new user: {0}".FormatWith(ex));
+                        $"Failed to save default notifications for new user: {ex}");
             }
 
             return userId;
@@ -541,7 +540,7 @@ namespace YAF.Core
                             if (status != MembershipCreateStatus.Success)
                             {
                                 YafContext.Current.Get<ILogger>()
-                                    .Log(0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
+                                    .Log(0, "MigrateUsers", $"Failed to create user {name}: {status}");
                             }
                             else
                             {

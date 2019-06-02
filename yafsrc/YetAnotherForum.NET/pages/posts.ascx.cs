@@ -65,17 +65,17 @@ namespace YAF.Pages
         /// <summary>
         ///   The _data bound.
         /// </summary>
-        private bool _dataBound;
+        private bool dataBound;
 
         /// <summary>
         ///   The _forum.
         /// </summary>
-        private Forum _forum;
+        private Forum forum;
 
         /// <summary>
         ///   The _forum flags.
         /// </summary>
-        private ForumFlags _forumFlags;
+        private ForumFlags forumFlags;
 
         /// <summary>
         ///   The _ignore query string.
@@ -159,8 +159,7 @@ namespace YAF.Pages
         /// </param>
         protected void DeleteMessage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((LinkButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("confirm_deletemessage"));
+            ((LinkButton)sender).Attributes["onclick"] = $"return confirm('{this.GetText("confirm_deletemessage")}')";
         }
 
         /// <summary>
@@ -219,8 +218,8 @@ namespace YAF.Pages
             var currentIndex = (int)o;
             if (currentIndex > 0)
             {
-                return "<img src='{1}' width='{0}' alt='' height='2'/>".FormatWith(
-                    currentIndex * 32, YafForumInfo.GetURLToContent("images/spacer.gif"));
+                return string.Format(
+                    "<img src='{1}' width='{0}' alt='' height='2'/>", currentIndex * 32, YafForumInfo.GetURLToContent("images/spacer.gif"));
             }
 
             return string.Empty;
@@ -268,7 +267,7 @@ namespace YAF.Pages
 
             if (avatarUrl.IsNotSet())
             {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif";
             }
 
             html.Append(@"<span class=""threadedRowCollapsed"">");
@@ -282,7 +281,7 @@ namespace YAF.Pages
             html.Append(
                 new UserLink
                     {
-                        ID = "UserLinkForRow{0}".FormatWith(messageId),
+                        ID = $"UserLinkForRow{messageId}",
                         UserID = row.Field<int>("UserID")
                     }.RenderToString());
 
@@ -392,7 +391,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this._forumFlags.IsLocked)
+            if (!this.forumFlags.IsLocked)
             {
                 return;
             }
@@ -451,27 +450,23 @@ namespace YAF.Pages
             {
                 // The html code for "Favorite Topic" theme buttons.
                 var tagButtonHtml =
-                    "'<a class=\"btn btn-secondary\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" title=\"{0}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{1}</span></a>'"
-                          .FormatWith(this.GetText("BUTTON_TAGFAVORITE_TT"), this.GetText("BUTTON_TAGFAVORITE"));
+                    $"'<a class=\"btn btn-secondary\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" title=\"{this.GetText("BUTTON_TAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_TAGFAVORITE")}</span></a>'";
                 var untagButtonHtml =
-                    "'<a class=\"btn btn-secondary\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" title=\"{0}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{1}</span></a>'"
-                        .FormatWith(this.GetText("BUTTON_UNTAGFAVORITE_TT"), this.GetText("BUTTON_UNTAGFAVORITE"));
+                    $"'<a class=\"btn btn-secondary\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" title=\"{this.GetText("BUTTON_UNTAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_UNTAGFAVORITE")}</span></a>'";
 
                 // Register the client side script for the "Favorite Topic".
                 var favoriteTopicJs = JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHtml) + Environment.NewLine +
                                       JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHtml);
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup("favoriteTopicJs", favoriteTopicJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
+                YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ console.log(res);alert('Error Occurred'); }");
 
                 // Has the user already tagged this topic as favorite?
                 if (this.Get<IFavoriteTopic>().IsFavoriteTopic(this.PageContext.PageTopicID))
                 {
                     // Generate the "Untag" theme button with appropriate JS calls for onclick event.
-                    this.TagFavorite1.NavigateUrl =
-                        "javascript:removeFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
-                    this.TagFavorite2.NavigateUrl =
-                        "javascript:removeFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
+                    this.TagFavorite1.NavigateUrl = $"javascript:removeFavoriteTopic({this.PageContext.PageTopicID});";
+                    this.TagFavorite2.NavigateUrl = $"javascript:removeFavoriteTopic({this.PageContext.PageTopicID});";
                     this.TagFavorite1.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
                     this.TagFavorite1.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
                     this.TagFavorite2.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
@@ -480,10 +475,8 @@ namespace YAF.Pages
                 else
                 {
                     // Generate the "Tag" theme button with appropriate JS calls for onclick event.
-                    this.TagFavorite1.NavigateUrl =
-                        "javascript:addFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
-                    this.TagFavorite2.NavigateUrl =
-                        "javascript:addFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
+                    this.TagFavorite1.NavigateUrl = $"javascript:addFavoriteTopic({this.PageContext.PageTopicID});";
+                    this.TagFavorite2.NavigateUrl = $"javascript:addFavoriteTopic({this.PageContext.PageTopicID});";
                     this.TagFavorite1.TextLocalizedTag = "BUTTON_TAGFAVORITE";
                     this.TagFavorite1.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
                     this.TagFavorite2.TextLocalizedTag = "BUTTON_TAGFAVORITE";
@@ -508,10 +501,10 @@ namespace YAF.Pages
                 this.PageContext.PageBoardID,
                 this.PageContext.PageForumID);
 
-            this._forum = dt.FirstOrDefault();
+            this.forum = dt.FirstOrDefault();
             
 
-            this._forumFlags = this._forum.ForumFlags;
+            this.forumFlags = this.forum.ForumFlags;
 
             if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
             {
@@ -570,8 +563,8 @@ namespace YAF.Pages
                 if (this._topic.Description.IsSet()
                     && yafBoardSettings.EnableTopicDescription)
                 {
-                    this.TopicTitle.Text = "{0} - <em>{1}</em>".FormatWith(
-                        topicSubject, this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic.Description)));
+                    this.TopicTitle.Text =
+                        $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic.Description))}</em>";
                 }
                 else
                 {
@@ -590,7 +583,7 @@ namespace YAF.Pages
                 this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
 
-                if (!this.PageContext.ForumPostAccess || (this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
+                if (!this.PageContext.ForumPostAccess || (this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
                 {
                     this.NewTopic1.Visible = false;
                     this.NewTopic2.Visible = false;
@@ -598,7 +591,7 @@ namespace YAF.Pages
 
                 // Ederon : 9/9/2007 - moderators can reply in locked topics
                 if (!this.PageContext.ForumReplyAccess ||
-                    (this._topic.TopicFlags.IsLocked || this._forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess)
+                    (this._topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess)
                 {
                     this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
                     this.QuickReplyDialog.Visible = false;
@@ -641,7 +634,7 @@ namespace YAF.Pages
                 }
 
                 if (this.PageContext.ForumReplyAccess ||
-                    ((!this._topic.TopicFlags.IsLocked || !this._forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess))
+                    ((!this._topic.TopicFlags.IsLocked || !this.forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess))
                 {
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "SelectedQuotingJs",
@@ -690,7 +683,7 @@ namespace YAF.Pages
                 return;
             }
 
-            if (!this._forumFlags.IsLocked)
+            if (!this.forumFlags.IsLocked)
             {
                 return;
             }
@@ -838,7 +831,7 @@ namespace YAF.Pages
 
                     descriptionContent = topicDescription.Length > 50
                                              ? topicDescription
-                                             : "{0} - {1}".FormatWith(topicDescription, message.MessageTruncated);
+                                             : $"{topicDescription} - {message.MessageTruncated}";
                 }
                 else
                 {
@@ -917,7 +910,7 @@ namespace YAF.Pages
                 YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
 
-            this._dataBound = true;
+            this.dataBound = true;
 
             var showDeleted = false;
             var userId = this.PageContext.PageUserID;
@@ -1065,7 +1058,7 @@ namespace YAF.Pages
                 if (!this.PageContext.IsCrawler)
                 {
                     this.PageContext.PageElements.RegisterJsBlockStartup(
-                        this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
+                        this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor($"post{findMessageId}"));
                 }
             }
             else
@@ -1076,7 +1069,7 @@ namespace YAF.Pages
                     this.PageContext.PageElements.RegisterJsBlockStartup(
                         this,
                         "GotoAnchorJs",
-                        JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(firstPost.Field<int>(columnName: "MessageID"))));
+                        JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.Field<int>(columnName: "MessageID")}"));
                 }
             }
 
@@ -1317,13 +1310,12 @@ namespace YAF.Pages
                             var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
                             if (descriptionMeta != null)
                             {
-                                description = "&description={0}".FormatWith(descriptionMeta.Content);
+                                description = $"&description={descriptionMeta.Content}";
                             }
                         }
 
                         var tumblrUrl =
-                            "http://www.tumblr.com/share/link?url={0}&name={1}{2}".FormatWith(
-                                this.Server.UrlEncode(topicUrl), tumblrMsg, description);
+                            $"http://www.tumblr.com/share/link?url={this.Server.UrlEncode(topicUrl)}&name={tumblrMsg}{description}";
 
                         this.Get<HttpResponseBase>().Redirect(tumblrUrl);
                     }
@@ -1332,7 +1324,7 @@ namespace YAF.Pages
                 case "retweet":
                     {
                         var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
-                                              ? "@{0} ".FormatWith(this.Get<YafBoardSettings>().TwitterUserName)
+                                              ? $"@{this.Get<YafBoardSettings>().TwitterUserName} "
                                               : string.Empty;
 
                         // process message... clean html, strip html, remove bbcode, etc...
@@ -1341,10 +1333,7 @@ namespace YAF.Pages
                                 HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this._topic.TopicName))).RemoveMultipleWhitespace();
 
                         var tweetUrl =
-                            "http://twitter.com/share?url={0}&text={1}".FormatWith(
-                                this.Server.UrlEncode(topicUrl),
-                                this.Server.UrlEncode(
-                                    "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
+                            $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
 
                         // Send Re-tweet directly thru the Twitter API if User is Twitter User
                         if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()
@@ -1364,7 +1353,7 @@ namespace YAF.Pages
                             tweets.UpdateStatus(
                                 TweetAPI.ResponseFormat.json,
                                 this.Server.UrlEncode(
-                                    "RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl)),
+                                    string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
                                 string.Empty);
                         }
                         else
@@ -1377,8 +1366,7 @@ namespace YAF.Pages
                 case "digg":
                     {
                         var diggUrl =
-                            "http://digg.com/submit?url={0}&title={1}".FormatWith(
-                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode(this._topic.TopicName));
+                            $"http://digg.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this._topic.TopicName)}";
 
                         this.Get<HttpResponseBase>().Redirect(diggUrl);
                     }
@@ -1387,8 +1375,7 @@ namespace YAF.Pages
                 case "reddit":
                     {
                         var redditUrl =
-                            "http://www.reddit.com/submit?url={0}&title={1}".FormatWith(
-                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode(this._topic.TopicName));
+                            $"http://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this._topic.TopicName)}";
 
                         this.Get<HttpResponseBase>().Redirect(redditUrl);
                     }
@@ -1483,30 +1470,23 @@ namespace YAF.Pages
 
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("LINKBACK_TOPIC"),
-                    "prompt('{0}','{1}');return false;".FormatWith(this.GetText("LINKBACK_TOPIC_PROMT"), topicUrl),
+                    $"prompt('{this.GetText("LINKBACK_TOPIC_PROMT")}','{topicUrl}');return false;",
                     "fa fa-link");
                 this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
 
-                var facebookUrl =
-                    "http://www.facebook.com/plugins/like.php?href={0}".FormatWith(
-                        this.Server.UrlEncode(topicUrl));
+                var facebookUrl = $"http://www.facebook.com/plugins/like.php?href={this.Server.UrlEncode(topicUrl)}";
 
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("FACEBOOK_TOPIC"),
-                    @"window.open('{0}','{1}','width=300,height=200,resizable=yes');".FormatWith(
-                        facebookUrl,
-                        this.GetText("FACEBOOK_TOPIC")),
+                    $@"window.open('{facebookUrl}','{this.GetText("FACEBOOK_TOPIC")}','width=300,height=200,resizable=yes');",
                     "fab fa-facebook");
 
                 var facebookShareUrl =
-                   "https://www.facebook.com/sharer/sharer.php?u={0}".FormatWith(
-                       this.Server.UrlEncode(topicUrl));
+                    $"https://www.facebook.com/sharer/sharer.php?u={this.Server.UrlEncode(topicUrl)}";
 
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("FACEBOOK_SHARE_TOPIC"),
-                    @"window.open('{0}','{1}','width=550,height=690,resizable=yes');".FormatWith(
-                        facebookShareUrl,
-                        this.GetText("FACEBOOK_SHARE_TOPIC")),
+                    $@"window.open('{facebookShareUrl}','{this.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');",
                     "fab fa-facebook");
                 this.ShareMenu.AddPostBackItem(
                     "reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
@@ -1550,11 +1530,11 @@ namespace YAF.Pages
             if (this.IsThreaded)
             {
                 this.ViewMenu.AddPostBackItem("normal", this.GetText("NORMAL"), "fa fa-book");
-                this.ViewMenu.AddPostBackItem("threaded", "&#187; {0}".FormatWith(this.GetText("THREADED")), "fa fa-book");
+                this.ViewMenu.AddPostBackItem("threaded", $"&#187; {this.GetText("THREADED")}", "fa fa-book");
             }
             else
             {
-                this.ViewMenu.AddPostBackItem("normal", "&#187; {0}".FormatWith(this.GetText("NORMAL")), "fa fa-book");
+                this.ViewMenu.AddPostBackItem("normal", $"&#187; {this.GetText("NORMAL")}", "fa fa-book");
                 this.ViewMenu.AddPostBackItem("threaded", this.GetText("THREADED"), "fa fa-book");
             }
 
@@ -1563,7 +1543,7 @@ namespace YAF.Pages
             this.OptionsMenu.Attach(this.OptionsLink);
             this.ViewMenu.Attach(this.ViewLink);
 
-            if (!this._dataBound)
+            if (!this.dataBound)
             {
                 this.BindData();
             }

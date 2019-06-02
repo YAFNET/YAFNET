@@ -355,7 +355,7 @@ namespace YAF.Core
                         autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
                         break;
                     default:
-                        throw new NotSupportedException("Parameter Type of {0} is not supported.".FormatWith(parameter.GetType()));
+                        throw new NotSupportedException($"Parameter Type of {parameter.GetType()} is not supported.");
                 }
             }
 

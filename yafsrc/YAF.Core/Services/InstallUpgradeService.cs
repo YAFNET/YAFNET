@@ -443,7 +443,7 @@ namespace YAF.Core.Services
 
             try
             {
-                script = "{0}\r\n".FormatWith(File.ReadAllText(fileName));
+                script = $"{File.ReadAllText(fileName)}\r\n";
             }
             catch (FileNotFoundException)
             {
@@ -451,7 +451,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                throw new IOException("Failed to read {0}".FormatWith(fileName), x);
+                throw new IOException($"Failed to read {fileName}", x);
             }
 
             this.Get<IDbFunction>().SystemInitializeExecutescripts(script, scriptFile, useTransactions);

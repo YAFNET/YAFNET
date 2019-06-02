@@ -598,7 +598,7 @@ namespace ServiceStack
 
         public Net45PclExport()
         {
-            this.PlatformName = "NET45 " + Environment.OSVersion.Platform.ToString();
+            this.PlatformName = "NET45 " + Environment.OSVersion.Platform;
         }
 
         public new static void Configure()

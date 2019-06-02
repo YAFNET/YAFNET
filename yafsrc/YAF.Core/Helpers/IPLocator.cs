@@ -87,7 +87,7 @@ namespace YAF.Core
 
             try
             {
-                var path = YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.FormatWith(Utils.Helpers.IPHelper.GetIp4Address(ip));
+                var path = string.Format(YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath, Utils.Helpers.IPHelper.GetIp4Address(ip));
                 var client = new WebClient();
                 var result = client.DownloadString(path).Split(';');
                 var sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');

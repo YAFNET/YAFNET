@@ -77,7 +77,7 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public string Treat(string key)
     {
-      return "{0}${1}".FormatWith(key, this.HaveBoardId.BoardID);
+      return $"{key}${this.HaveBoardId.BoardID}";
     }
 
     #endregion

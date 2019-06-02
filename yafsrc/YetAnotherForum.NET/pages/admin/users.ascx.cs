@@ -233,9 +233,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_USERS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_USERS", "TITLE")}";
         }
 
         /// <summary>
@@ -441,24 +440,25 @@ namespace YAF.Pages.Admin
                     if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
                     {
                         dv.RowFilter =
-                            "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'".FormatWith(
+                            string.Format(
+                                "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'",
                                 this.name.Text.Trim(),
-                                this.Email.Text.Trim());
+                                    this.Email.Text.Trim());
                     }
 
                     // filter by date of registration
                     if (sinceValue != 9999)
                     {
-                        dv.RowFilter += "{1}Joined > '{0}'".FormatWith(
+                        dv.RowFilter += string.Format(
+                            "{1}Joined > '{0}'",
                             sinceDate.ToString(CultureInfo.InvariantCulture),
-                            dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
+                                dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
                     }
 
                     // show only suspended ?
                     if (this.SuspendedOnly.Checked)
                     {
-                        dv.RowFilter += "{0}Suspended is not null".FormatWith(
-                            dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
+                        dv.RowFilter += $"{(dv.RowFilter.IsNotSet() ? string.Empty : " AND ")}Suspended is not null";
                     }
 
                     // set pager and data source
@@ -604,8 +604,7 @@ namespace YAF.Pages.Admin
 
             this.Response.AppendHeader(
                 "Content-Disposition",
-                "attachment; filename=YafUsersExport-{0}.csv".FormatWith(
-                    HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                $"attachment; filename=YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.csv");
 
             var sw = new StreamWriter(this.Response.OutputStream);
 
@@ -660,8 +659,7 @@ namespace YAF.Pages.Admin
 
             this.Response.AppendHeader(
                 "Content-Disposition",
-                "attachment; filename=YafUsersExport-{0}.xml".FormatWith(
-                    HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                $"attachment; filename=YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
             usersList.DataSet.WriteXml(this.Response.OutputStream);
 

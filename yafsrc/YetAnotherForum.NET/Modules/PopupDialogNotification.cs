@@ -47,7 +47,7 @@ namespace YAF.Modules
         /// <summary>
         ///   Gets ShowModalFunction.
         /// </summary>
-        public string ShowModalFunction => "ShowPopupDialogNotification{0}".FormatWith(this.ClientID);
+        public string ShowModalFunction => $"ShowPopupDialogNotification{this.ClientID}";
 
         #endregion
 
@@ -56,7 +56,8 @@ namespace YAF.Modules
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // add js for client-side error settings...
-            var javaScriptFunction = @"function {0}(newErrorStr, newErrorType, script) {{ if (newErrorStr != null && newErrorStr != """") {{
+            var javaScriptFunction =
+                $@"function {this.ShowModalFunction}(newErrorStr, newErrorType, script) {{ if (newErrorStr != null && newErrorStr != """") {{
                       var iconFA = '';
 
                       if (newErrorType == 'warning') {{
@@ -84,19 +85,18 @@ namespace YAF.Modules
                             }},
                             {{
                                   type: newErrorType,
-                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {1} * 1000
-                        }});}} }}".FormatWith(
-                this.ShowModalFunction,
-                this.Get<YafBoardSettings>().MessageNotifcationDuration);
+                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<YafBoardSettings>().MessageNotifcationDuration} * 1000
+                        }});}} }}";
 
             // Override Notification Setting if Mobile Device is used
             if (this.Get<YafBoardSettings>().NotifcationNativeOnMobile
                 && this.Get<HttpRequestBase>().Browser.IsMobileDevice)
             {
                 // Show as Modal Dialog
-                javaScriptFunction = @"function {0}(newErrorStr) {{  if (newErrorStr != null && newErrorStr != """") {{
+                javaScriptFunction =
+                    $@"function {this.ShowModalFunction}(newErrorStr) {{  if (newErrorStr != null && newErrorStr != """") {{
                                                     alert(newErrorStr);
-                      }} }}".FormatWith(this.ShowModalFunction);
+                      }} }}";
             }
 
             YafContext.Current.PageElements.RegisterJsBlock(this, this.ShowModalFunction, javaScriptFunction);

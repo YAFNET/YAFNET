@@ -108,9 +108,9 @@ namespace YAF.Pages
             var dirName = e.Item.FindControl("dirName") as LinkButton;
             dirName.CommandArgument = directory + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
             dirName.Text =
-                @"<p style=""text-align:center""><i class=""far fa-folder"" alt=""{0}"" title=""{0}"" style=""font-size:50px"" /></i><br />{0}</p>"
-                    .FormatWith(
-                        Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+                string
+                    .Format(
+                        @"<p style=""text-align:center""><i class=""far fa-folder"" alt=""{0}"" title=""{0}"" style=""font-size:50px"" /></i><br />{0}</p>", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
         }
 
         /// <summary>
@@ -147,23 +147,24 @@ namespace YAF.Pages
                             ForumPages.admin_edituser,
                             "u={0}&av={1}",
                             this.returnUserID,
-                            this.Server.UrlEncode("{0}/{1}".FormatWith(directoryPath, encodedFileName)));
+                            this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
                     }
                     else
                     {
                         link = YafBuildLink.GetLink(
                             ForumPages.cp_editavatar,
                             "av={0}",
-                            this.Server.UrlEncode("{0}/{1}".FormatWith(directoryPath, encodedFileName)));
+                            this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
                     }
 
                     fname.Text =
-                        @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}"
-                            .FormatWith(
+                        string
+                            .Format(
+                                @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}",
                                 link,
-                                "{0}/{1}".FormatWith(directoryPath, finfo.Name),
-                                finfo.Name,
-                                Environment.NewLine);
+                                $"{directoryPath}/{finfo.Name}",
+                                    finfo.Name,
+                                    Environment.NewLine);
                 }
             }
 
@@ -177,10 +178,9 @@ namespace YAF.Pages
 
             var up = e.Item.FindControl("up") as LinkButton;
             up.CommandArgument = previousDirectory;
-            up.Text =
-                @"<p style=""text-align:center"">
+            up.Text = $@"<p style=""text-align:center"">
                      <i class=""far fa-folder-open""style=""font-size:50px""></i><br />
-                     <button type=""button"" class=""btn btn-primary btn-sm""><i class=""fas fa-arrow-left""></i>&nbsp;{0}</button></p>".FormatWith(this.GetText("UP"));
+                     <button type=""button"" class=""btn btn-primary btn-sm""><i class=""fas fa-arrow-left""></i>&nbsp;{this.GetText("UP")}</button></p>";
             up.ToolTip = this.GetText("UP_TITLE");
 
             // Hide if Top Folder

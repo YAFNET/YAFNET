@@ -157,9 +157,7 @@ namespace YAF.Core.Services
                             this.Logger.Log(
                                 null,
                                 this,
-                                "Invalid Email Address: {0}, Exception: {1}".FormatWith(
-                                    mailMessages[message].ToUser,
-                                    ex.ToString()),
+                                $"Invalid Email Address: {mailMessages[message].ToUser}, Exception: {ex.ToString()}",
                                 EventLogTypes.Warning);
 #endif
                         }
@@ -171,11 +169,11 @@ namespace YAF.Core.Services
                                 this.Logger.Log(
                                     null,
                                     this,
-                                    "SendMailThread failed with an SmtpException (Email to: {1}, Subject: {2}): {0}"
-                                        .FormatWith(
-                                            ex.ToString(),
-                                            mailMessages[message].ToUser,
-                                            mailMessages[message].Subject),
+                                    string
+                                        .Format(
+                                            "SendMailThread failed with an SmtpException (Email to: {1}, Subject: {2}): {0}",
+                                            ex.ToString(),mailMessages[message].ToUser,
+                                                mailMessages[message].Subject),
                                     EventLogTypes.Warning);
 #endif
                             if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
@@ -213,7 +211,7 @@ namespace YAF.Core.Services
                             this.Logger.Log(
                                 null,
                                 this,
-                                "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
+                                $"Exception Thrown in SendMail Thread: {ex.ToString()}",
                                 EventLogTypes.Warning);
 #endif
                         }
@@ -229,7 +227,7 @@ namespace YAF.Core.Services
                 this.Logger.Log(
                     null,
                     this,
-                    "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
+                    $"Exception Thrown in SendMail Thread: {ex.ToString()}",
                     EventLogTypes.Warning);
 #endif
             }
@@ -288,12 +286,12 @@ namespace YAF.Core.Services
                     // incorrect email format -- delete this message immediately
                     this.MailRepository.Delete(mail);
 #if (DEBUG)
-                    this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
+                    this.Logger.Debug($"Invalid Email Address: {ex}", ex.ToString());
 #else
                     this.Logger.Log(
                         null,
                         this,
-                        "Invalid Email Address: {0}".FormatWith(ex.ToString()),
+                        $"Invalid Email Address: {ex.ToString()}",
                         EventLogTypes.Warning);
 #endif
                 }
@@ -321,7 +319,7 @@ namespace YAF.Core.Services
                 Thread.EndCriticalRegion();
             }
 
-            this.Logger.Debug("Retrieved {0} Queued Messages Process Id ({1})...".FormatWith(mailList.Count, this.UniqueProcessId));
+            this.Logger.Debug($"Retrieved {mailList.Count} Queued Messages Process Id ({this.UniqueProcessId})...");
 
             return mailList;
         }

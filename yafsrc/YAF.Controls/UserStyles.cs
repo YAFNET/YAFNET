@@ -66,7 +66,7 @@ namespace YAF.Controls
             }
 
             // writes starting tag
-            writer.WriteLine(@"<span class=""grouprankstyles"" id=""{0}"">".FormatWith(this.ClientID));
+            writer.WriteLine($@"<span class=""grouprankstyles"" id=""{this.ClientID}"">");
 
             var index = 1;
 
@@ -77,8 +77,7 @@ namespace YAF.Controls
                 if (styleElements.Length >= 2)
                 {
                     writer.WriteLine(
-                        "<span style=\"{0}\">{1}{2}</span>".FormatWith(
-                            styleElements[1], styleElements[0], (index++ == styles.Count) ? string.Empty : ", "));
+                        $"<span style=\"{styleElements[1]}\">{styleElements[0]}{((index++ == styles.Count) ? string.Empty : ", ")}</span>");
                 }
 
                 // write ending tag

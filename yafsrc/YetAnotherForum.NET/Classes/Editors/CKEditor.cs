@@ -104,8 +104,7 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "insertsmiley",
-                @"function insertAttachment(id,url) {{var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );}}"
-                    .FormatWith(this._textCtl.ClientID));
+                $@"function insertAttachment(id,url) {{var ckEditor = CKEDITOR.instances.{this._textCtl.ClientID}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );}}");
         }
 
         /// <summary>

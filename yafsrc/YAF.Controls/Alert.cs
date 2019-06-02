@@ -80,8 +80,8 @@ namespace YAF.Controls
             writer.WriteAttribute(
                 HtmlTextWriterAttribute.Class.ToString(),
                 this.Dismissing
-                    ? "text-break alert alert-{0} alert-dismissible fade show{1}".FormatWith(this.Type.ToString(), cssClass)
-                    : "text-break alert alert-{0}{1}".FormatWith(this.Type.ToString(), cssClass));
+                    ? $"text-break alert alert-{this.Type.ToString()} alert-dismissible fade show{cssClass}"
+                    : $"text-break alert alert-{this.Type.ToString()}{cssClass}");
 
             writer.WriteAttribute("role", "alert");
 

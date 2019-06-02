@@ -677,7 +677,7 @@ namespace ServiceStack.Host.HttpListener
                 public override string ToString()
                 {
                     return "ContentType " + ContentType + ", Name " + Name + ", Filename " + Filename + ", Start " +
-                        Start.ToString() + ", Length " + Length.ToString();
+                        this.Start + ", Length " + this.Length;
                 }
             }
 

@@ -74,7 +74,7 @@ namespace YAF.Core.Services.Cache
         /// </param>
         public void Handle(NewUserRegisteredEvent @event)
         {
-            this.DataCache.Remove(Constants.Cache.ActiveUserLazyData.FormatWith(@event.UserId));
+            this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
             this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
         }
 

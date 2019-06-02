@@ -174,29 +174,7 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(input, "input");
             CodeContracts.VerifyNotNull(forEachAction, "forEachAction");
 
-            foreach (var c in input)
-            {
-                forEachAction(c);
-            }
-        }
-
-        /// <summary>
-        /// Formats a string with the provided parameters
-        /// </summary>
-        /// <param name="s">
-        /// The s.
-        /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        /// <returns>
-        /// The formatted string
-        /// </returns>
-        [StringFormatMethod("s")]
-        [Obsolete("Use string interpolation instead")]
-        public static string FormatWith(this string s, params object[] args)
-        {
-            return s.IsNotSet() ? null : string.Format(s, args);
+            input.ForEach(forEachAction);
         }
 
         /// <summary>
@@ -372,10 +350,7 @@ namespace YAF.Types.Extensions
 
             var s = new StringBuilder();
 
-            foreach (var b in emailBytes)
-            {
-                s.Append(b.ToString("x2").ToLower());
-            }
+            emailBytes.ForEach(b => s.Append((string)b.ToString("x2").ToLower()));
 
             return s.ToString();
         }

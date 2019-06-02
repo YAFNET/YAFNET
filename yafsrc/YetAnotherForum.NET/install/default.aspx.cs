@@ -343,7 +343,7 @@ namespace YAF.Install
                     this.ManualConnectionInfoHolder,
                     this.lblConnectionDetailsManual,
                     "Connection Details",
-                    "Failed to connect:<br /><br />{0}".FormatWith(message),
+                    $"Failed to connect:<br /><br />{message}",
                     "error");
             }
             else
@@ -378,7 +378,7 @@ namespace YAF.Install
                     this.ConnectionInfoHolder,
                     this.lblConnectionDetails,
                     "Connection Details",
-                    "Failed to connect: {0}".FormatWith(message),
+                    $"Failed to connect: {message}",
                     "danger");
             }
             else
@@ -455,7 +455,7 @@ namespace YAF.Install
                     this.SmtpInfoHolder,
                     this.lblSmtpTestDetails,
                     "SMTP Test Details",
-                    "Failed to connect:<br /><br />{0}".FormatWith(x.Message),
+                    $"Failed to connect:<br /><br />{x.Message}",
                     "error");
             }
         }
@@ -734,8 +734,8 @@ namespace YAF.Install
 
                         this.CurrentVersionName.Text = version < 0
                                                            ? "New"
-                                                           : "{0} ({1})".FormatWith(versionName, version);
-                        this.UpgradeVersionName.Text = "{0} ({1})".FormatWith(YafForumInfo.AppVersionName, YafForumInfo.AppVersion);
+                                                           : $"{versionName} ({version})";
+                        this.UpgradeVersionName.Text = $"{YafForumInfo.AppVersionName} ({YafForumInfo.AppVersion})";
                     }
                     else
                     {
@@ -798,8 +798,7 @@ namespace YAF.Install
                     break;
                 default:
                     throw new ApplicationException(
-                        "Installation Wizard step not handled: {0}".FormatWith(
-                            this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID));
+                        $"Installation Wizard step not handled: {this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID}");
             }
         }
 
@@ -896,10 +895,11 @@ namespace YAF.Install
             infoHolder.Visible = true;
 
             detailsLiteral.Text =
-                "<div class=\"{0}Message\"><span class=\"{0}Label\">{1}</span> {2}</div>".FormatWith(
+                string.Format(
+                    "<div class=\"{0}Message\"><span class=\"{0}Label\">{1}</span> {2}</div>",
                     cssClass,
-                    detailsTitle,
-                    info);
+                        detailsTitle,
+                        info);
         }
 
         /// <summary>
@@ -1021,8 +1021,7 @@ namespace YAF.Install
                         out status);
                 if (status != MembershipCreateStatus.Success)
                 {
-                    this.ShowErrorMessage(
-                        "Create Admin User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(status)));
+                    this.ShowErrorMessage($"Create Admin User Failed: {this.GetMembershipErrorMessage(status)}");
                     return false;
                 }
             }
@@ -1044,19 +1043,19 @@ namespace YAF.Install
                 var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
 
                 // add administrators and registered if they don't already exist...
-                if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
+                if (!RoleMembershipHelper.RoleExists($"{prefix}Administrators"))
                 {
-                    RoleMembershipHelper.CreateRole("{0}Administrators".FormatWith(prefix));
+                    RoleMembershipHelper.CreateRole($"{prefix}Administrators");
                 }
 
-                if (!RoleMembershipHelper.RoleExists("{0}Registered".FormatWith(prefix)))
+                if (!RoleMembershipHelper.RoleExists($"{prefix}Registered"))
                 {
-                    RoleMembershipHelper.CreateRole("{0}Registered".FormatWith(prefix));
+                    RoleMembershipHelper.CreateRole($"{prefix}Registered");
                 }
 
-                if (!RoleMembershipHelper.IsUserInRole(user.UserName, "{0}Administrators".FormatWith(prefix)))
+                if (!RoleMembershipHelper.IsUserInRole(user.UserName, $"{prefix}Administrators"))
                 {
-                    RoleMembershipHelper.AddUserToRole(user.UserName, "{0}Administrators".FormatWith(prefix));
+                    RoleMembershipHelper.AddUserToRole(user.UserName, $"{prefix}Administrators");
                 }
 
                 // logout administrator...
@@ -1189,13 +1188,13 @@ namespace YAF.Install
                     var param =
                         this.DbAccess.Information.DbConnectionParameters.FirstOrDefault(p => p.ID == paramNumber);
 
-                    var label = this.FindControlRecursiveAs<Label>("Parameter{0}_Name".FormatWith(paramNumber));
+                    var label = this.FindControlRecursiveAs<Label>($"Parameter{paramNumber}_Name");
                     if (label != null)
                     {
                         label.Text = param != null ? param.Name : string.Empty;
                     }
 
-                    var control = this.FindControlRecursive("Parameter{0}_Value".FormatWith(paramNumber));
+                    var control = this.FindControlRecursive($"Parameter{paramNumber}_Value");
                     if (control is TextBox)
                     {
                         var textBox = control as TextBox;

@@ -998,7 +998,7 @@ namespace YAF.Core.Model
                 {
                     try
                     {
-                        var fileName = "{0}/{1}.{2}.yafupload".FormatWith(uploadDir, messageID, row["FileName"]);
+                        var fileName = $"{uploadDir}/{messageID}.{row["FileName"]}.yafupload";
 
                         if (File.Exists(fileName))
                         {

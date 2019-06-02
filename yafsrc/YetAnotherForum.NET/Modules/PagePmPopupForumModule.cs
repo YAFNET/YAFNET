@@ -115,7 +115,7 @@ namespace YAF.Modules
                       && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
                 {
                     notification.Show(
-                        this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
+                        string.Format(this.GetText("COMMON", "UNREAD_MSG2"), this.PageContext.UnreadPrivate),
                         this.GetText("COMMON", "UNREAD_MSG_TITLE"),
                         new DialogBox.DialogButton
                             {
@@ -139,7 +139,7 @@ namespace YAF.Modules
                 else
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate));
+                        string.Format(this.GetText("COMMON", "UNREAD_MSG"), this.PageContext.UnreadPrivate));
                 }
 
                 this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
@@ -158,7 +158,7 @@ namespace YAF.Modules
                   && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
             {
                 notification.Show(
-                    this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies),
+                    string.Format(this.GetText("BUDDY", "PENDINGBUDDIES2"), this.PageContext.PendingBuddies),
                     this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
                     new DialogBox.DialogButton
                         {
@@ -182,7 +182,7 @@ namespace YAF.Modules
             else
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies));
+                    string.Format(this.GetText("BUDDY", "PENDINGBUDDIES2"), this.PageContext.PendingBuddies));
             }
 
             this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;

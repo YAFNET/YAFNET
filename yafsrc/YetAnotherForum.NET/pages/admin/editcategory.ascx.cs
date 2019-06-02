@@ -80,8 +80,7 @@ namespace YAF.Pages.Admin
 
                 var dir =
                   new DirectoryInfo(
-                    this.Request.MapPath(
-                      "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Categories)));
+                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Categories}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -123,8 +122,8 @@ namespace YAF.Pages.Admin
             this.CreateImagesDataTable();
 
             this.CategoryImages.Attributes["onchange"] =
-                "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, this.Preview.ClientID, YafBoardFolders.Current.Categories);
+                string.Format(
+                    "getElementById('{1}').src='{0}{2}/' + this.value", YafForumInfo.ForumClientFileRoot,this.Preview.ClientID, YafBoardFolders.Current.Categories);
 
             this.BindData();
         }
@@ -140,10 +139,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("TEAM", "FORUMS"),
-                this.GetText("ADMIN_EDITCATEGORY", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")} - {this.GetText("ADMIN_EDITCATEGORY", "TITLE")}";
         }
 
         /// <summary>
@@ -204,7 +201,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.Preview.Src = "{0}Content/images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this.Preview.Src = $"{YafForumInfo.ForumClientFileRoot}Content/images/spacer.gif";
 
             if (this.Request.QueryString.GetFirstOrDefault("c") == null)
             {
@@ -242,10 +239,10 @@ namespace YAF.Pages.Admin
                 }
 
                 item.Selected = true;
-                this.Preview.Src = "{0}{2}/{1}".FormatWith(
-                    YafForumInfo.ForumClientFileRoot,
-                    category.CategoryImage,
-                    YafBoardFolders.Current.Categories);
+                this.Preview.Src = string.Format(
+                    "{0}{2}/{1}",
+                    YafForumInfo.ForumClientFileRoot,category.CategoryImage,
+                        YafBoardFolders.Current.Categories);
             }
         }
 

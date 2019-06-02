@@ -106,8 +106,7 @@ namespace YAF.Core.Tasks
             else
             {
                 failureMessage =
-                    "You can't delete forum while blocking {0} tasks are running.".FormatWith(
-                        BlockingTaskNames.ToDelimitedString(","));
+                    $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
                 return false;
             }
 
@@ -166,21 +165,19 @@ namespace YAF.Core.Tasks
                 if (this.ForumNewId.Equals(-1))
                 {
                     this.GetRepository<Forum>().Delete(this.ForumId);
-                    this.Logger.Info("Forum (ID: {0}) Delete Task Complete.".FormatWith(this.ForumId));
+                    this.Logger.Info($"Forum (ID: {this.ForumId}) Delete Task Complete.");
                 }
                 else
                 {
                     this.GetRepository<Forum>().Move(this.ForumId, this.ForumNewId);
 
                     this.Logger.Info(
-                        "Forum (ID: {0}) Delete Task Complete, and Topics has been moved to Forum (ID: {1})".FormatWith(
-                            this.ForumId,
-                            this.ForumNewId));
+                        $"Forum (ID: {this.ForumId}) Delete Task Complete, and Topics has been moved to Forum (ID: {this.ForumNewId})");
                 }
             }
             catch (Exception x)
             {
-                this.Logger.Error(x, "Error In (ID: {0}) Delete Task".FormatWith(this.ForumId));
+                this.Logger.Error(x, $"Error In (ID: {this.ForumId}) Delete Task");
             }
         }
 

@@ -53,10 +53,10 @@ namespace YAF.Core.URLBuilder
         /// </returns>
         public override string BuildUrl(string url)
         {
-            var newUrl = "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
+            var newUrl = $"{AppPath}{Config.ForceScriptName ?? ScriptName}?{url}";
 
             // create scriptName
-            var scriptName = "{0}{1}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName);
+            var scriptName = $"{AppPath}{Config.ForceScriptName ?? ScriptName}";
 
             // get the base script file from the config -- defaults to, well, default.aspx :)
             var scriptFile = Config.BaseScriptFile;
@@ -172,20 +172,17 @@ namespace YAF.Core.URLBuilder
 
                             if (parser["f"].IsSet())
                             {
-                                description +=
-                                    "_{0}".FormatWith(UrlRewriteHelper.GetForumName(parser["f"].ToType<int>()));
+                                description += $"_{UrlRewriteHelper.GetForumName(parser["f"].ToType<int>())}";
                             }
 
                             if (parser["t"].IsSet())
                             {
-                                description +=
-                                    "_{0}".FormatWith(UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>()));
+                                description += $"_{UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>())}";
                             }
 
                             if (parser["c"].IsSet())
                             {
-                                description +=
-                                    "_{0}".FormatWith(UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>()));
+                                description += $"_{UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>())}";
                             }
 
                             if (parser["ft"].IsSet())
@@ -221,7 +218,7 @@ namespace YAF.Core.URLBuilder
 
                     if (page != 1)
                     {
-                        description += "/page{0}".FormatWith(page);
+                        description += $"/page{page}";
                     }
 
                     parser.Parameters.Remove("p");
@@ -232,28 +229,28 @@ namespace YAF.Core.URLBuilder
                     if (parser["ft"] != null)
                     {
                         var page = parser["ft"].ToType<int>();
-                        newUrl += "ft{0}".FormatWith(page);
+                        newUrl += $"ft{page}";
                         parser.Parameters.Remove("ft");
                     }
 
                     if (parser["f"] != null)
                     {
                         var page = parser["f"].ToType<int>();
-                        newUrl += "f{0}".FormatWith(page);
+                        newUrl += $"f{page}";
                         parser.Parameters.Remove("f");
                     }
 
                     if (parser["t"] != null)
                     {
                         var page = parser["t"].ToType<int>();
-                        newUrl += "t{0}".FormatWith(page);
+                        newUrl += $"t{page}";
                         parser.Parameters.Remove("t");
                     }
                 }
 
                 if (parser["find"] != null)
                 {
-                    newUrl += "find{0}".FormatWith(parser["find"].Trim());
+                    newUrl += $"find{parser["find"].Trim()}";
                     parser.Parameters.Remove("find");
                 }
 
@@ -264,7 +261,7 @@ namespace YAF.Core.URLBuilder
                         description = description.Remove(description.Length - 1, 1);
                     }
 
-                    newUrl += "-{0}".FormatWith(description);
+                    newUrl += $"-{description}";
                 }
 
                 var restUrl = parser.CreateQueryString(new[] { "g", useKey, "name" });
@@ -272,7 +269,7 @@ namespace YAF.Core.URLBuilder
                 // append to the url if there are additional (unsupported) parameters
                 if (restUrl.Length > 0)
                 {
-                    newUrl += "?{0}".FormatWith(restUrl);
+                    newUrl += $"?{restUrl}";
                 }
 
                 if (newUrl.EndsWith("/forum"))
@@ -284,7 +281,7 @@ namespace YAF.Core.URLBuilder
                 // add anchor
                 if (parser.HasAnchor)
                 {
-                    newUrl += "#{0}".FormatWith(parser.Anchor);
+                    newUrl += $"#{parser.Anchor}";
                 }
             }
 

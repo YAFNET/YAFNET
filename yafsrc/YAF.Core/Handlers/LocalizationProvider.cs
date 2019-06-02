@@ -168,9 +168,9 @@ namespace YAF.Core
                 catch (Exception ex)
                 {
                     YafContext.Current.Get<ILogger>()
-                              .Error(ex, "Error In Loading User Language for UserID {0}".FormatWith(YafContext.Current.PageUserID));
+                              .Error(ex, $"Error In Loading User Language for UserID {YafContext.Current.PageUserID}");
 
-                    throw new ApplicationException(string.Format("Error getting User Language.{0}{1}", Environment.NewLine, ex));
+                    throw new ApplicationException($"Error getting User Language.{Environment.NewLine}{ex}");
                 }
 
 #else

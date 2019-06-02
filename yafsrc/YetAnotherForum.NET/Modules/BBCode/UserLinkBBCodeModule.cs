@@ -63,7 +63,7 @@ namespace YAF.Modules
                                        UserID = userId.ToType<int>(),
                                        CssClass = "btn btn-outline-primary",
                                        BlankTarget = true,
-                                       ID = "UserLinkBBCodeFor{0}".FormatWith(userId)
+                                       ID = $"UserLinkBBCodeFor{userId}"
                                    };
 
                 stringBuilder.AppendLine("<!-- BEGIN userlink -->");

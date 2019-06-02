@@ -110,13 +110,15 @@ namespace YAF.Editors
                 this.ResolveUrl("yafEditor/yafEditor.min.js"));
 #endif
 
-            YafContext.Current.PageElements.RegisterJsBlock("CreateYafEditorJs", @"var {0}=new yafEditor('{0}');
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "CreateYafEditorJs",
+                $@"var {this.SafeID}=new yafEditor('{this.SafeID}');
                   function setStyle(style,option) {{
-                           {0}.FormatText(style,option);
+                           {this.SafeID}.FormatText(style,option);
                   }}
                   function insertAttachment(id,url) {{
-                           {0}.FormatText('attach', id);
-                  }}".FormatWith(this.SafeID));
+                           {this.SafeID}.FormatText('attach', id);
+                  }}");
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use
@@ -133,7 +135,7 @@ namespace YAF.Editors
             base.OnInit(e);
             this._textCtl.Attributes.Add("class", "BBCodeEditor form-control");
 
-            // add popmenu Albums to this mix...
+            // add PopMenu Albums to this mix...
             this.popMenuAlbums = new AlbumListPopMenu();
             this.Controls.Add(this.popMenuAlbums);
         }
@@ -146,7 +148,7 @@ namespace YAF.Editors
         {
             if (this.UserCanUpload)
             {
-                // add popmenu Attachments to this mix...
+                // add PopMenu Attachments to this mix...
                 this.popMenuAttachments = new AttachmentsPopMenu();
                 this.Controls.Add(this.popMenuAttachments);
             }
@@ -162,11 +164,7 @@ namespace YAF.Editors
             writer.Write("</div>");
             writer.Write("<div class=\"btn-group mr-2\" role =\"group\">");
 
-            RenderButton(
-                writer,
-                "setStyle('highlight','')",
-                this.GetText("COMMON", "TT_HIGHLIGHT"),
-                "pen-square");
+            RenderButton(writer, "setStyle('highlight','')", this.GetText("COMMON", "TT_HIGHLIGHT"), "pen-square");
 
             writer.Write("</div>");
 
@@ -180,73 +178,37 @@ namespace YAF.Editors
             RenderButton(writer, "setStyle('quote','')", this.GetText("COMMON", "TT_QUOTE"), "quote-left");
 
             // add drop down for optional "extra" codes...
-            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+            writer.WriteLine(
+                @"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-code fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "TT_CODE")));
+                  <i class=""fa fa-code fa-fw""></i></button>",
+                this.GetText("COMMON", "TT_CODE"));
 
             var highLightList = new List<HighLightList>
                                     {
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "markup",
-                                                BrushName = "Plain Text"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "bash",
-                                                BrushName = "Bash(shell)"
-                                            },
+                                        new HighLightList { BrushAlias = "markup", BrushName = "Plain Text" },
+                                        new HighLightList { BrushAlias = "bash", BrushName = "Bash(shell)" },
                                         new HighLightList { BrushAlias = "c", BrushName = "C" },
                                         new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "csharp",
-                                                BrushName = "C#"
-                                            },
+                                        new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
                                         new HighLightList { BrushAlias = "css", BrushName = "CSS" },
                                         new HighLightList { BrushAlias = "git", BrushName = "Git" },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "markup",
-                                                BrushName = "HTML"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "java",
-                                                BrushName = "Java"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "javascript",
-                                                BrushName = "JavaScript"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "python",
-                                                BrushName = "Python"
-                                            },
+                                        new HighLightList { BrushAlias = "markup", BrushName = "HTML" },
+                                        new HighLightList { BrushAlias = "java", BrushName = "Java" },
+                                        new HighLightList { BrushAlias = "javascript", BrushName = "JavaScript" },
+                                        new HighLightList { BrushAlias = "python", BrushName = "Python" },
                                         new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "markup",
-                                                BrushName = "XML"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "vb",
-                                                BrushName = "Visual Basic"
-                                            }
+                                        new HighLightList { BrushAlias = "markup", BrushName = "XML" },
+                                        new HighLightList { BrushAlias = "vb", BrushName = "Visual Basic" }
                                     };
 
             writer.Write("<div class=\"dropdown-menu\">");
 
-            foreach (var item in highLightList)
-            {
-                writer.WriteLine(
+            highLightList.ForEach(
+                item => writer.WriteLine(
                     @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('codelang','{0}')"">{1}</a>",
                     item.BrushAlias,
-                    item.BrushName);
-            }
+                    item.BrushName));
 
             writer.Write("</div>");
             writer.Write("</div>");
@@ -255,13 +217,14 @@ namespace YAF.Editors
 
             RenderButton(writer, "setStyle('img','')", this.GetText("COMMON", "TT_IMAGE"), "image");
 
-            if (this.Get<YafBoardSettings>().EnableAlbum
-                && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0) && !this.PageContext.CurrentForumPage.IsAdminPage)
+            if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0) && !this.PageContext.CurrentForumPage.IsAdminPage)
             {
                 // add drop down for optional "extra" codes...
-                writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle albums-toggle"" title=""{0}""
+                writer.WriteLine(
+                    @"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle albums-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-image fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "ALBUMIMG_CODE")));
+                  <i class=""fa fa-image fa-fw""></i></button>",
+                    this.GetText("COMMON", "ALBUMIMG_CODE"));
 
                 writer.Write("<div class=\"dropdown-menu\">");
 
@@ -278,9 +241,11 @@ namespace YAF.Editors
                 writer.Write("<div class=\"btn-group\" role =\"group\">");
 
                 // add drop down for optional "extra" codes...
-                writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle attachments-toggle"" title=""{0}""
+                writer.WriteLine(
+                    @"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle attachments-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-paperclip fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "ATTACH_BBCODE")));
+                  <i class=""fa fa-paperclip fa-fw""></i></button>",
+                    this.GetText("COMMON", "ATTACH_BBCODE"));
 
                 writer.Write("<div class=\"dropdown-menu\">");
 
@@ -298,11 +263,7 @@ namespace YAF.Editors
             writer.Write("</div>");
             writer.Write("<div class=\"btn-group  mr-2\" role =\"group\">");
 
-            RenderButton(
-                writer,
-                "setStyle('unorderedlist','')",
-                this.GetText("COMMON", "TT_LISTUNORDERED"),
-                "list-ul");
+            RenderButton(writer, "setStyle('unorderedlist','')", this.GetText("COMMON", "TT_LISTUNORDERED"), "list-ul");
 
             RenderButton(writer, "setStyle('orderedlist','')", this.GetText("COMMON", "TT_LISTORDERED"), "list-ol");
 
@@ -311,17 +272,9 @@ namespace YAF.Editors
 
             RenderButton(writer, "setStyle('justifyleft','')", this.GetText("COMMON", "TT_ALIGNLEFT"), "align-left");
 
-            RenderButton(
-                writer,
-                "setStyle('justifycenter','')",
-                this.GetText("COMMON", "TT_ALIGNCENTER"),
-                "align-center");
+            RenderButton(writer, "setStyle('justifycenter','')", this.GetText("COMMON", "TT_ALIGNCENTER"), "align-center");
 
-            RenderButton(
-                writer,
-                "setStyle('justifyright','')",
-                this.GetText("COMMON", "TT_ALIGNRIGHT"),
-                "align-right");
+            RenderButton(writer, "setStyle('justifyright','')", this.GetText("COMMON", "TT_ALIGNRIGHT"), "align-right");
 
             writer.Write("</div>");
             writer.Write("<div class=\"btn-group  mr-2\" role =\"group\">");
@@ -346,18 +299,11 @@ namespace YAF.Editors
                     {
                         var name = row.Name;
 
-                        /*if (row.Description.IsSet())
-                        {
-                            // use the description as the option "name"
-                            name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
-                        }*/
-
-                        var onclickJs = row.OnClickJS.IsSet()
-                                            ? row.OnClickJS
-                                            : "setStyle('{0}','')".FormatWith(row.Name.Trim());
+                        var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
                         //writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>", onclickJs, name);sds
-                        writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm"" onload=""Button_Load(this)"" onclick=""{2}"" title=""{1}""{3}>
+                        writer.WriteLine(
+                            @"<button type=""button"" class=""btn btn-secondary btn-sm"" onload=""Button_Load(this)"" onclick=""{2}"" title=""{1}""{3}>
                   <i class=""fab fa-{0} fa-fw""></i></button>",
                             row.Name.ToLower(),
                             this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim()),
@@ -367,9 +313,11 @@ namespace YAF.Editors
                 }
 
                 // add drop down for optional "extra" codes...
-                writer.WriteLine(@"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+                writer.WriteLine(
+                    @"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-plug fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "CUSTOM_BBCODE")));
+                  <i class=""fa fa-plug fa-fw""></i></button>",
+                    this.GetText("COMMON", "CUSTOM_BBCODE"));
 
                 writer.Write("<div class=\"dropdown-menu fill-width\">");
 
@@ -383,9 +331,7 @@ namespace YAF.Editors
                         name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
                     }
 
-                    var onclickJs = row.OnClickJS.IsSet()
-                                        ? row.OnClickJS
-                                        : "setStyle('{0}','')".FormatWith(row.Name.Trim());
+                    var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
                     writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>", onclickJs, name);
                 }
@@ -398,25 +344,17 @@ namespace YAF.Editors
             writer.Write("<div class=\"btn-group\" role =\"group\">");
 
             // add drop down for optional "extra" codes...
-            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+            writer.WriteLine(
+                @"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-font fa-fw""></i> {0}</button>".FormatWith(this.GetText("COMMON", "FONT_COLOR")));
+                  <i class=""fa fa-font fa-fw""></i> {0}</button>",
+                this.GetText("COMMON", "FONT_COLOR"));
 
             writer.Write("<div class=\"dropdown-menu editorColorMenu\">");
 
-            string[] colors =
-                {
-                    "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue",
-                    "Dark Blue", "Indigo", "Violet", "White", "Black"
-                };
+            string[] colors = { "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo", "Violet", "White", "Black" };
 
-            foreach (var color in colors)
-            {
-                writer.WriteLine(
-                    @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0}"">{1}</a>",
-                    color.Replace(" ", string.Empty).ToLower(),
-                    color);
-            }
+            colors.ForEach(color => writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0}"">{1}</a>", color.Replace(" ", string.Empty).ToLower(), color));
 
             writer.Write("</div>");
 
@@ -424,18 +362,17 @@ namespace YAF.Editors
             writer.Write("<div class=\"btn-group\" role =\"group\">");
 
             // add drop down for optional "extra" codes...
-            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+            writer.WriteLine(
+                @"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-font fa-fw""></i> {0}</button>".FormatWith(this.GetText("COMMON", "FONT_SIZE")));
+                  <i class=""fa fa-font fa-fw""></i> {0}</button>",
+                this.GetText("COMMON", "FONT_SIZE"));
 
             writer.Write("<div class=\"dropdown-menu\">");
 
             for (var index = 1; index < 9; index++)
             {
-                writer.WriteLine(
-                    @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('fontsize', {0});"">{1}</a>",
-                    index,
-                    index.Equals(5) ? "Default" : index.ToString());
+                writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('fontsize', {0});"">{1}</a>", index, index.Equals(5) ? "Default" : index.ToString());
             }
 
             writer.Write("</div>");
@@ -465,7 +402,7 @@ namespace YAF.Editors
                 icon,
                 title,
                 command,
-                id.IsSet() ? @" id=""{0}""".FormatWith(id) : string.Empty);
+                id.IsSet() ? $@" id=""{id}""" : string.Empty);
         }
 
         #endregion

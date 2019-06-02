@@ -106,7 +106,7 @@ namespace YAF.Data.MsSql.Functions
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             dbAccess.Execute(
-                db => db.Connection.ExecuteSql("DBCC SHRINKDATABASE(N'{0}')".FormatWith(db.Connection.Database)));
+                db => db.Connection.ExecuteSql($"DBCC SHRINKDATABASE(N'{db.Connection.Database}')"));
         }
 
         public static string ReIndexDatabase(this IDbAccess dbAccess)
@@ -189,7 +189,7 @@ namespace YAF.Data.MsSql.Functions
                         {
                             trans.Rollback();
                             throw new Exception(
-                                "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}".FormatWith(scriptFile, sql, x.Message));
+                                string.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message));
                         }
                     }
 
@@ -222,7 +222,7 @@ namespace YAF.Data.MsSql.Functions
                     catch (Exception x)
                     {
                         throw new Exception(
-                            "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}".FormatWith(scriptFile, sql, x.Message));
+                            string.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message));
                     }
                 }
             }
@@ -263,15 +263,13 @@ namespace YAF.Data.MsSql.Functions
                                 cmd.CommandType = CommandType.Text;
                                 foreach (var row in dt.Select("IsProcedure=1 or IsScalarFunction=1"))
                                 {
-                                    cmd.CommandText =
-                                        "grant execute on \"{0}\" to \"{1}\"".FormatWith(row["Name"], userName);
+                                    cmd.CommandText = $"grant execute on \"{row["Name"]}\" to \"{userName}\"";
                                     cmd.ExecuteNonQuery();
                                 }
 
                                 foreach (var row in dt.Select("IsUserTable=1 or IsView=1"))
                                 {
-                                    cmd.CommandText =
-                                        "grant select,update on \"{0}\" to \"{1}\"".FormatWith(row["Name"], userName);
+                                    cmd.CommandText = $"grant select,update on \"{row["Name"]}\" to \"{userName}\"";
                                     cmd.ExecuteNonQuery();
                                 }
                             }
@@ -328,9 +326,8 @@ namespace YAF.Data.MsSql.Functions
         {
             try
             {
-                var recoveryModeSql = "ALTER DATABASE {0} SET RECOVERY {1}".FormatWith(
-                    dbAccess.CreateConnectionOpen().Database,
-                    recoveryMode);
+                var recoveryModeSql =
+                    $"ALTER DATABASE {dbAccess.CreateConnectionOpen().Database} SET RECOVERY {recoveryMode}";
 
                 using (var cmd = dbAccess.GetCommand(recoveryModeSql, CommandType.Text))
                 {
@@ -345,7 +342,7 @@ namespace YAF.Data.MsSql.Functions
                     expressDb = "MS SQL Server Express Editions are not supported by the application.";
                 }
 
-                return "\r\n{0}\r\n{1}".FormatWith(error.Message, expressDb);
+                return $"\r\n{error.Message}\r\n{expressDb}";
             }
         }
 

@@ -335,8 +335,8 @@ namespace YAF.Pages
                 text, new MessageFlags(flags), altItem, 4000);
 
             return
-                @"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" /></a></td></tr><table>"
-                    .FormatWith(text, link, imgUrl, imgAlt, linkName);
+                string
+                    .Format(@"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" /></a></td></tr><table>", text, link, imgUrl, imgAlt, linkName);
         }
 
         /// <summary>
@@ -454,14 +454,8 @@ namespace YAF.Pages
                             false),
                         null,
                         messageLink,
-                        "urn:{0}:ft{1}:st{2}:span{3}:ltid{4}:lmid{5}:{6}".FormatWith(
-                            urlAlphaNum,
-                            feedNameAlphaNum,
-                            feedType,
-                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                            row["LinkTopicID"],
-                            row["LastMessageID"],
-                            this.PageContext.PageBoardID).Unidecode(),
+                        $"urn:{urlAlphaNum}:ft{feedNameAlphaNum}:st{feedType}:span{(atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt())}:ltid{row["LinkTopicID"]}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
+                            .Unidecode(),
                         lastPosted,
                         feed);
                 }
@@ -546,7 +540,7 @@ namespace YAF.Pages
                     new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase)
                         .Replace(toFavText, string.Empty);
                 feed = new YafSyndicationFeed(
-                    "{0} - {1}".FormatWith(this.GetText("MYTOPICS", "FAVORITETOPICS"), toFavText),
+                    $"{this.GetText("MYTOPICS", "FAVORITETOPICS")} - {toFavText}",
                     feedType,
                     atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                     urlAlphaNum);
@@ -585,14 +579,8 @@ namespace YAF.Pages
                             false),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["LinkTopicID"]),
-                        "urn:{0}:ft{1}:st{2}:span{3}:ltid{4}:lmid{5}:{6}".FormatWith(
-                            urlAlphaNum,
-                            feedType,
-                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                            feedNameAlphaNum,
-                            row["LinkTopicID"].ToType<int>(),
-                            row["LastMessageID"],
-                            this.PageContext.PageBoardID).Unidecode(),
+                        $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt())}:span{feedNameAlphaNum}:ltid{row["LinkTopicID"].ToType<int>()}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
+                            .Unidecode(),
                         lastPosted,
                         feed);
                 }
@@ -669,13 +657,8 @@ namespace YAF.Pages
                         this.HtmlEncode(row["Description"].ToString()),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
-                        "urn:{0}:ft{1}:st{2}:fid{3}:lmid{4}:{5}".FormatWith(
-                            urlAlphaNum,
-                            feedType,
-                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                            row["ForumID"],
-                            row["LastMessageID"],
-                            this.PageContext.PageBoardID).Unidecode(),
+                        $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt())}:fid{row["ForumID"]}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
+                            .Unidecode(),
                         lastPosted,
                         feed);
                 }
@@ -738,13 +721,8 @@ namespace YAF.Pages
                     null,
                     YafBuildLink.GetLinkNotEscaped(
                         ForumPages.posts, true, "t={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")),
-                    "urn:{0}:ft{1}:st{2}:tid{3}:lmid{4}:{5}".FormatWith(
-                        urlAlphaNum,
-                        feedType,
-                        atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"),
-                        row["LastMessageID"],
-                        this.PageContext.PageBoardID).Unidecode(),
+                    $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt())}:tid{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t")}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
+                        .Unidecode(),
                     lastPosted,
                     feed);
             }
@@ -775,11 +753,7 @@ namespace YAF.Pages
                     select
                         new SyndicationLink(
                         new Uri(
-                        "{0}{1}resource.ashx?a={2}&b={3}".FormatWith(
-                            YafForumInfo.ForumBaseUrl,
-                            YafForumInfo.ForumClientFileRoot.TrimStart('/'),
-                            attachment.ID,
-                            this.PageContext.PageBoardID)),
+                            $"{YafForumInfo.ForumBaseUrl}{YafForumInfo.ForumClientFileRoot.TrimStart('/')}resource.ashx?a={attachment.ID}&b={this.PageContext.PageBoardID}"),
                         "enclosure",
                         attachment.FileName,
                         attachment.ContentType,
@@ -877,13 +851,8 @@ namespace YAF.Pages
                             null,
                             YafBuildLink.GetLinkNotEscaped(
                                 ForumPages.posts, true, "t={0}", row["TopicID"].ToType<int>()),
-                            "urn:{0}:ft{1}:st{2}:tid{3}:mid{4}:{5}".FormatWith(
-                                urlAlphaNum,
-                                feedType,
-                                atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                                row["TopicID"],
-                                row["LastMessageID"],
-                                this.PageContext.PageBoardID).Unidecode(),
+                            $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt())}:tid{row["TopicID"]}:mid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
+                                .Unidecode(),
                             lastPosted,
                             feed);
                     }
@@ -965,10 +934,7 @@ namespace YAF.Pages
 
                 feed =
                     new YafSyndicationFeed(
-                        "{0}{1} - {2}".FormatWith(
-                            this.GetText("PROFILE", "TOPIC"),
-                            this.PageContext.PageTopicName,
-                            this.Get<YafBoardSettings>().PostsPerPage),
+                        $"{this.GetText("PROFILE", "TOPIC")}{this.PageContext.PageTopicName} - {this.Get<YafBoardSettings>().PostsPerPage}",
                         feedType,
                         atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                         urlAlphaNum);
@@ -1003,12 +969,8 @@ namespace YAF.Pages
                             row["Message"].ToString(), new MessageFlags(row["Flags"]), altItem, 4000),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}&find=lastpost", row["MessageID"]),
-                        "urn:{0}:ft{1}:st{2}:meid{3}:{4}".FormatWith(
-                            urlAlphaNum,
-                            feedType,
-                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                            row["MessageID"],
-                            this.PageContext.PageBoardID).Unidecode(),
+                        $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt())}:meid{row["MessageID"]}:{this.PageContext.PageBoardID}"
+                            .Unidecode(),
                         posted,
                         feed,
                         attachementLinks);
@@ -1058,7 +1020,7 @@ namespace YAF.Pages
                 var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
                 feed = new YafSyndicationFeed(
-                    "{0}:{1}".FormatWith(this.GetText("DEFAULT", "FORUM"), this.PageContext.PageForumName),
+                    $"{this.GetText("DEFAULT", "FORUM")}:{this.PageContext.PageForumName}",
                     feedType,
                     atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                     urlAlphaNum);
@@ -1095,13 +1057,8 @@ namespace YAF.Pages
                             false),
                         null,
                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", row["TopicID"]),
-                        "urn:{0}:ft{1}:st{2}:tid{3}:lmid{4}:{5}".FormatWith(
-                            urlAlphaNum,
-                            feedType,
-                            atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
-                            row["TopicID"],
-                            row["LastMessageID"],
-                            this.PageContext.PageBoardID).Unidecode(),
+                        $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt())}:tid{row["TopicID"]}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
+                            .Unidecode(),
                         lastPosted,
                         feed);
                 }
@@ -1134,15 +1091,12 @@ namespace YAF.Pages
             }
 
             var topicsNew = dt.Copy();
-            foreach (
-                var thisTableRow in
-                    topicsNew.Rows.Cast<DataRow>().Where(
-                        thisTableRow =>
-                        thisTableRow[fieldName] != DBNull.Value
-                        && thisTableRow[fieldName].ToType<DateTime>() <= cleanToDate))
-            {
-                thisTableRow.Delete();
-            }
+
+            topicsNew.Rows.Cast<DataRow>()
+                .Where(
+                    thisTableRow => thisTableRow[fieldName] != DBNull.Value
+                                    && thisTableRow[fieldName].ToType<DateTime>() <= cleanToDate)
+                .ForEach(thisTableRow => thisTableRow.Delete());
 
             // styled nicks
             topicsNew.AcceptChanges();

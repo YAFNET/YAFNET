@@ -76,7 +76,7 @@ namespace YAF.Types.Extensions
 
             var p = cmd.CreateParameter();
 
-            p.ParameterName = "{0}".FormatWith(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString());
+            p.ParameterName = $"{(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString())}";
 
             if (item == null)
             {

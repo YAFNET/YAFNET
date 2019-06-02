@@ -244,10 +244,7 @@ namespace YAF
         /// </param>
         public void FirePageTitleSet([NotNull] object sender, [NotNull] ForumPageTitleArgs e)
         {
-            if (this.PageTitleSet != null)
-            {
-                this.PageTitleSet(this, e);
-            }
+            this.PageTitleSet?.Invoke(this, e);
         }
 
         #endregion
@@ -279,13 +276,9 @@ namespace YAF
             // wrap the forum in one main div and then a page div for better CSS selection
             writer.WriteLine();
 
-            writer.Write(
-                 @"<div class=""yaf-net"" id=""{0}"">".FormatWith(this.ClientID));
+            writer.Write(@"<div class=""yaf-net"" id=""{0}"">", this.ClientID);
 
-            writer.Write(
-                @"<div id=""yafpage_{0}"" class=""{1}"">".FormatWith(
-                    this.page.ToString(),
-                    this.page.ToString().Replace(".", "_")));
+            writer.Write(@"<div id=""yafpage_{0}"" class=""{1}"">", this.page, this.page.ToString().Replace(".", "_"));
 
             // render the forum
             base.Render(writer);
@@ -317,8 +310,7 @@ namespace YAF
                                    {
                                        ID = "YafScriptManager",
                                        EnablePartialRendering = true,
-                                       EnableCdn =
-                                           this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted,
+                                       EnableCdn = this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted,
                                        EnableScriptLocalization =
                                            !this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted
                                    };
@@ -348,14 +340,13 @@ namespace YAF
             {
                 this.currentForumPage = (ForumPage)this.LoadControl(src);
 
-                this.Header = this.LoadControl(
-                    "{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
+                this.Header = this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/{"YafHeader"}.ascx");
 
                 this.Footer = new Footer();
             }
             catch (FileNotFoundException)
             {
-                throw new ApplicationException("Failed to load {0}.".FormatWith(src));
+                throw new ApplicationException($"Failed to load {src}.");
             }
 
             this.currentForumPage.ForumTopControl = this.topControl;
@@ -363,7 +354,7 @@ namespace YAF
 
             this.currentForumPage.ForumHeader = this.Header;
 
-            // only show header if showtoolbar is enabled
+            // only show header if show toolbar is enabled
             this.currentForumPage.ForumHeader.Visible = this.currentForumPage.ShowToolBar;
 
             // don't allow as a popup if it's not allowed by the page...
@@ -385,11 +376,11 @@ namespace YAF
             if (YafContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.Controls.Add(
-                    this.LoadControl("{0}Dialogs/LoginBox.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                    this.LoadControl($"{YafForumInfo.ForumServerFileRoot}Dialogs/LoginBox.ascx"));
             }
 
             this.NotificationBox = (DialogBox)this.LoadControl(
-                "{0}Dialogs/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
+                $"{YafForumInfo.ForumServerFileRoot}Dialogs/{"DialogBox"}.ascx");
 
             this.currentForumPage.Notification = this.NotificationBox;
 
@@ -405,7 +396,7 @@ namespace YAF
 
             // Add image gallery dialog
             this.Controls.Add(
-                this.LoadControl("{0}Dialogs/ImageGallery.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                this.LoadControl($"{YafForumInfo.ForumServerFileRoot}Dialogs/ImageGallery.ascx"));
 
             var cookieName = "YAF-AcceptCookies";
 
@@ -414,7 +405,7 @@ namespace YAF
             {
                 // Add cookie consent
                 this.Controls.Add(
-                    this.LoadControl("{0}controls/CookieConsent.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                    this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/CookieConsent.ascx"));
             }
 
             // Add smart Scroller
@@ -456,14 +447,14 @@ namespace YAF
             {
             /  YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
             }*/
-            string[] src = { "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this.page.PageName) };
+            string[] src = { $"{YafForumInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx" };
 
             var replacementPaths = new List<string> { "moderate", "admin", "help" };
 
             foreach (var path in replacementPaths.Where(
-                path => src[0].IndexOf("/{0}_".FormatWith(path), StringComparison.Ordinal) >= 0))
+                path => src[0].IndexOf($"/{path}_", StringComparison.Ordinal) >= 0))
             {
-                src[0] = src[0].Replace("/{0}_".FormatWith(path), "/{0}/".FormatWith(path));
+                src[0] = src[0].Replace($"/{path}_", $"/{path}/");
             }
 
             return src[0];

@@ -74,10 +74,7 @@ namespace YAF.Core.Services.CheckForSpam
             try
             {
                 var url =
-                    "http://www.stopforumspam.com/api?{0}{1}{2}&f=json".FormatWith(
-                        ipAddress.IsSet() ? "ip={0}".FormatWith(ipAddress) : string.Empty,
-                        emailAddress.IsSet() ? "&email={0}".FormatWith(emailAddress) : string.Empty,
-                        userName.IsSet() ? "&username={0}".FormatWith(userName) : string.Empty);
+                    $"http://www.stopforumspam.com/api?{(ipAddress.IsSet() ? $"ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&username={userName}" : string.Empty)}&f=json";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -129,11 +126,8 @@ namespace YAF.Core.Services.CheckForSpam
             [CanBeNull] string emailAddress,
             [CanBeNull] string userName)
         {
-            var parameters = "username={0}&ip_addr={1}&email={2}&api_key={3}".FormatWith(
-                userName,
-                ipAddress,
-                emailAddress,
-                YafContext.Current.Get<YafBoardSettings>().StopForumSpamApiKey);
+            var parameters =
+                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={YafContext.Current.Get<YafBoardSettings>().StopForumSpamApiKey}";
 
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),

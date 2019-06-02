@@ -329,7 +329,7 @@ namespace YAF.UrlRewriter
             // Add in the properties as context items, so these will be accessible to the handler
             foreach (string propertyKey in context.Properties.Keys)
             {
-                var itemsKey = string.Format("Rewriter.{0}", propertyKey);
+                var itemsKey = $"Rewriter.{propertyKey}";
                 var itemsValue = context.Properties[propertyKey];
 
                 this._httpContext.Items[itemsKey] = itemsValue;

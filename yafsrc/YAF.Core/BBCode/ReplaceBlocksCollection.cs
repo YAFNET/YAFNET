@@ -109,7 +109,7 @@ namespace YAF.Core.BBCode
     /// </returns>
     public string Get(int index)
     {
-      return this._replaceFormat.FormatWith(index, this._randomInstance);
+      return string.Format(this._replaceFormat, index,this._randomInstance);
     }
 
     /// <summary>

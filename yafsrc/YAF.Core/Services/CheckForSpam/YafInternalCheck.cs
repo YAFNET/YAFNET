@@ -99,7 +99,7 @@ namespace YAF.Core.Services.CheckForSpam
                             continue;
                         }
 
-                        responseText = "internal detection found email address {0}".FormatWith(emailAddress);
+                        responseText = $"internal detection found email address {emailAddress}";
                         isBot = true;
                         break;
                     }
@@ -107,13 +107,13 @@ namespace YAF.Core.Services.CheckForSpam
                     {
                         YafContext.Current.Get<ILogger>().Error(
                             ex,
-                            "Error while Checking for Bot Email (Check: {0})".FormatWith(email.Mask));
+                            $"Error while Checking for Bot Email (Check: {email.Mask})");
                     }
                 }
 
                 if (bannedIpList.Any(i => i.Equals(ipAddress)))
                 {
-                    responseText = "internal detection found ip address {0}".FormatWith(ipAddress);
+                    responseText = $"internal detection found ip address {ipAddress}";
                     isBot = true;
                 }
 
@@ -126,7 +126,7 @@ namespace YAF.Core.Services.CheckForSpam
                             continue;
                         }
 
-                        responseText = "internal detection found name {0}".FormatWith(userName);
+                        responseText = $"internal detection found name {userName}";
                         isBot = true;
                         break;
                     }
@@ -134,7 +134,7 @@ namespace YAF.Core.Services.CheckForSpam
                     {
                         YafContext.Current.Get<ILogger>().Error(
                             ex,
-                            "Error while Checking for Bot Name (Check: {0})".FormatWith(name.Mask));
+                            $"Error while Checking for Bot Name (Check: {name.Mask})");
                     }
                 }
 

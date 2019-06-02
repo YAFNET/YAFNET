@@ -54,7 +54,7 @@ namespace YAF.Core.Helpers
             var uploadFolder = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
             var fileNameOld =
-                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : "u{0}".FormatWith(attachment.UserID))}.{attachment.FileName}.yafupload";
+                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";
 
             if (File.Exists(fileNameOld))
             {
@@ -64,7 +64,7 @@ namespace YAF.Core.Helpers
 
 
             var fileName =
-                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : "u{0}-{1}".FormatWith(attachment.UserID, attachment.ID))}.{attachment.FileName}.yafupload";
+                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload";
 
             if (!File.Exists(fileName))
             {

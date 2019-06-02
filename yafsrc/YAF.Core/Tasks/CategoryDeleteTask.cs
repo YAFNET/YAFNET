@@ -103,7 +103,7 @@ namespace YAF.Core.Tasks
             else
             {
                 failureMessage =
-                    "You can't delete category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
+                    $"You can't delete category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
                 return false;
             }
 
@@ -123,7 +123,7 @@ namespace YAF.Core.Tasks
             }
             catch (Exception x)
             {
-                this.Logger.Error(x, "Error In Category (ID: {0}) Delete Task".FormatWith(this.CategoryId), x);
+                this.Logger.Error(x, $"Error In Category (ID: {this.CategoryId}) Delete Task", x);
             }
         }
 

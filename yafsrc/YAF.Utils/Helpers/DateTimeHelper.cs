@@ -93,7 +93,7 @@ namespace YAF.Utils.Helpers
         {
             var utcOffSet = timeZoneInfo.BaseUtcOffset;
             var timeZone = utcOffSet < TimeSpan.Zero
-                               ? "-{0}".FormatWith(utcOffSet.ToString("hh"))
+                               ? $"-{utcOffSet.ToString("hh")}"
                                : utcOffSet.ToString("hh");
 
             return (timeZone.ToType<decimal>() * 60).ToType<int>();

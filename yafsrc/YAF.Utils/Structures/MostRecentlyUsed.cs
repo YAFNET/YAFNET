@@ -277,7 +277,7 @@ namespace YAF.Utils.Structures
           buff.Append(", ");
         }
 
-        buff.Append(item.ToString());
+        buff.Append(item);
       }
 
       buff.Append("]");

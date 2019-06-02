@@ -173,8 +173,7 @@ namespace YAF.Core.Tasks
             else
             {
                 failureMessage =
-                    "You can't delete forum while blocking {0} tasks are running.".FormatWith(
-                        BlockingTaskNames.ToDelimitedString(","));
+                    $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
                 _boardOut = -1;
             }
 

@@ -123,12 +123,11 @@ namespace YAF.Pages.help
                 this.PageLinks.AddLink(
                     this.GetText(
                         "HELP_INDEX",
-                        "{0}TITLE".FormatWith(faqPage)),
+                        $"{faqPage}TITLE"),
                     string.Empty);
 
-                this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("SUBTITLE"),
-                this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(faqPage)));
+                this.Page.Header.Title =
+                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", $"{faqPage}TITLE")}";
 
                 this.BindData();
             }
@@ -136,9 +135,8 @@ namespace YAF.Pages.help
             {
                 this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
 
-                this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("SUBTITLE"),
-                this.GetText("HELP_INDEX", "SEARCHHELPTITLE"));
+                this.Page.Header.Title =
+                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", "SEARCHHELPTITLE")}";
 
                 // Load Index and Search
                 this.SearchHolder.Visible = true;
@@ -261,8 +259,7 @@ namespace YAF.Pages.help
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath =
-                HttpContext.Current.Server.MapPath(
-                    "{0}Resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
+                HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}Resources/{"HelpMenuList.xml"}");
 
             if (File.Exists(xmlFilePath))
             {
@@ -282,7 +279,7 @@ namespace YAF.Pages.help
                     case "RECOVER":
                         {
                             helpContent = this.GetTextFormatted(
-                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                $"{helpPage.HelpPage}CONTENT",
                                 YafBuildLink.GetLink(ForumPages.recoverpassword));
                         }
 
@@ -290,7 +287,7 @@ namespace YAF.Pages.help
                     case "BBCODES":
                         {
                             helpContent = this.GetTextFormatted(
-                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                $"{helpPage.HelpPage}CONTENT",
                                 YafForumInfo.ForumBaseUrl);
                         }
 
@@ -298,14 +295,14 @@ namespace YAF.Pages.help
                     case "POSTING":
                         {
                             helpContent = this.GetTextFormatted(
-                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                $"{helpPage.HelpPage}CONTENT",
                                 YafBuildLink.GetLink(ForumPages.help_index, "faq=bbcodes"));
                         }
 
                         break;
                     default:
                         {
-                            helpContent = this.GetText("{0}CONTENT".FormatWith(helpPage.HelpPage));
+                            helpContent = this.GetText($"{helpPage.HelpPage}CONTENT");
                         }
 
                         break;
@@ -315,7 +312,7 @@ namespace YAF.Pages.help
                     new YafHelpContent
                         {
                             HelpPage = helpPage.HelpPage,
-                            HelpTitle = this.GetText("{0}TITLE".FormatWith(helpPage.HelpPage)),
+                            HelpTitle = this.GetText($"{helpPage.HelpPage}TITLE"),
                             HelpContent = helpContent
                         });
             }

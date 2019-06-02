@@ -234,13 +234,11 @@ namespace YAF.Dialogs
 
             userName.Attributes.Add(
                 "onkeydown",
-                "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                    .FormatWith(forumLogin.ClientID));
+                $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ");
 
             password.Attributes.Add(
                 "onkeydown",
-                "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                    .FormatWith(forumLogin.ClientID));
+                $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ");
 
             if (this.Get<YafBoardSettings>().AllowSingleSignOn)
             {

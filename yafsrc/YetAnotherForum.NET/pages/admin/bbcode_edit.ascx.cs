@@ -191,12 +191,10 @@ namespace YAF.Pages.Admin
                 this.PageLinks.AddLink(
                     this.GetText("ADMIN_BBCODE", "TITLE"),
                     YafBuildLink.GetLink(ForumPages.admin_bbcode));
-                this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit), string.Empty);
+                this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
 
-                this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    this.GetText("ADMIN_BBCODE", "TITLE"),
-                    this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit));
+                this.Page.Header.Title =
+                    $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BBCODE", "TITLE")} - {string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit)}";
                 this.BindData();
             }
 

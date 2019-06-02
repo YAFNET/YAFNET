@@ -899,7 +899,7 @@ namespace MarkdownDeep
 			int counter=1;
 			while (m_UsedHeaderIDs.ContainsKey(strWithSuffix))
 			{
-				strWithSuffix = strBase + "-" + counter.ToString();
+				strWithSuffix = strBase + "-" + counter;
 				counter++;
 			}
 

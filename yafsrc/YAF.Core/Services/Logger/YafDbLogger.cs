@@ -142,11 +142,8 @@ namespace YAF.Core.Services.Logger
             }
 
             var formattedDescription = HttpContext.Current != null
-                                           ? "{0} (URL:'{1}')\r\n{2}".FormatWith(
-                                               message,
-                                               HttpContext.Current.Request.Url,
-                                               exceptionDescription)
-                                           : "{0}\r\n{1}".FormatWith(message, exceptionDescription);
+                                           ? $"{message} (URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"
+                                           : $"{message}\r\n{exceptionDescription}";
 
             if (source.IsNotSet())
             {

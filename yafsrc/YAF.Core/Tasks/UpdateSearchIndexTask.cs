@@ -102,7 +102,7 @@ namespace YAF.Core.Tasks
             {
                 if (!(x is ThreadAbortException))
                 {
-                    this.Logger.Error(x, "Error In {0} Task".FormatWith(TaskName));
+                    this.Logger.Error(x, $"Error In {TaskName} Task");
                 }
             }
             finally

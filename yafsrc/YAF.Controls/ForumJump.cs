@@ -134,16 +134,13 @@ namespace YAF.Controls
         {
             var forumJump =
                 this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.ForumJump.FormatWith(
-                        this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+                    string.Format(
+                        Constants.Cache.ForumJump, this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
                     () => this.GetRepository<Forum>().ListAllSortedAsDataTable(this.PageContext.PageBoardID, this.PageContext.PageUserID),
                     TimeSpan.FromMinutes(5));
 
             writer.WriteLine(
-                @"<select name=""{0}"" onchange=""{1}"" id=""{2}"" class=""custom-select"">".FormatWith(
-                    this.UniqueID,
-                    this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID),
-                    this.ClientID));
+                $@"<select name=""{this.UniqueID}"" onchange=""{this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID)}"" id=""{this.ClientID}"" class=""custom-select"">");
 
             writer.WriteLine(@"<option value=""0"">{0}</option>", this.Get<YafBoardSettings>().Name);
 
@@ -156,10 +153,11 @@ namespace YAF.Controls
             foreach (DataRow row in forumJump.Rows)
             {
                 writer.WriteLine(
-                    @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>".FormatWith(
+                    string.Format(
+                        @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
                         row["ForumID"],
-                        this.HtmlEncode(row["Title"]),
-                        Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty));
+                            this.HtmlEncode(row["Title"]),
+                            Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty));
             }
 
             writer.WriteLine("</select>");

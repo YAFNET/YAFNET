@@ -230,7 +230,7 @@ namespace YAF.Core.Services.Auth
 
             this.OAuthToken = qs["oauth_token"]; // tuck this away for later
 
-            return "{0}?oauth_token={1}".FormatWith(AUTHORIZE, qs["oauth_token"]);
+            return $"{AUTHORIZE}?oauth_token={qs["oauth_token"]}";
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace YAF.Core.Services.Auth
 
                         qs[key] = HttpUtility.UrlDecode(qs[key]);
                         qs[key] = this.UrlEncode(qs[key]);
-                        postData += "{0}={1}".FormatWith(key, qs[key]);
+                        postData += $"{key}={qs[key]}";
                     }
 
                     if (url.IndexOf("?") > 0)
@@ -297,7 +297,7 @@ namespace YAF.Core.Services.Auth
             }
             else if (method == AuthUtilities.Method.GET && !string.IsNullOrEmpty(postData))
             {
-                url += "?{0}".FormatWith(postData);
+                url += $"?{postData}";
             }
 
             var uri = new Uri(url);
@@ -320,7 +320,7 @@ namespace YAF.Core.Services.Auth
                 out outUrl,
                 out querystring);
 
-            querystring += "&oauth_signature={0}".FormatWith(HttpUtility.UrlEncode(sig));
+            querystring += $"&oauth_signature={HttpUtility.UrlEncode(sig)}";
 
             // Convert the querystring to postData
             if (method == AuthUtilities.Method.POST)
@@ -334,7 +334,7 @@ namespace YAF.Core.Services.Auth
                 outUrl += "?";
             }
 
-            var ret = AuthUtilities.WebRequest(method, "{0}{1}".FormatWith(outUrl, querystring), postData);
+            var ret = AuthUtilities.WebRequest(method, $"{outUrl}{querystring}", postData);
 
             return ret;
         }

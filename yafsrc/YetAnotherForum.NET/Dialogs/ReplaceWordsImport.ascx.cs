@@ -59,8 +59,8 @@ namespace YAF.Dialogs
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(
-                        "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
+                    string.Format(
+                        this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
 
                 return;
             }
@@ -92,7 +92,7 @@ namespace YAF.Dialogs
 
                     this.PageContext.AddLoadMessage(
                         importedCount > 0
-                            ? this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED").FormatWith(importedCount)
+                            ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
                             : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
                         importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
                 }
@@ -104,7 +104,7 @@ namespace YAF.Dialogs
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(x.Message));
+                    string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message));
             }
         }
 

@@ -86,8 +86,7 @@ namespace YAF.Core.Data
                         else
                         {
                             throw new NoValidDbAccessProviderFoundException(
-                                @"Unable to Locate Provider Named ""{0}"" in Data Access Providers (DLL Not Located in Bin Directory?)."
-                                    .FormatWith(this.ProviderName));
+                                $@"Unable to Locate Provider Named ""{this.ProviderName}"" in Data Access Providers (DLL Not Located in Bin Directory?).");
                         }
 
                         return dbAccess;

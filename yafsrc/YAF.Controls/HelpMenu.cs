@@ -66,7 +66,7 @@ namespace YAF.Controls
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath = HttpContext.Current.Server.MapPath(
-                "{0}Resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
+                $"{YafForumInfo.ForumServerFileRoot}Resources/{"HelpMenuList.xml"}");
 
             if (File.Exists(xmlFilePath))
             {
@@ -145,16 +145,16 @@ namespace YAF.Controls
                                 @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
                                 YafBuildLink.GetLink(
                                     ForumPages.help_index,
-                                    "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
-                                this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
+                                    $"faq={helpPage.HelpPage.ToLower()}"),
+                                this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
                                 selectedStyle);
 
                             htmlDropDown.AppendFormat(
                                 @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
                                 YafBuildLink.GetLink(
                                     ForumPages.help_index,
-                                    "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
-                                this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)));
+                                    $"faq={helpPage.HelpPage.ToLower()}"),
+                                this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
                         }
                     }
                     else
@@ -163,16 +163,16 @@ namespace YAF.Controls
                             @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
                             YafBuildLink.GetLink(
                                 ForumPages.help_index,
-                                "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
-                            this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
+                                $"faq={helpPage.HelpPage.ToLower()}"),
+                            this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
                             selectedStyle);
 
                         htmlDropDown.AppendFormat(
                             @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
                             YafBuildLink.GetLink(
                                 ForumPages.help_index,
-                                "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
-                            this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)));
+                                $"faq={helpPage.HelpPage.ToLower()}"),
+                            this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
                     }
                 }
 

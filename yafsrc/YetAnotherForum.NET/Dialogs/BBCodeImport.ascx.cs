@@ -55,8 +55,8 @@ namespace YAF.Dialogs
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_FAILED").FormatWith(
-                        "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
+                    string.Format(
+                        this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_FAILED"), "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
 
                 return;
             }
@@ -68,14 +68,14 @@ namespace YAF.Dialogs
 
                 this.PageContext.AddLoadMessage(
                     importedCount > 0
-                        ? this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
+                        ? string.Format(this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_SUCESS"), importedCount)
                         : this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_NOTHING"),
                     importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_FAILED").FormatWith(x.Message), MessageTypes.danger);
+                    string.Format(this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
         }
 

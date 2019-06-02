@@ -371,22 +371,20 @@ namespace YAF.Pages
             this.IsPossibleSpamBot = false;
 
             // Check user for bot
-            var spamChecker = new YafSpamCheck();
             string result;
 
             var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (spamChecker.CheckUserForSpamBot(userName, this.CreateUserWizard1.Email, userIpAddress, out result))
+            if (this.Get<ISpamCheck>().CheckUserForSpamBot(userName, this.CreateUserWizard1.Email, userIpAddress, out result))
             {
                 // Flag user as spam bot
                 this.IsPossibleSpamBot = true;
 
                 this.Logger.Log(
                     null, 
-                    "Bot Detected", 
-                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
-                        .FormatWith(userName, this.CreateUserWizard1.Email, userIpAddress, result), 
+                    "Bot Detected",
+                    $"Bot Check detected a possible SPAM BOT: (user name : '{userName}', email : '{this.CreateUserWizard1.Email}', ip: '{userIpAddress}', reason : {result}), user was rejected.", 
                     EventLogTypes.SpamBotDetected);
 
                 if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
@@ -398,8 +396,8 @@ namespace YAF.Pages
                         this.GetRepository<BannedIP>()
                             .Save(
                                 null, 
-                                userIpAddress, 
-                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress), 
+                                userIpAddress,
+                                $"A spam Bot who was trying to register was banned by IP {userIpAddress}", 
                                 this.PageContext.PageUserID);
 
                         // Clear cache
@@ -410,9 +408,8 @@ namespace YAF.Pages
                             this.Get<ILogger>()
                                 .Log(
                                     this.PageContext.PageUserID, 
-                                    "IP BAN of Bot During Registration", 
-                                    "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                        userIpAddress), 
+                                    "IP BAN of Bot During Registration",
+                                    $"A spam Bot who was trying to register was banned by IP {userIpAddress}", 
                                     EventLogTypes.IpBanSet);
                         }
                     }
@@ -668,10 +665,8 @@ namespace YAF.Pages
                 {
                     this.Logger.Log(
                         null, 
-                        this, 
-                        "Error whith Location Data for IP: {0}, exception is: {1}".FormatWith(
-                            this.Get<HttpRequestBase>().GetUserRealIPAddress(), 
-                            exception));
+                        this,
+                        $"Error whith Location Data for IP: {this.Get<HttpRequestBase>().GetUserRealIPAddress()}, exception is: {exception}");
                 }
             }
 
@@ -699,9 +694,7 @@ namespace YAF.Pages
         protected void RefreshCaptcha_Click(object sender, EventArgs e)
         {
             var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
-            imgCaptcha.ImageUrl = "{0}resource.ashx?c=1&t=".FormatWith(
-                YafForumInfo.ForumClientFileRoot, 
-                DateTime.UtcNow);
+            imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1&t=";
         }
 
         /// <summary>
@@ -819,9 +812,9 @@ namespace YAF.Pages
             {
                 var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
-                imgCaptcha.ImageUrl = "{0}resource.ashx?c=1&t=".FormatWith(
-                    YafForumInfo.ForumClientFileRoot,
-                    DateTime.UtcNow);
+                imgCaptcha.ImageUrl = string.Format(
+                    "{0}resource.ashx?c=1&t=",
+                    YafForumInfo.ForumClientFileRoot,DateTime.UtcNow);
 
                 var refreshCaptcha = this.CreateUserStepContainer.FindControlAs<LinkButton>("RefreshCaptcha");
 
@@ -886,8 +879,8 @@ namespace YAF.Pages
             {
                 this.Logger.Log(
                     null, 
-                    this, 
-                    "Geolocation Service reports: {0}".FormatWith(this.UserIpLocator["StatusMessage"]), 
+                    this,
+                    $"Geolocation Service reports: {this.UserIpLocator["StatusMessage"]}", 
                     EventLogTypes.Information);
             }
 
@@ -895,8 +888,8 @@ namespace YAF.Pages
             {
                 this.Logger.Log(
                     null, 
-                    this, 
-                    "Geolocation Service reports: {0}".FormatWith(this.UserIpLocator["StatusMessage"]), 
+                    this,
+                    $"Geolocation Service reports: {this.UserIpLocator["StatusMessage"]}", 
                     EventLogTypes.Information);
             }
 
@@ -981,9 +974,8 @@ namespace YAF.Pages
 
                 this.Logger.Log(
                         null, 
-                        "Bot Detected", 
-                        "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}') reason word: {3}"
-                            .FormatWith(user.UserName, this.CreateUserWizard1.Email, userIpAddress, homepageTextBox.Text.Trim()), 
+                        "Bot Detected",
+                        $"Internal Spam Word Check detected a SPAM BOT: (user name : '{user.UserName}', email : '{this.CreateUserWizard1.Email}', ip: '{userIpAddress}') reason word: {homepageTextBox.Text.Trim()}", 
                         EventLogTypes.SpamBotDetected);
             }
 
@@ -994,7 +986,7 @@ namespace YAF.Pages
                 // add http:// by default
                 if (!Regex.IsMatch(homepageTextBox.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
                 {
-                    homepageTextBox.Text = "http://{0}".FormatWith(homepageTextBox.Text.Trim());
+                    homepageTextBox.Text = $"http://{homepageTextBox.Text.Trim()}";
                 }
 
                 if (ValidationHelper.IsValidURL(homepageTextBox.Text))

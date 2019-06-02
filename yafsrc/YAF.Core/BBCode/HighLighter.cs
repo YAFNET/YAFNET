@@ -106,7 +106,7 @@ namespace YAF.Core.BBCode
             tmpOutput.AppendFormat(
                 "<pre class=\"line-numbers\"{1}><code class=\"language-{0}\">",
                 language,
-                highlight.IsSet() ? " data-line=\"{0}\"".FormatWith(highlight) : string.Empty);
+                highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
 
             tmpOutput.Append(codeText);
 

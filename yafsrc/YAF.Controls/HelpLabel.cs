@@ -71,7 +71,7 @@ namespace YAF.Controls
         {
             get =>
                 string.IsNullOrEmpty(this._localizedHelpTag)
-                    ? "{0}_HELP".FormatWith(this.LocalizedTag)
+                    ? $"{this.LocalizedTag}_HELP"
                     : this._localizedHelpTag;
 
             set => this._localizedHelpTag = value;
@@ -124,8 +124,8 @@ namespace YAF.Controls
         {
             output.BeginRender();
 
-            var text = this.GetText(this.LocalizedPage, this.LocalizedTag)
-                    .FormatWith(this.Param0, this.Param1, this.Param2);
+            var text = string
+                    .Format(this.GetText(this.LocalizedPage, this.LocalizedTag), this.Param0,this.Param1, this.Param2);
 
             if (text.IsSet() && text.EndsWith(":"))
             {
@@ -141,8 +141,8 @@ namespace YAF.Controls
                 output.Write(this.Suffix);
             }
 
-            var tooltip = this.GetText(this.LocalizedPage, this.LocalizedHelpTag)
-                .FormatWith(this.ParamHelp0, this.ParamHelp1, this.ParamHelp2);
+            var tooltip = string
+                .Format(this.GetText(this.LocalizedPage, this.LocalizedHelpTag), this.ParamHelp0,this.ParamHelp1, this.ParamHelp2);
 
             tooltip = tooltip.IsSet() ? this.HtmlEncode(tooltip) : text;
 
