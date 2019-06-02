@@ -227,7 +227,7 @@ namespace YAF.Controls
                 // add http:// by default
                 if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
                 {
-                    this.HomePage.Text = "http://{0}".FormatWith(this.HomePage.Text.Trim());
+                    this.HomePage.Text = $"http://{this.HomePage.Text.Trim()}";
                 }
 
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
@@ -249,8 +249,7 @@ namespace YAF.Controls
                             this.Logger.Log(
                                 null,
                                 "Bot Detected",
-                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
-                                    .FormatWith(userName, this.currentUserId, this.HomePage.Text),
+                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
                                 EventLogTypes.SpamBotDetected);
                         }
                         else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
@@ -258,8 +257,7 @@ namespace YAF.Controls
                             this.Logger.Log(
                                 null,
                                 "Bot Detected",
-                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}, user was deleted and the name, email and IP Address are banned."
-                                    .FormatWith(userName, this.currentUserId, this.HomePage.Text),
+                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
                                 EventLogTypes.SpamBotDetected);
 
                             // Kill user
@@ -583,8 +581,7 @@ namespace YAF.Controls
             this.ICQ.Text = this.UserData.Profile.ICQ;
 
             this.Facebook.Text = ValidationHelper.IsNumeric(this.UserData.Profile.Facebook)
-                                     ? "https://www.facebook.com/profile.php?id={0}".FormatWith(
-                                         this.UserData.Profile.Facebook)
+                                     ? $"https://www.facebook.com/profile.php?id={this.UserData.Profile.Facebook}"
                                      : this.UserData.Profile.Facebook;
 
             this.Twitter.Text = this.UserData.Profile.Twitter;
@@ -694,7 +691,7 @@ namespace YAF.Controls
         /// </param>
         private void SendEmailVerification([NotNull] string newEmail)
         {
-            var hashinput = "{0}{1}{2}".FormatWith(DateTime.UtcNow, this.Email.Text, Security.CreatePassword(20));
+            var hashinput = $"{DateTime.UtcNow}{this.Email.Text}{Security.CreatePassword(20)}";
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // Create Email
@@ -706,14 +703,7 @@ namespace YAF.Controls
                                               this.PageContext
                                                   .PageUserName,
                                               ["{link}"] =
-                                              "{0}\r\n\r\n".FormatWith(
-                                                  YafBuildLink
-                                                      .GetLinkNotEscaped(
-                                                          ForumPages
-                                                              .approve,
-                                                          true,
-                                                          "k={0}",
-                                                          hash)),
+                                                  $"{YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
                                               ["{newemail}"] =
                                               this.Email.Text,
                                               ["{key}"] = hash,
@@ -733,7 +723,7 @@ namespace YAF.Controls
             changeEmail.SendEmail(new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
 
             // show a confirmation
-            this.PageContext.AddLoadMessage(this.GetText("PROFILE", "mail_sent").FormatWith(this.Email.Text));
+            this.PageContext.AddLoadMessage(string.Format(this.GetText("PROFILE", "mail_sent"), this.Email.Text));
         }
 
         /// <summary>

@@ -444,11 +444,12 @@ namespace YAF.Controls
             }
 
             html =
-                @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" title=""{2}"" >{0}</a></td></tr>"
-                    .FormatWith(
+                string
+                    .Format(
+                        @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" title=""{2}"" >{0}</a></td></tr>",
                         forumName,
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName),
-                        this.GetText("COMMON", "VIEW_FORUM"));
+                            YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName),
+                            this.GetText("COMMON", "VIEW_FORUM"));
             this.lastForumName = forumName;
 
             return html;
@@ -513,18 +514,14 @@ namespace YAF.Controls
                     case TopicListMode.Active:
                         this.RssFeed.FeedType = YafRssFeeds.Active;
                         this.RssFeed.AdditionalParameters =
-                            "txt={0}&d={1}".FormatWith(
-                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                            $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString()))}";
 
                         this.RssFeed.Visible = accessActive;
                         break;
                     case TopicListMode.Favorite:
                         this.RssFeed.FeedType = YafRssFeeds.Favorite;
                         this.RssFeed.AdditionalParameters =
-                            "txt={0}&d={1}".FormatWith(
-                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                            $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString()))}";
                         this.RssFeed.Visible = accessFavorite;
                         break;
                 }

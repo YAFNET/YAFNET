@@ -44,7 +44,7 @@
                                                  TextLocalizedTag="MARKALL" />
                                 <YAF:RssFeedLink ID="RssFeed1" runat="server"
                                                  FeedType="Forum" 
-                                                 AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? string.Format("c={0}", this.PageContext.PageCategoryID) : null %>'
+                                                 AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? $"c={this.PageContext.PageCategoryID}" : null %>'
                                                  Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ForumFeedAccess) %>" />
                             </div>
                         </div>

@@ -82,15 +82,12 @@ namespace YAF.Controls
             if (int.Parse(row["ReadAccess"].ToString()) > 0)
             {
                 output =
-                    "<a href=\"{0}\" title=\"{1}\" >{2}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output),
-                        this.GetText("COMMON", "VIEW_FORUM"),
-                        output);
+                    $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>";
             }
             else
             {
                 // no access to this forum
-                output = "{0} {1}".FormatWith(output, this.GetText("NO_FORUM_ACCESS"));
+                output = $"{output} {this.GetText("NO_FORUM_ACCESS")}";
             }
 
             return output;

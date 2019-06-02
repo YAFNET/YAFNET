@@ -154,10 +154,7 @@ namespace YAF.Controls
                     }
                 }
 
-                if (this.SubDataSource != null)
-                {
-                    this.SubDataSource.AcceptChanges();
-                }
+                this.SubDataSource?.AcceptChanges();
 
                 this.dataSource = arlist;
 
@@ -199,23 +196,19 @@ namespace YAF.Controls
             {
                 if (row["RemoteURL"] != DBNull.Value)
                 {
-                    output = "<a href=\"{0}\" title=\"{1}\" target=\"_blank\">{2}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".FormatWith(
-                        row["RemoteURL"].ToString(),
-                        this.GetText("COMMON", "VIEW_FORUM"),
-                        this.Page.HtmlEncode(output));
+                    output =
+                        $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>";
                 }
                 else
                 {
-                    output = "<a href=\"{0}\" title=\"{1}\">{2}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output),
-                        this.GetText("COMMON", "VIEW_FORUM"),
-                        this.Page.HtmlEncode(output));
+                    output =
+                        $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\">{this.Page.HtmlEncode(output)}</a>";
                 }
             }
             else
             {
                 // no access to this forum
-                output = "{0} {1}".FormatWith(output, this.GetText("NO_FORUM_ACCESS"));
+                output = $"{output} {this.GetText("NO_FORUM_ACCESS")}";
             }
 
             return output;
@@ -281,10 +274,8 @@ namespace YAF.Controls
                 var forumImage = e.Item.FindControlAs<HtmlImage>("ForumImage1");
                 if (forumImage != null)
                 {
-                    forumImage.Src = "{0}{1}/{2}".FormatWith(
-                        YafForumInfo.ForumServerFileRoot,
-                        YafBoardFolders.Current.Forums,
-                        row["ImageUrl"].ToString());
+                    forumImage.Src =
+                        $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}";
 
                     // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
                     // Highlight custom icon images and add tool tips to them. 
@@ -299,10 +290,7 @@ namespace YAF.Controls
                             forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
                             forumImage.Attributes.Add(
                                 "src",
-                                "{0}{1}/{2}".FormatWith(
-                                    YafForumInfo.ForumServerFileRoot,
-                                    YafBoardFolders.Current.Forums,
-                                    row["ImageUrl"].ToString()));
+                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
                         }
                         else if (lastPosted > lastRead)
                         {
@@ -311,20 +299,14 @@ namespace YAF.Controls
                             forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NEW_POSTS"));
                             forumImage.Attributes.Add(
                                 "src",
-                                "{0}{1}/{2}".FormatWith(
-                                    YafForumInfo.ForumServerFileRoot,
-                                    YafBoardFolders.Current.Forums,
-                                    row["ImageUrl"].ToString()));
+                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
                         }
                         else
                         {
                             forumImage.Attributes.Add("class", "forum_customimage_nonewposts");
                             forumImage.Attributes.Add(
                                 "src",
-                                "{0}{1}/{2}".FormatWith(
-                                    YafForumInfo.ForumServerFileRoot,
-                                    YafBoardFolders.Current.Forums,
-                                    row["ImageUrl"].ToString()));
+                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
                             forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
                             forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
                         }
@@ -436,9 +418,7 @@ namespace YAF.Controls
             var viewing = row["Viewing"].ToType<int>();
 
             return viewing > 0
-                       ? "<i class=\"far fa-eye\" title=\"{0}\"></i> {1}".FormatWith(
-                           this.GetTextFormatted("VIEWING", viewing),
-                           viewing)
+                       ? $"<i class=\"far fa-eye\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
                        : string.Empty;
         }
 
@@ -474,7 +454,7 @@ namespace YAF.Controls
         {
             var row = (DataRow)_o;
 
-            return row["RemoteURL"] == DBNull.Value ? "{0:N0}".FormatWith(row["Posts"]) : "-";
+            return row["RemoteURL"] == DBNull.Value ? $"{row["Posts"]:N0}" : "-";
         }
 
         /// <summary>
@@ -485,7 +465,7 @@ namespace YAF.Controls
         protected string Topics([NotNull] object _o)
         {
             var row = (DataRow)_o;
-            return row["RemoteURL"] == DBNull.Value ? "{0:N0}".FormatWith(row["Topics"]) : "-";
+            return row["RemoteURL"] == DBNull.Value ? $"{row["Topics"]:N0}" : "-";
         }
 
         #endregion

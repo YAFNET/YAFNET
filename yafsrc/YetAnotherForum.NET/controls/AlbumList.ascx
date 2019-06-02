@@ -31,7 +31,7 @@
                                 <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("ID")) %>'
                                    target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>'>
                                 <asp:Image runat="server" ID="coverImage" 
-                                           ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
+                                           ImageUrl='<%# $"{YafForumInfo.ForumClientFileRoot}resource.ashx?album={this.Eval("ID")}&cover={(this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0")}" %>'
                                            ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>' 
                                            AlternateText='<%# this.Eval("ID") %>'
                                            CssClass="img-fluid img-thumbnail mt-4"/>

@@ -797,8 +797,7 @@ namespace YAF.Controls
 
         if (cvote && hasVoteEmptyCounter > 0 && allowsMultipleChoices)
         {
-          notificationString +=
-            " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO"));
+          notificationString += $" {this.GetText("POLLEDIT", "POLL_MULTIPLECHOICES_INFO")}";
         }
 
         if (this.PageContext.IsGuest)
@@ -807,14 +806,12 @@ namespace YAF.Controls
           {
               if (!this.Get<YafBoardSettings>().AllowGuestsViewPollOptions)
             {
-              notificationString +=
-                " {0}".FormatWith(this.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
+              notificationString += $" {this.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST")}";
             }
 
             if (isNotVoted)
             {
-              notificationString +=
-                " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_NOPERM_GUEST"));
+              notificationString += $" {this.GetText("POLLEDIT", "POLL_NOPERM_GUEST")}";
             }
           }
         }
@@ -823,7 +820,7 @@ namespace YAF.Controls
             (this.PageContext.ForumVoteAccess ||
              (this.PageContext.BoardVoteAccess && (this.BoardId > 0 || this.EditBoardId > 0))))
         {
-          notificationString += " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_VOTED"));
+          notificationString += $" {this.GetText("POLLEDIT", "POLL_VOTED")}";
         }
 
         // Poll has expiration date
@@ -831,29 +828,25 @@ namespace YAF.Controls
         {
           if (!soon)
           {
-            notificationString +=
-              " {0}".FormatWith(this.GetTextFormatted("POLL_WILLEXPIRE", daystorun));
+            notificationString += $" {this.GetTextFormatted("POLL_WILLEXPIRE", daystorun)}";
           }
           else
           {
-            notificationString +=
-              " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS"));
+            notificationString += $" {this.GetText("POLLEDIT", "POLL_WILLEXPIRE_HOURS")}";
           }
 
           if (isClosedBound)
           {
-            notificationString +=
-              " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_CLOSEDBOUND"));
+            notificationString += $" {this.GetText("POLLEDIT", "POLL_CLOSEDBOUND")}";
           }
         }
         else if (daystorun == 0)
         {
-            notificationString += " {0}".FormatWith(this.GetText("POLLEDIT", "POLL_EXPIRED"));
+            notificationString += $" {this.GetText("POLLEDIT", "POLL_EXPIRED")}";
 
             var pollClosed = item.FindControlRecursiveAs<Label>("PollClosed");
             pollClosed.Text =
-                "<span class=\"badge badge-danger\"><i class=\"fa fa-lock fa-fw\"></i>&nbsp;{0}</span>".FormatWith(
-                    this.GetText("POLLEDIT", "POLL_CLOSED"));
+                $"<span class=\"badge badge-danger\"><i class=\"fa fa-lock fa-fw\"></i>&nbsp;{this.GetText("POLLEDIT", "POLL_CLOSED")}</span>";
             pollClosed.Visible = true;
         }
 
@@ -922,7 +915,7 @@ namespace YAF.Controls
     /// </returns>
     protected string VotingCookieName(int pollId)
     {
-      return "poll#{0}".FormatWith(pollId);
+      return $"poll#{pollId}";
     }
 
     /// <summary>
@@ -957,13 +950,11 @@ namespace YAF.Controls
     {
       // Add confirmations to delete buttons
       var removePollAll = ri.FindControlRecursiveAs<ThemeButton>("RemovePollAll");
-      removePollAll.Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL"));
+      removePollAll.Attributes["onclick"] = $"return confirm('{this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL")}');";
       removePollAll.Visible = this.CanRemovePollCompletely(pollId);
 
       var removePoll = ri.FindControlRecursiveAs<ThemeButton>("RemovePoll");
-      removePoll.Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLL_DELETE"));
+      removePoll.Attributes["onclick"] = $"return confirm('{this.GetText("POLLEDIT", "ASK_POLL_DELETE")}');";
       removePoll.Visible = this.CanRemovePoll(pollId);
     }
 
@@ -985,15 +976,13 @@ namespace YAF.Controls
       }
 
       ri.FindControlRecursiveAs<ThemeButton>("RemoveGroup").Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(this.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH"));
+          $"return confirm('{this.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH")}');";
 
       ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupAll").Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(
-          this.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL"));
+          $"return confirm('{this.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL")}');";
 
       ri.FindControlRecursiveAs<ThemeButton>("RemoveGroupEverywhere").Attributes["onclick"] =
-        "return confirm('{0}');".FormatWith(
-          this.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR"));
+          $"return confirm('{this.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR")}');";
     }
 
     /// <summary>
@@ -1254,7 +1243,7 @@ namespace YAF.Controls
 
       if (this.TopicId > 0)
       {
-        sb += "t={0}".FormatWith(this.TopicId);
+        sb += $"t={this.TopicId}";
       }
 
       if (this.EditMessageId > 0)
@@ -1264,7 +1253,7 @@ namespace YAF.Controls
           sb += '&';
         }
 
-        sb += "m={0}".FormatWith(this.EditMessageId);
+        sb += $"m={this.EditMessageId}";
       }
 
       if (this.ForumId > 0)
@@ -1274,7 +1263,7 @@ namespace YAF.Controls
           sb += '&';
         }
 
-        sb += "f={0}".FormatWith(this.ForumId);
+        sb += $"f={this.ForumId}";
       }
 
       if (this.EditForumId > 0)
@@ -1284,7 +1273,7 @@ namespace YAF.Controls
           sb += '&';
         }
 
-        sb += "ef={0}".FormatWith(this.EditForumId);
+        sb += $"ef={this.EditForumId}";
       }
 
       if (this.CategoryId > 0)
@@ -1294,7 +1283,7 @@ namespace YAF.Controls
           sb += '&';
         }
 
-        sb += "c={0}".FormatWith(this.CategoryId);
+        sb += $"c={this.CategoryId}";
       }
 
       if (this.EditCategoryId > 0)
@@ -1304,7 +1293,7 @@ namespace YAF.Controls
           sb += '&';
         }
 
-        sb += "ec={0}".FormatWith(this.EditCategoryId);
+        sb += $"ec={this.EditCategoryId}";
       }
 
       if (this.BoardId > 0)
@@ -1314,7 +1303,7 @@ namespace YAF.Controls
           sb += '&';
         }
 
-        sb += "b={0}".FormatWith(this.BoardId);
+        sb += $"b={this.BoardId}";
       }
 
       if (this.EditBoardId > 0)
@@ -1324,7 +1313,7 @@ namespace YAF.Controls
           sb += '&';
         }
 
-        sb += "eb={0}".FormatWith(this.EditBoardId);
+        sb += $"eb={this.EditBoardId}";
       }
 
       return sb;

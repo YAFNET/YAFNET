@@ -29,10 +29,10 @@
         <div class="card mb-3">
             <div class="card-body">
                 <div class="card-text mb-3">
-                    <a href='<%# "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ID")) %>'
+                    <a href='<%# $"{YafForumInfo.ForumClientFileRoot}resource.ashx?image={this.Eval("ID")}" %>'
                        title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + this.AlbumID + "[/ALBUMIMG]"%>'
                        data-gallery>
-                        <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ID")) %>'
+                        <img src='<%# $"{YafForumInfo.ForumClientFileRoot}resource.ashx?imgprv={this.Eval("ID")}" %>'
                              class="img-fluid img-thumbnail"
                              alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' 
                              title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />

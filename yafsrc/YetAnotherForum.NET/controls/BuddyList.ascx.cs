@@ -39,7 +39,7 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// Summary description for buddies.
+    /// Buddy List Control
     /// </summary>
     public partial class BuddyList : BaseUserControl
     {
@@ -110,19 +110,19 @@ namespace YAF.Controls
             {
                 case "remove":
                     this.PageContext.AddLoadMessage(
-                        this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(
-                            this.Get<IBuddy>().Remove(Convert.ToInt32(e.CommandArgument))));
+                        string.Format(
+                            this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IBuddy>().Remove(Convert.ToInt32(e.CommandArgument))));
                     this.CurrentUserID = this.PageContext.PageUserID;
                     break;
                 case "approve":
                     this.PageContext.AddLoadMessage(
-                        this.GetText("NOTIFICATION_BUDDYAPPROVED").FormatWith(
-                            this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), false)));
+                        string.Format(
+                            this.GetText("NOTIFICATION_BUDDYAPPROVED"), this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), false)));
                     break;
                 case "approveadd":
                     this.PageContext.AddLoadMessage(
-                        this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(
-                            this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), true)));
+                        string.Format(
+                            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), true)));
                     break;
                 case "approveall":
                     this.Get<IBuddy>().ApproveAllRequests(false);
@@ -219,15 +219,13 @@ namespace YAF.Controls
                 {
                     case 1:
                     case 2:
-                        buddyListDataView.RowFilter = "Approved = 1".FormatWith(this.CurrentUserID);
+                        buddyListDataView.RowFilter = string.Format("Approved = 1", this.CurrentUserID);
                         break;
                     case 3:
-                        buddyListDataView.RowFilter =
-                            "Approved = 0 AND FromUserID <> {0}".FormatWith(this.CurrentUserID);
+                        buddyListDataView.RowFilter = $"Approved = 0 AND FromUserID <> {this.CurrentUserID}";
                         break;
                     case 4:
-                        buddyListDataView.RowFilter =
-                            "Approved = 0 AND FromUserID = {0}".FormatWith(this.CurrentUserID);
+                        buddyListDataView.RowFilter = $"Approved = 0 AND FromUserID = {this.CurrentUserID}";
                         break;
                 }
 

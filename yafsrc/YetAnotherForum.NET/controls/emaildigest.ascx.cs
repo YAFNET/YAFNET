@@ -233,8 +233,7 @@ namespace YAF.Controls
         protected void OutputError([NotNull] string errorString)
         {
             this.Response.Write(
-                "<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{0}</h1></body></html>".FormatWith(
-                    errorString));
+                $"<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{errorString}</h1></body></html>");
         }
 
         /// <summary>
@@ -305,8 +304,7 @@ namespace YAF.Controls
             {
                 if (this.ShowErrors)
                 {
-                    this.OutputError(
-                        "No topics for the last {0} hours.".FormatWith(this.BoardSettings.DigestSendEveryXHours));
+                    this.OutputError($"No topics for the last {this.BoardSettings.DigestSendEveryXHours} hours.");
 
                     // this.Response.Write(GetDebug());
                 }
@@ -326,7 +324,7 @@ namespace YAF.Controls
                 this.BoardSettings.AllowUserTheme,
                 this.BoardSettings.Theme);
 
-            var subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
+            var subject = string.Format(this.GetText("SUBJECT"), this.BoardSettings.Name);
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(

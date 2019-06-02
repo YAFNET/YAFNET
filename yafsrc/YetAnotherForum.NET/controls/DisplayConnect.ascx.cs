@@ -66,7 +66,7 @@ namespace YAF.Controls
                 if (Config.AllowLoginAndLogoff)
                 {
                     this.ConnectHolder.Controls.Add(
-                        new Literal { Text = "<strong>{0}</strong>".FormatWith(this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT")) });
+                        new Literal { Text = $"<strong>{this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT")}</strong>" });
 
                     // show login
                     var loginLink = new ThemeButton
@@ -134,7 +134,7 @@ namespace YAF.Controls
                         || Config.GoogleClientID.IsSet()))
                 {
                     this.ConnectHolder.Controls.Add(
-                        new Literal { Text = "&nbsp;{0}&nbsp;".FormatWith(this.GetText("LOGIN", "CONNECT_VIA")) });
+                        new Literal { Text = $"&nbsp;{this.GetText("LOGIN", "CONNECT_VIA")}&nbsp;" });
 
                     if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
                     {

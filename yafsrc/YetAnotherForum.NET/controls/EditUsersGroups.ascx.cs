@@ -177,7 +177,7 @@ namespace YAF.Controls
                 }
 
                 // Clearing cache with old permisssions data...
-                this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID));
+                this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID));
             }
 
             if (this.SendEmail.Checked)

@@ -142,10 +142,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     user.Email,
-                    "Email was reported by: {0}".FormatWith(
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName));
+                    $"Email was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             // Ban User IP?
@@ -160,10 +157,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     user.UserName,
-                    "Name was reported by: {0}".FormatWith(
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName));
+                    $"Name was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             this.DeleteAllUserMessages();
@@ -180,14 +174,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            "User (Name:{0}/ID:{1}/IP:{2}/Email:{3}) Reported to StopForumSpam.com by {4}".FormatWith(
-                                user.UserName,
-                                this.CurrentUserId,
-                                this.IPAddresses.FirstOrDefault(),
-                                user.Email,
-                                this.Get<YafBoardSettings>().EnableDisplayName
-                                    ? this.PageContext.CurrentUserData.DisplayName
-                                    : this.PageContext.CurrentUserData.UserName),
+                            $"User (Name:{user.UserName}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{user.Email}) Reported to StopForumSpam.com by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -199,9 +186,7 @@ namespace YAF.Controls
 
                     this.Logger.Log(
                         this.PageContext.PageUserID,
-                        "User (Name{0}/ID:{1}) Report to StopForumSpam.com Failed".FormatWith(
-                            user.UserName,
-                            this.CurrentUserId),
+                        $"User (Name{user.UserName}/ID:{this.CurrentUserId}) Report to StopForumSpam.com Failed",
                         exception);
                 }
             }
@@ -272,7 +257,7 @@ namespace YAF.Controls
             }
 
             this.PageContext.AddLoadMessage(
-                this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED").FormatWith(user.UserName));
+                string.Format(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED"), user.UserName));
 
             // update the displayed data...
             this.BindData();
@@ -327,10 +312,11 @@ namespace YAF.Controls
                     continue;
                 }
 
-                var linkUserBan = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN").FormatWith(
+                var linkUserBan = string.Format(
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN"),
                     this.CurrentUserId,
-                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
-                    this.HtmlEncode(name));
+                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
+                        this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
             }
@@ -358,10 +344,8 @@ namespace YAF.Controls
             // load ip address history for user...
             foreach (var ipAddress in this.IPAddresses.Take(5))
             {
-                this.IpAddresses.Text += "<a href=\"{0}\" target=\"_blank\" title=\"{1}\">{2}</a><br />".FormatWith(
-                    this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ipAddress),
-                    this.GetText("COMMON", "TT_IPDETAILS"),
-                    ipAddress);
+                this.IpAddresses.Text +=
+                    $"<a href=\"{string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ipAddress)}\" target=\"_blank\" title=\"{this.GetText("COMMON", "TT_IPDETAILS")}\">{ipAddress}</a><br />";
             }
 
             // if no ip disable BanIp checkbox
@@ -390,9 +374,8 @@ namespace YAF.Controls
                 this.SuspendedTo.Visible = true;
 
                 // is user suspended?
-                this.SuspendedTo.Text = "({0} {1})".FormatWith(
-                    this.GetText("PROFILE", "ENDS"),
-                    this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended));
+                this.SuspendedTo.Text =
+                    $"({this.GetText("PROFILE", "ENDS")} {this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended)})";
             }
 
             this.DataBind();

@@ -164,7 +164,7 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            this._sig.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this._sig.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
             var sigData = this.GetRepository<User>().SignatureDataAsDataTable(this.CurrentUserID, this.PageContext.PageBoardID);
 
@@ -332,8 +332,7 @@ namespace YAF.Controls
                                 this.Logger.Log(
                                     null,
                                     "Bot Detected",
-                                    "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}"
-                                        .FormatWith(user.UserName, this.CurrentUserID, result),
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{user.UserName}', user id : '{this.CurrentUserID}') after the user included a spam word in his/her signature: {result}",
                                     EventLogTypes.SpamBotDetected);
                             }
                             else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
@@ -341,8 +340,7 @@ namespace YAF.Controls
                                 this.Logger.Log(
                                     null,
                                     "Bot Detected",
-                                    "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}, user was deleted and the name, email and IP Address are banned."
-                                        .FormatWith(user.UserName, this.CurrentUserID, result),
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{user.UserName}', user id : '{this.CurrentUserID}') after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.",
                                     EventLogTypes.SpamBotDetected);
 
                                 // Kill user

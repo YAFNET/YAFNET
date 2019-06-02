@@ -163,8 +163,7 @@ namespace YAF.Controls
                 if (this.DataRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
                     this.NewMessage.Visible = true;
-                    this.NewMessage.Text =
-                        " <span class=\"badge badge-success\">{0}</span>".FormatWith(this.GetText("NEW_POSTS"));
+                    this.NewMessage.Text = $" <span class=\"badge badge-success\">{this.GetText("NEW_POSTS")}</span>";
                 }
                 else
                 {
