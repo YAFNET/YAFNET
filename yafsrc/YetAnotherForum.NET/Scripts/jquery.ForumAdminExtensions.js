@@ -34074,6 +34074,7 @@ jQuery.PageMethod = function (pagePath, fn, successFn, errorFn) {
 
 
 jQuery.PageMethodToPage = function (pagePath, fn, successFn, errorFn, jsonParams) {
+
     //Call the page method
     jQuery.ajax({
         type: "POST",

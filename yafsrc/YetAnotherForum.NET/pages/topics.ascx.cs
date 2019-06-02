@@ -161,7 +161,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ForumSearch_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.forumSearch.Text))
+            if (this.forumSearch.Text.IsNotSet())
             {
                 return;
             }
@@ -203,8 +203,7 @@ namespace YAF.Pages
         {
             this.Get<IYafSession>().UnreadTopics = 0;
 
-            this.RssFeed.AdditionalParameters =
-                "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
+            this.RssFeed.AdditionalParameters = $"f={this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f")}";
 
             this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
@@ -214,8 +213,7 @@ namespace YAF.Pages
             if (this.ForumSearchHolder.Visible)
             {
                 this.forumSearch.Attributes["onkeydown"] =
-                    "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                        .FormatWith(this.forumSearchOK.ClientID);
+                    $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{this.forumSearchOK.ClientID}').click();return false;}}}} else {{return true}}; ";
             }
 
             if (!this.IsPostBack)
@@ -279,9 +277,7 @@ namespace YAF.Pages
             this._forumFlags = this._forum.ForumFlags;
 
             this.PageTitle.Text = this._forum.Description.IsSet()
-                                      ? "{0} - <em>{1}</em>".FormatWith(
-                                          this.HtmlEncode(this._forum.Name),
-                                          this.HtmlEncode(this._forum.Description))
+                                      ? $"{this.HtmlEncode(this._forum.Name)} - <em>{this.HtmlEncode(this._forum.Description)}</em>"
                                       : this.HtmlEncode(this._forum.Name);
 
             this.BindData(); // Always because of yaf:TopicLine

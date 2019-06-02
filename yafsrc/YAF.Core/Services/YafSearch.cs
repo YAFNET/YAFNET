@@ -544,7 +544,7 @@
 
             return hits.Select(
                     hit => this.MapSearchDocumentToData(highlighter, analyzer, searcher.Doc(hit.Doc), userAccessList))
-                .OrderByDescending(s => s.MessageId).Skip(skip).Take(pageSize).ToList();
+                .Where(item => item != null).OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize).ToList();
         }
 
         /// <summary>
