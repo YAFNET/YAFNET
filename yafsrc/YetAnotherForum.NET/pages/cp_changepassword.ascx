@@ -130,7 +130,11 @@
                                 <asp:Label runat="server" ID="Label1">
                                     <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SECURITY_QUESTION_OLD" />
                                 </asp:Label>
-                                <YAF:ModernTextBox runat="server" ReadOnly="True" ID="QuestionOld" CssClass="form-control"></YAF:ModernTextBox>
+                                <asp:TextBox runat="server" 
+                                             ReadOnly="True" 
+                                             ID="QuestionOld" 
+                                             CssClass="form-control">
+                                </asp:TextBox>
                             </div>
                             <div class="form-group">
                                 <asp:Label runat="server" ID="Label2" AssociatedControlID="AnswerOld">

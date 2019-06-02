@@ -128,14 +128,14 @@ namespace YAF.Pages
         {
             if (Config.IsDotNetNuke)
             {
-                // Not accessbile...
+                // Not accessible...
                 YafBuildLink.AccessDenied();
             }
 
             if (!this.Get<YafBoardSettings>().AllowPasswordChange
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
-                // Not accessbile...
+                // Not accessible...
                 YafBuildLink.AccessDenied();
             }
 
@@ -174,10 +174,10 @@ namespace YAF.Pages
             passwordsNotEqual.ToolTip = passwordsNotEqual.ErrorMessage = this.GetText("PASSWORD_NOT_NEW");
 
             var changeButton =
-                (this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("ChangePasswordPushButton"));
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("ChangePasswordPushButton");
 
             changeButton.Text = this.GetText("CHANGE_BUTTON");
-            (this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("CancelPushButton")).Text =
+            this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("CancelPushButton").Text =
                 this.GetText("CANCEL");
 
             // make failure text...
@@ -185,8 +185,8 @@ namespace YAF.Pages
             // 2. New Password length minimum: {0}.t
             // 3. Non-alphanumeric characters required: {1}.
             var failureText = this.GetText("PASSWORD_INCORRECT");
-            failureText += "<br />{0}".FormatWith(this.GetText("PASSWORD_BAD_LENGTH"));
-            failureText += "<br />{0}".FormatWith(this.GetText("PASSWORD_NOT_COMPLEX"));
+            failureText += $"<br />{this.GetText("PASSWORD_BAD_LENGTH")}";
+            failureText += $"<br />{this.GetText("PASSWORD_NOT_COMPLEX")}";
 
             this.ChangePassword1.ChangePasswordFailureText = failureText;
 
@@ -196,11 +196,11 @@ namespace YAF.Pages
             var confirmNewPassword =
                 this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<TextBox>("ConfirmNewPassword");
 
-            currentPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+            currentPassword.Attributes.Add("onKeyPress", $"doClick('{changeButton.ClientID}',event)");
 
-            newPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+            newPassword.Attributes.Add("onKeyPress", $"doClick('{changeButton.ClientID}',event)");
 
-            confirmNewPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+            confirmNewPassword.Attributes.Add("onKeyPress", $"doClick('{changeButton.ClientID}',event)");
 
             if (this.Get<MembershipProvider>().RequiresQuestionAndAnswer)
             {
@@ -212,7 +212,6 @@ namespace YAF.Pages
 
             this.DataBind();
         }
-
 
        #endregion
     }
