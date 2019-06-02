@@ -81,7 +81,7 @@ namespace YAF.Controls
               this.PageContext.ForumVoteAccess ? "success" : "danger",
               this.GetText(this.PageContext.ForumVoteAccess ? "can_vote" : "cannot_vote"));
 
-          writer.WriteLine("<ul>");
+          writer.WriteLine("</ul>");
       }
 
       #endregion
