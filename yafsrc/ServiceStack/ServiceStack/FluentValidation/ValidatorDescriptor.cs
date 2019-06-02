@@ -98,7 +98,8 @@ namespace ServiceStack.FluentValidation {
 			var member = propertyExpression.GetMember();
 
 			if (member == null) {
-				throw new ArgumentException(string.Format("Cannot retrieve name as expression '{0}' as it does not specify a property.", propertyExpression));
+				throw new ArgumentException(
+                    $"Cannot retrieve name as expression '{propertyExpression}' as it does not specify a property.");
 			}
 
 			return GetName(member.Name);

@@ -74,7 +74,7 @@ namespace ServiceStack.FluentValidation.TestHelper {
 			var failures = testValidationResult.Result.Errors.Where(x => x.PropertyName == propertyName || string.IsNullOrEmpty(propertyName)).ToArray();
 
 			if (!failures.Any())
-				throw new ValidationTestException(string.Format("Expected a validation error for property {0}", propertyName));
+				throw new ValidationTestException($"Expected a validation error for property {propertyName}");
 
 			return failures;
 		}
@@ -83,7 +83,7 @@ namespace ServiceStack.FluentValidation.TestHelper {
 			var propertyName = GetPropertyName(properties);
 
 			if (testValidationResult.Result.Errors.Any(x => x.PropertyName == propertyName || string.IsNullOrEmpty(propertyName)))
-				throw new ValidationTestException(string.Format("Expected no validation errors for property {0}", propertyName));
+				throw new ValidationTestException($"Expected no validation errors for property {propertyName}");
 		}
 	}
 }

@@ -48,7 +48,7 @@
                                                 </div>
                                             </div>
                                         </asp:PlaceHolder>
-                                        <div class="form-group form-check">
+                                        <div class="custom-control custom-checkbox">
                                             <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
                                         </div>
                                     </form>

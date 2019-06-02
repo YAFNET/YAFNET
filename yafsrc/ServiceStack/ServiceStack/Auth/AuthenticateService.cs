@@ -155,11 +155,8 @@ namespace ServiceStack.Auth
         {
             AssertAuthProviders();
 
-            if (ValidateFn != null)
-            {
-                var validationResponse = ValidateFn(this, Request.Verb, request);
-                if (validationResponse != null) return validationResponse;
-            }
+            var validationResponse = ValidateFn?.Invoke(this, this.Request.Verb, request);
+            if (validationResponse != null) return validationResponse;
 
             if (request.RememberMe.HasValue)
             {

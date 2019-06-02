@@ -1244,8 +1244,8 @@ namespace ServiceStack.Html
                 }
                 else
                 {
-                    pattern = new Regex(string.Format("\\s*(</?(?:{0})(?:>|[\\s/][^>]*>))\\s*",
-                                                      RemoveSurroundingSpaces.Replace(",", "|")),
+                    pattern = new Regex(
+                        $"\\s*(</?(?:{this.RemoveSurroundingSpaces.Replace(",", "|")})(?:>|[\\s/][^>]*>))\\s*",
                                         RegexOptions.Singleline | RegexOptions.IgnoreCase);
                 }
 
@@ -1798,7 +1798,7 @@ namespace ServiceStack.Html
 
             if (cdataWrapper)
             {
-                result = string.Format("<![CDATA[{0}]]>", result);
+                result = $"<![CDATA[{result}]]>";
             }
 
             return result;
@@ -1826,7 +1826,7 @@ namespace ServiceStack.Html
 
             if (cdataWrapper)
             {
-                result = string.Format("<![CDATA[{0}]]>", result);
+                result = $"<![CDATA[{result}]]>";
             }
 
             return result;
@@ -1905,8 +1905,8 @@ namespace ServiceStack.Html
 
         public override string ToString()
         {
-            return String.Format("Time={0}, Preserved={1}, Original={2}, Compressed={3}", 
-                Time, PreservedSize, OriginalMetrics, CompressedMetrics);
+            return
+                $"Time={this.Time}, Preserved={this.PreservedSize}, Original={this.OriginalMetrics}, Compressed={this.CompressedMetrics}";
         }
     }
 
@@ -1949,9 +1949,8 @@ namespace ServiceStack.Html
 
         public override string ToString()
         {
-            return string.Format(
-                "Filesize={0}, Empty Chars={1}, Script Size={2}, Style Size={3}, Event Handler Size={4}",
-                Filesize, EmptyChars, InlineScriptSize, InlineStyleSize, InlineEventSize);
+            return
+                $"Filesize={this.Filesize}, Empty Chars={this.EmptyChars}, Script Size={this.InlineScriptSize}, Style Size={this.InlineStyleSize}, Event Handler Size={this.InlineEventSize}";
         }
     }
 }

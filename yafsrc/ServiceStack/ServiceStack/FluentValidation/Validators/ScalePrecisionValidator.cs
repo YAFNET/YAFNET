@@ -76,14 +76,16 @@ namespace ServiceStack.FluentValidation.Validators
 
             if (Scale < 0)
                 throw new ArgumentOutOfRangeException(
-                    "scale", string.Format("Scale must be a positive integer. [value:{0}].", Scale));
+                    "scale",
+                    $"Scale must be a positive integer. [value:{this.Scale}].");
             if (Precision < 0)
                 throw new ArgumentOutOfRangeException(
-                    "precision", string.Format("Precision must be a positive integer. [value:{0}].", Precision));
+                    "precision",
+                    $"Precision must be a positive integer. [value:{this.Precision}].");
             if (Precision < Scale)
                 throw new ArgumentOutOfRangeException(
                     "scale",
-                    string.Format("Scale must be less than precision. [scale:{0}, precision:{1}].", Scale, Precision));
+                    $"Scale must be less than precision. [scale:{this.Scale}, precision:{this.Precision}].");
         }
 
         private static UInt32[] GetBits(decimal Decimal)

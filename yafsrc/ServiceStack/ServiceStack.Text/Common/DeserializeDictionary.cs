@@ -57,7 +57,7 @@ namespace ServiceStack.Text.Common
                     return s => ParseIDictionary(s, type);
                 }
 
-                throw new ArgumentException(string.Format("Type {0} is not of type IDictionary<,>", type.FullName));
+                throw new ArgumentException($"Type {type.FullName} is not of type IDictionary<,>");
             }
 
             // optimized access for regularly used types

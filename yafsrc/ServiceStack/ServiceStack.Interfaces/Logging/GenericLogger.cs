@@ -25,8 +25,7 @@ namespace ServiceStack.Logging
             if (CaptureLogs)
                 Logs.AppendLine(message);
 
-            if (OnMessage != null)
-                OnMessage(message);
+            this.OnMessage?.Invoke(message);
         }
 
         /// <summary>

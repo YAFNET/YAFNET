@@ -59,11 +59,7 @@ namespace ServiceStack.FluentValidation.Internal {
 		public static MemberInfo GetMember(this LambdaExpression expression) {
 			var memberExp = RemoveUnary(expression.Body) as MemberExpression;
 
-			if (memberExp == null) {
-				return null;
-			}
-
-			return memberExp.Member;
+            return memberExp?.Member;
 		}
 
 		/// <summary>

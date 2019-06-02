@@ -14,7 +14,7 @@
         public override string ToQuotedString(Type fieldType, object value)
         {
             var guidValue = (Guid)value;
-            return string.Format("CAST('{0}' AS UNIQUEIDENTIFIER)", guidValue);
+            return $"CAST('{guidValue}' AS UNIQUEIDENTIFIER)";
         }
     }
 }

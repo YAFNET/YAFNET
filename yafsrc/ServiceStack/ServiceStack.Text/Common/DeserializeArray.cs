@@ -176,7 +176,7 @@ namespace ServiceStack.Text.Common
         {
             var type = typeof(T);
             if (!type.IsArray)
-                throw new ArgumentException(string.Format("Type {0} is not an Array type", type.FullName));
+                throw new ArgumentException($"Type {type.FullName} is not an Array type");
 
             if (type == typeof(string[]))
                 return ParseStringArray;

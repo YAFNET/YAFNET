@@ -188,16 +188,6 @@ namespace ServiceStack
             return httpMethod;
         }
 
-        public static string GetFormatModifier(this IRequest httpReq)
-        {
-            var format = httpReq.QueryString[Keywords.Format];
-            if (format == null)
-                return null;
-
-            var pos = format.IndexOf('.');
-            return pos >= 0 ? format.Substring(pos + 1) : null;
-        }
-
         public static bool HasNotModifiedSince(this IRequest httpReq, DateTime? dateTime)
         {
             if (!dateTime.HasValue) return false;

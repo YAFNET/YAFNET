@@ -41,10 +41,7 @@ namespace ServiceStack.Text.Common
 
         internal static void UnRegisterSerializer<T>()
         {
-            if (InSerializerFns == null)
-                return;
-
-            InSerializerFns.Remove(typeof(T));
+            InSerializerFns?.Remove(typeof(T));
         }
 
         internal static bool InSerializer<T>()
@@ -65,10 +62,7 @@ namespace ServiceStack.Text.Common
 
         internal static void UnRegisterDeserializer<T>()
         {
-            if (InDeserializerFns == null)
-                return;
-
-            InDeserializerFns.Remove(typeof(T));
+            InDeserializerFns?.Remove(typeof(T));
         }
 
         internal static bool InDeserializer<T>()

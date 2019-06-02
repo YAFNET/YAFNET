@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -87,16 +86,7 @@ namespace ServiceStack.Text
         public static Type FindTypeFromLoadedAssemblies(string typeName)
         {
             var assemblies = PclExport.Instance.GetAllAssemblies();
-            foreach (var assembly in assemblies)
-            {
-                var type = assembly.GetType(typeName);
-                if (type != null)
-                {
-                    return type;
-                }
-            }
-
-            return null;
+            return assemblies.Select(assembly => assembly.GetType(typeName)).FirstOrDefault(type => type != null);
         }
 
         public static Assembly LoadAssembly(string assemblyPath)

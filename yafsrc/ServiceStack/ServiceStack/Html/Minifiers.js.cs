@@ -228,7 +228,7 @@ namespace ServiceStack.Html
             }
             if (theA == EOF)
             {
-              throw new Exception(string.Format("Error: JSMIN unterminated string literal: {0}", theA));
+              throw new Exception($"Error: JSMIN unterminated string literal: {this.theA}");
             }
           }
         }

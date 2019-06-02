@@ -104,7 +104,7 @@ namespace ServiceStack.FluentValidation.Validators
 					}
 
 				default:
-					var message = string.Format("Unexpected typeName of '{0}' during flags enum evaluation.", typeName);
+					var message = $"Unexpected typeName of '{typeName}' during flags enum evaluation.";
 					throw new ArgumentOutOfRangeException("typeName", message);
 			}
 		}

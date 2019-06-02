@@ -197,9 +197,9 @@ namespace ServiceStack.MiniProfiler.Data
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _cmd != null)
+            if (disposing)
             {
-                _cmd.Dispose();
+                _cmd?.Dispose();
             }
             _cmd = null;
             base.Dispose(disposing);

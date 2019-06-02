@@ -64,7 +64,8 @@ namespace ServiceStack.FluentValidation.TestHelper {
 
 			if (childValidatorTypes.All(x => x != childValidatorType)) {
 				var childValidatorNames = childValidatorTypes.Any() ? string.Join(", ", childValidatorTypes.Select(x => x.Name)) : "none";
-				throw new ValidationTestException(string.Format("Expected property '{0}' to have a child validator of type '{1}.'. Instead found '{2}'", expressionMemberName, childValidatorType.Name, childValidatorNames));
+				throw new ValidationTestException(
+                    $"Expected property '{expressionMemberName}' to have a child validator of type '{childValidatorType.Name}.'. Instead found '{childValidatorNames}'");
 			}
 		}
 
@@ -98,15 +99,18 @@ namespace ServiceStack.FluentValidation.TestHelper {
 		}
 
 		public static IEnumerable<ValidationFailure> WithCustomState(this IEnumerable<ValidationFailure> failures, object expectedCustomState) {
-			return failures.When(failure => failure.CustomState == expectedCustomState, string.Format("Expected custom state of '{0}'.", expectedCustomState));
+			return failures.When(failure => failure.CustomState == expectedCustomState,
+                $"Expected custom state of '{expectedCustomState}'.");
 		}
 
 		public static IEnumerable<ValidationFailure> WithErrorMessage(this IEnumerable<ValidationFailure> failures, string expectedErrorMessage) {
-			return failures.When(failure => failure.ErrorMessage == expectedErrorMessage, string.Format("Expected an error message of '{0}'.", expectedErrorMessage));
+			return failures.When(failure => failure.ErrorMessage == expectedErrorMessage,
+                $"Expected an error message of '{expectedErrorMessage}'.");
 		}
 
 		public static IEnumerable<ValidationFailure> WithErrorCode(this IEnumerable<ValidationFailure> failures, string expectedErrorCode) {
-			return failures.When(failure => failure.ErrorCode == expectedErrorCode, string.Format("Expected an error code of '{0}'.", expectedErrorCode));
+			return failures.When(failure => failure.ErrorCode == expectedErrorCode,
+                $"Expected an error code of '{expectedErrorCode}'.");
 		}
 	}
 }
