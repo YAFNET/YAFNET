@@ -86,6 +86,9 @@ namespace YAF.Core.Modules
             builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafAlbum>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafAttachment>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafResources>().As<IResources>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
@@ -94,6 +97,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<YafSpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<YafSpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();

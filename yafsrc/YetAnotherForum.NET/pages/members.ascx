@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -129,7 +130,7 @@
                     <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
                 </td>
                 <td>
-                    <%# $"{((System.Data.DataRowView)Container.DataItem)["NumPosts"]:N0}" %>
+                    <%# "{0:N0}".Fmt(((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
                 </td>
                 <td>
                     <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>

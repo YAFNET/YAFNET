@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -65,7 +66,7 @@
                     <asp:HiddenField runat="server" Value='<%#
     this.FormatMessage((System.Data.DataRow)Container.DataItem)%>' ID="MessageField" />
                     <%# Container.DataItemToField<DateTime>("Edited") != Container.DataItemToField<DateTime>("Posted") ? Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason"): this.GetText("ORIGINALMESSAGE") %>
-                    <%# Container.ItemIndex.Equals(this.RevisionsCount-1) ? $"({this.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")})" : string.Empty %>
+                    <%# Container.ItemIndex.Equals(this.RevisionsCount-1) ? "({0})".Fmt(this.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")) : string.Empty %>
                 </td>
                 <td>
                     <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />

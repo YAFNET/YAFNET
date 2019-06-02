@@ -44,12 +44,12 @@ namespace YAF
         /// <summary>
         /// The script begin tag
         /// </summary>
-        private const string SCRIPTBEGINTAG = "<script type='text/javascript'>";
+        private const string Scriptbegintag = "<script type='text/javascript'>";
 
         /// <summary>
         /// The script end tag
         /// </summary>
-        private const string SCRIPTENDTAG = "</script>";
+        private const string Scriptendtag = "</script>";
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -72,7 +72,7 @@ namespace YAF
             {
                 this.Response.Clear();
 
-                this.Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
+                this.Response.Write($"{Scriptbegintag} {closeScript} {Scriptendtag}");
 
                 return;
             }
@@ -96,7 +96,7 @@ namespace YAF
                     this.HandleGoogleReturn();
                     break;
                 default:
-                    this.Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
+                    this.Response.Write($"{Scriptbegintag} {closeScript} {Scriptendtag}");
                     break;
             }
         }
@@ -126,11 +126,12 @@ namespace YAF
                 if (message.IsSet())
                 {
                     this.Response.Write(
-                        "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                        string.Format(
+                            "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             message,
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
+                                Scriptbegintag,
+                                Scriptendtag));
                 }
                 else
                 {
@@ -156,19 +157,21 @@ namespace YAF
                 if (message.IsSet())
                 {
                     this.Response.Write(
-                        "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>".FormatWith(
+                        string.Format(
+                            "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>",
                             message,
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
+                                Scriptbegintag,
+                                Scriptendtag));
                 }
                 else
                 {
                     this.Response.Write(
-                        "{1} window.opener.location.href = '{0}';window.close(); {2}>".FormatWith(
+                        string.Format(
+                            "{1} window.opener.location.href = '{0}';window.close(); {2}>",
                             YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                                Scriptbegintag,
+                                Scriptendtag));
                 }
             }
         }
@@ -188,11 +191,12 @@ namespace YAF
                 if (accessToken.IsNotSet())
                 {
                     this.Response.Write(
-                        "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                        string.Format(
+                            "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             YafContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
+                                Scriptbegintag,
+                                Scriptendtag));
 
                     return;
                 }
@@ -217,11 +221,12 @@ namespace YAF
                     if (message.IsSet())
                     {
                         this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                    YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
+                                    Scriptbegintag,
+                                    Scriptendtag));
                     }
                     else
                     {
@@ -249,19 +254,21 @@ namespace YAF
                     if (message.IsSet())
                     {
                         this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}".FormatWith(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                    YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
+                                    Scriptbegintag,
+                                    Scriptendtag));
                     }
                     else
                     {
                         this.Response.Write(
-                            "{1} window.location.href = '{0}';window.close(); {2}".FormatWith(
+                            string.Format(
+                                "{1} window.location.href = '{0}';window.close(); {2}",
                                 YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                    Scriptbegintag,
+                                    Scriptendtag));
                     }
                 }
             }
@@ -292,11 +299,12 @@ namespace YAF
                 if (accessTokens.AccessToken == null)
                 {
                     this.Response.Write(
-                        "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                        string.Format(
+                            "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             YafContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
+                                Scriptbegintag,
+                                Scriptendtag));
 
                     return;
                 }
@@ -319,11 +327,12 @@ namespace YAF
                     if (message.IsSet())
                     {
                         this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                    YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
+                                    Scriptbegintag,
+                                    Scriptendtag));
                     }
                     else
                     {
@@ -351,19 +360,21 @@ namespace YAF
                     if (message.IsSet())
                     {
                         this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}".FormatWith(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                    YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
+                                    Scriptbegintag,
+                                    Scriptendtag));
                     }
                     else
                     {
                         this.Response.Write(
-                            "{1} window.location.href = '{0}';window.close(); {2}".FormatWith(
+                            string.Format(
+                                "{1} window.location.href = '{0}';window.close(); {2}",
                                 YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                    Scriptbegintag,
+                                    Scriptendtag));
                     }
                 }
             }

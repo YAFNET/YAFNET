@@ -38,12 +38,12 @@
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
-                            <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(this.Eval("UserID")) %>' />
+                            <YAF:UserLink ID="UserName" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                              Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              Icon="users-cog" Type="Secondary"
-                                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(this.Eval("UserID")) ) %>'>
+                                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
                             </YAF:ThemeButton>
                         </div>
                     </div>

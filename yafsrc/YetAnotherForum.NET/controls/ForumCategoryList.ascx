@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 
@@ -44,7 +45,7 @@
                                                  TextLocalizedTag="MARKALL" />
                                 <YAF:RssFeedLink ID="RssFeed1" runat="server"
                                                  FeedType="Forum" 
-                                                 AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? $"c={this.PageContext.PageCategoryID}" : null %>'
+                                                 AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? "c={0}".Fmt(this.PageContext.PageCategoryID) : null %>'
                                                  Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ForumFeedAccess) %>" />
                             </div>
                         </div>

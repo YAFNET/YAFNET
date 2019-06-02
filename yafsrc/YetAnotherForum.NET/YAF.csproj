@@ -93,7 +93,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
-    <ErrorReport>prompt</ErrorReport>
+    <ErrorReport>none</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <ExcludeFilesFromDeployment>Content\jquery.fileupload.comb.css.bundle;Content\bootstrap-forum.css;Content\bootstrap-select.css;Content\bootstrap-select.min.css;Content\bootstrap-select.min.css;Content\forum.css;Content\InstallWizard.css;Content\jquery.fileupload.comb.css;Content\jquery.ceebox.css;Content\jquery.ceebox.min.css;Content\jquery.hovercard.css;Content\jquery.hovercard.min.css;Content\jquery.notification.css;Content\jquery.notification.min.css;Content\jquery.selectedQuoting.css;Content\jquery.syntaxhighligher.css;Content\jquery.syntaxhighligher.min.css;Content\jquery.yafmodaldialog.css;Content\jquery.yafmodaldialog.min.css;Content\jquery.tablesorter.css;Content\jquery.tablesorter.min.css;Content\jsdifflib.css;Content\jsdifflib.min.css;Content\ladda.css;Content\ladda.min.css;Content\ladda-themeless.css;Content\ladda-themeless.min.css;Content\prism.css;Content\select2.css;Content\*.less;Content\bootstrap-select.css.map;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\bootstrap-select.js;Scripts\bootstrap-select.min.js;Scripts\DataPanel.js;Scripts\InstallWizard.js;Scripts\InstallWizard.comb.js;Scripts\jquery.blockUI.js;Scripts\jquery.ceebox.js;Scripts\jquery.fileupload.comb.js;Scripts\jquery.ForumExtensions.js;Scripts\jquery.hovercard.js;Scripts\jquery.msDropDown.js;Scripts\jquery.notification.js;Scripts\jquery.pagemethod.js;Scripts\jquery.pagination.js;Scripts\jquery.selectedQuoting.js;Scripts\jquery.syntaxhighligher.js;Scripts\jquery.tablesorter.js;Scripts\jquery.tablesorter.min.js;Scripts\jquery.tablesorter.pager.js;Scripts\jquery.timeago.js;Scripts\jquery.ui.datepicker-farsi.js;Scripts\jquery.yafmodaldialog.js;Scripts\jquery-2.1.3.js;Scripts\jquery-2.1.3.intellisense.js;Scripts\jquery-ui-1.11.4.js;Scripts\jquery-ui-i18n.js;Scripts\jsdifflib.js;Scripts\jsdifflib.min.js;Scripts\ladda.js;Scripts\ladda.min.js;Scripts\prism.js;Scripts\select2.js;Scripts\select2.min.js;Scripts\spin.js;Scripts\spin.min.js;Scripts\yaf.js;Scripts\yafEditor\yafEditor.js;Scripts\*.js.bundle</ExcludeFilesFromDeployment>
@@ -112,6 +112,7 @@
     <TypeScriptSourceMap>True</TypeScriptSourceMap>
     <TypeScriptMapRoot />
     <TypeScriptSourceRoot />
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -3336,7 +3337,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

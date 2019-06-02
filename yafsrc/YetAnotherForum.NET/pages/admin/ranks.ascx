@@ -36,7 +36,7 @@
                     <i class="fa fa-graduation-cap fa-fw"></i>&nbsp;
 						<%# this.Eval( "Name") %>
 					</td>
-                    <td class="header2">
+                    <td>
 						&nbsp;
                     </td>
                  </tr>
@@ -53,7 +53,7 @@
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="IS_LADDER" LocalizedPage="ADMIN_RANKS" />
                     <asp:Label ID="Label1" runat="server" CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(RankFlags.Flags.IsLadder)) %>'><%# this.LadderInfo(Container.DataItem) %></asp:Label>&nbsp;|&nbsp;
                     <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_LIMIT" LocalizedPage="ADMIN_RANKS" />
-					<asp:Label ID="Label6" runat="server" CssClass='<%# this.GetItemColorString((Convert.ToInt32(this.Eval("PMLimit")) == int.MaxValue) ? "\u221E" : this.Eval("PMLimit").ToString()) %>'><%# ((Convert.ToInt32(this.Eval("PMLimit")) == int.MaxValue) ? "\u221E": this.Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;
+					<asp:Label ID="Label6" runat="server" CssClass='<%# this.GetItemColorString((this.Eval("PMLimit").ToType<int>() == int.MaxValue) ? "\u221E" : this.Eval("PMLimit").ToString()) %>'><%# ((Convert.ToInt32(this.Eval("PMLimit")) == int.MaxValue) ? "\u221E": this.Eval("PMLimit").ToString())%></asp:Label>&nbsp;|&nbsp;
                     <br />
                     <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
                     <asp:Label ID="Label9" runat="server" CssClass='<%# this.GetItemColorString(this.Eval( "UsrAlbums" ).ToString()) %>'><%# this.Eval("UsrAlbums").ToString()%></asp:Label>&nbsp;|&nbsp;
