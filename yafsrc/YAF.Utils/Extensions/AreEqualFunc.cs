@@ -30,21 +30,18 @@ namespace YAF.Utils.Extensions
 
   using YAF.Types;
 
-  #endregion
+    #endregion
 
-  /// <summary>
-  /// The are equal func.
-  /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public class AreEqualFunc<T> : IEqualityComparer<T>
+    /// <summary>The are equal func.</summary>
+    /// <typeparam name="T"></typeparam>
+    public class AreEqualFunc<T> : IEqualityComparer<T>
   {
     #region Constants and Fields
 
     /// <summary>
     /// The _comparer.
     /// </summary>
-    private readonly Func<T, T, bool> _comparer;
+    private readonly Func<T, T, bool> comparer;
 
     #endregion
 
@@ -62,7 +59,7 @@ namespace YAF.Utils.Extensions
     {
       CodeContracts.VerifyNotNull(comparer, "comparer");
 
-      this._comparer = comparer;
+      this.comparer = comparer;
     }
 
     #endregion
@@ -85,7 +82,7 @@ namespace YAF.Utils.Extensions
     /// </returns>
     public bool Equals(T x, T y)
     {
-      return this._comparer(x, y);
+      return this.comparer(x, y);
     }
 
     /// <summary>

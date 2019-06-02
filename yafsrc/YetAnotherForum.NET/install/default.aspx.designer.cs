@@ -172,7 +172,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox txtCreatePassword1;
+        protected global::System.Web.UI.WebControls.TextBox txtCreatePassword1;
         
         /// <summary>
         /// txtCreatePassword2 control.
@@ -181,7 +181,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox txtCreatePassword2;
+        protected global::System.Web.UI.WebControls.TextBox txtCreatePassword2;
         
         /// <summary>
         /// WizEnterPassword control.
@@ -199,7 +199,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox txtEnteredPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtEnteredPassword;
         
         /// <summary>
         /// WizManuallySetPassword control.
@@ -289,7 +289,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox Parameter1_Value;
+        protected global::System.Web.UI.WebControls.TextBox Parameter1_Value;
         
         /// <summary>
         /// Parameter2_Name control.
@@ -307,7 +307,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox Parameter2_Value;
+        protected global::System.Web.UI.WebControls.TextBox Parameter2_Value;
         
         /// <summary>
         /// Parameter3_Name control.
@@ -550,7 +550,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox txtDBUserID;
+        protected global::System.Web.UI.WebControls.TextBox txtDBUserID;
         
         /// <summary>
         /// txtDBPassword control.
@@ -559,7 +559,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox txtDBPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtDBPassword;
         
         /// <summary>
         /// btnTestDBConnection control.
@@ -703,7 +703,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox txtTestFromEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtTestFromEmail;
         
         /// <summary>
         /// txtTestToEmail control.
@@ -712,7 +712,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox txtTestToEmail;
+        protected global::System.Web.UI.WebControls.TextBox txtTestToEmail;
         
         /// <summary>
         /// btnTestSmtp control.
@@ -775,7 +775,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox TheForumName;
+        protected global::System.Web.UI.WebControls.TextBox TheForumName;
         
         /// <summary>
         /// Label6 control.
@@ -820,7 +820,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox ForumEmailAddress;
+        protected global::System.Web.UI.WebControls.TextBox ForumEmailAddress;
         
         /// <summary>
         /// ForumBaseUrlMask control.
@@ -829,7 +829,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox ForumBaseUrlMask;
+        protected global::System.Web.UI.WebControls.TextBox ForumBaseUrlMask;
         
         /// <summary>
         /// UserChoice control.
@@ -856,7 +856,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox ExistingUserName;
+        protected global::System.Web.UI.WebControls.TextBox ExistingUserName;
         
         /// <summary>
         /// CreateAdminUserHolder control.
@@ -874,7 +874,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox UserName;
+        protected global::System.Web.UI.WebControls.TextBox UserName;
         
         /// <summary>
         /// AdminEmail control.
@@ -883,7 +883,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox AdminEmail;
+        protected global::System.Web.UI.WebControls.TextBox AdminEmail;
         
         /// <summary>
         /// Password1 control.
@@ -892,7 +892,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox Password1;
+        protected global::System.Web.UI.WebControls.TextBox Password1;
         
         /// <summary>
         /// Password2 control.
@@ -901,7 +901,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox Password2;
+        protected global::System.Web.UI.WebControls.TextBox Password2;
         
         /// <summary>
         /// SecurityQuestion control.
@@ -910,7 +910,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox SecurityQuestion;
+        protected global::System.Web.UI.WebControls.TextBox SecurityQuestion;
         
         /// <summary>
         /// SecurityAnswer control.
@@ -919,7 +919,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernTextBox SecurityAnswer;
+        protected global::System.Web.UI.WebControls.TextBox SecurityAnswer;
         
         /// <summary>
         /// WizMigrateUsers control.

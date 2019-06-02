@@ -28,9 +28,8 @@ namespace YAF.Data.MsSql.Functions
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///
+    /// The reflect ms sql specific functions.
     /// </summary>
-    /// <seealso cref="YAF.Data.MsSql.Functions.BaseReflectedSpecificFunctions" />
     [ExportService(ServiceLifetimeScope.OwnedByContainer)]
     public class ReflectMsSqlSpecificFunctions : BaseReflectedSpecificFunctions
     {

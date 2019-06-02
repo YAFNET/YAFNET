@@ -99,7 +99,6 @@
                     {
                         // ignore
                     }
-
                 }
 
                 File.Delete(lockFilePath);
@@ -179,22 +178,32 @@
         {
             var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
 
-            var indexWriter = new IndexWriter(
-                Directory,
-                analyzer,
-                !IndexReader.IndexExists(Directory),
-                new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH));
-
-            indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
-            indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
-
-            foreach (var message in messageList)
+            try
             {
-                AddToSearchIndex(message, indexWriter);
-            }
+                var indexWriter = new IndexWriter(
+                    Directory,
+                    analyzer,
+                    !IndexReader.IndexExists(Directory),
+                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH));
 
-            analyzer.Close();
-            indexWriter.Dispose();
+                indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
+                indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
+
+                foreach (var message in messageList)
+                {
+                    AddToSearchIndex(message, indexWriter);
+                }
+
+                indexWriter.Dispose();
+            }
+            catch (ThreadAbortException)
+            {
+                
+            }
+            finally
+            {
+                analyzer.Close();
+            }
         }
 
         /// <summary>

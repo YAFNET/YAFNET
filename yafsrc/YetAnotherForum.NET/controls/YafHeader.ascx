@@ -138,7 +138,7 @@
                 </li>
             </ul>
             <asp:Panel ID="quickSearch" runat="server" CssClass="form-inline" Visible="false">
-                <YAF:ModernTextBox ID="searchInput" Type="Search" runat="server" CssClass="form-control"></YAF:ModernTextBox>&nbsp;
+                <asp:TextBox ID="searchInput" Type="Search" runat="server" CssClass="form-control"></asp:TextBox>&nbsp;
                 <YAF:ThemeButton ID="doQuickSearch" runat="server"
                                  CssClass="my-2 my-sm-0"
                                  Type="OutlineInfo"

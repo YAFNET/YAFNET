@@ -29,7 +29,7 @@ namespace YAF.Utils.Structures
 
   /// <summary>
   /// Class that represents a doubly linked list (I can't believe that .NET didn't 
-  ///   have one of these).  The primary usage for this class is with the MostRecenlyUsed class,
+  ///   have one of these).  The primary usage for this class is with the Most Recently Used class,
   ///   but can be used in a variety of scenarios.
   /// </summary>
   [Serializable]
@@ -715,14 +715,7 @@ namespace YAF.Utils.Structures
       /// </returns>
       public override string ToString()
       {
-        if (this.Item != null)
-        {
-          return this.Item.ToString();
-        }
-        else
-        {
-          return "null";
-        }
+          return this.Item != null ? this.Item.ToString() : "null";
       }
 
       #endregion

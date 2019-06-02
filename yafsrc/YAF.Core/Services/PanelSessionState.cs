@@ -47,7 +47,7 @@ namespace YAF.Core.Services
         // Ederon : 7/14/2007
         get
         {
-            var sessionPanelID = "panelstate_" + panelID;
+            var sessionPanelID = $"panelstate_{panelID}";
 
             // try to get panel state from session state first
             if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)

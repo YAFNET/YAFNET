@@ -180,10 +180,7 @@ namespace YAF.Core.Nntp
       if (request != null)
       {
         this.sw.WriteLine(request);
-        if (this.onRequest != null)
-        {
-          this.onRequest("SEND: " + request);
-        }
+        this.onRequest?.Invoke("SEND: " + request);
       }
 
       string line = null;

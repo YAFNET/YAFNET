@@ -43,12 +43,12 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         ///     The _methods.
         /// </summary>
-        protected readonly IDictionary<MethodInfo, ParameterInfo[]> _methods = null;
+        protected readonly IDictionary<MethodInfo, ParameterInfo[]> Methods;
 
         /// <summary>
         ///     The _supported operations.
         /// </summary>
-        protected readonly List<string> _supportedOperations;
+        protected readonly List<string> SupportedOperations;
 
         #endregion
 
@@ -60,13 +60,16 @@ namespace YAF.Data.MsSql.Functions
         /// <param name="staticReflectedClass">
         /// The static reflected class. 
         /// </param>
+        /// <param name="dbAccess">
+        /// The db Access.
+        /// </param>
         protected BaseReflectedSpecificFunctions(Type staticReflectedClass, IDbAccess dbAccess)
             :base(dbAccess)
         {
-            this._methods = staticReflectedClass
+            this.Methods = staticReflectedClass
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
                 .ToDictionary(k => k, k => k.GetParameters());
-            this._supportedOperations = this._methods.Select(x => x.Key.Name).ToList();
+            this.SupportedOperations = this.Methods.Select(x => x.Key.Name).ToList();
         }
 
         #endregion
@@ -76,13 +79,24 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         /// Handle the run operation.
         /// </summary>
-        /// <param name="sqlConnection"></param>
-        /// <param name="dbTransaction"></param>
-        /// <param name="dbfunctionType"></param>
-        /// <param name="operationName"></param>
-        /// <param name="parameters"></param>
-        /// <param name="result"></param>
-        /// <returns></returns>
+        /// <param name="sqlConnection">
+        /// The sql Connection.
+        /// </param>
+        /// <param name="dbTransaction">
+        /// The db Transaction.
+        /// </param>
+        /// <param name="dbfunctionType">
+        /// The dbfunction Type.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation Name.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
         protected override bool RunOperation(
             SqlConnection sqlConnection,
             IDbTransaction dbTransaction,
@@ -92,7 +106,7 @@ namespace YAF.Data.MsSql.Functions
             out object result)
         {
             // find operation...
-            var method = this._methods.FirstOrDefault(x => string.Equals(x.Key.Name, operationName, StringComparison.OrdinalIgnoreCase));
+            var method = this.Methods.FirstOrDefault(x => string.Equals(x.Key.Name, operationName, StringComparison.OrdinalIgnoreCase));
 
             if (method.IsDefault())
             {
@@ -156,7 +170,7 @@ namespace YAF.Data.MsSql.Functions
         /// </returns>
         public override bool IsSupportedOperation(string operationName)
         {
-            return this._supportedOperations.Any(x => string.Equals(x, operationName, StringComparison.InvariantCultureIgnoreCase));
+            return this.SupportedOperations.Any(x => string.Equals(x, operationName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         #endregion

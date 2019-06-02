@@ -80,10 +80,8 @@ namespace YAF.Data.MsSql
             if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = string.Format(
-                    "EXEC {0} {1}", 
-                    cmd.CommandText, 
-                    Enumerable.Range(0, paramList.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
+                cmd.CommandText =
+                    $"EXEC {cmd.CommandText} {Enumerable.Range(0, paramList.Count()).Select(x => $"@{x}").ToDelimitedString(",")}";
 
                 // add params without "keys" as they need to be index (0, 1, 2, 3)...
                 base.MapParameters(cmd, paramList.Select(x => new KeyValuePair<string, object>(null, x.Value)));

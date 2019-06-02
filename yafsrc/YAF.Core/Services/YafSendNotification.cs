@@ -737,7 +737,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(email, "email");
             CodeContracts.VerifyNotNull(user, "user");
 
-            var hashinput = string.Format("{0}{1}{2}", DateTime.UtcNow, email, Security.CreatePassword(20));
+            var hashinput = $"{DateTime.UtcNow}{email}{Security.CreatePassword(20)}";
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // save verification record...

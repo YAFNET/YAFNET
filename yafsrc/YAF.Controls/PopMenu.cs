@@ -228,10 +228,7 @@ namespace YAF.Controls
         /// </param>
         public void RaisePostBackEvent([NotNull] string eventArgument)
         {
-            if (this.ItemClick != null)
-            {
-                this.ItemClick(this, new PopEventArgs(eventArgument));
-            }
+            this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
         }
 
         #endregion

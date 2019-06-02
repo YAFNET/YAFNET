@@ -5,7 +5,8 @@
 <head runat="server" id="YafHead">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge"><meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server"
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server"
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
@@ -99,11 +100,11 @@
                         <asp:Label ID="lblConfigPasswordAppSettingFile" runat="server">app.config</asp:Label>
                         file.
                     </p>
-                    <YAF:ModernTextBox ID="txtCreatePassword1" runat="server" TextMode="Password" Type="Password" 
-                        PlaceHolder="Enter the Config Password" RenderWrapper="True" 
+                    <asp:TextBox ID="txtCreatePassword1" runat="server" TextMode="Password"
+                        PlaceHolder="Enter the Config Password"
                         LabelText="Config Password"/>
-                    <YAF:ModernTextBox ID="txtCreatePassword2" runat="server" TextMode="Password" Type="Password"  
-                        PlaceHolder="Re-Enter the Config Password" RenderWrapper="True" 
+                    <asp:TextBox ID="txtCreatePassword2" runat="server" TextMode="Password"
+                        PlaceHolder="Re-Enter the Config Password"
                         LabelText="Verify Password"/>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Enter Config Password" ID="WizEnterPassword">
@@ -117,7 +118,7 @@
                         <span class="infoLabel">Note</span> 
                         If this is an upgrade, please enter the configuration ad you created when the forum was first installed, not the admin user password.
                     </div>
-                    <YAF:ModernTextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password" 
+                    <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password" 
                         PlaceHolder="Enter the Config Password" RenderWrapper="True" 
                         LabelText="Password"/>
                 </asp:WizardStep>
@@ -170,12 +171,12 @@
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Parameter1_Name" runat="server" AssociatedControlID="Parameter1_Value" />
-                            <YAF:ModernTextBox runat="server" ID="Parameter1_Value" Text="(local)" 
+                            <asp:TextBox runat="server" ID="Parameter1_Value" Text="(local)" 
                                 Placeholder="Enter the Data Source (Name or address of the sql server)"/>
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Parameter2_Name" runat="server" AssociatedControlID="Parameter2_Value" />
-                            <YAF:ModernTextBox runat="server" ID="Parameter2_Value" 
+                            <asp:TextBox runat="server" ID="Parameter2_Value" 
                                 Placeholder="Enter the Database Name"/>
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
@@ -232,10 +233,10 @@
                             <asp:CheckBox ID="Parameter19_Value" runat="server" Checked="true" AutoPostBack="true" />
                         </asp:PlaceHolder>
                         <asp:PlaceHolder ID="DBUsernamePasswordHolder" Visible="false" runat="server">
-                            <YAF:ModernTextBox runat="server" ID="txtDBUserID" 
+                            <asp:TextBox runat="server" ID="txtDBUserID" 
                                 Placeholder="Enter the SQL User Name" RenderWrapper="True" 
                                 LabelText="User ID"/>
-                            <YAF:ModernTextBox runat="server" ID="txtDBPassword" 
+                            <asp:TextBox runat="server" ID="txtDBPassword" 
                                 Placeholder="Enter the SQL Password" RenderWrapper="True" 
                                 LabelText="Password"/>
                         </asp:PlaceHolder>
@@ -306,10 +307,10 @@
                     <p class="descriptionText">
                         Sends a test Message to the Email address that is defined as Send to address
                     </p>
-                    <YAF:ModernTextBox ID="txtTestFromEmail" runat="server"
+                    <asp:TextBox ID="txtTestFromEmail" runat="server"
                         Placeholder="Enter the from Email Address" RenderWrapper="True" Type="Email"
                         LabelText="Send From Email Address"/>
-                    <YAF:ModernTextBox ID="txtTestToEmail" runat="server" 
+                    <asp:TextBox ID="txtTestToEmail" runat="server" 
                         Placeholder="Enter the to Email Address" RenderWrapper="True" Type="Email"
                         LabelText="Send To Email Address"/>
                     <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="btn btn-info" 
@@ -340,7 +341,7 @@
                     <h4>
                         Create New Board
                     </h4>
-                    <YAF:ModernTextBox ID="TheForumName" runat="server" 
+                    <asp:TextBox ID="TheForumName" runat="server" 
                         Placeholder="Enter the name of the new Board"
                         RenderWrapper="True" LabelText="Board Name"/>
                     <div class="form-group">
@@ -355,11 +356,11 @@
                         <asp:DropDownList ID="Culture" runat="server" 
                             CssClass="custom-select" />
                     </div>
-                    <YAF:ModernTextBox ID="ForumEmailAddress" runat="server" 
+                    <asp:TextBox ID="ForumEmailAddress" runat="server" 
                         Placeholder="Enter the forum email address"  RenderWrapper="True"
                         LabelText="Forum Email"
                         Type="Email"/>
-                    <YAF:ModernTextBox ID="ForumBaseUrlMask" runat="server" 
+                    <asp:TextBox ID="ForumBaseUrlMask" runat="server" 
                         Placeholder="Enter the Base Url mask for the forum" RenderWrapper="True" 
                         LabelText="Forum Base Url Mask"
                         Type="Url"/>
@@ -372,31 +373,31 @@
                         </asp:RadioButtonList>
                     </div>
                     <asp:PlaceHolder ID="ExistingUserHolder" runat="server" Visible="false">
-                    <YAF:ModernTextBox ID="ExistingUserName" runat="server" 
+                    <asp:TextBox ID="ExistingUserName" runat="server" 
                         Placeholder="Enter the name of the existing user to make the admin" RenderWrapper="True" 
                         LabelText="Existing User Name"/>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder ID="CreateAdminUserHolder" runat="server">
-                    <YAF:ModernTextBox ID="UserName" runat="server"
+                    <asp:TextBox ID="UserName" runat="server"
                         Placeholder="Enter the name of the admin user" RenderWrapper="True" 
                         LabelText="Admin User Name"/>
-                    <YAF:ModernTextBox ID="AdminEmail" runat="server" 
+                    <asp:TextBox ID="AdminEmail" runat="server" 
                         Placeholder="Enter the administrators email address" RenderWrapper="True" 
                         LabelText="Admin E-mail"
                         Type="Email"/>
-                    <YAF:ModernTextBox ID="Password1" runat="server" 
+                    <asp:TextBox ID="Password1" runat="server" 
                         Placeholder="Enter the password of the admin user." RenderWrapper="True" 
                         LabelText="Admin Password"
                         TextMode="Password" Type="Password" />
-                    <YAF:ModernTextBox ID="Password2" runat="server"
+                    <asp:TextBox ID="Password2" runat="server"
                         Placeholder="Verify the password" RenderWrapper="True" 
                         LabelText="Confirm Password"
                         TextMode="Password" Type="Password" />
-                    <YAF:ModernTextBox runat="server" ID="SecurityQuestion" 
+                    <asp:TextBox runat="server" ID="SecurityQuestion" 
                         Placeholder="The question you will be asked when you need to retrieve your lost password" 
                         RenderWrapper="True" 
                         LabelText="Security Question"/>
-                    <YAF:ModernTextBox runat="server" ID="SecurityAnswer" 
+                    <asp:TextBox runat="server" ID="SecurityAnswer" 
                         Placeholder="The answer to the security question" RenderWrapper="True" 
                         LabelText="Security Answer"/>
                     </asp:PlaceHolder>

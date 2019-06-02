@@ -690,7 +690,7 @@ namespace YAF.Core.Model
 
             if (forumidExclusions != null && forumidExclusions.Length > 0)
             {
-                dv.RowFilter = string.Format("ForumID NOT IN ({0})", forumidExclusions.ToDelimitedString(","));
+                dv.RowFilter = $"ForumID NOT IN ({forumidExclusions.ToDelimitedString(",")})";
                 dv.ApplyDefaultSort = true;
             }
 
@@ -745,7 +745,7 @@ namespace YAF.Core.Model
 
                     newRow = listDestination.NewRow();
                     newRow["ForumID"] = -categoryID; // Ederon : 9/4/2007
-                    newRow["Title"] = string.Format("{0}", row["Category"]);
+                    newRow["Title"] = $"{row["Category"]}";
                     listDestination.Rows.Add(newRow);
                 }
 
@@ -760,7 +760,7 @@ namespace YAF.Core.Model
                 newRow = listDestination.NewRow();
 
                 newRow["ForumID"] = row["ForumID"];
-                newRow["Title"] = string.Format(" -{0} {1}", indent, row["Forum"]);
+                newRow["Title"] = $" -{indent} {row["Forum"]}";
 
                 listDestination.Rows.Add(newRow);
 
@@ -812,7 +812,7 @@ namespace YAF.Core.Model
                         indent += "--";
                     }
 
-                    row["Name"] = string.Format(" -{0} {1}", indent, row["Name"]);
+                    row["Name"] = $" -{indent} {row["Name"]}";
                     list.Rows.Add(row.ItemArray);
                     ForumListSortBasic(listsource, list, (int)row["ForumID"], currentLvl + 1);
                 }

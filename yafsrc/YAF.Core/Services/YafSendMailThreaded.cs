@@ -199,11 +199,7 @@ namespace YAF.Core.Services
                                 this.Logger.Log(
                                     null,
                                     this,
-                                    "SendMailThread Failed for the 2nd time (the email will now deleted) with an SmtpException (Email to: {1}, Subject: {2}): {0}"
-                                        .FormatWith(
-                                            ex.ToString(),
-                                            mailMessages[message].ToUser,
-                                            mailMessages[message].Subject),
+                                    $"SendMailThread Failed for the 2nd time (the email will now deleted) with an SmtpException (Email to: {mailMessages[message].ToUser}, Subject: {mailMessages[message].Subject}): {ex.ToString()}",
                                     EventLogTypes.Warning);
                             }
                         }
@@ -315,6 +311,7 @@ namespace YAF.Core.Services
             IList<Mail> mailList;
 
             Thread.BeginCriticalRegion();
+
             try
             {
                 mailList = this.MailRepository.List(this.UniqueProcessId);
@@ -324,7 +321,7 @@ namespace YAF.Core.Services
                 Thread.EndCriticalRegion();
             }
 
-            this.Logger.Debug("Retreived {0} Queued Messages Process Id ({1})...".FormatWith(mailList.Count, this.UniqueProcessId));
+            this.Logger.Debug("Retrieved {0} Queued Messages Process Id ({1})...".FormatWith(mailList.Count, this.UniqueProcessId));
 
             return mailList;
         }

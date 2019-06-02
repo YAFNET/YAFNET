@@ -130,10 +130,7 @@ namespace YAF.Core
                     },
                     (s, task) =>
                     {
-                        if (task != null)
-                        {
-                            task.Dispose();
-                        }
+                        task?.Dispose();
 
                         var newTask = start();
                         injectServices.Inject(newTask);

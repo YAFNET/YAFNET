@@ -75,10 +75,7 @@ namespace YAF.Utils.Helpers
                 }
                 finally
                 {
-                    if (img != null)
-                    {
-                        img.Dispose();
-                    }
+                    img?.Dispose();
                 }
 
                 stream.Close();

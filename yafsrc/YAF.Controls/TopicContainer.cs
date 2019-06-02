@@ -51,17 +51,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The last post tooltip string.
         /// </summary>
-        private string _altLastPost;
+        private string altLastPost;
 
         /// <summary>
         ///   The first unread post tooltip string.
         /// </summary>
-        private string _altFirstUnreadPost;
-
-        /// <summary>
-        ///   The _the topic row.
-        /// </summary>
-        private DataRowView theTopicRow;
+        private string altFirstUnreadPost;
 
         #endregion
 
@@ -91,9 +86,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get => string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
+            get => string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
 
-            set => this._altLastPost = value;
+            set => this.altLastPost = value;
         }
 
         /// <summary>
@@ -102,9 +97,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastUnreadPost
         {
-            get => string.IsNullOrEmpty(this._altFirstUnreadPost) ? string.Empty : this._altFirstUnreadPost;
+            get => string.IsNullOrEmpty(this.altFirstUnreadPost) ? string.Empty : this.altFirstUnreadPost;
 
-            set => this._altFirstUnreadPost = value;
+            set => this.altFirstUnreadPost = value;
         }
 
         /// <summary>
@@ -114,7 +109,7 @@ namespace YAF.Controls
         {
             set
             {
-                this.theTopicRow = value as DataRowView;
+                this.TopicRow = value as DataRowView;
                 this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
             }
         }
@@ -157,15 +152,7 @@ namespace YAF.Controls
         /// </summary>
         public int? TopicRowID
         {
-            get
-            {
-                if (this.ViewState["TopicRowID"] == null)
-                {
-                    return null;
-                }
-
-                return (int?)this.ViewState["TopicRowID"];
-            }
+            get => this.ViewState["TopicRowID"].ToType<int?>();
 
             set => this.ViewState["TopicRowID"] = value;
         }
@@ -173,7 +160,7 @@ namespace YAF.Controls
         /// <summary>
         ///  Gets the TopicRow.
         /// </summary>
-        protected DataRowView TopicRow => this.theTopicRow;
+        protected DataRowView TopicRow { get; private set; }
 
         #endregion
 
@@ -326,27 +313,6 @@ namespace YAF.Controls
             }
 
             return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
-        }
-
-        /// <summary>
-        /// The get avatar url from id.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url for the User
-        /// </returns>
-        protected string GetAvatarUrlFromID(int userID)
-        {
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
-
-            if (avatarUrl.IsNotSet())
-            {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-            }
-
-            return avatarUrl;
         }
 
         /// <summary>

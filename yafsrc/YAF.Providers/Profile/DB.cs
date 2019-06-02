@@ -253,12 +253,7 @@ namespace YAF.Providers.Profile
         {
             var row = Membership.DB.Current.GetUser(appName.ToString(), null, username.ToString(), false);
 
-            if (row != null)
-            {
-                return row["UserID"];
-            }
-
-            return null;
+            return row?["UserID"];
         }
 
         /// <summary>

@@ -195,17 +195,11 @@ namespace YAF.Core
         {
             if (!this._initLocalization)
             {
-                if (this.BeforeInit != null)
-                {
-                    this.BeforeInit(this, new EventArgs());
-                }
+                this.BeforeInit?.Invoke(this, new EventArgs());
 
                 this.Localization = new YafLocalization(this.TranslationPage);
 
-                if (this.AfterInit != null)
-                {
-                    this.AfterInit(this, new EventArgs());
-                }
+                this.AfterInit?.Invoke(this, new EventArgs());
             }
         }
 

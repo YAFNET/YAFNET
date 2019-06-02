@@ -308,7 +308,7 @@ namespace YAF.Core.Services.Localization
                 YafContext.Current.Get<ILogger>()
                     .Log(
                         YafContext.Current.PageUserID,
-                        string.Format("{0}.ascx", page.ToLower()),
+                        $"{page.ToLower()}.ascx",
                         "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()));
 
                 return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());

@@ -47,7 +47,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   The _load string list.
         /// </summary>
-        private readonly List<MessageNotification> _loadStringList = new List<MessageNotification>();
+        private readonly List<MessageNotification> loadStringList = new List<MessageNotification>();
 
         #endregion
 
@@ -60,13 +60,13 @@ namespace YAF.Core.Services
         {
             if (this.SessionLoadString.Any())
             {
-                this._loadStringList.AddRange(this.SessionLoadString);
+                this.loadStringList.AddRange(this.SessionLoadString);
 
                 // session load string no longer needed
                 this.SessionLoadString.Clear();
             }
 
-            YafContext.Current.Unload += this.Current_Unload;
+            YafContext.Current.Unload += this.CurrentUnload;
         }
 
         #endregion
@@ -77,7 +77,7 @@ namespace YAF.Core.Services
         ///   Gets LoadStringList.
         /// </summary>
         [NotNull]
-        public List<MessageNotification> LoadStringList => this._loadStringList;
+        public List<MessageNotification> LoadStringList => this.loadStringList;
 
         /*
         /// <summary>
@@ -124,8 +124,15 @@ namespace YAF.Core.Services
         /// <summary>
         /// AddLoadMessage creates a message that will be returned on the next page load.
         /// </summary>
-        /// <param name="message">The message you wish to display.</param>
-        /// <param name="messageType">Type of the message.</param>
+        /// <param name="message">
+        /// The message you wish to display.
+        /// </param>
+        /// <param name="messageType">
+        /// Type of the message.
+        /// </param>
+        /// <param name="script">
+        /// The script.
+        /// </param>
         public void Add([NotNull] string message, MessageTypes messageType, string script)
         {
             this.LoadStringList.Add(new MessageNotification(message, messageType, script));
@@ -170,7 +177,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Current_Unload([NotNull] object sender, [NotNull] EventArgs e)
+        private void CurrentUnload([NotNull] object sender, [NotNull] EventArgs e)
         {
             // clear the load message...
             this.Clear();

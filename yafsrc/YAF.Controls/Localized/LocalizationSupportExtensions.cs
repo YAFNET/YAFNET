@@ -52,7 +52,7 @@ namespace YAF.Controls
 
             if (currentControl.Site != null && currentControl.Site.DesignMode)
             {
-                return "[PAGE:{0}|TAG:{1}]".FormatWith(supportItem.LocalizedPage, supportItem.LocalizedTag);
+                return $"[PAGE:{supportItem.LocalizedPage}|TAG:{supportItem.LocalizedTag}]";
             }
 
             if (supportItem.LocalizedPage.IsSet() && supportItem.LocalizedTag.IsSet())

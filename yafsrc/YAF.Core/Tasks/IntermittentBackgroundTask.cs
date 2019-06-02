@@ -111,10 +111,7 @@ namespace YAF.Core.Tasks
             {
                 Monitor.Exit(this);
 
-                if (impersonationContext != null)
-                {
-                    impersonationContext.Undo();
-                }
+                impersonationContext?.Undo();
             }
         }
 

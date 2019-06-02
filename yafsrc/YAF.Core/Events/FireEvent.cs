@@ -70,10 +70,7 @@ namespace YAF.Core
     /// </param>
     public void Handle(T @event)
     {
-      if (this.HandleEvent != null)
-      {
-        this.HandleEvent(this, new EventConverterArgs<T>(@event));
-      }
+        this.HandleEvent?.Invoke(this, new EventConverterArgs<T>(@event));
     }
 
     #endregion
