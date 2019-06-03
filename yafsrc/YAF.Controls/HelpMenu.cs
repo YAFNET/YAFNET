@@ -65,7 +65,7 @@ namespace YAF.Controls
         {
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
-            var xmlFilePath = HttpContext.Current.Server.MapPath(
+            var xmlFilePath = this.Get<HttpContextBase>().Server.MapPath(
                 $"{YafForumInfo.ForumServerFileRoot}Resources/{"HelpMenuList.xml"}");
 
             if (File.Exists(xmlFilePath))
