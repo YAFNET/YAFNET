@@ -33,15 +33,15 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
 
     /// <summary>
     /// Yaf ThankYou Class to handle Thanks
     /// </summary>
-    public class YafThankYou
+    public class YafThankYou : IThankYou
     {
         #region Public Methods
 
@@ -57,7 +57,7 @@ namespace YAF.Core.Services
         /// The get thanks.
         /// </returns>
         [NotNull]
-        public static string GetThanks([NotNull] int messageId)
+        public string GetThanks([NotNull] int messageId)
         {
             var filler = new StringBuilder();
 
@@ -72,7 +72,7 @@ namespace YAF.Core.Services
 
                     var name = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
                                    ? YafContext.Current.Get<HttpServerUtilityBase>()
-                                         .HtmlEncode(dr["DisplayName"].ToString())
+                                       .HtmlEncode(dr["DisplayName"].ToString())
                                    : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString());
 
                     // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
@@ -86,7 +86,9 @@ namespace YAF.Core.Services
                     {
                         filler.AppendFormat(
                             @" {0}",
-                            string.Format(YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE"), YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
+                            string.Format(
+                                YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE"),
+                                YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
                     }
                 }
             }
@@ -113,22 +115,21 @@ namespace YAF.Core.Services
         /// Returns ThankYou Info
         /// </returns>
         [NotNull]
-        public static ThankYouInfo CreateThankYou(
-          [NotNull] string username, [NotNull] string textTag, [NotNull] string titleTag, int messageId)
+        public ThankYouInfo CreateThankYou(
+            [NotNull] string username,
+            [NotNull] string textTag,
+            [NotNull] string titleTag,
+            int messageId)
         {
             return new ThankYouInfo
-            {
-                MessageID = messageId,
-                ThanksInfo = ThanksNumber(username, messageId),
-                Thanks = GetThanks(messageId),
-                Text = YafContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
-                Title = YafContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
-            };
+                       {
+                           MessageID = messageId,
+                           ThanksInfo = YafContext.Current.Get<IThankYou>().ThanksNumber(username, messageId),
+                           Thanks = YafContext.Current.Get<IThankYou>().GetThanks(messageId),
+                           Text = YafContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
+                           Title = YafContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
+                       };
         }
-
-         #endregion
-
-        #region Methods
 
         /// <summary>
         /// This method returns a string which shows how many times users have
@@ -143,7 +144,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The thanks number.
         /// </returns>
-        protected static string ThanksNumber([NotNull] string username, int messageID)
+        public string ThanksNumber([NotNull] string username, int messageID)
         {
             var thanksNumber = YafContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageID);
 
@@ -155,8 +156,7 @@ namespace YAF.Core.Services
                 if (mu != null)
                 {
                     displayName = YafContext.Current.Get<IUserDisplayName>().GetName(
-                        UserMembershipHelper.GetUserIDFromProviderUserKey(
-                            mu.ProviderUserKey));
+                        UserMembershipHelper.GetUserIDFromProviderUserKey(mu.ProviderUserKey));
                 }
             }
 
@@ -169,69 +169,21 @@ namespace YAF.Core.Services
                 case 0:
                     return string.Empty;
                 case 1:
-                    thanksText =
-                        string.Format(
-                            YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE"), displayName);
+                    thanksText = string.Format(
+                        YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE"),
+                        displayName);
 
                     return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
             }
 
-            thanksText = string.Format(YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO"), thanksNumber, displayName);
+            thanksText = string.Format(
+                YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO"),
+                thanksNumber,
+                displayName);
 
             return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
         }
 
         #endregion
-    }
-
-    /// <summary>
-    /// Thank You Info
-    /// </summary>
-    public class ThankYouInfo
-    {
-        /// <summary>
-        /// Gets or sets Text.
-        /// </summary>
-        public string Text
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets Title.
-        /// </summary>
-        public string Title
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets MessageID.
-        /// </summary>
-        public int MessageID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets ThanksInfo.
-        /// </summary>
-        public string ThanksInfo
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets Thanks.
-        /// </summary>
-        public string Thanks
-        {
-            get;
-            set;
-        }
     }
 }

@@ -721,7 +721,7 @@ namespace YAF.Pages.Admin
             if (this.CurrentMedalId.HasValue)
             {
                 // load users and groups who has been assigned this medal
-                this.UserList.DataSource = this.GetRepository<UserMedal>().GetSingle(m => m.MedalID == this.CurrentMedalId.Value);
+                this.UserList.DataSource = this.GetRepository<UserMedal>().ListAsDataTable(null, this.CurrentMedalId);
                 this.UserList.DataBind();
 
                 this.GroupList.DataSource = this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);

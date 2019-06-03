@@ -48,7 +48,7 @@ namespace YAF.Core.Model
         /// </param>
         public static DataTable ListAsDataTable(
             this IRepository<UserMedal> repository,
-            [NotNull] int userID,
+            [NotNull] int? userID,
             [NotNull] int? medalID)
         {
             return repository.DbFunction.GetData.user_medal_list(UserID: userID, MedalID: medalID);
