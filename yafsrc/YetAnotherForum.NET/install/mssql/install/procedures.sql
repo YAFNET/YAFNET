@@ -1970,11 +1970,7 @@ AS
 begin
 	declare @count int
 
-	set @count = (select (count(*)/100)
-	              from [{databaseOwner}].[{objectQualifier}Mail]
-				  where SendAttempt is null or SendAttempt < @UTCTIMESTAMP
-				 )
-	set @count = (select Case When @count < 10 Then 10 Else @count End)
+	set @count = 10
 
 	update [{databaseOwner}].[{objectQualifier}Mail]
 	set
@@ -1983,11 +1979,11 @@ begin
 		ProcessID = @ProcessID
 	where
 		MailID in (select top (@count) MailID
-		           from [{databaseOwner}].[{objectQualifier}Mail]
+		           from [{databaseOwner}].[{objectQualifier}Mail] with (nolock)
 				   where SendAttempt is null or SendAttempt < @UTCTIMESTAMP)
 
 	select top (@count) *
-	from [{databaseOwner}].[{objectQualifier}Mail]
+	from [{databaseOwner}].[{objectQualifier}Mail] with(nolock)
 	where ProcessID = @ProcessID
 	order by SendAttempt, Created desc
 

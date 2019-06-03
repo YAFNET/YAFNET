@@ -1,4 +1,4 @@
- /* Yet Another Forum.NET
+﻿ /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
@@ -470,7 +470,7 @@
              // if the user is empty, return a null object...
              return username.IsNotSet()
                         ? null
-                        : YafThankYou.CreateThankYou(
+                        : this.Get<IThankYou>().CreateThankYou(
                             new UnicodeEncoder().XSSEncode(username),
                             "BUTTON_THANKSDELETE",
                             "BUTTON_THANKSDELETE_TT",
@@ -497,7 +497,7 @@
                  messageID,
                  this.Get<YafBoardSettings>().EnableDisplayName);
 
-             return YafThankYou.CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
+             return this.Get<IThankYou>().CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
          }
 
          #endregion

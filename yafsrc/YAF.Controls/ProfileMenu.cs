@@ -278,7 +278,7 @@ namespace YAF.Controls
                 this.PageContext.ForumPageType == page
                     ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"">{1}</a>"
                     : @"<a class=""{3}"" href=""{0}"" title=""{2}"">{1}</a>",
-                YafBuildLink.GetLink(page, parameter),
+                parameter.IsSet() ? YafBuildLink.GetLink(page, parameter) : YafBuildLink.GetLink(page),
                 getText,
                 getText,
                 cssClass);

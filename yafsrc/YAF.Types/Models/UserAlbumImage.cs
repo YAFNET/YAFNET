@@ -50,11 +50,15 @@ namespace YAF.Types.Models
         [References(typeof(UserAlbum))]
         [Required]
         public int AlbumID { get; set; }
+        [StringLength(255)]
         public string Caption { get; set; }
         [Required]
+        [StringLength(255)]
         public string FileName { get; set; }
         [Required]
         public int Bytes { get; set; }
+
+        [StringLength(50)]
         public string ContentType { get; set; }
         [Required]
         public DateTime Uploaded { get; set; }

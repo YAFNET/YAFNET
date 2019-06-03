@@ -31,7 +31,6 @@ namespace YAF.Controls
 
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -139,7 +138,7 @@ namespace YAF.Controls
                 YafForumInfo.ForumClientFileRoot,
                 YafContext.Current.PageUserID,
                 this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
-            sb.Append("<ul class=\"AlbumsList\">");
+            sb.Append("<ul class=\"AlbumsList list-group\">");
             sb.Append("</ul>");
             sb.Append("</div>");
 
