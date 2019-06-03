@@ -470,7 +470,7 @@
              // if the user is empty, return a null object...
              return username.IsNotSet()
                         ? null
-                        : this.Get<ThankYou>().CreateThankYou(
+                        : this.Get<IThankYou>().CreateThankYou(
                             new UnicodeEncoder().XSSEncode(username),
                             "BUTTON_THANKSDELETE",
                             "BUTTON_THANKSDELETE_TT",
@@ -497,7 +497,7 @@
                  messageID,
                  this.Get<YafBoardSettings>().EnableDisplayName);
 
-             return this.Get<ThankYou>().CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
+             return this.Get<IThankYou>().CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageID);
          }
 
          #endregion
