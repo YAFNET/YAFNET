@@ -517,23 +517,6 @@ GO
 
 /** Create Stored Procedures **/
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}YafDnn_Messages]
-	AS
-	SET NOCOUNT ON
-	SELECT
-		Message, MessageID, TopicID, Posted, UserID, IsDeleted
-	FROM [{databaseOwner}].[{objectQualifier}Message]
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}YafDnn_Topics]
-	AS
-	SET NOCOUNT ON
-	SELECT
-		Topic, TopicID, ForumID, Posted, Description
-	FROM [{databaseOwner}].[{objectQualifier}Topic]
-
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}GetReadAccessListForForum](
   @ForumID int)
 	AS
