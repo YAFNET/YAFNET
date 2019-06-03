@@ -148,11 +148,12 @@ namespace YAF.Controls
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup initial image state...
-            this.Text = $"<i class=\"fas fa-{this.GetCollapsiblePanelIcon(this.PanelID, this.DefaultState)}\"></i>";
-            this.CssClass = "btn btn-link";
+            this.Text = $"<i class=\"fas fa-{this.GetCollapsiblePanelIcon(this.PanelID, this.DefaultState)} text-primary\"></i>";
+            this.CssClass = "btn btn-link" + (this.CssClass.Length > 0 ? " " + this.CssClass : string.Empty);
             this.UpdateAttachedVisibility();
 
             base.OnPreRender(e);
+
         }
 
         /// <summary>

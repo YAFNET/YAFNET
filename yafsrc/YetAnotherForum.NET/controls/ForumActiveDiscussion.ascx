@@ -5,7 +5,7 @@
             <asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel
+                                <span class="fa-stack"><i class="fas fa-comments fa-fw text-secondary"></i></span><YAF:LocalizedLabel
                                                                               ID="ActiveDiscussionHeader" runat="server" 
                                                                               LocalizedTag="ACTIVE_DISCUSSIONS" />
                             </div>
@@ -16,7 +16,7 @@
                                         <ul class="list-group list-group-flush">
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <li class="list-group-item">
+                                        <li class="list-group-item px-0">
                                                 <h5>
                                                     <asp:PlaceHolder runat="server" ID="PostIcon"></asp:PlaceHolder>
                                                     <asp:Label runat="server" ID="NewMessage" 
@@ -25,14 +25,14 @@
                                                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                                             LocalizedTag="NEW_POSTS" />
                                                     </asp:Label>
-                                                    &nbsp;<asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />
-                                                    (<asp:HyperLink ID="ForumLink" runat="server" />)
+                                                    &nbsp;<asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />&nbsp;
+                                                    (<asp:HyperLink ID="ForumLink" runat="server" />)&nbsp;
                                                     <YAF:ThemeButton runat="server" 
                                                                      ID="GoToLastPost" 
                                                                      Size="Small"
                                                                      Icon="share-square"
                                                                      Type="OutlineSecondary"
-                                                                     CssClass="mt-1"
+                                                                     CssClass="mt-1 mr-1"
                                                                      TextLocalizedTag="GO_LAST_POST"></YAF:ThemeButton>
                                                     <YAF:ThemeButton runat="server" 
                                                                      ID="GoToLastUnread" 
@@ -47,7 +47,7 @@
                                                                         LocalizedTag="BY" 
                                                                         LocalizedPage="TOPICS" />
                                                     &nbsp;<YAF:UserLink ID="LastUserLink"  runat="server" />&nbsp;
-                                                    <i class="fa fa-calendar fa-fw"></i>&nbsp;<YAF:DisplayDateTime ID="LastPostDate" runat="server" 
+                                                    <i class="fas fa-calendar fa-fw text-secondary"></i>&nbsp;<YAF:DisplayDateTime ID="LastPostDate" runat="server" 
                                                                                                                    Format="BothTopic" />
                                                 </small>
                                         </li>

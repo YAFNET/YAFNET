@@ -197,7 +197,7 @@ namespace YAF.Controls
                 if (row["RemoteURL"] != DBNull.Value)
                 {
                     output =
-                        $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>";
+                        $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>";
                 }
                 else
                 {
@@ -245,22 +245,24 @@ namespace YAF.Controls
             {
                 var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
-                var icon = new Literal { Text = "<i class=\"fa fa-comments fa-2x\" style=\"color: green\"></i>" };
+                var icon = new Literal { Text = "<i class=\"fas fa-comments fa-1x text-success\"></i>" };
 
                 try
                 {
                     if (flags.IsLocked)
                     {
-                        icon.Text =
-                            "<span class=\"fa-stack fa-1x\"><i class=\"fa fa-comments fa-stack-2x\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\" style=\"color: orange;\"></i></span>";
+                        icon.Text = "<span class=\"fa-stack\">" +
+                                "<i class=\"fas fa-comments fa-stack-2x text-secondary\"></i>" +
+                                "<i class=\"fas fa-lock fa-stack-1x text-warning\" style=\"position:absolute; bottom:0px !important;text-align:right;line-height: 1em;\"></i>" +
+                                "</span>";
                     }
                     else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {
-                        icon.Text = "<i class=\"fa fa-comments fa-2x\" style=\"color: green\"></i>";
+                        icon.Text = "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-success\"></i></span>";
                     }
                     else
                     {
-                        icon.Text = "<i class=\"fa fa-comments fa-2x\"></i>";
+                        icon.Text = "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-secondary\"></i></span>";
                     }
                 }
                 catch
@@ -418,7 +420,7 @@ namespace YAF.Controls
             var viewing = row["Viewing"].ToType<int>();
 
             return viewing > 0
-                       ? $"<i class=\"far fa-eye\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
+                       ? $"<i class=\"far fa-eye text-secondary\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
                        : string.Empty;
         }
 
