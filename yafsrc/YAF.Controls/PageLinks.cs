@@ -230,8 +230,8 @@ namespace YAF.Controls
 
                 writer.WriteLine(
                     url.IsNotSet()
-                        ? @"<li class=""breadcrumb-item active"">{0}</li>".FormatWith(encodedTitle)
-                        : @"<li class=""breadcrumb-item""><a href=""{0}"">{1}</a></li>".FormatWith(url, encodedTitle));
+                        ? $@"<li class=""breadcrumb-item active"">{encodedTitle}</li>"
+                        : $@"<li class=""breadcrumb-item""><a href=""{url}"">{encodedTitle}</a></li>");
             }
 
             writer.Write(this.PageContext.CurrentForumPage.IsAdminPage ? "</ol>" : "</ol></div>");

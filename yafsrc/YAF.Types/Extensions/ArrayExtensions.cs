@@ -84,12 +84,14 @@ namespace YAF.Types.Extensions
                 bitShift %= 63;
             }
 
-            if (GetBitAsBool(bitValue, bitShift) != value)
+            if (GetBitAsBool(bitValue, bitShift) == value)
             {
-                // toggle that value using XOR
-                var tV = 0x00000001 << bitShift;
-                bitValue ^= tV;
+                return bitValue;
             }
+
+            // toggle that value using XOR
+            var tV = 0x00000001 << bitShift;
+            bitValue ^= tV;
 
             return bitValue;
         }

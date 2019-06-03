@@ -201,7 +201,7 @@ namespace YAF.Core.Data
         /// </returns>
         protected virtual string FormatProcedureText(string functionName)
         {
-            return "[{{databaseOwner}}].[{{objectQualifier}}{0}]".FormatWith(functionName);
+            return $"[{{databaseOwner}}].[{{objectQualifier}}{functionName}]";
         }
 
         /// <summary>

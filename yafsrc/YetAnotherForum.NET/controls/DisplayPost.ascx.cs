@@ -156,7 +156,7 @@ namespace YAF.Controls
                 {
                     sb.AppendFormat(
                         @" {0}",
-                        this.GetText("DEFAULT", "ONDATE").FormatWith(this.Get<IDateTime>().FormatDateShort(thanksDate)));
+                        string.Format(this.GetText("DEFAULT", "ONDATE"), this.Get<IDateTime>().FormatDateShort(thanksDate)));
                 }
             }
 
@@ -293,7 +293,7 @@ namespace YAF.Controls
         protected void Retweet_Click(object sender, EventArgs e)
         {
             var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
-                                  ? "@{0} ".FormatWith(this.Get<YafBoardSettings>().TwitterUserName)
+                                  ? $"@{this.Get<YafBoardSettings>().TwitterUserName} "
                                   : string.Empty;
 
             // process message... clean html, strip html, remove bbcode, etc...
@@ -320,16 +320,13 @@ namespace YAF.Controls
 
                 tweets.UpdateStatus(
                     TweetAPI.ResponseFormat.json,
-                    this.Server.UrlEncode("RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl)),
+                    this.Server.UrlEncode(string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
                     string.Empty);
             }
             else
             {
                 this.Get<HttpResponseBase>().Redirect(
-                    "http://twitter.com/share?url={0}&text={1}".FormatWith(
-                        this.Server.UrlEncode(topicUrl),
-                        this.Server.UrlEncode(
-                            "RT {1}: {0}".FormatWith(twitterMsg.Truncate(100), twitterName))));
+                    $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}: {0}", twitterMsg.Truncate(100), twitterName))}");
             }
         }
 
@@ -348,7 +345,7 @@ namespace YAF.Controls
             // We should show IP
             this.IPSpan1.Visible = true;
             var ip = IPHelper.GetIp4Address(this.PostData.DataRow["IP"].ToString());
-            this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
+            this.IPLink1.HRef = string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ip);
             this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
             this.IPLink1.InnerText = this.HtmlEncode(ip);
         }
@@ -401,8 +398,7 @@ namespace YAF.Controls
                     this.PopMenu1.AddClientScriptItemWithPostback(
                         this.GetText("BUDDY", "REMOVEBUDDY"),
                         "removebuddy",
-                        "if (confirm('{0}')) {1}".FormatWith(
-                            this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
+                        $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {"{postbackcode}"}");
                 }
             }
 
@@ -429,7 +425,7 @@ namespace YAF.Controls
                 this.panMessage.Attributes["style"] = "display:none";
                 this.PostFooter.TogglePost.Visible = true;
                 this.PostFooter.TogglePost.Attributes["onclick"] =
-                    "toggleMessage('{0}'); return false;".FormatWith(this.panMessage.ClientID);
+                    $"toggleMessage('{this.panMessage.ClientID}'); return false;";
             }
             else if (!this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
             {
@@ -470,9 +466,7 @@ namespace YAF.Controls
             {
                 this.MultiQuote.Attributes.Add(
                     "onclick",
-                    "handleMultiQuoteButton(this, '{0}', '{1}')".FormatWith(
-                        this.PostData.MessageId,
-                        this.PostData.TopicId));
+                    $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);
@@ -497,7 +491,7 @@ namespace YAF.Controls
                 this.Manage.Visible = false;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
+            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){console.log(res);  }");
 
             this.FormatThanksRow();
 
@@ -574,14 +568,14 @@ namespace YAF.Controls
 
             if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
             {
-                this.Thank.NavigateUrl = "javascript:removeThanks({0});".FormatWith(this.DataRow["MessageID"]);
+                this.Thank.NavigateUrl = $"javascript:removeThanks({this.DataRow["MessageID"]});";
                 this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
                 this.Thank.Icon = "user-times";
             }
             else
             {
-                this.Thank.NavigateUrl = "javascript:addThanks({0});".FormatWith(this.DataRow["MessageID"]);
+                this.Thank.NavigateUrl = $"javascript:addThanks({this.DataRow["MessageID"]});";
                 this.Thank.TextLocalizedTag = "BUTTON_THANKS";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
                 this.Thank.Icon = "thumbs-up";
@@ -601,11 +595,11 @@ namespace YAF.Controls
                         : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
 
             var thanksLabelText = thanksNumber == 1
-                                  ? this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(username)
-                                  : this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(thanksNumber, username);
+                                  ? string.Format(this.Get<ILocalization>().GetText("THANKSINFOSINGLE"), username)
+                                  : string.Format(this.Get<ILocalization>().GetText("THANKSINFO"), thanksNumber, username);
 
             this.ThanksDataLiteral.Text =
-                "<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{0}".FormatWith(thanksLabelText);
+                $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksLabelText}";
 
             this.ThanksDataLiteral.Visible = true;
 
@@ -648,8 +642,7 @@ namespace YAF.Controls
                         this.PopMenu1.AddClientScriptItemWithPostback(
                             this.GetText("BUDDY", "REMOVEBUDDY"),
                             "removebuddy",
-                            "if (confirm('{0}')) {1}".FormatWith(
-                                this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
+                            $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {"{postbackcode}"}");
                     }
                     else
                     {

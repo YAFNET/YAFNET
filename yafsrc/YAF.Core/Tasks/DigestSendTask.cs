@@ -185,7 +185,7 @@ namespace YAF.Core.Tasks
             }
             catch (Exception ex)
             {
-                this.Get<ILogger>().Error(ex, "Error In {0} Task".FormatWith(TaskName));
+                this.Get<ILogger>().Error(ex, $"Error In {TaskName} Task");
             }
         }
 
@@ -238,11 +238,11 @@ namespace YAF.Core.Tasks
                 }
                 catch (Exception e)
                 {
-                    this.Get<ILogger>().Error(e, "Error In Creating Digest for User {0}".FormatWith(user.ID));
+                    this.Get<ILogger>().Error(e, $"Error In Creating Digest for User {user.ID}");
                 }
             }
 
-            this.Get<ILogger>().Info("Digest send to {0} user(s)".FormatWith(usersSendCount));
+            this.Get<ILogger>().Info($"Digest send to {usersSendCount} user(s)");
         }
 
         #endregion

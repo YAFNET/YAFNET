@@ -110,7 +110,9 @@ namespace YAF.Controls
                 tr.Controls.Add(td);
 
                 // add the themed icons
-                var icon = new Literal { Text = "<span class=\"fa-stack fa-1x\">{0}</span>".FormatWith(this.GetTopicIcon(localizedTags[i])) };
+                var icon = new Literal { Text =
+                                           $"<span class=\"fa-stack fa-1x\">{this.GetTopicIcon(localizedTags[i])}</span>"
+                                       };
                 td.Controls.Add(icon);
 
                 // space

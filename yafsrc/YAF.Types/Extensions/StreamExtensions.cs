@@ -47,30 +47,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// The copy stream.
-        /// </summary>
-        /// <param name="input">
-        /// The input. 
-        /// </param>
-        /// <param name="output">
-        /// The output. 
-        /// </param>
-        public static void CopyTo(this Stream input, Stream output)
-        {
-            var buffer = new byte[1024];
-            var count = buffer.Length;
-
-            while (count > 0)
-            {
-                count = input.Read(buffer, 0, count);
-                if (count > 0)
-                {
-                    output.Write(buffer, 0, count);
-                }
-            }
-        }
-
-        /// <summary>
         /// Reads the stream into a byte array.
         /// </summary>
         /// <param name="stream">

@@ -242,7 +242,7 @@ namespace YAF.Pages
             var userPmessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("pm");
 
             this.GetRepository<UserPMessage>().MarkAsRead(userPmessageId);
-            this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID));
+            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
             this.Get<IRaiseEvent>().Raise(
                 new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, userPmessageId));
         }

@@ -83,10 +83,14 @@
                 $('#loadModal').modal('show');
             }),
             complete: (function before() {
-                // show loading screen 
-                $('#loadModal').modal('hide');
+                // hide loading screen 
+                $("#loadModal").modal('hide');
             }),
             success: (function success(data) {
+                $('#loadModal').on('shown.bs.modal',
+                    function () {
+                        $("#loadModal").modal('hide');
+                    });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
                 var by = $("#SearchResultsPlaceholder").data("by");
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");
@@ -96,13 +100,13 @@
                     var list = $('#SearchResultsPlaceholder');
                     var notext = $("#SearchResultsPlaceholder").data("notext");
 
-                    list.append('<div class="alert alert-warning text-center" role="alert">' +
+                    list.append('<div class="alert alert-warning text-center mt-3" role="alert">' +
                         notext +
                         '</div>');
 
                     $('#SearchResultsPager').empty();
 
-                    $('#loadModal').modal('hide');
+                    
                 } else {
                     $.each(data.d.SearchResults,
                         function(id, data) {
@@ -146,7 +150,8 @@
                 }
             }),
             error: (function error(request) {
-                $("#SearchResultsPlaceholder").html(request.statusText).fadeIn(1000);
+                console.log(request);
+                $("#SearchResultsPlaceholder").html(request.responseText).fadeIn(1000);
             })
         });
     }
@@ -163,11 +168,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 
     if (pageNumber > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
             (pageNumber - 1) +
-            ',' +
-            total +
             ')" class="page-link">&laquo;</a></li>');
     }
 
@@ -184,11 +185,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 
     if (start > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
             0 +
-            ',' +
-            total +
             ');" class="page-link">1</a></li>');
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
     }
@@ -198,11 +195,7 @@ function setPageNumber(pageSize, pageNumber, total) {
             pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
         } else {
             pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-                pageSize +
-                ',' +
                 i +
-                ',' +
-                total +
                 ');" class="page-link">' +
                 (i + 1) +
                 '</a></li>');
@@ -212,11 +205,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     if (end < pages) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
         pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
             (pages - 1) +
-            ',' +
-            total +
             ')" class="page-link">' +
             pages +
             '</a></li>');
@@ -224,11 +213,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 
     if (pageNumber < pages - 1) {
         pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
             (pageNumber + 1) +
-            ',' +
-            total +
             ')" class="page-link">&raquo;</a></li>');
     }
 

@@ -53,8 +53,7 @@ namespace YAF.Controls
             {
                 item.Attributes.Add(
                     "data-content",
-                    "<span class=\"flag-icon flag-icon-{0} standardSelectMenu-Icon\" /><span>&nbsp;{1}</span>"
-                        .FormatWith(item.Value.ToLower(), item.Text));
+                    $"<span class=\"flag-icon flag-icon-{item.Value.ToLower()} standardSelectMenu-Icon\" /><span>&nbsp;{item.Text}</span>");
             }
 
             base.Render(writer);

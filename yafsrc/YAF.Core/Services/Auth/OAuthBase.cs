@@ -314,7 +314,7 @@ namespace YAF.Core.Services.Auth
             switch (signatureType)
             {
                 case SignatureTypes.PLAINTEXT:
-                    return HttpUtility.UrlEncode("{0}&{1}".FormatWith(consumerSecret, tokenSecret));
+                    return HttpUtility.UrlEncode($"{consumerSecret}&{tokenSecret}");
                 case SignatureTypes.HMACSHA1:
                     var signatureBase = this.GenerateSignatureBase(
                         url,
@@ -334,11 +334,7 @@ namespace YAF.Core.Services.Auth
                                         {
                                             Key =
                                                 Encoding.ASCII.GetBytes(
-                                                    "{0}&{1}".FormatWith(
-                                                        this.UrlEncode(consumerSecret),
-                                                        string.IsNullOrEmpty(tokenSecret)
-                                                            ? string.Empty
-                                                            : this.UrlEncode(tokenSecret)))
+                                                    $"{this.UrlEncode(consumerSecret)}&{(string.IsNullOrEmpty(tokenSecret) ? string.Empty : this.UrlEncode(tokenSecret))}")
                                         };
 
                     return this.GenerateSignatureUsingHash(signatureBase, hmacsha1);
@@ -449,10 +445,10 @@ namespace YAF.Core.Services.Auth
 
             parameters.Sort(new QueryParameterComparer());
 
-            normalizedUrl = "{0}://{1}".FormatWith(url.Scheme, url.Host);
+            normalizedUrl = $"{url.Scheme}://{url.Host}";
             if (!((url.Scheme == "http" && url.Port == 80) || (url.Scheme == "https" && url.Port == 443)))
             {
-                normalizedUrl += ":{0}".FormatWith(url.Port);
+                normalizedUrl += $":{url.Port}";
             }
 
             normalizedUrl += url.AbsolutePath;
@@ -547,7 +543,7 @@ namespace YAF.Core.Services.Auth
                 }
                 else
                 {
-                    result.AppendFormat("{0}{1}", '%', "{0:X2}".FormatWith((int)symbol));
+                    result.AppendFormat("{0}{1}", '%', $"{(int)symbol:X2}");
                 }
             }
 

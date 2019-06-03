@@ -42,7 +42,7 @@ namespace ServiceStack.FluentValidation.TestHelper
             var count = validator.Validate(instanceToValidate).Errors.Count(x => x.PropertyName == member.Name);
 
             if (count > 0) {
-                throw new ValidationTestException(string.Format("Expected no validation errors for property {0}", member.Name));
+                throw new ValidationTestException($"Expected no validation errors for property {this.member.Name}");
             }
         }
 
@@ -51,7 +51,7 @@ namespace ServiceStack.FluentValidation.TestHelper
             var count = validator.Validate(instanceToValidate).Errors.Count(x => x.PropertyName == member.Name);
 
             if (count == 0) {
-                throw new ValidationTestException(string.Format("Expected a validation error for property {0}", member.Name));
+                throw new ValidationTestException($"Expected a validation error for property {this.member.Name}");
             }
         }
 

@@ -84,7 +84,7 @@ namespace YAF.Core.Services.Startup
             if (Config.ConnectionString == null)
             {
                 // attempt to create a connection string...
-                response.Redirect("{0}install/default.aspx".FormatWith(YafForumInfo.ForumClientFileRoot));
+                response.Redirect($"{YafForumInfo.ForumClientFileRoot}install/default.aspx");
                 
                 return false;
             }
@@ -95,7 +95,7 @@ namespace YAF.Core.Services.Startup
                 // unable to connect to the DB...
                 YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
                
-                response.Redirect("{0}error.aspx".FormatWith(YafForumInfo.ForumClientFileRoot));
+                response.Redirect($"{YafForumInfo.ForumClientFileRoot}error.aspx");
                 
                 return false;
             }
@@ -108,7 +108,7 @@ namespace YAF.Core.Services.Startup
                 return true;
             }
 
-            response.Redirect("{0}{1}".FormatWith(YafForumInfo.ForumClientFileRoot, redirectString));
+            response.Redirect($"{YafForumInfo.ForumClientFileRoot}{redirectString}");
             return false;
         }
 

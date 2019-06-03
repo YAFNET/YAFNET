@@ -126,10 +126,7 @@ namespace YAF.Core
                 this.Logger.Log(
                     YafContext.Current.User != null ? YafContext.Current.User.UserName : string.Empty,
                     this,
-                    "Unhandled UserAgent string:'{0}'<br />Platform:'{1}'<br />Browser:'{2}'".FormatWith(
-                        (string)@event.Data.UserAgent,
-                        this.HttpRequestBase.Browser.Platform,
-                        this.HttpRequestBase.Browser.Browser));
+                    $"Unhandled UserAgent string:'{(string)@event.Data.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
             }
         }
 

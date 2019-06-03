@@ -169,12 +169,8 @@ namespace ServiceStack.OrmLite
                 return string.Empty;
             }
 
-            return string.Format("{0}\n({1}.{2} = {3}.{4})",
-                isCrossJoin ? "WHERE" : "ON",
-                DialectProvider.GetQuotedTableName(parentDef),
-                SqlColumn(parentDef.PrimaryKey.FieldName),
-                DialectProvider.GetQuotedTableName(childDef),
-                SqlColumn(refField.FieldName));
+            return
+                $"{(isCrossJoin ? "WHERE" : "ON")}\n({this.DialectProvider.GetQuotedTableName(parentDef)}.{this.SqlColumn(parentDef.PrimaryKey.FieldName)} = {this.DialectProvider.GetQuotedTableName(childDef)}.{this.SqlColumn(refField.FieldName)})";
         }
 
         public SqlExpression<T> CustomJoin(string joinString)

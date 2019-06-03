@@ -248,11 +248,11 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().ShowDeletedMessages && numDeleted > 0)
             {
-                repStr = "{0:N0}".FormatWith(replies + numDeleted);
+                repStr = $"{replies + numDeleted:N0}";
             }
             else
             {
-                repStr = "{0:N0}".FormatWith(replies);
+                repStr = $"{replies:N0}";
             }
 
             return repStr;
@@ -267,7 +267,7 @@ namespace YAF.Controls
         protected string FormatViews()
         {
             var views = this.TopicRow["Views"].ToType<int>();
-            return this.TopicRow["TopicMovedID"].ToString().Length > 0 ? "&nbsp;" : "{0:N0}".FormatWith(views);
+            return this.TopicRow["TopicMovedID"].ToString().Length > 0 ? "&nbsp;" : $"{views:N0}";
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace YAF.Controls
 
             if (styles.IsSet())
             {
-                topicSubjectStyled = "<span style=\"{0}\">{1}</span>".FormatWith(this.HtmlEncode(styles), topicSubject);
+                topicSubjectStyled = $"<span style=\"{this.HtmlEncode(styles)}\">{topicSubject}</span>";
             }
 
             return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
@@ -313,13 +313,13 @@ namespace YAF.Controls
 
             if (row["TopicMovedID"].ToString().Length > 0)
             {
-                strReturn = "<span class=\"badge badge-secondary\"><i class=\"fa fa-arrows-alt fa-fw\"></i> {0}</span>"
-                    .FormatWith(this.GetText("MOVED"));
+                strReturn =
+                    $"<span class=\"badge badge-secondary\"><i class=\"fa fa-arrows-alt fa-fw\"></i> {this.GetText("MOVED")}</span>";
             }
             else if (row["PollID"].ToString() != string.Empty)
             {
-                strReturn = "<span class=\"badge badge-secondary\"><i class=\"fa fa-poll-h fa-fw\"></i> {0}</span>"
-                    .FormatWith(this.GetText("POLL"));
+                strReturn =
+                    $"<span class=\"badge badge-secondary\"><i class=\"fa fa-poll-h fa-fw\"></i> {this.GetText("POLL")}</span>";
             }
             else
             {
@@ -327,13 +327,11 @@ namespace YAF.Controls
                 {
                     case 1:
                         strReturn =
-                            "<span class=\"badge badge-secondary\"><i class=\"fa fa-sticky-note fa-fw\"></i> {0}</span>"
-                                .FormatWith(this.GetText("STICKY"));
+                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
                         break;
                     case 2:
                         strReturn =
-                            "<span class=\"badge badge-secondary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {0}</span>"
-                                .FormatWith(this.GetText("ANNOUNCEMENT"));
+                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {this.GetText("ANNOUNCEMENT")}</span>";
                         break;
                 }
             }
@@ -455,10 +453,8 @@ namespace YAF.Controls
         /// </returns>
         protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
-            return @"<a href=""{0}"" title=""{1}"" class=""btn btn-secondary btn-sm"">{2}</a>".FormatWith(
-                link,
-                this.GetText("GOTO_POST_PAGER").FormatWith(pageId),
-                text);
+            return
+                $@"<a href=""{link}"" title=""{string.Format(this.GetText("GOTO_POST_PAGER"), pageId)}"" class=""btn btn-secondary btn-sm"">{text}</a>";
         }
 
         /// <summary>
@@ -515,8 +511,7 @@ namespace YAF.Controls
                 {
                     this.FavoriteCount.Visible = true;
                     this.FavoriteCount.Text =
-                        " <span class=\"badge badge-info\" title=\"{0}\"><i class=\"fas fa-star\"></i> +{1}</span>"
-                            .FormatWith(this.GetText("FAVORITE_COUNT_TT"), favoriteCount);
+                        $" <span class=\"badge badge-info\" title=\"{this.GetText("FAVORITE_COUNT_TT")}\"><i class=\"fas fa-star\"></i> +{favoriteCount}</span>";
                 }
             }
             catch (Exception)
@@ -591,8 +586,7 @@ namespace YAF.Controls
                 }
             }
 
-            this.TopicIcon.Text =
-                "<span class=\"fa-stack fa-1x\">{0}</span>".FormatWith(this.GetTopicImage(this.TopicRow));
+            this.TopicIcon.Text = $"<span class=\"fa-stack fa-1x\">{this.GetTopicImage(this.TopicRow)}</span>";
         }
 
         #endregion

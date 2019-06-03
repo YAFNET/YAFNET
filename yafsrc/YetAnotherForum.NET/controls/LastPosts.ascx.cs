@@ -56,12 +56,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.ViewState["TopicID"] != null)
-                {
-                    return this.ViewState["TopicID"].ToType<int>();
-                }
-
-                return null;
+                return this.ViewState["TopicID"]?.ToType<int>();
             }
 
             set => this.ViewState["TopicID"] = value;

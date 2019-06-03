@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
                 "BlockUIExecuteJs",
                 JavaScriptBlocks.BlockUIExecuteJs(
                     "DeleteForumMessage",
-                    "#{0},#{1}".FormatWith(this.Reindex.ClientID, this.Shrink.ClientID)));
+                    $"#{this.Reindex.ClientID},#{this.Shrink.ClientID}"));
 
             base.OnPreRender(e);
         }
@@ -106,9 +106,8 @@ namespace YAF.Pages.Admin
                 YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_REINDEX", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_REINDEX", "TITLE")}";
         }
 
         /// <summary>
@@ -124,7 +123,7 @@ namespace YAF.Pages.Admin
             }
             catch (Exception ex)
             {
-                this.txtIndexStatistics.Text = string.Format("Failure: {0}", ex);
+                this.txtIndexStatistics.Text = $"Failure: {ex}";
             }
         }
 
@@ -176,14 +175,14 @@ namespace YAF.Pages.Admin
                 this.Get<IDbFunction>().ShrinkDatabase();
                 this.txtIndexStatistics.Text = string.Empty;
                 this.txtIndexStatistics.Text =
-                    this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(this.Get<IDbFunction>().GetDBSize());
+                    string.Format(this.GetText("ADMIN_REINDEX", "INDEX_SHRINK"), this.Get<IDbFunction>().GetDBSize());
 
                 YafBuildLink.Redirect(ForumPages.admin_reindex);
             }
             catch (Exception error)
             {
                 this.txtIndexStatistics.Text +=
-                    this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL").FormatWith(error.Message);
+                    string.Format(this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL"), error.Message);
             }
         }
 

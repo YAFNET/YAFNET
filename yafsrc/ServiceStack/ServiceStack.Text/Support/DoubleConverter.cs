@@ -90,7 +90,7 @@
 
             // Finally, return the string with an appropriate sign
             if (negative)
-                return "-" + ad.ToString();
+                return "-" + ad;
             else
                 return ad.ToString();
         }

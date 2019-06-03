@@ -206,12 +206,12 @@ namespace YAF.Core.Nntp
     {
       if (this.InnerException != null)
       {
-        return "Nntp:NntpException: [Request: " + this._request + "][Response: " + this._errorCode.ToString() + " " + this._message + "]\n" +
-               this.InnerException.ToString() + "\n" + this.StackTrace;
+        return "Nntp:NntpException: [Request: " + this._request + "][Response: " + this._errorCode + " " + this._message + "]\n" +
+               this.InnerException + "\n" + this.StackTrace;
       }
       else
       {
-        return "Nntp:NntpException: [Request: " + this._request + "][Response: " + this._errorCode.ToString() + " " + this._message + "]\n" + this.StackTrace;
+        return "Nntp:NntpException: [Request: " + this._request + "][Response: " + this._errorCode + " " + this._message + "]\n" + this.StackTrace;
       }
     }
   }

@@ -51,17 +51,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The last post tooltip string.
         /// </summary>
-        private string _altLastPost;
+        private string altLastPost;
 
         /// <summary>
         ///   The first unread post tooltip string.
         /// </summary>
-        private string _altFirstUnreadPost;
-
-        /// <summary>
-        ///   The _the topic row.
-        /// </summary>
-        private DataRowView theTopicRow;
+        private string altFirstUnreadPost;
 
         #endregion
 
@@ -91,9 +86,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get => string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
+            get => string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
 
-            set => this._altLastPost = value;
+            set => this.altLastPost = value;
         }
 
         /// <summary>
@@ -102,9 +97,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastUnreadPost
         {
-            get => string.IsNullOrEmpty(this._altFirstUnreadPost) ? string.Empty : this._altFirstUnreadPost;
+            get => string.IsNullOrEmpty(this.altFirstUnreadPost) ? string.Empty : this.altFirstUnreadPost;
 
-            set => this._altFirstUnreadPost = value;
+            set => this.altFirstUnreadPost = value;
         }
 
         /// <summary>
@@ -114,7 +109,7 @@ namespace YAF.Controls
         {
             set
             {
-                this.theTopicRow = value as DataRowView;
+                this.TopicRow = value as DataRowView;
                 this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
             }
         }
@@ -157,15 +152,7 @@ namespace YAF.Controls
         /// </summary>
         public int? TopicRowID
         {
-            get
-            {
-                if (this.ViewState["TopicRowID"] == null)
-                {
-                    return null;
-                }
-
-                return (int?)this.ViewState["TopicRowID"];
-            }
+            get => this.ViewState["TopicRowID"].ToType<int?>();
 
             set => this.ViewState["TopicRowID"] = value;
         }
@@ -173,7 +160,7 @@ namespace YAF.Controls
         /// <summary>
         ///  Gets the TopicRow.
         /// </summary>
-        protected DataRowView TopicRow => this.theTopicRow;
+        protected DataRowView TopicRow { get; private set; }
 
         #endregion
 
@@ -281,11 +268,11 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().ShowDeletedMessages && numDeleted > 0)
             {
-                repStr = "{0:N0}".FormatWith(replies + numDeleted);
+                repStr = $"{replies + numDeleted:N0}";
             }
             else
             {
-                repStr = "{0:N0}".FormatWith(replies);
+                repStr = $"{replies:N0}";
             }
 
             return repStr;
@@ -300,7 +287,7 @@ namespace YAF.Controls
         protected string FormatViews()
         {
             var views = this.TopicRow["Views"].ToType<int>();
-            return this.TopicRow["TopicMovedID"].ToString().Length > 0 ? "&nbsp;" : "{0:N0}".FormatWith(views);
+            return this.TopicRow["TopicMovedID"].ToString().Length > 0 ? "&nbsp;" : $"{views:N0}";
         }
 
         /// <summary>
@@ -322,31 +309,10 @@ namespace YAF.Controls
 
             if (styles.IsSet())
             {
-                topicSubjectStyled = "<span style=\"{0}\">{1}</span>".FormatWith(this.HtmlEncode(styles), topicSubject);
+                topicSubjectStyled = $"<span style=\"{this.HtmlEncode(styles)}\">{topicSubject}</span>";
             }
 
             return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
-        }
-
-        /// <summary>
-        /// The get avatar url from id.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url for the User
-        /// </returns>
-        protected string GetAvatarUrlFromID(int userID)
-        {
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
-
-            if (avatarUrl.IsNotSet())
-            {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-            }
-
-            return avatarUrl;
         }
 
         /// <summary>
@@ -366,13 +332,13 @@ namespace YAF.Controls
 
             if (row["TopicMovedID"].ToString().Length > 0)
             {
-                strReturn = "<span class=\"badge badge-secondary\"><i class=\"fa fa-arrows-alt fa-fw\"></i> {0}</span>"
-                    .FormatWith(this.GetText("MOVED"));
+                strReturn =
+                    $"<span class=\"badge badge-secondary\"><i class=\"fa fa-arrows-alt fa-fw\"></i> {this.GetText("MOVED")}</span>";
             }
             else if (row["PollID"].ToString() != string.Empty)
             {
-                strReturn = "<span class=\"badge badge-secondary\"><i class=\"fa fa-poll-h fa-fw\"></i> {0}</span>"
-                    .FormatWith(this.GetText("POLL"));
+                strReturn =
+                    $"<span class=\"badge badge-secondary\"><i class=\"fa fa-poll-h fa-fw\"></i> {this.GetText("POLL")}</span>";
             }
             else
             {
@@ -380,13 +346,11 @@ namespace YAF.Controls
                 {
                     case 1:
                         strReturn =
-                            "<span class=\"badge badge-secondary\"><i class=\"fa fa-sticky-note fa-fw\"></i> {0}</span>"
-                                .FormatWith(this.GetText("STICKY"));
+                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
                         break;
                     case 2:
                         strReturn =
-                            "<span class=\"badge badge-secondary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {0}</span>"
-                                .FormatWith(this.GetText("ANNOUNCEMENT"));
+                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {this.GetText("ANNOUNCEMENT")}</span>";
                         break;
                 }
             }
@@ -508,10 +472,8 @@ namespace YAF.Controls
         /// </returns>
         protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
-            return @"<a href=""{0}"" title=""{1}"" class=""btn btn-secondary btn-sm"">{2}</a>".FormatWith(
-                link,
-                this.GetText("GOTO_POST_PAGER").FormatWith(pageId),
-                text);
+            return
+                $@"<a href=""{link}"" title=""{string.Format(this.GetText("GOTO_POST_PAGER"), pageId)}"" class=""btn btn-secondary btn-sm"">{text}</a>";
         }
 
         /// <summary>
@@ -529,7 +491,7 @@ namespace YAF.Controls
             writer.Write("<div class=\"col-md-6\">");
             writer.Write("<h5>");
 
-            writer.Write("<span class=\"fa-stack fa-1x\">{0}</span>".FormatWith(this.GetTopicImage(this.TopicRow)));
+            writer.Write($"<span class=\"fa-stack fa-1x\">{this.GetTopicImage(this.TopicRow)}</span>");
 
             var priorityMessage = this.GetPriorityMessage(this.TopicRow);
 
@@ -646,7 +608,7 @@ namespace YAF.Controls
             if (pager != string.Empty)
             {
 
-                var altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
+                var altMultipages = string.Format(this.GetText("GOTO_POST_PAGER"), string.Empty);
                 writer.Write("<span> - <i class=\"fa fa-copy fa-fw\"></i>{0}</span>", pager);
             }
 

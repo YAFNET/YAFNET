@@ -112,9 +112,8 @@ namespace YAF.Modules
           rssLink.Attributes.Add("rel", "alternate");
           rssLink.Attributes.Add("type", "application/rss+xml");
           rssLink.Attributes.Add(
-            "title", 
-            "{0} - {1}".FormatWith(
-              this.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
+            "title",
+            $"{this.GetText("RSSFEED")} - {YafContext.Current.BoardSettings.Name}");
 
           head.Controls.Add(rssLink);
         }
@@ -137,9 +136,8 @@ namespace YAF.Modules
           atomLink.Attributes.Add("rel", "alternate");
           atomLink.Attributes.Add("type", "application/atom+xml");
           atomLink.Attributes.Add(
-            "title", 
-            "{0} - {1}".FormatWith(
-              this.GetText("ATOMFEED"), YafContext.Current.BoardSettings.Name));
+            "title",
+            $"{this.GetText("ATOMFEED")} - {YafContext.Current.BoardSettings.Name}");
 
           head.Controls.Add(atomLink);
         }

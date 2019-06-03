@@ -153,10 +153,7 @@ namespace YAF.Core.Services.Auth
             {
                 webRequest.GetResponse().GetResponseStream().Close();
 
-                if (responseReader != null)
-                {
-                    responseReader.Close();
-                }
+                responseReader?.Close();
             }
 
             return responseData;

@@ -36,7 +36,7 @@ namespace ServiceStack.Text.Support
 
                 if (remainingSecs > 0)
                 {
-                    var secFmt = string.Format("{0:0.0000000}", remainingSecs);
+                    var secFmt = $"{remainingSecs:0.0000000}";
                     secFmt = secFmt.TrimEnd('0').TrimEnd('.');
                     sb.Append(secFmt + "S");
                 }

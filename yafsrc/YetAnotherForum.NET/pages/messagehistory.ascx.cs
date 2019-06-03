@@ -236,7 +236,7 @@ namespace YAF.Pages
         protected void RestoreVersion_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE"));
+                $"return confirm('{this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE")}')";
         }
 
         /// <summary>

@@ -74,7 +74,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Page Name.
         /// </summary>
-        public override string PageName => "admin_{0}".FormatWith(base.PageName);
+        public override string PageName => $"admin_{base.PageName}";
 
         /// <summary>
         /// Creates page links for this page.

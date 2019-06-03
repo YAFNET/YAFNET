@@ -26,12 +26,12 @@ namespace YAF.Utils.Helpers.StringUtils
     using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Helper class for converting emoji to different formats.
+    /// Helper class for converting Emoji to different formats.
     /// </summary>
     public static partial class EmojiOne
     {
         /// <summary>
-        /// Converts shortname emojis to unicode, useful for sending emojis back to mobile devices.
+        /// Converts short name emojis to unicode, useful for sending emojis back to mobile devices.
         /// </summary>
         /// <param name="str">The input string</param>
         /// <param name="ascii"><c>true</c> to also convert ascii emoji in the inpur string to unicode.</param>
@@ -125,7 +125,7 @@ namespace YAF.Utils.Helpers.StringUtils
                     codepoint += "-";
                 }
 
-                codepoint += string.Format("{0:X4}", char.ConvertToUtf32(unicode, i));
+                codepoint += $"{char.ConvertToUtf32(unicode, i):X4}";
             }
 
             return codepoint.ToLower();
@@ -150,7 +150,7 @@ namespace YAF.Utils.Helpers.StringUtils
                     {
                         var hi = Math.Floor((decimal)(part - 0x10000) / 0x400) + 0xD800;
                         var lo = (part - 0x10000) % 0x400 + 0xDC00;
-                        hilos[i] = new String(new char[] { (char)hi, (char)lo });
+                        hilos[i] = new string(new char[] { (char)hi, (char)lo });
                     }
                     else
                     {

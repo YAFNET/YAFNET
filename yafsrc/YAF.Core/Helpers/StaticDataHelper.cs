@@ -170,11 +170,11 @@ namespace YAF.Core.Helpers
 
                 var countries = localization.GetCountryNodesUsingQuery(
                     "REGION",
-                    x => x.tag.StartsWith("RGN_{0}_".FormatWith(culture))).ToList();
+                    x => x.tag.StartsWith($"RGN_{culture}_")).ToList();
 
                 foreach (var node in countries)
                 {
-                    dt.Rows.Add(node.tag.Replace("RGN_{0}_".FormatWith(culture), string.Empty), node.Value);
+                    dt.Rows.Add(node.tag.Replace($"RGN_{culture}_", string.Empty), node.Value);
                 }
 
                 return dt;
@@ -212,7 +212,7 @@ namespace YAF.Core.Helpers
                 // Get all language files info
                 var dir = new DirectoryInfo(
                     YafContext.Current.Get<HttpRequestBase>()
-                        .MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                        .MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
 
                 // Create an array with tags
@@ -285,7 +285,7 @@ namespace YAF.Core.Helpers
             // Get all language files info
             var dir = new DirectoryInfo(
                 YafContext.Current.Get<HttpRequestBase>()
-                    .MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                    .MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
             var files = dir.GetFiles(fileName);
 
             if (files.Length <= 0)
@@ -331,7 +331,7 @@ namespace YAF.Core.Helpers
 
                 var dir = new DirectoryInfo(
                     YafContext.Current.Get<HttpRequestBase>()
-                        .MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                        .MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
                 foreach (var file in files)
                 {
@@ -363,7 +363,7 @@ namespace YAF.Core.Helpers
         {
             var dir = new DirectoryInfo(
                     YafContext.Current.Get<HttpRequestBase>().MapPath(
-                        "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "/Content/Themes")));
+                        $"{YafForumInfo.ForumServerFileRoot}{"/Content/Themes"}"));
 
             return dir.GetDirectories().Select(folder => folder.Name).ToList();
         }

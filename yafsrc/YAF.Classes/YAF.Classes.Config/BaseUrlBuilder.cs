@@ -193,7 +193,7 @@ namespace YAF.Classes
         public virtual string BuildUrlFull(string url)
         {
             // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-            return "{0}{1}".FormatWith(BaseUrl, this.BuildUrl(url));
+            return $"{BaseUrl}{this.BuildUrl(url)}";
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace YAF.Classes
             var currentBoardSettings = boardSettings as YafBoardSettings;
 
             // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-            return "{0}{1}".FormatWith(currentBoardSettings.BaseUrlMask, this.BuildUrl(boardSettings, url));
+            return $"{currentBoardSettings.BaseUrlMask}{this.BuildUrl(boardSettings, url)}";
         }
 
         #endregion

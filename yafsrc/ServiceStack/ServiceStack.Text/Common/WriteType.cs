@@ -414,16 +414,13 @@ namespace ServiceStack.Text.Common
                         continue;
 
                     var dontSkipDefault = false;
-                    if (propertyWriter.shouldSerializeDynamic != null)
+                    var shouldSerialize = propertyWriter.shouldSerializeDynamic?.Invoke(typedInstance, propertyWriter.PropertyName);
+                    if (shouldSerialize.HasValue)
                     {
-                        var shouldSerialize = propertyWriter.shouldSerializeDynamic(typedInstance, propertyWriter.PropertyName);
-                        if (shouldSerialize.HasValue)
-                        {
-                            if (shouldSerialize.Value)
-                                dontSkipDefault = true;
-                            else
-                                continue;
-                        }
+                        if (shouldSerialize.Value)
+                            dontSkipDefault = true;
+                        else
+                            continue;
                     }
 
                     var propertyValue = propertyWriter.GetterFn(typedInstance);

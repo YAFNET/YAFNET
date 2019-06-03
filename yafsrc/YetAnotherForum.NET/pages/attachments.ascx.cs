@@ -83,7 +83,7 @@ namespace YAF.Pages
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ATTACHMENTS", "CONFIRM_DELETE"));
+                $"return confirm('{this.GetText("ATTACHMENTS", "CONFIRM_DELETE")}')";
         }
 
         /// <summary>
@@ -158,15 +158,14 @@ namespace YAF.Pages
 
             var fileName = attach.FileName;
             var isImage = fileName.IsImageName();
-            var url = "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
-                YafForumInfo.ForumClientFileRoot,
-                attach.ID,
-                this.PageContext.PageBoardID);
+            var url =
+                $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
 
             return isImage
-                       ? "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" data-url=\"{0}\"style=\"max-width:30px\" />".FormatWith(
+                       ? string.Format(
+                           "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" data-url=\"{0}\"style=\"max-width:30px\" />",
                            url,
-                           fileName)
+                               fileName)
                        : "<i class=\"far fa-file-alt attachment-icon\"></i>";
         }
 

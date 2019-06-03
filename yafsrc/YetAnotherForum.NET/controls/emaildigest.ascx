@@ -42,14 +42,14 @@
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                                  <span class="badge badge-secondary">
-                                    <%= this.GetText("COMMENTS").FormatWith(t.Replies) %>
+                                    <%= string.Format(this.GetText("COMMENTS"), t.Replies) %>
                                  </span>
                         </p>
                         <p class="text-center">
                             <%= this.GetMessageFormattedAndTruncated(t.LastMessage, 200) %>
                         </p>
                         <p class="text-center text-muted">
-                            <small><%= this.GetText("STARTEDBY").FormatWith(t.StartedUserName) %></small>
+                            <small><%= string.Format(this.GetText("STARTEDBY"), t.StartedUserName) %></small>
                         </p>
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
                                   href="<%= YafBuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
@@ -83,14 +83,14 @@
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                                 <span class="badge badge-secondary">
-                                    <%= this.GetText("COMMENTS").FormatWith(t.Replies) %>
+                                    <%= string.Format(this.GetText("COMMENTS"), t.Replies) %>
                                 </span>
                         </p>
                         <p class="text-center">
                             <%= this.GetMessageFormattedAndTruncated(t.LastMessage, 200) %>
                         </p>
                         <p class="text-center text-muted">
-                            <small><%= this.GetText("STARTEDBY").FormatWith(t.StartedUserName) %></small>
+                            <small><%= string.Format(this.GetText("STARTEDBY"), t.StartedUserName) %></small>
                         </p>
                             <a class="btn btn-primary btn-sm mx-auto mt-2" 
                                href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"

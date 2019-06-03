@@ -170,7 +170,7 @@ namespace MarkdownDeep
 
 						// We need to get the return link appended to the last paragraph
 						// in the footnote
-						string strReturnLink = string.Format("<a href=\"#fnref:{0}\" rev=\"footnote\">&#8617;</a>", (string)fn.data);
+						string strReturnLink = $"<a href=\"#fnref:{(string)fn.data}\" rev=\"footnote\">&#8617;</a>";
 
 						// Get the last child of the footnote
 						var child = fn.children[fn.children.Count - 1];
@@ -323,14 +323,11 @@ namespace MarkdownDeep
 		// Override to qualify non-local image and link urls
 		public virtual string OnQualifyUrl(string url)
 		{
-			if (QualifyUrl != null)
-			{
-				var q = QualifyUrl(url);
-				if (q != null)
-					return url;
-			}
+            var q = this.QualifyUrl?.Invoke(url);
+            if (q != null)
+                return url;
 
-			// Quit if we don't have a base location
+            // Quit if we don't have a base location
 			if (String.IsNullOrEmpty(UrlBaseLocation))
 				return url;
 
@@ -902,7 +899,7 @@ namespace MarkdownDeep
 			int counter=1;
 			while (m_UsedHeaderIDs.ContainsKey(strWithSuffix))
 			{
-				strWithSuffix = strBase + "-" + counter.ToString();
+				strWithSuffix = strBase + "-" + counter;
 				counter++;
 			}
 

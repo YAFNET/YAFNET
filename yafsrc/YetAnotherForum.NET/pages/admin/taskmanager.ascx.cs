@@ -80,8 +80,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected void BindData()
         {
-            this.lblTaskCount.Text = this.GetText("ADMIN_TASKMANAGER", "HEADER")
-                .FormatWith(this.Get<ITaskModuleManager>().TaskCount.ToString());
+            this.lblTaskCount.Text = string
+                .Format(this.GetText("ADMIN_TASKMANAGER", "HEADER"), this.Get<ITaskModuleManager>().TaskCount.ToString());
 
             this.taskRepeater.DataSource = this.Get<ITaskModuleManager>().TaskManagerSnapshot;
             this.taskRepeater.DataBind();
@@ -100,11 +100,7 @@ namespace YAF.Pages.Admin
         {
             var elapsed = DateTime.UtcNow.Subtract(time);
 
-            return "{0:D2}:{1:D2}:{2:D2}:{3:D2}".FormatWith(
-                elapsed.Days,
-                elapsed.Hours,
-                elapsed.Minutes,
-                elapsed.Seconds);
+            return $"{elapsed.Days:D2}:{elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}";
         }
 
         /// <summary>
@@ -129,9 +125,8 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(this.GetText("ADMIN_TASKMANAGER", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_TASKMANAGER", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_TASKMANAGER", "TITLE")}";
         }
 
         /// <summary>

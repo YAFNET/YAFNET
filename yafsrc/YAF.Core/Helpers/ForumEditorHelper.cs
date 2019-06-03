@@ -74,9 +74,7 @@ namespace YAF.Core.Helpers
                 if (
                     !File.Exists(
                         HttpContext.Current.Server.MapPath(
-                            "{0}{1}Scripts/tinymce/tinymce.min.js".FormatWith(
-                                Config.ServerFileRoot,
-                                Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/"))))
+                            $"{Config.ServerFileRoot}{(Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/")}Scripts/tinymce/tinymce.min.js")))
                 {
                     forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
                 }

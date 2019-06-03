@@ -12,26 +12,36 @@
 
 <div class="row">
     <div class="col">
+        <div class="card bg-light mb-3">
+            <asp:Repeater ID="MessageList" runat="server">
+                <ItemTemplate>
+                    <div class="card-body">
+                        <YAF:MessagePostData ID="MessagePreview" runat="server" ShowAttachments="false" ShowSignature="false"
+                                             DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>">
+                        </YAF:MessagePostData>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />
+                        <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /> 
+                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
+                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
+                        <%# this.Get<IDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
+                        </small>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fa fa-exclamation-triangle fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER" />
             </div>
             <div class="card-body">
-                <asp:Repeater ID="MessageList" runat="server">
-                    <ItemTemplate>
-                                <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />
-                                <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><strong>
-                                    <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
-                                </strong>
-                                <strong>
-                                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
-                                </strong>
-                                <%# this.Get<IDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
-                                <YAF:MessagePostData ID="MessagePreview" runat="server" ShowAttachments="false" ShowSignature="false"
-                                                     DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>">
-                                </YAF:MessagePostData>
-                    </ItemTemplate>
-                </asp:Repeater>
                 <div class="form-group">
                     <asp:Label runat="server" AssociatedControlID="EditorLine">
                         <YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server" 
@@ -44,10 +54,10 @@
                 </div>
             </div>
             <div class="card-footer text-center">
-                <YAF:ThemeButton ID="btnReport" runat="server" CssClass="yafcssbigbutton leftItem"
+                <YAF:ThemeButton ID="btnReport" runat="server"
                                  TextLocalizedTag="SEND" TitleLocalizedTag="SEND_TITLE" 
                                  OnClick="BtnReport_Click"
-                                 Icon="paper-plane"/>
+                                 Icon="paper-plane" ReturnConfirmText='<%#this.GetText("CONFIRM_REPORTPOST") %>'/>
                 <YAF:ThemeButton ID="btnCancel" runat="server"
                                  TextLocalizedTag="CANCEL" TitleLocalizedTag="CANCEL_TITLE" 
                                  OnClick="BtnCancel_Click"

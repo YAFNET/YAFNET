@@ -63,11 +63,8 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void ExtensionTitleLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((Label)sender).Text = "{0} {1}".FormatWith(
-                this.PageContext.BoardSettings.FileExtensionAreAllowed
-                    ? this.GetText("COMMON", "ALLOWED")
-                    : this.GetText("COMMON", "DISALLOWED"),
-                this.GetText("ADMIN_EXTENSIONS", "TITLE"));
+            ((Label)sender).Text =
+                $"{(this.PageContext.BoardSettings.FileExtensionAreAllowed ? this.GetText("COMMON", "ALLOWED") : this.GetText("COMMON", "DISALLOWED"))} {this.GetText("ADMIN_EXTENSIONS", "TITLE")}";
         }
 
         /// <summary>
@@ -108,9 +105,8 @@ namespace YAF.Pages.Admin
                 YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_EXTENSIONS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_EXTENSIONS", "TITLE")}";
         }
 
         /// <summary>

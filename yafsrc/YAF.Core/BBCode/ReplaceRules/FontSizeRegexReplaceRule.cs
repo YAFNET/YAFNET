@@ -87,7 +87,7 @@ namespace YAF.Core.BBCode.ReplaceRules
 
             if (size > 9)
             {
-                return "{0}px".FormatWith(size); 
+                return $"{size}px"; 
             }
 
             if (size < 1)
@@ -100,7 +100,7 @@ namespace YAF.Core.BBCode.ReplaceRules
                 size = 5;
             }
 
-            return "{0}%".FormatWith(sizes[size - 1]);
+            return $"{sizes[size - 1]}%";
         }
 
         #endregion

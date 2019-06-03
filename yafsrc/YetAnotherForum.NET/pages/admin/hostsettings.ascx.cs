@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
         {
             // vzrus: remove all users lazy data
             this.Get<IDataCache>()
-                .RemoveOf<object>(k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+                .RemoveOf<object>(k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
             this.CheckCache();
         }
 
@@ -201,9 +201,8 @@ namespace YAF.Pages.Admin
                 YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_HOSTSETTINGS", "TITLE")}";
         }
 
         /// <summary>
@@ -501,11 +500,10 @@ namespace YAF.Pages.Admin
             this.SQLVersion.Text = this.HtmlEncode(this.Get<YafBoardSettings>().SQLVersion);
 
             this.AppCores.Text = Platform.Processors;
-            this.AppMemory.Text = "{0} MB of {1} MB".FormatWith(
-                Platform.AllocatedMemory.ToType<long>() / 1000000,
-                Platform.MappedMemory.ToType<long>() / 1000000);
+            this.AppMemory.Text =
+                $"{Platform.AllocatedMemory.ToType<long>() / 1000000} MB of {Platform.MappedMemory.ToType<long>() / 1000000} MB";
             this.AppOSName.Text = Platform.VersionString;
-            this.AppRuntime.Text = "{0} {1}".FormatWith(Platform.RuntimeName, Platform.RuntimeString);
+            this.AppRuntime.Text = $"{Platform.RuntimeName} {Platform.RuntimeString}";
         }
 
         /// <summary>

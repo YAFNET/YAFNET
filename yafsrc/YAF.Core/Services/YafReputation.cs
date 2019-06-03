@@ -89,18 +89,19 @@ namespace YAF.Core.Services
             }
 
             return
-                @"<div class=""text-center"">{1}</div>
+                string
+                    .Format(
+                        @"<div class=""text-center"">{1}</div>
                   <div class=""progress"">
                       <div class=""progress-bar progress-bar-striped{2}"" role=""progressbar""  style=""width:{0}%;"" aria-valuenow=""{0}"" aria-valuemax=""100"">
                       {0}%
                       </div>
-                  </div>"
-                    .FormatWith(
+                  </div>",
                         percentage.ToString(formatInfo),
-                        GetReputationBarText(percentage),
-                        GetReputationBarColor(percentage),
-                        pointsSign,
-                        points);
+                            GetReputationBarText(percentage),
+                            GetReputationBarColor(percentage),
+                            pointsSign,
+                            points);
         }
 
         /// <summary>

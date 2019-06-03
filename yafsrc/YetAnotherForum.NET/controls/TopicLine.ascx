@@ -38,7 +38,7 @@
 
                 if (tPager != string.Empty)
                 {
-                    var altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
+                    var altMultipages = string.Format(this.GetText("GOTO_POST_PAGER"), string.Empty);
             %>
                 <span>- <i class="fa fa-copy fa-fw"></i> 
                     <%=tPager%></span>

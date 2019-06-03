@@ -23,113 +23,184 @@
  */
 namespace YAF.Core.Services
 {
-  #region Using
+    #region Using
 
-  using System.Web;
-  using System.Web.Hosting;
+    using System;
+    using System.Web;
+    using System.Web.Hosting;
 
-  using YAF.Classes;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// The yaf permissions.
-  /// </summary>
-  public class YafPermissions : IPermissions
-  {
-    #region Implemented Interfaces
-
-    #region IPermissions
-
-    /// <summary>
-    /// The check.
-    /// </summary>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    /// <returns>
-    /// The check.
-    /// </returns>
-    public bool Check(ViewPermissions permission)
-    {
-      if (permission == ViewPermissions.Everyone)
-      {
-        return true;
-      }
-
-      if (permission == ViewPermissions.RegisteredUsers)
-      {
-        return !YafContext.Current.IsGuest;
-      }
-
-      return YafContext.Current.IsAdmin;
-    }
-
-    /// <summary>
-    /// The handle request.
-    /// </summary>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    public void HandleRequest(ViewPermissions permission)
-    {
-      var noAccess = true;
-
-      if (!this.Check(permission))
-      {
-        if (permission == ViewPermissions.RegisteredUsers)
-        {
-          if (!Config.AllowLoginAndLogoff && YafContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
-          {
-            var loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
-
-            if (loginRedirectUrl.Contains("{0}"))
-            {
-              // process for return url..
-              loginRedirectUrl =
-                loginRedirectUrl.FormatWith(
-                  HttpUtility.UrlEncode(General.GetSafeRawUrl(YafContext.Current.Get<HttpRequestBase>().Url.ToString())));
-            }
-
-            // allow custom redirect...
-            YafContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
-            noAccess = false;
-          }
-          else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
-          {
-            // automatic DNN redirect...
-            var appPath = HostingEnvironment.ApplicationVirtualPath;
-            if (!appPath.EndsWith("/"))
-            {
-              appPath += "/";
-            }
-
-            // redirect to DNN login...
-            YafContext.Current.Get<HttpResponseBase>().Redirect(
-              appPath + "Login.aspx?ReturnUrl=" + HttpUtility.UrlEncode(General.GetSafeRawUrl()));
-            noAccess = false;
-          }
-          else if (Config.AllowLoginAndLogoff)
-          {
-            YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", HttpUtility.UrlEncode(General.GetSafeRawUrl()));
-            noAccess = false;
-          }
-        }
-
-        // fall-through with no access...
-        if (noAccess)
-        {
-          YafBuildLink.AccessDenied();
-        }
-      }
-    }
+    using YAF.Classes;
+    using YAF.Core.Model;
+    using YAF.Core.Services.Startup;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-    #endregion
-  }
+    /// <summary>
+    /// The yaf permissions.
+    /// </summary>
+    public class YafPermissions : IPermissions
+    {
+        #region Implemented Interfaces
+
+        #region IPermissions
+
+        /// <summary>
+        /// The check.
+        /// </summary>
+        /// <param name="permission">
+        /// The permission.
+        /// </param>
+        /// <returns>
+        /// The check.
+        /// </returns>
+        public bool Check(ViewPermissions permission)
+        {
+            switch (permission)
+            {
+                case ViewPermissions.Everyone:
+                    return true;
+                case ViewPermissions.RegisteredUsers:
+                    return !YafContext.Current.IsGuest;
+                default:
+                    return YafContext.Current.IsAdmin;
+            }
+        }
+
+        /// <summary>
+        /// The handle request.
+        /// </summary>
+        /// <param name="permission">
+        /// The permission.
+        /// </param>
+        public void HandleRequest(ViewPermissions permission)
+        {
+            var noAccess = true;
+
+            if (!this.Check(permission))
+            {
+                if (permission == ViewPermissions.RegisteredUsers)
+                {
+                    if (!Config.AllowLoginAndLogoff && YafContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
+                    {
+                        var loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
+
+                        if (loginRedirectUrl.Contains("{0}"))
+                        {
+                            // process for return url..
+                            loginRedirectUrl = string.Format(
+                                loginRedirectUrl, HttpUtility.UrlEncode(
+                                    General.GetSafeRawUrl(YafContext.Current.Get<HttpRequestBase>().Url.ToString())));
+                        }
+
+                        // allow custom redirect...
+                        YafContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
+                        noAccess = false;
+                    }
+                    else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
+                    {
+                        // automatic DNN redirect...
+                        var appPath = HostingEnvironment.ApplicationVirtualPath;
+                        if (!appPath.EndsWith("/"))
+                        {
+                            appPath += "/";
+                        }
+
+                        // redirect to DNN login...
+                        YafContext.Current.Get<HttpResponseBase>().Redirect(
+                            appPath + "Login.aspx?ReturnUrl=" + HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+                        noAccess = false;
+                    }
+                    else if (Config.AllowLoginAndLogoff)
+                    {
+                        YafBuildLink.Redirect(
+                            ForumPages.login,
+                            "ReturnUrl={0}",
+                            HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+                        noAccess = false;
+                    }
+                }
+
+                // fall-through with no access...
+                if (noAccess)
+                {
+                    YafBuildLink.AccessDenied();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks the access rights.
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="messageId">The message id.</param>
+        /// <returns>
+        /// The check access rights.
+        /// </returns>
+        public bool CheckAccessRights([NotNull] int boardId, [NotNull] int messageId)
+        {
+            if (messageId.Equals(0))
+            {
+                return true;
+            }
+
+            // Find user name
+            var user = UserMembershipHelper.GetUser();
+
+            var browser =
+                $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
+            var platform = HttpContext.Current.Request.Browser.Platform;
+            var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
+            bool isSearchEngine;
+            bool dontTrack;
+            var userAgent = HttpContext.Current.Request.UserAgent;
+
+            // try and get more verbose platform name by ref and other parameters             
+            UserAgentHelper.Platform(
+                userAgent,
+                HttpContext.Current.Request.Browser.Crawler,
+                ref platform,
+                ref browser,
+                out isSearchEngine,
+                out dontTrack);
+
+            YafContext.Current.Get<StartupInitializeDb>().Run();
+
+            object userKey = DBNull.Value;
+
+            if (user != null)
+            {
+                userKey = user.ProviderUserKey;
+            }
+
+            var pageRow = YafContext.Current.GetRepository<ActiveAccess>().PageLoad(
+                HttpContext.Current.Session.SessionID,
+                boardId,
+                userKey,
+                HttpContext.Current.Request.GetUserRealIPAddress(),
+                HttpContext.Current.Request.FilePath,
+                HttpContext.Current.Request.QueryString.ToString(),
+                browser,
+                platform,
+                null,
+                null,
+                null,
+                messageId,
+                isSearchEngine, // don't track if this is a search engine
+                isMobileDevice,
+                dontTrack);
+
+            return pageRow["DownloadAccess"].ToType<bool>() || pageRow["ModeratorAccess"].ToType<bool>();
+        }
+
+        #endregion
+
+        #endregion
+    }
 }

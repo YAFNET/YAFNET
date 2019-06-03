@@ -149,9 +149,9 @@ namespace YAF.Data.MsSql
                 }
                 finally
                 {
-                    if (createdTransaction && transaction != null)
+                    if (createdTransaction)
                     {
-                        transaction.Dispose();
+                        transaction?.Dispose();
                     }
                 }
             }

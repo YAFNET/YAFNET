@@ -188,7 +188,7 @@ namespace YAF.Pages.Admin
                 if (createStatus != MembershipCreateStatus.Success)
                 {
                     this.PageContext.AddLoadMessage(
-                        "Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)),
+                        $"Create User Failed: {this.GetMembershipErrorMessage(createStatus)}",
                         MessageTypes.danger);
 
                     return false;
@@ -226,7 +226,7 @@ namespace YAF.Pages.Admin
             if (newBoardId > 0 && Config.MultiBoardFolders)
             {
                 // Successfully created the new board
-                var boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, "{0}/".FormatWith(newBoardId)));
+                var boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, $"{newBoardId}/"));
 
                 // Create New Folders.
                 if (!Directory.Exists(Path.Combine(boardFolder, "Images")))
@@ -383,10 +383,8 @@ namespace YAF.Pages.Admin
                 YafBuildLink.GetLink(ForumPages.admin_editboard));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_BOARDS", "TITLE"),
-                this.GetText("ADMIN_EDITBOARD", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDS", "TITLE")} - {this.GetText("ADMIN_EDITBOARD", "TITLE")}";
         }
 
         /// <summary>

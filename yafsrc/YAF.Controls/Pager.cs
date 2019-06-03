@@ -132,7 +132,7 @@ namespace YAF.Controls
 
                 if (linkedPager == null)
                 {
-                    throw new Exception("Failed to link pager to '{0}'.".FormatWith(this.LinkedPager));
+                    throw new Exception($"Failed to link pager to '{this.LinkedPager}'.");
                 }
 
                 return linkedPager;
@@ -203,7 +203,10 @@ namespace YAF.Controls
                                   "f={0}&p={1}",
                                   this.PageContext.PageForumID,
                                   page)
-                              : YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                              : YafBuildLink.GetLinkNotEscaped(
+                                  ForumPages.topics,
+                                  "f={0}",
+                                  this.PageContext.PageForumID);
 
                     break;
                 case ForumPages.posts:
@@ -268,7 +271,7 @@ namespace YAF.Controls
 
             output.WriteLine(
                 @"<div class=""btn-group"" role=""group"">
-                      <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle mb-1"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
+                      <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                       {1:N0} {2}</button>",
                 this.Get<ILocalization>().TransPage.IsSet()
                     ? this.GetText("COMMON", "GOTOPAGE_HEADER")
@@ -335,7 +338,9 @@ namespace YAF.Controls
             if (start > 0)
             {
                 output.RenderAnchorBegin(
-                    this.GetLinkUrl(1, postBack), "btn btn-secondary", this.GetText("COMMON", "GOTOFIRSTPAGE_TT"));
+                    this.GetLinkUrl(1, postBack),
+                    "btn btn-secondary",
+                    this.GetText("COMMON", "GOTOFIRSTPAGE_TT"));
 
                 output.WriteBeginTag("span");
                 output.Write(HtmlTextWriter.TagRightChar);
@@ -406,7 +411,9 @@ namespace YAF.Controls
             }
 
             output.RenderAnchorBegin(
-                this.GetLinkUrl(this.PageCount(), postBack), "btn btn-secondary", this.GetText("COMMON", "GOTOLASTPAGE_TT"));
+                this.GetLinkUrl(this.PageCount(), postBack),
+                "btn btn-secondary",
+                this.GetText("COMMON", "GOTOLASTPAGE_TT"));
 
             output.WriteBeginTag("span");
             output.Write(HtmlTextWriter.TagRightChar);

@@ -113,11 +113,13 @@ namespace ServiceStack.FluentValidation.Resources {
 			var property = GetResourceProperty(ref resourceType, ref resourceName);
 
 			if (property == null) {
-				throw new InvalidOperationException(string.Format("Could not find a property named '{0}' on type '{1}'.", resourceName, resourceType));
+				throw new InvalidOperationException(
+                    $"Could not find a property named '{resourceName}' on type '{resourceType}'.");
 			}
 
 			if (property.PropertyType != typeof(string)) {
-				throw new InvalidOperationException(string.Format("Property '{0}' on type '{1}' does not return a string", resourceName, resourceType));
+				throw new InvalidOperationException(
+                    $"Property '{resourceName}' on type '{resourceType}' does not return a string");
 			}
 
 			var accessor = (Func<string>)property.GetMethod.CreateDelegate(typeof(Func<string>));

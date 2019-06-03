@@ -111,11 +111,7 @@ namespace YAF.Controls
             textMessageLink.Text = topicSubject;
 
             textMessageLink.ToolTip =
-                     "{0}".FormatWith(
-                         this.GetTextFormatted(
-                             "VIEW_TOPIC_STARTED_BY",
-                             currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"]
-                                 .ToString()));
+                $"{this.GetTextFormatted("VIEW_TOPIC_STARTED_BY", currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString())}";
 
             textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);

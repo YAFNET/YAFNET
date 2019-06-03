@@ -83,13 +83,15 @@ namespace YAF.Controls
             this.rblPasswordResetFunction.SelectedIndex = 0;
 
 
-            this.btnResetPassword.Text = "<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EDITUSER", "RESET_PASS"));
-            this.btnChangePassword.Text = "<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EDITUSER", "CHANGE_PASS"));
+            this.btnResetPassword.Text =
+                $"<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "RESET_PASS")}";
+            this.btnChangePassword.Text =
+                $"<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
 
             this.lblPassRequirements.Text =
-                this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_REQUIREMENT").FormatWith(
-                    this.Get<MembershipProvider>().MinRequiredPasswordLength,
-                    this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters);
+                string.Format(
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_REQUIREMENT"),
+                    this.Get<MembershipProvider>().MinRequiredPasswordLength,this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters);
 
             this.PasswordValidator.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_NEW_PASS");
             this.RequiredFieldValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_CONFIRM_PASS");
@@ -158,13 +160,13 @@ namespace YAF.Controls
             var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
             var subject =
-              this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
-                this.PageContext.BoardSettings.Name);
+              string.Format(
+                this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), this.PageContext.BoardSettings.Name);
 
             passwordRetrieval.TemplateParams["{username}"] = user.UserName;
             passwordRetrieval.TemplateParams["{password}"] = newPass;
             passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+            passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
 
             passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
@@ -178,7 +180,7 @@ namespace YAF.Controls
       }
       catch (Exception x)
       {
-        this.PageContext.AddLoadMessage("Exception: {0}".FormatWith(x.Message));
+        this.PageContext.AddLoadMessage($"Exception: {x.Message}");
       }
     }
 
@@ -208,13 +210,13 @@ namespace YAF.Controls
           var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
           var subject =
-            this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
-              this.PageContext.BoardSettings.Name);
+            string.Format(
+              this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), this.PageContext.BoardSettings.Name);
 
           passwordRetrieval.TemplateParams["{username}"] = user.UserName;
           passwordRetrieval.TemplateParams["{password}"] = newPassword;
           passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-          passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+          passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
 
           passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
@@ -223,7 +225,7 @@ namespace YAF.Controls
       }
       catch (Exception x)
       {
-        this.PageContext.AddLoadMessage("Exception: {0}".FormatWith(x.Message));
+        this.PageContext.AddLoadMessage($"Exception: {x.Message}");
       }
     }
 

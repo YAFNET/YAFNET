@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Optimize>true</Optimize>
   </PropertyGroup>
 
@@ -43,6 +43,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
     <DocumentationFile />
     <OutputPath>C:\Users\Watcher\source\repos\YAFNET\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">

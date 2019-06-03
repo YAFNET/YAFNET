@@ -437,7 +437,7 @@ namespace YAF.Providers.Roles
         /// </returns>
         private string GenerateCacheKey(string name)
         {
-            return "YafRoleProvider-{0}-{1}".FormatWith(name, this.ApplicationName);
+            return $"YafRoleProvider-{name}-{this.ApplicationName}";
         }
 
         #endregion

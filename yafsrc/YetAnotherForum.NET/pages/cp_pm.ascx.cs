@@ -116,7 +116,7 @@ namespace YAF.Pages
             {
                 this.view = PmViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
 
-                this.hidLastTab.Value = "View{0}".FormatWith((int)this.view);
+                this.hidLastTab.Value = $"View{(int)this.view}";
             }
 
             this.PageLinks.AddRoot();

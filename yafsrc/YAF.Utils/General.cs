@@ -118,7 +118,7 @@ namespace YAF.Utils
             // also look for images and put them in our arraylist
             var txtInfo = string.Empty;
 
-            txtInfo += "Found {0} resources\r\n".FormatWith(resNames.Length);
+            txtInfo += $"Found {resNames.Length} resources\r\n";
             txtInfo += "----------\r\n";
 
             txtInfo = resNames.Aggregate(txtInfo, (current, s) => current + (s + "\r\n"));

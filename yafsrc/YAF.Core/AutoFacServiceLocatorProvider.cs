@@ -102,10 +102,13 @@ namespace YAF.Core
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The create scope.
+        /// The create scope.
         /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
         /// <returns>
-        ///     The <see cref="IScopeServiceLocator" />.
+        /// The <see cref="IScopeServiceLocator"/>.
         /// </returns>
         public IScopeServiceLocator CreateScope(object tag = null)
         {
@@ -343,19 +346,16 @@ namespace YAF.Core
 
             foreach (var parameter in parameters)
             {
-                if (parameter is NamedParameter)
+                switch (parameter)
                 {
-                    var param = parameter as NamedParameter;
-                    autoParams.Add(new Autofac.NamedParameter(param.Name, param.Value));
-                }
-                else if (parameter is TypedParameter)
-                {
-                    var param = parameter as TypedParameter;
-                    autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
-                }
-                else
-                {
-                    throw new NotSupportedException("Parameter Type of {0} is not supported.".FormatWith(parameter.GetType()));
+                    case NamedParameter param1:
+                        autoParams.Add(new Autofac.NamedParameter(param1.Name, param1.Value));
+                        break;
+                    case TypedParameter param:
+                        autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
+                        break;
+                    default:
+                        throw new NotSupportedException($"Parameter Type of {parameter.GetType()} is not supported.");
                 }
             }
 

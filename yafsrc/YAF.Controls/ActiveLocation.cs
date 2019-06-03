@@ -11,9 +11,7 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
-
  * http://www.apache.org/licenses/LICENSE-2.0
-
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -278,22 +276,22 @@ namespace YAF.Controls
 
                 if (this.HasForumAccess)
                 {
-                    outText.Append(
-                        @"<a href=""{0}"" id=""topicid_{1}""  title=""{2}"" runat=""server""> {3} </a>".FormatWith(
-                            YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID),
-                            this.UserID,
-                            this.GetText("COMMON", "VIEW_TOPIC"),
-                            HttpUtility.HtmlEncode(this.TopicName)));
+                    outText.AppendFormat(
+                        @"<a href=""{0}"" id=""topicid_{1}""  title=""{2}"" runat=""server""> {3} </a>",
+                        YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID),
+                        this.UserID,
+                        this.GetText("COMMON", "VIEW_TOPIC"),
+                        HttpUtility.HtmlEncode(this.TopicName));
+
                     if (!this.LastLinkOnly)
                     {
                         outText.Append(this.GetText("ACTIVELOCATION", "TOPICINFORUM"));
-                        outText.Append(
-                            @"<a href=""{0}"" id=""forumidtopic_{1}"" title=""{2}"" runat=""server""> {3} </a>"
-                                .FormatWith(
-                                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
-                                    this.UserID,
-                                    this.GetText("COMMON", "VIEW_FORUM"),
-                                    HttpUtility.HtmlEncode(this.ForumName)));
+                        outText.AppendFormat(
+                            @"<a href=""{0}"" id=""forumidtopic_{1}"" title=""{2}"" runat=""server""> {3} </a>",
+                            YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
+                            this.UserID,
+                            this.GetText("COMMON", "VIEW_FORUM"),
+                            HttpUtility.HtmlEncode(this.ForumName));
                     }
                 }
             }
@@ -306,12 +304,12 @@ namespace YAF.Controls
 
                     if (this.HasForumAccess)
                     {
-                        outText.Append(
-                            @"<a href=""{0}"" id=""forumid_{1}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(
-                                YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
-                                this.UserID,
-                                this.GetText("COMMON", "VIEW_FORUM"),
-                                HttpUtility.HtmlEncode(this.ForumName)));
+                        outText.AppendFormat(
+                            @"<a href=""{0}"" id=""forumid_{1}"" title=""{2}"" runat=""server""> {3} </a>",
+                            YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
+                            this.UserID,
+                            this.GetText("COMMON", "VIEW_FORUM"),
+                            HttpUtility.HtmlEncode(this.ForumName));
                     }
                 }
             }
@@ -374,18 +372,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.UserID,
                             this,
-                            "Incorrect active location string: ForumID = {0}; ForumName= {1}; ForumPage={2}; TopicID={3}; TopicName={4}; UserID={5}; UserName={6}; Attributes={7}; ForumPageName={8}; URL={9}"
-                                .FormatWith(
-                                    this.ForumID,
-                                    this.ForumName,
-                                    this.ForumPage,
-                                    this.TopicID,
-                                    this.TopicName,
-                                    this.UserID,
-                                    this.UserName,
-                                    forumPageAttributes,
-                                    forumPageName,
-                                    this.Get<HttpRequestBase>().Url.AbsoluteUri));
+                            $"Incorrect active location string: ForumID = {this.ForumID}; ForumName= {this.ForumName}; ForumPage={this.ForumPage}; TopicID={this.TopicID}; TopicName={this.TopicName}; UserID={this.UserID}; UserName={this.UserName}; Attributes={forumPageAttributes}; ForumPageName={forumPageName}; URL={this.Get<HttpRequestBase>().Url.AbsoluteUri}");
                     }
 
                     outputText = this.GetText("ACTIVELOCATION", "NODATA");
@@ -408,7 +395,7 @@ namespace YAF.Controls
         /// </returns>
         private string Album([NotNull] string forumPageAttributes)
         {
-            var outstring = string.Empty;
+            var outstring = new StringBuilder();
             var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
                 .Trim();
 
@@ -430,9 +417,7 @@ namespace YAF.Controls
                 var dr = this.GetRepository<UserAlbum>().List(albumID.Trim().ToType<int>()).FirstOrDefault();
 
                 // If album doesn't have a Title, use his ID.
-                var albumName = dr.Title.IsNotSet()
-                                    ? dr.Title
-                                    : dr.ID.ToString();
+                var albumName = dr.Title.IsNotSet() ? dr.Title : dr.ID.ToString();
 
                 // Render
                 if (userID.ToType<int>() != this.UserID)
@@ -446,21 +431,24 @@ namespace YAF.Controls
                             UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
                     }
 
-                    outstring += this.GetText("ACTIVELOCATION", "ALBUM").FormatWith();
-                    outstring += @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>".FormatWith(
+                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
+                    outstring.AppendFormat(
+                        @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
                         YafBuildLink.GetLink(ForumPages.album, "a={0}", albumID),
                         userID + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(albumName));
-                    outstring += this.GetText("ACTIVELOCATION", "ALBUM_OFUSER").FormatWith();
-                    outstring += @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>".FormatWith(
+                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
+                    outstring.AppendFormat(
+                        @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>",
                         YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID, displayName),
                         userID,
                         HttpUtility.HtmlEncode(displayName));
                 }
                 else
                 {
-                    outstring += this.GetText("ACTIVELOCATION", "ALBUM_OWN").FormatWith();
-                    outstring += @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>".FormatWith(
+                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
+                    outstring.AppendFormat(
+                        @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
                         YafBuildLink.GetLink(ForumPages.album, "a={0}", albumID),
                         userID + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(albumName));
@@ -468,10 +456,10 @@ namespace YAF.Controls
             }
             else
             {
-                outstring += this.GetText("ACTIVELOCATION", "ALBUM").FormatWith();
+                outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
             }
 
-            return outstring;
+            return outstring.ToString();
         }
 
         /// <summary>
@@ -485,7 +473,7 @@ namespace YAF.Controls
         /// </returns>
         private string Albums([NotNull] string forumPageAttributes)
         {
-            string outstring;
+            var outstring = new StringBuilder();
 
             var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
                 .Substring(0).Trim();
@@ -494,7 +482,7 @@ namespace YAF.Controls
             {
                 if (userId.ToType<int>() == this.UserID)
                 {
-                    outstring = this.GetText("ACTIVELOCATION", "ALBUMS_OWN").FormatWith();
+                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OWN"));
                 }
                 else
                 {
@@ -507,7 +495,8 @@ namespace YAF.Controls
                             UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
                     }
 
-                    outstring = @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>".FormatWith(
+                    outstring.AppendFormat(
+                        @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
                         YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
                         userId + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(displayName),
@@ -516,10 +505,10 @@ namespace YAF.Controls
             }
             else
             {
-                outstring = this.GetTextFormatted("ACTIVELOCATION", "ALBUMS").FormatWith();
+                outstring.Append(this.GetTextFormatted("ACTIVELOCATION", "ALBUMS"));
             }
 
-            return outstring;
+            return outstring.ToString();
         }
 
         /// <summary>
@@ -533,7 +522,7 @@ namespace YAF.Controls
         /// </returns>
         private string Profile([NotNull] string forumPageAttributes)
         {
-            var outstring = string.Empty;
+            var outstring = new StringBuilder();
             var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2);
 
             userId = userId.Contains("&")
@@ -553,26 +542,25 @@ namespace YAF.Controls
                             UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
                     }
 
-                    outstring += this.GetText("ACTIVELOCATION", "PROFILE_OFUSER").FormatWith();
-                    outstring +=
-                        @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>"
-                            .FormatWith(
-                                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
-                                userId + this.PageContext.PageUserID,
-                                this.GetText("COMMON", "VIEW_USRPROFILE"),
-                                HttpUtility.HtmlEncode(displayName));
+                    outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
+                    outstring.AppendFormat(
+                        @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>",
+                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                        userId + this.PageContext.PageUserID,
+                        this.GetText("COMMON", "VIEW_USRPROFILE"),
+                        HttpUtility.HtmlEncode(displayName));
                 }
                 else
                 {
-                    outstring += this.GetText("ACTIVELOCATION", "PROFILE_OWN").FormatWith();
+                    outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OWN"));
                 }
             }
             else
             {
-                outstring += this.GetText("ACTIVELOCATION", "PROFILE").FormatWith();
+                outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE"));
             }
 
-            return outstring;
+            return outstring.ToString();
         }
 
         #endregion

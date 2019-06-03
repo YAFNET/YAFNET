@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin
             {
                 var eventTypeName = this.Get<ILocalization>().GetText(
                     "ADMIN_EVENTLOGROUPACCESS",
-                    "LT_{0}".FormatWith(Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()));
+                    $"LT_{Enum.GetName(typeof(EventLogTypes), eventTypeId).ToUpperInvariant()}");
 
                 this.Types.Items.Add(
                     new ListItem(eventTypeName, eventTypeId.ToString()));
@@ -203,8 +203,8 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(this.GetText("ADMIN_EVENTLOG", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_EVENTLOG", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_EVENTLOG", "TITLE")}";
 
             this.PagerTop.PageSize = 25;
         }

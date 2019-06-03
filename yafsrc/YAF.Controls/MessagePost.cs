@@ -222,9 +222,10 @@ namespace YAF.Controls
             writer.Write(
                 @"<div class=""alert alert-danger"" role=""alert""><strong>{1}</strong>{0}</div>",
                 deleteText.IsSet()
-                    ? @"&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(
+                    ? string.Format(
+                        @"&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>",
                         this.GetText("EDIT_REASON"),
-                        deleteText)
+                            deleteText)
                     : string.Empty,
                 this.IsModeratorChanged
                     ? this.GetText("POSTS", "MESSAGEDELETED_MOD")
@@ -249,11 +250,8 @@ namespace YAF.Controls
             var editedDateTime = new DisplayDateTime { DateTime = edited }.RenderToString();
 
             // reason was specified ?!
-            var editReasonText = "{0}: {1}".FormatWith(
-                this.GetText("EDIT_REASON"),
-                this.Get<HttpContextBase>().Server.HtmlDecode(editReason).IsSet()
-                    ? this.Get<IFormatMessage>().RepairHtml(editReason, true)
-                    : this.GetText("EDIT_REASON_NA"));
+            var editReasonText =
+                $"{this.GetText("EDIT_REASON")}: {(this.Get<HttpContextBase>().Server.HtmlDecode(editReason).IsSet() ? this.Get<IFormatMessage>().RepairHtml(editReason, true) : this.GetText("EDIT_REASON_NA"))}";
 
             // message has been edited
             // show, why the post was edited or deleted?
@@ -262,21 +260,22 @@ namespace YAF.Controls
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
-                @"<div class=""alert alert-secondary"" role=""alert"">
+                string
+                    .Format(
+                        @"<div class=""alert alert-secondary"" role=""alert"">
                       <a title=""{3}"" alt=""title=""{3}"" href=""{4}"">
                          <i class=""fa fa-history fa-fw""></i><strong>{0}</strong> {1}
                       </a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
-                      </button></div>"
-                    .FormatWith(
+                      </button></div>",
                         this.GetText("EDITED"),
-                        whoChanged,
-                        editedDateTime,
-                        editReasonText,
-                        this.PageContext.IsGuest
-                            ? "#"
-                            : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
+                            whoChanged,
+                            editedDateTime,
+                            editReasonText,
+                            this.PageContext.IsGuest
+                                ? "#"
+                                : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
         }
 
         /// <summary>
@@ -288,14 +287,15 @@ namespace YAF.Controls
            [NotNull] HtmlTextWriter writer, int messageId)
         {
             writer.Write(
-                @"<div class=""alert alert-success"" role=""alert"">
+                string
+                    .Format(
+                        @"<div class=""alert alert-success"" role=""alert"">
                       <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
-                      </button></div>"
-                    .FormatWith(
+                      </button></div>",
                         this.GetText("GO_TO_ANSWER"),
-                        YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId)));
+                            YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId)));
         }
 
         /// <summary>

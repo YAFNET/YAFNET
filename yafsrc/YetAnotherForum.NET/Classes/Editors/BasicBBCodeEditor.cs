@@ -82,8 +82,8 @@ namespace YAF.Editors
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
-                "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\nfunction insertAttachment(id,url) {{\n{0}.FormatText('attach', id);\n}}\n"
-                    .FormatWith(this.SafeID));
+                string
+                    .Format("var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\nfunction insertAttachment(id,url) {{\n{0}.FormatText('attach', id);\n}}\n", this.SafeID));
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use

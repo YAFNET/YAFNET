@@ -27,7 +27,6 @@ namespace YAF.Utils.Extensions
 
     using YAF.Classes;
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 
@@ -45,7 +44,7 @@ namespace YAF.Utils.Extensions
         /// <returns> Returns qualified object name of format {databaseOwner}.{objectQualifier}name </returns>
         public static string GetObjectName([NotNull] string name)
         {
-            return "[{0}].[{1}{2}]".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
+            return $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}{name}]";
         }
 
         #endregion

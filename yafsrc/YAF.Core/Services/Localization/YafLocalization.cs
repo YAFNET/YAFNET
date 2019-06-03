@@ -184,7 +184,7 @@ namespace YAF.Core.Services.Localization
         /// </remarks>
         public string FormatString([NotNull] string format, [NotNull] params object[] args)
         {
-            return this.Culture.IsNeutralCulture ? format.FormatWith(args) : string.Format(this.Culture, format, args);
+            return this.Culture.IsNeutralCulture ? string.Format(format, args) : string.Format(this.Culture, format, args);
         }
 
         /// <summary>
@@ -303,15 +303,15 @@ namespace YAF.Core.Services.Localization
 
                 if (filename == string.Empty) filename = "english.xml";
 
-                HttpContext.Current.Cache.Remove("Localizer.{0}".FormatWith(filename));
+                HttpContext.Current.Cache.Remove($"Localizer.{filename}");
 #endif
                 YafContext.Current.Get<ILogger>()
                     .Log(
                         YafContext.Current.PageUserID,
-                        string.Format("{0}.ascx", page.ToLower()),
-                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()));
+                        $"{page.ToLower()}.ascx",
+                        string.Format("Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper()));
 
-                return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
+                return string.Format("[{1}.{0}]", tag.ToUpper(), page.ToUpper());
             }
 
             localizedText = _rgxBegin.Replace(localizedText, "<strong>");
@@ -385,10 +385,10 @@ namespace YAF.Core.Services.Localization
                     .Log(
                         YafContext.Current.PageUserID,
                         page.ToLower() + ".ascx",
-                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()),
+                        string.Format("Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper()),
                         EventLogTypes.Error);
 
-                return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
+                return string.Format("[{1}.{0}]", tag.ToUpper(), page.ToUpper());
             }
 
             localizedText = localizedText.Replace("[b]", "<b>");
@@ -439,14 +439,15 @@ namespace YAF.Core.Services.Localization
 
             for (var arrayIndex = args.Length; arrayIndex < arraySize; arrayIndex++)
             {
-                copiedArgs[arrayIndex] = "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]".FormatWith(
+                copiedArgs[arrayIndex] = string.Format(
+                    "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]",
                     text.ToUpper(),
-                    this.TransPage.IsNotSet() ? "NULL" : this.TransPage.ToUpper(),
-                    arrayIndex);
+                        this.TransPage.IsNotSet() ? "NULL" : this.TransPage.ToUpper(),
+                        arrayIndex);
             }
 
             // run format command...
-            localizedText = localizedText.FormatWith(copiedArgs);
+            localizedText = string.Format(localizedText, copiedArgs);
 
             return localizedText;
         }
@@ -476,8 +477,7 @@ namespace YAF.Core.Services.Localization
             {
                 this.localizer =
                     new Localizer(
-                        HttpContext.Current.Server.MapPath(
-                            "{0}languages/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, fileName)));
+                        HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}languages/{fileName}"));
 
 #if !DEBUG
                 HttpContext.Current.Cache["Localizer." + fileName] = this.localizer;
@@ -496,7 +496,7 @@ namespace YAF.Core.Services.Localization
                     this.defaultLocale =
                         new Localizer(
                             HttpContext.Current.Server.MapPath(
-                                "{0}languages/english.xml".FormatWith(YafForumInfo.ForumServerFileRoot)));
+                                $"{YafForumInfo.ForumServerFileRoot}languages/english.xml"));
 #if !DEBUG
                     HttpContext.Current.Cache["DefaultLocale"] = this.defaultLocale;
 #endif

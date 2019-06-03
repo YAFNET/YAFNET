@@ -654,7 +654,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         private string GenerateCacheKey(string name)
         {
-            return "YafProfileProvider-{0}-{1}".FormatWith(name, this.ApplicationName);
+            return $"YafProfileProvider-{name}-{this.ApplicationName}";
         }
 
         /// <summary>

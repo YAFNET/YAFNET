@@ -27,7 +27,6 @@ namespace YAF.Utils.Helpers
 
     using System;
     using System.Linq;
-    using System.Web;
 
     using YAF.Classes;
     using YAF.Types;
@@ -67,18 +66,6 @@ namespace YAF.Utils.Helpers
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Is this user agent IE v6?
-        /// </summary>
-        /// <returns>
-        /// The is browser i e 6.
-        /// </returns>
-        public static bool IsBrowserIE6()
-        {
-            return HttpContext.Current.Request.Browser.Browser.Contains("IE")
-                   && HttpContext.Current.Request.Browser.Version.StartsWith("6.");
-        }
 
         /// <summary>
         /// Validates if the user agent owner is a feed reader

@@ -213,12 +213,7 @@ namespace YAF.Classes
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType);
 
-                        file.SaveAs(
-                            "{0}/u{1}-{2}.{3}.yafupload".FormatWith(
-                                previousDirectory,
-                                yafUserId,
-                                newAttachmentId,
-                                fileName));
+                        file.SaveAs($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload");
                     }
 
                     var fullName = Path.GetFileName(fileName);
@@ -259,8 +254,8 @@ namespace YAF.Classes
             // Find user name
             var user = UserMembershipHelper.GetUser();
 
-            var browser = "{0} {1}".FormatWith(
-                HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
+            var browser =
+                $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
             var platform = HttpContext.Current.Request.Browser.Platform;
             var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
             bool isSearchEngine;

@@ -51,6 +51,16 @@ namespace YAF.Types.Interfaces
     /// </param>
     void HandleRequest(ViewPermissions permission);
 
+    /// <summary>
+    /// Checks the access rights.
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="messageId">The message id.</param>
+    /// <returns>
+    /// The check access rights.
+    /// </returns>
+    bool CheckAccessRights([NotNull] int boardId, [NotNull] int messageId);
+
     #endregion
   }
 }

@@ -223,14 +223,13 @@ namespace YAF.Controls
             if (this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))] != null)
             {
                 // Add the voted option to cookie value string
-                cookieCurrent = "{0},".FormatWith(
-                    this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))].Value);
+                cookieCurrent = $"{this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))].Value},";
                 this.Request.Cookies.Remove(VotingCookieName(Convert.ToInt32(this.PollId)));
             }
 
             var c = new HttpCookie(
                             VotingCookieName(this.PollId),
-                            "{0}{1}".FormatWith(cookieCurrent, e.CommandArgument.ToString()))
+                            $"{cookieCurrent}{e.CommandArgument}")
                             {
                                 Expires = DateTime.UtcNow
                                     .AddYears(1)
@@ -244,10 +243,7 @@ namespace YAF.Controls
             this.BindData();
 
             // Initialize bubble event to update parent control.
-            if (this.ChoiceVoted != null)
-            {
-                this.ChoiceVoted(source, e);
-            }
+            this.ChoiceVoted?.Invoke(source, e);
 
             // show the notification  window to user
             this.PageContext.AddLoadMessage(msg);
@@ -325,8 +321,7 @@ namespace YAF.Controls
                     choiceImage.Width = imageWidth;
                     choiceImage.Height = Convert.ToInt32(choiceImage.Width / aspect);
 
-                    choiceImage.Attributes["style"] =
-                        "width:{0}px; height:{1}px;".FormatWith(imageWidth, choiceImage.Height);
+                    choiceImage.Attributes["style"] = $"width:{imageWidth}px; height:{choiceImage.Height}px;";
                 }
             }
             else
@@ -385,7 +380,7 @@ namespace YAF.Controls
         /// </returns>
         private static string VotingCookieName(int pollId)
         {
-            return "poll#{0}".FormatWith(pollId);
+            return $"poll#{pollId}";
         }
 
         /// <summary>

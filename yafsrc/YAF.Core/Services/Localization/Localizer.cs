@@ -310,12 +310,12 @@ namespace YAF.Core.Services.Localization
         {
             if (this._fileName == string.Empty || !File.Exists(this._fileName))
             {
-                throw new ApplicationException("Invalid language file {0}".FormatWith(this._fileName));
+                throw new ApplicationException($"Invalid language file {this._fileName}");
             }
 
             this._localizationLanguageResources = new LoadSerializedXmlFile<LanguageResources>().FromFile(
                 this._fileName,
-                "LOCALIZATIONFILE{0}".FormatWith(this._fileName),
+                $"LOCALIZATIONFILE{this._fileName}",
                 r =>
                     {
                         // transform the page and tag name ToUpper...

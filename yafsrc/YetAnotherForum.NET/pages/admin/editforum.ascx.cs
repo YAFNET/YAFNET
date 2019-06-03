@@ -111,8 +111,7 @@ namespace YAF.Pages.Admin
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Request.MapPath(
-                        "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums)));
+                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -207,10 +206,10 @@ namespace YAF.Pages.Admin
             // Populate Forum Images Table
             this.CreateImagesDataTable();
 
-            this.ForumImages.Attributes["onchange"] = "getElementById('{1}').src='{0}{2}/' + this.value".FormatWith(
-                YafForumInfo.ForumClientFileRoot,
-                this.Preview.ClientID,
-                YafBoardFolders.Current.Forums);
+            this.ForumImages.Attributes["onchange"] = string.Format(
+                "getElementById('{1}').src='{0}{2}/' + this.value",
+                YafForumInfo.ForumClientFileRoot,this.Preview.ClientID,
+                    YafBoardFolders.Current.Forums);
 
             this.BindData();
 
@@ -277,10 +276,10 @@ namespace YAF.Pages.Admin
                 if (item != null)
                 {
                     item.Selected = true;
-                    this.Preview.Src = "{0}{2}/{1}".FormatWith(
-                        YafForumInfo.ForumClientFileRoot,
-                        row.ImageURL,
-                        YafBoardFolders.Current.Forums); // path corrected
+                    this.Preview.Src = string.Format(
+                        "{0}{2}/{1}",
+                        YafForumInfo.ForumClientFileRoot,row.ImageURL,
+                            YafBoardFolders.Current.Forums); // path corrected
                 }
 
                 // populate parent forums list with forums according to selected category
@@ -315,10 +314,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("TEAM", "FORUMS"),
-                this.GetText("ADMIN_EDITFORUM", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")} - {this.GetText("ADMIN_EDITFORUM", "TITLE")}";
         }
 
         /// <summary>

@@ -132,10 +132,8 @@ namespace YAF.Controls.ReCAPTCHA
             request.UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16";
             request.ContentType = "application/x-www-form-urlencoded";
 
-            var s = "secret={0}&remoteip={1}&response={2}".FormatWith(
-                HttpUtility.UrlEncode(this.SecretKey),
-                HttpUtility.UrlEncode(this.RemoteIP),
-                HttpUtility.UrlEncode(this.Response));
+            var s =
+                $"secret={HttpUtility.UrlEncode(this.SecretKey)}&remoteip={HttpUtility.UrlEncode(this.RemoteIP)}&response={HttpUtility.UrlEncode(this.Response)}";
             
             var bytes = Encoding.ASCII.GetBytes(s);
             using (var stream = request.GetRequestStream())

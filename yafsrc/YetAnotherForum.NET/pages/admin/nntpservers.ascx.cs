@@ -101,9 +101,8 @@ namespace YAF.Pages.Admin
                 .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin))
                 .AddLink(this.GetText("ADMIN_NNTPSERVERS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_NNTPSERVERS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_NNTPSERVERS", "TITLE")}";
         }
 
         /// <summary>

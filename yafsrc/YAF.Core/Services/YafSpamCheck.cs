@@ -37,8 +37,32 @@ namespace YAF.Core.Services
     /// <summary>
     /// User and Content Spam Checking
     /// </summary>
-    public class YafSpamCheck
+    public class YafSpamCheck : ISpamCheck, IHaveServiceLocator
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafSpamCheck"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        public YafSpamCheck(IServiceLocator serviceLocator)
+        {
+            this.ServiceLocator = serviceLocator;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the service locator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
         /// <summary>
         /// Check a Post for SPAM against the BlogSpam.NET API or AKISMET Service
         /// </summary>

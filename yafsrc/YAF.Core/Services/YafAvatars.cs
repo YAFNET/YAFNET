@@ -99,7 +99,7 @@ namespace YAF.Core.Services
             catch (Exception)
             {
                 // Return NoAvatar Image if there something wrong with the user
-                return "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                return $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif";
             }
         }
 
@@ -163,17 +163,17 @@ namespace YAF.Core.Services
 
             if (this._yafBoardSettings.AvatarUpload && hasAvatarImage)
             {
-                avatarUrl = "{0}resource.ashx?u={1}".FormatWith(YafForumInfo.ForumClientFileRoot, userId);
+                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?u={userId}";
             }
             else if (avatarString.IsSet())
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 avatarUrl =
-                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                        HttpUtility.UrlEncode(avatarString),
-                        this._yafBoardSettings.AvatarWidth,
-                        this._yafBoardSettings.AvatarHeight,
-                        YafForumInfo.ForumClientFileRoot);
+                    string.Format(
+                        "{3}resource.ashx?url={0}&width={1}&height={2}",
+                        HttpUtility.UrlEncode(avatarString),this._yafBoardSettings.AvatarWidth,
+                            this._yafBoardSettings.AvatarHeight,
+                            YafForumInfo.ForumClientFileRoot);
             }
             else if (this._yafBoardSettings.AvatarGravatar && email.IsSet())
             {
@@ -181,21 +181,20 @@ namespace YAF.Core.Services
 
                 // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
                 var gravatarUrl =
-                    @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-                        email.StringToHexBytes(), this._yafBoardSettings.GravatarRating);
+                    $@"http://www.gravatar.com/avatar/{email.StringToHexBytes()}.jpg?r={this._yafBoardSettings.GravatarRating}";
 
                 avatarUrl =
-                    @"{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                        HttpUtility.UrlEncode(gravatarUrl),
-                        this._yafBoardSettings.AvatarWidth,
-                        this._yafBoardSettings.AvatarHeight,
-                        YafForumInfo.ForumClientFileRoot);
+                    string.Format(
+                        @"{3}resource.ashx?url={0}&width={1}&height={2}",
+                        HttpUtility.UrlEncode(gravatarUrl),this._yafBoardSettings.AvatarWidth,
+                            this._yafBoardSettings.AvatarHeight,
+                            YafForumInfo.ForumClientFileRoot);
             }
 
             // Return NoAvatar Image is no Avatar available for that user.
             if (avatarUrl.IsNotSet())
             {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif";
             }
 
             return avatarUrl;

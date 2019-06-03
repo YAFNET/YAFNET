@@ -124,7 +124,7 @@ namespace YAF.Core.Services
             // get a row with user lazy data...
             return
                 this.DataCache.GetOrSet(
-                    Constants.Cache.ActiveUserLazyData.FormatWith(userId),
+                    string.Format(Constants.Cache.ActiveUserLazyData, userId),
                     () =>
                     this.GetRepository<User>().LazyDataRow(
                         userId,
@@ -190,7 +190,7 @@ namespace YAF.Core.Services
                 // load all all thanks info into a special column...
                 postRow["ThanksInfo"] =
                     thanksFiltered.Where(t => t.FromUserID != null)
-                        .Select(x => "{0}|{1}".FormatWith(x.FromUserID.Value, x.ThanksDate))
+                        .Select(x => $"{x.FromUserID.Value}|{x.ThanksDate}")
                         .ToDelimitedString(",");
 
                 postRow.AcceptChanges();
@@ -324,7 +324,7 @@ namespace YAF.Core.Services
         /// <returns> Returns The favorite topic list. </returns>
         public List<int> FavoriteTopicList(int userID)
         {
-            var key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.FavoriteTopicList.FormatWith(userID));
+            var key = this.Get<ITreatCacheKey>().Treat(string.Format(Constants.Cache.FavoriteTopicList, userID));
 
             // stored in the user session...
             var favoriteTopicList = this.HttpSessionState[key] as List<int>;
@@ -618,7 +618,7 @@ namespace YAF.Core.Services
         public DataTable UserBuddyList(int userID)
         {
             return this.DataCache.GetOrSet(
-                Constants.Cache.UserBuddies.FormatWith(userID),
+                string.Format(Constants.Cache.UserBuddies, userID),
                 () => this.DbFunction.GetAsDataTable(cdb => cdb.buddy_list(userID)),
                 TimeSpan.FromMinutes(10));
         }
@@ -630,7 +630,7 @@ namespace YAF.Core.Services
         /// <returns> Returns the user ignored list. </returns>
         public List<int> UserIgnoredList(int userId)
         {
-            var key = Constants.Cache.UserIgnoreList.FormatWith(userId);
+            var key = string.Format(Constants.Cache.UserIgnoreList, userId);
 
             // stored in the user session...
             var userList = this.HttpSessionState[key] as List<int>;
@@ -664,7 +664,7 @@ namespace YAF.Core.Services
         /// <returns> Returns the User Medals </returns>
         public DataTable UserMedals(int userId)
         {
-            var key = Constants.Cache.UserMedals.FormatWith(userId);
+            var key = string.Format(Constants.Cache.UserMedals, userId);
 
             // get the medals cached...
             var dt = this.DataCache.GetOrSet(

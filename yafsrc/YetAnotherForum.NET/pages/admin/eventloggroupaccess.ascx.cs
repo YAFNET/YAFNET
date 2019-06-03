@@ -72,10 +72,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EVENTLOGROUPACCESS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_EVENTLOGROUPS", "TITLE"),
-                this.GetText("ADMIN_EVENTLOGROUPACCESS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_EVENTLOGROUPS", "TITLE")} - {this.GetText("ADMIN_EVENTLOGROUPACCESS", "TITLE")}";
         }
 
         /// <summary>
@@ -372,7 +370,8 @@ namespace YAF.Pages.Admin
             var deleteAccess = item.FindControlRecursiveAs<CheckBox>("DeleteAccess");
             var viewAccess = item.FindControlRecursiveAs<CheckBox>("ViewAccess");
             eventText.Text = this.GetText(
-                "ADMIN_EVENTLOGROUPACCESS", "LT_{0}".FormatWith(drowv.EventTypeName.ToUpperInvariant()));
+                "ADMIN_EVENTLOGROUPACCESS",
+                $"LT_{drowv.EventTypeName.ToUpperInvariant()}");
             eventTypeName.Text = drowv.EventTypeName;
             deleteAccess.Checked = drowv.DeleteAccess;
             viewAccess.Checked = drowv.ViewAccess;

@@ -168,33 +168,33 @@ namespace YAF.Core.Model
         /// Creates the watch email.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="topicID">The topic id.</param>
+        /// <param name="topicId">The topic id.</param>
         /// <param name="from">The from.</param>
         /// <param name="fromName">The from name.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="body">The body.</param>
         /// <param name="bodyHtml">The body html.</param>
-        /// <param name="userID">The user id.</param>
+        /// <param name="userId">The user id.</param>
         public static void CreateWatch(
             this IRepository<Mail> repository,
-            int topicID,
+            int topicId,
             string from,
             string fromName,
             string subject,
             string body,
             string bodyHtml,
-            int userID)
+            int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.mail_createwatch(
-                TopicID: topicID,
+                TopicID: topicId,
                 From: from,
                 FromName: fromName,
                 Subject: subject,
                 Body: body,
                 BodyHtml: bodyHtml,
-                UserID: userID,
+                UserID: userId,
                 UTCTIMESTAMP: DateTime.UtcNow);
         }
 

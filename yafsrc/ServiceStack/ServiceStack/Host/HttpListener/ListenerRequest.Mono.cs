@@ -161,8 +161,8 @@ namespace ServiceStack.Host.HttpListener
             if (v.Length > 20)
                 v = v.Substring(0, 16) + "...\"";
 
-            string msg = String.Format("A potentially dangerous Request.{0} value was " +
-                            "detected from the client ({1}={2}).", name, key, v);
+            string msg = $"A potentially dangerous Request.{name} value was "
+                         + $"detected from the client ({key}={v}).";
 
             throw new HttpRequestValidationException(msg);
         }
@@ -677,7 +677,7 @@ namespace ServiceStack.Host.HttpListener
                 public override string ToString()
                 {
                     return "ContentType " + ContentType + ", Name " + Name + ", Filename " + Filename + ", Start " +
-                        Start.ToString() + ", Length " + Length.ToString();
+                        this.Start + ", Length " + this.Length;
                 }
             }
 

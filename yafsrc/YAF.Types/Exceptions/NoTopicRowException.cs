@@ -37,7 +37,7 @@ namespace YAF.Types.Exceptions
         /// </summary>
         /// <param name="topicRowID">The topic row identifier.</param>
         public NoTopicRowException(int? topicRowID)
-            : base("No topic row found for topic row id [{0}]".FormatWith(topicRowID ?? 0))
+            : base($"No topic row found for topic row id [{topicRowID ?? 0}]")
         {
         }
     }

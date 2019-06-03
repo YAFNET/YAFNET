@@ -222,7 +222,7 @@ namespace YAF.Core.Model
                     var newRow = listDestination.NewRow();
 
                     newRow["ForumID"] = row["ForumID"];
-                    newRow["ForumName"] = string.Format("{0} {1}", sIndent, row["ForumName"]);
+                    newRow["ForumName"] = $"{sIndent} {row["ForumName"]}";
                     if (listDestination.Columns.IndexOf("AccessMaskName") >= 0)
                     {
                         newRow["AccessMaskName"] = row["AccessMaskName"];

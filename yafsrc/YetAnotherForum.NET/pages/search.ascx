@@ -54,7 +54,7 @@
                             
 <div id="SearchResultsListBox">
 
-    <div id="SearchResultsPager"></div>
+    <div id="SearchResultsPager" class="mt-3"></div>
     <div id="SearchResultsLoader">
         <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="loadModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

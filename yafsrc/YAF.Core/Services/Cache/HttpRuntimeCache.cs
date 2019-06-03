@@ -316,7 +316,7 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     private string CreateKey([NotNull] string key)
     {
-      return this._treatCacheKey.Treat("{0}${1}".FormatWith(YafCacheKey, key.Replace('$', '.')));
+      return this._treatCacheKey.Treat($"{YafCacheKey}${key.Replace('$', '.')}");
     }
 
     /// <summary>

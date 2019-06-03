@@ -121,11 +121,7 @@ namespace YAF.Pages
                         if (this.PageContext.SuspendedReason.IsSet())
                         {
                             this.Info.Text =
-                                "{0}{1}".FormatWith(
-                                    this.GetTextFormatted(
-                                        "SUSPENDED",
-                                        this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)),
-                                    this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason));
+                                $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason)}";
                         }
                         else
                         {
@@ -179,8 +175,8 @@ namespace YAF.Pages
                 this.Title.Text = this.GetText("title_exception");
 
                 // exception message
-                this.Info.Text = "{1} <strong>{0}</strong>.".FormatWith(
-                    this.PageContext.PageUserName, this.GetText("exception"));
+                this.Info.Text = string.Format(
+                    "{1} <strong>{0}</strong>.", this.PageContext.PageUserName, this.GetText("exception"));
 
                 // redirect to forum main after 2 seconds
                 this.RefreshTime = 2;

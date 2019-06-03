@@ -127,7 +127,7 @@ namespace YAF.Core.Extensions
             }
 
             logger.Log(
-                "Exception at URL: {0}".FormatWith(YafContext.Current.Get<HttpRequestBase>().Url.ToString()),
+                $"Exception at URL: {YafContext.Current.Get<HttpRequestBase>().Url}",
                 eventType,
                 username,
                 sourceDescription,

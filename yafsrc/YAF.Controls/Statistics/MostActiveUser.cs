@@ -99,7 +99,7 @@ namespace YAF.Controls.Statistics
                 userLink.RenderControl(writer);
 
                 writer.WriteLine(" ");
-                writer.WriteLine(@"<span class=""NumberOfPosts"">({0})</span>".FormatWith(row.Field<int>("NumOfPosts")));
+                writer.WriteLine($@"<span class=""NumberOfPosts"">({row.Field<int>("NumOfPosts")})</span>");
                 writer.WriteLine("</li>");
             }
 

@@ -105,7 +105,7 @@ namespace YAF.Controls
                 "list-group-item",
                 ForumPages.profile,
                 this.GetText("VIEW_PROFILE"),
-                "u={0}".FormatWith(this.PageContext.PageUserID));
+                $"u={this.PageContext.PageUserID}");
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
 
@@ -114,7 +114,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 ForumPages.profile,
                 this.GetText("VIEW_PROFILE"),
-                "u={0}".FormatWith(this.PageContext.PageUserID));
+                $"u={this.PageContext.PageUserID}");
 
             if (!Config.IsDotNetNuke)
             {
@@ -134,14 +134,14 @@ namespace YAF.Controls
                     "list-group-item",
                     ForumPages.viewthanks,
                     this.GetText("ViewTHANKS", "TITLE"),
-                    "u={0}".FormatWith(this.PageContext.PageUserID));
+                    $"u={this.PageContext.PageUserID}");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
                     ForumPages.viewthanks,
                     this.GetText("ViewTHANKS", "TITLE"),
-                    "u={0}".FormatWith(this.PageContext.PageUserID));
+                    $"u={this.PageContext.PageUserID}");
             }
 
             if (!this.PageContext.IsGuest)
@@ -179,14 +179,14 @@ namespace YAF.Controls
                     "list-group-item",
                     ForumPages.albums,
                     this.GetText("EDIT_ALBUMS"),
-                    "u={0}".FormatWith(this.PageContext.PageUserID));
+                    $"u={this.PageContext.PageUserID}");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
                     ForumPages.albums,
                     this.GetText("EDIT_ALBUMS"),
-                    "u={0}".FormatWith(this.PageContext.PageUserID));
+                    $"u={this.PageContext.PageUserID}");
             }
 
             if (!Config.IsDotNetNuke && (this.Get<YafBoardSettings>().AvatarRemote

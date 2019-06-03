@@ -70,17 +70,13 @@ namespace YAF.Core.Services.Auth
             var oAuth = new OAuthTwitter
                             {
                                 CallBackUrl =
-                                    "{0}auth.aspx?auth={1}{2}".FormatWith(
-                                        YafForumInfo.ForumBaseUrl, 
-                                        AuthService.twitter, 
-                                        connectCurrentUser ? "&connectCurrent=true" : string.Empty), 
+                                    $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.twitter}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}", 
                                 ConsumerKey = Config.TwitterConsumerKey, 
                                 ConsumerSecret = Config.TwitterConsumerSecret
                             };
 
             return generatePopUpUrl
-                       ? "javascript:window.open('{0}', 'Twitter Login Window', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
-                             .FormatWith(oAuth.AuthorizationLinkGet())
+                       ? $"javascript:window.open('{oAuth.AuthorizationLinkGet()}', 'Twitter Login Window', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
                        : oAuth.AuthorizationLinkGet();
         }
 
@@ -216,7 +212,7 @@ namespace YAF.Core.Services.Auth
                         userProfile.Twitter = twitterUser.UserName;
                         userProfile.Homepage = twitterUser.Url.IsSet()
                                                    ? twitterUser.Url
-                                                   : "http://twitter.com/{0}".FormatWith(twitterUser.UserName);
+                                                   : $"http://twitter.com/{twitterUser.UserName}";
                         userProfile.RealName = twitterUser.Name;
                         userProfile.Interests = twitterUser.Description;
                         userProfile.Location = twitterUser.Location;
@@ -271,7 +267,7 @@ namespace YAF.Core.Services.Auth
             }
 
             // Create User if not exists?! Doesn't work because there is no Email
-            var email = "{0}@twitter.com".FormatWith(twitterUser.UserName);
+            var email = $"{twitterUser.UserName}@twitter.com";
 
             // Check user for bot
             /*var spamChecker = new YafSpamCheck();
@@ -363,7 +359,7 @@ namespace YAF.Core.Services.Auth
             userProfile.Twitter = twitterUser.UserName;
             userProfile.Homepage = twitterUser.Url.IsSet()
                                        ? twitterUser.Url
-                                       : "http://twitter.com/{0}".FormatWith(twitterUser.UserName);
+                                       : $"http://twitter.com/{twitterUser.UserName}";
             userProfile.RealName = twitterUser.Name;
             userProfile.Interests = twitterUser.Description;
             userProfile.Location = twitterUser.Location;
@@ -493,7 +489,7 @@ namespace YAF.Core.Services.Auth
             else
             {
                 // Clearing cache with old Active User Lazy Data ...
-                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
+                YafContext.Current.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
             }
 
             // Store Tokens in Session (Could Bes Stored in DB but it would be a Security Problem)
@@ -532,9 +528,9 @@ namespace YAF.Core.Services.Auth
             var notifyUser = new YafTemplateEmail();
 
             var subject =
-                YafContext.Current.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT")
-                    .FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
+                string
+                    .Format(YafContext.Current.Get<ILocalization>()
+                        .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"), YafContext.Current.Get<YafBoardSettings>().Name);
 
             notifyUser.TemplateParams["{user}"] = user.UserName;
             notifyUser.TemplateParams["{email}"] = user.Email;
@@ -549,9 +545,7 @@ namespace YAF.Core.Services.Auth
             // Send Message also as DM to Twitter.
             var tweetApi = new TweetAPI(oAuth);
 
-            var message = "{0}. {1}".FormatWith(
-                subject, 
-                YafContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM"));
+            var message = $"{subject}. {YafContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM")}";
 
             if (YafContext.Current.Get<YafBoardSettings>().AllowPrivateMessages)
             {

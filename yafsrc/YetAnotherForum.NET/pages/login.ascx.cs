@@ -293,8 +293,7 @@ namespace YAF.Pages
             {
                 password.Attributes.Add(
                     "onkeydown",
-                    "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                        .FormatWith(forumLogin.ClientID));
+                    $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ");
             }
 
             if (registerLinkPlaceHolder != null && this.PageContext.IsGuest
@@ -436,7 +435,7 @@ namespace YAF.Pages
                                         // Redirect the user to Twitter for authorization.
                                         facebookLogin.Attributes.Add(
                                             "onclick",
-                                            "location.href='{0}'".FormatWith(facebookLoginUrl));
+                                            $"location.href='{facebookLoginUrl}'");
                                     }
                                     catch (Exception exception)
                                     {
@@ -483,7 +482,7 @@ namespace YAF.Pages
                                         // Redirect the user to Twitter for authorization.
                                         googleLogin.Attributes.Add(
                                             "onclick",
-                                            "location.href='{0}'".FormatWith(googleLoginUrl));
+                                            $"location.href='{googleLoginUrl}'");
                                     }
                                     catch (Exception exception)
                                     {

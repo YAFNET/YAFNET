@@ -82,9 +82,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_PRUNE", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_PRUNE", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_PRUNE", "TITLE")}";
         }
 
         /// <summary>
@@ -97,7 +96,7 @@ namespace YAF.Pages.Admin
                 "TouchSpinLoadJs",
                 JavaScriptBlocks.LoadTouchSpin(
                     ".DaysInput",
-                    "postfix: '{0}'".FormatWith(this.GetText("ADMIN_PM", "DAYS"))));
+                    $"postfix: '{this.GetText("ADMIN_PM", "DAYS")}'"));
 
             base.OnPreRender(e);
         }

@@ -113,14 +113,14 @@ namespace YAF.Dialogs
 
                 this.PageContext.LoadMessage.AddSession(
                     importedCount > 0
-                        ? this.GetText("ADMIN_USERS_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
+                        ? string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_SUCESS"), importedCount)
                         : this.GetText("ADMIN_USERS_IMPORT", "IMPORT_NOTHING"),
                     importedCount > 0 ? MessageTypes.success : MessageTypes.info);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED").FormatWith(x.Message), MessageTypes.danger);
+                    string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
         }
 

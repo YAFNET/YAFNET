@@ -228,10 +228,7 @@ namespace YAF.Controls
         /// </param>
         public void RaisePostBackEvent([NotNull] string eventArgument)
         {
-            if (this.ItemClick != null)
-            {
-                this.ItemClick(this, new PopEventArgs(eventArgument));
-            }
+            this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
         }
 
         #endregion
@@ -280,7 +277,7 @@ namespace YAF.Controls
 
                 if (thisItem.Icon.IsSet())
                 {
-                    iconImage = @"<i class=""{0}""></i>&nbsp;".FormatWith(thisItem.Icon);
+                    iconImage = $@"<i class=""{thisItem.Icon}""></i>&nbsp;";
                 }
 
                 sb.AppendFormat(

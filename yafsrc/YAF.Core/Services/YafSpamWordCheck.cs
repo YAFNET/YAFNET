@@ -162,7 +162,7 @@ namespace YAF.Core.Services
 #if DEBUG
                 catch (Exception e)
                 {
-                    throw new Exception("Spam Word Regular Expression Failed: {0}".FormatWith(e.Message), e);
+                    throw new Exception($"Spam Word Regular Expression Failed: {e.Message}", e);
                 }
 
 #else

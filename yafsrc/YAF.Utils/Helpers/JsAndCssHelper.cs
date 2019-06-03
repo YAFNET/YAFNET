@@ -28,50 +28,50 @@ namespace YAF.Utils.Helpers
     using YAF.Utils.Helpers.MinifyUtils;
 
     /// <summary>
-  /// The js and css helper.
-  /// </summary>
-  public static class JsAndCssHelper
-  {
-    /// <summary>
-    /// Compresses JavaScript
+    /// The JS and CSS helper.
     /// </summary>
-    /// <param name="javaScript">
-    /// The Uncompressed Input JS
-    /// </param>
-    /// <returns>
-    /// The compressed java script.
-    /// </returns>
-    public static string CompressJavaScript(string javaScript)
+    public static class JsAndCssHelper
     {
-        try
+        /// <summary>
+        /// Compresses JavaScript
+        /// </summary>
+        /// <param name="javaScript">
+        /// The Uncompressed Input JS
+        /// </param>
+        /// <returns>
+        /// The compressed java script.
+        /// </returns>
+        public static string CompressJavaScript(string javaScript)
         {
-           return JSMinify.Minify(javaScript);
+            try
+            {
+                return JSMinify.Minify(javaScript);
+            }
+            catch (Exception)
+            {
+                return javaScript;
+            }
         }
-        catch (Exception)
-        {
-            return javaScript;
-        }
-    }
 
-    /// <summary>
-    /// Compresses CSS
-    /// </summary>
-    /// <param name="css">
-    /// The Uncompressd Input CSS
-    /// </param>
-    /// <returns>
-    /// The compressed css output.
-    /// </returns>
-    public static string CompressCss(string css)
-    {
-        try
+        /// <summary>
+        /// Compresses CSS
+        /// </summary>
+        /// <param name="css">
+        /// The Uncompressed Input CSS
+        /// </param>
+        /// <returns>
+        /// The compressed CSS output.
+        /// </returns>
+        public static string CompressCss(string css)
         {
-            return JSMinify.Minify(css);
-        }
-        catch (Exception)
-        {
-            return css;
+            try
+            {
+                return JSMinify.Minify(css);
+            }
+            catch (Exception)
+            {
+                return css;
+            }
         }
     }
-  }
 }

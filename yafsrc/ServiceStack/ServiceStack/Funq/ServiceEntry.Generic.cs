@@ -70,8 +70,7 @@ namespace Funq
                 Container.TrackDisposable(instance);
 
             // Call initializer if necessary
-            if (Initializer != null)
-                Initializer(Container, instance);
+            this.Initializer?.Invoke(this.Container, instance);
         }
 
 

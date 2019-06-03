@@ -67,7 +67,7 @@ namespace YAF.Utils.Helpers
                     img = new Bitmap(stream);
 
                     // no need to set here mime exatly this is reserved for customization.
-                    pseudoMime = "{0}!{1};{2}".FormatWith(contentType, img.Width, img.Height);
+                    pseudoMime = $"{contentType}!{img.Width};{img.Height}";
                 }
                 catch
                 {
@@ -75,10 +75,7 @@ namespace YAF.Utils.Helpers
                 }
                 finally
                 {
-                    if (img != null)
-                    {
-                        img.Dispose();
-                    }
+                    img?.Dispose();
                 }
 
                 stream.Close();

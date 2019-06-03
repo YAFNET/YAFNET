@@ -132,12 +132,7 @@ namespace YAF.Controls
             // Setup Hover Card JS
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "yafhovercardtjs",
-                "if (typeof(jQuery.fn.hovercard) != 'undefined'){{ {0}('.userHoverCard').hovercard({{showYafCard: true, delay: {1}, width: 350,loadingHTML: '{2}',errorHTML: '{3}'}}); }}"
-                    .FormatWith(
-                        Config.JQueryAlias,
-                        this.Get<YafBoardSettings>().HoverCardOpenDelay,
-                        this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString(),
-                        this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()));
+                $"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ {Config.JQueryAlias}('.userHoverCard').hovercard({{showYafCard: true, delay: {this.Get<YafBoardSettings>().HoverCardOpenDelay}, width: 350,loadingHTML: '{this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',errorHTML: '{this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}'}}); }}");
         }
 
         /// <summary>
@@ -181,11 +176,7 @@ namespace YAF.Controls
 
                     output.WriteAttribute(
                         "data-hovercard",
-                        "{0}resource.ashx?userinfo={1}&boardId={2}&type=json&forumUrl={3}".FormatWith(
-                            Config.IsDotNetNuke ? BaseUrlBuilder.GetBaseUrlFromVariables() + BaseUrlBuilder.AppPath : YafForumInfo.ForumClientFileRoot,
-                            this.UserID,
-                            YafContext.Current.PageBoardID,
-                            HttpUtility.UrlEncode(YafBuildLink.GetBasePath())));
+                        $"{(Config.IsDotNetNuke ? BaseUrlBuilder.GetBaseUrlFromVariables() + BaseUrlBuilder.AppPath : YafForumInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={YafContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(YafBuildLink.GetBasePath())}");
                 }
                 else
                 {

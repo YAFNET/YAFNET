@@ -106,7 +106,7 @@ namespace YAF.Core.Services
     public void ClearIgnoreCache()
     {
       // clear for the session
-      this.SessionStateBase.Remove(Constants.Cache.UserIgnoreList.FormatWith(YafContext.Current.PageUserID));
+      this.SessionStateBase.Remove(string.Format(Constants.Cache.UserIgnoreList, YafContext.Current.PageUserID));
     }
 
     /// <summary>

@@ -116,10 +116,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_GROUPS", "TITLE"),
-                this.GetText("ADMIN_EDITGROUP", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_GROUPS", "TITLE")} - {this.GetText("ADMIN_EDITGROUP", "TITLE")}";
         }
 
         /// <summary>
@@ -351,7 +349,7 @@ namespace YAF.Pages.Admin
 
             // Clearing cache with old permissions data...
             this.Get<IDataCache>()
-                .Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+                .Remove(k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
             // Clear Styling Caching
             this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);

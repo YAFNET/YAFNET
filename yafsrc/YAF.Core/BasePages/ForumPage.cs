@@ -417,10 +417,7 @@ namespace YAF.Core
             base.Render(writer);
 
             // handle additional rendering if desired...
-            if (this.ForumPageRendered != null)
-            {
-                this.ForumPageRendered(this, new ForumPageRenderedArgs(writer));
-            }
+            this.ForumPageRendered?.Invoke(this, new ForumPageRenderedArgs(writer));
         }
 
         /// <summary>
@@ -496,10 +493,7 @@ namespace YAF.Core
             this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
 
             // release cache
-            if (this._pageCache != null)
-            {
-                this._pageCache.Clear();
-            }
+            this._pageCache?.Clear();
         }
 
         #endregion

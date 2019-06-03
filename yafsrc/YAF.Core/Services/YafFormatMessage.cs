@@ -492,9 +492,7 @@ namespace YAF.Core.Services
             int charsToFetch)
         {
             message =
-                @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(
-                    altItem ? "content postContainer" : "content postContainer_Alt",
-                    this.FormatMessage(message, messageFlags, false));
+                $@"<table class=""{(altItem ? "content postContainer" : "content postContainer_Alt")}"" width=""100%""><tr><td>{this.FormatMessage(message, messageFlags, false)}</td></tr></table>";
 
             message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
@@ -526,7 +524,7 @@ namespace YAF.Core.Services
             // get the common words for the language -- should be all lower case.
             var commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
 
-            var cacheKey = Constants.Cache.FirstPostCleaned.FormatWith(YafContext.Current.PageBoardID, topicId);
+            var cacheKey = string.Format(Constants.Cache.FirstPostCleaned, YafContext.Current.PageBoardID, topicId);
             var message = new MessageCleaned();
 
             if (!topicMessage.IsNullOrEmptyDBField())
@@ -942,7 +940,7 @@ namespace YAF.Core.Services
             foreach (var word in wordList.Where(w => w.Length > 3))
             {
                 MatchAndPerformAction(
-                    "({0})".FormatWith(word.ToLower().ToRegExString()),
+                    $"({word.ToLower().ToRegExString()})",
                     message,
                     (inner, index, length) =>
                         {

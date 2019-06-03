@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.profile" Codebehind="profile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="System.Data" %>
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
@@ -277,7 +278,7 @@
                                     </a>
                                 </div>
                                     <div class="card-body">
-                                        <YAF:MessagePostData ID="MessagePost" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>">
+                                        <YAF:MessagePostData ID="MessagePost" runat="server" ShowAttachments="false" DataRow="<%# (DataRow)Container.DataItem %>">
                                         </YAF:MessagePostData>
                                     </div>
                                     <div class="card-footer">

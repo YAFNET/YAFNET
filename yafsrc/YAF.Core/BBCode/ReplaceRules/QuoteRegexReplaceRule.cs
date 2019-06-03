@@ -110,24 +110,23 @@ namespace YAF.Core.BBCode.ReplaceRules
                     if (postId.IsSet())
                     {
                         quote =
-                            @"<div class=""card-header text-muted"">{0} <a href=""{1}"">{2}</a></div><div class=""card-body""><p class=""card-text"">".FormatWith(
+                            string.Format(
+                                @"<div class=""card-header text-muted"">{0} <a href=""{1}"">{2}</a></div><div class=""card-body""><p class=""card-text"">",
                                 localQuotePosted.Replace("{0}", userName),
-                                YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId),
-                                @"<i class=""fas fa-external-link-alt""></i>",
-                                YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"));
+                                    YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId),
+                                    @"<i class=""fas fa-external-link-alt""></i>",
+                                    YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"));
                     }
                     else
                     {
                         quote =
-                            @"<div class=""card-header text-muted"">{0}</div><div class=""card-body""><p class=""card-text"">"
-                                .FormatWith(localQuoteWrote.Replace("{0}", quote));
+                            $@"<div class=""card-header text-muted"">{localQuoteWrote.Replace("{0}", quote)}</div><div class=""card-body""><p class=""card-text"">";
                     }
                 }
                 else
                 {
                     quote =
-                        @"<div class=""card-header text-muted"">{0}</div><div class=""card-body""><p class=""card-text"">"
-                            .FormatWith(localQuoteWrote.Replace("{0}", quote));
+                        $@"<div class=""card-header text-muted"">{localQuoteWrote.Replace("{0}", quote)}</div><div class=""card-body""><p class=""card-text"">";
                 }
 
                 innerReplace.Replace("${quote}", quote);

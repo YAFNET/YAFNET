@@ -57,7 +57,7 @@ namespace YAF.Data.MsSql
         /// <returns>Returns the sequence name</returns>
         public virtual string GetSequenceName(string modelName, string fieldName)
         {
-            return string.Format("SEQ_{0}_{1}", modelName, fieldName);
+            return $"SEQ_{modelName}_{fieldName}";
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace YAF.Data.MsSql
         /// <returns>Returns the name of the table.</returns>
         public string GetTableName(string name)
         {
-            return string.Format("{0}{1}", Config.DatabaseObjectQualifier, name);
+            return $"{Config.DatabaseObjectQualifier}{name}";
         }
 
         #endregion

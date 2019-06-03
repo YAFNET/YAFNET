@@ -296,7 +296,8 @@ namespace YAF.Core.Nntp
       catch (Exception ex)
       {
           YafContext.Current.Get<ILogger>()
-                    .Log(YafContext.Current.PageUserID, "NntpUtil", "Unhandled NNTP DateTime nntpDateTime '{0}': {1}".FormatWith(nntpDateTime, ex));
+                    .Log(YafContext.Current.PageUserID, "NntpUtil",
+                        $"Unhandled NNTP DateTime nntpDateTime '{nntpDateTime}': {ex}");
       }
 
       tzi = 0;

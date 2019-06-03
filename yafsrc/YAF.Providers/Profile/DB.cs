@@ -96,10 +96,7 @@ namespace YAF.Providers.Profile
                 type += "(" + size + ")";
             }
 
-            var sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
-                CommandTextHelpers.GetObjectName("prov_Profile"),
-                name,
-                type);
+            var sql = $"ALTER TABLE {CommandTextHelpers.GetObjectName("prov_Profile")} ADD [{name}] {type} NULL";
 
             using (var cmd = new SqlCommand(sql))
             {
@@ -171,7 +168,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public DataTable GetProfileStructure()
         {
-            var sql = @"SELECT TOP 1 * FROM {0}".FormatWith(CommandTextHelpers.GetObjectName("prov_Profile"));
+            var sql = $@"SELECT TOP 1 * FROM {CommandTextHelpers.GetObjectName("prov_Profile")}";
 
             using (var cmd = new SqlCommand(sql))
             {
@@ -253,12 +250,7 @@ namespace YAF.Providers.Profile
         {
             var row = Membership.DB.Current.GetUser(appName.ToString(), null, username.ToString(), false);
 
-            if (row != null)
-            {
-                return row["UserID"];
-            }
-
-            return null;
+            return row?["UserID"];
         }
 
         /// <summary>
@@ -329,12 +321,12 @@ namespace YAF.Providers.Profile
                 setStr.Append(",LastUpdatedDate=@LastUpdatedDate");
                 cmd.Parameters.AddWithValue("@LastUpdatedDate", DateTime.UtcNow);
 
-                sqlCommand.Append("BEGIN UPDATE ").Append(table).Append(" SET ").Append(setStr.ToString());
-                sqlCommand.Append(" WHERE UserId = '").Append(userID.ToString()).Append("'");
+                sqlCommand.Append("BEGIN UPDATE ").Append(table).Append(" SET ").Append(setStr);
+                sqlCommand.Append(" WHERE UserId = '").Append(userID).Append("'");
 
                 sqlCommand.Append(" END ELSE BEGIN INSERT ").Append(table).Append(" (UserId")
-                    .Append(columnStr.ToString());
-                sqlCommand.Append(") VALUES ('").Append(userID.ToString()).Append("'").Append(valueStr.ToString())
+                    .Append(columnStr);
+                sqlCommand.Append(") VALUES ('").Append(userID).Append("'").Append(valueStr)
                     .Append(") END");
 
                 cmd.CommandText = sqlCommand.ToString();

@@ -351,9 +351,6 @@ namespace YAF.Core.Nntp
       body = body.Replace("<br>", "<br />");
       body = body.Replace("<hr>", "<hr />");
 
-      // body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
-      // body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
-
       //// vzrus: various wrong NNTP tags replacements
 
       // body = body.Replace("&amp;lt;", "&lt;");

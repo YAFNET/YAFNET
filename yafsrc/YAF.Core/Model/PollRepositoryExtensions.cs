@@ -440,16 +440,16 @@ this IRepository<Poll> repository,
 
                     for (uint choiceCount1 = 0; choiceCount1 < question.Choice.GetUpperBound(1) + 1; choiceCount1++)
                     {
-                        if (!string.IsNullOrEmpty(question.Choice[0, choiceCount1]))
+                        if (question.Choice[0, choiceCount1].IsSet())
                         {
-                            cmd.AddParam(string.Format("@Choice{0}", choiceCount1), question.Choice[0, choiceCount1]);
-                            cmd.AddParam(string.Format("@Votes{0}", choiceCount1), 0);
+                            cmd.AddParam($"@Choice{choiceCount1}", question.Choice[0, choiceCount1]);
+                            cmd.AddParam($"@Votes{choiceCount1}", 0);
 
                             cmd.AddParam(
-                              string.Format("@ChoiceObjectPath{0}", choiceCount1),
+                                $"@ChoiceObjectPath{choiceCount1}",
                               question.Choice[1, choiceCount1].IsNotSet() ? string.Empty : question.Choice[1, choiceCount1]);
                             cmd.AddParam(
-                              string.Format("@ChoiceMimeType{0}", choiceCount1),
+                                $"@ChoiceMimeType{choiceCount1}",
                               question.Choice[2, choiceCount1].IsNotSet() ? string.Empty : question.Choice[2, choiceCount1]);
                         }
                     }

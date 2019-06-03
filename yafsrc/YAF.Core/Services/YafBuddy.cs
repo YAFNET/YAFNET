@@ -115,7 +115,8 @@ namespace YAF.Core.Services
         {
             var dt = this.All();
             var dv = dt.DefaultView;
-            dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
+            dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
+
             foreach (DataRowView drv in dv)
             {
                 this.ApproveRequest((int)drv["FromUserID"], mutual);
@@ -172,7 +173,7 @@ namespace YAF.Core.Services
         {
             var dt = this.All();
             var dv = dt.DefaultView;
-            dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
+            dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
 
             foreach (
                 var drv in
@@ -244,14 +245,14 @@ namespace YAF.Core.Services
             // Filter the DataTable.
             if (approved)
             {
-                if (userBuddyList.Select("UserID = {0} AND Approved = 1".FormatWith(buddyUserId)).Length > 0)
+                if (userBuddyList.Select($"UserID = {buddyUserId} AND Approved = 1").Length > 0)
                 {
                     return true;
                 }
             }
             else
             {
-                if (userBuddyList.Select("UserID = {0}".FormatWith(buddyUserId)).Length > 0)
+                if (userBuddyList.Select($"UserID = {buddyUserId}").Length > 0)
                 {
                     return true;
                 }

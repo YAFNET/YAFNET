@@ -46,10 +46,7 @@ namespace YAF.Types.Interfaces.Data
         {
             CodeContracts.VerifyNotNull(dbFunctionSession, "dbFunctionSession");
 
-            if (dbFunctionSession.DbTransaction != null)
-            {
-                dbFunctionSession.DbTransaction.Commit();
-            }
+            dbFunctionSession.DbTransaction?.Commit();
         }
 
         /// <summary>
@@ -62,10 +59,7 @@ namespace YAF.Types.Interfaces.Data
         {
             CodeContracts.VerifyNotNull(dbFunctionSession, "dbFunctionSession");
 
-            if (dbFunctionSession.DbTransaction != null)
-            {
-                dbFunctionSession.DbTransaction.Rollback();
-            }
+            dbFunctionSession.DbTransaction?.Rollback();
         }
 
         /// <summary>

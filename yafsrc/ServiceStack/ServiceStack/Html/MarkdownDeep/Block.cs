@@ -165,7 +165,7 @@ namespace MarkdownDeep
 				case BlockType.h6:
 					if (m.ExtraMode && !m.SafeMode)
 					{
-						b.Append("<" + blockType.ToString());
+						b.Append("<" + this.blockType);
 						string id = ResolveHeaderID(m);
 						if (!String.IsNullOrEmpty(id))
 						{
@@ -180,10 +180,10 @@ namespace MarkdownDeep
 					}
 					else
 					{
-						b.Append("<" + blockType.ToString() + ">");
+						b.Append("<" + this.blockType + ">");
 					}
 					m.SpanFormatter.Format(b, buf, contentStart, contentLen);
-					b.Append("</" + blockType.ToString() + ">\n");
+					b.Append("</" + this.blockType + ">\n");
 					break;
 
 				case BlockType.hr:
@@ -335,9 +335,9 @@ namespace MarkdownDeep
 					break;
 
 				default:
-					b.Append("<" + blockType.ToString() + ">");
+					b.Append("<" + this.blockType + ">");
 					m.SpanFormatter.Format(b, buf, contentStart, contentLen);
-					b.Append("</" + blockType.ToString() + ">\n");
+					b.Append("</" + this.blockType + ">\n");
 					break;
 			}
 		}
@@ -467,7 +467,7 @@ namespace MarkdownDeep
 		public override string ToString()
 		{
 			string c = Content;
-			return blockType.ToString() + " - " + (c==null ? "<null>" : c);
+			return this.blockType + " - " + (c==null ? "<null>" : c);
 		}
 
 		public Block CopyFrom(Block other)

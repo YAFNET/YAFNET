@@ -30,7 +30,6 @@ namespace YAF
     using System.Web.UI;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 
@@ -59,8 +58,7 @@ namespace YAF
             if (this.Session["StartupException"] != null)
             {
                 errorMessage =
-                    "<strong>Error:</strong> {0}".FormatWith(
-                        this.Server.HtmlEncode(this.Session["StartupException"].ToString()));
+                    $"<strong>Error:</strong> {this.Server.HtmlEncode(this.Session["StartupException"].ToString())}";
 
                 this.Session["StartupException"] = null;
             }

@@ -120,8 +120,8 @@ namespace YAF.Modules
       var userId = @event.UserId;
 
       this.Get<IUserDisplayName>().Clear(userId);
-      this.DataCache.Remove(Constants.Cache.UserListForID.FormatWith(userId));
-      this.DataCache.Remove(Constants.Cache.UserBuddies.FormatWith(userId));
+      this.DataCache.Remove(string.Format(Constants.Cache.UserListForID, userId));
+      this.DataCache.Remove(string.Format(Constants.Cache.UserBuddies, userId));
 
       var cache = this.DataCache.GetOrSet(
         Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
@@ -130,7 +130,7 @@ namespace YAF.Modules
       cache.Remove(userId);
 
       // Clearing cache with old Active User Lazy Data ...
-      this.DataCache.Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
+      this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
     }
 
     #endregion
@@ -146,7 +146,7 @@ namespace YAF.Modules
     void IHandleEvent<UserLogoutEvent>.Handle([NotNull] UserLogoutEvent @event)
     {
       // Clearing user cache with permissions data and active users cache...));
-      this.DataCache.Remove(Constants.Cache.ActiveUserLazyData.FormatWith(@event.UserId));
+      this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
       this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
     }
 

@@ -82,6 +82,8 @@ namespace YAF.Core.Tasks
         {
             try
             {
+                Thread.BeginCriticalRegion();
+
                 // get all boards...
                 var boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
 
@@ -98,7 +100,14 @@ namespace YAF.Core.Tasks
             }
             catch (Exception x)
             {
-                this.Logger.Error(x, "Error In {0} Task".FormatWith(TaskName));
+                if (!(x is ThreadAbortException))
+                {
+                    this.Logger.Error(x, $"Error In {TaskName} Task");
+                }
+            }
+            finally
+            {
+                Thread.EndCriticalRegion();
             }
         }
 

@@ -62,7 +62,7 @@ namespace YAF.Core.Data
         /// </returns>
         public static string GetObjectName([NotNull] string name)
         {
-            return "[{0}].[{1}{2}]".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
+            return $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}{name}]";
         }
     }
 }

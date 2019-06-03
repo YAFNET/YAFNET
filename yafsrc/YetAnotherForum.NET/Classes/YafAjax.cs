@@ -151,24 +151,21 @@
              foreach (var attach in attachments)
              {
                  var url = attach.FileName.IsImageName()
-                               ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
-                                   YafForumInfo.ForumClientFileRoot,
-                                   attach.ID,
-                                   YafContext.Current.PageBoardID)
-                               : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
+                               ? $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true"
+                               : $"{YafForumInfo.ForumClientFileRoot}Images/document.png";
 
-                 var description = "{0} ({1} kb)".FormatWith(attach.FileName, attach.Bytes / 1024);
+                 var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
                  var iconImage = attach.FileName.IsImageName()
-                                     ? @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />"
-                                         .FormatWith(url, description)
+                                     ? string
+                                         .Format(@"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />", url, description)
                                      : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
                  var attachment = new AttachmentItem
                                       {
                                           FileName = attach.FileName,
-                                          OnClick = "insertAttachment('{0}', '{1}')".FormatWith(attach.ID, url),
-                                          IconImage = @"{0}<span>{1}</span>".FormatWith(iconImage, description)
+                                          OnClick = $"insertAttachment('{attach.ID}', '{url}')",
+                                          IconImage = $@"{iconImage}<span>{description}</span>"
                                       };
 
                  if (attach.FileName.IsImageName())
@@ -215,7 +212,7 @@
              if (searchTerm.IsSet())
              {
                  var topics = this.Get<IDataCache>().GetOrSet(
-                     "TopicsList_{0}".FormatWith(forumID),
+                     $"TopicsList_{forumID}",
                      () => this.GetRepository<Topic>().ListAsDataTable(
                          forumID,
                          null,
@@ -290,17 +287,18 @@
 
              foreach (var image in albumImages)
              {
-                 var url = "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, image.ID);
+                 var url = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
 
                  var attachment = new AttachmentItem
                                       {
                                           FileName = image.FileName,
-                                          OnClick = "setStyle('AlbumImgId', '{0}')".FormatWith(image.ID),
+                                          OnClick = $"setStyle('AlbumImgId', '{image.ID}')",
                                           IconImage =
-                                              @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" width=""40"" height=""40"" />"
-                                                  .FormatWith(
+                                              string
+                                                  .Format(
+                                                      @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" width=""40"" height=""40"" />",
                                                       url,
-                                                      image.Caption.IsSet() ? image.Caption : image.FileName),
+                                                          image.Caption.IsSet() ? image.Caption : image.FileName),
                                           DataURL = url
                                       };
 
@@ -331,7 +329,7 @@
          /// Returns the Message Id and the Updated CSS Class for the Button
          /// </returns>
          [WebMethod(EnableSession = true)]
-         public YafAlbum.ReturnClass HandleMultiQuote(
+         public ReturnClass HandleMultiQuote(
              [NotNull] string buttonId,
              [NotNull] bool multiquoteButton,
              [NotNull] int messageId,
@@ -369,7 +367,7 @@
                  buttonCssClass = "MultiQuoteButton";
              }
 
-             return new YafAlbum.ReturnClass { Id = buttonId, NewTitle = buttonCssClass };
+             return new ReturnClass { Id = buttonId, NewTitle = buttonCssClass };
          }
 
          /// <summary>
@@ -385,9 +383,9 @@
          /// the return object.
          /// </returns>
          [WebMethod(EnableSession = true)]
-         public YafAlbum.ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
+         public ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
          {
-             return YafAlbum.ChangeAlbumTitle(albumID, newTitle);
+             return this.Get<IAlbum>().ChangeAlbumTitle(albumID, newTitle);
          }
 
          /// <summary>
@@ -403,9 +401,9 @@
          /// the return object.
          /// </returns>
          [WebMethod(EnableSession = true)]
-         public YafAlbum.ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
+         public ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
          {
-             return YafAlbum.ChangeImageCaption(imageID, newCaption);
+             return this.Get<IAlbum>().ChangeImageCaption(imageID, newCaption);
          }
 
          #region Favorite Topic Function
@@ -482,7 +480,7 @@
          /// <summary>
          /// This method is called asynchronously when the user clicks on "Remove Thank" button.
          /// </summary>
-         /// <param name="msgID">
+         /// <param name="msgId">
          /// Message Id
          /// </param>
          /// <returns>
@@ -490,9 +488,9 @@
          /// </returns>
          [NotNull]
          [WebMethod(EnableSession = true)]
-         public ThankYouInfo RemoveThanks([NotNull] object msgID)
+         public ThankYouInfo RemoveThanks([NotNull] object msgId)
          {
-             var messageID = msgID.ToType<int>();
+             var messageID = msgId.ToType<int>();
 
              var username = this.GetRepository<Thanks>().RemoveMessageThanks(
                  UserMembershipHelper.GetUserIDFromProviderUserKey(UserMembershipHelper.GetUser().ProviderUserKey),

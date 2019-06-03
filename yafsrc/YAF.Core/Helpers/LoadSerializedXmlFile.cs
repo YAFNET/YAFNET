@@ -82,12 +82,9 @@ namespace YAF.Core
 					{
 						var resources = (T)serializer.Deserialize(sourceReader);
 
-						if (transformResource != null)
-						{
-							transformResource(resources);
-						}
+                        transformResource?.Invoke(resources);
 
-						if (cacheName.IsSet())
+                        if (cacheName.IsSet())
 						{
 							var fileDependency = new CacheDependency(xmlFileName);
 							HttpRuntime.Cache.Add(

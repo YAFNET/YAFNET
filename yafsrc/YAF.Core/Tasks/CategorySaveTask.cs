@@ -177,7 +177,8 @@ namespace YAF.Core.Tasks
       }
       else
       {
-          failureMessage = "You can't save the category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
+          failureMessage =
+              $"You can't save the category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
          
       }
     }

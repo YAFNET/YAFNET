@@ -89,7 +89,7 @@ namespace YAF.Dialogs
 
             foreach (var extension in this.FileExentsions)
             {
-                types += "{1}*.{0}".FormatWith(extension.Extension, first ? string.Empty : ", ");
+                types += string.Format("{1}*.{0}", extension.Extension, first ? string.Empty : ", ");
 
                 if (first)
                 {
@@ -128,7 +128,7 @@ namespace YAF.Dialogs
                 JavaScriptBlocks.FileUploadLoadJs(
                     string.Join("|", this.FileExentsions.Select(ext => ext.Extension)),
                     this.Get<YafBoardSettings>().MaxFileSize,
-                    "{0}YafUploader.ashx".FormatWith(YafForumInfo.ForumClientFileRoot),
+                    $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
                     this.PageContext.PageForumID,
                     this.PageContext.PageBoardID,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,

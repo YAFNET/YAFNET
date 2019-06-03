@@ -61,7 +61,7 @@ namespace YAF.UrlRewriter.Logging
             Trace.WriteLine(message);
             if (exception != null)
             {
-                Trace.WriteLine(string.Format("Exception: {0}\r\nError Message: {1}", exception.GetType(), exception.Message));
+                Trace.WriteLine($"Exception: {exception.GetType()}\r\nError Message: {exception.Message}");
             }
         }
 
@@ -75,7 +75,7 @@ namespace YAF.UrlRewriter.Logging
             Trace.WriteLine(message);
             if (exception != null)
             {
-                Trace.WriteLine(string.Format("Exception: {0}\r\nError Message: {1}", exception.GetType(), exception.Message));
+                Trace.WriteLine($"Exception: {exception.GetType()}\r\nError Message: {exception.Message}");
             }
         }
     }

@@ -97,12 +97,13 @@ namespace YAF.Controls
             {
                 // always show active users...       
                 sb.Append(
-                    "<a href=\"{1}\" title=\"{2}\">{0}</a>".FormatWith(
+                    string.Format(
+                        "<a href=\"{1}\" title=\"{2}\">{0}</a>",
                         this.GetTextFormatted(
-                            activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
-                        YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0),
-                        this.GetText("COMMON", "VIEW_FULLINFO"),
-                        this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
+                                activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
+                            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0),
+                            this.GetText("COMMON", "VIEW_FULLINFO"),
+                            this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
             }
             else
             {
@@ -116,15 +117,14 @@ namespace YAF.Controls
             {
                 sb.Append(
                     canViewActive
-                        ? ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>".FormatWith(
+                        ? string.Format(
+                            ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
                             this.GetTextFormatted(
-                                activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers),
-                            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1),
-                            this.GetText("COMMON", "VIEW_FULLINFO"),
-                            this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)
-                        : ", {0}".FormatWith(
-                            this.GetTextFormatted(
-                                activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)));
+                                    activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers),
+                                YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 1),
+                                this.GetText("COMMON", "VIEW_FULLINFO"),
+                                this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)
+                        : $", {this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}");
             }
 
             if (activeGuests > 0)
@@ -134,19 +134,18 @@ namespace YAF.Controls
                      this.Get<YafBoardSettings>().ShowCrawlersInActiveList))
                 {
                     sb.Append(
-                        ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>".FormatWith(
+                        string.Format(
+                            ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
                             this.GetTextFormatted(
-                                activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
-                            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2),
-                            this.GetText("COMMON", "VIEW_FULLINFO"),
-                            this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
+                                    activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
+                                YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 2),
+                                this.GetText("COMMON", "VIEW_FULLINFO"),
+                                this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
                 }
                 else
                 {
                     sb.Append(
-                      ", {0}".FormatWith(
-                        this.GetTextFormatted(
-                          activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests)));
+                        $", {this.GetTextFormatted(activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests)}");
                 }
             }
 
@@ -156,22 +155,19 @@ namespace YAF.Controls
                 if (activeHidden > 0 && this.PageContext.IsAdmin)
                 {
                     sb.Append(
-                      ", <a href=\"{1}\" title=\"{2}\">{0}</a>".FormatWith(
+                      string.Format(
+                        ", <a href=\"{1}\" title=\"{2}\">{0}</a>",
                         this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
-                        YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3),
-                        this.GetText("COMMON", "VIEW_FULLINFO")));
+                            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 3),
+                            this.GetText("COMMON", "VIEW_FULLINFO")));
                 }
                 else
                 {
-                    sb.Append(
-                      ", {0}".FormatWith(this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)));
+                    sb.Append($", {this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)}");
                 }
             }
 
-            sb.Append(
-              " {0}".FormatWith(
-                this.GetTextFormatted(
-                  "ACTIVE_USERS_TIME", this.Get<YafBoardSettings>().ActiveListTime)));
+            sb.Append($" {this.GetTextFormatted("ACTIVE_USERS_TIME", this.Get<YafBoardSettings>().ActiveListTime)}");
 
             return sb.ToString();
         }
@@ -214,8 +210,7 @@ namespace YAF.Controls
 
                     var activeUsers1Day1 =
                         activeUsers30Day.Select(
-                            "LastVisit >= '{0}'".FormatWith(
-                                DateTime.UtcNow.AddDays(-1).ToString(Thread.CurrentThread.CurrentCulture)));
+                            $"LastVisit >= '{DateTime.UtcNow.AddDays(-1).ToString(Thread.CurrentThread.CurrentCulture)}'");
 
                     this.RecentUsersCount.Text = this.GetTextFormatted(
                         "RECENT_ONLINE_USERS", activeUsers1Day1.Length, activeUsers30Day.Rows.Count);

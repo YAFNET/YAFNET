@@ -49,7 +49,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Debug(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Debug);
+            logger.Log(string.Format(format, args), EventLogTypes.Debug);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Error(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error);
+            logger.Log(string.Format(format, args), EventLogTypes.Error);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Error(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error, exception: ex);
+            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Fatal(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error);
+            logger.Log(string.Format(format, args), EventLogTypes.Error);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Fatal(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error, exception: ex);
+            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Info(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Information);
+            logger.Log(string.Format(format, args), EventLogTypes.Information);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Trace(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Trace);
+            logger.Log(string.Format(format, args), EventLogTypes.Trace);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Warn(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Warning);
+            logger.Log(string.Format(format, args), EventLogTypes.Warning);
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Warn(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Warning, exception: ex);
+            logger.Log(string.Format(format, args), EventLogTypes.Warning, exception: ex);
         }
 
         #endregion

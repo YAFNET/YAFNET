@@ -50,10 +50,7 @@ namespace YAF.Utils.Helpers
         {
             CodeContracts.VerifyNotNull(control, "control");
 
-            if (control is IRaiseControlLifeCycles)
-            {
-                (control as IRaiseControlLifeCycles).RaiseLoad();
-            }
+            (control as IRaiseControlLifeCycles)?.RaiseLoad();
 
             if (!control.Visible)
             {
@@ -64,10 +61,7 @@ namespace YAF.Utils.Helpers
             {
                 using (var writer = new HtmlTextWriter(stringWriter))
                 {
-                    if (control is IRaiseControlLifeCycles)
-                    {
-                        (control as IRaiseControlLifeCycles).RaisePreRender();
-                    }
+                    (control as IRaiseControlLifeCycles)?.RaisePreRender();
 
                     control.RenderControl(writer);
                     return stringWriter.ToString();
@@ -100,7 +94,7 @@ namespace YAF.Utils.Helpers
             var withParents =
                 (from c in sourceControl.Controls.Cast<Control>().AsQueryable() where c.HasControls() select c).ToList();
 
-            // recusively call this function looking for controls...
+            // recursively call this function looking for controls...
             withParents.ForEach(x => list.AddRange(ControlListRecursive(x, isControl)));
 
             // add controls from this level...
@@ -437,7 +431,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(isControl, "isControl");
 
             return
-                (from c in sourceControl.Controls.Cast<Control>().AsQueryable() where !c.HasControls() select c).Where(
+                (from c in sourceControl.Controls.Cast<Control>().AsQueryable() where !c.HasControls() select c).AsEnumerable().Where(
                     isControl).ToList();
         }
     }

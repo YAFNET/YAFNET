@@ -61,7 +61,7 @@ namespace YAF.Pages.Admin
         protected string LastMessageNo([NotNull] object _o)
         {
             var row = (TypedNntpForum)_o;
-            return "{0:N0}".FormatWith(row.LastMessageNo);
+            return $"{row.LastMessageNo:N0}";
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace YAF.Pages.Admin
                 "TouchSpinLoadJs",
                 JavaScriptBlocks.LoadTouchSpin(
                     ".SecondsInput",
-                    "postfix: '{0}'".FormatWith(this.GetText("ADMIN_NNTPRETRIEVE", "SECONDS"))));
+                    $"postfix: '{this.GetText("ADMIN_NNTPRETRIEVE", "SECONDS")}'"));
 
             base.OnPreRender(e);
         }
@@ -105,9 +105,8 @@ namespace YAF.Pages.Admin
                 YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_NNTPRETRIEVE", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_NNTPRETRIEVE", "TITLE")}";
         }
 
         /// <summary>
@@ -131,8 +130,8 @@ namespace YAF.Pages.Admin
                     this.PageContext.BoardSettings.CreateNntpUsers);
 
             this.PageContext.AddLoadMessage(
-                this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved")
-                    .FormatWith(articleCount, (double)articleCount / seconds),
+                string
+                    .Format(this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved"), articleCount, (double)articleCount / seconds),
                 MessageTypes.success);
 
             this.BindData();

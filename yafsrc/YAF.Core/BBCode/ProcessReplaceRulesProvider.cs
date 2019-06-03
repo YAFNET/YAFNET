@@ -101,7 +101,7 @@ namespace YAF.Core.BBCode
       get
       {
         return this._objectStore.GetOrSet(
-          Constants.Cache.ReplaceRules.FormatWith(this._uniqueFlags.ToIntOfBits()), 
+          string.Format(Constants.Cache.ReplaceRules, this._uniqueFlags.ToIntOfBits()), 
           () =>
             {
               var processRules = new ProcessReplaceRules();

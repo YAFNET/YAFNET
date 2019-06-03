@@ -212,7 +212,7 @@ namespace YAF.Pages
         protected void DeleteUser_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("moderate", "confirm_delete_user"));
+                $"return confirm('{this.GetText("moderate", "confirm_delete_user")}')";
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace YAF.Pages
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("moderate", "confirm_delete"));
+                $"return confirm('{this.GetText("moderate", "confirm_delete")}')";
         }
 
         /// <summary>

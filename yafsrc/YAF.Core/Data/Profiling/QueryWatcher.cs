@@ -81,7 +81,7 @@ namespace YAF.Core.Data.Profiling
 
             double duration = (double)this._stopWatch.ElapsedMilliseconds / 1000.0;
 
-            this._currentStepText = "{0}: {1:N3}".FormatWith(this._currentStepText, duration);
+            this._currentStepText = string.Format("{0}: {1:N3}", this._currentStepText, duration);
 
             if (HttpContext.Current != null)
             {

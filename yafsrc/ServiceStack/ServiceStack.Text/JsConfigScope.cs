@@ -30,10 +30,7 @@ namespace ServiceStack.Text
 
         public static void DisposeCurrent()
         {
-            if (head != null)
-            {
-                head.Dispose();
-            }
+            head?.Dispose();
         }
 
         public void Dispose()

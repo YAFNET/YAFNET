@@ -79,9 +79,7 @@ namespace YAF.Modules.BBCode
                 "HIDDENMOD_GUEST",
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
-            var shownContentGuest =
-                "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
-                    .FormatWith(descriptionGuest);
+            var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
             string shownContent;
 
@@ -96,13 +94,11 @@ namespace YAF.Modules.BBCode
             if (postsCount > -1)
             {
                 // Handle Hide Posts Count X BBCOde
-                var descriptionPost = this.LocalizedString(
+                var descriptionPost = string.Format(this.LocalizedString(
                     "HIDDENMOD_POST",
-                    "Hidden Content (You must be registered and have {0} post(s) or more)").FormatWith(postsCount);
+                    "Hidden Content (You must be registered and have {0} post(s) or more)"), postsCount);
 
-                var shownContentPost =
-                    "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
-                        .FormatWith(descriptionPost);
+                var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
                 if (YafContext.Current.IsGuest)
                 {
@@ -123,13 +119,11 @@ namespace YAF.Modules.BBCode
             else if (thanksCount > -1)
             {
                 // Handle Hide Thanks Count X BBCode
-                var descriptionPost = this.LocalizedString(
+                var descriptionPost = string.Format(this.LocalizedString(
                     "HIDDENMOD_THANKS",
-                    "Hidden Content (You must be registered and have at least {0} thank(s) received)").FormatWith(thanksCount);
+                    "Hidden Content (You must be registered and have at least {0} thank(s) received)"), thanksCount);
 
-                var shownContentPost =
-                    "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
-                        .FormatWith(descriptionPost);
+                var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
                 if (YafContext.Current.IsGuest)
                 {
@@ -170,12 +164,11 @@ namespace YAF.Modules.BBCode
                 }
                 else
                 {
-                    shownContent = @"<div class=""alert alert-danger"" role=""alert"">
+                    shownContent = $@"<div class=""alert alert-danger"" role=""alert"">
                 <h4 class=""alert-heading"">Hidden Content</h4>
                 <hr>
-                <p class=""mb-0"">{0}</p>
-</div>".FormatWith(
-                        description);
+                <p class=""mb-0"">{description}</p>
+</div>";
                 }
             }
 

@@ -183,7 +183,7 @@ namespace YAF.Controls
                                ToolTip = linkToolTip,
                                NavigateUrl = linkUrl,
                                Text = icon.IsSet()
-                                          ? "<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;{1}".FormatWith(icon, linkText)
+                                          ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}"
                                           : linkText,
                                CssClass = cssClass
                            };
@@ -197,7 +197,7 @@ namespace YAF.Controls
 
             if (showUnread)
             {
-                link.Controls.Add(new LiteralControl("{0}&nbsp;".FormatWith(linkText)));
+                link.Controls.Add(new LiteralControl($"{linkText}&nbsp;"));
                 link.Controls.Add(unreadButton);
 
                 var unreadLabel = new HtmlGenericControl("span");
@@ -244,12 +244,11 @@ namespace YAF.Controls
             this.quickSearch.Visible = true;
 
             this.searchInput.Attributes["onkeydown"] =
-                "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                    .FormatWith(this.doQuickSearch.ClientID);
+                $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{this.doQuickSearch.ClientID}').click();return false;}}}} else {{return true}}; ";
             this.searchInput.Attributes["onfocus"] =
-                "if (this.value == '{0}') {{this.value = '';}}".FormatWith(this.GetText("TOOLBAR", "SEARCHKEYWORD"));
+                $"if (this.value == '{this.GetText("TOOLBAR", "SEARCHKEYWORD")}') {{this.value = '';}}";
             this.searchInput.Attributes["onblur"] =
-                "if (this.value == '') {{this.value = '{0}';}}".FormatWith(this.GetText("TOOLBAR", "SEARCHKEYWORD"));
+                $"if (this.value == '') {{this.value = '{this.GetText("TOOLBAR", "SEARCHKEYWORD")}';}}";
 
             this.searchInput.Text = this.GetText("TOOLBAR", "SEARCHKEYWORD");
         }
@@ -448,8 +447,7 @@ namespace YAF.Controls
             // My Profile
             this.MyProfile.ToolTip = this.GetText("TOOLBAR", "MYPROFILE_TITLE");
             this.MyProfile.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
-            this.MyProfile.Text =
-                "<i class=\"fa fa-user fa-fw\"></i>  {0}".FormatWith(this.GetText("TOOLBAR", "MYPROFILE"));
+            this.MyProfile.Text = $"<i class=\"fa fa-user fa-fw\"></i>  {this.GetText("TOOLBAR", "MYPROFILE")}";
 
             // My Inbox
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
@@ -463,7 +461,7 @@ namespace YAF.Controls
                     false,
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
-                    this.GetText("TOOLBAR", "NEWPM").FormatWith(this.PageContext.UnreadPrivate),
+                    string.Format(this.GetText("TOOLBAR", "NEWPM"), this.PageContext.UnreadPrivate),
                     "envelope");
             }
 
@@ -479,7 +477,7 @@ namespace YAF.Controls
                     false,
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
-                    this.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(this.PageContext.PendingBuddies),
+                    string.Format(this.GetText("TOOLBAR", "BUDDYREQUEST"), this.PageContext.PendingBuddies),
                     "users");
             }
 
@@ -529,7 +527,7 @@ namespace YAF.Controls
             {
                 this.LogutItem.Visible = true;
                 this.LogOutButton.Text =
-                    "<i class=\"fa fa-sign-out-alt fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "LOGOUT"));
+                    $"<i class=\"fa fa-sign-out-alt fa-fw\"></i>&nbsp;{this.GetText("TOOLBAR", "LOGOUT")}";
                 this.LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
             }
 
@@ -585,7 +583,7 @@ namespace YAF.Controls
                     if (isLoginAllowed)
                     {
                         this.GuestUserMessage.Controls.Add(
-                            new Label { Text = "&nbsp;{0}&nbsp;".FormatWith(this.GetText("COMMON", "OR")) });
+                            new Label { Text = $"&nbsp;{this.GetText("COMMON", "OR")}&nbsp;" });
                     }
 
                     // show register link

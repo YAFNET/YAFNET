@@ -64,13 +64,9 @@ namespace YAF.Modules.BBCode
                 "HIDDENMOD_GUEST",
                 "This board requires you to be registered and logged-in before you can view hidden messages.");
 
-            var shownContentGuest =
-                "<div class=\"alert alert-danger\" role=\"alert\">{0}</div>"
-                    .FormatWith(descriptionGuest);
+            var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
-            var shownContent =
-                "<div class=\"alert alert-warning\" role=\"alert\">{0}</div>"
-                    .FormatWith(description);
+            var shownContent = $"<div class=\"alert alert-warning\" role=\"alert\">{description}</div>";
 
             if (YafContext.Current.IsAdmin)
             {

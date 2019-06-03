@@ -29,10 +29,8 @@ namespace ServiceStack.FluentValidation.Internal {
 		public void Add(T item) {
 			innerCollection.Add(item);
 
-			if (ItemAdded != null) {
-				ItemAdded(item);
-			}
-		}
+            this.ItemAdded?.Invoke(item);
+        }
 
 		public IDisposable OnItemAdded(Action<T> onItemAdded) {
 			ItemAdded += onItemAdded;

@@ -106,7 +106,7 @@ namespace YAF.Controls
 
             this.BindData();
             this.ClearCache();
-            this.PageContext.AddLoadMessage(this.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
+            this.PageContext.AddLoadMessage(string.Format(this.GetText("MSG_ARCHIVED+"), archivedCount));
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace YAF.Controls
             this.PageContext.AddLoadMessage(
                 archivedCount == 1
                     ? this.GetText("MSG_ARCHIVED")
-                    : this.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
+                    : string.Format(this.GetText("MSG_ARCHIVED+"), archivedCount));
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace YAF.Controls
             var dataRowView = dataRow as DataRowView;
             var isRead = dataRowView["IsRead"].ToType<bool>();
 
-            return "<i class=\"fa fa-{0} fa-2x\"></i>".FormatWith(isRead ? "envelope-open" : "envelope");
+            return $"<i class=\"fa fa-{(isRead ? "envelope-open" : "envelope")} fa-2x\"></i>";
         }
 
         /// <summary>
@@ -702,9 +702,7 @@ namespace YAF.Controls
                         break;
                 }
 
-                dv.Sort = "{0} {1}".FormatWith(
-                    this.ViewState["SortField"],
-                    (bool)this.ViewState["SortAsc"] ? "asc" : "desc");
+                dv.Sort = $"{this.ViewState["SortField"]} {((bool)this.ViewState["SortAsc"] ? "asc" : "desc")}";
                 this.PagerTop.Count = dv.Count;
 
                 if (dv.Count > 0)
@@ -731,7 +729,7 @@ namespace YAF.Controls
         /// </summary>
         private void ClearCache()
         {
-            this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID));
+            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
         }
 
         /// <summary>
@@ -750,9 +748,7 @@ namespace YAF.Controls
             this.Response.AppendHeader(
                 "content-disposition",
                 "attachment; filename=" + HttpUtility.UrlEncode(
-                    "Privatemessages-{0}-{1}.csv".FormatWith(
-                        this.PageContext.PageUserName,
-                        DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                    $"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.csv"));
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
@@ -810,15 +806,13 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
                 "attachment; filename=" + HttpUtility.UrlEncode(
-                    "Privatemessages-{0}-{1}.txt".FormatWith(
-                        this.PageContext.PageUserName,
-                        DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                    $"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.txt"));
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-            sw.Write("{0};{1}".FormatWith(this.Get<YafBoardSettings>().Name, YafForumInfo.ForumURL));
+            sw.Write($"{this.Get<YafBoardSettings>().Name};{YafForumInfo.ForumURL}");
             sw.Write(sw.NewLine);
-            sw.Write("Private Message Dump for User {0}; {1}".FormatWith(this.PageContext.PageUserName, DateTime.Now));
+            sw.Write($"Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now}");
             sw.Write(sw.NewLine);
 
             for (var i = 0; i <= messageList.Table.DataSet.Tables[0].Rows.Count - 1; i++)
@@ -854,9 +848,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "text/xml";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                "attachment; filename=PrivateMessages-{0}-{1}.xml".FormatWith(
-                    this.PageContext.PageUserName,
-                    HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                $"attachment; filename=PrivateMessages-{this.PageContext.PageUserName}-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
             messageList.Table.TableName = "PrivateMessage";
 
@@ -873,9 +865,8 @@ namespace YAF.Controls
 
             messageList.Table.DataSet.DataSetName = "PrivateMessages";
 
-            xw.WriteComment(" {0};{1} ".FormatWith(this.Get<YafBoardSettings>().Name, YafForumInfo.ForumURL));
-            xw.WriteComment(
-                " Private Message Dump for User {0}; {1} ".FormatWith(this.PageContext.PageUserName, DateTime.Now));
+            xw.WriteComment($" {this.Get<YafBoardSettings>().Name};{YafForumInfo.ForumURL} ");
+            xw.WriteComment($" Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now} ");
 
             var xd = new XmlDataDocument(messageList.Table.DataSet);
 

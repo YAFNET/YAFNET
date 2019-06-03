@@ -47,6 +47,9 @@ namespace YAF.Core
 
         #endregion
 
+        /// <summary>
+        /// Initializes static members of the <see cref="GlobalContainer"/> class.
+        /// </summary>
         static GlobalContainer()
         {
             var container = CreateContainer();

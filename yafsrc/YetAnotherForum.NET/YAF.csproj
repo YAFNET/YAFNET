@@ -93,7 +93,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
-    <ErrorReport>prompt</ErrorReport>
+    <ErrorReport>none</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <ExcludeFilesFromDeployment>Content\jquery.fileupload.comb.css.bundle;Content\bootstrap-forum.css;Content\bootstrap-select.css;Content\bootstrap-select.min.css;Content\bootstrap-select.min.css;Content\forum.css;Content\InstallWizard.css;Content\jquery.fileupload.comb.css;Content\jquery.ceebox.css;Content\jquery.ceebox.min.css;Content\jquery.hovercard.css;Content\jquery.hovercard.min.css;Content\jquery.notification.css;Content\jquery.notification.min.css;Content\jquery.selectedQuoting.css;Content\jquery.syntaxhighligher.css;Content\jquery.syntaxhighligher.min.css;Content\jquery.yafmodaldialog.css;Content\jquery.yafmodaldialog.min.css;Content\jquery.tablesorter.css;Content\jquery.tablesorter.min.css;Content\jsdifflib.css;Content\jsdifflib.min.css;Content\ladda.css;Content\ladda.min.css;Content\ladda-themeless.css;Content\ladda-themeless.min.css;Content\prism.css;Content\select2.css;Content\*.less;Content\bootstrap-select.css.map;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\bootstrap-select.js;Scripts\bootstrap-select.min.js;Scripts\DataPanel.js;Scripts\InstallWizard.js;Scripts\InstallWizard.comb.js;Scripts\jquery.blockUI.js;Scripts\jquery.ceebox.js;Scripts\jquery.fileupload.comb.js;Scripts\jquery.ForumExtensions.js;Scripts\jquery.hovercard.js;Scripts\jquery.msDropDown.js;Scripts\jquery.notification.js;Scripts\jquery.pagemethod.js;Scripts\jquery.pagination.js;Scripts\jquery.selectedQuoting.js;Scripts\jquery.syntaxhighligher.js;Scripts\jquery.tablesorter.js;Scripts\jquery.tablesorter.min.js;Scripts\jquery.tablesorter.pager.js;Scripts\jquery.timeago.js;Scripts\jquery.ui.datepicker-farsi.js;Scripts\jquery.yafmodaldialog.js;Scripts\jquery-2.1.3.js;Scripts\jquery-2.1.3.intellisense.js;Scripts\jquery-ui-1.11.4.js;Scripts\jquery-ui-i18n.js;Scripts\jsdifflib.js;Scripts\jsdifflib.min.js;Scripts\ladda.js;Scripts\ladda.min.js;Scripts\prism.js;Scripts\select2.js;Scripts\select2.min.js;Scripts\spin.js;Scripts\spin.min.js;Scripts\yaf.js;Scripts\yafEditor\yafEditor.js;Scripts\*.js.bundle</ExcludeFilesFromDeployment>
@@ -112,6 +112,7 @@
     <TypeScriptSourceMap>True</TypeScriptSourceMap>
     <TypeScriptMapRoot />
     <TypeScriptSourceRoot />
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -956,6 +957,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
     <Content Include="Content\images\YafLogoSmall.png" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1070,12 +1072,6 @@
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\united\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\yaf\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\yaf\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-image-gallery.css" />
@@ -1594,10 +1590,6 @@
     <Content Include="Content\flags\4x3\za.svg" />
     <Content Include="Content\flags\4x3\zm.svg" />
     <Content Include="Content\flags\4x3\zw.svg" />
-    <Content Include="Content\css\select2.css" />
-    <Content Include="Content\css\select2.min.css">
-      <DependentUpon>select2.css</DependentUpon>
-    </Content>
     <Content Include="Content\forum-admin.css">
       <DependentUpon>forum-admin.scss</DependentUpon>
     </Content>
@@ -1749,13 +1741,19 @@
     </Content>
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
-    <Content Include="Content\css\select2-bootstrap.css" />
+    <Content Include="Content\select2\select2-bootstrap.css" />
     <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\cyborg\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\yaf\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\yaf\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
     <Content Include="Content\Themes\yeti\bootstrap-forum.css">
@@ -2047,7 +2045,6 @@
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -2332,10 +2329,6 @@
     <Content Include="Scripts\cookiealert-standalone.js" />
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />
@@ -2343,6 +2336,7 @@
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
     <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\bn.js" />
     <Content Include="Scripts\i18n\bs.js" />
     <Content Include="Scripts\i18n\ca.js" />
     <Content Include="Scripts\i18n\cs.js" />
@@ -2368,6 +2362,7 @@
     <Content Include="Scripts\i18n\is.js" />
     <Content Include="Scripts\i18n\it.js" />
     <Content Include="Scripts\i18n\ja.js" />
+    <Content Include="Scripts\i18n\ka.js" />
     <Content Include="Scripts\i18n\km.js" />
     <Content Include="Scripts\i18n\ko.js" />
     <Content Include="Scripts\i18n\lt.js" />
@@ -2375,6 +2370,7 @@
     <Content Include="Scripts\i18n\mk.js" />
     <Content Include="Scripts\i18n\ms.js" />
     <Content Include="Scripts\i18n\nb.js" />
+    <Content Include="Scripts\i18n\ne.js" />
     <Content Include="Scripts\i18n\nl.js" />
     <Content Include="Scripts\i18n\pl.js" />
     <Content Include="Scripts\i18n\ps.js" />
@@ -2384,6 +2380,7 @@
     <Content Include="Scripts\i18n\ru.js" />
     <Content Include="Scripts\i18n\sk.js" />
     <Content Include="Scripts\i18n\sl.js" />
+    <Content Include="Scripts\i18n\sq.js" />
     <Content Include="Scripts\i18n\sr-Cyrl.js" />
     <Content Include="Scripts\i18n\sr.js" />
     <Content Include="Scripts\i18n\sv.js" />
@@ -2454,10 +2451,6 @@
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.min.js" />
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>
@@ -2466,9 +2459,6 @@
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
     <Content Include="Scripts\jquery.pagemethod.js" />
-    <Content Include="Scripts\jquery.pagemethod.readme.txt">
-      <DependentUpon>jquery.pagemethod.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\forum\yaf.Main.js" />
     <Compile Include="controls\BuddyList.ascx.cs">
       <DependentUpon>BuddyList.ascx</DependentUpon>
@@ -3179,10 +3169,6 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
@@ -3193,11 +3179,6 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Scripts\umd\popper.js.map" />
-    <Content Include="Scripts\umd\popper-utils.min.js.map" />
-    <Content Include="Scripts\umd\popper-utils.js.map" />
-    <Content Include="Scripts\README.md" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -3285,7 +3266,6 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="Scripts\ladda.d.ts" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
@@ -3357,7 +3337,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

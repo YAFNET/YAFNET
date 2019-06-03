@@ -168,9 +168,10 @@ namespace YAF.Controls
         private void RenderRulesLink([NotNull] StringBuilder footer)
         {
             footer.Append(
-                @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
+                string.Format(
+                    @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
                     YafBuildLink.GetLink(ForumPages.rules),
-                    this.GetText("COMMON", "PRIVACY_POLICY")));
+                        this.GetText("COMMON", "PRIVACY_POLICY")));
         }
 
         /// <summary>

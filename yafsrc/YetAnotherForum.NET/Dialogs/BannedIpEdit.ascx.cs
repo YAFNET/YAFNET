@@ -162,11 +162,7 @@ namespace YAF.Dialogs
             if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
-                    "IP or mask {0} was saved by {1}.".FormatWith(
-                        this.mask.Text.Trim(),
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName),
+                    $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
                     EventLogTypes.IpBanSet);
             }
 

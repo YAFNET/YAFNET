@@ -70,12 +70,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["UserTopicSince"] != null)
-                {
-                    return (int)this.SessionState["UserTopicSince"];
-                }
-
-                return null;
+                return (int?)this.SessionState["UserTopicSince"];
             }
 
             set => this.SessionState["UserTopicSince"] = value;
@@ -88,12 +83,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["TwitterToken"] != null)
-                {
-                    return (string)this.SessionState["TwitterToken"];
-                }
-
-                return null;
+                return (string)this.SessionState["TwitterToken"];
             }
 
             set => this.SessionState["TwitterToken"] = value;
@@ -106,12 +96,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["TwitterTokenSecret"] != null)
-                {
-                    return (string)this.SessionState["TwitterTokenSecret"];
-                }
-
-                return null;
+                return (string)this.SessionState["TwitterTokenSecret"];
             }
 
             set => this.SessionState["TwitterTokenSecret"] = value;
@@ -127,12 +112,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["MultiQuoteIds"] != null)
-                {
-                    return this.SessionState["MultiQuoteIds"] as List<MultiQuote>;
-                }
-
-                return null;
+                return this.SessionState["MultiQuoteIds"] as List<MultiQuote>;
             }
 
             set => this.SessionState["MultiQuoteIds"] = value;
@@ -145,12 +125,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["UnreadTopicSince"] != null)
-                {
-                    return (int)this.SessionState["UnreadTopicSince"];
-                }
-
-                return null;
+                return (int?)this.SessionState["UnreadTopicSince"];
             }
 
             set => this.SessionState["UnreadTopicSince"] = value;
@@ -163,12 +138,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["ActiveTopicSince"] != null)
-                {
-                    return (int)this.SessionState["ActiveTopicSince"];
-                }
-
-                return null;
+                return (int?)this.SessionState["ActiveTopicSince"];
             }
 
             set => this.SessionState["ActiveTopicSince"] = value;
@@ -181,12 +151,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["UnansweredTopicSince"] != null)
-                {
-                    return (int)this.SessionState["UnansweredTopicSince"];
-                }
-
-                return null;
+                return (int?)this.SessionState["UnansweredTopicSince"];
             }
 
             set => this.SessionState["UnansweredTopicSince"] = value;
@@ -199,12 +164,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["FavoriteTopicSince"] != null)
-                {
-                    return (int)this.SessionState["FavoriteTopicSince"];
-                }
-
-                return null;
+                return (int?)this.SessionState["FavoriteTopicSince"];
             }
 
             set => this.SessionState["FavoriteTopicSince"] = value;
@@ -281,12 +241,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["lastvisit"] != null)
-                {
-                    return (DateTime?)this.SessionState["lastvisit"];
-                }
-
-                return null;
+                return (DateTime?)this.SessionState["lastvisit"];
             }
 
             set
@@ -316,12 +271,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["SearchResults"] != null)
-                {
-                    return this.SessionState["SearchResults"] as SearchResult[];
-                }
-
-                return null;
+                return this.SessionState["SearchResults"] as SearchResult[];
             }
 
             set => this.SessionState["SearchResults"] = value;
@@ -358,12 +308,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.SessionState["topicread"] != null)
-                {
-                    return (Hashtable)this.SessionState["topicread"];
-                }
-
-                return null;
+                return (Hashtable)this.SessionState["topicread"];
             }
 
             set => this.SessionState["topicread"] = value;

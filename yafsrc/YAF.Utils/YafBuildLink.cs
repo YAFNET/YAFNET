@@ -82,8 +82,8 @@ namespace YAF.Utils
         public static string GetLink(ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull("g={0}".FormatWith(page))
-                       : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}".FormatWith(page));
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull($"g={page}")
+                       : YafFactoryProvider.UrlBuilder.BuildUrl($"g={page}");
         }
 
         /// <summary>
@@ -98,8 +98,8 @@ namespace YAF.Utils
         public static string GetLink(YafBoardSettings boardSettings, ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, "g={0}".FormatWith(page))
-                       : YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, "g={0}".FormatWith(page));
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, $"g={page}")
+                       : YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, $"g={page}");
         }
 
         /// <summary>
@@ -123,9 +123,8 @@ namespace YAF.Utils
         public static string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(
-                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)))
-                       : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}&{1}".FormatWith(page, format.FormatWith(args)));
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull($"g={page}&{string.Format(format, args)}")
+                       : YafFactoryProvider.UrlBuilder.BuildUrl($"g={page}&{string.Format(format, args)}");
         }
 
         /// <summary>
@@ -144,10 +143,10 @@ namespace YAF.Utils
             return fullUrl
                        ? YafFactoryProvider.UrlBuilder.BuildUrlFull(
                            boardSettings,
-                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)))
+                           $"g={page}&{string.Format(format, args)}")
                        : YafFactoryProvider.UrlBuilder.BuildUrl(
                            boardSettings,
-                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)));
+                           $"g={page}&{string.Format(format, args)}");
         }
 
         /// <summary>
@@ -272,7 +271,7 @@ namespace YAF.Utils
         /// </param>
         public static void RedirectInfoPage(InfoMessage infoMessage)
         {
-            Redirect(ForumPages.info, "i={0}".FormatWith(infoMessage.ToType<int>()));
+            Redirect(ForumPages.info, $"i={infoMessage.ToType<int>()}");
         }
 
         #endregion

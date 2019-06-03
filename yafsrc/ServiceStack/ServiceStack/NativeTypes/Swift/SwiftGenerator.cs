@@ -751,13 +751,8 @@ namespace ServiceStack.NativeTypes.Swift
         MetadataType CreateType(Type type)
         {
             var nativeTypes = HostContext.TryResolve<INativeTypesMetadata>() as NativeTypesMetadata;
-            if (nativeTypes != null)
-            {
-                var typesGenerator = nativeTypes.GetMetadataTypesGenerator(Config);
-                return typesGenerator.ToType(type);
-            }
-
-            return null;
+            var typesGenerator = nativeTypes?.GetMetadataTypesGenerator(this.Config);
+            return typesGenerator?.ToType(type);
         }
 
         public static HashSet<string> ArrayTypes = new HashSet<string>

@@ -72,7 +72,7 @@ namespace YAF.Core
     {
       CodeContracts.VerifyNotNull(session, "session");
 
-      var cacheName = "Session{0}CaptchaImageText".FormatWith(session.SessionID);
+      var cacheName = $"Session{session.SessionID}CaptchaImageText";
 
       if (!forceNew && cache[cacheName] != null)
       {

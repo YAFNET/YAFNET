@@ -52,7 +52,8 @@ namespace ServiceStack.FluentValidation
 		ValidationResult IValidator.Validate(object instance) {
 			instance.Guard("Cannot pass null to Validate.");
 			if(! ((IValidator)this).CanValidateInstancesOfType(instance.GetType())) {
-				throw new InvalidOperationException(string.Format("Cannot validate instances of type '{0}'. This validator can only validate instances of type '{1}'.", instance.GetType().Name, typeof(T).Name));
+				throw new InvalidOperationException(
+                    $"Cannot validate instances of type '{instance.GetType().Name}'. This validator can only validate instances of type '{typeof(T).Name}'.");
 			}
 			
 			return Validate((T)instance);
@@ -61,7 +62,8 @@ namespace ServiceStack.FluentValidation
 		Task<ValidationResult> IValidator.ValidateAsync(object instance, CancellationToken cancellation) {
 			instance.Guard("Cannot pass null to Validate.");
 			if (!((IValidator) this).CanValidateInstancesOfType(instance.GetType())) {
-				throw new InvalidOperationException(string.Format("Cannot validate instances of type '{0}'. This validator can only validate instances of type '{1}'.", instance.GetType().Name, typeof (T).Name));
+				throw new InvalidOperationException(
+                    $"Cannot validate instances of type '{instance.GetType().Name}'. This validator can only validate instances of type '{typeof(T).Name}'.");
 			}
 
 			return ValidateAsync((T) instance, cancellation);

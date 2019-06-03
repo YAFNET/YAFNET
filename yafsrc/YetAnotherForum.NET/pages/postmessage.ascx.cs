@@ -454,7 +454,7 @@ namespace YAF.Pages
             }
 
             // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-            this._forumEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this._forumEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
             this.Title.Text = this.GetText("NEWTOPIC");
 
@@ -520,7 +520,7 @@ namespace YAF.Pages
                 if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests)
                     || (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 {
-                    this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
+                    this.imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1";
                     this.tr_captcha1.Visible = true;
                     this.tr_captcha2.Visible = true;
                 }
@@ -692,17 +692,11 @@ namespace YAF.Pages
                             if (attach.FileData == null)
                             {
                                 var oldFilePath = this.Get<HttpRequestBase>().MapPath(
-                                    "{0}/{1}.{2}.yafupload".FormatWith(
-                                        YafBoardFolders.Current.Uploads,
-                                        attach.MessageID.ToString(),
-                                        attach.FileName));
+                                    $"{YafBoardFolders.Current.Uploads}/{attach.MessageID.ToString()}.{attach.FileName}.yafupload");
 
                                 var newFilePath =
                                     this.Get<HttpRequestBase>().MapPath(
-                                        "{0}/u{1}.{2}.yafupload".FormatWith(
-                                            YafBoardFolders.Current.Uploads,
-                                            attach.UserID,
-                                            attach.FileName));
+                                        $"{YafBoardFolders.Current.Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
 
                                 File.Move(oldFilePath, newFilePath);
                             }
@@ -757,7 +751,7 @@ namespace YAF.Pages
 
             // remove cache if it exists...
             this.Get<IDataCache>()
-                .Remove(Constants.Cache.FirstPostCleaned.FormatWith(this.PageContext.PageBoardID, this.TopicID));
+                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID,this.TopicID));
 
             return messageId;
         }
@@ -944,12 +938,11 @@ namespace YAF.Pages
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
                 && !this.PageContext.BoardSettings.SpamServiceType.Equals(0))
             {
-                var spamChecker = new YafSpamCheck();
                 string spamResult;
 
                 // Check content for spam
                 if (
-                    spamChecker.CheckPostForSpam(
+                    this.Get<ISpamCheck>().CheckPostForSpam(
                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
@@ -964,8 +957,8 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
-                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName),
+                                string.Format(
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}", this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 1:
@@ -974,20 +967,22 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post."
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post.",
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 2:
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
@@ -995,10 +990,11 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and banned"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and banned",
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
 
                             var userIp =
@@ -1025,9 +1021,8 @@ namespace YAF.Pages
 
                 if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
                 {
-                    var spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
-                        urlCount,
-                        this.PageContext.BoardSettings.AllowedNumberOfUrls);
+                    var spamResult =
+                        $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
                     switch (this.PageContext.BoardSettings.SpamMessageHandling)
                     {
@@ -1035,9 +1030,10 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                string.Format(
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}",
                                     this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                    spamResult),
+                                        spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 1:
@@ -1046,20 +1042,22 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post."
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post.",
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 2:
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
@@ -1067,10 +1065,11 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and banned"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and banned",
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
 
                             var userIp =
@@ -1128,10 +1127,10 @@ namespace YAF.Pages
             if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && newTopic > 0)
             {
                 // new topic poll token
-                attachPollParameter = "&t={0}".FormatWith(newTopic);
+                attachPollParameter = $"&t={newTopic}";
 
                 // new return forum poll token
-                retforum = "&f={0}".FormatWith(this.PageContext.PageForumID);
+                retforum = $"&f={this.PageContext.PageForumID}";
             }
 
             // Create notification emails
@@ -1344,7 +1343,7 @@ namespace YAF.Pages
                 attachments.ForEach(
                     attach =>
                         {
-                            this._forumEditor.Text += " [ATTACH]{0}[/Attach] ".FormatWith(attach.ID);
+                            this._forumEditor.Text += $" [ATTACH]{attach.ID}[/Attach] ";
                         });
             }
 
@@ -1436,10 +1435,8 @@ namespace YAF.Pages
 
             // Quote the original message
             this._forumEditor.Text +=
-                "[quote={0};{1}]{2}[/quote]\n\n".FormatWith(
-                    this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>()),
-                    message.MessageID,
-                    messageContent).TrimStart();
+                $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.MessageID}]{messageContent}[/quote]\n\n"
+                    .TrimStart();
         }
 
         /// <summary>

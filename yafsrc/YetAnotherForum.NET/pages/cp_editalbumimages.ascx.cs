@@ -108,7 +108,7 @@ namespace YAF.Pages
               this.Get<HttpRequestBase>().MapPath(
                 string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-            YafAlbum.Album_Image_Delete(
+            this.Get<IAlbum>().AlbumImageDelete(
               path, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
 
             // clear the cache for this user to update albums|images stats...
@@ -131,7 +131,7 @@ namespace YAF.Pages
                       this.Get<HttpRequestBase>().MapPath(
                         string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-                    YafAlbum.Album_Image_Delete(path, null, this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
+                    this.Get<IAlbum>().AlbumImageDelete(path, null, this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
 
                     // If the user is trying to edit an existing album, initialize the repeater.
                     this.BindVariousControls(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
@@ -490,7 +490,7 @@ namespace YAF.Pages
 
                 var newAlbumId = this.GetRepository<UserAlbum>().Save(this.PageContext.PageUserID, this.txtTitle.Text, null);
                 file.PostedFile.SaveAs(
-                  "{0}/{1}.{2}.{3}.yafalbum".FormatWith(path, this.PageContext.PageUserID, newAlbumId.ToString(), filename));
+                    $"{path}/{this.PageContext.PageUserID}.{newAlbumId.ToString()}.{filename}.yafalbum");
                 this.GetRepository<UserAlbumImage>().Save(null, newAlbumId, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
 
                 // clear the cache for this user to update albums|images stats...
@@ -512,11 +512,7 @@ namespace YAF.Pages
                 }
 
                 file.PostedFile.SaveAs(
-                  "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                    path,
-                    this.PageContext.PageUserID,
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"),
-                    filename));
+                    $"{path}/{this.PageContext.PageUserID}.{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a")}.{filename}.yafalbum");
                 this.GetRepository<UserAlbumImage>().Save(
                     null,
                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a"),

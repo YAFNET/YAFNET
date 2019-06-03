@@ -2,7 +2,7 @@
     CodeBehind="AlbumImageList.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 
 <div class="card-header">
     <asp:Literal ID="ltrTitleOnly" runat="server"></asp:Literal><asp:Literal ID="ltrTitle" runat="server"></asp:Literal>
@@ -29,10 +29,10 @@
         <div class="card mb-3">
             <div class="card-body">
                 <div class="card-text mb-3">
-                    <a href='<%# "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ID")) %>'
+                    <a href='<%# "{0}resource.ashx?image={1}".Fmt(YafForumInfo.ForumClientFileRoot, this.Eval("ID")) %>'
                        title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + this.AlbumID + "[/ALBUMIMG]"%>'
                        data-gallery>
-                        <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ID")) %>'
+                        <img src='<%# "{0}resource.ashx?imgprv={1}".Fmt(YafForumInfo.ForumClientFileRoot, this.Eval("ID")) %>'
                              class="img-fluid img-thumbnail"
                              alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' 
                              title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />

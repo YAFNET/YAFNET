@@ -389,7 +389,7 @@ namespace YAF.Core.Extensions
         {
             return repository.DbAccess.Execute(
                 db => db.Connection.SqlList<T>(
-                    string.Format("{0}{1}", Config.DatabaseObjectQualifier, sql),
+                    $"{Config.DatabaseObjectQualifier}{sql}",
                     cmd =>
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
@@ -412,7 +412,7 @@ namespace YAF.Core.Extensions
         {
             return repository.DbAccess.Execute(
                 dbCmd => dbCmd.Connection.SqlList<T>(
-                    string.Format("{0}{1}", Config.DatabaseObjectQualifier, sql),
+                    $"{Config.DatabaseObjectQualifier}{sql}",
                     dbCmdFilter));
         }
 

@@ -68,10 +68,9 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "editorlang",
-                @"var editorLanguage = ""{0}"";".FormatWith(
-                    YafContext.Current.CultureUser.IsSet()
-                        ? YafContext.Current.CultureUser.Substring(0, 2)
-                        : this.Get<YafBoardSettings>().Culture.Substring(0, 2)));
+                $@"var editorLanguage = ""{(YafContext.Current.CultureUser.IsSet()
+                                                ? YafContext.Current.CultureUser.Substring(0, 2)
+                                                : this.Get<YafBoardSettings>().Culture.Substring(0, 2))}"";");
 
             YafContext.Current.PageElements.RegisterJsInclude("tinymceinit", this.ResolveUrl("tinymce/tinymce_init.js"));
         }

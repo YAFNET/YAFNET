@@ -223,12 +223,7 @@ namespace YAF.Types.Extensions
         [CanBeNull]
         public static T ToClass<T>([CanBeNull] this object instance) where T : class
         {
-            if (instance is T)
-            {
-                return instance as T;
-            }
-
-            return null;
+            return instance as T;
         }
 
         /// <summary>

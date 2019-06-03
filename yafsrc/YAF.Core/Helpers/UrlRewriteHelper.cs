@@ -378,7 +378,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         protected static string GetCacheName(string type, int id)
         {
-            return @"urlRewritingDT-{0}-Range-{1}-to-{2}".FormatWith(type, HighRange(id), LowRange(id));
+            return $@"urlRewritingDT-{type}-Range-{HighRange(id)}-to-{LowRange(id)}";
         }
 
         /// <summary>

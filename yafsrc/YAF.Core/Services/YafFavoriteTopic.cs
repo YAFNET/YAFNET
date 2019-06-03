@@ -127,7 +127,7 @@ namespace YAF.Core.Services
         {
             // clear for the session
             this.SessionState.Remove(
-                this.TreatCacheKey.Treat(Constants.Cache.FavoriteTopicList.FormatWith(YafContext.Current.PageUserID)));
+                this.TreatCacheKey.Treat(string.Format(Constants.Cache.FavoriteTopicList, YafContext.Current.PageUserID)));
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace YAF.Core.Services
         {
             return
                 this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.FavoriteTopicCount.FormatWith(topicId),
+                    string.Format(Constants.Cache.FavoriteTopicCount, topicId),
                     () => this.GetRepository<FavoriteTopic>().Count(topicId),
                     TimeSpan.FromMilliseconds(90000)).ToType<int>();
         }

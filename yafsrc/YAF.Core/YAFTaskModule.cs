@@ -49,12 +49,12 @@ namespace YAF.Core
     /// <summary>
     ///   The _app instance.
     /// </summary>
-    protected HttpApplication _appInstance;
+    private HttpApplication appInstance;
 
     /// <summary>
     ///   The _module initialized.
     /// </summary>
-    protected bool _moduleInitialized;
+    private bool moduleInitialized;
 
     /// <summary>
     ///   Gets or sets the logger associated with the object.
@@ -62,6 +62,9 @@ namespace YAF.Core
     [Inject]
     public ILogger Logger { get; set; }
 
+    /// <summary>
+    /// Gets or sets the service locator.
+    /// </summary>
     [Inject]
     public IServiceLocator ServiceLocator { get; set; }
 
@@ -81,7 +84,7 @@ namespace YAF.Core
     {
       CodeContracts.VerifyNotNull(httpApplication, "httpApplication");
 
-      if (this._moduleInitialized)
+      if (this.moduleInitialized)
       {
         return;
       }
@@ -89,9 +92,9 @@ namespace YAF.Core
       // create a lock so no other instance can affect the static variable
       lock (this)
       {
-        if (!this._moduleInitialized)
+        if (!this.moduleInitialized)
         {
-            this._appInstance = httpApplication;
+            this.appInstance = httpApplication;
 
           // set the httpApplication as early as possible...
           GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
@@ -99,14 +102,14 @@ namespace YAF.Core
 
           GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
 
-            this._moduleInitialized = true;
+            this.moduleInitialized = true;
 
-            this._appInstance.PreRequestHandlerExecute += this.ApplicationPreRequestHandlerExecute;
+            this.appInstance.PreRequestHandlerExecute += this.ApplicationPreRequestHandlerExecute;
         }
       }
 
       // app init notification...
-      this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this._appInstance), null);
+      this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this.appInstance), null);
     }
 
     /// <summary>
@@ -142,7 +145,7 @@ namespace YAF.Core
           // call from YafContext only -- so that the events have access to the full YafContext lifecycle.
           YafContext.Current.Get<IRaiseEvent>().RaiseIssolated(
             new EventPreRequestPageExecute(page),
-            (m, ex) => this.Logger.Fatal(ex, "Failed to Call Event Pre Request Page Execute Event {0}".FormatWith(m)));
+            (m, ex) => this.Logger.Fatal(ex, $"Failed to Call Event Pre Request Page Execute Event {m}"));
         }
         catch (Exception ex)
         {

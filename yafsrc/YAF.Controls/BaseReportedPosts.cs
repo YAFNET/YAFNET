@@ -118,7 +118,7 @@ namespace YAF.Controls
                 string howMany = null;
                 if (reporter["ReportedNumber"].ToType<int>() > 1)
                 {
-                    howMany = "({0})".FormatWith(reporter["ReportedNumber"]);
+                    howMany = $"({reporter["ReportedNumber"]})";
                 }
 
                 // If the message was previously resolved we have not null string

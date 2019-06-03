@@ -78,7 +78,7 @@ namespace ServiceStack.FluentValidation.Internal {
 			var chain = PropertyChain.FromExpression(expression);
 
 			if (chain.Count == 0) {
-				throw new ArgumentException(string.Format("Expression '{0}' does not specify a valid property or field.", expression));
+				throw new ArgumentException($"Expression '{expression}' does not specify a valid property or field.");
 			}
 
 			return chain.ToString();

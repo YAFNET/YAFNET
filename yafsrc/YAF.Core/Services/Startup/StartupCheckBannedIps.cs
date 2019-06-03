@@ -146,7 +146,7 @@ namespace YAF.Core.Services.Startup
                 this.Logger.Log(
                     null,
                     "Banned IP Blocked",
-                    @"Ending Response for Banned User at IP ""{0}""".FormatWith(ipToCheck),
+                    $@"Ending Response for Banned User at IP ""{ipToCheck}""",
                     EventLogTypes.IpBanDetected);
             }
 

@@ -216,7 +216,8 @@ namespace ServiceStack.FluentValidation
 
 		    var rules = validators as IEnumerable<IValidationRule>;
 		    if (rules == null) {
-			    throw new NotSupportedException(string.Format("Validator '{0}' does not support replacing rules.", validators.GetType().Name));
+			    throw new NotSupportedException(
+                    $"Validator '{validators.GetType().Name}' does not support replacing rules.");
 		    }
 
 		    // replace the first validator of this type, then remove the others
@@ -246,7 +247,8 @@ namespace ServiceStack.FluentValidation
 
 		    var rules = validators as IEnumerable<IValidationRule>;
 		    if (rules == null) {
-			    throw new NotSupportedException(string.Format("Validator '{0}' does not support replacing rules.", validators.GetType().Name));
+			    throw new NotSupportedException(
+                    $"Validator '{validators.GetType().Name}' does not support replacing rules.");
 		    }
 
 		    foreach (var rule in rules.OfType<PropertyRule>()) {
@@ -269,7 +271,8 @@ namespace ServiceStack.FluentValidation
 
 		    var rules = validators as IEnumerable<IValidationRule>;
 		    if (rules == null) {
-			    throw new NotSupportedException(string.Format("Validator '{0}' does not support replacing rules.", validators.GetType().Name));
+			    throw new NotSupportedException(
+                    $"Validator '{validators.GetType().Name}' does not support replacing rules.");
 		    }
 
 		    foreach (var rule in rules.OfType<PropertyRule>()) {

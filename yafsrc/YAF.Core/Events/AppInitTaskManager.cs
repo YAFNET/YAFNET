@@ -115,7 +115,7 @@ namespace YAF.Core
             // add and start this module...
             if (!this.TaskExists(instanceName))
             {
-                this.Logger.Debug("Starting Task {0}...".FormatWith(instanceName));
+                this.Logger.Debug($"Starting Task {instanceName}...");
 
                 var injectServices = this.Get<IInjectServices>();
 
@@ -130,10 +130,7 @@ namespace YAF.Core
                     },
                     (s, task) =>
                     {
-                        if (task != null)
-                        {
-                            task.Dispose();
-                        }
+                        task?.Dispose();
 
                         var newTask = start();
                         injectServices.Inject(newTask);
@@ -177,7 +174,7 @@ namespace YAF.Core
                 }
                 catch (Exception ex)
                 {
-                    this.Logger.Fatal(ex, "Failed to start: {0}".FormatWith(instance.GetType().Name));
+                    this.Logger.Fatal(ex, $"Failed to start: {instance.GetType().Name}");
                 }
             }
         }

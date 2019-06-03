@@ -134,10 +134,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("TEAM", "FORUMS"),
-                this.GetText("ADMIN_DELETEFORUM", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")} - {this.GetText("ADMIN_DELETEFORUM", "TITLE")}";
         }
 
         /// <summary>
@@ -204,9 +202,7 @@ namespace YAF.Pages.Admin
             else
             {
                 this.Delete.Attributes["onclick"] =
-                    "return (confirm('{0}') && confirm('{1}'));".FormatWith(
-                        this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                        this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
+                    $"return (confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE")}') && confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE")}'));";
             }
 
             this.ForumList.Enabled = this.MoveTopics.Checked;

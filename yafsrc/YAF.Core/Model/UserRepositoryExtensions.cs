@@ -477,7 +477,7 @@ namespace YAF.Core.Model
                     else
                     {
                         throw new ApplicationException(
-                            string.Format("Sql Exception with error number {0} (Tries={1}", x.Number, tries),
+                            $"Sql Exception with error number {x.Number} (Tries={tries}",
                             x);
                     }
                 }

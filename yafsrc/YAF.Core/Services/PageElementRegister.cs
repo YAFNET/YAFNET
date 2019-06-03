@@ -45,7 +45,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   The _registered elements.
         /// </summary>
-        private readonly List<string> _registeredElements = new List<string>();
+        private readonly List<string> registeredElements = new List<string>();
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace YAF.Core.Services
         ///   Gets elements (using in the head or header) that are registered on the page.
         ///   Used mostly by RegisterPageElementHelper.
         /// </summary>
-        public List<string> RegisteredElements => this._registeredElements;
+        public List<string> RegisteredElements => this.registeredElements;
 
         #endregion
 
@@ -69,7 +69,7 @@ namespace YAF.Core.Services
         /// </param>
         public void AddPageElement(string name)
         {
-            this._registeredElements.Add(name.ToLower());
+            this.registeredElements.Add(name.ToLower());
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool PageElementExists(string name)
         {
-            return this._registeredElements.Contains(name.ToLower());
+            return this.registeredElements.Contains(name.ToLower());
         }
 
         /// <summary>

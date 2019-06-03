@@ -181,11 +181,7 @@ namespace YAF.Controls
                     .Log(
                         this.PageContext.PageUserID,
                         "YAF.Controls.EditUsersSuspend",
-                        "User {0} was unsuspended by {1}.".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name,
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName),
+                        $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was unsuspended by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
                         EventLogTypes.UserUnsuspended);
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
@@ -306,12 +302,7 @@ namespace YAF.Controls
                     .Log(
                         this.PageContext.PageUserID,
                         "YAF.Controls.EditUsersSuspend",
-                        "User {0} was suspended by {1} until: {2} (UTC)".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name,
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName,
-                            suspend),
+                        $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was suspended by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)} until: {suspend} (UTC)",
                         EventLogTypes.UserSuspended);
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));

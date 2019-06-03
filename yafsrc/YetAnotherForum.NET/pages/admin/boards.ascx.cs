@@ -57,9 +57,7 @@ namespace YAF.Pages.Admin
         protected void DeleteLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                   "return (confirm('{0}') && confirm('{1}'))".FormatWith(
-                       this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE"),
-                       this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
+                $"return (confirm('{this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE")}') && confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE")}'))";
         }
 
         /// <summary>
@@ -104,9 +102,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_BOARDS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDS", "TITLE")}";
         }
 
         /// <summary>

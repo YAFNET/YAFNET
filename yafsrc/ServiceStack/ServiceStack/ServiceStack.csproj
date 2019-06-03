@@ -16,7 +16,7 @@
     <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
@@ -42,7 +42,7 @@
     <AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
-    <DocumentationFile />
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <OutputPath>C:\Users\Watcher\source\repos\YAFNET\YAF.NET\yafsrc\YetAnotherForum.NET\Bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">

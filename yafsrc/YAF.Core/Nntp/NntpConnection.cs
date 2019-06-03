@@ -180,10 +180,7 @@ namespace YAF.Core.Nntp
       if (request != null)
       {
         this.sw.WriteLine(request);
-        if (this.onRequest != null)
-        {
-          this.onRequest("SEND: " + request);
-        }
+        this.onRequest?.Invoke("SEND: " + request);
       }
 
       string line = null;
@@ -403,7 +400,7 @@ namespace YAF.Core.Nntp
             ms.Seek(0, SeekOrigin.Begin);
             var bytes = new byte[ms.Length];
             ms.Read(bytes, 0, (int) ms.Length);
-            var attach = new Attachment(messageId + " - " + m.Groups[1].ToString(), m.Groups[1].ToString(), bytes);
+            var attach = new Attachment(messageId + " - " + m.Groups[1], m.Groups[1].ToString(), bytes);
             list.Add(attach);
             ms.Close();
             i++;

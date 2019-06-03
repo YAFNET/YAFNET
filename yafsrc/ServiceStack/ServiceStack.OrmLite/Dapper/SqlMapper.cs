@@ -2008,7 +2008,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 dbType = LookupDbType(item.GetType(), "", true, out ITypeHandler handler);
                             }
                         }
-                        var nextName = namePrefix + count.ToString();
+                        var nextName = namePrefix + count;
                         if (isDbString && item is DbString)
                         {
                             var str = item as DbString;
@@ -2045,7 +2045,7 @@ namespace ServiceStack.OrmLite.Dapper
                         {
                             count++;
                             var padParam = command.CreateParameter();
-                            padParam.ParameterName = namePrefix + count.ToString();
+                            padParam.ParameterName = namePrefix + count;
                             if (isString) padParam.Size = DbString.DefaultLength;
                             padParam.DbType = dbType;
                             padParam.Value = lastValue;
@@ -2407,7 +2407,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
             }
-            var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
+            var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
 
             var il = dm.GetILGenerator();
 
@@ -3080,7 +3080,7 @@ namespace ServiceStack.OrmLite.Dapper
         )
         {
             var returnType = type.IsValueType() ? typeof(object) : type;
-            var dm = new DynamicMethod("Deserialize" + Guid.NewGuid().ToString(), returnType, new[] { typeof(IDataReader) }, type, true);
+            var dm = new DynamicMethod("Deserialize" + Guid.NewGuid(), returnType, new[] { typeof(IDataReader) }, type, true);
             var il = dm.GetILGenerator();
             il.DeclareLocal(typeof(int));
             il.DeclareLocal(type);

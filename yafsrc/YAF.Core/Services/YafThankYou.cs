@@ -86,7 +86,7 @@ namespace YAF.Core.Services
                     {
                         filler.AppendFormat(
                             @" {0}",
-                            YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE").FormatWith(YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
+                            string.Format(YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE"), YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
                     }
                 }
             }
@@ -170,15 +170,15 @@ namespace YAF.Core.Services
                     return string.Empty;
                 case 1:
                     thanksText =
-                        YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE").FormatWith(
-                            displayName);
+                        string.Format(
+                            YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE"), displayName);
 
-                    return "<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{0}".FormatWith(thanksText);
+                    return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
             }
 
-            thanksText = YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
+            thanksText = string.Format(YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO"), thanksNumber, displayName);
 
-            return "<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{0}".FormatWith(thanksText);
+            return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
         }
 
         #endregion

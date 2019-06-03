@@ -103,12 +103,13 @@ namespace YAF.Modules
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 this.ForumControl.Page,
                 "modalNotification",
-                "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
-                    .FormatWith(
+                string
+                    .Format(
+                        "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
                         message.Message,
-                        message.MessageType.ToString().ToLower(),
-                        this.errorPopup.ShowModalFunction,
-                        message.Script.IsSet() ? message.Script : string.Empty));
+                            message.MessageType.ToString().ToLower(),
+                            this.errorPopup.ShowModalFunction,
+                            message.Script.IsSet() ? message.Script : string.Empty));
         }
 
         /// <summary>

@@ -25,16 +25,17 @@ namespace YAF.Modules
 {
   #region Using
 
+  using YAF.Controls;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
 
-  #endregion
+    #endregion
 
-  /// <summary>
-  /// Summary description for SimpleBaseModule
-  /// </summary>
-  public class SimpleBaseForumModule : BaseForumModule
+    /// <summary>
+    /// The simple base forum module.
+    /// </summary>
+    public class SimpleBaseForumModule : BaseForumModule
   {
     #region Constants and Fields
 

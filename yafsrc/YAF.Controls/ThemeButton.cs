@@ -409,18 +409,18 @@ namespace YAF.Controls
         {
             if (this.Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
             {
-                return "[TITLE:{0}]".FormatWith(this.TitleLocalizedTag);
+                return $"[TITLE:{this.TitleLocalizedTag}]";
             }
 
             if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
             {
-                return this.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag).FormatWith(
-                           this.ParamTitle0, this.ParamTitle1, this.ParamTitle2);
+                return string.Format(
+                           this.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag), this.ParamTitle0,this.ParamTitle1, this.ParamTitle2);
             }
 
             return this.TitleLocalizedTag.IsSet()
-                       ? this.GetText(this.TitleLocalizedTag).FormatWith(
-                           this.ParamTitle0, this.ParamTitle1, this.ParamTitle2)
+                       ? string.Format(
+                           this.GetText(this.TitleLocalizedTag), this.ParamTitle0,this.ParamTitle1, this.ParamTitle2)
                        : null;
         }
 
@@ -521,7 +521,7 @@ namespace YAF.Controls
                     if (key.ToLower() == "onclick")
                     {
                         // special handling... add to it...
-                        output.WriteAttribute(key, "{0};".FormatWith(this._attributeCollection[key]));
+                        output.WriteAttribute(key, $"{this._attributeCollection[key]};");
                     }
                     else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on")
                                                                || key.ToLower() == "rel" || key.ToLower() == "target")
@@ -535,14 +535,14 @@ namespace YAF.Controls
             // Write Confirm Dialog
             if (this.ReturnConfirmText.IsSet())
             {
-                output.WriteAttribute("onclick", "return confirm('{0}')".FormatWith(this.ReturnConfirmText));
+                output.WriteAttribute("onclick", $"return confirm('{this.ReturnConfirmText}')");
             }
 
             // Write Modal
             if (this.DataTarget.IsSet())
             {
                 output.WriteAttribute("data-toggle", "modal");
-                output.WriteAttribute("data-target", "#{0}".FormatWith(this.DataTarget));
+                output.WriteAttribute("data-target", $"#{this.DataTarget}");
             }
 
             // Write Dropdown

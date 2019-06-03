@@ -187,7 +187,7 @@ namespace YAF.Controls
                                                ? row["UserDisplayName"].ToString()
                                                : row["UserName"].ToString()
                                    };
-                    userLink.ID = "UserLink{0}{1}".FormatWith(this.InstantId, userLink.UserID);
+                    userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                 }
 
                 // how many users of this type is present (valid for guests, others have it 1)
@@ -195,7 +195,7 @@ namespace YAF.Controls
                 if (userCount > 1 && (!isCrawler || !this.Get<YafBoardSettings>().ShowCrawlersInActiveList))
                 {
                     // add postfix if there is more the one user of this name
-                    userLink.PostfixText = " ({0})".FormatWith(userCount);
+                    userLink.PostfixText = $" ({userCount})";
                 }
 
                 // indicates whether user link should be added or not
@@ -212,7 +212,7 @@ namespace YAF.Controls
                         userLink.CssClass = "active_hidden";
 
                         // and also add postfix
-                        userLink.PostfixText = " ({0})".FormatWith(this.GetText("HIDDEN"));
+                        userLink.PostfixText = $" ({this.GetText("HIDDEN")})";
                     }
                     else
                     {

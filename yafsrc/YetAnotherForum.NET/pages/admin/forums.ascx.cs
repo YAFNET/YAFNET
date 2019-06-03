@@ -58,7 +58,7 @@ namespace YAF.Pages.Admin
         protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT"));
+                $"return confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT")}')";
         }
 
         /// <summary>
@@ -68,9 +68,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((ThemeButton)sender).Attributes["onclick"] = "return (confirm('{0}') && confirm('{1}'))".FormatWith(
-                this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                $"return (confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE")}') && confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE")}'))";
         }
 
         /// <summary>
@@ -166,9 +165,8 @@ namespace YAF.Pages.Admin
                 YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("TEAM", "FORUMS"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")}";
         }
 
         /// <summary>

@@ -323,10 +323,7 @@ namespace ServiceStack.Text
                 block = new byte[this.BlockSize];
                 Events.Write.MemoryStreamNewBlockCreated(this.smallPoolInUseSize);
 
-                if (this.BlockCreated != null)
-                {
-                    this.BlockCreated();
-                }
+                this.BlockCreated?.Invoke();
             }
             else
             {
@@ -358,10 +355,7 @@ namespace ServiceStack.Text
                     buffer = new byte[requiredSize];
 
                     Events.Write.MemoryStreamNewLargeBufferCreated(requiredSize, this.LargePoolInUseSize);
-                    if (this.LargeBufferCreated != null)
-                    {
-                        this.LargeBufferCreated();
-                    }
+                    this.LargeBufferCreated?.Invoke();
                 }
                 else
                 {
@@ -387,10 +381,7 @@ namespace ServiceStack.Text
 
                 Events.Write.MemoryStreamNonPooledLargeBufferCreated(requiredSize, tag, callStack);
 
-                if (this.LargeBufferCreated != null)
-                {
-                    this.LargeBufferCreated();
-                }
+                this.LargeBufferCreated?.Invoke();
             }
 
             Interlocked.Add(ref this.largeBufferInUseSize[poolIndex], buffer.Length);
@@ -444,10 +435,7 @@ namespace ServiceStack.Text
                     Events.Write.MemoryStreamDiscardBuffer(Events.MemoryStreamBufferType.Large, tag,
                                                            Events.MemoryStreamDiscardReason.EnoughFree);
 
-                    if (this.LargeBufferDiscarded != null)
-                    {
-                        this.LargeBufferDiscarded(Events.MemoryStreamDiscardReason.EnoughFree);
-                    }
+                    this.LargeBufferDiscarded?.Invoke(Events.MemoryStreamDiscardReason.EnoughFree);
                 }
             }
             else
@@ -458,19 +446,13 @@ namespace ServiceStack.Text
 
                 Events.Write.MemoryStreamDiscardBuffer(Events.MemoryStreamBufferType.Large, tag,
                                                        Events.MemoryStreamDiscardReason.TooLarge);
-                if (this.LargeBufferDiscarded != null)
-                {
-                    this.LargeBufferDiscarded(Events.MemoryStreamDiscardReason.TooLarge);
-                }
+                this.LargeBufferDiscarded?.Invoke(Events.MemoryStreamDiscardReason.TooLarge);
             }
 
             Interlocked.Add(ref this.largeBufferInUseSize[poolIndex], -buffer.Length);
 
-            if (this.UsageReport != null)
-            {
-                this.UsageReport(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
-                                 this.LargePoolFreeSize);
-            }
+            this.UsageReport?.Invoke(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
+                this.LargePoolFreeSize);
         }
 
         /// <summary>
@@ -509,60 +491,39 @@ namespace ServiceStack.Text
                 {
                     Events.Write.MemoryStreamDiscardBuffer(Events.MemoryStreamBufferType.Small, tag,
                                                            Events.MemoryStreamDiscardReason.EnoughFree);
-                    if (this.BlockDiscarded != null)
-                    {
-                        this.BlockDiscarded();
-                    }
+                    this.BlockDiscarded?.Invoke();
 
                     break;
                 }
             }
 
-            if (this.UsageReport != null)
-            {
-                this.UsageReport(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
-                                 this.LargePoolFreeSize);
-            }
+            this.UsageReport?.Invoke(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
+                this.LargePoolFreeSize);
         }
 
         internal void ReportStreamCreated()
         {
-            if (this.StreamCreated != null)
-            {
-                this.StreamCreated();
-            }
+            this.StreamCreated?.Invoke();
         }
 
         internal void ReportStreamDisposed()
         {
-            if (this.StreamDisposed != null)
-            {
-                this.StreamDisposed();
-            }
+            this.StreamDisposed?.Invoke();
         }
 
         internal void ReportStreamFinalized()
         {
-            if (this.StreamFinalized != null)
-            {
-                this.StreamFinalized();
-            }
+            this.StreamFinalized?.Invoke();
         }
 
         internal void ReportStreamLength(long bytes)
         {
-            if (this.StreamLength != null)
-            {
-                this.StreamLength(bytes);
-            }
+            this.StreamLength?.Invoke(bytes);
         }
 
         internal void ReportStreamToArray()
         {
-            if (this.StreamConvertedToArray != null)
-            {
-                this.StreamConvertedToArray();
-            }
+            this.StreamConvertedToArray?.Invoke();
         }
 
         /// <summary>
@@ -1275,7 +1236,7 @@ namespace ServiceStack.Text
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Id = {0}, Tag = {1}, Length = {2:N0} bytes", this.Id, this.Tag, this.Length);
+            return $"Id = {this.Id}, Tag = {this.Tag}, Length = {this.Length:N0} bytes";
         }
 
         /// <summary>
@@ -1423,7 +1384,7 @@ namespace ServiceStack.Text
         {
             if (this.disposed)
             {
-                throw new ObjectDisposedException(string.Format("The stream with Id {0} and Tag {1} is disposed.", this.id, this.tag));
+                throw new ObjectDisposedException($"The stream with Id {this.id} and Tag {this.tag} is disposed.");
             }
         }
 

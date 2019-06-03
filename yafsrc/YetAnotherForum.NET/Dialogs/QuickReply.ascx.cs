@@ -86,11 +86,11 @@ namespace YAF.Dialogs
 
             if (this.EnableCaptcha())
             {
-                this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
+                this.imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1";
                 this.CaptchaDiv.Visible = true;
             }
 
-            this.quickReplyEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this.quickReplyEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
             this.QuickReplyWatchTopic.Visible = !this.PageContext.IsGuest;
 
@@ -202,11 +202,10 @@ namespace YAF.Dialogs
                 if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
                                               && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
                 {
-                    var spamChecker = new YafSpamCheck();
                     string spamResult;
 
                     // Check content for spam
-                    if (spamChecker.CheckPostForSpam(
+                    if (this.Get<ISpamCheck>().CheckPostForSpam(
                         this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                         YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.quickReplyEditor.Text,
@@ -219,9 +218,10 @@ namespace YAF.Dialogs
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                    string.Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}",
                                         this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                     EventLogTypes.SpamMessageDetected);
                                 break;
                             case 1:
@@ -230,20 +230,22 @@ namespace YAF.Dialogs
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
                                             this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
                                 break;
                             case 2:
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                             this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
                                 YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -257,10 +259,11 @@ namespace YAF.Dialogs
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
                                             this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
                                 var userIp = new CombinedUserDataHelper(
@@ -285,9 +288,8 @@ namespace YAF.Dialogs
 
                         if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
                         {
-                            spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
-                                urlCount,
-                                this.PageContext.BoardSettings.AllowedNumberOfUrls);
+                            spamResult =
+                                $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
                             switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                             {
@@ -295,9 +297,10 @@ namespace YAF.Dialogs
                                     this.Logger.Log(
                                         this.PageContext.PageUserID,
                                         "Spam Message Detected",
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                        string.Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}",
                                             this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                         EventLogTypes.SpamMessageDetected);
                                     break;
                                 case 1:
@@ -306,20 +309,22 @@ namespace YAF.Dialogs
                                     this.Logger.Log(
                                         this.PageContext.PageUserID,
                                         "Spam Message Detected",
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
-                                            .FormatWith(
+                                        string
+                                            .Format(
+                                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
                                                 this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                                spamResult),
+                                                    spamResult),
                                         EventLogTypes.SpamMessageDetected);
                                     break;
                                 case 2:
                                     this.Logger.Log(
                                         this.PageContext.PageUserID,
                                         "Spam Message Detected",
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                            .FormatWith(
+                                        string
+                                            .Format(
+                                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                                 this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                                spamResult),
+                                                    spamResult),
                                         EventLogTypes.SpamMessageDetected);
 
                                     YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -333,10 +338,11 @@ namespace YAF.Dialogs
                                     this.Logger.Log(
                                         this.PageContext.PageUserID,
                                         "Spam Message Detected",
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
-                                            .FormatWith(
+                                        string
+                                            .Format(
+                                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
                                                 this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                                spamResult),
+                                                    spamResult),
                                         EventLogTypes.SpamMessageDetected);
 
                                     var userIp = new CombinedUserDataHelper(

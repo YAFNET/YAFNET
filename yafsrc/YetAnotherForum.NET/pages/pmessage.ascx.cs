@@ -306,7 +306,7 @@ namespace YAF.Pages
             }
 
             // set attributes of editor
-            this._editor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this._editor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
             // this needs to be done just once, not during postbacks
             if (this.IsPostBack)
@@ -354,7 +354,7 @@ namespace YAF.Pages
                 var subject = row["Subject"].ToType<string>();
                 if (!subject.StartsWith("Re: "))
                 {
-                    subject = "Re: {0}".FormatWith(subject);
+                    subject = $"Re: {subject}";
                 }
 
                 this.PmSubjectTextBox.Text = subject;
@@ -385,7 +385,7 @@ namespace YAF.Pages
                 body = this.Get<IBadWordReplace>().Replace(body);
 
                 // Quote the original message
-                body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, body);
+                body = $"[QUOTE={displayName}]{body}[/QUOTE]";
 
                 // we don't want any whitespaces at the beginning of message
                 this._editor.Text = body.TrimStart();
@@ -445,7 +445,7 @@ namespace YAF.Pages
                 for (var i = 0; i < quoteList.Length; i++)
                 {
                     // Add quote codes
-                    quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
+                    quoteList[i] = $"[QUOTE={displayName}]{quoteList[i]}[/QUOTE]";
 
                     // Replace DateTime delimiter '??' by ': ' 
                     // we don't want any whitespaces at the beginning of message
@@ -492,10 +492,7 @@ namespace YAF.Pages
 
                 // format localized string
                 this.MultiReceiverInfo.Text =
-                    "<br />{0}<br />{1}".FormatWith(
-                        this.GetText("MAX_RECIPIENT_INFO")
-                            .FormatWith(this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
-                        this.GetText("MULTI_RECEIVER_INFO"));
+                    $"<br />{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.Get<YafBoardSettings>().PrivateMessageMaxRecipients)}<br />{this.GetText("MULTI_RECEIVER_INFO")}";
 
                 // display info
                 this.MultiReceiverInfo.Visible = true;
@@ -707,7 +704,7 @@ namespace YAF.Pages
                         replyTo);
 
                     // reset reciever's lazy data as he should be informed at once
-                    this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
+                    this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
 
                     if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
                     {
@@ -734,11 +731,10 @@ namespace YAF.Pages
             // Check if SPAM Message first...
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
             {
-                var spamChecker = new YafSpamCheck();
                 string spamResult;
 
                 // Check content for spam
-                if (spamChecker.CheckPostForSpam(
+                if (this.Get<ISpamCheck>().CheckPostForSpam(
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                     YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
@@ -751,30 +747,33 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 1:
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 2:
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
 
                             this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
@@ -784,10 +783,11 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
 
                             var userIp =
@@ -815,9 +815,8 @@ namespace YAF.Pages
 
                     if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
                     {
-                        spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
-                            urlCount,
-                            this.PageContext.BoardSettings.AllowedNumberOfUrls);
+                        spamResult =
+                            $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
                         switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                         {
@@ -825,29 +824,32 @@ namespace YAF.Pages
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                    string.Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                     EventLogTypes.SpamMessageDetected);
                                 break;
                             case 1:
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
                                             this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
                                 break;
                             case 2:
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                             this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
                                 this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
@@ -857,10 +859,11 @@ namespace YAF.Pages
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
                                             this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
                                 var userIp =

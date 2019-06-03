@@ -352,7 +352,7 @@ namespace YAF.Classes
         /// </summary>
         [NotNull]
         public static string RadEditorToolsFile => GetConfigValueAsString("YAF.RadEditorToolsFile")
-                                                   ?? "{0}/Scripts/RadEditor/ToolsFile.xml".FormatWith(ServerFileRoot);
+                                                   ?? $"{ServerFileRoot}/Scripts/RadEditor/ToolsFile.xml";
 
         /// <summary>
         ///     Gets RoleProvider.
@@ -424,22 +424,10 @@ namespace YAF.Classes
                                                && TwitterTokenSecret.IsSet();
 
         /// <summary>
-        ///     Gets the Url Rewriting Format -- default is "advanced".
-        /// </summary>
-        [NotNull]
-        public static string UrlRewritingFormat => GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "advanced";
-
-        /// <summary>
         ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
         /// </summary>
         [NotNull]
         public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets the Prefix used for Url Rewriting -- default is "yaf_"
-        /// </summary>
-        [NotNull]
-        public static string UrlRewritingPrefix => GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
 
         /// <summary>
         ///     Gets a value indicating whether UseRadEditorToolsFile.
@@ -525,7 +513,7 @@ namespace YAF.Classes
         /// <returns> Provider type string or <see langword="null" /> if none exist. </returns>
         public static string GetProvider([NotNull] string providerName)
         {
-            var key = "YAF.Provider.{0}".FormatWith(providerName);
+            var key = $"YAF.Provider.{providerName}";
             return GetConfigValueAsString(key);
         }
 

@@ -176,17 +176,15 @@ namespace YAF.Pages
             passwordRetrieval.TemplateParams["{password}"] = password;
             passwordRetrieval.TemplateParams["{ipaddress}"] = userIpAddress;
             passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+            passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
 
             passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
 
             // log password reset attempt
             this.Logger.Log(
                 userName,
-                "{0} Requested a Password Reset".FormatWith(userName),
-                "The user {0} with the IP address: '{1}' requested a password reset.".FormatWith(
-                    userName,
-                    userIpAddress),
+                $"{userName} Requested a Password Reset",
+                $"The user {userName} with the IP address: '{userIpAddress}' requested a password reset.",
                 EventLogTypes.Information);
 
             // manually set to success...
@@ -286,7 +284,7 @@ namespace YAF.Pages
                         checkTyped.Hash);
                     verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;
                     verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-                    verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+                    verifyEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
 
                     verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
