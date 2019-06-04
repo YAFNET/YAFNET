@@ -27,6 +27,8 @@ namespace YAF.Core.Theme
     using System.IO;
     using System.Web;
 
+    using ServiceStack;
+
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -76,7 +78,7 @@ namespace YAF.Core.Theme
         {
             CodeContracts.VerifyNotNull(theme, "theme");
 
-            return !theme.IsNotSet() && Directory.Exists(GetMappedThemeFile(theme));
+            return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme));
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace YAF.Core.Theme
         {
             CodeContracts.VerifyNotNull(filename, "filename");
 
-            return YafForumInfo.GetURLToContentThemes(Path.Combine(this.Theme, filename));
+            return YafForumInfo.GetURLToContentThemes(this.Theme.CombineWith(filename));
         }
 
         #endregion

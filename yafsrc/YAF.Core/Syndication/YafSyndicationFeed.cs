@@ -29,6 +29,8 @@ namespace YAF.Core.Syndication
   using System.IO;
   using System.ServiceModel.Syndication;
 
+  using ServiceStack;
+
   using YAF.Classes;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -86,7 +88,7 @@ namespace YAF.Core.Syndication
       this.LastUpdatedTime = DateTime.UtcNow;
       this.Language = YafContext.Current.Get<ILocalization>().LanguageCode;
       this.ImageUrl =
-        new Uri($"{Path.Combine(YafForumInfo.ForumBaseUrl)}/Content/Images/YAFLogo.png");
+        new Uri(YafForumInfo.ForumBaseUrl.CombineWith("/Content/Images/YAFLogo.png"));
 
       this.Id =
           $"urn:{urlAlphaNum}:{(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED") : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"))}:{YafContext.Current.BoardSettings.Name}:{subTitle}:{YafContext.Current.PageBoardID}"

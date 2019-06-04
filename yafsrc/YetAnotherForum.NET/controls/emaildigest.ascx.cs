@@ -32,6 +32,8 @@ namespace YAF.Controls
     using System.Text;
     using System.Web;
 
+    using ServiceStack;
+
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Data.Profiling;
@@ -328,7 +330,7 @@ namespace YAF.Controls
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
-                    YafForumInfo.GetURLToContentThemes(Path.Combine(theme, "bootstrap-forum.min.css"))));
+                    YafForumInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
 
             if (subject.IsSet())
             {

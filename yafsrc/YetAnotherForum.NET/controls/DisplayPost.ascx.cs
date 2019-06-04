@@ -554,10 +554,10 @@ namespace YAF.Controls
 
             // Register Javascript
             const string AddThankBoxHTML =
-                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span><i class=\"fa fa-thumbs-up fa-fw\"></i>&nbsp;' + res.d.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fa fa-thumbs-up fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
             const string RemoveThankBoxHTML =
-                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span><i class=\"fa fa-user-times fa-fw\"></i>&nbsp;' + res.d.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fa fa-user-times fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
             var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine + JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML);
 

@@ -151,8 +151,6 @@ namespace YAF.Controls
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "asynchCallFailedJs", JavaScriptBlocks.AsynchCallFailedJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
                 this.ltrTitleOnly.Visible = false;
             }
