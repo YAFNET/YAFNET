@@ -155,24 +155,14 @@ namespace YAF.Controls
                     newMessage.Visible = true;
                 }
 
-                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                {
-                    postIcon.Controls.Add(
-                        new Literal
-                            {
-                                Text =
-                                    "<span class=\"fa-stack fa-1x\"><i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i></span>"
-                            });
-                }
-                else
-                {
-                    postIcon.Controls.Add(
-                        new Literal
-                            {
-                                Text =
-                                    "<span class=\"fa-stack fa-1x\"><i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i></span>"
-                            });
-                }
+                postIcon.Controls.Add(
+                    new Literal
+                    {
+                        Text = 
+                                $"<span class=\"fa-stack\"><i class=\"fas fa-comment fa-stack-2x {((DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead) ? "text-success" : "text-secondary")}\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i></span>"
+                    });
+
+
             }
 
             forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());

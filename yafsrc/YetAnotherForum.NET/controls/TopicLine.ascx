@@ -22,7 +22,7 @@
         <p class="card-text">
             <YAF:UserLink runat="server" ID="topicStarterLink">
             </YAF:UserLink>
-            <i class="fa fa-calendar-alt fa-fw"></i>&nbsp;<YAF:DisplayDateTime runat="server" ID="StartDate">
+            <i class="fas fa-calendar-alt fa-fw text-secondary"></i>&nbsp;<YAF:DisplayDateTime runat="server" ID="StartDate">
             </YAF:DisplayDateTime>
             <%
                 var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
@@ -40,10 +40,10 @@
                 {
                     var altMultipages = string.Format(this.GetText("GOTO_POST_PAGER"), string.Empty);
             %>
-                <span>- <i class="fa fa-copy fa-fw"></i> 
+                <span>- <i class="fas fa-copy fa-fw"></i> 
                     <%=tPager%></span>
             <%
-      }      
+           }
             %>
         </p>
     </div>
@@ -52,12 +52,12 @@
             <li>
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                     LocalizedTag="REPLIES" LocalizedPage="MODERATE" />:
-                <%=this.FormatReplies() %>
+                <% this.Response.Write(this.FormatReplies()); %>
             </li>
             <li>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedPage="MODERATE" LocalizedTag="VIEWS" />:
-                <%=this.FormatViews()%>
+                <% this.Response.Write(FormatViews());%>
             </li>
         </ul>
     </div>
@@ -80,7 +80,7 @@
         <hr/>
         <h6><YAF:UserLink runat="server" ID="UserLast"></YAF:UserLink>
 
-            &nbsp;<i class="fa fa-calendar-alt fa-fw"></i>&nbsp;
+            &nbsp;<i class="fas fa-calendar-alt fa-fw text-secondary"></i>&nbsp;
             <YAF:DisplayDateTime runat="server" ID="LastDate"></YAF:DisplayDateTime>
         </h6>
     </div>

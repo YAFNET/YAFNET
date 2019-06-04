@@ -23,7 +23,7 @@
     <hr/>
     <h6><YAF:UserLink ID="ProfileUserLink" runat="server" />
 
-        &nbsp;<i class="fa fa-calendar-alt fa-fw"></i>&nbsp;
+        &nbsp;<i class="fa fa-calendar-alt fa-fw text-secondary"></i>&nbsp;
         <YAF:DisplayDateTime ID="LastPostDate" runat="server" Format="BothTopic" />
     </h6>
 </asp:PlaceHolder>

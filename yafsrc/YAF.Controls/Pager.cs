@@ -345,7 +345,8 @@ namespace YAF.Controls
                 output.WriteBeginTag("span");
                 output.Write(HtmlTextWriter.TagRightChar);
 
-                output.Write("&laquo;");
+                //output.Write("&laquo;");
+                output.Write("<i class=\"fas fa-angle-double-left\"></i>");
                 output.WriteEndTag("span");
                 output.WriteEndTag("a");
             }
@@ -360,7 +361,8 @@ namespace YAF.Controls
                 output.WriteBeginTag("span");
                 output.Write(HtmlTextWriter.TagRightChar);
 
-                output.Write("&lt;");
+                //output.Write("&lt;");
+                output.Write("<i class=\"fas fa-angle-left\"></i>");
                 output.WriteEndTag("span");
                 output.WriteEndTag("a");
             }
@@ -400,7 +402,8 @@ namespace YAF.Controls
                 output.WriteBeginTag("span");
                 output.Write(HtmlTextWriter.TagRightChar);
 
-                output.Write("&gt;");
+                //output.Write("&gt;");
+                output.Write("<i class=\"fas fa-angle-right\"></i>");
                 output.WriteEndTag("span");
                 output.WriteEndTag("a");
             }
@@ -418,7 +421,8 @@ namespace YAF.Controls
             output.WriteBeginTag("span");
             output.Write(HtmlTextWriter.TagRightChar);
 
-            output.Write("&raquo;");
+            //output.Write("&raquo;");
+            output.Write("<i class=\"fas fa-angle-double-right\"></i>");
             output.WriteEndTag("span");
             output.WriteEndTag("a");
         }
