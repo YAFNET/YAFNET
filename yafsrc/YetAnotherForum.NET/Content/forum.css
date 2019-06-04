@@ -8484,6 +8484,10 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 .topic-title {
   white-space: pre-wrap; }
 
+.MultiQuoteButton {
+  padding-left: 12px;
+  display: inline-block; }
+
 span.form-check {
   padding: 0px; }
 

@@ -149,7 +149,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2019, 06, 02);
+        public static DateTime AppVersionDate => new DateTime(2019, 06, 04);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
@@ -212,7 +212,7 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return string.Format("{1}Content/{0}", resourceName, ForumClientFileRoot);
+            return $"{ForumClientFileRoot}Content/{resourceName}";
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return string.Format("{1}Content/Themes/{0}", resourceName, ForumClientFileRoot);
+            return $"{ForumClientFileRoot}Content/Themes/{resourceName}";
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return string.Format("{1}Scripts/{0}", resourceName, ForumClientFileRoot);
+            return $"{ForumClientFileRoot}Scripts/{resourceName}";
         }
     }
 }
