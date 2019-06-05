@@ -42,7 +42,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
     <DocumentationFile />
-    <OutputPath>..\..\..\YetAnotherForum.NET\Bin\</OutputPath>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
