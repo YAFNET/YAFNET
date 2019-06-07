@@ -25235,8 +25235,8 @@
 			onShown: null,
 			onClose: null,
 			onClosed: null,
-        icon_type: 'class',
-        template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">&times;</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'
+			icon_type: 'class',
+			template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">&times;</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'
 		};
 
 	String.format = function() {
@@ -33270,35 +33270,35 @@
                         urlToRequest = username,
                         cardHTML = function(profileData) {
 
-                            var online = profileData.online ? 'green' : 'red';
+                            var online = profileData.Online ? 'green' : 'red';
                             var shtml = '<div class="s-card s-card-pad">' +
-                                '<div class="card rounded-0" style="width: 330px;">' +
-                                '<div class="card-header position-relative">' +
-                                '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + '</h6>' +
-                                (profileData.Avatar ? ('<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />') : '') +
-                                (profileData.Avatar ? ('<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>') : '') +
-                                '</div>' +
-                                '<div class="card-body p-2">' +
-                                '<ul class="list-group mt-1 mb-3">' +
-                                (profileData.Location ? ('<li class="list-group-item px-2 py-1">' + profileData.Location + '</li>') : '') +
-                                (profileData.Rank ? ('<li class="list-group-item px-2 py-1">' + profileData.Rank + '</li>') : '') +
-                                (profileData.Interests ? ('<li class="list-group-item px-2 py-1">' + profileData.Interests + '</li>') : '') +
-                                (profileData.Joined ? ('<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + '</li>') : '') +
-                                (profileData.HomePage ? ('<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + '</a></li>') : '') +
-                                '</ul >' +
-                                '<div class="row no-gutters">' +
-                                '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                'Posts:&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + '</span>' +
-                                '</div>' +
-                                '<div class="flex-grow-1"></div>' +
-                                '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + '</span>' +
-                                '</div>' +
-                                '</div>' +
-                                (profileData.ActionButtons ? ('<div class="row no-gutters">' + profileData.ActionButtons + '</div>') : '') +
-                                '</div>' +
-                                '</div>' +
-                                '</div>';
+                                            '<div class="card rounded-0" style="width: 330px;">' +
+                                                '<div class="card-header position-relative">' +
+                                                    '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + '</h6>' +
+                                                    (profileData.Avatar ? ('<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />') : '') +
+                                                    (profileData.Avatar ? ('<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>') : '') +
+                                                '</div>' +
+                                            '<div class="card-body p-2">' +
+                                                '<ul class="list-group mt-1 mb-3">' +
+                                                    (profileData.Location ? ('<li class="list-group-item px-2 py-1">' + profileData.Location + '</li>') : '') +
+                                                    (profileData.Rank ? ('<li class="list-group-item px-2 py-1">' + profileData.Rank + '</li>') : '') +
+                                                    (profileData.Interests ? ('<li class="list-group-item px-2 py-1">' + profileData.Interests + '</li>') : '') +
+                                                    (profileData.Joined ? ('<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + '</li>') : '') +
+                                                    (profileData.HomePage ? ('<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + '</a></li>') : '') +
+                                                '</ul >' +
+                                                '<div class="row no-gutters">' +
+                                                    '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
+                                                        'Posts:&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + '</span>' +
+                                                    '</div>' +
+                                                    '<div class="flex-grow-1"></div>' +
+                                                    '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
+                                                        'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + '</span>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                (profileData.ActionButtons ? ('<div class="row no-gutters">' + profileData.ActionButtons + '</div>') : '') +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>';
                             //alert (shtml);
                             return shtml;
 
@@ -33470,7 +33470,6 @@ jQuery.PageMethod = function (pagePath, fn, successFn, errorFn) {
 
 
 jQuery.PageMethodToPage = function (pagePath, fn, successFn, errorFn, jsonParams) {
-
     //Call the page method
     jQuery.ajax({
         type: "POST",
@@ -36001,7 +36000,7 @@ Prism.languages.vbnet = Prism.languages.extend("basic", {
             var popoverHTML = '<div class="selectionSharer" id="selectionSharerPopover" style="position:absolute;">'
                 + '  <div id="selectionSharerPopover-inner">'
                 + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-reply"></i></a></li>'
+                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><svg width="20" height="20"><path d="M1920 1024q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22-17 2-30.5-9t-17.5-29v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-130 71-248.5t191-204.5 286-136.5 348-50.5q244 0 450 85.5t326 233 120 321.5z" fill="#fff"/></svg></a></li>'
                 + '    </ul>'
                 + '  </div>'
                 + '  <div class="selectionSharerPopover-clip"><span class="selectionSharerPopover-arrow"></span></div>'
@@ -36011,7 +36010,7 @@ Prism.languages.vbnet = Prism.languages.extend("basic", {
                 + '  <div id="selectionSharerPopunder-inner">'
                 + '    <label>' + self.ToolTip + '</label>'
                 + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-reply"></i></a></li>'
+                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><svg width="20" height="20"><path d="M1920 1024q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22-17 2-30.5-9t-17.5-29v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-130 71-248.5t191-204.5 286-136.5 348-50.5q244 0 450 85.5t326 233 120 321.5z" fill="#fff"/></svg></a></li>'
                 + '    </ul>'
                 + '  </div>'
                 + '</div>';
@@ -53501,13 +53500,13 @@ jQuery(document).ready(function () {
     });
 
     jQuery(".yaf-net .standardSelectMenu").select2({
-        theme: "bootstrap4",
+        theme: "bootstrap",
         dropdownAutoWidth: true,
         width: 'style'
     });
 
     jQuery(".yaf-net .selectpicker").select2({
-        theme: "bootstrap4",
+        theme: "bootstrap",
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,

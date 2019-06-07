@@ -795,7 +795,7 @@ namespace YAF.Utilities
                 }}
             }},
             width: 'style',
-            theme: 'bootstrap4',
+            theme: 'bootstrap',
             allowClear: true,
             cache: true,
             {YafContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}

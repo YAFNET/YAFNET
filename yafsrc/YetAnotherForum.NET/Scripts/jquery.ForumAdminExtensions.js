@@ -25235,8 +25235,8 @@
 			onShown: null,
 			onClose: null,
 			onClosed: null,
-        icon_type: 'class',
-        template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">&times;</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'
+			icon_type: 'class',
+			template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">&times;</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'
 		};
 
 	String.format = function() {
@@ -33889,23 +33889,38 @@
                         urlToRequest = username,
                         cardHTML = function(profileData) {
 
-                            var online = (profileData.online ? ('border-left: 4px solid green') : 'border-left: 4px solid red');
+                            var online = profileData.Online ? 'green' : 'red';
+                            var shtml = '<div class="s-card s-card-pad">' +
+                                            '<div class="card rounded-0" style="width: 330px;">' +
+                                                '<div class="card-header position-relative">' +
+                                                    '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + '</h6>' +
+                                                    (profileData.Avatar ? ('<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />') : '') +
+                                                    (profileData.Avatar ? ('<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>') : '') +
+                                                '</div>' +
+                                            '<div class="card-body p-2">' +
+                                                '<ul class="list-group mt-1 mb-3">' +
+                                                    (profileData.Location ? ('<li class="list-group-item px-2 py-1">' + profileData.Location + '</li>') : '') +
+                                                    (profileData.Rank ? ('<li class="list-group-item px-2 py-1">' + profileData.Rank + '</li>') : '') +
+                                                    (profileData.Interests ? ('<li class="list-group-item px-2 py-1">' + profileData.Interests + '</li>') : '') +
+                                                    (profileData.Joined ? ('<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + '</li>') : '') +
+                                                    (profileData.HomePage ? ('<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + '</a></li>') : '') +
+                                                '</ul >' +
+                                                '<div class="row no-gutters">' +
+                                                    '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
+                                                        'Posts:&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + '</span>' +
+                                                    '</div>' +
+                                                    '<div class="flex-grow-1"></div>' +
+                                                    '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
+                                                        'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + '</span>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                (profileData.ActionButtons ? ('<div class="row no-gutters">' + profileData.ActionButtons + '</div>') : '') +
+                                                '</div>' +
+                                            '</div>' +
+                                        '</div>';
+                            //alert (shtml);
+                            return shtml;
 
-                            return '<div class="s-card s-card-pad">' +
-                                (profileData.Avatar ? ('<img class="s-img" style="' + online + '" src=' + profileData.Avatar + ' />') : '') +
-                                (profileData.RealName ? ('<label class="s-name">' + profileData.RealName + ' </label>') : ('<label class="s-name">' + profileData.Name + ' </label>')) +
-                                (href ? ('(<a class="s-username" title="Visit full profile for ' + profileData.Name + '" href="' + href + '">' + profileData.Name + '</a>)<br/>') : '') +
-                                (profileData.Location ? ('&nbsp;<label class="s-location">' + profileData.Location + '</label>&nbsp;<br />') : '') +
-                                (profileData.Rank ? ('<label class="s-rank">' + profileData.Rank + '</label>') : '') +
-                                (profileData.Interests ? ('<p class="s-interests">' + profileData.Interests + '</p>') : '') +
-                                (profileData.Joined ? ('<p class="s-joined"><span class="s-strong">Member since:</span><br/>' + profileData.Joined + '</p>') : '') +
-                                (profileData.HomePage ? ('<a class="s-href" href="' + profileData.homepage + '">' + profileData.HomePage + '</a><br/>') : '') +
-                                '<ul class="s-stats">' +
-                                (profileData.Posts ? ('<li>Posts<br /><span class="s-posts">' + profileData.Posts + '</span></li>') : '') +
-                                (profileData.Points ? ('<li>Reputation<br /><span class="s-points">' + profileData.Points + '</span></li>') : '') +
-                                '</ul>' +
-                                (profileData.ActionButtons ? ('<span class="s-action">' + profileData.ActionButtons + '</span>') : '') +
-                                '</div>';
                         };
                         loadingHTML = options.loadingHTML;
                         errorHTML = options.errorHTML;
@@ -34074,7 +34089,6 @@ jQuery.PageMethod = function (pagePath, fn, successFn, errorFn) {
 
 
 jQuery.PageMethodToPage = function (pagePath, fn, successFn, errorFn, jsonParams) {
-
     //Call the page method
     jQuery.ajax({
         type: "POST",
@@ -52807,13 +52821,13 @@ jQuery(document).ready(function () {
     });
 
     jQuery(".yaf-net .standardSelectMenu").select2({
-        theme: "bootstrap4",
+        theme: "bootstrap",
         dropdownAutoWidth: true,
         width: 'style'
     });
 
     jQuery(".yaf-net .selectpicker").select2({
-        theme: "bootstrap4",
+        theme: "bootstrap",
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,

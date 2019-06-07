@@ -49,13 +49,13 @@ jQuery(document).ready(function () {
     });
 
     jQuery(".yaf-net .standardSelectMenu").select2({
-        theme: "bootstrap4",
+        theme: "bootstrap",
         dropdownAutoWidth: true,
         width: 'style'
     });
 
     jQuery(".yaf-net .selectpicker").select2({
-        theme: "bootstrap4",
+        theme: "bootstrap",
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,
