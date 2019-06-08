@@ -868,11 +868,11 @@ namespace YAF.Controls
             xw.WriteComment($" {this.Get<YafBoardSettings>().Name};{YafForumInfo.ForumURL} ");
             xw.WriteComment($" Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now} ");
 
-            var xd = new XmlDataDocument(messageList.Table.DataSet);
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(messageList.Table.DataSet.GetXml());
 
-            foreach (XmlNode node in xd.ChildNodes)
+            foreach (XmlNode node in xmlDocument.ChildNodes)
             {
-                // nItemCount = node.ChildNodes.Count;
                 node.WriteTo(xw);
             }
 

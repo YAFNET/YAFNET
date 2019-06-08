@@ -201,7 +201,7 @@
     <div class="col align-self-start">
         <YAF:ForumUsers ID="ForumUsers1" runat="server" />
     </div>
-    <YAF:SimilarTopics ID="SimilarTopics"  runat="server" Topic='<%# this.PageContext.PageTopicName %>'>
+    <YAF:SimilarTopics ID="SimilarTopics"  runat="server">
     </YAF:SimilarTopics>
 </div>
 <div class="row mb-3">

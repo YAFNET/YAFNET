@@ -10,7 +10,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <span class="float-left">
-                    <a onclick="ScrollToTop();" class="postTopLink" href="javascript: void(0)">            
+                    <a onclick="ScrollToTop();" href="javascript: void(0)">            
                         <i class="fa fa-angle-double-up fa-fw"></i>
                     </a>
                     <a id="post<%# this.DataRow["MessageID"] %>" 
@@ -23,6 +23,7 @@
                         <i class="fa fa-check fa-fw"></i>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
                     </asp:Label>
+
                 </span>
                 <span id="IPSpan1" runat="server" visible="false" class="float-right d-none d-md-block"> 
                     &nbsp;&nbsp;
