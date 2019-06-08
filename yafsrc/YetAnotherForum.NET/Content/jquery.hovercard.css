@@ -14,14 +14,9 @@
   top: -10px;
   margin-right: 80px;
   text-align: left;
-  font-family: Sans-serif !important;
-  font-size: 12px !important;
-  color: #666 !important;
-  line-height: 1.5em;
   position: absolute;
   padding: 2em 10px 10px;
   display: none;
-  -moz-box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;
   -webkit-box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;
   box-shadow: rgba(42, 73, 133, 0.4) 0 4px 12px 0, rgba(255, 255, 255, 0.506) 0 1px 0 0 inset;
   border: solid 1px #ddd;
