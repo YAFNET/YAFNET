@@ -11,19 +11,19 @@ jQuery(document).ready(function () {
 
             if (searchText.length && searchText.length >= 5) {
 
-                var yafUserId = searchPlaceHolder.data("userid");
-                var defaultParameters = "{userId:" +
-                    yafUserId +
-                    ",searchInput: '" +
-                    searchText +
-                    "'}";
+                var searchTopic = {};
+                searchTopic.ForumId = 0;
+                searchTopic.UserId = searchPlaceHolder.data("userid");
+                searchTopic.PageSize = 0;
+                searchTopic.Page = 0;
+                searchTopic.SearchTerm = searchText;
 
-                var ajaxUrl = searchPlaceHolder.data("url") + "YafAjax.asmx/GetSimilarTitles";
+                var ajaxUrl = searchPlaceHolder.data("url") + "api/Search/GetSimilarTitles";
 
                 $.ajax({
                     type: "POST",
                     url: ajaxUrl,
-                    data: defaultParameters,
+                    data: JSON.stringify(searchTopic),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     beforeSend: (function before() {
@@ -40,11 +40,11 @@ jQuery(document).ready(function () {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
 
-                        if (data.d.SearchResults.length > 0) {
+                        if (data.SearchResults.length > 0) {
                             var list = $('<ul class="list-group list-similar" />');
                             searchPlaceHolder.append(list);
 
-                            $.each(data.d.SearchResults,
+                            $.each(data.SearchResults,
                                 function (id, data) {
                                     list.append('<li class="list-group-item">' +
                                         '<a href="' +

@@ -113,14 +113,14 @@ function yaf_hidemenu() {
 
 function mouseHover(cell, hover) {
     if (hover) {
-        cell.className = "popupitemhover";
+        cell.className = "list-group-item";
         try {
             cell.style.cursor = "pointer";
         } catch (e) {
             cell.style.cursor = "hand";
         }
     } else {
-        cell.className = "popupitem";
+        cell.className = "list-group-item";
     }
 }
 

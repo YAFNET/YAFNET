@@ -34,7 +34,6 @@ namespace YAF.Types.Objects
     /// <summary>
     /// The Search Message
     /// </summary>
-    [Serializable]
     public class SearchMessage
     {
         /// <summary>

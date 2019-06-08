@@ -75,26 +75,43 @@
                 </asp:Repeater>
             </div>
             <div class="card-footer">
-                <div class="mb-1 form-inline">
-                    <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />: 
-                    &nbsp;<asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="standardSelectMenu" />
+                <div class="form-group row align-items-center">
+                    <div class="col-sm-3">
+                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />:
+                    </div>
+                    <div class="col-sm-9">
+                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="standardSelectMenu" />                            
+                    </div>
                 </div>
                 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-                        <div class="mb-1 form-inline">
-                            <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />: 
-                            &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
-                        </div>
-                </asp:PlaceHolder>
-                <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
-                    <div class="mb-1 form-inline">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />:
-                        &nbsp;<asp:TextBox id="forumSearch" CssClass="form-control" runat="server"></asp:TextBox>
-                        &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" 
-                                               Size="Small"
-                                               CssClass="mt-1"
-                                               TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" 
-                                               OnClick="ForumSearch_Click" />
+                <div class="form-group row align-items-center">
+                    <div class="col-sm-3">
+                        <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />:
                     </div>
+                    <div class="col-sm-9">
+                        <YAF:ForumJump ID="ForumJump1" runat="server" />        
+                    </div>
+                </div>
+                </asp:PlaceHolder>
+
+                <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
+                <div class="form-group row align-items-center">
+                    <label class="col-sm-3 col-form-label">
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />:
+                    </label>
+                    <div class="col-sm-9">
+						<div class="input-group">
+                            <asp:TextBox id="forumSearch" CssClass="form-control" runat="server"></asp:TextBox>
+                            <div class="input-group-append">
+                                <YAF:ThemeButton ID="forumSearchOK" runat="server" 
+                                                Size="Small"
+                                                CssClass="input-group-text"
+                                                TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" 
+                                                OnClick="ForumSearch_Click" />
+                            </div>
+						</div>
+                    </div>
+                </div>
                 </asp:PlaceHolder>
             </div>
         </div>

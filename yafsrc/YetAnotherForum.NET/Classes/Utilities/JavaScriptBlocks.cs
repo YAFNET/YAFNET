@@ -27,6 +27,8 @@ namespace YAF.Utilities
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.Context;
+    using YAF.Core.Context.Start;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -49,13 +51,13 @@ namespace YAF.Utilities
         /// </returns>
         [NotNull]
         public static string AlbumCallbackSuccessJS =>
-            @"function changeTitleSuccess(res){{
-                  spnTitleVar = document.getElementById('spnTitle' + res.d.Id);
-                  txtTitleVar =  document.getElementById('txtTitle' + res.d.Id);
-                  spnTitleVar.firstChild.nodeValue = res.d.NewTitle;
+            @"function changeTitleSuccess(res){
+                  spnTitleVar = document.getElementById('spnTitle' + res.Id);
+                  txtTitleVar =  document.getElementById('txtTitle' + res.Id);
+                  spnTitleVar.firstChild.nodeValue = res.NewTitle;
                   txtTitleVar.disabled = false;
                   spnTitleVar.style.display = 'inline';
-                  txtTitleVar.style.display='none';}}";
+                  txtTitleVar.style.display='none';}";
 
         /// <summary>
         /// Gets the multi quote callback success JS.
@@ -63,8 +65,8 @@ namespace YAF.Utilities
         [NotNull]
         public static string MultiQuoteCallbackSuccessJS =>
             $@"function multiQuoteSuccess(res){{
-                  var multiQuoteButton = {Config.JQueryAlias}('#' + res.d.Id).parent('span');
-                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.d.NewTitle);
+                  var multiQuoteButton = {Config.JQueryAlias}('#' + res.Id).parent('span');
+                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.NewTitle);
                   {Config.JQueryAlias}(document).scrollTop(multiQuoteButton.offset().top - 20);
                       }}";
 
@@ -74,8 +76,27 @@ namespace YAF.Utilities
         [NotNull]
         public static string MultiQuoteButtonJs =>
             $@"function handleMultiQuoteButton(button, msgId, tpId){{
-                     var messageId = msgId,topicId = tpId, cssClass = {Config.JQueryAlias}('#' + button.id).parent('span').attr('class');
-                     {Config.JQueryAlias}.PageMethod('{YafForumInfo.ForumClientFileRoot}YafAjax.asmx', 'HandleMultiQuote', multiQuoteSuccess, CallFailed, 'buttonId', button.id, 'multiquoteButton', button.checked, 'messageId', messageId, 'topicId', topicId, 'buttonCssClass', cssClass);}}";
+                var multiQuoteButton = {{}};
+                    multiQuoteButton.ButtonId = button.id;
+                    multiQuoteButton.IsMultiQuoteButton = button.checked;
+                    multiQuoteButton.MessageId = msgId;
+                    multiQuoteButton.TopicId = tpId;
+                    multiQuoteButton.ButtonCssClass = {Config.JQueryAlias}('#' + button.id).parent('span').attr('class');
+ 
+                {Config.JQueryAlias}.ajax({{
+                    url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/MultiQuote/HandleMultiQuote',
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(multiQuoteButton),
+                    dataType: 'json',
+                    success: multiQuoteSuccess,
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+        }}";
 
         /// <summary>
         ///   Gets the script for changing the album title.
@@ -86,8 +107,22 @@ namespace YAF.Utilities
         [NotNull]
         public static string ChangeAlbumTitleJs =>
             $@"function changeAlbumTitle(albumId, txtTitleId){{
-                     var albId = albumId;var newTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
-                     {Config.JQueryAlias}.PageMethod('{YafForumInfo.ForumClientFileRoot}YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}";
+                     var newTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
+            {Config.JQueryAlias}.ajax({{
+                    url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeAlbumTitle',
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify({{ AlbumId: albumId, NewTitle: newTitleTxt  }}),
+                    dataType: 'json',
+                    success: changeTitleSuccess,
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+               }}";
+
 
         /// <summary>
         ///   Gets the script for changing the image caption.
@@ -95,12 +130,22 @@ namespace YAF.Utilities
         /// <returns></returns>
         [NotNull]
         public static string ChangeImageCaptionJs =>
-            string.Format(
-                @"function changeImageCaption(imageID, txtTitleId){{
-              var imgId = imageID;var newImgTitleTxt = {1}('#' + txtTitleId).val();
-              {1}.PageMethod('{0}YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}",
-                YafForumInfo.ForumClientFileRoot,
-                Config.JQueryAlias);
+            $@"function changeImageCaption(imageID, txtTitleId){{
+                        var newImgTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
+              {Config.JQueryAlias}.ajax({{
+                    url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeImageCaption',
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify({{ ImageId: imageID, NewCaption: newImgTitleTxt  }}),
+                    dataType: 'json',
+                    success: changeTitleSuccess,
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+               }}";
 
         /// <summary>
         ///   Gets DisablePageManagerScrollJs.
@@ -149,12 +194,6 @@ namespace YAF.Utilities
                       function toggleMessage(divId)
                       {{ {Config.JQueryAlias}('#' + divId).toggle(); }}";
 
-        /// <summary>
-        ///  Gets the If asynchronous callback encounters any problem, this javascript function will be called.
-        /// </summary>
-        [NotNull]
-        public static string AsynchCallFailedJs => "function CallFailed(res){{alert('Error Occurred');}}";
-
         #endregion
 
         #region Public Methods
@@ -173,196 +212,77 @@ namespace YAF.Utilities
         /// </returns>
         public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
         {
-            return
-                ("function showTexBox(spnTitleId){{"
-                 + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                 + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                 + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                 + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                 + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                 + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                 + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                 + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                 + "function checkKey(event, handler, id, isAlbum){{"
-                 + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                 + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                 + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                 + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                 + "else resetBox(handler.id, isAlbum);}}"
-                 + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                 + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                 + "if (spnTitleVar.firstChild != null){{"
-                 + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                 + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                 + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
-                + ("function showTexBox(spnTitleId){{"
-                   + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                   + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                   + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                   + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                   + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                   + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                   + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                   + "function checkKey(event, handler, id, isAlbum){{"
-                   + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                   + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                   + "else resetBox(handler.id, isAlbum);}}"
-                   + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                   + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                   + "if (spnTitleVar.firstChild != null){{"
-                   + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                   + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                   + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}");
+            return $@"function showTexBox(spnTitleId) {{
+    {{
+        spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));
+        txtTitleVar = document.getElementById('txtTitle' + spnTitleId.substring(8));
+        if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value', spnTitleVar.firstChild.nodeValue);
+        if (spnTitleVar.firstChild.nodeValue == '{albumEmptyTitle}' || spnTitleVar.firstChild.nodeValue == '{imageEmptyCaption}') {{
+            {{
+                txtTitleVar.value = '';
+                spnTitleVar.firstChild.nodeValue = '';
+            }}
+        }}
+        txtTitleVar.style.display = 'inline';
+        spnTitleVar.style.display = 'none';
+        txtTitleVar.focus();
+    }}
+}}
+
+function resetBox(txtTitleId, isAlbum) {{
+    {{
+        spnTitleVar = document.getElementById('spnTitle' + txtTitleId.substring(8));
+        txtTitleVar = document.getElementById(txtTitleId);
+        txtTitleVar.style.display = 'none';
+        txtTitleVar.disabled = false;
+        spnTitleVar.style.display = 'inline';
+        if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
+        if (spnTitleVar.firstChild.nodeValue == '') {{
+            {{
+                txtTitleVar.value = '';
+                if (isAlbum) spnTitleVar.firstChild.nodeValue = '{albumEmptyTitle}';
+                else spnTitleVar.firstChild.nodeValue = '{imageEmptyCaption}';
+            }}
+        }}
+    }}
+}}
+
+function checkKey(event, handler, id, isAlbum) {{
+    {{
+        if ((event.keyCode == 13) || (event.which == 13)) {{
+            {{
+                if (event.preventDefault) event.preventDefault();
+                event.cancel = true;
+                event.returnValue = false;
+                if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {{
+                    {{
+                        handler.disabled = true;
+                        if (isAlbum == true) changeAlbumTitle(id, handler.id);
+                        else changeImageCaption(id, handler.id);
+                    }}
+                }} else resetBox(handler.id, isAlbum);
+            }}
+        }} else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
+    }}
+}}
+
+function blurTextBox(txtTitleId, id, isAlbum) {{
+    {{
+        spnTitleVar = document.getElementById('spnTitle' + txtTitleId.substring(8));
+        txtTitleVar = document.getElementById(txtTitleId);
+        if (spnTitleVar.firstChild != null) {{
+            {{
+                if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {{
+                    {{
+                        txtTitleVar.disabled = true;
+                        if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
+                        else changeImageCaption(id, txtTitleId);
+                    }}
+                }} else resetBox(txtTitleId, isAlbum);
+            }}
+        }} else resetBox(txtTitleId, isAlbum);
+    }}
+}}";
         }
 
         /// <summary>
@@ -540,7 +460,11 @@ namespace YAF.Utilities
         public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
         {
             return
-                $@"{Config.JQueryAlias}(document).ready(function() {{  {Config.JQueryAlias}('{openLink}').click(function () {{ {Config.JQueryAlias}('{dialogId}').modal('show')   }}); }});";
+                $@"{Config.JQueryAlias}(document).ready(function() {{  
+                                {Config.JQueryAlias}('{openLink}').click(function () {{ 
+                                        {Config.JQueryAlias}('{dialogId}').modal('show')   
+                                }}); 
+                   }});";
         }
 
         /// <summary>
@@ -555,29 +479,23 @@ namespace YAF.Utilities
         public static string AddFavoriteTopicJs([NotNull] string untagButtonHTML)
         {
             return
-                $@"function addFavoriteTopic(topicID){{ var topId = topicID; {Config.JQueryAlias}.PageMethod('{YafForumInfo.ForumClientFileRoot}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
-          function addFavoriteTopicSuccess(res){{if (res.d != null) {{
-                   {Config.JQueryAlias}('#dvFavorite1').html({untagButtonHTML});
-                   {Config.JQueryAlias}('#dvFavorite2').html({untagButtonHTML});}}}}";
-        }
-
-        /// <summary>
-        /// script for the addThanks button
-        /// </summary>
-        /// <param name="removeThankBoxHTML">
-        /// HTML code for the "Remove Thank" button
-        /// </param>
-        /// <returns>
-        /// The add thanks js.
-        /// </returns>
-        public static string AddThanksJs([NotNull] string removeThankBoxHTML)
-        {
-            return
-                $@"function addThanks(messageID){{ var messId = messageID;{Config.JQueryAlias}.PageMethod('{YafForumInfo.ForumClientFileRoot}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
-          function addThanksSuccess(res){{if (res.d != null) {{
-                   {Config.JQueryAlias}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
-                   {Config.JQueryAlias}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
-                   {Config.JQueryAlias}('#dvThankBox' + res.d.MessageID).html({removeThankBoxHTML});}}}}";
+                $@"function addFavoriteTopic(topicID){{ 
+            { Config.JQueryAlias}.ajax({{
+                    url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/FavoriteTopic/AddFavoriteTopic/' + topicID,
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    success: function(response) {{
+                              {Config.JQueryAlias}('#dvFavorite1').html({untagButtonHTML});
+                              {Config.JQueryAlias}('#dvFavorite2').html({untagButtonHTML});
+                    }},
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+                          
+                 }}";
         }
 
         /// <summary>
@@ -587,15 +505,60 @@ namespace YAF.Utilities
         /// HTML code for the "Tag As a Favorite" button
         /// </param>
         /// <returns>
-        /// The remove Favorite Topic js.
+        /// The remove Favorite Topic JS.
         /// </returns>
         public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHTML)
         {
             return
-                $@"function removeFavoriteTopic(topicID){{ var topId = topicID;{Config.JQueryAlias}.PageMethod('{YafForumInfo.ForumClientFileRoot}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
-          function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
-                   {Config.JQueryAlias}('#dvFavorite1').html({tagButtonHTML});
-                   {Config.JQueryAlias}('#dvFavorite2').html({tagButtonHTML});}}}}";
+                $@"function removeFavoriteTopic(topicID){{ 
+            { Config.JQueryAlias}.ajax({{
+                    url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/FavoriteTopic/RemoveFavoriteTopic/' + topicID,
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    success: function(response) {{
+                              {Config.JQueryAlias}('#dvFavorite1').html({tagButtonHTML});
+                              {Config.JQueryAlias}('#dvFavorite2').html({tagButtonHTML});
+                    }},
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+                          
+                 }}";
+        }
+
+        /// <summary>
+        /// script for the addThanks button
+        /// </summary>
+        /// <param name="removeThankBoxHTML">
+        /// HTML code for the "Remove Thank" button
+        /// </param>
+        /// <returns>
+        /// The add thanks JS.
+        /// </returns>
+        public static string AddThanksJs([NotNull] string removeThankBoxHTML)
+        {
+            return
+                $@"function addThanks(messageID){{ 
+            { Config.JQueryAlias}.ajax({{
+                    url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/AddThanks/' + messageID,
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    success: function(response) {{
+                              {Config.JQueryAlias}('#dvThanks' + response.MessageID).html(response.Thanks);
+                              {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
+                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHTML});
+                    }},
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+                          
+                 }}";
         }
 
         /// <summary>
@@ -605,16 +568,29 @@ namespace YAF.Utilities
         /// The Add Thank Box HTML.
         /// </param>
         /// <returns>
-        /// The remove thanks js.
+        /// The remove thanks JS.
         /// </returns>
         public static string RemoveThanksJs([NotNull] string addThankBoxHTML)
         {
             return
-                $@"function removeThanks(messageID){{ var messId = messageID;{Config.JQueryAlias}.PageMethod('{YafForumInfo.ForumClientFileRoot}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
-          function removeThanksSuccess(res){{if (res.d != null) {{
-                   {Config.JQueryAlias}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
-                   {Config.JQueryAlias}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
-                   {Config.JQueryAlias}('#dvThankBox' + res.d.MessageID).html({addThankBoxHTML});}}}}";
+                $@"function removeThanks(messageID){{ 
+            { Config.JQueryAlias}.ajax({{
+                    url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/RemoveThanks/' + messageID,
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    success: function(response) {{
+                              {Config.JQueryAlias}('#dvThanks' + response.MessageID).html(response.Thanks);
+                              {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
+                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({addThankBoxHTML});
+                    }},
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+                          
+                 }}";
         }
 
         #endregion
@@ -759,25 +735,33 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// Selects the topics load js.
+        /// select2 topics load JS.
         /// </summary>
-        /// <param name="forumDropDownID">The forum drop down identifier.</param>
-        /// <returns></returns>
+        /// <param name="forumDropDownId">The forum drop down identifier.</param>
+        /// <returns>Returns the select2 topics load JS.</returns>
         [NotNull]
-        public static string SelectTopicsLoadJs([NotNull] string forumDropDownID)
+        public static string SelectTopicsLoadJs([NotNull] string forumDropDownId)
         {
             return $@"{Config.JQueryAlias}('.TopicsSelect2Menu').select2({{
             ajax: {{
-                url: '{YafForumInfo.ForumClientFileRoot}YafAjax.asmx/GetTopics',
+                url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Topic/GetTopics',
                 type: 'POST',
                 dataType: 'json',
                 minimumInputLength: 0,
                 data: function(params) {{
-                    return {{
-                        'forumID': {Config.JQueryAlias}('#{forumDropDownID}').val(),
-                        'page': params.page || 0,
-                        'searchTerm': params.term || ''
-                    }};
+                      var query = {{
+                          ForumId : {Config.JQueryAlias}('#{forumDropDownId}').val(),
+                          UserId: 0,
+                          PageSize: 0,
+                          Page : params.page || 0,
+                          SearchTerm : params.term || ''
+                      }}
+                      return query;
+                }},
+                error: function(x, e)  {{
+                       console.log('An Error has occured!');
+                       console.log(x.responseText);
+                       console.log(x.status);
                 }},
                 processResults: function(data, params) {{
                     params.page = params.page || 0;

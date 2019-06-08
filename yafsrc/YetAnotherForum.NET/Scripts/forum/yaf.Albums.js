@@ -1,30 +1,34 @@
 ﻿function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
     var yafUserID = $("#PostAlbumsListPlaceholder").data("userid");
-	var defaultParameters = "{userID:" + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
 
-    var ajaxURL = $("#PostAlbumsListPlaceholder").data("url") + "YafAjax.asmx/GetAlbumImages";
+    var pagedResults = {};
+
+    pagedResults.UserId = yafUserID;
+    pagedResults.PageSize = pageSize;
+    pagedResults.PageNumber = pageNumber;
+
+    var ajaxURL = $("#PostAlbumsListPlaceholder").data("url") + "api/Album/GetAlbumImages";
 
 	$.ajax({
-		type: "POST",
-		url: ajaxURL,
-		data: defaultParameters,
+        url: ajaxURL,
+        type: 'POST',
+        data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
-		dataType: "json",
-		success: (function Success(data, status) {
+		success: (function Success(data) {
             $('#PostAlbumsListPlaceholder ul').empty();
 
             $("#PostAlbumsLoader").hide();
 
-            if (data.d.AttachmentList.length === 0) {
+            if (data.AttachmentList.length === 0) {
                 var list = $('#PostAlbumsListPlaceholder ul');
                 var notext = $("#PostAlbumsListPlaceholder").data("notext");
 
 				list.append('<li><em>' + notext + '</em></li>');
 			}
 
-            $.each(data.d.AttachmentList, function (id, data) {
+            $.each(data.AttachmentList, function (id, data) {
                 var list = $('#PostAlbumsListPlaceholder ul'),
-                    listItem = $('<li class="popupitem" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
+                    listItem = $('<li class="list-group-item" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
 
@@ -38,7 +42,7 @@
 				list.append(listItem);
 			});
 
-			setPageNumberAlbums(pageSize, pageNumber, data.d.TotalRecords);
+			setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
                 jQuery(".albums-toggle").dropdown('toggle');
@@ -49,7 +53,9 @@
                 });
             }
 		}),
-		error: (function Error(request, status, error) {
+        error: (function Error(request, status, error) {
+            console.log(request);
+            console.log(error);
             $("#PostAlbumsLoader").hide();
 
             $("#PostAlbumsListPlaceholder").html(request.statusText).fadeIn(1000);

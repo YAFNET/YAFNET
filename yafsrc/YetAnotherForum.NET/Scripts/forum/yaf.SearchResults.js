@@ -56,25 +56,19 @@
             }
         }
 
-        var yafUserId = $("#SearchResultsPlaceholder").data("userid");
-        var defaultParameters = "{userId:" +
-            yafUserId +
-            ", forumId:" +
-            searchForum +
-            ", pageSize:" +
-            pageSize +
-            ",pageNumber:" +
-            pageNumber +
-            ",searchInput: '" +
-            searchText +
-            "'}";
+        var searchTopic = {};
+        searchTopic.ForumId = searchForum;
+        searchTopic.UserId = $("#SearchResultsPlaceholder").data("userid");
+        searchTopic.PageSize = pageSize;
+        searchTopic.Page = pageNumber;
+        searchTopic.SearchTerm = searchText;
 
-        var ajaxUrl = $("#SearchResultsPlaceholder").data("url") + "YafAjax.asmx/GetSearchResults";
+        var ajaxUrl = $("#SearchResultsPlaceholder").data("url") + "api/Search/GetSearchResults";
 
         $.ajax({
             type: "POST",
             url: ajaxUrl,
-            data: defaultParameters,
+            data: JSON.stringify(searchTopic),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: (function before() {
@@ -96,7 +90,7 @@
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");
                 var topic = $("#SearchResultsPlaceholder").data("topic");
 
-                if (data.d.SearchResults.length === 0) {
+                if (data.SearchResults.length === 0) {
                     var list = $('#SearchResultsPlaceholder');
                     var notext = $("#SearchResultsPlaceholder").data("notext");
 
@@ -108,7 +102,7 @@
 
                     
                 } else {
-                    $.each(data.d.SearchResults,
+                    $.each(data.SearchResults,
                         function(id, data) {
                             var groupHolder = $('#SearchResultsPlaceholder');
 
@@ -146,7 +140,7 @@
                                 '</div>' +
                                 '</div></div>');
                         });
-                    setPageNumber(pageSize, pageNumber, data.d.TotalRecords);
+                    setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
             }),
             error: (function error(request) {

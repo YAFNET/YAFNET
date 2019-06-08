@@ -5,7 +5,6 @@
     /// <summary>
     /// the HTML elements class.
     /// </summary>
-    [Serializable]
     public class ReturnClass
     {
         #region Properties

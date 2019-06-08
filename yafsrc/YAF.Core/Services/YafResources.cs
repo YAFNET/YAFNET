@@ -31,7 +31,6 @@ namespace YAF.Core.Services
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Imaging;
-    using System.Drawing.Text;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -41,10 +40,7 @@ namespace YAF.Core.Services
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Core.Services.Auth;
-    using YAF.Core.Services.Localization;
-    using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -155,17 +151,6 @@ namespace YAF.Core.Services
                     location += $", {YafContext.Current.Get<IHaveLocalization>().GetText("REGION", tag)}";
                 }
 
-                var forumUrl = HttpUtility.UrlDecode(context.Request.QueryString.GetFirstOrDefault("forumUrl"));
-
-                if (Config.IsMojoPortal)
-                {
-                    forumUrl = forumUrl + $"&g={ForumPages.pmessage}&u={userId}";
-                }
-                else
-                {
-                    forumUrl = forumUrl.Replace(".aspx", $".aspx?g={ForumPages.pmessage}&u={userId}");
-                }
-
                 var userInfo = new ForumUserInfo
                 {
                     Name = userName,
@@ -256,7 +241,7 @@ namespace YAF.Core.Services
                     return;
                 }
 
-                var oAuth = new OAuthTwitter
+                var authTwitter = new OAuthTwitter
                 {
                     ConsumerKey = Config.TwitterConsumerKey,
                     ConsumerSecret = Config.TwitterConsumerSecret,
@@ -264,9 +249,9 @@ namespace YAF.Core.Services
                     TokenSecret = Config.TwitterTokenSecret
                 };
 
-                var tweetAPI = new TweetAPI(oAuth);
+                var tweetApi = new TweetAPI(authTwitter);
 
-                context.Response.Write(tweetAPI.UsersLookupJson(twitterName));
+                context.Response.Write(tweetApi.UsersLookupJson(twitterName));
 
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
@@ -292,25 +277,26 @@ namespace YAF.Core.Services
                 var user = YafContext.Current.GetRepository<User>()
                     .GetById(context.Request.QueryString.GetFirstOrDefault("u").ToType<int>());
 
-                if (user != null)
+                if (user == null)
                 {
-                    var data = user.AvatarImage;
-                    var contentType = user.AvatarImageType;
-
-                    context.Response.Clear();
-                    if (contentType.IsNotSet())
-                    {
-                        contentType = "image/jpeg";
-                    }
-
-                    context.Response.ContentType = contentType;
-                    context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                    context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                    context.Response.Cache.SetLastModified(DateTime.UtcNow);
-
-                    // context.Response.Cache.SetetagCode( etagCode );
-                    context.Response.OutputStream.Write(data, 0, data.Length);
+                    return;
                 }
+
+                var data = user.AvatarImage;
+                var contentType = user.AvatarImageType;
+
+                context.Response.Clear();
+                if (contentType.IsNotSet())
+                {
+                    contentType = "image/jpeg";
+                }
+
+                context.Response.ContentType = contentType;
+                context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+
+                context.Response.OutputStream.Write(data, 0, data.Length);
             }
             catch (Exception x)
             {

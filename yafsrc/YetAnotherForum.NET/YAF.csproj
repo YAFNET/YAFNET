@@ -205,9 +205,6 @@
     <Compile Include="Classes\LatestInformationService.cs" />
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
     <Compile Include="Classes\Utilities\JavaScriptBlocks.cs" />
-    <Compile Include="Classes\YafAjax.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Classes\YafResourceHandler.cs" />
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
@@ -2385,6 +2382,7 @@
     <Content Include="Scripts\i18n\sr.js" />
     <Content Include="Scripts\i18n\sv.js" />
     <Content Include="Scripts\i18n\th.js" />
+    <Content Include="Scripts\i18n\tk.js" />
     <Content Include="Scripts\i18n\tr.js" />
     <Content Include="Scripts\i18n\uk.js" />
     <Content Include="Scripts\i18n\vi.js" />
@@ -2458,7 +2456,6 @@
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
-    <Content Include="Scripts\jquery.pagemethod.js" />
     <Content Include="Scripts\forum\yaf.Main.js" />
     <Compile Include="controls\BuddyList.ascx.cs">
       <DependentUpon>BuddyList.ascx</DependentUpon>
@@ -3187,7 +3184,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\RegisterV2\RegisterV2.disco" />
-    <Content Include="YafAjax.asmx" />
     <Content Include="YafWebService.asmx" />
     <Content Include="db.config">
       <SubType>Designer</SubType>
@@ -3337,7 +3333,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

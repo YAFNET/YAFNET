@@ -1,13 +1,18 @@
 ﻿function getPaginationData(pageSize, pageNumber, isPageChange) {
     var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
-	var defaultParameters = "{userID:" + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
 
-	var ajaxURL = $("#PostAttachmentListPlaceholder").data("url") + "YafAjax.asmx/GetAttachments";
+    var pagedResults = {};
+
+    pagedResults.UserId = yafUserID;
+    pagedResults.PageSize = pageSize;
+    pagedResults.PageNumber = pageNumber;
+
+    var ajaxURL = $("#PostAttachmentListPlaceholder").data("url") + "api/Attachment/GetAttachments";
 
 	$.ajax({
 		type: "POST",
 		url: ajaxURL,
-		data: defaultParameters,
+        data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		success: (function Success(data, status) {
@@ -15,16 +20,16 @@
 
 			$("#PostAttachmentLoader").hide();
 
-			if (data.d.AttachmentList.length === 0) {
+			if (data.AttachmentList.length === 0) {
 				var list = $('#PostAttachmentListPlaceholder ul');
 				var notext = $("#PostAttachmentListPlaceholder").data("notext");
 
 				list.append('<li><em>' + notext + '</em></li>');
 			}
 
-            $.each(data.d.AttachmentList, function (id, data) {
+            $.each(data.AttachmentList, function (id, data) {
                 var list = $('#PostAttachmentListPlaceholder ul'),
-                    listItem = $('<li class="popupitem" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
+                    listItem = $('<li class="list-group-item" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
 
@@ -38,7 +43,7 @@
 				list.append(listItem);
             });
 
-            setPageNumberAttach(pageSize, pageNumber, data.d.TotalRecords);
+            setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
                 jQuery(".attachments-toggle").dropdown('toggle');

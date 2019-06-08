@@ -450,9 +450,9 @@ namespace YAF.Pages
             {
                 // The html code for "Favorite Topic" theme buttons.
                 var tagButtonHtml =
-                    $"'<a class=\"btn btn-secondary\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" title=\"{this.GetText("BUTTON_TAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_TAGFAVORITE")}</span></a>'";
+                    $"'<a class=\"btn btn-secondary\" href=\"javascript:addFavoriteTopic(' + response + ');\" title=\"{this.GetText("BUTTON_TAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_TAGFAVORITE")}</span></a>'";
                 var untagButtonHtml =
-                    $"'<a class=\"btn btn-secondary\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" title=\"{this.GetText("BUTTON_UNTAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_UNTAGFAVORITE")}</span></a>'";
+                    $"'<a class=\"btn btn-secondary\" href=\"javascript:removeFavoriteTopic(' + response + ');\" title=\"{this.GetText("BUTTON_UNTAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_UNTAGFAVORITE")}</span></a>'";
 
                 // Register the client side script for the "Favorite Topic".
                 var favoriteTopicJs = JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHtml) + Environment.NewLine +
