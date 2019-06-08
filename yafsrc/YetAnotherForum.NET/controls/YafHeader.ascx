@@ -11,7 +11,7 @@
     
 <header class="mb-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="<%=YafBuildLink.GetLink(ForumPages.forum) %>">
             <%= this.PageContext.BoardSettings.Name %>
         </a>
         

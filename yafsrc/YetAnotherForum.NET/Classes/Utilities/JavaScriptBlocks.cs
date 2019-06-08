@@ -21,13 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Utilities
+namespace YAF.Classes.Utilities
 {
     #region Using
 
     using YAF.Classes;
     using YAF.Core;
-    using YAF.Core.Context;
     using YAF.Core.Context.Start;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -50,7 +49,7 @@ namespace YAF.Utilities
         ///   the callback success js.
         /// </returns>
         [NotNull]
-        public static string AlbumCallbackSuccessJS =>
+        public static string AlbumCallbackSuccessJs =>
             @"function changeTitleSuccess(res){
                   spnTitleVar = document.getElementById('spnTitle' + res.Id);
                   txtTitleVar =  document.getElementById('txtTitle' + res.Id);
@@ -63,7 +62,7 @@ namespace YAF.Utilities
         /// Gets the multi quote callback success JS.
         /// </summary>
         [NotNull]
-        public static string MultiQuoteCallbackSuccessJS =>
+        public static string MultiQuoteCallbackSuccessJs =>
             $@"function multiQuoteSuccess(res){{
                   var multiQuoteButton = {Config.JQueryAlias}('#' + res.Id).parent('span');
                   multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.NewTitle);
@@ -123,7 +122,6 @@ namespace YAF.Utilities
                  }});
                }}";
 
-
         /// <summary>
         ///   Gets the script for changing the image caption.
         /// </summary>
@@ -148,7 +146,7 @@ namespace YAF.Utilities
                }}";
 
         /// <summary>
-        ///   Gets DisablePageManagerScrollJs.
+        ///   Gets Disable PageManager Scroll JS.
         /// </summary>
         [NotNull]
         public static string DisablePageManagerScrollJs =>
@@ -163,9 +161,9 @@ namespace YAF.Utilities
 ";
 
         /// <summary>
-        ///   Gets TimeagoLoadJs.
+        ///   Gets the Moment.js Load JS.
         /// </summary>
-        public static string TimeagoLoadJs =>
+        public static string MomentLoadJs =>
             string.Format(
                 @" if( typeof(CKEDITOR) == 'undefined') {{
             function loadTimeAgo() {{
@@ -186,7 +184,7 @@ namespace YAF.Utilities
                     : YafContext.Current.Get<YafBoardSettings>().Culture.Substring(0, 2));
 
         /// <summary>
-        ///   Gets ToggleMessageJs.
+        ///   Gets ToggleMessageJS.
         /// </summary>
         [NotNull]
         public static string ToggleMessageJs =>
@@ -199,7 +197,7 @@ namespace YAF.Utilities
         #region Public Methods
 
         /// <summary>
-        /// Javascript events for Album pages.
+        /// Java Script events for Album pages.
         /// </summary>
         /// <param name="albumEmptyTitle">
         /// The Album Empty Title.
@@ -208,7 +206,7 @@ namespace YAF.Utilities
         /// The Image Empty Caption.
         /// </param>
         /// <returns>
-        /// The album events js.
+        /// The album events JS.
         /// </returns>
         public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
         {
@@ -286,14 +284,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
-        /// Blocks the UI js.
+        /// Blocks the UI JS.
         /// </summary>
         /// <param name="messageId">The message identifier.</param>
         /// <param name="buttonId">The button identifier.</param>
         /// <returns>
-        /// The block ui execute js.
+        /// The block UI execute JS.
         /// </returns>
-        public static string BlockUIExecuteJs([NotNull] string messageId, [NotNull] string buttonId)
+        public static string BlockUiExecuteJs([NotNull] string messageId, [NotNull] string buttonId)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                       {Config.JQueryAlias}('{buttonId}').click(function() {{ {Config.JQueryAlias}.blockUI({{ message: {Config.JQueryAlias}('#{messageId}') }});
@@ -420,7 +418,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// </summary>
         /// <param name="selector">The selector.</param>
         /// <param name="options">The options.</param>
-        /// <returns></returns>
+        /// <returns>Returns the TouchSpin JS</returns>
         public static string LoadTouchSpin([NotNull] string selector, [CanBeNull] string options)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
@@ -452,15 +450,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// The Open Link, that opens the Modal Dialog.
         /// </param>
         /// <param name="dialogId">
-        /// The Id or Css Class of the Dialog Content
+        /// The Id or CSS Class of the Dialog Content
         /// </param>
         /// <returns>
-        /// The yaf modal dialog Load JS.
+        /// The YAF modal dialog Load JS.
         /// </returns>
         public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
         {
-            return
-                $@"{Config.JQueryAlias}(document).ready(function() {{  
+            return $@"{Config.JQueryAlias}(document).ready(function() {{  
                                 {Config.JQueryAlias}('{openLink}').click(function () {{ 
                                         {Config.JQueryAlias}('{dialogId}').modal('show')   
                                 }}); 
@@ -470,23 +467,22 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <summary>
         /// script for the add Favorite Topic button
         /// </summary>
-        /// <param name="untagButtonHTML">
-        /// HTML code for the "Untag As Favorite" button
+        /// <param name="untagButtonHtml">
+        /// HTML code for the "un Tag As Favorite" button
         /// </param>
         /// <returns>
-        /// The add Favorite Topic js.
+        /// The add Favorite Topic JS.
         /// </returns>
-        public static string AddFavoriteTopicJs([NotNull] string untagButtonHTML)
+        public static string AddFavoriteTopicJs([NotNull] string untagButtonHtml)
         {
-            return
-                $@"function addFavoriteTopic(topicID){{ 
-            { Config.JQueryAlias}.ajax({{
+            return $@"function addFavoriteTopic(topicID){{ 
+            {Config.JQueryAlias}.ajax({{
                     url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/FavoriteTopic/AddFavoriteTopic/' + topicID,
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
-                              {Config.JQueryAlias}('#dvFavorite1').html({untagButtonHTML});
-                              {Config.JQueryAlias}('#dvFavorite2').html({untagButtonHTML});
+                              {Config.JQueryAlias}('#dvFavorite1').html({untagButtonHtml});
+                              {Config.JQueryAlias}('#dvFavorite2').html({untagButtonHtml});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');
@@ -501,23 +497,22 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <summary>
         /// script for the remove Favorite Topic button
         /// </summary>
-        /// <param name="tagButtonHTML">
+        /// <param name="tagButtonHtml">
         /// HTML code for the "Tag As a Favorite" button
         /// </param>
         /// <returns>
         /// The remove Favorite Topic JS.
         /// </returns>
-        public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHTML)
+        public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHtml)
         {
-            return
-                $@"function removeFavoriteTopic(topicID){{ 
-            { Config.JQueryAlias}.ajax({{
+            return $@"function removeFavoriteTopic(topicID){{ 
+            {Config.JQueryAlias}.ajax({{
                     url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/FavoriteTopic/RemoveFavoriteTopic/' + topicID,
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
-                              {Config.JQueryAlias}('#dvFavorite1').html({tagButtonHTML});
-                              {Config.JQueryAlias}('#dvFavorite2').html({tagButtonHTML});
+                              {Config.JQueryAlias}('#dvFavorite1').html({tagButtonHtml});
+                              {Config.JQueryAlias}('#dvFavorite2').html({tagButtonHtml});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');
@@ -532,24 +527,23 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <summary>
         /// script for the addThanks button
         /// </summary>
-        /// <param name="removeThankBoxHTML">
+        /// <param name="removeThankBoxHtml">
         /// HTML code for the "Remove Thank" button
         /// </param>
         /// <returns>
         /// The add thanks JS.
         /// </returns>
-        public static string AddThanksJs([NotNull] string removeThankBoxHTML)
+        public static string AddThanksJs([NotNull] string removeThankBoxHtml)
         {
-            return
-                $@"function addThanks(messageID){{ 
-            { Config.JQueryAlias}.ajax({{
+            return $@"function addThanks(messageID){{ 
+            {Config.JQueryAlias}.ajax({{
                     url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/AddThanks/' + messageID,
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
                               {Config.JQueryAlias}('#dvThanks' + response.MessageID).html(response.Thanks);
                               {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
-                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHTML});
+                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHtml});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');
@@ -564,24 +558,23 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <summary>
         /// script for the removeThanks button
         /// </summary>
-        /// <param name="addThankBoxHTML">
+        /// <param name="addThankBoxHtml">
         /// The Add Thank Box HTML.
         /// </param>
         /// <returns>
         /// The remove thanks JS.
         /// </returns>
-        public static string RemoveThanksJs([NotNull] string addThankBoxHTML)
+        public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
         {
-            return
-                $@"function removeThanks(messageID){{ 
-            { Config.JQueryAlias}.ajax({{
+            return $@"function removeThanks(messageID){{ 
+            {Config.JQueryAlias}.ajax({{
                     url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/RemoveThanks/' + messageID,
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
                               {Config.JQueryAlias}('#dvThanks' + response.MessageID).html(response.Thanks);
                               {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
-                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({addThankBoxHTML});
+                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');
@@ -639,22 +632,40 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 $"{Config.JQueryAlias}('{clientId}').hovercard({{{(type.IsSet() ? $"show{type}Card: true," : string.Empty)}width: 350,loadingHTML: '{loadingHtml}',errorHTML: '{errorHtml}', delay: {YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay}, twitterURL: '{twitterUrl}' }});";
         }
 
-        /// <summary>Gets the FileUpload Java Script.</summary>
-        /// <param name="acceptedFileTypes">The accepted file types.</param>
-        /// <param name="maxFileSize">Maximum size of the file.</param>
-        /// <param name="fileUploaderUrl">The file uploader URL.</param>
-        /// <param name="forumID">The forum identifier.</param>
-        /// <param name="boardID">The board identifier.</param>
-        /// <param name="imageMaxWidth"></param>
-        /// <param name="imageMaxHeight"></param>
-        /// <returns>Returns the FileUpload Java Script.</returns>
+        /// <summary>
+        /// Gets the FileUpload Java Script.
+        /// </summary>
+        /// <param name="acceptedFileTypes">
+        /// The accepted file types.
+        /// </param>
+        /// <param name="maxFileSize">
+        /// Maximum size of the file.
+        /// </param>
+        /// <param name="fileUploaderUrl">
+        /// The file uploader URL.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum identifier.
+        /// </param>
+        /// <param name="boardId">
+        /// The board identifier.
+        /// </param>
+        /// <param name="imageMaxWidth">
+        /// The image Max Width.
+        /// </param>
+        /// <param name="imageMaxHeight">
+        /// The image Max Height.
+        /// </param>
+        /// <returns>
+        /// Returns the FileUpload Java Script.
+        /// </returns>
         [NotNull]
         public static string FileUploadLoadJs(
             [NotNull] string acceptedFileTypes,
             [NotNull] int maxFileSize,
             [NotNull] string fileUploaderUrl,
-            [NotNull] int forumID,
-            [NotNull] int boardID,
+            [NotNull] int forumId,
+            [NotNull] int boardId,
             [NotNull] int imageMaxWidth,
             [NotNull] int imageMaxHeight)
         {
@@ -726,8 +737,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty,
                 acceptedFileTypes,
                 fileUploaderUrl,
-                forumID,
-                boardID,
+                forumId,
+                boardId,
                 YafContext.Current.PageUserID,
                 YafBoardFolders.Current.Uploads,
                 imageMaxWidth,
@@ -789,15 +800,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <summary>
         /// Gets the Selected Quoting Java Script
         /// </summary>
-        /// <param name="postURL">The post URL.</param>
+        /// <param name="postUrl">The post URL.</param>
         /// <param name="toolTipText">The tool tip text.</param>
         /// <returns>Returns the the Selected Quoting Java Script</returns>
         [NotNull]
-        public static string SelectedQuotingJs([NotNull] string postURL, string toolTipText)
+        public static string SelectedQuotingJs([NotNull] string postUrl, string toolTipText)
         {
             return $@"{Config.JQueryAlias}('.selectionQuoteable').each(function () {{
                          var $this = jQuery(this);
-                         $this.selectedQuoting({{ URL: '{postURL}', ToolTip: '{toolTipText}' }});
+                         $this.selectedQuoting({{ URL: '{postUrl}', ToolTip: '{toolTipText}' }});
                      }});";
         }
 
