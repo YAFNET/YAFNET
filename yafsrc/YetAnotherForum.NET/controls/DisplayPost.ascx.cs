@@ -32,6 +32,7 @@ namespace YAF.Controls
     using System.Web;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Core;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -42,7 +43,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -471,7 +471,7 @@ namespace YAF.Controls
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                  "MultiQuoteCallbackSuccessJS", JavaScriptBlocks.MultiQuoteCallbackSuccessJS);
+                  "MultiQuoteCallbackSuccessJS", JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
                 this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");

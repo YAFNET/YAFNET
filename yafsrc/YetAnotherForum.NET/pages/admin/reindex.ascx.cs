@@ -29,6 +29,7 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
+    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
@@ -37,7 +38,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -57,7 +57,7 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUIExecuteJs(
+                JavaScriptBlocks.BlockUiExecuteJs(
                     "DeleteForumMessage",
                     $"#{this.Reindex.ClientID},#{this.Shrink.ClientID}"));
 

@@ -37,6 +37,7 @@ namespace YAF.Controls
     using FarsiLibrary.Utils;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -48,7 +49,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 

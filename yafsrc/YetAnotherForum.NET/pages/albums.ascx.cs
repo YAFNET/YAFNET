@@ -30,13 +30,13 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion

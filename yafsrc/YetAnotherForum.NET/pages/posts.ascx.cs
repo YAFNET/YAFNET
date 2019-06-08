@@ -36,6 +36,7 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -49,7 +50,6 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 

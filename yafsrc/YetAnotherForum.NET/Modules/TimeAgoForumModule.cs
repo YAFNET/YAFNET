@@ -28,10 +28,10 @@ namespace YAF.Modules
 
     using System;
 
+    using YAF.Classes.Utilities;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Utilities;
 
     #endregion
 
@@ -68,7 +68,7 @@ namespace YAF.Modules
                 return;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.TimeagoLoadJs);
+            YafContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
             this.PageContext.Vars["RegisteredTimeago"] = true;
         }
 

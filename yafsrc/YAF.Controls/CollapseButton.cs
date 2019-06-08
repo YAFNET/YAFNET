@@ -139,7 +139,7 @@ namespace YAF.Controls
             return control;
         }
 
-       /// <summary>
+        /// <summary>
         /// The on pre render.
         /// </summary>
         /// <param name="e">
@@ -148,12 +148,12 @@ namespace YAF.Controls
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup initial image state...
-            this.Text = $"<i class=\"fas fa-{this.GetCollapsiblePanelIcon(this.PanelID, this.DefaultState)} text-primary\"></i>";
-            this.CssClass = "btn btn-link" + (this.CssClass.Length > 0 ? " " + this.CssClass : string.Empty);
+            this.Text =
+                $"<i class=\"fas fa-{GetCollapsiblePanelIcon(this.PanelID, this.DefaultState)} text-primary\"></i>";
+            this.CssClass = $"btn btn-link{(this.CssClass.Length > 0 ? $" {this.CssClass}" : string.Empty)}";
             this.UpdateAttachedVisibility();
 
             base.OnPreRender(e);
-
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace YAF.Controls
         /// <summary>
         /// Gets the collapsible panel image url (expanded or collapsed).
         /// </summary>
-        /// <param name="panelID">
+        /// <param name="panelId">
         /// ID of collapsible panel
         /// </param>
         /// <param name="defaultState">
@@ -195,18 +195,19 @@ namespace YAF.Controls
         /// <returns>
         /// Image URL
         /// </returns>
-        private string GetCollapsiblePanelIcon(
-           [NotNull] string panelID, CollapsiblePanelState defaultState)
+        private static string GetCollapsiblePanelIcon([NotNull] string panelId, CollapsiblePanelState defaultState)
         {
-            CodeContracts.VerifyNotNull(panelID, "panelID");
+            CodeContracts.VerifyNotNull(panelId, "panelID");
 
-           var stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelID];
+            var stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelId];
 
-            if (stateValue == CollapsiblePanelState.None)
+            if (stateValue != CollapsiblePanelState.None)
             {
-                stateValue = defaultState;
-                YafContext.Current.Get<IYafSession>().PanelState[panelID] = defaultState;
+                return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
             }
+
+            stateValue = defaultState;
+            YafContext.Current.Get<IYafSession>().PanelState[panelId] = defaultState;
 
             return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
         }

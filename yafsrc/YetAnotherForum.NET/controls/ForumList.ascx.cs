@@ -251,10 +251,10 @@ namespace YAF.Controls
                 {
                     if (flags.IsLocked)
                     {
-                        icon.Text = "<span class=\"fa-stack\">" +
-                                "<i class=\"fas fa-comments fa-stack-2x text-secondary\"></i>" +
-                                "<i class=\"fas fa-lock fa-stack-1x text-warning\" style=\"position:absolute; bottom:0px !important;text-align:right;line-height: 1em;\"></i>" +
-                                "</span>";
+                        icon.Text = @"<span class=""fa-stack"">
+                                       <i class=""fas fa-comments fa-stack-2x text-secondary""></i>
+                                       <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
+                                   </span>";
                     }
                     else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {

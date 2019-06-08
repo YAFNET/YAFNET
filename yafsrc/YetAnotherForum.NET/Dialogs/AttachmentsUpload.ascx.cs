@@ -30,13 +30,13 @@ namespace YAF.Dialogs
     using System.Linq;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion

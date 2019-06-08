@@ -30,6 +30,7 @@ namespace YAF.Controls
     using System.Data;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -37,7 +38,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils.Helpers;
 
     #endregion

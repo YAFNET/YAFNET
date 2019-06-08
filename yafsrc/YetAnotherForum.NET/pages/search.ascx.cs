@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
+    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -37,7 +38,6 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
 
     #endregion
 

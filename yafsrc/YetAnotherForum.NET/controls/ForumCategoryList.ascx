@@ -16,11 +16,14 @@
                     <div class="card mb-3">
                     <div class="card-header d-flex align-items-center">
                         <YAF:CollapseButton ID="CollapsibleImage" runat="server"
-                                            PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID") %>'
+                                            PanelID='<%# "categoryPanel{0}".Fmt(DataBinder.Eval(Container.DataItem, "CategoryID")) %>'
                                             AttachedControlID="body" CssClass="pl-0">
                         </YAF:CollapseButton>
                         <div class="d-none d-md-block">
-                            <i class="fas fa-folder fa-fw text-warning" aria-hidden="true"></i>&nbsp;<asp:Image ID="uxCategoryImage" CssClass="category_image" AlternateText=" " ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Categories + "/" + DataBinder.Eval(Container.DataItem, "CategoryImage") %>'
+                            <i class="fas fa-folder fa-fw text-warning" aria-hidden="true"></i>&nbsp;<asp:Image ID="uxCategoryImage" 
+                                                                                                                CssClass="category_image" 
+                                                                                                                AlternateText=" " 
+                                                                                                                ImageUrl='<%# "{0}{1}/{2}".Fmt(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Categories, DataBinder.Eval(Container.DataItem, "CategoryImage")) %>'
                                                                              Visible='<%# !DataBinder.Eval(Container.DataItem, "CategoryImage").ToString().IsNotSet() %>'
                                                                              runat="server" />
                         </div>

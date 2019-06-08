@@ -37,6 +37,7 @@ namespace YAF.Pages.Admin
     using FarsiLibrary.Utils;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
@@ -48,7 +49,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 

@@ -31,6 +31,7 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -38,7 +39,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -151,7 +151,7 @@ namespace YAF.Controls
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+                    "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
                 this.ltrTitleOnly.Visible = false;
             }
 

@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using System.Web.Security;
     using System.Web.UI.WebControls;
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -46,7 +47,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -194,7 +194,7 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage", this.SyncUsers.ClientID));
+                JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", this.SyncUsers.ClientID));
 
             base.OnPreRender(e);
         }

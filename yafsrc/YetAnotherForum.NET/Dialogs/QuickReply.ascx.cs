@@ -31,6 +31,7 @@ namespace YAF.Dialogs
     using System.Web;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -42,7 +43,6 @@ namespace YAF.Dialogs
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
