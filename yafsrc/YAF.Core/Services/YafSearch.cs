@@ -180,19 +180,12 @@
 
             try
             {
-                var indexWriter = new IndexWriter(
-                    Directory,
-                    analyzer,
-                    !IndexReader.IndexExists(Directory),
-                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH));
+                var indexWriter = new IndexWriter(Directory, analyzer, !IndexReader.IndexExists(Directory), new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH));
 
                 indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
                 indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
 
-                foreach (var message in messageList)
-                {
-                    AddToSearchIndex(message, indexWriter);
-                }
+                messageList.ForEach(message => AddToSearchIndex(message, indexWriter));
 
                 indexWriter.Dispose();
             }
@@ -276,16 +269,17 @@
             int pageSize,
             string fieldName = "")
         {
-            if (input.IsNotSet())
+            if (input.IsSet())
             {
-                totalHits = 0;
-                return new List<SearchMessage>();
+                return this.SearchIndex(out totalHits, forumId, userId, input, fieldName, pageIndex, pageSize);
             }
+
+            totalHits = 0;
+            return new List<SearchMessage>();
 
             /*var terms = input.Trim().Replace("-", " ").Split(' ').Where(x => !string.IsNullOrEmpty(x))
                 .Select(x => x.Trim() + "*");
             input = string.Join(" ", terms);*/
-            return this.SearchIndex(out totalHits, forumId, userId, input, fieldName, pageIndex, pageSize);
         }
 
         /// <summary>
@@ -501,6 +495,7 @@
             return new SearchMessage
                        {
                            Topic = doc.Get("Topic"),
+                           TopicId = doc.Get("TopicId").ToType<int>(),
                            TopicUrl =
                                YafBuildLink.GetLink(
                                    ForumPages.posts,

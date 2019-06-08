@@ -242,11 +242,11 @@
                             </select>
                             &nbsp;
                             <div class="btn-group"  role="group">
-                                <a href="#" class="first  btn btn-secondary btn-sm"><span>&lt;&lt;</span></a>
-                                <a href="#" class="prev  btn btn-secondary btn-sm"><span>&lt;</span></a>
+                                <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                                <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
                                 <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
-                                <a href="#" class="next btn btn-secondary btn-sm"><span>&gt;</span></a>
-                                <a href="#" class="last  btn btn-secondary btn-sm"><span>&gt;&gt;</span></a>
+                                <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
+                                <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
                             </div>
                         </div>
                     </FooterTemplate>
@@ -346,13 +346,13 @@
                         	    <option  value="40">40</option>
                             </select>
                             &nbsp;
-                            <div class="btn-group"  role="group">
-                                <a href="#" class="first  btn btn-secondary btn-sm"><span>&lt;&lt;</span></a>
-                                <a href="#" class="prev  btn btn-secondary btn-sm"><span>&lt;</span></a>
-                                <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
-                                <a href="#" class="next btn btn-secondary btn-sm"><span>&gt;</span></a>
-                                <a href="#" class="last  btn btn-secondary btn-sm"><span>&gt;&gt;</span></a>
-                            </div>
+                        <div class="btn-group"  role="group">
+                            <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                            <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                            <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
+                            <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
+                            <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                        </div>
                     </div>
                </div>
                 <div class="card-footer form-inline">

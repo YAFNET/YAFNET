@@ -38,7 +38,7 @@
                            href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-cog fa-fw"></i>&nbsp;<%= this.GetText("TOOLBAR", "HOST")  %>
+                           <%= this.GetText("TOOLBAR", "HOST")  %>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="hostDropdown">
                             <a href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>"
@@ -70,13 +70,13 @@
                     </asp:PlaceHolder>
                     <asp:PlaceHolder runat="server" ID="ModerateHolder" Visible="False">
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="hostDropdown" data-toggle="dropdown" 
+                        <a class="nav-link dropdown-toggle" id="moderateDropdown" data-toggle="dropdown" 
                            href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-cog fa-fw"></i>&nbsp;<%= this.GetText("TOOLBAR", "HOST")  %>
+                           <%= this.GetText("TOOLBAR", "HOST")  %>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="hostDropdown">
+                        <div class="dropdown-menu" aria-labelledby="moderateDropdown">
                             <a href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>"
                                class="dropdown-item">
                             <i class="fa fa-cog fa-fw"></i>&nbsp;
@@ -143,7 +143,6 @@
                                  CssClass="my-2 my-sm-0"
                                  Type="OutlineInfo"
                                  OnClick="QuickSearchClick"
-                                 TextLocalizedTag="BTNSEARCH" TitleLocalizedTag="SEARCH"
                                  Icon="search">
                 </YAF:ThemeButton>
             </asp:Panel>

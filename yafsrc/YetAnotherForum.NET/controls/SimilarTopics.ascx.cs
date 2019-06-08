@@ -43,15 +43,6 @@ namespace YAF.Controls
     /// </summary>
     public partial class SimilarTopics : BaseUserControl
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets TopicId
-        /// </summary>
-        public string Topic { get; set; }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -77,8 +68,8 @@ namespace YAF.Controls
         {
             try
             {
-                var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.Topic)
-                    .Take(5);
+                var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.PageContext.PageTopicName)
+                    .Where(t => t.TopicId != this.PageContext.PageTopicID).Take(5).ToList();
 
                 if (!topicsList.Any())
                 {

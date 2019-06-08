@@ -7,7 +7,7 @@
        href="<%= YafBuildLink.GetLink(ForumPages.admin_admin) %>" 
        role="button" 
        aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-tachometer-alt fa-fw"></i>&nbsp;<%= this.GetText("ADMINMENU", "ADMIN")  %>
+        <%= this.GetText("ADMINMENU", "ADMIN")  %>
     </a>
                         <ul class="dropdown-menu" aria-labelledby="hostDropdown">
                             <li class="dropdown-item"><a href="<%= YafBuildLink.GetLink(ForumPages.admin_admin) %>">

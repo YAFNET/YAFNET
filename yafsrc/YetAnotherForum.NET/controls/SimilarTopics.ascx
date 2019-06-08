@@ -15,8 +15,7 @@
         </HeaderTemplate>
         <ItemTemplate>
             <li class="list-group-item">
-                   <a href="<%# DataBinder.Eval(Container.DataItem, "TopicUrl")%>"
-                       class="post_link">
+                   <a href="<%# DataBinder.Eval(Container.DataItem, "TopicUrl")%>">
                        <strong><%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(DataBinder.Eval(Container.DataItem, "Topic"))) %></strong>
                    </a> (<a href="<%# DataBinder.Eval(Container.DataItem, "ForumUrl")%>"><%# DataBinder.Eval(Container.DataItem, "ForumName") %></a>)
                    

@@ -163,7 +163,7 @@ namespace YAF.Controls
             bool showUnread,
             string unread,
             string unreadText,
-            string icon)
+            string icon = "")
         {
             var element = new HtmlGenericControl("li");
 
@@ -277,7 +277,6 @@ namespace YAF.Controls
             if (this.PageContext.IsModeratorInAnyForum)
             {
                 this.AdminModHolder.Visible = true;
-                //this.ModerateHolder.Visible = true;
 
                 // Admin
                 RenderMenuItem(
@@ -289,8 +288,7 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null,
-                    "tasks");
+                    null);
             }
         }
 
