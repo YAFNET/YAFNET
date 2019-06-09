@@ -1830,6 +1830,7 @@
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Images\Avatars\Common\SampleAvatar.gif" />
     <Content Include="Images\Medals\award_star_bronze_3.png" />
     <Content Include="Images\Medals\award_star_bronze_3_small.png" />
@@ -3333,7 +3334,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

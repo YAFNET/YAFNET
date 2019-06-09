@@ -9,7 +9,7 @@
     /// <summary>
     /// The YAF HttpApplication.
     /// </summary>
-    public class YafHttpApplication : HttpApplication
+    public abstract class YafHttpApplication : HttpApplication
     {
         /// <summary>
         /// The application_ start.
@@ -20,7 +20,7 @@
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void Application_Start(object sender, EventArgs e)
+        protected virtual void Application_Start(object sender, EventArgs e)
         {
             // Pass a delegate to the Configure method.
             GlobalConfiguration.Configure(WebApiConfig.Register);
