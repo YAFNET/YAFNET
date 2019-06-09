@@ -25,18 +25,13 @@ namespace ServiceStack.Messaging
 
         public static string Dlq { get; private set; }
 
-        public static string[] AllQueueNames
-        {
-            get
-            {
-                return new[] {
-                    In,
-                    Priority,
-                    Out,
-                    Dlq,
-                };
-            }
-        }
+        public static string[] AllQueueNames =>
+            new[] {
+                          In,
+                          Priority,
+                          Out,
+                          Dlq,
+                      };
     }
 
     /// <summary>

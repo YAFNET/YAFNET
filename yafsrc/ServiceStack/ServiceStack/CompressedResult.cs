@@ -26,16 +26,16 @@ namespace ServiceStack
 
         public HttpStatusCode StatusCode
         {
-            get { return (HttpStatusCode)Status; }
-            set { Status = (int)value; }
+            get => (HttpStatusCode)Status;
+            set => Status = (int)value;
         }
 
         public string StatusDescription { get; set; }
 
         public object Response
         {
-            get { return this.Contents; }
-            set { throw new NotImplementedException(); }
+            get => this.Contents;
+            set => throw new NotImplementedException();
         }
 
         public IContentTypeWriter ResponseFilter { get; set; }

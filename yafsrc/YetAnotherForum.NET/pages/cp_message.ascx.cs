@@ -70,15 +70,9 @@ namespace YAF.Pages
         /// </summary>
         protected bool IsArchived
         {
-            get
-            {
-                return this.ViewState["IsArchived"] != null && (bool)this.ViewState["IsArchived"];
-            }
+            get => this.ViewState["IsArchived"] != null && (bool)this.ViewState["IsArchived"];
 
-            set
-            {
-                this.ViewState["IsArchived"] = value;
-            }
+            set => this.ViewState["IsArchived"] = value;
         }
 
         /// <summary>
@@ -86,15 +80,9 @@ namespace YAF.Pages
         /// </summary>
         protected bool IsOutbox
         {
-            get
-            {
-                return this.ViewState["IsOutbox"] != null && (bool)this.ViewState["IsOutbox"];
-            }
+            get => this.ViewState["IsOutbox"] != null && (bool)this.ViewState["IsOutbox"];
 
-            set
-            {
-                this.ViewState["IsOutbox"] = value;
-            }
+            set => this.ViewState["IsOutbox"] = value;
         }
 
         #endregion

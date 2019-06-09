@@ -20,13 +20,7 @@ namespace ServiceStack.Text
             head = this;
         }
 
-        internal static JsConfigScope Current
-        {
-            get
-            {
-                return head;
-            }
-        }
+        internal static JsConfigScope Current => head;
 
         public static void DisposeCurrent()
         {

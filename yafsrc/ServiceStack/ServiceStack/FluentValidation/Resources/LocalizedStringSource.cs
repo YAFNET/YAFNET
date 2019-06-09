@@ -98,18 +98,14 @@ namespace ServiceStack.FluentValidation.Resources {
 		/// <summary>
 		/// The name of the resource if localized.
 		/// </summary>
-		public string ResourceName {
-			get { return resourceName; }
-		}
+		public string ResourceName => resourceName;
 
-		/// <summary>
+        /// <summary>
 		/// The type of the resource provider if localized.
 		/// </summary>
-		public Type ResourceType {
-			get { return resourceType; }
-		}
+		public Type ResourceType => resourceType;
 
-	    protected virtual ResourceAccessor BuildResourceAccessor(Type resourceType, string resourceName) {
+        protected virtual ResourceAccessor BuildResourceAccessor(Type resourceType, string resourceName) {
 			var property = GetResourceProperty(ref resourceType, ref resourceName);
 
 			if (property == null) {

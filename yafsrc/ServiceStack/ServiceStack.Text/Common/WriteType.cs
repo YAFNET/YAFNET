@@ -89,10 +89,7 @@ namespace ServiceStack.Text.Common
             return true;
         }
 
-        public static WriteObjectDelegate Write
-        {
-            get { return CacheFn; }
-        }
+        public static WriteObjectDelegate Write => CacheFn;
 
         private static WriteObjectDelegate GetWriteFn()
         {
@@ -257,17 +254,12 @@ namespace ServiceStack.Text.Common
 
         internal struct TypePropertyWriter
         {
-            internal string PropertyName
-            {
-                get
-                {
-                    return JsConfig<T>.EmitCamelCaseNames.GetValueOrDefault(JsConfig.EmitCamelCaseNames)
-                        ? this.propertyNameCLSFriendly
-                        : JsConfig<T>.EmitLowercaseUnderscoreNames.GetValueOrDefault(JsConfig.EmitLowercaseUnderscoreNames)
-                            ? this.propertyNameLowercaseUnderscore
-                            : this.propertyName;
-                }
-            }
+            internal string PropertyName =>
+                JsConfig<T>.EmitCamelCaseNames.GetValueOrDefault(JsConfig.EmitCamelCaseNames)
+                    ? this.propertyNameCLSFriendly
+                    : JsConfig<T>.EmitLowercaseUnderscoreNames.GetValueOrDefault(JsConfig.EmitLowercaseUnderscoreNames)
+                        ? this.propertyNameLowercaseUnderscore
+                        : this.propertyName;
 
             internal readonly Type PropertyType;
             internal readonly string propertyName;

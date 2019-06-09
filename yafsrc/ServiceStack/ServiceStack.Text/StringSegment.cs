@@ -110,10 +110,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// Gets whether or not this <see cref="StringSegment"/> contains a valid value.
         /// </summary>
-        public bool HasValue
-        {
-            get { return this.Buffer != null; }
-        }
+        public bool HasValue => this.Buffer != null;
 
         /// <inheritdoc />
         public override bool Equals(object obj)

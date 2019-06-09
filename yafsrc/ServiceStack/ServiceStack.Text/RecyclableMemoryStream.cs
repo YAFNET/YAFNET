@@ -194,68 +194,44 @@ namespace ServiceStack.Text
         /// <summary>
         /// The size of each block. It must be set at creation and cannot be changed.
         /// </summary>
-        public int BlockSize
-        {
-            get { return this.blockSize; }
-        }
+        public int BlockSize => this.blockSize;
 
         /// <summary>
         /// All buffers are multiples of this number. It must be set at creation and cannot be changed.
         /// </summary>
-        public int LargeBufferMultiple
-        {
-            get { return this.largeBufferMultiple; }
-        }
+        public int LargeBufferMultiple => this.largeBufferMultiple;
 
         /// <summary>
         /// Gets or sets the maximum buffer size.
         /// </summary>
         /// <remarks>Any buffer that is returned to the pool that is larger than this will be
         /// discarded and garbage collected.</remarks>
-        public int MaximumBufferSize
-        {
-            get { return this.maximumBufferSize; }
-        }
+        public int MaximumBufferSize => this.maximumBufferSize;
 
         /// <summary>
         /// Number of bytes in small pool not currently in use
         /// </summary>
-        public long SmallPoolFreeSize
-        {
-            get { return this.smallPoolFreeSize; }
-        }
+        public long SmallPoolFreeSize => this.smallPoolFreeSize;
 
         /// <summary>
         /// Number of bytes currently in use by stream from the small pool
         /// </summary>
-        public long SmallPoolInUseSize
-        {
-            get { return this.smallPoolInUseSize; }
-        }
+        public long SmallPoolInUseSize => this.smallPoolInUseSize;
 
         /// <summary>
         /// Number of bytes in large pool not currently in use
         /// </summary>
-        public long LargePoolFreeSize
-        {
-            get { return this.largeBufferFreeSize.Sum(); }
-        }
+        public long LargePoolFreeSize => this.largeBufferFreeSize.Sum();
 
         /// <summary>
         /// Number of bytes currently in use by streams from the large pool
         /// </summary>
-        public long LargePoolInUseSize
-        {
-            get { return this.largeBufferInUseSize.Sum(); }
-        }
+        public long LargePoolInUseSize => this.largeBufferInUseSize.Sum();
 
         /// <summary>
         /// How many blocks are in the small pool
         /// </summary>
-        public long SmallBlocksFree
-        {
-            get { return this.smallPool.Count; }
-        }
+        public long SmallBlocksFree => this.smallPool.Count;
 
         /// <summary>
         /// How many buffers are in the large pool
@@ -744,13 +720,13 @@ namespace ServiceStack.Text
         /// Callstack of the constructor. It is only set if MemoryManager.GenerateCallStacks is true,
         /// which should only be in debugging situations.
         /// </summary>
-        internal string AllocationStack { get { return this.allocationStack; } }
+        internal string AllocationStack => this.allocationStack;
 
         /// <summary>
         /// Callstack of the Dispose call. It is only set if MemoryManager.GenerateCallStacks is true,
         /// which should only be in debugging situations.
         /// </summary>
-        internal string DisposeStack { get { return this.disposeStack; } }
+        internal string DisposeStack => this.disposeStack;
 
         /// <summary>
         /// This buffer exists so that WriteByte can forward all of its calls to Write
@@ -1012,34 +988,22 @@ namespace ServiceStack.Text
         /// <summary>
         /// Whether the stream can currently read
         /// </summary>
-        public override bool CanRead
-        {
-            get { return !this.disposed; }
-        }
+        public override bool CanRead => !this.disposed;
 
         /// <summary>
         /// Whether the stream can currently seek
         /// </summary>
-        public override bool CanSeek
-        {
-            get { return !this.disposed; }
-        }
+        public override bool CanSeek => !this.disposed;
 
         /// <summary>
         /// Always false
         /// </summary>
-        public override bool CanTimeout
-        {
-            get { return false; }
-        }
+        public override bool CanTimeout => false;
 
         /// <summary>
         /// Whether the stream can currently write
         /// </summary>
-        public override bool CanWrite
-        {
-            get { return !this.disposed; }
-        }
+        public override bool CanWrite => !this.disposed;
 
         /// <summary>
         /// Returns a single buffer containing the contents of the stream.

@@ -82,8 +82,8 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// Cascade mode for this rule.
 		/// </summary>
 		public CascadeMode CascadeMode {
-			get { return cascadeModeThunk(); }
-			set { cascadeModeThunk = () => value; }
+			get => cascadeModeThunk();
+            set { cascadeModeThunk = () => value; }
 		}
 
 		/// <summary>
@@ -181,8 +181,8 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// Returns null if it is not a property being validated (eg a method call)
 		/// </summary>
 		public string PropertyName {
-			get { return propertyName; }
-			set {
+			get => propertyName;
+            set {
 				propertyName = value;
 				propertyDisplayName = propertyName.SplitPascalCase();
 			}

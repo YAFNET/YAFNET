@@ -69,10 +69,8 @@ namespace ServiceStack.FluentValidation.Validators {
 			return true;
 		}
 
-		public string Expression {
-			get { return expression; }
-		}
-	}
+		public string Expression => expression;
+    }
 
 	public interface IRegularExpressionValidator : IPropertyValidator {
 		string Expression { get; }

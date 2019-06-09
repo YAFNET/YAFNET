@@ -928,15 +928,9 @@ namespace MarkdownDeep
 		}
 
 
-		internal SpanFormatter SpanFormatter
-		{
-			get
-			{
-				return m_SpanFormatter;
-			}
-		}
+		internal SpanFormatter SpanFormatter => m_SpanFormatter;
 
-		#region Block Pooling
+        #region Block Pooling
 
 		// We cache and re-use blocks for performance
 

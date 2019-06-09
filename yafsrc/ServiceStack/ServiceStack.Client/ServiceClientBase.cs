@@ -228,12 +228,7 @@ namespace ServiceStack
         public TimeSpan? ReadWriteTimeout
         {
             get => this.readWriteTimeout;
-            set
-            {
-                this.readWriteTimeout = value;
-                // TODO implement ReadWriteTimeout in asyncClient
-                //this.asyncClient.ReadWriteTimeout = value;
-            }
+            set => this.readWriteTimeout = value;
         }
         private TimeSpan? readWriteTimeout;
 

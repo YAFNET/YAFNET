@@ -69,11 +69,9 @@ namespace ServiceStack.FluentValidation.Validators {
 			return ValueToCompare;
 		}
 
-		public Comparison Comparison {
-			get { return Comparison.Equal; }
-		}
+		public Comparison Comparison => Comparison.Equal;
 
-		public MemberInfo MemberToCompare { get; private set; }
+        public MemberInfo MemberToCompare { get; private set; }
 		public object ValueToCompare { get; private set; }
 
 		protected bool Compare(object comparisonValue, object propertyValue) {

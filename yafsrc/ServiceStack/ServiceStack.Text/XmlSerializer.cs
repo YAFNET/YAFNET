@@ -97,6 +97,19 @@ namespace ServiceStack.Text
                 serializer.WriteObject(xw, obj);
             }
         }
+
+        public static void SerializeToWriter<T>(T value, XmlWriter writer)
+        {
+            try
+            {
+                var serializer = new DataContractSerializer(value.GetType());
+                serializer.WriteObject(writer, value);
+            }
+            catch (Exception ex)
+            {
+                throw new SerializationException($"Error serializing object of type {value.GetType().FullName}", ex);
+            }
+        }
     }
 }
 #endif

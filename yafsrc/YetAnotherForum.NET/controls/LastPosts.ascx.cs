@@ -54,10 +54,7 @@ namespace YAF.Controls
         /// </summary>
         public long? TopicID
         {
-            get
-            {
-                return this.ViewState["TopicID"]?.ToType<int>();
-            }
+            get => this.ViewState["TopicID"]?.ToType<int>();
 
             set => this.ViewState["TopicID"] = value;
         }

@@ -479,10 +479,7 @@ namespace ServiceStack.Text.Common
             CacheFn = GetWriteFn();
         }
 
-        public static WriteObjectDelegate Write
-        {
-            get { return CacheFn; }
-        }
+        public static WriteObjectDelegate Write => CacheFn;
 
         public static WriteObjectDelegate GetWriteFn()
         {

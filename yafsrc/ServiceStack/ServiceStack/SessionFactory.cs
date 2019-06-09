@@ -26,10 +26,7 @@ namespace ServiceStack
 
             public object this[string key]
             {
-                get
-                {
-                    return cacheClient.Get<object>(this.prefixNs + key);
-                }
+                get => cacheClient.Get<object>(this.prefixNs + key);
                 set
                 {
                     JsWriter.WriteDynamic(() =>

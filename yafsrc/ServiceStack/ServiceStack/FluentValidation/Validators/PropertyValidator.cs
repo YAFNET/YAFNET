@@ -32,11 +32,9 @@ namespace ServiceStack.FluentValidation.Validators {
 		private IStringSource errorSource;
 		private IStringSource errorCodeSource;
 
-		public virtual bool IsAsync {
-			get { return false; }
-		}
+		public virtual bool IsAsync => false;
 
-		public Func<PropertyValidatorContext, object> CustomStateProvider { get; set; }
+        public Func<PropertyValidatorContext, object> CustomStateProvider { get; set; }
 
 		public Severity Severity { get; set; }
 
@@ -62,8 +60,8 @@ namespace ServiceStack.FluentValidation.Validators {
 		}
 
 		public IStringSource ErrorMessageSource {
-			get { return errorSource; }
-			set {
+			get => errorSource;
+            set {
 				if (value == null) {
 					throw new ArgumentNullException("value");
 				}

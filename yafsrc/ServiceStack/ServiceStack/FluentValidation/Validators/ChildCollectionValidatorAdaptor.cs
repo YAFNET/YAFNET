@@ -33,15 +33,11 @@ namespace ServiceStack.FluentValidation.Validators {
 		readonly Func<object, IValidator> childValidatorProvider;
 		readonly Type childValidatorType;
 
-		public override bool IsAsync {
-			get { return true; }
-		}
+		public override bool IsAsync => true;
 
-		public Type ChildValidatorType {
-			get { return childValidatorType; }
-		}
+        public Type ChildValidatorType => childValidatorType;
 
-		public Func<object, bool> Predicate { get; set; }
+        public Func<object, bool> Predicate { get; set; }
 
 		public ChildCollectionValidatorAdaptor(IValidator childValidator) {
 			this.childValidatorProvider = _ => childValidator;

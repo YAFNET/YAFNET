@@ -84,15 +84,9 @@ namespace MarkdownDeep
 		}
 
 		// Get the entire input string
-		public string input
-		{
-			get
-			{
-				return str;
-			}
-		}
+		public string input => str;
 
-		// Get the character at the current position
+        // Get the character at the current position
 		public char current
 		{
 			get
@@ -107,27 +101,15 @@ namespace MarkdownDeep
 		// Get/set the current position
 		public int position
 		{
-			get
-			{
-				return pos;
-			}
-			set
-			{
-				pos = value;
-			}
-		}
+			get => pos;
+            set => pos = value;
+        }
 
 		// Get the remainder of the input 
 		// (use this in a watch window while debugging :)
-		public string remainder
-		{
-			get
-			{
-				return Substring(position);
-			}
-		}
+		public string remainder => Substring(position);
 
-		// Skip to the end of file
+        // Skip to the end of file
 		public void SkipToEof()
 		{
 			pos = end;
@@ -393,33 +375,15 @@ namespace MarkdownDeep
 		}
 
 		// Are we at eof?
-		public bool eof
-		{
-			get
-			{
-				return pos >= end;
-			}
-		}
+		public bool eof => pos >= end;
 
-		// Are we at eol?
-		public bool eol
-		{
-			get
-			{
-				return IsLineEnd(current);
-			}
-		}
+        // Are we at eol?
+		public bool eol => IsLineEnd(current);
 
-		// Are we at bof?
-		public bool bof
-		{
-			get
-			{
-				return pos == start;
-			}
-		}
+        // Are we at bof?
+		public bool bof => pos == start;
 
-		// Mark current position
+        // Mark current position
 		public void Mark()
 		{
 			mark = pos;

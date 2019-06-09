@@ -34,7 +34,7 @@ namespace ServiceStack.Caching
 
             internal object Value
             {
-                get { return cacheValue; }
+                get => cacheValue;
                 set
                 {
                     cacheValue = value;

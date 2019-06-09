@@ -32,14 +32,8 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public virtual IDictionary Items
         {
-            get
-            {
-                return GetItems() ?? (CreateItems());
-            }
-            set
-            {
-                CreateItems(value);
-            }
+            get => GetItems() ?? (CreateItems());
+            set => CreateItems(value);
         }
 
         private const string _key = "__OrmLite.Items";
@@ -157,10 +151,7 @@ namespace ServiceStack.OrmLite
 
                 return null;
             }
-            set
-            {
-                SetItem("OrmLiteState", value);
-            }
+            set => SetItem("OrmLiteState", value);
         }
 
         //Only used when using OrmLite API's against a native IDbConnection (i.e. not from DbFactory) 
@@ -171,7 +162,7 @@ namespace ServiceStack.OrmLite
                 var state = OrmLiteState;
                 return state?.TSTransaction;
             }
-            set { GetOrCreateState().TSTransaction = value; }
+            set => GetOrCreateState().TSTransaction = value;
         }
     }
 

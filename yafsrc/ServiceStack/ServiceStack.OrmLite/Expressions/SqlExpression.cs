@@ -1191,21 +1191,16 @@ namespace ServiceStack.OrmLite
                     BuildSelectExpression(string.Empty, false);
                 return selectExpression;
             }
-            set
-            {
-                selectExpression = value;
-            }
+            set => selectExpression = value;
         }
 
         public string FromExpression
         {
-            get
-            {
-                return string.IsNullOrEmpty(fromExpression)
+            get =>
+                string.IsNullOrEmpty(fromExpression)
                     ? " \nFROM " + DialectProvider.GetQuotedTableName(modelDef)
                     : fromExpression;
-            }
-            set { fromExpression = value; }
+            set => fromExpression = value;
         }
 
         public string BodyExpression => FromExpression
@@ -1215,75 +1210,39 @@ namespace ServiceStack.OrmLite
 
         public string WhereExpression
         {
-            get
-            {
-                return whereExpression;
-            }
-            set
-            {
-                whereExpression = value;
-            }
+            get => whereExpression;
+            set => whereExpression = value;
         }
 
         public string GroupByExpression
         {
-            get
-            {
-                return groupBy;
-            }
-            set
-            {
-                groupBy = value;
-            }
+            get => groupBy;
+            set => groupBy = value;
         }
 
         public string HavingExpression
         {
-            get
-            {
-                return havingExpression;
-            }
-            set
-            {
-                havingExpression = value;
-            }
+            get => havingExpression;
+            set => havingExpression = value;
         }
 
 
         public string OrderByExpression
         {
-            get
-            {
-                return string.IsNullOrEmpty(orderBy) ? "" : "\n" + orderBy;
-            }
-            set
-            {
-                orderBy = value;
-            }
+            get => string.IsNullOrEmpty(orderBy) ? "" : "\n" + orderBy;
+            set => orderBy = value;
         }
 
         public ModelDefinition ModelDef
         {
-            get
-            {
-                return modelDef;
-            }
-            protected set
-            {
-                modelDef = value;
-            }
+            get => modelDef;
+            protected set => modelDef = value;
         }
 
         protected internal bool UseFieldName
         {
-            get
-            {
-                return useFieldName;
-            }
-            set
-            {
-                useFieldName = value;
-            }
+            get => useFieldName;
+            set => useFieldName = value;
         }
 
         public virtual object Visit(Expression exp)

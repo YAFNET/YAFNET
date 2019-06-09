@@ -3644,8 +3644,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         public static IEqualityComparer<string> ConnectionStringComparer
         {
-            get { return connectionStringComparer; }
-            set { connectionStringComparer = value ?? StringComparer.Ordinal; }
+            get => connectionStringComparer;
+            set => connectionStringComparer = value ?? StringComparer.Ordinal;
         }
 
         private static IEqualityComparer<string> connectionStringComparer = StringComparer.Ordinal;

@@ -40,7 +40,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -63,7 +62,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _forum editor.
         /// </summary>
-        protected ForumEditor _forumEditor;
+        protected ForumEditor ForumEditor;
 
         /// <summary>
         ///   The original message.
@@ -73,17 +72,12 @@ namespace YAF.Pages
         /// <summary>
         ///   The _owner user id.
         /// </summary>
-        protected int _ownerUserId;
-
-        /// <summary>
-        ///   The _ux no edit subject.
-        /// </summary>
-        protected Label _uxNoEditSubject;
+        protected int OwnerUserId;
 
         /// <summary>
         ///   Table with choices
         /// </summary>
-        protected DataTable choices;
+        protected DataTable Choices;
 
         /// <summary>
         ///   The Spam Approved Indicator
@@ -109,7 +103,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets EditMessageID.
         /// </summary>
-        protected long? EditMessageID => this.PageContext.QueryIDs["m"];
+        protected long? EditMessageId => this.PageContext.QueryIDs["m"];
 
         /// <summary>
         ///   Gets or sets OriginalMessage.
@@ -129,12 +123,12 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets Quoted Message ID.
         /// </summary>
-        protected long? QuotedMessageID => this.PageContext.QueryIDs["q"];
+        protected long? QuotedMessageId => this.PageContext.QueryIDs["q"];
 
         /// <summary>
         ///   Gets TopicID.
         /// </summary>
-        protected long? TopicID => this.PageContext.QueryIDs["t"];
+        protected long? TopicId => this.PageContext.QueryIDs["t"];
 
         #endregion
 
@@ -147,7 +141,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.TopicID != null || this.EditMessageID != null)
+            if (this.TopicId != null || this.EditMessageId != null)
             {
                 // reply to existing topic or editing of existing topic
                 YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
@@ -188,7 +182,7 @@ namespace YAF.Pages
             // see if they've past that delay point
             if (this.Get<IYafSession>().LastPost
                 <= DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)
-                || this.EditMessageID != null)
+                || this.EditMessageId != null)
             {
                 return false;
             }
@@ -211,7 +205,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            var postedMessage = this._forumEditor.Text.Trim();
+            var postedMessage = this.ForumEditor.Text.Trim();
 
             if (postedMessage.IsNotSet())
             {
@@ -221,7 +215,7 @@ namespace YAF.Pages
 
             // No need to check whitespace if they are actually posting something
             if (this.PageContext.BoardSettings.MaxPostSize > 0
-                && this._forumEditor.Text.Length >= this.PageContext.BoardSettings.MaxPostSize)
+                && this.ForumEditor.Text.Length >= this.PageContext.BoardSettings.MaxPostSize)
             {
                 this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
                 return false;
@@ -291,8 +285,8 @@ namespace YAF.Pages
             }
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
-                && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim()) && this.TopicID == null
-                && this.EditMessageID == null)
+                && this.GetRepository<Topic>().CheckForDuplicateTopic(this.TopicSubjectTextBox.Text.Trim()) && this.TopicId == null
+                && this.EditMessageId == null)
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;
@@ -343,9 +337,9 @@ namespace YAF.Pages
 #endif
             }
 
-            this._forumEditor = ForumEditorHelper.GetCurrentForumEditor();
+            this.ForumEditor = ForumEditorHelper.GetCurrentForumEditor();
 
-            this.EditorLine.Controls.Add(this._forumEditor);
+            this.EditorLine.Controls.Add(this.ForumEditor);
 
             base.OnInit(e);
         }
@@ -363,10 +357,10 @@ namespace YAF.Pages
             var topicInfo = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
 
             // we reply to a post with a quote
-            if (this.QuotedMessageID != null)
+            if (this.QuotedMessageId != null)
             {
                 currentMessage =
-                    this.GetRepository<Message>().MessageList(this.QuotedMessageID.ToType<int>())
+                    this.GetRepository<Message>().MessageList(this.QuotedMessageId.ToType<int>())
                         .FirstOrDefault();
 
                 if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text") != null)
@@ -396,9 +390,9 @@ namespace YAF.Pages
                                            : currentMessage.PollID;
 
                     // if this is a quoted message (a new reply with a quote)  we should transfer the TopicId value only to return
-                    this.PollList.TopicId = this.TopicID.ToType<int>();
+                    this.PollList.TopicId = this.TopicId.ToType<int>();
 
-                    if (this.TopicID == null)
+                    if (this.TopicId == null)
                     {
                         this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
                                                     ? 0
@@ -406,15 +400,15 @@ namespace YAF.Pages
                     }
                 }
             }
-            else if (this.EditMessageID != null)
+            else if (this.EditMessageId != null)
             {
-                currentMessage = this.GetRepository<Message>().MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
+                currentMessage = this.GetRepository<Message>().MessageList(this.EditMessageId.ToType<int>()).FirstOrDefault();
 
                 if (currentMessage != null)
                 {
                     this.OriginalMessage = currentMessage.Message;
 
-                    this._ownerUserId = currentMessage.UserID.ToType<int>();
+                    this.OwnerUserId = currentMessage.UserID.ToType<int>();
 
                     if (!this.CanEditPostCheck(currentMessage, topicInfo))
                     {
@@ -426,9 +420,9 @@ namespace YAF.Pages
                                            : currentMessage.PollID;
 
                     // we edit message and should transfer both the message ID and TopicID for PageLinks.
-                    this.PollList.EditMessageId = this.EditMessageID.ToType<int>();
+                    this.PollList.EditMessageId = this.EditMessageId.ToType<int>();
 
-                    if (this.TopicID == null)
+                    if (this.TopicId == null)
                     {
                         this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
                                                     ? 0
@@ -454,7 +448,7 @@ namespace YAF.Pages
             }
 
             // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-            this._forumEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this.ForumEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
             this.Title.Text = this.GetText("NEWTOPIC");
 
@@ -481,8 +475,8 @@ namespace YAF.Pages
                 }
 
                 // helper bool -- true if this is a completely new topic...
-                var isNewTopic = (this.TopicID == null) && (this.QuotedMessageID == null)
-                                  && (this.EditMessageID == null);
+                var isNewTopic = (this.TopicId == null) && (this.QuotedMessageId == null)
+                                  && (this.EditMessageId == null);
 
                 this.Priority.Items.Add(new ListItem(this.GetText("normal"), "0"));
                 this.Priority.Items.Add(new ListItem(this.GetText("sticky"), "1"));
@@ -536,11 +530,11 @@ namespace YAF.Pages
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
 
                 // check if it's a reply to a topic...
-                if (this.TopicID != null)
+                if (this.TopicId != null)
                 {
                     this.InitReplyToTopic();
 
-                    this.PollList.TopicId = this.TopicID.ToType<int>();
+                    this.PollList.TopicId = this.TopicId.ToType<int>();
                 }
 
                 // If currentRow != null, we are quoting a post in a new reply, or editing an existing post
@@ -548,7 +542,7 @@ namespace YAF.Pages
                 {
                     this.OriginalMessage = currentMessage.Message;
 
-                    if (this.QuotedMessageID != null)
+                    if (this.QuotedMessageId != null)
                     {
                         if (this.Get<IYafSession>().MultiQuoteIds != null)
                         {
@@ -565,7 +559,7 @@ namespace YAF.Pages
                             }
 
                             var messages = this.GetRepository<Message>().PostListAsDataTable(
-                                this.TopicID,
+                                this.TopicId,
                                 this.PageContext.PageUserID,
                                 this.PageContext.PageUserID,
                                 0,
@@ -606,13 +600,13 @@ namespace YAF.Pages
                             this.InitQuotedReply(currentMessage);
                         }
 
-                        this.PollList.TopicId = this.TopicID.ToType<int>();
+                        this.PollList.TopicId = this.TopicId.ToType<int>();
                     }
-                    else if (this.EditMessageID != null)
+                    else if (this.EditMessageId != null)
                     {
                         // editing a message...
                         this.InitEditedPost(currentMessage);
-                        this.PollList.EditMessageId = this.EditMessageID.ToType<int>();
+                        this.PollList.EditMessageId = this.EditMessageId.ToType<int>();
                     }
 
                     this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
@@ -677,13 +671,13 @@ namespace YAF.Pages
                 stylesSave = this.TopicStylesTextBox.Text;
             }
 
-            var editMessage = this.GetRepository<Message>().ListTyped(this.EditMessageID.ToType<int>())
+            var editMessage = this.GetRepository<Message>().ListTyped(this.EditMessageId.ToType<int>())
                 .FirstOrDefault();
 
             // Remove Message Attachments
             if (editMessage.HasAttachments.HasValue && editMessage.HasAttachments.Value)
             {
-                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.EditMessageID.ToType<int>());
+                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.EditMessageId.ToType<int>());
 
                 attachments.ForEach(
                     attach =>
@@ -714,12 +708,12 @@ namespace YAF.Pages
             {
                 IsHtml =
                     this
-                    ._forumEditor
+                    .ForumEditor
                     .UsesHTML,
                 IsBBCode
                     =
                     this
-                    ._forumEditor
+                    .ForumEditor
                     .UsesBBCode,
                 IsPersistent
                     =
@@ -728,12 +722,12 @@ namespace YAF.Pages
                     .PersistantChecked
             };
 
-            var isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
+            var isModeratorChanged = this.PageContext.PageUserID != this.OwnerUserId;
 
             this.GetRepository<Message>().Update(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
                 this.Priority.SelectedValue.ToType<int>(),
-                this._forumEditor.Text.Trim(),
+                this.ForumEditor.Text.Trim(),
                 descriptionSave.Trim(),
                 string.Empty,
                 stylesSave.Trim(),
@@ -745,13 +739,13 @@ namespace YAF.Pages
                 this.OriginalMessage,
                 this.PageContext.PageUserID);
 
-            var messageId = this.EditMessageID.Value;
+            var messageId = this.EditMessageId.Value;
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
             // remove cache if it exists...
             this.Get<IDataCache>()
-                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID,this.TopicID));
+                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID,this.TopicId));
 
             return messageId;
         }
@@ -800,8 +794,8 @@ namespace YAF.Pages
             // make message flags
             var messageFlags = new MessageFlags
                                {
-                                   IsHtml = this._forumEditor.UsesHTML,
-                                   IsBBCode = this._forumEditor.UsesBBCode,
+                                   IsHtml = this.ForumEditor.UsesHTML,
+                                   IsBBCode = this.ForumEditor.UsesBBCode,
                                    IsPersistent = this.PostOptions1.PersistantChecked,
                                    IsApproved = this.spamApproved
                                };
@@ -813,7 +807,7 @@ namespace YAF.Pages
                 string.Empty,
                 this.TopicStylesTextBox.Text.Trim(),
                 this.TopicDescriptionTextBox.Text.Trim(),
-                this._forumEditor.Text,
+                this.ForumEditor.Text,
                 this.PageContext.PageUserID,
                 this.Priority.SelectedValue.ToType<int>(),
                 this.User != null ? null : this.From.Text,
@@ -878,21 +872,21 @@ namespace YAF.Pages
                 isSpamApproved = true;
             }
 
-            object replyTo = this.QuotedMessageID ?? -1;
+            object replyTo = this.QuotedMessageId ?? -1;
 
             // make message flags
             var messageFlags = new MessageFlags
                                {
-                                   IsHtml = this._forumEditor.UsesHTML,
-                                   IsBBCode = this._forumEditor.UsesBBCode,
+                                   IsHtml = this.ForumEditor.UsesHTML,
+                                   IsBBCode = this.ForumEditor.UsesBBCode,
                                    IsPersistent = this.PostOptions1.PersistantChecked,
                                    IsApproved = isSpamApproved
                                };
 
             this.GetRepository<Message>().Save(
-               this.TopicID.Value,
+               this.TopicId.Value,
                 this.PageContext.PageUserID,
-                this._forumEditor.Text,
+                this.ForumEditor.Text,
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
@@ -946,7 +940,7 @@ namespace YAF.Pages
                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
-                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this._forumEditor.Text)))
+                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.ForumEditor.Text)))
                             .RemoveMultipleWhitespace(),
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out spamResult))
@@ -1017,7 +1011,7 @@ namespace YAF.Pages
                 <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount &&
                 !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
-                var urlCount = UrlHelper.CountUrls(this._forumEditor.Text);
+                var urlCount = UrlHelper.CountUrls(this.ForumEditor.Text);
 
                 if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
                 {
@@ -1093,13 +1087,13 @@ namespace YAF.Pages
             long messageId;
             long newTopic = 0;
 
-            if (this.TopicID != null)
+            if (this.TopicId != null)
             {
                 // Reply to topic
                 messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
-                newTopic = this.TopicID.ToType<long>();
+                newTopic = this.TopicId.ToType<long>();
             }
-            else if (this.EditMessageID != null)
+            else if (this.EditMessageId != null)
             {
                 // Edit existing post
                 messageId = this.PostReplyHandleEditPost();
@@ -1138,9 +1132,9 @@ namespace YAF.Pages
             {
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (Config.IsDotNetNuke && this.EditMessageID == null && !this.PageContext.IsGuest)
+                if (Config.IsDotNetNuke && this.EditMessageId == null && !this.PageContext.IsGuest)
                 {
-                    if (this.TopicID != null)
+                    if (this.TopicId != null)
                     {
                         this.Get<IActivityStream>()
                             .AddReplyToStream(
@@ -1148,7 +1142,7 @@ namespace YAF.Pages
                                 newTopic,
                                 messageId.ToType<int>(),
                                 this.PageContext.PageTopicName,
-                                this._forumEditor.Text);
+                                this.ForumEditor.Text);
                     }
                     else
                     {
@@ -1158,7 +1152,7 @@ namespace YAF.Pages
                                 newTopic,
                                 messageId.ToType<int>(),
                                 this.TopicSubjectTextBox.Text,
-                                this._forumEditor.Text);
+                                this.ForumEditor.Text);
                     }
                 }
 
@@ -1231,11 +1225,11 @@ namespace YAF.Pages
 
             this.PreviewMessagePost.MessageFlags = new MessageFlags
                                                        {
-                                                           IsHtml = this._forumEditor.UsesHTML,
-                                                           IsBBCode = this._forumEditor.UsesBBCode
+                                                           IsHtml = this.ForumEditor.UsesHTML,
+                                                           IsBBCode = this.ForumEditor.UsesBBCode
                                                        };
 
-            this.PreviewMessagePost.Message = this._forumEditor.Text;
+            this.PreviewMessagePost.Message = this.ForumEditor.Text;
 
             if (!this.PageContext.BoardSettings.AllowSignatures)
             {
@@ -1321,19 +1315,19 @@ namespace YAF.Pages
         /// </param>
         private void InitEditedPost([NotNull] TypedMessageList currentMessage)
         {
-            if (this._forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
+            if (this.ForumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
                 currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
             }
 
-            if (this._forumEditor.UsesBBCode && currentMessage.Flags.IsHtml)
+            if (this.ForumEditor.UsesBBCode && currentMessage.Flags.IsHtml)
             {
                 // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
                 currentMessage.Message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(currentMessage.Message);
             }
 
-            this._forumEditor.Text = currentMessage.Message;
+            this.ForumEditor.Text = currentMessage.Message;
 
             // Convert Message Attachments to new [Attach] BBCode Attachments
             if (currentMessage.HasAttachments.HasValue && currentMessage.HasAttachments.Value)
@@ -1343,7 +1337,7 @@ namespace YAF.Pages
                 attachments.ForEach(
                     attach =>
                         {
-                            this._forumEditor.Text += $" [ATTACH]{attach.ID}[/Attach] ";
+                            this.ForumEditor.Text += $" [ATTACH]{attach.ID}[/Attach] ";
                         });
             }
 
@@ -1354,7 +1348,7 @@ namespace YAF.Pages
             // add topic link...
             this.PageLinks.AddLink(
                 this.Server.HtmlDecode(currentMessage.Topic),
-                YafBuildLink.GetLink(ForumPages.posts, "m={0}", this.EditMessageID));
+                YafBuildLink.GetLink(ForumPages.posts, "m={0}", this.EditMessageId));
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
@@ -1415,13 +1409,13 @@ namespace YAF.Pages
                 messageContent = this.Get<IFormatMessage>().RemoveNestedQuotes(messageContent);
             }
 
-            if (this._forumEditor.UsesHTML && message.Flags.IsBBCode)
+            if (this.ForumEditor.UsesHTML && message.Flags.IsBBCode)
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
                 messageContent = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(messageContent);
             }
 
-            if (this._forumEditor.UsesBBCode && message.Flags.IsHtml)
+            if (this.ForumEditor.UsesBBCode && message.Flags.IsHtml)
             {
                 // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
                 messageContent = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(messageContent);
@@ -1434,7 +1428,7 @@ namespace YAF.Pages
             messageContent = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(messageContent);
 
             // Quote the original message
-            this._forumEditor.Text +=
+            this.ForumEditor.Text +=
                 $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.MessageID}]{messageContent}[/quote]\n\n"
                     .TrimStart();
         }
@@ -1444,7 +1438,7 @@ namespace YAF.Pages
         /// </summary>
         private void InitReplyToTopic()
         {
-            var topic = this.GetRepository<Topic>().GetById(this.TopicID.ToType<int>());
+            var topic = this.GetRepository<Topic>().GetById(this.TopicId.ToType<int>());
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
             if (topic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
@@ -1461,7 +1455,7 @@ namespace YAF.Pages
             // add topic link...
             this.PageLinks.AddLink(
                 this.Server.HtmlDecode(topic.TopicName),
-                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID));
+                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicId));
 
             // add "reply" text...
             this.PageLinks.AddLink(this.GetText("reply"));
@@ -1470,7 +1464,7 @@ namespace YAF.Pages
 
             // show the last posts AJAX frame...
             this.LastPosts1.Visible = true;
-            this.LastPosts1.TopicID = this.TopicID.Value;
+            this.LastPosts1.TopicID = this.TopicId.Value;
         }
 
         /// <summary>
@@ -1535,10 +1529,10 @@ namespace YAF.Pages
         /// </summary>
         private void HandleUploadControls()
         {
-            this._forumEditor.UserCanUpload = this.PageContext.ForumUploadAccess;
+            this.ForumEditor.UserCanUpload = this.PageContext.ForumUploadAccess;
             this.UploadDialog.Visible = this.PageContext.ForumUploadAccess;
 
-            this.PostAttachments1.Visible = !this._forumEditor.AllowsUploads && this.PageContext.ForumUploadAccess;
+            this.PostAttachments1.Visible = !this.ForumEditor.AllowsUploads && this.PageContext.ForumUploadAccess;
         }
 
         #endregion

@@ -94,15 +94,9 @@ namespace MarkdownDeep
 			}
 		}
 
-		public int LineStart
-		{
-			get
-			{
-				return lineStart == 0 ? contentStart : lineStart;
-			}
-		}
+		public int LineStart => lineStart == 0 ? contentStart : lineStart;
 
-		internal void RenderChildren(Markdown m, StringBuilder b)
+        internal void RenderChildren(Markdown m, StringBuilder b)
 		{
 			foreach (var block in children)
 			{
@@ -431,15 +425,9 @@ namespace MarkdownDeep
 
 		public int contentEnd
 		{
-			get
-			{
-				return contentStart + contentLen;
-			}
-			set
-			{
-				contentLen = value - contentStart;
-			}
-		}
+			get => contentStart + contentLen;
+            set => contentLen = value - contentStart;
+        }
 
 		// Count the leading spaces on a block
 		// Used by list item evaluation to determine indent levels

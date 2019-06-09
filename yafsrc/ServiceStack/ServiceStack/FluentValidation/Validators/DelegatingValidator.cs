@@ -31,11 +31,9 @@ namespace ServiceStack.FluentValidation.Validators {
 		private readonly Func<object, Task<bool>> asyncCondition;
 		public IPropertyValidator InnerValidator { get; private set; }
 
-		public virtual bool IsAsync {
-			get { return InnerValidator.IsAsync || asyncCondition != null; }
-		}
+		public virtual bool IsAsync => InnerValidator.IsAsync || asyncCondition != null;
 
-		public DelegatingValidator(Func<object, bool> condition, IPropertyValidator innerValidator) {
+        public DelegatingValidator(Func<object, bool> condition, IPropertyValidator innerValidator) {
 			this.condition = condition;
 			this.asyncCondition = null;
 			InnerValidator = innerValidator;
@@ -48,14 +46,14 @@ namespace ServiceStack.FluentValidation.Validators {
 		}
 
 		public IStringSource ErrorMessageSource {
-			get { return InnerValidator.ErrorMessageSource; }
-			set { InnerValidator.ErrorMessageSource = value; }
-		}
+			get => InnerValidator.ErrorMessageSource;
+            set => InnerValidator.ErrorMessageSource = value;
+        }
 
 		public IStringSource ErrorCodeSource {
-			get { return InnerValidator.ErrorCodeSource; }
-			set { InnerValidator.ErrorCodeSource = value; }
-		}
+			get => InnerValidator.ErrorCodeSource;
+            set => InnerValidator.ErrorCodeSource = value;
+        }
 
 		public IEnumerable<ValidationFailure> Validate(PropertyValidatorContext context) {
 			if (condition(context.Instance)) {
@@ -80,26 +78,22 @@ namespace ServiceStack.FluentValidation.Validators {
 			return Enumerable.Empty<ValidationFailure>();
 		}
 
-		public bool SupportsStandaloneValidation {
-			get { return false; }
-		}
+		public bool SupportsStandaloneValidation => false;
 
-		public Func<PropertyValidatorContext, object> CustomStateProvider {
-			get { return InnerValidator.CustomStateProvider; }
-			set { InnerValidator.CustomStateProvider = value; }
-		}
+        public Func<PropertyValidatorContext, object> CustomStateProvider {
+			get => InnerValidator.CustomStateProvider;
+            set => InnerValidator.CustomStateProvider = value;
+        }
 
 		public Severity Severity
 		{
-		    get { return InnerValidator.Severity; }
-		    set { InnerValidator.Severity = value; }
-		}
+		    get => InnerValidator.Severity;
+            set => InnerValidator.Severity = value;
+        }
 
-		IPropertyValidator IDelegatingValidator.InnerValidator {
-			get { return InnerValidator; }
-		}
+		IPropertyValidator IDelegatingValidator.InnerValidator => InnerValidator;
 
-		public bool CheckCondition(object instance) {
+        public bool CheckCondition(object instance) {
 			return condition(instance);
 		}
 	}

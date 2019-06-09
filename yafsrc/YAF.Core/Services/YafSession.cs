@@ -68,10 +68,7 @@ namespace YAF.Core.Services
         /// </summary>
         public int? UserTopicSince
         {
-            get
-            {
-                return (int?)this.SessionState["UserTopicSince"];
-            }
+            get => (int?)this.SessionState["UserTopicSince"];
 
             set => this.SessionState["UserTopicSince"] = value;
         }
@@ -81,10 +78,7 @@ namespace YAF.Core.Services
         /// </summary>
         public string TwitterToken
         {
-            get
-            {
-                return (string)this.SessionState["TwitterToken"];
-            }
+            get => (string)this.SessionState["TwitterToken"];
 
             set => this.SessionState["TwitterToken"] = value;
         }
@@ -94,10 +88,7 @@ namespace YAF.Core.Services
         /// </summary>
         public string TwitterTokenSecret
         {
-            get
-            {
-                return (string)this.SessionState["TwitterTokenSecret"];
-            }
+            get => (string)this.SessionState["TwitterTokenSecret"];
 
             set => this.SessionState["TwitterTokenSecret"] = value;
         }
@@ -110,10 +101,7 @@ namespace YAF.Core.Services
         /// </value>
         public List<MultiQuote> MultiQuoteIds
         {
-            get
-            {
-                return this.SessionState["MultiQuoteIds"] as List<MultiQuote>;
-            }
+            get => this.SessionState["MultiQuoteIds"] as List<MultiQuote>;
 
             set => this.SessionState["MultiQuoteIds"] = value;
         }
@@ -123,10 +111,7 @@ namespace YAF.Core.Services
         /// </summary>
         public int? UnreadTopicSince
         {
-            get
-            {
-                return (int?)this.SessionState["UnreadTopicSince"];
-            }
+            get => (int?)this.SessionState["UnreadTopicSince"];
 
             set => this.SessionState["UnreadTopicSince"] = value;
         }
@@ -136,10 +121,7 @@ namespace YAF.Core.Services
         /// </summary>
         public int? ActiveTopicSince
         {
-            get
-            {
-                return (int?)this.SessionState["ActiveTopicSince"];
-            }
+            get => (int?)this.SessionState["ActiveTopicSince"];
 
             set => this.SessionState["ActiveTopicSince"] = value;
         }
@@ -149,10 +131,7 @@ namespace YAF.Core.Services
         /// </summary>
         public int? UnansweredTopicSince
         {
-            get
-            {
-                return (int?)this.SessionState["UnansweredTopicSince"];
-            }
+            get => (int?)this.SessionState["UnansweredTopicSince"];
 
             set => this.SessionState["UnansweredTopicSince"] = value;
         }
@@ -162,10 +141,7 @@ namespace YAF.Core.Services
         /// </summary>
         public int? FavoriteTopicSince
         {
-            get
-            {
-                return (int?)this.SessionState["FavoriteTopicSince"];
-            }
+            get => (int?)this.SessionState["FavoriteTopicSince"];
 
             set => this.SessionState["FavoriteTopicSince"] = value;
         }
@@ -239,10 +215,7 @@ namespace YAF.Core.Services
         /// </summary>
         public DateTime? LastVisit
         {
-            get
-            {
-                return (DateTime?)this.SessionState["lastvisit"];
-            }
+            get => (DateTime?)this.SessionState["lastvisit"];
 
             set
             {
@@ -269,10 +242,7 @@ namespace YAF.Core.Services
         [CanBeNull]
         public SearchResult[] SearchData
         {
-            get
-            {
-                return this.SessionState["SearchResults"] as SearchResult[];
-            }
+            get => this.SessionState["SearchResults"] as SearchResult[];
 
             set => this.SessionState["SearchResults"] = value;
         }
@@ -306,10 +276,7 @@ namespace YAF.Core.Services
         /// </summary>
         public Hashtable TopicRead
         {
-            get
-            {
-                return (Hashtable)this.SessionState["topicread"];
-            }
+            get => (Hashtable)this.SessionState["topicread"];
 
             set => this.SessionState["topicread"] = value;
         }
@@ -341,75 +308,75 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets the last time the forum was read.
         /// </summary>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// This is the ID of the forum you wish to get the last read date from.
         /// </param>
         /// <returns>
         /// A DateTime object of when the forum was last read.
         /// </returns>
-        public DateTime GetForumRead(int forumID)
+        public DateTime GetForumRead(int forumId)
         {
             var t = this.ForumRead;
-            if (t == null || !t.ContainsKey(forumID))
+            if (t == null || !t.ContainsKey(forumId))
             {
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
-            return (DateTime)t[forumID];
+            return (DateTime)t[forumId];
         }
 
         /// <summary>
         /// Returns the last time that the topicID was read.
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topicID you wish to find the DateTime object for.
         /// </param>
         /// <returns>
         /// The DateTime object from the topicID.
         /// </returns>
-        public DateTime GetTopicRead(int topicID)
+        public DateTime GetTopicRead(int topicId)
         {
             var t = this.TopicRead;
 
-            if (t == null || !t.ContainsKey(topicID))
+            if (t == null || !t.ContainsKey(topicId))
             {
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
-            return (DateTime)t[topicID];
+            return (DateTime)t[topicId];
         }
 
         /// <summary>
         /// Sets the time that the forum was read.
         /// </summary>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum ID that was read.
         /// </param>
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        public void SetForumRead(int forumID, DateTime date)
+        public void SetForumRead(int forumId, DateTime date)
         {
             var t = this.ForumRead ?? new Hashtable();
 
-            t[forumID] = date;
+            t[forumId] = date;
             this.ForumRead = t;
         }
 
         /// <summary>
-        /// Sets the time that the <paramref name="topicID"/> was read.
+        /// Sets the time that the <paramref name="topicId"/> was read.
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic ID that was read.
         /// </param>
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        public void SetTopicRead(int topicID, DateTime date)
+        public void SetTopicRead(int topicId, DateTime date)
         {
             var t = this.TopicRead ?? new Hashtable();
 
-            t[topicID] = date;
+            t[topicId] = date;
             this.TopicRead = t;
         }
 

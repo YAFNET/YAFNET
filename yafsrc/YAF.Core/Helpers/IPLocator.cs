@@ -37,9 +37,9 @@ namespace YAF.Core
 
     #endregion
 
-  /// <summary>
-  /// Summary description for IPLocater
-  /// </summary>
+    /// <summary>
+    /// The IP details.
+    /// </summary>
     public class IPDetails
     {
         #region Public Methods

@@ -29,36 +29,33 @@ namespace ServiceStack.MiniProfiler.Data
 
         public override string CommandText
         {
-            get { return _cmd.CommandText; }
-            set { _cmd.CommandText = value; }
+            get => _cmd.CommandText;
+            set => _cmd.CommandText = value;
         }
 
         public override int CommandTimeout
         {
-            get { return _cmd.CommandTimeout; }
-            set { _cmd.CommandTimeout = value; }
+            get => _cmd.CommandTimeout;
+            set => _cmd.CommandTimeout = value;
         }
 
         public override CommandType CommandType
         {
-            get { return _cmd.CommandType; }
-            set { _cmd.CommandType = value; }
+            get => _cmd.CommandType;
+            set => _cmd.CommandType = value;
         }
 
         public DbCommand DbCommand
         {
-            get { return _cmd; }
-            protected set { _cmd = value; }
+            get => _cmd;
+            protected set => _cmd = value;
         }
 
-        IDbCommand IHasDbCommand.DbCommand
-        {
-            get { return DbCommand; }            
-        }
+        IDbCommand IHasDbCommand.DbCommand => DbCommand;
 
         protected override DbConnection DbConnection
         {
-            get { return _conn; }
+            get => _conn;
             set
             {
                 _conn = value;
@@ -67,14 +64,11 @@ namespace ServiceStack.MiniProfiler.Data
             }
         }
 
-        protected override DbParameterCollection DbParameterCollection
-        {
-            get { return _cmd.Parameters; }
-        }
+        protected override DbParameterCollection DbParameterCollection => _cmd.Parameters;
 
         protected override DbTransaction DbTransaction
         {
-            get { return _tran; }
+            get => _tran;
             set
             {
                 this._tran = value;
@@ -86,20 +80,20 @@ namespace ServiceStack.MiniProfiler.Data
 
         protected IDbProfiler DbProfiler
         {
-            get { return _profiler; }
-            set { _profiler = value; }
+            get => _profiler;
+            set => _profiler = value;
         }
 
         public override bool DesignTimeVisible
         {
-            get { return _cmd.DesignTimeVisible; }
-            set { _cmd.DesignTimeVisible = value; }
+            get => _cmd.DesignTimeVisible;
+            set => _cmd.DesignTimeVisible = value;
         }
 
         public override UpdateRowSource UpdatedRowSource
         {
-            get { return _cmd.UpdatedRowSource; }
-            set { _cmd.UpdatedRowSource = value; }
+            get => _cmd.UpdatedRowSource;
+            set => _cmd.UpdatedRowSource = value;
         }
 
 

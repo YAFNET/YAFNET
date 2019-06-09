@@ -104,15 +104,9 @@ namespace YAF.Core
         /// </summary>
         protected override YafLegacyBoardSettings _legacyBoardSettings
         {
-            get
-            {
-                return base._legacyBoardSettings ?? (base._legacyBoardSettings = this.SetupLegacyBoardSettings(this.CurrentBoardRow));
-            }
+            get => base._legacyBoardSettings ?? (base._legacyBoardSettings = this.SetupLegacyBoardSettings(this.CurrentBoardRow));
 
-            set
-            {
-                base._legacyBoardSettings = value;
-            }
+            set => base._legacyBoardSettings = value;
         }
 
         /// <summary>
@@ -120,15 +114,9 @@ namespace YAF.Core
         /// </summary>
         protected override string _membershipAppName
         {
-            get
-            {
-                return base._membershipAppName ?? (base._membershipAppName = this._legacyBoardSettings.MembershipAppName);
-            }
+            get => base._membershipAppName ?? (base._membershipAppName = this._legacyBoardSettings.MembershipAppName);
 
-            set
-            {
-                base._membershipAppName = value;
-            }
+            set => base._membershipAppName = value;
         }
 
         /// <summary>
@@ -136,15 +124,9 @@ namespace YAF.Core
         /// </summary>
         protected override string _rolesAppName
         {
-            get
-            {
-                return base._rolesAppName ?? (base._rolesAppName = this._legacyBoardSettings.RolesAppName);
-            }
+            get => base._rolesAppName ?? (base._rolesAppName = this._legacyBoardSettings.RolesAppName);
 
-            set
-            {
-                base._rolesAppName = value;
-            }
+            set => base._rolesAppName = value;
         }
 
         #endregion

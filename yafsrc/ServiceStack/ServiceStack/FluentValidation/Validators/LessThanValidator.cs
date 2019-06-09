@@ -39,8 +39,6 @@ namespace ServiceStack.FluentValidation.Validators {
 			return Comparer.GetComparisonResult(value, valueToCompare) < 0;
 		}
 
-		public override Comparison Comparison {
-			get { return Validators.Comparison.LessThan; }
-		}
-	}
+		public override Comparison Comparison => Validators.Comparison.LessThan;
+    }
 }

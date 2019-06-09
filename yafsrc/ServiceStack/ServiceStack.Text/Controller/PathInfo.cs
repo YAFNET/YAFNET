@@ -42,15 +42,9 @@ namespace ServiceStack.Text.Controller
             this.Options = options ?? new Dictionary<string, string>();
 		}
 
-		public string FirstArgument
-		{
-			get
-			{
-				return this.Arguments.Count > 0 ? this.Arguments[0] : null;
-			}
-		}
+		public string FirstArgument => this.Arguments.Count > 0 ? this.Arguments[0] : null;
 
-		public T GetArgumentValue<T>(int index)
+        public T GetArgumentValue<T>(int index)
 		{
 			return TypeSerializer.DeserializeFromString<T>(this.Arguments[index]);
 		}

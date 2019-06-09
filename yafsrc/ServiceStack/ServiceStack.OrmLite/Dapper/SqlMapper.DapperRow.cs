@@ -163,7 +163,7 @@ namespace ServiceStack.OrmLite.Dapper
             object IDictionary<string, object>.this[string key]
             {
                 get { TryGetValue(key, out object val); return val; }
-                set { SetValue(key, value, false); }
+                set => SetValue(key, value, false);
             }
 
             public object SetValue(string key, object value)

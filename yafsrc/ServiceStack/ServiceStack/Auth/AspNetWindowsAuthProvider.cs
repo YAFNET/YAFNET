@@ -57,8 +57,8 @@ namespace ServiceStack.Auth
 
         public bool AllowAllWindowsAuthUsers
         {
-            get { return LimitAccessToRoles == null; }
-            set { LimitAccessToRoles = null; }
+            get => LimitAccessToRoles == null;
+            set => LimitAccessToRoles = null;
         }
 
         public override bool IsAuthorized(IAuthSession session, IAuthTokens tokens, Authenticate request = null)

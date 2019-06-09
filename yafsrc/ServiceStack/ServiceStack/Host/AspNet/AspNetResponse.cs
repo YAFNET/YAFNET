@@ -80,7 +80,7 @@ namespace ServiceStack.Host.AspNet
 
         public bool UseBufferedStream
         {
-            get { return BufferedStream != null; }
+            get => BufferedStream != null;
             set
             {
                 if (true)

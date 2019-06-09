@@ -74,10 +74,7 @@ namespace YAF.Controls
                 return PmView.Inbox;
             }
 
-            set
-            {
-                this.ViewState["View"] = value;
-            }
+            set => this.ViewState["View"] = value;
         }
 
         #endregion

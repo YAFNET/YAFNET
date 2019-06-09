@@ -59,67 +59,43 @@ namespace ServiceStack.MiniProfiler.Data
         /// </summary>
         public DbConnection InnerConnection
         {
-            get { return _conn; }
-            protected set { _conn = value; }
+            get => _conn;
+            protected set => _conn = value;
         }
 
-        public IDbConnection DbConnection
-        {
-            get { return _conn; }
-        }
+        public IDbConnection DbConnection => _conn;
 
         /// <summary>
         /// The current profiler instance; could be null.
         /// </summary>
         public IDbProfiler Profiler
         {
-            get { return _profiler; }
-            protected set { _profiler = value; }
+            get => _profiler;
+            protected set => _profiler = value;
         }
 
         /// <summary>
         /// The raw connection this is wrapping
         /// </summary>
-        public DbConnection WrappedConnection
-        {
-            get { return _conn; }
-        }
+        public DbConnection WrappedConnection => _conn;
 
-        protected override bool CanRaiseEvents
-        {
-            get { return true; }
-        }
+        protected override bool CanRaiseEvents => true;
 
         public override string ConnectionString
         {
-            get { return _conn.ConnectionString; }
-            set { _conn.ConnectionString = value; }
+            get => _conn.ConnectionString;
+            set => _conn.ConnectionString = value;
         }
 
-        public override int ConnectionTimeout
-        {
-            get { return _conn.ConnectionTimeout; }
-        }
+        public override int ConnectionTimeout => _conn.ConnectionTimeout;
 
-        public override string Database
-        {
-            get { return _conn.Database; }
-        }
+        public override string Database => _conn.Database;
 
-        public override string DataSource
-        {
-            get { return _conn.DataSource; }
-        }
+        public override string DataSource => _conn.DataSource;
 
-        public override string ServerVersion
-        {
-            get { return _conn.ServerVersion; }
-        }
+        public override string ServerVersion => _conn.ServerVersion;
 
-        public override ConnectionState State
-        {
-            get { return _conn.State; }
-        }
+        public override ConnectionState State => _conn.State;
 
         protected bool AutoDisposeConnection { get; set; }
 

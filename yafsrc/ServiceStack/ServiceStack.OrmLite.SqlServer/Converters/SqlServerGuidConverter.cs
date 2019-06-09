@@ -6,10 +6,7 @@
 
     public class SqlServerGuidConverter : GuidConverter
     {
-        public override string ColumnDefinition
-        {
-            get { return "UniqueIdentifier"; }
-        }
+        public override string ColumnDefinition => "UniqueIdentifier";
 
         public override string ToQuotedString(Type fieldType, object value)
         {

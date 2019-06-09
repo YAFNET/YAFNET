@@ -21,13 +21,7 @@
             this._releaser = releaser;
         }
 
-        public T Object
-        {
-            get
-            {
-                return this._pooledObject;
-            }
-        }
+        public T Object => this._pooledObject;
 
         public void Dispose()
         {

@@ -1015,14 +1015,10 @@ namespace ServiceStack.Text.FastMember
             }
             public override object this[string name]
             {
-                get { return this.accessor[this.target, name.ToUpperInvariant()]; }
-                set {
-                    this.accessor[this.target, name.ToUpperInvariant()] = value; }
+                get => this.accessor[this.target, name.ToUpperInvariant()];
+                set => this.accessor[this.target, name.ToUpperInvariant()] = value;
             }
-            public override object Target
-            {
-                get { return this.target; }
-            }
+            public override object Target => this.target;
         }
 
         //sealed class DynamicWrapper : ObjectAccessor

@@ -28,17 +28,15 @@ namespace ServiceStack.FluentValidation.Validators {
 
 	public abstract class NoopPropertyValidator : IPropertyValidator {
 		public IStringSource ErrorMessageSource {
-			get { return null; }
-			set { }
+			get => null;
+            set { }
 		}
 
-		public virtual bool IsAsync {
-			get { return false; }
-		}
+		public virtual bool IsAsync => false;
 
-		public IStringSource ErrorCodeSource {
-			get { return null; }
-			set { }
+        public IStringSource ErrorCodeSource {
+			get => null;
+            set { }
 		}
 
 		public abstract IEnumerable<ValidationFailure> Validate(PropertyValidatorContext context);
@@ -49,13 +47,11 @@ namespace ServiceStack.FluentValidation.Validators {
 		}
 #pragma warning restore 1998
 
-		public virtual ICollection<Func<object, object, object>> CustomMessageFormatArguments {
-			get { return new List<Func<object, object, object>>(); }
-		}
+		public virtual ICollection<Func<object, object, object>> CustomMessageFormatArguments => new List<Func<object, object, object>>();
 
-		public Func<PropertyValidatorContext, object> CustomStateProvider {
-			get { return null; }
-			set { }
+        public Func<PropertyValidatorContext, object> CustomStateProvider {
+			get => null;
+            set { }
 		}
 
 		public Severity Severity { get; set; }

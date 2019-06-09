@@ -335,43 +335,22 @@ namespace ServiceStack.Host.HttpListener
                 return (HttpPostedFile)BaseGet(key);
             }
 
-            public HttpPostedFile this[string key]
-            {
-                get
-                {
-                    return Get(key);
-                }
-            }
+            public HttpPostedFile this[string key] => Get(key);
 
-            public HttpPostedFile this[int index]
-            {
-                get
-                {
-                    return Get(index);
-                }
-            }
+            public HttpPostedFile this[int index] => Get(index);
 
-            public string[] AllKeys
-            {
-                get
-                {
-                    return BaseGetAllKeys();
-                }
-            }
+            public string[] AllKeys => BaseGetAllKeys();
         }
         class WebROCollection : NameValueCollection
         {
             bool got_id;
             int id;
 
-            public bool GotID
-            {
-                get { return got_id; }
-            }
+            public bool GotID => got_id;
 
             public int ID
             {
-                get { return id; }
+                get => id;
                 set
                 {
                     got_id = true;
@@ -517,30 +496,17 @@ namespace ServiceStack.Host.HttpListener
                     throw new NotSupportedException();
                 }
 
-                public override bool CanRead
-                {
-                    get { return true; }
-                }
-                public override bool CanSeek
-                {
-                    get { return true; }
-                }
-                public override bool CanWrite
-                {
-                    get { return false; }
-                }
+                public override bool CanRead => true;
 
-                public override long Length
-                {
-                    get { return end - offset; }
-                }
+                public override bool CanSeek => true;
+
+                public override bool CanWrite => false;
+
+                public override long Length => end - offset;
 
                 public override long Position
                 {
-                    get
-                    {
-                        return position - offset;
-                    }
+                    get => position - offset;
                     set
                     {
                         if (value > Length)
@@ -558,37 +524,13 @@ namespace ServiceStack.Host.HttpListener
                 this.stream = new ReadSubStream(base_stream, offset, length);
             }
 
-            public string ContentType
-            {
-                get
-                {
-                    return (content_type);
-                }
-            }
+            public string ContentType => (content_type);
 
-            public int ContentLength
-            {
-                get
-                {
-                    return (int)stream.Length;
-                }
-            }
+            public int ContentLength => (int)stream.Length;
 
-            public string FileName
-            {
-                get
-                {
-                    return (name);
-                }
-            }
+            public string FileName => (name);
 
-            public Stream InputStream
-            {
-                get
-                {
-                    return (stream);
-                }
-            }
+            public Stream InputStream => (stream);
 
             public void SaveAs(string filename)
             {

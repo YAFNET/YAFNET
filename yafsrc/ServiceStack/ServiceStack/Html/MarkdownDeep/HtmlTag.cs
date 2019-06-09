@@ -36,31 +36,22 @@ namespace MarkdownDeep
 		}
 
 		// Get the tag name eg: "div"
-		public string name
-		{
-			get { return m_name; }
-		}
+		public string name => m_name;
 
-		// Get a dictionary of attribute values (no decoding done)
-		public Dictionary<string, string> attributes
-		{
-			get { return m_attributes; }
-		}
+        // Get a dictionary of attribute values (no decoding done)
+		public Dictionary<string, string> attributes => m_attributes;
 
-		// Is this tag closed eg; <br />
+        // Is this tag closed eg; <br />
 		public bool closed
 		{
-			get { return m_closed; }
-			set { m_closed = value; }
-		}
+			get => m_closed;
+            set => m_closed = value;
+        }
 
 		// Is this a closing tag eg: </div>
-		public bool closing
-		{
-			get { return m_closing; }
-		}
+		public bool closing => m_closing;
 
-		string m_name;
+        string m_name;
 		Dictionary<string, string> m_attributes = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
 		bool m_closed;
 		bool m_closing;

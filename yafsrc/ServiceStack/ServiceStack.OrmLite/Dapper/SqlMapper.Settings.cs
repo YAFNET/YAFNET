@@ -24,8 +24,8 @@ namespace ServiceStack.OrmLite.Dapper
             /// <remarks>Note that a consequence of enabling this option is that errors that happen <b>after</b> the first select may not be reported</remarks>
             public static bool UseSingleResultOptimization
             {
-                get { return (AllowedCommandBehaviors & CommandBehavior.SingleResult) != 0; }
-                set { SetAllowedCommandBehaviors(CommandBehavior.SingleResult, value); }
+                get => (AllowedCommandBehaviors & CommandBehavior.SingleResult) != 0;
+                set => SetAllowedCommandBehaviors(CommandBehavior.SingleResult, value);
             }
             /// <summary>
             /// Gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization
@@ -33,8 +33,8 @@ namespace ServiceStack.OrmLite.Dapper
             /// <remarks>Note that on some DB providers this optimization can have adverse performance impact</remarks>
             public static bool UseSingleRowOptimization
             {
-                get { return (AllowedCommandBehaviors & CommandBehavior.SingleRow) != 0; }
-                set { SetAllowedCommandBehaviors(CommandBehavior.SingleRow, value); }
+                get => (AllowedCommandBehaviors & CommandBehavior.SingleRow) != 0;
+                set => SetAllowedCommandBehaviors(CommandBehavior.SingleRow, value);
             }
 
             internal static bool DisableCommandBehaviorOptimizations(CommandBehavior behavior, Exception ex)
