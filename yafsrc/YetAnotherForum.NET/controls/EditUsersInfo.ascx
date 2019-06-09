@@ -45,7 +45,8 @@
             <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="USERINFO_HOST" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
         <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsHostAdminX" />
+            <asp:CheckBox CssClass="custom-control custom-checkbox" runat="server" ID="IsHostAdminX"
+                          Text='<%# this.GetText("ADMIN_EDITUSER","USERINFO_HOST") %>' />
         </p>
     <hr />
     </asp:PlaceHolder>

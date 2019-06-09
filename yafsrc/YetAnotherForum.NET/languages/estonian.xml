@@ -2735,6 +2735,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Põhifoorumi Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">Põhifoorumi RSS</Resource>
     <Resource tag="MARKALL">Märgi kõik foorumid loetuks</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderaatorid</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Juurdepääs puudub)</Resource>
     <Resource tag="NO_POSTS">Postitusi ei ole</Resource>
@@ -2758,6 +2759,8 @@
     <Resource tag="VIEWING">({0} Vaatamas)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Kustuta</Resource>

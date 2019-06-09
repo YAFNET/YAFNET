@@ -15,7 +15,8 @@
 			        <%# DataBinder.Eval(Container.DataItem, "Name") %>
 			    </h4>
 				<p>
-					<asp:CheckBox CssClass="form-control" runat="server" ID="GroupMember" Checked='<%# this.IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>' />
+					<asp:CheckBox CssClass="form-control" runat="server" ID="GroupMember" 
+                                  Checked='<%# this.IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>'/>
                 </p>
 					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
 			

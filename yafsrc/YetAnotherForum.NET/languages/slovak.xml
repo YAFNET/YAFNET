@@ -2738,6 +2738,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS hlavného fúra</Resource>
     <Resource tag="MARKALL">Označiť všetky fóra ako přečítené</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderátori</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Prístup zamietnutý)</Resource>
     <Resource tag="NO_POSTS">Žiadne správy</Resource>
@@ -2761,6 +2762,8 @@
     <Resource tag="VIEWING">({0} sa práve pozerá)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Zmazať</Resource>

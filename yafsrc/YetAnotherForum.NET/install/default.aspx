@@ -102,10 +102,12 @@
                     </p>
                     <asp:TextBox ID="txtCreatePassword1" runat="server" TextMode="Password"
                         PlaceHolder="Enter the Config Password"
-                        LabelText="Config Password"/>
+                        LabelText="Config Password"
+                                 CssClass="form-control"/>
                     <asp:TextBox ID="txtCreatePassword2" runat="server" TextMode="Password"
                         PlaceHolder="Re-Enter the Config Password"
-                        LabelText="Verify Password"/>
+                        LabelText="Verify Password"
+                                 CssClass="form-control"/>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Enter Config Password" ID="WizEnterPassword">
                     <h4>
@@ -118,9 +120,11 @@
                         <span class="infoLabel">Note</span> 
                         If this is an upgrade, please enter the configuration ad you created when the forum was first installed, not the admin user password.
                     </div>
-                    <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password" 
-                        PlaceHolder="Enter the Config Password" RenderWrapper="True" 
-                        LabelText="Password"/>
+                    <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password"
+                                 PlaceHolder="Enter the Config Password" 
+                                 RenderWrapper="True"
+                                 CssClass="form-control"
+                                 LabelText="Password"/>
                 </asp:WizardStep>
                 <asp:WizardStep ID="WizManuallySetPassword" runat="server" Title="Manually Set Config Password">
                     <h4>
@@ -172,21 +176,23 @@
                         <div class="form-group">
                             <asp:Label ID="Parameter1_Name" runat="server" AssociatedControlID="Parameter1_Value" />
                             <asp:TextBox runat="server" ID="Parameter1_Value" Text="(local)" 
-                                Placeholder="Enter the Data Source (Name or address of the sql server)"/>
+                                Placeholder="Enter the Data Source (Name or address of the sql server)"
+                                         CssClass="form-control"/>
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Parameter2_Name" runat="server" AssociatedControlID="Parameter2_Value" />
-                            <asp:TextBox runat="server" ID="Parameter2_Value" 
+                            <asp:TextBox runat="server" ID="Parameter2_Value"
+                                         CssClass="form-control"
                                 Placeholder="Enter the Database Name"/>
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
                         <div class="form-group">
                             <asp:Label ID="Parameter3_Name" runat="server" AssociatedControlID="Parameter3_Value" />
-                            <asp:TextBox runat="server" ID="Parameter3_Value" CssClass="standardTextInput" />
+                            <asp:TextBox runat="server" ID="Parameter3_Value" CssClass="form-control" />
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Parameter4_Name" runat="server" AssociatedControlID="Parameter4_Value" />
-                            <asp:TextBox runat="server" ID="Parameter4_Value" CssClass="standardTextInput" />
+                            <asp:TextBox runat="server" ID="Parameter4_Value" CssClass="form-control" />
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Parameter5_Name" runat="server" AssociatedControlID="Parameter5_Value" />
@@ -235,10 +241,12 @@
                         <asp:PlaceHolder ID="DBUsernamePasswordHolder" Visible="false" runat="server">
                             <asp:TextBox runat="server" ID="txtDBUserID" 
                                 Placeholder="Enter the SQL User Name" RenderWrapper="True" 
-                                LabelText="User ID"/>
+                                LabelText="User ID"
+                                         CssClass="form-control"/>
                             <asp:TextBox runat="server" ID="txtDBPassword" 
                                 Placeholder="Enter the SQL Password" RenderWrapper="True" 
-                                LabelText="Password"/>
+                                LabelText="Password"
+                                         CssClass="form-control"/>
                         </asp:PlaceHolder>
                     </asp:PlaceHolder>
                     <hr/>
@@ -309,10 +317,12 @@
                     </p>
                     <asp:TextBox ID="txtTestFromEmail" runat="server"
                         Placeholder="Enter the from Email Address" RenderWrapper="True" Type="Email"
-                        LabelText="Send From Email Address"/>
+                        LabelText="Send From Email Address"
+                                 CssClass="form-control"/>
                     <asp:TextBox ID="txtTestToEmail" runat="server" 
                         Placeholder="Enter the to Email Address" RenderWrapper="True" Type="Email"
-                        LabelText="Send To Email Address"/>
+                        LabelText="Send To Email Address"
+                                 CssClass="form-control"/>
                     <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="btn btn-info" 
                         EnableLoadingAnimation="True" OnClick="TestSmtp_Click" data-style="expand-left" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
@@ -343,7 +353,8 @@
                     </h4>
                     <asp:TextBox ID="TheForumName" runat="server" 
                         Placeholder="Enter the name of the new Board"
-                        RenderWrapper="True" LabelText="Board Name"/>
+                        RenderWrapper="True" LabelText="Board Name"
+                                 CssClass="form-control"/>
                     <div class="form-group">
                         <asp:Label AssociatedControlId="TimeZones" id="Label6" 
                             runat="server">Guest User Time Zone</asp:Label>
@@ -359,11 +370,13 @@
                     <asp:TextBox ID="ForumEmailAddress" runat="server" 
                         Placeholder="Enter the forum email address"  RenderWrapper="True"
                         LabelText="Forum Email"
-                        Type="Email"/>
+                        Type="Email"
+                                 CssClass="form-control"/>
                     <asp:TextBox ID="ForumBaseUrlMask" runat="server" 
                         Placeholder="Enter the Base Url mask for the forum" RenderWrapper="True" 
                         LabelText="Forum Base Url Mask"
-                        Type="Url"/>
+                        Type="Url"
+                                 CssClass="form-control"/>
                     <hr/>
                     <div class="form-group">
                         <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" 
@@ -375,31 +388,38 @@
                     <asp:PlaceHolder ID="ExistingUserHolder" runat="server" Visible="false">
                     <asp:TextBox ID="ExistingUserName" runat="server" 
                         Placeholder="Enter the name of the existing user to make the admin" RenderWrapper="True" 
-                        LabelText="Existing User Name"/>
+                        LabelText="Existing User Name"
+                                 CssClass="form-control"/>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder ID="CreateAdminUserHolder" runat="server">
                     <asp:TextBox ID="UserName" runat="server"
                         Placeholder="Enter the name of the admin user" RenderWrapper="True" 
-                        LabelText="Admin User Name"/>
+                        LabelText="Admin User Name"
+                                 CssClass="form-control"/>
                     <asp:TextBox ID="AdminEmail" runat="server" 
                         Placeholder="Enter the administrators email address" RenderWrapper="True" 
                         LabelText="Admin E-mail"
-                        Type="Email"/>
+                        Type="Email"
+                                 CssClass="form-control"/>
                     <asp:TextBox ID="Password1" runat="server" 
                         Placeholder="Enter the password of the admin user." RenderWrapper="True" 
                         LabelText="Admin Password"
-                        TextMode="Password" Type="Password" />
+                        TextMode="Password" Type="Password"
+                                 CssClass="form-control"/>
                     <asp:TextBox ID="Password2" runat="server"
                         Placeholder="Verify the password" RenderWrapper="True" 
                         LabelText="Confirm Password"
-                        TextMode="Password" Type="Password" />
+                        TextMode="Password" Type="Password"
+                                 CssClass="form-control"/>
                     <asp:TextBox runat="server" ID="SecurityQuestion" 
                         Placeholder="The question you will be asked when you need to retrieve your lost password" 
                         RenderWrapper="True" 
-                        LabelText="Security Question"/>
+                        LabelText="Security Question"
+                                 CssClass="form-control"/>
                     <asp:TextBox runat="server" ID="SecurityAnswer" 
                         Placeholder="The answer to the security question" RenderWrapper="True" 
-                        LabelText="Security Answer"/>
+                        LabelText="Security Answer"
+                                 CssClass="form-control"/>
                     </asp:PlaceHolder>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Migrate Users" ID="WizMigrateUsers">

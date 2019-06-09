@@ -24,7 +24,7 @@
                                                                                                                 CssClass="category_image" 
                                                                                                                 AlternateText=" " 
                                                                                                                 ImageUrl='<%# "{0}{1}/{2}".Fmt(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Categories, DataBinder.Eval(Container.DataItem, "CategoryImage")) %>'
-                                                                             Visible='<%# !DataBinder.Eval(Container.DataItem, "CategoryImage").ToString().IsNotSet() %>'
+                                                                             Visible='<%# DataBinder.Eval(Container.DataItem, "CategoryImage").ToString().IsSet() %>'
                                                                              runat="server" />
                         </div>
                         <%# this.Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
@@ -42,12 +42,22 @@
                 <FooterTemplate>
                     <div class="row mb-3">
                         <div class="col">
-                            <div class="btn-group float-right" role="group" aria-label="Tools">
-                                <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
+                           <div class="btn-group float-right" role="group" aria-label="Tools">
+                                <YAF:ThemeButton runat="server" ID="WatchForum"
+                                                 OnClick="WatchAllClick" 
+                                                 Type="Secondary" 
+                                                 Size="Small"
+                                                 Icon="eye"
+                                                 TextLocalizedTag="WATCHFORUM_ALL"
+                                                 TitleLocalizedTag="WATCHFORUM_ALL_HELP"
+                                                 CommandArgument="<%# this.PageContext.PageCategoryID != 0 ? this.PageContext.PageCategoryID.ToString() : null %>"/>
+                                <YAF:ThemeButton runat="server" ID="MarkAll"
+                                                 OnClick="MarkAllClick" 
                                                  Type="Secondary"
                                                  Size="Small"
                                                  Icon="glasses"
-                                                 TextLocalizedTag="MARKALL" />
+                                                 TextLocalizedTag="MARKALL"
+                                                 CommandArgument="<%# this.PageContext.PageCategoryID != 0 ? this.PageContext.PageCategoryID.ToString() : null %>"/>
                                 <YAF:RssFeedLink ID="RssFeed1" runat="server"
                                                  FeedType="Forum" 
                                                  AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? "c={0}".Fmt(this.PageContext.PageCategoryID) : null %>'

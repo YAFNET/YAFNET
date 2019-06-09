@@ -2738,6 +2738,7 @@
     <Resource tag="MAIN_FORUM_ATOM">主论坛 Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">主论坛 RSS</Resource>
     <Resource tag="MARKALL">标注所有论坛板块为已读.</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">版主</Resource>
     <Resource tag="NO_FORUM_ACCESS">你没有访问这个论坛板块的权限.</Resource>
     <Resource tag="NO_POSTS">无新贴</Resource>
@@ -2761,6 +2762,8 @@
     <Resource tag="VIEWING">({0} 新贴)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">删除</Resource>

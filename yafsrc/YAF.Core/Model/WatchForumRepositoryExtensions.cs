@@ -40,14 +40,41 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
-        public static void Add(this IRepository<WatchForum> repository, int userID, int forumID)
+        /// <summary>
+        /// The add.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.watchforum_add(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
+            repository.DbFunction.Query.watchforum_add(UserID: userId, ForumID: forumId, UTCTIMESTAMP: DateTime.UtcNow);
             repository.FireNew();
         }
 
+        /// <summary>
+        /// The check.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int?"/>.
+        /// </returns>
         public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -57,11 +84,23 @@ namespace YAF.Core.Model
             return forum?.ID;
         }
 
-        public static DataTable List(this IRepository<WatchForum> repository, int userID)
+        /// <summary>
+        /// The list as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable ListAsDataTable(this IRepository<WatchForum> repository, int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.watchforum_list(UserID: userID);
+            return repository.DbFunction.GetData.watchforum_list(UserID: userId);
         }
 
         #endregion

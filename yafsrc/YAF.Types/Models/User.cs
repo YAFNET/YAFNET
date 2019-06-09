@@ -99,9 +99,6 @@ namespace YAF.Types.Models
         [Required]
         [Default(1)]
         public bool PMNotification { get; set; }
-        [Required]
-        [Default(0)]
-        public bool AutoWatchTopics { get; set; }
 
         [Required]
         [Default(0)]

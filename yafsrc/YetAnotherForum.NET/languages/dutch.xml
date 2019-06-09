@@ -2731,6 +2731,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Hoofd Forum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">Hoofd RSS</Resource>
     <Resource tag="MARKALL">Markeer alle fora als gelezen</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatoren</Resource>
     <Resource tag="NO_FORUM_ACCESS">Je hebt geen toegang tot het gekozen forum.</Resource>
     <Resource tag="NO_POSTS">Geen berichten</Resource>
@@ -2754,6 +2755,8 @@
     <Resource tag="VIEWING">({0} aanwezig)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Geef een -1 aan de reputatie van deze gebruiker.</Resource>
     <Resource tag="VOTE_UP_TITLE">Geef een +1 aan de reputatie van deze gebruiker.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Verwijderen</Resource>

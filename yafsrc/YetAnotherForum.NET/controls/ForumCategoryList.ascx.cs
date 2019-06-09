@@ -27,14 +27,15 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
-    using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -46,21 +47,6 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// Column count
-        /// </summary>
-        /// <returns>
-        /// The column count.
-        /// </returns>
-        protected int ColumnCount()
-        {
-            var cnt = 5;
-
-            
-
-            return cnt;
-        }
-
-        /// <summary>
         /// The mark all_ click.
         /// </summary>
         /// <param name="sender">
@@ -69,19 +55,54 @@ namespace YAF.Controls
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void WatchAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var markAll = (LinkButton)sender;
+            var markAll = (ThemeButton)sender;
 
             int? categoryId = null;
 
-            int icategoryId;
-            if (int.TryParse(markAll.CommandArgument, out icategoryId))
+            if (int.TryParse(markAll.CommandArgument, out var resultId))
             {
-                categoryId = icategoryId;
+                categoryId = resultId;
             }
 
-            var dt = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
+            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
+                boardID: this.PageContext.PageBoardID,
+                userID: this.PageContext.PageUserID,
+                categoryID: categoryId,
+                parentID: null,
+                useStyledNicks: false,
+                findLastRead: false);
+
+            dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()).ForEach(
+                forumId => this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId));
+
+            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
+
+            this.BindData();
+        }
+        
+        /// <summary>
+         /// The mark all_ click.
+         /// </summary>
+         /// <param name="sender">
+         /// The sender.
+         /// </param>
+         /// <param name="e">
+         /// The e.
+         /// </param>
+        protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var markAll = (ThemeButton)sender;
+
+            int? categoryId = null;
+
+            if (int.TryParse(markAll.CommandArgument, out var resultId))
+            {
+                categoryId = resultId;
+            }
+
+            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
                 boardID: this.PageContext.PageBoardID,
                 userID: this.PageContext.PageUserID,
                 categoryID: categoryId,
@@ -90,6 +111,8 @@ namespace YAF.Controls
                 findLastRead: false);
 
             this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
+
+            this.PageContext.AddLoadMessage(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
             this.BindData();
         }

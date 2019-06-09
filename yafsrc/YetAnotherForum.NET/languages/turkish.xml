@@ -2738,6 +2738,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Ana Forum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">Ana Forum RSS</Resource>
     <Resource tag="MARKALL">Tüm forumları okundu olarak işaretle</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Forum Editörleri</Resource>
     <Resource tag="NO_FORUM_ACCESS">(İzniniz Yok)</Resource>
     <Resource tag="NO_POSTS">Mesaj Yok.</Resource>
@@ -2761,6 +2762,8 @@
     <Resource tag="VIEWING">({0} Okunma Sayısı)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Sil</Resource>

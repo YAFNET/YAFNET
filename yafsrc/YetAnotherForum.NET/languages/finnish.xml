@@ -2732,6 +2732,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
     <Resource tag="MARKALL">Merkitse kaikki alueet luetuksi</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderaattorit</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Ei pääsyä)</Resource>
     <Resource tag="NO_POSTS">Ei viestejä</Resource>
@@ -2755,6 +2756,8 @@
     <Resource tag="VIEWING">({0} lukemassa)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Delete</Resource>

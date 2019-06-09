@@ -28,6 +28,9 @@ namespace YAF.Types.Interfaces
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -80,12 +83,10 @@ namespace YAF.Types.Interfaces
         public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
-            CodeContracts.VerifyNotNull(forumIds, "forumIds");
+            var enumerable = forumIds.ToList();
+            CodeContracts.VerifyNotNull(enumerable, "forumIds");
 
-            foreach (var id in forumIds)
-            {
-                readTrackCurrentUser.SetForumRead(id);
-            }
+            enumerable.ForEach(readTrackCurrentUser.SetForumRead);
         }
 
         /// <summary>

@@ -2713,6 +2713,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Hauptforum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS-Feed</Resource>
     <Resource tag="MARKALL">Alle Foren als gelesen markieren</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatoren</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Kein Zutritt)</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
@@ -2736,6 +2737,8 @@
     <Resource tag="VIEWING">({0} Benutzer aktiv)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">-1 Reputation dem Benutzer hinzufügen.</Resource>
     <Resource tag="VOTE_UP_TITLE">+1 Reputation dem Benutzer hinzufügen.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Löschen</Resource>

@@ -2732,6 +2732,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Feed Atom forum principale</Resource>
     <Resource tag="MAIN_FORUM_RSS">Feed RSS forum principale</Resource>
     <Resource tag="MARKALL">Contrassegna tutti i forum come letti</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatori</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Nessun Accesso)</Resource>
     <Resource tag="NO_POSTS">Nessun messaggio</Resource>
@@ -2755,6 +2756,8 @@
     <Resource tag="VIEWING">({0} sfogliano il forum)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">-1 per il karma dell'utente.</Resource>
     <Resource tag="VOTE_UP_TITLE">+1 per il karma dell'utente.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Elimina</Resource>

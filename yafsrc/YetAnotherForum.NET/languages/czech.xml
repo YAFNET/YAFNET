@@ -2739,6 +2739,7 @@
     <Resource tag="MAIN_FORUM_RSS">RSS hlavního fóra</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS hlavního fúra</Resource>
     <Resource tag="MARKALL">Označit všechna fóra jako přečtená</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderátoři</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Přístup odepřen)</Resource>
     <Resource tag="NO_POSTS">Žádné zprávy</Resource>
@@ -2762,6 +2763,8 @@
     <Resource tag="VIEWING">({0} se právě dívá)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Smazat</Resource>

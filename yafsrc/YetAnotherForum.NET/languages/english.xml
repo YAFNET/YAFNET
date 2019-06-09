@@ -2716,6 +2716,9 @@
   <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
   <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
   <Resource tag="MARKALL">Mark all forums as read</Resource>
+  <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
+  <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+  <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   <Resource tag="MODERATORS">Moderators</Resource>
   <Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
   <Resource tag="NO_POSTS">No Posts</Resource>

@@ -49,7 +49,6 @@
                                         <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE"
                                                         LocalizedTag="PM_EMAIL_NOTIFICATION" />
                                     </asp:Label>
-                                    
                                 </div>
                             </asp:PlaceHolder>
                             

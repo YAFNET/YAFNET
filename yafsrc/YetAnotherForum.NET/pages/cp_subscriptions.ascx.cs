@@ -114,7 +114,7 @@ namespace YAF.Pages
             }
 
             // update the ui...
-            this.UpdateSubscribeUI(this.PageContext.CurrentUserData.NotificationSetting);
+            this.UpdateSubscribeUi(this.PageContext.CurrentUserData.NotificationSetting);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace YAF.Pages
         {
             var selectedValue = this.rblNotificationType.SelectedItem.Value.ToEnum<UserNotificationSetting>();
 
-            this.UpdateSubscribeUI(selectedValue);
+            this.UpdateSubscribeUi(selectedValue);
         }
 
         /// <summary>
@@ -238,13 +238,12 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID).AsEnumerable();
+            var watchForums = this.GetRepository<WatchForum>().ListAsDataTable(this.PageContext.PageUserID).AsEnumerable();
 
             this.ForumList.DataSource = watchForums;
 
-            this.UnsubscribeForums.Visible = watchForums.Count() != 0;
 
-            this.ForumsHolder.Visible = watchForums.Count() != 0;
+            this.ForumsHolder.Visible = watchForums.Any();
 
             // we are going to page results
             var dt = this.GetRepository<WatchTopic>().List(this.PageContext.PageUserID);
@@ -279,15 +278,16 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The update subscribe ui.
+        /// The update subscribe UI.
         /// </summary>
         /// <param name="selectedValue">
         /// The selected value.
         /// </param>
-        private void UpdateSubscribeUI(UserNotificationSetting selectedValue)
+        private void UpdateSubscribeUi(UserNotificationSetting selectedValue)
         {
             var showSubscribe =
-              !(selectedValue == UserNotificationSetting.AllTopics || selectedValue == UserNotificationSetting.NoNotification);
+              !(selectedValue == UserNotificationSetting.AllTopics
+                || selectedValue == UserNotificationSetting.NoNotification);
 
             this.SubscribeHolder.Visible = showSubscribe;
         }

@@ -2740,6 +2740,7 @@
     <Resource tag="MAIN_FORUM_ATOM">Atom del foro principal</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS del foro principal</Resource>
     <Resource tag="MARKALL">Marcar todos los foros como leídos</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderadores</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Sin acceso)</Resource>
     <Resource tag="NO_POSTS">Sin publicaciones</Resource>
@@ -2763,6 +2764,8 @@
     <Resource tag="VIEWING">({0} viéndolo)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Quitar el -1 de la reputación del usuario.</Resource>
     <Resource tag="VOTE_UP_TITLE">Añadir +1 a la reputación del usuario.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Eliminar</Resource>
