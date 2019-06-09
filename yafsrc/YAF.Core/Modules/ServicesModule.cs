@@ -89,6 +89,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<YafAlbum>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafAttachment>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafResources>().As<IResources>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<IpInfoService>().As<IIpInfoService>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope().PreserveExistingDefaults();
 

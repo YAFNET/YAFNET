@@ -2566,6 +2566,7 @@
     <Resource tag="FACEBOOK">Je Facebook Profiel URL:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum-instellingen</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Laat me niet zien aan andere gebruikers</Resource>
     <Resource tag="HOMEPAGE">Homepage</Resource>

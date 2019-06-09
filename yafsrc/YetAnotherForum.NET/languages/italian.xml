@@ -2567,6 +2567,7 @@
     <Resource tag="FACEBOOK">L'ID del tuo profilo Facebook:</Resource>
     <Resource tag="FIELD_TOOLONG">La lunghezza di {0} non puo' superare {1} caratteri.</Resource>
     <Resource tag="FORUM_SETTINGS">Impostazioni forum</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">URL del tuo profilo Google:</Resource>
     <Resource tag="HIDEME">Invisibile</Resource>
     <Resource tag="HOMEPAGE">Home page:</Resource>

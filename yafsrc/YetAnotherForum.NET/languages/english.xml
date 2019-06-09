@@ -58,7 +58,6 @@
   <Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
   <Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
   <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
-  <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
   <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
   <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
   <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
@@ -1761,9 +1760,6 @@
   <Resource tag="STOP_TASK">Stop Task</Resource>
   <Resource tag="TITLE">Task Manger</Resource>
  </page>
- <page name="ADMIN_TEST_DATA">
-  <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
- </page>
  <page name="ADMIN_TOPICSTATUS">
   <Resource tag="ADD">Add</Resource>
   <Resource tag="CONFIRM_DELETE">Delete this Status?</Resource>
@@ -2558,6 +2554,7 @@
   <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
   <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
   <Resource tag="FORUM_SETTINGS">Forum Settings</Resource>
+  <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
   <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
   <Resource tag="HIDEME">Hide me from active users</Resource>
   <Resource tag="HOMEPAGE">Home Page</Resource>
@@ -2584,10 +2581,7 @@
   <Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
   <Resource tag="TITLE">Edit Profile</Resource>
   <Resource tag="TWITTER">Your Twitter Name:</Resource>
-
-  <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
-
-  <Resource tag="WEBLOG2">Your Blog URL (public):</Resource>
+   <Resource tag="WEBLOG2">Your Blog URL (public):</Resource>
   <Resource tag="WHERE">Where do you live?</Resource>
   <Resource tag="XMPP">Your Jabber ID:</Resource>
   <Resource tag="YIM">Your Yahoo ID:</Resource>

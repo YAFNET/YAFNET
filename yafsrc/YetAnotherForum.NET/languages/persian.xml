@@ -2588,6 +2588,7 @@
     <Resource tag="FACEBOOK">آدرس پروفایل فیسبوک شما:</Resource>
     <Resource tag="FIELD_TOOLONG">طول {0} نباید بیش از {1} کاراکتر باشد.</Resource>
     <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">آدرس پروفایل گوگل شما:</Resource>
     <Resource tag="HIDEME">مخفی شدن من از لیست کاربران فعال</Resource>
     <Resource tag="HOMEPAGE">صفحه اصلی</Resource>

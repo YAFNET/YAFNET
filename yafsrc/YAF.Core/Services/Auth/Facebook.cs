@@ -25,7 +25,6 @@
 namespace YAF.Core.Services.Auth
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Globalization;
     using System.Linq;
@@ -49,11 +48,6 @@ namespace YAF.Core.Services.Auth
     /// </summary>
     public class Facebook : IAuthBase
     {
-        /// <summary>
-        ///   Gets or sets the User IP Info.
-        /// </summary>
-        private IDictionary<string, string> UserIpLocator { get; set; }
-
         /// <summary>
         /// Gets the authorize URL.
         /// </summary>
@@ -499,20 +493,13 @@ namespace YAF.Core.Services.Auth
                 userProfile.Location = facebookUser.Location.Name;
             }
 
-            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
+            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
             {
-                this.UserIpLocator = new IPDetails().GetData(
-                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    "text",
-                    false,
-                    YafContext.Current.CurrentForumPage.Localization.Culture.Name,
-                    string.Empty,
-                    string.Empty);
+                var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
-                if (this.UserIpLocator != null && this.UserIpLocator["StatusCode"] == "OK"
-                                               && this.UserIpLocator.Count > 0)
+                if (userIpLocator != null)
                 {
-                    userProfile.Country = this.UserIpLocator["CountryCode"];
+                    userProfile.Country = userIpLocator["CountryCode"];
                 }
             }
 

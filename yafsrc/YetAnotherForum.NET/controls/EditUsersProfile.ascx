@@ -90,6 +90,15 @@
             </strong>
         </h4>
     <hr />
+        <p>
+            <YAF:ThemeButton runat="server" ID="GetLocation" 
+                             Visible='<%# this.Get<YafBoardSettings>().EnableIPInfoService %>'
+                             Icon="location-arrow"
+                             Type="Secondary"
+                             TextLocalizedTag="GET_LOCATION"
+                             OnClick="GetLocationOnClick">
+            </YAF:ThemeButton>
+        </p>
 
         <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedPage="CP_EDITPROFILE"
@@ -287,16 +296,16 @@
                     LocalizedTag="EMAIL" />
             </h4>
             <p>
-                <asp:TextBox ID="Email" CssClass="form-control" runat="server" OnTextChanged="Email_TextChanged" TextMode="Email" />
+                <asp:TextBox ID="Email" CssClass="form-control" runat="server" OnTextChanged="EmailTextChanged" TextMode="Email" />
             </p>
     </asp:PlaceHolder>
 
                 <div class="text-lg-center">
 
-            <YAF:ThemeButton ID="UpdateProfile" Type="Primary" runat="server" OnClick="UpdateProfile_Click"
+            <YAF:ThemeButton ID="UpdateProfile" Type="Primary" runat="server" OnClick="UpdateProfileClick"
                              Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="COMMON" />
             &nbsp;
-            <YAF:ThemeButton ID="Cancel" Type="Secondary" runat="server" OnClick="Cancel_Click"
+            <YAF:ThemeButton ID="Cancel" Type="Secondary" runat="server" OnClick="CancelClick"
                              Icon="trash" TextLocalizedTag="CANCEL" TextLocalizedPage="COMMON" />
                     &nbsp;
             </div>

@@ -2577,6 +2577,7 @@
     <Resource tag="FACEBOOK">Tu URL del perfil de Facebook:</Resource>
     <Resource tag="FIELD_TOOLONG">El largo de {0} no puede exceder los {1} caracteres.</Resource>
     <Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">Tu URL del perfil de Google:</Resource>
     <Resource tag="HIDEME">Ocultarme de los usuarios activos</Resource>
     <Resource tag="HOMEPAGE">Página web</Resource>

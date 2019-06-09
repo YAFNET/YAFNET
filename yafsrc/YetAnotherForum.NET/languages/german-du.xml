@@ -2550,6 +2550,7 @@
     <Resource tag="FACEBOOK">Facebook Profil URL:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} Länge darf nicht länder als {1} Zeichen lang sein.</Resource>
     <Resource tag="FORUM_SETTINGS">Einstellungen des Forums</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">Ihre Google Profil URL:</Resource>
     <Resource tag="HIDEME">Verstecken Sie mich aus der aktiven Nutzerliste</Resource>
     <Resource tag="HOMEPAGE">Webseite</Resource>

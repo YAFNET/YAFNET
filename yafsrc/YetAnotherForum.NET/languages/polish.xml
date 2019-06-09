@@ -2566,6 +2566,7 @@
     <Resource tag="FACEBOOK">Adres do profilu na Facebooku:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} długość nie może być dłuższa niż {1} znaków.</Resource>
     <Resource tag="FORUM_SETTINGS">Ustawienia Forum</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">Adres do profilu Google:</Resource>
     <Resource tag="HIDEME">Ukryj moją obecność na forum</Resource>
     <Resource tag="HOMEPAGE">Strona Domowa</Resource>

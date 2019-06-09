@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -72,11 +71,6 @@ namespace YAF.Pages
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets or sets the User IP Info.
-        /// </summary>
-        public IDictionary<string, string> UserIpLocator { get; set; }
 
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
@@ -616,18 +610,6 @@ namespace YAF.Pages
             var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
             country.DataSource = StaticDataHelper.Country();
 
-            if (this.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
-            {
-                // vzrus: we should always get not null class here
-                this.UserIpLocator = new IPDetails().GetData(
-                    this.Get<HttpRequestBase>().GetUserRealIPAddress(), 
-                    "text", 
-                    false, 
-                    this.PageContext().CurrentForumPage.Localization.Culture.Name,
-                    string.Empty, 
-                    string.Empty);
-            }
-
             if (!this.Get<YafBoardSettings>().EmailVerification)
             {
                 // automatically log in created users
@@ -874,34 +856,18 @@ namespace YAF.Pages
         /// <param name="country">The country.</param>
         private void FillLocationData([NotNull]DropDownList country)
         {
-            if (this.UserIpLocator == null || this.UserIpLocator["StatusCode"] != "OK")
-            {
-                this.Logger.Log(
-                    null, 
-                    this,
-                    $"Geolocation Service reports: {this.UserIpLocator["StatusMessage"]}", 
-                    EventLogTypes.Information);
-            }
+            var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
-            if (this.UserIpLocator["StatusCode"] != "OK")
-            {
-                this.Logger.Log(
-                    null, 
-                    this,
-                    $"Geolocation Service reports: {this.UserIpLocator["StatusMessage"]}", 
-                    EventLogTypes.Information);
-            }
-
-            if (this.UserIpLocator.Count <= 0 || this.UserIpLocator["StatusCode"] != "OK")
+            if (userIpLocator == null)
             {
                 return;
             }
 
             var location = new StringBuilder();
 
-            if (this.UserIpLocator["CountryCode"] != null && this.UserIpLocator["CountryCode"].IsSet() && !this.UserIpLocator["CountryCode"].Equals("-"))
+            if (userIpLocator["CountryCode"] != null && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
             {
-                var countryItem = country.Items.FindByValue(this.UserIpLocator["CountryCode"]);
+                var countryItem = country.Items.FindByValue(userIpLocator["CountryCode"]);
 
                 if (countryItem != null)
                 {
@@ -909,14 +875,14 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.UserIpLocator["RegionName"] != null && this.UserIpLocator["RegionName"].IsSet() && !this.UserIpLocator["RegionName"].Equals("-"))
+            if (userIpLocator["RegionName"] != null && userIpLocator["RegionName"].IsSet() && !userIpLocator["RegionName"].Equals("-"))
             {
-                location.Append(this.UserIpLocator["RegionName"]);
+                location.Append(userIpLocator["RegionName"]);
             }
 
-            if (this.UserIpLocator["CityName"] != null && this.UserIpLocator["CityName"].IsSet() && !this.UserIpLocator["CityName"].Equals("-"))
+            if (userIpLocator["CityName"] != null && userIpLocator["CityName"].IsSet() && !userIpLocator["CityName"].Equals("-"))
             {
-                location.AppendFormat(", {0}", this.UserIpLocator["CityName"]);
+                location.AppendFormat(", {0}", userIpLocator["CityName"]);
             }
 
             this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();

@@ -2568,6 +2568,7 @@
     <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">اعدادات المنتدى</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">اخفائي من المستخدمين الحاليين </Resource>
     <Resource tag="HOMEPAGE">الصفحة الرئيسية</Resource>

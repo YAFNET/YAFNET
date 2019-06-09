@@ -32,6 +32,7 @@ namespace YAF.Controls
     using System.Linq;
     using System.Net.Mail;
     using System.Text.RegularExpressions;
+    using System.Web;
     using System.Web.Security;
 
     using FarsiLibrary.Utils;
@@ -127,7 +128,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
         }
@@ -137,7 +138,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Email_TextChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void EmailTextChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.UpdateEmailFlag = true;
         }
@@ -218,7 +219,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void UpdateProfile_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserId);
 
@@ -238,10 +239,8 @@ namespace YAF.Controls
 
                 if (this.UserData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
                 {
-                    string result;
-
                     // Check for spam
-                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out result))
+                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
                     {
                         // Log and Send Message to Admins
                         if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
@@ -510,6 +509,35 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Set the Location Info (Country and City) based on the users last IP
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void GetLocationOnClick(object sender, EventArgs e)
+        {
+            var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator(
+                this.PageContext.CurrentForumPage.IsAdminPage
+                    ? this.UserData.LastIP
+                    : YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
+
+            if (userIpLocator["CountryCode"] != null && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
+            {
+                var countryItem = this.Country.Items.FindByValue(userIpLocator["CountryCode"]);
+
+                if (countryItem != null)
+                {
+                    this.Country.ClearSelection();
+                    countryItem.Selected = true;
+                }
+            }
+
+            if (userIpLocator["CityName"] != null && userIpLocator["CityName"].IsSet() && !userIpLocator["CityName"].Equals("-"))
+            {
+                this.City.Text = userIpLocator["CityName"];
+            }
+        }
+
+        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
@@ -714,7 +742,6 @@ namespace YAF.Controls
                                               YafForumInfo.ForumURL
                                           }
                                   };
-
 
             // save a change email reference to the db
             this.GetRepository<CheckEmail>().Save(this.currentUserId, hash, newEmail);
