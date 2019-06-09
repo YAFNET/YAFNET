@@ -175,21 +175,39 @@ namespace YAF.Controls {
         protected global::YAF.Controls.UserLink NewestMemberUserLink;
         
         /// <summary>
-        /// BirthdayUsers control.
+        /// AntiSpamStatsHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder BirthdayUsers;
+        protected global::System.Web.UI.WebControls.PlaceHolder AntiSpamStatsHolder;
         
         /// <summary>
-        /// StatsTodaysBirthdays control.
+        /// StatsSpamDenied control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder StatsTodaysBirthdays;
+        protected global::YAF.Controls.LocalizedLabel StatsSpamDenied;
+        
+        /// <summary>
+        /// StatsSpamBanned control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel StatsSpamBanned;
+        
+        /// <summary>
+        /// StatsSpamReported control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel StatsSpamReported;
     }
 }

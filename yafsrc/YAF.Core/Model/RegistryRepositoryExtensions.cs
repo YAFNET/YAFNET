@@ -27,6 +27,7 @@ namespace YAF.Core.Model
     using System.Data;
     using System.Data.SqlClient;
 
+    using YAF.Classes;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -37,9 +38,63 @@ namespace YAF.Core.Model
     /// <summary>
     ///     The Registry repository extensions.
     /// </summary>
-    public static class RegistyRepositoryExtensions
+    public static class RegistryRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Increment the the Denied User Registration Count.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        public static void IncrementDeniedRegistrations(this IRepository<Registry> repository)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            YafContext.Current.Get<YafBoardSettings>().DeniedRegistrations++;
+
+            repository.Save(
+                "DeniedRegistrations",
+                YafContext.Current.Get<YafBoardSettings>().DeniedRegistrations,
+                repository.BoardID);
+        }
+
+        /// <summary>
+        /// Increment the Banned users count.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        public static void IncrementBannedUsers(this IRepository<Registry> repository)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            YafContext.Current.Get<YafBoardSettings>().BannedUsers++;
+
+            repository.Save(
+                "BannedUsers",
+                YafContext.Current.Get<YafBoardSettings>().BannedUsers,
+                repository.BoardID);
+        }
+
+        /// <summary>
+        /// Increment the reported spammers count.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        public static void IncrementReportedSpammers(this IRepository<Registry> repository)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            YafContext.Current.Get<YafBoardSettings>().ReportedSpammers++;
+
+            repository.Save(
+                "ReportedSpammers",
+                YafContext.Current.Get<YafBoardSettings>().ReportedSpammers,
+                repository.BoardID);
+        }
 
         /// <summary>
         /// Lists the specified repository.
@@ -47,8 +102,8 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="settingName">Name of the setting.</param>
         /// <param name="boardId">The board identifier.</param>
-        /// <returns></returns>
-        public static DataTable List(
+        /// <returns>Returns the Registry as DataTable</returns>
+        public static DataTable ListAsDataTable(
             this IRepository<Registry> repository,
             string settingName = null,
             int? boardId = null)
@@ -91,7 +146,7 @@ namespace YAF.Core.Model
 
             try
             {
-                using (var table = List(repository: repository, settingName: settingName))
+                using (var table = ListAsDataTable(repository: repository, settingName: settingName))
                 {
                     if (table.HasRows())
                     {
@@ -117,7 +172,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Current DB Version Name
         /// </returns>
-        public static string GetDBVersionName(this IRepository<Registry> repository)
+        public static string GetDbVersionName(this IRepository<Registry> repository)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -133,7 +188,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Current YAF DB Version
         /// </returns>
-        public static int GetDBVersion(this IRepository<Registry> repository)
+        public static int GetDbVersion(this IRepository<Registry> repository)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -160,6 +215,18 @@ namespace YAF.Core.Model
             return version;
         }
 
+        /// <summary>
+        /// The validate version.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="appVersion">
+        /// The app version.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string ValidateVersion(this IRepository<Registry> repository, int appVersion)
         {
             CodeContracts.VerifyNotNull(repository, "repository");

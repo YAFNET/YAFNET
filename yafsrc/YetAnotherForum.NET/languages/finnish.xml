@@ -2750,6 +2750,10 @@
     <Resource tag="STATS_LASTPOST">Viimeisin viesti {0} mennessä</Resource>
     <Resource tag="STATS_MEMBERS">Keskustelualueella on {0:N0} rekisteröitynyttä jäsentä.</Resource>
     <Resource tag="STATS_POSTS">Keskustelualueella on {0:N0} viestiä, {1:N0} aihetta ja {2:N0} aluetta.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Aiheita</Resource>
     <Resource tag="UNREAD0">Sinulla on {0} lukematonta yksityisviestiä.</Resource>
     <Resource tag="UNREAD1">Sinulla on {0} lukematonta yksityisviestiä.</Resource>

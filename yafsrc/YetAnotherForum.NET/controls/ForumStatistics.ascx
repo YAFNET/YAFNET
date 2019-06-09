@@ -71,7 +71,6 @@
                             <asp:PlaceHolder runat="server" ID="StatsLastPostHolder" Visible="False">
                                 <li class="list-group-item px-0">
                                     <asp:Label ID="StatsLastPost" runat="server" />&nbsp;<YAF:UserLink ID="LastPostUserLink" runat="server" />
-                                    .
                                 </li>
                             </asp:PlaceHolder>
                             <li class="list-group-item px-0">
@@ -79,12 +78,27 @@
                             </li>
                             <li class="list-group-item px-0">
                                 <asp:Label ID="StatsNewestMember" runat="server" />:&nbsp;<YAF:UserLink ID="NewestMemberUserLink" runat="server" />
-                                .
                             </li>
-                            <asp:PlaceHolder ID="BirthdayUsers" runat="server" Visible="false">
+                            <asp:PlaceHolder runat="server" ID="AntiSpamStatsHolder">
+                            <li class="list-group-item px-0">
+                                <h6>
+                                    <YAF:LocalizedLabel runat="server"
+                                                        LocalizedTag="STATS_SPAM">
+                                    </YAF:LocalizedLabel>
+                                </h6>
+                            </li>
                                 <li class="list-group-item px-0">
-                                    <asp:PlaceHolder ID="StatsTodaysBirthdays" runat="server" />
+                                    <YAF:LocalizedLabel runat="server" ID="StatsSpamDenied"
+                                                        LocalizedTag="STATS_SPAM_DENIED"></YAF:LocalizedLabel>
                                 </li>
+                            <li class="list-group-item px-0">
+                                <YAF:LocalizedLabel runat="server" ID="StatsSpamBanned"
+                                                    LocalizedTag="STATS_SPAM_BANNED"></YAF:LocalizedLabel>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <YAF:LocalizedLabel runat="server" ID="StatsSpamReported"
+                                                    LocalizedTag="STATS_SPAM_REPORTED"></YAF:LocalizedLabel>
+                            </li>
                             </asp:PlaceHolder>
                         </ul>
                     </div>

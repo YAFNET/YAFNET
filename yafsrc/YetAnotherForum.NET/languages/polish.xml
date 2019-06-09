@@ -2747,6 +2747,10 @@
     <Resource tag="STATS_LASTPOST">Ostatni post {0} przez</Resource>
     <Resource tag="STATS_MEMBERS">Mamy {0:N0} zarejestrowanych użytkowników.</Resource>
     <Resource tag="STATS_POSTS">Jest {0:N0} postów w {1:N0} temacie w {2:N0} forum.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Tematy</Resource>
     <Resource tag="UNREAD0">Masz {0} nieprzeczytanych wiadomości w skrzynce odbiorczej.</Resource>
     <Resource tag="UNREAD1">Masz {0} nieprzeczytaną wiadomość w skrzynce odbiorczej.</Resource>

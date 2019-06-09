@@ -2754,6 +2754,10 @@
     <Resource tag="STATS_LASTPOST">Ultima postare {0} de {1}.</Resource>
     <Resource tag="STATS_MEMBERS">Avem {0:N0} membrii inregistrati.</Resource>
     <Resource tag="STATS_POSTS">Sunt {0:N0} postari  in {1:N0} teme in {2:N0} forumuri.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Teme</Resource>
     <Resource tag="UNREAD0">Ai  {0} mesaje necitite.</Resource>
     <Resource tag="UNREAD1">Ai  {0} mesaje necitite.</Resource>

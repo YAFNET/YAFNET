@@ -25,6 +25,8 @@ namespace YAF.Controls
 {
     using System.Web.UI;
 
+    using ServiceStack;
+
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -89,7 +91,7 @@ namespace YAF.Controls
                 localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, false, true, false);
             }
 
-            return string.Format(localizedItem, supportedItem.Param0,supportedItem.Param1, supportedItem.Param2);
+            return localizedItem.Fmt(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
         }
 
         #endregion

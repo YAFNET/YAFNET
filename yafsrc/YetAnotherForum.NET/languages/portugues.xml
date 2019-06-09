@@ -2756,6 +2756,10 @@
     <Resource tag="STATS_LASTPOST">Últimas participações {0} de {1}.</Resource>
     <Resource tag="STATS_MEMBERS">Há {0:N0} membros registrados.</Resource>
     <Resource tag="STATS_POSTS">Há {0:N0} participações em {1:N0} tópicos de {2:N0} fóruns.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Tópicos</Resource>
     <Resource tag="UNREAD0">Você possui {0} mensagens não lidas em sua caixa de entrada.</Resource>
     <Resource tag="UNREAD1">Você possui {0} mensagem não lida na sua caixa de entrada.</Resource>

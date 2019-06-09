@@ -2841,6 +2841,10 @@
     <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>
     <Resource tag="STATS_MEMBERS">Mes {0:N0} registruoti nariai. </Resource>
     <Resource tag="STATS_POSTS">Yra {0:N0} postų {1:N0} temomis {2:N0} forumuose. </Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Temos </Resource>
     <Resource tag="UNREAD0">Jūs {0} neskaitytų žinučių aplanke Gauti laiškai. </Resource>
     <Resource tag="UNREAD1">Jūs {0} neskaitytų pranešimų į jūsų pašto dėžutę. </Resource>

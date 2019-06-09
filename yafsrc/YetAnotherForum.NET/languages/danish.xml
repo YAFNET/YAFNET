@@ -2756,6 +2756,10 @@
     <Resource tag="STATS_LASTPOST">Sidste indlæg var den {0} af </Resource>
     <Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerede medlemmer.</Resource>
     <Resource tag="STATS_POSTS">{0:N0} indlæg i {1:N0} emner under {2:N0} fora.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Emner</Resource>
     <Resource tag="UNREAD0">Du har {0} ulæste beskeder i din postkasse.</Resource>
     <Resource tag="UNREAD1">Du har {0} ulæst besked i din postkasse.</Resource>

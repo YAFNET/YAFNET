@@ -2757,6 +2757,10 @@
     <Resource tag="STATS_LASTPOST">Poslední zprávu {0}.</Resource>
     <Resource tag="STATS_MEMBERS">Máme {0:N0} registrovaných členů.</Resource>
     <Resource tag="STATS_POSTS">Počet fór: {2:N0}; počet témat: {1:N0}; počet zpráv: {0:N0}.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Témata</Resource>
     <Resource tag="UNREAD0">Ve své schránce máte {0} nepřečtených zpráv.</Resource>
     <Resource tag="UNREAD1">Ve své schránce máte {0} nepřečtených zpráv.</Resource>

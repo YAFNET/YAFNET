@@ -2753,6 +2753,10 @@
     <Resource tag="STATS_LASTPOST">Dernier message le {0} par</Resource>
     <Resource tag="STATS_MEMBERS">Il y a {0:N0} membres inscrits.</Resource>
     <Resource tag="STATS_POSTS">Il y a {0:N0} message(s) dans {1:N0} sujet(s) de {2:N0} forum(s).</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Sujets</Resource>
     <Resource tag="UNREAD0">Vous avez {0} messages privés non lus.</Resource>
     <Resource tag="UNREAD1">Vous avez {0} message privés non lu.</Resource>

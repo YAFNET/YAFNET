@@ -233,7 +233,7 @@ namespace YAF.Core.Services
 
                 this.FixAccess(true);
 
-                var prevVersion = this.GetRepository<Registry>().GetDBVersion();
+                var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
                 this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
                 this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);

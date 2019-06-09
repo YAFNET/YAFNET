@@ -2756,6 +2756,10 @@
     <Resource tag="STATS_LASTPOST">最后由 {1} 发表于 {0}.</Resource>
     <Resource tag="STATS_MEMBERS">共有 {0:N0} 个注册会员.</Resource>
     <Resource tag="STATS_POSTS">共有 {0:N0} 个帖子，{1:N0} 个话题，{2:N0} 个论坛.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">话题数量</Resource>
     <Resource tag="UNREAD0">您有 {0} 个未读悄悄话.</Resource>
     <Resource tag="UNREAD1">您有 {0} 个未读悄悄话.</Resource>

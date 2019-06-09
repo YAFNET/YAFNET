@@ -51,6 +51,36 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets the denied user registrations count.
+        /// </summary>
+        public int DeniedRegistrations
+        {
+            get => this._regBoard.GetValue<int>("DeniedRegistrations", 0);
+
+            set => this._regBoard.SetValue("DeniedRegistrations", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the banned users count.
+        /// </summary>
+        public int BannedUsers
+        {
+            get => this._regBoard.GetValue<int>("BannedUsers", 0);
+
+            set => this._regBoard.SetValue("BannedUsers", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the reported spammers count.
+        /// </summary>
+        public int ReportedSpammers
+        {
+            get => this._regBoard.GetValue<int>("ReportedSpammers", 0);
+
+            set => this._regBoard.SetValue("ReportedSpammers", value);
+        }
+
+        /// <summary>
         /// Gets or sets the guest user id backup.
         /// </summary>
         /// <value>

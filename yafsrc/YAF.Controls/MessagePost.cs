@@ -260,22 +260,20 @@ namespace YAF.Controls
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
-                string
-                    .Format(
-                        @"<div class=""alert alert-secondary"" role=""alert"">
+                @"<div class=""alert alert-secondary"" role=""alert"">
                       <a title=""{3}"" alt=""title=""{3}"" href=""{4}"">
                          <i class=""fa fa-history fa-fw""></i><strong>{0}</strong> {1}
                       </a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
                       </button></div>",
-                        this.GetText("EDITED"),
-                            whoChanged,
-                            editedDateTime,
-                            editReasonText,
-                            this.PageContext.IsGuest
-                                ? "#"
-                                : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
+                this.GetText("EDITED"),
+                whoChanged,
+                editedDateTime,
+                editReasonText,
+                this.PageContext.IsGuest
+                    ? "#"
+                    : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>()));
         }
 
         /// <summary>
@@ -287,15 +285,13 @@ namespace YAF.Controls
            [NotNull] HtmlTextWriter writer, int messageId)
         {
             writer.Write(
-                string
-                    .Format(
-                        @"<div class=""alert alert-success"" role=""alert"">
+                @"<div class=""alert alert-success"" role=""alert"">
                       <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
                       </button></div>",
-                        this.GetText("GO_TO_ANSWER"),
-                            YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId)));
+                this.GetText("GO_TO_ANSWER"),
+                YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId));
         }
 
         /// <summary>

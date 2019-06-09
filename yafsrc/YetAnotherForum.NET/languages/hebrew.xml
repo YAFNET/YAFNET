@@ -2779,6 +2779,10 @@
     <Resource tag="STATS_LASTPOST">הודעה אחרונה {0} ע"י</Resource>
     <Resource tag="STATS_MEMBERS">יש לנו {0:N0} חברים רשומים.</Resource>
     <Resource tag="STATS_POSTS">ישנן {0:N0} הודעות ב- {1:N0} דיונים ב- {2:N0} פורומים.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">דיונים</Resource>
     <Resource tag="UNREAD0">יש לך {0} הודעות לא נקראו בתיבת הדואר הנכנס.</Resource>
     <Resource tag="UNREAD1">יש לך הודעה אחת שלא נקראה בתיבת הדואר הנכנס.</Resource>

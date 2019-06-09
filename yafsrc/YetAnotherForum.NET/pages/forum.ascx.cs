@@ -77,17 +77,22 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.PageContext.Settings.LockedForum == 0)
+            if (this.PageContext.Settings.LockedForum != 0)
             {
-                this.PageLinks.AddRoot();
-                if (this.PageContext.PageCategoryID != 0)
-                {
-                    this.PageLinks.AddLink(
-                        this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-                    this.Welcome.Visible = false;
-                }
+                return;
             }
+
+            this.PageLinks.AddRoot();
+
+            if (this.PageContext.PageCategoryID == 0)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(
+                this.PageContext.PageCategoryName,
+                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.Welcome.Visible = false;
         }
 
         #endregion

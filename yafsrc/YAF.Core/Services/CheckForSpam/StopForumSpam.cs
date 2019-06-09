@@ -135,6 +135,14 @@ namespace YAF.Core.Services.CheckForSpam
                 60 * 1000,
                 parameters);
 
+            if (!result.Contains("success"))
+            {
+                YafContext.Current.Get<ILogger>().Log(
+                    null,
+                    " Report to StopForumSpam.com Failed",
+                    result);
+            }
+
             return result.Contains("success");
         }
     }

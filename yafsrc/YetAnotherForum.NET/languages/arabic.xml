@@ -2750,6 +2750,10 @@
     <Resource tag="STATS_LASTPOST">آخر مشاركة{0} بواسطة </Resource>
     <Resource tag="STATS_MEMBERS">لدينا {0:N0} عضو/أعضاء.</Resource>
     <Resource tag="STATS_POSTS">يوجد {0:N0} مشاركة/مشاركات في {1:N0} موضوع/مواضيع في {2:N0} منتدى/منتديات.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">مواضيع </Resource>
     <Resource tag="UNREAD0">لديك {0} غير مقروءة فيصندوق الوارد.</Resource>
     <Resource tag="UNREAD1">لديك  {0}  رسائل غير مقروءه في  صندوق الوارد.</Resource>

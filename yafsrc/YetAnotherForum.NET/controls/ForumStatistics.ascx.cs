@@ -96,14 +96,14 @@ namespace YAF.Controls
                 (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
             {
                 // always show active users...       
-                sb.Append(
-                    string.Format(
-                        "<a href=\"{1}\" title=\"{2}\">{0}</a>",
-                        this.GetTextFormatted(
-                                activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
-                            YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0),
-                            this.GetText("COMMON", "VIEW_FULLINFO"),
-                            this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty));
+                sb.AppendFormat(
+                    "<a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
+                    this.GetTextFormatted(
+                        activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2",
+                        activeUsers),
+                    YafBuildLink.GetLink(ForumPages.activeusers, "v={0}", 0),
+                    this.GetText("COMMON", "VIEW_FULLINFO"),
+                    this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
             }
             else
             {
@@ -297,8 +297,7 @@ namespace YAF.Controls
                     "stats_lastpost",
                     new DisplayDateTime
                         {
-                            DateTime = postsStatisticsDataRow["LastPost"],
-                            Format = DateTimeFormat.BothTopic
+                            DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic
                         }.RenderToString());
             }
             else
@@ -316,6 +315,20 @@ namespace YAF.Controls
             this.NewestMemberUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
                                                         ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
                                                         : userStatisticsDataRow["LastMember"].ToString();
+
+            if (this.Get<YafBoardSettings>().DeniedRegistrations > 0 || this.Get<YafBoardSettings>().BannedUsers > 0
+                                                                     || this.Get<YafBoardSettings>().ReportedSpammers
+                                                                     > 0)
+            {
+                this.AntiSpamStatsHolder.Visible = true;
+                this.StatsSpamDenied.Param0 = this.Get<YafBoardSettings>().DeniedRegistrations.ToString();
+                this.StatsSpamBanned.Param0 = this.Get<YafBoardSettings>().BannedUsers.ToString();
+                this.StatsSpamReported.Param0 = this.Get<YafBoardSettings>().ReportedSpammers.ToString();
+            }
+            else
+            {
+                this.AntiSpamStatsHolder.Visible = false;
+            }
         }
 
         #endregion

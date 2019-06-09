@@ -2753,6 +2753,10 @@
     <Resource tag="STATS_LASTPOST"> Viimane postitus {0} </Resource>
     <Resource tag="STATS_MEMBERS">Meil on {0:N0} registreerunud kasutajat.</Resource>
     <Resource tag="STATS_POSTS">{0:N0} postitust on {1:N0} teemas ja {2:N0} foorumis.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Teemad</Resource>
     <Resource tag="UNREAD0">Sul on {0} lugemata kirja postkastis.</Resource>
     <Resource tag="UNREAD1">Sul on {0} lugemata kiri postkastis.</Resource>

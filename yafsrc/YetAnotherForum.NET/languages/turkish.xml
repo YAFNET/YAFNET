@@ -2756,6 +2756,10 @@
     <Resource tag="STATS_LASTPOST">Son Mesaj {0} tarihinde yazılmıştır. Üye Adı:</Resource>
     <Resource tag="STATS_MEMBERS"> {0:N0} Kayıtlı Üyemiz Bulunmaktadır.</Resource>
     <Resource tag="STATS_POSTS">{2:N0} Forumun, {1:N0} Konusu altında toplam {0:N0} Mesaj bulunmaktdır.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Konular</Resource>
     <Resource tag="UNREAD0">Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır.</Resource>
     <Resource tag="UNREAD1">Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır.</Resource>

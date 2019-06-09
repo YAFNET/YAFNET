@@ -2756,6 +2756,10 @@
     <Resource tag="STATS_LASTPOST">Bài viết cuối {0} bởi.</Resource>
     <Resource tag="STATS_MEMBERS">Diễn đàn có tất cả {0:N0} thành viên.</Resource>
     <Resource tag="STATS_POSTS">Có {0:N0} bài viết và {1:N0} chủ đề trong tổng số {2:N0} diễn đàn.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Chủ đề</Resource>
     <Resource tag="UNREAD0">Bạn có {0} tin nhắn mới.</Resource>
     <Resource tag="UNREAD1">Bạn có {0} tin nhắn mới.</Resource>

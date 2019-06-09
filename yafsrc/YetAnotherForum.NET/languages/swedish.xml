@@ -2756,6 +2756,10 @@
     <Resource tag="STATS_LASTPOST">Senaste meddelandet {0} av</Resource>
     <Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerade medlemmar.</Resource>
     <Resource tag="STATS_POSTS">Det finns {0:N0} meddelanden i {1:N0} konversationer i {2:N0} forum.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Konversationer</Resource>
     <Resource tag="UNREAD0">Du har {0} olästa meddelanden i din inkorg..</Resource>
     <Resource tag="UNREAD1">Du har {0} oläst meddelande i din inkorg.</Resource>

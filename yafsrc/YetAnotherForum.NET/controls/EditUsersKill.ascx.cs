@@ -169,8 +169,10 @@ namespace YAF.Controls
                 {
                     var stopForumSpam = new StopForumSpam();
 
-                    if (!stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
+                    if (stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
                     {
+                        this.GetRepository<Registry>().IncrementReportedSpammers();
+
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
@@ -315,8 +317,8 @@ namespace YAF.Controls
                 var linkUserBan = string.Format(
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN"),
                     this.CurrentUserId,
-                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
-                        this.HtmlEncode(name));
+                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
+                    this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
             }
@@ -334,9 +336,8 @@ namespace YAF.Controls
                 ForumPages.search,
                 "postedby={0}",
                 !this.CurrentUserDataHelper.IsGuest
-                    ? (this.Get<YafBoardSettings>().EnableDisplayName
-                           ? this.CurrentUserDataHelper.DisplayName
-                           : this.CurrentUserDataHelper.UserName)
+                    ? this.Get<YafBoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :
+                      this.CurrentUserDataHelper.UserName
                     : UserMembershipHelper.GuestUserName);
 
             this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();

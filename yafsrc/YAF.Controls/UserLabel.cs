@@ -42,7 +42,7 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets CssClass.
+        ///   Gets or sets CSS Class.
         /// </summary>
         [NotNull]
         public string CssClass

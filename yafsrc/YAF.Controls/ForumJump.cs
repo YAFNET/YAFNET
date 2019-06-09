@@ -112,12 +112,8 @@ namespace YAF.Controls
 
         #region Methods
 
-        /// <summary>
-        ///     The on init.
-        /// </summary>
-        /// <param name="e">
-        ///     The e.
-        /// </param>
+        /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.Load += this.PageLoad;
@@ -152,12 +148,7 @@ namespace YAF.Controls
 
             foreach (DataRow row in forumJump.Rows)
             {
-                writer.WriteLine(
-                    string.Format(
-                        @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
-                        row["ForumID"],
-                            this.HtmlEncode(row["Title"]),
-                            Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty));
+                writer.WriteLine(@"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>", row["ForumID"], this.HtmlEncode(row["Title"]), Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty);
             }
 
             writer.WriteLine("</select>");

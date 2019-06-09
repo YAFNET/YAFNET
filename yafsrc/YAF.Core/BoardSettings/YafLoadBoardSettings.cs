@@ -174,7 +174,7 @@ namespace YAF.Core
         {
             DataTable dataTable;
 
-            using (dataTable = YafContext.Current.GetRepository<Registry>().List())
+            using (dataTable = YafContext.Current.GetRepository<Registry>().ListAsDataTable())
             {
                 // get all the registry settings into our hash table
                 foreach (DataRow dr in dataTable.Rows)
@@ -183,7 +183,7 @@ namespace YAF.Core
                 }
             }
 
-            using (dataTable = YafContext.Current.GetRepository<Registry>().List(null, this._boardID))
+            using (dataTable = YafContext.Current.GetRepository<Registry>().ListAsDataTable(null, this._boardID))
             {
                 // get all the registry settings into our hash table
                 foreach (DataRow dr in dataTable.Rows)

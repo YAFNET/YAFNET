@@ -2736,6 +2736,10 @@
     <Resource tag="STATS_LASTPOST">Последнее сообщение {0} отправил</Resource>
     <Resource tag="STATS_MEMBERS">Зарегистрировано {0:N0} пользователей.</Resource>
     <Resource tag="STATS_POSTS">На форуме {0:N0} сообщений, {1:N0} тем в {2:N0} подфорумах.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Темы</Resource>
     <Resource tag="UNREAD0">У Вас {0} непрочитанных входящих сообщений.</Resource>
     <Resource tag="UNREAD1">У Вас {0} непрочитанное входящее сообщение.</Resource>

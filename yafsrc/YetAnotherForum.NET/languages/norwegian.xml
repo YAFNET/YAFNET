@@ -2751,6 +2751,10 @@
     <Resource tag="STATS_LASTPOST">Siste innlegg {0} av {1}.</Resource>
     <Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerte medlemmer.</Resource>
     <Resource tag="STATS_POSTS">{0:N0} innlegg i {1:N0} emner i {2:N0} forum.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">Emner</Resource>
     <Resource tag="UNREAD0">Du har {0} uleste meldinger i innboksen din.</Resource>
     <Resource tag="UNREAD1">Du har {0} ulest melding i innboksen din.</Resource>

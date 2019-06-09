@@ -374,6 +374,8 @@ namespace YAF.Pages
                 // Flag user as spam bot
                 this.IsPossibleSpamBot = true;
 
+                this.GetRepository<Registry>().IncrementDeniedRegistrations();
+
                 this.Logger.Log(
                     null, 
                     "Bot Detected",
@@ -398,7 +400,7 @@ namespace YAF.Pages
 
                         if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
                         {
-                            this.Get<ILogger>()
+                            this.Logger
                                 .Log(
                                     this.PageContext.PageUserID, 
                                     "IP BAN of Bot During Registration",
@@ -844,7 +846,6 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().RecaptchaPrivateKey.IsNotSet()
                 || this.Get<YafBoardSettings>().RecaptchaPublicKey.IsNotSet())
             {
-                // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
                 this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
                 YafBuildLink.AccessDenied();
             }
@@ -936,6 +937,8 @@ namespace YAF.Pages
 
                     this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
                 }
+
+                this.GetRepository<Registry>().IncrementDeniedRegistrations();
 
                 this.Logger.Log(
                         null, 

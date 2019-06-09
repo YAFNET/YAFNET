@@ -1,7 +1,7 @@
-using System;
-
 namespace ServiceStack.Logging
 {
+    using System;
+
     /// <summary>
 	/// Default logger is to System.Diagnostics.Debug.WriteLine
     /// 
@@ -48,7 +48,7 @@ namespace ServiceStack.Logging
         private static void LogFormat(object message, params object[] args)
         {
             string msg = message?.ToString() ?? string.Empty;
-            System.Diagnostics.Debug.WriteLine(string.Format(msg, args));
+            System.Diagnostics.Debug.WriteLine(msg, args);
         }
 
         /// <summary>

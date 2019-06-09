@@ -34,7 +34,6 @@ namespace YAF.Core
     using YAF.Classes;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
@@ -270,6 +269,9 @@ namespace YAF.Core
         /// </returns>
         public static bool DeleteAndBanUser(int userID, MembershipUser user, string userIpAddress)
         {
+            // Update Anti SPAM Stats
+            YafContext.Current.GetRepository<Registry>().IncrementBannedUsers();
+
             // Ban IP ?
             if (YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
             {
