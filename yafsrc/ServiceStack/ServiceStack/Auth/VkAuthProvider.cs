@@ -51,8 +51,8 @@ namespace ServiceStack.Auth {
         }
 
         public override object Authenticate(IServiceBase authService, IAuthSession session, Authenticate request) {
-            IAuthTokens tokens = Init(authService, ref session, request);
-            IRequest httpRequest = authService.Request;
+            var tokens = Init(authService, ref session, request);
+            var httpRequest = authService.Request;
 
             if (request?.AccessToken != null && request?.AccessTokenSecret != null) {
                 var authInfo = GetUserInfo(request.AccessToken, request.AccessTokenSecret);
@@ -75,20 +75,20 @@ namespace ServiceStack.Auth {
                     : null; //return default AuthenticateResponse
             }
 
-            string error = httpRequest.QueryString["error_reason"]
+            var error = httpRequest.QueryString["error_reason"]
                            ?? httpRequest.QueryString["error_description"]
                            ?? httpRequest.QueryString["error"];
 
-            bool hasError = !error.IsNullOrEmpty();
+            var hasError = !error.IsNullOrEmpty();
             if (hasError) {
                 Log.Error($"VK error callback. {httpRequest.QueryString}");
                 return authService.Redirect(FailedRedirectUrlFilter(this, session.ReferrerUrl.SetParam("f", error)));
             }
 
-            string code = httpRequest.QueryString["code"];
-            bool isPreAuthCallback = !code.IsNullOrEmpty();
+            var code = httpRequest.QueryString["code"];
+            var isPreAuthCallback = !code.IsNullOrEmpty();
             if (!isPreAuthCallback) {
-                string preAuthUrl = $"{PreAuthUrl}?client_id={ApplicationId}&scope={Scope}&redirect_uri={CallbackUrl.UrlEncode()}&response_type=code&v={ApiVersion}";
+                var preAuthUrl = $"{PreAuthUrl}?client_id={ApplicationId}&scope={Scope}&redirect_uri={CallbackUrl.UrlEncode()}&response_type=code&v={ApiVersion}";
 
                 this.SaveSession(authService, session, SessionExpiry);
                 return authService.Redirect(PreAuthUrlFilter(this, preAuthUrl));
@@ -97,14 +97,14 @@ namespace ServiceStack.Auth {
             try {
                 code = EnsureLatestCode(code);
 
-                string accessTokeUrl = $"{AccessTokenUrl}?client_id={ApplicationId}&client_secret={SecureKey}&code={code}&redirect_uri={CallbackUrl.UrlEncode()}";
+                var accessTokeUrl = $"{AccessTokenUrl}?client_id={ApplicationId}&client_secret={SecureKey}&code={code}&redirect_uri={CallbackUrl.UrlEncode()}";
 
-                string contents = AccessTokenUrlFilter(this, accessTokeUrl).GetStringFromUrl("*/*", RequestFilter);
+                var contents = AccessTokenUrlFilter(this, accessTokeUrl).GetStringFromUrl("*/*", RequestFilter);
 
                 var authInfo = JsonObject.Parse(contents);
 
                 //VK does not throw exception, but returns error property in JSON response
-                string accessTokenError = authInfo.Get("error") ?? authInfo.Get("error_description");
+                var accessTokenError = authInfo.Get("error") ?? authInfo.Get("error_description");
 
                 if (!accessTokenError.IsNullOrEmpty()) {
                     Log.Error($"VK access_token error callback. {authInfo}");
@@ -121,7 +121,7 @@ namespace ServiceStack.Auth {
                     ?? authService.Redirect(SuccessRedirectUrlFilter(this, session.ReferrerUrl.SetParam("s", "1")));
             } catch (WebException webException) {
                 //just in case VK will start throwing exceptions 
-                HttpStatusCode statusCode = ((HttpWebResponse)webException.Response).StatusCode;
+                var statusCode = ((HttpWebResponse)webException.Response).StatusCode;
                 if (statusCode == HttpStatusCode.BadRequest) {
                     return authService.Redirect(FailedRedirectUrlFilter(this, session.ReferrerUrl.SetParam("f", "AccessTokenFailed")));
                 }
@@ -137,7 +137,7 @@ namespace ServiceStack.Auth {
         /// <param name="code"></param>
         /// <returns></returns>
         private string EnsureLatestCode(string code) {
-            int idx = code.LastIndexOf(",", StringComparison.Ordinal);
+            var idx = code.LastIndexOf(",", StringComparison.Ordinal);
             if (idx > 0) {
                 code = code.Substring(idx);
             }
@@ -158,7 +158,7 @@ namespace ServiceStack.Auth {
                     tokens.BirthDateRaw = authInfo.Get("bdate");
                     tokens.TimeZone = authInfo.Get("timezone");
                 } else {
-                    string json = "https://api.vk.com/method/users.get?user_ids={0}&fields=screen_name,bdate,city,country,timezone&oauth_token={0}"
+                    var json = "https://api.vk.com/method/users.get?user_ids={0}&fields=screen_name,bdate,city,country,timezone&oauth_token={0}"
                                       .Fmt(tokens.UserId, tokens.AccessTokenSecret).GetJsonFromUrl();
 
                     var obj = json.ArrayObjects()[0].GetUnescaped("response").ArrayObjects()[0];
@@ -182,8 +182,7 @@ namespace ServiceStack.Auth {
         }
 
         public override void LoadUserOAuthProvider(IAuthSession authSession, IAuthTokens tokens) {
-            var userSession = authSession as AuthUserSession;
-            if (userSession == null)
+            if (!(authSession is AuthUserSession userSession))
                 return;
 
             userSession.UserName = tokens.UserName ?? userSession.UserName;

@@ -143,7 +143,7 @@ namespace ServiceStack
         {
             var bytes = Encoding.UTF8.GetBytes(text);
             var encryptedBytes = Encrypt(bytes, publicKeyXml, rsaKeyLength);
-            string encryptedData = Convert.ToBase64String(encryptedBytes);
+            var encryptedData = Convert.ToBase64String(encryptedBytes);
             return encryptedData;
         }
         
@@ -151,7 +151,7 @@ namespace ServiceStack
         {
             var bytes = Encoding.UTF8.GetBytes(text);
             var encryptedBytes = Encrypt(bytes, publicKey, rsaKeyLength);
-            string encryptedData = Convert.ToBase64String(encryptedBytes);
+            var encryptedData = Convert.ToBase64String(encryptedBytes);
             return encryptedData;
         }
 
@@ -194,7 +194,7 @@ namespace ServiceStack
             using (var rsa = CreateRsa(rsaKeyLength))
             {
                 rsa.FromXml(privateKeyXml);
-                byte[] bytes = rsa.Decrypt(encryptedBytes);
+                var bytes = rsa.Decrypt(encryptedBytes);
                 return bytes;
             }
         }
@@ -204,7 +204,7 @@ namespace ServiceStack
             using (var rsa = CreateRsa(rsaKeyLength))
             {
                 rsa.ImportParameters(privateKey);
-                byte[] bytes = rsa.Decrypt(encryptedBytes);
+                var bytes = rsa.Decrypt(encryptedBytes);
                 return bytes;
             }
         }

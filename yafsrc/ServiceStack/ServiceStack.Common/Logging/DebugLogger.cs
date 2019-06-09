@@ -34,7 +34,7 @@ namespace ServiceStack.Logging
         /// </summary>
         private static void Log(object message, Exception exception)
         {
-            string msg = message?.ToString() ?? string.Empty;
+            var msg = message?.ToString() ?? string.Empty;
             if (exception != null)
             {
                 msg += ", Exception: " + exception.Message;
@@ -47,7 +47,7 @@ namespace ServiceStack.Logging
         /// </summary>
         private static void LogFormat(object message, params object[] args)
         {
-            string msg = message?.ToString() ?? string.Empty;
+            var msg = message?.ToString() ?? string.Empty;
             System.Diagnostics.Debug.WriteLine(msg, args);
         }
 
@@ -56,7 +56,7 @@ namespace ServiceStack.Logging
         /// </summary>
         private static void Log(object message)
         {
-            string msg = message?.ToString() ?? string.Empty;
+            var msg = message?.ToString() ?? string.Empty;
             System.Diagnostics.Debug.WriteLine(msg);
         }
 

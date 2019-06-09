@@ -521,15 +521,15 @@ namespace ServiceStack.Html
             initStatistics(html);
 
             //preserved block containers
-            List<string> condCommentBlocks = new List<string>();
-            List<string> preBlocks = new List<string>();
-            List<string> taBlocks = new List<string>();
-            List<string> scriptBlocks = new List<string>();
-            List<string> styleBlocks = new List<string>();
-            List<string> eventBlocks = new List<string>();
-            List<string> skipBlocks = new List<string>();
-            List<string> lineBreakBlocks = new List<string>();
-            List<List<string>> userBlocks = new List<List<string>>();
+            var condCommentBlocks = new List<string>();
+            var preBlocks = new List<string>();
+            var taBlocks = new List<string>();
+            var scriptBlocks = new List<string>();
+            var styleBlocks = new List<string>();
+            var eventBlocks = new List<string>();
+            var skipBlocks = new List<string>();
+            var lineBreakBlocks = new List<string>();
+            var userBlocks = new List<List<string>>();
 
             //preserve blocks
             html = preserveBlocks(html, preBlocks, taBlocks, scriptBlocks, styleBlocks, eventBlocks, condCommentBlocks,
@@ -794,7 +794,7 @@ namespace ServiceStack.Html
                     {
 
                         //check type
-                        string type = "";
+                        var type = "";
                         var typeMatcher = typeAttrPattern.Match(match.Groups[1].Value);
                         if (typeMatcher.Success)
                         {
@@ -967,7 +967,7 @@ namespace ServiceStack.Html
 
                 foreach (Match match in matcher)
                 {
-                    int i = int.Parse(match.Groups[1].Value);
+                    var i = int.Parse(match.Groups[1].Value);
                     if (taBlocks.Count > i)
                     {
                         sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -993,7 +993,7 @@ namespace ServiceStack.Html
 
                 foreach (Match match in matcher)
                 {
-                    int i = int.Parse(match.Groups[1].Value);
+                    var i = int.Parse(match.Groups[1].Value);
                     if (styleBlocks.Count > i)
                     {
                         sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -1019,7 +1019,7 @@ namespace ServiceStack.Html
 
                 foreach (Match match in matcher)
                 {
-                    int i = int.Parse(match.Groups[1].Value);
+                    var i = int.Parse(match.Groups[1].Value);
                     if (scriptBlocks.Count > i)
                     {
                         sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -1045,7 +1045,7 @@ namespace ServiceStack.Html
 
                 foreach (Match match in matcher)
                 {
-                    int i = int.Parse(match.Groups[1].Value);
+                    var i = int.Parse(match.Groups[1].Value);
                     if (preBlocks.Count > i)
                     {
                         sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -1071,7 +1071,7 @@ namespace ServiceStack.Html
 
                 foreach (Match match in matcher)
                 {
-                    int i = int.Parse(match.Groups[1].Value);
+                    var i = int.Parse(match.Groups[1].Value);
                     if (eventBlocks.Count > i)
                     {
                         sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -1097,7 +1097,7 @@ namespace ServiceStack.Html
 
                 foreach (Match match in matcher)
                 {
-                    int i = int.Parse(match.Groups[1].Value);
+                    var i = int.Parse(match.Groups[1].Value);
                     if (condCommentBlocks.Count > i)
                     {
                         sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -1123,7 +1123,7 @@ namespace ServiceStack.Html
 
                 foreach (Match match in matcher)
                 {
-                    int i = int.Parse(match.Groups[1].Value);
+                    var i = int.Parse(match.Groups[1].Value);
                     if (skipBlocks.Count > i)
                     {
                         sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -1143,16 +1143,16 @@ namespace ServiceStack.Html
             //put user blocks back
             if (PreservePatterns != null)
             {
-                for (int p = PreservePatterns.Count - 1; p >= 0; p--)
+                for (var p = PreservePatterns.Count - 1; p >= 0; p--)
                 {
-                    Regex tempUserPattern = new Regex("%%%~COMPRESS~USER" + p + "~(\\d+?)~%%%");
+                    var tempUserPattern = new Regex("%%%~COMPRESS~USER" + p + "~(\\d+?)~%%%");
                     var matcher = tempUserPattern.Matches(html);
                     var sb = StringBuilderCache.Allocate();
                     var lastValue = 0;
 
                     foreach (Match match in matcher)
                     {
-                        int i = int.Parse(match.Groups[1].Value);
+                        var i = int.Parse(match.Groups[1].Value);
                         if (userBlocks.Count > p && userBlocks[p].Count > i)
                         {
                             sb.Append(html.Substring(lastValue, match.Index - lastValue));
@@ -1588,7 +1588,7 @@ namespace ServiceStack.Html
         {
             if (GenerateStatistics)
             {
-                foreach (string block in preBlocks)
+                foreach (var block in preBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1599,7 +1599,7 @@ namespace ServiceStack.Html
         {
             if (GenerateStatistics)
             {
-                foreach (string block in taBlocks)
+                foreach (var block in taBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1610,7 +1610,7 @@ namespace ServiceStack.Html
         {
             if (GenerateStatistics)
             {
-                foreach (string block in condCommentBlocks)
+                foreach (var block in condCommentBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1621,7 +1621,7 @@ namespace ServiceStack.Html
         {
             if (GenerateStatistics)
             {
-                foreach (string block in skipBlocks)
+                foreach (var block in skipBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1632,7 +1632,7 @@ namespace ServiceStack.Html
         {
             if (GenerateStatistics)
             {
-                foreach (string block in lineBreakBlocks)
+                foreach (var block in lineBreakBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1643,9 +1643,9 @@ namespace ServiceStack.Html
         {
             if (GenerateStatistics)
             {
-                foreach (List<string> blockList in userBlocks)
+                foreach (var blockList in userBlocks)
                 {
-                    foreach (string block in blockList)
+                    foreach (var block in blockList)
                     {
                         Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                     }
@@ -1658,7 +1658,7 @@ namespace ServiceStack.Html
 
             if (GenerateStatistics)
             {
-                foreach (string block in eventBlocks)
+                foreach (var block in eventBlocks)
                 {
                     Statistics.OriginalMetrics.InlineEventSize = Statistics.OriginalMetrics.InlineEventSize + block.Length;
                 }
@@ -1666,14 +1666,14 @@ namespace ServiceStack.Html
 
             if (RemoveJavaScriptProtocol)
             {
-                for (int i = 0; i < eventBlocks.Count; i++)
+                for (var i = 0; i < eventBlocks.Count; i++)
                 {
                     eventBlocks[i] = removeJavaScriptProtocol(eventBlocks[i]);
                 }
             }
             else if (GenerateStatistics)
             {
-                foreach (string block in eventBlocks)
+                foreach (var block in eventBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1681,7 +1681,7 @@ namespace ServiceStack.Html
 
             if (GenerateStatistics)
             {
-                foreach (string block in eventBlocks)
+                foreach (var block in eventBlocks)
                 {
                     Statistics.CompressedMetrics.InlineEventSize = Statistics.CompressedMetrics.InlineEventSize + block.Length;
                 }
@@ -1691,7 +1691,7 @@ namespace ServiceStack.Html
         private string removeJavaScriptProtocol(string source)
         {
             //remove javascript: from inline events
-            string result = source;
+            var result = source;
 
             result = eventJsProtocolPattern.Replace(source, @"$1", 1);
             //var matcher = eventJsProtocolPattern.Match(source);
@@ -1712,7 +1712,7 @@ namespace ServiceStack.Html
         {
             if (GenerateStatistics)
             {
-                foreach (string block in scriptBlocks)
+                foreach (var block in scriptBlocks)
                 {
                     Statistics.OriginalMetrics.InlineScriptSize = Statistics.OriginalMetrics.InlineScriptSize + block.Length;
                 }
@@ -1720,14 +1720,14 @@ namespace ServiceStack.Html
 
             if (CompressJavaScript)
             {
-                for (int i = 0; i < scriptBlocks.Count; i++)
+                for (var i = 0; i < scriptBlocks.Count; i++)
                 {
                     scriptBlocks[i] = compressJavaScript(scriptBlocks[i]);
                 }
             }
             else if (GenerateStatistics)
             {
-                foreach (string block in scriptBlocks)
+                foreach (var block in scriptBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1735,7 +1735,7 @@ namespace ServiceStack.Html
 
             if (GenerateStatistics)
             {
-                foreach (string block in scriptBlocks)
+                foreach (var block in scriptBlocks)
                 {
                     Statistics.CompressedMetrics.InlineScriptSize = Statistics.CompressedMetrics.InlineScriptSize + block.Length;
                 }
@@ -1747,7 +1747,7 @@ namespace ServiceStack.Html
 
             if (GenerateStatistics)
             {
-                foreach (string block in styleBlocks)
+                foreach (var block in styleBlocks)
                 {
                     Statistics.OriginalMetrics.InlineStyleSize = Statistics.OriginalMetrics.InlineStyleSize + block.Length;
                 }
@@ -1755,14 +1755,14 @@ namespace ServiceStack.Html
 
             if (CompressCss)
             {
-                for (int i = 0; i < styleBlocks.Count; i++)
+                for (var i = 0; i < styleBlocks.Count; i++)
                 {
                     styleBlocks[i] = compressCssStyles(styleBlocks[i]);
                 }
             }
             else if (GenerateStatistics)
             {
-                foreach (string block in styleBlocks)
+                foreach (var block in styleBlocks)
                 {
                     Statistics.PreservedSize = Statistics.PreservedSize + block.Length;
                 }
@@ -1770,7 +1770,7 @@ namespace ServiceStack.Html
 
             if (GenerateStatistics)
             {
-                foreach (string block in styleBlocks)
+                foreach (var block in styleBlocks)
                 {
                     Statistics.CompressedMetrics.InlineStyleSize = Statistics.CompressedMetrics.InlineStyleSize + block.Length;
                 }
@@ -1786,7 +1786,7 @@ namespace ServiceStack.Html
             }
 
             //detect CDATA wrapper
-            bool cdataWrapper = false;
+            var cdataWrapper = false;
             var matcher = cdataPattern.Match(source);
             if (matcher.Success)
             {
@@ -1794,7 +1794,7 @@ namespace ServiceStack.Html
                 source = matcher.Groups[1].Value;
             }
 
-            string result = JavaScriptCompressor.Compress(source);
+            var result = JavaScriptCompressor.Compress(source);
 
             if (cdataWrapper)
             {
@@ -1814,7 +1814,7 @@ namespace ServiceStack.Html
             }
 
             //detect CDATA wrapper
-            bool cdataWrapper = false;
+            var cdataWrapper = false;
             var matcher = cdataPattern.Match(source);
             if (matcher.Success)
             {
@@ -1822,7 +1822,7 @@ namespace ServiceStack.Html
                 source = matcher.Groups[1].Value;
             }
 
-            string result = CssCompressor.Compress(source);
+            var result = CssCompressor.Compress(source);
 
             if (cdataWrapper)
             {

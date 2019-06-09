@@ -119,8 +119,8 @@ namespace MarkdownDeep
 				return (string)this.data;
 
 			// Approach 1 - PHP Markdown Extra style header id
-			int end=contentEnd;
-			string id = Utils.StripHtmlID(buf, contentStart, ref end);
+			var end=contentEnd;
+			var id = Utils.StripHtmlID(buf, contentStart, ref end);
 			if (id != null)
 			{
 				contentEnd = end;
@@ -160,7 +160,7 @@ namespace MarkdownDeep
 					if (m.ExtraMode && !m.SafeMode)
 					{
 						b.Append("<" + this.blockType);
-						string id = ResolveHeaderID(m);
+						var id = ResolveHeaderID(m);
 						if (!String.IsNullOrEmpty(id))
 						{
 							b.Append(" id=\"");
@@ -436,8 +436,8 @@ namespace MarkdownDeep
 		{
 			get
 			{
-				int count = 0;
-				for (int i = lineStart; i < lineStart + lineLen; i++)
+				var count = 0;
+				for (var i = lineStart; i < lineStart + lineLen; i++)
 				{
 					if (buf[i] == ' ')
 					{
@@ -454,7 +454,7 @@ namespace MarkdownDeep
 
 		public override string ToString()
 		{
-			string c = Content;
+			var c = Content;
 			return this.blockType + " - " + (c==null ? "<null>" : c);
 		}
 

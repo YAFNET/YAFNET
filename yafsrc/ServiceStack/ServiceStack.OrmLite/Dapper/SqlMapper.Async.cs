@@ -375,10 +375,10 @@ namespace ServiceStack.OrmLite.Dapper
 
         private static async Task<IEnumerable<T>> QueryAsync<T>(this IDbConnection cnn, Type effectiveType, CommandDefinition command)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, effectiveType, param?.GetType(), null);
             var info = GetCacheInfo(identity, param, command.AddToCache);
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             var cancel = command.CancellationToken;
             using (var cmd = (DbCommand)command.SetupCommand(cnn, info.ParamReader))
             {
@@ -389,7 +389,7 @@ namespace ServiceStack.OrmLite.Dapper
                     reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult, cancel).ConfigureAwait(false);
 
                     var tuple = info.Deserializer;
-                    int hash = GetColumnHash(reader);
+                    var hash = GetColumnHash(reader);
                     if (tuple.Func == null || tuple.Hash != hash)
                     {
                         if (reader.FieldCount == 0)
@@ -406,7 +406,7 @@ namespace ServiceStack.OrmLite.Dapper
                         var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                         while (await reader.ReadAsync(cancel).ConfigureAwait(false))
                         {
-                            object val = func(reader);
+                            var val = func(reader);
                             if (val == null || val is T)
                             {
                                 buffer.Add((T)val);
@@ -439,10 +439,10 @@ namespace ServiceStack.OrmLite.Dapper
 
         private static async Task<T> QueryRowAsync<T>(this IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, effectiveType, param?.GetType(), null);
             var info = GetCacheInfo(identity, param, command.AddToCache);
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             var cancel = command.CancellationToken;
             using (var cmd = (DbCommand)command.SetupCommand(cnn, info.ParamReader))
             {
@@ -454,11 +454,11 @@ namespace ServiceStack.OrmLite.Dapper
                     ? CommandBehavior.SequentialAccess | CommandBehavior.SingleResult // need to allow multiple rows, to check fail condition
                     : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow, cancel).ConfigureAwait(false);
 
-                    T result = default(T);
+                    var result = default(T);
                     if (await reader.ReadAsync(cancel).ConfigureAwait(false) && reader.FieldCount != 0)
                     {
                         var tuple = info.Deserializer;
-                        int hash = GetColumnHash(reader);
+                        var hash = GetColumnHash(reader);
                         if (tuple.Func == null || tuple.Hash != hash)
                         {
                             tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
@@ -467,7 +467,7 @@ namespace ServiceStack.OrmLite.Dapper
 
                         var func = tuple.Func;
 
-                        object val = func(reader);
+                        var val = func(reader);
                         if (val == null || val is T)
                         {
                             result = (T)val;
@@ -516,8 +516,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>The number of rows affected.</returns>
         public static Task<int> ExecuteAsync(this IDbConnection cnn, CommandDefinition command)
         {
-            object param = command.Parameters;
-            IEnumerable multiExec = GetMultiExec(param);
+            var param = command.Parameters;
+            var multiExec = GetMultiExec(param);
             if (multiExec != null)
             {
                 return ExecuteMultiImplAsync(cnn, command, multiExec);
@@ -541,9 +541,9 @@ namespace ServiceStack.OrmLite.Dapper
 
         private static async Task<int> ExecuteMultiImplAsync(IDbConnection cnn, CommandDefinition command, IEnumerable multiExec)
         {
-            bool isFirst = true;
-            int total = 0;
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var isFirst = true;
+            var total = 0;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 if (wasClosed) await ((DbConnection)cnn).OpenAsync(command.CancellationToken).ConfigureAwait(false);
@@ -639,7 +639,7 @@ namespace ServiceStack.OrmLite.Dapper
         {
             var identity = new Identity(command.CommandText, command.CommandType, cnn, null, param?.GetType(), null);
             var info = GetCacheInfo(identity, param, command.AddToCache);
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             using (var cmd = (DbCommand)command.SetupCommand(cnn, info.ParamReader))
             {
                 try
@@ -904,10 +904,10 @@ namespace ServiceStack.OrmLite.Dapper
 
         private static async Task<IEnumerable<TReturn>> MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, CommandDefinition command, Delegate map, string splitOn)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, typeof(TFirst), param?.GetType(), new[] { typeof(TFirst), typeof(TSecond), typeof(TThird), typeof(TFourth), typeof(TFifth), typeof(TSixth), typeof(TSeventh) });
             var info = GetCacheInfo(identity, param, command.AddToCache);
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 if (wasClosed) await ((DbConnection)cnn).OpenAsync(command.CancellationToken).ConfigureAwait(false);
@@ -954,10 +954,10 @@ namespace ServiceStack.OrmLite.Dapper
                 throw new ArgumentException("you must provide at least one type to deserialize");
             }
 
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, types[0], param?.GetType(), types);
             var info = GetCacheInfo(identity, param, command.AddToCache);
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 if (wasClosed) await ((DbConnection)cnn).OpenAsync().ConfigureAwait(false);
@@ -1006,13 +1006,13 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="command">The command to execute for this query.</param>
         public static async Task<GridReader> QueryMultipleAsync(this IDbConnection cnn, CommandDefinition command)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, typeof(GridReader), param?.GetType(), null);
-            CacheInfo info = GetCacheInfo(identity, param, command.AddToCache);
+            var info = GetCacheInfo(identity, param, command.AddToCache);
 
             DbCommand cmd = null;
             IDataReader reader = null;
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 if (wasClosed) await ((DbConnection)cnn).OpenAsync(command.CancellationToken).ConfigureAwait(false);
@@ -1102,10 +1102,10 @@ namespace ServiceStack.OrmLite.Dapper
 
         private static async Task<IDataReader> ExecuteReaderImplAsync(IDbConnection cnn, CommandDefinition command, CommandBehavior commandBehavior)
         {
-            Action<IDbCommand, object> paramReader = GetParameterReader(cnn, ref command);
+            var paramReader = GetParameterReader(cnn, ref command);
 
             DbCommand cmd = null;
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 cmd = (DbCommand)command.SetupCommand(cnn, paramReader);
@@ -1170,7 +1170,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static async Task<T> ExecuteScalarImplAsync<T>(IDbConnection cnn, CommandDefinition command)
         {
             Action<IDbCommand, object> paramReader = null;
-            object param = command.Parameters;
+            var param = command.Parameters;
             if (param != null)
             {
                 var identity = new Identity(command.CommandText, command.CommandType, cnn, null, param.GetType(), null);
@@ -1178,7 +1178,7 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             DbCommand cmd = null;
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             object result;
             try
             {

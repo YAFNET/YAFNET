@@ -48,12 +48,10 @@ namespace ServiceStack.FluentValidation.Validators
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var decimalValue = context.PropertyValue as decimal?;
-
-            if (decimalValue.HasValue)
+            if (context.PropertyValue is decimal decimalValue)
             {
-                var scale = GetScale(decimalValue.Value);
-                var precision = GetPrecision(decimalValue.Value);
+                var scale = GetScale(decimalValue);
+                var precision = GetPrecision(decimalValue);
                 if (scale > Scale || precision > Precision)
                 {
                     context.MessageFormatter
@@ -104,13 +102,13 @@ namespace ServiceStack.FluentValidation.Validators
         private static uint GetUnsignedScale(decimal Decimal)
         {
             var bits = GetBits(Decimal);
-            uint scale = (bits[3] >> 16) & 31;
+            var scale = (bits[3] >> 16) & 31;
             return scale;
         }
 
         private int GetScale(decimal Decimal)
         {
-            uint scale = GetUnsignedScale(Decimal);
+            var scale = GetUnsignedScale(Decimal);
             if (IgnoreTrailingZeros.HasValue && IgnoreTrailingZeros.Value)
             {
                 return (int) (scale - NumTrailingZeros(Decimal));
@@ -121,8 +119,8 @@ namespace ServiceStack.FluentValidation.Validators
         private static uint NumTrailingZeros(decimal Decimal)
         {
             uint trailingZeros = 0;
-            uint scale = GetUnsignedScale(Decimal);
-            for (decimal tmp = GetMantissa(Decimal); tmp%10m == 0 && trailingZeros < scale; tmp /= 10)
+            var scale = GetUnsignedScale(Decimal);
+            for (var tmp = GetMantissa(Decimal); tmp%10m == 0 && trailingZeros < scale; tmp /= 10)
             {
                 trailingZeros++;
             }
@@ -135,7 +133,7 @@ namespace ServiceStack.FluentValidation.Validators
             uint precision = 0;
             if (Decimal != 0m)
             {
-                for (decimal tmp = GetMantissa(Decimal); tmp >= 1; tmp /= 10)
+                for (var tmp = GetMantissa(Decimal); tmp >= 1; tmp /= 10)
                 {
                     precision++;
                 }

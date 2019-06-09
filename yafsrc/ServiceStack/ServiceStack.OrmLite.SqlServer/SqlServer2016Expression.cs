@@ -11,8 +11,8 @@ namespace ServiceStack.OrmLite.SqlServer
 
         protected override object VisitSqlMethodCall(MethodCallExpression m)
         {
-            List<object> args = VisitInSqlExpressionList(m.Arguments);
-            object quotedColName = args[0];
+            var args = VisitInSqlExpressionList(m.Arguments);
+            var quotedColName = args[0];
             args.RemoveAt(0);
 
             string statement;

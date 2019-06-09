@@ -163,7 +163,7 @@ namespace YAF.Providers.Utils
         throw new ArgumentException("hashedBytes is null or empty.", "hashedBytes");
       }
 
-      var hashedSB = new StringBuilder((hashedBytes.Length * 2) + 2);
+      var hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
 
       foreach (var b in hashedBytes)
       {

@@ -110,10 +110,8 @@ namespace YAF.Utils
                 var value = (TValue)field.GetValue(null);
                 var display = Enum.GetName(enumType, value);
 
-                var attribs = field.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
-
                 // Return the first if there was a match.
-                if (attribs != null && attribs.Length > 0)
+                if (field.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs && attribs.Length > 0)
                 {
                     display = attribs[0].StringValue;
                 }

@@ -152,7 +152,7 @@ namespace ServiceStack.Text.Common
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            if (Guid.TryParse(value, out Guid guidValue)) return guidValue;
+            if (Guid.TryParse(value, out var guidValue)) return guidValue;
 
             if (value.StartsWith(DateTimeSerializer.EscapedWcfJsonPrefix, StringComparison.Ordinal) || value.StartsWith(DateTimeSerializer.WcfJsonPrefix, StringComparison.Ordinal))
                 return DateTimeSerializer.ParseWcfJsonDate(value);
@@ -197,7 +197,7 @@ namespace ServiceStack.Text.Common
             if (value.IsNullOrEmpty())
                 return null;
 
-            if (value.TryParseBoolean(out bool boolValue))
+            if (value.TryParseBoolean(out var boolValue))
                 return boolValue;
 
             return value.ParseNumber();
@@ -368,7 +368,7 @@ namespace ServiceStack.Text.Common
 
             // Parse as decimal
             var acceptDecimal = JsConfig.ParsePrimitiveFloatingPointTypes.Has(ParseAsType.Decimal);
-            var isDecimal = value.TryParseDecimal(out decimal decimalValue);
+            var isDecimal = value.TryParseDecimal(out var decimalValue);
 
             // Check if the number is an Primitive Integer type given that we have a decimal
             if (isDecimal && decimalValue == decimal.Truncate(decimalValue))
@@ -401,12 +401,12 @@ namespace ServiceStack.Text.Common
                 return decimalValue;
 
             var acceptFloat = JsConfig.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Single);
-            var isFloat = value.TryParseFloat(out float floatValue);
+            var isFloat = value.TryParseFloat(out var floatValue);
             if (acceptFloat && isFloat)
                 return floatValue;
 
             var acceptDouble = JsConfig.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Double);
-            var isDouble = value.TryParseDouble(out double doubleValue);
+            var isDouble = value.TryParseDouble(out var doubleValue);
             if (acceptDouble && isDouble)
                 return doubleValue;
 

@@ -36,7 +36,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (sbyte.TryParse(str, out sbyte value))
+            if (sbyte.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -67,7 +67,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (byte.TryParse(str, out byte value))
+            if (byte.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -98,7 +98,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (short.TryParse(str, out short value))
+            if (short.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -129,7 +129,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (ushort.TryParse(str, out ushort value))
+            if (ushort.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -160,7 +160,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (int.TryParse(str, out int value))
+            if (int.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -191,7 +191,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (uint.TryParse(str, out uint value))
+            if (uint.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -222,7 +222,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (long.TryParse(str, out long value))
+            if (long.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -253,7 +253,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (ulong.TryParse(str, out ulong value))
+            if (ulong.TryParse(str, out var value))
             {
                 result = value;
                 return true;
@@ -284,7 +284,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (new StringSegment(str).TryParseFloat(out float value))
+            if (new StringSegment(str).TryParseFloat(out var value))
             {
                 result = value;
                 return true;
@@ -315,7 +315,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (new StringSegment(str).TryParseDouble(out double value))
+            if (new StringSegment(str).TryParseDouble(out var value))
             {
                 result = value;
                 return true;
@@ -346,7 +346,7 @@ namespace ServiceStack
 
         public bool TryParse(string str, out object result)
         {
-            if (new StringSegment(str).TryParseDecimal(out decimal value))
+            if (new StringSegment(str).TryParseDecimal(out var value))
             {
                 result = value;
                 return true;
@@ -429,7 +429,7 @@ namespace ServiceStack
 
         public static IDynamicNumber GetNumber(Type type)
         {
-            if (!TryGetRanking(type, out int objIndex))
+            if (!TryGetRanking(type, out var objIndex))
                 return null;
 
             var maxNumber = RankNumbers[objIndex];
@@ -447,7 +447,7 @@ namespace ServiceStack
             if (rhs is string rhsString && !TryParse(rhsString, out rhs))
                 return null;
 
-            if (!TryGetRanking(lhs.GetType(), out int lhsRanking) || !TryGetRanking(rhs.GetType(), out int rhsRanking))
+            if (!TryGetRanking(lhs.GetType(), out var lhsRanking) || !TryGetRanking(rhs.GetType(), out var rhsRanking))
                 return null;
 
             var maxRanking = Math.Max(lhsRanking, rhsRanking);
@@ -512,19 +512,19 @@ namespace ServiceStack
             var hasDecimal = strValue.IndexOf('.') >= 0;
             if (!hasDecimal)
             {
-                if (int.TryParse(strValue, out int intValue))
+                if (int.TryParse(strValue, out var intValue))
                 {
                     result = intValue;
                     return true;
                 }
 
-                if (long.TryParse(strValue, out long longValue))
+                if (long.TryParse(strValue, out var longValue))
                 {
                     result = longValue;
                     return true;
                 }
 
-                if (ulong.TryParse(strValue, out ulong ulongValue))
+                if (ulong.TryParse(strValue, out var ulongValue))
                 {
                     result = ulongValue;
                     return true;
@@ -532,13 +532,13 @@ namespace ServiceStack
             }
 
             var segValue = new StringSegment(strValue);
-            if (segValue.TryParseDouble(out double doubleValue))
+            if (segValue.TryParseDouble(out var doubleValue))
             {
                 result = doubleValue;
                 return true;
             }
 
-            if (segValue.TryParseDecimal(out decimal decimalValue))
+            if (segValue.TryParseDecimal(out var decimalValue))
             {
                 result = decimalValue;
                 return true;
@@ -564,10 +564,10 @@ namespace ServiceStack
         internal static object ParseString(this IDynamicNumber number, object value)
         {
             if (value is string s)
-                return number.TryParse(s, out object x) ? x : null;
+                return number.TryParse(s, out var x) ? x : null;
 
             if (value is char c)
-                return number.TryParse(c.ToString(), out object x) ? x : null;
+                return number.TryParse(c.ToString(), out var x) ? x : null;
 
             return null;
         }

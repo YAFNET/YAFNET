@@ -410,7 +410,7 @@ namespace YAF.Core.BBCode
             bool useNoFollow,
             bool convertBBQuotes)
         {
-            var target = (this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride)
+            var target = this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride
                                 ? "target=\"_blank\""
                                 : string.Empty;
 

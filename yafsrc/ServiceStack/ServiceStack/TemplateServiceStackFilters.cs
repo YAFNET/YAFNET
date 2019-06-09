@@ -93,8 +93,7 @@ namespace ServiceStack
 
                 if (requestType.HasInterface(typeof(IQueryDb)))
                 {
-                    var ssFillter = Context.TemplateFilters.FirstOrDefault(x => x is IAutoQueryDbFilters) as IAutoQueryDbFilters;
-                    if (ssFillter == null)
+                    if (!(this.Context.TemplateFilters.FirstOrDefault(x => x is IAutoQueryDbFilters) is IAutoQueryDbFilters ssFillter))
                         throw new NotImplementedException("sendToAutoQuery RDBMS requires TemplateAutoQueryFilters");
 
                     return ssFillter.sendToAutoQuery(scope, dto, requestName, options);

@@ -68,7 +68,7 @@ namespace ServiceStack.Auth
 
             if (NewHash.Length != Hash.Length) return false;
 
-            for (int Lp = 0; Lp < Hash.Length; Lp++)
+            for (var Lp = 0; Lp < Hash.Length; Lp++)
                 if (!Hash[Lp].Equals(NewHash[Lp]))
                     return false;
 
@@ -80,9 +80,9 @@ namespace ServiceStack.Auth
             if (Hash == null || Salt == null)
                 return false;
             
-            byte[] HashToVerify = Convert.FromBase64String(Hash);
-            byte[] SaltToVerify = Convert.FromBase64String(Salt);
-            byte[] DataToVerify = Encoding.UTF8.GetBytes(Data);
+            var HashToVerify = Convert.FromBase64String(Hash);
+            var SaltToVerify = Convert.FromBase64String(Salt);
+            var DataToVerify = Encoding.UTF8.GetBytes(Data);
             return VerifyHash(DataToVerify, HashToVerify, SaltToVerify);
         }
     }

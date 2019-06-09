@@ -22,7 +22,7 @@ namespace ServiceStack.Platforms
 
         public override string GetAppSetting(string key)
         {
-            string value = ConfigurationManager.AppSettings[key];
+            var value = ConfigurationManager.AppSettings[key];
 
             if (value == null)
                 throw new ConfigurationErrorsException(string.Format(ErrorMessages.AppsettingNotFound, key));
@@ -42,7 +42,7 @@ namespace ServiceStack.Platforms
 
         public override T GetAppSetting<T>(string key, T defaultValue)
         {
-            string val = ConfigurationManager.AppSettings[key];
+            var val = ConfigurationManager.AppSettings[key];
             if (val != null)
             {
                 if (ConfigNullValue.EndsWith(val))

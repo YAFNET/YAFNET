@@ -135,7 +135,7 @@ using System.Runtime.CompilerServices;
             // Note that the initial read is optimistically not synchronized. That is intentional. 
             // We will interlock only when we have a candidate. in a worst case we may miss some
             // recently returned objects. Not a big deal.
-            T inst = this._firstItem;
+            var inst = this._firstItem;
             if (inst == null || inst != Interlocked.CompareExchange(ref this._firstItem, null, inst))
             {
                 inst = this.AllocateSlow();
@@ -157,12 +157,12 @@ using System.Runtime.CompilerServices;
         {
             var items = this._items;
 
-            for (int i = 0; i < items.Length; i++)
+            for (var i = 0; i < items.Length; i++)
             {
                 // Note that the initial read is optimistically not synchronized. That is intentional. 
                 // We will interlock only when we have a candidate. in a worst case we may miss some
                 // recently returned objects. Not a big deal.
-                T inst = items[i].Value;
+                var inst = items[i].Value;
                 if (inst != null)
                 {
                     if (inst == Interlocked.CompareExchange(ref items[i].Value, null, inst))
@@ -204,7 +204,7 @@ using System.Runtime.CompilerServices;
         private void FreeSlow(T obj)
         {
             var items = this._items;
-            for (int i = 0; i < items.Length; i++)
+            for (var i = 0; i < items.Length; i++)
             {
                 if (items[i].Value == null)
                 {
@@ -270,7 +270,7 @@ using System.Runtime.CompilerServices;
 #endif
 
             var items = this._items;
-            for (int i = 0; i < items.Length; i++)
+            for (var i = 0; i < items.Length; i++)
             {
                 var value = items[i].Value;
                 if (value == null)

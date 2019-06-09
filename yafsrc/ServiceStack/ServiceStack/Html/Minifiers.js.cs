@@ -57,7 +57,7 @@ namespace ServiceStack.Html
 
     public static string MinifyJs(string js, bool ignoreErrors = false) //removed the out file path  
     {
-      string result = js;
+      var result = js;
       try
       {
         result = new JSMinifier().Compress(js);
@@ -305,7 +305,7 @@ namespace ServiceStack.Html
     */
     int next()
     {
-      int c = get();
+      var c = get();
       if (c == '/')
       {
         switch (peek())
@@ -366,7 +366,7 @@ namespace ServiceStack.Html
     */
     int get()
     {
-      int c = theLookahead;
+      var c = theLookahead;
       theLookahead = EOF;
       if (c == EOF)
       {

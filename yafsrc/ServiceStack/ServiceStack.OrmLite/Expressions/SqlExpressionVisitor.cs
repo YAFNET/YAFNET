@@ -94,7 +94,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual ElementInit VisitElementInitializer(ElementInit initializer)
         {
-            ReadOnlyCollection<Expression> arguments = this.VisitExpressionList(initializer.Arguments);
+            var arguments = this.VisitExpressionList(initializer.Arguments);
             if (arguments != initializer.Arguments)
             {
                 return Expression.ElementInit(initializer.AddMethod, arguments);
@@ -104,7 +104,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitUnary(UnaryExpression u)
         {
-            Expression operand = this.Visit(u.Operand);
+            var operand = this.Visit(u.Operand);
             if (operand != u.Operand)
             {
                 return Expression.MakeUnary(u.NodeType, operand, u.Type, u.Method);
@@ -114,9 +114,9 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitBinary(BinaryExpression b)
         {
-            Expression left = this.Visit(b.Left);
-            Expression right = this.Visit(b.Right);
-            Expression conversion = this.Visit(b.Conversion);
+            var left = this.Visit(b.Left);
+            var right = this.Visit(b.Right);
+            var conversion = this.Visit(b.Conversion);
             if (left != b.Left || right != b.Right || conversion != b.Conversion)
             {
                 if (b.NodeType == ExpressionType.Coalesce && b.Conversion != null)
@@ -129,7 +129,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitTypeIs(TypeBinaryExpression b)
         {
-            Expression expr = this.Visit(b.Expression);
+            var expr = this.Visit(b.Expression);
             if (expr != b.Expression)
             {
                 return Expression.TypeIs(expr, b.TypeOperand);
@@ -144,9 +144,9 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitConditional(ConditionalExpression c)
         {
-            Expression test = this.Visit(c.Test);
-            Expression ifTrue = this.Visit(c.IfTrue);
-            Expression ifFalse = this.Visit(c.IfFalse);
+            var test = this.Visit(c.Test);
+            var ifTrue = this.Visit(c.IfTrue);
+            var ifFalse = this.Visit(c.IfFalse);
             if (test != c.Test || ifTrue != c.IfTrue || ifFalse != c.IfFalse)
             {
                 return Expression.Condition(test, ifTrue, ifFalse);
@@ -161,7 +161,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitMemberAccess(MemberExpression m)
         {
-            Expression exp = this.Visit(m.Expression);
+            var exp = this.Visit(m.Expression);
             if (exp != m.Expression)
             {
                 return Expression.MakeMemberAccess(exp, m.Member);
@@ -171,7 +171,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitMethodCall(MethodCallExpression m)
         {
-            Expression obj = this.Visit(m.Object);
+            var obj = this.Visit(m.Object);
             IEnumerable<Expression> args = this.VisitExpressionList(m.Arguments);
             if (obj != m.Object || args != m.Arguments)
             {
@@ -185,7 +185,7 @@ namespace ServiceStack.OrmLite
             List<Expression> list = null;
             for (int i = 0, n = original.Count; i < n; i++)
             {
-                Expression p = this.Visit(original[i]);
+                var p = this.Visit(original[i]);
                 if (list != null)
                 {
                     list.Add(p);
@@ -193,7 +193,7 @@ namespace ServiceStack.OrmLite
                 else if (p != original[i])
                 {
                     list = new List<Expression>(n);
-                    for (int j = 0; j < i; j++)
+                    for (var j = 0; j < i; j++)
                     {
                         list.Add(original[j]);
                     }
@@ -209,7 +209,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual MemberAssignment VisitMemberAssignment(MemberAssignment assignment)
         {
-            Expression e = this.Visit(assignment.Expression);
+            var e = this.Visit(assignment.Expression);
             if (e != assignment.Expression)
             {
                 return Expression.Bind(assignment.Member, e);
@@ -219,7 +219,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding binding)
         {
-            IEnumerable<MemberBinding> bindings = this.VisitBindingList(binding.Bindings);
+            var bindings = this.VisitBindingList(binding.Bindings);
             if (bindings != binding.Bindings)
             {
                 return Expression.MemberBind(binding.Member, bindings);
@@ -229,7 +229,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual MemberListBinding VisitMemberListBinding(MemberListBinding binding)
         {
-            IEnumerable<ElementInit> initializers = this.VisitElementInitializerList(binding.Initializers);
+            var initializers = this.VisitElementInitializerList(binding.Initializers);
             if (initializers != binding.Initializers)
             {
                 return Expression.ListBind(binding.Member, initializers);
@@ -242,7 +242,7 @@ namespace ServiceStack.OrmLite
             List<MemberBinding> list = null;
             for (int i = 0, n = original.Count; i < n; i++)
             {
-                MemberBinding b = this.VisitBinding(original[i]);
+                var b = this.VisitBinding(original[i]);
                 if (list != null)
                 {
                     list.Add(b);
@@ -250,7 +250,7 @@ namespace ServiceStack.OrmLite
                 else if (b != original[i])
                 {
                     list = new List<MemberBinding>(n);
-                    for (int j = 0; j < i; j++)
+                    for (var j = 0; j < i; j++)
                     {
                         list.Add(original[j]);
                     }
@@ -267,7 +267,7 @@ namespace ServiceStack.OrmLite
             List<ElementInit> list = null;
             for (int i = 0, n = original.Count; i < n; i++)
             {
-                ElementInit init = this.VisitElementInitializer(original[i]);
+                var init = this.VisitElementInitializer(original[i]);
                 if (list != null)
                 {
                     list.Add(init);
@@ -275,7 +275,7 @@ namespace ServiceStack.OrmLite
                 else if (init != original[i])
                 {
                     list = new List<ElementInit>(n);
-                    for (int j = 0; j < i; j++)
+                    for (var j = 0; j < i; j++)
                     {
                         list.Add(original[j]);
                     }
@@ -289,7 +289,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitLambda(LambdaExpression lambda)
         {
-            Expression body = this.Visit(lambda.Body);
+            var body = this.Visit(lambda.Body);
             if (body != lambda.Body)
             {
                 return Expression.Lambda(lambda.Type, body, lambda.Parameters);
@@ -312,8 +312,8 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitMemberInit(MemberInitExpression init)
         {
-            NewExpression n = this.VisitNew(init.NewExpression);
-            IEnumerable<MemberBinding> bindings = this.VisitBindingList(init.Bindings);
+            var n = this.VisitNew(init.NewExpression);
+            var bindings = this.VisitBindingList(init.Bindings);
             if (n != init.NewExpression || bindings != init.Bindings)
             {
                 return Expression.MemberInit(n, bindings);
@@ -323,8 +323,8 @@ namespace ServiceStack.OrmLite
 
         protected virtual Expression VisitListInit(ListInitExpression init)
         {
-            NewExpression n = this.VisitNew(init.NewExpression);
-            IEnumerable<ElementInit> initializers = this.VisitElementInitializerList(init.Initializers);
+            var n = this.VisitNew(init.NewExpression);
+            var initializers = this.VisitElementInitializerList(init.Initializers);
             if (n != init.NewExpression || initializers != init.Initializers)
             {
                 return Expression.ListInit(n, initializers);
@@ -352,7 +352,7 @@ namespace ServiceStack.OrmLite
         protected virtual Expression VisitInvocation(InvocationExpression iv)
         {
             IEnumerable<Expression> args = this.VisitExpressionList(iv.Arguments);
-            Expression expr = this.Visit(iv.Expression);
+            var expr = this.Visit(iv.Expression);
             if (args != iv.Arguments || expr != iv.Expression)
             {
                 return Expression.Invoke(expr, args);

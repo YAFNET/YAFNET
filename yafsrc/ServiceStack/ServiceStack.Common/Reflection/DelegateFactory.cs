@@ -19,15 +19,15 @@ namespace ServiceStack.Reflection
 
         public static LateBoundMethod Create(MethodInfo method)
         {
-            ParameterExpression instanceParameter = Expression.Parameter(typeof(object), "target");
-            ParameterExpression argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
+            var instanceParameter = Expression.Parameter(typeof(object), "target");
+            var argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
 
-            MethodCallExpression call = Expression.Call(
+            var call = Expression.Call(
                 Expression.Convert(instanceParameter, method.DeclaringType),
                 method,
                 CreateParameterExpressions(method, argumentsParameter));
 
-            Expression<LateBoundMethod> lambda = Expression.Lambda<LateBoundMethod>(
+            var lambda = Expression.Lambda<LateBoundMethod>(
                 Expression.Convert(call, typeof(object)),
                 instanceParameter,
                 argumentsParameter);
@@ -48,10 +48,10 @@ namespace ServiceStack.Reflection
 
         public static LateBoundVoid CreateVoid(MethodInfo method)
         {
-            ParameterExpression instanceParameter = Expression.Parameter(typeof(object), "target");
-            ParameterExpression argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
+            var instanceParameter = Expression.Parameter(typeof(object), "target");
+            var argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
 
-            MethodCallExpression call = Expression.Call(
+            var call = Expression.Call(
                 Expression.Convert(instanceParameter, method.DeclaringType),
                 method,
                 CreateParameterExpressions(method, argumentsParameter));

@@ -13,14 +13,14 @@ namespace ServiceStack.Text.Support
             sb.Append(timeSpan.Ticks < 0 ? "-P" : "P");
 
             double ticks = Math.Abs(timeSpan.Ticks);
-            double totalSeconds = ticks / TimeSpan.TicksPerSecond;
-            int wholeSeconds = (int) totalSeconds;
-            int seconds = wholeSeconds;
-            int sec = seconds >= 60 ? seconds % 60 : seconds;
-            int min = (seconds = seconds / 60) >= 60 ? seconds % 60 : seconds;
-            int hours = (seconds = seconds / 60) >= 24 ? seconds % 24 : seconds;
-            int days = seconds / 24;
-            double remainingSecs = sec + (totalSeconds - wholeSeconds);
+            var totalSeconds = ticks / TimeSpan.TicksPerSecond;
+            var wholeSeconds = (int) totalSeconds;
+            var seconds = wholeSeconds;
+            var sec = seconds >= 60 ? seconds % 60 : seconds;
+            var min = (seconds = seconds / 60) >= 60 ? seconds % 60 : seconds;
+            var hours = (seconds = seconds / 60) >= 24 ? seconds % 24 : seconds;
+            var days = seconds / 24;
+            var remainingSecs = sec + (totalSeconds - wholeSeconds);
 
             if (days > 0)
                 sb.Append(days + "D");
@@ -52,11 +52,11 @@ namespace ServiceStack.Text.Support
 
         public static TimeSpan FromXsdDuration(string xsdDuration)
         {
-            int days = 0;
-            int hours = 0;
-            int minutes = 0;
+            var days = 0;
+            var hours = 0;
+            var minutes = 0;
             decimal seconds = 0;
-            int sign = 1;
+            var sign = 1;
 
             if (xsdDuration.StartsWith("-", StringComparison.Ordinal))
             {
@@ -64,11 +64,11 @@ namespace ServiceStack.Text.Support
                 xsdDuration = xsdDuration.Substring(1); // strip sign
             }
 
-            string[] t = xsdDuration.Substring(1).SplitOnFirst('T'); // strip P
+            var t = xsdDuration.Substring(1).SplitOnFirst('T'); // strip P
 
             var hasTime = t.Length == 2;
 
-            string[] d = t[0].SplitOnFirst('D');
+            var d = t[0].SplitOnFirst('D');
             if (d.Length == 2)
             {
                 int day;
@@ -78,7 +78,7 @@ namespace ServiceStack.Text.Support
 
             if (hasTime)
             {
-                string[] h = t[1].SplitOnFirst('H');
+                var h = t[1].SplitOnFirst('H');
                 if (h.Length == 2)
                 {
                     int hour;
@@ -86,7 +86,7 @@ namespace ServiceStack.Text.Support
                         hours = hour;
                 }
 
-                string[] m = h[h.Length - 1].SplitOnFirst('M');
+                var m = h[h.Length - 1].SplitOnFirst('M');
                 if (m.Length == 2)
                 {
                     int min;
@@ -94,7 +94,7 @@ namespace ServiceStack.Text.Support
                         minutes = min;
                 }
 
-                string[] s = m[m.Length - 1].SplitOnFirst('S');
+                var s = m[m.Length - 1].SplitOnFirst('S');
                 if (s.Length == 2)
                 {
                     decimal millis;
@@ -103,7 +103,7 @@ namespace ServiceStack.Text.Support
                 }
             }
 
-            decimal totalSecs = 0
+            var totalSecs = 0
                     + days * 24 * 60 * 60
                     + hours * 60 * 60
                     + minutes * 60

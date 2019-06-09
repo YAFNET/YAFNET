@@ -203,7 +203,7 @@ namespace YAF.Controls
 
                 // we might not want to add this user link if user is marked as hidden
                 if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
-                    (this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"])))
+                    this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"]))
                 {
                     // hidden user are always visible to admin and himself)
                     if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)

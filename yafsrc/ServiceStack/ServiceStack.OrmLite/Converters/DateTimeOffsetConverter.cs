@@ -12,8 +12,7 @@ namespace ServiceStack.OrmLite.Converters
         //From OrmLiteDialectProviderBase:
         public override object FromDbValue(Type fieldType, object value)
         {
-            var strValue = value as string;
-            if (strValue != null)
+            if (value is string strValue)
             {
                 var moment = DateTimeOffset.Parse(strValue, null, DateTimeStyles.RoundtripKind);
                 return moment;

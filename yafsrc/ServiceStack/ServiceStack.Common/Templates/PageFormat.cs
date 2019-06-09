@@ -46,7 +46,7 @@ namespace ServiceStack.Templates
 
         public TemplatePage DefaultResolveLayout(TemplatePage page)
         {
-            page.Args.TryGetValue(TemplatePages.Layout, out object layout);
+            page.Args.TryGetValue(TemplatePages.Layout, out var layout);
             return page.Context.Pages.ResolveLayoutPage(page, layout as string);
         }
 

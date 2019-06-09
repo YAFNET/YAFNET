@@ -31,7 +31,7 @@ namespace ServiceStack.Templates
 
         public static JsToken Create(StringSegment js)
         {
-            js.ParseNextToken(out object value, out JsBinding binding);
+            js.ParseNextToken(out var value, out JsBinding binding);
             
             if (binding != null)
                 return binding;
@@ -539,7 +539,7 @@ namespace ServiceStack.Templates
 
                 //don't convert into ternary to avoid Type coercion
                 if (hasDecimal || hasExponent)
-                    value = numLiteral.TryParseDouble(out double d) ? d : default(double);
+                    value = numLiteral.TryParseDouble(out var d) ? d : default(double);
                 else
                     value = numLiteral.ParseSignedInteger();
 
@@ -871,7 +871,7 @@ namespace ServiceStack.Templates
         {
             unchecked
             {
-                int hashCode = base.GetHashCode();
+                var hashCode = base.GetHashCode();
                 hashCode = (hashCode * 397) ^ Name.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Args != null ? Args.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Original.GetHashCode();
@@ -1251,7 +1251,7 @@ namespace ServiceStack.Templates
 
                     var originalArgs = literal.Substring(i + 1, endStringPos - i - 1);
                     var rewrittenArgs = "′" + originalArgs.Trim().Replace("{","{{").Replace("}","}}").Replace("′", "\\′") + "′)";
-                    ParseArguments(rewrittenArgs.ToStringSegment(), out List<StringSegment> args);
+                    ParseArguments(rewrittenArgs.ToStringSegment(), out var args);
                     binding.Args = args;
                     return literal.Subsegment(endStringPos);
                 }
@@ -1260,7 +1260,7 @@ namespace ServiceStack.Templates
                 {
                     var pos = i + 1;
                     binding = new JsExpression(literal.Subsegment(0, i).Trim());
-                    literal = ParseArguments(literal.Subsegment(pos), out List<StringSegment> args);
+                    literal = ParseArguments(literal.Subsegment(pos), out var args);
                     binding.Args = args;
                     return literal.Advance(1);
                 }

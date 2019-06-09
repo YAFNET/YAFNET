@@ -93,7 +93,7 @@ namespace YAF.UrlRewriter
 
             // Rewrite the path if the location has changed.
             this._httpContext.SetStatusCode(context.StatusCode);
-            if ((context.Location != originalUrl) && ((int)context.StatusCode < 400))
+            if (context.Location != originalUrl && (int)context.StatusCode < 400)
             {
                 if ((int)context.StatusCode < 300)
                 {
@@ -205,8 +205,7 @@ namespace YAF.UrlRewriter
             foreach (var action in rewriteRules)
             {
                 // If the rule is conditional, ensure the conditions are met.
-                var condition = action as IRewriteCondition;
-                if (condition == null || condition.IsMatch(context))
+                if (!(action is IRewriteCondition condition) || condition.IsMatch(context))
                 {
                     // Execute the action.
                     var processing = action.Execute(context);
@@ -379,7 +378,7 @@ namespace YAF.UrlRewriter
                 if (context.LastMatch != null)
                 {
                     var group = context.LastMatch.Groups[Convert.ToInt32(num)];
-                    result = (group == null) ? string.Empty : group.Value;
+                    result = @group == null ? string.Empty : group.Value;
                 }
                 else
                 {
@@ -413,7 +412,7 @@ namespace YAF.UrlRewriter
                 if (context.LastMatch != null)
                 {
                     var group = context.LastMatch.Groups[expr];
-                    result = (group == null) ? string.Empty : group.Value;
+                    result = @group == null ? string.Empty : group.Value;
                 }
                 else
                 {

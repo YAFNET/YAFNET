@@ -18,20 +18,20 @@ namespace ServiceStack.Templates
             
             var items = target.AssertEnumerable(nameof(htmlList));
             var scopedParams = scope.AssertOptions(nameof(htmlList), scopeOptions);
-            var depth = scopedParams.TryGetValue("depth", out object oDepth) ? (int)oDepth : 0;
-            var childDepth = scopedParams.TryGetValue("childDepth", out object oChildDepth) ? oChildDepth.ConvertTo<int>() : 1;
+            var depth = scopedParams.TryGetValue("depth", out var oDepth) ? (int)oDepth : 0;
+            var childDepth = scopedParams.TryGetValue("childDepth", out var oChildDepth) ? oChildDepth.ConvertTo<int>() : 1;
             scopedParams["depth"] = depth + 1;
 
             try
             {
-                scopedParams.TryGetValue("className", out object parentClass);
-                scopedParams.TryGetValue("childClass", out object childClass);
+                scopedParams.TryGetValue("className", out var parentClass);
+                scopedParams.TryGetValue("childClass", out var childClass);
                 var className = ((depth < childDepth ? parentClass : childClass ?? parentClass) 
                                  ?? Context.Args[TemplateConstants.DefaultTableClassName]).ToString();
 
-                scopedParams.TryGetValue("headerStyle", out object oHeaderStyle);
-                scopedParams.TryGetValue("headerTag", out object oHeaderTag);
-                scopedParams.TryGetValue("captionIfEmpty", out object captionIfEmpty);
+                scopedParams.TryGetValue("headerStyle", out var oHeaderStyle);
+                scopedParams.TryGetValue("headerTag", out var oHeaderTag);
+                scopedParams.TryGetValue("captionIfEmpty", out var captionIfEmpty);
                 var headerTag = oHeaderTag as string ?? "th";
                 var headerStyle = oHeaderStyle as string ?? "splitCase";
 
@@ -88,14 +88,14 @@ namespace ServiceStack.Templates
                 var sb = StringBuilderCache.Allocate();
                 sb.Append("<table");
 
-                if (scopedParams.TryGetValue("id", out object id))
+                if (scopedParams.TryGetValue("id", out var id))
                     sb.Append(" id=\"").Append(id).Append("\"");
                 if (!string.IsNullOrEmpty(className))
                     sb.Append(" class=\"").Append(className).Append("\"");
 
                 sb.Append(">");
 
-                scopedParams.TryGetValue("caption", out object caption);
+                scopedParams.TryGetValue("caption", out var caption);
                 if (isEmpty)
                     caption = captionIfEmpty;
 
@@ -125,8 +125,8 @@ namespace ServiceStack.Templates
         public IRawString htmlDump(TemplateScopeContext scope, object target, object scopeOptions)
         {
             var scopedParams = scope.AssertOptions(nameof(htmlDump), scopeOptions);
-            var depth = scopedParams.TryGetValue("depth", out object oDepth) ? (int)oDepth : 0;
-            var childDepth = scopedParams.TryGetValue("childDepth", out object oChildDepth) ? oChildDepth.ConvertTo<int>() : 1;
+            var depth = scopedParams.TryGetValue("depth", out var oDepth) ? (int)oDepth : 0;
+            var childDepth = scopedParams.TryGetValue("childDepth", out var oChildDepth) ? oChildDepth.ConvertTo<int>() : 1;
             scopedParams["depth"] = depth + 1;
 
             try
@@ -134,10 +134,10 @@ namespace ServiceStack.Templates
                 if (!isComplexType(target))
                     return GetScalarHtml(target).ToRawString();
 
-                scopedParams.TryGetValue("captionIfEmpty", out object captionIfEmpty);
-                scopedParams.TryGetValue("headerStyle", out object oHeaderStyle);
-                scopedParams.TryGetValue("className", out object parentClass);
-                scopedParams.TryGetValue("childClass", out object childClass);
+                scopedParams.TryGetValue("captionIfEmpty", out var captionIfEmpty);
+                scopedParams.TryGetValue("headerStyle", out var oHeaderStyle);
+                scopedParams.TryGetValue("className", out var parentClass);
+                scopedParams.TryGetValue("childClass", out var childClass);
                 var headerStyle = oHeaderStyle as string ?? "splitCase";
                 var className = ((depth < childDepth ? parentClass : childClass ?? parentClass) 
                                  ?? Context.Args[TemplateConstants.DefaultTableClassName]).ToString();
@@ -158,14 +158,14 @@ namespace ServiceStack.Templates
 
                     sb.Append("<table");
 
-                    if (scopedParams.TryGetValue("id", out object id))
+                    if (scopedParams.TryGetValue("id", out var id))
                         sb.Append(" id=\"").Append(id).Append("\"");
                     
                     sb.Append(" class=\"").Append(className).Append("\"");
 
                     sb.Append(">");
 
-                    scopedParams.TryGetValue("caption", out object caption);
+                    scopedParams.TryGetValue("caption", out var caption);
                     if (isEmpty)
                         caption = captionIfEmpty;
 
@@ -314,7 +314,7 @@ namespace ServiceStack.Templates
                 return RawString.Empty;
 
             var scopedParams = options as Dictionary<string, object> ?? TypeConstants.EmptyObjectDictionary;
-            var className = (scopedParams.TryGetValue("className", out object oClassName) ? oClassName : null) 
+            var className = (scopedParams.TryGetValue("className", out var oClassName) ? oClassName : null) 
                             ?? Context.Args[TemplateConstants.DefaultErrorClassName];
            
             return $"<div class=\"{className}\">{ex.Message}</div>".ToRawString();
@@ -331,7 +331,7 @@ namespace ServiceStack.Templates
                 return RawString.Empty;
 
             var scopedParams = options as Dictionary<string, object> ?? TypeConstants.EmptyObjectDictionary;
-            var className = (scopedParams.TryGetValue("className", out object oClassName) ? oClassName : null) 
+            var className = (scopedParams.TryGetValue("className", out var oClassName) ? oClassName : null) 
                             ?? Context.Args[TemplateConstants.DefaultErrorClassName];
             
             var sb = StringBuilderCache.Allocate();
@@ -423,13 +423,13 @@ namespace ServiceStack.Templates
         {
             var scopedParams = attrs ?? TypeConstants.EmptyObjectDictionary;
             
-            var innerHtml = scopedParams.TryGetValue("html", out object oInnerHtml)
+            var innerHtml = scopedParams.TryGetValue("html", out var oInnerHtml)
                 ? oInnerHtml?.ToString()
                 : null;
 
             if (innerHtml == null)
             {
-                innerHtml = scopedParams.TryGetValue("text", out object text)
+                innerHtml = scopedParams.TryGetValue("text", out var text)
                     ? text?.ToString().HtmlEncode()
                     : null;
             }

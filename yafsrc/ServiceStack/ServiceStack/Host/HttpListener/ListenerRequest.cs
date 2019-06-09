@@ -238,7 +238,7 @@ namespace ServiceStack.Host.HttpListener
                         return httpFiles = TypeConstants<IHttpFile>.EmptyArray;
 
                     httpFiles = new IHttpFile[files.Count];
-                    for (int i = 0; i < files.Count; i++)
+                    for (var i = 0; i < files.Count; i++)
                     {
                         var reqFile = files[i];
                         httpFiles[i] = new HttpFile

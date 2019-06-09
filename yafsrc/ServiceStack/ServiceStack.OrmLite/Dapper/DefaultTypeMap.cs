@@ -79,16 +79,16 @@ namespace ServiceStack.OrmLite.Dapper
         public ConstructorInfo FindConstructor(string[] names, Type[] types)
         {
             var constructors = _type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            foreach (ConstructorInfo ctor in constructors.OrderBy(c => c.IsPublic ? 0 : c.IsPrivate ? 2 : 1).ThenBy(c => c.GetParameters().Length))
+            foreach (var ctor in constructors.OrderBy(c => c.IsPublic ? 0 : c.IsPrivate ? 2 : 1).ThenBy(c => c.GetParameters().Length))
             {
-                ParameterInfo[] ctorParameters = ctor.GetParameters();
+                var ctorParameters = ctor.GetParameters();
                 if (ctorParameters.Length == 0)
                     return ctor;
 
                 if (ctorParameters.Length != types.Length)
                     continue;
 
-                int i = 0;
+                var i = 0;
                 for (; i < ctorParameters.Length; i++)
                 {
                     if (!string.Equals(ctorParameters[i].Name, names[i], StringComparison.OrdinalIgnoreCase))

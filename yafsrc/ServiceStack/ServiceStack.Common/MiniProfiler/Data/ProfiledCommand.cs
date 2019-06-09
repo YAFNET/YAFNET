@@ -59,8 +59,7 @@ namespace ServiceStack.MiniProfiler.Data
             set
             {
                 _conn = value;
-                var awesomeConn = value as ProfiledConnection;
-                _cmd.Connection = awesomeConn == null ? value : awesomeConn.WrappedConnection;
+                _cmd.Connection = !(value is ProfiledConnection awesomeConn) ? value : awesomeConn.WrappedConnection;
             }
         }
 
@@ -72,8 +71,7 @@ namespace ServiceStack.MiniProfiler.Data
             set
             {
                 this._tran = value;
-                var awesomeTran = value as ProfiledDbTransaction;
-                _cmd.Transaction = awesomeTran == null || !(awesomeTran.DbTransaction is DbTransaction) ?
+                _cmd.Transaction = !(value is ProfiledDbTransaction awesomeTran) || !(awesomeTran.DbTransaction is DbTransaction) ?
                     value : (DbTransaction)awesomeTran.DbTransaction;
             }
         }

@@ -85,7 +85,7 @@ namespace ServiceStack
 
             int start = -1, end = -1;
 
-            for(int i=0; i < contentType.Length; i++)
+            for(var i=0; i < contentType.Length; i++)
             {
                 if (!char.IsWhiteSpace(contentType[i]))
                 {
@@ -113,7 +113,7 @@ namespace ServiceStack
             
             int start = -1, matchStart = -1, matchEnd = -1;
 
-            for(int i=0; i < contentType.Length; i++)
+            for(var i=0; i < contentType.Length; i++)
             {
                 if (!char.IsWhiteSpace(contentType[i]))
                 {
@@ -122,7 +122,7 @@ namespace ServiceStack
                 }
             }
 
-            for(int i=0; i < matchesContentType.Length; i++)
+            for(var i=0; i < matchesContentType.Length; i++)
             {
                 if (!char.IsWhiteSpace(matchesContentType[i]))
                 {

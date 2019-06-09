@@ -88,8 +88,7 @@ namespace YAF.UrlRewriter.Configuration
 
             // Transform type specified.
             // Create an instance and add it as the mapper handler for this map.
-            var transform = TypeHelper.Activate(type, null) as IRewriteTransform;
-            if (transform == null)
+            if (!(TypeHelper.Activate(type, null) is IRewriteTransform transform))
             {
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.InvalidTypeSpecified, type, typeof(IRewriteTransform)), node);
             }
@@ -108,8 +107,7 @@ namespace YAF.UrlRewriter.Configuration
 
             // Logger type specified.  Create an instance and add it
             // as the mapper handler for this map.
-            var logger = TypeHelper.Activate(type, null) as IRewriteLogger;
-            if (logger != null)
+            if (TypeHelper.Activate(type, null) is IRewriteLogger logger)
             {
                 config.Logger = logger;
             }
@@ -125,14 +123,12 @@ namespace YAF.UrlRewriter.Configuration
             var type = node.GetRequiredAttribute(Constants.AttrParser);
 
             var parser = TypeHelper.Activate(type, null);
-            var actionParser = parser as IRewriteActionParser;
-            if (actionParser != null)
+            if (parser is IRewriteActionParser actionParser)
             {
                 config.ActionParserFactory.Add(actionParser);
             }
 
-            var conditionParser = parser as IRewriteConditionParser;
-            if (conditionParser != null)
+            if (parser is IRewriteConditionParser conditionParser)
             {
                 config.ConditionParserPipeline.Add(conditionParser);
             }

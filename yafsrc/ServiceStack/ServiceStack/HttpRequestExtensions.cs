@@ -116,8 +116,7 @@ namespace ServiceStack
         public static string GetUrlHostName(this IRequest httpReq)
         {
 #if !NETSTANDARD2_0
-            var aspNetReq = httpReq as ServiceStack.Host.AspNet.AspNetRequest;
-            if (aspNetReq != null)
+            if (httpReq is AspNetRequest aspNetReq)
             {
                 return aspNetReq.UrlHostName;
             }

@@ -137,16 +137,6 @@ namespace YAF.Classes
         public static bool CreateDistinctRoles => GetConfigValueAsBool("YAF.CreateDistinctRoles", false);
 
         /// <summary>
-        ///     Gets DatabaseCollation.
-        /// </summary>
-        public static string DatabaseCollation => GetConfigValueAsString("YAF.DatabaseCollation");
-
-        /// <summary>
-        ///     Gets DatabaseEncoding.
-        /// </summary>
-        public static string DatabaseEncoding => GetConfigValueAsString("YAF.DatabaseEncoding");
-
-        /// <summary>
         ///     Gets DatabaseObjectQualifier.
         /// </summary>
         [NotNull]
@@ -156,7 +146,7 @@ namespace YAF.Classes
             {
                 var value = GetConfigValueAsString("YAF.DatabaseObjectQualifier");
                 return value != null
-                           ? (value.IsSet() ? GetConfigValueAsString("YAF.DatabaseObjectQualifier") : "yaf_")
+                           ? value.IsSet() ? GetConfigValueAsString("YAF.DatabaseObjectQualifier") : "yaf_"
                            : "yaf_";
             }
         }
@@ -166,12 +156,6 @@ namespace YAF.Classes
         /// </summary>
         [NotNull]
         public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
-
-        /// <summary>
-        ///     Gets DatabaseScheme.
-        /// </summary>
-        [NotNull]
-        public static string DatabaseScheme => GetConfigValueAsString("YAF.DatabaseScheme") ?? "public";
 
         /// <summary>
         ///     Gets a value indicating whether Is jQuery Registration disabled? -- default is false.
@@ -361,11 +345,6 @@ namespace YAF.Classes
         public static string RoleProvider => GetConfigValueAsString("YAF.RoleProvider") ?? string.Empty;
 
         /// <summary>
-        ///     Gets SchemaName.
-        /// </summary>
-        public static string SchemaName => GetConfigValueAsString("YAF.DatabaseSchemaName");
-
-        /// <summary>
         ///     Gets ServerFileRoot.
         /// </summary>
         [NotNull]
@@ -463,11 +442,6 @@ namespace YAF.Classes
         ///     Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
         /// </summary>
         public static bool UseSMTPSSL => GetConfigValueAsBool("YAF.UseSMTPSSL", false);
-
-        /// <summary>
-        ///     Gets WithOIDs.
-        /// </summary>
-        public static string WithOIDs => GetConfigValueAsString("YAF.DatabaseWithOIDs");
 
         /// <summary>
         /// Gets the banned IP redirect URL.

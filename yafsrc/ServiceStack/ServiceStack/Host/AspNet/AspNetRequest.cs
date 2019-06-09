@@ -58,8 +58,7 @@ namespace ServiceStack.Host.AspNet
             {
                 foreach (var key in httpContext.Items.Keys)
                 {
-                    var strKey = key as string;
-                    if (strKey == null) continue;
+                    if (!(key is string strKey)) continue;
                     Items[strKey] = httpContext.Items[key];
                 }
             }
@@ -315,7 +314,7 @@ namespace ServiceStack.Host.AspNet
                 if (httpFiles == null)
                 {
                     httpFiles = new IHttpFile[request.Files.Count];
-                    for (int i = 0; i < request.Files.Count; i++)
+                    for (var i = 0; i < request.Files.Count; i++)
                     {
                         var reqFile = request.Files[i];
                         httpFiles[i] = new HttpFile

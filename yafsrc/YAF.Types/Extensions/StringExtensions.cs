@@ -568,14 +568,14 @@ namespace YAF.Types.Extensions
             }
 
             // figure out how much to make it fit...
-            var left = (limit / 2) - (Middle.Length / 2);
-            var right = limit - left - (Middle.Length / 2);
+            var left = limit / 2 - Middle.Length / 2;
+            var right = limit - left - Middle.Length / 2;
 
-            if ((left + right + Middle.Length) < limit)
+            if (left + right + Middle.Length < limit)
             {
                 right++;
             }
-            else if ((left + right + Middle.Length) > limit)
+            else if (left + right + Middle.Length > limit)
             {
                 right--;
             }

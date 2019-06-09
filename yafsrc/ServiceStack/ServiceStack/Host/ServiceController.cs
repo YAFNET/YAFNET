@@ -206,7 +206,7 @@ namespace ServiceStack.Host
         public void RegisterRestPaths(Type requestType)
         {
             var attrs = appHost.GetRouteAttributes(requestType);
-            foreach (RouteAttribute attr in attrs)
+            foreach (var attr in attrs)
             {
                 var restPath = new RestPath(requestType, attr.Path, attr.Verbs, attr.Summary, attr.Notes, attr.Matches);
 
@@ -693,7 +693,7 @@ namespace ServiceStack.Host
                     await Task.WhenAll(tasks);
 
                     object[] ret = null;
-                    for (int i = 0; i < tasks.Length; i++)
+                    for (var i = 0; i < tasks.Length; i++)
                     {
                         var tResult = tasks[i].GetResult();
                         if (ret == null)

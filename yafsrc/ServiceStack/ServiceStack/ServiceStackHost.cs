@@ -1098,7 +1098,7 @@ namespace ServiceStack
         public virtual IHttpHandler ReturnRedirectHandler(IHttpRequest httpReq)
         {
             var pathInfo = NormalizePathInfo(httpReq.OriginalPathInfo, Config.HandlerFactoryPath);
-            return Config.RedirectPaths.TryGetValue(pathInfo, out string redirectPath)
+            return Config.RedirectPaths.TryGetValue(pathInfo, out var redirectPath)
                 ? new RedirectHttpHandler { RelativeUrl = redirectPath }
                 : null;
         }

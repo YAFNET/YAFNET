@@ -238,7 +238,7 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <param name="context">Validation Context</param>
 		/// <returns>A collection of validation failures</returns>
 		public virtual IEnumerable<ValidationFailure> Validate(ValidationContext context) {
-			string displayName = GetDisplayName(context.InstanceToValidate);
+			var displayName = GetDisplayName(context.InstanceToValidate);
 
 			if (PropertyName == null && displayName == null) {
 				//No name has been specified. Assume this is a model-level rule, so we should use empty string instead. 
@@ -246,7 +246,7 @@ namespace ServiceStack.FluentValidation.Internal {
 			}
 
 			// Construct the full name of the property, taking into account overriden property names and the chain (if we're in a nested validator)
-			string propertyName = context.PropertyChain.BuildPropertyName(PropertyName ?? displayName);
+			var propertyName = context.PropertyChain.BuildPropertyName(PropertyName ?? displayName);
 
 			// Ensure that this rule is allowed to run. 
 			// The validatselector has the opportunity to veto this before any of the validators execute.
@@ -255,13 +255,13 @@ namespace ServiceStack.FluentValidation.Internal {
 			}
 
 			var cascade = cascadeModeThunk();
-			bool hasAnyFailure = false;
+			var hasAnyFailure = false;
 
 			// Invoke each validator and collect its results.
 			foreach (var validator in validators) {
 				var results = InvokePropertyValidator(context, validator, propertyName);
 
-				bool hasFailure = false;
+				var hasFailure = false;
 
 				foreach (var result in results) {
 					hasAnyFailure = true;

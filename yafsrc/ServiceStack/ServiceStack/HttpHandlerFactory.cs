@@ -189,7 +189,7 @@ namespace ServiceStack
             if (string.IsNullOrEmpty(pathInfo) || pathInfo == "/")
             {
                 //If the fallback route can handle it, let it
-                RestPath restPath = appHost.Config.FallbackRestPath?.Invoke(httpReq);
+                var restPath = appHost.Config.FallbackRestPath?.Invoke(httpReq);
                 if (restPath != null)
                 {
                     var sanitizedPath = RestHandler.GetSanitizedPathInfo(pathInfo, out var contentType);

@@ -145,7 +145,7 @@ namespace ServiceStack
                 }
             }
 
-            byte[] byteArray = bytes.ToArray();
+            var byteArray = bytes.ToArray();
             return Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
         }
 
@@ -719,7 +719,7 @@ namespace ServiceStack
             value = value.ToCamelCase();
 
             var sb = StringBuilderThreadStatic.Allocate();
-            foreach (char t in value)
+            foreach (var t in value)
             {
                 if (char.IsDigit(t) || char.IsLetter(t) && char.IsLower(t) || t == '_')
                 {
@@ -1039,7 +1039,7 @@ namespace ServiceStack
                         break;
 
                     case '*':
-                        for (int i = value.Length; i >= pos; i--)
+                        for (var i = value.Length; i >= pos; i--)
                         {
                             if (Glob(value.Substring(i), pattern.Substring(pos + 1)))
                                 return true;

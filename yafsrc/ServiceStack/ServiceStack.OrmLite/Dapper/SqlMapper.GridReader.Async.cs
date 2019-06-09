@@ -161,10 +161,10 @@ namespace ServiceStack.OrmLite.Dapper
                 if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
                 if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
                 var typedIdentity = identity.ForGrid(type, gridIndex);
-                CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
+                var cache = GetCacheInfo(typedIdentity, null, addToCache);
                 var deserializer = cache.Deserializer;
 
-                int hash = GetColumnHash(reader);
+                var hash = GetColumnHash(reader);
                 if (deserializer.Func == null || deserializer.Hash != hash)
                 {
                     deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
@@ -197,14 +197,14 @@ namespace ServiceStack.OrmLite.Dapper
                 if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
 
                 IsConsumed = true;
-                T result = default(T);
+                var result = default(T);
                 if (await reader.ReadAsync(cancel).ConfigureAwait(false) && reader.FieldCount != 0)
                 {
                     var typedIdentity = identity.ForGrid(type, gridIndex);
-                    CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
+                    var cache = GetCacheInfo(typedIdentity, null, addToCache);
                     var deserializer = cache.Deserializer;
 
-                    int hash = GetColumnHash(reader);
+                    var hash = GetColumnHash(reader);
                     if (deserializer.Func == null || deserializer.Hash != hash)
                     {
                         deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));

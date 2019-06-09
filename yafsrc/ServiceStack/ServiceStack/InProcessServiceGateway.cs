@@ -75,7 +75,7 @@ namespace ServiceStack
             {
                 Task.WaitAll(batchResponseTasks);
                 var to = new object[batchResponseTasks.Length];
-                for (int i = 0; i < batchResponseTasks.Length; i++)
+                for (var i = 0; i < batchResponseTasks.Length; i++)
                 {
                     to[i] = batchResponseTasks[i].GetResult();
                 }
@@ -226,7 +226,7 @@ namespace ServiceStack
             var requestsArray = requestDtos.ToArray();
             var elType = requestDtos.GetType().GetCollectionType();
             var toArray = (object[])Array.CreateInstance(elType, requestsArray.Length);
-            for (int i = 0; i < requestsArray.Length; i++)
+            for (var i = 0; i < requestsArray.Length; i++)
             {
                 toArray[i] = requestsArray[i];
             }
@@ -237,7 +237,7 @@ namespace ServiceStack
         {
             var holdDto = req.Dto;
             var holdAttrs = req.RequestAttributes;
-            string holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
+            var holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
 
             var typedArray = CreateTypedArray(requestDtos);
             req.SetItem(Keywords.InvokeVerb, HttpMethods.Post);
@@ -259,7 +259,7 @@ namespace ServiceStack
         {
             var holdDto = req.Dto;
             var holdAttrs = req.RequestAttributes;
-            string holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
+            var holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
 
             var typedArray = CreateTypedArray(requestDtos);
             req.SetItem(Keywords.InvokeVerb, HttpMethods.Post);
@@ -322,7 +322,7 @@ namespace ServiceStack
         {
             var holdDto = req.Dto;
             var holdAttrs = req.RequestAttributes;
-            string holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
+            var holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
 
             var typedArray = CreateTypedArray(requestDtos);
             req.SetItem(Keywords.InvokeVerb, HttpMethods.Post);
@@ -346,7 +346,7 @@ namespace ServiceStack
         {
             var holdDto = req.Dto;
             var holdAttrs = req.RequestAttributes;
-            string holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
+            var holdVerb = req.GetItem(Keywords.InvokeVerb) as string;
 
             var typedArray = CreateTypedArray(requestDtos);
             req.SetItem(Keywords.InvokeVerb, HttpMethods.Post);

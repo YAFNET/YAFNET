@@ -86,7 +86,7 @@ namespace ServiceStack
             var paramArgs = Expression.Parameter(typeof(object[]), "args");
             var exprArgs = new Expression[pi.Length];
 
-            for (int i = 0; i < pi.Length; i++)
+            for (var i = 0; i < pi.Length; i++)
             {
                 var index = Expression.Constant(i);
                 var paramType = pi[i].ParameterType;
@@ -133,7 +133,7 @@ namespace ServiceStack
             var convertFromMethod = typeof(TypeExtensions).GetStaticMethod(nameof(ConvertFromObject));
 
             var exprArgs = new Expression[pi.Length];
-            for (int i = 0; i < pi.Length; i++)
+            for (var i = 0; i < pi.Length; i++)
             {
                 var index = Expression.Constant(i);
                 var paramType = pi[i].ParameterType;

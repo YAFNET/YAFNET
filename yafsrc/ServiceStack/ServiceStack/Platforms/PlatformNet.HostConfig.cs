@@ -116,8 +116,7 @@ namespace ServiceStack.Platforms
                 return;
 
             //standard config
-            var handlersSection = webConfig.GetSection("system.web/httpHandlers") as HttpHandlersSection;
-            if (handlersSection != null)
+            if (webConfig.GetSection("system.web/httpHandlers") is HttpHandlersSection handlersSection)
             {
                 for (var i = 0; i < handlersSection.Handlers.Count; i++)
                 {

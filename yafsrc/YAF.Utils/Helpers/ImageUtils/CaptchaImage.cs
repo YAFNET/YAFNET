@@ -268,7 +268,7 @@ namespace YAF.Utils
 
       if (_lines > 0)
       {
-        var lines = ((int)_lines / 30) + 1;
+        var lines = (int)_lines / 30 + 1;
         using (var pen = new Pen(hatchBrush, 1))
           for (var i = 0; i < lines; i++)
           {

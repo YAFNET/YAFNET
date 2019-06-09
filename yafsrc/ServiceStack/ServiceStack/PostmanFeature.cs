@@ -140,8 +140,7 @@ namespace ServiceStack
 
             var headers = feature.Headers ?? "Accept: " + MimeTypes.Json;
 
-            var httpRes = Response as IHttpResponse;
-            if (httpRes != null)
+            if (this.Response is IHttpResponse httpRes)
             {
                 if (request.ssopt != null
                     || request.sspid != null

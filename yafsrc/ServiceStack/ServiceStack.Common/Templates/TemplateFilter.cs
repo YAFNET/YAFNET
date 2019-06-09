@@ -80,7 +80,7 @@ namespace ServiceStack.Templates
         private string CacheKey(InvokerType type, string methodName, int argsCount) =>
             type + "::" + methodName.ToLower() + "`" + argsCount;
 
-        private MethodInfo GetFilterMethod(string cacheKey) => lookupIndex.TryGetValue(cacheKey, out MethodInfo method) ? method : null;
+        private MethodInfo GetFilterMethod(string cacheKey) => lookupIndex.TryGetValue(cacheKey, out var method) ? method : null;
 
         public virtual bool HandlesUnknownValue(string name, int argsCount)
         {
@@ -106,7 +106,7 @@ namespace ServiceStack.Templates
                 throw new ArgumentNullException(nameof(name));
 
             var key = CacheKey(type, name, argsCount);
-            if (InvokerCache.TryGetValue(key, out MethodInvoker invoker))
+            if (InvokerCache.TryGetValue(key, out var invoker))
                 return invoker;
 
             var method = GetFilterMethod(key);
@@ -196,7 +196,7 @@ namespace ServiceStack.Templates
                 throw new NotSupportedException($"'it' option in filter '{filterName}' should contain the name to bind to but contained a '{bindingName.GetType().Name}' instead");
 
             // page vars take precedence
-            if (page != null && page.Args.TryGetValue("it", out object pageBinding))
+            if (page != null && page.Args.TryGetValue("it", out var pageBinding))
                 itemBinding = (string)pageBinding;
             
             return pageParams;
@@ -212,8 +212,7 @@ namespace ServiceStack.Templates
         {
             scope.ScopedParams[itemBinding] = item;
 
-            var explodeBindings = item as ScopeVars;
-            if (explodeBindings != null)
+            if (item is ScopeVars explodeBindings)
             {
                 foreach (var entry in explodeBindings)
                 {
@@ -230,7 +229,7 @@ namespace ServiceStack.Templates
         {
             if (valueOrBinding is string literal)
             {
-                literal.ToStringSegment().ParseNextToken(out object value, out JsBinding binding);
+                literal.ToStringSegment().ParseNextToken(out var value, out var binding);
 
                 var oValue = binding != null
                     ? scope.EvaluateToken(binding)
@@ -246,12 +245,10 @@ namespace ServiceStack.Templates
         {
             scope.Context.TryGetPage(scope.PageResult.VirtualPath, virtualPath, out page, out codePage);
             codePage?.Init();
-                
-            var requiresRequest = codePage as IRequiresRequest;
-            if (requiresRequest != null)
+
+            if (codePage is IRequiresRequest requiresRequest)
             {
-                var request = scope.GetValue(TemplateConstants.Request) as IRequest;
-                if (request != null)
+                if (scope.GetValue(TemplateConstants.Request) is IRequest request)
                     requiresRequest.Request = request;
             }
         }

@@ -552,7 +552,7 @@ namespace ServiceStack
             }
             else
             {
-                Type baseType = fromType;
+                var baseType = fromType;
                 bool areSameTypes;
                 do
                 {

@@ -350,7 +350,7 @@ namespace ServiceStack.Text.Common
         {
             var ranOnce = false;
             writer.Write(JsWriter.ListStartChar);
-            for (int i = 0; i < array.GetLength(rank); i++)
+            for (var i = 0; i < array.GetLength(rank); i++)
             {
                 JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);
                 indices[rank] = i;

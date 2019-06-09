@@ -77,7 +77,7 @@ namespace YAF.Controls
                 if (styleElements.Length >= 2)
                 {
                     writer.WriteLine(
-                        $"<span style=\"{styleElements[1]}\">{styleElements[0]}{((index++ == styles.Count) ? string.Empty : ", ")}</span>");
+                        $"<span style=\"{styleElements[1]}\">{styleElements[0]}{(index++ == styles.Count ? string.Empty : ", ")}</span>");
                 }
 
                 // write ending tag

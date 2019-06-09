@@ -57,7 +57,7 @@ namespace YAF.UrlRewriter.Parsers
             var rule = new ConditionalAction();
 
             // Process the conditions on the element.
-            var negative = (node.LocalName == Constants.ElementUnless);
+            var negative = node.LocalName == Constants.ElementUnless;
             this.ParseConditions(node, rule.Conditions, negative, config);
 
             // Next, process the actions on the element.

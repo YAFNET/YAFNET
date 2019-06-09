@@ -1596,7 +1596,7 @@ namespace ServiceStack
                         outputStream.Write($"Content-Disposition: form-data;name=\"{fieldName}\";filename=\"{fileName}\"{newLine}Content-Type: application/octet-stream{newLine}{newLine}");
 
                         int byteCount;
-                        int bytesWritten = 0;
+                        var bytesWritten = 0;
                         while ((byteCount = file.Stream.Read(buffer, 0, 4096)) > 0)
                         {
                             outputStream.Write(buffer, 0, byteCount);
@@ -1674,7 +1674,7 @@ namespace ServiceStack
                     outputStream.Write($"Content-Disposition: form-data;name=\"{fieldName}\";filename=\"{fileName}\"{newLine}{newLine}");
                     var buffer = new byte[4096];
                     int byteCount;
-                    int bytesWritten = 0;
+                    var bytesWritten = 0;
                     while ((byteCount = fileToUpload.Read(buffer, 0, 4096)) > 0)
                     {
                         outputStream.Write(buffer, 0, byteCount);
@@ -1823,7 +1823,7 @@ namespace ServiceStack
         public static TResponse PostFile<TResponse>(this IRestClient client,
             string relativeOrAbsoluteUrl, FileInfo fileToUpload, string mimeType)
         {
-            using (FileStream fileStream = fileToUpload.OpenRead())
+            using (var fileStream = fileToUpload.OpenRead())
             {
                 return client.PostFile<TResponse>(relativeOrAbsoluteUrl, fileStream, fileToUpload.Name, mimeType);
             }
@@ -1838,7 +1838,7 @@ namespace ServiceStack
         public static TResponse PostFileWithRequest<TResponse>(this IRestClient client,
             string relativeOrAbsoluteUrl, FileInfo fileToUpload, object request, string fieldName = "upload")
         {
-            using (FileStream fileStream = fileToUpload.OpenRead())
+            using (var fileStream = fileToUpload.OpenRead())
             {
                 return client.PostFileWithRequest<TResponse>(relativeOrAbsoluteUrl, fileStream, fileToUpload.Name, request, fieldName);
             }

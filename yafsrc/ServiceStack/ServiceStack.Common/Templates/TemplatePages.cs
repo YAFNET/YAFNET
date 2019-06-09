@@ -47,7 +47,7 @@ namespace ServiceStack.Templates
             {
                 var layoutPath = (dir.VirtualPath ?? "").CombineWith(layoutWithoutExt);
 
-                if (pageMap.TryGetValue(layoutPath, out TemplatePage layoutPage))
+                if (pageMap.TryGetValue(layoutPath, out var layoutPage))
                     return layoutPage;
 
                 foreach (var format in Context.PageFormats)
@@ -88,7 +88,7 @@ namespace ServiceStack.Templates
             {
                 var layoutPath = (dir.VirtualPath ?? "").CombineWith(layoutWithoutExt);
 
-                if (pageMap.TryGetValue(layoutPath, out TemplatePage layoutPage))
+                if (pageMap.TryGetValue(layoutPath, out var layoutPage))
                     return layoutPage;
 
                 foreach (var format in Context.PageFormats)
@@ -120,7 +120,7 @@ namespace ServiceStack.Templates
         {
             var santizePath = path.Replace('\\','/').TrimPrefixes("/").LastLeftPart('.');
 
-            if (pageMap.TryGetValue(santizePath, out TemplatePage page)) 
+            if (pageMap.TryGetValue(santizePath, out var page)) 
                 return page;
 
             return null;
@@ -244,7 +244,7 @@ namespace ServiceStack.Templates
                 {
                     if (fragment.InitialValue is string partialPath)
                     {
-                        Context.TryGetPage(page.VirtualPath, partialPath, out TemplatePage partialPage, out _);
+                        Context.TryGetPage(page.VirtualPath, partialPath, out var partialPage, out _);
                         maxLastModified = GetMaxLastModified(partialPage?.File, maxLastModified);
 
                         if (partialPage?.HasInit == true)
@@ -270,7 +270,7 @@ namespace ServiceStack.Templates
                     var partialArg = lastFilter.Args.FirstOrDefault().StripQuotes();
                     if (!string.IsNullOrEmpty(partialArg))
                     {
-                        Context.TryGetPage(page.VirtualPath, partialArg, out TemplatePage partialPage, out _);
+                        Context.TryGetPage(page.VirtualPath, partialArg, out var partialPage, out _);
                         maxLastModified = GetMaxLastModified(partialPage?.File, maxLastModified);
 
                         if (partialPage?.HasInit == true)

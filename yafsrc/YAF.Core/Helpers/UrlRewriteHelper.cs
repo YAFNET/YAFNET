@@ -396,9 +396,8 @@ namespace YAF.Core.Helpers
         protected static DataRow GetDataRowFromCache(string type, int id)
         {
             // get the datatable and find the value
-            var list = HttpContext.Current.Cache[GetCacheName(type, id)] as DataTable;
 
-            if (list == null)
+            if (!(HttpContext.Current.Cache[GetCacheName(type, id)] is DataTable list))
             {
                 return null;
             }

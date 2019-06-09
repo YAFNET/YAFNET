@@ -116,10 +116,8 @@ namespace YAF.Controls
                 // get cache for user boxes
                 var cache = this.PageCache[Constants.Cache.UserBoxes];
 
-                var hashtable = cache as Hashtable;
-
                 // is it hashtable?
-                if (hashtable == null)
+                if (!(cache is Hashtable hashtable))
                 {
                     return null;
                 }
@@ -144,10 +142,9 @@ namespace YAF.Controls
                 }
 
                 // get cache for user boxes
-                var cache = this.PageCache[Constants.Cache.UserBoxes] as Hashtable;
 
                 // is it hashtable?
-                if (cache != null)
+                if (this.PageCache[Constants.Cache.UserBoxes] is Hashtable cache)
                 {
                     // save userbox for user of this id to cache
                     cache[this.UserId] = value;
@@ -504,7 +501,7 @@ namespace YAF.Controls
                     {
                         if (this.Get<YafBoardSettings>().UseStyledNicks)
                         {
-                            groupsText.AppendLine(string.Format((@", " + StyledNick), role, roleStyle));
+                            groupsText.AppendLine(string.Format(@", " + StyledNick, role, roleStyle));
                         }
                         else
                         {
@@ -886,11 +883,11 @@ namespace YAF.Controls
             {
                 filler =
                     string.Format(
-                        this.Get<YafBoardSettings>().UserBoxThanksFrom, string.Format((this.UserProfile.Gender == 1
-                                                                                           ? this.GetText("thanksfrom_musc")
-                                                                                           : (this.UserProfile.Gender == 2
-                                                                                                  ? this.GetText("thanksfrom_fem")
-                                                                                                  : this.GetText("thanksfrom"))), this.DataRow["ThanksFromUserNumber"]));
+                        this.Get<YafBoardSettings>().UserBoxThanksFrom, string.Format(this.UserProfile.Gender == 1
+                                                                                          ? this.GetText("thanksfrom_musc")
+                                                                                          : this.UserProfile.Gender == 2
+                                                                                              ? this.GetText("thanksfrom_fem")
+                                                                                              : this.GetText("thanksfrom"), this.DataRow["ThanksFromUserNumber"]));
             }
 
             // replaces template placeholder with actual thanks from

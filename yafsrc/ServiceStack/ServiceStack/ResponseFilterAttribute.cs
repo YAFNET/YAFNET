@@ -23,7 +23,7 @@ namespace ServiceStack
 
         public void ResponseFilter(IRequest req, IResponse res, object response)
         {
-            ApplyTo httpMethod = req.HttpMethodAsApplyTo();
+            var httpMethod = req.HttpMethodAsApplyTo();
             if (ApplyTo.Has(httpMethod))
                 this.Execute(req, res, response);
         }
@@ -62,7 +62,7 @@ namespace ServiceStack
 
         public Task ResponseFilterAsync(IRequest req, IResponse res, object response)
         {
-            ApplyTo httpMethod = req.HttpMethodAsApplyTo();
+            var httpMethod = req.HttpMethodAsApplyTo();
             if (ApplyTo.Has(httpMethod))
                 return this.ExecuteAsync(req, res, response);
 

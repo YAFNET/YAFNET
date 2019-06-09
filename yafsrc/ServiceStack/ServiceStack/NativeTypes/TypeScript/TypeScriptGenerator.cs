@@ -121,7 +121,7 @@ namespace ServiceStack.NativeTypes.TypeScript
 
         private List<MetadataType> CreateSortedTypeList(List<MetadataType> allTypes)
         {
-            List<MetadataType> result = new List<MetadataType>();
+            var result = new List<MetadataType>();
             foreach (var metadataType in allTypes)
             {
                 AddTypeToSortedList(allTypes,result,metadataType);

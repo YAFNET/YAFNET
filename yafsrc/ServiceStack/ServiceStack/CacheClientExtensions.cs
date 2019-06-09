@@ -79,7 +79,7 @@ namespace ServiceStack
             {
                 if (request.ResponseContentType == MimeTypes.Json)
                 {
-                    string jsonp = request.GetJsonpCallback();
+                    var jsonp = request.GetJsonpCallback();
                     if (jsonp != null)
                         modifiers = ".jsonp," + jsonp.SafeVarName();
                 }
@@ -87,7 +87,7 @@ namespace ServiceStack
                 var cacheKeySerialized = GetCacheKeyForSerialized(cacheKey, request.ResponseContentType, modifiers);
 
                 var compressionType = request.GetCompressionType();
-                bool doCompression = compressionType != null;
+                var doCompression = compressionType != null;
                 if (doCompression)
                 {
                     var cacheKeySerializedZip = GetCacheKeyForCompressed(cacheKeySerialized, compressionType);
@@ -156,7 +156,7 @@ namespace ServiceStack
 
             if (!request.ResponseContentType.IsBinary())
             {
-                string serializedDto = SerializeToString(request, responseDto);
+                var serializedDto = SerializeToString(request, responseDto);
 
                 string modifiers = null;
                 if (request.ResponseContentType.MatchesContentType(MimeTypes.Json))
@@ -178,7 +178,7 @@ namespace ServiceStack
                 cacheClient.Set(cacheKeySerialized, serializedDto, expireCacheIn);
 
                 var compressionType = request.GetCompressionType();
-                bool doCompression = compressionType != null;
+                var doCompression = compressionType != null;
                 if (doCompression)
                 {
                     var lastModified = HostContext.GetPlugin<HttpCacheFeature>().ShouldAddLastModifiedToOptimizedResults()
@@ -188,7 +188,7 @@ namespace ServiceStack
 
                     var cacheKeySerializedZip = GetCacheKeyForCompressed(cacheKeySerialized, compressionType);
 
-                    byte[] compressedSerializedDto = serializedDto.Compress(compressionType);
+                    var compressedSerializedDto = serializedDto.Compress(compressionType);
                     cacheClient.Set(cacheKeySerializedZip, compressedSerializedDto, expireCacheIn);
 
                     if (lastModified != null)
@@ -208,7 +208,7 @@ namespace ServiceStack
             else
             {
                 string modifiers = null;
-                byte[] serializedDto = HostContext.ContentTypes.SerializeToBytes(request, responseDto);
+                var serializedDto = HostContext.ContentTypes.SerializeToBytes(request, responseDto);
                 var cacheKeySerialized = GetCacheKeyForSerialized(cacheKey, request.ResponseContentType, modifiers);
                 cacheClient.Set(cacheKeySerialized, serializedDto, expireCacheIn);
                 return serializedDto;
@@ -258,8 +258,7 @@ namespace ServiceStack
         /// <param name="pattern">The wildcard, where "*" means any sequence of characters and "?" means any single character.</param>
         public static void RemoveByPattern(this ICacheClient cacheClient, string pattern)
         {
-            var canRemoveByPattern = cacheClient as IRemoveByPattern;
-            if (canRemoveByPattern == null)
+            if (!(cacheClient is IRemoveByPattern canRemoveByPattern))
                 throw new NotImplementedException(
                     "IRemoveByPattern is not implemented on: " + cacheClient.GetType().FullName);
 
@@ -272,8 +271,7 @@ namespace ServiceStack
         /// <param name="regex">Regular expression pattern to search cache keys</param>
         public static void RemoveByRegex(this ICacheClient cacheClient, string regex)
         {
-            var canRemoveByPattern = cacheClient as IRemoveByPattern;
-            if (canRemoveByPattern == null)
+            if (!(cacheClient is IRemoveByPattern canRemoveByPattern))
                 throw new NotImplementedException("IRemoveByPattern is not implemented by: " + cacheClient.GetType().FullName);
 
             canRemoveByPattern.RemoveByRegex(regex);
@@ -281,8 +279,7 @@ namespace ServiceStack
 
         public static IEnumerable<string> GetKeysByPattern(this ICacheClient cache, string pattern)
         {
-            var extendedCache = cache as ICacheClientExtended;
-            if (extendedCache == null)
+            if (!(cache is ICacheClientExtended extendedCache))
                 throw new NotImplementedException("ICacheClientExtended is not implemented by: " + cache.GetType().FullName);
 
             return extendedCache.GetKeysByPattern(pattern);
@@ -324,8 +321,7 @@ namespace ServiceStack
 
         public static TimeSpan? GetTimeToLive(this ICacheClient cache, string key)
         {
-            var extendedCache = cache as ICacheClientExtended;
-            if (extendedCache == null)
+            if (!(cache is ICacheClientExtended extendedCache))
                 throw new Exception("GetTimeToLive is not implemented by: " + cache.GetType().FullName);
 
             return extendedCache.GetTimeToLive(key);

@@ -71,7 +71,7 @@ namespace ServiceStack.FluentValidation.Validators {
 				min = MinFunc(context.Instance);
 			}
 
-			int length = context.PropertyValue.ToString().Length;
+			var length = context.PropertyValue.ToString().Length;
 
 			if (length < min || length > max && max != -1) {
 				context.MessageFormatter

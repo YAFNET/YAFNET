@@ -40,8 +40,7 @@ namespace ServiceStack.FluentValidation.Validators {
 		}
 
 		bool IsEmptyCollection(object propertyValue) {
-			var collection = propertyValue as IEnumerable;
-		    return collection != null && !collection.Cast<object>().Any();
+            return propertyValue is IEnumerable collection && !collection.Cast<object>().Any();
 		}
 
 		bool IsInvalidString(object value) {

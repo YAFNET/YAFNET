@@ -179,7 +179,7 @@ namespace ServiceStack
                 return ex;
             }
 
-            bool returningWebResponse = false;
+            var returningWebResponse = false;
             HttpWebResponse webRes = null;
             T Complete(T response)
             {

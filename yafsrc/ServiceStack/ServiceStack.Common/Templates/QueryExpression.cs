@@ -212,7 +212,7 @@ namespace ServiceStack.Templates
                     return literal;
                 }
 
-                literal = literal.ParseNextToken(out object value, out JsBinding andOrToken);
+                literal = literal.ParseNextToken(out var value, out var andOrToken);
 
                 if (andOrToken == null || !andOrToken.Binding.Equals(BooleanExpression.OrKeyword) && !andOrToken.Binding.Equals(BooleanExpression.AndKeyword))
                     throw new NotSupportedException($"Invalid sytnax: Expected 'and', 'or' keywords but found instead '{value ?? andOrToken}', near '{literal.SubstringWithElipsis(0,50)}'");
@@ -253,14 +253,12 @@ namespace ServiceStack.Templates
             if (!literal.IsNullOrEmpty())
             {
                 object value;
-                literal = literal.ParseNextToken(out value, out JsBinding binding);
+                literal = literal.ParseNextToken(out value, out var binding);
 
                 if (binding is JsAssignment)
                     binding = JsEquals.Operand;
 
-                var operand = binding as JsBooleanOperand;
-                
-                if (operand == null)
+                if (!(binding is JsBooleanOperand operand))
                     throw new ArgumentException($"Invalid syntax: Expected boolean operand but instead found '{value ?? binding}' near: {literal.SubstringWithElipsis(0,50)}");
                 
                 literal = literal.ParseNextExpression(out JsToken rhsExpr);

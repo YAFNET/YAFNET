@@ -113,21 +113,21 @@ namespace ServiceStack
                 return type.GetElementType().ExpandTypeName() + "[]";
             }
 
-            string fullname = type.FullName;
-            int genericPrefixIndex = type.IsGenericParameter ? 1 : 0;
+            var fullname = type.FullName;
+            var genericPrefixIndex = type.IsGenericParameter ? 1 : 0;
                 
             if (fullname == null)
                 return genericPrefixIndex > 0 ? "'" + type.Name : type.Name;
 
-            int startIndex = type.Namespace != null ? type.Namespace.Length + 1: 0; //trim namespace + "."
-            int endIndex = fullname.IndexOf("[[", startIndex);  //Generic Fullname
+            var startIndex = type.Namespace != null ? type.Namespace.Length + 1: 0; //trim namespace + "."
+            var endIndex = fullname.IndexOf("[[", startIndex);  //Generic Fullname
             if (endIndex == -1)
                 endIndex = fullname.Length;
 
-            char[] op = new char[endIndex - startIndex + genericPrefixIndex];
+            var op = new char[endIndex - startIndex + genericPrefixIndex];
             char cur;
 
-            for(int i = startIndex; i < endIndex; i++)
+            for(var i = startIndex; i < endIndex; i++)
             {
                 cur = fullname[i];
                 op[i - startIndex + genericPrefixIndex] = cur != '+' ? cur : '.';
@@ -263,7 +263,7 @@ namespace ServiceStack
 
         private static RouteResolutionResult FindMostSpecificRoute(IEnumerable<RouteResolutionResult> routes)
         {
-            RouteResolutionResult bestMatch = default(RouteResolutionResult);
+            var bestMatch = default(RouteResolutionResult);
             var otherMatches = new List<RouteResolutionResult>();
 
             foreach (var route in routes)
@@ -348,8 +348,7 @@ namespace ServiceStack
             if (value == null) return null;
 
             // Perhaps custom formatting needed for DateTimes, lists, etc.
-            var valueString = value as string;
-            if (valueString == null)
+            if (!(value is string valueString))
             {
                 valueString = value.ToJsv();
 

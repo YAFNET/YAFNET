@@ -157,7 +157,7 @@ namespace ServiceStack.Templates
             var scopedParams = scope.AssertOptions(nameof(includeUrl), options);
 
             var webReq = (HttpWebRequest)WebRequest.Create(url);
-            var dataType = scopedParams.TryGetValue("dataType", out object value)
+            var dataType = scopedParams.TryGetValue("dataType", out var value)
                 ? ConvertDataTypeToContentType((string)value)
                 : null;
 
@@ -170,7 +170,7 @@ namespace ServiceStack.Templates
             if (scopedParams.TryGetValue("userAgent", out value))
                 PclExport.Instance.SetUserAgent(webReq, (string)value);
 
-            if (scopedParams.TryRemove("data", out object data))
+            if (scopedParams.TryRemove("data", out var data))
             {
                 if (webReq.Method == null)
                     webReq.Method = HttpMethods.Post;
@@ -266,12 +266,12 @@ namespace ServiceStack.Templates
         public async Task includeFileWithCache(TemplateScopeContext scope, string virtualPath, object options)
         {
             var scopedParams = scope.AssertOptions(nameof(includeUrl), options);
-            var expireIn = scopedParams.TryGetValue("expireInSecs", out object value)
+            var expireIn = scopedParams.TryGetValue("expireInSecs", out var value)
                 ? TimeSpan.FromSeconds(value.ConvertTo<int>())
                 : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultFileCacheExpiry];
             
             var cacheKey = CreateCacheKey("file:" + scope.PageResult.VirtualPath + ">" + virtualPath, scopedParams);
-            if (Context.ExpiringCache.TryGetValue(cacheKey, out Tuple<DateTime, object> cacheEntry))
+            if (Context.ExpiringCache.TryGetValue(cacheKey, out var cacheEntry))
             {
                 if (cacheEntry.Item1 > DateTime.UtcNow && cacheEntry.Item2 is byte[] bytes)
                 {
@@ -304,12 +304,12 @@ namespace ServiceStack.Templates
         public async Task includeUrlWithCache(TemplateScopeContext scope, string url, object options)
         {
             var scopedParams = scope.AssertOptions(nameof(includeUrl), options);
-            var expireIn = scopedParams.TryGetValue("expireInSecs", out object value)
+            var expireIn = scopedParams.TryGetValue("expireInSecs", out var value)
                 ? TimeSpan.FromSeconds(value.ConvertTo<int>())
                 : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultUrlCacheExpiry];
 
             var cacheKey = CreateCacheKey("url:" + url, scopedParams);
-            if (Context.ExpiringCache.TryGetValue(cacheKey, out Tuple<DateTime, object> cacheEntry))
+            if (Context.ExpiringCache.TryGetValue(cacheKey, out var cacheEntry))
             {
                 if (cacheEntry.Item1 > DateTime.UtcNow && cacheEntry.Item2 is byte[] bytes)
                 {
@@ -376,7 +376,7 @@ namespace ServiceStack.Templates
             else throw new NotSupportedException(nameof(cacheClear) + 
                  " expects a cache name or list of cache names but received: " + (cacheNames.GetType()?.Name ?? "null"));
 
-            int entriesRemoved = 0;
+            var entriesRemoved = 0;
             foreach (var cacheName in caches)
             {
                 var cache = GetCache(cacheName);

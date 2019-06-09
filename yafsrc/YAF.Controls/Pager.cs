@@ -392,7 +392,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.CurrentPageIndex < (this.PageCount() - 1))
+            if (this.CurrentPageIndex < this.PageCount() - 1)
             {
                 output.RenderAnchorBegin(
                     this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),

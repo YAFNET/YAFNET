@@ -39,9 +39,8 @@ namespace YAF.Core.Extensions
                 m =>
                 {
                     var sortOrder = defaultSortOrder;
-                    var haveSortOrder = (m as IHaveSortOrder);
 
-                    if (haveSortOrder != null)
+                    if (m is IHaveSortOrder haveSortOrder)
                     {
                         sortOrder = haveSortOrder.SortOrder;
                     }

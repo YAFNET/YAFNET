@@ -173,7 +173,7 @@ namespace ServiceStack.Text
             }
 
             // if value starts with MapStartChar, check MapEndChar to terminate
-            char specEndChar = itemSeperator;
+            var specEndChar = itemSeperator;
             if (value[tokenStartPos] == JsWriter.MapStartChar)
                 specEndChar = JsWriter.MapEndChar;
 
@@ -341,7 +341,7 @@ namespace ServiceStack.Text
 
                 var values = CsvReader.ParseFields(row);
                 var map = new Dictionary<string, string>();
-                for (int i = 0; i < headers.Count; i++)
+                for (var i = 0; i < headers.Count; i++)
                 {
                     var header = headers[i];
                     map[header] = values[i];
@@ -383,7 +383,7 @@ namespace ServiceStack.Text
                 var o = typeof(T).CreateInstance<T>();
 
                 var fields = CsvReader.ParseFields(row);
-                for (int i = 0; i < fields.Count; i++)
+                for (var i = 0; i < fields.Count; i++)
                 {
                     var setter = i < PropertySetters.Count ? PropertySetters[i] : null;
                     if (headers != null)

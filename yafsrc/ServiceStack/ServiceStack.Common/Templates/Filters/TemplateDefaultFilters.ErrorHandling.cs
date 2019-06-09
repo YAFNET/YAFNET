@@ -53,7 +53,7 @@ namespace ServiceStack.Templates
             try
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAllArgsNotNull));
-                var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
+                var message = filterArgs.TryGetValue("message", out var oMessage) ? oMessage as string : null;
                 
                 if (args is IDictionary<string, object> argsMap)
                 {
@@ -88,7 +88,7 @@ namespace ServiceStack.Templates
             try
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAnyArgsNotNull));
-                var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
+                var message = filterArgs.TryGetValue("message", out var oMessage) ? oMessage as string : null;
                 
                 if (args is IDictionary<string, object> argsMap)
                 {
@@ -123,7 +123,7 @@ namespace ServiceStack.Templates
             try
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAllArgsNotEmpty));
-                var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
+                var message = filterArgs.TryGetValue("message", out var oMessage) ? oMessage as string : null;
                 
                 if (args is IDictionary<string, object> argsMap)
                 {
@@ -158,7 +158,7 @@ namespace ServiceStack.Templates
             try
             {
                 var filterArgs = options.AssertOptions(nameof(ensureAnyArgsNotEmpty));
-                var message = filterArgs.TryGetValue("message", out object oMessage) ? oMessage as string : null;
+                var message = filterArgs.TryGetValue("message", out var oMessage) ? oMessage as string : null;
                 
                 if (args is IDictionary<string, object> argsMap)
                 {

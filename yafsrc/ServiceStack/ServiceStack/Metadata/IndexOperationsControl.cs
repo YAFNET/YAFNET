@@ -22,7 +22,7 @@ namespace ServiceStack.Metadata
                 && !MetadataConfig.AlwaysHideInMetadata(operationName); //Hide When [Restrict(VisibilityTo = None)]
 
             // use a fully qualified path if WebHostUrl is set
-            string baseUrl = Request.ResolveAbsoluteUrl("~/");
+            var baseUrl = Request.ResolveAbsoluteUrl("~/");
 
             var opType = HostContext.Metadata.GetOperationType(operationName);
             var op = HostContext.Metadata.GetOperation(opType);

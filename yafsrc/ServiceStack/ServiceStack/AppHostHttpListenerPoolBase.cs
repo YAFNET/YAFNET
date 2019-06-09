@@ -157,7 +157,7 @@ namespace ServiceStack
                 // because there will be a thread stopped waiting on the .EndGetContext()
                 // method, and again, that is just the way most Begin/End asynchronous
                 // methods of the .NET Framework work.
-                string errMsg = ex + ": " + isListening;
+                var errMsg = ex + ": " + isListening;
                 log.Warn(errMsg);
                 return;
             }

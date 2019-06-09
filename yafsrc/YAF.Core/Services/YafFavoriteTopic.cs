@@ -160,7 +160,7 @@ namespace YAF.Core.Services
         public DataTable FavoriteTopicDetails(DateTime sinceDate)
         {
             return this.GetRepository<FavoriteTopic>().Details(
-                (YafContext.Current.Settings.CategoryID == 0) ? null : (int?)YafContext.Current.Settings.CategoryID, 
+                YafContext.Current.Settings.CategoryID == 0 ? null : (int?)YafContext.Current.Settings.CategoryID, 
                 YafContext.Current.PageUserID, 
                 sinceDate, 
                 DateTime.UtcNow, 

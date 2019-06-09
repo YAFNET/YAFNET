@@ -72,7 +72,7 @@ namespace YAF.Core.Services
 
                 return new TimeSpan(
                     hrs,
-                    (min % 60) + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection,
+                    min % 60 + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection,
                     0);
             }
         }

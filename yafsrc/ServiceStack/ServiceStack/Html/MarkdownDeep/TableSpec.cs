@@ -47,14 +47,14 @@ namespace MarkdownDeep
 			if (p.eol)
 				return null;		// Blank line ends the table
 
-			bool bAnyBars=LeadingBar;
+			var bAnyBars=LeadingBar;
 			if (LeadingBar && !p.SkipChar('|'))
 			{
 				return null;
 			}
 
 			// Create the row
-			List<string> row = new List<string>();
+			var row = new List<string>();
 
 			// Parse all columns except the last
 
@@ -86,7 +86,7 @@ namespace MarkdownDeep
 
 		internal void RenderRow(Markdown m, StringBuilder b, List<string> row, string type)
 		{
-			for (int i=0; i<row.Count; i++)
+			for (var i=0; i<row.Count; i++)
 			{
 				b.Append("\t<");
 				b.Append(type);
@@ -167,14 +167,14 @@ namespace MarkdownDeep
 				if (p.current == '|')
 					return null;
 
-				bool AlignLeft = p.SkipChar(':');
+				var AlignLeft = p.SkipChar(':');
 				while (p.current == '-')
 					p.SkipForward(1);
-				bool AlignRight = p.SkipChar(':');
+				var AlignRight = p.SkipChar(':');
 				p.SkipLinespace();
 
 				// Work out column alignment
-				ColumnAlignment col = ColumnAlignment.NA;
+				var col = ColumnAlignment.NA;
 				if (AlignLeft && AlignRight)
 					col = ColumnAlignment.Center;
 				else if (AlignLeft)

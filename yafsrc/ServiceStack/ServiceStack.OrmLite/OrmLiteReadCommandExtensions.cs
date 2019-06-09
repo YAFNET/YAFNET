@@ -727,7 +727,7 @@ namespace ServiceStack.OrmLite
             var nullableType = Nullable.GetUnderlyingType(typeof(T));
             if (nullableType != null)
             {
-                object oValue = reader.GetValue(columnIndex);
+                var oValue = reader.GetValue(columnIndex);
                 if (oValue == DBNull.Value)
                     return default(T);
             }
@@ -739,7 +739,7 @@ namespace ServiceStack.OrmLite
             var converter = dialectProvider.GetConverterBestMatch(underlyingType);
             if (converter != null)
             {
-                object oValue = converter.GetValue(reader, columnIndex, null);
+                var oValue = converter.GetValue(reader, columnIndex, null);
                 if (oValue == null)
                     return default(T);
 
@@ -883,7 +883,7 @@ namespace ServiceStack.OrmLite
         {
             var modelType = typeof(TOutputModel);
 
-            string sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
+            var sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
                 fromObjWithProperties, modelType, sqlFilter, filterParams);
 
             return dbCmd.ConvertToList<TOutputModel>(sql);

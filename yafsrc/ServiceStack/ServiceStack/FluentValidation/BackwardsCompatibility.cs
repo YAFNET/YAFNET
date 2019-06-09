@@ -214,14 +214,13 @@ namespace ServiceStack.FluentValidation
 		    if (property == null) throw new ArgumentException("Property could not be identified", "expression");
 		    var type = newValidator.GetType();
 
-		    var rules = validators as IEnumerable<IValidationRule>;
-		    if (rules == null) {
+            if (!(validators is IEnumerable<IValidationRule> rules)) {
 			    throw new NotSupportedException(
                     $"Validator '{validators.GetType().Name}' does not support replacing rules.");
 		    }
 
 		    // replace the first validator of this type, then remove the others
-		    bool replaced = false;
+		    var replaced = false;
 		    foreach (var rule in rules.OfType<PropertyRule>()) {
 			    if (rule.Member == property) {
 				    foreach (var original in rule.Validators.Where(v => v.GetType() == type).ToArray()) {
@@ -245,8 +244,7 @@ namespace ServiceStack.FluentValidation
 		    var property = expression.GetMember();
 		    if (property == null) throw new ArgumentException("Property could not be identified", "expression");
 
-		    var rules = validators as IEnumerable<IValidationRule>;
-		    if (rules == null) {
+            if (!(validators is IEnumerable<IValidationRule> rules)) {
 			    throw new NotSupportedException(
                     $"Validator '{validators.GetType().Name}' does not support replacing rules.");
 		    }
@@ -269,8 +267,7 @@ namespace ServiceStack.FluentValidation
 		    var property = expression.GetMember();
 		    if (property == null) throw new ArgumentException("Property could not be identified", "expression");
 
-		    var rules = validators as IEnumerable<IValidationRule>;
-		    if (rules == null) {
+            if (!(validators is IEnumerable<IValidationRule> rules)) {
 			    throw new NotSupportedException(
                     $"Validator '{validators.GetType().Name}' does not support replacing rules.");
 		    }
@@ -312,7 +309,7 @@ namespace ServiceStack.FluentValidation.Resources {
 			if (context is PropertyValidatorContext pvc) {
 				// For backwards compatibility, only pass in the PropertyValidatorContext if the string source implements IContextAwareStringSource
 				// otherwise fall back to old behaviour of passing the instance. 
-				object contextForInner = _inner is IContextAwareStringSource ? pvc : pvc.Instance;
+				var contextForInner = _inner is IContextAwareStringSource ? pvc : pvc.Instance;
 
 				//Apply the message format args to the MessageFormatter. Workflow looks like this:
 				// -> PropertyValidator calls GetString

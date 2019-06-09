@@ -69,7 +69,7 @@ namespace System.Threading.Tasks
 		// <typeparam name="TResult"></typeparam>
 		internal static Task<TResult> FromError<TResult>(Exception exception)
 		{
-			TaskCompletionSource<TResult> tcs = new TaskCompletionSource<TResult>();
+			var tcs = new TaskCompletionSource<TResult>();
 			tcs.SetException(exception);
 			return tcs.Task;
 		}
@@ -79,7 +79,7 @@ namespace System.Threading.Tasks
 		// </summary>        
 		internal static Task<TResult> FromResult<TResult>(TResult result)
 		{
-			TaskCompletionSource<TResult> tcs = new TaskCompletionSource<TResult>();
+			var tcs = new TaskCompletionSource<TResult>();
 			tcs.SetResult(result);
 			return tcs.Task;
 		}
@@ -100,7 +100,7 @@ namespace System.Threading.Tasks
 			try
 			{
 				enumerator = asyncIterator.GetEnumerator();
-				Task task = IterateImpl(enumerator, cancellationToken, breakCondition);
+				var task = IterateImpl(enumerator, cancellationToken, breakCondition);
 				return disposeEnumerator && enumerator != null ? task.Finally(enumerator.Dispose, runSynchronously: true) : task;
 			}
 			catch (Exception ex)
@@ -165,7 +165,7 @@ namespace System.Threading.Tasks
 		// </summary>
 		private static Task<TResult> FromErrors<TResult>(IEnumerable<Exception> exceptions)
 		{
-			TaskCompletionSource<TResult> tcs = new TaskCompletionSource<TResult>();
+			var tcs = new TaskCompletionSource<TResult>();
 			tcs.SetException(exceptions);
 			return tcs.Task;
 		}
@@ -215,7 +215,7 @@ namespace System.Threading.Tasks
 		[SuppressMessage("Microsoft.Web.FxCop", "MW1201:DoNotCallProblematicMethodsOnTask", Justification = "The usages here are deemed safe, and provide the implementations that this rule relies upon.")]
 		private static Task<TResult> FastUnwrap<TResult>(this Task<Task<TResult>> task)
 		{
-			Task<TResult> innerTask = task.Status == TaskStatus.RanToCompletion ? task.Result : null;
+			var innerTask = task.Status == TaskStatus.RanToCompletion ? task.Result : null;
 			return innerTask ?? task.Unwrap();
 		}
 
@@ -249,7 +249,7 @@ namespace System.Threading.Tasks
 		[SuppressMessage("Microsoft.Web.FxCop", "MW1201:DoNotCallProblematicMethodsOnTask", Justification = "The usages here are deemed safe, and provide the implementations that this rule relies upon.")]
 		private static Task<TResult> FinallyImplContinuation<TResult>(Task task, Action continuation, bool runSynchronously = false)
 		{
-			TaskCompletionSource<TResult> tcs = new TaskCompletionSource<TResult>();
+			var tcs = new TaskCompletionSource<TResult>();
 
 			task.ContinueWith(innerTask =>
 			{
@@ -318,7 +318,7 @@ namespace System.Threading.Tasks
 		private static Task<TOuterResult> ThenImplContinuation<TOuterResult, TTask>(TTask task, Func<TTask, Task<TOuterResult>> continuation, CancellationToken cancellationToken, bool runSynchronously = false)
 			where TTask : Task
 		{
-			TaskCompletionSource<Task<TOuterResult>> tcs = new TaskCompletionSource<Task<TOuterResult>>();
+			var tcs = new TaskCompletionSource<Task<TOuterResult>>();
 
 			task.ContinueWith(innerTask =>
 			{
@@ -391,7 +391,7 @@ namespace System.Threading.Tasks
 					}
 
 					// fast case: Task completed synchronously & successfully
-					Task currentTask = enumerator.Current;
+					var currentTask = enumerator.Current;
 					if (currentTask.Status == TaskStatus.RanToCompletion)
 					{
 						if (breakCondition != null && breakCondition(currentTask))
@@ -456,8 +456,7 @@ namespace System.Threading.Tasks
 
 			if (source.Status == TaskStatus.RanToCompletion)
 			{
-				Task<TResult> taskOfResult = source as Task<TResult>;
-				return tcs.TrySetResult(taskOfResult == null ? default(TResult) : taskOfResult.Result);
+                return tcs.TrySetResult(!(source is Task<TResult> taskOfResult) ? default(TResult) : taskOfResult.Result);
 			}
 
 			return false;
@@ -479,7 +478,7 @@ namespace System.Threading.Tasks
 
 			private static Task<TResult> GetCancelledTask()
 			{
-				TaskCompletionSource<TResult> tcs = new TaskCompletionSource<TResult>();
+				var tcs = new TaskCompletionSource<TResult>();
 				tcs.SetCanceled();
 				return tcs.Task;
 			}

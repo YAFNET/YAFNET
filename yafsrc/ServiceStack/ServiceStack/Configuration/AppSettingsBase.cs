@@ -118,7 +118,7 @@ namespace ServiceStack.Configuration
         {
             var stringValue = GetNullableString(name);
 
-            T ret = defaultValue;
+            var ret = defaultValue;
             try
             {
                 if (stringValue != null)

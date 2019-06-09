@@ -79,7 +79,7 @@ namespace ServiceStack.Auth
             if (!isPreAuthCallback)
             {
                 var scopes = Scopes.Join("%20");
-                string preAuthUrl = $"{PreAuthUrl}?client_id={ClientId}&redirect_uri={CallbackUrl.UrlEncode()}&scope={scopes}&state={Guid.NewGuid():N}";
+                var preAuthUrl = $"{PreAuthUrl}?client_id={ClientId}&redirect_uri={CallbackUrl.UrlEncode()}&scope={scopes}&state={Guid.NewGuid():N}";
 
                 this.SaveSession(authService, session, SessionExpiry);
                 return authService.Redirect(PreAuthUrlFilter(this, preAuthUrl));
@@ -87,7 +87,7 @@ namespace ServiceStack.Auth
 
             try
             {
-                string accessTokenUrl = $"{AccessTokenUrl}?client_id={ClientId}&redirect_uri={CallbackUrl.UrlEncode()}&client_secret={ClientSecret}&code={code}";
+                var accessTokenUrl = $"{AccessTokenUrl}?client_id={ClientId}&redirect_uri={CallbackUrl.UrlEncode()}&client_secret={ClientSecret}&code={code}";
                 var contents = AccessTokenUrlFilter(this, accessTokenUrl).GetStringFromUrl();
                 var authInfo = PclExportClient.Instance.ParseQueryString(contents);
 

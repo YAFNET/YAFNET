@@ -46,7 +46,7 @@ namespace ServiceStack.Logging
         /// </summary>
         public virtual void Log(object message, Exception exception)
         {
-            string msg = message == null ? string.Empty : message.ToString();
+            var msg = message == null ? string.Empty : message.ToString();
             if (exception != null)
             {
                 msg += ", Exception: " + exception.Message;
@@ -59,7 +59,7 @@ namespace ServiceStack.Logging
         /// </summary>
         public virtual void LogFormat(object message, params object[] args)
         {
-            string msg = message == null ? string.Empty : message.ToString();
+            var msg = message == null ? string.Empty : message.ToString();
             OnLog(string.Format(msg, args));
         }
 
@@ -68,7 +68,7 @@ namespace ServiceStack.Logging
         /// </summary>
         public virtual void Log(object message)
         {
-            string msg = message == null ? string.Empty : message.ToString();
+            var msg = message == null ? string.Empty : message.ToString();
             OnLog(msg);
         }
 

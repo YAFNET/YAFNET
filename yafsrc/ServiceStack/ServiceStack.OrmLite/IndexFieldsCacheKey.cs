@@ -20,12 +20,12 @@ namespace ServiceStack.OrmLite
             ModelDefinition = modelDefinition;
             Dialect = dialect;
 
-            int startPos = 0;
-            int endPos = reader.FieldCount;
+            var startPos = 0;
+            var endPos = reader.FieldCount;
 
             Fields = new List<string>(endPos - startPos);
 
-            for (int i = startPos; i < endPos; i++)
+            for (var i = startPos; i < endPos; i++)
                 Fields.Add(reader.GetName(i));
 
             unchecked 
@@ -34,7 +34,7 @@ namespace ServiceStack.OrmLite
                 hashCode = hashCode * 23 + ModelDefinition.GetHashCode();
                 hashCode = hashCode * 23 + Dialect.GetHashCode();
                 hashCode = hashCode * 23 + Fields.Count;
-                for (int i = 0; i < Fields.Count; i++)
+                for (var i = 0; i < Fields.Count; i++)
                     hashCode = hashCode * 23 + Fields[i].Length;
             }
         }

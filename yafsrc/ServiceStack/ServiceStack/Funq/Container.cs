@@ -187,7 +187,7 @@ namespace Funq
 
             using (entry.AquireLockIfNeeded())
             {
-                TService instance = entry.Instance;
+                var instance = entry.Instance;
                 if (instance == null)
                 {
                     try
@@ -215,7 +215,7 @@ namespace Funq
 
             using (entry.AquireLockIfNeeded())
             {
-                TService instance = entry.Instance;
+                var instance = entry.Instance;
                 if (instance == null)
                 {
                     try
@@ -243,7 +243,7 @@ namespace Funq
 
             using (entry.AquireLockIfNeeded())
             {
-                TService instance = entry.Instance;
+                var instance = entry.Instance;
                 if (instance == null)
                 {
                     try
@@ -271,7 +271,7 @@ namespace Funq
 
             using (entry.AquireLockIfNeeded())
             {
-                TService instance = entry.Instance;
+                var instance = entry.Instance;
                 if (instance == null)
                 {
                     try
@@ -299,7 +299,7 @@ namespace Funq
 
             using (entry.AquireLockIfNeeded())
             {
-                TService instance = entry.Instance;
+                var instance = entry.Instance;
                 if (instance == null)
                 {
                     try
@@ -327,7 +327,7 @@ namespace Funq
 
             using (entry.AquireLockIfNeeded())
             {
-                TService instance = entry.Instance;
+                var instance = entry.Instance;
                 if (instance == null)
                 {
                     try
@@ -355,7 +355,7 @@ namespace Funq
 
             using (entry.AquireLockIfNeeded())
             {
-                TService instance = entry.Instance;
+                var instance = entry.Instance;
                 if (instance == null)
                 {
                     try
@@ -406,7 +406,7 @@ namespace Funq
 
             var key = new ServiceKey(typeof(TFunc), serviceName);
             ServiceEntry entry = null;
-            Container container = this;
+            var container = this;
 
             // Go up the hierarchy always for registrations.
             while (!container.TryGetServiceEntry(key, out entry) && container.parent != null)

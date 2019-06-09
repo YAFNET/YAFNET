@@ -57,12 +57,12 @@ namespace YAF.UrlRewriter
         {
             // Add our PoweredBy header
             // HttpContext.Current.Response.AddHeader(Constants.HeaderXPoweredBy, Configuration.XPoweredBy);
-            
+
             // Allow a bypass to be set up by the using application
             var context = HttpContext.Current;
             if (context.Items.Contains(@"Intelligencia.UrlRewriter.Bypass") && 
                 context.Items[@"Intelligencia.UrlRewriter.Bypass"] is bool && 
-                ((bool)context.Items[@"Intelligencia.UrlRewriter.Bypass"]))
+                (bool)context.Items[@"Intelligencia.UrlRewriter.Bypass"])
             {
                 // A bypass is set!
                 return;

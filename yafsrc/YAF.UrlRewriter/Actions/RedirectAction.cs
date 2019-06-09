@@ -48,7 +48,7 @@ namespace YAF.UrlRewriter.Actions
 
             base.Execute(context);
 
-            context.StatusCode = (this._permanent)
+            context.StatusCode = this._permanent
                 ? HttpStatusCode.Moved
                 : HttpStatusCode.Found;
 

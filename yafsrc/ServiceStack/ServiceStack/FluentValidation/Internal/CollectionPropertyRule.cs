@@ -65,13 +65,10 @@ namespace ServiceStack.FluentValidation.Internal {
 
 			var propertyContext = new PropertyValidatorContext(context, this, propertyName);
 			var results = new List<ValidationFailure>();
-			var delegatingValidator = validator as IDelegatingValidator;
 
-			if (delegatingValidator == null || delegatingValidator.CheckCondition(propertyContext.Instance))
+            if (!(validator is IDelegatingValidator delegatingValidator) || delegatingValidator.CheckCondition(propertyContext.Instance))
 			{
-				var collectionPropertyValue = propertyContext.PropertyValue as IEnumerable<TProperty>;
-
-				if (collectionPropertyValue != null)
+                if (propertyContext.PropertyValue is IEnumerable<TProperty> collectionPropertyValue)
 				{
 
 					var validators = collectionPropertyValue.Select((v, count) => {
@@ -107,11 +104,10 @@ namespace ServiceStack.FluentValidation.Internal {
 		protected override IEnumerable<Results.ValidationFailure> InvokePropertyValidator(ValidationContext context, Validators.IPropertyValidator validator, string propertyName) {
 			var propertyContext = new PropertyValidatorContext(context, this, propertyName);
 			var results = new List<ValidationFailure>();
-			var delegatingValidator = validator as IDelegatingValidator;
-			if (delegatingValidator == null || delegatingValidator.CheckCondition(propertyContext.Instance)) {
+            if (!(validator is IDelegatingValidator delegatingValidator) || delegatingValidator.CheckCondition(propertyContext.Instance)) {
 				var collectionPropertyValue = propertyContext.PropertyValue as IEnumerable<TProperty>;
 
-				int count = 0;
+				var count = 0;
 
 				if (collectionPropertyValue != null) {
 					foreach (var element in collectionPropertyValue) {

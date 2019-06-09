@@ -73,8 +73,8 @@ namespace ServiceStack.OrmLite.Dapper
                         this.reader = null;
                         names = new string[length];
                         types = new Type[length];
-                        int index = startBound;
-                        for (int i = 0; i < length; i++)
+                        var index = startBound;
+                        for (var i = 0; i < length; i++)
                         {
                             names[i] = reader.GetName(index);
                             types[i] = reader.GetFieldType(index++);
@@ -99,8 +99,8 @@ namespace ServiceStack.OrmLite.Dapper
                     if (reader != null)
                     {
                         var sb = new StringBuilder();
-                        int index = startBound;
-                        for (int i = 0; i < length; i++)
+                        var index = startBound;
+                        for (var i = 0; i < length; i++)
                         {
                             if (i != 0) sb.Append(", ");
                             sb.Append(reader.GetName(index++));
@@ -124,7 +124,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         return false; // clearly different
                     }
-                    for (int i = 0; i < length; i++)
+                    for (var i = 0; i < length; i++)
                     {
                         if ((names?[i] ?? reader?.GetName(startBound + i)) != (other.names?[i] ?? other.reader?.GetName(startBound + i))
                             ||
@@ -141,7 +141,7 @@ namespace ServiceStack.OrmLite.Dapper
             private Func<IDataReader, object> GetReader(IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
             {
                 if (length < 0) length = reader.FieldCount - startBound;
-                int hash = GetColumnHash(reader, startBound, length);
+                var hash = GetColumnHash(reader, startBound, length);
                 if (returnNullIfFirstMissing) hash *= -27;
                 // get a cheap key first: false means don't copy the values down
                 var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);

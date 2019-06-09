@@ -57,7 +57,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expression)
         {
-            UnaryExpression negated = Expression.Not(expression.Body);
+            var negated = Expression.Not(expression.Body);
             return Expression.Lambda<Func<T, bool>>(negated, expression.Parameters);
         }
 
@@ -68,12 +68,12 @@ namespace ServiceStack.OrmLite
                                                 Func<Expression, Expression, Expression> merge)
         {
             // zip parameters (map from parameters of second to parameters of first)
-            Dictionary<ParameterExpression, ParameterExpression> map = first.Parameters
+            var map = first.Parameters
                 .Select((f, i) => new { f, s = second.Parameters[i] })
                 .ToDictionary(p => p.s, p => p.f);
 
             // replace parameters in the second lambda expression with the parameters in the first
-            Expression secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
+            var secondBody = ParameterRebinder.ReplaceParameters(map, second.Body);
 
             // create a merged lambda expression with parameters from the first expression
             return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);

@@ -205,7 +205,7 @@ namespace ServiceStack
         public static string PostToUrl(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrl(url, method: "POST",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -215,7 +215,7 @@ namespace ServiceStack
         public static Task<string> PostToUrlAsync(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrlAsync(url, method: "POST",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -315,7 +315,7 @@ namespace ServiceStack
         public static string PutToUrl(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrl(url, method: "PUT",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -325,7 +325,7 @@ namespace ServiceStack
         public static Task<string> PutToUrlAsync(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrlAsync(url, method: "PUT",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -425,7 +425,7 @@ namespace ServiceStack
         public static string PatchToUrl(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrl(url, method: "PATCH",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -435,7 +435,7 @@ namespace ServiceStack
         public static Task<string> PatchToUrlAsync(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrlAsync(url, method: "PATCH",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -1505,8 +1505,8 @@ namespace ServiceStack
         {
             if (statusCode >= 100 && statusCode < 600)
             {
-                int i = statusCode / 100;
-                int j = statusCode % 100;
+                var i = statusCode / 100;
+                var j = statusCode % 100;
 
                 if (j < Descriptions[i].Length)
                     return Descriptions[i][j];

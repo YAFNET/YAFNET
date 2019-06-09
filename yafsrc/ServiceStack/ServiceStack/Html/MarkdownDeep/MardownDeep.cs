@@ -86,13 +86,13 @@ namespace MarkdownDeep
 			}
 
 			// Setup string builder
-			StringBuilder sb = StringBuilderCache.Allocate();
+			var sb = StringBuilderCache.Allocate();
 			sb.Length = 0;
 
 			if (SummaryLength != 0)
 			{
 				// Render all blocks
-				for (int i = 0; i < blocks.Count; i++)
+				for (var i = 0; i < blocks.Count; i++)
 				{
 					var b = blocks[i];
 					b.RenderPlain(this, sb);
@@ -104,7 +104,7 @@ namespace MarkdownDeep
 			}
 			else
 			{
-				int iSection = -1;
+				var iSection = -1;
 
 				// Leading section (ie: plain text before first heading)
 				if (blocks.Count > 0 && !IsSectionHeader(blocks[0]))
@@ -115,7 +115,7 @@ namespace MarkdownDeep
 				}
 
 				// Render all blocks
-				for (int i = 0; i < blocks.Count; i++)
+				for (var i = 0; i < blocks.Count; i++)
 				{
 					var b = blocks[i];
 
@@ -159,7 +159,7 @@ namespace MarkdownDeep
 					sb.Append("\">\n");
 					sb.Append("<hr />\n");
 					sb.Append("<ol>\n");
-					for (int i = 0; i < m_UsedFootnotes.Count; i++)
+					for (var i = 0; i < m_UsedFootnotes.Count; i++)
 					{
 						var fn = m_UsedFootnotes[i];
 
@@ -170,7 +170,7 @@ namespace MarkdownDeep
 
 						// We need to get the return link appended to the last paragraph
 						// in the footnote
-						string strReturnLink = $"<a href=\"#fnref:{(string)fn.data}\" rev=\"footnote\">&#8617;</a>";
+						var strReturnLink = $"<a href=\"#fnref:{(string)fn.data}\" rev=\"footnote\">&#8617;</a>";
 
 						// Get the last child of the footnote
 						var child = fn.children[fn.children.Count - 1];
@@ -343,7 +343,7 @@ namespace MarkdownDeep
 				}
 
 				// Need to find domain root
-				int pos = UrlBaseLocation.IndexOf("://");
+				var pos = UrlBaseLocation.IndexOf("://");
 				if (pos == -1)
 					pos = 0;
 				else
@@ -353,7 +353,7 @@ namespace MarkdownDeep
 				pos = UrlBaseLocation.IndexOf('/', pos);
 
 				// Get the domain name
-				string strDomain=pos<0 ? UrlBaseLocation : UrlBaseLocation.Substring(0, pos);
+				var strDomain=pos<0 ? UrlBaseLocation : UrlBaseLocation.Substring(0, pos);
 
 				// Join em
 				return strDomain + url;
@@ -390,7 +390,7 @@ namespace MarkdownDeep
 				return false;
 
 			// Work out base location
-			string str = url.StartsWith("/") ? DocumentRoot : DocumentLocation;
+			var str = url.StartsWith("/") ? DocumentRoot : DocumentLocation;
 			if (String.IsNullOrEmpty(str))
 				return false;
 
@@ -443,7 +443,7 @@ namespace MarkdownDeep
 					return;
 			}
 
-			string url = tag.attributes["href"];
+			var url = tag.attributes["href"];
 
 			// No follow?
 			if (NoFollowLinks)
@@ -611,14 +611,14 @@ namespace MarkdownDeep
 
 			// Create sections
 			var Sections = new List<string>();
-			int iPrevSectionOffset = 0;
-			for (int i = 0; i < blocks.Count; i++)
+			var iPrevSectionOffset = 0;
+			for (var i = 0; i < blocks.Count; i++)
 			{
 				var b = blocks[i];
 				if (b.blockType==BlockType.user_break)
 				{
 					// Get the offset of the section
-					int iSectionOffset = b.lineStart;
+					var iSectionOffset = b.lineStart;
 
 					// Add section
 					Sections.Add(markdown.Substring(iPrevSectionOffset, iSectionOffset - iPrevSectionOffset).Trim());
@@ -648,13 +648,13 @@ namespace MarkdownDeep
 		public static string JoinUserSections(List<string> sections)
 		{
 			var sb = StringBuilderCacheAlt.Allocate();
-			for (int i = 0; i < sections.Count; i++)
+			for (var i = 0; i < sections.Count; i++)
 			{
 				if (i > 0)
 				{
 					// For subsequent sections, need to make sure we
 					// have a line break after the previous section.
-					string strPrev = sections[sections.Count - 1];
+					var strPrev = sections[sections.Count - 1];
 					if (strPrev.Length > 0 && !strPrev.EndsWith("\n") && !strPrev.EndsWith("\r"))
 						sb.Append("\n");
 
@@ -679,14 +679,14 @@ namespace MarkdownDeep
 
 			// Create sections
 			var Sections = new List<string>();
-			int iPrevSectionOffset = 0;
-			for (int i = 0; i < blocks.Count; i++)
+			var iPrevSectionOffset = 0;
+			for (var i = 0; i < blocks.Count; i++)
 			{
 				var b = blocks[i];
 				if (md.IsSectionHeader(b))
 				{
 					// Get the offset of the section
-					int iSectionOffset = b.lineStart;
+					var iSectionOffset = b.lineStart;
 
 					// Add section
 					Sections.Add(markdown.Substring(iPrevSectionOffset, iSectionOffset - iPrevSectionOffset));
@@ -708,13 +708,13 @@ namespace MarkdownDeep
 		public static string JoinSections(List<string> sections)
 		{
             var sb = StringBuilderCacheAlt.Allocate();
-            for (int i = 0; i < sections.Count; i++)
+            for (var i = 0; i < sections.Count; i++)
 			{
 				if (i > 0)
 				{
 					// For subsequent sections, need to make sure we
 					// have a line break after the previous section.
-					string strPrev = sections[sections.Count - 1];
+					var strPrev = sections[sections.Count - 1];
 					if (strPrev.Length>0 && !strPrev.EndsWith("\n") && !strPrev.EndsWith("\r"))
 						sb.Append("\n");
 				}
@@ -794,7 +794,7 @@ namespace MarkdownDeep
 			var p = m_StringScanner;
 			while (!p.eof)
 			{
-				char ch = p.current;
+				var ch = p.current;
 				switch (ch)
 				{
 					case '&':
@@ -827,10 +827,10 @@ namespace MarkdownDeep
 		{
 			m_StringScanner.Reset(str, start, len);
 			var p = m_StringScanner;
-			int pos = 0;
+			var pos = 0;
 			while (!p.eof)
 			{
-				char ch = p.current;
+				var ch = p.current;
 				switch (ch)
 				{
 					case '\t':
@@ -888,15 +888,15 @@ namespace MarkdownDeep
 				return null;
 
 			// Extract a pandoc style cleaned header id from the header text
-			string strBase=m_SpanFormatter.MakeID(strHeaderText, startOffset, length);
+			var strBase=m_SpanFormatter.MakeID(strHeaderText, startOffset, length);
 
 			// If nothing left, use "section"
 			if (String.IsNullOrEmpty(strBase))
 				strBase = "section";
 
 			// Make sure it's unique by append -n counter
-			string strWithSuffix=strBase;
-			int counter=1;
+			var strWithSuffix=strBase;
+			var counter=1;
 			while (m_UsedHeaderIDs.ContainsKey(strWithSuffix))
 			{
 				strWithSuffix = strBase + "-" + counter;

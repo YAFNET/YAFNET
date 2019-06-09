@@ -95,7 +95,7 @@ namespace ServiceStack.Serialization
                 if (!string.IsNullOrEmpty(pair.Value))
                 {
                     instance = PopulateFromKeyValue(instance, pair.Key, pair.Value,
-                       out PropertySerializerEntry _, errors, ignoredWarningsOnPropertyNames);
+                       out var _, errors, ignoredWarningsOnPropertyNames);
                 }
             }
 
@@ -118,11 +118,11 @@ namespace ServiceStack.Serialization
 
             foreach (var key in nameValues.AllKeys)
             {
-                string value = nameValues[key];
+                var value = nameValues[key];
                 if (!string.IsNullOrEmpty(value))
                 {
                     instance = PopulateFromKeyValue(instance, key, value,
-                        out PropertySerializerEntry _, errors, ignoredWarningsOnPropertyNames);
+                        out var _, errors, ignoredWarningsOnPropertyNames);
                 }
             }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,34 +21,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-using System;
-using System.Collections.Generic;
-using System.Web;
-using YAF.Classes;
-using YAF.Classes.Core;
-using YAF.Classes.Utils;
 
 namespace YAF.Modules
 {
-	[YafModule( "Page Umbraco Validate Request Module", "Tiny Gecko", 1 )]
-	public class PageUmbracoValidateRequestModule : SimpleBaseModule
-	{
-		public PageUmbracoValidateRequestModule()
-		{
-			
-		}
+    using System;
 
-		override public void InitForum()
-		{
-			ForumControl.Init += new EventHandler(ForumControl_Init);
-		}
-		
-		void ForumControl_Init(object sender, EventArgs e)
-		{
-			if ( ForumControl.Page is umbraco.UmbracoDefault )
-			{
-				((umbraco.UmbracoDefault)ForumControl.Page).ValidateRequest = false;
-			}
-		}		
-	}	
+    using YAF.Types.Attributes;
+
+    [YafModule("Page Umbraco Validate Request Module", "Tiny Gecko", 1)]
+    public class PageUmbracoValidateRequestModule : SimpleBaseForumModule
+    {
+        public PageUmbracoValidateRequestModule()
+        {
+
+        }
+
+        override public void InitForum()
+        {
+            this.ForumControl.Init += new EventHandler(this.ForumControl_Init);
+        }
+
+        void ForumControl_Init(object sender, EventArgs e)
+        {
+            if (this.ForumControl.Page is umbraco.UmbracoDefault)
+            {
+                ((umbraco.UmbracoDefault)this.ForumControl.Page).ValidateRequest = false;
+            }
+        }
+    }
 }

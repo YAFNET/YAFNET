@@ -69,7 +69,7 @@ namespace ServiceStack.FluentValidation.Validators {
 			if (asyncCondition == null)
 				return await InnerValidator.ValidateAsync(context, cancellation);
 
-			bool shouldValidate = await asyncCondition(context.Instance);
+			var shouldValidate = await asyncCondition(context.Instance);
 
 			if (shouldValidate) {
 				return await InnerValidator.ValidateAsync(context, cancellation);

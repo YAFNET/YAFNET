@@ -36,7 +36,7 @@ namespace ServiceStack.Text
                     this.needFlush = false;
                 }
 
-                byte[] buffer = this.Encoding.GetBytes(s);
+                var buffer = this.Encoding.GetBytes(s);
                 this.stream.Write(buffer, 0, buffer.Length);
             } else 
             {

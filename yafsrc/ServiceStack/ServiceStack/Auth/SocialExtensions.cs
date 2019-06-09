@@ -17,7 +17,7 @@ namespace ServiceStack.Auth
                 sb.Append(b.ToString("x2"));
             }
 
-            string gravatarUrl = $"https://www.gravatar.com/avatar/{StringBuilderCache.ReturnAndFree(sb)}?d=mm&s={size}";
+            var gravatarUrl = $"https://www.gravatar.com/avatar/{StringBuilderCache.ReturnAndFree(sb)}?d=mm&s={size}";
             return gravatarUrl;
         }
     }

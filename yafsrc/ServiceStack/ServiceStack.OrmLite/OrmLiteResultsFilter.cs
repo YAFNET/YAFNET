@@ -159,7 +159,7 @@ namespace ServiceStack.OrmLite
         {
             Filter(dbCmd);
             var list = (IList)typeof(List<>).GetCachedGenericType(refType).CreateInstance();
-            foreach (object result in GetRefResults(dbCmd, refType).Safe())
+            foreach (var result in GetRefResults(dbCmd, refType).Safe())
             {
                 list.Add(result);
             }

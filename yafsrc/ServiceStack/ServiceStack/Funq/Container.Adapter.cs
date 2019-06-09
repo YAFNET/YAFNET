@@ -245,7 +245,7 @@ namespace Funq
             var instanceParam = Expression.Parameter(typeof(object), "instance");
             var containerParam = Expression.Constant(container);
 
-            Func<object, object> getter = Expression.Lambda<Func<object, object>>(
+            var getter = Expression.Lambda<Func<object, object>>(
                         Expression.Call(
                             Expression.Convert(instanceParam, instanceType),
                             property.GetGetMethod()
@@ -253,7 +253,7 @@ namespace Funq
                         instanceParam
                     ).Compile();
 
-            Action<object> setter = Expression.Lambda<Action<object>>(
+            var setter = Expression.Lambda<Action<object>>(
                 Expression.Call(
                     Expression.Convert(instanceParam, instanceType),
                     property.GetSetMethod(),

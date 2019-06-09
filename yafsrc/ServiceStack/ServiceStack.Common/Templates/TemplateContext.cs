@@ -190,7 +190,7 @@ namespace ServiceStack.Templates
                 ? santizePath
                 : santizePath + IndexPage;
             
-            if (!CodePages.TryGetValue(lookupPath, out Type type)) 
+            if (!CodePages.TryGetValue(lookupPath, out var type)) 
                 return null;
             
             var instance = (TemplateCodePage) Container.Resolve(type);
@@ -220,7 +220,7 @@ namespace ServiceStack.Templates
             if (DebugMode)
                 return null;
 
-            if (PathMappings.TryGetValue(prefix + ">" + key, out string mappedPath))
+            if (PathMappings.TryGetValue(prefix + ">" + key, out var mappedPath))
                 return mappedPath;
 
             return null;
@@ -355,7 +355,7 @@ namespace ServiceStack.Templates
 
             var key = targetType.FullName + ':' + expression;
 
-            if (BinderCache.TryGetValue(key, out Func<TemplateScopeContext, object, object> fn))
+            if (BinderCache.TryGetValue(key, out var fn))
                 return fn;
 
             BinderCache[key] = fn = TemplatePageUtils.Compile(targetType, expression);
@@ -372,7 +372,7 @@ namespace ServiceStack.Templates
 
             var key = targetType.FullName + ':' + expression;
 
-            if (AssignExpressionCache.TryGetValue(key, out Action<TemplateScopeContext, object, object> fn))
+            if (AssignExpressionCache.TryGetValue(key, out var fn))
                 return fn;
 
             AssignExpressionCache[key] = fn = TemplatePageUtils.CompileAssign(targetType, expression);

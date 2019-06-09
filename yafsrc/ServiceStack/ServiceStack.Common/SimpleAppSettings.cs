@@ -20,15 +20,14 @@ namespace ServiceStack
 
         public void Set<T>(string key, T value)
         {
-            var s = value as string;
-            var textValue = s != null
+            var textValue = value is string s
                 ? (string)(object)value
                 : value.ToJsv();
 
             settings[key] = textValue;
         }
 
-        public string GetString(string key) => settings.TryGetValue(key, out string value)
+        public string GetString(string key) => settings.TryGetValue(key, out var value)
             ? value
             : null;
 

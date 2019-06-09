@@ -110,7 +110,7 @@ namespace YAF.Controls.ReCAPTCHA
         return false;
       }
 
-      return (response.IsValid == this.IsValid) && (response.ErrorCode == this.ErrorCode);
+      return response.IsValid == this.IsValid && response.ErrorCode == this.ErrorCode;
     }
 
     /// <summary>

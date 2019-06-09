@@ -51,10 +51,10 @@ namespace ServiceStack.Host
             // Remove uptil the first space
             auth = auth.Substring(auth.IndexOf(' '));
             
-            int i = 0;
-            int line = 0;
-            bool inQuotes = false;
-            bool escape = false;
+            var i = 0;
+            var line = 0;
+            var inQuotes = false;
+            var escape = false;
 
             var prts = new List<string> { "" };
             auth = auth.Trim(' ', ',');

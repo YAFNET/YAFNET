@@ -59,19 +59,16 @@ namespace YAF.Types.Extensions
             var fieldInfo = type.GetField(value.ToString());
 
             // Get the stringvalue attributes
-            var altAttribs =
-              fieldInfo.GetCustomAttributes(typeof(AltStringValueAttribute), false) as AltStringValueAttribute[];
 
-            if (altAttribs != null && altAttribs.Length > 0)
+            if (fieldInfo.GetCustomAttributes(typeof(AltStringValueAttribute), false) is AltStringValueAttribute[] altAttribs && altAttribs.Length > 0)
             {
                 strValue = altAttribs[0].AltStringValue;
             }
             else
             {
                 // Get the stringvalue attributes
-                var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
-                if (attribs != null && attribs.Length > 0)
+                if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs && attribs.Length > 0)
                 {
                     strValue = attribs[0].StringValue;
                 }
@@ -101,10 +98,9 @@ namespace YAF.Types.Extensions
             if (fieldInfo != null)
             {
                 // Get the stringvalue attributes
-                var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
                 // Return the first if there was a match.
-                if (attribs != null)
+                if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs)
                 {
                     return attribs.Length > 0 ? attribs[0].StringValue : Enum.GetName(type, value);
                 }

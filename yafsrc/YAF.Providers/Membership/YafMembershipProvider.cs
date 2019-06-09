@@ -471,7 +471,7 @@ namespace YAF.Providers.Membership
             string newPasswordAnswer)
         {
             // Check arguments for null values
-            if ((username == null) || (password == null) || (newPasswordQuestion == null) || (newPasswordAnswer == null))
+            if (username == null || password == null || newPasswordQuestion == null || newPasswordAnswer == null)
             {
                 throw new ArgumentException("Username, Password, Password Question or Password Answer cannot be null");
             }
@@ -859,7 +859,7 @@ namespace YAF.Providers.Membership
             }
 
             // Check for null arguments
-            if ((username == null) || (answer == null))
+            if (username == null || answer == null)
             {
                 ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMEPASSWORDNULL");
             }
@@ -1360,7 +1360,7 @@ namespace YAF.Providers.Membership
                     break;
                 case MembershipPasswordFormat.Encrypted:
                     var bIn = Convert.FromBase64String(pass);
-                    var bRet = (new YafMembershipProvider()).DecryptPassword(bIn);
+                    var bRet = new YafMembershipProvider().DecryptPassword(bIn);
                     if (bRet == null)
                     {
                         return null;
@@ -1393,7 +1393,7 @@ namespace YAF.Providers.Membership
         private static string Encrypt(string clearString, string saltString, bool standardComp)
         {
             var buffer = GeneratePasswordBuffer(saltString, clearString, standardComp);
-            return Convert.ToBase64String((new YafMembershipProvider()).EncryptPassword(buffer));
+            return Convert.ToBase64String(new YafMembershipProvider().EncryptPassword(buffer));
         }
 
         /// <summary>

@@ -372,7 +372,7 @@ namespace ServiceStack.Host
             if (!ExplodeComponents(ref withPathInfoParts)) return false;
             if (this.TotalComponentsCount != withPathInfoParts.Length && !this.IsWildCardPath) return false;
 
-            int pathIx = 0;
+            var pathIx = 0;
             for (var i = 0; i < this.TotalComponentsCount; i++)
             {
                 if (this.isWildcard[i])

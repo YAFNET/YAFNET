@@ -452,7 +452,7 @@ namespace ServiceStack
 
             public int Compare(T x, T y)
             {
-                for (int i = 0; i < getters.Length; i++)
+                for (var i = 0; i < getters.Length; i++)
                 {
                     var getter = getters[i];
                     var xVal = getter(x);
@@ -906,7 +906,7 @@ namespace ServiceStack
                 intoType = args[0];
             }
 
-            if (genericAutoQueryCache.TryGetValue(fromType, out GenericAutoQueryData typedApi))
+            if (genericAutoQueryCache.TryGetValue(fromType, out var typedApi))
                 return typedApi.ExecuteObject(this, request, q);
 
             var genericType = typeof(GenericAutoQueryData<,>).MakeGenericType(fromType, intoType);
@@ -1123,7 +1123,7 @@ namespace ServiceStack
                     return CompareTypeUtils.Sum(source.Map(x => firstGetter(x)));
 
                 case "AVG":
-                    object sum = CompareTypeUtils.Sum(source.Map(x => firstGetter(x)));
+                    var sum = CompareTypeUtils.Sum(source.Map(x => firstGetter(x)));
                     var sumDouble = (double)Convert.ChangeType(sum, typeof(double));
                     return sumDouble / source.Length;
 

@@ -143,9 +143,9 @@ namespace ServiceStack.Templates
         public object endWhere(TemplateScopeContext scope, object target, object expression, object scopeOptions)
         {
             var literal = scope.AssertExpression(nameof(count), expression);
-            var scopedParams = scope.GetParamsWithItemBinding(nameof(count), scopeOptions, out string itemBinding);
+            var scopedParams = scope.GetParamsWithItemBinding(nameof(count), scopeOptions, out var itemBinding);
 
-            literal.ParseConditionExpression(out ConditionExpression expr);
+            literal.ParseConditionExpression(out var expr);
             scope.AddItemToScope(itemBinding, target);
             var result = expr.Evaluate(scope);
 
@@ -184,9 +184,9 @@ namespace ServiceStack.Templates
         public object onlyWhere(TemplateScopeContext scope, object target, object expression, object scopeOptions)
         {
             var literal = scope.AssertExpression(nameof(count), expression);
-            var scopedParams = scope.GetParamsWithItemBinding(nameof(count), scopeOptions, out string itemBinding);
+            var scopedParams = scope.GetParamsWithItemBinding(nameof(count), scopeOptions, out var itemBinding);
 
-            literal.ParseConditionExpression(out ConditionExpression expr);
+            literal.ParseConditionExpression(out var expr);
             scope.AddItemToScope(itemBinding, target);
             var result = expr.Evaluate(scope);
 
@@ -324,7 +324,7 @@ namespace ServiceStack.Templates
             if (value == null)
                 return IgnoreResult.Value;
 
-            if (scope.ScopedParams.TryGetValue(argName, out object oString))
+            if (scope.ScopedParams.TryGetValue(argName, out var oString))
             {
                 if (oString is string s)
                 {
@@ -344,7 +344,7 @@ namespace ServiceStack.Templates
             if (value == null)
                 return IgnoreResult.Value;
 
-            if (scope.ScopedParams.TryGetValue(argName, out object oString))
+            if (scope.ScopedParams.TryGetValue(argName, out var oString))
             {
                 if (oString is string s)
                 {
@@ -364,7 +364,7 @@ namespace ServiceStack.Templates
             if (value == null)
                 return IgnoreResult.Value;
             
-            if (scope.ScopedParams.TryGetValue(argName, out object collection))
+            if (scope.ScopedParams.TryGetValue(argName, out var collection))
             {
                 if (collection is IList l)
                 {
@@ -397,7 +397,7 @@ namespace ServiceStack.Templates
             if (value == null)
                 return IgnoreResult.Value;
             
-            if (scope.ScopedParams.TryGetValue(argName, out object collection))
+            if (scope.ScopedParams.TryGetValue(argName, out var collection))
             {
                 if (collection is IList l)
                 {
@@ -478,7 +478,7 @@ namespace ServiceStack.Templates
             else
             {
                 var targetName = argExpr.Substring(0, targetEndPos);
-                if (!scope.ScopedParams.TryGetValue(targetName, out object target))
+                if (!scope.ScopedParams.TryGetValue(targetName, out var target))
                     throw new NotSupportedException($"Cannot assign to non-existing '{targetName}' in {argExpr}");
 
                 scope.InvokeAssignExpression(argExpr, target, value);
@@ -508,7 +508,7 @@ namespace ServiceStack.Templates
             var pageName = target.ToString();
             var pageParams = scope.AssertOptions(nameof(partial), scopedParams);
 
-            scope.TryGetPage(pageName, out TemplatePage page, out TemplateCodePage codePage);
+            scope.TryGetPage(pageName, out var page, out var codePage);
             if (page != null)
                 await page.Init();
 
@@ -520,7 +520,7 @@ namespace ServiceStack.Templates
         {
             if (items is IEnumerable objs)
             {
-                var scopedParams = scope.GetParamsWithItemBinding(nameof(select), scopeOptions, out string itemBinding);
+                var scopedParams = scope.GetParamsWithItemBinding(nameof(select), scopeOptions, out var itemBinding);
 
                 var i = 0;
                 var itemScope = scope.CreateScopedContext(target.ToString(), scopedParams);
@@ -652,9 +652,9 @@ namespace ServiceStack.Templates
         {
             var items = target.AssertEnumerable(nameof(toDictionary));
             var literal = scope.AssertExpression(nameof(toDictionary), expression);
-            var scopedParams = scope.GetParamsWithItemBinding(nameof(toDictionary), scopeOptions, out string itemBinding);
+            var scopedParams = scope.GetParamsWithItemBinding(nameof(toDictionary), scopeOptions, out var itemBinding);
 
-            literal.ToStringSegment().ParseNextToken(out object value, out JsBinding binding);
+            literal.ToStringSegment().ParseNextToken(out var value, out var binding);
 
             return items.ToDictionary(item => scope.AddItemToScope(itemBinding, item).Evaluate(value, binding));
         }
@@ -664,9 +664,9 @@ namespace ServiceStack.Templates
         public IEnumerable of(TemplateScopeContext scope, IEnumerable target, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(of));
-            var scopedParams = scope.GetParamsWithItemBinding(nameof(of), scopeOptions, out string itemBinding);
+            var scopedParams = scope.GetParamsWithItemBinding(nameof(of), scopeOptions, out var itemBinding);
 
-            if (scopedParams.TryGetValue("type", out object oType))
+            if (scopedParams.TryGetValue("type", out var oType))
             {
                 if (oType is string typeName)
                     return items.Where(x => x?.GetType()?.Name == typeName);
@@ -680,7 +680,7 @@ namespace ServiceStack.Templates
         public object @do(TemplateScopeContext scope, object expression)
         {
             var literal = scope.AssertExpression(nameof(@do), expression);
-            literal.ToStringSegment().ParseNextToken(out object value, out JsBinding binding);
+            literal.ToStringSegment().ParseNextToken(out var value, out var binding);
             var result = scope.Evaluate(value, binding);
 
             return IgnoreResult.Value;
@@ -694,9 +694,9 @@ namespace ServiceStack.Templates
             if (isNull(target) || target is bool b && !b)
                 return TypeConstants.EmptyTask;
 
-            var scopedParams = scope.GetParamsWithItemBinding(nameof(@do), scopeOptions, out string itemBinding);
+            var scopedParams = scope.GetParamsWithItemBinding(nameof(@do), scopeOptions, out var itemBinding);
             var literal = scope.AssertExpression(nameof(@do), expression);
-            literal.ToStringSegment().ParseNextToken(out object value, out JsBinding binding);
+            literal.ToStringSegment().ParseNextToken(out var value, out var binding);
 
             if (target is IEnumerable objs && !(target is IDictionary) && !(target is string))
             {
@@ -750,9 +750,9 @@ namespace ServiceStack.Templates
         public object map(TemplateScopeContext scope, object target, object expression, object scopeOptions)
         {
             var literal = scope.AssertExpression(nameof(map), expression);
-            var scopedParams = scope.GetParamsWithItemBinding(nameof(map), scopeOptions, out string itemBinding);
+            var scopedParams = scope.GetParamsWithItemBinding(nameof(map), scopeOptions, out var itemBinding);
 
-            literal.ToStringSegment().ParseNextToken(out object value, out JsBinding binding);
+            literal.ToStringSegment().ParseNextToken(out var value, out var binding);
 
             if (target is IEnumerable items && !(target is IDictionary) && !(target is string))
             {
@@ -883,7 +883,7 @@ namespace ServiceStack.Templates
             if (isNull(target))
                 return;
 
-            var scopedParams = scope.GetParamsWithItemBinding(nameof(select), scopeOptions, out string itemBinding);
+            var scopedParams = scope.GetParamsWithItemBinding(nameof(select), scopeOptions, out var itemBinding);
             var template = JsonTypeSerializer.Unescape(selectTemplate.ToString(), removeQuotes:false);
             var itemScope = scope.CreateScopedContext(template, scopedParams);
 
@@ -911,11 +911,11 @@ namespace ServiceStack.Templates
             if (isNull(target))
                 return;
 
-            scope.TryGetPage(pageName, out TemplatePage page, out TemplateCodePage codePage);
+            scope.TryGetPage(pageName, out var page, out var codePage);
             if (page != null)
                 await page.Init();
 
-            var pageParams = scope.GetParamsWithItemBinding(nameof(selectPartial), page, scopedParams, out string itemBinding);
+            var pageParams = scope.GetParamsWithItemBinding(nameof(selectPartial), page, scopedParams, out var itemBinding);
 
             if (target is IEnumerable objs && !(target is IDictionary) && !(target is string))
             {
@@ -1082,7 +1082,7 @@ namespace ServiceStack.Templates
             if (string.IsNullOrEmpty(virtualPath))
                 return string.Empty;
 
-            if (!scope.Context.Args.TryGetValue(TemplateConstants.AssetsBase, out object assetsBase))
+            if (!scope.Context.Args.TryGetValue(TemplateConstants.AssetsBase, out var assetsBase))
                 return virtualPath;
 
             return virtualPath[0] == '/'

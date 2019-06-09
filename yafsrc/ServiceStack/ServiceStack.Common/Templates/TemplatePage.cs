@@ -78,7 +78,7 @@ namespace ServiceStack.Templates
 
             var pos = 0;
             var bodyContents = fileContents;
-            fileContents.AdvancePastWhitespace().TryReadLine(out StringSegment line, ref pos);
+            fileContents.AdvancePastWhitespace().TryReadLine(out var line, ref pos);
             if (line.StartsWith(Format.ArgsPrefix))
             {
                 while (fileContents.TryReadLine(out line, ref pos))
@@ -98,7 +98,7 @@ namespace ServiceStack.Templates
                 bodyContents = fileContents.SafeSubsegment(pos).AdvancePastWhitespace();
             }
 
-            var pageFragments = pageVars.TryGetValue("ignore", out object ignore) 
+            var pageFragments = pageVars.TryGetValue("ignore", out var ignore) 
                     && ("page".Equals(ignore.ToString()) || "template".Equals(ignore.ToString()))
                 ? new List<PageFragment> { new PageStringFragment(bodyContents) } 
                 : TemplatePageUtils.ParseTemplatePage(bodyContents);

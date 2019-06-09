@@ -31,7 +31,7 @@ namespace ServiceStack.Text
         {
             if (!value.HasValue)
                 return true;
-            for (int index = 0; index < value.Length; ++index)
+            for (var index = 0; index < value.Length; ++index)
             {
                 if (!char.IsWhiteSpace(value.GetChar(index)))
                     return false;
@@ -104,7 +104,7 @@ namespace ServiceStack.Text
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ParseBoolean(this StringSegment value)
         {
-            if (!value.TryParseBoolean(out bool result))
+            if (!value.TryParseBoolean(out var result))
                 throw new FormatException(BadFormat);
 
             return result;
@@ -223,8 +223,8 @@ namespace ServiceStack.Text
                 throw new FormatException(BadFormat);
 
             ulong result = 0;
-            int i = value.Offset;
-            int end = value.Offset + value.Length;
+            var i = value.Offset;
+            var end = value.Offset + value.Length;
             var state = ParseState.LeadingWhite;
 
             // skip leading whitespaces
@@ -302,10 +302,10 @@ namespace ServiceStack.Text
                 throw new FormatException(BadFormat);
 
             long result = 0;
-            int i = value.Offset;
-            int end = value.Offset + value.Length;
+            var i = value.Offset;
+            var end = value.Offset + value.Length;
             var state = ParseState.LeadingWhite;
-            bool negative = false;
+            var negative = false;
 
             // skip leading whitespaces
             while (i < end && JsonUtils.IsWhiteSpace(value.Buffer[i])) i++;
@@ -414,12 +414,12 @@ namespace ServiceStack.Text
 
             decimal result = 0;
             ulong preResult = 0;
-            bool isLargeNumber = false;
-            int i = value.Offset;
-            int end = i + value.Length;
+            var isLargeNumber = false;
+            var i = value.Offset;
+            var end = i + value.Length;
             var state = ParseState.LeadingWhite;
-            bool negative = false;
-            bool noIntegerPart = false;
+            var negative = false;
+            var noIntegerPart = false;
             sbyte scale = 0;
 
             while (i < end)
@@ -553,7 +553,7 @@ namespace ServiceStack.Text
                         else throw new FormatException(BadFormat);
                         break;
                     case ParseState.Exponent:
-                        bool expNegative = false;
+                        var expNegative = false;
                         if (c == '-')
                         {
                             if (i == end)
@@ -586,7 +586,7 @@ namespace ServiceStack.Text
                             }
                             else
                             {
-                                for (int j = 0; j < -exp - scale; j++)
+                                for (var j = 0; j < -exp - scale; j++)
                                 {
                                     if (isLargeNumber)
                                     {
@@ -676,8 +676,8 @@ namespace ServiceStack.Text
             // 1. General `{dddddddd-dddd-dddd-dddd-dddddddddddd}` or `(dddddddd-dddd-dddd-dddd-dddddddddddd)` 8-4-4-4-12 chars
             // 2. Hex `{0xdddddddd,0xdddd,0xdddd,{0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd,0xdd}}`  8-4-4-8x2 chars
             // 3. No style `dddddddddddddddddddddddddddddddd` 32 chars
-            int i = value.Offset;
-            int end = value.Offset + value.Length;
+            var i = value.Offset;
+            var end = value.Offset + value.Length;
             while (i < end && JsonUtils.IsWhiteSpace(value.Buffer[i])) i++;
 
             if (i == end)
@@ -699,9 +699,9 @@ namespace ServiceStack.Text
             var buf = value.Buffer;
             var n = value.Offset;
 
-            int dash = 0;
+            var dash = 0;
             len = 32;
-            bool hasParentesis = false;
+            var hasParentesis = false;
 
             if (value.Length < len)
                 throw new FormatException(BadFormat);
@@ -743,25 +743,25 @@ namespace ServiceStack.Text
             short b, c;
             byte d, e, f, g, h, i, j, k;
 
-            byte a1 = ParseHexByte(buf[n], buf[n + 1]);
+            var a1 = ParseHexByte(buf[n], buf[n + 1]);
             n += 2;
-            byte a2 = ParseHexByte(buf[n], buf[n + 1]);
+            var a2 = ParseHexByte(buf[n], buf[n + 1]);
             n += 2;
-            byte a3 = ParseHexByte(buf[n], buf[n + 1]);
+            var a3 = ParseHexByte(buf[n], buf[n + 1]);
             n += 2;
-            byte a4 = ParseHexByte(buf[n], buf[n + 1]);
+            var a4 = ParseHexByte(buf[n], buf[n + 1]);
             a = (a1 << 24) + (a2 << 16) + (a3 << 8) + a4;
             n += 2 + dash;
 
-            byte b1 = ParseHexByte(buf[n], buf[n + 1]);
+            var b1 = ParseHexByte(buf[n], buf[n + 1]);
             n += 2;
-            byte b2 = ParseHexByte(buf[n], buf[n + 1]);
+            var b2 = ParseHexByte(buf[n], buf[n + 1]);
             b = (short)((b1 << 8) + b2);
             n += 2 + dash;
 
-            byte c1 = ParseHexByte(buf[n], buf[n + 1]);
+            var c1 = ParseHexByte(buf[n], buf[n + 1]);
             n += 2;
-            byte c2 = ParseHexByte(buf[n], buf[n + 1]);
+            var c2 = ParseHexByte(buf[n], buf[n + 1]);
             c = (short)((c1 << 8) + c2);
             n += 2 + dash;
 
@@ -789,8 +789,8 @@ namespace ServiceStack.Text
         {
             try
             {
-                byte lo = lo16[c2];
-                byte hi = hi16[c1];
+                var lo = lo16[c2];
+                var hi = hi16[c1];
 
                 if (lo == 255 || hi == 255)
                     throw new FormatException(BadFormat);
@@ -872,7 +872,7 @@ namespace ServiceStack.Text
                 throw new ArgumentOutOfRangeException(nameof(start));
             if (count < 0 || text.Offset + start + count > text.Buffer.Length)
                 throw new ArgumentOutOfRangeException(nameof(count));
-            int num = text.Buffer.IndexOf(needle, start + text.Offset, count, StringComparison.Ordinal);
+            var num = text.Buffer.IndexOf(needle, start + text.Offset, count, StringComparison.Ordinal);
             if (num != -1)
                 return num - text.Offset;
             return num;
@@ -893,7 +893,7 @@ namespace ServiceStack.Text
             if (count < 0 || count - 1 > start)
                 throw new ArgumentOutOfRangeException(nameof(count));
 
-            int num = text.Buffer.LastIndexOf(needle, start + text.Offset, count);
+            var num = text.Buffer.LastIndexOf(needle, start + text.Offset, count);
             if (num != -1)
                 return num - text.Offset;
             return num;
@@ -914,7 +914,7 @@ namespace ServiceStack.Text
             if (count < 0 || count - 1 > start)
                 throw new ArgumentOutOfRangeException(nameof(count));
 
-            int num = text.Buffer.LastIndexOf(needle, start + text.Offset, count, StringComparison.Ordinal);
+            var num = text.Buffer.LastIndexOf(needle, start + text.Offset, count, StringComparison.Ordinal);
             if (num != -1)
                 return num - text.Offset;
             return num;
@@ -1078,8 +1078,8 @@ namespace ServiceStack.Text
 
         private static StringSegment TrimHelper(this StringSegment value, int trimType)
         {
-            int end = value.Length - 1;
-            int start = 0;
+            var end = value.Length - 1;
+            var start = 0;
             if (trimType != 1)
             {
                 start = 0;
@@ -1099,14 +1099,14 @@ namespace ServiceStack.Text
 
         private static StringSegment TrimHelper(this StringSegment value, char[] trimChars, int trimType)
         {
-            int end = value.Length - 1;
-            int start = 0;
+            var end = value.Length - 1;
+            var start = 0;
             if (trimType != 1)
             {
                 for (start = 0; start < value.Length; ++start)
                 {
-                    char ch = value.GetChar(start);
-                    int index = 0;
+                    var ch = value.GetChar(start);
+                    var index = 0;
                     while (index < trimChars.Length && (int)trimChars[index] != (int)ch)
                         ++index;
                     if (index == trimChars.Length)
@@ -1118,8 +1118,8 @@ namespace ServiceStack.Text
             {
                 for (end = value.Length - 1; end >= start; --end)
                 {
-                    char ch = value.GetChar(end);
-                    int index = 0;
+                    var ch = value.GetChar(end);
+                    var index = 0;
                     while (index < trimChars.Length && (int)trimChars[index] != (int)ch)
                         ++index;
                     if (index == trimChars.Length)
@@ -1132,7 +1132,7 @@ namespace ServiceStack.Text
 
         private static StringSegment CreateTrimmedString(this StringSegment value, int start, int end)
         {
-            int length = end - start + 1;
+            var length = end - start + 1;
             if (length == value.Length)
                 return value;
             if (length == 0)

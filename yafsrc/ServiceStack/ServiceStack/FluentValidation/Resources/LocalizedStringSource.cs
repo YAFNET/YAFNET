@@ -66,9 +66,7 @@ namespace ServiceStack.FluentValidation.Resources {
 		/// <returns>Error message source</returns>
 		[Obsolete]
 		public static IStringSource CreateFromExpression(Expression<Func<string>> expression, IResourceAccessorBuilder resourceProviderSelectionStrategy) {
-			var constant = expression.Body as ConstantExpression;
-
-			if (constant != null) {
+            if (expression.Body is ConstantExpression constant) {
 				return new StaticStringSource((string)constant.Value);
 			}
 
@@ -177,9 +175,7 @@ namespace ServiceStack.FluentValidation.Resources {
 		/// <param name="expression">The expression </param>
 		/// <returns>Error message source</returns>
 		public static IStringSource CreateFromExpression(Expression<Func<string>> expression) {
-			var constant = expression.Body as ConstantExpression;
-
-			if (constant != null) {
+            if (expression.Body is ConstantExpression constant) {
 				return new StaticStringSource((string)constant.Value);
 			}
 

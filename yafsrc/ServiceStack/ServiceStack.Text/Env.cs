@@ -31,7 +31,7 @@ namespace ServiceStack.Text
                     IsWindows = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("windir"));
                     if (File.Exists(@"/System/Library/CoreServices/SystemVersion.plist"))
                         IsOSX = true;
-                    string osType = File.Exists(@"/proc/sys/kernel/ostype") ? File.ReadAllText(@"/proc/sys/kernel/ostype") : null;
+                    var osType = File.Exists(@"/proc/sys/kernel/ostype") ? File.ReadAllText(@"/proc/sys/kernel/ostype") : null;
                     IsLinux = osType?.IndexOf("Linux", StringComparison.OrdinalIgnoreCase) >= 0;
 #endif
                 }

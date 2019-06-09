@@ -385,7 +385,7 @@ namespace YAF.Core.Services
                 ruleEngine.AddRule(email);
 
                 // URLs Rules
-                var target = (boardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
+                var target = boardSettings.BlankLinks || targetBlankOverride ? "target=\"_blank\"" : string.Empty;
 
                 var nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 

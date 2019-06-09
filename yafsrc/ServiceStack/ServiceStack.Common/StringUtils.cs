@@ -104,11 +104,11 @@ namespace ServiceStack
                 }
                 return match.Value; // ambiguous ampersand
             }
-            string decimalString = match.Groups[3].Value;
+            var decimalString = match.Groups[3].Value;
             ushort decimalValue;
             if (match.Groups[2].Success)
             {
-                bool parseWasSuccessful = ushort.TryParse(decimalString, NumberStyles.HexNumber,
+                var parseWasSuccessful = ushort.TryParse(decimalString, NumberStyles.HexNumber,
                     CultureInfo.InvariantCulture, out decimalValue);
                 if (!parseWasSuccessful)
                 {
@@ -117,7 +117,7 @@ namespace ServiceStack
             }
             else
             {
-                bool parseWasSuccessful = ushort.TryParse(decimalString, out decimalValue);
+                var parseWasSuccessful = ushort.TryParse(decimalString, out decimalValue);
                 if (!parseWasSuccessful)
                 {
                     return match.Value; // ambiguous ampersand

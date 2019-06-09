@@ -147,7 +147,7 @@ namespace ServiceStack.Host
 
         private static IEnumerable<ActionContext> GetActionsFor<TRequest>()
         {
-            return actionMap.TryGetValue(typeof(TRequest), out List<ActionContext> requestActions)
+            return actionMap.TryGetValue(typeof(TRequest), out var requestActions)
                 ? requestActions
                 : new List<ActionContext>();
         }

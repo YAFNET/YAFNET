@@ -29,12 +29,12 @@
                 return "NaN";
 
             // Translate the double into sign, exponent and mantissa.
-            long bits = BitConverter.DoubleToInt64Bits(d);
+            var bits = BitConverter.DoubleToInt64Bits(d);
 
             // Note that the shift is sign-extended, hence the test against -1 not 1
-            bool negative = bits < 0;
-            int exponent = (int)((bits >> 52) & 0x7ffL);
-            long mantissa = bits & 0xfffffffffffffL;
+            var negative = bits < 0;
+            var exponent = (int)((bits >> 52) & 0x7ffL);
+            var mantissa = bits & 0xfffffffffffffL;
 
             // Subnormal numbers; exponent is effectively one higher,
             // but there's no extra normalisation bit in the mantissa
@@ -69,14 +69,14 @@
             }
 
             /// Construct a new decimal expansion with the mantissa
-            ArbitraryDecimal ad = new ArbitraryDecimal(mantissa);
+            var ad = new ArbitraryDecimal(mantissa);
 
             // If the exponent is less than 0, we need to repeatedly
             // divide by 2 - which is the equivalent of multiplying
             // by 5 and dividing by 10.
             if (exponent < 0)
             {
-                for (int i = 0; i < -exponent; i++)
+                for (var i = 0; i < -exponent; i++)
                     ad.MultiplyBy(5);
                 ad.Shift(-exponent);
             }
@@ -84,7 +84,7 @@
             // Otherwise, we need to repeatedly multiply by 2
             else
             {
-                for (int i = 0; i < exponent; i++)
+                for (var i = 0; i < exponent; i++)
                     ad.MultiplyBy(2);
             }
 
@@ -112,9 +112,9 @@
 			/// </summary>
 			internal ArbitraryDecimal(long x)
 			{
-				string tmp = x.ToString(CultureInfo.InvariantCulture);
+				var tmp = x.ToString(CultureInfo.InvariantCulture);
                 this.digits = new byte[tmp.Length];
-				for (int i = 0; i < tmp.Length; i++) this.digits[i] = (byte)(tmp[i] - '0');
+				for (var i = 0; i < tmp.Length; i++) this.digits[i] = (byte)(tmp[i] - '0');
                 this.Normalize();
 			}
 
@@ -124,10 +124,10 @@
 			/// </summary>
 			internal void MultiplyBy(int amount)
 			{
-				byte[] result = new byte[this.digits.Length + 1];
-				for (int i = this.digits.Length - 1; i >= 0; i--)
+				var result = new byte[this.digits.Length + 1];
+				for (var i = this.digits.Length - 1; i >= 0; i--)
 				{
-					int resultDigit = this.digits[i] * amount + result[i + 1];
+					var resultDigit = this.digits[i] * amount + result[i + 1];
 					result[i] = (byte)(resultDigit / 10);
 					result[i + 1] = (byte)(resultDigit % 10);
 				}
@@ -172,8 +172,8 @@
 				if (first == 0 && last == this.digits.Length - 1)
 					return;
 
-				byte[] tmp = new byte[last - first + 1];
-				for (int i = 0; i < tmp.Length; i++)
+				var tmp = new byte[last - first + 1];
+				for (var i = 0; i < tmp.Length; i++)
 					tmp[i] = this.digits[i + first];
 
                 this.decimalPoint -= this.digits.Length - (last + 1);
@@ -185,8 +185,8 @@
 			/// </summary>
 			public override string ToString()
 			{
-				char[] digitString = new char[this.digits.Length];
-				for (int i = 0; i < this.digits.Length; i++)
+				var digitString = new char[this.digits.Length];
+				for (var i = 0; i < this.digits.Length; i++)
 					digitString[i] = (char)(this.digits[i] + '0');
 
 				// Simplest case - nothing after the decimal point,

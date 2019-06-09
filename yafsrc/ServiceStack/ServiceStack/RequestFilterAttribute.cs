@@ -30,7 +30,7 @@ namespace ServiceStack
 
         public void RequestFilter(IRequest req, IResponse res, object requestDto)
         {
-            ApplyTo httpMethod = req.HttpMethodAsApplyTo();
+            var httpMethod = req.HttpMethodAsApplyTo();
             if (ApplyTo.Has(httpMethod))
                 this.Execute(req, res, requestDto);
         }

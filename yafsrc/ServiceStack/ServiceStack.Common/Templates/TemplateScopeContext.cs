@@ -51,7 +51,7 @@ namespace ServiceStack.Templates
 
             if (cachePage)
             {
-                scope.Context.Cache.TryGetValue(template, out object value);
+                scope.Context.Cache.TryGetValue(template, out var value);
                 dynamicPage = value as TemplatePage;
             }
 

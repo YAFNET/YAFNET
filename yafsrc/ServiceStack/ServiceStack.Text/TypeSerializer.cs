@@ -275,8 +275,7 @@ namespace ServiceStack.Text
 
         public static string SerializeAndFormat<T>(this T instance)
         {
-            var fn = instance as Delegate;
-            if (fn != null)
+            if (instance is Delegate fn)
                 return Dump(fn);
 
             var dtoStr = !HasCircularReferences(instance) 

@@ -56,8 +56,7 @@ namespace ServiceStack.Text.Jsv
         {
             if (value != null)
             {
-                var strValue = value as string;
-                if (strValue != null)
+                if (value is string strValue)
                 {
                     this.WriteString(writer, strValue);
                 }

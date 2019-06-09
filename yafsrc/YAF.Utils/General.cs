@@ -121,7 +121,7 @@ namespace YAF.Utils
             txtInfo += $"Found {resNames.Length} resources\r\n";
             txtInfo += "----------\r\n";
 
-            txtInfo = resNames.Aggregate(txtInfo, (current, s) => current + (s + "\r\n"));
+            txtInfo = resNames.Aggregate(txtInfo, (current, s) => current + s + "\r\n");
 
             txtInfo += "----------\r\n";
 

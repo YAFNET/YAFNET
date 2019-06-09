@@ -230,7 +230,7 @@ namespace ServiceStack.Text.Common
                 var elementValue = Serializer.EatTypeValue(value, ref index);
                 if (!keyValue.HasValue) continue;
 
-                TKey mapKey = (TKey)parseKeyFn(keyValue);
+                var mapKey = (TKey)parseKeyFn(keyValue);
 
                 if (tryToParseItemsAsDictionaries)
                 {

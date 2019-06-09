@@ -149,8 +149,7 @@ namespace ServiceStack.VirtualPath
             var parts = fileName.SplitOnFirst('.');
             if (parts.Length > 1)
             {
-                var dir = GetDirectoryFromBackingDirectoryOrDefault(parts[0]) as ResourceVirtualDirectory;
-                if (dir != null)
+                if (this.GetDirectoryFromBackingDirectoryOrDefault(parts[0]) is ResourceVirtualDirectory dir)
                 {
                     return dir.GetFileFromBackingDirectoryOrDefault(parts[1]);
                 }

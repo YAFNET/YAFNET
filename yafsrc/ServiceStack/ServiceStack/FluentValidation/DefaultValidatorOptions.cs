@@ -207,8 +207,7 @@ namespace ServiceStack.FluentValidation {
 
 				if (!string.IsNullOrEmpty(cfg.RuleSet)) {
 					foreach (var dependentRule in dependencyContainer) {
-						var propRule = dependentRule as PropertyRule;
-						if (propRule != null && string.IsNullOrEmpty(propRule.RuleSet)) {
+                        if (dependentRule is PropertyRule propRule && string.IsNullOrEmpty(propRule.RuleSet)) {
 							propRule.RuleSet = cfg.RuleSet;
 						}
 					}

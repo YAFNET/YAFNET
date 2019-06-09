@@ -110,7 +110,7 @@ namespace YAF.Types.Extensions
         {
             CodeContracts.VerifyNotNull(hashedBytes, "hashedBytes");
 
-            var hashedSB = new StringBuilder((hashedBytes.Length * 2) + 2);
+            var hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
 
             foreach (var b in hashedBytes)
             {

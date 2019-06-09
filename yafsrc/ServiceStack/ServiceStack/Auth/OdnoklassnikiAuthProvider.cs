@@ -40,24 +40,24 @@ namespace ServiceStack.Auth
 
         public override object Authenticate(IServiceBase authService, IAuthSession session, Authenticate request)
         {
-            IAuthTokens tokens = Init(authService, ref session, request);
-            IRequest httpRequest = authService.Request;
+            var tokens = Init(authService, ref session, request);
+            var httpRequest = authService.Request;
 
 
-            string error = httpRequest.QueryString["error"];
+            var error = httpRequest.QueryString["error"];
 
-            bool hasError = !error.IsNullOrEmpty();
+            var hasError = !error.IsNullOrEmpty();
             if (hasError)
             {
                 Log.Error($"Odnoklassniki error callback. {httpRequest.QueryString}");
                 return authService.Redirect(FailedRedirectUrlFilter(this, session.ReferrerUrl.SetParam("f", error)));
             }
 
-            string code = httpRequest.QueryString["code"];
-            bool isPreAuthCallback = !code.IsNullOrEmpty();
+            var code = httpRequest.QueryString["code"];
+            var isPreAuthCallback = !code.IsNullOrEmpty();
             if (!isPreAuthCallback)
             {
-                string preAuthUrl = $"{PreAuthUrl}?client_id={ApplicationId}&redirect_uri={CallbackUrl.UrlEncode()}&response_type=code&layout=m";
+                var preAuthUrl = $"{PreAuthUrl}?client_id={ApplicationId}&redirect_uri={CallbackUrl.UrlEncode()}&response_type=code&layout=m";
 
                 this.SaveSession(authService, session, SessionExpiry);
                 return authService.Redirect(PreAuthUrlFilter(this, preAuthUrl));
@@ -65,14 +65,14 @@ namespace ServiceStack.Auth
 
             try
             {
-                string payload = $"client_id={ApplicationId}&client_secret={SecretKey}&code={code}&redirect_uri={CallbackUrl.UrlEncode()}&grant_type=authorization_code";
+                var payload = $"client_id={ApplicationId}&client_secret={SecretKey}&code={code}&redirect_uri={CallbackUrl.UrlEncode()}&grant_type=authorization_code";
 
-                string contents = AccessTokenUrlFilter(this, AccessTokenUrl).PostToUrl(payload, "*/*", RequestFilter);
+                var contents = AccessTokenUrlFilter(this, AccessTokenUrl).PostToUrl(payload, "*/*", RequestFilter);
 
                 var authInfo = JsonObject.Parse(contents);
 
                 //ok.ru does not throw exception, but returns error property in JSON response
-                string accessTokenError = authInfo.Get("error");
+                var accessTokenError = authInfo.Get("error");
 
                 if (!accessTokenError.IsNullOrEmpty())
                 {
@@ -90,7 +90,7 @@ namespace ServiceStack.Auth
             catch (WebException webException)
             {
                 //just in case it starts throwing exceptions 
-                HttpStatusCode statusCode = ((HttpWebResponse)webException.Response).StatusCode;
+                var statusCode = ((HttpWebResponse)webException.Response).StatusCode;
                 if (statusCode == HttpStatusCode.BadRequest)
                 {
                     return authService.Redirect(FailedRedirectUrlFilter(this, session.ReferrerUrl.SetParam("f", "AccessTokenFailed")));
@@ -110,14 +110,14 @@ namespace ServiceStack.Auth
             {
                 //sig = md5( request_params_composed_string + md5(access_token + application_secret_key)  )
 
-                string innerSignature = Encoding.UTF8.GetBytes(tokens.AccessTokenSecret + ConsumerSecret).ToMd5Hash();
-                string signature = Encoding.UTF8.GetBytes($"application_key={PublicKey}" + innerSignature).ToMd5Hash();
+                var innerSignature = Encoding.UTF8.GetBytes(tokens.AccessTokenSecret + ConsumerSecret).ToMd5Hash();
+                var signature = Encoding.UTF8.GetBytes($"application_key={PublicKey}" + innerSignature).ToMd5Hash();
 
-                string payload = $"access_token={tokens.AccessTokenSecret}&sig={signature}&application_key={PublicKey}";
+                var payload = $"access_token={tokens.AccessTokenSecret}&sig={signature}&application_key={PublicKey}";
 
-                string json = "http://api.odnoklassniki.ru/api/users/getCurrentUser".PostToUrl(payload, "*/*", RequestFilter);
+                var json = "http://api.odnoklassniki.ru/api/users/getCurrentUser".PostToUrl(payload, "*/*", RequestFilter);
 
-                JsonObject obj = JsonObject.Parse(json);
+                var obj = JsonObject.Parse(json);
 
                 if (!obj.Get("error").IsNullOrEmpty())
                 {
@@ -153,8 +153,7 @@ namespace ServiceStack.Auth
 
         public override void LoadUserOAuthProvider(IAuthSession authSession, IAuthTokens tokens)
         {
-            var userSession = authSession as AuthUserSession;
-            if (userSession == null) return;
+            if (!(authSession is AuthUserSession userSession)) return;
 
             userSession.DisplayName = tokens.DisplayName ?? userSession.DisplayName;
             userSession.FirstName = tokens.FirstName ?? userSession.DisplayName;

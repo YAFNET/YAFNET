@@ -18,14 +18,14 @@ namespace ServiceStack.Support
         /// <returns></returns>
         protected T Execute<T>(Func<T> action)
         {
-            DateTime before = DateTime.UtcNow;
+            var before = DateTime.UtcNow;
 #if !NETFX_CORE && !WP
             this.Log.Debug($"Executing action '{action.Method.Name}'");
 #endif
             try
             {
-                T result = action();
-                TimeSpan timeTaken = DateTime.UtcNow - before;
+                var result = action();
+                var timeTaken = DateTime.UtcNow - before;
 #if !NETFX_CORE && !WP
                 this.Log.Debug($"Action '{action.Method.Name}' executed. Took {timeTaken.TotalMilliseconds} ms.");
 #endif
@@ -46,14 +46,14 @@ namespace ServiceStack.Support
         /// <param name="action">The action.</param>
         protected void Execute(Action action)
         {
-            DateTime before = DateTime.UtcNow;
+            var before = DateTime.UtcNow;
 #if !NETFX_CORE && !WP
             this.Log.Debug($"Executing action '{action.Method.Name}'");
 #endif
             try
             {
                 action();
-                TimeSpan timeTaken = DateTime.UtcNow - before;
+                var timeTaken = DateTime.UtcNow - before;
 #if !NETFX_CORE && !WP
                 this.Log.Debug($"Action '{action.Method.Name}' executed. Took {timeTaken.TotalMilliseconds} ms.");
 #endif

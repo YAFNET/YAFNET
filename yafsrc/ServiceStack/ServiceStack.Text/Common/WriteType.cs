@@ -138,15 +138,15 @@ namespace ServiceStack.Text.Common
                 var propertyInfo = propertyInfos[i];
 
                 string propertyName, propertyNameCLSFriendly, propertyNameLowercaseUnderscore, propertyDeclaredTypeName;
-                int propertyOrder = -1;
+                var propertyOrder = -1;
                 var propertyType = propertyInfo.PropertyType;
                 var defaultValue = propertyType.GetDefaultValue();
-                bool propertySuppressDefaultConfig = defaultValue != null
+                var propertySuppressDefaultConfig = defaultValue != null
                     && propertyType.IsValueType
                     && !propertyType.IsEnum
                     && JsConfig.HasSerializeFn.Contains(propertyType)
                     && !JsConfig.HasIncludeDefaultValue.Contains(propertyType);
-                bool propertySuppressDefaultAttribute = false;
+                var propertySuppressDefaultAttribute = false;
 
                 var shouldSerialize = GetShouldSerializeMethod(propertyInfo);
                 if (isDataContract)
@@ -197,14 +197,14 @@ namespace ServiceStack.Text.Common
                 var fieldInfo = fieldInfos[i];
 
                 string propertyName, propertyNameCLSFriendly, propertyNameLowercaseUnderscore, propertyDeclaredTypeName;
-                int propertyOrder = -1;
+                var propertyOrder = -1;
                 var propertyType = fieldInfo.FieldType;
                 var defaultValue = propertyType.GetDefaultValue();
-                bool propertySuppressDefaultConfig = defaultValue != null
+                var propertySuppressDefaultConfig = defaultValue != null
                     && propertyType.IsValueType && !propertyType.IsEnum
                     && JsConfig.HasSerializeFn.Contains(propertyType)
                     && !JsConfig.HasIncludeDefaultValue.Contains(propertyType);
-                bool propertySuppressDefaultAttribute = false;
+                var propertySuppressDefaultAttribute = false;
 
                 var shouldSerialize = GetShouldSerializeMethod(fieldInfo);
                 if (isDataContract)
@@ -398,7 +398,7 @@ namespace ServiceStack.Text.Common
             {
                 var typedInstance = (T)instance;
                 var len = PropertyWriters.Length;
-                for (int index = 0; index < len; index++)
+                for (var index = 0; index < len; index++)
                 {
                     var propertyWriter = PropertyWriters[index];
 
@@ -502,7 +502,7 @@ namespace ServiceStack.Text.Common
                         // Nested Complex Type: legal_entity[dob][day]=1
                         var prefix = "{0}[{1}]".Fmt(typeName, propertyWriter.PropertyName);
                         var props = propertyValueType.GetSerializableProperties();
-                        for (int j = 0; j < props.Length; j++)
+                        for (var j = 0; j < props.Length; j++)
                         {
                             var pi = props[j];
                             var pValue = pi.GetValue(propertyValue, TypeConstants.EmptyObjectArray);

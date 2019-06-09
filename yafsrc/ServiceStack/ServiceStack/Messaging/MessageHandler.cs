@@ -102,7 +102,7 @@ namespace ServiceStack.Messaging
         {
             Log.Error("Message exception handler threw an error", ex);
 
-            bool requeue = !(ex is UnRetryableMessagingException)
+            var requeue = !(ex is UnRetryableMessagingException)
                 && message.RetryAttempts < retryCount;
 
             if (requeue)
@@ -124,7 +124,7 @@ namespace ServiceStack.Messaging
         public void ProcessMessage(IMessageQueueClient mqClient, IMessage<T> message)
         {
             this.MqClient = mqClient;
-            bool msgHandled = false;
+            var msgHandled = false;
 
             try
             {

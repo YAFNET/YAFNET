@@ -209,7 +209,7 @@ namespace ServiceStack.NativeTypes.Dart
 
         private List<MetadataType> CreateSortedTypeList(List<MetadataType> allTypes)
         {
-            List<MetadataType> result = new List<MetadataType>();
+            var result = new List<MetadataType>();
             foreach (var metadataType in allTypes)
             {
                 AddTypeToSortedList(allTypes,result,metadataType);
@@ -621,7 +621,7 @@ namespace ServiceStack.NativeTypes.Dart
                         var propName = jsonName.PropertyName();
                         if (UseTypeConversion(prop))
                         {
-                            bool registerType = true;
+                            var registerType = true;
                             if (type.GenericArgs?.Length > 0 && prop.GenericArgs?.Length > 0)
                             {
                                 var argIndexes = new List<int>();
@@ -728,7 +728,7 @@ namespace ServiceStack.NativeTypes.Dart
                 return;
 
             var csharpType = CSharpPropertyType(prop);
-            var factoryFn = defaultValues.TryGetValue(csharpType, out string defaultValue)
+            var factoryFn = defaultValues.TryGetValue(csharpType, out var defaultValue)
                 ? $"() => {defaultValue}"
                 : null;
 
@@ -765,7 +765,7 @@ namespace ServiceStack.NativeTypes.Dart
 
                         var genericArg = RawType(genericArgNode);
 
-                        var genericArgFactoryFn = defaultValues.TryGetValue(genericArg, out string defaultValue)
+                        var genericArgFactoryFn = defaultValues.TryGetValue(genericArg, out var defaultValue)
                             ? $"() => {defaultValue}"
                             : null;
                         

@@ -231,7 +231,7 @@ namespace YAF.Classes.Pattern
             // special handling for int values...
             if (objectType == typeof(int))
             {
-                return (T)Convert.ChangeType(Convert.ToInt32(value), typeof(T));
+                return (T)Convert.ChangeType(value.ToType<int>(), typeof(T));
             }
 
             return this[name].ToType<T>();
@@ -255,7 +255,7 @@ namespace YAF.Classes.Pattern
 
             if (objectType == typeof(bool) || objectType.BaseType == typeof(Enum))
             {
-                stringValue = Convert.ToString(Convert.ToInt32(value));
+                stringValue = Convert.ToString(value.ToType<int>());
             }
 
             this[name] = stringValue;

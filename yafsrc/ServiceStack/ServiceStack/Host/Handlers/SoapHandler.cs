@@ -93,7 +93,7 @@ namespace ServiceStack.Host.Handlers
             if (HostContext.ApplyCustomHandlerRequestFilters(httpReq, httpRes))
                 return PrepareEmptyResponse(message, httpReq);
 
-            string requestXml = GetRequestXml(requestMsg);
+            var requestXml = GetRequestXml(requestMsg);
             var requestType = GetRequestType(requestMsg, requestXml);
             httpReq.OperationName = requestType.GetOperationName();
             if (!HostContext.Metadata.CanAccess(requestAttributes, soapFeature.ToFormat(), requestType.GetOperationName()))
@@ -209,7 +209,7 @@ namespace ServiceStack.Host.Handlers
                 return null;
 
             var requestMessage = message ?? GetRequestMessageFromStream(req.InputStream);
-            string requestXml = GetRequestXml(requestMessage);
+            var requestXml = GetRequestXml(requestMessage);
             var requestType = GetRequestType(requestMessage, requestXml);
             return EmptyResponse(requestMessage, requestType);
         }

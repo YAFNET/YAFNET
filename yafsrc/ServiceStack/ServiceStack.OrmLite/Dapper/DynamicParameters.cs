@@ -23,7 +23,7 @@ namespace ServiceStack.OrmLite.Dapper
         private List<object> templates;
 
         object SqlMapper.IParameterLookup.this[string name] =>
-            parameters.TryGetValue(name, out ParamInfo param) ? param.Value : null;
+            parameters.TryGetValue(name, out var param) ? param.Value : null;
 
         /// <summary>
         /// construct a dynamic parameter bag
@@ -53,11 +53,9 @@ namespace ServiceStack.OrmLite.Dapper
             var obj = param;
             if (obj != null)
             {
-                var subDynamic = obj as DynamicParameters;
-                if (subDynamic == null)
+                if (!(obj is DynamicParameters subDynamic))
                 {
-                    var dictionary = obj as IEnumerable<KeyValuePair<string, object>>;
-                    if (dictionary == null)
+                    if (!(obj is IEnumerable<KeyValuePair<string, object>> dictionary))
                     {
                         templates = templates ?? new List<object>();
                         templates.Add(obj);
@@ -228,7 +226,7 @@ namespace ServiceStack.OrmLite.Dapper
 
                 var dbType = param.DbType;
                 var val = param.Value;
-                string name = Clean(param.Name);
+                var name = Clean(param.Name);
                 var isCustomQueryParameter = val is SqlMapper.ICustomQueryParameter;
 
                 SqlMapper.ITypeHandler handler = null;
@@ -250,7 +248,7 @@ namespace ServiceStack.OrmLite.Dapper
                 }
                 else
                 {
-                    bool add = !command.Parameters.Contains(name);
+                    var add = !command.Parameters.Contains(name);
                     IDbDataParameter p;
                     if (add)
                     {
@@ -317,7 +315,7 @@ namespace ServiceStack.OrmLite.Dapper
         {
             var paramInfo = parameters[Clean(name)];
             var attachedParam = paramInfo.AttachedParam;
-            object val = attachedParam == null ? paramInfo.Value : attachedParam.Value;
+            var val = attachedParam == null ? paramInfo.Value : attachedParam.Value;
             if (val == DBNull.Value)
             {
                 if (default(T) != null)
@@ -366,10 +364,10 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
-            MemberExpression diving = lastMemberAccess;
+            var diving = lastMemberAccess;
             // Retain a list of member names and the member expressions so we can rebuild the chain.
-            List<string> names = new List<string>();
-            List<MemberExpression> chain = new List<MemberExpression>();
+            var names = new List<string>();
+            var chain = new List<MemberExpression>();
 
             do
             {
@@ -459,9 +457,9 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 // Finally, prep the parameter and attach the callback to it
                 var targetMemberType = lastMemberAccess?.Type;
-                int sizeToSet = !size.HasValue && targetMemberType == typeof(string) ? DbString.DefaultLength : size ?? 0;
+                var sizeToSet = !size.HasValue && targetMemberType == typeof(string) ? DbString.DefaultLength : size ?? 0;
 
-                if (parameters.TryGetValue(dynamicParamName, out ParamInfo parameter))
+                if (parameters.TryGetValue(dynamicParamName, out var parameter))
                 {
                     parameter.ParameterDirection = parameter.AttachedParam.Direction = ParameterDirection.InputOutput;
 
@@ -474,7 +472,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     dbType = !dbType.HasValue
 #pragma warning disable 618
-                    ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler)
+                    ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out var handler)
 #pragma warning restore 618
                     : dbType;
 

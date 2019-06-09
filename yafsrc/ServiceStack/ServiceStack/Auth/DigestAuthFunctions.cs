@@ -32,16 +32,16 @@ namespace ServiceStack.Auth
 
         public string GetNonce(string IPAddress, string PrivateKey)
         {
-            double dateTimeInMilliSeconds = (DateTime.UtcNow - DateTime.MinValue).TotalMilliseconds;
-            string dateTimeInMilliSecondsString = dateTimeInMilliSeconds.ToString(CultureInfo.InvariantCulture);
-            string privateHash = PrivateHashEncode(dateTimeInMilliSecondsString, IPAddress, PrivateKey);
+            var dateTimeInMilliSeconds = (DateTime.UtcNow - DateTime.MinValue).TotalMilliseconds;
+            var dateTimeInMilliSecondsString = dateTimeInMilliSeconds.ToString(CultureInfo.InvariantCulture);
+            var privateHash = PrivateHashEncode(dateTimeInMilliSecondsString, IPAddress, PrivateKey);
             return Base64Encode($"{dateTimeInMilliSecondsString}:{privateHash}");
         }
 
         public bool ValidateNonce(string nonce, string IPAddress, string PrivateKey)
         { 
             var nonceparts = GetNonceParts(nonce);
-            string privateHash = PrivateHashEncode(nonceparts[0], IPAddress, PrivateKey);
+            var privateHash = PrivateHashEncode(nonceparts[0], IPAddress, PrivateKey);
             return string.CompareOrdinal(privateHash, nonceparts[1]) == 0;
         }
 
@@ -63,7 +63,7 @@ namespace ServiceStack.Auth
         public string ConvertToHexString(IEnumerable<byte> hash)
         {
             var hexString = StringBuilderCache.Allocate();
-            foreach (byte byteFromHash in hash)
+            foreach (var byteFromHash in hash)
             {
                 hexString.Append($"{byteFromHash:x2}");
             }
@@ -72,13 +72,13 @@ namespace ServiceStack.Auth
 
         public string CreateAuthResponse(Dictionary<string, string> digestHeaders, string Ha1)
         {
-            string Ha2 = CreateHa2(digestHeaders);
+            var Ha2 = CreateHa2(digestHeaders);
             return CreateAuthResponse(digestHeaders, Ha1, Ha2);
         }
 
         public string CreateAuthResponse(Dictionary<string, string> digestHeaders, string Ha1, string Ha2)
         {
-            string response = $"{Ha1}:{digestHeaders["nonce"]}:{digestHeaders["nc"]}:{digestHeaders["cnonce"]}:{digestHeaders["qop"].ToLower()}:{Ha2}";
+            var response = $"{Ha1}:{digestHeaders["nonce"]}:{digestHeaders["nc"]}:{digestHeaders["cnonce"]}:{digestHeaders["qop"].ToLower()}:{Ha2}";
             return ConvertToHexString(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(response)));
         }
 

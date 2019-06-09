@@ -222,7 +222,7 @@ namespace ServiceStack.Host.Handlers
 
                     if (HostContext.Config.AllowPartialResponses)
                         r.AddHeader(HttpHeaders.AcceptRanges, "bytes");
-                    long contentLength = file.Length;
+                    var contentLength = file.Length;
                     long rangeStart, rangeEnd;
                     var rangeHeader = request.Headers[HttpHeaders.Range];
                     if (HostContext.Config.AllowPartialResponses && rangeHeader != null)
@@ -339,7 +339,7 @@ namespace ServiceStack.Host.Handlers
                 path = queue.Dequeue();
                 try
                 {
-                    foreach (string subDir in Directory.GetDirectories(path))
+                    foreach (var subDir in Directory.GetDirectories(path))
                     {
                         queue.Enqueue(subDir);
                     }
@@ -359,7 +359,7 @@ namespace ServiceStack.Host.Handlers
                 }
                 if (files != null)
                 {
-                    for (int i = 0; i < files.Length; i++)
+                    for (var i = 0; i < files.Length; i++)
                     {
                         yield return files[i];
                     }
@@ -379,7 +379,7 @@ namespace ServiceStack.Host.Handlers
                 path = queue.Dequeue();
                 try
                 {
-                    foreach (string subDir in Directory.GetDirectories(path))
+                    foreach (var subDir in Directory.GetDirectories(path))
                     {
                         queue.Enqueue(subDir);
                         results.Add(subDir);

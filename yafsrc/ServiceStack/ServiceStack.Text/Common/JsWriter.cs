@@ -171,8 +171,7 @@ namespace ServiceStack.Text.Common
                 var oAttrs = type.AllAttributes();
                 foreach (var oAttr in oAttrs)
                 {
-                    var attr = oAttr as Attribute;
-                    if (attr == null) continue;
+                    if (!(oAttr is Attribute attr)) continue;
                     if (allowAttributesNamed.Contains(attr.GetType().Name))
                         return true;
                 }

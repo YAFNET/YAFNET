@@ -50,15 +50,15 @@ namespace ServiceStack.Templates
                 var isComment = text.GetChar(varStartPos) == '*';
                 if (!isComment)
                 {
-                    var literal = text.Subsegment(varStartPos).ParseNextToken(out object initialValue, out JsBinding initialBinding, allowWhitespaceSyntax:true);
+                    var literal = text.Subsegment(varStartPos).ParseNextToken(out var initialValue, out var initialBinding, allowWhitespaceSyntax:true);
     
                     List<JsExpression> filterCommands = null;
     
-                    literal = literal.ParseNextToken(out _, out JsBinding filterOp);
+                    literal = literal.ParseNextToken(out _, out var filterOp);
                     if (filterOp == JsBitwiseOr.Operator)
                     {
                         var varEndPos = 0;
-                        bool foundVarEnd = false;
+                        var foundVarEnd = false;
                     
                         filterCommands = literal.ParseExpression<JsExpression>(
                             separator: '|',
@@ -150,7 +150,7 @@ namespace ServiceStack.Templates
 
             var pos = 0;
             var depth = 0;
-            while (expr.TryReadPart(".", out StringSegment member, ref pos))
+            while (expr.TryReadPart(".", out var member, ref pos))
             {
                 try
                 {
@@ -164,7 +164,7 @@ namespace ServiceStack.Templates
                     {
                         var prop = member.LeftPart('[');
                         var indexer = member.RightPart('[');
-                        indexer.ParseNextToken(out object value, out JsBinding binding);
+                        indexer.ParseNextToken(out var value, out var binding);
 
                         if (binding is JsExpression)
                             throw new BindingExpressionException($"Only constant binding expressions are supported: '{expr}'",

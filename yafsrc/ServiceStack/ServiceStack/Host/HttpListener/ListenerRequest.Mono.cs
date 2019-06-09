@@ -47,7 +47,7 @@ namespace ServiceStack.Host.HttpListener
     {
         static internal string GetParameter(string header, string attr)
         {
-            int ap = header.IndexOf(attr);
+            var ap = header.IndexOf(attr);
             if (ap == -1)
                 return null;
 
@@ -55,11 +55,11 @@ namespace ServiceStack.Host.HttpListener
             if (ap >= header.Length)
                 return null;
 
-            char ending = header[ap];
+            var ending = header[ap];
             if (ending != '"')
                 ending = ' ';
 
-            int end = header.IndexOf(ending, ap + 1);
+            var end = header.IndexOf(ending, ap + 1);
             if (end == -1)
                 return ending == '"' ? null : header.Substring(ap);
 
@@ -68,7 +68,7 @@ namespace ServiceStack.Host.HttpListener
 
         void LoadMultiPart()
         {
-            string boundary = GetParameter(ContentType, "; boundary=");
+            var boundary = GetParameter(ContentType, "; boundary=");
             if (boundary == null)
                 return;
 
@@ -96,7 +96,7 @@ namespace ServiceStack.Host.HttpListener
             {
                 if (e.Filename == null)
                 {
-                    byte[] copy = new byte[e.Length];
+                    var copy = new byte[e.Length];
 
                     input.Position = e.Start;
                     input.Read(copy, 0, (int)e.Length);
@@ -108,7 +108,7 @@ namespace ServiceStack.Host.HttpListener
                     //
                     // We use a substream, as in 2.x we will support large uploads streamed to disk,
                     //
-                    HttpPostedFile sub = new HttpPostedFile(e.Filename, e.ContentType, input, e.Start, e.Length);
+                    var sub = new HttpPostedFile(e.Filename, e.ContentType, input, e.Start, e.Length);
                     files.AddFile(e.Name, sub);
                 }
             }
@@ -157,11 +157,11 @@ namespace ServiceStack.Host.HttpListener
 
         static void ThrowValidationException(string name, string key, string value)
         {
-            string v = "\"" + value + "\"";
+            var v = "\"" + value + "\"";
             if (v.Length > 20)
                 v = v.Substring(0, 16) + "...\"";
 
-            string msg = $"A potentially dangerous Request.{name} value was "
+            var msg = $"A potentially dangerous Request.{name} value was "
                          + $"detected from the client ({key}={v}).";
 
             throw new HttpRequestValidationException(msg);
@@ -174,7 +174,7 @@ namespace ServiceStack.Host.HttpListener
 
             foreach (string key in coll.Keys)
             {
-                string val = coll[key];
+                var val = coll[key];
                 if (val != null && val.Length > 0 && IsInvalidString(val))
                     ThrowValidationException(name, key, val);
             }
@@ -191,14 +191,14 @@ namespace ServiceStack.Host.HttpListener
         {
             validationFailureIndex = 0;
 
-            int len = val.Length;
+            var len = val.Length;
             if (len < 2)
                 return false;
 
-            char current = val[0];
-            for (int idx = 1; idx < len; idx++)
+            var current = val[0];
+            for (var idx = 1; idx < len; idx++)
             {
-                char next = val[idx];
+                var next = val[idx];
                 // See http://secunia.com/advisories/14325
                 if (current == '<' || current == '\xff1c')
                 {
@@ -241,9 +241,9 @@ namespace ServiceStack.Host.HttpListener
 
         void LoadWwwForm()
         {
-            using (Stream input = GetSubStream(InputStream))
+            using (var input = GetSubStream(InputStream))
             {
-                using (StreamReader s = new StreamReader(input, ContentEncoding))
+                using (var s = new StreamReader(input, ContentEncoding))
                 {
                     var key = StringBuilderCache.Allocate();
                     var value = StringBuilderCacheAlt.Allocate();
@@ -288,7 +288,7 @@ namespace ServiceStack.Host.HttpListener
 
         void AddRawKeyValue(StringBuilder key, StringBuilder value)
         {
-            string decodedKey = HttpUtility.UrlDecode(key.ToString(), ContentEncoding);
+            var decodedKey = HttpUtility.UrlDecode(key.ToString(), ContentEncoding);
             form.Add(decodedKey,
                   HttpUtility.UrlDecode(value.ToString(), ContentEncoding));
 
@@ -316,7 +316,7 @@ namespace ServiceStack.Host.HttpListener
                 /* XXX this is kind of gross and inefficient
                  * since it makes a copy of the superclass's
                  * list */
-                object[] values = BaseGetAllValues();
+                var values = BaseGetAllValues();
                 values.CopyTo(dest, index);
             }
 
@@ -370,7 +370,7 @@ namespace ServiceStack.Host.HttpListener
             public override string ToString()
             {
                 var sb = StringBuilderCache.Allocate();
-                foreach (string key in AllKeys)
+                foreach (var key in AllKeys)
                 {
                     if (sb.Length > 0)
                         sb.Append('&');
@@ -422,7 +422,7 @@ namespace ServiceStack.Host.HttpListener
                     if (count < 0)
                         throw new ArgumentOutOfRangeException("count", "< 0");
 
-                    int len = buffer.Length;
+                    var len = buffer.Length;
                     if (dest_offset > len)
                         throw new ArgumentException("destination offset is beyond array size");
                     // reordered to avoid possible integer overflow
@@ -436,7 +436,7 @@ namespace ServiceStack.Host.HttpListener
                         return 0;
 
                     s.Position = position;
-                    int result = s.Read(buffer, dest_offset, count);
+                    var result = s.Read(buffer, dest_offset, count);
                     if (result > 0)
                         position += result;
                     else
@@ -451,7 +451,7 @@ namespace ServiceStack.Host.HttpListener
                         return -1;
 
                     s.Position = position;
-                    int result = s.ReadByte();
+                    var result = s.ReadByte();
                     if (result < 0)
                         position = end;
                     else
@@ -478,7 +478,7 @@ namespace ServiceStack.Host.HttpListener
                             throw new ArgumentException();
                     }
 
-                    long virt = real - offset;
+                    var virt = real - offset;
                     if (virt < 0 || virt > Length)
                         throw new ArgumentException();
 
@@ -534,13 +534,13 @@ namespace ServiceStack.Host.HttpListener
 
             public void SaveAs(string filename)
             {
-                byte[] buffer = new byte[16 * 1024];
-                long old_post = stream.Position;
+                var buffer = new byte[16 * 1024];
+                var old_post = stream.Position;
 
                 try
                 {
                     File.Delete(filename);
-                    using (FileStream fs = File.Create(filename))
+                    using (var fs = File.Create(filename))
                     {
                         stream.Position = 0;
                         int n;
@@ -574,11 +574,11 @@ namespace ServiceStack.Host.HttpListener
 
             public static bool StartsWith(string str1, string str2, bool ignore_case)
             {
-                int l2 = str2.Length;
+                var l2 = str2.Length;
                 if (l2 == 0)
                     return true;
 
-                int l1 = str1.Length;
+                var l1 = str1.Length;
                 if (l2 > l1)
                     return false;
 
@@ -592,11 +592,11 @@ namespace ServiceStack.Host.HttpListener
 
             public static bool EndsWith(string str1, string str2, bool ignore_case)
             {
-                int l2 = str2.Length;
+                var l2 = str2.Length;
                 if (l2 == 0)
                     return true;
 
-                int l1 = str1.Length;
+                var l1 = str1.Length;
                 if (l2 > l1)
                     return false;
 
@@ -661,8 +661,8 @@ namespace ServiceStack.Host.HttpListener
             string ReadLine()
             {
                 // CRLF or LF are ok as line endings.
-                bool got_cr = false;
-                int b = 0;
+                var got_cr = false;
+                var b = 0;
                 sb.Length = 0;
                 while (true)
                 {
@@ -715,7 +715,7 @@ namespace ServiceStack.Host.HttpListener
                 if (string.IsNullOrEmpty(temp))
                     return temp;
                 var source = new byte[temp.Length];
-                for (int i = temp.Length - 1; i >= 0; i--)
+                for (var i = temp.Length - 1; i >= 0; i--)
                     source[i] = (byte)temp[i];
 
                 return encoding.GetString(source);
@@ -725,7 +725,7 @@ namespace ServiceStack.Host.HttpListener
             {
                 try
                 {
-                    string line = ReadLine();
+                    var line = ReadLine();
                     while (line == "")
                         line = ReadLine();
                     if (line[0] != '-' || line[1] != '-')
@@ -743,7 +743,7 @@ namespace ServiceStack.Host.HttpListener
 
             string ReadHeaders()
             {
-                string s = ReadLine();
+                var s = ReadLine();
                 if (s == "")
                     return null;
 
@@ -752,7 +752,7 @@ namespace ServiceStack.Host.HttpListener
 
             bool CompareBytes(byte[] orig, byte[] other)
             {
-                for (int i = orig.Length - 1; i >= 0; i--)
+                for (var i = orig.Length - 1; i >= 0; i--)
                     if (orig[i] != other[i])
                         return false;
 
@@ -762,10 +762,10 @@ namespace ServiceStack.Host.HttpListener
             long MoveToNextBoundary()
             {
                 long retval = 0;
-                bool got_cr = false;
+                var got_cr = false;
 
-                int state = 0;
-                int c = data.ReadByte();
+                var state = 0;
+                var c = data.ReadByte();
                 while (true)
                 {
                     if (c == -1)
@@ -797,8 +797,8 @@ namespace ServiceStack.Host.HttpListener
                             continue; // no ReadByte() here
                         }
 
-                        int nread = data.Read(buffer, 0, buffer.Length);
-                        int bl = buffer.Length;
+                        var nread = data.Read(buffer, 0, buffer.Length);
+                        var bl = buffer.Length;
                         if (nread != bl)
                             return -1;
 
@@ -851,7 +851,7 @@ namespace ServiceStack.Host.HttpListener
                 if (at_eof || ReadBoundary())
                     return null;
 
-                Element elem = new Element();
+                var elem = new Element();
                 string header;
                 while ((header = ReadHeaders()) != null)
                 {
@@ -870,7 +870,7 @@ namespace ServiceStack.Host.HttpListener
                 long start = 0;
                 start = data.Position;
                 elem.Start = start;
-                long pos = MoveToNextBoundary();
+                var pos = MoveToNextBoundary();
                 if (pos == -1)
                     return null;
 

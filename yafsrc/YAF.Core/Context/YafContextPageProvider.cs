@@ -90,9 +90,7 @@ namespace YAF.Core
                     return _globalInstance ?? (_globalInstance = this.CreateContextInstance());
                 }
 
-                var pageInstance = HttpContext.Current.Items[PageYafContextName] as YafContext;
-
-                if (pageInstance == null)
+                if (!(HttpContext.Current.Items[PageYafContextName] is YafContext pageInstance))
                 {
                     pageInstance = this.CreateContextInstance();
 

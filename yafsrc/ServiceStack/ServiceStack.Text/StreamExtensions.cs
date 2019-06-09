@@ -16,8 +16,7 @@ namespace ServiceStack
     {
         public static long WriteTo(this Stream inStream, Stream outStream)
         {
-            var memoryStream = inStream as MemoryStream;
-            if (memoryStream != null)
+            if (inStream is MemoryStream memoryStream)
             {
                 memoryStream.WriteTo(outStream);
                 return memoryStream.Position;
@@ -285,7 +284,7 @@ namespace ServiceStack
         {
             var hash = System.Security.Cryptography.MD5.Create().ComputeHash(stream);
             var sb = StringBuilderCache.Allocate();
-            foreach (byte b in hash)
+            foreach (var b in hash)
             {
                 sb.Append(b.ToString("x2"));
             }
@@ -297,7 +296,7 @@ namespace ServiceStack
         {
             var hash = System.Security.Cryptography.MD5.Create().ComputeHash(bytes);
             var sb = StringBuilderCache.Allocate();
-            foreach (byte b in hash)
+            foreach (var b in hash)
             {
                 sb.Append(b.ToString("x2"));
             }

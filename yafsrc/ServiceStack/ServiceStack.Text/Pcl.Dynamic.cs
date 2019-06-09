@@ -311,8 +311,8 @@ namespace ServiceStack
             {
                 if (methodInfo.ReturnType.IsValueType || methodInfo.ReturnType.IsEnum)
                 {
-                    MethodInfo getMethod = typeof(Activator).GetMethod("CreateInstance", new[] { typeof(Type) });
-                    LocalBuilder lb = methodILGen.DeclareLocal(methodInfo.ReturnType);
+                    var getMethod = typeof(Activator).GetMethod("CreateInstance", new[] { typeof(Type) });
+                    var lb = methodILGen.DeclareLocal(methodInfo.ReturnType);
                     methodILGen.Emit(OpCodes.Ldtoken, lb.LocalType);
                     methodILGen.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
                     methodILGen.Emit(OpCodes.Callvirt, getMethod);
@@ -332,35 +332,35 @@ namespace ServiceStack
         public static void BindProperty(TypeBuilder typeBuilder, MethodInfo methodInfo)
         {
             // Backing Field
-            string propertyName = methodInfo.Name.Replace("get_", string.Empty);
-            Type propertyType = methodInfo.ReturnType;
-            FieldBuilder backingField = typeBuilder.DefineField(
+            var propertyName = methodInfo.Name.Replace("get_", string.Empty);
+            var propertyType = methodInfo.ReturnType;
+            var backingField = typeBuilder.DefineField(
                 "_" + propertyName,
                 propertyType,
                 FieldAttributes.Private);
 
             // Getter
-            MethodBuilder backingGet = typeBuilder.DefineMethod(
+            var backingGet = typeBuilder.DefineMethod(
                 "get_" + propertyName,
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
                 | MethodAttributes.HideBySig,
                 propertyType,
                 EmptyTypes);
-            ILGenerator getIl = backingGet.GetILGenerator();
+            var getIl = backingGet.GetILGenerator();
 
             getIl.Emit(OpCodes.Ldarg_0);
             getIl.Emit(OpCodes.Ldfld, backingField);
             getIl.Emit(OpCodes.Ret);
 
             // Setter
-            MethodBuilder backingSet = typeBuilder.DefineMethod(
+            var backingSet = typeBuilder.DefineMethod(
                 "set_" + propertyName,
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
                 | MethodAttributes.HideBySig,
                 null,
                 new[] { propertyType });
 
-            ILGenerator setIl = backingSet.GetILGenerator();
+            var setIl = backingSet.GetILGenerator();
 
             setIl.Emit(OpCodes.Ldarg_0);
             setIl.Emit(OpCodes.Ldarg_1);
@@ -368,7 +368,7 @@ namespace ServiceStack
             setIl.Emit(OpCodes.Ret);
 
             // Property
-            PropertyBuilder propertyBuilder = typeBuilder.DefineProperty(
+            var propertyBuilder = typeBuilder.DefineProperty(
                 propertyName,
                 PropertyAttributes.None,
                 propertyType,

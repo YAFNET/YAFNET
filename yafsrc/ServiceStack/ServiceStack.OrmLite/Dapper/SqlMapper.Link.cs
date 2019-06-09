@@ -34,7 +34,7 @@ namespace ServiceStack.OrmLite.Dapper
                 do
                 {
                     var snapshot = Interlocked.CompareExchange(ref head, null, null);
-                    if (TryGet(snapshot, key, out TValue found))
+                    if (TryGet(snapshot, key, out var found))
                     { // existing match; report the existing value instead
                         value = found;
                         return false;

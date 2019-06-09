@@ -484,7 +484,7 @@ namespace YAF.Types.Extensions
 
             if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                conversionType = (new NullableConverter(conversionType)).UnderlyingType;
+                conversionType = new NullableConverter(conversionType).UnderlyingType;
             }
 
             return (T)Convert.ChangeType(instance, conversionType);

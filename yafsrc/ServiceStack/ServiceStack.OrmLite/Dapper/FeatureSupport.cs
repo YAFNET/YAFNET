@@ -18,7 +18,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="connection">The connection to get supported features for.</param>
         public static FeatureSupport Get(IDbConnection connection)
         {
-            string name = connection?.GetType().Name;
+            var name = connection?.GetType().Name;
             if (string.Equals(name, "npgsqlconnection", StringComparison.OrdinalIgnoreCase)) return Postgres;
             return Default;
         }

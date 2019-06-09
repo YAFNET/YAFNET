@@ -106,11 +106,11 @@ namespace ServiceStack
                 throw new InvalidOperationException(
                     "Sending Range Responses requires a seekable stream eg. FileStream or MemoryStream");
 
-            long totalBytesToSend = end - start + 1;
+            var totalBytesToSend = end - start + 1;
 
             var buf = SharedPools.AsyncByteArray.Allocate();
 
-            long bytesRemaining = totalBytesToSend;
+            var bytesRemaining = totalBytesToSend;
 
             fromStream.Seek(start, SeekOrigin.Begin);
             while (bytesRemaining > 0)
@@ -153,11 +153,11 @@ namespace ServiceStack
                 throw new InvalidOperationException(
                     "Sending Range Responses requires a seekable stream eg. FileStream or MemoryStream");
 
-            long totalBytesToSend = end - start + 1;
+            var totalBytesToSend = end - start + 1;
 
             var buf = SharedPools.AsyncByteArray.Allocate();
 
-            long bytesRemaining = totalBytesToSend;
+            var bytesRemaining = totalBytesToSend;
 
             fromStream.Seek(start, SeekOrigin.Begin);
             while (bytesRemaining > 0)

@@ -66,13 +66,11 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// Gets a MemberInfo from a member expression.
 		/// </summary>
 		public static MemberInfo GetMember<T, TProperty>(this Expression<Func<T, TProperty>> expression) {
-			var memberExp = RemoveUnary(expression.Body) as MemberExpression;
-
-			if (memberExp == null) {
+            if (!(RemoveUnary(expression.Body) is MemberExpression memberExp)) {
 				return null;
 			}
 
-			Expression currentExpr = memberExp.Expression;
+			var currentExpr = memberExp.Expression;
 
 			// Unwind the expression to get the root object that the expression acts upon. 
 			while (true) {
@@ -111,7 +109,7 @@ namespace ServiceStack.FluentValidation.Internal {
 
 			var retVal = new StringBuilder(input.Length + 5);
 
-			for (int i = 0; i < input.Length; ++i) {
+			for (var i = 0; i < input.Length; ++i) {
 				var currentChar = input[i];
 				if (char.IsUpper(currentChar)) {
 					if (i > 1 && !char.IsUpper(input[i - 1])
@@ -134,7 +132,7 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <returns></returns>
 		internal static Expression<Func<T, TProperty>> GetConstantExpresionFromConstant<T, TProperty>(TProperty valueToCompare) {
 			Expression constant = Expression.Constant(valueToCompare, typeof(TProperty));
-			ParameterExpression parameter = Expression.Parameter(typeof(T), "t");
+			var parameter = Expression.Parameter(typeof(T), "t");
 			return Expression.Lambda<Func<T, TProperty>>(constant, parameter);
 		}
 

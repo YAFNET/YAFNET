@@ -36,40 +36,40 @@ namespace ServiceStack.Auth
 
         public override object Authenticate(IServiceBase authService, IAuthSession session, Authenticate request)
         {
-            IAuthTokens tokens = Init(authService, ref session, request);
-            IRequest httpRequest = authService.Request;
+            var tokens = Init(authService, ref session, request);
+            var httpRequest = authService.Request;
 
 
-            string error = httpRequest.QueryString["error"]
+            var error = httpRequest.QueryString["error"]
                            ?? httpRequest.QueryString["error_uri"]
                            ?? httpRequest.QueryString["error_description"];
 
-            bool hasError = !error.IsNullOrEmpty();
+            var hasError = !error.IsNullOrEmpty();
             if (hasError)
             {
                 Log.Error($"Yandex error callback. {httpRequest.QueryString}");
                 return authService.Redirect(FailedRedirectUrlFilter(this, session.ReferrerUrl.SetParam("f", error)));
             }
 
-            string code = httpRequest.QueryString["code"];
-            bool isPreAuthCallback = !code.IsNullOrEmpty();
+            var code = httpRequest.QueryString["code"];
+            var isPreAuthCallback = !code.IsNullOrEmpty();
             if (!isPreAuthCallback)
             {
-                string preAuthUrl = $"{PreAuthUrl}?response_type=code&client_id={ApplicationId}&redirect_uri={CallbackUrl.UrlEncode()}&display=popup&state={Guid.NewGuid().ToString("N")}";
+                var preAuthUrl = $"{PreAuthUrl}?response_type=code&client_id={ApplicationId}&redirect_uri={CallbackUrl.UrlEncode()}&display=popup&state={Guid.NewGuid().ToString("N")}";
                 this.SaveSession(authService, session, SessionExpiry);
                 return authService.Redirect(PreAuthUrlFilter(this, preAuthUrl));
             }
 
             try
             {
-                string payload = $"grant_type=authorization_code&code={code}&client_id={ApplicationId}&client_secret={ApplicationPassword}";
-                string contents = AccessTokenUrl.PostStringToUrl(payload);
+                var payload = $"grant_type=authorization_code&code={code}&client_id={ApplicationId}&client_secret={ApplicationPassword}";
+                var contents = AccessTokenUrl.PostStringToUrl(payload);
 
                 var authInfo = JsonObject.Parse(contents);
 
                 //Yandex does not throw exception, but returns error property in JSON response
                 // http://api.yandex.ru/oauth/doc/dg/reference/obtain-access-token.xml
-                string accessTokenError = authInfo.Get("error");
+                var accessTokenError = authInfo.Get("error");
 
                 if (!accessTokenError.IsNullOrEmpty())
                 {
@@ -99,8 +99,8 @@ namespace ServiceStack.Auth
         {
             try
             {
-                string json = $"https://login.yandex.ru/info?format=json&oauth_token={tokens.AccessTokenSecret}".GetJsonFromUrl();
-                JsonObject obj = JsonObject.Parse(json);
+                var json = $"https://login.yandex.ru/info?format=json&oauth_token={tokens.AccessTokenSecret}".GetJsonFromUrl();
+                var obj = JsonObject.Parse(json);
 
                 tokens.UserId = obj.Get("id");
                 tokens.UserName = obj.Get("display_name");
@@ -120,8 +120,7 @@ namespace ServiceStack.Auth
 
         public override void LoadUserOAuthProvider(IAuthSession authSession, IAuthTokens tokens)
         {
-            var userSession = authSession as AuthUserSession;
-            if (userSession == null) return;
+            if (!(authSession is AuthUserSession userSession)) return;
 
             userSession.UserName = tokens.UserName ?? userSession.UserName;
             userSession.DisplayName = tokens.DisplayName ?? userSession.DisplayName;

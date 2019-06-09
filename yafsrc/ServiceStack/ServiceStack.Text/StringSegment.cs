@@ -142,7 +142,7 @@ namespace ServiceStack.Text
         /// <returns><code>true</code> if the current object is equal to the other parameter; otherwise, <code>false</code>.</returns>
         public bool Equals(StringSegment other, StringComparison comparisonType)
         {
-            int textLength = other.Length;
+            var textLength = other.Length;
             if (this.Length != textLength)
             {
                 return false;
@@ -174,7 +174,7 @@ namespace ServiceStack.Text
                 throw new ArgumentNullException(nameof(text));
             }
 
-            int textLength = text.Length;
+            var textLength = text.Length;
             if (!this.HasValue || this.Length != textLength)
             {
                 return false;

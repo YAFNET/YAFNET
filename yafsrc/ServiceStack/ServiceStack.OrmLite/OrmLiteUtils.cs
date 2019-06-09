@@ -997,7 +997,7 @@ namespace ServiceStack.OrmLite
 
             var inDoubleQuotes = false;
             var inSingleQuotes = false;
-            int inBracesCount = 0;
+            var inBracesCount = 0;
 
             var pos = 0;
 

@@ -135,7 +135,7 @@ namespace ServiceStack.OrmLite.Dapper
         {
             if (commandType == null)
                 return null; // GIGO
-            if (SqlMapper.Link<Type, Action<IDbCommand>>.TryGet(commandInitCache, commandType, out Action<IDbCommand> action))
+            if (SqlMapper.Link<Type, Action<IDbCommand>>.TryGet(commandInitCache, commandType, out var action))
             {
                 return action;
             }

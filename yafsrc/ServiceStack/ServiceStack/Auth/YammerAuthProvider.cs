@@ -229,8 +229,7 @@ namespace ServiceStack.Auth
         /// </param>
         public override void LoadUserOAuthProvider(IAuthSession authSession, IAuthTokens tokens)
         {
-            var userSession = authSession as AuthUserSession;
-            if (userSession == null)
+            if (!(authSession is AuthUserSession userSession))
             {
                 return;
             }

@@ -52,7 +52,7 @@ namespace ServiceStack
                 return null;
 
             var to = new Dictionary<string, object>();
-            foreach (MemberBinding binding in initExpr.Bindings)
+            foreach (var binding in initExpr.Bindings)
             {
                 to[binding.Member.Name] = binding.GetValue();
             }

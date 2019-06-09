@@ -50,7 +50,7 @@ namespace ServiceStack.Logging
         /// </summary>
         private static void LogFormat(object message, params object[] args)
         {
-            string msg = message?.ToString() ?? string.Empty;
+            var msg = message?.ToString() ?? string.Empty;
             Console.WriteLine(msg, args);
         }
 
@@ -59,7 +59,7 @@ namespace ServiceStack.Logging
         /// </summary>
         private static void Log(object message)
         {
-            string msg = message?.ToString() ?? string.Empty;
+            var msg = message?.ToString() ?? string.Empty;
             Console.WriteLine(msg);
         }
 

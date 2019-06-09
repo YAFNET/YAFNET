@@ -102,8 +102,7 @@ namespace ServiceStack
 
         public override bool Match(object a, object b)
         {
-            var bValues = b as IEnumerable;
-            if (bValues == null)
+            if (!(b is IEnumerable bValues))
                 return EqualsCondition.Instance.Match(a, b);
 
             foreach (var item in bValues)
@@ -121,8 +120,7 @@ namespace ServiceStack
 
         public override bool Match(object a, object b)
         {
-            var bValues = b as IEnumerable;
-            if (bValues == null)
+            if (!(b is IEnumerable bValues))
                 throw new ArgumentException("InBetweenCondition must be queried with multiple values");
 
             var bList = bValues.Map(x => x);
@@ -215,8 +213,7 @@ namespace ServiceStack
 
             if (a.GetType() == b.GetType())
             {
-                var ac = a as IComparable;
-                if (ac != null)
+                if (a is IComparable ac)
                     return ac.CompareTo(b);
             }
 

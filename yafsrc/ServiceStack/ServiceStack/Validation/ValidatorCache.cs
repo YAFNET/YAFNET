@@ -40,8 +40,7 @@ namespace ServiceStack.Validation
         public static IValidator GetValidator(IRequest httpReq)
         {
             var validator = httpReq.TryResolve<IValidator<T>>();
-            var hasRequest = validator as IRequiresRequest;
-            if (hasRequest != null)
+            if (validator is IRequiresRequest hasRequest)
                 hasRequest.Request = httpReq;
             return validator;
         }

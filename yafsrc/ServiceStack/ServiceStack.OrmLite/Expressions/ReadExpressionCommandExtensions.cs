@@ -12,14 +12,14 @@ namespace ServiceStack.OrmLite
     {
         internal static List<T> Select<T>(this IDbCommand dbCmd, SqlExpression<T> q)
         {
-            string sql = q.SelectInto<T>();
+            var sql = q.SelectInto<T>();
             return dbCmd.ExprConvertToList<T>(sql, q.Params, onlyFields: q.OnlyFields);
         }
 
         internal static List<T> Select<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
         {
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-            string sql = q.Where(predicate).SelectInto<T>();
+            var sql = q.Where(predicate).SelectInto<T>();
 
             return dbCmd.ExprConvertToList<T>(sql, q.Params);
         }
@@ -135,7 +135,7 @@ namespace ServiceStack.OrmLite
 
         internal static T Single<T>(this IDbCommand dbCmd, SqlExpression<T> q)
         {
-            string sql = q.Limit(1).SelectInto<T>();
+            var sql = q.Limit(1).SelectInto<T>();
 
             return dbCmd.ExprConvertTo<T>(sql, q.Params, onlyFields:q.OnlyFields);
         }
@@ -159,7 +159,7 @@ namespace ServiceStack.OrmLite
         {
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
             q.Select(field).Where(predicate);
-            string sql = q.SelectInto<T>();
+            var sql = q.SelectInto<T>();
             return dbCmd.Scalar<TKey>(sql, q.Params);
         }
 

@@ -42,7 +42,7 @@ namespace YAF.UrlRewriter.Actions
 
             context.StatusCode = this.StatusCode;
 
-            return ((int)this.StatusCode >= 300)
+            return (int)this.StatusCode >= 300
                     ? RewriteProcessing.StopProcessing
                     : RewriteProcessing.ContinueProcessing;
         }

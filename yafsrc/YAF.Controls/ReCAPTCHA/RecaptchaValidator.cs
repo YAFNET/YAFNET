@@ -82,9 +82,9 @@ namespace YAF.Controls.ReCAPTCHA
             set
             {
                 var address = IPAddress.Parse(value);
-                if ((address == null) ||
-                    ((address.AddressFamily != AddressFamily.InterNetwork) &&
-                     (address.AddressFamily != AddressFamily.InterNetworkV6)))
+                if (address == null ||
+                    address.AddressFamily != AddressFamily.InterNetwork &&
+                    address.AddressFamily != AddressFamily.InterNetworkV6)
                 {
                     throw new ArgumentException("Expecting an IP address, got " + address);
                 }

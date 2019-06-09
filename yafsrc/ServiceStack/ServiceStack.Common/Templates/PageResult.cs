@@ -64,7 +64,7 @@ namespace ServiceStack.Templates
         /// </summary>
         public string ContentType
         {
-            get => Options.TryGetValue(HttpHeaders.ContentType, out string contentType) ? contentType : null;
+            get => Options.TryGetValue(HttpHeaders.ContentType, out var contentType) ? contentType : null;
             set => Options[HttpHeaders.ContentType] = value;
         }
 
@@ -335,8 +335,8 @@ namespace ServiceStack.Templates
         {
             if (pageArgs?.Count > 0)
             {
-                NoLayout = pageArgs.TryGetValue("ignore", out object ignore) && "template".Equals(ignore?.ToString()) ||
-                           pageArgs.TryGetValue("layout", out object layout) && "none".Equals(layout?.ToString());
+                NoLayout = pageArgs.TryGetValue("ignore", out var ignore) && "template".Equals(ignore?.ToString()) ||
+                           pageArgs.TryGetValue("layout", out var layout) && "none".Equals(layout?.ToString());
             }
         }
 
@@ -505,7 +505,7 @@ namespace ServiceStack.Templates
 
         private Func<Stream, Task<Stream>> GetFilterTransformer(string name)
         {
-            return FilterTransformers.TryGetValue(name, out Func<Stream, Task<Stream>> fn)
+            return FilterTransformers.TryGetValue(name, out var fn)
                 ? fn
                 : Context.FilterTransformers.TryGetValue(name, out fn)
                     ? fn
@@ -519,7 +519,7 @@ namespace ServiceStack.Templates
             {
                 if (var.FilterExpressions[0].Args.Count > 0)
                 {
-                    var.FilterExpressions[0].Args[0].ParseNextToken(out object argValue, out _);
+                    var.FilterExpressions[0].Args[0].ParseNextToken(out var argValue, out _);
                     scopedParams = argValue as Dictionary<string, object>;
                 }
             }
@@ -561,7 +561,7 @@ namespace ServiceStack.Templates
                     if (!var.Binding.HasValue)
                         return null;
 
-                    var hasFilterAsBinding = GetFilterAsBinding(var.BindingString, out TemplateFilter filter);
+                    var hasFilterAsBinding = GetFilterAsBinding(var.BindingString, out var filter);
                     if (hasFilterAsBinding != null)
                     {
                         value = InvokeFilter(hasFilterAsBinding, filter, new object[0], var.BindingString);
@@ -596,7 +596,7 @@ namespace ServiceStack.Templates
                 try
                 {
                     var filterName = expr.NameString;
-                    var invoker = GetFilterInvoker(filterName, 1 + expr.Args.Count, out TemplateFilter filter);
+                    var invoker = GetFilterInvoker(filterName, 1 + expr.Args.Count, out var filter);
                     var contextFilterInvoker = invoker == null
                         ? GetContextFilterInvoker(filterName, 2 + expr.Args.Count, out filter)
                         : null;
@@ -747,7 +747,7 @@ namespace ServiceStack.Templates
                     {
                         string errorBinding = null;
 
-                        if (ex.Options is Dictionary<string, object> filterParams && filterParams.TryGetValue(TemplateConstants.AssignError, out object assignError))
+                        if (ex.Options is Dictionary<string, object> filterParams && filterParams.TryGetValue(TemplateConstants.AssignError, out var assignError))
                             errorBinding = assignError as string;
 
                         if (errorBinding == null)
@@ -969,7 +969,7 @@ namespace ServiceStack.Templates
             if (expr.Name.IsNullOrEmpty())
                 throw new ArgumentNullException("expr.Name");
             
-            var invoker = GetFilterInvoker(expr.NameString, expr.Args.Count, out TemplateFilter filter);
+            var invoker = GetFilterInvoker(expr.NameString, expr.Args.Count, out var filter);
             if (invoker != null)
             {
                 var args = new object[expr.Args.Count];
@@ -1055,7 +1055,7 @@ namespace ServiceStack.Templates
 
             MethodInvoker invoker;
 
-            var value = scope.ScopedParams != null && scope.ScopedParams.TryGetValue(name, out object obj)
+            var value = scope.ScopedParams != null && scope.ScopedParams.TryGetValue(name, out var obj)
                 ? obj
                 : Args.TryGetValue(name, out obj)
                     ? obj
@@ -1067,7 +1067,7 @@ namespace ServiceStack.Templates
                                 ? obj
                                 : Context.Args.TryGetValue(name, out obj)
                                     ? obj
-                                    : (invoker = GetFilterAsBinding(name, out TemplateFilter filter)) != null
+                                    : (invoker = GetFilterAsBinding(name, out var filter)) != null
                                         ? InvokeFilter(invoker, filter, new object[0], name)
                                         : (invoker = GetContextFilterAsBinding(name, out filter)) != null
                                              ? InvokeFilter(invoker, filter, new object[]{ scope }, name)

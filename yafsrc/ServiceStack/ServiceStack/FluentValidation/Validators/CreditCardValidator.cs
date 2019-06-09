@@ -32,23 +32,21 @@ namespace ServiceStack.FluentValidation.Validators {
 		}
 
 		protected override bool IsValid(PropertyValidatorContext context) {
-			var value = context.PropertyValue as string;
-
-			if (value == null) {
+            if (!(context.PropertyValue is string value)) {
 				return true;
 			}
 
 			value = value.Replace("-", "").Replace(" ", "");
 
-			int checksum = 0;
-			bool evenDigit = false;
+			var checksum = 0;
+			var evenDigit = false;
 			// http://www.beachnet.com/~hstiles/cardtype.html
-			foreach (char digit in value.ToCharArray().Reverse()) {
+			foreach (var digit in value.ToCharArray().Reverse()) {
 				if (!char.IsDigit(digit)) {
 					return false;
 				}
 
-				int digitValue = (digit - '0') * (evenDigit ? 2 : 1);
+				var digitValue = (digit - '0') * (evenDigit ? 2 : 1);
 				evenDigit = !evenDigit;
 
 				while (digitValue > 0) {

@@ -148,7 +148,7 @@ namespace YAF.Classes
 
             url.AppendFormat("://{0}", HttpContext.Current.Request.ServerVariables["SERVER_NAME"]);
 
-            if ((!isSecure && serverPort != 80) || (isSecure && serverPort != 443))
+            if (!isSecure && serverPort != 80 || isSecure && serverPort != 443)
             {
                 url.AppendFormat(":{0}", serverPort);
             }

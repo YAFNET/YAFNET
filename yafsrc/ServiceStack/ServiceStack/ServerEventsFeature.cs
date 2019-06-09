@@ -980,7 +980,7 @@ namespace ServiceStack
                         subscription.Publish("cmd.onConnect", connectArgs.ToJson());
 
                     subscription.OnUnsubscribe = HandleUnsubscription;
-                    foreach (string channel in subscription.Channels ?? EventSubscription.UnknownChannel)
+                    foreach (var channel in subscription.Channels ?? EventSubscription.UnknownChannel)
                     {
                         RegisterSubscription(subscription, channel, ChannelSubcriptions);
                     }

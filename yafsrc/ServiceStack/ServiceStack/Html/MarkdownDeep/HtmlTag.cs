@@ -122,7 +122,7 @@ namespace MarkdownDeep
 		// Check if this tag is safe
 		public bool IsSafe()
 		{
-			string name_lower=m_name.ToLowerInvariant();
+			var name_lower=m_name.ToLowerInvariant();
 
 			// Check if tag is in whitelist
 			if (!Utils.IsInList(name_lower, m_allowed_tags))
@@ -194,7 +194,7 @@ namespace MarkdownDeep
 
 		public static HtmlTag Parse(string str, ref int pos)
 		{
-			StringScanner sp = new StringScanner(str, pos);
+			var sp = new StringScanner(str, pos);
 			var ret = Parse(sp);
 
 			if (ret!=null)
@@ -209,7 +209,7 @@ namespace MarkdownDeep
 		public static HtmlTag Parse(StringScanner p)
 		{
 			// Save position
-			int savepos = p.position;
+			var savepos = p.position;
 
 			// Parse it
 			var ret = ParseHelper(p);
@@ -246,7 +246,7 @@ namespace MarkdownDeep
 			}
 
 			// Is it a closing tag eg: </div>
-			bool bClosing = p.SkipChar('/');
+			var bClosing = p.SkipChar('/');
 
 			// Get the tag name
 			string tagName=null;
@@ -254,7 +254,7 @@ namespace MarkdownDeep
 				return null;
 
 			// Probably a tag, create the HtmlTag object now
-			HtmlTag tag = new HtmlTag(tagName);
+			var tag = new HtmlTag(tagName);
 			tag.m_closing = bClosing;
 
 

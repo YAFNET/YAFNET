@@ -183,9 +183,7 @@ namespace ServiceStack
                 return ex;
             }
 
-            var encResponse = ex.ResponseDto as EncryptedMessageResponse;
-
-            if (encResponse != null)
+            if (ex.ResponseDto is EncryptedMessageResponse encResponse)
             {
                 var authEncryptedBytes = Convert.FromBase64String(encResponse.EncryptedBody);
                 if (!HmacUtils.Verify(authEncryptedBytes, authKey))

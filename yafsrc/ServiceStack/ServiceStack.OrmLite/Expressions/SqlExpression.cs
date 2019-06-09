@@ -1326,7 +1326,7 @@ namespace ServiceStack.OrmLite
         {
             if (lambda.Body.NodeType == ExpressionType.MemberAccess && sep == " ")
             {
-                MemberExpression m = lambda.Body as MemberExpression;
+                var m = lambda.Body as MemberExpression;
 
                 if (m.Expression != null)
                 {
@@ -1343,7 +1343,7 @@ namespace ServiceStack.OrmLite
             }
             else if (lambda.Body.NodeType == ExpressionType.Conditional && sep == " ")
             {
-                ConditionalExpression c = lambda.Body as ConditionalExpression;
+                var c = lambda.Body as ConditionalExpression;
 
                 var r = VisitConditional(c);
                 if (!(r is PartialSqlString))
@@ -1449,16 +1449,14 @@ namespace ServiceStack.OrmLite
 
                 if (rightNeedsCoercing)
                 {
-                    var rightPartialSql = right as PartialSqlString;
-                    if (rightPartialSql == null)
+                    if (!(right is PartialSqlString rightPartialSql))
                     {
                         right = GetValue(right, leftEnum.EnumType);
                     }
                 }
                 else if (leftNeedsCoercing)
                 {
-                    var leftPartialSql = left as PartialSqlString;
-                    if (leftPartialSql == null)
+                    if (!(left is PartialSqlString leftPartialSql))
                     {
                         left = DialectProvider.GetQuotedValue(left, rightEnum.EnumType);
                     }
@@ -2190,10 +2188,10 @@ namespace ServiceStack.OrmLite
             switch (m.Method.Name)
             {
                 case "Contains":
-                    List<object> args = this.VisitExpressionList(m.Arguments);
-                    object quotedColName = args.Last();
+                    var args = this.VisitExpressionList(m.Arguments);
+                    var quotedColName = args.Last();
 
-                    Expression memberExpr = m.Arguments[0];
+                    var memberExpr = m.Arguments[0];
                     if (memberExpr.NodeType == ExpressionType.MemberAccess)
                         memberExpr = m.Arguments[0] as MemberExpression;
 
@@ -2218,8 +2216,8 @@ namespace ServiceStack.OrmLite
             switch (m.Method.Name)
             {
                 case "Contains":
-                    List<object> args = this.VisitExpressionList(m.Arguments);
-                    object quotedColName = args[0];
+                    var args = this.VisitExpressionList(m.Arguments);
+                    var quotedColName = args[0];
                     return ToInPartialString(m.Object, quotedColName);
 
                 default:
@@ -2263,7 +2261,7 @@ namespace ServiceStack.OrmLite
 
         private PartialSqlString BuildConcatExpression(List<object> args)
         {
-            for (int i = 0; i < args.Count; i++)
+            for (var i = 0; i < args.Count; i++)
             {
                 if (!(args[i] is PartialSqlString))
                     args[i] = ConvertToParam(args[i]);
@@ -2273,7 +2271,7 @@ namespace ServiceStack.OrmLite
 
         private PartialSqlString BuildCompareExpression(List<object> args)
         {
-            for (int i = 0; i < args.Count; i++)
+            for (var i = 0; i < args.Count; i++)
             {
                 if (!(args[i] is PartialSqlString))
                     args[i] = ConvertToParam(args[i]);
@@ -2293,8 +2291,8 @@ namespace ServiceStack.OrmLite
 
         protected virtual object VisitSqlMethodCall(MethodCallExpression m)
         {
-            List<object> args = this.VisitInSqlExpressionList(m.Arguments);
-            object quotedColName = args[0];
+            var args = this.VisitInSqlExpressionList(m.Arguments);
+            var quotedColName = args[0];
             args.RemoveAt(0);
 
             string statement;
@@ -2353,7 +2351,7 @@ namespace ServiceStack.OrmLite
                 if (inArgs.Count == 0)
                     return FalseLiteral; // "column IN ([])" is always false
 
-                string sqlIn = CreateInParamSql(inArgs);
+                var sqlIn = CreateInParamSql(inArgs);
                 return $"{quotedColName} IN ({sqlIn})";
             }
 
@@ -2398,7 +2396,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual object VisitColumnAccessMethod(MethodCallExpression m)
         {
-            List<object> args = this.VisitExpressionList(m.Arguments);
+            var args = this.VisitExpressionList(m.Arguments);
             var quotedColName = Visit(m.Object);
             if (!IsSqlClass(quotedColName))
                 quotedColName = ConvertToParam(quotedColName);

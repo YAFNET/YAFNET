@@ -22,7 +22,7 @@ namespace ServiceStack
         public static IServiceRoutes AddFromAssembly(this IServiceRoutes routes,
                                                      params Assembly[] assembliesWithServices)
         {
-            foreach (Assembly assembly in assembliesWithServices)
+            foreach (var assembly in assembliesWithServices)
             {
                 AddNewApiRoutes(routes, assembly);
             }
@@ -36,7 +36,7 @@ namespace ServiceStack
                 .Where(t => !t.IsAbstract
                             && t.HasInterface(typeof(IService)));
 
-            foreach (Type service in services)
+            foreach (var service in services)
             {
                 var allServiceActions = service.GetActions();
                 foreach (var requestDtoActions in allServiceActions.GroupBy(x => x.GetParameters()[0].ParameterType))
@@ -95,7 +95,7 @@ namespace ServiceStack
         {
             while (toCheck != typeof(object))
             {
-                Type cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
                 if (generic == cur)
                 {
                     return true;

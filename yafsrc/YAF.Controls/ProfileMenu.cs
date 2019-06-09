@@ -172,7 +172,7 @@ namespace YAF.Controls
             }
 
             if (!this.PageContext.IsGuest
-                && (this.Get<YafBoardSettings>().EnableAlbum || (this.PageContext.NumAlbums > 0)))
+                && (this.Get<YafBoardSettings>().EnableAlbum || this.PageContext.NumAlbums > 0))
             {
                 this.RenderMenuItem(
                     html,

@@ -75,7 +75,7 @@ namespace ServiceStack.Text.Json
             var len = value.Length;
             for (var i = 0; i < len; i++)
             {
-                char c = value[i];
+                var c = value[i];
 
                 switch (c)
                 {

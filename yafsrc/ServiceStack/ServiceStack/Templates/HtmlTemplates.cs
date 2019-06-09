@@ -44,7 +44,7 @@ namespace ServiceStack.Templates
 
         public static string Format(string template, params object[] args)
         {
-            for (int i = 0; i < args.Length; i++)
+            for (var i = 0; i < args.Length; i++)
             {
                 template = template.Replace(@"{" + i + "}", (args[i] ?? "").ToString());
             }

@@ -327,10 +327,9 @@ namespace YAF.Core.Services
             var key = this.Get<ITreatCacheKey>().Treat(string.Format(Constants.Cache.FavoriteTopicList, userID));
 
             // stored in the user session...
-            var favoriteTopicList = this.HttpSessionState[key] as List<int>;
 
             // was it in the cache?
-            if (favoriteTopicList != null)
+            if (this.HttpSessionState[key] is List<int> favoriteTopicList)
             {
                 return favoriteTopicList;
             }
@@ -633,10 +632,9 @@ namespace YAF.Core.Services
             var key = string.Format(Constants.Cache.UserIgnoreList, userId);
 
             // stored in the user session...
-            var userList = this.HttpSessionState[key] as List<int>;
 
             // was it in the cache?
-            if (userList != null)
+            if (this.HttpSessionState[key] is List<int> userList)
             {
                 return userList;
             }

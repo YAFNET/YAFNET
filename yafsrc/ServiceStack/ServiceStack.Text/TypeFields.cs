@@ -68,7 +68,7 @@ namespace ServiceStack
 
         public new static FieldAccessor GetAccessor(string propertyName)
         {
-            return Instance.FieldsMap.TryGetValue(propertyName, out FieldAccessor info)
+            return Instance.FieldsMap.TryGetValue(propertyName, out var info)
                 ? info
                 : null;
         }
@@ -82,7 +82,7 @@ namespace ServiceStack
 
         public static TypeFields Get(Type type)
         {
-            if (CacheMap.TryGetValue(type, out TypeFields value))
+            if (CacheMap.TryGetValue(type, out var value))
                 return value;
 
             var genericType = FactoryType.MakeGenericType(type);
@@ -106,7 +106,7 @@ namespace ServiceStack
 
         public FieldAccessor GetAccessor(string propertyName)
         {
-            return this.FieldsMap.TryGetValue(propertyName, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(propertyName, out var info)
                 ? info
                 : null;
         }
@@ -136,7 +136,7 @@ namespace ServiceStack
             if (name == null)
                 return null;
 
-            return this.FieldsMap.TryGetValue(name, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(name, out var info)
                 ? info.PublicGetter
                 : null;
         }
@@ -148,7 +148,7 @@ namespace ServiceStack
             if (name == null)
                 return null;
 
-            return this.FieldsMap.TryGetValue(name, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(name, out var info)
                 ? info.PublicSetter
                 : null;
         }
@@ -158,7 +158,7 @@ namespace ServiceStack
             if (name == null)
                 return null;
 
-            return this.FieldsMap.TryGetValue(name, out FieldAccessor info)
+            return this.FieldsMap.TryGetValue(name, out var info)
                 ? info.PublicSetterRef
                 : null;
         }

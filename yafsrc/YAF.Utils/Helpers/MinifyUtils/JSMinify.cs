@@ -217,7 +217,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
         /// </returns>
         private bool IsAlphanum(int c)
         {
-            return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || c == '_' || c == '$'
+            return c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c == '_' || c == '$'
                    || c == '\\' || c > 126;
         }
 

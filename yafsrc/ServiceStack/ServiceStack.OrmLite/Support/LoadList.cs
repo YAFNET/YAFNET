@@ -126,9 +126,8 @@ namespace ServiceStack.OrmLite.Support
                 if (x == null || y == null) return false;
 
                 var xStr = x as string;
-                var yStr = y as string;
 
-                return xStr != null && yStr != null
+                return xStr != null && y is string yStr
                     ? xStr.Equals(yStr, StringComparison.OrdinalIgnoreCase)
                     : x.Equals(y);
             }

@@ -94,9 +94,9 @@ namespace ServiceStack.Auth
         static string MakeNonce()
         {
             var ret = new char[16];
-            for (int i = 0; i < ret.Length; i++)
+            for (var i = 0; i < ret.Length; i++)
             {
-                int n = random.Next(35);
+                var n = random.Next(35);
                 if (n < 10)
                     ret[i] = (char)(n + '0');
                 else
@@ -170,9 +170,9 @@ namespace ServiceStack.Auth
                     signatureHeaders.Add(key, OAuthUtils.PercentEncode(nvc[key]));
             }
 
-            string signature = MakeSignature("POST", uri.AbsoluteUri.LeftPart('?'), signatureHeaders);
-            string compositeSigningKey = MakeSigningKey(provider.ConsumerSecret, null);
-            string oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
+            var signature = MakeSignature("POST", uri.AbsoluteUri.LeftPart('?'), signatureHeaders);
+            var compositeSigningKey = MakeSigningKey(provider.ConsumerSecret, null);
+            var oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
 
             headers.Add("oauth_signature", OAuthUtils.PercentEncode(oauth_signature));
 
@@ -194,7 +194,7 @@ namespace ServiceStack.Auth
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                string responseBody = e.GetResponseBody();
+                var responseBody = e.GetResponseBody();
                 responseBody.Print();
                 // fallthrough for errors
             }
@@ -227,9 +227,9 @@ namespace ServiceStack.Auth
                 content = $"x_auth_mode=client_auth&x_auth_password={OAuthUtils.PercentEncode(xAuthPassword)}&x_auth_username={OAuthUtils.PercentEncode(xAuthUsername)}";
             }
 
-            string signature = MakeSignature("POST", provider.AccessTokenUrl, headers);
-            string compositeSigningKey = MakeSigningKey(provider.ConsumerSecret, RequestTokenSecret);
-            string oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
+            var signature = MakeSignature("POST", provider.AccessTokenUrl, headers);
+            var compositeSigningKey = MakeSigningKey(provider.ConsumerSecret, RequestTokenSecret);
+            var oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
 
             headers.Add("oauth_signature", OAuthUtils.PercentEncode(oauth_signature));
             if (xAuthUsername != null)
@@ -304,9 +304,9 @@ namespace ServiceStack.Auth
                     signatureHeaders.Add(key, OAuthUtils.PercentEncode(nvc[key]));
             }
 
-            string signature = MakeSignature(method, uri.AbsoluteUri.LeftPart('?'), signatureHeaders);
-            string compositeSigningKey = MakeSigningKey(consumerSecret, oauthTokenSecret);
-            string oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
+            var signature = MakeSignature(method, uri.AbsoluteUri.LeftPart('?'), signatureHeaders);
+            var compositeSigningKey = MakeSigningKey(consumerSecret, oauthTokenSecret);
+            var oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
 
             headers.Add("oauth_signature", OAuthUtils.PercentEncode(oauth_signature));
 
@@ -327,11 +327,11 @@ namespace ServiceStack.Auth
                 { "oauth_version", "1.0" },
                 //{ "realm", "http://api.twitter.com" }
             };
-            string signurl = "http://api.twitter.com/1/account/verify_credentials.xml";
+            var signurl = "http://api.twitter.com/1/account/verify_credentials.xml";
             // The signature is not done against the *actual* url, it is done against the verify_credentials.json one 
-            string signature = MakeSignature("GET", signurl, headers);
-            string compositeSigningKey = MakeSigningKey(provider.ConsumerSecret, oauthTokenSecret);
-            string oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
+            var signature = MakeSignature("GET", signurl, headers);
+            var compositeSigningKey = MakeSigningKey(provider.ConsumerSecret, oauthTokenSecret);
+            var oauth_signature = MakeOAuthSignature(compositeSigningKey, signature);
 
             headers.Add("oauth_signature", OAuthUtils.PercentEncode(oauth_signature));
 
@@ -358,7 +358,7 @@ namespace ServiceStack.Auth
             
             var sb = StringBuilderCache.Allocate();
 
-            foreach (byte c in Encoding.UTF8.GetBytes(s))
+            foreach (var c in Encoding.UTF8.GetBytes(s))
             {
                 if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '-' || c == '_' || c == '.' || c == '~')
                     sb.Append((char)c);

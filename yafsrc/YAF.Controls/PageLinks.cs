@@ -202,9 +202,8 @@ namespace YAF.Controls
             if (this.LinkedPageLinkID.IsSet())
             {
                 // attempt to get access to the other control...
-                var parentControl = this.Parent.FindControl(this.LinkedPageLinkID) as PageLinks;
 
-                if (parentControl != null)
+                if (this.Parent.FindControl(this.LinkedPageLinkID) is PageLinks parentControl)
                 {
                     // use the other data stream...
                     linkedPageList = parentControl.PageLinkList;

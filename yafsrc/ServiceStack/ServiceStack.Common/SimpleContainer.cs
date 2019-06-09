@@ -18,7 +18,7 @@ namespace ServiceStack
 
         public object Resolve(Type type)
         {
-            Factory.TryGetValue(type, out Func<object> fn);
+            Factory.TryGetValue(type, out var fn);
             return fn?.Invoke();
         }
 

@@ -72,7 +72,7 @@ namespace ServiceStack
             var modifiers = "";
             if (req.ResponseContentType == MimeTypes.Json)
             {
-                string jsonp = req.GetJsonpCallback();
+                var jsonp = req.GetJsonpCallback();
                 if (jsonp != null)
                     modifiers = "jsonp:" + jsonp.SafeVarName();
             }

@@ -111,7 +111,7 @@ namespace ServiceStack.FluentValidation.Resources {
 
 			culture = culture ?? Culture ?? CultureInfo.CurrentUICulture;
 
-			string code = culture.Name;
+			var code = culture.Name;
 
 			if (!culture.IsNeutralCulture && !_languages.ContainsKey(code)) {
 				code = culture.Parent.Name;
@@ -121,7 +121,7 @@ namespace ServiceStack.FluentValidation.Resources {
 				? _languages[code]
 				: _fallback;
 
-			string value = languageToUse.GetTranslation(key);
+			var value = languageToUse.GetTranslation(key);
 
 			if (string.IsNullOrEmpty(value) && languageToUse != _fallback) {
 				value = _fallback.GetTranslation(key);

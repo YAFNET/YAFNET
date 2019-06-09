@@ -398,7 +398,7 @@ namespace ServiceStack.OrmLite
         {
             IDbTransaction dbTrans = null;
 
-            int count = 0;
+            var count = 0;
             try
             {
                 if (dbCmd.Transaction == null)
@@ -491,7 +491,7 @@ namespace ServiceStack.OrmLite
         {
             IDbTransaction dbTrans = null;
 
-            int count = 0;
+            var count = 0;
             try
             {
                 if (dbCmd.Transaction == null)

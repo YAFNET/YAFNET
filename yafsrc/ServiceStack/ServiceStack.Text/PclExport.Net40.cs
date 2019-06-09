@@ -1098,15 +1098,15 @@ namespace ServiceStack.Text.FastMember
 
         private static void WriteGetter(ILGenerator il, Type type, PropertyInfo[] props, FieldInfo[] fields, bool isStatic)
         {
-            LocalBuilder loc = type.IsValueType ? il.DeclareLocal(type) : null;
+            var loc = type.IsValueType ? il.DeclareLocal(type) : null;
             OpCode propName = isStatic ? OpCodes.Ldarg_1 : OpCodes.Ldarg_2, target = isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1;
-            foreach (PropertyInfo prop in props)
+            foreach (var prop in props)
             {
                 if (prop.GetIndexParameters().Length != 0 || !prop.CanRead) continue;
                 var getFn = prop.GetGetMethod();
                 if (getFn == null) continue; //Mono
 
-                Label next = il.DefineLabel();
+                var next = il.DefineLabel();
                 il.Emit(propName);
                 il.Emit(OpCodes.Ldstr, prop.Name);
                 il.EmitCall(OpCodes.Call, strinqEquals, null);
@@ -1123,9 +1123,9 @@ namespace ServiceStack.Text.FastMember
                 // not match:
                 il.MarkLabel(next);
             }
-            foreach (FieldInfo field in fields)
+            foreach (var field in fields)
             {
-                Label next = il.DefineLabel();
+                var next = il.DefineLabel();
                 il.Emit(propName);
                 il.Emit(OpCodes.Ldstr, field.Name);
                 il.EmitCall(OpCodes.Call, strinqEquals, null);
@@ -1159,14 +1159,14 @@ namespace ServiceStack.Text.FastMember
                 OpCode propName = isStatic ? OpCodes.Ldarg_1 : OpCodes.Ldarg_2,
                        target = isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1,
                        value = isStatic ? OpCodes.Ldarg_2 : OpCodes.Ldarg_3;
-                LocalBuilder loc = type.IsValueType ? il.DeclareLocal(type) : null;
-                foreach (PropertyInfo prop in props)
+                var loc = type.IsValueType ? il.DeclareLocal(type) : null;
+                foreach (var prop in props)
                 {
                     if (prop.GetIndexParameters().Length != 0 || !prop.CanWrite) continue;
                     var setFn = prop.GetSetMethod();
                     if (setFn == null) continue; //Mono
 
-                    Label next = il.DefineLabel();
+                    var next = il.DefineLabel();
                     il.Emit(propName);
                     il.Emit(OpCodes.Ldstr, prop.Name);
                     il.EmitCall(OpCodes.Call, strinqEquals, null);
@@ -1181,9 +1181,9 @@ namespace ServiceStack.Text.FastMember
                     // not match:
                     il.MarkLabel(next);
                 }
-                foreach (FieldInfo field in fields)
+                foreach (var field in fields)
                 {
-                    Label next = il.DefineLabel();
+                    var next = il.DefineLabel();
                     il.Emit(propName);
                     il.Emit(OpCodes.Ldstr, field.Name);
                     il.EmitCall(OpCodes.Call, strinqEquals, null);
@@ -1273,17 +1273,17 @@ namespace ServiceStack.Text.FastMember
             // note this region is synchronized; only one is being created at a time so we don't need to stress about the builders
             if (assembly == null)
             {
-                AssemblyName name = new AssemblyName("FastMember_dynamic");
+                var name = new AssemblyName("FastMember_dynamic");
                 assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
                 module = assembly.DefineDynamicModule(name.Name);
             }
-            TypeBuilder tb = module.DefineType("FastMember_dynamic." + type.Name + "_" + Interlocked.Increment(ref counter),
+            var tb = module.DefineType("FastMember_dynamic." + type.Name + "_" + Interlocked.Increment(ref counter),
                 (typeof(TypeAccessor).Attributes | TypeAttributes.Sealed) & ~TypeAttributes.Abstract, typeof(TypeAccessor));
 
             tb.DefineDefaultConstructor(MethodAttributes.Public);
-            PropertyInfo indexer = typeof(TypeAccessor).GetProperty("Item");
+            var indexer = typeof(TypeAccessor).GetProperty("Item");
             MethodInfo baseGetter = indexer.GetGetMethod(), baseSetter = indexer.GetSetMethod();
-            MethodBuilder body = tb.DefineMethod(baseGetter.Name, baseGetter.Attributes & ~MethodAttributes.Abstract, typeof(object), new Type[] { typeof(object), typeof(string) });
+            var body = tb.DefineMethod(baseGetter.Name, baseGetter.Attributes & ~MethodAttributes.Abstract, typeof(object), new Type[] { typeof(object), typeof(string) });
             il = body.GetILGenerator();
             WriteGetter(il, type, props, fields, false);
             tb.DefineMethodOverride(body, baseGetter);
@@ -1295,7 +1295,7 @@ namespace ServiceStack.Text.FastMember
 
             if (ctor != null)
             {
-                MethodInfo baseMethod = typeof(TypeAccessor).GetProperty("CreateNewSupported").GetGetMethod();
+                var baseMethod = typeof(TypeAccessor).GetProperty("CreateNewSupported").GetGetMethod();
                 body = tb.DefineMethod(baseMethod.Name, baseMethod.Attributes, typeof(bool), Type.EmptyTypes);
                 il = body.GetILGenerator();
                 il.Emit(OpCodes.Ldc_I4_1);

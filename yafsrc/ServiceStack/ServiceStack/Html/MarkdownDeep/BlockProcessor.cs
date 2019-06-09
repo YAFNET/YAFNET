@@ -62,7 +62,7 @@ namespace MarkdownDeep
 			// Rewind, parse the header row then fast forward back to current pos
 			if (lines.Count == 1)
 			{
-				int savepos = position;
+				var savepos = position;
 				position = lines[0].lineStart;
 				spec.Headers = spec.ParseRow(this);
 				if (spec.Headers == null)
@@ -74,7 +74,7 @@ namespace MarkdownDeep
 			// Parse all rows
 			while (true)
 			{
-				int savepos = position;
+				var savepos = position;
 
 				var row=spec.ParseRow(this);
 				if (row!=null)
@@ -100,11 +100,11 @@ namespace MarkdownDeep
 			var lines = new List<Block>();
 
 			// Add all blocks
-			BlockType PrevBlockType = BlockType.unsafe_html;
+			var PrevBlockType = BlockType.unsafe_html;
 			while (!eof)
 			{
 				// Remember if the previous line was blank
-				bool bPreviousBlank = PrevBlockType == BlockType.Blank;
+				var bPreviousBlank = PrevBlockType == BlockType.Blank;
 
 				// Get the next block
 				var b = EvaluateLine();
@@ -166,14 +166,14 @@ namespace MarkdownDeep
 
 
 				// Work out the current paragraph type
-				BlockType currentBlockType = lines.Count > 0 ? lines[0].blockType : BlockType.Blank;
+				var currentBlockType = lines.Count > 0 ? lines[0].blockType : BlockType.Blank;
 
 				// Starting a table?
 				if (b.blockType == BlockType.table_spec)
 				{
 					// Get the table spec, save position
-					TableSpec spec = (TableSpec)b.data;
-					int savepos = position;
+					var spec = (TableSpec)b.data;
+					var savepos = position;
 					if (!StartTable(spec, lines))
 					{
 						// Not a table, revert the tablespec row to plain,
@@ -409,7 +409,7 @@ namespace MarkdownDeep
 
 		internal string RenderLines(List<Block> lines)
 		{
-			StringBuilder b = m_markdown.GetStringBuilder();
+			var b = m_markdown.GetStringBuilder();
 			foreach (var l in lines)
 			{
 				b.Append(l.buf, l.contentStart, l.contentLen);
@@ -523,7 +523,7 @@ namespace MarkdownDeep
 		Block EvaluateLine()
 		{
 			// Create a block
-			Block b=CreateBlock();
+			var b=CreateBlock();
 
 			// Store line start
 			b.lineStart=position;
@@ -559,14 +559,14 @@ namespace MarkdownDeep
 				return BlockType.Blank;
 
 			// Save start of line position
-			int line_start= position;
+			var line_start= position;
 
 			// ## Heading ##		
-			char ch=current;
+			var ch=current;
 			if (ch == '#')
 			{
 				// Work out heading level
-				int level = 1;
+				var level = 1;
 				SkipForward(1);
 				while (current == '#')
 				{
@@ -590,8 +590,8 @@ namespace MarkdownDeep
 				// In extra mode, check for a trailing HTML ID
 				if (m_markdown.ExtraMode && !m_markdown.SafeMode)
 				{
-					int end=position;
-					string strID = Utils.StripHtmlID(input, b.contentStart, ref end);
+					var end=position;
+					var strID = Utils.StripHtmlID(input, b.contentStart, ref end);
 					if (strID!=null)
 					{
 						b.data = strID;
@@ -622,7 +622,7 @@ namespace MarkdownDeep
 			if (ch=='-' || ch=='=')
 			{
 				// Skip all matching characters
-				char chType = ch;
+				var chType = ch;
 				while (current==chType)
 				{
 					SkipForward(1);
@@ -643,7 +643,7 @@ namespace MarkdownDeep
 			// MarkdownExtra Table row indicator?
 			if (m_markdown.ExtraMode)
 			{
-				TableSpec spec = TableSpec.Parse(this);
+				var spec = TableSpec.Parse(this);
 				if (spec!=null)
 				{
 					b.data = spec;
@@ -664,8 +664,8 @@ namespace MarkdownDeep
 			}
 
 			// Scan the leading whitespace, remembering how many spaces and where the first tab is
-			int tabPos = -1;
-			int leadingSpaces = 0;
+			var tabPos = -1;
+			var leadingSpaces = 0;
 			while (!eol)
 			{
 				if (current == ' ')
@@ -744,10 +744,10 @@ namespace MarkdownDeep
 			// Horizontal rule - a line consisting of 3 or more '-', '_' or '*' with optional spaces and nothing else
 			if (ch == '-' || ch == '_' || ch == '*')
 			{
-				int count = 0;
+				var count = 0;
 				while (!eol)
 				{
-					char chType = current;
+					var chType = current;
 					if (current == ch)
 					{
 						count++;
@@ -869,7 +869,7 @@ namespace MarkdownDeep
 				}
 
 				// Parse a link definition
-				LinkDefinition l = LinkDefinition.ParseLinkDefinition(this, m_markdown.ExtraMode);
+				var l = LinkDefinition.ParseLinkDefinition(this, m_markdown.ExtraMode);
 				if (l!=null)
 				{
 					m_markdown.AddLinkDefinition(l);
@@ -926,9 +926,9 @@ namespace MarkdownDeep
 			// Current position is just after the opening tag
 
 			// Scan until we find matching closing tag
-			int inner_pos = position;
-			int depth = 1;
-			bool bHasUnsafeContent = false;
+			var inner_pos = position;
+			var depth = 1;
+			var bHasUnsafeContent = false;
 			while (!eof)
 			{
 				// Find next angle bracket
@@ -936,8 +936,8 @@ namespace MarkdownDeep
 					break;
 
 				// Is it a html tag?
-				int tagpos = position;
-				HtmlTag tag = HtmlTag.Parse(this);
+				var tagpos = position;
+				var tag = HtmlTag.Parse(this);
 				if (tag == null)
 				{
 					// Nope, skip it 
@@ -976,7 +976,7 @@ namespace MarkdownDeep
 							{
 								case MarkdownInHtmlMode.Span:
 								{
-									Block span = this.CreateBlock();
+									var span = this.CreateBlock();
 									span.buf = input;
 									span.blockType = BlockType.span;
 									span.contentStart = inner_pos;
@@ -1005,7 +1005,7 @@ namespace MarkdownDeep
 									}
 									else
 									{
-										Block span = this.CreateBlock();
+										var span = this.CreateBlock();
 										span.buf = input;
 										span.blockType = BlockType.html;
 										span.contentStart = inner_pos;
@@ -1037,10 +1037,10 @@ namespace MarkdownDeep
 		internal bool ScanHtml(Block b)
 		{
 			// Remember start of html
-			int posStartPiece = this.position;
+			var posStartPiece = this.position;
 
 			// Parse a HTML tag
-			HtmlTag openingTag = HtmlTag.Parse(this);
+			var openingTag = HtmlTag.Parse(this);
 			if (openingTag == null)
 				return false;
 
@@ -1049,11 +1049,11 @@ namespace MarkdownDeep
 				return false;
 
 			// Safe mode?
-			bool bHasUnsafeContent = false;
+			var bHasUnsafeContent = false;
 			if (m_markdown.SafeMode && !openingTag.IsSafe())
 				bHasUnsafeContent = true;
 
-			HtmlTagFlags flags = openingTag.Flags;
+			var flags = openingTag.Flags;
 
 			// Is it a block level tag?
 			if ((flags & HtmlTagFlags.Block) == 0)
@@ -1080,13 +1080,13 @@ namespace MarkdownDeep
 			}
 
 			// Head block extraction?
-			bool bHeadBlock = m_markdown.ExtractHeadBlocks && string.Compare(openingTag.name, "head", true) == 0;
-			int headStart = this.position;
+			var bHeadBlock = m_markdown.ExtractHeadBlocks && string.Compare(openingTag.name, "head", true) == 0;
+			var headStart = this.position;
 
 			// Work out the markdown mode for this element
 			if (!bHeadBlock && m_markdown.ExtraMode)
 			{
-				MarkdownInHtmlMode MarkdownMode = this.GetMarkdownMode(openingTag);
+				var MarkdownMode = this.GetMarkdownMode(openingTag);
 				if (MarkdownMode != MarkdownInHtmlMode.NA)
 				{
 					return this.ProcessMarkdownEnabledHtml(b, openingTag, MarkdownMode);
@@ -1096,7 +1096,7 @@ namespace MarkdownDeep
 			List<Block> childBlocks = null;
 
 			// Now capture everything up to the closing tag and put it all in a single HTML block
-			int depth = 1;
+			var depth = 1;
 
 			while (!eof)
 			{
@@ -1105,10 +1105,10 @@ namespace MarkdownDeep
 					break;
 
 				// Save position of current tag
-				int posStartCurrentTag = position;
+				var posStartCurrentTag = position;
 
 				// Is it a html tag?
-				HtmlTag tag = HtmlTag.Parse(this);
+				var tag = HtmlTag.Parse(this);
 				if (tag == null)
 				{
 					// Nope, skip it 
@@ -1127,10 +1127,10 @@ namespace MarkdownDeep
 				// Markdown enabled content?
 				if (!bHeadBlock && !tag.closing && m_markdown.ExtraMode && !bHasUnsafeContent)
 				{
-					MarkdownInHtmlMode MarkdownMode = this.GetMarkdownMode(tag);
+					var MarkdownMode = this.GetMarkdownMode(tag);
 					if (MarkdownMode != MarkdownInHtmlMode.NA)
 					{
-						Block markdownBlock = this.CreateBlock();
+						var markdownBlock = this.CreateBlock();
 						if (this.ProcessMarkdownEnabledHtml(markdownBlock, tag, MarkdownMode))
 						{
 							if (childBlocks==null)
@@ -1141,7 +1141,7 @@ namespace MarkdownDeep
 							// Create a block for everything before the markdown tag
 							if (posStartCurrentTag > posStartPiece)
 							{
-								Block htmlBlock = this.CreateBlock();
+								var htmlBlock = this.CreateBlock();
 								htmlBlock.buf = input;
 								htmlBlock.blockType = BlockType.html;
 								htmlBlock.contentStart = posStartPiece;
@@ -1191,7 +1191,7 @@ namespace MarkdownDeep
 								// Create a block for the remainder
 								if (position > posStartPiece)
 								{
-									Block htmlBlock = this.CreateBlock();
+									var htmlBlock = this.CreateBlock();
 									htmlBlock.buf = input;
 									htmlBlock.blockType = BlockType.html;
 									htmlBlock.contentStart = posStartPiece;
@@ -1249,7 +1249,7 @@ namespace MarkdownDeep
 		private Block BuildList(List<Block> lines)
 		{
 			// What sort of list are we dealing with
-			BlockType listType = lines[0].blockType;
+			var listType = lines[0].blockType;
 			System.Diagnostics.Debug.Assert(listType == BlockType.ul_li || listType == BlockType.ol_li);
 
 			// Preprocess
@@ -1257,8 +1257,8 @@ namespace MarkdownDeep
 			// 2. Promote any unindented lines that have more leading space 
 			//    than the original list item to indented, including leading 
 			//    special chars
-			int leadingSpace = lines[0].leadingSpaces;
-			for (int i = 1; i < lines.Count; i++)
+			var leadingSpace = lines[0].leadingSpaces;
+			for (var i = 1; i < lines.Count; i++)
 			{
 				// Join plain paragraphs
 				if (lines[i].blockType == BlockType.p &&
@@ -1273,13 +1273,13 @@ namespace MarkdownDeep
 
 				if (lines[i].blockType != BlockType.indent && lines[i].blockType != BlockType.Blank)
 				{
-					int thisLeadingSpace = lines[i].leadingSpaces;
+					var thisLeadingSpace = lines[i].leadingSpaces;
 					if (thisLeadingSpace > leadingSpace)
 					{
 						// Change line to indented, including original leading chars 
 						// (eg: '* ', '>', '1.' etc...)
 						lines[i].blockType = BlockType.indent;
-						int saveend = lines[i].contentEnd;
+						var saveend = lines[i].contentEnd;
 						lines[i].contentStart = lines[i].lineStart + thisLeadingSpace;
 						lines[i].contentEnd = saveend;
 					}
@@ -1292,17 +1292,17 @@ namespace MarkdownDeep
 			List.children = new List<Block>();
 
 			// Process all lines in the range		
-			for (int i = 0; i < lines.Count; i++)
+			for (var i = 0; i < lines.Count; i++)
 			{
 				System.Diagnostics.Debug.Assert(lines[i].blockType == BlockType.ul_li || lines[i].blockType==BlockType.ol_li);
 
 				// Find start of item, including leading blanks
-				int start_of_li = i;
+				var start_of_li = i;
 				while (start_of_li > 0 && lines[start_of_li - 1].blockType == BlockType.Blank)
 					start_of_li--;
 
 				// Find end of the item, including trailing blanks
-				int end_of_li = i;
+				var end_of_li = i;
 				while (end_of_li < lines.Count - 1 && lines[end_of_li + 1].blockType != BlockType.ul_li && lines[end_of_li + 1].blockType != BlockType.ol_li)
 					end_of_li++;
 
@@ -1316,9 +1316,9 @@ namespace MarkdownDeep
 				else
 				{
 					// Build a new string containing all child items
-					bool bAnyBlanks = false;
-					StringBuilder sb = m_markdown.GetStringBuilder();
-					for (int j = start_of_li; j <= end_of_li; j++)
+					var bAnyBlanks = false;
+					var sb = m_markdown.GetStringBuilder();
+					for (var j = start_of_li; j <= end_of_li; j++)
 					{
 						var l = lines[j];
 						sb.Append(l.buf, l.contentStart, l.contentLen);
@@ -1367,7 +1367,7 @@ namespace MarkdownDeep
 		private Block BuildDefinition(List<Block> lines)
 		{
 			// Collapse all plain lines (ie: handle hardwrapped lines)
-			for (int i = 1; i < lines.Count; i++)
+			for (var i = 1; i < lines.Count; i++)
 			{
 				// Join plain paragraphs
 				if (lines[i].blockType == BlockType.p &&
@@ -1382,7 +1382,7 @@ namespace MarkdownDeep
 			}
 
 			// Single line definition
-			bool bPreceededByBlank=(bool)lines[0].data;
+			var bPreceededByBlank=(bool)lines[0].data;
 			if (lines.Count==1 && !bPreceededByBlank)
 			{
 				var ret=lines[0];
@@ -1391,8 +1391,8 @@ namespace MarkdownDeep
 			}
 
 			// Build a new string containing all child items
-			StringBuilder sb = m_markdown.GetStringBuilder();
-			for (int i = 0; i < lines.Count; i++)
+			var sb = m_markdown.GetStringBuilder();
+			for (var i = 0; i < lines.Count; i++)
 			{
 				var l = lines[i];
 				sb.Append(l.buf, l.contentStart, l.contentLen);
@@ -1414,7 +1414,7 @@ namespace MarkdownDeep
 		void BuildDefinitionLists(List<Block> blocks)
 		{
 			Block currentList = null;
-			for (int i = 0; i < blocks.Count; i++)
+			for (var i = 0; i < blocks.Count; i++)
 			{
 				switch (blocks[i].blockType)
 				{
@@ -1444,7 +1444,7 @@ namespace MarkdownDeep
 		private Block BuildFootnote(List<Block> lines)
 		{
 			// Collapse all plain lines (ie: handle hardwrapped lines)
-			for (int i = 1; i < lines.Count; i++)
+			for (var i = 1; i < lines.Count; i++)
 			{
 				// Join plain paragraphs
 				if (lines[i].blockType == BlockType.p &&
@@ -1459,8 +1459,8 @@ namespace MarkdownDeep
 			}
 
 			// Build a new string containing all child items
-			StringBuilder sb = m_markdown.GetStringBuilder();
-			for (int i = 0; i < lines.Count; i++)
+			var sb = m_markdown.GetStringBuilder();
+			for (var i = 0; i < lines.Count; i++)
 			{
 				var l = lines[i];
 				sb.Append(l.buf, l.contentStart, l.contentLen);
@@ -1486,7 +1486,7 @@ namespace MarkdownDeep
 			Mark();
 			while (current == '~')
 				SkipForward(1);
-			string strFence = Extract();
+			var strFence = Extract();
 
 			// Must be at least 3 long
 			if (strFence.Length < 3)
@@ -1499,7 +1499,7 @@ namespace MarkdownDeep
 
 			// Skip the eol and remember start of code
 			SkipEol();
-			int startCode = position;
+			var startCode = position;
 
 			// Find the end fence
 			if (!Find(strFence))
@@ -1509,7 +1509,7 @@ namespace MarkdownDeep
 			if (!IsLineEnd(CharAtOffset(-1)))
 				return false;
 
-			int endCode = position;
+			var endCode = position;
 
 			// Skip the fence
 			SkipForward(strFence.Length);

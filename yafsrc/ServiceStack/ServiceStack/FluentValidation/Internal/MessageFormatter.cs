@@ -71,7 +71,7 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <returns>The message with placeholders replaced with their appropriate values</returns>
 		public virtual string BuildMessage(string messageTemplate) {
 
-			string result = messageTemplate;
+			var result = messageTemplate;
 
 			foreach(var pair in _placeholderValues) {
 				result = ReplacePlaceholderWithValue(result, pair.Key, pair.Value);
@@ -94,7 +94,7 @@ namespace ServiceStack.FluentValidation.Internal {
 		public Dictionary<string, object> PlaceholderValues => _placeholderValues;
 
 		protected virtual string ReplacePlaceholderWithValue(string template, string key, object value) {
-			string placeholder =  GetPlaceholder(key);
+			var placeholder =  GetPlaceholder(key);
 			return template.Replace(placeholder, value?.ToString());
 		}
 

@@ -86,8 +86,7 @@ namespace ServiceStack
 
         public static Exception UnwrapIfSingleException(this Exception ex)
         {
-            var aex = ex as AggregateException;
-            if (aex == null)
+            if (!(ex is AggregateException aex))
                 return ex;
 
             if (aex.InnerExceptions != null

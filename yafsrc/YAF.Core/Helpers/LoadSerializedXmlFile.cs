@@ -64,9 +64,7 @@ namespace YAF.Core
 		/// </returns>
 		public T FromFile(string xmlFileName, string cacheName, Action<T> transformResource = null)
 		{
-			var file = HttpRuntime.Cache.Get(cacheName) as T;
-
-			if (file != null)
+            if (HttpRuntime.Cache.Get(cacheName) is T file)
 			{
 				return file;
 			}

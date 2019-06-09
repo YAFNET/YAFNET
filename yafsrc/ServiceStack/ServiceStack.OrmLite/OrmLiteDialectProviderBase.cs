@@ -241,7 +241,7 @@ namespace ServiceStack.OrmLite
         public IOrmLiteConverter GetConverter(Type type)
         {
             type = Nullable.GetUnderlyingType(type) ?? type;
-            return Converters.TryGetValue(type, out IOrmLiteConverter converter)
+            return Converters.TryGetValue(type, out var converter)
                 ? converter
                 : null;
         }
@@ -706,7 +706,7 @@ namespace ServiceStack.OrmLite
         IDbDataParameter[] ToArray(IDataParameterCollection dbParams)
         {
             var to = new IDbDataParameter[dbParams.Count];
-            for (int i = 0; i < dbParams.Count; i++)
+            for (var i = 0; i < dbParams.Count; i++)
             {
                 to[i] = (IDbDataParameter)dbParams[i];
             }
@@ -1479,7 +1479,7 @@ namespace ServiceStack.OrmLite
             var referenceMD = ModelDefinition<TForeign>.Definition;
             var referenceFieldName = referenceMD.GetFieldDefinition(foreignField).FieldName;
 
-            string name = GetQuotedName(foreignKeyName.IsNullOrEmpty() ?
+            var name = GetQuotedName(foreignKeyName.IsNullOrEmpty() ?
                 "fk_" + sourceMD.ModelName + "_" + fieldName + "_" + referenceFieldName :
                 foreignKeyName);
 
@@ -1496,11 +1496,11 @@ namespace ServiceStack.OrmLite
             var sourceDef = ModelDefinition<T>.Definition;
             var fieldName = sourceDef.GetFieldDefinition(field).FieldName;
 
-            string name = GetQuotedName(indexName.IsNullOrEmpty() ?
+            var name = GetQuotedName(indexName.IsNullOrEmpty() ?
                 (unique ? "uidx" : "idx") + "_" + sourceDef.ModelName + "_" + fieldName :
                 indexName);
 
-            string command = $"CREATE {(unique ? "UNIQUE" : "")} " +
+            var command = $"CREATE {(unique ? "UNIQUE" : "")} " +
                              $"INDEX {name} ON {GetQuotedTableName(sourceDef)}" +
                              $"({GetQuotedColumnName(fieldName)});";
             return command;

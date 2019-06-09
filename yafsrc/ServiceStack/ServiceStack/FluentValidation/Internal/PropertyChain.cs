@@ -108,7 +108,7 @@ namespace ServiceStack.FluentValidation.Internal {
 				throw new InvalidOperationException("Could not apply an Indexer because the property chain is empty.");
 			}
 
-			string last = _memberNames[_memberNames.Count - 1];
+			var last = _memberNames[_memberNames.Count - 1];
 			last += "[" + indexer + "]";
 
 			_memberNames[_memberNames.Count - 1] = last;

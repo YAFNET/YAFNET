@@ -17,7 +17,7 @@ namespace ServiceStack.Serialization
             {
                 using (var ms = MemoryStreamFactory.GetStream())
                 {
-                    using (XmlWriter xw = XmlWriter.Create(ms))
+                    using (var xw = XmlWriter.Create(ms))
                     {
                         var ser = new XmlSerializerWrapper(from.GetType());
                         ser.WriteObject(xw, from);

@@ -25,7 +25,7 @@ namespace ServiceStack
         {
             var results = new List<T>();
             var waitHandles = new List<WaitHandle>();
-            foreach (ICommandList<T> command in commands)
+            foreach (var command in commands)
             {
                 var waitHandle = new AutoResetEvent(false);
                 waitHandles.Add(waitHandle);
@@ -52,7 +52,7 @@ namespace ServiceStack
                 {
                     // WaitAll for multiple handles on an STA thread is not supported.
                     // CurrentThread is ApartmentState.STA when run under unit tests
-                    foreach (WaitHandle waitHandle in waitHandles)
+                    foreach (var waitHandle in waitHandles)
                     {
                         waitHandle.WaitOne(timeout, false);
                     }
@@ -87,7 +87,7 @@ namespace ServiceStack
 
         public static void ExecuteAsyncCommandExec(TimeSpan timeout, IEnumerable<ICommandExec> commands)
         {
-            foreach (ICommandExec command in commands)
+            foreach (var command in commands)
             {
 #if NETSTANDARD2_0
                 Task.Run(() => ExecuteCommandExec(command));

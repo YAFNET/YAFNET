@@ -37,12 +37,12 @@ namespace ServiceStack.Text.Support
             var offset = value.Offset;
             var hash = 37 * length;
 
-            char c1 = char.ToUpperInvariant(value.Buffer[offset]);
+            var c1 = char.ToUpperInvariant(value.Buffer[offset]);
             hash += 53 * c1;
 
             if (length > 1)
             {
-                char c2 = char.ToUpperInvariant(value.Buffer[offset + length - 1]);
+                var c2 = char.ToUpperInvariant(value.Buffer[offset + length - 1]);
                 hash += 37 * c2;
             }
 

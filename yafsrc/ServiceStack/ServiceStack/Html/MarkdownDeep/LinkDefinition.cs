@@ -77,10 +77,10 @@ namespace MarkdownDeep
 			}
 			else
 			{
-				HtmlTag tag = new HtmlTag("a");
+				var tag = new HtmlTag("a");
 
 				// encode url
-				StringBuilder sb = m.GetStringBuilder();
+				var sb = m.GetStringBuilder();
 				Utils.SmartHtmlEncodeAmpsAndAngles(sb, url);
 				tag.attributes["href"] = sb.ToString();
 
@@ -105,10 +105,10 @@ namespace MarkdownDeep
 
 		internal void RenderImg(Markdown m, StringBuilder b, string alt_text)
 		{
-			HtmlTag tag = new HtmlTag("img");
+			var tag = new HtmlTag("img");
 
 			// encode url
-			StringBuilder sb = m.GetStringBuilder();
+			var sb = m.GetStringBuilder();
 			Utils.SmartHtmlEncodeAmpsAndAngles(sb, url);
 			tag.attributes["src"] = sb.ToString();
 
@@ -139,14 +139,14 @@ namespace MarkdownDeep
 		// Parse a link definition from a string (used by test cases)
 		internal static LinkDefinition ParseLinkDefinition(string str, bool ExtraMode)
 		{
-			StringScanner p = new StringScanner(str);
+			var p = new StringScanner(str);
 			return ParseLinkDefinitionInternal(p, ExtraMode);
 		}
 
 		// Parse a link definition
 		internal static LinkDefinition ParseLinkDefinition(StringScanner p, bool ExtraMode)
 		{
-			int savepos=p.position;
+			var savepos=p.position;
 			var l = ParseLinkDefinitionInternal(p, ExtraMode);
 			if (l==null)
 				p.position = savepos;
@@ -167,7 +167,7 @@ namespace MarkdownDeep
 			p.Mark();
 			if (!p.Find(']'))
 				return null;
-			string id = p.Extract();
+			var id = p.Extract();
 			if (id.Length == 0)
 				return null;
 			if (!p.SkipString("]:"))
@@ -215,7 +215,7 @@ namespace MarkdownDeep
 					p.SkipEscapableChar(ExtraMode);
 				}
 
-				string url = p.Extract();
+				var url = p.Extract();
 				if (!p.SkipChar('>'))
 					return null;
 
@@ -229,10 +229,10 @@ namespace MarkdownDeep
 			{
 				// Find end of the url
 				p.Mark();
-				int paren_depth = 1;
+				var paren_depth = 1;
 				while (!p.eol)
 				{
-					char ch=p.current;
+					var ch=p.current;
 					if (char.IsWhiteSpace(ch))
 						break;
 					if (id == null)
@@ -259,8 +259,8 @@ namespace MarkdownDeep
 			if (p.DoesMatch(')'))
 				return r;
 
-			bool bOnNewLine = p.eol;
-			int posLineEnd = p.position;
+			var bOnNewLine = p.eol;
+			var posLineEnd = p.position;
 			if (p.eol)
 			{
 				p.SkipEol();
@@ -305,7 +305,7 @@ namespace MarkdownDeep
 
 					if (delim != ')')
 					{
-						int savepos = p.position;
+						var savepos = p.position;
 
 						// Check for embedded quotes in title
 

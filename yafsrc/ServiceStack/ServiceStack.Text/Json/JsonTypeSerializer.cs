@@ -367,7 +367,7 @@ namespace ServiceStack.Text.Json
             var startIndex = ++index;
             do
             {
-                char c = buffer[offset + index];
+                var c = buffer[offset + index];
                 if (c == JsonUtils.QuoteChar) break;
                 if (c != JsonUtils.EscapeChar) continue;
                 c = buffer[offset + index];
@@ -477,8 +477,8 @@ namespace ServiceStack.Text.Json
         public static StringSegment Unescape(StringSegment input, bool removeQuotes)
         {
             var length = input.Length;
-            int start = 0;
-            int count = 0;
+            var start = 0;
+            var count = 0;
             var output = StringBuilderThreadStatic.Allocate();
             for (; count < length;)
             {

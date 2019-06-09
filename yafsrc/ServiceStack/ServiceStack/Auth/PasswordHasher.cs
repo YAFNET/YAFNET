@@ -87,7 +87,7 @@ namespace ServiceStack.Auth
             if (providedPassword == null)
                 throw new ArgumentNullException(nameof(providedPassword));
 
-            byte[] decodedHashedPassword = Convert.FromBase64String(hashedPassword);
+            var decodedHashedPassword = Convert.FromBase64String(hashedPassword);
 
             // read the format marker from the hashed password
             if (decodedHashedPassword.Length == 0)
@@ -102,7 +102,7 @@ namespace ServiceStack.Auth
             switch (formatMarker)
             {
                 case 0x01:
-                    if (VerifyHashedPasswordV3(decodedHashedPassword, providedPassword, out int embeddedIterCount))
+                    if (VerifyHashedPasswordV3(decodedHashedPassword, providedPassword, out var embeddedIterCount))
                     {
                         // If this hasher was configured with a higher iteration count, change the entry now.
                         if (embeddedIterCount < IterationCount)
@@ -173,9 +173,9 @@ namespace ServiceStack.Auth
         private static byte[] HashPasswordV3(string password, RandomNumberGenerator rng, KeyDerivationPrf prf, int iterCount, int saltSize, int numBytesRequested)
         {
             // Produce a version 3 (see comment above) text hash.
-            byte[] salt = new byte[saltSize];
+            var salt = new byte[saltSize];
             rng.GetBytes(salt);
-            byte[] subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
+            var subkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, numBytesRequested);
 
             var outputBytes = new byte[13 + salt.Length + subkey.Length];
             outputBytes[0] = 0x01; // format marker
@@ -202,29 +202,29 @@ namespace ServiceStack.Auth
             try
             {
                 // Read header information
-                KeyDerivationPrf prf = (KeyDerivationPrf)ReadNetworkByteOrder(hashedPassword, 1);
+                var prf = (KeyDerivationPrf)ReadNetworkByteOrder(hashedPassword, 1);
                 iterCount = (int)ReadNetworkByteOrder(hashedPassword, 5);
-                int saltLength = (int)ReadNetworkByteOrder(hashedPassword, 9);
+                var saltLength = (int)ReadNetworkByteOrder(hashedPassword, 9);
 
                 // Read the salt: must be >= 128 bits
                 if (saltLength < 128 / 8)
                 {
                     return false;
                 }
-                byte[] salt = new byte[saltLength];
+                var salt = new byte[saltLength];
                 Buffer.BlockCopy(hashedPassword, 13, salt, 0, salt.Length);
 
                 // Read the subkey (the rest of the payload): must be >= 128 bits
-                int subkeyLength = hashedPassword.Length - 13 - salt.Length;
+                var subkeyLength = hashedPassword.Length - 13 - salt.Length;
                 if (subkeyLength < 128 / 8)
                 {
                     return false;
                 }
-                byte[] expectedSubkey = new byte[subkeyLength];
+                var expectedSubkey = new byte[subkeyLength];
                 Buffer.BlockCopy(hashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
 
                 // Hash the incoming password and verify it
-                byte[] actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
+                var actualSubkey = KeyDerivation.Pbkdf2(password, salt, prf, iterCount, subkeyLength);
                 return ByteArraysEqual(actualSubkey, expectedSubkey);
             }
             catch
@@ -342,12 +342,12 @@ namespace ServiceStack.Auth
             // PBKDF2 is defined in NIST SP800-132, Sec. 5.3.
             // http://csrc.nist.gov/publications/nistpubs/800-132/nist-sp800-132.pdf
 
-            byte[] retVal = new byte[numBytesRequested];
-            int numBytesWritten = 0;
-            int numBytesRemaining = numBytesRequested;
+            var retVal = new byte[numBytesRequested];
+            var numBytesWritten = 0;
+            var numBytesRemaining = numBytesRequested;
 
             // For each block index, U_0 := Salt || block_index
-            byte[] saltWithBlockIndex = new byte[checked(salt.Length + sizeof(uint))];
+            var saltWithBlockIndex = new byte[checked(salt.Length + sizeof(uint))];
             Buffer.BlockCopy(salt, 0, saltWithBlockIndex, 0, salt.Length);
 
             using (var hashAlgorithm = PrfToManagedHmacAlgorithm(prf, password))
@@ -362,10 +362,10 @@ namespace ServiceStack.Auth
 
                     // U_1 = PRF(U_0) = PRF(Salt || block_index)
                     // T_blockIndex = U_1
-                    byte[] U_iter = hashAlgorithm.ComputeHash(saltWithBlockIndex); // this is U_1
-                    byte[] T_blockIndex = U_iter;
+                    var U_iter = hashAlgorithm.ComputeHash(saltWithBlockIndex); // this is U_1
+                    var T_blockIndex = U_iter;
 
-                    for (int iter = 1; iter < iterationCount; iter++)
+                    for (var iter = 1; iter < iterationCount; iter++)
                     {
                         U_iter = hashAlgorithm.ComputeHash(U_iter);
                         XorBuffers(src: U_iter, dest: T_blockIndex);
@@ -373,7 +373,7 @@ namespace ServiceStack.Auth
                     }
 
                     // At this point, we're done iterating on this block, so copy the transformed block into retVal.
-                    int numBytesToCopy = Math.Min(numBytesRemaining, T_blockIndex.Length);
+                    var numBytesToCopy = Math.Min(numBytesRemaining, T_blockIndex.Length);
                     Buffer.BlockCopy(T_blockIndex, 0, retVal, numBytesWritten, numBytesToCopy);
                     numBytesWritten += numBytesToCopy;
                     numBytesRemaining -= numBytesToCopy;
@@ -386,7 +386,7 @@ namespace ServiceStack.Auth
 
         private static KeyedHashAlgorithm PrfToManagedHmacAlgorithm(KeyDerivationPrf prf, string password)
         {
-            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
             try
             {
                 switch (prf)
@@ -412,7 +412,7 @@ namespace ServiceStack.Auth
         {
             // Note: dest buffer is mutated.
             Debug.Assert(src.Length == dest.Length);
-            for (int i = 0; i < src.Length; i++)
+            for (var i = 0; i < src.Length; i++)
             {
                 dest[i] ^= src[i];
             }

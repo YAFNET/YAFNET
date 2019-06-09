@@ -258,7 +258,7 @@ namespace ServiceStack.Text.Common
             var dateParts = parts[0].Split('-', '/');
             int hh = 0, min = 0, ss = 0, ms = 0;
             double subMs = 0;
-            int offsetMultiplier = 0;
+            var offsetMultiplier = 0;
 
             if (parts.Length == 1)
             {

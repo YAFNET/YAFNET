@@ -40,7 +40,7 @@ namespace MarkdownDeep
 			if (m_Tokens.Count == 1 && m_Markdown.HtmlClassTitledImages != null && m_Tokens[0].type == TokenType.img)
 			{
 				// Grab the link info
-				LinkInfo li = (LinkInfo)m_Tokens[0].data;
+				var li = (LinkInfo)m_Tokens[0].data;
 
 				// Render the div opening
 				dest.Append("<div class=\"");
@@ -126,7 +126,7 @@ namespace MarkdownDeep
 						break;
 
 					case TokenType.link:
-						LinkInfo li = (LinkInfo)t.data;
+						var li = (LinkInfo)t.data;
 						sb.Append(li.link_text);
 						break;
 				}
@@ -149,7 +149,7 @@ namespace MarkdownDeep
 			sb.Length = 0;
 			while (!eof)
 			{
-				char ch = current;
+				var ch = current;
 				if (char.IsLetterOrDigit(ch) || ch=='_' || ch=='-' || ch=='.')
 					sb.Append(Char.ToLower(ch));
 				else if (ch == ' ')
@@ -170,7 +170,7 @@ namespace MarkdownDeep
 		// Render a list of tokens to a destinatino string builder.
 		private void Render(StringBuilder sb, string str)
 		{
-			foreach (Token t in m_Tokens)
+			foreach (var t in m_Tokens)
 			{
 				switch (t.type)
 				{
@@ -220,7 +220,7 @@ namespace MarkdownDeep
 
 					case TokenType.link:
 					{
-						LinkInfo li = (LinkInfo)t.data;
+						var li = (LinkInfo)t.data;
 						var sf = new SpanFormatter(m_Markdown);
 						sf.DisableLinks = true;
 
@@ -230,14 +230,14 @@ namespace MarkdownDeep
 
 					case TokenType.img:
 					{
-						LinkInfo li = (LinkInfo)t.data;
+						var li = (LinkInfo)t.data;
 						li.def.RenderImg(m_Markdown, sb, li.link_text);
 						break;
 					}
 
 					case TokenType.footnote:
 					{
-						FootnoteReference r=(FootnoteReference)t.data;
+						var r=(FootnoteReference)t.data;
 						sb.Append("<sup id=\"fnref:");
 						sb.Append(r.id);
 						sb.Append("\"><a href=\"#fn:");
@@ -250,7 +250,7 @@ namespace MarkdownDeep
 
 					case TokenType.abbreviation:
 					{
-						Abbreviation a = (Abbreviation)t.data;
+						var a = (Abbreviation)t.data;
 						sb.Append("<abbr");
 						if (!String.IsNullOrEmpty(a.Title))
 						{
@@ -272,7 +272,7 @@ namespace MarkdownDeep
 		// Render a list of tokens to a destinatino string builder.
 		private void RenderPlain(StringBuilder sb, string str)
 		{
-			foreach (Token t in m_Tokens)
+			foreach (var t in m_Tokens)
 			{
 				switch (t.type)
 				{
@@ -304,14 +304,14 @@ namespace MarkdownDeep
 
 					case TokenType.link:
 						{
-							LinkInfo li = (LinkInfo)t.data;
+							var li = (LinkInfo)t.data;
 							sb.Append(li.link_text);
 							break;
 						}
 
 					case TokenType.img:
 						{
-							LinkInfo li = (LinkInfo)t.data;
+							var li = (LinkInfo)t.data;
 							sb.Append(li.link_text);
 							break;
 						}
@@ -334,14 +334,14 @@ namespace MarkdownDeep
 
 			List<Token> emphasis_marks = null;
 
-			List<Abbreviation> Abbreviations=m_Markdown.GetAbbreviations();
-			bool ExtraMode = m_Markdown.ExtraMode;
+			var Abbreviations=m_Markdown.GetAbbreviations();
+			var ExtraMode = m_Markdown.ExtraMode;
 
 			// Scan string
-			int start_text_token = position;
+			var start_text_token = position;
 			while (!eof)
 			{
-				int end_text_token=position;
+				var end_text_token=position;
 
 				// Work out token
 				Token token = null;
@@ -379,7 +379,7 @@ namespace MarkdownDeep
 					case '!':
 					{
 						// Process link reference
-						int linkpos = position;
+						var linkpos = position;
 						token = ProcessLinkOrImageOrFootnote();
 
 						// Rewind if invalid syntax
@@ -392,8 +392,8 @@ namespace MarkdownDeep
 					case '<':
 					{
 						// Is it a valid html tag?
-						int save = position;
-						HtmlTag tag = HtmlTag.Parse(this);
+						var save = position;
+						var tag = HtmlTag.Parse(this);
 						if (tag != null)
 						{
 							if (!m_Markdown.SafeMode || tag.IsSafe())
@@ -422,7 +422,7 @@ namespace MarkdownDeep
 					case '&':
 					{
 						// Is it a valid html entity
-						int save=position;
+						var save=position;
 						string unused=null;
 						if (SkipHtmlEntity(ref unused))
 						{
@@ -560,9 +560,9 @@ namespace MarkdownDeep
 		public Token CreateEmphasisMark()
 		{
 			// Capture current state
-			char ch = current;
-			char altch = ch == '*' ? '_' : '*';
-			int savepos = position;
+			var ch = current;
+			var altch = ch == '*' ? '_' : '*';
+			var savepos = position;
 
 			// Check for a consecutive sequence of just '_' and '*'
 			if (bof || char.IsWhiteSpace(CharAtOffset(-1)))
@@ -582,7 +582,7 @@ namespace MarkdownDeep
 			// Scan backwards and see if we have space before
 			while (IsEmphasisChar(CharAtOffset(-1)))
 				SkipForward(-1);
-			bool bSpaceBefore = bof || char.IsWhiteSpace(CharAtOffset(-1));
+			var bSpaceBefore = bof || char.IsWhiteSpace(CharAtOffset(-1));
 			position = savepos;
 
 			// Count how many matching emphasis characters
@@ -590,12 +590,12 @@ namespace MarkdownDeep
 			{
 				SkipForward(1);
 			}
-			int count=position-savepos;
+			var count=position-savepos;
 
 			// Scan forwards and see if we have space after
 			while (IsEmphasisChar(CharAtOffset(1)))
 				SkipForward(1);
-			bool bSpaceAfter = eof || char.IsWhiteSpace(current);
+			var bSpaceAfter = eof || char.IsWhiteSpace(current);
 			position = savepos + count;
 
 			// This should have been stopped by check above
@@ -621,7 +621,7 @@ namespace MarkdownDeep
 		public Token SplitMarkToken(List<Token> tokens, List<Token> marks, Token token, int position)
 		{
 			// Create the new rhs token
-			Token tokenRhs = CreateToken(token.type, token.startOffset + position, token.length - position);
+			var tokenRhs = CreateToken(token.type, token.startOffset + position, token.length - position);
 
 			// Adjust down the length of this token
 			token.length = position;
@@ -637,22 +637,22 @@ namespace MarkdownDeep
 		// Resolve emphasis marks (part 2)
 		public void ResolveEmphasisMarks(List<Token> tokens, List<Token> marks)
 		{
-			bool bContinue = true;
+			var bContinue = true;
 			while (bContinue)
 			{
 				bContinue = false;
-				for (int i = 0; i < marks.Count; i++)
+				for (var i = 0; i < marks.Count; i++)
 				{
 					// Get the next opening or internal mark
-					Token opening_mark = marks[i];
+					var opening_mark = marks[i];
 					if (opening_mark.type != TokenType.opening_mark && opening_mark.type != TokenType.internal_mark)
 						continue;
 
 					// Look for a matching closing mark
-					for (int j = i + 1; j < marks.Count; j++)
+					for (var j = i + 1; j < marks.Count; j++)
 					{
 						// Get the next closing or internal mark
-						Token closing_mark = marks[j];
+						var closing_mark = marks[j];
 						if (closing_mark.type != TokenType.closing_mark && closing_mark.type != TokenType.internal_mark)
 							break;
 
@@ -661,7 +661,7 @@ namespace MarkdownDeep
 							continue;
 
 						// strong or em?
-						int style = Math.Min(opening_mark.length, closing_mark.length);
+						var style = Math.Min(opening_mark.length, closing_mark.length);
 
 						// Triple or more on both ends?
 						if (style >= 3)
@@ -701,20 +701,20 @@ namespace MarkdownDeep
 		public void ResolveEmphasisMarks_classic(List<Token> tokens, List<Token> marks)
 		{
 			// First pass, do <strong>
-			for (int i = 0; i < marks.Count; i++)
+			for (var i = 0; i < marks.Count; i++)
 			{ 
 				// Get the next opening or internal mark
-				Token opening_mark=marks[i];
+				var opening_mark=marks[i];
 				if (opening_mark.type!=TokenType.opening_mark && opening_mark.type!=TokenType.internal_mark)
 					continue;
 				if (opening_mark.length < 2)
 					continue;
 
 				// Look for a matching closing mark
-				for (int j = i + 1; j < marks.Count; j++)
+				for (var j = i + 1; j < marks.Count; j++)
 				{
 					// Get the next closing or internal mark
-					Token closing_mark = marks[j];
+					var closing_mark = marks[j];
 					if (closing_mark.type != TokenType.closing_mark && closing_mark.type!=TokenType.internal_mark)
 						continue;
 
@@ -749,18 +749,18 @@ namespace MarkdownDeep
 			}
 
 			// Second pass, do <em>
-			for (int i = 0; i < marks.Count; i++)
+			for (var i = 0; i < marks.Count; i++)
 			{
 				// Get the next opening or internal mark
-				Token opening_mark = marks[i];
+				var opening_mark = marks[i];
 				if (opening_mark.type != TokenType.opening_mark && opening_mark.type != TokenType.internal_mark)
 					continue;
 
 				// Look for a matching closing mark
-				for (int j = i + 1; j < marks.Count; j++)
+				for (var j = i + 1; j < marks.Count; j++)
 				{
 					// Get the next closing or internal mark
-					Token closing_mark = marks[j];
+					var closing_mark = marks[j];
 					if (closing_mark.type != TokenType.closing_mark && closing_mark.type != TokenType.internal_mark)
 						continue;
 
@@ -882,12 +882,12 @@ namespace MarkdownDeep
 			SkipForward(1);
 			Mark();
 
-			bool ExtraMode = m_Markdown.ExtraMode;
+			var ExtraMode = m_Markdown.ExtraMode;
 
 			// Allow anything up to the closing angle, watch for escapable characters
 			while (!eof)
 			{
-				char ch = current;
+				var ch = current;
 
 				// No whitespace allowed
 				if (char.IsWhiteSpace(ch))
@@ -896,7 +896,7 @@ namespace MarkdownDeep
 				// End found?
 				if (ch == '>')
 				{
-					string url = Utils.UnescapeString(Extract(), ExtraMode);
+					var url = Utils.UnescapeString(Extract(), ExtraMode);
 
 					LinkInfo li = null;
 					if (Utils.IsEmailAddress(url))
@@ -939,7 +939,7 @@ namespace MarkdownDeep
 		Token ProcessLinkOrImageOrFootnote()
 		{
 			// Link or image?
-			TokenType token_type = SkipChar('!') ? TokenType.img : TokenType.link;
+			var token_type = SkipChar('!') ? TokenType.img : TokenType.link;
 
 			// Opening '['
 			if (!SkipChar('['))
@@ -956,7 +956,7 @@ namespace MarkdownDeep
 				if (SkipFootnoteID(out id) && SkipChar(']'))
 				{
 					// Look it up and create footnote reference token
-					int footnote_index = m_Markdown.ClaimFootnote(id);
+					var footnote_index = m_Markdown.ClaimFootnote(id);
 					if (footnote_index >= 0)
 					{
 						// Yes it's a footnote
@@ -971,15 +971,15 @@ namespace MarkdownDeep
 			if (DisableLinks && token_type==TokenType.link)
 				return null;
 
-			bool ExtraMode = m_Markdown.ExtraMode;
+			var ExtraMode = m_Markdown.ExtraMode;
 
 			// Find the closing square bracket, allowing for nesting, watching for 
 			// escapable characters
 			Mark();
-			int depth = 1;
+			var depth = 1;
 			while (!eof)
 			{
-				char ch = current;
+				var ch = current;
 				if (ch == '[')
 				{
 					depth++;
@@ -999,7 +999,7 @@ namespace MarkdownDeep
 				return null;
 
 			// Get the link text and unescape it
-			string link_text = Utils.UnescapeString(Extract(), ExtraMode);
+			var link_text = Utils.UnescapeString(Extract(), ExtraMode);
 
 			// The closing ']'
 			SkipForward(1);
@@ -1088,10 +1088,10 @@ namespace MarkdownDeep
 		// Process a ``` code span ```
 		Token ProcessCodeSpan()
 		{
-			int start = position;
+			var start = position;
 
 			// Count leading ticks
-			int tickcount = 0;
+			var tickcount = 0;
 			while (SkipChar('`'))
 			{
 				tickcount++;
@@ -1104,14 +1104,14 @@ namespace MarkdownDeep
 			if (eof)
 				return CreateToken(TokenType.Text, start, position - start);
 
-			int startofcode = position;
+			var startofcode = position;
 
 			// Find closing ticks
 			if (!Find(Substring(start, tickcount)))
 				return CreateToken(TokenType.Text, start, position - start);
 
 			// Save end position before backing up over trailing whitespace
-			int endpos = position + tickcount;
+			var endpos = position + tickcount;
 			while (char.IsWhiteSpace(CharAtOffset(-1)))
 				SkipForward(-1);
 

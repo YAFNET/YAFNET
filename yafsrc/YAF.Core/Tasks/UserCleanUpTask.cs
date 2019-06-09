@@ -76,7 +76,7 @@ namespace YAF.Core.Tasks
 
                     // handle unsuspension...
                     var suspendedUsers = from u in users
-                                         where (u["Suspended"] != DBNull.Value && (DateTime)u["Suspended"] < DateTime.UtcNow)
+                                         where u["Suspended"] != DBNull.Value && (DateTime)u["Suspended"] < DateTime.UtcNow
                                          select u;
 
                     // unsuspend these users...

@@ -55,7 +55,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 throw new InvalidOperationException("If specifying IsFixedLength,  a Length must also be specified");
             }
-            bool add = !command.Parameters.Contains(name);
+            var add = !command.Parameters.Contains(name);
             IDbDataParameter param;
             if (add)
             {

@@ -50,7 +50,7 @@ namespace ServiceStack.FluentValidation.Validators {
 
 		protected override bool IsValid(PropertyValidatorContext context) {
 			var comparisonValue = GetComparisonValue(context);
-			bool success = !Compare(comparisonValue, context.PropertyValue);
+			var success = !Compare(comparisonValue, context.PropertyValue);
 
 			if (!success) {
 				context.MessageFormatter.AppendArgument("ComparisonValue", comparisonValue);

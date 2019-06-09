@@ -52,19 +52,19 @@ namespace ServiceStack
             // Example Digest header: WWW-Authenticate: Digest realm="testrealm@host.com", qop="auth,auth-int", nonce="dcd98b7102dd2f0e8b11d0f600bfb0c093", opaque="5ccc069c403ebaf9f0171e9517f40e41"
 
             // get method from first word
-            int pos = authHeader.IndexOf(" ", StringComparison.Ordinal);
+            var pos = authHeader.IndexOf(" ", StringComparison.Ordinal);
             if (pos < 0)
                 throw new AuthenticationException($"Authentication header not supported: {authHeader}");
 
             method = authHeader.Substring(0, pos).ToLowerInvariant();
-            string remainder = authHeader.Substring(pos + 1);
+            var remainder = authHeader.Substring(pos + 1);
 
             // split the rest by comma, then =
-            string[] pars = remainder.Split(',');
-            string[] newpars = new string[pars.Length];
-            int maxnewpars = 0;
+            var pars = remainder.Split(',');
+            var newpars = new string[pars.Length];
+            var maxnewpars = 0;
             // test possibility that a comma is mid value for a split (as in above example)
-            for (int i = 0; i < pars.Length; i++)
+            for (var i = 0; i < pars.Length; i++)
             {
                 if (pars[i].EndsWith("\""))
                 {
@@ -81,11 +81,11 @@ namespace ServiceStack
             }
 
             // now go through each part, splitting on first = character, and removing leading and trailing spaces and " quotes
-            for (int i = 0; i < maxnewpars; i++)
+            for (var i = 0; i < maxnewpars; i++)
             {
-                int pos2 = newpars[i].IndexOf("=", StringComparison.Ordinal);
-                string name = newpars[i].Substring(0, pos2).Trim();
-                string value = newpars[i].Substring(pos2 + 1).Trim();
+                var pos2 = newpars[i].IndexOf("=", StringComparison.Ordinal);
+                var name = newpars[i].Substring(0, pos2).Trim();
+                var value = newpars[i].Substring(pos2 + 1).Trim();
                 if (value.StartsWith("\""))
                 {
                     value = value.Substring(1);
@@ -169,13 +169,13 @@ namespace ServiceStack
         {
             // copied/pasted by adamfowleruk
             // step 1, calculate MD5 hash from input
-            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
+            var md5 = System.Security.Cryptography.MD5.Create();
+            var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            var hash = md5.ComputeHash(inputBytes);
 
             // step 2, convert byte array to hex string
             var sb = StringBuilderCache.Allocate();
-            foreach (byte b in hash)
+            foreach (var b in hash)
             {
                 sb.Append(b.ToString("X2"));
             }
@@ -213,20 +213,20 @@ namespace ServiceStack
             // by adamfowleruk
             // See Client Request at http://en.wikipedia.org/wiki/Digest_access_authentication
 
-            string ncUse = padNC(authInfo.nc);
+            var ncUse = padNC(authInfo.nc);
             authInfo.nc++; // incrememnt for subsequent requests
 
-            string ha1raw = userName + ":" + authInfo.realm + ":" + password;
-            string ha1 = CalculateMD5Hash(ha1raw);
+            var ha1raw = userName + ":" + authInfo.realm + ":" + password;
+            var ha1 = CalculateMD5Hash(ha1raw);
 
 
-            string ha2raw = client.Method + ":" + client.RequestUri.PathAndQuery;
-            string ha2 = CalculateMD5Hash(ha2raw);
+            var ha2raw = client.Method + ":" + client.RequestUri.PathAndQuery;
+            var ha2 = CalculateMD5Hash(ha2raw);
 
-            string md5rraw = ha1 + ":" + authInfo.nonce + ":" + ncUse + ":" + authInfo.cnonce + ":" + authInfo.qop + ":" + ha2;
-            string response = CalculateMD5Hash(md5rraw);
+            var md5rraw = ha1 + ":" + authInfo.nonce + ":" + ncUse + ":" + authInfo.cnonce + ":" + authInfo.qop + ":" + ha2;
+            var response = CalculateMD5Hash(md5rraw);
 
-            string header =
+            var header =
                 "Digest username=\"" + userName + "\", realm=\"" + authInfo.realm + "\", nonce=\"" + authInfo.nonce + "\", uri=\"" +
                 client.RequestUri.PathAndQuery + "\", cnonce=\"" + authInfo.cnonce + "\", nc=" + ncUse + ", qop=\"" + authInfo.qop + "\", response=\"" + response +
                 "\", opaque=\"" + authInfo.opaque + "\"";

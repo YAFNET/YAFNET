@@ -41,11 +41,9 @@ namespace ServiceStack.MiniProfiler.Data
 
         public ProfiledConnection(IDbConnection connection, IDbProfiler profiler, bool autoDisposeConnection = true)
         {
-    		var hasConn = connection as IHasDbConnection;
-			if (hasConn != null) connection = hasConn.DbConnection;
-    		var dbConn = connection as DbConnection;
+            if (connection is IHasDbConnection hasConn) connection = hasConn.DbConnection;
 
-			if (dbConn == null)
+            if (!(connection is DbConnection dbConn))
 				throw new ArgumentException(connection.GetType().FullName + " does not inherit DbConnection");
 			
 			Init(dbConn, profiler, autoDisposeConnection);

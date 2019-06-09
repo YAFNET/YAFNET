@@ -531,7 +531,7 @@ namespace ServiceStack
 
                 Interlocked.Exchange(ref noOfContinuousErrors, 0);
 
-                int len = task.Result;
+                var len = task.Result;
                 if (len > 0)
                 {
                     var text = overflowText + encoding.GetString(buffer, 0, len);
@@ -1039,14 +1039,13 @@ namespace ServiceStack
                 dst.Meta[entry.Key] = entry.Value;
             }
 
-            var cmd = dst as ServerEventCommand;
-            if (cmd != null)
+            if (dst is ServerEventCommand cmd)
             {
                 cmd.UserId = msg.Get("userId");
                 cmd.DisplayName = msg.Get("displayName");
                 cmd.IsAuthenticated = msg.Get("isAuthenticated") == "true";
                 cmd.ProfileUrl = msg.Get("profileUrl");
-                if (long.TryParse(msg.Get("createdAt"), out long unixTimeMs))
+                if (long.TryParse(msg.Get("createdAt"), out var unixTimeMs))
                 {
                     cmd.CreatedAt = unixTimeMs.FromUnixTimeMs();
                 }

@@ -121,7 +121,7 @@ namespace MarkdownDeep
 		{
 			while (pos < end)
 			{
-				char ch=str[pos];
+				var ch=str[pos];
 				if (ch=='\r' || ch=='\n')
 					break;
 				pos++;
@@ -133,7 +133,7 @@ namespace MarkdownDeep
 		{
 			if (pos < end)
 			{
-				char ch = str[pos];
+				var ch = str[pos];
 				if (ch == '\r')
 				{
 					pos++;
@@ -165,7 +165,7 @@ namespace MarkdownDeep
 		// Or, \0 if out of range
 		public char CharAtOffset(int offset)
 		{
-			int index = pos + offset;
+			var index = pos + offset;
 			
 			if (index < start)
 				return '\0';
@@ -263,7 +263,7 @@ namespace MarkdownDeep
 		// Does current character match any of a range of characters
 		public bool DoesMatchAny(char[] chars)
 		{
-			for (int i = 0; i < chars.Length; i++)
+			for (var i = 0; i < chars.Length; i++)
 			{
 				if (DoesMatch(chars[i]))
 					return true;
@@ -274,7 +274,7 @@ namespace MarkdownDeep
 		// Does current character match any of a range of characters
 		public bool DoesMatchAny(int offset, char[] chars)
 		{
-			for (int i = 0; i < chars.Length; i++)
+			for (var i = 0; i < chars.Length; i++)
 			{
 				if (DoesMatch(offset, chars[i]))
 					return true;
@@ -285,7 +285,7 @@ namespace MarkdownDeep
 		// Does current string position match a string
 		public bool DoesMatch(string str)
 		{
-			for (int i = 0; i < str.Length; i++)
+			for (var i = 0; i < str.Length; i++)
 			{
 				if (str[i] != CharAtOffset(i))
 					return false;
@@ -321,7 +321,7 @@ namespace MarkdownDeep
 				return false;
 
 			// Find it
-			int index = str.IndexOf(ch, pos);
+			var index = str.IndexOf(ch, pos);
 			if (index < 0 || index>=end)
 				return false;
 
@@ -337,7 +337,7 @@ namespace MarkdownDeep
 				return false;
 
 			// Find it
-			int index = str.IndexOfAny(chars, pos);
+			var index = str.IndexOfAny(chars, pos);
 			if (index < 0 || index>=end)
 				return false;
 
@@ -352,7 +352,7 @@ namespace MarkdownDeep
 			if (pos >= end)
 				return false;
 
-			int index = str.IndexOf(find, pos);
+			var index = str.IndexOf(find, pos);
 			if (index < 0 || index > end-find.Length)
 				return false;
 
@@ -366,7 +366,7 @@ namespace MarkdownDeep
 			if (pos >= end)
 				return false;
 
-			int index = str.IndexOf(find, pos, StringComparison.OrdinalIgnoreCase);
+			var index = str.IndexOf(find, pos, StringComparison.OrdinalIgnoreCase);
 			if (index < 0 || index >= end - find.Length)
 				return false;
 
@@ -401,7 +401,7 @@ namespace MarkdownDeep
 		// Skip an identifier
 		public bool SkipIdentifier(ref string identifier)
 		{
-			int savepos = position;
+			var savepos = position;
 			if (!Utils.ParseIdentifier(this.str, ref pos, ref identifier))
 				return false;
 			if (pos >= end)
@@ -414,7 +414,7 @@ namespace MarkdownDeep
 
 		public bool SkipFootnoteID(out string id)
 		{
-			int savepos = position;
+			var savepos = position;
 
 			SkipLinespace();
 
@@ -422,7 +422,7 @@ namespace MarkdownDeep
 
 			while (true)
 			{
-				char ch = current;
+				var ch = current;
 				if (char.IsLetterOrDigit(ch) || ch == '-' || ch == '_' || ch == ':' || ch == '.' || ch == ' ')
 					SkipForward(1);
 				else
@@ -447,7 +447,7 @@ namespace MarkdownDeep
 		// Skip a Html entity (eg: &amp;)
 		public bool SkipHtmlEntity(ref string entity)
 		{
-			int savepos = position;
+			var savepos = position;
 			if (!Utils.SkipHtmlEntity(this.str, ref pos, ref entity))
 				return false;
 			if (pos > end)

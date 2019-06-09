@@ -305,7 +305,7 @@ namespace YAF.Utils.Structures
       var i = 0;
       LinkItem current = null;
 
-      for (i = 0, current = this.HeadLink; current != null && (i + index) < array.Length; i++, current = current.Next)
+      for (i = 0, current = this.HeadLink; current != null && i + index < array.Length; i++, current = current.Next)
       {
         array.SetValue(current.Item, index + i);
       }

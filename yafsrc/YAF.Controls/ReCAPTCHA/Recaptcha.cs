@@ -120,7 +120,7 @@ namespace YAF.Controls
                     this.Validate();
                 }
 
-                return (this.recaptchaResponse != null) && this.recaptchaResponse.IsValid;
+                return this.recaptchaResponse != null && this.recaptchaResponse.IsValid;
             }
 
             set => throw new NotImplementedException("This setter is not implemented.");

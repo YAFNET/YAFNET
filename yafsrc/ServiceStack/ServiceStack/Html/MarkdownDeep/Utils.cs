@@ -50,7 +50,7 @@ namespace MarkdownDeep
 			if (list.Count == 0)
 				return default(T);
 		    
-            T val = list[list.Count - 1];
+            var val = list[list.Count - 1];
 		    list.RemoveAt(list.Count - 1);
 		    return val;
 		}
@@ -71,7 +71,7 @@ namespace MarkdownDeep
 			}
 
 			// Find the end
-			int startpos = pos;
+			var startpos = pos;
 			pos++;
 			while (pos < str.Length && (char.IsDigit(str[pos]) || char.IsLetter(str[pos]) || str[pos] == '_'))
 				pos++;
@@ -88,13 +88,13 @@ namespace MarkdownDeep
 			if (str[pos] != '&')
 				return false;
 
-			int savepos = pos;
-			int len = str.Length;
-			int i = pos+1;
+			var savepos = pos;
+			var len = str.Length;
+			var i = pos+1;
 
 			// Number entity?
-			bool bNumber=false;
-			bool bHex = false;
+			var bNumber=false;
+			var bHex = false;
 			if (i < len && str[i] == '#')
 			{
 				bNumber = true;
@@ -109,10 +109,10 @@ namespace MarkdownDeep
 			}
 
 			// Parse the content
-			int contentpos = i;
+			var contentpos = i;
 			while (i < len)
 			{
-				char ch=str[i];
+				var ch=str[i];
 
 				if (bHex)
 				{
@@ -154,17 +154,17 @@ namespace MarkdownDeep
 		public static void HtmlRandomize(StringBuilder dest, string str)
 		{
 			// Deterministic random seed
-			int seed = 0;
-			foreach (char ch in str)
+			var seed = 0;
+			foreach (var ch in str)
 			{
 				seed = unchecked(seed + ch);
 			}
-			Random r = new Random(seed);
+			var r = new Random(seed);
 
 			// Randomize
-			foreach (char ch in str)
+			foreach (var ch in str)
 			{
-				int x = r.Next() % 100;
+				var x = r.Next() % 100;
 				if (x > 90 && ch != '@')
 				{
 					dest.Append(ch);
@@ -191,12 +191,12 @@ namespace MarkdownDeep
 			if (str == null)
 				return;
 
-			for (int i=0; i<str.Length; i++)
+			for (var i=0; i<str.Length; i++)
 			{
 				switch (str[i])
 				{
 					case '&':
-						int start = i;
+						var start = i;
 						string unused=null;
 						if (SkipHtmlEntity(str, ref i, ref unused))
 						{
@@ -232,13 +232,13 @@ namespace MarkdownDeep
 		// Like HtmlEncode, but only escape &'s that don't look like html entities
 		public static void SmartHtmlEncodeAmps(StringBuilder dest, string str, int startOffset, int len)
 		{
-			int end = startOffset + len;
-			for (int i = startOffset; i < end; i++)
+			var end = startOffset + len;
+			for (var i = startOffset; i < end; i++)
 			{
 				switch (str[i])
 				{
 					case '&':
-						int start = i;
+						var start = i;
 						string unused = null;
 						if (SkipHtmlEntity(str, ref i, ref unused))
 						{
@@ -333,7 +333,7 @@ namespace MarkdownDeep
 				return str;
 
 		    var sb = StringBuilderCacheAlt.Allocate();
-			for (int i = 0; i < str.Length; i++)
+			for (var i = 0; i < str.Length; i++)
 			{
 				if (str[i] == '\\' && i+1<str.Length && IsEscapableChar(str[i+1], ExtraMode))
 				{
@@ -358,7 +358,7 @@ namespace MarkdownDeep
 				return str;
 
             var sb = StringBuilderCacheAlt.Allocate();
-            StringScanner sp = new StringScanner(str);
+            var sp = new StringScanner(str);
 			while (!sp.eof)
 			{
 				if (sp.eol)
@@ -390,11 +390,11 @@ namespace MarkdownDeep
 		// Check if a string looks like an email address
 		public static bool IsEmailAddress(string str)
 		{
-			int posAt = str.IndexOf('@');
+			var posAt = str.IndexOf('@');
 			if (posAt < 0)
 				return false;
 
-			int posLastDot = str.LastIndexOf('.');
+			var posLastDot = str.LastIndexOf('.');
 			if (posLastDot < posAt)
 				return false;
 
@@ -421,9 +421,9 @@ namespace MarkdownDeep
 				return false;
 
 			// Check the rest
-			for (int i = 0; i < str.Length; i++)
+			for (var i = 0; i < str.Length; i++)
 			{
-				char ch = str[i];
+				var ch = str[i];
 				if (Char.IsLetterOrDigit(ch) || ch == '_' || ch == '-' || ch == ':' || ch == '.')
 					continue;
 
@@ -442,7 +442,7 @@ namespace MarkdownDeep
 		public static string StripHtmlID(string str, int start, ref int end)
 		{
 			// Skip trailing whitespace
-			int pos = end - 1;
+			var pos = end - 1;
 			while (pos >= start && Char.IsWhiteSpace(str[pos]))
 			{
 				pos--;
@@ -452,7 +452,7 @@ namespace MarkdownDeep
 			if (pos < start || str[pos] != '}')
 				return null;
 
-			int endId = pos;
+			var endId = pos;
 			pos--;
 
 			// Find the opening '{'
@@ -464,8 +464,8 @@ namespace MarkdownDeep
 				return null;
 
 			// Extract and check the ID
-			int startId = pos + 2;
-			string strID = str.Substring(startId, endId - startId);
+			var startId = pos + 2;
+			var strID = str.Substring(startId, endId - startId);
 			if (!IsValidHtmlID(strID))
 				return null;
 
