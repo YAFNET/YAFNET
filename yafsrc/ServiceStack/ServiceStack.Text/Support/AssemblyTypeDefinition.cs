@@ -17,7 +17,7 @@ namespace ServiceStack.Common.Support
 
 			var parts = typeDefinition.Split(TypeDefinitionSeperator);
             this.TypeName = parts[TypeNameIndex].Trim();
-            this.AssemblyName = (parts.Length > AssemblyNameIndex) ? parts[AssemblyNameIndex].Trim() : null;
+            this.AssemblyName = parts.Length > AssemblyNameIndex ? parts[AssemblyNameIndex].Trim() : null;
 		}
 
 		public string TypeName { get; set; }

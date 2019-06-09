@@ -176,7 +176,7 @@ namespace ServiceStack.Text.Common
             {
                 // check that we have RFC1123 date:
                 // ddd, dd MMM yyyy HH:mm:ss GMT
-                if (value.Length == 29 && (value.EndsWithInvariant("GMT")))
+                if (value.Length == 29 && value.EndsWithInvariant("GMT"))
                 {
                     return DateTimeSerializer.ParseRFC1123DateTime(value);
                 }
@@ -212,7 +212,7 @@ namespace ServiceStack.Text.Common
                     : ParsePrimitive(value);
             }
 
-            return (ParsePrimitive(value) ?? ParseQuotedPrimitive(value));
+            return ParsePrimitive(value) ?? ParseQuotedPrimitive(value);
         }
     }
 
@@ -271,8 +271,8 @@ namespace ServiceStack.Text.Common
                 propertyInfo.PropertyType.HasInterface(typeof(IEnumerable<object>)))
             {
                 var declaringTypeNamespace = propertyInfo.DeclaringType?.Namespace;
-                if (declaringTypeNamespace == null || (!JsConfig.AllowRuntimeTypeInTypesWithNamespaces.Contains(declaringTypeNamespace)
-                    && !JsConfig.AllowRuntimeTypeInTypes.Contains(propertyInfo.DeclaringType.FullName)))
+                if (declaringTypeNamespace == null || !JsConfig.AllowRuntimeTypeInTypesWithNamespaces.Contains(declaringTypeNamespace)
+                    && !JsConfig.AllowRuntimeTypeInTypes.Contains(propertyInfo.DeclaringType.FullName))
                 {
                     return value =>
                     {

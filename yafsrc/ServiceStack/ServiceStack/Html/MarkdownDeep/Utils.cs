@@ -116,7 +116,7 @@ namespace MarkdownDeep
 
 				if (bHex)
 				{
-					if (!(char.IsDigit(ch) || (ch >= 'a' && ch <= 'f') || (ch >= 'A' && ch <= 'F')))
+					if (!(char.IsDigit(ch) || ch >= 'a' && ch <= 'f' || ch >= 'A' && ch <= 'F'))
 						break;
 				}
 

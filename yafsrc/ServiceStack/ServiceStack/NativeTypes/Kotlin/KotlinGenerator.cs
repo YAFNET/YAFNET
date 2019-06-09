@@ -243,7 +243,7 @@ namespace ServiceStack.NativeTypes.Kotlin
         {
             return metadata.GetAllMetadataTypes().Any(x => KotlinGeneratorExtensions.KotlinKeyWords.Contains(x.Name)
                 || x.Properties.Safe().Any(p => p.DataMember != null && p.DataMember.Name != null)
-                || (x.ReturnMarkerTypeName != null && x.ReturnMarkerTypeName.Name.IndexOf('`') >= 0)); //uses TypeToken<T>
+                || x.ReturnMarkerTypeName != null && x.ReturnMarkerTypeName.Name.IndexOf('`') >= 0); //uses TypeToken<T>
         }
 
         private static bool ReferencesStream(MetadataTypes metadata)

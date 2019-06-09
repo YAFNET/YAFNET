@@ -305,7 +305,7 @@ namespace ServiceStack.Text.Common
                     return false;
 
                 if (!Serializer.IncludeNullValues
-                    && (propertyValue == null || (this.propertySuppressDefaultConfig && Equals(this.DefaultValue, propertyValue))))
+                    && (propertyValue == null || this.propertySuppressDefaultConfig && Equals(this.DefaultValue, propertyValue)))
                 {
                     return false;
                 }

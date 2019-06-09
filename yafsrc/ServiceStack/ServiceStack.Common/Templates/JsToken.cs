@@ -75,7 +75,7 @@ namespace ServiceStack.Templates
         public JsConstant(object value) => Value = value;
         public override string ToRawString() => JsonValue(Value);
 
-        public override int GetHashCode() => (Value != null ? Value.GetHashCode() : 0);
+        public override int GetHashCode() => this.Value != null ? this.Value.GetHashCode() : 0;
         protected bool Equals(JsConstant other) => Equals(Value, other.Value);
         public override bool Equals(object obj)
         {
@@ -306,7 +306,7 @@ namespace ServiceStack.Templates
             return Equals((JsArray) obj);
         }
 
-        public override int GetHashCode() => (Array != null ? Array.GetHashCode() : 0);
+        public override int GetHashCode() => this.Array != null ? this.Array.GetHashCode() : 0;
     }
 
     public class JsObject : JsToken, IEnumerable<KeyValuePair<string, object>>
@@ -349,7 +349,7 @@ namespace ServiceStack.Templates
             return Equals((JsString) obj);
         }
 
-        public override int GetHashCode() => (Value != null ? Value.GetHashCode() : 0);
+        public override int GetHashCode() => this.Value != null ? this.Value.GetHashCode() : 0;
     }
 
     public class JsNumber : JsToken
@@ -502,7 +502,7 @@ namespace ServiceStack.Templates
                     {
                         // strip the back-slash used to escape quote char in strings
                         var ch = str[j];
-                        if (ch != '\\' || (j + 1 >= str.Length || str[j + 1] != firstChar))
+                        if (ch != '\\' || j + 1 >= str.Length || str[j + 1] != firstChar)
                             sb.Append(ch);
                     }
                     value = StringBuilderCache.ReturnAndFree(sb);
@@ -510,14 +510,14 @@ namespace ServiceStack.Templates
                 
                 return literal.Advance(i + 1);
             }
-            if (firstChar >= '0' && firstChar <= '9' || (literal.Length >= 2 && (firstChar == '-' || firstChar == '+') && literal.GetChar(1).IsNumericChar()))
+            if (firstChar >= '0' && firstChar <= '9' || literal.Length >= 2 && (firstChar == '-' || firstChar == '+') && literal.GetChar(1).IsNumericChar())
             {
                 i = 1;
                 var hasExponent = false;
                 var hasDecimal = false;
 
                 while (i < literal.Length && IsNumericChar(c = literal.GetChar(i)) ||
-                       (hasExponent = (c == 'e' || c == 'E')))
+                       (hasExponent = c == 'e' || c == 'E'))
                 {
                     if (c == '.')
                         hasDecimal = true;
@@ -750,7 +750,7 @@ namespace ServiceStack.Templates
             var isExpression = false;
             var hadWhitespace = false;
             while (i < literal.Length && IsValidVarNameChar(c = literal.GetChar(i)) || 
-                   (isExpression = c.IsBindingExpressionChar() || (allowWhitespaceSyntax && c == ':')))
+                   (isExpression = c.IsBindingExpressionChar() || allowWhitespaceSyntax && c == ':'))
             {
                 if (isExpression)
                 {
@@ -809,7 +809,7 @@ namespace ServiceStack.Templates
             char c;
             var isBinding = false;
             while (i < cmd.Name.Length && 
-                   ((c = cmd.Name.GetChar(i)).IsValidVarNameChar() || (isBinding = (c == '.' || c == '[' || c.IsWhiteSpace()))))
+                   ((c = cmd.Name.GetChar(i)).IsValidVarNameChar() || (isBinding = c == '.' || c == '[' || c.IsWhiteSpace())))
             {
                 if (isBinding)
                     return true;
@@ -961,7 +961,7 @@ namespace ServiceStack.Templates
                     }
 
                     if (c.IsOperatorChar() && // don't take precedence over '|' seperator 
-                        (c != separator || (i + 1 < commandsString.Length && commandsString.GetChar(i + 1).IsOperatorChar())))
+                        (c != separator || i + 1 < commandsString.Length && commandsString.GetChar(i + 1).IsOperatorChar()))
                     {
                         cmd.Name = commandsString.Subsegment(0, i).TrimEnd();
                         pos = i;
@@ -976,7 +976,7 @@ namespace ServiceStack.Templates
                         var endStringPos = commandsString.IndexOf("\n", i);
                         var endStatementPos = commandsString.IndexOf("}}", i);
 
-                        if (endStringPos == -1 || (endStatementPos != -1 && endStatementPos < endStringPos))
+                        if (endStringPos == -1 || endStatementPos != -1 && endStatementPos < endStringPos)
                             endStringPos = endStatementPos;
                         
                         if (endStringPos == -1)
@@ -1241,7 +1241,7 @@ namespace ServiceStack.Templates
                     var endStringPos = literal.IndexOf("\n", i);
                     var endStatementPos = literal.IndexOf("}}", i);
 
-                    if (endStringPos == -1 || (endStatementPos != -1 && endStatementPos < endStringPos))
+                    if (endStringPos == -1 || endStatementPos != -1 && endStatementPos < endStringPos)
                         endStringPos = endStatementPos;
                         
                     if (endStringPos == -1)

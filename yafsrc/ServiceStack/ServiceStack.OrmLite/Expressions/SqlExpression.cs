@@ -474,7 +474,7 @@ namespace ServiceStack.OrmLite
         protected SqlExpression<T> AppendToWhere(string condition, string sqlExpression)
         {
             whereExpression = string.IsNullOrEmpty(whereExpression)
-                ? (WhereStatementWithoutWhereString ? "" : "WHERE ")
+                ? this.WhereStatementWithoutWhereString ? "" : "WHERE "
                 : whereExpression + " " + condition + " ";
 
             whereExpression += sqlExpression;
@@ -677,7 +677,7 @@ namespace ServiceStack.OrmLite
             {
                 var reverse = fieldName.StartsWith("-");
                 var useSuffix = reverse
-                    ? (orderBySuffix == OrderBySuffix.Asc ? OrderBySuffix.Desc : OrderBySuffix.Asc)
+                    ? orderBySuffix == OrderBySuffix.Asc ? OrderBySuffix.Desc : OrderBySuffix.Asc
                     : orderBySuffix;
                 var useName = reverse ? fieldName.Substring(1) : fieldName;
 
@@ -1125,7 +1125,7 @@ namespace ServiceStack.OrmLite
 
                 var value = fieldDef.GetValue(item);
                 if (excludeDefaults
-                    && (value == null || (!fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue()))))
+                    && (value == null || !fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue())))
                     continue;
 
                 if (setFields.Length > 0)
@@ -1405,9 +1405,9 @@ namespace ServiceStack.OrmLite
                 }
 
                 if (!(left is PartialSqlString))
-                    left = ((bool)left) ? GetTrueExpression() : GetFalseExpression();
+                    left = (bool)left ? GetTrueExpression() : GetFalseExpression();
                 if (!(right is PartialSqlString))
-                    right = ((bool)right) ? GetTrueExpression() : GetFalseExpression();
+                    right = (bool)right ? GetTrueExpression() : GetFalseExpression();
             }
             else if ((operand == "=" || operand == "<>") && b.Left is MethodCallExpression && ((MethodCallExpression)b.Left).Method.Name == "CompareString")
             {
@@ -2180,9 +2180,9 @@ namespace ServiceStack.OrmLite
 
         protected virtual bool IsStaticArrayMethod(MethodCallExpression m)
         {
-            return (m.Object == null 
-                && m.Method.Name == "Contains"
-                && m.Arguments.Count == 2);
+            return m.Object == null 
+                   && m.Method.Name == "Contains"
+                   && m.Arguments.Count == 2;
         }
 
         protected virtual object VisitStaticArrayMethodCall(MethodCallExpression m)
@@ -2243,8 +2243,8 @@ namespace ServiceStack.OrmLite
 
         protected virtual bool IsStaticStringMethod(MethodCallExpression m)
         {
-            return (m.Object == null
-                    && (m.Method.Name == nameof(String.Concat) || m.Method.Name == nameof(String.Compare)));
+            return m.Object == null
+                   && (m.Method.Name == nameof(String.Concat) || m.Method.Name == nameof(String.Compare));
         }
 
         protected virtual object VisitStaticStringMethodCall(MethodCallExpression m)

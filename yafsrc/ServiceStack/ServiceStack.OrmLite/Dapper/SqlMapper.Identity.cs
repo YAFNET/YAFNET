@@ -38,19 +38,19 @@ namespace ServiceStack.OrmLite.Dapper
                 unchecked
                 {
                     hashCode = 17; // we *know* we are using this in a dictionary, so pre-compute this
-                    hashCode = (hashCode * 23) + commandType.GetHashCode();
-                    hashCode = (hashCode * 23) + gridIndex.GetHashCode();
-                    hashCode = (hashCode * 23) + (sql?.GetHashCode() ?? 0);
-                    hashCode = (hashCode * 23) + (type?.GetHashCode() ?? 0);
+                    hashCode = this.hashCode * 23 + commandType.GetHashCode();
+                    hashCode = this.hashCode * 23 + gridIndex.GetHashCode();
+                    hashCode = this.hashCode * 23 + (sql?.GetHashCode() ?? 0);
+                    hashCode = this.hashCode * 23 + (type?.GetHashCode() ?? 0);
                     if (otherTypes != null)
                     {
                         foreach (var t in otherTypes)
                         {
-                            hashCode = (hashCode * 23) + (t?.GetHashCode() ?? 0);
+                            hashCode = this.hashCode * 23 + (t?.GetHashCode() ?? 0);
                         }
                     }
-                    hashCode = (hashCode * 23) + (connectionString == null ? 0 : connectionStringComparer.GetHashCode(connectionString));
-                    hashCode = (hashCode * 23) + (parametersType?.GetHashCode() ?? 0);
+                    hashCode = this.hashCode * 23 + (connectionString == null ? 0 : connectionStringComparer.GetHashCode(connectionString));
+                    hashCode = this.hashCode * 23 + (parametersType?.GetHashCode() ?? 0);
                 }
             }
 

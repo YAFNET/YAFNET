@@ -107,7 +107,7 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <returns>A collection of validation failures</returns>
 		public IEnumerable<ValidationFailure> Validate(ValidationContext context) {
 			if (!context.Selector.CanExecute(this, "", context) || !condition(context.InstanceToValidate) ||
-				(asyncCondition != null && !asyncCondition(context.InstanceToValidate).Result)) {
+				this.asyncCondition != null && !this.asyncCondition(context.InstanceToValidate).Result) {
 				return Enumerable.Empty<ValidationFailure>();
 			}
 

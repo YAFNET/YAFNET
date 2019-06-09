@@ -98,7 +98,7 @@ namespace ServiceStack.FluentValidation.Validators
         private static decimal GetMantissa(decimal Decimal)
         {
             var bits = GetBits(Decimal);
-            return (bits[2]*4294967296m*4294967296m) + (bits[1]*4294967296m) + bits[0];
+            return bits[2]*4294967296m*4294967296m + bits[1]*4294967296m + bits[0];
         }
 
         private static uint GetUnsignedScale(decimal Decimal)

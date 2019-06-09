@@ -219,7 +219,7 @@ namespace ServiceStack.OrmLite.SqlServer
             }
 
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
-            sql += (fileTableAttrib != null)
+            sql += fileTableAttrib != null
                 ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                 : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";
 

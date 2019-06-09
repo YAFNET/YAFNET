@@ -788,7 +788,7 @@ namespace ServiceStack
 
             var totalRequested = commands.Any(x =>
                 x.Name.EqualsIgnoreCase("COUNT") &&
-                (x.Args.Count == 0 || (x.Args.Count == 1 && x.Args[0].Equals("*"))));
+                (x.Args.Count == 0 || x.Args.Count == 1 && x.Args[0].Equals("*")));
 
             if (IncludeTotal || totalRequested)
             {
@@ -1252,8 +1252,7 @@ namespace ServiceStack
                 var fieldNames = dto.OrderByDesc.Split(FieldSeperators, StringSplitOptions.RemoveEmptyEntries);
                 q.OrderByFieldsDescending(fieldNames);
             }
-            else if ((dto.Skip != null || dto.Take != null)
-                && (options != null && options.OrderByPrimaryKeyOnLimitQuery))
+            else if ((dto.Skip != null || dto.Take != null) && options != null && options.OrderByPrimaryKeyOnLimitQuery)
             {
                 q.OrderByPrimaryKey();
             }
@@ -1330,7 +1329,7 @@ namespace ServiceStack
         private static void AddCondition(IDataQuery q, QueryTerm defaultTerm, PropertyInfo property, object value, QueryCondition condition)
         {
             var isMultiple = condition is IQueryMultiple
-                || (value is IEnumerable && !(value is string));
+                || value is IEnumerable && !(value is string);
 
             if (condition != null)
             {
@@ -1368,7 +1367,7 @@ namespace ServiceStack
                     ?? match.FieldDef.PropertyType;
 
                 var isMultiple = condition is IQueryMultiple
-                    || (fieldType.HasInterface(typeof(IEnumerable)) && fieldType != typeof(string))
+                    || fieldType.HasInterface(typeof(IEnumerable)) && fieldType != typeof(string)
                     || string.Compare(name, match.FieldDef.Name + Pluralized, StringComparison.OrdinalIgnoreCase) == 0;
 
                 if (condition == null)

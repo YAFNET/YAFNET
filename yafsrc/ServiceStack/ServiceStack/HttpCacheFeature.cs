@@ -50,8 +50,8 @@ namespace ServiceStack
 
             cacheInfo = httpResult.ToCacheInfo();
 
-            if ((req.Verb != HttpMethods.Get && req.Verb != HttpMethods.Head) ||
-                (httpResult.StatusCode != HttpStatusCode.OK && httpResult.StatusCode != HttpStatusCode.NotModified))
+            if (req.Verb != HttpMethods.Get && req.Verb != HttpMethods.Head ||
+                httpResult.StatusCode != HttpStatusCode.OK && httpResult.StatusCode != HttpStatusCode.NotModified)
                 return;
 
             if (httpResult.LastModified != null)

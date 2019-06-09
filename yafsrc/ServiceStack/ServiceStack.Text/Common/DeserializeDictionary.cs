@@ -215,7 +215,7 @@ namespace ServiceStack.Text.Common
 
             var index = VerifyAndGetStartIndex(value, createMapType);
 
-            var to = (createMapType == null)
+            var to = createMapType == null
                 ? new Dictionary<TKey, TValue>()
                 : (IDictionary<TKey, TValue>)createMapType.CreateInstance();
 

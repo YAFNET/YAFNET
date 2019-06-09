@@ -64,7 +64,7 @@ namespace ServiceStack
             return httpReq.GetItem(sessionKey) as string
                 ?? httpReq.GetHeader("X-" + sessionKey)
                 ?? (HostContext.Config.AllowSessionIdsInHttpParams
-                    ? (httpReq.QueryString[sessionKey] ?? httpReq.FormData[sessionKey])
+                    ? httpReq.QueryString[sessionKey] ?? httpReq.FormData[sessionKey]
                     : null)
                 ?? httpReq.GetCookieValue(sessionKey);
         }

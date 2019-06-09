@@ -415,7 +415,7 @@ namespace ServiceStack
             }
             catch (Exception ex)
             {
-                var name = (fieldInfo != null) ? fieldInfo.Name : propertyInfo.Name;
+                var name = fieldInfo != null ? fieldInfo.Name : propertyInfo.Name;
                 Tracer.Instance.WriteDebug("Could not set member: {0}. Error: {1}", name, ex.Message);
             }
         }

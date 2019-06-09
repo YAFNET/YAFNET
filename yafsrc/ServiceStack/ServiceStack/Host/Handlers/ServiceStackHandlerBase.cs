@@ -187,12 +187,8 @@ namespace ServiceStack.Host.Handlers
                 {
                     //.NET Core HttpClient Zip Content-Length omission is reported as 0
                     var hasContentBody = httpReq.ContentLength > 0
-                        || (HttpUtils.HasRequestBody(httpReq.Verb) && 
-                                (httpReq.GetContentEncoding() != null
-#if NETSTANDARD2_0
-                                || httpReq.InputStream.Length > 0 // AWS API Gateway reports ContentLength=0,ContentEncoding=null
-#endif
-                                ));
+                        || HttpUtils.HasRequestBody(httpReq.Verb) && 
+                        httpReq.GetContentEncoding() != null;
 
                     if (Log.IsDebugEnabled)
                         Log.DebugFormat($"CreateContentTypeRequest/hasContentBody:{hasContentBody}:{httpReq.Verb}:{contentType}:{httpReq.ContentLength}:{httpReq.GetContentEncoding()}");

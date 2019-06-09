@@ -66,7 +66,7 @@ namespace ServiceStack.Templates
         {
             unchecked
             {
-                var hashCode = (Keyword != null ? Keyword.GetHashCode() : 0);
+                var hashCode = this.Keyword != null ? this.Keyword.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Syntax != null ? Syntax.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Expressions != null ? Expressions.GetHashCode() : 0);
                 return hashCode;
@@ -165,7 +165,7 @@ namespace ServiceStack.Templates
         {
             unchecked
             {
-                var hashCode = (Operand != null ? Operand.GetHashCode() : 0);
+                var hashCode = this.Operand != null ? this.Operand.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ (Left != null ? Left.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Right != null ? Right.GetHashCode() : 0);
                 return hashCode;

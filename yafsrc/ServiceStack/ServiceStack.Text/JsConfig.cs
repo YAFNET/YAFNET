@@ -44,7 +44,7 @@ namespace ServiceStack.Text
                 var parts = item.SplitOnFirst(':');
                 var key = parts[0].ToLower();
                 var value = parts.Length == 2 ? parts[1].ToLower() : null;
-                var boolValue = parts.Length == 1 || (value != "false" && value != "0");
+                var boolValue = parts.Length == 1 || value != "false" && value != "0";
 
                 switch (key)
                 {

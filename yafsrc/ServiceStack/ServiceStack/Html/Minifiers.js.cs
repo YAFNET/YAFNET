@@ -392,9 +392,9 @@ namespace ServiceStack.Html
     */
     bool isAlphanum(int c)
     {
-      return ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') ||
-              (c >= 'A' && c <= 'Z') || c == '_' || c == '$' || c == '\\' ||
-              c > 126);
+      return c >= 'a' && c <= 'z' || c >= '0' && c <= '9' ||
+             c >= 'A' && c <= 'Z' || c == '_' || c == '$' || c == '\\' ||
+             c > 126;
     }
   }
 }

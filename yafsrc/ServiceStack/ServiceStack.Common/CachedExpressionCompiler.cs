@@ -69,7 +69,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             BinaryExpressionFingerprint other = obj as BinaryExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }
@@ -233,7 +233,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             ConditionalExpressionFingerprint other = obj as ConditionalExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && this.Equals(other);
         }
 
@@ -255,7 +255,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             ConstantExpressionFingerprint other = obj as ConstantExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && this.Equals(other);
         }
 
@@ -277,7 +277,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             DefaultExpressionFingerprint other = obj as DefaultExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && this.Equals(other);
         }
 
@@ -309,8 +309,8 @@ namespace ServiceStack.ExpressionUtil
 
         protected bool Equals(ExpressionFingerprint other)
         {
-            return (other != null)
-                   && (this.NodeType == other.NodeType)
+            return other != null
+                   && this.NodeType == other.NodeType
                    && Equals(this.Type, other.Type);
         }
 
@@ -702,7 +702,7 @@ namespace ServiceStack.ExpressionUtil
 
         public void AddObject(object o)
         {
-            int hashCode = (o != null) ? o.GetHashCode() : 0;
+            int hashCode = o != null ? o.GetHashCode() : 0;
             AddInt32(hashCode);
         }
     }
@@ -753,7 +753,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             IndexExpressionFingerprint other = obj as IndexExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && Equals(this.Indexer, other.Indexer)
                    && this.Equals(other);
         }
@@ -782,7 +782,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             LambdaExpressionFingerprint other = obj as LambdaExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && this.Equals(other);
         }
 
@@ -806,7 +806,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             MemberExpressionFingerprint other = obj as MemberExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && Equals(this.Member, other.Member)
                    && this.Equals(other);
         }
@@ -840,7 +840,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             MethodCallExpressionFingerprint other = obj as MethodCallExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }
@@ -871,8 +871,8 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             ParameterExpressionFingerprint other = obj as ParameterExpressionFingerprint;
-            return (other != null)
-                   && (this.ParameterIndex == other.ParameterIndex)
+            return other != null
+                   && this.ParameterIndex == other.ParameterIndex
                    && this.Equals(other);
         }
 
@@ -902,7 +902,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             TypeBinaryExpressionFingerprint other = obj as TypeBinaryExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && Equals(this.TypeOperand, other.TypeOperand)
                    && this.Equals(other);
         }
@@ -936,7 +936,7 @@ namespace ServiceStack.ExpressionUtil
         public override bool Equals(object obj)
         {
             UnaryExpressionFingerprint other = obj as UnaryExpressionFingerprint;
-            return (other != null)
+            return other != null
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }

@@ -67,14 +67,14 @@ namespace ServiceStack.Serialization
         {
             string readersNS;
 
-            readersNS = (IsNullOrEmpty(reader.NamespaceURI)) ? "" : reader.NamespaceURI;
+            readersNS = IsNullOrEmpty(reader.NamespaceURI) ? "" : reader.NamespaceURI;
             if (Compare(this.defaultNS, readersNS) != 0)
             {
                 this.serializer = new System.Xml.Serialization.XmlSerializer(this.objectType, readersNS);
                 this.defaultNS = readersNS;
             }
 
-            return (this.serializer.Deserialize(reader));
+            return this.serializer.Deserialize(reader);
         }
 
         /// <summary>

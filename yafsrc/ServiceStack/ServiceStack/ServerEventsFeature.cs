@@ -137,7 +137,7 @@ namespace ServiceStack
             var serverEvents = req.TryResolve<IServerEvents>();
             var userAuthId = session?.UserAuthId;
             var anonUserId = serverEvents.GetNextSequence("anonUser");
-            var userId = userAuthId ?? ("-" + anonUserId);
+            var userId = userAuthId ?? "-" + anonUserId;
             var displayName = session.GetSafeDisplayName()
                 ?? "user" + anonUserId;
 

@@ -553,7 +553,7 @@ namespace YAF.Install
                     }
                     else
                     {
-                        var version = (this.Cache["DBVersion"] ?? this.GetRepository<Registry>().GetDBVersion()).ToType<int>();
+                        var version = (this.Cache["DBVersion"] ?? this.GetRepository<Registry>().GetDbVersion()).ToType<int>();
 
                         if (version >= 30 || version == -1)
                         {
@@ -625,19 +625,7 @@ namespace YAF.Install
             // reset the board settings...
             YafContext.Current.BoardSettings = null;
 
-            /* if (Config.IsDotNetNuke)
-      {
-        // Redirect back to the portal main page.
-        string rPath = YafForumInfo.ForumClientFileRoot;
-        int pos = rPath.IndexOf("/", 2);
-        rPath = rPath.Substring(0, pos);
-        this.Response.Redirect(rPath);
-      }
-      else
-      {*/
             this.Response.Redirect("~/");
-
-            // }
         }
 
         /// <summary>
@@ -729,8 +717,8 @@ namespace YAF.Install
                         // move to upgrade..
                         this.CurrentWizardStepID = this.IsForumInstalled ? "WizWelcomeUpgrade" : "WizDatabaseConnection";
 
-                        var versionName = this.GetRepository<Registry>().GetDBVersionName();
-                        var version = this.GetRepository<Registry>().GetDBVersion();
+                        var versionName = this.GetRepository<Registry>().GetDbVersionName();
+                        var version = this.GetRepository<Registry>().GetDbVersion();
 
                         this.CurrentVersionName.Text = version < 0
                                                            ? "New"
@@ -1152,7 +1140,7 @@ namespace YAF.Install
             }
             else
             {
-                this.Cache["DBVersion"] = this.GetRepository<Registry>().GetDBVersion();
+                this.Cache["DBVersion"] = this.GetRepository<Registry>().GetDbVersion();
 
                 this.CurrentWizardStepID = this.IsConfigPasswordSet && this.IsForumInstalled ? "WizEnterPassword" : "WizWelcome";
 

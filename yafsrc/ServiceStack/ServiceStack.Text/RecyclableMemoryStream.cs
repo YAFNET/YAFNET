@@ -367,12 +367,12 @@ namespace ServiceStack.Text
 
         private int RoundToLargeBufferMultiple(int requiredSize)
         {
-            return ((requiredSize + this.LargeBufferMultiple - 1) / this.LargeBufferMultiple) * this.LargeBufferMultiple;
+            return (requiredSize + this.LargeBufferMultiple - 1) / this.LargeBufferMultiple * this.LargeBufferMultiple;
         }
 
         private bool IsLargeBufferMultiple(int value)
         {
-            return (value != 0) && (value % this.LargeBufferMultiple) == 0;
+            return value != 0 && value % this.LargeBufferMultiple == 0;
         }
 
         /// <summary>
@@ -1427,7 +1427,7 @@ namespace ServiceStack.Text
             {
                 while (this.Capacity < newCapacity)
                 {
-                    this.blocks.Add((this.memoryManager.GetBlock()));
+                    this.blocks.Add(this.memoryManager.GetBlock());
                 }
             }
         }

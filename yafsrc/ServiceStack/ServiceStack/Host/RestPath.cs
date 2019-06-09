@@ -274,10 +274,10 @@ namespace ServiceStack.Host
             var score = 0;
 
             //Routes with least wildcard matches get the highest score
-            score += Math.Max((100 - wildcardMatchCount), 1) * 1000;
+            score += Math.Max(100 - wildcardMatchCount, 1) * 1000;
 
             //Routes with less variable (and more literal) matches
-            score += Math.Max((10 - VariableArgsCount), 1) * 100;
+            score += Math.Max(10 - this.VariableArgsCount, 1) * 100;
 
             //Exact verb match is better than ANY
             var exactVerb = httpMethod == AllowedVerbs;
@@ -387,7 +387,7 @@ namespace ServiceStack.Host
                         }
 
                         // Ensure there are still enough parts left to match the remainder
-                        if ((withPathInfoParts.Length - pathIx) < (this.TotalComponentsCount - i - 1))
+                        if (withPathInfoParts.Length - pathIx < this.TotalComponentsCount - i - 1)
                         {
                             return false;
                         }

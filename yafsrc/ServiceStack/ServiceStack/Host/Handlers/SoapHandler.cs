@@ -370,7 +370,7 @@ namespace ServiceStack.Host.Handlers
             var requestOperationName = GetAction(contentType);
             return requestOperationName != null
                     ? contentType.Replace(requestOperationName, requestOperationName + "Response")
-                    : (this.HandlerAttributes == RequestAttributes.Soap11 ? MimeTypes.Soap11 : MimeTypes.Soap12);
+                    : this.HandlerAttributes == RequestAttributes.Soap11 ? MimeTypes.Soap11 : MimeTypes.Soap12;
         }
     }
 }

@@ -360,7 +360,7 @@ namespace ServiceStack.Auth
 
             foreach (byte c in Encoding.UTF8.GetBytes(s))
             {
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_' || c == '.' || c == '~')
+                if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '-' || c == '_' || c == '.' || c == '~')
                     sb.Append((char)c);
                 else
                 {

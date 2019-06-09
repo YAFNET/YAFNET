@@ -186,7 +186,7 @@ namespace ServiceStack
         {
             // by adamfowleruk
             var pad = "";
-            for (var i = 0; i < (8 - ("" + num).Length); i++)
+            for (var i = 0; i < 8 - ("" + num).Length; i++)
             {
                 pad += "0";
             }

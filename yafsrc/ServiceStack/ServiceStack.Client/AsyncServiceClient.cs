@@ -316,7 +316,7 @@ namespace ServiceStack
                 var webEx = ex as WebException;
                 var firstCall = !recall;
                 if (firstCall && WebRequestUtils.ShouldAuthenticate(webEx,
-                        (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password))
+                        !string.IsNullOrEmpty(this.UserName) && !string.IsNullOrEmpty(this.Password)
                         || Credentials != null
                         || BearerToken != null
                         || RefreshToken != null

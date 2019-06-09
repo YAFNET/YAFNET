@@ -156,7 +156,7 @@ namespace ServiceStack.Auth
             var areSame = true;
             for (var i = 0; i < a.Length; i++)
             {
-                areSame &= (a[i] == b[i]);
+                areSame &= a[i] == b[i];
             }
             return areSame;
         }
@@ -189,10 +189,10 @@ namespace ServiceStack.Auth
 
         private static uint ReadNetworkByteOrder(byte[] buffer, int offset)
         {
-            return ((uint)(buffer[offset + 0]) << 24)
-                   | ((uint)(buffer[offset + 1]) << 16)
-                   | ((uint)(buffer[offset + 2]) << 8)
-                   | ((uint)(buffer[offset + 3]));
+            return ((uint)buffer[offset + 0] << 24)
+                   | ((uint)buffer[offset + 1] << 16)
+                   | ((uint)buffer[offset + 2] << 8)
+                   | (uint)buffer[offset + 3];
         }
 
         private static bool VerifyHashedPasswordV3(byte[] hashedPassword, string password, out int iterCount)

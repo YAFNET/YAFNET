@@ -188,7 +188,7 @@ namespace ServiceStack.Text.Common
             Type lastType = null;
             foreach (var valueItem in valueCollection)
             {
-                if ((toStringFn == null) || (valueItem != null && valueItem.GetType() != lastType))
+                if (toStringFn == null || valueItem != null && valueItem.GetType() != lastType)
                 {
                     if (valueItem != null)
                     {
@@ -355,7 +355,7 @@ namespace ServiceStack.Text.Common
                 JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);
                 indices[rank] = i;
 
-                if (rank < (array.Rank - 1))
+                if (rank < array.Rank - 1)
                     WriteGenericArrayMultiDimension(writer, array, rank + 1, indices);
                 else
                     ElementWriteFn(writer, array.GetValue(indices));

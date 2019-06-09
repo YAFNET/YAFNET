@@ -319,7 +319,7 @@ namespace ServiceStack.NativeTypes.Swift
                 }
 
                 var extend = extends.Count > 0
-                    ? " : " + (string.Join(", ", extends.ToArray()))
+                    ? " : " + string.Join(", ", extends.ToArray())
                     : "";
 
                 sb.AppendLine($"public {defType} {typeName}{extend}");

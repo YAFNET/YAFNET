@@ -460,7 +460,7 @@ namespace ServiceStack
                 httpRes.StatusCode = statusCode;
 
                 httpRes.StatusDescription = hasDefaultStatusDescription
-                    ? (errorMessage ?? HttpStatus.GetStatusDescription(statusCode))
+                    ? errorMessage ?? HttpStatus.GetStatusDescription(statusCode)
                     : hold;
 
                 httpRes.ApplyGlobalResponseHeaders();

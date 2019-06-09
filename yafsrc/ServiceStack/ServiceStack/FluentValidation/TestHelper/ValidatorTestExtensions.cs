@@ -70,7 +70,7 @@ namespace ServiceStack.FluentValidation.TestHelper {
 		}
 
 		private static TestValidationResult<T, TValue> TestValidate<T, TValue>(this IValidator<T> validator, Expression<Func<T, TValue>> expression, T instanceToValidate, TValue value, string ruleSet = null) where T : class {
-			var memberAccessor = ((MemberAccessor<T, TValue>) expression);
+			var memberAccessor = (MemberAccessor<T, TValue>) expression;
 			memberAccessor.Set(instanceToValidate, value);
 			var validationResult = validator.Validate(instanceToValidate, null, ruleSet: ruleSet);
 

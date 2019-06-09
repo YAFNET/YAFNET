@@ -315,8 +315,8 @@ namespace MarkdownDeep
 
 						// Next we expect either the end of the line for a link definition
 						// or the close bracket for an inline link
-						if ((id == null && p.current != ')') ||
-							(id != null && !p.eol))
+						if (id == null && p.current != ')' ||
+							id != null && !p.eol)
 						{
 							continue;
 						}

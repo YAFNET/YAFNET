@@ -57,7 +57,7 @@ namespace ServiceStack.FluentValidation.Validators {
 				}
 			}
 
-			return (checksum % 10) == 0;
+			return checksum % 10 == 0;
 		}
 	}
 }

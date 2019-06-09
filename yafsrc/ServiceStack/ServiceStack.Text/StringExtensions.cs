@@ -195,9 +195,9 @@ namespace ServiceStack
                 var number = (int)array[i];
 
                 if (number >= 'a' && number <= 'z')
-                    number += (number > 'm') ? -13 : 13;
+                    number += number > 'm' ? -13 : 13;
                 else if (number >= 'A' && number <= 'Z')
-                    number += (number > 'M') ? -13 : 13;
+                    number += number > 'M' ? -13 : 13;
 
                 array[i] = (char)number;
             }
@@ -721,7 +721,7 @@ namespace ServiceStack
             var sb = StringBuilderThreadStatic.Allocate();
             foreach (char t in value)
             {
-                if (char.IsDigit(t) || (char.IsLetter(t) && char.IsLower(t)) || t == '_')
+                if (char.IsDigit(t) || char.IsLetter(t) && char.IsLower(t) || t == '_')
                 {
                     sb.Append(t);
                 }
@@ -754,7 +754,7 @@ namespace ServiceStack
         {
             if (string.IsNullOrEmpty(value)) return string.Empty;
             if (startIndex < 0) startIndex = 0;
-            if (value.Length >= (startIndex + length))
+            if (value.Length >= startIndex + length)
                 return value.Substring(startIndex, length);
 
             return value.Length > startIndex ? value.Substring(startIndex) : string.Empty;

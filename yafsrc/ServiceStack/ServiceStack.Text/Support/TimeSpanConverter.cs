@@ -16,9 +16,9 @@ namespace ServiceStack.Text.Support
             double totalSeconds = ticks / TimeSpan.TicksPerSecond;
             int wholeSeconds = (int) totalSeconds;
             int seconds = wholeSeconds;
-            int sec = (seconds >= 60 ? seconds % 60 : seconds);
-            int min = (seconds = (seconds / 60)) >= 60 ? seconds % 60 : seconds;
-            int hours = (seconds = (seconds / 60)) >= 24 ? seconds % 24 : seconds;
+            int sec = seconds >= 60 ? seconds % 60 : seconds;
+            int min = (seconds = seconds / 60) >= 60 ? seconds % 60 : seconds;
+            int hours = (seconds = seconds / 60) >= 24 ? seconds % 24 : seconds;
             int days = seconds / 24;
             double remainingSecs = sec + (totalSeconds - wholeSeconds);
 
@@ -104,10 +104,10 @@ namespace ServiceStack.Text.Support
             }
 
             decimal totalSecs = 0
-                    + (days * 24 * 60 * 60)
-                    + (hours * 60 * 60)
-                    + (minutes * 60)
-                    + (seconds);
+                    + days * 24 * 60 * 60
+                    + hours * 60 * 60
+                    + minutes * 60
+                    + seconds;
 
             var interval = (long) (totalSecs * TimeSpan.TicksPerSecond * sign);
 

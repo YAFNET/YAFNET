@@ -27,7 +27,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             internal int IndexOfName(string name)
             {
-                return (name != null && fieldNameLookup.TryGetValue(name, out int result)) ? result : -1;
+                return name != null && this.fieldNameLookup.TryGetValue(name, out int result) ? result : -1;
             }
 
             internal int AddField(string name)

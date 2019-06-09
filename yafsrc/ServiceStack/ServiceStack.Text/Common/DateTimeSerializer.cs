@@ -216,7 +216,7 @@ namespace ServiceStack.Text.Common
         /// <returns>The repaired string. If no repairs were made, the original string is returned.</returns>
         private static string RepairXsdTimeSeparator(string dateTimeStr)
         {
-            if ((dateTimeStr.Length > XsdTimeSeparatorIndex) && (dateTimeStr[XsdTimeSeparatorIndex] == ' ') && dateTimeStr.EndsWith(XsdUtcSuffix))
+            if (dateTimeStr.Length > XsdTimeSeparatorIndex && dateTimeStr[XsdTimeSeparatorIndex] == ' ' && dateTimeStr.EndsWith(XsdUtcSuffix))
             {
                 dateTimeStr = dateTimeStr.Substring(0, XsdTimeSeparatorIndex) + XsdTimeSeparator +
                               dateTimeStr.Substring(XsdTimeSeparatorIndex + 1);
@@ -389,7 +389,7 @@ namespace ServiceStack.Text.Common
 
         public static string ToXsdTimeSpanString(TimeSpan? timeSpan)
         {
-            return (timeSpan != null) ? ToXsdTimeSpanString(timeSpan.Value) : null;
+            return timeSpan != null ? ToXsdTimeSpanString(timeSpan.Value) : null;
         }
 
         public static TimeSpan ParseTimeSpan(string dateTimeStr)
@@ -439,8 +439,8 @@ namespace ServiceStack.Text.Common
             if (isStartOfDay && !JsConfig.SkipDateTimeConversion)
                 return dateTime.ToString(ShortDateTimeFormat, CultureInfo.InvariantCulture);
 
-            var hasFractionalSecs = (timeOfDay.Milliseconds != 0)
-                || (timeOfDay.Ticks % TimeSpan.TicksPerMillisecond != 0);
+            var hasFractionalSecs = timeOfDay.Milliseconds != 0
+                || timeOfDay.Ticks % TimeSpan.TicksPerMillisecond != 0;
 
             if (JsConfig.SkipDateTimeConversion)
             {
@@ -483,7 +483,7 @@ namespace ServiceStack.Text.Common
             }
 
             var suffixPos = wcfJsonDate.IndexOf(WcfJsonSuffix);
-            var timeString = (suffixPos < 0) ? wcfJsonDate : wcfJsonDate.Substring(WcfJsonPrefix.Length, suffixPos - WcfJsonPrefix.Length);
+            var timeString = suffixPos < 0 ? wcfJsonDate : wcfJsonDate.Substring(WcfJsonPrefix.Length, suffixPos - WcfJsonPrefix.Length);
 
             // for interop, do not assume format based on config
             if (!wcfJsonDate.StartsWith(WcfJsonPrefix, StringComparison.Ordinal))

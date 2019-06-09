@@ -1232,7 +1232,7 @@ namespace ServiceStack.Text
         {
             if (value.IsNullOrEmpty()) return TypeConstants.EmptyStringSegment;
             if (startIndex < 0) startIndex = 0;
-            if (value.Length >= (startIndex + length))
+            if (value.Length >= startIndex + length)
                 return value.Subsegment(startIndex, length);
 
             return value.Length > startIndex ? value.Subsegment(startIndex) : TypeConstants.EmptyStringSegment;

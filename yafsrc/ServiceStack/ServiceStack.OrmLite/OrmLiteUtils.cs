@@ -555,7 +555,7 @@ namespace ServiceStack.OrmLite
 
         public static string SqlJoin(IEnumerable values, IOrmLiteDialectProvider dialect = null)
         {
-            dialect = (dialect ?? OrmLiteConfig.DialectProvider);
+            dialect = dialect ?? OrmLiteConfig.DialectProvider;
 
             var sb = StringBuilderCache.Allocate();
             foreach (var value in values)
@@ -597,7 +597,7 @@ namespace ServiceStack.OrmLite
             int? endPos = null)
         {
             var end = endPos.GetValueOrDefault(reader.FieldCount);
-            var cacheKey = (startPos == 0 && end == reader.FieldCount && onlyFields == null)
+            var cacheKey = startPos == 0 && end == reader.FieldCount && onlyFields == null
                             ? new IndexFieldsCacheKey(reader, modelDefinition, dialect)
                             : null;
 
@@ -849,7 +849,7 @@ namespace ServiceStack.OrmLite
 
             foreach (var fieldDef in modelDef.AllFieldDefinitionsArray)
             {
-                if ((fieldDef.FieldType != typeof (Child) && fieldDef.FieldType != typeof (List<Child>)) || !fieldDef.IsReference) 
+                if (fieldDef.FieldType != typeof (Child) && fieldDef.FieldType != typeof (List<Child>) || !fieldDef.IsReference) 
                     continue;
                 
                 hasChildRef = true;

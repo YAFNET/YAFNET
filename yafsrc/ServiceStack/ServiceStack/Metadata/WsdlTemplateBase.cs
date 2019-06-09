@@ -134,7 +134,7 @@ namespace ServiceStack.Metadata
 
             var replyMessages = RepeaterTemplate(this.ReplyMessagesTemplate, this.ReplyOperationNames);
             var replyOperations = RepeaterTemplate(this.ReplyOperationsTemplate, this.ReplyOperationNames);
-            var replyServiceName = (ServiceName ?? "SyncReply");
+            var replyServiceName = this.ServiceName ?? "SyncReply";
             replyOperations = "<wsdl:portType name=\"I" + replyServiceName + "\">" + replyOperations + "</wsdl:portType>";
             var replyActions = RepeaterTemplate(this.ReplyActionsTemplate, wsdlSoapActionNamespace, this.ReplyOperationNames);
             var replyBindings = string.Format(this.ReplyBindingContainerTemplate, replyActions, replyServiceName);
@@ -148,7 +148,7 @@ namespace ServiceStack.Metadata
             {
                 oneWayMessages = RepeaterTemplate(this.OneWayMessagesTemplate, this.OneWayOperationNames);
                 oneWayOperations = RepeaterTemplate(this.OneWayOperationsTemplate, this.OneWayOperationNames);
-                var oneWayServiceName = (ServiceName ?? "");
+                var oneWayServiceName = this.ServiceName ?? "";
                 oneWayOperations = "<wsdl:portType name=\"I" + oneWayServiceName + "OneWay\">" + oneWayOperations + "</wsdl:portType>";
                 var oneWayActions = RepeaterTemplate(this.OneWayActionsTemplate, wsdlSoapActionNamespace, this.OneWayOperationNames);
                 oneWayBindings = string.Format(this.OneWayBindingContainerTemplate, oneWayActions, oneWayServiceName);

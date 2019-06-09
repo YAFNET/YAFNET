@@ -70,7 +70,7 @@ namespace ServiceStack.FluentValidation {
 		/// </summary>
 		public static Func<MessageFormatter> MessageFormatterFactory {
 			get => _messageFormatterFactory;
-			set => _messageFormatterFactory = value ?? (() => new MessageFormatter());
+			set => _messageFormatterFactory = value ?? () => new MessageFormatter();
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace ServiceStack.FluentValidation {
 		/// </summary>
 		public Func<IValidatorSelector> DefaultValidatorSelectorFactory {
 			get => _defaultValidatorSelector;
-			set => _defaultValidatorSelector = value ?? (() => new DefaultValidatorSelector());
+			set => _defaultValidatorSelector = value ?? () => new DefaultValidatorSelector();
 		}
 
 		/// <summary>
@@ -153,7 +153,7 @@ namespace ServiceStack.FluentValidation {
 		/// </summary>
 		public Func<string[], IValidatorSelector> MemberNameValidatorSelectorFactory {
 			get => _memberNameValidatorSelector;
-			set => _memberNameValidatorSelector = value ?? (properties => new MemberNameValidatorSelector(properties));
+			set => _memberNameValidatorSelector = value ?? properties => new MemberNameValidatorSelector(properties);
 		}
 
 		/// <summary>
@@ -161,7 +161,7 @@ namespace ServiceStack.FluentValidation {
 		/// </summary>
 		public Func<string[], IValidatorSelector> RulesetValidatorSelectorFactory {
 			get => _rulesetValidatorSelector;
-			set => _rulesetValidatorSelector = value ?? (ruleSets => new RulesetValidatorSelector(ruleSets));
+			set => _rulesetValidatorSelector = value ?? ruleSets => new RulesetValidatorSelector(ruleSets);
 		}
 	}
 }

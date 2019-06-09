@@ -47,7 +47,7 @@ namespace ServiceStack.Text.Json
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsWhiteSpace(char c)
         {
-            return c == ' ' || (c >= '\x0009' && c <= '\x000d') || c == '\x00a0' || c == '\x0085';
+            return c == ' ' || c >= '\x0009' && c <= '\x000d' || c == '\x00a0' || c == '\x0085';
         }
 
         public static void WriteString(TextWriter writer, string value)

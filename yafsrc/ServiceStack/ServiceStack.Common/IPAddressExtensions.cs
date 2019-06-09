@@ -45,7 +45,7 @@ namespace ServiceStack
             var broadcastAddress = new byte[ipAdressBytes.Length];
             for (var i = 0; i < broadcastAddress.Length; i++)
             {
-                broadcastAddress[i] = (byte)(ipAdressBytes[i] & (subnetMaskBytes[i]));
+                broadcastAddress[i] = (byte)(ipAdressBytes[i] & subnetMaskBytes[i]);
             }
             return broadcastAddress;
         }

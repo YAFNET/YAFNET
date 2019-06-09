@@ -335,8 +335,8 @@ namespace ServiceStack.Templates
         {
             if (pageArgs?.Count > 0)
             {
-                NoLayout = (pageArgs.TryGetValue("ignore", out object ignore) && "template".Equals(ignore?.ToString())) ||
-                           (pageArgs.TryGetValue("layout", out object layout) && "none".Equals(layout?.ToString()));
+                NoLayout = pageArgs.TryGetValue("ignore", out object ignore) && "template".Equals(ignore?.ToString()) ||
+                           pageArgs.TryGetValue("layout", out object layout) && "none".Equals(layout?.ToString());
             }
         }
 

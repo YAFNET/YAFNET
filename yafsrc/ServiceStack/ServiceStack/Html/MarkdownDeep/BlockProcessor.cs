@@ -1261,7 +1261,7 @@ namespace MarkdownDeep
 			for (int i = 1; i < lines.Count; i++)
 			{
 				// Join plain paragraphs
-				if ((lines[i].blockType == BlockType.p) &&
+				if (lines[i].blockType == BlockType.p &&
 					(lines[i - 1].blockType == BlockType.p || lines[i - 1].blockType == BlockType.ul_li || lines[i - 1].blockType==BlockType.ol_li))
 				{
 					lines[i - 1].contentEnd = lines[i].contentEnd;
@@ -1370,7 +1370,7 @@ namespace MarkdownDeep
 			for (int i = 1; i < lines.Count; i++)
 			{
 				// Join plain paragraphs
-				if ((lines[i].blockType == BlockType.p) &&
+				if (lines[i].blockType == BlockType.p &&
 					(lines[i - 1].blockType == BlockType.p || lines[i - 1].blockType == BlockType.dd))
 				{
 					lines[i - 1].contentEnd = lines[i].contentEnd;
@@ -1447,7 +1447,7 @@ namespace MarkdownDeep
 			for (int i = 1; i < lines.Count; i++)
 			{
 				// Join plain paragraphs
-				if ((lines[i].blockType == BlockType.p) &&
+				if (lines[i].blockType == BlockType.p &&
 					(lines[i - 1].blockType == BlockType.p || lines[i - 1].blockType == BlockType.footnote))
 				{
 					lines[i - 1].contentEnd = lines[i].contentEnd;

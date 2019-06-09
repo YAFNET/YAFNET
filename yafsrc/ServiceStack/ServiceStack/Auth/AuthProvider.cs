@@ -312,7 +312,7 @@ namespace ServiceStack.Auth
                 if (userWithUserName == null)
                     return false;
 
-                var isAnotherUser = userAuth == null || (userAuth.Id != userWithUserName.Id);
+                var isAnotherUser = userAuth == null || userAuth.Id != userWithUserName.Id;
                 return isAnotherUser;
             }
             return false;
@@ -326,7 +326,7 @@ namespace ServiceStack.Auth
                 if (userWithEmail == null) 
                     return false;
 
-                var isAnotherUser = userAuth == null || (userAuth.Id != userWithEmail.Id);
+                var isAnotherUser = userAuth == null || userAuth.Id != userWithEmail.Id;
                 return isAnotherUser;
             }
             return false;

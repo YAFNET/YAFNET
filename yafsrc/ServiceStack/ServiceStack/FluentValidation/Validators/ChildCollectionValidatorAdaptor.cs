@@ -88,7 +88,7 @@ namespace ServiceStack.FluentValidation.Validators {
 				return emptyResult;
 			}
 
-			var predicate = Predicate ?? (x => true);
+			var predicate = Predicate ?? x => true;
 
 			string propertyName = context.Rule.PropertyName;
 

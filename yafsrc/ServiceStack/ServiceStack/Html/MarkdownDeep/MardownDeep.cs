@@ -452,8 +452,8 @@ namespace MarkdownDeep
 			}
 
 			// New window?
-			if ( (NewWindowForExternalLinks && Utils.IsUrlFullyQualified(url)) ||
-				 (NewWindowForLocalLinks && !Utils.IsUrlFullyQualified(url)) )
+			if ( this.NewWindowForExternalLinks && Utils.IsUrlFullyQualified(url) ||
+				 this.NewWindowForLocalLinks && !Utils.IsUrlFullyQualified(url) )
 			{
 				tag.attributes["target"] = "_blank";
 			}
@@ -836,7 +836,7 @@ namespace MarkdownDeep
 					case '\t':
 						dest.Append(' ');
 						pos++;
-						while ((pos % 4) != 0)
+						while (pos % 4 != 0)
 						{
 							dest.Append(' ');
 							pos++;

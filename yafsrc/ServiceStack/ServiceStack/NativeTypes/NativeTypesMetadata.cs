@@ -155,7 +155,7 @@ namespace ServiceStack.NativeTypes
                 || t == typeof(Enum) 
                 || considered.Contains(t) 
                 || skipTypes.Contains(t) 
-                || (ignoreNamespaces.Contains(t.Namespace) && !exportTypes.ContainsMatch(t));
+                || ignoreNamespaces.Contains(t.Namespace) && !exportTypes.ContainsMatch(t);
 
             void registerTypeFn(Type t)
             {
@@ -165,7 +165,7 @@ namespace ServiceStack.NativeTypes
                 considered.Add(t);
                 queue.Enqueue(t);
 
-                if ((!(t.IsSystemType() && !t.IsTuple()) && (t.IsClass || t.IsEnum || t.IsInterface) && !t.IsGenericParameter) || exportTypes.ContainsMatch(t))
+                if (!(t.IsSystemType() && !t.IsTuple()) && (t.IsClass || t.IsEnum || t.IsInterface) && !t.IsGenericParameter || exportTypes.ContainsMatch(t))
                 {
                     metadata.Types.Add(ToType(t));
 
@@ -285,9 +285,9 @@ namespace ServiceStack.NativeTypes
         private static bool IsSystemCollection(Type type)
         {
             return type.IsArray
-                || (type.Namespace != null
-                    && type.Namespace.StartsWith("System")
-                    && type.IsOrHasGenericInterfaceTypeOf(typeof(IEnumerable<>)));
+                || type.Namespace != null
+                && type.Namespace.StartsWith("System")
+                && type.IsOrHasGenericInterfaceTypeOf(typeof(IEnumerable<>));
         }
 
         private static bool IsSystemWhitespaceNamespace(Type type)
@@ -435,7 +435,7 @@ namespace ServiceStack.NativeTypes
         private MetadataTypeName[] ToInterfaces(Type type)
         {
             return type.GetInterfaces().Where(x => 
-            (!config.ExcludeImplementedInterfaces && !x.IsGenericType && !x.IsSystemType() && !x.IsServiceStackType()) 
+            !this.config.ExcludeImplementedInterfaces && !x.IsGenericType && !x.IsSystemType() && !x.IsServiceStackType() 
             || config.ExportTypes.ContainsMatch(x))
             .Map(x =>
                 new MetadataTypeName {
@@ -455,10 +455,10 @@ namespace ServiceStack.NativeTypes
 
         public List<MetadataPropertyType> ToProperties(Type type)
         {
-            var props = (!type.IsUserType() && 
-                         !type.IsInterface && 
-                         !type.IsTuple() &&
-                         !(config.ExportTypes.ContainsMatch(type) && JsConfig.TreatValueAsRefTypes.ContainsMatch(type))) 
+            var props = !type.IsUserType() && 
+                        !type.IsInterface && 
+                        !type.IsTuple() &&
+                        !(this.config.ExportTypes.ContainsMatch(type) && JsConfig.TreatValueAsRefTypes.ContainsMatch(type)) 
                 || type.IsOrHasGenericInterfaceTypeOf(typeof(IEnumerable<>))
                 ? null
                 : GetInstancePublicProperties(type).Select(x => ToProperty(x)).ToList();
@@ -782,8 +782,8 @@ namespace ServiceStack.NativeTypes
         public static bool IgnoreSystemType(this MetadataType type)
         {
             return type == null
-                || (type.Namespace != null && type.Namespace.StartsWith("System"))
-                || (type.Inherits != null && type.Inherits.Name == "Array");
+                || type.Namespace != null && type.Namespace.StartsWith("System")
+                || type.Inherits != null && type.Inherits.Name == "Array";
         }
 
         public static HashSet<string> GetDefaultNamespaces(this MetadataTypesConfig config, MetadataTypes metadata)

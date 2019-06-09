@@ -58,7 +58,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 typeName = table.GetTypeName();
             }
-            if (!string.IsNullOrEmpty(typeName) && (parameter is System.Data.SqlClient.SqlParameter sqlParam))
+            if (!string.IsNullOrEmpty(typeName) && parameter is System.Data.SqlClient.SqlParameter sqlParam)
             {
                 setTypeName?.Invoke(sqlParam, typeName);
                 sqlParam.SqlDbType = SqlDbType.Structured;

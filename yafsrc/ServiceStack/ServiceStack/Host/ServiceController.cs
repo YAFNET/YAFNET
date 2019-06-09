@@ -829,7 +829,7 @@ namespace ServiceStack.Host
                 }
 
                 var passed = requiredScenario & actualAttributes;
-                var failed = requiredScenario & ~(passed);
+                var failed = requiredScenario & ~passed;
 
                 failedScenarios.Append($"\n -[{failed}]");
             }

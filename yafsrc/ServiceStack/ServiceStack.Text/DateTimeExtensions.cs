@@ -45,7 +45,7 @@ namespace ServiceStack.Text
 
         public static long ToUnixTime(this DateTime dateTime)
         {
-            return (dateTime.ToDateTimeSinceUnixEpoch().Ticks) / TimeSpan.TicksPerSecond;
+            return dateTime.ToDateTimeSinceUnixEpoch().Ticks / TimeSpan.TicksPerSecond;
         }
 
         private static TimeSpan ToDateTimeSinceUnixEpoch(this DateTime dateTime)
@@ -84,7 +84,7 @@ namespace ServiceStack.Text
 
         public static DateTime RoundToSecond(this DateTime dateTime)
         {
-            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond, dateTime.Kind);
+            return new DateTime(dateTime.Ticks / TimeSpan.TicksPerSecond * TimeSpan.TicksPerSecond, dateTime.Kind);
         }
 
         public static DateTime Truncate(this DateTime dateTime, TimeSpan timeSpan)

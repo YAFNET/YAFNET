@@ -114,8 +114,8 @@ namespace ServiceStack.FluentValidation.Internal {
 			for (int i = 0; i < input.Length; ++i) {
 				var currentChar = input[i];
 				if (char.IsUpper(currentChar)) {
-					if ((i > 1 && !char.IsUpper(input[i - 1]))
-							|| (i + 1 < input.Length && !char.IsUpper(input[i + 1])))
+					if (i > 1 && !char.IsUpper(input[i - 1])
+							|| i + 1 < input.Length && !char.IsUpper(input[i + 1]))
 						retVal.Append(' ');
 				}
 

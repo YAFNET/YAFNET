@@ -91,9 +91,9 @@ namespace ServiceStack.Admin
             var logs = RequestLogger.GetLatestLogs(request.Take).AsQueryable();
 
             if (request.BeforeSecs.HasValue)
-                logs = logs.Where(x => (now - x.DateTime) <= TimeSpan.FromSeconds(request.BeforeSecs.Value));
+                logs = logs.Where(x => now - x.DateTime <= TimeSpan.FromSeconds(request.BeforeSecs.Value));
             if (request.AfterSecs.HasValue)
-                logs = logs.Where(x => (now - x.DateTime) > TimeSpan.FromSeconds(request.AfterSecs.Value));
+                logs = logs.Where(x => now - x.DateTime > TimeSpan.FromSeconds(request.AfterSecs.Value));
             if (!request.IpAddress.IsNullOrEmpty())
                 logs = logs.Where(x => x.IpAddress == request.IpAddress);
             if (!request.UserAuthId.IsNullOrEmpty())

@@ -39,11 +39,11 @@ namespace ServiceStack.OrmLite.Dapper
             unchecked
             {
                 int max = length < 0 ? reader.FieldCount : startBound + length;
-                int hash = (-37 * startBound) + max;
+                int hash = -37 * startBound + max;
                 for (int i = startBound; i < max; i++)
                 {
                     object tmp = reader.GetName(i);
-                    hash = (-79 * ((hash * 31) + (tmp?.GetHashCode() ?? 0))) + (reader.GetFieldType(i)?.GetHashCode() ?? 0);
+                    hash = -79 * (hash * 31 + (tmp?.GetHashCode() ?? 0)) + (reader.GetFieldType(i)?.GetHashCode() ?? 0);
                 }
                 return hash;
             }
@@ -138,7 +138,7 @@ namespace ServiceStack.OrmLite.Dapper
         public static IEnumerable<Tuple<string, string, int>> GetCachedSQL(int ignoreHitCountAbove = int.MaxValue)
         {
             var data = _queryCache.Select(pair => Tuple.Create(pair.Key.connectionString, pair.Key.sql, pair.Value.GetHitCount()));
-            return (ignoreHitCountAbove < int.MaxValue)
+            return ignoreHitCountAbove < int.MaxValue
                     ? data.Where(tuple => tuple.Item3 <= ignoreHitCountAbove)
                     : data;
         }
@@ -425,7 +425,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type of element in the list.</typeparam>
         /// <param name="source">The enumerable to return as a list.</param>
         public static List<T> AsList<T>(this IEnumerable<T> source) =>
-            (source == null || source is List<T>) ? (List<T>)source : source.ToList();
+            source == null || source is List<T> ? (List<T>)source : source.ToList();
 
         /// <summary>
         /// Execute parameterized SQL.
@@ -505,11 +505,10 @@ namespace ServiceStack.OrmLite.Dapper
 
         private static IEnumerable GetMultiExec(object param)
         {
-            return (param is IEnumerable
-                    && !(param is string
-                      || param is IEnumerable<KeyValuePair<string, object>>
-                      || param is IDynamicParameters)
-                ) ? (IEnumerable)param : null;
+            return param is IEnumerable
+                   && !(param is string
+                        || param is IEnumerable<KeyValuePair<string, object>>
+                        || param is IDynamicParameters) ? (IEnumerable)param : null;
         }
 
         private static int ExecuteImpl(this IDbConnection cnn, ref CommandDefinition command)
@@ -1466,7 +1465,7 @@ namespace ServiceStack.OrmLite.Dapper
 
         private static CommandBehavior GetBehavior(bool close, CommandBehavior @default)
         {
-            return (close ? (@default | CommandBehavior.CloseConnection) : @default) & Settings.AllowedCommandBehaviors;
+            return (close ? @default | CommandBehavior.CloseConnection : @default) & Settings.AllowedCommandBehaviors;
         }
 
         private static IEnumerable<TReturn> MultiMapImpl<TReturn>(this IDbConnection cnn, CommandDefinition command, Type[] types, Func<object[], TReturn> map, string splitOn, IDataReader reader, Identity identity, bool finalize)
@@ -1776,7 +1775,7 @@ namespace ServiceStack.OrmLite.Dapper
             }
             Type underlyingType = null;
             if (!(typeMap.ContainsKey(type) || type.IsEnum() || type.FullName == LinqBinary
-                || (type.IsValueType() && (underlyingType = Nullable.GetUnderlyingType(type)) != null && underlyingType.IsEnum())))
+                || type.IsValueType() && (underlyingType = Nullable.GetUnderlyingType(type)) != null && underlyingType.IsEnum()))
             {
                 if (typeHandlers.TryGetValue(type, out ITypeHandler handler))
                 {
@@ -1949,12 +1948,12 @@ namespace ServiceStack.OrmLite.Dapper
 
             // if we have 17, factor = 10; 17 % 10 = 7, we need 3 more
             int intoBlock = count % padFactor;
-            return intoBlock == 0 ? 0 : (padFactor - intoBlock);
+            return intoBlock == 0 ? 0 : padFactor - intoBlock;
         }
 
         private static string GetInListRegex(string name, bool byPosition) => byPosition
-            ? (@"(\?)" + Regex.Escape(name) + @"\?(?!\w)(\s+(?i)unknown(?-i))?")
-            : ("([?@:]" + Regex.Escape(name) + @")(?!\w)(\s+(?i)unknown(?-i))?");
+            ? @"(\?)" + Regex.Escape(name) + @"\?(?!\w)(\s+(?i)unknown(?-i))?"
+            : "([?@:]" + Regex.Escape(name) + @")(?!\w)(\s+(?i)unknown(?-i))?";
 
         /// <summary>
         /// Internal use only.
@@ -2272,7 +2271,7 @@ namespace ServiceStack.OrmLite.Dapper
                         return "null";
 #endif
                     case TypeCode.Boolean:
-                        return ((bool)value) ? "1" : "0";
+                        return (bool)value ? "1" : "0";
                     case TypeCode.Byte:
                         return ((byte)value).ToString(CultureInfo.InvariantCulture);
                     case TypeCode.SByte:
@@ -2629,7 +2628,7 @@ namespace ServiceStack.OrmLite.Dapper
                     // relative stack: [boxed value]
                     il.Emit(OpCodes.Dup);// relative stack: [boxed value] [boxed value]
                     Label notNull = il.DefineLabel();
-                    Label? allDone = (dbType == DbType.String || dbType == DbType.AnsiString) ? il.DefineLabel() : (Label?)null;
+                    Label? allDone = dbType == DbType.String || dbType == DbType.AnsiString ? il.DefineLabel() : (Label?)null;
                     il.Emit(OpCodes.Brtrue_S, notNull);
                     // relative stack [boxed value = null]
                     il.Emit(OpCodes.Pop); // relative stack empty
@@ -3187,9 +3186,9 @@ namespace ServiceStack.OrmLite.Dapper
                 il.Emit(OpCodes.Ldloc_1);// [target]
             }
 
-            var members = IsValueTuple(type) ? GetValueTupleMembers(type, names) : ((specializedConstructor != null
-                ? names.Select(n => typeMap.GetConstructorParameter(specializedConstructor, n))
-                : names.Select(n => typeMap.GetMember(n))).ToList());
+            var members = IsValueTuple(type) ? GetValueTupleMembers(type, names) : (specializedConstructor != null
+                                                                                        ? names.Select(n => typeMap.GetConstructorParameter(specializedConstructor, n))
+                                                                                        : names.Select(n => typeMap.GetMember(n))).ToList();
 
             // stack is now [target]
 

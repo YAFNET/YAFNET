@@ -332,7 +332,7 @@ namespace ServiceStack.FluentValidation.Internal {
 
 					// If there has been at least one failure, and our CascadeMode has been set to StopOnFirst
 					// then don't continue to the next rule
-					if (fastExit = (cascade == CascadeMode.StopOnFirstFailure && failures.Count > 0)) {
+					if (fastExit = cascade == CascadeMode.StopOnFirstFailure && failures.Count > 0) {
 						break;
 					}
 				}

@@ -666,7 +666,7 @@ namespace MarkdownDeep
 						// Triple or more on both ends?
 						if (style >= 3)
 						{
-							style = (style % 2)==1 ? 1 : 2;
+							style = style % 2==1 ? 1 : 2;
 						}
 
 						// Split the opening mark, keeping the RHS

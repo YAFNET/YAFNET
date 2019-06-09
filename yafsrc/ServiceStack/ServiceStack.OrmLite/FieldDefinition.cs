@@ -118,13 +118,13 @@ namespace ServiceStack.OrmLite
 
         public bool IsSelfRefField(FieldDefinition fieldDef)
         {
-            return (fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias))
+            return fieldDef.Alias != null && this.IsSelfRefField(fieldDef.Alias)
                     || IsSelfRefField(fieldDef.Name);
         }
 
         public bool IsSelfRefField(string name)
         {
-            return (Alias != null && Alias + "Id" == name)
+            return this.Alias != null && this.Alias + "Id" == name
                     || Name + "Id" == name;
         }
 

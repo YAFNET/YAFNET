@@ -84,7 +84,7 @@ namespace ServiceStack
             foreach (var ci in type.GetConstructors())
             {
                 var ciTypes = ci.GetGenericArguments();
-                var matchFound = (ciTypes.Length == 1 && ciTypes[0] == typeof(string)); //e.g. T(string)
+                var matchFound = ciTypes.Length == 1 && ciTypes[0] == typeof(string); //e.g. T(string)
                 if (matchFound)
                     return ci;
             }

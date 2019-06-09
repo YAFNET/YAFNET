@@ -138,7 +138,7 @@ namespace ServiceStack
             var ret = new List<PostmanRequest>();
             var feature = HostContext.GetPlugin<PostmanFeature>();
 
-            var headers = feature.Headers ?? ("Accept: " + MimeTypes.Json);
+            var headers = feature.Headers ?? "Accept: " + MimeTypes.Json;
 
             var httpRes = Response as IHttpResponse;
             if (httpRes != null)
@@ -164,7 +164,7 @@ namespace ServiceStack
                 if (request.ssid != null)
                 {
                     httpRes.Cookies.AddSessionCookie(SessionFeature.SessionId, request.ssid,
-                        (HostContext.Config.OnlySendSessionCookiesSecurely && Request.IsSecureConnection));
+                        HostContext.Config.OnlySendSessionCookiesSecurely && this.Request.IsSecureConnection);
                 }
             }
 

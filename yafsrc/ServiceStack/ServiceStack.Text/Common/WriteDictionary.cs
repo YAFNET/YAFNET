@@ -110,7 +110,7 @@ namespace ServiceStack.Text.Common
             {
                 var dictionaryValue = map[key];
 
-                var isNull = (dictionaryValue == null);
+                var isNull = dictionaryValue == null;
                 if (isNull && !Serializer.IncludeNullValuesInDictionaries) continue;
 
                 var keyType = key.GetType();
@@ -215,7 +215,7 @@ namespace ServiceStack.Text.Common
             var ranOnce = false;
             foreach (var kvp in map)
             {
-                var isNull = (kvp.Value == null);
+                var isNull = kvp.Value == null;
                 if (isNull && !Serializer.IncludeNullValuesInDictionaries) continue;
 
                 JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);

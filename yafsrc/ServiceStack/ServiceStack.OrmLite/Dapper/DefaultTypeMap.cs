@@ -79,7 +79,7 @@ namespace ServiceStack.OrmLite.Dapper
         public ConstructorInfo FindConstructor(string[] names, Type[] types)
         {
             var constructors = _type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            foreach (ConstructorInfo ctor in constructors.OrderBy(c => c.IsPublic ? 0 : (c.IsPrivate ? 2 : 1)).ThenBy(c => c.GetParameters().Length))
+            foreach (ConstructorInfo ctor in constructors.OrderBy(c => c.IsPublic ? 0 : c.IsPrivate ? 2 : 1).ThenBy(c => c.GetParameters().Length))
             {
                 ParameterInfo[] ctorParameters = ctor.GetParameters();
                 if (ctorParameters.Length == 0)
@@ -96,7 +96,7 @@ namespace ServiceStack.OrmLite.Dapper
                     if (types[i] == typeof(byte[]) && ctorParameters[i].ParameterType.FullName == SqlMapper.LinqBinary)
                         continue;
                     var unboxedType = Nullable.GetUnderlyingType(ctorParameters[i].ParameterType) ?? ctorParameters[i].ParameterType;
-                    if ((unboxedType != types[i] && !SqlMapper.HasTypeHandler(unboxedType))
+                    if (unboxedType != types[i] && !SqlMapper.HasTypeHandler(unboxedType)
                         && !(unboxedType.IsEnum() && Enum.GetUnderlyingType(unboxedType) == types[i])
                         && !(unboxedType == typeof(char) && types[i] == typeof(string))
                         && !(unboxedType.IsEnum() && types[i] == typeof(string)))

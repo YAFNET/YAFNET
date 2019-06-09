@@ -27,7 +27,7 @@ namespace ServiceStack.Text
             var obj = map as JsonObject;
             string value;
             return map.TryGetValue(key, out value) 
-                ? (obj != null ? value.FromJson<T[]>() : value.FromJsv<T[]>()) 
+                ? obj != null ? value.FromJson<T[]>() : value.FromJsv<T[]>() 
                 : TypeConstants<T>.EmptyArray;
         }
 
@@ -135,8 +135,8 @@ namespace ServiceStack.Text
             {
                 var firstChar = strValue[0];
                 var lastChar = strValue[strValue.Length - 1];
-                if ((firstChar == JsWriter.MapStartChar && lastChar == JsWriter.MapEndChar)
-                    || (firstChar == JsWriter.ListStartChar && lastChar == JsWriter.ListEndChar)
+                if (firstChar == JsWriter.MapStartChar && lastChar == JsWriter.MapEndChar
+                    || firstChar == JsWriter.ListStartChar && lastChar == JsWriter.ListEndChar
                     || JsonUtils.True == strValue
                     || JsonUtils.False == strValue
                     || IsJavaScriptNumber(strValue))

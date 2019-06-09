@@ -587,7 +587,7 @@ namespace ServiceStack
             try
             {
                 if (WebRequestUtils.ShouldAuthenticate(webEx,
-                    (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+                    !string.IsNullOrEmpty(this.username) && !string.IsNullOrEmpty(this.password)
                     || credentials != null
                     || bearerToken != null
                     || refreshToken != null

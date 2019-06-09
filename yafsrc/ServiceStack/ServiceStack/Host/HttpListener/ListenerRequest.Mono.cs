@@ -61,7 +61,7 @@ namespace ServiceStack.Host.HttpListener
 
             int end = header.IndexOf(ending, ap + 1);
             if (end == -1)
-                return (ending == '"') ? null : header.Substring(ap);
+                return ending == '"' ? null : header.Substring(ap);
 
             return header.Substring(ap + 1, end - ap - 1);
         }
@@ -203,8 +203,8 @@ namespace ServiceStack.Host.HttpListener
                 if (current == '<' || current == '\xff1c')
                 {
                     if (next == '!' || next < ' '
-                        || (next >= 'a' && next <= 'z')
-                        || (next >= 'A' && next <= 'Z'))
+                        || next >= 'a' && next <= 'z'
+                        || next >= 'A' && next <= 'Z')
                     {
                         validationFailureIndex = idx - 1;
                         return true;
@@ -524,13 +524,13 @@ namespace ServiceStack.Host.HttpListener
                 this.stream = new ReadSubStream(base_stream, offset, length);
             }
 
-            public string ContentType => (content_type);
+            public string ContentType => this.content_type;
 
             public int ContentLength => (int)stream.Length;
 
-            public string FileName => (name);
+            public string FileName => this.name;
 
-            public Stream InputStream => (stream);
+            public Stream InputStream => this.stream;
 
             public void SaveAs(string filename)
             {
@@ -582,7 +582,7 @@ namespace ServiceStack.Host.HttpListener
                 if (l2 > l1)
                     return false;
 
-                return (0 == String.Compare(str1, 0, str2, 0, l2, ignore_case, Helpers.InvariantCulture));
+                return 0 == String.Compare(str1, 0, str2, 0, l2, ignore_case, Helpers.InvariantCulture);
             }
 
             public static bool EndsWith(string str1, string str2)
@@ -600,7 +600,7 @@ namespace ServiceStack.Host.HttpListener
                 if (l2 > l1)
                     return false;
 
-                return (0 == String.Compare(str1, l1 - l2, str2, 0, l2, ignore_case, Helpers.InvariantCulture));
+                return 0 == String.Compare(str1, l1 - l2, str2, 0, l2, ignore_case, Helpers.InvariantCulture);
             }
         }
 
@@ -676,7 +676,7 @@ namespace ServiceStack.Host.HttpListener
                     {
                         break;
                     }
-                    got_cr = (b == CR);
+                    got_cr = b == CR;
                     sb.Append((char)b);
                 }
 
@@ -781,7 +781,7 @@ namespace ServiceStack.Host.HttpListener
                     }
                     else if (state == 0)
                     {
-                        got_cr = (c == CR);
+                        got_cr = c == CR;
                         c = data.ReadByte();
                     }
                     else if (state == 1 && c == '-')

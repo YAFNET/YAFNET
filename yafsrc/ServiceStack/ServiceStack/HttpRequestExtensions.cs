@@ -135,11 +135,11 @@ namespace ServiceStack
         public static string GetPhysicalPath(this IRequest httpReq) => HostContext.ResolvePhysicalPath(httpReq.PathInfo, httpReq);
 
         public static IVirtualNode GetVirtualNode(this IRequest httpReq) => httpReq is IHasVirtualFiles vfsReq ?
-            (vfsReq.IsFile 
+            vfsReq.IsFile 
                 ? (IVirtualNode) vfsReq.GetFile()
                 : vfsReq.IsDirectory
                     ? vfsReq.GetDirectory()
-                : null)
+                    : null
             : (IVirtualNode) HostContext.VirtualFileSources.GetFile(httpReq.PathInfo) ?? // non HTTP Requests 
               HostContext.VirtualFileSources.GetDirectory(httpReq.PathInfo);
 
@@ -200,7 +200,7 @@ namespace ServiceStack
                     var utcFromDate = dateTime.Value.ToUniversalTime();
                     //strip ms
                     utcFromDate = new DateTime(
-                        utcFromDate.Ticks - (utcFromDate.Ticks % TimeSpan.TicksPerSecond),
+                        utcFromDate.Ticks - utcFromDate.Ticks % TimeSpan.TicksPerSecond,
                         utcFromDate.Kind
                     );
 

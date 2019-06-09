@@ -24,7 +24,7 @@ namespace ServiceStack.VirtualPath
         {
             var sanitizedPath = string.IsNullOrEmpty(filePath)
                 ? null
-                : (filePath[0] == '/' ? filePath.Substring(1) : filePath);
+                : filePath[0] == '/' ? filePath.Substring(1) : filePath;
 
             return sanitizedPath?.Replace('\\', '/');
         }

@@ -254,7 +254,7 @@ namespace ServiceStack.NativeTypes.Java
             return metadata.GetAllMetadataTypes()
                 .Any(x => x.Properties.Safe().Any(p => JavaGeneratorExtensions.JavaKeyWords.Contains(p.Name.PropertyStyle()))
                     || x.Properties.Safe().Any(p => p.DataMember?.Name != null)
-                    || (x.ReturnMarkerTypeName != null && x.ReturnMarkerTypeName.Name.IndexOf('`') >= 0) //uses TypeToken<T>
+                    || x.ReturnMarkerTypeName != null && x.ReturnMarkerTypeName.Name.IndexOf('`') >= 0 //uses TypeToken<T>
                 );
         }
 
@@ -309,7 +309,7 @@ namespace ServiceStack.NativeTypes.Java
                         var value = type.EnumValues?[i];
 
                         var delim = i == type.EnumNames.Count - 1 ? ";" : ",";
-                        var serializeAs = JsConfig.TreatEnumAsInteger || (type.Attributes.Safe().Any(x => x.Name == "Flags"))
+                        var serializeAs = JsConfig.TreatEnumAsInteger || type.Attributes.Safe().Any(x => x.Name == "Flags")
                             ? "@SerializedName(\"{0}\") ".Fmt(value)
                             : "";
 

@@ -321,10 +321,10 @@ namespace ServiceStack.OrmLite.SqlServer
             fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
 
         protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
-            fieldDef.ReturnOnInsert || (fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef)) || fieldDef.AutoId;
+            fieldDef.ReturnOnInsert || fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && this.HasInsertReturnValues(modelDef) || fieldDef.AutoId;
 
         public override bool HasInsertReturnValues(ModelDefinition modelDef) =>
-            modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || (x.AutoId && x.FieldType == typeof(Guid)));
+            modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
 
         protected virtual bool SupportsSequences(FieldDefinition fieldDef) => false;
 

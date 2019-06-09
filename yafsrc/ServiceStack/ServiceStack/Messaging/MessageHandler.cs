@@ -188,7 +188,7 @@ namespace ServiceStack.Messaging
                 {
                     var responseMessage = response as IMessage;
                     var responseType = responseMessage != null 
-                        ? (responseMessage.Body != null ? responseMessage.Body.GetType() : typeof(object))
+                        ? responseMessage.Body != null ? responseMessage.Body.GetType() : typeof(object)
                         : response.GetType();
 
                     //If there's no explicit ReplyTo, send it to the typed Response InQ by default
