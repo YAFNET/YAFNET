@@ -73,6 +73,7 @@
   <PropertyGroup>
     <PreBuildEvent />
     <PostBuildEvent />
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
