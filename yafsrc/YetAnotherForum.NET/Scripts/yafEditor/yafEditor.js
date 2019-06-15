@@ -242,9 +242,13 @@ function getCurrentSelection(input) {
     }
 }
 
-function toggleEmojiPicker() {
-    $(".BBCodeEditor").emojiPicker("toggle");
+function toggleEmojiPicker(e) {
+ //   $(".BBCodeEditor").emojiPicker("toggle");
+
+// $(".BBCodeEditor").emojiPicker("toggle");
 }
+
+
 
 jQuery(document).ready(function () {
 
@@ -257,10 +261,18 @@ jQuery(document).ready(function () {
 
     // Render emojipicker
     $(".BBCodeEditor").emojiPicker({
+        width: '300px',
+        height: '200px',
         button: false
     });
-});
-$(document).ready(function () {
+
+  $(".btn-group").on("show.bs.dropdown", function (event) {
+      if (event.relatedTarget.id === "emoji") {
+          $(".BBCodeEditor").emojiPicker("toggle");
+        }
+    });
+
+
     $(".BBCodeEditor").keydown(function (e) {
         if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
             if (e.which == 66) {
@@ -282,3 +294,4 @@ $(document).ready(function () {
         }
     });
 });
+

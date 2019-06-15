@@ -172,8 +172,20 @@ namespace YAF.Editors
 
             if (!this.Get<HttpRequestBase>().Browser.IsMobileDevice)
             {
-                RenderButton(writer, "toggleEmojiPicker()", this.GetText("COMMON", "TT_QUOTE"), "smile", "emoji");
+                writer.WriteLine(
+                    @"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+                       data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"" id=""emoji"">
+                  <i class=""fa fa-smile fa-fw""></i></button>",
+                    this.GetText("COMMON", "CUSTOM_BBCODE"));
+
+                writer.Write(@"<div class=""dropdown-menu"">
+                      <a class=""dropdown-item"" href=""#"" id=""emoji-area""></a>
+                    </div>");
             }
+
+            writer.Write("</div>");
+
+            writer.Write("<div class=\"btn-group\" role =\"group\">");
 
             RenderButton(writer, "setStyle('quote','')", this.GetText("COMMON", "TT_QUOTE"), "quote-left");
 
@@ -217,7 +229,7 @@ namespace YAF.Editors
 
             RenderButton(writer, "setStyle('img','')", this.GetText("COMMON", "TT_IMAGE"), "image");
 
-            if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0) && !this.PageContext.CurrentForumPage.IsAdminPage)
+            if (this.Get<YafBoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0 && !this.PageContext.CurrentForumPage.IsAdminPage)
             {
                 // add drop down for optional "extra" codes...
                 writer.WriteLine(
@@ -303,7 +315,7 @@ namespace YAF.Editors
 
                         //writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>", onclickJs, name);sds
                         writer.WriteLine(
-                            @"<button type=""button"" class=""btn btn-secondary btn-sm"" onload=""Button_Load(this)"" onclick=""{2}"" title=""{1}""{3}>
+                            @"<button type=""button"" class=""btn btn-secondary btn-sm"" onclick=""{2}"" title=""{1}""{3}>
                   <i class=""fab fa-{0} fa-fw""></i></button>",
                             row.Name.ToLower(),
                             this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim()),
@@ -397,7 +409,7 @@ namespace YAF.Editors
             [NotNull] string icon,
             [CanBeNull] string id = null)
         {
-            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm"" onload=""Button_Load(this)"" onclick=""{2}"" title=""{1}""{3}>
+            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm"" onclick=""{2}"" title=""{1}""{3}>
                   <i class=""fa fa-{0} fa-fw""></i></button>",
                 icon,
                 title,

@@ -10,7 +10,7 @@
         iconBackgroundColor: '#eee',
         recentCount: 36,
         emojiSet: 'apple',
-        container: 'body',
+          container: '#emoji-area',
         button: true
       };
 
@@ -21,14 +21,14 @@
       MAX_ICON_HEIGHT = 50;
 
   var categories = [
-    { name: 'people', label: 'People' },
-    { name: 'nature', label: 'Nature' },
-    { name: 'food', label: 'Food' },
-    { name: 'activity', label: 'Activities' },
-    { name: 'travel', label: 'Travel & Places' },
-    { name: 'object', label: 'Objects' },
-    { name: 'symbol', label: 'Symbols' },
-    { name: 'flag', label: 'Flags' }
+      { name: 'people', label: 'People', emoji: '😀' },
+      { name: 'nature', label: 'Nature', emoji: '🐳' },
+      { name: 'food', label: 'Food', emoji: '🍔' },
+      { name: 'activity', label: 'Activities', emoji: '🏃' },
+      { name: 'travel', label: 'Travel & Places', emoji: '🚀' },
+      { name: 'object', label: 'Objects', emoji: '💡' },
+      { name: 'symbol', label: 'Symbols', emoji: '🈲' },
+      { name: 'flag', label: 'Flags', emoji: '🏳' }
   ];
 
   function EmojiPicker( element, options ) {
@@ -420,7 +420,7 @@
           case 'toggle':
             plugin.iconClicked();
             break;
-          case 'destroy':
+            case 'destroy':
             plugin.destroyPicker();
             break;
         }
@@ -459,7 +459,7 @@
 
     // Recent Tab, if localstorage support
     if (localStorageSupport) {
-      nodes.push('<div class="tab active" data-tab="recent"><div class="emoji emoji-tab-recent"></div></div>');
+        nodes.push('<div class="tab active" data-tab="recent"><div class="emoji emoji-tab-recent">🕒</div></div>');
     }
 
     // Emoji category tabs
@@ -471,16 +471,13 @@
       categories[i].name +
       '"><div class="emoji emoji-tab-' +
       categories[i].name +
-      '"></div></div>');
+          '">' +
+      categories[i].emoji
+      +
+      '</div></div>');
     }
     nodes.push('</nav>');
     nodes.push('<div class="sections">');
-
-    // Search
-    nodes.push('<section class="search">');
-    nodes.push('<input type="search" placeholder="Search...">');
-    nodes.push('<div class="wrap" style="display:none;"><h1>Search Results</h1></div>');
-    nodes.push('</section>');
 
     // Recent Section, if localstorage support
     if (localStorageSupport) {
