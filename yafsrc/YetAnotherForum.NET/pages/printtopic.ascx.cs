@@ -154,8 +154,8 @@ namespace YAF.Pages
                 showDeleted = true;
             }
 
-            if (!showDeleted && ((this.Get<YafBoardSettings>().ShowDeletedMessages &&
-                                  !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            if (!showDeleted && (this.Get<YafBoardSettings>().ShowDeletedMessages &&
+                                 !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll
                                  || this.PageContext.IsAdmin ||
                                  this.PageContext.ForumModeratorAccess))
             {

@@ -1104,9 +1104,7 @@ namespace YAF.Install
         /// </returns>
         private int IndexOfWizardId([NotNull] string id)
         {
-            var step = this.InstallWizard.FindWizardControlRecursive(id) as WizardStepBase;
-
-            if (step != null)
+            if (this.InstallWizard.FindWizardControlRecursive(id) is WizardStepBase step)
             {
                 return this.InstallWizard.WizardSteps.IndexOf(step);
             }

@@ -159,7 +159,7 @@ namespace YAF.Controls
                     new Literal
                     {
                         Text = 
-                                $"<span class=\"fa-stack\"><i class=\"fas fa-comment fa-stack-2x {((DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead) ? "text-success" : "text-secondary")}\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i></span>"
+                                $"<span class=\"fa-stack\"><i class=\"fas fa-comment fa-stack-2x {(DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead ? "text-success" : "text-secondary")}\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i></span>"
                     });
 
 

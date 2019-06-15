@@ -894,8 +894,8 @@ namespace YAF.Pages
 
             if (!showDeleted
                 &&
-                ((this.Get<YafBoardSettings>().ShowDeletedMessages
-                  && !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll) || this.PageContext.IsAdmin
+                (this.Get<YafBoardSettings>().ShowDeletedMessages
+                 && !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
                  || this.PageContext.IsForumModerator))
             {
                 userId = this.PageContext.PageUserID;

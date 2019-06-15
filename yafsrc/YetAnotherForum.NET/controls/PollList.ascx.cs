@@ -187,9 +187,9 @@ namespace YAF.Controls
     /// </returns>
     protected bool CanCreatePoll()
     {
-        return (this.PollNumber < this.Get<YafBoardSettings>().AllowedPollNumber) &&
-             (this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0) && this.HasOwnerExistingGroupAccess() &&
-             (this.PollGroupId >= 0);
+        return this.PollNumber < this.Get<YafBoardSettings>().AllowedPollNumber &&
+             this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess() &&
+             this.PollGroupId >= 0;
     }
 
     /// <summary>
@@ -207,15 +207,14 @@ namespace YAF.Controls
         // Only if show buttons are enabled user can edit poll 
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
-                 (this.PollHasNoVotes(pollId) && (!this.IsPollClosed(pollId)))));
+                this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() && this.PollHasNoVotes(pollId) && !this.IsPollClosed(pollId));
       }
 
       // we don't call PollHasNoVotes method here
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-              (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
-               (!this.IsPollClosed(pollId))));
+              this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
+              !this.IsPollClosed(pollId));
     }
 
     /// <summary>
@@ -232,13 +231,13 @@ namespace YAF.Controls
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
-                 hasNoVotes));
+                this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
+                hasNoVotes);
       }
 
       return this.ShowButtons &&
              (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-              (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>()));
+              this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>());
     }
 
     /// <summary>
@@ -292,8 +291,8 @@ namespace YAF.Controls
       {
         return this.ShowButtons &&
                (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                (this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
-                 this.PollHasNoVotes(pollId)));
+                this.PageContext.PageUserID == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>() &&
+                this.PollHasNoVotes(pollId));
       }
 
       return this.PollHasNoVotes(pollId) && this.ShowButtons &&
@@ -739,7 +738,7 @@ namespace YAF.Controls
         if (this._isBound)
         {
           // If user is voted in all polls or the poll allows multiple votes and he's voted for 1 choice
-          if ((cnt >= this.PollNumber) || warningMultiplePolls)
+          if (cnt >= this.PollNumber || warningMultiplePolls)
           {
             if (isClosedBound)
             {
@@ -818,7 +817,7 @@ namespace YAF.Controls
 
         if (!isNotVoted &&
             (this.PageContext.ForumVoteAccess ||
-             (this.PageContext.BoardVoteAccess && (this.BoardId > 0 || this.EditBoardId > 0))))
+             this.PageContext.BoardVoteAccess && (this.BoardId > 0 || this.EditBoardId > 0)))
         {
           notificationString += $" {this.GetText("POLLEDIT", "POLL_VOTED")}";
         }
@@ -1015,13 +1014,13 @@ namespace YAF.Controls
       }
 
       // if the page user can cheange the poll. Only a group owner, forum moderator  or an admin can do it.   );
-      this._canChange = (this._dtPollAllChoices.Rows[0]["GroupUserID"].ToType<int>() == this.PageContext.PageUserID) ||
+      this._canChange = this._dtPollAllChoices.Rows[0]["GroupUserID"].ToType<int>() == this.PageContext.PageUserID ||
                         this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
 
       // check if we should hide pollgroup repeater when a message is posted
       if (this.PageContext.ForumPageType == ForumPages.postmessage)
       {
-        this.PollGroup.Visible = ((this.EditMessageId > 0) && (!this._canChange)) || this._canChange;
+        this.PollGroup.Visible = this.EditMessageId > 0 && !this._canChange || this._canChange;
       }
       else
       {
@@ -1132,7 +1131,7 @@ namespace YAF.Controls
         // if topicid > 0 it can be every member
         if (this.TopicId > 0)
         {
-          return (this._topicUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin ||
+          return this._topicUser == this.PageContext.PageUserID || this.PageContext.IsAdmin ||
                  this.PageContext.ForumModeratorAccess;
         }
 
@@ -1194,18 +1193,18 @@ namespace YAF.Controls
         }
 
         // We check here various variants if a poll exists, as we don't know from which place comes the call
-        var existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
+        var existingPoll = this.PollGroupId > 0 && (this.TopicId > 0 || this.ForumId > 0 || this.BoardId > 0);
 
         // Here we'll find whether we should display create new poll button only 
         var topicPoll = this.PageContext.ForumPollAccess &&
-                         (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
-        var forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
-        var categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
+                         (this.EditMessageId > 0 || this.TopicId > 0 && this.ShowButtons);
+        var forumPoll = this.EditForumId > 0 || this.ForumId > 0 && this.ShowButtons;
+        var categoryPoll = this.EditCategoryId > 0 || this.CategoryId > 0 && this.ShowButtons;
         var boardPoll = this.PageContext.BoardVoteAccess &&
-                         (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
+                         (this.EditBoardId > 0 || this.BoardId > 0 && this.ShowButtons);
 
         this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) &&
-                                  this.HasOwnerExistingGroupAccess() && (!existingPoll);
+                                  this.HasOwnerExistingGroupAccess() && !existingPoll;
 
         // if this is > 0 then we already have a poll and will display all buttons
         if (this.PollGroupId > 0)

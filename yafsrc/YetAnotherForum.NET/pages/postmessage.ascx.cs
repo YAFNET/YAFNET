@@ -292,8 +292,8 @@ namespace YAF.Pages
                 return false;
             }
 
-            if (((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests)
-                 || (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
+            if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
+                 || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)
                 && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
@@ -475,8 +475,8 @@ namespace YAF.Pages
                 }
 
                 // helper bool -- true if this is a completely new topic...
-                var isNewTopic = (this.TopicId == null) && (this.QuotedMessageId == null)
-                                  && (this.EditMessageId == null);
+                var isNewTopic = this.TopicId == null && this.QuotedMessageId == null
+                                  && this.EditMessageId == null;
 
                 this.Priority.Items.Add(new ListItem(this.GetText("normal"), "0"));
                 this.Priority.Items.Add(new ListItem(this.GetText("sticky"), "1"));
@@ -511,8 +511,8 @@ namespace YAF.Pages
                         : new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
                 }
 
-                if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests)
-                    || (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
+                if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
+                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)
                 {
                     this.imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1";
                     this.tr_captcha1.Visible = true;
@@ -1156,7 +1156,7 @@ namespace YAF.Pages
                     }
                 }
 
-                if (attachPollParameter.IsNotSet() || (!this.PostOptions1.PollChecked))
+                if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
                     YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", messageId);
@@ -1356,7 +1356,7 @@ namespace YAF.Pages
             this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(currentMessage.Topic);
             this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(currentMessage.Description);
 
-            if ((currentMessage.TopicOwnerID.ToType<int>() == currentMessage.UserID.ToType<int>())
+            if (currentMessage.TopicOwnerID.ToType<int>() == currentMessage.UserID.ToType<int>()
                 || this.PageContext.ForumModeratorAccess)
             {
                 // allow editing of the topic subject

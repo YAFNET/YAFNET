@@ -31,6 +31,24 @@ namespace YAF.Controls {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
+        /// UserInfoMobile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserInfoMobile;
+        
+        /// <summary>
+        /// UserLink1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.UserLink UserLink1;
+        
+        /// <summary>
         /// IPSpan1 control.
         /// </summary>
         /// <remarks>
@@ -65,6 +83,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel panMessage;
+        
+        /// <summary>
+        /// UserInfoPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserInfoPlaceHolder;
         
         /// <summary>
         /// UserProfileLink control.

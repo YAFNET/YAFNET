@@ -69,10 +69,10 @@
                             </asp:PlaceHolder>				    
 				        </td>
 				        <td class="post">				
-					        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((this.Eval("UserID") == DBNull.Value)? 0 : this.Eval("UserID")) %>' 
+					        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32(this.Eval("UserID") == DBNull.Value? 0 : this.Eval("UserID")) %>' 
                                 UserName='<%# this.Eval("UserName") %>' HasForumAccess='<%# Convert.ToBoolean(this.Eval("HasForumAccess")) %>' ForumPage='<%# this.Eval("ForumPage") %>' 
-                                ForumID='<%# Convert.ToInt32((this.Eval("ForumID") == DBNull.Value)? 0 : this.Eval("ForumID")) %>' ForumName='<%# this.Eval("ForumName") %>' 
-                                TopicID='<%# Convert.ToInt32((this.Eval("TopicID") == DBNull.Value)? 0 : this.Eval("TopicID")) %>' TopicName='<%# this.Eval("TopicName") %>' 
+                                ForumID='<%# Convert.ToInt32(this.Eval("ForumID") == DBNull.Value? 0 : this.Eval("ForumID")) %>' ForumName='<%# this.Eval("ForumName") %>' 
+                                TopicID='<%# Convert.ToInt32(this.Eval("TopicID") == DBNull.Value? 0 : this.Eval("TopicID")) %>' TopicName='<%# this.Eval("TopicName") %>' 
                                 LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
 				        </td>
 				        <td class="post">

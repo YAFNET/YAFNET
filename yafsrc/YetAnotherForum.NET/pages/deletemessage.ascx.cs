@@ -98,8 +98,8 @@ namespace YAF.Pages
         ///   Gets a value indicating whether CanDeletePost.
         /// </summary>
         public bool CanDeletePost =>
-            ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
-              && this._messageRow["UserID"].ToType<int>() == this.PageContext.PageUserID)
+            (!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
+             && this._messageRow["UserID"].ToType<int>() == this.PageContext.PageUserID
              || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
 
         /// <summary>

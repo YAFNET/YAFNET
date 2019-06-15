@@ -198,7 +198,7 @@ namespace YAF.Controls
             }
 
             int? userID = null;
-            string remoteIP = string.Empty;
+            var remoteIP = string.Empty;
 
             if (this.PageContext.BoardSettings.PollVoteTiedToIP)
             {

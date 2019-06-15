@@ -667,8 +667,8 @@ namespace YAF.Pages
                     var receivingPMInfo = this.GetRepository<PMessage>().UserMessageCount(userId.Value).Rows[0];
 
                     // test receiving user's PM count
-                    if ((receivingPMInfo["NumberTotal"].ToType<int>() + 1
-                         < receivingPMInfo["NumberAllowed"].ToType<int>()) || YafContext.Current.IsAdmin
+                    if (receivingPMInfo["NumberTotal"].ToType<int>() + 1
+                        < receivingPMInfo["NumberAllowed"].ToType<int>() || YafContext.Current.IsAdmin
                         || (bool)
                            Convert.ChangeType(
                                UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"],

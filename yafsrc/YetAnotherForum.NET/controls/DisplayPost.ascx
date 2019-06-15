@@ -9,8 +9,7 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <span class="float-left">
-                    <a onclick="ScrollToTop();" href="javascript: void(0)">            
+                <a onclick="ScrollToTop();" href="javascript: void(0)" class="btn btn-outline-secondary btn-sm">            
                         <i class="fa fa-angle-double-up fa-fw"></i>
                     </a>
                     <a id="post<%# this.DataRow["MessageID"] %>" 
@@ -23,8 +22,17 @@
                         <i class="fa fa-check fa-fw"></i>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
                     </asp:Label>
-
-                </span>
+                <asp:PlaceHolder runat="server" ID="UserInfoMobile">
+                <YAF:LocalizedLabel LocalizedTag="POSTEDBY" runat="server"></YAF:LocalizedLabel>:
+                <YAF:UserLink  ID="UserLink1" runat="server" 
+                               UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
+                               ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
+                               PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>'
+                               Style='<%# this.DataRow["Style"]%>' 
+                               EnableHoverCard="False" 
+                               Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
+                               CssClass="dropdown-toggle" />
+                </asp:PlaceHolder>
                 <span id="IPSpan1" runat="server" visible="false" class="float-right d-none d-md-block"> 
                     &nbsp;&nbsp;
                     <strong><i class="fa fa-laptop fa-fw"></i>&nbsp;<%# this.GetText("IP") %>:</strong>&nbsp;<a id="IPLink1" target="_blank" runat="server"></a>			   
@@ -35,18 +43,18 @@
                                          DateTime='<%# this.DataRow["Posted"] %>'>
                     </YAF:DisplayDateTime>
                 </time>
+                
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-9">
-                        <asp:panel id="panMessage" runat="server">
+                    <asp:panel id="panMessage" runat="server">
                             <YAF:MessagePostData runat="server"
                                                  DataRow="<%# this.DataRow %>" 
                                                  IsAltMessage="<%# this.IsAlt %>"
                                                  ShowEditMessage="True">
                             </YAF:MessagePostData>
                         </asp:panel> 
-                    </div>
+                    <asp:PlaceHolder runat="server" ID="UserInfoPlaceHolder">
                     <div class="col-md-3">
                             <div class="card mb-3">
                                 <div class="card-body text-center">
@@ -96,6 +104,7 @@
                                 </div>
                             </div>
                     </div>
+                </asp:PlaceHolder>
                 </div>
             </div>
             <div class="card-footer">
