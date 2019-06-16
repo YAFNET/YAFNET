@@ -2183,6 +2183,7 @@
     <Resource tag="TT_LISTORDERED">Ordered List</Resource>
     <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
     <Resource tag="TT_QUOTE">Citer</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Souligné</Resource>
     <Resource tag="UNREAD_MSG">Vous avez {0} message(s) non-lu(s) dans votre boîte.</Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>

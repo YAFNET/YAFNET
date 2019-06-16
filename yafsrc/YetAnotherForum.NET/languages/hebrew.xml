@@ -2209,6 +2209,7 @@
     <Resource tag="TT_LISTORDERED">Ordered List</Resource>
     <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
     <Resource tag="TT_QUOTE">ציטוט</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">קו תחתון</Resource>
     <Resource tag="UNREAD_MSG">יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס</Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>

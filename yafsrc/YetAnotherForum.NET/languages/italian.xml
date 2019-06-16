@@ -2179,6 +2179,7 @@
     <Resource tag="TT_LISTORDERED">Elenco numerato</Resource>
     <Resource tag="TT_LISTUNORDERED">Elenco puntato</Resource>
     <Resource tag="TT_QUOTE">Citazione</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Sottolineato</Resource>
     <Resource tag="UNREAD_MSG">Ci sono {0} messaggi non letti nella tua cassetta postale.</Resource>
     <Resource tag="UNREAD_MSG_TITLE">Nuovi messaggi privati</Resource>

@@ -2200,6 +2200,7 @@
     <Resource tag="TT_LISTORDERED">فهرست مرتب</Resource>
     <Resource tag="TT_LISTUNORDERED">فهرست نامرتب</Resource>
     <Resource tag="TT_QUOTE">نقل قول</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">زیرخط دار</Resource>
     <Resource tag="UNREAD_MSG">شما {0} پیغام خوانده نشده دارید</Resource>
     <Resource tag="UNREAD_MSG_TITLE">پیام خصوصی جدید</Resource>

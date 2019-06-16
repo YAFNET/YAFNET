@@ -2180,6 +2180,7 @@
     <Resource tag="TT_LISTORDERED">قائمة  مرتبة</Resource>
     <Resource tag="TT_LISTUNORDERED">قائمة غير مرتبة</Resource>
     <Resource tag="TT_QUOTE">إقتباس</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">أسفله خط</Resource>
     <Resource tag="UNREAD_MSG">لديك {0} غير مقروء(s) في صندوق  الوارد</Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>

@@ -80,8 +80,8 @@ namespace YAF.Editors
                     return string.Empty;
                 }
 
-                var pInfo = this._typEditor.GetProperty("Html");
-                return Convert.ToString(pInfo.GetValue(this._editor, null));
+                var propertyInfo = this._typEditor.GetProperty("Html");
+                return Convert.ToString(propertyInfo.GetValue(this._editor, null));
             }
 
             set
@@ -91,8 +91,8 @@ namespace YAF.Editors
                     return;
                 }
 
-                var pInfo = this._typEditor.GetProperty("Html");
-                pInfo.SetValue(this._editor, value, null);
+                var propertyInfo = this._typEditor.GetProperty("Html");
+                propertyInfo.SetValue(this._editor, value, null);
             }
         }
 

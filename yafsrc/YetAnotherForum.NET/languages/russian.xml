@@ -2165,6 +2165,7 @@
     <Resource tag="TT_LISTORDERED">Упорядоченный список</Resource>
     <Resource tag="TT_LISTUNORDERED">Неупорядоченный список</Resource>
     <Resource tag="TT_QUOTE">Цитата</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Подчеркнуть</Resource>
     <Resource tag="UNREAD_MSG">У Вас {0} непрочитанных личных сообщений</Resource>
     <Resource tag="UNREAD_MSG_TITLE">Новые личные сообщения</Resource>

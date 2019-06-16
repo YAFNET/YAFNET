@@ -2177,6 +2177,7 @@
     <Resource tag="TT_LISTORDERED">Gesorteerde lijst</Resource>
     <Resource tag="TT_LISTUNORDERED">Ongesorteerde lijst</Resource>
     <Resource tag="TT_QUOTE">Citeer</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Onderstreep</Resource>
     <Resource tag="UNREAD_MSG">Je hebt {0} ongelezen bericht(en) in je Postvak In.</Resource>
     <Resource tag="UNREAD_MSG_TITLE">Nieuwe PM('s)</Resource>

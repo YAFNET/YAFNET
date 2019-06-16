@@ -2162,6 +2162,7 @@
     <Resource tag="TT_LISTORDERED">Sortierte Liste</Resource>
     <Resource tag="TT_LISTUNORDERED">Unsortierte Liste</Resource>
     <Resource tag="TT_QUOTE">Zitat</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Unterstrichen</Resource>
     <Resource tag="UNREAD_MSG">Du hast {0} ungelesene Nachricht(en) in Deinem Posteingang</Resource>
     <Resource tag="UNREAD_MSG_TITLE">Private Nachricht(en)</Resource>
