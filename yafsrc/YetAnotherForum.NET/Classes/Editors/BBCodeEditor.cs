@@ -312,7 +312,6 @@ namespace YAF.Editors
 
                         var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
-                        //writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>", onclickJs, name);sds
                         writer.WriteLine(
                             @"<button type=""button"" class=""btn btn-secondary btn-sm"" onclick=""{2}"" title=""{1}""{3}>
                   <i class=""fab fa-{0} fa-fw""></i></button>",
@@ -391,6 +390,8 @@ namespace YAF.Editors
             writer.Write("<div class=\"btn-group mt-1\" role =\"group\">");
 
             RenderButton(writer, "SaveMessage()", this.GetText("COMMON", "TT_SAVE"), "save");
+
+            writer.Write("</div>");
 
             writer.Write("</div>");
 

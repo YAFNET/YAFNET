@@ -123,14 +123,14 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string LadderInfo([NotNull] object _o)
         {
-            var dr = (DataRowView)_o;
+            var dr = (Rank)_o;
 
             // object IsLadder,object MinPosts
             // this.Eval( "IsLadder"),Eval( "MinPosts")
-            var isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
+            var isLadder = dr.Flags.BinaryAnd(RankFlags.Flags.IsLadder);
 
             return isLadder
-                       ? $"{this.GetItemName(true)} ({dr["MinPosts"]} {this.GetText("ADMIN_RANKS", "POSTS")})"
+                       ? $"{this.GetItemName(true)} ({dr.MinPosts} {this.GetText("ADMIN_RANKS", "POSTS")})"
                        : this.GetItemName(false);
         }
 
