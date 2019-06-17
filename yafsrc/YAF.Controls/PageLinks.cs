@@ -202,7 +202,6 @@ namespace YAF.Controls
             if (this.LinkedPageLinkID.IsSet())
             {
                 // attempt to get access to the other control...
-
                 if (this.Parent.FindControl(this.LinkedPageLinkID) is PageLinks parentControl)
                 {
                     // use the other data stream...
@@ -233,7 +232,7 @@ namespace YAF.Controls
                         : $@"<li class=""breadcrumb-item""><a href=""{url}"">{encodedTitle}</a></li>");
             }
 
-            writer.Write(this.PageContext.CurrentForumPage.IsAdminPage ? "</ol>" : "</ol></div>");
+            writer.Write("</ol></div>");
         }
 
         #endregion
