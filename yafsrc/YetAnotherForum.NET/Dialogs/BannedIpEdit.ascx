@@ -33,7 +33,7 @@
                     <div class="modal-footer">
                         <YAF:ThemeButton id="Save" runat="server" OnClick="Save_OnClick" 
                             TextLocalizedTag="ADMIN_BANNEDIP_EDIT" TextLocalizedPage="SAVE"
-                            Type="Primary" Icon="upload">
+                            Type="Primary" Icon="save">
                         </YAF:ThemeButton>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             <i class="fa fa-times fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>

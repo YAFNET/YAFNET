@@ -3338,4 +3338,21 @@ del ServiceStack.Client.dll</PostBuildEvent>
       <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
+   <ItemGroup>
+        <PackageReference Include="MSBuildTasks" Version="1.5.0.235">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    <PropertyGroup>
+        <TempFolder>$([System.IO.Path]::GetTempPath())</TempFolder>
+    </PropertyGroup>
+    <ItemGroup>
+        <BrowsersListNodeJsFiles Include="$(TempFolder)\WebCompiler*\node_modules\browserslist\node.js" />
+    </ItemGroup>
+    <Target Name="BrowsersListWarningsAsInfo" BeforeTargets="WebCompile">
+        <FileUpdate Files="@(BrowsersListNodeJsFiles)"
+                    Regex="console.warn"
+                    ReplacementText="console.log" />
+    </Target>
 </Project>

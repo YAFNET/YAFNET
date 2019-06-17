@@ -154,7 +154,7 @@ namespace YAF.Controls
         /// </returns>
         protected bool IsOdd()
         {
-            return (this._count++ % 2) == 0;
+            return this._count++ % 2 == 0;
         }
 
         /* Methods */

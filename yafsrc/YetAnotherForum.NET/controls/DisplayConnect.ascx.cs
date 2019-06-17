@@ -101,11 +101,11 @@ namespace YAF.Controls
                                                NavigateUrl =
                                                    this.Get<YafBoardSettings>().ShowRulesForRegistration
                                                        ? YafBuildLink.GetLink(ForumPages.rules)
-                                                       : (!this.Get<YafBoardSettings>().UseSSLToRegister
-                                                              ? YafBuildLink.GetLink(ForumPages.register)
-                                                              : YafBuildLink.GetLink(
-                                                                  ForumPages.register,
-                                                                  true).Replace("http:", "https:"))
+                                                       : !this.Get<YafBoardSettings>().UseSSLToRegister
+                                                           ? YafBuildLink.GetLink(ForumPages.register)
+                                                           : YafBuildLink.GetLink(
+                                                               ForumPages.register,
+                                                               true).Replace("http:", "https:")
                                            };
 
                     this.ConnectHolder.Controls.Add(registerLink);

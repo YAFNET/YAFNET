@@ -2177,6 +2177,7 @@
     <Resource tag="TT_LISTORDERED">Lista numeryczna</Resource>
     <Resource tag="TT_LISTUNORDERED">Lista punktowa</Resource>
     <Resource tag="TT_QUOTE">Cytat</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Podkreślenie</Resource>
     <Resource tag="UNREAD_MSG">Masz {0} nieprzeczytanych wiadomości(s) w Twojej Skrzynce Odbiorczej</Resource>
     <Resource tag="UNREAD_MSG_TITLE">Nowe prywatne wiadomości</Resource>

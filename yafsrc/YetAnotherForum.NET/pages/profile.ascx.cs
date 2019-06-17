@@ -332,7 +332,7 @@ namespace YAF.Pages
             }
 
             // If this is the album owner we show him the tab, else it should be hidden
-            if ((albumUser != this.PageContext.PageUserID) && !this.PageContext.IsAdmin)
+            if (albumUser != this.PageContext.PageUserID && !this.PageContext.IsAdmin)
             {
                 return false;
             }
@@ -637,7 +637,7 @@ namespace YAF.Pages
                 this.BirthdayTR.Visible = true;
                 this.Birthday.Text =
                     this.Get<IDateTime>()
-                        .FormatDateLong(userData.Profile.Birthday.AddMinutes((double)(-userData.TimeZone)));
+                        .FormatDateLong(userData.Profile.Birthday.AddMinutes((double)-userData.TimeZone));
             }
             else
             {

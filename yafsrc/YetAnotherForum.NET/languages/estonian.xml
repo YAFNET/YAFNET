@@ -2183,6 +2183,7 @@
     <Resource tag="TT_LISTORDERED">Järjestatud loend</Resource>
     <Resource tag="TT_LISTUNORDERED">Järjestamata loend</Resource>
     <Resource tag="TT_QUOTE">Tsitaat</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Allajoonitud</Resource>
     <Resource tag="UNREAD_MSG">Teie postkastis on {0} lugemata kirja.</Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>

@@ -136,10 +136,10 @@ namespace YAF.Pages.Admin
         /// String "Linked" when role is linked to YAF roles, "Unlinkable" otherwise.
         /// </returns>
         [NotNull]
-        protected string GetLinkedStatus([NotNull] DataRowView currentRow)
+        protected string GetLinkedStatus([NotNull] Group currentRow)
         {
             // check whether role is Guests role, which can't be linked
-            return currentRow["Flags"].BinaryAnd(2)
+            return currentRow.Flags.BinaryAnd(2)
                        ? this.GetText("ADMIN_GROUPS", "UNLINKABLE")
                        : this.GetText("ADMIN_GROUPS", "LINKED");
         }

@@ -2186,6 +2186,7 @@
     <Resource tag="TT_LISTORDERED">Ordered List</Resource>
     <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
     <Resource tag="TT_QUOTE">引用</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">下划线</Resource>
     <Resource tag="UNREAD_MSG">你有 {0} 条未读悄悄话.</Resource>
     <Resource tag="UNREAD_MSG_TITLE">新私信</Resource>

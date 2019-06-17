@@ -171,7 +171,7 @@ namespace YAF.Pages
                 this.ViewState["SortNumPostsField"].ToType<int?>(),
                 this.ViewState["SortLastVisitField"].ToType<int?>(),
                 this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int>() : 0,
-                this.NumPostDDL.SelectedIndex < 0 ? 3 : (this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0));
+                this.NumPostDDL.SelectedIndex < 0 ? 3 : this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0);
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
@@ -422,7 +422,7 @@ namespace YAF.Pages
             this._userListDataTable = this.GetUserList(
                 selectedLetter,
                 0,
-                this.UserSearchName.Text.IsNotSet() || (selectedCharLetter == char.MinValue && selectedCharLetter == '#'),
+                this.UserSearchName.Text.IsNotSet() || selectedCharLetter == char.MinValue && selectedCharLetter == '#',
                 out totalCount);
             
             this.Pager.Count = totalCount;
@@ -526,19 +526,19 @@ namespace YAF.Pages
             switch (field)
             {
                 case "Name":
-                    this.ViewState["SortNameField"] = this.ViewState["SortNameField"] == null ? 0 : (this.ViewState["SortNameField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortNameField"] = this.ViewState["SortNameField"] == null ? 0 : this.ViewState["SortNameField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "RankName":
-                    this.ViewState["SortRankNameField"] = this.ViewState["SortRankNameField"] == null ? 0 : (this.ViewState["SortRankNameField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortRankNameField"] = this.ViewState["SortRankNameField"] == null ? 0 : this.ViewState["SortRankNameField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "Joined":
-                    this.ViewState["SortJoinedField"] = this.ViewState["SortJoinedField"] == null ? 0 : (this.ViewState["SortJoinedField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortJoinedField"] = this.ViewState["SortJoinedField"] == null ? 0 : this.ViewState["SortJoinedField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "NumPosts":
-                    this.ViewState["SortNumPostsField"] = this.ViewState["SortNumPostsField"] == null ? 0 : (this.ViewState["SortNumPostsField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortNumPostsField"] = this.ViewState["SortNumPostsField"] == null ? 0 : this.ViewState["SortNumPostsField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "LastVisit":
-                    this.ViewState["SortLastVisitField"] = this.ViewState["SortLastVisitField"] == null ? 0 : (this.ViewState["SortLastVisitField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortLastVisitField"] = this.ViewState["SortLastVisitField"] == null ? 0 : this.ViewState["SortLastVisitField"].ToType<int>() == 1 ? 2 : 1;
                     break;
             }
         }

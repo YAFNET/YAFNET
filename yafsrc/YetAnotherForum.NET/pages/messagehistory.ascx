@@ -72,7 +72,7 @@
                     <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
                     <br />
                     <span id="IPSpan1" runat="server" visible='<%#
-    this.PageContext.IsAdmin || (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess)%>'>
+    this.PageContext.IsAdmin || this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>'>
                         <strong>
                             <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'

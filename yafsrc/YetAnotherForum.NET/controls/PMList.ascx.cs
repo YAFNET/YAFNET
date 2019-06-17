@@ -409,7 +409,7 @@ namespace YAF.Controls
             object percentage = 0;
             if (_limit.ToType<int>() != 0)
             {
-                percentage = decimal.Round((_total.ToType<decimal>() / _limit.ToType<decimal>()) * 100, 2);
+                percentage = decimal.Round(_total.ToType<decimal>() / _limit.ToType<decimal>() * 100, 2);
             }
 
             if (YafContext.Current.IsAdmin)

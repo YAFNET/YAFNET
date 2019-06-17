@@ -421,9 +421,9 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "REGISTER_TITLE"),
                     this.Get<YafBoardSettings>().ShowRulesForRegistration
                         ? YafBuildLink.GetLink(ForumPages.rules)
-                        : (!this.Get<YafBoardSettings>().UseSSLToRegister
-                               ? YafBuildLink.GetLink(ForumPages.register)
-                               : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:")),
+                        : !this.Get<YafBoardSettings>().UseSSLToRegister
+                            ? YafBuildLink.GetLink(ForumPages.register)
+                            : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"),
                     true,
                     false,
                     null,
@@ -591,11 +591,11 @@ namespace YAF.Controls
                                                NavigateUrl =
                                                    this.Get<YafBoardSettings>().ShowRulesForRegistration
                                                        ? YafBuildLink.GetLink(ForumPages.rules)
-                                                       : (!this.Get<YafBoardSettings>().UseSSLToRegister
-                                                              ? YafBuildLink.GetLink(ForumPages.register)
-                                                              : YafBuildLink.GetLink(
-                                                                  ForumPages.register,
-                                                                  true).Replace("http:", "https:")),
+                                                       : !this.Get<YafBoardSettings>().UseSSLToRegister
+                                                           ? YafBuildLink.GetLink(ForumPages.register)
+                                                           : YafBuildLink.GetLink(
+                                                               ForumPages.register,
+                                                               true).Replace("http:", "https:"),
                                                CssClass = "alert-link"
                                            };
 

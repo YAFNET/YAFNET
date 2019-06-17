@@ -128,9 +128,7 @@ namespace YAF.Controls
                     showDeleted = true;
                 }
 
-                if (!showDeleted
-                    && (this.Get<YafBoardSettings>().ShowDeletedMessages
-                        && !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll) || this.PageContext.IsAdmin
+                if (!showDeleted && this.Get<YafBoardSettings>().ShowDeletedMessages && !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
                     || this.PageContext.IsForumModerator)
                 {
                     userId = this.PageContext.PageUserID;

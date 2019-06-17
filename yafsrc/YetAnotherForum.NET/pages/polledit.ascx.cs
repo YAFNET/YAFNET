@@ -355,12 +355,12 @@ namespace YAF.Pages
                                  (this._topicId > 0 || this._editTopicId > 0 || this._editMessageId > 0 ||
                                   this.editForumId > 0 || this._editBoardId > 0 || this._forumId > 0 ||
                                   this._categoryId > 0);
-                if (!categoryVars || (!boardVars))
+                if (!categoryVars || !boardVars)
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
             }
-            else if (this._forumId > 0 && (!this.PageContext.ForumPollAccess))
+            else if (this._forumId > 0 && !this.PageContext.ForumPollAccess)
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
             }
@@ -670,7 +670,7 @@ namespace YAF.Pages
                         this.IsBoundCheckBox.Checked = pollGroupData.Rows[0]["IsBound"].ToType<bool>();
                     }
                 }
-                else if (this._forumId > 0 && (!(this._topicId > 0) || (!(this._editTopicId > 0))))
+                else if (this._forumId > 0 && (!(this._topicId > 0) || !(this._editTopicId > 0)))
                 {
                     // forumid should not be null here
                     pgidt = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._forumId).FirstOrDefault().PollGroupID.Value;
@@ -1010,8 +1010,8 @@ namespace YAF.Pages
             // frequently used
             var pollNumber = pollGroup.Rows.Count;
 
-            return (pollNumber < this.Get<YafBoardSettings>().AllowedPollNumber) &&
-                   (this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0);
+            return pollNumber < this.Get<YafBoardSettings>().AllowedPollNumber &&
+                   this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0;
         }
 
         #endregion

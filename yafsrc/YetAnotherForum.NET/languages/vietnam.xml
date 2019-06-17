@@ -2186,6 +2186,7 @@
     <Resource tag="TT_LISTORDERED">Ordered List</Resource>
     <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
     <Resource tag="TT_QUOTE">Trích dẫn</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Gạch chân</Resource>
     <Resource tag="UNREAD_MSG">Bạn có {0} tin nhắn chưa đọc</Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>

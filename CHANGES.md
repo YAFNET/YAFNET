@@ -4,7 +4,8 @@ YetAnotherForum.NET Changelog
 # YetAnotherForum.NET v2.3.0.0
 
 ## New Features:
-
+* [NEW] UI Based on Bootstrap
+* [NEW] 22 Bootstrap Themes
 * [NEW] Added Dropdown on the moderate page to move multiple topics
 * [NEW #375] indication in the menu if post needs moderation
 * [NEW #365] now you can archive pm's from the outbox
@@ -14,9 +15,19 @@ YetAnotherForum.NET Changelog
 * [NEW] Old GIF Emoticons have been replaced by Unicode Emoji
 * [NEW #285] Rewritten Search Engine based on Lucene.NET
 * [NEW #92] Show similar topic titles
-
+* [NEW #89] Added Buton "Get Location from IP Address" to Retrieve the Country & City from the IP Address
+* [NEW #107] Added Button "Watch all Forums"
+* [NEW #258] Anti Spam statistics
 
 ## Fixed Issues:
+
+
+# YetAnotherForum.NET v2.2.4.17
+## New Features:
+* You can now use relative urls for remote forum urls
+
+## Fixed Issues:
+* Image attachment thumbnails are now always max 200 x 200
 
 # YetAnotherForum.NET v2.2.4.16
 ## New Features:

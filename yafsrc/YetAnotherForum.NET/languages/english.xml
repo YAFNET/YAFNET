@@ -2192,6 +2192,7 @@
   <Resource tag="TT_LISTORDERED">Ordered List</Resource>
   <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
   <Resource tag="TT_QUOTE">Quote</Resource>
+  <Resource tag="TT_SAVE">Save Message Draft</Resource>
   <Resource tag="TT_UNDERLINE">Underline</Resource>
   <Resource tag="UNREAD_MSG">You have {0} unread message(s) in your Inbox.</Resource>
   <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>

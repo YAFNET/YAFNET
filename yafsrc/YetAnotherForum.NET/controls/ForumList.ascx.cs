@@ -329,9 +329,8 @@ namespace YAF.Controls
             }
 
             var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
-            var modList1 = e.Item.FindControl("ForumModeratorListMob") as ForumModeratorList;
 
-            if (modList1 != null)
+            if (e.Item.FindControl("ForumModeratorListMob") is ForumModeratorList modList1)
             {
                 var dra = row.GetChildRows("FK_Moderator_Forum");
                 if (dra.GetLength(0) > 0)

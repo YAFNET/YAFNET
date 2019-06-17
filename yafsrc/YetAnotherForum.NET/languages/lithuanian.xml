@@ -2233,6 +2233,7 @@
     <Resource tag="TT_LISTORDERED">Ordered List</Resource>
     <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
     <Resource tag="TT_QUOTE">Quote</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Underline</Resource>
     <Resource tag="UNREAD_MSG">
       Jūs {0} neskaitytų pranešimą (-us) į aplanką Gauti

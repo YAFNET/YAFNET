@@ -29,7 +29,6 @@ namespace YAF.Core
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
 
@@ -96,8 +95,7 @@ namespace YAF.Core
 
             var userAgent = this.HttpRequestBase.UserAgent;
 
-            var isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent)
-                                  || this.HttpRequestBase.Browser.IsMobileDevice;
+            var isMobileDevice = UserAgentHelper.IsMobileDevice(this.HttpRequestBase);
 
             // try and get more verbose platform name by ref and other parameters             
             UserAgentHelper.Platform(

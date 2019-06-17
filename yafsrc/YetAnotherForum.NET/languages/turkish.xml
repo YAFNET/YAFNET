@@ -2186,6 +2186,7 @@
     <Resource tag="TT_LISTORDERED">Sıralı Liste</Resource>
     <Resource tag="TT_LISTUNORDERED">Sıralanmamış Liste</Resource>
     <Resource tag="TT_QUOTE">Alıntı</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Altçizgi</Resource>
     <Resource tag="UNREAD_MSG">Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır.</Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>

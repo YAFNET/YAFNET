@@ -95,9 +95,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var dropDownList = sender as DropDownList;
-
-            if (dropDownList != null)
+            if (sender is DropDownList dropDownList)
             {
                 dropDownList.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
                 dropDownList.DataValueField = "ID";

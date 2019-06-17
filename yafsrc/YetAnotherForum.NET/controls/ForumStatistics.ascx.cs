@@ -89,7 +89,7 @@ namespace YAF.Controls
             }
 
             var canViewActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveUsersViewPermissions);
-            var showGuestTotal = (activeGuests > 0) &&
+            var showGuestTotal = activeGuests > 0 &&
                                   (this.Get<YafBoardSettings>().ShowGuestsInDetailedActiveList ||
                                    this.Get<YafBoardSettings>().ShowCrawlersInActiveList);
             if (canViewActive &&

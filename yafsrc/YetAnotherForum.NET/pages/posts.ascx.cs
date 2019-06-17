@@ -583,7 +583,7 @@ namespace YAF.Pages
                 this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
 
-                if (!this.PageContext.ForumPostAccess || (this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
+                if (!this.PageContext.ForumPostAccess || this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
                 {
                     this.NewTopic1.Visible = false;
                     this.NewTopic2.Visible = false;
@@ -634,7 +634,7 @@ namespace YAF.Pages
                 }
 
                 if (this.PageContext.ForumReplyAccess ||
-                    ((!this._topic.TopicFlags.IsLocked || !this.forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess))
+                    (!this._topic.TopicFlags.IsLocked || !this.forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess)
                 {
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "SelectedQuotingJs",
@@ -915,8 +915,8 @@ namespace YAF.Pages
             var showDeleted = false;
             var userId = this.PageContext.PageUserID;
 
-            if ((this.PageContext.IsAdmin
-                || this.PageContext.ForumModeratorAccess) || this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            if (this.PageContext.IsAdmin
+                || this.PageContext.ForumModeratorAccess || this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }

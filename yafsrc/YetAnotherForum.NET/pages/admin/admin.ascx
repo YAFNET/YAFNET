@@ -221,9 +221,9 @@
                         <%# this.SetLocation(this.Eval("UserName").ToString())%>
                     </td>
                     <td>
-                        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# ((this.Eval("UserID") == DBNull.Value)? 0 : this.Eval("UserID")).ToType<int>() %>'
-                            UserName='<%# this.Eval("UserName") %>' ForumPage='<%# this.Eval("ForumPage") %>' ForumID='<%# ((this.Eval("ForumID") == DBNull.Value)? 0 : this.Eval("ForumID")).ToType<int>() %>'
-                            ForumName='<%# this.Eval("ForumName") %>' TopicID='<%# ((this.Eval("TopicID") == DBNull.Value)? 0 : this.Eval("TopicID")).ToType<int>() %>'
+                        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# (this.Eval("UserID") == DBNull.Value? 0 : this.Eval("UserID")).ToType<int>() %>'
+                            UserName='<%# this.Eval("UserName") %>' ForumPage='<%# this.Eval("ForumPage") %>' ForumID='<%# (this.Eval("ForumID") == DBNull.Value? 0 : this.Eval("ForumID")).ToType<int>() %>'
+                            ForumName='<%# this.Eval("ForumName") %>' TopicID='<%# (this.Eval("TopicID") == DBNull.Value? 0 : this.Eval("TopicID")).ToType<int>() %>'
                             TopicName='<%# this.Eval("TopicName") %>' LastLinkOnly="false" runat="server">
                         </YAF:ActiveLocation>
                     </td>

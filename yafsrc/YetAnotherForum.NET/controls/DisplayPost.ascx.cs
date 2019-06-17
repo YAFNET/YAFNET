@@ -163,7 +163,6 @@ namespace YAF.Controls
             return sb.ToString();
         }
         
-
         /// <summary>
         /// The get post class.
         /// </summary>
@@ -402,7 +401,8 @@ namespace YAF.Controls
                 }
             }
 
-            this.PopMenu1.Attach(this.UserProfileLink);
+            this.PopMenu1.Attach(
+                UserAgentHelper.IsMobileDevice(this.Get<HttpRequestBase>()) ? this.UserLink1 : this.UserProfileLink);
         }
 
         /// <summary>
@@ -496,6 +496,12 @@ namespace YAF.Controls
             this.FormatThanksRow();
 
             this.ShowIpInfo();
+
+            var isMobile = UserAgentHelper.IsMobileDevice(this.Get<HttpRequestBase>());
+
+            this.UserInfoPlaceHolder.Visible = !isMobile;
+            this.UserInfoMobile.Visible = isMobile;
+            this.panMessage.CssClass = isMobile ? "col" : "col-md-9";
         }
 
         /// <summary>

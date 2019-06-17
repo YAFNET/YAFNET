@@ -2189,6 +2189,7 @@
     <Resource tag="TT_LISTORDERED">Lista ordenada</Resource>
     <Resource tag="TT_LISTUNORDERED">Lista desordenada</Resource>
     <Resource tag="TT_QUOTE">Citar</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Subrayado</Resource>
     <Resource tag="UNREAD_MSG">Tienes {0} mensaje(s) no leídos en tu bandeja de entrada</Resource>
     <Resource tag="UNREAD_MSG_TITLE">Nuevo(s) mensaje(s) privado(s)</Resource>

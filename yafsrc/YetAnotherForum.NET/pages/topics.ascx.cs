@@ -232,7 +232,7 @@ namespace YAF.Pages
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
                 this.ShowList.DataTextField = "TopicText";
                 this.ShowList.DataValueField = "TopicValue";
-                this._showTopicListSelected = (this.Get<IYafSession>().ShowList == -1)
+                this._showTopicListSelected = this.Get<IYafSession>().ShowList == -1
                                                   ? this.Get<YafBoardSettings>().ShowTopicsDefault
                                                   : this.Get<IYafSession>().ShowList;
 
@@ -283,7 +283,7 @@ namespace YAF.Pages
             this.BindData(); // Always because of yaf:TopicLine
 
             if (!this.PageContext.ForumPostAccess
-                || (this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
+                || this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
                 this.NewTopic1.Visible = false;
                 this.NewTopic2.Visible = false;

@@ -437,7 +437,7 @@ namespace YAF.Pages.Admin
                 using (var dv = dt.DefaultView)
                 {
                     // filter by name or email
-                    if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
+                    if (this.name.Text.Trim().Length > 0 || this.Email.Text.Trim().Length > 0)
                     {
                         dv.RowFilter =
                             string.Format(

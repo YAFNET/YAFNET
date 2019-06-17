@@ -111,7 +111,7 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            int? forumId = this.GetQueryStringAsInt("fa");
+            var forumId = this.GetQueryStringAsInt("fa");
 
             var forum = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId).FirstOrDefault();
 
