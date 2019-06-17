@@ -2950,18 +2950,6 @@
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="YafUploader.ashx" />
-    <Content Include="Content\webfonts\fa-brands-400.eot" />
-    <Content Include="Content\webfonts\fa-brands-400.ttf" />
-    <Content Include="Content\webfonts\fa-brands-400.woff" />
-    <Content Include="Content\webfonts\fa-brands-400.woff2" />
-    <Content Include="Content\webfonts\fa-regular-400.eot" />
-    <Content Include="Content\webfonts\fa-regular-400.ttf" />
-    <Content Include="Content\webfonts\fa-regular-400.woff" />
-    <Content Include="Content\webfonts\fa-regular-400.woff2" />
-    <Content Include="Content\webfonts\fa-solid-900.eot" />
-    <Content Include="Content\webfonts\fa-solid-900.ttf" />
-    <Content Include="Content\webfonts\fa-solid-900.woff" />
-    <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\forum\Install\ladda.scss" />
     <Content Include="Content\Themes\cerulean\_bootswatch.scss" />
     <Content Include="Content\Themes\cerulean\_variables.scss" />
@@ -3026,6 +3014,18 @@
     <Content Include="Content\Themes\yeti\bootstrap-forum.scss" />
     <Content Include="Content\Themes\superhero\bootstrap-forum.scss" />
     <Content Include="Content\Themes\sketchy\bootstrap-forum.scss" />
+    <Content Include="Content\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3335,24 +3335,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
-   <ItemGroup>
-        <PackageReference Include="MSBuildTasks" Version="1.5.0.235">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
-    <PropertyGroup>
-        <TempFolder>$([System.IO.Path]::GetTempPath())</TempFolder>
-    </PropertyGroup>
-    <ItemGroup>
-        <BrowsersListNodeJsFiles Include="$(TempFolder)\WebCompiler*\node_modules\browserslist\node.js" />
-    </ItemGroup>
-    <Target Name="BrowsersListWarningsAsInfo" BeforeTargets="WebCompile">
-        <FileUpdate Files="@(BrowsersListNodeJsFiles)"
-                    Regex="console.warn"
-                    ReplacementText="console.log" />
-    </Target>
 </Project>
