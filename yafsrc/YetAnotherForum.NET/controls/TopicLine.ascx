@@ -40,7 +40,7 @@
                 {
                     var altMultipages = string.Format(this.GetText("GOTO_POST_PAGER"), string.Empty);
             %>
-                <span>- <i class="fas fa-copy fa-fw"></i> 
+                <span>- <%--<i class="fas fa-copy fa-fw text-secondary"></i>--%> 
                     <%=tPager%></span>
             <%
            }
@@ -48,18 +48,18 @@
         </p>
     </div>
     <div class="col-md-2">
-        <ul class="list-unstyled">
-            <li>
+        <div class="d-flex flex-row flex-md-column justify-content-between justify-content-md-start">
+            <div>
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                     LocalizedTag="REPLIES" LocalizedPage="MODERATE" />:
                 <% this.Response.Write(this.FormatReplies()); %>
-            </li>
-            <li>
+            </div>
+            <div>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedPage="MODERATE" LocalizedTag="VIEWS" />:
                 <% this.Response.Write(FormatViews());%>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
     <asp:PlaceHolder runat="server" Visible='<%# !this.TopicRow["LastMessageID"].IsNullOrEmptyDBField() %>'>
     <div class="col-md-4">

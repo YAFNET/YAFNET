@@ -565,7 +565,7 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    output.Write("<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
+                    output.Write("<i class=\"fa fa-{0} fa-fw align-middle\"></i>&nbsp;", this.Icon);
                 }
             }
 
