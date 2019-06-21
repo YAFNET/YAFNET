@@ -31,6 +31,7 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -142,7 +143,8 @@ namespace YAF.Controls
         [DefaultValue(ButtonAction.Primary)]
         public ButtonAction Type
         {
-            get => this.ViewState["Type"] != null ? this.ViewState["Type"].ToType<ButtonAction>() : ButtonAction.Primary;
+            get =>
+                this.ViewState["Type"] != null ? this.ViewState["Type"].ToType<ButtonAction>() : ButtonAction.Primary;
 
             set => this.ViewState["Type"] = value;
         }
@@ -218,7 +220,10 @@ namespace YAF.Controls
         [CanBeNull]
         public string ReturnConfirmText
         {
-            get => this.ViewState["ReturnConfirmText"] != null ? this.ViewState["ReturnConfirmText"] as string : string.Empty;
+            get =>
+                this.ViewState["ReturnConfirmText"] != null
+                    ? this.ViewState["ReturnConfirmText"] as string
+                    : string.Empty;
 
             set => this.ViewState["ReturnConfirmText"] = value;
         }
@@ -288,7 +293,10 @@ namespace YAF.Controls
         [CanBeNull]
         public string TitleLocalizedPage
         {
-            get => this.ViewState["TitleLocalizedPage"] != null ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
+            get =>
+                this.ViewState["TitleLocalizedPage"] != null
+                    ? this.ViewState["TitleLocalizedPage"] as string
+                    : "BUTTON";
 
             set => this.ViewState["TitleLocalizedPage"] = value;
         }
@@ -359,7 +367,10 @@ namespace YAF.Controls
         [CanBeNull]
         public string TitleLocalizedTag
         {
-            get => this.ViewState["TitleLocalizedTag"] != null ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
+            get =>
+                this.ViewState["TitleLocalizedTag"] != null
+                    ? this.ViewState["TitleLocalizedTag"] as string
+                    : string.Empty;
 
             set => this.ViewState["TitleLocalizedTag"] = value;
         }
@@ -370,7 +381,10 @@ namespace YAF.Controls
         [CanBeNull]
         public string TitleNonLocalized
         {
-            get => this.ViewState["TitleNonLocalized"] != null ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
+            get =>
+                this.ViewState["TitleNonLocalized"] != null
+                    ? this.ViewState["TitleNonLocalized"] as string
+                    : string.Empty;
 
             set => this.ViewState["TitleNonLocalized"] = value;
         }
@@ -415,12 +429,18 @@ namespace YAF.Controls
             if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
             {
                 return string.Format(
-                           this.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag), this.ParamTitle0,this.ParamTitle1, this.ParamTitle2);
+                    this.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag),
+                    this.ParamTitle0,
+                    this.ParamTitle1,
+                    this.ParamTitle2);
             }
 
             return this.TitleLocalizedTag.IsSet()
                        ? string.Format(
-                           this.GetText(this.TitleLocalizedTag), this.ParamTitle0,this.ParamTitle1, this.ParamTitle2)
+                           this.GetText(this.TitleLocalizedTag),
+                           this.ParamTitle0,
+                           this.ParamTitle1,
+                           this.ParamTitle2)
                        : null;
         }
 
@@ -481,9 +501,7 @@ namespace YAF.Controls
             {
                 cssClass.Append(" disabled");
 
-                output.WriteAttribute(
-                    "aria-disabled",
-                    "true");
+                output.WriteAttribute("aria-disabled", "true");
             }
 
             if (this.CssClass.IsSet())
@@ -491,10 +509,7 @@ namespace YAF.Controls
                 cssClass.AppendFormat(" {0}", this.CssClass);
             }
 
-            output.WriteAttribute(
-                HtmlTextWriterAttribute.Class.ToString(),
-                cssClass.ToString());
-
+            output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), cssClass.ToString());
 
             if (title.IsSet())
             {
@@ -565,7 +580,7 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    output.Write("<i class=\"fa fa-{0} fa-fw align-middle\"></i>&nbsp;", this.Icon);
+                    output.Write("<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
                 }
             }
 
@@ -587,7 +602,7 @@ namespace YAF.Controls
             // render the text if available
             if (this._localizedLabel.LocalizedTag.IsSet())
             {
-               this.Controls.Add(this._localizedLabel);
+                this.Controls.Add(this._localizedLabel);
             }
         }
 
@@ -648,8 +663,8 @@ namespace YAF.Controls
         {
             switch (size)
             {
-                 case ButtonSize.Normal:
-                     return string.Empty;
+                case ButtonSize.Normal:
+                    return string.Empty;
                 case ButtonSize.Large:
                     return "btn-lg";
                 case ButtonSize.Small:
