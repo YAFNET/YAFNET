@@ -24,71 +24,69 @@
     <div class="col-md-4">
         <YAF:Pager ID="Pager" runat="server" UsePostBack="False" />
     </div>
-    <div class="col-md-7 offset-md-1">
-        <span id="dvFavorite1">
-            <YAF:ThemeButton ID="TagFavorite1" runat="server" 
-                             Type="Secondary"
-                             TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                             Icon="star"
-                             CssClass="mt-1"/>
-        </span>
-        <YAF:ThemeButton ID="Tools1" runat="server" 
-                             CssClass="dropdown-toggle mt-1"
-                             Type="Danger"
-                             DataToggle="dropdown"
-                             TextLocalizedTag="MANAGE_TOPIC"
-                             TextLocalizedPage="POSTS"
-                             Icon="cogs" />
+    <div class="col-md-8 mt-1 mt-md-0 text-right">
+        <div class="mt-n1">
+            <span id="dvFavorite1">
+                <YAF:ThemeButton ID="TagFavorite1" runat="server"
+                    Type="Secondary"
+                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
+                    Icon="star" CssClass="mt-1" />
+            </span>
+            <YAF:ThemeButton ID="Tools1" runat="server"
+                CssClass="dropdown-toggle mt-1"
+                Type="Danger"
+                DataToggle="dropdown"
+                TextLocalizedTag="MANAGE_TOPIC"
+                TextLocalizedPage="POSTS"
+                Icon="cogs" />
             <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
                 <YAF:ThemeButton ID="MoveTopic1" runat="server"
-                                 CssClass="dropdown-item"
-                                 Type="None"
-                                 OnClick="MoveTopic_Click" 
-                                 TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
-                                 Icon="arrows-alt" />
-                <YAF:ThemeButton ID="UnlockTopic1" runat="server" 
-                                 Type="None"
-                                 CssClass="dropdown-item"
-                                 OnClick="UnlockTopic_Click" 
-                                 TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT"
-                                 Icon="lock-open" />
-                <YAF:ThemeButton ID="LockTopic1" runat="server" 
-                                 Type="None"
-                                 CssClass="dropdown-item"
-                                 OnClick="LockTopic_Click" 
-                                 TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT"
-                                 Icon="lock" />
-                <YAF:ThemeButton ID="DeleteTopic1" runat="server" 
-                                 Type="None"
-                                 CssClass="dropdown-item"
-                                 OnClick="DeleteTopic_Click"
-                                 ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>'
-                                 TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
-                                 Icon="trash" />
+                    CssClass="dropdown-item"
+                    Type="None"
+                    OnClick="MoveTopic_Click"
+                    TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
+                    Icon="arrows-alt" />
+                <YAF:ThemeButton ID="UnlockTopic1" runat="server"
+                    Type="None"
+                    CssClass="dropdown-item"
+                    OnClick="UnlockTopic_Click"
+                    TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT"
+                    Icon="lock-open" />
+                <YAF:ThemeButton ID="LockTopic1" runat="server"
+                    Type="None"
+                    CssClass="dropdown-item"
+                    OnClick="LockTopic_Click"
+                    TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT"
+                    Icon="lock" />
+                <YAF:ThemeButton ID="DeleteTopic1" runat="server"
+                    Type="None"
+                    CssClass="dropdown-item"
+                    OnClick="DeleteTopic_Click"
+                    ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>'
+                    TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
+                    Icon="trash" />
             </div>
-            <YAF:ThemeButton ID="NewTopic1" runat="server" 
-                             Type="Secondary"
-                             OnClick="NewTopic_Click" 
-                             TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
-                             Icon="comment"
-                             CssClass="mt-1" />
-            <YAF:ThemeButton ID="PostReplyLink1" runat="server" 
-                             Type="Primary"
-                             OnClick="PostReplyLink_Click" 
-                             TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply"
-                             CssClass="mt-1" />
-            <YAF:ThemeButton ID="QuickReplyLink1" runat="server" 
-                             Type="Primary"
-                             TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply" DataTarget="QuickReplyDialog"
-                             CssClass="mt-1"/>
+            <YAF:ThemeButton ID="NewTopic1" runat="server"
+                Type="Secondary"
+                OnClick="NewTopic_Click"
+                TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
+                Icon="comment" CssClass="mt-1" />
+            <YAF:ThemeButton ID="PostReplyLink1" runat="server"
+                Type="Primary"
+                OnClick="PostReplyLink_Click"
+                TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                Icon="reply" CssClass="mt-1" />
+            <YAF:ThemeButton ID="QuickReplyLink1" runat="server"
+                Type="Primary"
+                TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                Icon="reply" DataTarget="QuickReplyDialog" CssClass="mt-1" />
+        </div>
     </div>
 </div>
 <div class="row mb-3">
     <div class="col">
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-round">
-        <asp:HyperLink ID="TopicLink" runat="server" CssClass="navbar-brand">
+        <asp:HyperLink ID="TopicLink" runat="server" CssClass="navbar-brand pt-0">
             <asp:Label ID="TopicTitle" runat="server" CssClass="topic-title" />
         </asp:HyperLink>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -208,7 +206,7 @@
     <div class="col-md-4">
         <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
     </div>
-    <div class="col-md-7 offset-md-1">
+    <div class="col-md-8 mt-1 mt-md-0 text-right">
         <span id="dvFavorite2">
             <YAF:ThemeButton ID="TagFavorite2" runat="server" 
                              Type="Secondary"
@@ -220,7 +218,7 @@
                              CssClass="dropdown-toggle mt-1"
                              Type="Danger"
                              DataToggle="dropdown"
-                             TextLocalizedTag="TOOLS"
+                             TextLocalizedTag="MANAGE_TOPIC"
                              Icon="cogs" />
             <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
                 <YAF:ThemeButton ID="MoveTopic2" runat="server"
@@ -270,7 +268,7 @@
     </div>
 </div>
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
-<div class="row">
+<%--<div class="row">
     <div class="col">
         <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
                 <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
@@ -280,5 +278,19 @@
         <div class="col col-md-4 offset-md-4">
             <YAF:PageAccess ID="PageAccess1" runat="server" />
         </div>
+</div>--%>
+
+
+<div class="row justify-content-between">
+    <div class="col-md py-3">
+        <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
+            <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
+            &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
+        </asp:PlaceHolder>
+    </div>
+    <div class="col-md py-3">
+        <YAF:PageAccess ID="PageAccess1" runat="server" />
+    </div>
 </div>
+
 <modal:QuickReply ID="QuickReplyDialog" runat="server" />

@@ -454,7 +454,7 @@ namespace YAF.Controls
         protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
             return
-                $@"<a href=""{link}"" title=""{string.Format(this.GetText("GOTO_POST_PAGER"), pageId)}"" class=""btn btn-secondary btn-sm"">{text}</a>";
+                $@"<a href=""{link}"" title=""{string.Format(this.GetText("GOTO_POST_PAGER"), pageId)}"" class=""btn btn-secondary btn-sm py-0 px-1"">{text}</a>";
         }
 
         /// <summary>

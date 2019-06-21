@@ -267,10 +267,10 @@ namespace YAF.Controls
                 return;
             }
 
-            output.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
+            output.Write(@"<div class=""btn-toolbar pagination mt-n1"" role=""toolbar"">");
 
             output.WriteLine(
-                @"<div class=""btn-group"" role=""group"">
+                @"<div class=""btn-group mt-1"" role=""group"">
                       <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                       {1:N0} {2}</button>",
                 this.Get<ILocalization>().TransPage.IsSet()
@@ -289,7 +289,7 @@ namespace YAF.Controls
 
             output.Write("</ul></div>");
 
-            output.Write(@"<div class=""btn-group"" role=""group"">");
+            output.Write(@"<div class=""btn-group mt-1"" role=""group"">");
 
             this.OutputLinks(output, this.UsePostBack);
 
