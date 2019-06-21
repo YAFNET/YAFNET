@@ -262,7 +262,7 @@ namespace YAF.Controls
             writer.Write(
                 @"<div class=""alert alert-secondary"" role=""alert"">
                       <a title=""{3}"" alt=""title=""{3}"" href=""{4}"">
-                         <i class=""fa fa-history fa-fw""></i><strong>{0}</strong> {1}
+                         <i class=""fa fa-edit fa-fw""></i><strong>{0}</strong> {1}
                       </a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
