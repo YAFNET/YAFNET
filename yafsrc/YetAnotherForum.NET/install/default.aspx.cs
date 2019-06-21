@@ -379,7 +379,7 @@ namespace YAF.Install
                     this.lblConnectionDetails,
                     "Connection Details",
                     $"Failed to connect: {message}",
-                    "danger");
+                    "error");
             }
             else
             {

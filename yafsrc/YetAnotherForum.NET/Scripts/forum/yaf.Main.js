@@ -5,6 +5,9 @@ jQuery(document).ready(function () {
     $(".form-radio-group input").addClass("form-check-input");
     $(".form-radio-group label").addClass("form-check-label");
 
+    $(".custom-control input").addClass("custom-control-input");
+    $(".custom-control label").addClass("custom-control-label");
+
     $(".MultiQuoteButton input").addClass("custom-control-input");
     $(".MultiQuoteButton label").addClass("custom-control-label");
 

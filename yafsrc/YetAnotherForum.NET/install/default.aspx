@@ -100,14 +100,17 @@
                         <asp:Label ID="lblConfigPasswordAppSettingFile" runat="server">app.config</asp:Label>
                         file.
                     </p>
+                    <div class="form-group">
                     <asp:TextBox ID="txtCreatePassword1" runat="server" TextMode="Password"
                         PlaceHolder="Enter the Config Password"
                         LabelText="Config Password"
                                  CssClass="form-control"/>
-                    <asp:TextBox ID="txtCreatePassword2" runat="server" TextMode="Password"
+                    </div>
+                    <div class="form-group"><asp:TextBox ID="txtCreatePassword2" runat="server" TextMode="Password"
                         PlaceHolder="Re-Enter the Config Password"
                         LabelText="Verify Password"
                                  CssClass="form-control"/>
+                    </div>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Enter Config Password" ID="WizEnterPassword">
                     <h4>
@@ -149,9 +152,12 @@
                     <h4>
                             YAF.NET Database Connection
                     </h4>
-                    <div class="form-group">
-                        <asp:RadioButtonList ID="rblYAFDatabase" runat="server" AutoPostBack="true" 
-                            OnSelectedIndexChanged="YafDatabaseSelectedIndexChanged">
+                    <div class="custom-control custom-radio">
+                        <asp:RadioButtonList ID="rblYAFDatabase" runat="server" 
+                                             AutoPostBack="true"
+                                             OnSelectedIndexChanged="YafDatabaseSelectedIndexChanged"
+                                             RepeatLayout="UnorderedList"
+                                              CssClass="list-unstyled">
                             <asp:ListItem Text="Use Existing DB Connection String" Selected="true" Value="existing"></asp:ListItem>
                             <asp:ListItem Text="Create New DB Connection String" Value="create"></asp:ListItem>
                         </asp:RadioButtonList>
@@ -220,15 +226,15 @@
                         </div>
                         </asp:PlaceHolder>
                         
-                        <div class="form-group form-check">
+                        <div class="custom-control custom-checkbox">
                             <asp:CheckBox ID="Parameter11_Value" runat="server" 
                                           Checked="true" 
                                           Text="Use Integrated Security"
                                           AutoPostBack="true" 
-                                          OnCheckedChanged="Parameter11_Value_CheckChanged"
-                                          CssClass="form-check-input"/>
+                                          OnCheckedChanged="Parameter11_Value_CheckChanged"/>
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
+                            <div class="form-group">
                             <asp:CheckBox ID="Parameter12_Value" runat="server" Checked="true" AutoPostBack="true" />
                             <asp:CheckBox ID="Parameter13_Value" runat="server" Checked="true" AutoPostBack="true" />
                             <asp:CheckBox ID="Parameter14_Value" runat="server" Checked="true" AutoPostBack="true" />
@@ -237,16 +243,21 @@
                             <asp:CheckBox ID="Parameter17_Value" runat="server" Checked="true" AutoPostBack="true" />
                             <asp:CheckBox ID="Parameter18_Value" runat="server" Checked="true" AutoPostBack="true" />
                             <asp:CheckBox ID="Parameter19_Value" runat="server" Checked="true" AutoPostBack="true" />
+                            </div>
                         </asp:PlaceHolder>
                         <asp:PlaceHolder ID="DBUsernamePasswordHolder" Visible="false" runat="server">
+                            <div class="form-group">
                             <asp:TextBox runat="server" ID="txtDBUserID" 
                                 Placeholder="Enter the SQL User Name" RenderWrapper="True" 
                                 LabelText="User ID"
                                          CssClass="form-control"/>
+                            </div>
+                            <div class="form-group">
                             <asp:TextBox runat="server" ID="txtDBPassword" 
                                 Placeholder="Enter the SQL Password" RenderWrapper="True" 
                                 LabelText="Password"
                                          CssClass="form-control"/>
+                            </div>
                         </asp:PlaceHolder>
                     </asp:PlaceHolder>
                     <hr/>
@@ -315,14 +326,18 @@
                     <p class="descriptionText">
                         Sends a test Message to the Email address that is defined as Send to address
                     </p>
-                    <asp:TextBox ID="txtTestFromEmail" runat="server"
-                        Placeholder="Enter the from Email Address" RenderWrapper="True" Type="Email"
-                        LabelText="Send From Email Address"
-                                 CssClass="form-control"/>
+                    <div class="form-group">
+                        <asp:TextBox ID="txtTestFromEmail" runat="server"
+                                     Placeholder="Enter the from Email Address" RenderWrapper="True" Type="Email"
+                                     LabelText="Send From Email Address"
+                                     CssClass="form-control"/>
+                    </div>
+                    <div class="form-group">
                     <asp:TextBox ID="txtTestToEmail" runat="server" 
                         Placeholder="Enter the to Email Address" RenderWrapper="True" Type="Email"
                         LabelText="Send To Email Address"
                                  CssClass="form-control"/>
+                    </div>
                     <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="btn btn-info" 
                         EnableLoadingAnimation="True" OnClick="TestSmtp_Click" data-style="expand-left" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
@@ -338,10 +353,9 @@
                         Clicking "Next" will <%# this.IsForumInstalled ? "upgrade" : "initialize"%> your database to the latest version.
                     </p>
                     <asp:PlaceHolder runat="server"  Visible="<%# this.IsForumInstalled %>">
-                    <div class="form-check">
-                        <asp:CheckBox ID="UpgradeExtensions" Checked="True" runat="server" 
-                                      CssClass="form-check-input" />
-                        <label class="form-check-label" for="<%# this.UpgradeExtensions.ClientID %>">
+                    <div class="custom-control custom-checkbox">
+                        <asp:CheckBox ID="UpgradeExtensions" Checked="True" runat="server"  />
+                        <label for="<%# this.UpgradeExtensions.ClientID %>">
                             Upgrade BBCode Extensions, File Extensions and Spam Words
                         </label>
                     </div>
@@ -367,59 +381,79 @@
                         <asp:DropDownList ID="Culture" runat="server" 
                             CssClass="custom-select" />
                     </div>
-                    <asp:TextBox ID="ForumEmailAddress" runat="server" 
-                        Placeholder="Enter the forum email address"  RenderWrapper="True"
-                        LabelText="Forum Email"
-                        Type="Email"
+                    <div class="form-group">
+                        <asp:Label AssociatedControlId="ForumEmailAddress" 
+                                   runat="server">Forum Email Address</asp:Label>
+                    <asp:TextBox ID="ForumEmailAddress" runat="server"
+                                 Placeholder="Enter the forum email address"  
+                                 RenderWrapper="True"
+                                 LabelText="Forum Email"
+                                 Type="Email"
                                  CssClass="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <asp:Label AssociatedControlId="ForumBaseUrlMask" 
+                                   runat="server">Forum Base Url Mask</asp:Label>
                     <asp:TextBox ID="ForumBaseUrlMask" runat="server" 
                         Placeholder="Enter the Base Url mask for the forum" RenderWrapper="True" 
                         LabelText="Forum Base Url Mask"
                         Type="Url"
                                  CssClass="form-control"/>
+                    </div>
                     <hr/>
-                    <div class="form-group">
-                        <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" 
-                            OnSelectedIndexChanged="UserChoice_SelectedIndexChanged">
+                    <div class="custom-control custom-radio">
+                        <asp:RadioButtonList ID="UserChoice" runat="server" 
+                                             AutoPostBack="true"
+                                             OnSelectedIndexChanged="UserChoice_SelectedIndexChanged"
+                                             RepeatLayout="UnorderedList"
+                                             CssClass="list-unstyled">
                             <asp:ListItem Text="Create New Admin User" Selected="true" Value="create"></asp:ListItem>
                             <asp:ListItem Text="Use Existing User" Value="existing"></asp:ListItem>
                         </asp:RadioButtonList>
                     </div>
                     <asp:PlaceHolder ID="ExistingUserHolder" runat="server" Visible="false">
+                        <div class="form-group">
                     <asp:TextBox ID="ExistingUserName" runat="server" 
                         Placeholder="Enter the name of the existing user to make the admin" RenderWrapper="True" 
                         LabelText="Existing User Name"
                                  CssClass="form-control"/>
+                        </div>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder ID="CreateAdminUserHolder" runat="server">
-                    <asp:TextBox ID="UserName" runat="server"
+                        <div class="form-group"><asp:TextBox ID="UserName" runat="server"
                         Placeholder="Enter the name of the admin user" RenderWrapper="True" 
                         LabelText="Admin User Name"
                                  CssClass="form-control"/>
-                    <asp:TextBox ID="AdminEmail" runat="server" 
+                        </div>
+                        <div class="form-group"><asp:TextBox ID="AdminEmail" runat="server" 
                         Placeholder="Enter the administrators email address" RenderWrapper="True" 
                         LabelText="Admin E-mail"
                         Type="Email"
                                  CssClass="form-control"/>
-                    <asp:TextBox ID="Password1" runat="server" 
+                        </div>
+                        <div class="form-group"> <asp:TextBox ID="Password1" runat="server" 
                         Placeholder="Enter the password of the admin user." RenderWrapper="True" 
                         LabelText="Admin Password"
                         TextMode="Password" Type="Password"
                                  CssClass="form-control"/>
-                    <asp:TextBox ID="Password2" runat="server"
+                        </div>
+                        <div class="form-group"> <asp:TextBox ID="Password2" runat="server"
                         Placeholder="Verify the password" RenderWrapper="True" 
                         LabelText="Confirm Password"
                         TextMode="Password" Type="Password"
                                  CssClass="form-control"/>
-                    <asp:TextBox runat="server" ID="SecurityQuestion" 
+                        </div>
+                        <div class="form-group"><asp:TextBox runat="server" ID="SecurityQuestion" 
                         Placeholder="The question you will be asked when you need to retrieve your lost password" 
                         RenderWrapper="True" 
                         LabelText="Security Question"
                                  CssClass="form-control"/>
-                    <asp:TextBox runat="server" ID="SecurityAnswer" 
+                        </div>
+                        <div class="form-group"><asp:TextBox runat="server" ID="SecurityAnswer" 
                         Placeholder="The answer to the security question" RenderWrapper="True" 
                         LabelText="Security Answer"
                                  CssClass="form-control"/>
+                        </div>
                     </asp:PlaceHolder>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Migrate Users" ID="WizMigrateUsers">
