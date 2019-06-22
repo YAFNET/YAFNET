@@ -212,6 +212,20 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Gets or sets the icon.
+        /// </summary>
+        /// <value>
+        /// The icon.
+        /// </value>
+        [CanBeNull]
+        public string IconColor
+        {
+            get => this.ViewState["IconColor"] != null ? this.ViewState["IconColor"] as string : string.Empty;
+
+            set => this.ViewState["IconColor"] = value;
+        }
+
+        /// <summary>
         /// Gets or sets the return confirm text.
         /// </summary>
         /// <value>
@@ -570,17 +584,16 @@ namespace YAF.Controls
 
             output.Write(HtmlTextWriter.TagRightChar);
 
-            // output.WriteBeginTag("span");
-            // output.Write(HtmlTextWriter.TagRightChar);
             if (this.Icon.IsSet())
             {
+                var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
                 if (this.CssClass.IsSet() && this.CssClass.Equals("fab"))
                 {
-                    output.Write("<i class=\"fab fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
+                    output.Write("<i class=\"fab fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass);
                 }
                 else
                 {
-                    output.Write("<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
+                    output.Write("<i class=\"fa fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass);
                 }
             }
 
