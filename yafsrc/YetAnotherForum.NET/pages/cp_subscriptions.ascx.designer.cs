@@ -94,15 +94,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.CheckBox DailyDigestEnabled;
         
         /// <summary>
-        /// LocalizedLabel199 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel199;
-        
-        /// <summary>
         /// PMNotificationRow control.
         /// </summary>
         /// <remarks>
@@ -119,15 +110,6 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox PMNotificationEnabled;
-        
-        /// <summary>
-        /// LocalizedLabel19 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel19;
         
         /// <summary>
         /// SaveUser control.

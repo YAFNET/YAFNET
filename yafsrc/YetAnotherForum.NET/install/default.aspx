@@ -157,7 +157,7 @@
                                              AutoPostBack="true"
                                              OnSelectedIndexChanged="YafDatabaseSelectedIndexChanged"
                                              RepeatLayout="UnorderedList"
-                                              CssClass="list-unstyled">
+                                             CssClass="list-unstyled">
                             <asp:ListItem Text="Use Existing DB Connection String" Selected="true" Value="existing"></asp:ListItem>
                             <asp:ListItem Text="Create New DB Connection String" Value="create"></asp:ListItem>
                         </asp:RadioButtonList>

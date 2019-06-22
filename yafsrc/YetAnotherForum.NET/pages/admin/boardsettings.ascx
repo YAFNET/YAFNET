@@ -99,11 +99,14 @@
                 <YAF:HelpLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_FILE_EXTENSIONS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:RadioButtonList ID="FileExtensionAllow" runat="server" CssClass="form-check"
-                                     RepeatLayout="Flow" RepeatDirection="Horizontal">
-                </asp:RadioButtonList>
-            </p><hr />
+            
+                <div class="custom-control custom-radio custom-control-inline">
+                    <asp:RadioButtonList ID="FileExtensionAllow" runat="server"
+                                         RepeatLayout="UnorderedList"
+                                         CssClass="list-unstyled">
+                    </asp:RadioButtonList>
+                </div>
+            <hr />
 
         <asp:PlaceHolder ID="PollGroupList" runat="server" Visible="false">
             <h4>

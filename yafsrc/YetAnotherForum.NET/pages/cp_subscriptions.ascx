@@ -24,35 +24,27 @@
                         <i class="fa fa-envelope fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="TITLE" />
                     </div>
                     <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <asp:Label runat="server" AssociatedControlID="rblNotificationType">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" LocalizedTag="NOTIFICATIONSELECTION" />
-                                </asp:Label>
-                                <asp:RadioButtonList ID="rblNotificationType" runat="server" AutoPostBack="true"
-                                                     OnSelectedIndexChanged="rblNotificationType_SelectionChanged">
+                        
+                            <h5 class="card-title">
+                                <YAF:LocalizedLabel ID="LocalizedLabel200" runat="server" LocalizedTag="NOTIFICATIONSELECTION" />
+                            </h5>
+                        <div class="custom-control custom-radio">
+                            <asp:RadioButtonList ID="rblNotificationType" runat="server" AutoPostBack="true"
+                                                     OnSelectedIndexChanged="rblNotificationType_SelectionChanged"
+                                                     RepeatLayout="UnorderedList"
+                                                     CssClass="list-unstyled">
                                 </asp:RadioButtonList>
                             </div>
                             <asp:PlaceHolder runat="server" id="DailyDigestRow">
-                                <div class="form-check">
-                                    <asp:CheckBox ID="DailyDigestEnabled" runat="server" CssClass="form-check-input" />
-                                    <asp:Label runat="server" AssociatedControlID="DailyDigestEnabled" CssClass="form-check-label">
-                                        <YAF:LocalizedLabel ID="LocalizedLabel199" runat="server" LocalizedTag="DAILY_DIGEST" />
-                                    </asp:Label>
-                                    
-                                </div>
+                                <asp:CheckBox ID="DailyDigestEnabled" runat="server" 
+                                              CssClass="custom-control custom-checkbox"
+                                              Text='<%# this.GetText("DAILY_DIGEST") %>'/>
                             </asp:PlaceHolder>
                             <asp:PlaceHolder runat="server" id="PMNotificationRow">
-                                <div class="form-check">
-                                    <asp:CheckBox ID="PMNotificationEnabled" runat="server" CssClass="form-check-input" />
-                                    <asp:Label runat="server" AssociatedControlID="PMNotificationEnabled" CssClass="form-check-label">
-                                        <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE"
-                                                        LocalizedTag="PM_EMAIL_NOTIFICATION" />
-                                    </asp:Label>
-                                </div>
+                                <asp:CheckBox ID="PMNotificationEnabled" runat="server" 
+                                              CssClass="custom-control custom-checkbox" 
+                                              Text='<%# this.GetText("CP_EDITPROFILE","PM_EMAIL_NOTIFICATION") %>' />
                             </asp:PlaceHolder>
-                            
-                        </form>
                     </div>
                     <div class="card-footer text-center">
                         <YAF:ThemeButton ID="SaveUser" runat="server" OnClick="SaveUser_Click"

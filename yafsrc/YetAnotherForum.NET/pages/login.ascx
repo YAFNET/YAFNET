@@ -20,12 +20,14 @@
                                 <div class="card-body">
                                     <form>
                                         <asp:PlaceHolder runat="server" id="SingleSignOnOptionsRow" Visible="False">
-                                            <asp:RadioButtonList runat="server" id="SingleSignOnOptions"
-                                                                 AutoPostBack="true"
-                                                                 OnSelectedIndexChanged="SingleSignOnOptionsChanged"
-                                                                 RepeatLayout="Flow"
-                                                                 CssClass="form-check form-radio-group">
-                                            </asp:RadioButtonList>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <asp:RadioButtonList runat="server" id="SingleSignOnOptions"
+                                                                     AutoPostBack="true"
+                                                                     OnSelectedIndexChanged="SingleSignOnOptionsChanged"
+                                                                     RepeatLayout="UnorderedList"
+                                                                     CssClass="list-unstyled">
+                                                </asp:RadioButtonList>
+                                            </div>
                                         </asp:PlaceHolder>
                                         <asp:PlaceHolder runat="server" id="UserNameRow">
                                             <div class="form-group">
