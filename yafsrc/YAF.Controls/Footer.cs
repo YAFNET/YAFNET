@@ -27,30 +27,34 @@ namespace YAF.Controls
     #region Using
 
     using System;
+#if DEBUG
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+#endif
     using System.Text;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Core;
+#if DEBUG
     using YAF.Core.Data.Profiling;
+#endif
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
-    #endregion
+#endregion
 
     /// <summary>
     /// The forum footer.
     /// </summary>
     public class Footer : BaseControl
     {
-        #region Public Properties
+#region Public Properties
 
         /// <summary>
         ///   Gets or sets a value indicating whether SimpleRender.
@@ -63,9 +67,9 @@ namespace YAF.Controls
         [NotNull]
         public Control ThisControl => this;
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// The render.
@@ -97,7 +101,7 @@ namespace YAF.Controls
             this.Get<IStopWatch>().Stop();
 
             footer.Append(
-                @"<div class=""clearfix""></div><footer class=""footer""><div class=""container text-right"">");
+                @"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
 
             this.RenderRulesLink(footer);
 
@@ -155,7 +159,7 @@ namespace YAF.Controls
                 @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
                 QueryCounter.Count,
                 QueryCounter.Duration,
-                (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
+                100 * QueryCounter.Duration / this.Get<IStopWatch>().Duration,
                 QueryCounter.Commands);
             footer.Append("</div>");
 #endif
@@ -167,11 +171,10 @@ namespace YAF.Controls
         /// <param name="footer">The footer.</param>
         private void RenderRulesLink([NotNull] StringBuilder footer)
         {
-            footer.Append(
-                string.Format(
-                    @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
-                    YafBuildLink.GetLink(ForumPages.rules),
-                        this.GetText("COMMON", "PRIVACY_POLICY")));
+            footer.AppendFormat(
+                @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
+                YafBuildLink.GetLink(ForumPages.rules),
+                this.GetText("COMMON", "PRIVACY_POLICY"));
         }
 
         /// <summary>
@@ -184,7 +187,7 @@ namespace YAF.Controls
         {
             CodeContracts.VerifyNotNull(footer, "footer");
 
-            // Copyright Linkback Algorithm
+            // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             var domainKey = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
             var url = this.Get<HttpRequestBase>().Url;
@@ -248,6 +251,6 @@ namespace YAF.Controls
                 DateTime.UtcNow.Year);
         }
 
-        #endregion
+#endregion
     }
 }
