@@ -352,7 +352,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserID => this.userId != null ? this.userId.ToType<int>() : 0;
+        public int UserID => userId?.ToType<int>() ?? 0;
 
         /// <summary>
         ///   Gets UserName.

@@ -192,7 +192,7 @@ namespace YAF.Controls
                                 @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
                                 fileIcon,
                                 attachment.FileName,
-                                string.Format(stats, kb,attachment.Downloads));
+                                string.Format(stats, kb, attachment.Downloads));
 
                             writer.Write(@"</div>");
                         }
@@ -219,7 +219,7 @@ namespace YAF.Controls
                                 YafForumInfo.ForumClientFileRoot,
                                 attachment.ID,
                                 attachment.FileName,
-                                string.Format(stats, kb,attachment.Downloads),
+                                string.Format(stats, kb, attachment.Downloads),
                                 settings.BoardID);
                         }
                         else
@@ -228,7 +228,7 @@ namespace YAF.Controls
                                 @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
                                 fileIcon,
                                 attachment.FileName,
-                                string.Format(stats, kb,attachment.Downloads));
+                                string.Format(stats, kb, attachment.Downloads));
                         }
 
                         writer.Write(@"</div>");

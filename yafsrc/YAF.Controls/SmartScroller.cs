@@ -150,7 +150,7 @@ namespace YAF.Controls
 	jQuery(window).bind('click', yaf_SmartScroller_GetCoords);
 	jQuery(window).bind('keypress', yaf_SmartScroller_GetCoords);
 	jQuery(document).ready(yaf_SmartScroller_Scroll);
-", this.hidScrollLeft.ClientID,this.hidScrollTop.ClientID);
+", this.hidScrollLeft.ClientID, this.hidScrollTop.ClientID);
 
       YafContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
 

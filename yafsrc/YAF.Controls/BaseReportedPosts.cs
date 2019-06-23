@@ -52,7 +52,7 @@ namespace YAF.Controls
         /// </summary>
         public virtual int MessageID
         {
-            get => this.ViewState["MessageID"] != null ? this.ViewState["MessageID"].ToType<int>() : 0;
+            get => this.ViewState["MessageID"]?.ToType<int>() ?? 0;
 
             set => this.ViewState["MessageID"] = value;
         }

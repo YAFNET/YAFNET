@@ -151,7 +151,7 @@ namespace YAF.Controls
             groupBtn.Attributes.Add("class", "input-group-btn");
 
             this.gotoButton.ID = this.GetExtendedID("GotoButton");
-            this.gotoButton.CssClass = "btn btn-primary";
+            this.gotoButton.CssClass = "btn btn-primary ml-1";
             this.gotoButton.CausesValidation = false;
             this.gotoButton.UseSubmitBehavior = false;
             this.gotoButton.Click += this.GotoButtonClick;

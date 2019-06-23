@@ -61,10 +61,7 @@ namespace YAF.Controls
         /// </value>
         public YafRssFeeds FeedType
         {
-            get =>
-                this.ViewState["FeedType"] != null
-                    ? this.ViewState["FeedType"].ToEnum<YafRssFeeds>()
-                    : YafRssFeeds.Forum;
+            get => this.ViewState["FeedType"]?.ToEnum<YafRssFeeds>() ?? YafRssFeeds.Forum;
 
             set => this.ViewState["FeedType"] = value;
         }

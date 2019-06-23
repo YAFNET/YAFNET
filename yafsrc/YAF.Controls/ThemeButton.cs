@@ -143,8 +143,7 @@ namespace YAF.Controls
         [DefaultValue(ButtonAction.Primary)]
         public ButtonAction Type
         {
-            get =>
-                this.ViewState["Type"] != null ? this.ViewState["Type"].ToType<ButtonAction>() : ButtonAction.Primary;
+            get => this.ViewState["Type"]?.ToType<ButtonAction>() ?? ButtonAction.Primary;
 
             set => this.ViewState["Type"] = value;
         }
@@ -156,7 +155,7 @@ namespace YAF.Controls
         [DefaultValue(ButtonSize.Normal)]
         public ButtonSize Size
         {
-            get => this.ViewState["Size"] != null ? this.ViewState["Size"].ToType<ButtonSize>() : ButtonSize.Normal;
+            get => this.ViewState["Size"]?.ToType<ButtonSize>() ?? ButtonSize.Normal;
 
             set => this.ViewState["Size"] = value;
         }

@@ -236,7 +236,7 @@ namespace ServiceStack
 
         public static LicenseFeature ActivatedLicenseFeatures()
         {
-            return __activatedLicense != null ? __activatedLicense.GetLicensedFeatures() : LicenseFeature.None;
+            return __activatedLicense?.GetLicensedFeatures() ?? LicenseFeature.None;
         }
 
         public static void ApprovedUsage(LicenseFeature licenseFeature, LicenseFeature requestedFeature,
