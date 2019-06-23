@@ -63,3 +63,11 @@
     @extend .custom-control-inline;
     margin-right: 2rem;
 }
+
+.custom-switch label {
+    @extend .custom-control-label
+}
+
+.custom-switch input {
+    @extend .custom-control-input;
+}

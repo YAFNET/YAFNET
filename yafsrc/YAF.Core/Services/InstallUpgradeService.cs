@@ -278,8 +278,6 @@ namespace YAF.Core.Services
                             this.Get<YafBoardSettings>().UserBoxGender = @"{0}&nbsp;";
                             this.Get<YafBoardSettings>().UserBoxThanksFrom = @"<li class=""list-group-item"">{0}</li>";
                             this.Get<YafBoardSettings>().UserBoxThanksTo = @"<li class=""list-group-item"">{0}</li>";
-
-                            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
                         }
                         catch (Exception)
                         {
@@ -293,14 +291,15 @@ namespace YAF.Core.Services
                         if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
                         {
                             this.Get<YafBoardSettings>().BaseUrlMask = BaseUrlBuilder.GetBaseUrlFromVariables();
-
-                            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
                         }
                     }
                     catch (Exception)
                     {
                         this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
                     }
+
+                    this.Get<YafBoardSettings>().CdvVersion++;
+                    ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
                 }
 
                 // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security

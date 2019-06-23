@@ -391,6 +391,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList DefaultNotificationSetting;
         
         /// <summary>
+        /// HelpLabel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel6;
+        
+        /// <summary>
+        /// CdvVersion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CdvVersion;
+        
+        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>
