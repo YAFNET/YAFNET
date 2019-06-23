@@ -41,6 +41,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -223,19 +224,19 @@ namespace YAF.Pages.Admin
                         var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null).OrderByDescending(a => a.SortOrder).FirstOrDefault();
 
                         sortOrder = forum.SortOrder + sortOrder;
-                    }
-                    catch
-                    {
-                        sortOrder = 1;
-                    }
+                }
+                catch
+                {
+                    sortOrder = 1;
+                }
 
-                    this.SortOrder.Text = sortOrder.ToString();
+                this.SortOrder.Text = sortOrder.ToString();
 
-                    return;
+                return;
                 
             }
 
-            var dt = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId.Value);
+            var dt = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId);
             
                 var row = dt.FirstOrDefault();
                 this.Name.Text = row.Name;
@@ -527,7 +528,7 @@ namespace YAF.Pages.Admin
             // If we update a forum ForumID > 0 
             if (forumId.HasValue && parentId != null)
             {
-                var dependency = this.GetRepository<Forum>().SaveParentschecker(forumId.Value, parentId.Value);
+                var dependency = this.GetRepository<Forum>().SaveParentsChecker(forumId.Value, parentId.Value);
                 if (dependency > 0)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));

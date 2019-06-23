@@ -394,10 +394,7 @@ namespace YAF.Core.Extensions
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
 
-                            foreach (var p in anonType.ToObjectDictionary())
-                            {
-                                cmd.AddParam(p.Key, p.Value);
-                            }
+                            anonType.ToObjectDictionary().ForEach(p => cmd.AddParam(p.Key, p.Value));
                         }));
         }
 
