@@ -191,7 +191,7 @@
             }
             catch (ThreadAbortException)
             {
-                
+
             }
             finally
             {
@@ -307,52 +307,39 @@
         /// <param name="writer">The writer.</param>
         private static void AddToSearchIndex(SearchMessage message, IndexWriter writer)
         {
-            var searchQuery = new TermQuery(new Term("MessageId", message.MessageId.ToString()));
-            writer.DeleteDocuments(searchQuery);
-
-            var doc = new Document();
-
-            doc.Add(new Field("MessageId", message.MessageId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("Message", message.Message, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("Flags", message.Flags.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("Posted", message.Posted, Field.Store.YES, Field.Index.NOT_ANALYZED));
-
             try
             {
-                doc.Add(new Field("Author", message.UserName, Field.Store.YES, Field.Index.ANALYZED));
-            }
-            catch (Exception)
-            {
-                doc.Add(new Field("Author", message.UserDisplayName, Field.Store.YES, Field.Index.ANALYZED));
-            }
+                var searchQuery = new TermQuery(new Term("MessageId", message.MessageId.ToString()));
+                writer.DeleteDocuments(searchQuery);
 
-            doc.Add(new Field("AuthorDisplay", message.UserDisplayName, Field.Store.YES, Field.Index.ANALYZED));
+                var doc = new Document();
 
-            try
-            {
-                doc.Add(new Field("AuthorStyle", message.UserStyle, Field.Store.YES, Field.Index.ANALYZED));
-            }
-            catch (Exception)
-            {
-                doc.Add(new Field("AuthorStyle", string.Empty, Field.Store.YES, Field.Index.ANALYZED));
-            }
-            
-            doc.Add(new Field("UserId", message.UserId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("TopicId", message.TopicId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("Topic", message.Topic, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("ForumName", message.ForumName, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("ForumId", message.ForumId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("MessageId", message.MessageId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("Message", message.Message, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("Flags", message.Flags.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("Posted", message.Posted, Field.Store.YES, Field.Index.NOT_ANALYZED));
+                //
+                string stemp = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+                doc.Add(new Field("Author", stemp, Field.Store.YES, Field.Index.ANALYZED));
+                //
+                stemp = message.UserDisplayName ?? string.Empty;
+                doc.Add(new Field("AuthorDisplay", stemp, Field.Store.YES, Field.Index.ANALYZED));
+                //
+                stemp = message.UserStyle ?? string.Empty;
+                doc.Add(new Field("AuthorStyle", stemp, Field.Store.YES, Field.Index.ANALYZED));
+                //
+                doc.Add(new Field("UserId", message.UserId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("TopicId", message.TopicId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("Topic", message.Topic, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("ForumName", message.ForumName, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("ForumId", message.ForumId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                //
+                stemp = message.Description ?? (message.Topic ?? string.Empty);
+                doc.Add(new Field("Description", stemp, Field.Store.YES, Field.Index.ANALYZED));
 
-            try
-            {
-                doc.Add(new Field("Description", message.Description, Field.Store.YES, Field.Index.ANALYZED));
+                writer.AddDocument(doc);
             }
-            catch (NullReferenceException)
-            {
-                doc.Add(new Field("Description", string.Empty, Field.Store.YES, Field.Index.ANALYZED));
-            }
-
-            writer.AddDocument(doc);
+            catch { }
         }
 
         /// <summary>
@@ -535,8 +522,7 @@
             int pageSize,
             List<vaccess> userAccessList)
         {
-            var skip = pageSize * (pageIndex - 1);
-
+            var skip = pageSize * pageIndex;
             return hits.Select(
                     hit => this.MapSearchDocumentToData(highlighter, analyzer, searcher.Doc(hit.Doc), userAccessList))
                 .Where(item => item != null).OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize).ToList();
@@ -582,6 +568,7 @@
             int pageIndex = 1,
             int pageSize = 1000)
         {
+
             if (string.IsNullOrEmpty(searchQuery.Replace("*", string.Empty).Replace("?", string.Empty)))
             {
                 totalHits = 0;
@@ -644,9 +631,13 @@
                     var query = this.ParseQuery(searchQuery, parser);
                     scorer = new QueryScorer(query);
 
-                    var hits = searcher.Search(query, null, hitsLimit, Sort.INDEXORDER).ScoreDocs;
-                    totalHits = hits.Length;
+                    //var hits = searcher.Search(query, null, hitsLimit, Sort.INDEXORDER).ScoreDocs;
+                    if (hitsLimit == 0 ) hitsLimit = 1000;   // 0 => Lucene error;
+                    // sort by date
+                    Sort sort = new Sort(new SortField("Posted", SortField.STRING, true));
+                    var hits = searcher.Search(query, null, hitsLimit, sort).ScoreDocs;
 
+                    totalHits = hits.Length;
                     var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
 
                     var results = this.MapSearchToDataList(

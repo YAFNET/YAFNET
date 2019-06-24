@@ -269,6 +269,20 @@ namespace YAF.Core.Services.Localization
             return this.GetText(this.TransPage, text);
         }
 
+        /// <summary>
+        /// Gets the attribute encoded text. 
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The get text.
+        /// </returns>
+        public string GetAttributeText([NotNull] string text)
+        {
+            return System.Web.HttpUtility.HtmlAttributeEncode(GetText(text));
+        }
+
         private static readonly Regex _rgxBegin = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])", RegexOptions.Compiled);
 
         private static readonly Regex _rgxEnd = new Regex(@"(?<inner>\[/b\])(?!\[/noparse\])", RegexOptions.Compiled);
@@ -321,6 +335,19 @@ namespace YAF.Core.Services.Localization
             localizedText = localizedText.Replace("[/noparse]", string.Empty);
 
             return localizedText;
+        }
+
+        /// <summary>
+        /// Gets the localized text
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>
+        /// The get text.
+        /// </returns>
+        public string GetAttributeText([NotNull] string page, [NotNull] string tag)
+        {
+            return System.Web.HttpUtility.HtmlAttributeEncode(GetText(page, tag));
         }
 
         /// <summary>

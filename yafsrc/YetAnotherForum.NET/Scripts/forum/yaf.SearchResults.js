@@ -12,7 +12,7 @@
 
     var searchText = "";
 
-    if (searchInput.length && searchInput.length >= 4 || searchInputUser.length && searchInputUser.length >= 4) {
+    if (searchInput.length && searchInput.length >= 4 || searchInputUser.length && searchInputUser.length >= 3) {
 
         var replace;
 
@@ -27,7 +27,7 @@
                     // Match Any Word
                     searchText += " Topic: " + searchInput;
                 } else if (searchWhat === "2") {
-                    // Match Extact Phrase
+                    // Match Exact Phrase
                     searchText += " Topic:" + "\"" + searchInput + "\"";
                 }
             } else {
@@ -42,13 +42,14 @@
                     // Match Extact Phrase
                     searchText += "" + "\"" + searchInput + "\"";
                 }
-
-                searchText += " -Author:" + searchInputUser;
+//                searchText += " -Author:" + searchInputUser;
             }
         }
 
-        if (searchInputUser.length && searchInputUser.length >= 4) {
+        if (searchInputUser.length && searchInputUser.length >= 3) {
 
+            if (searchText.length) searchText += " ";
+        
             if (searchInput.length) {
                 searchText += "AND Author:" + searchInputUser;
             } else {
@@ -81,15 +82,14 @@
                 $("#loadModal").modal('hide');
             }),
             success: (function success(data) {
-                $('#loadModal').on('shown.bs.modal',
-                    function () {
-                        $("#loadModal").modal('hide');
-                    });
+                //$('#loadModal').on('shown.bs.modal',
+                //    function () {
+                //        $("#loadModal").modal('hide');
+                //    });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
                 var by = $("#SearchResultsPlaceholder").data("by");
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");
                 var topic = $("#SearchResultsPlaceholder").data("topic");
-
                 if (data.SearchResults.length === 0) {
                     var list = $('#SearchResultsPlaceholder');
                     var notext = $("#SearchResultsPlaceholder").data("notext");
@@ -99,15 +99,14 @@
                         '</div>');
 
                     $('#SearchResultsPager').empty();
-
                     
                 } else {
                     $.each(data.SearchResults,
                         function(id, data) {
                             var groupHolder = $('#SearchResultsPlaceholder');
 
-                            groupHolder.append('<div class="row"><div class="card w-100  mb-3">' +
-                                '<div class="card-header topicTitle"><h6> ' +
+                            groupHolder.append('<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' +
+                                '<div class="card-header bg-transparent border-top border-bottom-0 px-0 pb-0 pt-4 topicTitle"><h5> ' +
                                 '<a title="' +
                                 topic +
                                 '" href="' +
@@ -115,30 +114,30 @@
                                 '">' +
                                 data.Topic +
                                 '</a>&nbsp;' +
-                                '<a class="btn btn-primary btn-sm" ' +
+                                '<a ' +
                                 'title="' +
                                 lastpost +
                                 '" href="' +
                                 data.MessageUrl +
-                                '"><i class="fas fa-external-link-square-alt"></i></a>' +
+                                '"><i class="fas fa-external-link-alt"></i></a>' +
                                 ' <small class="text-muted">(' +
                                 by +
                                 ' ' +
                                 data.UserName +
                                 ')</small>' +
-                                '</h6></div>' +
-                                '<div class="card-body">' +
+                                '</h5></div>' +
+                                '<div class="card-body px-0">' +
                                 '<p class="card-text messageContent">' +
                                 data.Message +
                                 '</p>' +
                                 '</div>' +
-                                '<div class="card-footer"> ' +
+                                '<div class="card-footer bg-transparent border-top-0 px-0 py-2"> ' +
                                 '<small class="text-muted">' +
-                                posted +
+                                posted + ' ' +
                                 moment(data.Posted).fromNow() +
                                 '</small> ' +
                                 '</div>' +
-                                '</div></div>');
+                                '</div></div></div>');
                         });
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
@@ -163,7 +162,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     if (pageNumber > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
             (pageNumber - 1) +
-            ')" class="page-link">&laquo;</a></li>');
+            ')" class="page-link"><i class="fas fas fa-angle-left" aria-hidden="true"></i></a></li>');
     }
 
     var start = pageNumber - 2;
@@ -208,7 +207,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     if (pageNumber < pages - 1) {
         pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
             (pageNumber + 1) +
-            ')" class="page-link">&raquo;</a></li>');
+            ')" class="page-link"><i class="fas fas fa-angle-right" aria-hidden="true"></i></a></li>');
     }
 
     pagerHolder.append(pagination);
