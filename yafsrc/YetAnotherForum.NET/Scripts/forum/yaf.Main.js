@@ -1,13 +1,5 @@
 // Generic Functions
 jQuery(document).ready(function () {
-    // Radio Button Lists
-
-    $(".form-radio-group input").addClass("form-check-input");
-    $(".form-radio-group label").addClass("form-check-label");
-
-    $(".MultiQuoteButton input").addClass("custom-control-input");
-    $(".MultiQuoteButton label").addClass("custom-control-label");
-
     // Main Menu
     $('.dropdown-menu a.dropdown-toggle').on('click', function () {
 		var $el = $(this);

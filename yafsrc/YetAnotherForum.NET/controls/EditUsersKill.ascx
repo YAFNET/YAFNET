@@ -50,9 +50,12 @@
             </strong>
         </h4>
         <p>
-            <asp:RadioButtonList runat="server" ID="SuspendOrDelete" CssClass="form-check"
-                                 RepeatLayout="Flow" RepeatDirection="Horizontal">
-            </asp:RadioButtonList>
+            <div class="custom-control custom-radio custom-control-inline">
+                <asp:RadioButtonList runat="server" ID="SuspendOrDelete" 
+                                     RepeatLayout="UnorderedList"
+                                     CssClass="list-unstyled">
+                </asp:RadioButtonList>
+            </div>
             <asp:Literal ID="SuspendedTo" runat="server"></asp:Literal>
         </p>
     <hr />

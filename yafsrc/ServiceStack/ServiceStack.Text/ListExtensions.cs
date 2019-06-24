@@ -43,7 +43,7 @@ namespace ServiceStack
 
         public static int NullableCount<T>(this List<T> list)
         {
-            return list == null ? 0 : list.Count;
+            return list?.Count ?? 0;
         }
 
         public static void AddIfNotExists<T>(this List<T> list, T item)

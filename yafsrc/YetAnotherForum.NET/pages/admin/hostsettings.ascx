@@ -92,18 +92,18 @@
                         <h4>
                            <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseFileTable" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UseFileTable" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="ABANDON_TRACKUSR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AbandonSessionsForDontTrack" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AbandonSessionsForDontTrack" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="POSTEDIT_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -163,25 +163,25 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="REFERRER_CHECK" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="DoUrlReferrerSecurityCheck" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="DoUrlReferrerSecurityCheck" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel16" runat="server" LocalizedTag="CREATE_NNTPNAMES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="CreateNntpUsers" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="CreateNntpUsers" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
     <h4>
         <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="SHOW_COOKIECONSET" LocalizedPage="ADMIN_HOSTSETTINGS" />
     </h4>
-    <p>
-        <asp:CheckBox CssClass="form-control" ID="ShowCookieConsent" runat="server"></asp:CheckBox>
+    <div class="custom-control custom-switch">
+        <asp:CheckBox Text="&nbsp;" ID="ShowCookieConsent" runat="server"></asp:CheckBox>
 
-    </p><hr />
+    </div><hr />
 
                         <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedTag="HEADER_SPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -282,10 +282,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel227" runat="server" LocalizedTag="BOT_IPBAN_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="BanBotIpOnDetection" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="BanBotIpOnDetection" runat="server" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel242" runat="server" LocalizedTag="SPAMCHECK_ALLOWED_URLS" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -305,26 +305,26 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel17" runat="server" LocalizedTag="DISABLE_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="DisableRegistrations" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="DisableRegistrations" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="EMAIL_VERIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EmailVerification" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EmailVerification" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel238" runat="server" LocalizedTag="SHOW_CONNECT_MESSAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowConnectMessageInTopic" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowConnectMessageInTopic" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel237" runat="server" LocalizedTag="WELCOME_NOTIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -345,18 +345,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel19" runat="server" LocalizedTag="REQUIRE_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="RequireLogin" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="RequireLogin" runat="server" />
 
-                    </p><hr />
+                    </div><hr />
 
                          <h4>
                             <YAF:HelpLabel ID="HelpLabel191" runat="server" LocalizedTag="ENABLE_SSO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowSingleSignOn" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowSingleSignOn" runat="server" />
 
-                    </p><hr />
+                    </div><hr />
                     </asp:PlaceHolder>
     <h2>
         <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="HEADER_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -366,10 +366,10 @@
     <h4>
         <YAF:HelpLabel ID="HelpLabel216" runat="server" LocalizedTag="PM_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
     </h4>
-    <p>
-        <asp:CheckBox CssClass="form-control" ID="AllowPrivateMessageAttachments" runat="server"></asp:CheckBox>
+    <div class="custom-control custom-switch">
+        <asp:CheckBox Text="&nbsp;" ID="AllowPrivateMessageAttachments" runat="server"></asp:CheckBox>
 
-    </p><hr />
+    </div><hr />
 
     <h4>
         <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="MAX_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -395,18 +395,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel22" runat="server" LocalizedTag="IMAGE_ATTACH_RESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableImageAttachmentResize" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableImageAttachmentResize" runat="server" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel217" runat="server" LocalizedTag="POSTED_IMAGE_RESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ResizePostedImages" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ResizePostedImages" runat="server" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel23" runat="server" LocalizedTag="IMAGE_RESIZE_WIDTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -427,10 +427,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel25" runat="server" LocalizedTag="CROP_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="HEADER_CDN" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -440,26 +440,26 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel235" runat="server" LocalizedTag="CDN_SCRIPTMANAGER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ScriptManagerScriptsCDNHosted" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ScriptManagerScriptsCDNHosted" runat="server" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel228" runat="server" LocalizedTag="CDN_JQUERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="JqueryCDNHosted" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="JqueryCDNHosted" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel230" runat="server" LocalizedTag="BOARD_CDN_HOSTED" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="JqueryUIThemeCDNHosted" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="JqueryUIThemeCDNHosted" runat="server" />
 
-                    </p>
+                    </div>
 
 	</div>
     <div id="View2" class="tab-pane" role="tabpanel">
@@ -473,90 +473,90 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel193" runat="server" LocalizedTag="USE_READ_TRACKING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseReadTrackingByDatabase" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UseReadTrackingByDatabase" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel86" runat="server" LocalizedTag="USE_FARSI_CALENDER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseFarsiCalender" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UseFarsiCalender" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel91" runat="server" LocalizedTag="SHOW_RELATIVE_TIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowRelativeTime" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowRelativeTime" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel93" runat="server" LocalizedTag="DYNAMIC_METATAGS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AddDynamicPageMetaTags" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AddDynamicPageMetaTags" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel94" runat="server" LocalizedTag="ALLOW_DISPLAY_GENDER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowGenderInUserBox" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowGenderInUserBox" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel202" runat="server" LocalizedTag="ALLOW_DISPLAY_COUNTRY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowCountryInfoInUserBox" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowCountryInfoInUserBox" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel95" runat="server" LocalizedTag="ALLOW_USER_HIDE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowUserHideHimself" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowUserHideHimself" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel96" runat="server" LocalizedTag="ENABLE_DISPLAY_NAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableDisplayName" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableDisplayName" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel97" runat="server" LocalizedTag="ALLOW_MODIFY_DISPLAYNAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowDisplayNameModification" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowDisplayNameModification" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel85" runat="server" LocalizedTag="STYLED_NICKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
+                        <div class="custom-control custom-switch">
                             <asp:CheckBox runat="server" CssClass="form-control" ID="UseStyledNicks" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel209" runat="server" LocalizedTag="STYLED_TOPIC_TITLES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
+                        <div class="custom-control custom-switch">
                             <asp:CheckBox runat="server" CssClass="form-control" ID="UseStyledTopicTitles" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel98" runat="server" LocalizedTag="MEMBERLIST_PAGE_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -577,42 +577,42 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel99" runat="server" LocalizedTag="SHOW_USER_STATUS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowUserOnlineStatus" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowUserOnlineStatus" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel100" runat="server" LocalizedTag="ALLOW_THANKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableThanksMod" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableThanksMod" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel102" runat="server" LocalizedTag="SHOW_THANK_DATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowThanksDate" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowThanksDate" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel101" runat="server" LocalizedTag="ENABLE_BUDDYLIST" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableBuddyList" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableBuddyList" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel103" runat="server" LocalizedTag="REMOVE_NESTED_QUOTES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="RemoveNestedQuotes" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="RemoveNestedQuotes" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel104" runat="server" LocalizedTag="DISABLE_NOFOLLOW_ONOLDERPOSTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -633,18 +633,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel113" runat="server" LocalizedTag="ALLOW_QUICK_ANSWER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowQuickAnswer" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowQuickAnswer" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel114" runat="server" LocalizedTag="ENABLE_CALENDER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableDNACalendar" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableDNACalendar" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel105" runat="server" LocalizedTag="ALLOW_SHARE_TOPIC" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -675,18 +675,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel112" runat="server" LocalizedTag="ALLOW_EMAIL_TOPIC" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowEmailTopic" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowEmailTopic" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel188" runat="server" LocalizedTag="ALLOW_TOPIC_DESCRIPTION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableTopicDescription" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableTopicDescription" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel38" runat="server" LocalizedTag="HEADER_HOVERCARD" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -696,10 +696,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel218" runat="server" LocalizedTag="ENABLE_HOVERCARDS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableUserInfoHoverCards" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableUserInfoHoverCards" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel220" runat="server" LocalizedTag="HOVERCARD_DELAY" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -733,50 +733,50 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel117" runat="server" LocalizedTag="POLLVOTING_PERIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="PollVoteTiedToIP" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="PollVoteTiedToIP" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel118" runat="server" LocalizedTag="ALLOW_CHANGE_AFTERVOTE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowPollChangesAfterFirstVote" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowPollChangesAfterFirstVote" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel119" runat="server" LocalizedTag="ALLOW_MULTI_VOTING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowMultipleChoices" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowMultipleChoices" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel120" runat="server" LocalizedTag="ALLOW_HIDE_POLLRESULTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowUsersHidePollResults" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowUsersHidePollResults" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel121" runat="server" LocalizedTag="ALLOW_GUESTS_VIEWPOLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowGuestsViewPollOptions" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowGuestsViewPollOptions" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel122" runat="server" LocalizedTag="ALLOW_USERS_POLLIMAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowUsersImagedPoll" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowUsersImagedPoll" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel123" runat="server" LocalizedTag="POLL_IMAGE_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -793,18 +793,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel124" runat="server" LocalizedTag="ALLOW_PMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowPrivateMessages" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowPrivateMessages" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel125" runat="server" LocalizedTag="ALLOW_PM_NOTIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowPMEmailNotification" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowPMEmailNotification" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel126" runat="server" LocalizedTag="MAX_PM_RECIPIENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -851,18 +851,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel131" runat="server" LocalizedTag="SHOW_RSS_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowRSSLink" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowRSSLink" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel132" runat="server" LocalizedTag="SHOW_ATOM_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowAtomLink" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowAtomLink" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="TOPICFEED_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -934,10 +934,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel108" runat="server" LocalizedTag="IP_INFOSERVICE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableIPInfoService" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableIPInfoService" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel109" runat="server" LocalizedTag="IP_INFOSERVICE_XMLURL" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -971,26 +971,26 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel106" runat="server" LocalizedTag="DISPLAY_POINTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="DisplayPoints" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="DisplayPoints" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel203" runat="server" LocalizedTag="ENABLE_USERREPUTATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableUserReputation" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableUserReputation" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel204" runat="server" LocalizedTag="REPUTATION_ALLOWNEGATIVE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ReputationAllowNegative" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ReputationAllowNegative" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel207" runat="server" LocalizedTag="REPUTATION_MIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1056,18 +1056,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel146" runat="server" LocalizedTag="CAPTCHA_GUEST_POSTING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableCaptchaForGuests" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableCaptchaForGuests" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel147" runat="server" LocalizedTag="ENABLE_CAPTCHA_FORPOST" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableCaptchaForPost" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableCaptchaForPost" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel148" runat="server" LocalizedTag="CAPTCHA_FOR_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1094,10 +1094,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel215" runat="server" LocalizedTag="NOTIFICATION_MOBILE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="NotifcationNativeOnMobile" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="NotifcationNativeOnMobile" runat="server"></asp:CheckBox>
 
-                    </p>
+                    </div>
 
 	</div>
     <div id="View3" class="tab-pane" role="tabpanel">
@@ -1119,170 +1119,170 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel153" runat="server" LocalizedTag="SHOW_AVATARS_TOPICLISTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowAvatarsInTopic" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowAvatarsInTopic" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel154" runat="server" LocalizedTag="SHOW_MOVED_TOPICS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowMoved" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowMoved" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel155" runat="server" LocalizedTag="SHOW_MODLIST" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowModeratorList" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowModeratorList" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel156" runat="server" LocalizedTag="SHOW_GUESTS_INACTIVE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowGuestsInDetailedActiveList" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowGuestsInDetailedActiveList" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel157" runat="server" LocalizedTag="SHOW_BOTS_INACTIVE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowCrawlersInActiveList" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowCrawlersInActiveList" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel158" runat="server" LocalizedTag="SHOW_DEL_MESSAGES" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowDeletedMessages" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowDeletedMessages" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel159" runat="server" LocalizedTag="SHOW_DEL_MESSAGES_TOALL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowDeletedMessagesToAll" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowDeletedMessagesToAll" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="BlankLinksHelpLabel" runat="server" LocalizedTag="SHOW_LINKS_NEWWINDOW" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="BlankLinks" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="BlankLinks" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="ShowLastUnreadPostHelpLabel" runat="server" LocalizedTag="SHOW_UNREAD_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowLastUnreadPost" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowLastUnreadPost" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel161" runat="server" LocalizedTag="SHOW_NOCOUNT_POSTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="NoCountForumsInActiveDiscussions" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="NoCountForumsInActiveDiscussions" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel162" runat="server" LocalizedTag="SHOW_FORUM_STATS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowForumStatistics" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowForumStatistics" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel190" runat="server" LocalizedTag="SHOW_RECENT_USERS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowRecentUsers" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowRecentUsers" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                     <h4>
                             <YAF:HelpLabel ID="HelpLabel163" runat="server" LocalizedTag="SHOW_ACTIVE_DISCUSSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowActiveDiscussions" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowActiveDiscussions" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel164" runat="server" LocalizedTag="SHOW_FORUM_JUMP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowForumJump" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowForumJump" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel167" runat="server" LocalizedTag="SHOW_GROUPS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowGroups" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowGroups" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel168" runat="server" LocalizedTag="SHOW_GROUPS_INPROFILE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowGroupsProfile" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowGroupsProfile" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel169" runat="server" LocalizedTag="SHOW_MEDALS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowMedals" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowMedals" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel170" runat="server" LocalizedTag="SHOW_USERSBROWSING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowBrowsingUsers" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowBrowsingUsers" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel181" runat="server" LocalizedTag="SHOW_SIMILARTOPICS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowSimilarTopics" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowSimilarTopics" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel171" runat="server" LocalizedTag="SHOW_RENDERTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowPageGenerationTime" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowPageGenerationTime" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel172" runat="server" LocalizedTag="SHOW_YAFVERSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowYAFVersion" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowYAFVersion" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                        <h4>
                             <YAF:HelpLabel ID="HelpLabel182" runat="server" LocalizedTag="SHOWHELP" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1305,18 +1305,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel174" runat="server" LocalizedTag="SHOW_JOINDATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="DisplayJoinDate" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="DisplayJoinDate" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel175" runat="server" LocalizedTag="RULES_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowRulesForRegistration" runat="server" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowRulesForRegistration" runat="server" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel176" runat="server" LocalizedTag="LASTPOST_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1329,10 +1329,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel177" runat="server" LocalizedTag="NOFOLLOW_LINKTAGS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseNoFollowLinks" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UseNoFollowLinks" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel178" runat="server" LocalizedTag="POSTS_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1362,10 +1362,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel240" runat="server" LocalizedTag="SHOW_EDIT_MESSAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowEditedMessage" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowEditedMessage" runat="server"></asp:CheckBox>
 
-                    </p>
+                    </div>
 
 	</div>
     <div id="View4" class="tab-pane" role="tabpanel">
@@ -1387,10 +1387,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel27" runat="server" LocalizedTag="SHOWAD_LOGINUSERS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
+                        <div class="custom-control custom-switch">
                             <asp:CheckBox runat="server" CssClass="form-control" ID="ShowAdsToSignedInUsers" />
 
-                    </p>
+                    </div>
 
 	</div>
     <div id="View5" class="tab-pane" role="tabpanel">
@@ -1413,10 +1413,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel160" runat="server" LocalizedTag="ALLOW_USERTEXTEDITOR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
+                        <div class="custom-control custom-switch">
                             <asp:CheckBox runat="server" CssClass="form-control" ID="AllowUsersTextEditor" />
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel87" runat="server" LocalizedTag="ACCEPT_HTML" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1438,66 +1438,66 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel84" runat="server" LocalizedTag="USER_CHANGE_THEME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowUserTheme" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowUserTheme" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel83" runat="server" LocalizedTag="USER_CHANGE_LANGUAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowUserLanguage" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowUserLanguage" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel82" runat="server" LocalizedTag="ALLOW_SIGNATURE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowSignatures" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowSignatures" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel81" runat="server" LocalizedTag="ALLOW_SENDMAIL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowEmailSending" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowEmailSending" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel80" runat="server" LocalizedTag="ALLOW_EMAIL_CHANGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowEmailChange" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowEmailChange" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel79" runat="server" LocalizedTag="ALLOW_PASS_CHANGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowPasswordChange" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowPasswordChange" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel78" runat="server" LocalizedTag="ALLOW_MOD_VIEWIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowModeratorsViewIPs" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowModeratorsViewIPs" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel77" runat="server" LocalizedTag="ALLOW_NOTIFICATION_ONALL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowNotificationAllPostsAllTopics" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowNotificationAllPostsAllTopics" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel76" runat="server" LocalizedTag="REPORT_POST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1520,10 +1520,10 @@
                         <h4>
                              <YAF:HelpLabel ID="HelpLabel90" runat="server" LocalizedTag="ALLOW_FORUMS_DUPLICATENAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                       <p>
-                            <asp:CheckBox CssClass="form-control" ID="AllowForumsWithSameName" runat="server"></asp:CheckBox>
+                       <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AllowForumsWithSameName" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel75" runat="server" LocalizedTag="VIEWPROFILE_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1564,18 +1564,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel71" runat="server" LocalizedTag="SSL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseSSLToLogIn" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UseSSLToLogIn" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                            <YAF:HelpLabel ID="HelpLabel70" runat="server" LocalizedTag="SSL_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseSSLToRegister" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UseSSLToRegister" runat="server"></asp:CheckBox>
 
-                    </p>
+                    </div>
                     </asp:PlaceHolder>
 
 	</div>
@@ -1709,34 +1709,34 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel189" runat="server" LocalizedTag="AVATAR_GALLERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AvatarGallery" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AvatarGallery" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel50" runat="server" LocalizedTag="REMOTE_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AvatarRemote" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AvatarRemote" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel51" runat="server" LocalizedTag="AVATAR_UPLOAD" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AvatarUpload" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AvatarUpload" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel52" runat="server" LocalizedTag="ALLOW_GRAVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="AvatarGravatar" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="AvatarGravatar" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel53" runat="server" LocalizedTag="GRAVATAR_RATING" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1933,10 +1933,10 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel39" runat="server" LocalizedTag="QUICK_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowQuickSearch" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowQuickSearch" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
         </div>
         <div id="View11" class="tab-pane" role="tabpanel">
@@ -1974,18 +1974,18 @@
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel150" runat="server" LocalizedTag="ENABLE_LOCATIONPATH_ERRORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="EnableActiveLocationErrorsLog" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel151" runat="server" LocalizedTag="UNHANDLED_USERAGENT_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UserAgentBadLog" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="UserAgentBadLog" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedTag="HEADER_LOGSCOPE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1995,59 +1995,59 @@
                         <h4>
                             <YAF:HelpLabel ID="LogErrorLabel" runat="server" LocalizedTag="LOG_ERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="LogError" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="LogError" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel142" runat="server" LocalizedTag="LOG_WARNING" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="LogWarning" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="LogWarning" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
 
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel180" runat="server" LocalizedTag="LOG_INFORMATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="LogInformation" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="LogInformation" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel210" runat="server" LocalizedTag="LOG_VIEWSTATEERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
-                            <asp:CheckBox CssClass="form-control" ID="LogViewStateError" runat="server"></asp:CheckBox>
+                            <asp:CheckBox Text="&nbsp;" ID="LogViewStateError" runat="server"></asp:CheckBox>
 
                     </p><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel211" runat="server" LocalizedTag="LOG_BANNEDIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="LogBannedIP" runat="server"></asp:CheckBox>
-                                            </p><hr />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="LogBannedIP" runat="server"></asp:CheckBox>
+                                            </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel212" runat="server" LocalizedTag="LOG_USERDELETED" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="LogUserDeleted" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="LogUserDeleted" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel213" runat="server" LocalizedTag="LOG_SUSPENDEDANDCONTRA" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="LogUserSuspendedUnsuspended" runat="server"></asp:CheckBox>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="LogUserSuspendedUnsuspended" runat="server"></asp:CheckBox>
 
-                    </p>
+                    </div>
 
         </div>
           </div>

@@ -139,15 +139,10 @@ namespace YAF.Core
         public void SaveRegistry()
         {
             // loop through all values and commit them to the DB
-            foreach (var key in this._reg.Keys)
-            {
-                YafContext.Current.GetRepository<Registry>().Save(key, this._reg[key]);
-            }
+            this._reg.Keys.ForEach(key => YafContext.Current.GetRepository<Registry>().Save(key, this._reg[key]));
 
-            foreach (var key in this._regBoard.Keys)
-            {
-                YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID);
-            }
+            this._regBoard.Keys.ForEach(
+                key => YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID));
         }
 
         /// <summary>

@@ -60,7 +60,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The mail regex
         /// </summary>
-        private static readonly Regex _RgxEmail =
+        private static readonly Regex RgxEmail =
             new Regex(
                 @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
                 Options | RegexOptions.Compiled);
@@ -68,7 +68,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The YouTube Regex
         /// </summary>
-        private static readonly Regex _RgxYoutube1 =
+        private static readonly Regex RgxYoutube1 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
                 Options | RegexOptions.Compiled);
@@ -76,7 +76,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The YouTube (Short URL) Regex
         /// </summary>
-        private static readonly Regex _RgxYoutube2 =
+        private static readonly Regex RgxYoutube2 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
                 Options | RegexOptions.Compiled);
@@ -84,23 +84,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The URL Regex
         /// </summary>
-        private static readonly Regex _RgxUrl1 =
-            new Regex(
-                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,~/(/)]*)?)",
-                Options | RegexOptions.Compiled);
-
-        /// <summary>
-        /// The URL Regex
-        /// </summary>
-        private static readonly Regex _RgxUrl2 =
-            new Regex(
-                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)",
-                Options | RegexOptions.Compiled);
-
-        /// <summary>
-        /// The URL Regex
-        /// </summary>
-        private static readonly Regex _RgxUrl3 =
+        private static readonly Regex RgxUrl3 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,~]*)?)",
                 Options | RegexOptions.Compiled);
@@ -369,18 +353,20 @@ namespace YAF.Core.Services
                 // populate
 
                 // get rules for YafBBCode
-                this.Get<IBBCode>()
-                    .CreateBBCodeRules(ruleEngine, messageFlags.IsHtml, true, targetBlankOverride, useNoFollow);
+                this.Get<IBBCode>().CreateBBCodeRules(
+                    ruleEngine,
+                    messageFlags.IsHtml,
+                    true,
+                    targetBlankOverride,
+                    useNoFollow);
 
                 // add email rule
                 // vzrus: it's freezing  when post body contains full email address.
                 // the fix provided by community 
                 var email = new VariableRegexReplaceRule(
-                    _RgxEmail,
-                    "${before}<a href=\"mailto:${inner}\">${inner}</a>",
-                    new[] { "before" }) {
-                                           RuleRank = 31 
-                                        };
+                                RgxEmail,
+                                "${before}<a href=\"mailto:${inner}\">${inner}</a>",
+                                new[] { "before" }) { RuleRank = 31 };
 
                 ruleEngine.AddRule(email);
 
@@ -390,38 +376,22 @@ namespace YAF.Core.Services
                 var nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
                 var youtubeVideo1 = new VariableRegexReplaceRule(
-                    _RgxYoutube1,
-                    "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
-                    new[] { "before", "videoId" },
-                    new[] { string.Empty },
-                    50) {
-                           RuleRank = 40 
-                        };
+                                        RgxYoutube1,
+                                        "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
+                                        new[] { "before", "videoId" },
+                                        new[] { string.Empty },
+                                        50) { RuleRank = 40 };
 
                 ruleEngine.AddRule(youtubeVideo1);
 
                 var youtubeVideo2 = new VariableRegexReplaceRule(
-                    _RgxYoutube2,
-                    "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
-                    new[] { "before", "videoId" },
-                    new[] { string.Empty },
-                    50) {
-                           RuleRank = 41 
-                        };
+                                        RgxYoutube2,
+                                        "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
+                                        new[] { "before", "videoId" },
+                                        new[] { string.Empty },
+                                        50) { RuleRank = 41 };
 
                 ruleEngine.AddRule(youtubeVideo2);
-
-                var url = new VariableRegexReplaceRule(
-                    _RgxUrl1,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".Replace("{0}", target)
-                        .Replace("{1}", nofollow),
-                    new[] { "before" },
-                    new[] { string.Empty },
-                    50) {
-                           RuleRank = 42 
-                        };
-
-                ruleEngine.AddRule(url);
 
                 // ?<! - match if prefixes href="" and src="" are not present
                 // <inner> = named capture group
@@ -429,28 +399,13 @@ namespace YAF.Core.Services
                 // Match expression but don't capture it, one or more repetions, in the end is dot(\.)? here we match "www." - (?:[\w-]+\.)+
                 // Match expression but don't capture it, zero or one repetions (?:/[\w-./?%&=+;,:#~$]*[^.<])?
                 // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
-                url = new VariableRegexReplaceRule(
-                    _RgxUrl2,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".Replace("{0}", target)
-                        .Replace("{1}", nofollow),
-                    new[] { "before" },
-                    new[] { string.Empty },
-                    50) {
-                           RuleRank = 43 
-                        };
-
-                ruleEngine.AddRule(url);
-
-                url = new VariableRegexReplaceRule(
-                    _RgxUrl3,
-                    "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>".Replace(
-                        "{0}",
-                        target).Replace("{1}", nofollow),
-                    new[] { "before" },
-                    new[] { string.Empty },
-                    50) {
-                           RuleRank = 44 
-                        };
+                var url = new VariableRegexReplaceRule(
+                              RgxUrl3,
+                              "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                                  .Replace("{0}", target).Replace("{1}", nofollow),
+                              new[] { "before" },
+                              new[] { string.Empty },
+                              50) { RuleRank = 44 };
 
                 ruleEngine.AddRule(url);
             }
@@ -738,8 +693,8 @@ namespace YAF.Core.Services
         [NotNull]
         public string RemoveNestedQuotes([NotNull] string body)
         {
-            const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-            var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", Options);
+            const RegexOptions RegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+            var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", RegexOptions);
 
             // remove quotes from old messages
             return quote.Replace(body, string.Empty).TrimStart();
@@ -757,12 +712,12 @@ namespace YAF.Core.Services
         [NotNull]
         public string RemoveHiddenBBCodeContent([NotNull] string body)
         {
-            const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+            const RegexOptions RegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
             var hiddenRegex =
                 new Regex(
                     @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
-                    Options);
+                    RegexOptions);
 
             var hiddenTagMatch = hiddenRegex.Match(body);
 
@@ -786,9 +741,9 @@ namespace YAF.Core.Services
         [NotNull]
         public string RemoveCustomBBCodes([NotNull] string body)
         {
-            const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+            const RegexOptions RegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
-            var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", Options);
+            var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", RegexOptions);
 
             var spoilerTagMatch = spoilerRegex.Match(body);
 
@@ -985,9 +940,9 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(text, "text");
             CodeContracts.VerifyNotNull(matchAction, "MatchAction");
 
-            const RegexOptions Options = RegexOptions.IgnoreCase;
+            const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
-            var matches = Regex.Matches(text, matchRegEx, Options).Cast<Match>().OrderByDescending(x => x.Index);
+            var matches = Regex.Matches(text, matchRegEx, RegexOptions).Cast<Match>().OrderByDescending(x => x.Index);
 
             foreach (var match in matches)
             {
@@ -1010,15 +965,17 @@ namespace YAF.Core.Services
         /// </returns>
         private static string RemoveHtmlByList([NotNull] string text, [NotNull] IEnumerable<string> matchList)
         {
+            var allowedTags = matchList.ToList();
+
             CodeContracts.VerifyNotNull(text, "text");
-            CodeContracts.VerifyNotNull(matchList, "matchList");
+            CodeContracts.VerifyNotNull(allowedTags, "matchList");
 
             MatchAndPerformAction(
                 "<.*?>",
                 text,
                 (tag, index, len) =>
                     {
-                        if (!HtmlHelper.IsValidTag(tag, matchList))
+                        if (!HtmlHelper.IsValidTag(tag, allowedTags))
                         {
                             text = text.Remove(index, len);
                         }

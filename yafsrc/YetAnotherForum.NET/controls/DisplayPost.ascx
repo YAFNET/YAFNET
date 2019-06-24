@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 
 
 <div class="row">
@@ -69,16 +70,16 @@
                                 <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
                                 <div class="m-1">
                                     <YAF:ThemeButton ID="AddReputation" runat="server" 
-                                                       CssClass='<%# "AddReputation_" + this.DataRow["UserID"]%>'
+                                                     CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataRow["UserID"])%>'
                                                      Size="Small"
-                                                       Icon="thumbs-up"
-                                                       Type="Success"
-                                                       Visible="false" 
-                                                       TitleLocalizedTag="VOTE_UP_TITLE"
-                                                       OnClick="AddUserReputation">
+                                                     Icon="thumbs-up"
+                                                     Type="Success"
+                                                     Visible="false" 
+                                                     TitleLocalizedTag="VOTE_UP_TITLE"
+                                                     OnClick="AddUserReputation">
                                 </YAF:ThemeButton>
                                 <YAF:ThemeButton ID="RemoveReputation" runat="server" 
-                                                 CssClass='<%# "RemoveReputation_" + this.DataRow["UserID"]%>'
+                                                 CssClass='<%# "RemoveReputation_{0}".Fmt(this.DataRow["UserID"])%>'
                                                  Type="Danger"
                                                  Size="Small"
                                                  Icon="thumbs-down"
@@ -88,7 +89,7 @@
                                 </YAF:ThemeButton>
                                     </div>
                                 <asp:Label ID="TopicStarterBadge" runat="server" 
-                                           CssClass="topicStarter badge badge-dark mb-2"
+                                           CssClass="badge badge-dark mb-2"
                                            Visible='<%# this.DataRow["TopicOwnerID"].ToType<int>().Equals(this.DataRow["UserID"].ToType<int>()) %>'
                                            ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
                                     <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
@@ -114,10 +115,10 @@
                             DataRow="<%# this.DataRow %>"></YAF:DisplayPostFooter>
                     </div>
                     <div class="col-md-6 px-2">
-                        <div id="<%# "dvThanksInfo" + this.DataRow["MessageID"] %>" class="ThanksInfo pl-1">
+                        <div id="<%# "dvThanksInfo" + this.DataRow["MessageID"] %>" class="pl-1">
                             <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
                         </div>
-                        <div id="<%# "dvThanks" + this.DataRow["MessageID"] %>" class="ThanksList pl-1">
+                        <div id="<%# "dvThanks" + this.DataRow["MessageID"] %>" class="pl-1">
                             <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
                         </div>
                     </div>

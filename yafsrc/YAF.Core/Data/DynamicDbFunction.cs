@@ -399,7 +399,7 @@ namespace YAF.Core.Data
                 DbFunctionType.Scalar, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.DbTransaction), 
+                cmd => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.DbTransaction), 
                 out result);
         }
 

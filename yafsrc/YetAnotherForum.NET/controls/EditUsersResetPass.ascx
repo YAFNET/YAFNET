@@ -19,11 +19,13 @@
                     <strong><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASS_OPTION" LocalizedPage="ADMIN_EDITUSER" /></strong>
                 </h4>
                 <p>
+                    <div class="custom-control custom-radio custom-control-inline">
                     <asp:RadioButtonList ID="rblPasswordResetFunction" runat="server" AutoPostBack="true"
-                        OnSelectedIndexChanged="rblPasswordResetFunction_SelectedIndexChanged" 
-                                         CssClass="form-check"
-                                         RepeatLayout="Flow" RepeatDirection="Horizontal">
+                                         OnSelectedIndexChanged="rblPasswordResetFunction_SelectedIndexChanged" 
+                                         RepeatLayout="UnorderedList"
+                                         CssClass="list-unstyled">
                     </asp:RadioButtonList>
+                    </div>
                 </p>
             <asp:PlaceHolder ID="ChangePasswordHolder" runat="server" Visible="false">
                 <hr />

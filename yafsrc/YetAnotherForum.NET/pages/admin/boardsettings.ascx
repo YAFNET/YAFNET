@@ -53,9 +53,9 @@
                 <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="BOARD_THREADED"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:CheckBox ID="AllowThreaded" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="AllowThreaded" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
 
 
             <h4>
@@ -71,9 +71,9 @@
                 <YAF:HelpLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BOARD_THEME_LOGO"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:CheckBox ID="AllowThemedLogo" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="AllowThemedLogo" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
 
             <h4>
                 <YAF:HelpLabel ID="LocalizedLabel10" runat="server" LocalizedTag="BOARD_CULTURE"
@@ -99,11 +99,14 @@
                 <YAF:HelpLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_FILE_EXTENSIONS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:RadioButtonList ID="FileExtensionAllow" runat="server" CssClass="form-check"
-                                     RepeatLayout="Flow" RepeatDirection="Horizontal">
-                </asp:RadioButtonList>
-            </p><hr />
+            
+                <div class="custom-control custom-radio custom-control-inline">
+                    <asp:RadioButtonList ID="FileExtensionAllow" runat="server"
+                                         RepeatLayout="UnorderedList"
+                                         CssClass="list-unstyled">
+                    </asp:RadioButtonList>
+                </div>
+            <hr />
 
         <asp:PlaceHolder ID="PollGroupList" runat="server" Visible="false">
             <h4>
@@ -127,29 +130,27 @@
                 <YAF:HelpLabel ID="LocalizedLabel14" runat="server" LocalizedTag="BOARD_EMAIL_MODS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="EmailModeratorsOnModeratedPost" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
 
 
             <h4>
                 <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="BOARD_EMAIL_REPORTMODS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:CheckBox ID="EmailModeratorsOnReportedPost" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="EmailModeratorsOnReportedPost" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
 
 
             <h4>
                 <YAF:HelpLabel ID="LocalizedLabel15" runat="server" LocalizedTag="BOARD_ALLOW_DIGEST"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:CheckBox ID="AllowDigestEmail" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
-
-
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="AllowDigestEmail" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
             <h4>
                 <YAF:HelpLabel ID="HelpLabelDigest1" runat="server" LocalizedTag="BOARD_DIGEST_HOURS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
@@ -163,9 +164,9 @@
                 <YAF:HelpLabel ID="LocalizedLabel16" runat="server" LocalizedTag="BOARD_DIGEST_NEWUSERS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>
-            <p>
-                <asp:CheckBox ID="DefaultSendDigestEmail" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="DefaultSendDigestEmail" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
 
 
             <h4>
@@ -175,8 +176,24 @@
             <p>
                 <asp:DropDownList ID="DefaultNotificationSetting" runat="server" CssClass="custom-select">
                 </asp:DropDownList>
-            </p>
-                            </div>
+            </p><hr />
+            <h4>
+                <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="CdvVersion"
+                    LocalizedPage="ADMIN_BOARDSETTINGS" />
+                <YAF:ThemeButton runat="server"
+                                 OnClick="IncreaseVersionOnClick"
+                                 CssClass="float-right"
+                                 Type="Info"
+                                 Icon="file-code"
+                                 TextLocalizedTag="CDVVERSION_BUTTON"
+                                 TitleLocalizedTag="CDVVERSION_HELP">
+                </YAF:ThemeButton>
+            </h4>
+            <p>
+                <asp:TextBox ID="CdvVersion" runat="server" CssClass="form-control" Enabled="False"></asp:TextBox>
+            </p>  
+
+                        </div>
                         <div class="card-footer text-center">
                             <YAF:ThemeButton ID="Save" Type="Primary" runat="server" OnClick="SaveClick"
                                              Icon="save" TextLocalizedTag="SAVE">

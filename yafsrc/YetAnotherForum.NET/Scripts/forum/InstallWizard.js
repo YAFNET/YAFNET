@@ -4,7 +4,7 @@
 			{
 				backdrop: "static",
 				keyboard: false
-			});
+            });
 
 		Ladda.bind(".btn-primary,.btn-info");
 	});

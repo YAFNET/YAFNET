@@ -90,7 +90,8 @@ namespace YAF.Controls
 
             // add a table control
             var table = new HtmlGenericControl("div");
-            //table.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "container");
+
+            // table.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "container");
             this.Controls.Add(table);
 
             for (var i = 0; i < themeImageTags.Length; i++)
@@ -109,10 +110,10 @@ namespace YAF.Controls
                 tr.Controls.Add(td);
 
                 // add the themed icons
-                 var icon = new Literal
-                {
-                    Text = $"<span class=\"fa-stack\">{this.GetTopicIcon(localizedTags[i])}</span>"
-                };
+                var icon = new Literal
+                               {
+                                   Text = $"<span class=\"fa-stack\">{this.GetTopicIcon(localizedTags[i])}</span>"
+                               };
                 td.Controls.Add(icon);
 
                 // space

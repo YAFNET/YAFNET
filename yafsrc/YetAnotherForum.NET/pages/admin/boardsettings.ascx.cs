@@ -69,6 +69,8 @@ namespace YAF.Pages.Admin
 
             var boardSettings = this.Get<YafBoardSettings>();
 
+            this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
+
             // create list boxes by populating datasources from Data class
             var themeData = StaticDataHelper.Themes();
 
@@ -337,5 +339,18 @@ namespace YAF.Pages.Admin
         }
 
         #endregion
+
+        /// <summary>
+        /// Increases the CDV version on click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void IncreaseVersionOnClick(object sender, EventArgs e)
+        {
+            this.Get<YafBoardSettings>().CdvVersion++;
+            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+
+            this.CdvVersion.Text = this.Get<YafBoardSettings>().CdvVersion.ToString();
+        }
     }
 }

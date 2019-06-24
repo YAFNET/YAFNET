@@ -151,7 +151,7 @@ namespace YAF.Core.Services
         /// </summary>
         public Hashtable ForumRead
         {
-            get => this.SessionState["forumread"] != null ? (Hashtable)this.SessionState["forumread"] : null;
+            get => (Hashtable)SessionState["forumread"];
 
             set => this.SessionState["forumread"] = value;
         }

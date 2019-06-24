@@ -568,6 +568,16 @@ namespace YAF.Classes
         #region int settings
 
         /// <summary>
+        /// Gets or sets the cdv version.
+        /// </summary>
+        public int CdvVersion
+        {
+            get => this._reg.GetValue("CdvVersion", 1);
+
+            set => this._reg.SetValue("CdvVersion", value);
+        }
+
+        /// <summary>
         /// Gets or sets the allowed number of URLs before the message is flagged as spam.
         /// </summary>
         /// <value>

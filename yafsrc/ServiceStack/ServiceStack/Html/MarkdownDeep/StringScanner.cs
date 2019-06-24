@@ -53,13 +53,13 @@ namespace MarkdownDeep
 		// Reset
 		public void Reset(string str)
 		{
-			Reset(str, 0, str!=null ? str.Length : 0);
+			Reset(str, 0, str?.Length ?? 0);
 		}
 
 		// Reset
 		public void Reset(string str, int pos)
 		{
-			Reset(str, pos, str!=null ? str.Length - pos : 0);
+			Reset(str, pos, str?.Length - pos ?? 0);
 		}
 
 		// Reset

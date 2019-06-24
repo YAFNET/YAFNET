@@ -156,12 +156,14 @@ namespace YAF.Controls
                     this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
                     this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
                     this.MarkAsAnswer.Icon = "minus-square";
+                    this.MarkAsAnswer.IconColor = "text-danger";
                 }
                 else
                 {
                     this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER";
                     this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_TITLE";
                     this.MarkAsAnswer.Icon = "check-square";
+                    this.MarkAsAnswer.IconColor = "text-success";
                 }
             }
         }

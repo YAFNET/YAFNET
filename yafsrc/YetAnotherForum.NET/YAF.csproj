@@ -3285,7 +3285,11 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>cd $(TargetDir)
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>del YAF.dll.config
+del ServiceStack.Client.dll
+del ServiceStack.Client.pdb
 del Lucene.Net.Contrib.SpellChecker.dll
 del Lucene.Net.Contrib.SpellChecker.pdb
 del Lucene.Net.Contrib.Snowball.dll
@@ -3304,8 +3308,6 @@ del Lucene.Net.Contrib.Core.dll
 del Lucene.Net.Contrib.Core.pdb
 del Lucene.Net.Contrib.Analyzers.dll
 del Lucene.Net.Contrib.Analyzers.pdb
-del ServiceStack.Client.dll</PreBuildEvent>
-    <PostBuildEvent>del YAF.dll.config
 del ServiceStack.Client.dll</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -3335,7 +3337,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

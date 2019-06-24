@@ -497,7 +497,7 @@ namespace YAF.Controls
 
             if (priorityMessage.IsSet())
             {
-                writer.Write("{0}&nbsp;",priorityMessage);
+                writer.Write("{0}&nbsp;", priorityMessage);
 
             }
 

@@ -104,7 +104,7 @@ namespace YAF.Pages.moderate
             }
             else
             {
-                // fully format message (YafBBCode, smilies)
+                // fully format message
                 msg = this.Get<IFormatMessage>().FormatMessage(
                   row["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
             }
@@ -121,7 +121,6 @@ namespace YAF.Pages.moderate
         {
             this.List.ItemCommand += this.List_ItemCommand;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             this.InitializeComponent();
             base.OnInit(e);
         }
@@ -133,7 +132,7 @@ namespace YAF.Pages.moderate
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // do this just on page load, not postbacks
+            // do this just on page load, not post-backs
             if (this.IsPostBack)
             {
                 return;

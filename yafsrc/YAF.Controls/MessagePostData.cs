@@ -275,7 +275,6 @@ namespace YAF.Controls
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags);
 
-
                 this.RenderModulesInBBCode(
                     writer,
                     formattedMessage,

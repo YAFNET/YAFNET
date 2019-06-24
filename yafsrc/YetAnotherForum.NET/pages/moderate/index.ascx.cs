@@ -103,7 +103,7 @@ namespace YAF.Pages.moderate
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;

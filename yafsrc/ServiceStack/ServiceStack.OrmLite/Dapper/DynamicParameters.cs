@@ -470,11 +470,7 @@ namespace ServiceStack.OrmLite.Dapper
                 }
                 else
                 {
-                    dbType = !dbType.HasValue
-#pragma warning disable 618
-                    ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out var handler)
-#pragma warning restore 618
-                    : dbType;
+                    dbType = dbType ?? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out var handler);
 
                     // CameFromTemplate property would not apply here because this new param
                     // Still needs to be added to the command

@@ -74,8 +74,8 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayPmPopup()
         {
-            return (this.PageContext.UnreadPrivate > 0)
-                   && (this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm);
+            return this.PageContext.UnreadPrivate > 0
+                   && this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm;
         }
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayPendingBuddies()
         {
-            return (this.PageContext.PendingBuddies > 0)
-                   && (this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies);
+            return this.PageContext.PendingBuddies > 0
+                   && this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies;
         }
 
         /// <summary>
@@ -148,8 +148,7 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() || (this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)
-                                                  || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)))
+            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies) || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm))
             {
                 return;
             }

@@ -105,8 +105,7 @@ namespace YAF.Data.MsSql.Functions
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
-            dbAccess.Execute(
-                db => db.Connection.ExecuteSql($"DBCC SHRINKDATABASE(N'{db.Connection.Database}')"));
+            dbAccess.Execute(db => db.Connection.ExecuteSql($"DBCC SHRINKDATABASE(N'{db.Connection.Database}')"));
         }
 
         public static string ReIndexDatabase(this IDbAccess dbAccess)
@@ -189,7 +188,11 @@ namespace YAF.Data.MsSql.Functions
                         {
                             trans.Rollback();
                             throw new Exception(
-                                string.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message));
+                                string.Format(
+                                    "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}",
+                                    scriptFile,
+                                    sql,
+                                    x.Message));
                         }
                     }
 
@@ -424,10 +427,10 @@ namespace YAF.Data.MsSql.Functions
 
                             columnNames.ForEach(
                                 n =>
-                                {
-                                    results.Append(",");
-                                    results.Append(n);
-                                });
+                                    {
+                                        results.Append(",");
+                                        results.Append(n);
+                                    });
 
                             results.AppendLine();
 

@@ -125,9 +125,8 @@ namespace YAF.Data.MsSql
                         transaction = this.DbAccess.BeginTransaction();
                     }
 
-                    if (transaction.Connection is SqlConnection)
+                    if (transaction.Connection is SqlConnection sqlConnection)
                     {
-                        var sqlConnection = transaction.Connection as SqlConnection;
                         sqlConnection.FireInfoMessageEventOnUserErrors = true;
                         sqlConnection.InfoMessage += new SqlInfoMessageEventHandler(this.sqlConnection_InfoMessage);
 

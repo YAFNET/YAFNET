@@ -251,7 +251,7 @@ namespace ServiceStack.NativeTypes.Swift
                     for (var i = 0; i < type.EnumNames.Count; i++)
                     {
                         var name = type.EnumNames[i];
-                        var value = type.EnumValues != null ? type.EnumValues[i] : null;
+                        var value = type.EnumValues?[i];
                         sb.AppendLine(value == null
                             ? "case {0}".Fmt(name)
                             : "case {0} = {1}".Fmt(name, value));

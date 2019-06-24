@@ -77,9 +77,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                var lastRead = this.sessionState["LastRead"] == null
-                                   ? null
-                                   : this.sessionState["LastRead"].ToType<DateTime?>();
+                var lastRead = sessionState["LastRead"]?.ToType<DateTime?>();
 
                 if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {

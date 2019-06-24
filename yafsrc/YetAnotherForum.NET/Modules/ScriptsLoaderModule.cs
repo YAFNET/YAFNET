@@ -70,7 +70,7 @@ namespace YAF.Modules
         private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
-            this.RegisterCssFiles();
+            this.RegisterCssFiles(this.Get<YafBoardSettings>().CdvVersion);
 
             this.RegisterJQuery();
         }
@@ -87,6 +87,7 @@ namespace YAF.Modules
                 return;
             }
 
+            var version = this.Get<YafBoardSettings>().CdvVersion;
 #if DEBUG
             YafContext.Current.PageElements.RegisterJsScriptsInclude(
                 "yafForumExtensions",
@@ -97,8 +98,8 @@ namespace YAF.Modules
             YafContext.Current.PageElements.RegisterJsScriptsInclude(
                 "yafForumExtensions",
                 this.PageContext.CurrentForumPage.IsAdminPage
-                    ? "jquery.ForumAdminExtensions.min.js"
-                    : "jquery.ForumExtensions.min.js");
+                    ? $"jquery.ForumAdminExtensions.min.js?v={version}"
+                    : $"jquery.ForumExtensions.min.js?v={version}");
 #endif
 
             this.PageContext.Vars["yafForumExtensions"] = true;
@@ -123,9 +124,7 @@ namespace YAF.Modules
             // check to see if DotNetAge is around and has registered jQuery for us...
             if (HttpContext.Current.Items[Key] != null)
             {
-                var collection = HttpContext.Current.Items[Key] as StringCollection;
-
-                if (collection != null && collection.Contains("jquery"))
+                if (HttpContext.Current.Items[Key] is StringCollection collection && collection.Contains("jquery"))
                 {
                     registerJQuery = false;
                 }
@@ -169,7 +168,10 @@ namespace YAF.Modules
         /// <summary>
         /// Register the CSS Files in the header.
         /// </summary>
-        private void RegisterCssFiles()
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        private void RegisterCssFiles(int version)
         {
             var element = YafContext.Current.CurrentForumPage.TopPageControl;
 
@@ -178,9 +180,11 @@ namespace YAF.Modules
 
             // make the style sheet link controls.
             element.Controls.Add(
-                this.PageContext.CurrentForumPage.IsAdminPage
-                    ? ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum-admin.min.css"))
-                    : ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
+                ControlHelper.MakeCssIncludeControl(
+                    YafForumInfo.GetURLToContent(
+                        this.PageContext.CurrentForumPage.IsAdminPage
+                            ? $"forum-admin.min.css?v={version}"
+                            : $"forum.min.css?v={version}")));
         }
 
         #endregion

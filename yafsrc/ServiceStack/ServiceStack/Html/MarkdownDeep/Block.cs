@@ -455,7 +455,7 @@ namespace MarkdownDeep
 		public override string ToString()
 		{
 			var c = Content;
-			return this.blockType + " - " + (c==null ? "<null>" : c);
+			return this.blockType + " - " + (c ?? "<null>");
 		}
 
 		public Block CopyFrom(Block other)

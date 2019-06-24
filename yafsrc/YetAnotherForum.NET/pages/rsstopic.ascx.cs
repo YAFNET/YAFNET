@@ -502,17 +502,13 @@ namespace YAF.Pages
                             this.Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d"))),
                         out toFavDate))
                 {
-                    toFavDate = this.PageContext.CurrentUserData.Joined == null
-                                    ? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2)
-                                    : (DateTime)this.PageContext.CurrentUserData.Joined;
+                    toFavDate = PageContext.CurrentUserData.Joined ?? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2);
                     toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
                 }
             }
             else
             {
-                toFavDate = this.PageContext.CurrentUserData.Joined == null
-                                ? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2)
-                                : (DateTime)this.PageContext.CurrentUserData.Joined;
+                toFavDate = PageContext.CurrentUserData.Joined ?? DateTimeHelper.SqlDbMinTime() + TimeSpan.FromDays(2);
                 toFavText = this.GetText("MYTOPICS", "SHOW_ALL");
             }
 

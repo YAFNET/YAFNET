@@ -661,7 +661,7 @@ namespace YAF.Pages
         /// </returns>
         protected int PollGroupId()
         {
-            return this._topic.PollID.HasValue ? this._topic.PollID.Value : 0;
+            return _topic.PollID ?? 0;
         }
 
         /// <summary>

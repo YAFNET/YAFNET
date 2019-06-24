@@ -695,7 +695,7 @@ namespace ServiceStack.ExpressionUtil
 
         public void AddObject(object o)
         {
-            var hashCode = o != null ? o.GetHashCode() : 0;
+            var hashCode = o?.GetHashCode() ?? 0;
             AddInt32(hashCode);
         }
     }

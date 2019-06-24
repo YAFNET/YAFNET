@@ -107,7 +107,7 @@ namespace YAF.Controls
         /// </summary>
         public virtual string Message
         {
-            get => this.ViewState["Message"] != null ? this.ViewState["Message"].ToString() : null;
+            get => this.ViewState["Message"]?.ToString();
 
             set => this.ViewState["Message"] = value;
         }
@@ -127,7 +127,7 @@ namespace YAF.Controls
         /// </summary>
         public virtual string Signature
         {
-            get => this.ViewState["Signature"] != null ? this.ViewState["Signature"].ToString() : null;
+            get => this.ViewState["Signature"]?.ToString();
 
             set => this.ViewState["Signature"] = value;
         }
@@ -222,14 +222,9 @@ namespace YAF.Controls
             writer.Write(
                 @"<div class=""alert alert-danger"" role=""alert""><strong>{1}</strong>{0}</div>",
                 deleteText.IsSet()
-                    ? string.Format(
-                        @"&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>",
-                        this.GetText("EDIT_REASON"),
-                            deleteText)
+                    ? $@"&nbsp;<span title=""{deleteText}"">{this.GetText("EDIT_REASON")}: {deleteText}</span>"
                     : string.Empty,
-                this.IsModeratorChanged
-                    ? this.GetText("POSTS", "MESSAGEDELETED_MOD")
-                    : this.GetText("POSTS", "MESSAGEDELETED_USER"));
+                this.GetText("POSTS", this.IsModeratorChanged ? "MESSAGEDELETED_MOD" : "MESSAGEDELETED_USER"));
         }
 
         /// <summary>
@@ -259,11 +254,15 @@ namespace YAF.Controls
                                  ? this.GetText("POSTS", "EDITED_BY_MOD")
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
+            var messageHistoryButton =
+                $@"<a href=""{YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm mr-1"">
+                         <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
+                      </a>";
+
             writer.Write(
                 @"<div class=""alert alert-secondary"" role=""alert"">
-                      <a title=""{3}"" alt=""title=""{3}"" href=""{4}"">
-                         <i class=""fa fa-history fa-fw""></i><strong>{0}</strong> {1}
-                      </a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
+                      {4}<i class=""fa fa-edit fa-fw text-secondary""></i>{0} {1}
+                      &nbsp;{2}&nbsp;|&nbsp;<em>{3}</em> 
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
                       </button></div>",
@@ -271,9 +270,7 @@ namespace YAF.Controls
                 whoChanged,
                 editedDateTime,
                 editReasonText,
-                this.PageContext.IsGuest
-                    ? "#"
-                    : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>()));
+                this.PageContext.IsGuest ? string.Empty : messageHistoryButton);
         }
 
         /// <summary>

@@ -78,8 +78,11 @@
                 LocalizedTag="GENDER" />
         </h4>
         <p>
-            <asp:RadioButtonList ID="Gender" runat="server" CssClass="form-check"
-                                 RepeatLayout="Flow" RepeatDirection="Horizontal" />
+            <div class="custom-control custom-radio custom-control-inline">
+                <asp:RadioButtonList ID="Gender" runat="server" 
+                                     RepeatLayout="UnorderedList"
+                                     CssClass="list-unstyled" />
+            </div>
         </p>
     <hr />
 
