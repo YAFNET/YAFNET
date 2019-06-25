@@ -57,17 +57,19 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(function () {
-            $('.dropdown-menu').on('click', function (e) {
-                e.stopPropagation();
-            });
-            $(window).on('click', function () {
-                if (!$('.dropdown-menu').is(':hidden')) {
-                    $('.dropdown-toggle').dropdown('toggle');
-                }
-            });
-            $('.dropdown-menu :button').on('click', function (e) {
-                $('.dropdown-toggle').dropdown('toggle');
+        document.addEventListener('DOMContentLoaded', (event) => {
+            $(function () {
+                $('.dropdown-menu').on('click', function (e) {
+                    if (e.target.type == 'button')
+                        $().dropdown('toggle')
+                    else
+                        e.stopPropagation();
+                });
+                $(window).on('click', function () {
+                    if (!$('.dropdown-menu').is(':hidden')) {
+                        $().dropdown('toggle')
+                    }
+                });
             });
         });
     </script>
@@ -92,8 +94,8 @@
     </div>
 
 
-    <div id='SearchResultsPlaceholder' 
-        data-url='<%=YafForumInfo.ForumClientFileRoot %>' 
+    <div id='SearchResultsPlaceholder'
+        data-url='<%=YafForumInfo.ForumClientFileRoot %>'
         data-userid='<%= YafContext.Current.PageUserID %>'
         data-notext='<%= this.Get<ILocalization>().GetAttributeText("NO_SEARCH_RESULTS") %>'
         data-posted='<%= this.Get<ILocalization>().GetAttributeText("POSTED") %>'
