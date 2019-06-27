@@ -80,33 +80,36 @@
             <h4>
                 <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="HIDE_NOACESS" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
-            <p>
-                <asp:CheckBox ID="HideNoAccess" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="HideNoAccess" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
       
         
             <h4>
                 <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="LOCKED" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
-            <p>
-                <asp:CheckBox ID="Locked" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="Locked" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
       
         
             <h4>
                 <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="NO_POSTSCOUNT" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
-            <p>
-                <asp:CheckBox ID="IsTest" runat="server" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="IsTest" runat="server" Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
       
         
             <h4>
                 <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="PRE_MODERATED" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
-            <p>
-                <asp:CheckBox ID="Moderated" runat="server" AutoPostBack="true" OnCheckedChanged="ModeratedCheckedChanged" CssClass="form-control"></asp:CheckBox>
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="Moderated" runat="server" 
+                              AutoPostBack="true" 
+                              OnCheckedChanged="ModeratedCheckedChanged" 
+                              Text="&nbsp;"></asp:CheckBox>
+            </div><hr />
       
         <asp:PlaceHolder runat="server" id="ModerateNewTopicOnlyRow" Visible="false">
             <h4>

@@ -63,14 +63,17 @@
                                          CommandName='add' ID="Linkbutton3" 
                                          Type="Primary"
                                          Icon="plus-square" 
+                                         CssClass="mt-1"
                                          TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_BBCODE" />
                         <YAF:ThemeButton runat="server" Icon="upload" 
                                          DataTarget="BBCodeImportDialog" ID="Linkbutton5" 
                                          Type="Info"
+                                         CssClass="mt-1"
                                          TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_BBCODE" />
                         <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
                                          Type="Warning"
                                          Icon="download" 
+                                         CssClass="mt-1"
                                          TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_BBCODE" />
                     </div>
         	            </FooterTemplate>

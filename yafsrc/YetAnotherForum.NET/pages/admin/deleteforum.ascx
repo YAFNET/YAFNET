@@ -21,9 +21,9 @@
             <h4>
                 <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
             </h4>
-            <p>
-                <asp:CheckBox ID="MoveTopics" runat="server" AutoPostBack="true" CssClass="form-control"></asp:CheckBox>
-            </p>
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="MoveTopics" runat="server" AutoPostBack="False" Text="&nbsp;"></asp:CheckBox>
+            </div>
             <hr />
             <h4>
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />

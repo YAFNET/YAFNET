@@ -354,27 +354,6 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// The make a javascript include control.
-        /// </summary>
-        /// <param name="href">
-        /// The href to the javascript script file.
-        /// </param>s
-        /// <returns>
-        /// Returns the JS Include Control
-        /// </returns>
-        [NotNull]
-        public static HtmlGenericControl MakeJsIncludeControl([NotNull] string href)
-        {
-            CodeContracts.VerifyNotNull(href, "href");
-
-            var js = new HtmlGenericControl { TagName = "script" };
-            js.Attributes.Add("type", "text/javascript");
-            js.Attributes.Add("src", href);
-
-            return js;
-        }
-
-        /// <summary>
         /// Creates a <see cref="HtmlMeta"/> control for keywords.
         /// </summary>
         /// <param name="keywords">keywords that go inside the meta</param>

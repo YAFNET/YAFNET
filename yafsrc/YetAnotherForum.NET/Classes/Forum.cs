@@ -40,7 +40,6 @@ namespace YAF
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -302,6 +301,8 @@ namespace YAF
             {
                 yafScriptManager.EnableCdn = this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted;
                 yafScriptManager.EnableScriptLocalization = !this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted;
+                yafScriptManager.EnableCdnFallback = this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted;
+
                 return;
             }
 
@@ -311,6 +312,7 @@ namespace YAF
                                        ID = "YafScriptManager",
                                        EnablePartialRendering = true,
                                        EnableCdn = this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted,
+                                       EnableCdnFallback = this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted,
                                        EnableScriptLocalization =
                                            !this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted
                                    };

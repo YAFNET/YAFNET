@@ -29,6 +29,7 @@ namespace YAF.Modules
     using System;
     using System.Collections.Specialized;
     using System.Web;
+    using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Core;
@@ -88,19 +89,25 @@ namespace YAF.Modules
             }
 
             var version = this.Get<YafBoardSettings>().CdvVersion;
-#if DEBUG
-            YafContext.Current.PageElements.RegisterJsScriptsInclude(
+
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "yafForumAdminExtensions",
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts($"jquery.ForumAdminExtensions.min.js?v={version}"),
+                        DebugPath = YafForumInfo.GetURLToScripts($"~jquery.ForumAdminExtensions.js?v={version}")
+                });
+
+            ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumExtensions",
-                this.PageContext.CurrentForumPage.IsAdminPage
-                    ? "jquery.ForumAdminExtensions.js"
-                    : "jquery.ForumExtensions.js");
-#else
-            YafContext.Current.PageElements.RegisterJsScriptsInclude(
-                "yafForumExtensions",
-                this.PageContext.CurrentForumPage.IsAdminPage
-                    ? $"jquery.ForumAdminExtensions.min.js?v={version}"
-                    : $"jquery.ForumExtensions.min.js?v={version}");
-#endif
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.min.js?v={version}"),
+                        DebugPath = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.js?v={version}")
+                });
+
+            YafContext.Current.PageElements.AddScriptReference(
+                this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
 
             this.PageContext.Vars["yafForumExtensions"] = true;
         }
@@ -110,9 +117,7 @@ namespace YAF.Modules
         /// </summary>
         private void RegisterJQuery()
         {
-            var element = YafContext.Current.CurrentForumPage.TopPageControl;
-
-            if (YafContext.Current.PageElements.PageElementExists("jquery") || Config.DisableJQuery)
+            if (YafContext.Current.PageElements.PageElementExists("jquery"))
             {
                 return;
             }
@@ -149,17 +154,24 @@ namespace YAF.Modules
                 }
                 else
                 {
-                    jqueryUrl = YafContext.Current.Get<YafBoardSettings>().JqueryCDNHosted
-                                    ? "//ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"
-#if DEBUG
-                                    : YafForumInfo.GetURLToScripts("jquery-3.4.1.js");
-#else
-                                    : YafForumInfo.GetURLToScripts("jquery-3.4.1.min.js");
-#endif
+                    jqueryUrl = $"~/forum/Scripts/jquery-{Config.JQueryVersion}.min.js";
                 }
 
                 // load jQuery
-                element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
+                // element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
+                ScriptManager.ScriptResourceMapping.AddDefinition(
+                    "jquery",
+                    new ScriptResourceDefinition
+                        {
+                            Path = jqueryUrl,
+                            DebugPath = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
+                            CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
+                            CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
+                            CdnSupportsSecureConnection = true,
+                            LoadSuccessExpression = "window.jQuery"
+                        });
+
+                YafContext.Current.PageElements.AddScriptReference("jquery");
             }
 
             YafContext.Current.PageElements.AddPageElement("jquery");

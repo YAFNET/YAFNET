@@ -180,7 +180,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsBlock(string name, string script)
         {
-            this.RegisterJsBlock(this.GetCurrentPage(), name, script);
+            this.RegisterJsBlock(GetCurrentPage(), name, script);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsBlockStartup(string name, string script)
         {
-            this.RegisterJsBlockStartup(this.GetCurrentPage(), name, script);
+            this.RegisterJsBlockStartup(GetCurrentPage(), name, script);
         }
 
         /// <summary>
@@ -282,49 +282,31 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsInclude(string name, string url)
         {
-            this.RegisterJsInclude(this.GetCurrentPage(), name, url);
+            this.RegisterJsInclude(GetCurrentPage(), name, url);
         }
 
         /// <summary>
-        /// Registers a Java Script include using the script manager.
+        /// The add script reference.
         /// </summary>
-        /// <param name="thisControl">
-        /// The this Control.
-        /// </param>
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <param name="relativeScriptsUrl">
-        /// The relative Scripts Url.
-        /// </param>
-        public void RegisterJsScriptsInclude(Control thisControl, string name, string relativeScriptsUrl)
+        public void AddScriptReference(string name)
         {
-            if (this.PageElementExists(name))
-            {
-                return;
-            }
-
-            ScriptManager.RegisterClientScriptInclude(
-                thisControl,
-                thisControl.GetType(),
-                name,
-                YafForumInfo.GetURLToScripts(relativeScriptsUrl));
-
-            this.AddPageElement(name);
+            this.AddScriptReference(new ScriptReference { Name = name });
         }
 
         /// <summary>
-        /// Registers a Java Script resource include using the script manager.
+        /// The add script reference.
         /// </summary>
-        /// <param name="name">
-        /// Unique name of the JS include
+        /// <param name="scriptReference">
+        /// The script reference.
         /// </param>
-        /// <param name="relativeScriptsUrl">
-        /// URL to the JS script
-        /// </param>
-        public void RegisterJsScriptsInclude(string name, string relativeScriptsUrl)
+        public void AddScriptReference(ScriptReference scriptReference)
         {
-            this.RegisterJsScriptsInclude(this.GetCurrentPage(), name, relativeScriptsUrl);
+            var scriptManager = ScriptManager.GetCurrent(GetCurrentPage().Page);
+
+            scriptManager.Scripts.Add(scriptReference);
         }
 
         #endregion
@@ -333,7 +315,7 @@ namespace YAF.Core.Services
         /// Gets the current page.
         /// </summary>
         /// <returns>Returns the current page</returns>
-        private Control GetCurrentPage()
+        private static Control GetCurrentPage()
         {
             return YafContext.Current.CurrentForumPage ?? (Control)(HttpContext.Current.Handler as Page);
         }

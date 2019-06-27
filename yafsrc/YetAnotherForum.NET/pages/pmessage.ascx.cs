@@ -89,13 +89,7 @@ namespace YAF.Pages
         {
             if (this.Get<YafBoardSettings>().AllowPrivateMessageAttachments)
             {
-                this.PageContext.PageElements.RegisterJsScriptsInclude(
-                    "FileUploadScriptJs",
-#if DEBUG
-                    "jquery.fileupload.comb.js");
-#else
-                    "jquery.fileupload.comb.min.js");
-#endif
+                this.PageContext.PageElements.AddScriptReference("FileUploadScript");
 
 #if DEBUG
                 this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");

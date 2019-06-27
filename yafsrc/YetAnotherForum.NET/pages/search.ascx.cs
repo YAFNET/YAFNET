@@ -62,6 +62,22 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and Jquery Ui Tabs.
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "dropDownToggleJs",
+                JavaScriptBlocks.DropDownToggleJs());
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">

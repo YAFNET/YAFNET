@@ -158,11 +158,6 @@ namespace YAF.Classes
         public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
 
         /// <summary>
-        ///     Gets a value indicating whether Is jQuery Registration disabled? -- default is false.
-        /// </summary>
-        public static bool DisableJQuery => GetConfigValueAsBool("YAF.DisableJQuery", false);
-
-        /// <summary>
         ///     Gets a value indicating whether Is Url Rewriting enabled? -- default is "true".
         /// </summary>
         public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
@@ -294,6 +289,12 @@ namespace YAF.Classes
         /// </summary>
         public static string JQueryOverrideFile => GetConfigValueAsString("YAF.JQueryOverrideFile")
                                                    ?? string.Empty;
+
+        /// <summary>
+        /// The j query version.
+        /// </summary>
+        public static string JQueryVersion => GetConfigValueAsString("YAF.JQueryVersion")
+                                                   ?? "3.4.1";
 
         /// <summary>
         ///     Gets MembershipProvider.

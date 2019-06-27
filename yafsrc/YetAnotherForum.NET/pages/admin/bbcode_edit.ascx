@@ -20,7 +20,7 @@
               <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="BBCODE_NAME" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
             </h4>
 			<p>
-				<asp:textbox id="txtName" runat="server" CssClass="form-control"></asp:textbox>
+				<asp:TextBox id="txtName" runat="server" CssClass="form-control"></asp:TextBox>
 
 			</p>
                     <hr />
@@ -63,16 +63,16 @@
                     <h4>
                         <YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="USE_TOOLBAR" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
                     </h4>
-                    <p>
-                        <asp:CheckBox ID="UseToolbar" runat="server" CssClass="form-control" />
-                    </p>
+                    <div class="custom-control custom-switch">
+                        <asp:CheckBox ID="UseToolbar" runat="server" Text="&nbsp;" />
+                    </div>
                     <hr />
 			<h4>
               <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="USE_MODULE" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
             </h4>
-			<p>
-				<asp:CheckBox ID="chkUseModule" runat="server" CssClass="form-control" />
-			</p>
+			<div class="custom-control custom-switch">
+				<asp:CheckBox ID="chkUseModule" runat="server" Text="&nbsp;" />
+			</div>
                     <hr />
 			<h4>
               <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="CLASS_NAME" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
