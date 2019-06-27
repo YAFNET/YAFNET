@@ -63,9 +63,13 @@
 	</asp:Repeater>
 </div>
 <asp:PlaceHolder id="InfoPlaceHolder" runat="server" Visible="false">
-    <YAF:LocalizedLabel ID="NoCountInfo" 
-                        LocalizedTag="NOMODERATION" 
-                        LocalizedPage="MODERATE" 
-                        runat="server">
-    </YAF:LocalizedLabel>
+    <YAF:Alert runat="server" Dismissing="False" Type="success">
+        <i class="fa fa-check fa-fw text-success"></i>&nbsp;
+        <YAF:LocalizedLabel ID="NoCountInfo" 
+                            LocalizedTag="NOMODERATION" 
+                            LocalizedPage="MODERATE" 
+                            runat="server">
+        </YAF:LocalizedLabel>
+    </YAF:Alert>
+    
 </asp:PlaceHolder>
