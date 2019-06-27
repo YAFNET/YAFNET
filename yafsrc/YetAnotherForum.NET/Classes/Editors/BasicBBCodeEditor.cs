@@ -26,12 +26,14 @@ namespace YAF.Editors
     #region Using
 
     using System;
+    using System.Web.UI;
 
     using YAF.Classes.Editors;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
@@ -72,13 +74,8 @@ namespace YAF.Editors
         {
             base.Editor_PreRender(sender, e);
 
-            YafContext.Current.PageElements.RegisterJsInclude(
-                "YafEditorJs",
-#if DEBUG
-                this.ResolveUrl("yafEditor/yafEditor.js"));
-#else
-                this.ResolveUrl("yafEditor/yafEditor.min.js"));
-#endif
+            YafContext.Current.PageElements.AddScriptReference(
+                "YafEditor", "yafEditor/yafEditor.min.js");
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",

@@ -72,8 +72,6 @@ namespace YAF.Modules
         {
             // Load CSS First
             this.RegisterCssFiles(this.Get<YafBoardSettings>().CdvVersion);
-
-            this.RegisterJQuery();
         }
 
         /// <summary>
@@ -83,6 +81,8 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.RegisterJQuery();
+
             if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
                 return;
@@ -105,6 +105,14 @@ namespace YAF.Modules
                         Path = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.min.js?v={version}"),
                         DebugPath = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.js?v={version}")
                 });
+
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "FileUploadScript",
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
+                        DebugPath = YafForumInfo.GetURLToScripts("jquery.fileupload.comb.js")
+                    });
 
             YafContext.Current.PageElements.AddScriptReference(
                 this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
@@ -167,8 +175,8 @@ namespace YAF.Modules
                             DebugPath = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
                             CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
                             CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
-                            CdnSupportsSecureConnection = true,
-                            LoadSuccessExpression = "window.jQuery"
+                            CdnSupportsSecureConnection = true/*,
+                            LoadSuccessExpression = "window.jQuery"*/
                         });
 
                 YafContext.Current.PageElements.AddScriptReference("jquery");

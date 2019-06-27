@@ -72,9 +72,7 @@ namespace YAF.Editors
                                                 ? YafContext.Current.CultureUser.Substring(0, 2)
                                                 : this.Get<YafBoardSettings>().Culture.Substring(0, 2))}"";");
 
-            YafContext.Current.PageElements.RegisterJsInclude(
-                "ckeditorinit",
-                this.ResolveUrl("ckeditor/ckeditor_init.js"));
+            YafContext.Current.PageElements.AddScriptReference("ckeditorinit", "ckeditor/ckeditor_init.js");
         }
 
         #endregion

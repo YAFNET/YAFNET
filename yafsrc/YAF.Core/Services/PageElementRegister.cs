@@ -199,7 +199,9 @@ namespace YAF.Core.Services
         {
             if (!this.PageElementExists(name))
             {
-                ScriptManager.RegisterClientScriptBlock(
+                var scriptManager = ScriptManager.GetCurrent(GetCurrentPage().Page);
+
+                ScriptManager.RegisterStartupScript(
                     thisControl,
                     thisControl.GetType(),
                     name,
@@ -248,44 +250,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Registers a Java Script include using the script manager.
-        /// </summary>
-        /// <param name="thisControl">
-        /// The this Control.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="url">
-        /// The url.
-        /// </param>
-        public void RegisterJsInclude(Control thisControl, string name, string url)
-        {
-            if (this.PageElementExists(name))
-            {
-                return;
-            }
-
-            ScriptManager.RegisterClientScriptInclude(thisControl, thisControl.GetType(), name, url);
-
-            this.AddPageElement(name);
-        }
-
-        /// <summary>
-        /// Registers a Java Script include using the script manager.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="url">
-        /// The url.
-        /// </param>
-        public void RegisterJsInclude(string name, string url)
-        {
-            this.RegisterJsInclude(GetCurrentPage(), name, url);
-        }
-
-        /// <summary>
         /// The add script reference.
         /// </summary>
         /// <param name="name">
@@ -299,6 +263,27 @@ namespace YAF.Core.Services
         /// <summary>
         /// The add script reference.
         /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="path">
+        /// The path.
+        /// </param>
+        public void AddScriptReference(string name, string path)
+        {
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                name,
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts(path)
+                    });
+
+            this.AddScriptReference(new ScriptReference { Name = name });
+        }
+
+        /// <summary>
+        /// The add script reference.
+        /// </summary>
         /// <param name="scriptReference">
         /// The script reference.
         /// </param>
@@ -306,7 +291,14 @@ namespace YAF.Core.Services
         {
             var scriptManager = ScriptManager.GetCurrent(GetCurrentPage().Page);
 
-            scriptManager.Scripts.Add(scriptReference);
+            if (scriptReference.Name == "jquery")
+            {
+                scriptManager.Scripts.Insert(0, scriptReference);
+            }
+            else
+            {
+                scriptManager.Scripts.Add(scriptReference);
+            }
         }
 
         #endregion

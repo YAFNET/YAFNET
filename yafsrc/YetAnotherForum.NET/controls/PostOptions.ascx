@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostOptions"
     CodeBehind="PostOptions.ascx.cs" %>
+<%@ Import Namespace="ServiceStack" %>
 
 <asp:PlaceHolder id="OptionsRow" runat="server">
     <div class="row">
@@ -8,30 +9,20 @@
                 <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />
             </h6>
             <div id="liAddPoll" runat="server" class="form-check">
-                <asp:CheckBox ID="AddPollCheckBox" runat="server" CssClass="form-check-input" />
-                <asp:Label runat="server" AssociatedControlID="AddPollCheckBox">
-                    <YAF:LocalizedLabel ID="AddPollLabel" runat="server" LocalizedPage="POSTMESSAGE"
-                                        LocalizedTag="POLLADD" />? 
-                </asp:Label>
+                <asp:CheckBox ID="AddPollCheckBox" runat="server" Text='<%# "{0}?".Fmt(this.GetText("POSTMESSAGE", "POLLADD")) %>' />
             </div>
-            <div id="liQuestion" runat="server" visible="false" class="form-check">
-                <asp:CheckBox ID="chkIsQuestion" runat="server" CssClass="form-check-input" />
-                <asp:Label runat="server" AssociatedControlID="IsQuestionLael">
-                    <YAF:LocalizedLabel ID="IsQuestionLael" runat="server" LocalizedTag="ISQUESTION"/> 
-                </asp:Label>
+            <div id="liQuestion" runat="server" visible="false" class="custom-control custom-checkbox">
+                <asp:CheckBox ID="chkIsQuestion" runat="server" Text='<%# this.GetText("POSTMESSAGE", "ISQUESTION") %>' />
             </div>
-            <div id="liPersistency" runat="server" class="form-check">
-                <asp:CheckBox ID="Persistency" runat="server" Checked="True" CssClass="form-check-input" />
+            <div id="liPersistency" runat="server" class="custom-control custom-checkbox">
+                <asp:CheckBox ID="Persistency" runat="server" Checked="True"/>
                 <asp:Label runat="server" AssociatedControlID="Persistency">
                     <YAF:LocalizedLabel ID="PersistencyLabel" runat="server" LocalizedTag="PERSISTENCY" /> 
                     (<YAF:LocalizedLabel ID="PersistencyLabel2" runat="server" LocalizedTag="PERSISTENCY_INFO" />) 
                 </asp:Label>
             </div>
-            <div id="liTopicWatch" runat="server" class="form-check">
-                <asp:CheckBox ID="TopicWatch" runat="server" CssClass="form-check-input" />
-                <asp:Label runat="server" AssociatedControlID="TopicWatch">
-                    <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" /> 
-                </asp:Label>
+            <div id="liTopicWatch" runat="server" class="custom-control custom-checkbox">
+                <asp:CheckBox ID="TopicWatch" runat="server" Text='<%# this.GetText("POSTMESSAGE", "TOPICWATCH") %>' />
             </div>
         </div>
     </div>
