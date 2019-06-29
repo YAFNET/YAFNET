@@ -171,10 +171,11 @@
                         </div>
                         <YAF:ThemeButton ID="Quote" runat="server"
                             Type="Link"
-                            Icon="comment-alt"
+                            Icon="quote-left"
                             TextLocalizedTag="BUTTON_QUOTE"
                             TitleLocalizedTag="BUTTON_QUOTE_TT" />
-                        <asp:CheckBox runat="server" ID="MultiQuote" CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
+                        <asp:CheckBox runat="server" ID="MultiQuote" 
+                                      CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
                     </div>
                 </div>
             </div>
