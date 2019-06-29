@@ -227,6 +227,8 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTimeTopic([NotNull] DateTime dateTime)
         {
+            if (dateTime.Kind == DateTimeKind.Local)
+                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
             var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, YafContext.Current.TimeZoneInfoUser);
 

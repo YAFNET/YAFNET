@@ -353,6 +353,9 @@
         {
             FileStream stream = null;
 
+            if (!File.Exists(file.FullName))
+                return (false);
+
             try
             {
                 stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
@@ -427,50 +430,51 @@
             }
 
             return new SearchMessage
-                       {
-                           MessageId = doc.Get("MessageId").ToType<int>(),
-                           Message = message,
-                           Flags = flags,
-                           Posted =
-                               doc.Get("Posted").ToType<DateTime>().ToString(
-                                   "yyyy-MM-ddTHH:mm:ssZ",
-                                   CultureInfo.InvariantCulture),
-                           UserName = doc.Get("Author"),
-                           UserId = doc.Get("UserId").ToType<int>(),
-                           TopicId = doc.Get("TopicId").ToType<int>(),
-                           Topic = topic.IsSet() ? topic : doc.Get("Topic"),
-                           ForumId = doc.Get("ForumId").ToType<int>(),
-                           Description = doc.Get("Description"),
-                           TopicUrl =
-                               YafBuildLink.GetLink(
-                                   ForumPages.posts,
-                                   "t={0}",
-                                   doc.Get("TopicId").ToType<int>()),
-                           MessageUrl =
-                               YafBuildLink.GetLink(
-                                   ForumPages.posts,
-                                   "m={0}#post{0}",
-                                   doc.Get("MessageId").ToType<int>()),
-                           ForumUrl =
-                               YafBuildLink.GetLink(
-                                   ForumPages.forum,
-                                   "f={0}",
-                                   doc.Get("ForumId").ToType<int>()),
-                           UserDisplayName = doc.Get("AuthorDisplay"),
-                           ForumName = doc.Get("ForumName"),
-                           UserStyle = doc.Get("AuthorStyle")
-                       };
+            {
+                MessageId = doc.Get("MessageId").ToType<int>(),
+                Message = message,
+                Flags = flags,
+                Posted =
+                        doc.Get("Posted").ToType<DateTime>().ToString(
+                            "yyyy-MM-ddTHH:mm:ssZ",
+                            CultureInfo.InvariantCulture),
+                UserName = doc.Get("Author"),
+                UserId = doc.Get("UserId").ToType<int>(),
+                TopicId = doc.Get("TopicId").ToType<int>(),
+                Topic = topic.IsSet() ? topic : doc.Get("Topic"),
+                ForumId = doc.Get("ForumId").ToType<int>(),
+                Description = doc.Get("Description"),
+                TopicUrl =
+                        YafBuildLink.GetLink(
+                            ForumPages.posts,
+                            "t={0}",
+                            doc.Get("TopicId").ToType<int>()),
+                MessageUrl =
+                        YafBuildLink.GetLink(
+                            ForumPages.posts,
+                            "m={0}#post{0}",
+                            doc.Get("MessageId").ToType<int>()),
+                ForumUrl =
+                        YafBuildLink.GetLink(
+                            ForumPages.forum,
+                            "f={0}",
+                            doc.Get("ForumId").ToType<int>()),
+                UserDisplayName = doc.Get("AuthorDisplay"),
+                ForumName = doc.Get("ForumName"),
+                UserStyle = doc.Get("AuthorStyle")
+            };
+
         }
 
-        /// <summary>
-        /// Maps the search document to data.
-        /// </summary>
-        /// <param name="doc">The document.</param>
-        /// <param name="userAccessList">The user access list.</param>
-        /// <returns>
-        /// Returns the Search Message
-        /// </returns>
-        private SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
+    /// <summary>
+    /// Maps the search document to data.
+    /// </summary>
+    /// <param name="doc">The document.</param>
+    /// <param name="userAccessList">The user access list.</param>
+    /// <returns>
+    /// Returns the Search Message
+    /// </returns>
+    private SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
         {
             var forumId = doc.Get("ForumId").ToType<int>();
 

@@ -51,13 +51,20 @@ namespace YAF.Utils.Helpers
         /// <returns>Returns the Time Zone Info</returns>
         public static TimeZoneInfo GetTimeZoneInfo(string input)
         {
-            try
-            {
-                return TimeZoneInfo.FindSystemTimeZoneById(input);
-            }
-            catch (Exception)
+            if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[\-?\+?\d]*$"))
             {
                 return TimeZoneInfo.Local;
+            }
+            else
+            {
+                try
+                {
+                    return TimeZoneInfo.FindSystemTimeZoneById(input);
+                }
+                catch (Exception)
+                {
+                    return TimeZoneInfo.Local;
+                }
             }
         }
 
