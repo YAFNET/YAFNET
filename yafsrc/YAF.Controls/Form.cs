@@ -5,12 +5,13 @@
 // Copyright 2011 Seth Yates
 // 
 
-namespace YAF.UrlRewriter
+namespace YAF.Controls
 {
     using System.Runtime.InteropServices;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
 
+    using YAF.UrlRewriter;
     using YAF.UrlRewriter.Utilities;
 
     /// <summary>
@@ -82,16 +83,34 @@ namespace YAF.UrlRewriter
             return this.ClientID;
         }
 
+        /// <summary>
+        /// The get name.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string GetName()
         {
             return this.Name;
         }
 
+        /// <summary>
+        /// The get method.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string GetMethod()
         {
             return this.Method;
         }
 
+        /// <summary>
+        /// The get action.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string GetAction()
         {
             return RewriterHttpModule.RawUrl;
