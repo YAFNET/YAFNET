@@ -238,6 +238,20 @@
     <Compile Include="controls\CookieConsent.ascx.designer.cs">
       <DependentUpon>CookieConsent.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\UserMedalEdit.ascx.cs">
+      <DependentUpon>UserMedalEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UserMedalEdit.ascx.designer.cs">
+      <DependentUpon>UserMedalEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\GroupMedalEdit.ascx.cs">
+      <DependentUpon>GroupMedalEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\GroupMedalEdit.ascx.designer.cs">
+      <DependentUpon>GroupMedalEdit.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\QuickReply.ascx.cs">
       <DependentUpon>QuickReply.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1767,6 +1781,8 @@
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\CookieConsent.ascx" />
+    <Content Include="Dialogs\UserMedalEdit.ascx" />
+    <Content Include="Dialogs\GroupMedalEdit.ascx" />
     <Content Include="Dialogs\QuickReply.ascx" />
     <Content Include="Dialogs\AttachmentsUpload.ascx" />
     <Content Include="controls\BuddyList.ascx" />
@@ -2325,6 +2341,7 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\ckeditor\vendor\promise.js" />
     <Content Include="Scripts\cookiealert-standalone.js" />
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
@@ -3337,7 +3354,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
