@@ -79,7 +79,9 @@
             <YAF:ThemeButton ID="QuickReplyLink1" runat="server"
                 Type="Primary"
                 TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                Icon="reply" DataTarget="QuickReplyDialog" CssClass="mt-1" />
+                Icon="reply" 
+                             DataToggle="modal"
+                             DataTarget="QuickReplyDialog" CssClass="mt-1" />
         </div>
     </div>
 </div>
@@ -262,7 +264,8 @@
             <YAF:ThemeButton ID="QuickReplyLink2" runat="server" 
                              Type="Primary"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                             Icon="reply" 
+                             Icon="reply"  
+                             DataToggle="modal" 
                              DataTarget="QuickReplyDialog"
                              CssClass="mt-1"/>
     </div>

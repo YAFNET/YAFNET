@@ -48,10 +48,8 @@ namespace YAF.Pages.Admin
     {
         #region Methods
 
-        /// <summary>
-        /// Löst das <see cref="E:System.Web.UI.Control.Init" />-Ereignis aus.
-        /// </summary>
-        /// <param name="e">Ein <see cref="T:System.EventArgs" />-Objekt, das die Ereignisdaten enthält.</param>
+        /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.commit.Click += this.CommitClick;

@@ -53,14 +53,27 @@
                 </ul>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
-                                     Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" 
+                                     CommandName='add' 
+                                     ID="Linkbutton3" 
+                                     Type="Primary"
+                                     Icon="plus-square" 
+                                     TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
                     &nbsp;
-                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="ExtensionsImportDialog"  ID="Linkbutton5" Type="Info"
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="upload"   
+                                     DataToggle="modal" 
+                                     DataTarget="ExtensionsImportDialog"
+                                     ID="Linkbutton5" 
+                                     Type="Info"
                                      TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_EXTENSIONS"> </YAF:ThemeButton>
                     &nbsp;
-                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" Type="Warning"
-                                     Icon="download" TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" 
+                                     CommandName='export' 
+                                     ID="Linkbutton4" 
+                                     Type="Warning"
+                                     Icon="download" 
+                                     TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
         	 </FooterTemplate>
     	 </asp:Repeater>
                 </div>

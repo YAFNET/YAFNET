@@ -56,11 +56,20 @@
 					<YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
 					                 Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_REPLACEWORDS"> </YAF:ThemeButton>
 					&nbsp;
-					<YAF:ThemeButton runat="server" Icon="upload" DataTarget="ReplaceWordsImportDialog" ID="Linkbutton5" Type="Info"
+					<YAF:ThemeButton runat="server" 
+                                     Icon="upload"   
+                                     DataToggle="modal" 
+                                     DataTarget="ReplaceWordsImportDialog" 
+                                     ID="Linkbutton5" 
+                                     Type="Info"
 					                 TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_REPACEWORDS"></YAF:ThemeButton>
 					&nbsp;
-					<YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" Type="Warning"
-					                 Icon="download" TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_REPLACEWORDS"></YAF:ThemeButton>
+					<YAF:ThemeButton runat="server" 
+                                     CommandName='export' 
+                                     ID="Linkbutton4" 
+                                     Type="Warning"
+					                 Icon="download" 
+                                     TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_REPLACEWORDS"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

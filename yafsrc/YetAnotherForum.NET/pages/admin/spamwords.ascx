@@ -72,14 +72,25 @@
                 </ul>
 			</div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton runat="server" Icon="plus-square" Type="Primary"
-                                     TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS" CommandName="add"></YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="plus-square" 
+                                     Type="Primary"
+                                     TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS" 
+                                     CommandName="add"></YAF:ThemeButton>
 					&nbsp;
-                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="SpamWordsImportDialog" Type="Info"
-                        TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_SPAMWORDS"></YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="upload"   
+                                     DataToggle="modal" 
+                                     DataTarget="SpamWordsImportDialog" 
+                                     Type="Info"
+                                     TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_SPAMWORDS"></YAF:ThemeButton>
 					&nbsp;
-					<YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
-                        Type="Warning" Icon="download" TextLocalizedPage="ADMIN_SPAMWORDS" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
+					<YAF:ThemeButton runat="server" 
+                                     CommandName='export' 
+                                     ID="Linkbutton4"
+                                     Type="Warning" 
+                                     Icon="download" 
+                                     TextLocalizedPage="ADMIN_SPAMWORDS" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </div>
 		</FooterTemplate>

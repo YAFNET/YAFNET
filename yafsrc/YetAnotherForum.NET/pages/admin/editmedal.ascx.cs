@@ -35,6 +35,7 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -76,54 +77,12 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The current medal identifier.
         /// </value>
-        protected int? CurrentMedalId => this.Request.QueryString.GetFirstOrDefault("medalid") != null
-                                             ? this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int?>()
-                                             : null;
+        protected int? CurrentMedalId =>
+            this.Request.QueryString.GetFirstOrDefault("medalid") != null
+                ? this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int?>()
+                : null;
 
         #region Methods
-
-        /// <summary>
-        /// Hides group add/edit controls.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddGroupCancelClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // set visibility
-            this.AddGroupRow.Visible = true;
-            this.AddGroupPanel.Visible = false;
-        }
-
-        /// <summary>
-        /// Handles click on save group button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddGroupSaveClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // test if there is specified unsername/user id
-            if (this.AvailableGroupList.SelectedIndex < 0)
-            {
-                // no group selected
-                this.PageContext.AddLoadMessage("Please select user group!", MessageTypes.warning);
-                return;
-            }
-
-            // save group, if there is no message specified, pass null
-            this.GetRepository<Medal>().GroupMedalSave(
-              this.AvailableGroupList.SelectedValue,
-              this.CurrentMedalId,
-              this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
-              this.GroupHide.Checked,
-              this.GroupOnlyRibbon.Checked,
-              this.GroupSortOrder.Text);
-
-            // disable/hide edit controls
-            this.AddGroupCancelClick(sender, e);
-
-            // re-bind data
-            this.BindData();
-        }
 
         /// <summary>
         /// Handles click on add group button.
@@ -135,107 +94,11 @@ namespace YAF.Pages.Admin
         /// </remarks>
         protected void AddGroupClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // set title
-            this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_TOGROUP");
+            this.GroupEditDialog.BindData(null, null);
 
-            // clear controls
-            this.AvailableGroupList.SelectedIndex = -1;
-            this.GroupMessage.Text = null;
-            this.GroupOnlyRibbon.Checked = false;
-            this.GroupHide.Checked = false;
-            this.GroupSortOrder.Text = this.SortOrder.Text;
-
-            // set controls visibility and availability
-            this.AvailableGroupList.Enabled = true;
-
-            // show editing controls and hide row with add user button
-            this.AddGroupRow.Visible = false;
-            this.AddGroupPanel.Visible = true;
-
-            // focus on save button
-            this.AddGroupSave.Focus();
-        }
-
-        /// <summary>
-        /// Hides user add/edit controls.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddUserCancelClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // set visibility
-            this.AddUserRow.Visible = true;
-            this.AddUserPanel.Visible = false;
-        }
-
-        /// <summary>
-        /// Handles click on save user button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddUserSaveClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // test if there is specified unsername/user id
-            if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet() && this.UserName.Text.IsNotSet())
-            {
-                // no username, nor userID specified
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.warning);
-                return;
-            }
-
-            if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
-            {
-                // only username is specified, we must find id for it
-                var users = this.GetRepository<User>()
-                    .FindUserTyped(filter: true, userName: this.UserName.Text, displayName: this.UserName.Text);
-
-                if (users.Count > 1)
-                {
-                    // more than one user is avalilable for this username
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"), MessageTypes.warning);
-                    return;
-                }
-
-                if (!users.Any())
-                {
-                    // no user found
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.warning);
-                    return;
-                }
-
-                // save id to the control
-                this.UserID.Text = users.First().ID.ToString();
-            }
-            else if (this.UserID.Text.IsNotSet())
-            {
-                // user is selected in dropdown, we must get id to UserID control
-                this.UserID.Text = this.UserNameList.SelectedValue;
-            }
-
-            // save user, if there is no message specified, pass null
-            this.GetRepository<UserMedal>().Save(
-              this.UserID.Text.ToType<int>(),
-              this.CurrentMedalId,
-              this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
-              this.UserHide.Checked,
-              this.UserOnlyRibbon.Checked,
-              this.UserSortOrder.Text.ToType<int>(),
-              null);
-
-            if (this.Get<YafBoardSettings>().EmailUserOnMedalAward)
-            {
-                this.Get<ISendNotification>().ToUserWithNewMedal(
-                    this.UserID.Text.ToType<int>(), this.Name.Text);
-            }
-
-            // disable/hide edit controls
-            this.AddUserCancelClick(sender, e);
-
-            // clear cache...
-            this.RemoveUserFromCache(this.UserID.Text.ToType<int>());
-
-            // re-bind data
-            this.BindData();
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("GroupEditDialog"));
         }
 
         /// <summary>
@@ -248,34 +111,11 @@ namespace YAF.Pages.Admin
         /// </remarks>
         protected void AddUserClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // set title
-            this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_TOUSER");
+            this.UserEditDialog.BindData(null, null);
 
-            // clear controls
-            this.UserID.Text = null;
-            this.UserName.Text = null;
-            this.UserNameList.Items.Clear();
-            this.UserMessage.Text = null;
-            this.UserOnlyRibbon.Checked = false;
-            this.UserHide.Checked = false;
-            this.UserSortOrder.Text = this.SortOrder.Text;
-
-            // set controls visibility and availability
-            this.UserName.Enabled = true;
-            this.UserName.Visible = true;
-            this.UserNameList.Visible = false;
-            this.FindUsers.Visible = true;
-            this.Clear.Visible = false;
-
-            // show editing controls and hide row with add user button
-            this.AddUserRow.Visible = false;
-            this.AddUserPanel.Visible = true;
-
-            // focus on save button
-            this.AddUserSave.Focus();
-
-            // disable global save button to prevent confusion
-            // this.Save.Enabled = false;
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
 
         /// <summary>
@@ -290,29 +130,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles clear button click event.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void ClearClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // clear drop down
-            this.UserNameList.Items.Clear();
-
-            // hide it and show empty UserName text box
-            this.UserNameList.Visible = false;
-            this.UserName.Text = null;
-            this.UserName.Visible = true;
-            this.UserID.Text = null;
-
-            // show find users and all users (if user is admin)
-            this.FindUsers.Visible = true;
-
-            // clear button is not necessary now
-            this.Clear.Visible = false;
-        }
-
-        /// <summary>
         /// Creates page links for this page.
         /// </summary>
         protected override void CreatePageLinks()
@@ -321,48 +138,19 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             // administration index
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_medals));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_MEDALS", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.admin_medals));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITMEDAL", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
                 $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_MEDALS", "TITLE")} - {this.GetText("ADMIN_EDITMEDAL", "TITLE")}";
-        }
-
-        /// <summary>
-        /// Handles find users button click event.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void FindUsersClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // try to find users by user name
-            var users = this.GetRepository<User>()
-                    .FindUserTyped(filter: true, userName: this.UserName.Text, displayName: this.UserName.Text);
-
-            if (!users.Any())
-            {
-                return;
-            }
-
-            // we found a user(s)
-            this.UserNameList.DataSource = users;
-            this.UserNameList.DataValueField = "UserID";
-            this.UserNameList.DataTextField = "Name";
-            this.UserNameList.DataBind();
-
-            // hide To text box and show To drop down
-            this.UserNameList.Visible = true;
-            this.UserName.Visible = false;
-
-            // find is no more needed
-            this.FindUsers.Visible = false;
-
-            // we need clear button displayed now
-            this.Clear.Visible = true;
         }
 
         /// <summary>
@@ -379,7 +167,9 @@ namespace YAF.Pages.Admin
             var dr = (DataRowView)data;
 
             return string.Format(
-              "<a href=\"{1}\">{0}</a>", dr["GroupName"], YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
+                "<a href=\"{1}\">{0}</a>",
+                dr["GroupName"],
+                YafBuildLink.GetLink(ForumPages.admin_editgroup, "i={0}", dr["GroupID"]));
         }
 
         /// <summary>
@@ -396,7 +186,10 @@ namespace YAF.Pages.Admin
             var dr = (DataRowView)data;
 
             return string.Format(
-              "<a href=\"{2}\">{0}({1})</a>", this.HtmlEncode(dr["DisplayName"]), this.HtmlEncode(dr["UserName"]), YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
+                "<a href=\"{2}\">{0}({1})</a>",
+                this.HtmlEncode(dr["DisplayName"]),
+                this.HtmlEncode(dr["UserName"]),
+                YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));
         }
 
         /// <summary>
@@ -409,32 +202,11 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
+                    this.GroupEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
 
-                    // load group-medal to the controls
-                    using (var dt = this.GetRepository<Medal>().GroupMedalListAsDataTable(e.CommandArgument, this.CurrentMedalId))
-                    {
-                        // prepare editing interface
-                        this.AddGroupClick(null, e);
-
-                        // tweak it for editing
-                        this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_GROUP");
-                        this.AvailableGroupList.Enabled = false;
-
-                        // we are intereseted inly in first row
-                        var r = dt.Rows[0];
-
-                        // load data to controls
-                        this.AvailableGroupList.SelectedIndex = -1;
-                        this.AvailableGroupList.Items.FindByValue(r["GroupID"].ToString()).Selected = true;
-                        this.GroupMessage.Text = r["MessageEx"].ToString();
-                        this.GroupSortOrder.Text = r["SortOrder"].ToString();
-                        this.GroupOnlyRibbon.Checked = r["OnlyRibbon"].ToType<bool>();
-                        this.GroupHide.Checked = r["Hide"].ToType<bool>();
-
-                        // remove all user medals...
-                        this.RemoveMedalsFromCache();
-                    }
-
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("GroupEditDialog"));
                     break;
                 case "remove":
                     this.GetRepository<GroupMedal>().Delete(
@@ -487,17 +259,7 @@ namespace YAF.Pages.Admin
         protected void RemoveMedalsFromCache()
         {
             // remove all user medals...
-          this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
-        }
-
-        /// <summary>
-        /// Removes an individual user from the cache...
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        protected void RemoveUserFromCache(int userId)
-        {
-            // remove user from cache...
-            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.UserMedals, userId));
+            this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
         }
 
         /// <summary>
@@ -515,7 +277,9 @@ namespace YAF.Pages.Admin
 
             if (this.SmallMedalImage.SelectedIndex <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_SMALL_IMAGE"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITMEDAL", "MSG_SMALL_IMAGE"),
+                    MessageTypes.warning);
                 return;
             }
 
@@ -529,7 +293,9 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"),
+                    MessageTypes.warning);
                 return;
             }
 
@@ -543,7 +309,7 @@ namespace YAF.Pages.Admin
             string ribbonUrl = null, smallRibbonUrl = null;
             short? ribbonWidth = null, ribbonHeight = null;
             Size imageSize;
-            
+
             // flags
             var flags = new MedalFlags(0)
                             {
@@ -605,30 +371,11 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
+                    this.UserEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
 
-                    // load user-medal to the controls
-                    using (var dt = this.GetRepository<UserMedal>().ListAsDataTable(e.CommandArgument.ToType<int>(), this.CurrentMedalId))
-                    {
-                        // prepare editing interface
-                        this.AddUserClick(null, e);
-
-                        // tweak it for editing
-                        this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_USER");
-                        this.UserName.Enabled = false;
-                        this.FindUsers.Visible = false;
-
-                        // we are intereseted inly in first row
-                        var r = dt.Rows[0];
-
-                        // load data to controls
-                        this.UserID.Text = r["UserID"].ToString();
-                        this.UserName.Text = r["UserName"].ToString();
-                        this.UserMessage.Text = r["MessageEx"].ToString();
-                        this.UserSortOrder.Text = r["SortOrder"].ToString();
-                        this.UserOnlyRibbon.Checked = r["OnlyRibbon"].ToType<bool>();
-                        this.UserHide.Checked = r["Hide"].ToType<bool>();
-                    }
-
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("UserEditDialog"));
                     break;
                 case "remove":
 
@@ -638,7 +385,8 @@ namespace YAF.Pages.Admin
                                  && medal.MedalID == this.CurrentMedalId);
 
                     // clear cache...
-                    this.RemoveUserFromCache(this.CurrentMedalId.Value);
+                    this.Get<IDataCache>().Remove(
+                        string.Format(Constants.Cache.UserMedals, e.CommandArgument.ToType<int>()));
                     this.BindData();
                     break;
             }
@@ -669,22 +417,22 @@ namespace YAF.Pages.Admin
                 // add blank row
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
-                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                dr["FileName"] =
+                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE");
                 dt.Rows.Add(dr);
 
                 // add files from medals folder
-                var dir =
-                  new DirectoryInfo(
+                var dir = new DirectoryInfo(
                     this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}"));
                 var files = dir.GetFiles("*.*");
 
                 long fileId = 1;
 
                 foreach (var file in from file in files
-                                          let sExt = file.Extension.ToLower()
-                                          where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
-                                          select file)
+                                     let sExt = file.Extension.ToLower()
+                                     where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
+                                     select file)
                 {
                     dr = dt.NewRow();
                     dr["FileID"] = fileId++;
@@ -724,12 +472,9 @@ namespace YAF.Pages.Admin
                 this.UserList.DataSource = this.GetRepository<UserMedal>().ListAsDataTable(null, this.CurrentMedalId);
                 this.UserList.DataBind();
 
-                this.GroupList.DataSource = this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
+                this.GroupList.DataSource =
+                    this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
                 this.GroupList.DataBind();
-
-                // enable adding users/groups
-                this.AddUserRow.Visible = true;
-                this.AddGroupRow.Visible = true;
 
                 using (var dt = this.GetRepository<Medal>().List(this.CurrentMedalId))
                 {
@@ -756,20 +501,12 @@ namespace YAF.Pages.Admin
                     this.SelectImage(this.SmallMedalImage, this.SmallMedalPreview, row["SmallMedalURL"]);
                     this.SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, row["SmallRibbonURL"]);
                 }
-
-                var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
-
-                this.AvailableGroupList.DataSource = groups;
-
-                this.AvailableGroupList.DataTextField = "Name";
-                this.AvailableGroupList.DataValueField = "ID";
-
-                this.AvailableGroupList.DataBind();
             }
             else
             {
                 // set all previews on blank image
-                var spacerPath = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                var spacerPath =
+                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
 
                 this.MedalPreview.Src = spacerPath;
                 this.RibbonPreview.Src = spacerPath;
@@ -789,10 +526,8 @@ namespace YAF.Pages.Admin
         /// </returns>
         private Size GetImageSize([NotNull] string filename)
         {
-            using (
-              var img =
-                Image.FromFile(
-                  this.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}/{filename}")))
+            using (var img = Image.FromFile(
+                this.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}/{filename}")))
             {
                 return img.Size;
             }
@@ -856,8 +591,7 @@ namespace YAF.Pages.Admin
         {
             // create javascript
             imageSelector.Attributes["onchange"] =
-              string.Format(
-                "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot,YafBoardFolders.Current.Medals, imagePreview.ClientID);
+                $"getElementById('{imagePreview.ClientID}').src='{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Medals}/' + this.value";
         }
 
         #endregion

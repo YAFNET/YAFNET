@@ -66,7 +66,9 @@
                                          CssClass="mt-1"
                                          TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_BBCODE" />
                         <YAF:ThemeButton runat="server" Icon="upload" 
-                                         DataTarget="BBCodeImportDialog" ID="Linkbutton5" 
+                                         DataTarget="BBCodeImportDialog"  
+                                         DataToggle="modal"  
+                                         ID="Linkbutton5" 
                                          Type="Info"
                                          CssClass="mt-1"
                                          TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_BBCODE" />

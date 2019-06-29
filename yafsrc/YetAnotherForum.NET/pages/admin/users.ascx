@@ -144,7 +144,8 @@
                     <YAF:ThemeButton id="SyncUsers" OnClick="SyncUsersClick" runat="server" Type="Secondary"
                                      Icon="sync" TextLocalizedTag="SYNC_ALL" TextLocalizedPage="ADMIN_USERS" ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'></YAF:ThemeButton>
                 &nbsp;
-                    <YAF:ThemeButton id="ImportUsers" Icon="upload" DataTarget="UsersImportDialog" runat="server" Type="Info"
+                    <YAF:ThemeButton id="ImportUsers" Icon="upload" DataTarget="UsersImportDialog" runat="server"  
+                                     DataToggle="modal" Type="Info"
                                      TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 &nbsp;
                 </asp:PlaceHolder>

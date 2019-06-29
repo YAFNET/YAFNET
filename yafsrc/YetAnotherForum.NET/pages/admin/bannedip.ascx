@@ -110,6 +110,7 @@
                     &nbsp;
                     <YAF:ThemeButton runat="server" 
                                      Icon="upload" 
+                                     DataToggle="modal" 
                                      DataTarget="ImportDialog" 
                                      Type="Info"
                                      CssClass="mt-1"

@@ -45,7 +45,7 @@
 		<asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
             <ul class="list-group">
-			</HeaderTemplate>
+		</HeaderTemplate>
 		<ItemTemplate>
             <li class="list-group-item list-group-item-action">
                 <asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
@@ -72,13 +72,17 @@
                                      CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                                      TextLocalizedTag="EDIT"
                                      TitleLocalizedTag="EDIT" 
-                                     Icon="edit" runat="server"></YAF:ThemeButton>
+                                     Icon="edit" runat="server">
+                    </YAF:ThemeButton>
                     <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                     Type="Danger" Size="Small" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
+                                     Type="Danger" 
+                                     Size="Small" 
+                                     CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
                                      TextLocalizedTag="DELETE" 
                                      ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
                                      TitleLocalizedTag="DELETE"
-                                     Icon="trash" runat="server"></YAF:ThemeButton>
+                                     Icon="trash" runat="server">
+                    </YAF:ThemeButton>
                 </small>
             </li>
 			</ItemTemplate>
@@ -91,20 +95,24 @@
                                      Type="Primary"
                                      TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDEMAIL" 
                                      CssClass="mt-1"
-                                     CommandName="add"></YAF:ThemeButton>
+                                     CommandName="add">
+                    </YAF:ThemeButton>
                     &nbsp;
                     <YAF:ThemeButton runat="server" 
-                                     Icon="upload" 
-                                     DataTarget="ImportDialog" 
+                                     Icon="upload"
+                                     DataTarget="ImportDialog"
+                                     DataToggle="modal"
                                      Type="Info"
                                      CssClass="mt-1"
-                                     TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDEMAIL"></YAF:ThemeButton>
+                                     TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDEMAIL">
+                    </YAF:ThemeButton>
                     &nbsp;
                     <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
                                      Type="Warning" 
                                      Icon="download"
                                      CssClass="mt-1"
-                                     TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
+                                     TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT">
+                    </YAF:ThemeButton>
                 </div>
             </div>
 

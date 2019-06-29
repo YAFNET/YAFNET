@@ -4,7 +4,9 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
     <div class="row">
     <div class="col-xl-12">
-         <h1><yaf:localizedlabel id="LocalizedLabel1" runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel></h1>
+         <h1><yaf:localizedlabel id="LocalizedLabel1" runat="server" 
+                                 LocalizedTag="TITLE" 
+                                 Localizedpage="ADMIN_VERSION"></yaf:localizedlabel></h1>
     </div>
 </div>
 <div class="row">

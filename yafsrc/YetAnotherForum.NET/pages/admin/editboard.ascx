@@ -32,9 +32,9 @@
             <h4>
                 <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="THREADED" LocalizedPage="ADMIN_EDITBOARD" />
             </h4>
-            <p>
-                <asp:CheckBox runat="server" ID="AllowThreaded" CssClass="form-control" />
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox runat="server" ID="AllowThreaded" Text="&nbsp;" />
+            </div><hr />
         <asp:PlaceHolder runat="server" ID="BoardMembershipAppNameHolder">
             <h4>
                 <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="MEMBSHIP_APP_NAME" LocalizedPage="ADMIN_EDITBOARD" />
@@ -47,9 +47,12 @@
             <h4>
                 <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="ADMIN_USER" LocalizedPage="ADMIN_EDITBOARD" />
             </h4>
-            <p>
-                <asp:CheckBox runat="server" ID="CreateAdminUser" AutoPostBack="true" OnCheckedChanged="CreateAdminUserCheckedChanged" CssClass="form-control" />
-            </p><hr />
+            <div class="custom-control custom-switch">
+                <asp:CheckBox runat="server" ID="CreateAdminUser" 
+                              AutoPostBack="true" 
+                              OnCheckedChanged="CreateAdminUserCheckedChanged" 
+                              Text="&nbsp;" />
+            </div><hr />
         </asp:PlaceHolder>
         <asp:PlaceHolder runat="server" ID="AdminInfo" Visible="false">
                 <h3>

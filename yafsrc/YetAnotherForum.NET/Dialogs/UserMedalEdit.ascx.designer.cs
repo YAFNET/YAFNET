@@ -7,117 +7,153 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
+namespace YAF.Dialogs {
     
     
-    public partial class spamwords {
+    public partial class UserMedalEdit {
         
         /// <summary>
-        /// PageLinks control.
+        /// UserMedalEditTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::System.Web.UI.WebControls.Label UserMedalEditTitle;
         
         /// <summary>
-        /// LocalizedLabel1 control.
+        /// HelpLabel23 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.HelpLabel HelpLabel23;
         
         /// <summary>
-        /// LocalizedLabelRequirementsText control.
+        /// UserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabelRequirementsText;
+        protected global::System.Web.UI.WebControls.TextBox UserName;
         
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// UserNameList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::System.Web.UI.WebControls.DropDownList UserNameList;
         
         /// <summary>
-        /// LocalizedLabel12 control.
+        /// FindUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Controls.ThemeButton FindUsers;
         
         /// <summary>
-        /// SearchInput control.
+        /// Clear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SearchInput;
+        protected global::YAF.Controls.ThemeButton Clear;
         
         /// <summary>
-        /// search control.
+        /// UserID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton search;
+        protected global::System.Web.UI.WebControls.TextBox UserID;
         
         /// <summary>
-        /// PagerTop control.
+        /// HelpLabel19 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerTop;
+        protected global::YAF.Controls.HelpLabel HelpLabel19;
         
         /// <summary>
-        /// list control.
+        /// UserMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater list;
+        protected global::System.Web.UI.WebControls.TextBox UserMessage;
         
         /// <summary>
-        /// PagerBottom control.
+        /// HelpLabel20 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerBottom;
+        protected global::YAF.Controls.HelpLabel HelpLabel20;
         
         /// <summary>
-        /// ImportDialog control.
+        /// UserSortOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Dialogs.SpamWordsImport ImportDialog;
+        protected global::System.Web.UI.WebControls.TextBox UserSortOrder;
         
         /// <summary>
-        /// EditDialog control.
+        /// HelpLabel21 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Dialogs.SpamWordsEdit EditDialog;
+        protected global::YAF.Controls.HelpLabel HelpLabel21;
+        
+        /// <summary>
+        /// UserOnlyRibbon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UserOnlyRibbon;
+        
+        /// <summary>
+        /// HelpLabel22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel22;
+        
+        /// <summary>
+        /// UserHide control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UserHide;
+        
+        /// <summary>
+        /// AddUserSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton AddUserSave;
     }
 }

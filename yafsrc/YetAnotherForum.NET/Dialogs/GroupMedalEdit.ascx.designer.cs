@@ -7,117 +7,117 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
+namespace YAF.Dialogs {
     
     
-    public partial class spamwords {
+    public partial class GroupMedalEdit {
         
         /// <summary>
-        /// PageLinks control.
+        /// GroupMedalEditTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::System.Web.UI.WebControls.Label GroupMedalEditTitle;
         
         /// <summary>
-        /// LocalizedLabel1 control.
+        /// HelpLabel14 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Controls.HelpLabel HelpLabel14;
         
         /// <summary>
-        /// LocalizedLabelRequirementsText control.
+        /// AvailableGroupList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabelRequirementsText;
+        protected global::System.Web.UI.WebControls.DropDownList AvailableGroupList;
         
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// HelpLabel15 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.HelpLabel HelpLabel15;
         
         /// <summary>
-        /// LocalizedLabel12 control.
+        /// GroupMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
+        protected global::System.Web.UI.WebControls.TextBox GroupMessage;
         
         /// <summary>
-        /// SearchInput control.
+        /// HelpLabel16 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SearchInput;
+        protected global::YAF.Controls.HelpLabel HelpLabel16;
         
         /// <summary>
-        /// search control.
+        /// GroupSortOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton search;
+        protected global::System.Web.UI.WebControls.TextBox GroupSortOrder;
         
         /// <summary>
-        /// PagerTop control.
+        /// HelpLabel17 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerTop;
+        protected global::YAF.Controls.HelpLabel HelpLabel17;
         
         /// <summary>
-        /// list control.
+        /// GroupOnlyRibbon control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater list;
+        protected global::System.Web.UI.WebControls.CheckBox GroupOnlyRibbon;
         
         /// <summary>
-        /// PagerBottom control.
+        /// HelpLabel18 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerBottom;
+        protected global::YAF.Controls.HelpLabel HelpLabel18;
         
         /// <summary>
-        /// ImportDialog control.
+        /// GroupHide control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Dialogs.SpamWordsImport ImportDialog;
+        protected global::System.Web.UI.WebControls.CheckBox GroupHide;
         
         /// <summary>
-        /// EditDialog control.
+        /// AddGroupSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Dialogs.SpamWordsEdit EditDialog;
+        protected global::YAF.Controls.ThemeButton AddGroupSave;
     }
 }
