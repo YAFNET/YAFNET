@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.im_xmpp" Codebehind="im_xmpp.ascx.cs" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">

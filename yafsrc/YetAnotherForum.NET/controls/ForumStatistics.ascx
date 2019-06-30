@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
-    Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
 
 
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">

@@ -109,7 +109,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Statistics.MostActiveUsers MostActiveList;
+        protected global::YAF.Controls.MostActiveUsers MostActiveList;
         
         /// <summary>
         /// StatsHeader control.
@@ -119,15 +119,6 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel StatsHeader;
-        
-        /// <summary>
-        /// StatsPostsTopicCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatsPostsTopicCount;
         
         /// <summary>
         /// StatsLastPostHolder control.
@@ -218,5 +209,14 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel StatsSpamReported;
+        
+        /// <summary>
+        /// StatsPostsTopicCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label StatsPostsTopicCount;
     }
 }

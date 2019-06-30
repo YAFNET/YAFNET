@@ -1,6 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersAvatar" Codebehind="EditUsersAvatar.ascx.cs" %>
 
+
 <div class="row">
     <div class="col-xl-12">
         <h2>

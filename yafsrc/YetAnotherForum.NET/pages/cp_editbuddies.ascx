@@ -2,6 +2,7 @@
     Inherits="YAF.Pages.cp_editbuddies" Codebehind="cp_editbuddies.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">

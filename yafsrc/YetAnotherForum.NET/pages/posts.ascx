@@ -11,6 +11,7 @@
 <%@ Register TagPrefix="YAF" TagName="SimilarTopics" Src="../controls/SimilarTopics.ascx" %>
 <%@ Register TagPrefix="modal" TagName="QuickReply" Src="../Dialogs/QuickReply.ascx" %>
 
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <YAF:PollList ID="PollList" TopicId='<%# this.PageContext.PageTopicID %>' 

@@ -2,6 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.ReportedPosts" Codebehind="ReportedPosts.ascx.cs" %>
 
+
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 

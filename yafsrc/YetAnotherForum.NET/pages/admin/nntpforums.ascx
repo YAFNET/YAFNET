@@ -2,6 +2,7 @@
     CodeBehind="nntpforums.ascx.cs" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/NntpForumEdit.ascx" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">

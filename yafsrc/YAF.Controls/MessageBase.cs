@@ -103,56 +103,55 @@ namespace YAF.Controls
             var workingMessage = messageStr;
 
             // handle custom bbcodes row by row...
-            foreach (var keyPair in this.CustomBBCode)
-            {
-                var codeRow = keyPair.Key;
-
-                Match match = null;
-
-                do
-                {
-                    match = keyPair.Value.Match(workingMessage);
-
-                    if (!match.Success)
+            this.CustomBBCode.ForEach(
+                keyPair =>
                     {
-                        continue;
-                    }
+                        var codeRow = keyPair.Key;
 
-                    var sb = new StringBuilder();
+                        Match match = null;
 
-                    var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
-
-                    if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
-                    {
-                        var vars = codeRow.Variables.Split(';');
-
-                        foreach (var v in vars.Where(v => match.Groups[v] != null))
+                        do
                         {
-                            paramDic.Add(v, match.Groups[v].Value);
+                            match = keyPair.Value.Match(workingMessage);
+
+                            if (!match.Success)
+                            {
+                                continue;
+                            }
+
+                            var sb = new StringBuilder();
+
+                            var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
+
+                            if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
+                            {
+                                var vars = codeRow.Variables.Split(';');
+
+                                vars.Where(v => match.Groups[v] != null).ForEach(
+                                    v => paramDic.Add(v, match.Groups[(string)v].Value));
+                            }
+
+                            sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
+
+                            // create/render the control...
+                            var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
+                            var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
+
+                            // assign parameters...
+                            customModule.CurrentMessageFlags = theseFlags;
+                            customModule.DisplayUserID = displayUserId;
+                            customModule.MessageID = messageId;
+                            customModule.Parameters = paramDic;
+
+                            // render this control...
+                            sb.Append(customModule.RenderToString());
+
+                            sb.Append(workingMessage.Substring(match.Groups[0].Index + match.Groups[0].Length));
+
+                            workingMessage = sb.ToString();
                         }
-                    }
-
-                    sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
-
-                    // create/render the control...
-                    var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
-                    var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
-
-                    // assign parameters...
-                    customModule.CurrentMessageFlags = theseFlags;
-                    customModule.DisplayUserID = displayUserId;
-                    customModule.MessageID = messageId;
-                    customModule.Parameters = paramDic;
-
-                    // render this control...
-                    sb.Append(customModule.RenderToString());
-
-                    sb.Append(workingMessage.Substring(match.Groups[0].Index + match.Groups[0].Length));
-
-                    workingMessage = sb.ToString();
-                }
-                while (match.Success);
-            }
+                        while (match.Success);
+                    });
 
             writer.Write(workingMessage);
         }

@@ -7,6 +7,7 @@
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/BannedNameEdit.ascx" %>
 
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">

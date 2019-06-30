@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cp_message" Codebehind="cp_message.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 

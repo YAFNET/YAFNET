@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.avatar" Codebehind="avatar.ascx.cs" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">

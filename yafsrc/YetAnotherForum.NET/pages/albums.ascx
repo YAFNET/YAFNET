@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Albums" Codebehind="albums.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="AlbumList" Src="../controls/AlbumList.ascx" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">

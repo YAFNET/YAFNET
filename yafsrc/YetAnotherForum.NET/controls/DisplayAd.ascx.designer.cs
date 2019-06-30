@@ -8,8 +8,7 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+
     public partial class DisplayAd {
         
 

@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Controls.Statistics
+namespace YAF.Controls
 {
     #region Using
 

@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.pageaccessedit" Codebehind="pageaccessedit.ascx.cs" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">

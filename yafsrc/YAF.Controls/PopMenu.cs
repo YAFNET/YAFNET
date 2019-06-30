@@ -207,11 +207,7 @@ namespace YAF.Controls
         /// </param>
         public void RemovePostBackItem([NotNull] string argument)
         {
-            foreach (var item in this.items.Where(item => item.PostBackArgument == argument))
-            {
-                this.items.Remove(item);
-                break;
-            }
+            this.items.Where(item => item.PostBackArgument == argument).ForEach(item => this.items.Remove(item));
         }
 
         #endregion

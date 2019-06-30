@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.mail" Codebehind="mail.ascx.cs" %>
 
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
     <div class="row">

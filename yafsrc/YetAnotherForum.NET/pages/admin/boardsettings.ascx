@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boardsettings"CodeBehind="boardsettings.ascx.cs" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">

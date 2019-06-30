@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/SpamWordsImport.ascx" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/SpamWordsEdit.ascx" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">

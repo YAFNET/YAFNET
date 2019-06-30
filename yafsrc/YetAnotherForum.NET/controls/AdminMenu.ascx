@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdminMenu.ascx.cs" Inherits="YAF.Controls.AdminMenu" %>
+
 <%@ Import Namespace="YAF.Types.Constants" %>
 
 <li class="nav-item dropdown">

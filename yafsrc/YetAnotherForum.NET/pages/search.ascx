@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.search" CodeBehind="search.ascx.cs" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <div class="input-group">

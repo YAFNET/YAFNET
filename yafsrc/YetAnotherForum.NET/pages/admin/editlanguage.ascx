@@ -1,5 +1,6 @@
 ﻿<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
 
+
 <YAF:PageLinks runat="server" id="PageLinks" />
 
     <div class="row">

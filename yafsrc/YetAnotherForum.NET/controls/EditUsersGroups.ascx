@@ -1,7 +1,8 @@
 <%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.EditUsersGroups" Codebehind="EditUsersGroups.ascx.cs" %>
 
-	<asp:Repeater ID="UserGroups" runat="server">
+
+<asp:Repeater ID="UserGroups" runat="server">
 		<HeaderTemplate>
 			
 				<h2>

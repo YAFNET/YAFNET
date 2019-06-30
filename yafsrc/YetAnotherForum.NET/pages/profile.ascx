@@ -8,6 +8,7 @@
 <%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 

@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="SimilarTopics.ascx.cs"
     Inherits="YAF.Controls.SimilarTopics" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core" %>
 

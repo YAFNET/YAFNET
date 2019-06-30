@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="modal" TagName="GroupEdit" Src="../../Dialogs/GroupMedalEdit.ascx" %>
 <%@ Register TagPrefix="modal" TagName="UserEdit" Src="../../Dialogs/UserMedalEdit.ascx" %>
 
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 

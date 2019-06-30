@@ -109,7 +109,6 @@ namespace YAF.Core.Model
                 UTCTIMESTAMP: DateTime.UtcNow);
         }
         
-
         /// <summary>
         /// The list typed.
         /// </summary>
@@ -170,7 +169,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable" /> .
         /// </returns>
-        public static DataTable ListUser(
+        public static DataTable ListUserAsDataTable(
             this IRepository<Active> repository, int userID, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");

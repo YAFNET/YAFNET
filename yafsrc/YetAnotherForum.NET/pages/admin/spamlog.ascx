@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.spamlog"
     CodeBehind="spamlog.ascx.cs" %>
 
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>

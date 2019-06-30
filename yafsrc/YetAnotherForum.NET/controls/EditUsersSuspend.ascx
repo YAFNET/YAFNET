@@ -1,7 +1,8 @@
 <%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.EditUsersSuspend" Codebehind="EditUsersSuspend.ascx.cs" %>
 
-	<h2 runat="server" id="trHeader">
+
+<h2 runat="server" id="trHeader">
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
 		</h2>
 	<hr />

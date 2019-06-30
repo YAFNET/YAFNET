@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.reguser" Codebehind="reguser.ascx.cs" %>
 
+
 <YAF:PageLinks id="PageLinks" runat="server" />
     <div class="row">
     <div class="col-xl-12">

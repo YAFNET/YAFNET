@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" CodeBehind="members.ascx.cs" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>

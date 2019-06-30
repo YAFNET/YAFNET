@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True"
     Inherits="YAF.Pages.Admin.editcategory" Codebehind="editcategory.ascx.cs" %>
 
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
     <div class="row">

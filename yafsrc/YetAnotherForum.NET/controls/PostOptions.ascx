@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostOptions"
     CodeBehind="PostOptions.ascx.cs" %>
+
 <%@ Import Namespace="ServiceStack" %>
 
 <asp:PlaceHolder id="OptionsRow" runat="server">

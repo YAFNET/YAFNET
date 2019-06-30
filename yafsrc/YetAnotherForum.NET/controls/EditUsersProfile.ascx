@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersProfile" Codebehind="EditUsersProfile.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
     <asp:PlaceHolder ID="ProfilePlaceHolder" runat="server">
 

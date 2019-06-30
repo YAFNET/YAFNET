@@ -95,8 +95,7 @@ namespace YAF.Controls
         public bool TreatGuestAsHidden
         {
             get =>
-                this.ViewState["TreatGuestAsHidden"] != null
-                && Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
+                this.ViewState["TreatGuestAsHidden"] != null && Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
 
             set => this.ViewState["TreatGuestAsHidden"] = value;
         }
@@ -123,7 +122,9 @@ namespace YAF.Controls
         /// <summary>
         /// Raises PreRender event and prepares control for rendering by creating links to active users.
         /// </summary>
-        /// <param name="e">Ein <see cref="T:System.EventArgs" />-Objekt, das die Ereignisdaten enthält.</param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // IMPORTANT : call base implementation, raises PreRender event
@@ -177,15 +178,13 @@ namespace YAF.Controls
                     userLink = new UserLink
                                    {
                                        UserID = row["UserID"].ToType<int>(),
-                                       Style =
-                                           this.Get<YafBoardSettings>().UseStyledNicks
-                                               ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                   row["Style"].ToString())
-                                               : string.Empty,
-                                       ReplaceName =
-                                           this.Get<YafBoardSettings>().EnableDisplayName
-                                               ? row["UserDisplayName"].ToString()
-                                               : row["UserName"].ToString()
+                                       Style = this.Get<YafBoardSettings>().UseStyledNicks
+                                                   ? this.Get<IStyleTransform>().DecodeStyleByString(
+                                                       row["Style"].ToString())
+                                                   : string.Empty,
+                                       ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                                                         ? row["UserDisplayName"].ToString()
+                                                         : row["UserName"].ToString()
                                    };
                     userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                 }
@@ -247,33 +246,19 @@ namespace YAF.Controls
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             // writes starting tag
-            writer.WriteLine(@"<p class=""card-text"">");
-
-            // indicates whether we are processing first active user
-            var isFirst = true;
+            writer.Write(@"<ul class=""list-inline"">");
 
             // cycle through active user links contained within this control (see OnPreRender where this links are added)
-            foreach (var control in this.Controls.Cast<Control>()
-                .Where(control => control is UserLink && control.Visible))
-            {
-                // control is visible UserLink
-                // if we are rendering other then first UserLink, write down separator first to divide it from previus link
-                if (!isFirst)
-                {
-                    writer.WriteLine(", ");
-                }
-                else
-                {
-                    // we are past first link
-                    isFirst = false;
-                }
+            this.Controls.Cast<Control>().Where(control => control is UserLink && control.Visible).ForEach(
+                control =>
+                    {
+                        writer.Write(@"<li class=""list-inline-item"">");
 
-                // render UserLink
-                control.RenderControl(writer);
-            }
+                        // render UserLink
+                        control.RenderControl(writer);
 
-            // write ending tag
-            writer.WriteLine("</p>");
+                        writer.Write(@"</li>");
+                    });
         }
 
         #endregion

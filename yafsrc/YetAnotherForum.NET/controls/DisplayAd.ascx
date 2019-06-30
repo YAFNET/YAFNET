@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd"
     EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
 
+
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">

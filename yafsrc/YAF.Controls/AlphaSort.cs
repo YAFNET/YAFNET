@@ -97,39 +97,43 @@ namespace YAF.Controls
             // get the localized character set
             var charSet = this.GetText("LANGUAGE", "CHARSET").Split('/');
 
-            foreach (var t in charSet)
-            {
-                // get the current selected character (if there is one)
-                var selectedLetter = this.CurrentLetter;
-
-                // go through all letters in a set
-                foreach (var letter in t)
-                {
-                    // create a link to this letter
-                    var link = new HyperLink
-                                   {
-                                       ToolTip =
-                                           this.GetTextFormatted("ALPHABET_FILTER_BY", letter.ToString()),
-                                       Text = letter.ToString(),
-                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                                           ForumPages.members,
-                                           "letter={0}",
-                                           letter == '#' ? '_' : letter)
-                                   };
-
-                    if (selectedLetter != char.MinValue && selectedLetter == letter)
+            charSet.ForEach(
+                t =>
                     {
-                        // current letter is selected, use specified style
-                        link.CssClass = "btn btn-secondary active";
-                    }
-                    else
-                    {
-                        link.CssClass = "btn btn-secondary";
-                    }
+                        // get the current selected character (if there is one)
+                        var selectedLetter = this.CurrentLetter;
 
-                    buttonGroup.Controls.Add(link);
-                }
-            }
+                        // go through all letters in a set
+                        t.ForEach(
+                            letter =>
+                                {
+                                    // create a link to this letter
+                                    var link = new HyperLink
+                                                   {
+                                                       ToolTip =
+                                                           this.GetTextFormatted(
+                                                               "ALPHABET_FILTER_BY",
+                                                               letter.ToString()),
+                                                       Text = letter.ToString(),
+                                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                                                           ForumPages.members,
+                                                           "letter={0}",
+                                                           letter == '#' ? '_' : letter)
+                                                   };
+
+                                    if (selectedLetter != char.MinValue && selectedLetter == letter)
+                                    {
+                                        // current letter is selected, use specified style
+                                        link.CssClass = "btn btn-secondary active";
+                                    }
+                                    else
+                                    {
+                                        link.CssClass = "btn btn-secondary";
+                                    }
+
+                                    buttonGroup.Controls.Add(link);
+                                });
+                    });
         }
 
         #endregion

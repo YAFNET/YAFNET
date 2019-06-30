@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.taskmanager"
     CodeBehind="taskmanager.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Core.Tasks" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 

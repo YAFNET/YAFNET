@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.help.index" Codebehind="index.ascx.cs" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:HelpMenu runat="server">
     <h1 class="h2"><YAF:LocalizedLabel ID="Title" runat="server" LocalizedTag="title" LocalizedPage="HELP_INDEX" /></h1>

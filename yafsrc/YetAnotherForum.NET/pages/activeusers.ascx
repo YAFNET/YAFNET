@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" Codebehind="activeusers.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -127,5 +128,6 @@
                 </div>
             </div>
         </div>
+                            </div>
     </FooterTemplate>
 </asp:Repeater>

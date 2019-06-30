@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostAttachments"
     CodeBehind="PostAttachments.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 
 <p>

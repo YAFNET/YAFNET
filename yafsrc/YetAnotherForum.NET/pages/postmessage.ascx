@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <YAF:PollList ID="PollList"  ShowButtons="true" PollGroupId='<%# this.GetPollGroupID() %>'  runat="server"/>
