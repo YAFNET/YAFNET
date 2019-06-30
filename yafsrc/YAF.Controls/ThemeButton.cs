@@ -185,6 +185,14 @@ namespace YAF.Controls
             set => this.ViewState["commandName"] = value;
         }
 
+        [CanBeNull]
+        public string Text
+        {
+            get => this.ViewState["Text"] != null ? this.ViewState["Text"] as string : string.Empty;
+
+            set => this.ViewState["Text"] = value;
+        }
+
         /// <summary>
         /// Gets or sets the css class.
         /// </summary>
@@ -598,6 +606,11 @@ namespace YAF.Controls
                 {
                     output.Write("<i class=\"fa fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass);
                 }
+            }
+
+            if (this.Text.IsSet())
+            {
+                output.Write(this.Text);
             }
 
             // render the optional controls (if any)

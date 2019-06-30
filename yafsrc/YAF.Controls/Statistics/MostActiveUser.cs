@@ -71,11 +71,12 @@ namespace YAF.Controls.Statistics
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             var rankDt = this.Get<IDataCache>().GetOrSet(
-              Constants.Cache.MostActiveUsers,
-              () =>
-              this.GetRepository<User>().ActivityRankAsDataTable(
-                this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber),
-              TimeSpan.FromMinutes(5));
+                Constants.Cache.MostActiveUsers,
+                () => this.GetRepository<User>().ActivityRankAsDataTable(
+                    this.PageContext.PageBoardID,
+                    DateTime.UtcNow.AddDays(-this.LastNumOfDays),
+                    this.DisplayNumber),
+                TimeSpan.FromMinutes(5));
 
             if (!rankDt.HasRows())
             {
@@ -93,18 +94,19 @@ namespace YAF.Controls.Statistics
 
             writer.Write("<ol>");
 
-            foreach (DataRow row in rankDt.Rows)
-            {
-                writer.Write("<li>");
+            rankDt.AsEnumerable().ForEach(
+                row =>
+                    {
+                        writer.Write("<li>");
 
-                // render UserLink...
-                var userLink = new UserLink { UserID = row.Field<int>("ID"), };
-                userLink.RenderControl(writer);
+                        // render UserLink...
+                        var userLink = new UserLink { UserID = row.Field<int>("ID"), };
+                        userLink.RenderControl(writer);
 
-                writer.Write(" ");
-                writer.Write($@"<span class=""NumberOfPosts"">({row.Field<int>("NumOfPosts")})</span>");
-                writer.Write("</li>");
-            }
+                        writer.Write(" ");
+                        writer.Write($@"<span class=""NumberOfPosts"">({row.Field<int>("NumOfPosts")})</span>");
+                        writer.Write("</li>");
+                    });
 
             writer.Write("</ol>");
             writer.Write("</div></div>");

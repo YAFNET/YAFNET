@@ -23,6 +23,7 @@
  */
 namespace YAF.Utils.Helpers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -77,17 +78,17 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsValidTag(string tag, IEnumerable<string> allowedTags)
         {
-            if (tag.IndexOf("javascript") >= 0)
+            if (tag.IndexOf("javascript", StringComparison.Ordinal) >= 0)
             {
                 return false;
             }
 
-            if (tag.IndexOf("vbscript") >= 0)
+            if (tag.IndexOf("vbscript", StringComparison.Ordinal) >= 0)
             {
                 return false;
             }
 
-            if (tag.IndexOf("onclick") >= 0)
+            if (tag.IndexOf("onclick", StringComparison.Ordinal) >= 0)
             {
                 return false;
             }

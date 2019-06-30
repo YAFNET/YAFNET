@@ -40,18 +40,18 @@ namespace YAF.Utils.Extensions
         /// </summary>
         /// <typeparam name="TType">The type of the type.</typeparam>
         /// <param name="json">The json.</param>
-        /// <returns>Deserialised Json Strin</returns>
+        /// <returns>Deserialized Json String</returns>
         public static TType FromJson<TType>(this string json)
         {
             return Deserialise<TType>(json);
         }
 
         /// <summary>
-        /// Deserialises the specified json.
+        /// Deserializes the specified json.
         /// </summary>
         /// <typeparam name="T">The Object</typeparam>
         /// <param name="json">The json.</param>
-        /// <returns>Deserialised Json Strin</returns>
+        /// <returns>Deserialized Json String</returns>
         public static T Deserialise<T>(string json)
         {
             var obj = Activator.CreateInstance<T>();
@@ -68,7 +68,7 @@ namespace YAF.Utils.Extensions
         /// </summary>
         /// <param name="obj">The object that will be serialized.</param>
         /// <returns>
-        /// Serialised Json String
+        /// Serialized Json String
         /// </returns>
         public static string Serialize(object obj)
         {
@@ -83,7 +83,7 @@ namespace YAF.Utils.Extensions
         /// The object that will be serialized.
         /// </param>
         /// <returns>
-        /// Serialised Json String
+        /// Serialized Json String
         /// </returns>
         public static string ToJson(this object obj)
         {

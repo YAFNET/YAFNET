@@ -337,34 +337,30 @@ namespace YAF.Controls
 
             if (start > 0)
             {
-                output.RenderAnchorBegin(
-                    this.GetLinkUrl(1, postBack),
-                    "btn btn-secondary",
-                    this.GetText("COMMON", "GOTOFIRSTPAGE_TT"));
+                var link = new ThemeButton
+                               {
+                                   NavigateUrl = this.GetLinkUrl(1, postBack),
+                                   Type = ButtonAction.Secondary,
+                                   TextLocalizedPage = "COMMON",
+                                   TextLocalizedTag = "GOTOFIRSTPAGE_TT",
+                                   Icon = "angle-double-left"
+                               };
 
-                output.WriteBeginTag("span");
-                output.Write(HtmlTextWriter.TagRightChar);
-
-                // output.Write("&laquo;");
-                output.Write("<i class=\"fas fa-angle-double-left\"></i>");
-                output.WriteEndTag("span");
-                output.WriteEndTag("a");
+                link.RenderControl(output);
             }
 
             if (this.CurrentPageIndex > start)
             {
-                output.RenderAnchorBegin(
-                    this.GetLinkUrl(this.CurrentPageIndex, postBack),
-                    "btn btn-secondary",
-                    this.GetText("COMMON", "GOTOPREVPAGE_TT"));
+                var link = new ThemeButton
+                               {
+                                   NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex, postBack),
+                                   Type = ButtonAction.Secondary,
+                                   TextLocalizedPage = "COMMON",
+                                   TextLocalizedTag = "GOTOPREVPAGE_TT",
+                                   Icon = "angle-left"
+                               };
 
-                output.WriteBeginTag("span");
-                output.Write(HtmlTextWriter.TagRightChar);
-
-                // output.Write("&lt;");
-                output.Write("<i class=\"fas fa-angle-left\"></i>");
-                output.WriteEndTag("span");
-                output.WriteEndTag("a");
+                link.RenderControl(output);
             }
 
             for (var i = start; i < end; i++)
@@ -372,7 +368,7 @@ namespace YAF.Controls
                 if (i == this.CurrentPageIndex)
                 {
                     output.WriteBeginTag("span");
-                    output.WriteAttribute("class", "btn btn-primary");
+                    output.WriteAttribute("class", "btn btn-primary active");
                     output.Write(HtmlTextWriter.TagRightChar);
                     output.Write(i + 1);
                     output.WriteEndTag("span");
@@ -381,31 +377,29 @@ namespace YAF.Controls
                 {
                     var page = (i + 1).ToString();
 
-                    output.RenderAnchorBegin(this.GetLinkUrl(i + 1, postBack), "btn btn-secondary", page);
+                    var link = new ThemeButton
+                                   {
+                                       NavigateUrl = this.GetLinkUrl(i + 1, postBack),
+                                       Type = ButtonAction.Secondary,
+                                       Text = page,
+                                   };
 
-                    output.WriteBeginTag("span");
-                    output.Write(HtmlTextWriter.TagRightChar);
-
-                    output.Write(page);
-                    output.WriteEndTag("span");
-                    output.WriteEndTag("a");
+                    link.RenderControl(output);
                 }
             }
 
             if (this.CurrentPageIndex < this.PageCount() - 1)
             {
-                output.RenderAnchorBegin(
-                    this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
-                    "btn btn-secondary",
-                    this.GetText("COMMON", "GOTONEXTPAGE_TT"));
+                var link = new ThemeButton
+                               {
+                                   NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
+                                   Type = ButtonAction.Secondary,
+                                   TextLocalizedPage = "COMMON",
+                                   TextLocalizedTag = "GOTONEXTPAGE_TT",
+                                   Icon = "angle-right"
+                               };
 
-                output.WriteBeginTag("span");
-                output.Write(HtmlTextWriter.TagRightChar);
-
-                // output.Write("&gt;");
-                output.Write("<i class=\"fas fa-angle-right\"></i>");
-                output.WriteEndTag("span");
-                output.WriteEndTag("a");
+                link.RenderControl(output);
             }
 
             if (end >= this.PageCount())
@@ -413,18 +407,14 @@ namespace YAF.Controls
                 return;
             }
 
-            output.RenderAnchorBegin(
-                this.GetLinkUrl(this.PageCount(), postBack),
-                "btn btn-secondary",
-                this.GetText("COMMON", "GOTOLASTPAGE_TT"));
-
-            output.WriteBeginTag("span");
-            output.Write(HtmlTextWriter.TagRightChar);
-
-            // output.Write("&raquo;");
-            output.Write("<i class=\"fas fa-angle-double-right\"></i>");
-            output.WriteEndTag("span");
-            output.WriteEndTag("a");
+            new ThemeButton
+                {
+                    NavigateUrl = this.GetLinkUrl(this.PageCount(), postBack),
+                    Type = ButtonAction.Secondary,
+                    TextLocalizedPage = "COMMON",
+                    TextLocalizedTag = "GOTOLASTPAGE_TT",
+                    Icon = "angle-double-right"
+                }.RenderControl(output);
         }
 
         /// <summary>
