@@ -43,11 +43,12 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// The Yaf Team Page
+    /// The Team Page
     /// </summary>
     public partial class team : ForumPage
     {
@@ -85,9 +86,9 @@ namespace YAF.Pages
         /// </param>
         public void GoToForum([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var goToForumButton = sender as ThemeButton;
+            var forumButton = sender as ThemeButton;
 
-            var gridItem = (DataGridItem)goToForumButton.NamingContainer;
+            var gridItem = (RepeaterItem)forumButton.NamingContainer;
 
             var modForums = (DropDownList)gridItem.FindControl("ModForums");
 
@@ -228,8 +229,8 @@ namespace YAF.Pages
         /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.InitializeComponent();
             base.OnInit(e);
+
             if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowTeamTo))
             {
                 YafBuildLink.AccessDenied();
@@ -272,42 +273,33 @@ namespace YAF.Pages
             this.BindData();
         }
 
-        /// <summary>
-        /// Admins Grid Data Bound Set up all Controls
-        /// </summary>
-        /// <param name="sender">
-        /// The Databound sender.
-        /// </param>
-        /// <param name="e">
-        /// The Databound Eventargs.
-        /// </param>
-        private void AdminsGridItemDataBound([NotNull] object sender, [NotNull] DataGridItemEventArgs e)
+        protected void AdminsList_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {
                 return;
             }
 
-            var adminAvatar = (Image)e.Item.FindControl("AdminAvatar");
+            var adminAvatar = e.Item.FindControlAs<Image>("AdminAvatar");
 
-            var drowv = (DataRowView)e.Item.DataItem;
-            var userid = drowv.Row["UserID"].ToType<int>();
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.Row["DisplayName"].ToString() : drowv.Row["Name"].ToString();
+            var itemDataItem = (DataRowView)e.Item.DataItem;
+            var userid = itemDataItem["UserID"].ToType<int>();
+            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? itemDataItem.Row["DisplayName"].ToString() : itemDataItem.Row["Name"].ToString();
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
-                drowv.Row["UserID"].ToType<int>(),
-                drowv.Row["Avatar"].ToString(),
-                drowv.Row["AvatarImage"].ToString().IsSet(),
-                drowv.Row["Email"].ToString());
+                itemDataItem.Row["UserID"].ToType<int>(),
+                itemDataItem.Row["Avatar"].ToString(),
+                itemDataItem.Row["AvatarImage"].ToString().IsSet(),
+                itemDataItem.Row["Email"].ToString());
 
             adminAvatar.AlternateText = displayName;
-            adminAvatar.ToolTip = displayName;
+            adminAvatar.ToolTip = displayName; 
 
             // User Buttons 
-            var adminUserButton = (ThemeButton)e.Item.FindControl("AdminUserButton");
-            var pm = (ThemeButton)e.Item.FindControl("PM");
-            var email = (ThemeButton)e.Item.FindControl("Email");
-           
+            var adminUserButton = e.Item.FindControlAs<ThemeButton>("AdminUserButton");
+            var pm = e.Item.FindControlAs<ThemeButton>("PM");
+            var email = e.Item.FindControlAs<ThemeButton>("Email");
+
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
             if (userid == this.PageContext.PageUserID)
@@ -326,61 +318,24 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            this.AdminsGrid.Columns[0].HeaderText = this.GetText("TEAM", "User");
-            this.AdminsGrid.Columns[2].HeaderText = this.GetText("TEAM", "Forums");
-            this.AdminsGrid.DataSource = this.GetAdmins();
-
-            this.completeModsList = this.GetModerators();
-
-            if (this.completeModsList.Count > 0)
-            {
-                this.ModsTable.Visible = true;
-
-                this.ModeratorsGrid.Columns[0].HeaderText = this.GetText("TEAM", "User");
-                this.ModeratorsGrid.Columns[2].HeaderText = this.GetText("TEAM", "Forums");
-
-                this.ModeratorsGrid.DataSource = this.completeModsList;
-            }
-            else
-            {
-                this.ModsTable.Visible = false;
-            }
-
-            this.DataBind();
-        }
-
-        /// <summary>
-        /// The initialize component.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.AdminsGrid.ItemDataBound += this.AdminsGridItemDataBound;
-            this.ModeratorsGrid.ItemDataBound += this.ModeratorsGridItemDataBound;
-        }
-
-        /// <summary>
-        /// Mods Grid Data Bound Set up all Controls
+        /// The moderators list_ on item data bound.
         /// </summary>
         /// <param name="sender">
-        /// The Databound sender.
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The Databound Eventargs.
+        /// The e.
         /// </param>
-        private void ModeratorsGridItemDataBound([NotNull] object sender, [NotNull] DataGridItemEventArgs e)
+        protected void ModeratorsList_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {
                 return;
             }
 
-            var modForums = (DropDownList)e.Item.FindControl("ModForums");
+            var modForums = e.Item.FindControlAs<DropDownList>("ModForums");
 
-            var modLink = (UserLink)e.Item.FindControl("ModLink");
+            var modLink = e.Item.FindControlAs<UserLink>("ModLink");
 
             var mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
@@ -402,21 +357,19 @@ namespace YAF.Pages
             }
 
             // User Buttons 
-            var adminUserButton = (ThemeButton)e.Item.FindControl("AdminUserButton");
-            var pm = (ThemeButton)e.Item.FindControl("PM");
-            var email = (ThemeButton)e.Item.FindControl("Email");
+            var adminUserButton = e.Item.FindControlAs<ThemeButton>("AdminUserButton");
+            var pm = e.Item.FindControlAs<ThemeButton>("PM");
+            var email = e.Item.FindControlAs<ThemeButton>("Email");
 
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
-            /*try
-            {*/
-            var drowv = (Moderator)e.Item.DataItem;
-            var userid = drowv.ModeratorID;
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.DisplayName : drowv.Name;
+            var itemDataItem = (Moderator)e.Item.DataItem;
+            var userid = itemDataItem.ModeratorID;
+            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
 
-            var modAvatar = (Image)e.Item.FindControl("ModAvatar");
+            var modAvatar = e.Item.FindControlAs<Image>("ModAvatar");
 
-            modAvatar.ImageUrl = this.GetAvatarUrlFileName(userid.ToType<int>(), drowv.Avatar, drowv.AvatarImage, drowv.Email);
+            modAvatar.ImageUrl = this.GetAvatarUrlFileName(userid.ToType<int>(), itemDataItem.Avatar, itemDataItem.AvatarImage, itemDataItem.Email);
 
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;
@@ -434,12 +387,29 @@ namespace YAF.Pages
             email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
             email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
             email.ParamTitle0 = displayName;
+        }
 
-            /*}
-                        catch (Exception)
-                        {
-                            return;
-                        }*/
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
+        {
+            this.AdminsList.DataSource = this.GetAdmins();
+
+            this.completeModsList = this.GetModerators();
+
+            if (this.completeModsList.Count > 0)
+            {
+                this.ModsTable.Visible = true;
+
+                this.ModeratorsList.DataSource = this.GetModerators();
+            }
+            else
+            {
+                this.ModsTable.Visible = false;
+            }
+
+            this.DataBind();
         }
 
         #endregion

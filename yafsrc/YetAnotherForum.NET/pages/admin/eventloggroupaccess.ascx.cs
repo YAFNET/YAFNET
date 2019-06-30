@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -290,10 +291,14 @@ namespace YAF.Pages.Admin
 
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
+                var groupId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
+
                 // Load the page access list.
                 var dt = this.GetRepository<EventLogGroupAccess>().ListAsTable(
-                    this.Request.QueryString.GetFirstOrDefaultAs<int>("r"),
+                    groupId,
                     null);
+
+                this.GroupName.Text = this.GetRepository<Group>().GetById(groupId).Name;
 
                 // Get admin pages by page prefixes.
                 var listEnumValues = Enum.GetValues(typeof(EventLogTypes));
@@ -338,11 +343,6 @@ namespace YAF.Pages.Admin
                     found = false;
                 }
 
-                if (dt != null && dt.HasRows())
-                {
-                    this.GroupName.Text = this.HtmlEncode(dt.Rows[0]["GroupName"]);
-                }
-
                 // get admin pages list with access flags.
                 this.AccessList.DataSource = adminPageAccesses.AsEnumerable();
             }
@@ -358,23 +358,21 @@ namespace YAF.Pages.Admin
         protected void AccessList_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
         {
             var item = e.Item;
-            var drowv = (GroupEventLogAccess)e.Item.DataItem;
+            var eventLogAccess = (GroupEventLogAccess)e.Item.DataItem;
 
             if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)
             {
                 return;
             }
 
-            var eventTypeName = item.FindControlRecursiveAs<Label>("EventTypeName");
             var eventText = item.FindControlRecursiveAs<Label>("EventText");
             var deleteAccess = item.FindControlRecursiveAs<CheckBox>("DeleteAccess");
             var viewAccess = item.FindControlRecursiveAs<CheckBox>("ViewAccess");
             eventText.Text = this.GetText(
                 "ADMIN_EVENTLOGROUPACCESS",
-                $"LT_{drowv.EventTypeName.ToUpperInvariant()}");
-            eventTypeName.Text = drowv.EventTypeName;
-            deleteAccess.Checked = drowv.DeleteAccess;
-            viewAccess.Checked = drowv.ViewAccess;
+                $"LT_{eventLogAccess.EventTypeName.ToUpperInvariant()}");
+            deleteAccess.Checked = eventLogAccess.DeleteAccess;
+            viewAccess.Checked = eventLogAccess.ViewAccess;
         }
 
         #endregion

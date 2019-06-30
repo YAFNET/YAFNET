@@ -12,73 +12,85 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE"  LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <i class="fa fa-users fa-fw"></i>&nbsp; <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:LocalizedLabel ID="GroupNameLabel" runat="server" LocalizedTag="GROUPNAME" LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />&nbsp;
+                    <span class="font-weight-bold">
+                        <asp:Label ID="GroupName" runat="server"  />
+                    </span>
                 </div>
                 <div class="card-body">
-                    <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server"
-                                            LocalizedTag="TABLE_RESPONSIVE" 
-                                            LocalizedPage="ADMIN_COMMON" />
-                        <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                    </YAF:Alert><div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <thead>
-             <th>
-                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />&nbsp;
-                     <YAF:LocalizedLabel ID="GroupNameLabel" runat="server" LocalizedTag="GROUPNAME" LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />&nbsp;
-                     <asp:Label ID="GroupName" runat="server"  />&nbsp;
-             </th>
-             <th>
-                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="EVENT" LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />&nbsp;
-             </th>
-             <th>
-                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="VIEWACCESS"  LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-            </th>
-             <th>
-                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETEACCESS"  LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-            </th>
-                                </thead>
-        </tr>
-
-	      <asp:Repeater ID="AccessList" OnItemDataBound="AccessList_OnItemDataBound" runat="server">
+                    <asp:Repeater ID="AccessList" OnItemDataBound="AccessList_OnItemDataBound" runat="server">
+              <HeaderTemplate>
+                  <ul class="list-group">
+              </HeaderTemplate>
             <ItemTemplate>
-                <tr>
-                     <td>
-                        <strong>
-                           <asp:Label ID="EventText" runat="server" />
-                        </strong>
-                      </td>
-                     <td>
-                        <strong>
-                           <asp:Label ID="EventTypeName" runat="server" />
-                        </strong>
-                    </td>
-                      <td>
-                      <asp:CheckBox  ID="ViewAccess" runat="server"/>
-                    </td>
-                    <td>
-                      <asp:CheckBox  ID="DeleteAccess" runat="server"/>
-                    </td>
-                </tr>
+                 <li class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-break">
+                        <asp:Label ID="EventText" runat="server" />
+                    </h5>
+                </div>
+                     <h6>
+                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="VIEWACCESS"  LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                     </h6>
+                <p class="custom-control custom-switch">
+                    <asp:CheckBox  ID="ViewAccess" runat="server" Text="&nbsp;"/>
+                </p>
+                     <h6>
+                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETEACCESS"  LocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                     </h6>
+                     <p class="custom-control custom-switch">
+                         <asp:CheckBox  ID="DeleteAccess" runat="server" Text="&nbsp;"/>
+                     </p>
+            </li>
             </ItemTemplate>
+              <FooterTemplate>
+                  </ul>
+              </FooterTemplate>
         </asp:Repeater>
-                    </table>
-                 </div>
                 </div>
                     <div class="card-footer text-center">
-				    <YAF:ThemeButton ID="Save" runat="server" OnClick="Save_Click" Type="Primary"            
-				                     Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-                    <YAF:ThemeButton ID="GrantAll" runat="server" OnClick="GrantAll_Click" Type="Info"
-                                     Icon="check" TextLocalizedTag="GRANTALL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-                    <YAF:ThemeButton ID="RevokeAll" runat="server" OnClick="RevokeAll_Click" CssClass="btn btn-danger"
-                                     Icon="trash" TextLocalizedTag="REVOKEALL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-                    <YAF:ThemeButton ID="GrantAllDelete" runat="server" OnClick="GrantAllDelete_Click" Type="Info"
-                                     Icon="check" TextLocalizedTag="GRANTALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-                    <YAF:ThemeButton ID="RevokeAllDelete" runat="server" OnClick="RevokeAllDelete_Click" CssClass="btn btn-danger"
-                                     Icon="trash" TextLocalizedTag="REVOKEALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" Type="Secondary"
-				                     Icon="times" TextLocalizedTag="CANCEL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+				    <YAF:ThemeButton ID="Save" runat="server" 
+                                     OnClick="Save_Click" 
+                                     CssClass="mt-1" 
+                                     Type="Primary"            
+				                     Icon="save" 
+                                     TextLocalizedTag="SAVE" 
+                                     TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="GrantAll" runat="server" 
+                                     OnClick="GrantAll_Click" 
+                                     CssClass="mt-1" 
+                                     Type="Info"
+                                     Icon="check" 
+                                     TextLocalizedTag="GRANTALL" 
+                                     TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="RevokeAll" runat="server" OnClick="RevokeAll_Click" 
+                                     CssClass="mt-1" 
+                                     Type="Danger"
+                                     Icon="trash" 
+                                     TextLocalizedTag="REVOKEALL" 
+                                     TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="GrantAllDelete" runat="server" 
+                                     OnClick="GrantAllDelete_Click" 
+                                     CssClass="mt-1" 
+                                     Type="Info"
+                                     Icon="check" 
+                                     TextLocalizedTag="GRANTALLDELETE" 
+                                     TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="RevokeAllDelete" runat="server" 
+                                     OnClick="RevokeAllDelete_Click" 
+                                     CssClass="mt-1" 
+                                     Type="Danger"
+                                     Icon="trash" 
+                                     TextLocalizedTag="REVOKEALLDELETE" 
+                                     TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+				    <YAF:ThemeButton ID="Cancel" runat="server" 
+                                     OnClick="Cancel_Click" 
+                                     CssClass="mt-1" 
+                                     Type="Secondary"
+				                     Icon="times" 
+                                     TextLocalizedTag="CANCEL" 
+                                     TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                 </div>
             </div>
         </div>

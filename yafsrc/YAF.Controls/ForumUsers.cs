@@ -99,11 +99,11 @@ namespace YAF.Controls
 
             writer.WriteLine(@"<div class=""card"">");
 
-            writer.WriteLine(@"<h6 class=""card-header"">");
+            writer.WriteLine(@"<div class=""card-header"">");
 
             writer.WriteLine(topicId ? this.GetText("TOPICBROWSERS") : this.GetText("FORUMUSERS"));
 
-            writer.WriteLine("</h6>");
+            writer.WriteLine("</div>");
 
             writer.WriteLine(@"<div class=""card-body"">");
 

@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// Summary description for bannedip.
+    /// Admin Page for Allowed File Extensions
     /// </summary>
     public partial class extensions : AdminPage
     {

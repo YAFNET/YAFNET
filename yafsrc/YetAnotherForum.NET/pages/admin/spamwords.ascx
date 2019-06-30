@@ -12,7 +12,7 @@
             <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" /></h1>
         </div>
     </div>
-    <div class="row">
+<div class="row">
     <div class="col-xl-12">
         <YAF:Alert runat="server" Type="warning">
             <YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server"
@@ -24,9 +24,9 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
             </div>
             <div class="card-body">
-                <h4>
+                
                     <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="SPAM" LocalizedPage="ADMIN_SPAMWORDS_EDIT" />
-                </h4>
+                 
                 <p>
                     <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="form-control"></asp:TextBox>
                 </p>
@@ -38,6 +38,10 @@
                 </YAF:ThemeButton>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
 
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopChange" />
             <asp:Repeater ID="list" runat="server">
@@ -96,7 +100,8 @@
 		</FooterTemplate>
             </asp:Repeater>
 	    <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
-	    </div>
+    </div>
+</div>
 
 
 

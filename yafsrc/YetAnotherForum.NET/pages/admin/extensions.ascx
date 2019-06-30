@@ -31,14 +31,18 @@
                     </h5>
                 </div>
                 <small>
-                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
+                    <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                     Type="Info" 
+                                     Size="Small"
                                      CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
                                      TitleLocalizedTag="EDIT"
                                      Icon="edit"
                                      TextLocalizedTag="EDIT"
                                      runat="server">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
+                    <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                     Type="Danger" 
+                                     Size="Small"
                                      CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
                                      TitleLocalizedTag="DELETE"
                                      Icon="trash"
@@ -58,6 +62,7 @@
                                      ID="Linkbutton3" 
                                      Type="Primary"
                                      Icon="plus-square" 
+                                     CssClass="mt-1"
                                      TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
                     &nbsp;
                     <YAF:ThemeButton runat="server" 
@@ -65,14 +70,16 @@
                                      DataToggle="modal" 
                                      DataTarget="ExtensionsImportDialog"
                                      ID="Linkbutton5" 
-                                     Type="Info"
+                                     Type="Info" 
+                                     CssClass="mt-1"
                                      TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_EXTENSIONS"> </YAF:ThemeButton>
                     &nbsp;
                     <YAF:ThemeButton runat="server" 
                                      CommandName='export' 
                                      ID="Linkbutton4" 
                                      Type="Warning"
-                                     Icon="download" 
+                                     Icon="download"  
+                                     CssClass="mt-1"
                                      TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
         	 </FooterTemplate>
     	 </asp:Repeater>

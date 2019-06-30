@@ -14,16 +14,16 @@
                     <i class="fa fa-envelope fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_DIGEST" />
                 </div>
                 <div class="card-body">
-            <h4>
+             
                 <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DIGEST_ENABLED"
                     LocalizedPage="ADMIN_DIGEST" />
-            </h4>
+             
                 <p>
                     <asp:Label ID="DigestEnabled" runat="server"></asp:Label></p>
             <hr />
-            <h4>
+             
                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DIGEST_LAST" LocalizedPage="ADMIN_DIGEST" />
-            </h4>
+             
                 <p>
                     <asp:Label ID="LastDigestSendLabel" runat="server"></asp:Label></p>
             </div>
@@ -39,10 +39,10 @@
            </div>
                 <div class="card-body">
         <asp:PlaceHolder ID="DigestHtmlPlaceHolder" runat="server" Visible="false">
-                <h4>
+                 
                     <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DIGEST_GENERATE"
                         LocalizedPage="ADMIN_DIGEST" />
-                </h4>
+                 
                 <p>
                     <asp:HtmlIframe id="DigestFrame" runat="server" style="width: 100%; height: 500px"></asp:HtmlIframe>
                 </p>
@@ -59,16 +59,16 @@
                     <i class="fa fa-envelope fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_DIGEST" />
                 </div>
                 <div class="card-body">
-            <h4>
+             
                 <YAF:HelpLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DIGEST_EMAIL" LocalizedPage="ADMIN_DIGEST" />
-            </h4>
+             
             <p>
                 <asp:TextBox ID="TextSendEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
             </p>
             <hr />
-            <h4>
+             
                 <YAF:HelpLabel ID="LocalizedLabel8" runat="server" LocalizedTag="DIGEST_METHOD" LocalizedPage="ADMIN_DIGEST" />
-            </h4>
+             
             <p>
                 <asp:DropDownList ID="SendMethod" runat="server" CssClass="custom-select">
                     <asp:ListItem Text="Direct" />

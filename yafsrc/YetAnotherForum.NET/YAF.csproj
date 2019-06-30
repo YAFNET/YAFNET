@@ -959,7 +959,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Content Include="advanced.aspx" />
     <Content Include="auth.aspx" />
     <Content Include="Content\blueimp-gallery.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />

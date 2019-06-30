@@ -21,9 +21,9 @@
                      <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
                 </div>
                 <div class="card-body">
-                    <h4>
+                     
                         <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
-                    </h4>
+                     
                     <p>
                         <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="form-control"></asp:TextBox>
                     </p>
@@ -35,6 +35,10 @@
                     </YAF:ThemeButton>
                 </div>
             </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-xl-12">
              <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
             <div class="card mb-3">
                 <div class="card-header">
@@ -112,8 +116,10 @@
 			</FooterTemplate>
 		</asp:Repeater>
 	 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
-                            </div>
+            </div>
+        </div>
     </div>
+</div>
 
 
 

@@ -14,20 +14,20 @@
                     <i class="fa fa-envelope-square fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_PM" />
                 </div>
                 <div class="card-body">
-			<h4>
+			 
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_NUMBER" LocalizedPage="ADMIN_PM" />
                 &nbsp;<small><asp:Label runat="server" ID="Count" /></small>
-            </h4>
+             
             <hr />
-			<h4>
+			 
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE_READ" LocalizedPage="ADMIN_PM" />
-                </h4>
+                 
 			<p>
 				<asp:TextBox runat="server" ID="Days1" CssClass="form-control DaysInput" TextMode="Number" />
            </p>
-			<h4>
+			 
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE_UNREAD" LocalizedPage="ADMIN_PM" />
-            </h4>
+             
 			<p>
 				<asp:TextBox runat="server" ID="Days2" CssClass="form-control DaysInput" TextMode="Number" />
             </p>

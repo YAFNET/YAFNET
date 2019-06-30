@@ -46,9 +46,9 @@
                         <h4>
                             <YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="ACTIVE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
                         </h4>
-                        <p>
-                            <asp:CheckBox ID="Active" runat="server" Checked="true" CssClass="form-control" />
-                        </p>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox ID="Active" runat="server" Checked="true" Text="&nbsp;" />
+                        </div>
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">

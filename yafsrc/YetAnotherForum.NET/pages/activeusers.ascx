@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" Codebehind="activeusers.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <asp:Repeater ID="UserList" runat="server">
@@ -17,7 +18,7 @@
                             <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </YAF:Alert>
                         <div class="table-responsive">
-	                        <table style="width:100%"  cellspacing="1" cellpadding="0" class="tablesorter" id="ActiveUsers">
+	                        <table class="tablesorter" id="ActiveUsers">
                                 <thead>
                                     <tr>
                                         <th>
@@ -58,39 +59,44 @@
 	                    </HeaderTemplate>
 		                <ItemTemplate>
                         <tr>
-				        <td class="post">		
-					        <YAF:UserLink ID="NameLink"  runat="server" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName
-                              ? this.Eval("UserDisplayName")
-                              : this.Eval("UserName") %>' CrawlerName='<%# Convert.ToInt32(this.Eval("IsCrawler")) > 0 ? this.Eval("Browser").ToString() : String.Empty %>' 
-                                UserID='<%# Convert.ToInt32(this.Eval("UserID")) %>' 				
-                                Style='<%# this.Eval("Style").ToString() %>' />
+				        <td>		
+					        <YAF:UserLink ID="NameLink" runat="server" 
+                                          ReplaceName='<%# this.Eval(this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
+                                          CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
+                                          UserID='<%# this.Eval("UserID").ToType<int>() %>' 
+                                          Style='<%# this.Eval("Style").ToString() %>' />
                             <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible='<%# Convert.ToBoolean(this.Eval("IsHidden"))%>' >
                                 (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
                             </asp:PlaceHolder>				    
 				        </td>
-				        <td class="post">				
-					        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32(this.Eval("UserID") == DBNull.Value? 0 : this.Eval("UserID")) %>' 
-                                UserName='<%# this.Eval("UserName") %>' HasForumAccess='<%# Convert.ToBoolean(this.Eval("HasForumAccess")) %>' ForumPage='<%# this.Eval("ForumPage") %>' 
-                                ForumID='<%# Convert.ToInt32(this.Eval("ForumID") == DBNull.Value? 0 : this.Eval("ForumID")) %>' ForumName='<%# this.Eval("ForumName") %>' 
-                                TopicID='<%# Convert.ToInt32(this.Eval("TopicID") == DBNull.Value? 0 : this.Eval("TopicID")) %>' TopicName='<%# this.Eval("TopicName") %>' 
-                                LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
+				        <td>				
+					        <YAF:ActiveLocation ID="ActiveLocation2" 
+                                                UserID='<%# (this.Eval("UserID") == DBNull.Value ? 0 : this.Eval("UserID")).ToType<int>() %>'
+                                                UserName='<%# this.Eval("UserName") %>' 
+                                                HasForumAccess='<%# Convert.ToBoolean(this.Eval("HasForumAccess")) %>' 
+                                                ForumPage='<%# this.Eval("ForumPage") %>'
+                                                ForumID='<%# (this.Eval("ForumID") == DBNull.Value ? 0 : this.Eval("ForumID")).ToType<int>() %>' 
+                                                ForumName='<%# this.Eval("ForumName") %>'
+                                                TopicID='<%# (this.Eval("TopicID") == DBNull.Value ? 0 : this.Eval("TopicID")).ToType<int>() %>' 
+                                                TopicName='<%# this.Eval("TopicName") %>'
+                                                LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
 				        </td>
-				        <td class="post">
+				        <td>
 					        <%# this.Get<IDateTime>().FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>
 				        </td>				
-				        <td class="post">
+				        <td>
 					        <%# this.Get<IDateTime>().FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
 				        </td>
-				        <td class="post">
+				        <td>
 					        <%# this.Get<ILocalization>().GetTextFormatted("minutes", ((System.Data.DataRowView)Container.DataItem)["Active"])%>
 				        </td>
-				        <td class="post">
+				        <td>
 					        <%# this.Eval("Browser") %>
 				        </td>
-				        <td class="post">
+				        <td>
 					        <%# this.Eval("Platform") %>
 				        </td>
-                        <td id="Iptd1" class="post" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
+                        <td id="Iptd1" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
 					         <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
                                 title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
                              <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>

@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Web.UI.WebControls;
 
     using YAF.Controls;
@@ -44,7 +43,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// Summary description for ranks.
+    /// Admin Ranks Page
     /// </summary>
     public partial class ranks : AdminPage
     {

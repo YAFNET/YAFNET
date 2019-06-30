@@ -26,20 +26,25 @@
                             <i class="fa fa-user-secret fa-fw"></i>&nbsp;
                             <%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
                         </h5>
-                        <small>
-                            <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                                             TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# this.Eval( "UserID") %>'
-                                             TitleLocalizedTag="EDIT"
-                                             Icon="edit"
-                                             TextLocalizedTag="EDIT"
-                                             runat="server">
-                            </YAF:ThemeButton>
-                        </small>
                     </div>
                     <p class="mb-1">
-                        <YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDnAME"  LocalizedPage="ADMIN_PAGEACCESSLIST" />:
+                        <YAF:LocalizedLabel ID="BoardNameLabel" runat="server" 
+                                            LocalizedTag="BOARDnAME"  
+                                            LocalizedPage="ADMIN_PAGEACCESSLIST" />:
                         <%# this.HtmlEncode(this.Eval( "BoardName")) %>
                     </p>
+                    <small>
+                        <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
+                                         Type="Info" 
+                                         Size="Small"
+                                         TitleLocalizedPage="ADMIN_PAGEACCESSLIST" 
+                                         CommandName='edit' 
+                                         CommandArgument='<%# this.Eval( "UserID") %>'
+                                         TitleLocalizedTag="EDIT"
+                                         Icon="edit"
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                    </small>
                 </li>
 			</ItemTemplate>
             <FooterTemplate>

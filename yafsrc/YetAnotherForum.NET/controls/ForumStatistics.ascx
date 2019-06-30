@@ -52,6 +52,11 @@
                             </div>
                         </div>
                     </asp:PlaceHolder>
+                    <div class="row">
+                        <div class="col">
+                            <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
+                        </div>
+                    </div>
                 </div>
             </asp:PlaceHolder>
 

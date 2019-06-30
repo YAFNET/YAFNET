@@ -20,7 +20,8 @@
                 </h4>
                 <p>
                     <div class="custom-control custom-radio custom-control-inline">
-                    <asp:RadioButtonList ID="rblPasswordResetFunction" runat="server" AutoPostBack="true"
+                    <asp:RadioButtonList ID="rblPasswordResetFunction" runat="server" 
+                                         AutoPostBack="true"
                                          OnSelectedIndexChanged="rblPasswordResetFunction_SelectedIndexChanged" 
                                          RepeatLayout="UnorderedList"
                                          CssClass="list-unstyled">

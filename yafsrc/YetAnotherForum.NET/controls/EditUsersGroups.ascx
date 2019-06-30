@@ -11,19 +11,28 @@
 
 		</HeaderTemplate>
 		<ItemTemplate>
-			    <h4>
+			    <h6>
 			        <%# DataBinder.Eval(Container.DataItem, "Name") %>
-			    </h4>
-				<p>
-					<asp:CheckBox CssClass="form-control" runat="server" ID="GroupMember" 
+			    </h6>
+				<div class="custom-control custom-switch">
+					<asp:CheckBox Text="&nbsp;" runat="server" ID="GroupMember" 
                                   Checked='<%# this.IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>'/>
-                </p>
-					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
-			
-		</ItemTemplate>
-	</asp:Repeater>
-	
-                <div class="text-lg-center">
-                    <asp:CheckBox runat="server" CssClass="form-control" ID="SendEmail"/>
-                    <YAF:ThemeButton ID="Save" runat="server" Type="Primary" OnClick="Save_Click" Icon="save" TextLocalizedTag="SAVE" />
                 </div>
+					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
+        </ItemTemplate>
+        <SeparatorTemplate>
+            <hr/>
+        </SeparatorTemplate>
+	</asp:Repeater>
+	<hr/>
+                <div class="custom-control custom-switch">
+                    <asp:CheckBox runat="server" Text="&nbsp;" ID="SendEmail"/>
+                    
+                </div>
+<div class="text-lg-center">
+    <YAF:ThemeButton ID="Save" runat="server" 
+                     Type="Primary" 
+                     OnClick="Save_Click" 
+                     Icon="save" 
+                     TextLocalizedTag="SAVE" />
+</div>

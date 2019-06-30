@@ -44,45 +44,44 @@
         <h4>
             <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="USERINFO_HOST" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="custom-control custom-checkbox" runat="server" ID="IsHostAdminX"
-                          Text='<%# this.GetText("ADMIN_EDITUSER","USERINFO_HOST") %>' />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsHostAdminX" />
+        </div>
     <hr />
     </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="IsCaptchaExcludedRow">
         <h4>
             <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="USERINFO_EX_CAPTCHA" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsCaptchaExcluded" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsCaptchaExcluded" />
+        </div>
     <hr />
             </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="IsExcludedFromActiveUsersRow">
         <h4>
             <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="USERINFO_EX_ACTIVE" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsExcludedFromActiveUsers" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsExcludedFromActiveUsers" />
+        </div>
     <hr />
     </asp:PlaceHolder>
         <h4>
             <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="USERINFO_APPROVED" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsApproved" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsApproved" />
+        </div>
     <hr />
     <!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->
     <asp:PlaceHolder runat="server" id="IsGuestRow" visible="false">
         <h4>
             <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="USERINFO_GUEST" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsGuestX" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsGuestX" />
+        </div>
     <hr />
     </asp:PlaceHolder>
         <h4>
@@ -105,25 +104,25 @@
         <h4>
             <YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsFacebookUser" Enabled="false" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsFacebookUser" Enabled="false" />
+        </div>
     <hr />
 
         <h4>
             <YAF:HelpLabel ID="HelpLabel13" runat="server" LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsTwitterUser" Enabled="false" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsTwitterUser" Enabled="false" />
+        </div>
     <hr />
 
         <h4>
             <YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="Google_USER" LocalizedPage="ADMIN_EDITUSER" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" runat="server" ID="IsGoogleUser" Enabled="false" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="IsGoogleUser" Enabled="false" />
+        </div>
 
 
                 <div class="text-lg-center">

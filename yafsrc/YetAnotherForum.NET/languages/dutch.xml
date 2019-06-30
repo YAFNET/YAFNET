@@ -390,6 +390,9 @@
     <Resource tag="BOARD_THREADED_HELP">Sta flexibele weergave (boomstructuur) toe.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Standaard Topic:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">De standaard board topic interval selectie.</Resource>
+    <Resource tag="CDVVERSION">CRM Version</Resource>
+    <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
+    <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Verwijder Sleutel:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Verwijder de copyright informatie en link naar YAF in de voettekst van het forum. Beschikbaar via &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;de YAF.NET website&lt;/a&gt;. </Resource>
@@ -2734,6 +2737,7 @@
     <Resource tag="MARKALL">Markeer alle fora als gelezen</Resource>
     <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatoren</Resource>
+    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
     <Resource tag="NO_FORUM_ACCESS">Je hebt geen toegang tot het gekozen forum.</Resource>
     <Resource tag="NO_POSTS">Geen berichten</Resource>
     <Resource tag="ONDATE">op {0}</Resource>

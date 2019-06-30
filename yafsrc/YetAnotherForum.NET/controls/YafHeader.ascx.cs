@@ -286,9 +286,9 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "MODERATE_TITLE"),
                     YafBuildLink.GetLink(ForumPages.moderate_index),
                     false,
-                    false,
-                    null,
-                    null);
+                    this.PageContext.ModeratePosts > 0,
+                    this.PageContext.ModeratePosts.ToString(),
+                    this.GetTextFormatted("TOOLBAR", "MODERATE_NEW", this.PageContext.ModeratePosts));
             }
         }
 
@@ -297,6 +297,7 @@ namespace YAF.Controls
         /// </summary>
         private void RenderMainHeaderMenu()
         {
+            /*
             // Forum
             RenderMenuItem(
                 this.menuListItems,
@@ -308,7 +309,7 @@ namespace YAF.Controls
                 false,
                 null,
                 null,
-                string.Empty);
+                string.Empty);*/
 
             // Active Topics
             if (this.PageContext.IsGuest)
@@ -459,7 +460,7 @@ namespace YAF.Controls
                     false,
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
-                    string.Format(this.GetText("TOOLBAR", "NEWPM"), this.PageContext.UnreadPrivate),
+                    this.GetTextFormatted("TOOLBAR", "NEWPM", this.PageContext.UnreadPrivate),
                     "envelope");
             }
 
@@ -475,7 +476,7 @@ namespace YAF.Controls
                     false,
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
-                    string.Format(this.GetText("TOOLBAR", "BUDDYREQUEST"), this.PageContext.PendingBuddies),
+                    this.GetTextFormatted("TOOLBAR", "BUDDYREQUEST", this.PageContext.PendingBuddies),
                     "users");
             }
 

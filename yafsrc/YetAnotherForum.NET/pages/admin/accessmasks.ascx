@@ -23,24 +23,14 @@
 				<li class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
 					<h5 class="mb-1"><%# this.Eval( "Name") %></h5>
-                    <small>
-					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                            CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
-                            TitleLocalizedTag="EDIT"
-                            Icon="edit"
-                            TextLocalizedTag="EDIT"
-                            runat="server">
-					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
-                                    CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
-                                    TitleLocalizedTag="DELETE"
-                                    Icon="trash"
-                                    TextLocalizedTag="DELETE"
-                                    ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'  runat="server">
-                                </YAF:ThemeButton>
-					    </small>
+                        <small class="d-none d-md-block">
+                            <span class="font-weight-bold">
+                                <YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER"></YAF:LocalizedLabel>
+                            </span>
+                            <%# this.Eval( "SortOrder") %>
+                        </small>
                     </div>
-                    <p class="mb-1">
+                    <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="READ"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
 					    <asp:Label ID="Label1" runat="server" CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %>'><%# this.GetItemName(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %></asp:Label>&nbsp;|&nbsp;
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="POST"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
@@ -74,6 +64,27 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="DOWNLOAD"  LocalizedPage="ADMIN_ACCESSMASKS" />&nbsp;
 						<asp:Label ID="Label11" runat="server" CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>'><%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.DownloadAccess)) %></asp:Label>
 					</p>
+                    <small>
+                        <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                                         Type="Info" 
+                                         Size="Small"
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval( "ID") %>'
+                                         TitleLocalizedTag="EDIT"
+                                         Icon="edit"
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                         Type="Danger" 
+                                         Size="Small"
+                                         CommandName='delete' 
+                                         CommandArgument='<%# this.Eval( "ID") %>'
+                                         TitleLocalizedTag="DELETE"
+                                         Icon="trash"
+                                         TextLocalizedTag="DELETE"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'>
+                        </YAF:ThemeButton>
+                    </small>
                 </li>
 			</ItemTemplate>
             <FooterTemplate>

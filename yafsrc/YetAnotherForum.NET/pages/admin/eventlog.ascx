@@ -21,9 +21,9 @@
                     <i class="fa fa-book fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
             </div>
                 <div class="card-body">
-                    <h4>
+                     
                         <YAF:HelpLabel ID="SinceDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
-                    </h4>
+                     
                         <div class='input-group mb-3 date datepickerinput'>
                             <span class="input-group-prepend">
                                 <button class="btn btn-secondary datepickerbutton" type="button">
@@ -34,9 +34,9 @@
                         </div>
 
                    <hr />
-                    <h4>
+                     
                 <YAF:HelpLabel ID="ToDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
-                        </h4>
+                         
                     <div class='input-group mb-3 date datepickerinput'>
                         <span class="input-group-prepend">
                             <button class="btn btn-secondary datepickerbutton" type="button">
@@ -46,9 +46,9 @@
                             <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                    <hr />
-            <h4>
+             
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
-            </h4>
+             
             <p>
                 <asp:DropDownList ID="Types" runat="server" CssClass="custom-select"></asp:DropDownList>
             </p>

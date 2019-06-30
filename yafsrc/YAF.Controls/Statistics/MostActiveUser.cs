@@ -28,7 +28,6 @@ namespace YAF.Controls.Statistics
 
     using System;
     using System.Data;
-    using System.Text;
     using System.Web.UI;
 
     using YAF.Core;
@@ -55,7 +54,7 @@ namespace YAF.Controls.Statistics
         public int DisplayNumber { get; set; } = 10;
 
         /// <summary>
-        ///   Gets or sets LastNumOfDays.
+        ///   Gets or sets Number of Days.
         /// </summary>
         public int LastNumOfDays { get; set; } = 7;
 
@@ -64,9 +63,11 @@ namespace YAF.Controls.Statistics
         #region Methods
 
         /// <summary>
-        /// Renders the MostActiveUsers class.
+        /// Renders the Most Active Users Card.
         /// </summary>
-        /// <param name="writer">Das <see cref="T:System.Web.UI.HtmlTextWriter" />-Objekt, das den Inhalt des Serversteuerelements empfängt.</param>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             var rankDt = this.Get<IDataCache>().GetOrSet(
@@ -76,35 +77,37 @@ namespace YAF.Controls.Statistics
                 this.PageContext.PageBoardID, DateTime.UtcNow.AddDays(-this.LastNumOfDays), this.DisplayNumber),
               TimeSpan.FromMinutes(5));
 
+            if (!rankDt.HasRows())
+            {
+                return;
+            }
+
             writer.BeginRender();
 
-            var html = new StringBuilder();
+            writer.Write(@"<div class=""card mb-3"">");
+            writer.Write(@"<div class=""card-header""><span class=""fa-stack"">");
+            writer.Write(
+                @"<i class=""fas fa-chart-line fa-2x fa-fw text-secondary""></i></span>&nbsp;{0}</div>",
+                this.GetTextFormatted("MOST_ACTIVE", this.LastNumOfDays));
+            writer.Write(@"<div class=""card-body"">");
 
-            html.Append(@"<div class=""card"">");
-            html.Append(@"<div class=""card-body"">");
-            html.AppendFormat(@"<h5 class=""card-title"">{0}</h5>", "Most Active Users");
-            html.AppendFormat(@"<h6 class=""card-subtitle mb-2 text-mutedr"">Last {0} Days</h6>", this.LastNumOfDays);
-
-            html.AppendLine("<ol>");
-
-            // flush...
-            writer.Write(html.ToString());
+            writer.Write("<ol>");
 
             foreach (DataRow row in rankDt.Rows)
             {
-                writer.WriteLine("<li>");
+                writer.Write("<li>");
 
                 // render UserLink...
                 var userLink = new UserLink { UserID = row.Field<int>("ID"), };
                 userLink.RenderControl(writer);
 
-                writer.WriteLine(" ");
-                writer.WriteLine($@"<span class=""NumberOfPosts"">({row.Field<int>("NumOfPosts")})</span>");
-                writer.WriteLine("</li>");
+                writer.Write(" ");
+                writer.Write($@"<span class=""NumberOfPosts"">({row.Field<int>("NumOfPosts")})</span>");
+                writer.Write("</li>");
             }
 
-            writer.WriteLine("</ol>");
-            writer.WriteLine("</div></div>");
+            writer.Write("</ol>");
+            writer.Write("</div></div>");
             writer.EndRender();
         }
 

@@ -64,9 +64,7 @@ namespace YAF.Pages.Admin
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "TouchSpinLoadJs",
-                JavaScriptBlocks.LoadTouchSpin(
-                    ".DaysInput",
-                    $"postfix: '{this.GetText("ADMIN_PM", "DAYS")}'"));
+                JavaScriptBlocks.LoadTouchSpin(".DaysInput", $"postfix: '{this.GetText("ADMIN_PM", "DAYS")}'"));
 
             base.OnPreRender(e);
         }

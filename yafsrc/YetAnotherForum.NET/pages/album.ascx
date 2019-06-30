@@ -25,22 +25,3 @@
         </div>
     </div>
 </div>
-
-
-<table class="content" style="width:100%;padding:0">
-    <tr>
-        <td class="header1">
-            
-        </td>
-    </tr>
-    <tr>
-        <td class="post">
-           
-        </td>
-    </tr>
-    <tr class="footer1">
-		<td colspan="3" style="text-align: center">
-			
-		</td>
-	</tr>
-</table>

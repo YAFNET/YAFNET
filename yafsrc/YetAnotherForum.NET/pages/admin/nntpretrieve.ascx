@@ -46,7 +46,7 @@
             </FooterTemplate>
 		</asp:Repeater>
                         <hr class="col-lg-12" />
-                        <h4><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" /></h4>
+                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" /> 
                         <p><asp:TextBox runat="server" ID="Seconds" Text="30" CssClass="form-control SecondsInput" TextMode="Number" /></p>
                     </div>
                 <div class="card-footer text-center">

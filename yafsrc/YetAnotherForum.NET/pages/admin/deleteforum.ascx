@@ -18,16 +18,16 @@
                     <asp:Label ID="ForumNameTitle" runat="server"></asp:Label>
                 </div>
                 <div class="card-body">
-            <h4>
+             
                 <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
-            </h4>
+             
             <div class="custom-control custom-switch">
                 <asp:CheckBox ID="MoveTopics" runat="server" AutoPostBack="False" Text="&nbsp;"></asp:CheckBox>
             </div>
             <hr />
-            <h4>
+             
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
-            </h4>
+             
             <p>
                 <asp:DropDownList ID="ForumList" runat="server" Enabled="false" CssClass="custom-select">
                 </asp:DropDownList>

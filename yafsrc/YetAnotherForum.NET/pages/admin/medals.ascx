@@ -18,9 +18,6 @@
                 <div class="card-body">
                     <asp:Repeater ID="MedalList" 
                                   OnItemCommand="MedalListItemCommand" runat="server">
-                        <FooterTemplate>
-                            </ul>
-                        </FooterTemplate>
                         <HeaderTemplate>
                             <ul class="list-group">
                         </HeaderTemplate>

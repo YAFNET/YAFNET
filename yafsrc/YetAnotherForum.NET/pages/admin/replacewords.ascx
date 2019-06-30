@@ -26,26 +26,39 @@
             <li class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS" />
-                        
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS" />:
+                        <%# this.HtmlEncode(this.Eval("badword")) %>
                     </h5>
-                    <small><YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
-                                            TextLocalizedTag="EDIT"
-                                            TitleLocalizedTag="EDIT" Icon="edit" runat="server">
-                        </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" 
-                                         CommandName='delete'
-                                         TextLocalizedTag="DELETE"
-                                         CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
-                        </YAF:ThemeButton></small>
                 </div>
                 <p class="mb-1">
-                    <%# this.HtmlEncode(this.Eval("badword")) %>
+                    
+                </p>
+                <p class="mb-1">
+                    <span class="font-weight-bold">
+                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS" />: &nbsp;
+                    </span>
+                    <%# this.HtmlEncode(this.Eval("goodword")) %>
                 </p>
                 <small>
-                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS" />: &nbsp;
-                    <%# this.HtmlEncode(this.Eval("goodword")) %>
+                    <YAF:ThemeButton ID="btnEdit" runat="server"
+                                     Type="Info" 
+                                     Size="Small" 
+                                     CommandName='edit' 
+                                     CommandArgument='<%# this.Eval("ID") %>'
+                                     TextLocalizedTag="EDIT"
+                                     TitleLocalizedTag="EDIT" 
+                                     Icon="edit">
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                                     Type="Danger" 
+                                     Size="Small" 
+                                     CommandName='delete'
+                                     TextLocalizedTag="DELETE"
+                                     CommandArgument='<%# this.Eval( "ID") %>' 
+                                     TitleLocalizedTag="DELETE" 
+                                     Icon="trash"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
+                    </YAF:ThemeButton>
                 </small>
 			</li>
 		</ItemTemplate>
@@ -53,8 +66,14 @@
                     </ul>
                 </div>
                 <div class="card-footer text-center">
-					<YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
-					                 Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_REPLACEWORDS"> </YAF:ThemeButton>
+					<YAF:ThemeButton runat="server" 
+                                     CommandName='add' 
+                                     ID="Linkbutton3" 
+                                     Type="Primary"
+					                 Icon="plus-square" 
+                                     TextLocalizedTag="ADD" 
+                                     TextLocalizedPage="ADMIN_REPLACEWORDS">
+                    </YAF:ThemeButton>
 					&nbsp;
 					<YAF:ThemeButton runat="server" 
                                      Icon="upload"   
@@ -62,14 +81,18 @@
                                      DataTarget="ReplaceWordsImportDialog" 
                                      ID="Linkbutton5" 
                                      Type="Info"
-					                 TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_REPACEWORDS"></YAF:ThemeButton>
+					                 TextLocalizedTag="IMPORT" 
+                                     TextLocalizedPage="ADMIN_REPACEWORDS">
+                    </YAF:ThemeButton>
 					&nbsp;
 					<YAF:ThemeButton runat="server" 
                                      CommandName='export' 
                                      ID="Linkbutton4" 
                                      Type="Warning"
 					                 Icon="download" 
-                                     TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_REPLACEWORDS"></YAF:ThemeButton>
+                                     TextLocalizedTag="EXPORT" 
+                                     TextLocalizedPage="ADMIN_REPLACEWORDS">
+                    </YAF:ThemeButton>
                 </div>
             </div>
         </div>

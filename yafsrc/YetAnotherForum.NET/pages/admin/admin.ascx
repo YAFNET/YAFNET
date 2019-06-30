@@ -40,7 +40,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="NUM_POSTS"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"><asp:Label ID="NumPosts" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="NumPosts" runat="server"></asp:Label>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +57,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div><YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="POSTS_DAY"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"><asp:Label ID="DayPosts" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="DayPosts" runat="server"></asp:Label>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +73,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div><YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="NUM_TOPICS"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"><asp:Label ID="NumTopics" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="NumTopics" runat="server"></asp:Label>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +90,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div><YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TOPICS_DAY"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"><asp:Label ID="DayTopics" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="DayTopics" runat="server"></asp:Label>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +107,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div><YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="NUM_USERS"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"> <asp:Label ID="NumUsers" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="NumUsers" runat="server"></asp:Label>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +124,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div><YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="USERS_DAY"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"><asp:Label ID="DayUsers" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="DayUsers" runat="server"></asp:Label>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +141,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div> <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_STARTED"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"><asp:Label ID="BoardStart" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="BoardStart" runat="server"></asp:Label>
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +158,9 @@
                                 <div class="col-sm-9 text-right">
                                     <div><YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="SIZE_DATABASE"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <h4 class="card-title"> <asp:Label ID="DBSize" runat="server"></asp:Label></h4>
+                                    <h4 class="card-title">
+                                        <asp:Label ID="DBSize" runat="server"></asp:Label>
+                                    </h4> 
                                 </div>
                             </div>
                         </div>

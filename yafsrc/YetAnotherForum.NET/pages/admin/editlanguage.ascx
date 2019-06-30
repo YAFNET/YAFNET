@@ -14,9 +14,9 @@
                     <i class="fa fa-language fa-fw"></i>&nbsp;<asp:Label runat="server" id="lblPageName"></asp:Label>
                 </div>
                 <div class="card-body text-lg-center">
-                <h4>
+                 
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_PAGE" LocalizedPage="ADMIN_EDITLANGUAGE" />
-                </h4>
+                 
                 <p>
 	                <asp:DropDownList runat="server" id="dDLPages" CssClass="custom-select"></asp:DropDownList>
                 </p>

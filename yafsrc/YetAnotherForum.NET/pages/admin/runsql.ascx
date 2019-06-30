@@ -16,8 +16,8 @@
                             <div class="form-group">
                                 <asp:TextBox ID="txtQuery" runat="server" TextMode="MultiLine" Width="100%" Height="100px" CssClass="form-control"></asp:TextBox>
                             </div>
-                            <div class="form-group">
-                                <asp:Checkbox ID="chkRunInTransaction" runat="server" Text="Run In Transaction" Checked="true" CssClass="form-control" />
+                            <div class="custom-control custom-switch">
+                                <asp:Checkbox ID="chkRunInTransaction" runat="server" Text="Run In Transaction" Checked="true" />
                             </div>
                         </div>
                         <div class="card-footer text-center">
