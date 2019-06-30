@@ -62,7 +62,6 @@ namespace YAF.Core.Model
             return YafContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
         }
         
-
         /// <summary>
         /// Sets the answer message.
         /// </summary>
@@ -104,7 +103,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Lock's/Unlock's the topic.
+        /// Locks/Unlock the topic.
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="topicId">The topic identifier.</param>
@@ -116,10 +115,14 @@ namespace YAF.Core.Model
             repository.UpdateOnly(() => new Topic { Flags = flags }, where: t => t.ID == topicId);
         }
 
-        /// The topic_unanswered
+        /// <summary>
+        /// The unanswered as data table.
         /// </summary>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="categoryId">
         /// The category id.
@@ -143,7 +146,7 @@ namespace YAF.Core.Model
         /// Set to true to get color nicks for last user and topic starter.
         /// </param>
         /// <param name="findLastRead">
-        /// Indicates if the Table should Countain the last Access Date
+        /// Indicates if the Table should contain the last Access Date
         /// </param>
         /// <returns>
         /// Returns the List with the Topics Unanswered
@@ -175,6 +178,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// Returns Topics Unread by a user
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -200,7 +206,7 @@ namespace YAF.Core.Model
         /// Set to true to get color nicks for last user and topic starter.
         /// </param>
         /// <param name="findLastRead">
-        /// Indicates if the Table should Countain the last Access Date
+        /// Indicates if the Table should contain the last Access Date
         /// </param>
         /// <returns>
         /// Returns the List with the Topics Unread be a PageUserId
@@ -232,6 +238,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// Returns Topics Unread by a user
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -257,7 +266,7 @@ namespace YAF.Core.Model
         /// Set to true to get color nicks for last user and topic starter.
         /// </param>
         /// <param name="findLastRead">
-        /// Indicates if the Table should Countain the last Access Date
+        /// Indicates if the Table should contain the last Access Date
         /// </param>
         /// <returns>
         /// Returns the List with the Topics Unread be a PageUserId
@@ -289,6 +298,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// Gets all topics where the pageUserid has posted
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -314,7 +326,7 @@ namespace YAF.Core.Model
         /// Set to true to get color nicks for last user and topic starter.
         /// </param>
         /// <param name="findLastRead">
-        /// Indicates if the Table should Countain the last Access Date
+        /// Indicates if the Table should contain the last Access Date
         /// </param>
         /// <returns>
         /// Returns the List with the User Topics
@@ -346,6 +358,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_announcements.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -372,8 +387,11 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_create_by_message.
         /// </summary>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <param name="forumId">
         /// The forum id.
@@ -397,8 +415,11 @@ namespace YAF.Core.Model
         /// <summary>
         /// The rss_topic_latest.
         /// </summary>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="numOfPostsToRetrieve">
         /// The num of posts to retrieve.
@@ -413,6 +434,7 @@ namespace YAF.Core.Model
         /// The show No Count Posts.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable RssLatestAsDataTable(
             this IRepository<Topic> repository,
@@ -433,6 +455,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// Gets all Topics for an RSS Feed of specified forum id.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="forumId">The forum id.</param>
         /// <param name="topicLimit">The topic limit.</param>
         /// <returns>
@@ -447,8 +472,11 @@ namespace YAF.Core.Model
         /// <summary>
         /// Get the Latest Topics
         /// </summary>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="numOfPostsToRetrieve">
         /// The num of posts to retrieve.
@@ -463,10 +491,10 @@ namespace YAF.Core.Model
         /// The show No Count Posts.
         /// </param>
         /// <param name="findLastRead">
-        /// Indicates if the Table should Countain the last Access Date
+        /// Indicates if the Table should contain the last Access Date
         /// </param>
         /// <returns>
-        /// Returnst the DataTable with the Latest Topics
+        /// Returns the DataTable with the Latest Topics
         /// </returns>
         public static DataTable LatestAsDataTable(
             this IRepository<Topic> repository,
@@ -489,15 +517,32 @@ namespace YAF.Core.Model
         /// <summary>
         /// Get the Latest Topics for the specified category
         /// </summary>
-        /// <param name="boardID">The board id.</param>
-        /// <param name="categoryID">The category identifier.</param>
-        /// <param name="numOfPostsToRetrieve">The num of posts to retrieve.</param>
-        /// <param name="pageUserId">The page UserId id.</param>
-        /// <param name="useStyledNicks">If true returns string for userID style.</param>
-        /// <param name="showNoCountPosts">The show No Count Posts.</param>
-        /// <param name="findLastRead">Indicates if the Table should Countain the last Access Date</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category Id.
+        /// </param>
+        /// <param name="numOfPostsToRetrieve">
+        /// The num of posts to retrieve.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page UserId id.
+        /// </param>
+        /// <param name="useStyledNicks">
+        /// If true returns string for userID style.
+        /// </param>
+        /// <param name="showNoCountPosts">
+        /// The show No Count Posts.
+        /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should contain the last Access Date
+        /// </param>
         /// <returns>
-        /// Returnst the DataTable with the Latest Topics
+        /// Returns the DataTable with the Latest Topics
         /// </returns>
         public static DataTable LatestInCategoryAsDataTable(
             this IRepository<Topic> repository,
@@ -522,23 +567,26 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_list.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
         /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="announcement">
-        /// The announcement.
+        /// <param name="sinceDate">
+        /// The since Date.
         /// </param>
-        /// <param name="date">
-        /// The date.
+        /// <param name="toDate">
+        /// The to Date.
         /// </param>
-        /// <param name="offset">
-        /// The offset.
+        /// <param name="pageIndex">
+        /// The page Index.
         /// </param>
-        /// <param name="count">
-        /// The count.
+        /// <param name="pageSize">
+        /// The page Size.
         /// </param>
         /// <param name="useStyledNicks">
         /// To return style for user nicks in topic_list.
@@ -547,9 +595,10 @@ namespace YAF.Core.Model
         /// The show Moved.
         /// </param>
         /// <param name="findLastRead">
-        /// Indicates if the Table should Countain the last Access Date
+        /// Indicates if the Table should contain the last Access Date
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListAsDataTable(
             this IRepository<Topic> repository,
@@ -578,23 +627,26 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_list.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
         /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="announcement">
-        /// The announcement.
+        /// <param name="sinceDate">
+        /// The since Date.
         /// </param>
-        /// <param name="date">
-        /// The date.
+        /// <param name="toDate">
+        /// The to Date.
         /// </param>
-        /// <param name="offset">
-        /// The offset.
+        /// <param name="pageIndex">
+        /// The page Index.
         /// </param>
-        /// <param name="count">
-        /// The count.
+        /// <param name="pageSize">
+        /// The page Size.
         /// </param>
         /// <param name="useStyledNicks">
         /// To return style for user nicks in topic_list.
@@ -603,7 +655,7 @@ namespace YAF.Core.Model
         /// The show Moved.
         /// </param>
         /// <param name="findLastRead">
-        /// Indicates if the Table should Countain the last Access Date
+        /// Indicates if the Table should Contain the last Access Date
         /// </param>
         /// <returns>
         /// </returns>
@@ -634,8 +686,11 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_save.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
         /// <param name="subject">
         /// The subject.
@@ -643,14 +698,17 @@ namespace YAF.Core.Model
         /// <param name="status">
         /// The status.
         /// </param>
+        /// <param name="styles">
+        /// The styles.
+        /// </param>
         /// <param name="description">
         /// The description.
         /// </param>
         /// <param name="message">
         /// The message.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="priority">
         /// The priority.
@@ -664,14 +722,14 @@ namespace YAF.Core.Model
         /// <param name="posted">
         /// The posted.
         /// </param>
-        /// <param name="blogPostID">
-        /// The blog post id.
+        /// <param name="blogPostId">
+        /// The blog Post Id.
         /// </param>
         /// <param name="flags">
         /// The flags.
         /// </param>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <returns>
         /// Returns the Topic ID
@@ -716,6 +774,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_move.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="topicID">
         /// The topic id.
         /// </param>
@@ -736,12 +797,15 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The topic_prune.
+        /// The prune.
         /// </summary>
-        /// <param name="boardID">
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum id.
         /// </param>
         /// <param name="days">
@@ -751,7 +815,7 @@ namespace YAF.Core.Model
         /// The perm delete.
         /// </param>
         /// <returns>
-        /// The topic_prune.
+        /// The <see cref="int"/>.
         /// </returns>
         public static int Prune(
             this IRepository<Topic> repository,
@@ -771,6 +835,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_delete.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="topicID">
         /// The topic id.
         /// </param>
@@ -782,6 +849,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_delete.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="topicID">
         /// The topic id.
         /// </param>
@@ -795,6 +865,18 @@ namespace YAF.Core.Model
             repository.DbFunction.Scalar.topic_delete(TopicID: topicID, EraseTopic: eraseTopic);
         }
 
+        /// <summary>
+        /// The check for duplicate topic.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicSubject">
+        /// The topic subject.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool CheckForDuplicateTopic(this IRepository<Topic> repository, [NotNull] string topicSubject)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -804,6 +886,18 @@ namespace YAF.Core.Model
             return topic != null;
         }
 
+        /// <summary>
+        /// The find next topic.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="currentTopic">
+        /// The current topic.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Topic"/>.
+        /// </returns>
         public static Topic FindNextTopic(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -814,6 +908,18 @@ namespace YAF.Core.Model
                 .OrderBy(t => t.LastPosted).FirstOrDefault();
         }
 
+        /// <summary>
+        /// The find previous topic.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="currentTopic">
+        /// The current topic.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Topic"/>.
+        /// </returns>
         public static Topic FindPreviousTopic(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -824,6 +930,21 @@ namespace YAF.Core.Model
                 .OrderByDescending(t => t.LastPosted).FirstOrDefault();
         }
 
+        /// <summary>
+        /// The simple list.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="StartId">
+        /// The start id.
+        /// </param>
+        /// <param name="Limit">
+        /// The limit.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<Topic> SimpleList(this IRepository<Topic> repository, [CanBeNull] int StartId = 0, [CanBeNull] int Limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -831,6 +952,21 @@ namespace YAF.Core.Model
             return repository.Get(t => t.ID >= Limit && t.ID < StartId + Limit).OrderBy(t => t.ID).ToList();
         }
 
+        /// <summary>
+        /// The simple list as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="startId">
+        /// The start id.
+        /// </param>
+        /// <param name="limit">
+        /// The limit.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable SimpleListAsDataTable(this IRepository<Topic> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -839,8 +975,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The unencode_all_topics_subjects.
+        /// Un-encode All Topics and Subjects
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="decodeTopicFunc">
         /// The decode topic func.
         /// </param>
@@ -848,23 +987,26 @@ namespace YAF.Core.Model
         {
             var topics = repository.SimpleList(0, 99999999);
 
-            foreach (var topic in topics.Where(t => t.TopicName.IsSet()))
-            {
-                try
-                {
-                    var decodedTopic = decodeTopicFunc(topic.TopicName);
-
-                    if (!decodedTopic.Equals(topic.TopicName))
+            topics.Where(t => t.TopicName.IsSet()).ForEach(
+                topic =>
                     {
-                        // unencode it and update.
-                        repository.UpdateOnly(() => new Topic { TopicName = decodedTopic }, t => t.ID == topic.ID);
-                    }
-                }
-                catch
-                {
-                    // soft-fail...
-                }
-            }
+                        try
+                        {
+                            var decodedTopic = decodeTopicFunc(topic.TopicName);
+
+                            if (!decodedTopic.Equals(topic.TopicName))
+                            {
+                                // un-encode it and update.
+                                repository.UpdateOnly(
+                                    () => new Topic { TopicName = decodedTopic },
+                                    t => t.ID == topic.ID);
+                            }
+                        }
+                        catch
+                        {
+                            // soft-fail...
+                        }
+                    });
         }
 
         #endregion
@@ -872,6 +1014,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The topic_delete attachments.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="topicID">
         /// The topic id.
         /// </param>
@@ -892,8 +1037,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Delete message and all subsequent releated messages to that ID
+        /// Delete message and all subsequent related messages to that ID
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -906,7 +1054,7 @@ namespace YAF.Core.Model
         /// <param name="isDeleteAction">
         /// The is delete action.
         /// </param>
-        /// <param name="DeleteLinked">
+        /// <param name="deleteLinked">
         /// The delete linked.
         /// </param>
         /// <param name="isLinked">
@@ -918,7 +1066,7 @@ namespace YAF.Core.Model
             bool isModeratorChanged,
             [NotNull] string deleteReason,
             int isDeleteAction,
-            bool DeleteLinked,
+            bool deleteLinked,
             bool isLinked)
         {
             repository.DeleteRecursively(
@@ -926,7 +1074,7 @@ namespace YAF.Core.Model
                 isModeratorChanged,
                 deleteReason,
                 isDeleteAction,
-                DeleteLinked,
+                deleteLinked,
                 isLinked,
                 false);
         }
@@ -934,6 +1082,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The message_delete recursively.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -968,21 +1119,19 @@ namespace YAF.Core.Model
             var useFileTable = YafContext.Current.Get<YafBoardSettings>().UseFileTable;
 
             if (deleteLinked)
-            { 
+            {
                 // Delete replies
                 var replies = YafContext.Current.GetRepository<Message>().Get(m => m.ReplyTo == messageID).Select(x => x.ID);
 
-                foreach (var replyId in replies)
-                {
-                    repository.DeleteRecursively(
+                replies.ForEach(
+                    replyId => repository.DeleteRecursively(
                         replyId,
                         isModeratorChanged,
                         deleteReason,
                         isDeleteAction,
                         true,
-                        true,
-                        eraseMessages);
-                }
+                        isLinked,
+                        eraseMessages));
             }
 
             // If the files are actually saved in the Hard Drive
@@ -1015,6 +1164,9 @@ namespace YAF.Core.Model
             // Ederon : erase message for good
             if (eraseMessages)
             {
+                // Delete Message from Search Index
+                YafContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+
                 repository.DbFunction.Scalar.message_delete(
                     MessageID: messageID,
                     EraseMessage: eraseMessages);
@@ -1022,7 +1174,7 @@ namespace YAF.Core.Model
             else
             {
                 // Delete Message
-                // undelete function added
+                // un-delete function added
                 repository.DbFunction.Scalar.message_deleteundelete(
                     MessageID: messageID,
                     isModeratorChanged: isModeratorChanged,
