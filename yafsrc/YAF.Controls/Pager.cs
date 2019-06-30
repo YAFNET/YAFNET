@@ -365,27 +365,21 @@ namespace YAF.Controls
 
             for (var i = start; i < end; i++)
             {
+                var page = (i + 1).ToString();
+
+                var link = new ThemeButton
+                               {
+                                   NavigateUrl = this.GetLinkUrl(i + 1, postBack),
+                                   Type = ButtonAction.Secondary,
+                                   Text = page
+                               };
+
                 if (i == this.CurrentPageIndex)
                 {
-                    output.WriteBeginTag("span");
-                    output.WriteAttribute("class", "btn btn-primary active");
-                    output.Write(HtmlTextWriter.TagRightChar);
-                    output.Write(i + 1);
-                    output.WriteEndTag("span");
+                    link.CssClass = "active";
                 }
-                else
-                {
-                    var page = (i + 1).ToString();
 
-                    var link = new ThemeButton
-                                   {
-                                       NavigateUrl = this.GetLinkUrl(i + 1, postBack),
-                                       Type = ButtonAction.Secondary,
-                                       Text = page,
-                                   };
-
-                    link.RenderControl(output);
-                }
+                link.RenderControl(output);
             }
 
             if (this.CurrentPageIndex < this.PageCount() - 1)
