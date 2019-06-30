@@ -98,14 +98,14 @@ namespace YAF.Controls
                 TimeSpan.FromMilliseconds(YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
             output.BeginRender();
-            output.WriteBeginTag("span");
-            output.WriteAttribute("id", this.ClientID);
+            output.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
+            output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
 
             if (this.Suspended)
             {
                 // suspended
-                output.WriteAttribute("class", "text-warning");
-                output.WriteAttribute("title", this.GetTextFormatted("USERSUSPENDED", "0"));
+                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning");
+                output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", "0"));
             }
             else
             {
@@ -113,14 +113,14 @@ namespace YAF.Controls
                     .Any(x => x.Field<int>("UserId") == this.UserId && !x.Field<bool>("IsHidden")))
                 {
                     // online
-                    output.WriteAttribute("class", "text-success");
-                    output.WriteAttribute("title", this.GetText("USERONLINESTATUS"));
+                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success");
+                    output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
                 }
                 else
                 {
                     // offline
-                    output.WriteAttribute("class", "text-danger");
-                    output.WriteAttribute("title", this.GetText("USEROFFLINESTATUS"));
+                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger");
+                    output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
                 }
             }
 
@@ -130,7 +130,7 @@ namespace YAF.Controls
 
             // render the optional controls (if any)
             base.Render(output);
-            output.WriteEndTag("span");
+            output.WriteEndTag(HtmlTextWriterTag.Span.ToString());
             output.EndRender();
         }
 
