@@ -44,7 +44,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// Summary description for ranks.
+    /// Admin Page to Edit NNTP Forums
     /// </summary>
     public partial class nntpforums : AdminPage
     {

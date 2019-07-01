@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.team" Codebehind="team.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -19,71 +20,60 @@
                                                                  LocalizedTag="Admins" LocalizedPage="TEAM" />
             </div>
             <div class="card-body">
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert>
-                <div class="table-responsive">
-                <asp:DataGrid ID="AdminsGrid" runat="server"  
-                              Width="100%" BorderStyle="None" GridLines="None" BorderWidth="0px" 
-                              AutoGenerateColumns="False"
-                              CssClass="table">
-    		         <Columns>
-             		 	<asp:TemplateColumn HeaderText="User">
-			  			    <HeaderStyle HorizontalAlign="Center" CssClass="font-weight-bold"></HeaderStyle>
-                            <ItemStyle HorizontalAlign="Center" Width="40px"></ItemStyle>
-			  				    <ItemTemplate>
-                                    <asp:Image ID="AdminAvatar" runat="server"
-                                               Width="40px" Height="40px" />
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-             		 	<asp:TemplateColumn>
-             		 	    <HeaderStyle HorizontalAlign="Center" CssClass="font-weight-bold"></HeaderStyle>
-			  			    <ItemStyle Width="150px"></ItemStyle>
-			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="AdminLink" runat="server" 
-                                                     IsGuest="False" 
-                                                     UserID='<%# this.Eval("UserID").ToType<int>() %>' 
-                                                     Style='<%# this.Eval("Style") %>'  />
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-             		 	<asp:TemplateColumn HeaderText="Forums">
-			  			    <HeaderStyle CssClass="font-weight-bold"></HeaderStyle>
-			  			    <ItemStyle Width="390px"></ItemStyle>
-			  				    <ItemTemplate>
-               				        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="FORUMS_ALL" LocalizedPage="TEAM" />
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-                         <asp:TemplateColumn>
-			  			    <HeaderStyle CssClass="font-weight-bold"></HeaderStyle>
-			  			    <ItemStyle HorizontalAlign="Left"></ItemStyle>
-			  				    <ItemTemplate>
-                                    <div class="btn-group" role="group">
-               				        <YAF:ThemeButton ID="PM" runat="server"
-                                                        Size="Small" Visible="false" 
-                                                        TextLocalizedPage="POSTS" TextLocalizedTag="PM"
-                                                        TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
-                                                        Icon="envelope" Type="Secondary"/>
-			                        <YAF:ThemeButton ID="Email" runat="server" 
+                <asp:Repeater ID="AdminsList" runat="server" OnItemDataBound="AdminsList_OnItemDataBound">
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                        <HeaderTemplate>
+                            <ul class="list-group">
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li class="list-group-item list-group-item-action">
+                             <div class="d-flex w-100 justify-content-between mb-3">
+                                 <h5 class="mb-1 text-break">
+                                     <asp:Image ID="AdminAvatar" runat="server"
+                                                Width="40px" Height="40px" />
+                                     <YAF:UserLink ID="AdminLink" runat="server" 
+                                                   IsGuest="False" 
+                                                   UserID='<%# this.Eval("UserID").ToType<int>() %>' 
+                                                   Style='<%# this.Eval("Style") %>'  />
+                                 </h5>
+                                 <small>
+                                     <span class="font-weight-bold">
+                                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                                             LocalizedTag="FORUMS" />:
+                                     </span>
+                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="FORUMS_ALL" LocalizedPage="TEAM" />
+                                 </small>
+                             </div>
+                            <small>
+                                <div class="btn-group" role="group">
+                                    <YAF:ThemeButton ID="PM" runat="server"
+                                                     Size="Small" 
+                                                     Visible="false" 
+                                                     TextLocalizedPage="POSTS" TextLocalizedTag="PM"
+                                                     TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
+                                                     Icon="envelope" Type="Secondary"/>
+                                    <YAF:ThemeButton ID="Email" runat="server" 
                                                      Size="Small" Visible="false"
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE"
                                                      Icon="at" Type="Secondary" />
-			                        <YAF:ThemeButton ID="AdminUserButton" runat="server" 
+                                    <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
                                                      Size="Small" Visible="false"
                                                      Icon="user-cog" Type="Secondary"
                                                      NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
-			                        </YAF:ThemeButton>
-                                    </div>
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-    		         </Columns>
-			</asp:DataGrid>
-                </div>
+                                    </YAF:ThemeButton>
+                                </div>
+                            </small>
+                            </li>
+			            </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
             </div>
         </div>
     </div>
@@ -98,74 +88,72 @@
                                                                  LocalizedTag="MODS" LocalizedPage="TEAM" />
             </div>
             <div class="card-body">
-                <YAF:Alert runat="server" ID="Alert1" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert>
-                <div class="table-responsive">
-                <asp:DataGrid ID="ModeratorsGrid" runat="server" 
-                              Width="100%" BorderStyle="None" GridLines="None" BorderWidth="0px" 
-                              CssClass="table"
-                              AutoGenerateColumns="False">
-    		         <Columns>
-             		 	<asp:TemplateColumn HeaderText="User">
-			  			    <HeaderStyle HorizontalAlign="Center" CssClass="font-weight-bold"></HeaderStyle>
-                            <ItemStyle HorizontalAlign="Center" Width="40px"></ItemStyle>
-			  				    <ItemTemplate>
-                                    <asp:Image ID="ModAvatar" runat="server"
-                                               Width="40px" Height="40px" />
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-             		 	<asp:TemplateColumn>
-             		 	    <HeaderStyle HorizontalAlign="Center" CssClass="font-weight-bold"></HeaderStyle>
-			  			    <ItemStyle Width="150px"></ItemStyle>
-			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="ModLink" runat="server" 
-                                                     ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString() %>' UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' IsGuest="False" Style='<%# this.Eval("Style") %>'  />
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-             		 	<asp:TemplateColumn HeaderText="Forums">
-			  			    <HeaderStyle CssClass="font-weight-bold"></HeaderStyle>
-			  			    <ItemStyle Width="390px"></ItemStyle>
-			  				    <ItemTemplate>
-               				        <asp:DropDownList ID="ModForums" runat="server" CssClass="standardSelectMenu">
-               				        </asp:DropDownList>
-                                     <YAF:ThemeButton ID="GoToForumButton" runat="server" 
-                                                      Size="Small"
-                                                      Icon="external-link-alt" Type="Secondary"
-                                                      TextLocalizedTag="GO" OnClick="GoToForum"></YAF:ThemeButton>
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-                        <asp:TemplateColumn>
-			  			    <HeaderStyle CssClass="font-weight-bold"></HeaderStyle>
-			  			    <ItemStyle HorizontalAlign="Left"></ItemStyle>
-			  				    <ItemTemplate>
-                                    <div class="btn-group" role="group">
-               				        <YAF:ThemeButton ID="PM" runat="server" 
-                                                        Size="Small" Visible="false" 
-                                                        TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
-                                                        TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
-                                                        Icon="envelope" Type="Secondary" />
-			                        <YAF:ThemeButton ID="Email" runat="server" 
+                <asp:Repeater ID="ModeratorsList" runat="server" OnItemDataBound="ModeratorsList_OnItemDataBound">
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                        <HeaderTemplate>
+                            <ul class="list-group">
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li class="list-group-item list-group-item-action">
+                             <div class="d-flex w-100 justify-content-between mb-3">
+                                 <h5 class="mb-1 text-break">
+                                     <asp:Image ID="ModAvatar" runat="server"
+                                                Width="40px" Height="40px" />
+                                     <YAF:UserLink ID="ModLink" runat="server" 
+                                                   ReplaceName='<%#  this.Eval(this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
+                                                   UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' 
+                                                   IsGuest="False" 
+                                                   Style='<%# this.Eval("Style") %>'  />
+                                 </h5>
+                             </div>
+                                <p>
+                                        <span class="font-weight-bold">
+                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                                                LocalizedTag="FORUMS" />:
+                                        </span>
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <YAF:ThemeButton ID="GoToForumButton" runat="server" 
+                                                             Icon="external-link-alt" 
+                                                             Type="Secondary"
+                                                             TextLocalizedTag="GO" 
+                                                             OnClick="GoToForum"></YAF:ThemeButton>
+                                        </span>
+                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="standardSelectMenu form-control">
+                                        </asp:DropDownList>
+                                        
+                                        
+                                    </div>
+                                </p>
+                            <small>
+                                <div class="btn-group" role="group">
+                                    <YAF:ThemeButton ID="PM" runat="server" 
+                                                     Size="Small" Visible="false" 
+                                                     TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
+                                                     TitleLocalizedPage="POSTS" TitleLocalizedTag="PM_TITLE"
+                                                     Icon="envelope" Type="Secondary" />
+                                    <YAF:ThemeButton ID="Email" runat="server" 
                                                      Size="Small" Visible="false" 
                                                      TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL"
                                                      TitleLocalizedPage="POSTS" TitleLocalizedTag="EMAIL_TITLE"
                                                      Icon="at" Type="Secondary" />
-			                        <YAF:ThemeButton ID="AdminUserButton" runat="server" 
+                                    <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                                      Size="Small" Visible="false"
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                                      Icon="user-cog" Type="Secondary"
                                                      NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
-			                        </YAF:ThemeButton>
-                                    </div>
-			  				    </ItemTemplate>
-             		 	</asp:TemplateColumn>
-    		         </Columns>
-			</asp:DataGrid>
-                    </div>
+                                    </YAF:ThemeButton>
+                                </div>
+                            </small>
+                            </li>
+			            </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
             </div>
         </div>
     </div>

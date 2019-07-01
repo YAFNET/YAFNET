@@ -185,8 +185,16 @@ namespace YAF.Controls
             set => this.ViewState["commandName"] = value;
         }
 
+        [CanBeNull]
+        public string Text
+        {
+            get => this.ViewState["Text"] != null ? this.ViewState["Text"] as string : string.Empty;
+
+            set => this.ViewState["Text"] = value;
+        }
+
         /// <summary>
-        ///   Gets or sets the Defaults to "yafcssbutton"
+        /// Gets or sets the css class.
         /// </summary>
         [CanBeNull]
         public string CssClass
@@ -569,15 +577,19 @@ namespace YAF.Controls
             // Write Modal
             if (this.DataTarget.IsSet())
             {
-                output.WriteAttribute("data-toggle", "modal");
                 output.WriteAttribute("data-target", $"#{this.DataTarget}");
+
+                if (this.DataTarget == "modal")
+                {
+                    output.WriteAttribute("aria-haspopup", "true");
+                }
             }
 
             // Write Dropdown
             if (this.DataToggle.IsSet())
             {
-                output.WriteAttribute("data-toggle", "dropdown");
-                output.WriteAttribute("aria-haspopup", "true");
+                output.WriteAttribute("data-toggle", this.DataToggle);
+
                 output.WriteAttribute("aria-expanded", "false");
             }
 
@@ -594,6 +606,11 @@ namespace YAF.Controls
                 {
                     output.Write("<i class=\"fa fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass);
                 }
+            }
+
+            if (this.Text.IsSet())
+            {
+                output.Write(this.Text);
             }
 
             // render the optional controls (if any)

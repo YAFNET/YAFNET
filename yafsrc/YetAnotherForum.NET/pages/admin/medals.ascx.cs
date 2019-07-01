@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// Administration inferface for managing medals.
+    /// Administration Page for managing medals.
     /// </summary>
     public partial class medals : AdminPage
     {

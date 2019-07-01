@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersKill" CodeBehind="EditUsersKill.ascx.cs" %>
 
-    <h2 runat="server" id="trHeader">
+
+<h2 runat="server" id="trHeader">
 
             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_KILL_USER" LocalizedPage="ADMIN_EDITUSER" />
         </h2>
@@ -19,9 +20,9 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="BAN_EMAIL_OFUSER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" ID="BanEmail" runat="server" Checked="true" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="BanEmail" runat="server" Checked="true" />
+        </div>
     <hr />
 
         <h4>
@@ -29,9 +30,9 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="BAN_IP_OFUSER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" ID="BanIps" runat="server" Checked="true" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="BanIps" runat="server" Checked="true" />
+        </div>
     <hr />
 
         <h4>
@@ -39,9 +40,9 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="BAN_NAME_OFUSER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" ID="BanName" runat="server" Checked="true" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="BanName" runat="server" Checked="true" />
+        </div>
     <hr />
 
         <h4>
@@ -49,7 +50,6 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SUSPEND_OR_DELETE_ACCOUNT" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
         </h4>
-        <p>
             <div class="custom-control custom-radio custom-control-inline">
                 <asp:RadioButtonList runat="server" ID="SuspendOrDelete" 
                                      RepeatLayout="UnorderedList"
@@ -57,8 +57,7 @@
                 </asp:RadioButtonList>
             </div>
             <asp:Literal ID="SuspendedTo" runat="server"></asp:Literal>
-        </p>
-    <hr />
+<hr />
 
         <h4>
             <strong>
@@ -79,9 +78,9 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPORT_USER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" ID="ReportUser" runat="server" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="ReportUser" runat="server" />
+        </div>
         </asp:PlaceHolder>
 
                 <div class="text-lg-center">

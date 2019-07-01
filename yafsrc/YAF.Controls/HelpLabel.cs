@@ -26,6 +26,8 @@ namespace YAF.Controls
     #region Using
 
     using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Types.Extensions;
@@ -43,7 +45,7 @@ namespace YAF.Controls
         /// <summary>
         /// The _localized tag.
         /// </summary>
-        protected string _localizedHelpTag = string.Empty;
+        private string localizedHelpTag = string.Empty;
 
         #endregion
 
@@ -70,11 +72,11 @@ namespace YAF.Controls
         public string LocalizedHelpTag
         {
             get =>
-                string.IsNullOrEmpty(this._localizedHelpTag)
+                string.IsNullOrEmpty(this.localizedHelpTag)
                     ? $"{this.LocalizedTag}_HELP"
-                    : this._localizedHelpTag;
+                    : this.localizedHelpTag;
 
-            set => this._localizedHelpTag = value;
+            set => this.localizedHelpTag = value;
         }
 
         /// <summary>
@@ -124,6 +126,8 @@ namespace YAF.Controls
         {
             output.BeginRender();
 
+            output.Write("<h6>");
+
             var text = string
                     .Format(this.GetText(this.LocalizedPage, this.LocalizedTag), this.Param0, this.Param1, this.Param2);
 
@@ -146,9 +150,21 @@ namespace YAF.Controls
 
             tooltip = tooltip.IsSet() ? this.HtmlEncode(tooltip) : text;
 
-            output.Write(
-                "&nbsp;<button type=\"button\" class=\"btn btn-primary btn-circle\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"{0}\"><i class=\"fa fa-question\"></i></button>",
-                tooltip);
+            output.Write("&nbsp;");
+
+            var button = new HtmlGenericControl("button");
+            button.Attributes.Add(HtmlTextWriterAttribute.Type.ToString(), "button");
+            button.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn btn-info btn-circle btn-sm");
+            button.Attributes.Add(HtmlTextWriterAttribute.Title.ToString(), tooltip);
+
+            button.Attributes.Add("data-toggle", "tooltip");
+            button.Attributes.Add("data-placement", "right");
+
+            button.Controls.Add(new Literal { Text = "<i class=\"fa fa-question\"></i>" });
+
+            button.RenderControl(output);
+
+            output.Write("</h6>");
 
             output.EndRender();
         }

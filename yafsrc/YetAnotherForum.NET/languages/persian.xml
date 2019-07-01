@@ -390,6 +390,9 @@
     <Resource tag="BOARD_THREADED_HELP">مجوز نمایش پشت سر هم مطالب.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">نحوه نمایش موضوعات</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">تابلو پیش فرض فاصله انتخاب موضوع را نمایش می دهد.</Resource>
+    <Resource tag="CDVVERSION">CRM Version</Resource>
+    <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
+    <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">کلید حذف کپی رایت:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">حذف نام و عنوان YAF از زیر انجمن موجود در لینک : &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;سایت YAF&lt;/a&gt;. </Resource>
@@ -2756,6 +2759,7 @@
     <Resource tag="MARKALL">تمام انجمن‌ها بصورت خوانده شده در آیند</Resource>
     <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">ناظران</Resource>
+    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
     <Resource tag="NO_FORUM_ACCESS">(بدون دسترسی)</Resource>
     <Resource tag="NO_POSTS">ارسالی وجود ندارد</Resource>
     <Resource tag="ONDATE">در تاریخ {0}</Resource>

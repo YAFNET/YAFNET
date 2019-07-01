@@ -34,10 +34,10 @@ namespace YAF.Utils.Helpers
     public static class DateTimeHelper
     {
         /// <summary>
-        /// the sql compatible DateTime Min Value
+        /// the SQL compatible DateTime Min Value
         /// </summary>
         /// <returns>
-        /// Returns the sql compatible DateTime Min Value
+        /// Returns the SQL compatible DateTime Min Value
         /// </returns>
         public static DateTime SqlDbMinTime()
         {
@@ -55,16 +55,14 @@ namespace YAF.Utils.Helpers
             {
                 return TimeZoneInfo.Local;
             }
-            else
+
+            try
             {
-                try
-                {
-                    return TimeZoneInfo.FindSystemTimeZoneById(input);
-                }
-                catch (Exception)
-                {
-                    return TimeZoneInfo.Local;
-                }
+                return TimeZoneInfo.FindSystemTimeZoneById(input);
+            }
+            catch (Exception)
+            {
+                return TimeZoneInfo.Local;
             }
         }
 
@@ -100,7 +98,7 @@ namespace YAF.Utils.Helpers
         {
             var utcOffSet = timeZoneInfo.BaseUtcOffset;
             var timeZone = utcOffSet < TimeSpan.Zero
-                               ? $"-{utcOffSet.ToString("hh")}"
+                               ? $"-{utcOffSet:hh}"
                                : utcOffSet.ToString("hh");
 
             return (timeZone.ToType<decimal>() * 60).ToType<int>();

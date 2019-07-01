@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="polledit.ascx.cs" Inherits="YAF.Pages.polledit" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <div class="row">

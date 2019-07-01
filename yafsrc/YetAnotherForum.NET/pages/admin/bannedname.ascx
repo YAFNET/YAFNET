@@ -7,6 +7,7 @@
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/BannedNameEdit.ascx" %>
 
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -21,9 +22,9 @@
                      <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
                 </div>
                 <div class="card-body">
-                    <h4>
+                     
                         <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
-                    </h4>
+                     
                     <p>
                         <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="form-control"></asp:TextBox>
                     </p>
@@ -35,6 +36,10 @@
                     </YAF:ThemeButton>
                 </div>
             </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-xl-12">
              <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
             <div class="card mb-3">
                 <div class="card-header">
@@ -49,21 +54,14 @@
             <li class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
-                    <h5 class="mb-1">
+                    <h5 class="mb-1 text-break">
                         <asp:Label ID="MaskBox" Text='<%# this.Eval("Mask") %>' runat="server"></asp:Label>
                     </h5>
-                    <small>
-                        <YAF:ThemeButton ID="ThemeButtonEdit" 
-                                         Type="Info" Size="Small" 
-                                         CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
-                                         TextLocalizedTag="EDIT"
-                                         TitleLocalizedTag="EDIT" 
-                                         Icon="edit" runat="server"></YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                         Type="Danger" Size="Small" 
-                                         CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
-                                         TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
-                                         TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
+                    <small class="d-none d-md-block">
+                        <span class="font-weight-bold">
+                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDNAME" />
+                        </span>
+                        <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Since")) %>
                     </small>
                 </div>
                 <p class="mb-1">
@@ -73,10 +71,17 @@
                     <%# this.Eval("Reason") %>
                 </p>
                 <small>
-                    <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDNAME" />
-                    </span>
-                    <%# this.Get<IDateTime>().FormatDateTime(this.Eval("Since")) %>
+                    <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                     Type="Info" Size="Small" 
+                                     CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+                                     TextLocalizedTag="EDIT"
+                                     TitleLocalizedTag="EDIT" 
+                                     Icon="edit" runat="server"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                     Type="Danger" Size="Small" 
+                                     CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
+                                     TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
+                                     TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
                 </small>
             </li>
 			</ItemTemplate>
@@ -84,22 +89,38 @@
         </ul>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton runat="server" Icon="plus-square" Type="Primary"
-                                     TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME" CommandName="add"></YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="plus-square" 
+                                     Type="Primary"
+                                     CssClass="mt-1"
+                                     TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME" 
+                                     CommandName="add"></YAF:ThemeButton>
                     &nbsp;
-                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="ImportDialog" Type="Info"
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="upload" 
+                                     DataToggle="modal" 
+                                     DataTarget="ImportDialog" 
+                                     Type="Info"
+                                     CssClass="mt-1"
                                      TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDNAME"></YAF:ThemeButton>
                     &nbsp;
-                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
-                                     Type="Warning" Icon="download" TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" 
+                                     CommandName='export' 
+                                     ID="Linkbutton4" 
+                                     Type="Warning" 
+                                     Icon="download" 
+                                     CssClass="mt-1"
+                                     TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </div>
 
 			</FooterTemplate>
 		</asp:Repeater>
 	 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
-                            </div>
+            </div>
+        </div>
     </div>
+</div>
 
 
 

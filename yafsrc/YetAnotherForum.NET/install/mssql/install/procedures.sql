@@ -8564,6 +8564,7 @@ begin
         IsFacebookUser      = a.IsFacebookUser,
         IsTwitterUser       = a.IsTwitterUser,
         MailsPending		= CASE WHEN @ShowPendingMails > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Mail] WHERE [ToUserName] = a.Name) ELSE 0 END,
+		ModeratePosts       = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] where (Flags & 128)=128 and IsDeleted = 0 or IsApproved=0 and IsDeleted = 0 and BoardID = @BoardID),
         UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
         LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,
         PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,

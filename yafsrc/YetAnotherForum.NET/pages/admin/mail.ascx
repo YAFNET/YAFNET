@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.mail" Codebehind="mail.ascx.cs" %>
 
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
     <div class="row">
@@ -14,24 +15,24 @@
                     <i class="fa fa-envelope fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_MAIL" />
 			     </div>
                 <div class="card-body">
-                    <h4>
-			  <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MAIL_TO" LocalizedPage="ADMIN_MAIL" /></strong>
-            </h4>
+                    <h6>
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MAIL_TO" LocalizedPage="ADMIN_MAIL" />
+            </h6>
 			<p>
 			  <asp:DropDownList ID="ToList" runat="server" DataValueField="ID" DataTextField="Name" CssClass="custom-select">
                 </asp:DropDownList>
             </p>
             <hr />
-			<h4>
-			  <strong><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="MAIL_SUBJECT" LocalizedPage="ADMIN_MAIL" /></strong>
-            </h4>
+			<h6>
+			  <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="MAIL_SUBJECT" LocalizedPage="ADMIN_MAIL" />
+            </h6>
 			<p>
 			  <asp:TextBox ID="Subject" runat="server" CssClass="form-control"></asp:TextBox>
             </p>
             <hr />
-			<h4>
-			  <strong><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MAIL_MESSAGE" LocalizedPage="ADMIN_MAIL" /></strong>
-            </h4>
+			<h6>
+			  <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MAIL_MESSAGE" LocalizedPage="ADMIN_MAIL" />
+            </h6>
 			<p>
 			  <asp:TextBox ID="Body" runat="server" TextMode="MultiLine" CssClass="form-control" Rows="16"></asp:TextBox>
             </p>

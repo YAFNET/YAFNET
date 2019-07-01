@@ -89,8 +89,6 @@ namespace YAF.Pages.Admin
                 if (this.Request.QueryString.GetFirstOrDefault("r") != null)
                 {
                     var rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
-
-
                     var rank = this.GetRepository<Rank>()
                         .GetSingle(r => r.ID == rankId);
 

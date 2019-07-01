@@ -30,7 +30,6 @@ namespace YAF.Editors
     using YAF.Classes.Editors;
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -69,11 +68,11 @@ namespace YAF.Editors
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJsInclude("ckeditor", this.ResolveUrl("ckeditor/ckeditor.js"));
+            YafContext.Current.PageElements.AddScriptReference("ckeditor", "ckeditor/ckeditor.js");
 
-            YafContext.Current.PageElements.RegisterJsInclude(
+            YafContext.Current.PageElements.AddScriptReference(
                 "ckeditor-jQuery-Adapter",
-                this.ResolveUrl("ckeditor/adapters/jquery.js"));
+                "ckeditor/adapters/jquery.js");
 
             this.RegisterSmilieyScript();
 

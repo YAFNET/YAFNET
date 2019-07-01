@@ -29,7 +29,6 @@ namespace YAF.Controls
 
     using YAF.Core;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// Alert Message Control

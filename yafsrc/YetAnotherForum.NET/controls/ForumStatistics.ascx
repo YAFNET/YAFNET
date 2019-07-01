@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
-    Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
 
 
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
@@ -52,6 +51,11 @@
                             </div>
                         </div>
                     </asp:PlaceHolder>
+                    <div class="row">
+                        <div class="col">
+                            <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
+                        </div>
+                    </div>
                 </div>
             </asp:PlaceHolder>
 

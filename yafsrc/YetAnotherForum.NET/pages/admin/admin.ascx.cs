@@ -339,10 +339,7 @@ namespace YAF.Pages.Admin
             {
                 YafContext.Current.PageElements.RegisterJsBlock(
                     "ActiveUsersTablesorterLoadJs",
-                    JavaScriptBlocks.LoadTableSorter(
-                        "#ActiveUsers",
-                        "sortList: [[0,0]]",
-                        "#ActiveUsersPager"));
+                    JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
             }
 
             this.ActiveList.DataSource = activeUsers;
@@ -463,7 +460,7 @@ namespace YAF.Pages.Admin
         {
             // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.
             var activeUsers = this.GetRepository<Active>()
-                .ListUser(
+                .ListUserAsDataTable(
                     userID: this.PageContext.PageUserID,
                     guests: showGuests,
                     showCrawlers: showCrawlers,

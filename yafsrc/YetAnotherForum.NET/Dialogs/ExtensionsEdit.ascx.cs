@@ -133,7 +133,7 @@ namespace YAF.Dialogs
             if (this.IsValidExtension(fileExtension))
             {
                 this.GetRepository<FileExtension>().Save(
-                    this.Request.QueryString.GetFirstOrDefaultAs<int?>("i") ?? 0,
+                    this.ExtensionId,
                     fileExtension,
                     this.PageContext.PageBoardID);
 

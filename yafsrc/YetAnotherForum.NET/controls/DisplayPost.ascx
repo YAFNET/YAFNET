@@ -28,7 +28,7 @@
                 <YAF:UserLink  ID="UserLink1" runat="server" 
                                UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
                                ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
-                               PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>'
+                               PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
                                Style='<%# this.DataRow["Style"]%>' 
                                EnableHoverCard="False" 
                                Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
@@ -171,10 +171,11 @@
                         </div>
                         <YAF:ThemeButton ID="Quote" runat="server"
                             Type="Link"
-                            Icon="comment-alt"
+                            Icon="quote-left"
                             TextLocalizedTag="BUTTON_QUOTE"
                             TitleLocalizedTag="BUTTON_QUOTE_TT" />
-                        <asp:CheckBox runat="server" ID="MultiQuote" CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
+                        <asp:CheckBox runat="server" ID="MultiQuote" 
+                                      CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
                     </div>
                 </div>
             </div>

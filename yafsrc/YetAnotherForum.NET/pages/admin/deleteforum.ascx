@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.deleteforum"
     CodeBehind="deleteforum.ascx.cs" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -18,16 +19,16 @@
                     <asp:Label ID="ForumNameTitle" runat="server"></asp:Label>
                 </div>
                 <div class="card-body">
-            <h4>
+             
                 <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
-            </h4>
-            <p>
-                <asp:CheckBox ID="MoveTopics" runat="server" AutoPostBack="true" CssClass="form-control"></asp:CheckBox>
-            </p>
+             
+            <div class="custom-control custom-switch">
+                <asp:CheckBox ID="MoveTopics" runat="server" AutoPostBack="False" Text="&nbsp;"></asp:CheckBox>
+            </div>
             <hr />
-            <h4>
+             
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
-            </h4>
+             
             <p>
                 <asp:DropDownList ID="ForumList" runat="server" Enabled="false" CssClass="custom-select">
                 </asp:DropDownList>

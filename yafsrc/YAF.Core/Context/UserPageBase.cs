@@ -45,7 +45,7 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The init user page.
+        ///   The init. user page.
         /// </summary>
         protected bool InitUserPage;
 
@@ -371,6 +371,11 @@ namespace YAF.Core
         ///   Gets the number of private messages that are unread
         /// </summary>
         public int UnreadPrivate => this.Page["UnreadPrivate"].ToType<int>();
+
+        /// <summary>
+        ///   Gets the number of posts that needs moderating
+        /// </summary>
+        public int ModeratePosts => this.Page["ModeratePosts"].ToType<int>();
 
         /// <summary>
         ///   Gets a value indicating whether a user has buddies

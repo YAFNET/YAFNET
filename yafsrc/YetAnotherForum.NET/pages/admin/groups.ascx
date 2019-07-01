@@ -1,10 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.groups" Codebehind="groups.ascx.cs" %>
 
-<%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Types.Models" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -28,55 +26,54 @@
                     </YAF:Alert>
 		<asp:Repeater ID="RoleListNet" runat="server" OnItemCommand="RoleListNetItemCommand">
 			<HeaderTemplate>
-			    <div class="table-responsive">
-	<table class="table">
-				<tr>
-                    <thead>
-					<th>
-						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_COMMON" />
-					</th>
-					<th>&nbsp;
-
-					</th>
-                    </thead>
-				</tr>
+                <ul class="list-group">
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr>
-					<td>
-						<%# Container.DataItem %>
-						(<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />)
-					</td>
-					<td>
-					    <span class="float-right">
-						<YAF:ThemeButton ID="ThemeButtonAdd" Type="Info" Size="Small"
-                            CommandName='add' CommandArgument='<%# Container.DataItem %>'
-                            TitleLocalizedTag="ADD_ROLETOYAF"
-                            TitleLocalizedPage="ADMIN_GROUPS"
-                            TextLocalizedTag="ADD_ROLETOYAF"
-                            TextLocalizedPage="ADMIN_GROUPS"
-                            Icon="plus-circle"
-                            runat="server">
-					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
-                                    CommandName='delete' CommandArgument='<%# Container.DataItem %>'
-                                    TitleLocalizedTag="DELETE"
-                                    Icon="trash"
-                                    TextLocalizedTag="DELETE"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE") %>'
-						            runat="server">
-                                </YAF:ThemeButton>
-                            </span>
-					</td>
-				</tr>
+                 <li class="list-group-item list-group-item-action">
+                 <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-break">
+                        <%# Container.DataItem %>
+                    </h5>
+                     <small class="text-muted">
+                         <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />
+                     </small>
+                 </div>
+                     <small>
+                    <YAF:ThemeButton ID="ThemeButtonAdd" runat="server"
+                                     Type="Info" 
+                                     Size="Small"
+                                     CommandName='add' CommandArgument='<%# Container.DataItem %>'
+                                     TitleLocalizedTag="ADD_ROLETOYAF"
+                                     TitleLocalizedPage="ADMIN_GROUPS"
+                                     TextLocalizedTag="ADD_ROLETOYAF"
+                                     TextLocalizedPage="ADMIN_GROUPS"
+                                     Icon="plus-circle">
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                     Type="Danger" 
+                                     Size="Small"
+                                     CommandName='delete' CommandArgument='<%# Container.DataItem %>'
+                                     TitleLocalizedTag="DELETE"
+                                     Icon="trash"
+                                     TextLocalizedTag="DELETE"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE") %>'>
+                    </YAF:ThemeButton>
+                </small>
+            </li>
 			</ItemTemplate>
             <FooterTemplate>
-                </table></div>
-
+                </ul>
             </FooterTemplate>
 		</asp:Repeater>
-                </div></div>
-                        <div class="card mb-3">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
                 <div class="card-header">
                     <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                                                LocalizedTag="HEADER" 
@@ -90,47 +87,19 @@
                     </YAF:Alert>
 		<asp:Repeater ID="RoleListYaf" runat="server" OnItemCommand="RoleListYafItemCommand">
 			<HeaderTemplate>
-                <div class="table-responsive">
-	<table class="table">
-				<tr>
-				<tr>
-                    <thead>
-					<th>
-						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_GROUPS" />
-					</th>
-					<th>&nbsp;
-
-					</th>
-                    </thead>
-				</tr>
+                <ul class="list-group">
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr>
-					<td>
-                       <i class="fa fa-users fa-fw"></i>&nbsp;
-						<%# this.Eval( "Name" ) %>
-						(<%# this.GetLinkedStatus((YAF.Types.Models.Group)Container.DataItem )%>)&nbsp;&nbsp;
-					</td>
-                    <td>
-                        <span class="float-right">
-						<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
-                            TitleLocalizedTag="EDIT"
-                            Icon="edit"
-                            TextLocalizedTag="EDIT"
-                            runat="server">
-					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small" Visible='<%#!this.Eval( "Flags" ).BinaryAnd(2)%>'
-                                    CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
-                                    TitleLocalizedTag="DELETE"
-                                    Icon="trash"
-                                    TextLocalizedTag="DELETE" runat="server">
-                                </YAF:ThemeButton>
-                            </span>
-					</td>
-                     </tr>
-                    <tr>
-					<td colspan="2">
+                 <li class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-break">
+                        <i class="fa fa-users fa-fw"></i>&nbsp;<%# this.Eval( "Name" ) %>
+                    </h5>
+                    <small class="text-muted">
+                        <%# this.GetLinkedStatus((YAF.Types.Models.Group)Container.DataItem )%>
+                    </small>
+                </div>
+                <p>
                      <YAF:LocalizedLabel ID="HelpLabel6" Visible='<%# ((YAF.Types.Models.Group)Container.DataItem).Description.IsSet() %>' runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
                          </YAF:LocalizedLabel>
                           &nbsp;<%# this.Eval("Description") %>&nbsp;
@@ -164,20 +133,41 @@
                     <asp:Label ID="Label7" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Group)Container.DataItem).UsrSigBBCodes) %>'><%# ((YAF.Types.Models.Group)Container.DataItem).UsrSigBBCodes.IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
                     <YAF:LocalizedLabel ID="HelpLabel9" runat="server"  LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
                     <asp:Label ID="Label8" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Group)Container.DataItem).UsrSigHTMLTags) %>'><%#  ((YAF.Types.Models.Group)Container.DataItem).UsrSigHTMLTags.IsSet() ? this.Eval("UsrSigHTMLTags").ToString() : this.GetItemName(false)%></asp:Label>&nbsp;|&nbsp;
-                    </td>
-                    </tr>
-				</tr>
+                </p>
+                <small>
+                    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
+                                     Type="Info" 
+                                     Size="Small"
+                                     CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
+                                     TitleLocalizedTag="EDIT"
+                                     Icon="edit"
+                                     TextLocalizedTag="EDIT">
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                                     Type="Danger" 
+                                     Size="Small" 
+                                     Visible='<%#!this.Eval( "Flags" ).BinaryAnd(2)%>'
+                                     CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
+                                     TitleLocalizedTag="DELETE"
+                                     Icon="trash"
+                                     TextLocalizedTag="DELETE">
+                    </YAF:ThemeButton>
+                </small>
+            </li>
 			</ItemTemplate>
             <FooterTemplate>
-                </table></div>
-                </div>
+                </ul>
             </FooterTemplate>
 		</asp:Repeater>
-                     <div class="card-footer text-center">
-				    <YAF:ThemeButton ID="NewGroup" runat="server" OnClick="NewGroupClick" Type="Primary"
-				                     Icon="plus-square" TextLocalizedTag="NEW_ROLE"></YAF:ThemeButton>
                 </div>
+            <div class="card-footer text-center">
+				    <YAF:ThemeButton ID="NewGroup" runat="server" 
+                                     OnClick="NewGroupClick" 
+                                     Type="Primary"
+				                     Icon="plus-square" 
+                                     TextLocalizedTag="NEW_ROLE">
+                    </YAF:ThemeButton>
             </div>
         </div>
-
-
+    </div>
+</div>

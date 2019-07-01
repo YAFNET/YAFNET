@@ -377,6 +377,33 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
+        /// The drop down toggle js.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string DropDownToggleJs()
+        {
+            return string.Format(
+                @"document.addEventListener('DOMContentLoaded', (event) => {{
+                {0}(function() {{
+                {0}('.dropdown-menu').on('click', function(e) {{
+                    if (e.target.type == 'button')
+                        {0}().dropdown('toggle')
+                    else
+                        e.stopPropagation();
+                }});
+                {0}(window).on('click', function() {{
+                    if (!{0}('.dropdown-menu').is (':hidden')) {{
+                        {0}().dropdown('toggle')
+                     }}
+                 }});
+                 }});
+                }});",
+                Config.JQueryAlias);
+        }
+
+        /// <summary>
         /// Generated the load Script for the Table Sorter Plugin
         /// </summary>
         /// <param name="selector">The selector.</param>
@@ -567,14 +594,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
         {
             return $@"function removeThanks(messageID){{ 
-            {Config.JQueryAlias}.ajax({{
+            $.ajax({{
                     url: '{YafForumInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/RemoveThanks/' + messageID,
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
-                              {Config.JQueryAlias}('#dvThanks' + response.MessageID).html(response.Thanks);
-                              {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
-                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
+                              $('#dvThanks' + response.MessageID).html(response.Thanks);
+                              $('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
+                              $('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');

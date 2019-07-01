@@ -115,8 +115,8 @@ namespace YAF.Pages.Admin
 
             foreach (RepeaterItem ri in this.AccessList.Items)
             {
-                var readAccess = ((CheckBox)ri.FindControl("ReadAccess")).Checked;
-                var pageName = ((Label)ri.FindControl("PageName")).Text.Trim();
+                var readAccess = ri.FindControlAs<CheckBox>("ReadAccess").Checked;
+                var pageName = ri.FindControlAs<Label>("PageName").Text.Trim();
                 if (readAccess || "admin_admin".ToLowerInvariant() == pageName.ToLowerInvariant())
                 {
                     // save it

@@ -1,24 +1,27 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.version"
     CodeBehind="version.ascx.cs" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
     <div class="row">
     <div class="col-xl-12">
-         <h1><yaf:localizedlabel id="LocalizedLabel1" runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel></h1>
+         <h1><yaf:LocalizedLabel id="LocalizedLabel1" runat="server" 
+                                 LocalizedTag="TITLE" 
+                                 Localizedpage="ADMIN_VERSION"></yaf:LocalizedLabel></h1>
     </div>
 </div>
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header"> <i class="fa fa-info fa-fw"></i>&nbsp;
-                <yaf:localizedlabel id="LocalizedLabel2"
-                runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
+                <yaf:LocalizedLabel id="LocalizedLabel2"
+                runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:LocalizedLabel>
             </div>
             <div class="card-body">
                 <asp:placeholder runat="server" id="UpgradeVersionHolder" visible="false">
                     <YAF:Alert runat="server" Type="info">
-                        <yaf:localizedlabel id="Upgrade" runat="server" localizedtag="UPGRADE_VERSION"
-                                            localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
+                        <yaf:LocalizedLabel id="Upgrade" runat="server" localizedtag="UPGRADE_VERSION"
+                                            localizedpage="ADMIN_VERSION"></yaf:LocalizedLabel>
                     </YAF:Alert>
                 </asp:placeholder>
                 <p class="card-text">

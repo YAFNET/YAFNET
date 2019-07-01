@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.taskmanager"
     CodeBehind="taskmanager.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Core.Tasks" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
@@ -30,24 +31,30 @@
                         <h5 class="mb-1">
                             <%# this.Eval("Key") %>
                         </h5>
-                        <small>
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                LocalizedTag="RUNNING" LocalizedPage="ADMIN_TASKMANAGER" />: 
-                            <asp:Label ID="Label2" runat="server" 
-                                       CssClass='<%# this.GetItemColor(this.Eval("Value.IsRunning").ToType<bool>()) %>'><%# this.GetItemName(this.Eval("Value.IsRunning").ToType<bool>())%></asp:Label>
+                        <small class="d-none d-md-block">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                LocalizedTag="DURATION" 
+                                                LocalizedPage="ADMIN_TASKMANAGER" />:
+                            <%# this.FormatTimeSpan(Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.Started)%>
                         </small>
                     </div>
                     <p class="mb-1">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DURATION" LocalizedPage="ADMIN_TASKMANAGER" />:
-                        <%# this.FormatTimeSpan(Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.Started)%>
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                            LocalizedTag="RUNNING" 
+                                            LocalizedPage="ADMIN_TASKMANAGER" />: 
+                        <asp:Label ID="Label2" runat="server" 
+                                   CssClass='<%# this.GetItemColor(this.Eval("Value.IsRunning").ToType<bool>()) %>'><%# this.GetItemName(this.Eval("Value.IsRunning").ToType<bool>())%></asp:Label>
                     </p>
                     <asp:PlaceHolder ID="StopTaskHolder" runat="server" 
                                      Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
                         <small>
-                        <YAF:ThemeButton ID="stop" runat="server" 
-                                         CommandName="stop" CommandArgument='<%# this.Eval("Key") %>'
-                                         TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
-                                         Icon="hand-paper" Type="Danger" Size="Small">
+                            <YAF:ThemeButton ID="stop" runat="server"
+                                             CommandName="stop" 
+                                             CommandArgument='<%# this.Eval("Key") %>'
+                                             TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
+                                             Icon="hand-paper" 
+                                             Type="Danger" 
+                                             Size="Small">
                         </YAF:ThemeButton>
                         </small>
                     </asp:PlaceHolder>

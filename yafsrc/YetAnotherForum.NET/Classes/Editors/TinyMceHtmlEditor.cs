@@ -23,11 +23,14 @@
  */
 namespace YAF.Editors
 {
+    using System.Web.UI;
+
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     /// <summary>
     /// The TinyMCE html editor.
@@ -72,7 +75,15 @@ namespace YAF.Editors
                                                 ? YafContext.Current.CultureUser.Substring(0, 2)
                                                 : this.Get<YafBoardSettings>().Culture.Substring(0, 2))}"";");
 
-            YafContext.Current.PageElements.RegisterJsInclude("tinymceinit", this.ResolveUrl("tinymce/tinymce_init.js"));
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "tinymceinit",
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts("tinymce/tinymce_init.js")
+                    });
+
+            YafContext.Current.PageElements.AddScriptReference(
+                "tinymceinit");
         }
 
         #endregion

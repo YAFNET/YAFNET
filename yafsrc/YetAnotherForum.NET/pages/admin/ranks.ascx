@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.ranks" Codebehind="ranks.ascx.cs" %>
 
+
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -19,29 +20,17 @@
                 <div class="card-body">
 		<asp:Repeater ID="RankList" OnItemCommand="RankListItemCommand" runat="server">
 			<HeaderTemplate>
-			    <div class="table-responsive">
-                    <table class="table">
-				<tr>
-					<td>
-						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_RANKS" />
-                    </td>
-					<td>
-						&nbsp;
-                    </td>
-				</tr>
+                <ul class="list-group">
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr>
-					<td>
-                    <i class="fa fa-graduation-cap fa-fw"></i>&nbsp;
+				<li class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-break">
+                        <i class="fa fa-graduation-cap fa-fw"></i>&nbsp;
 						<%# this.Eval( "Name") %>
-					</td>
-                    <td>
-						&nbsp;
-                    </td>
-                 </tr>
-                 <tr>
-					<td>
+                    </h5>
+                </div>
+                <p>
                      <YAF:LocalizedLabel ID="HelpLabel6" Visible='<%# ((YAF.Types.Models.Rank)Container.DataItem).Description.IsSet() %>' runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
                          </YAF:LocalizedLabel>
                           &nbsp;<%# this.Eval("Description") %>&nbsp;
@@ -70,30 +59,30 @@
                     <asp:Label ID="Label7" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes) %>'><%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes.IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
                     <YAF:LocalizedLabel ID="HelpLabel9" runat="server"  LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
                     <asp:Label ID="Label8" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags) %>'><%#  ((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags.IsSet() ? this.Eval("UsrSigHTMLTags").ToString() : this.GetItemName(false)%></asp:Label>&nbsp;|&nbsp;
-                    </td>
-					<td>
-					    <span class="float-right">
-					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
-                            TitleLocalizedTag="EDIT"
-                            Icon="edit"
-                            TextLocalizedTag="EDIT"
-                            runat="server">
+                </p>
+                <small>
+                    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                                     Type="Info" 
+                                     Size="Small"
+                                     CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
+                                     TitleLocalizedTag="EDIT"
+                                     Icon="edit"
+                                     TextLocalizedTag="EDIT">
 					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
+						<YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                                         Type="Danger"
+                                         Size="Small"
                                     CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    ReturnConfirmText='<%# this.GetText("ADMIN_RANKS", "CONFIRM_DELETE") %>'
-                                    runat="server">
+                                    ReturnConfirmText='<%# this.GetText("ADMIN_RANKS", "CONFIRM_DELETE") %>'>
                                 </YAF:ThemeButton>
-                            </span>
-					</td>
-				</tr>
+                </small>
+            </li>
 			</ItemTemplate>
             <FooterTemplate>
-                </table></div>
+                </ul>
             </FooterTemplate>
 		</asp:Repeater>
                 </div>

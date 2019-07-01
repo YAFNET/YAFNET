@@ -1,6 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.ForumSubForumList" Codebehind="ForumSubForumList.ascx.cs" %>
 
+
 <asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubforumList_ItemCreated">
     <HeaderTemplate>        
         <div>

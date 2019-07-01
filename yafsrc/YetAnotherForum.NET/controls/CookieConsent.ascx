@@ -2,6 +2,7 @@
     Inherits="YAF.Controls.CookieConsent" Codebehind="CookieConsent.ascx.cs" %>
 
 
+
 <div class="alert alert-dismissible text-center cookiealert" role="alert">
     <div class="cookiealert-container">
         <strong><YAF:LocalizedLabel runat="server" LocalizedPage="COMMON" LocalizedTag="COOKIE_HEADER"></YAF:LocalizedLabel></strong>

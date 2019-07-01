@@ -390,6 +390,9 @@
     <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
+    <Resource tag="CDVVERSION">CRM Version</Resource>
+    <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
+    <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available&lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
@@ -2736,6 +2739,7 @@
     <Resource tag="MARKALL">Marker alle forum som lest</Resource>
     <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatorer</Resource>
+    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Ingen tilgang)</Resource>
     <Resource tag="NO_POSTS">Ingen meldinger</Resource>
     <Resource tag="ONDATE">on {0}</Resource>

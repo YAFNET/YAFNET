@@ -2,6 +2,7 @@
     CodeBehind="nntpforums.ascx.cs" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/NntpForumEdit.ascx" %>
 
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -27,22 +28,10 @@
                             <%# this.Eval( "Name") %>
                         </h5>
                         <small>
-                            <YAF:ThemeButton ID="ThemeButtonEdit" 
-                                             Type="Info" 
-                                             Size="Small" runat="server"
-                                             CommandName='edit' 
-                                             CommandArgument='<%# this.Eval("NntpForumID") %>'
-                                             Icon="edit" TextLocalizedTag="EDIT">
-                            </YAF:ThemeButton>&nbsp;
-                            <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                             Type="Danger" 
-                                             Size="Small" runat="server"
-                                             CommandName='delete' 
-                                             CommandArgument='<%# this.Eval("NntpForumID") %>'
-                                             Icon="trash" 
-                                             TextLocalizedTag="DELETE"
-                                             ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
-                            </YAF:ThemeButton>
+                            <span class="font-weight-bold">
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Active" LocalizedPage="ADMIN_NNTPFORUMS" />
+                            </span>
+                            <%# this.Eval( "Active") %>
                         </small>
                     </div>
                     <p class="mb-1">
@@ -57,10 +46,23 @@
                         <%# this.Eval( "ForumName") %>
                     </p>
                     <small>
-                        <span class="font-weight-bold">
-                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Active" LocalizedPage="ADMIN_NNTPFORUMS" />
-                        </span>
-                        <%# this.Eval( "Active") %>
+                        <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                         Type="Info" 
+                                         Size="Small" runat="server"
+                                         CommandName='edit' 
+                                         CommandArgument='<%# this.Eval("NntpForumID") %>'
+                                         Icon="edit" 
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>&nbsp;
+                        <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                         Type="Danger" 
+                                         Size="Small" runat="server"
+                                         CommandName='delete' 
+                                         CommandArgument='<%# this.Eval("NntpForumID") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="DELETE"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
+                        </YAF:ThemeButton>
                     </small>
                 </li>
             </ItemTemplate>
@@ -70,8 +72,12 @@
         </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="NewForum" runat="server" Type="Primary" OnClick="NewForumClick"
-                                     Icon="plus-square" TextLocalizedTag="NEW_FORUM" TextLocalizedPage="ADMIN_NNTPFORUMS" />
+                    <YAF:ThemeButton ID="NewForum" runat="server" 
+                                     Type="Primary" 
+                                     OnClick="NewForumClick"
+                                     Icon="plus-square" 
+                                     TextLocalizedTag="NEW_FORUM" 
+                                     TextLocalizedPage="ADMIN_NNTPFORUMS" />
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.cp_pm" Codebehind="cp_pm.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../controls/PMList.ascx" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 

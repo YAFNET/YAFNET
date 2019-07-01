@@ -82,11 +82,13 @@ namespace YAF.Controls
 
             htmlDropDown.Append(@"<div class=""dropdown d-lg-none"">");
 
-            htmlDropDown.Append(@"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+            htmlDropDown.Append(
+                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
 
             htmlDropDown.AppendFormat(@"{0}</button>", this.GetText("HELP_INDEX", "INDEX"));
 
-            htmlDropDown.Append(@"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");
+            htmlDropDown.Append(
+                @"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");
 
             var faqPage = "index";
 
@@ -116,68 +118,70 @@ namespace YAF.Controls
 
             html.Append("<hr />");
 
-            foreach (var category in this.helpNavList)
-            {
-                html.AppendFormat(
-                    @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span>{0}</span></h6>",
-                    this.GetText("HELP_INDEX", category.HelpCategory));
-
-                htmlDropDown.AppendFormat(
-                    @"<h6 class=""dropdown-header"">{0}</h6>",
-                    this.GetText("HELP_INDEX", category.HelpCategory));
-
-                html.Append(@"<ul class=""nav flex-column mb-2"">");
-
-                foreach (var helpPage in category.HelpPages)
-                {
-                    selectedStyle = string.Empty;
-
-                    if (helpPage.HelpPage.ToLower().Equals(faqPage))
-                    {
-                        selectedStyle = @"style=""color:red;""";
-                    }
-
-                    if (helpPage.HelpPage.Equals("REGISTRATION"))
-                    {
-                        if (!this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
-                        {
-                            html.AppendFormat(
-                                @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
-                                YafBuildLink.GetLink(
-                                    ForumPages.help_index,
-                                    $"faq={helpPage.HelpPage.ToLower()}"),
-                                this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
-                                selectedStyle);
-
-                            htmlDropDown.AppendFormat(
-                                @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
-                                YafBuildLink.GetLink(
-                                    ForumPages.help_index,
-                                    $"faq={helpPage.HelpPage.ToLower()}"),
-                                this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
-                        }
-                    }
-                    else
+            this.helpNavList.ForEach(
+                category =>
                     {
                         html.AppendFormat(
-                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
-                            YafBuildLink.GetLink(
-                                ForumPages.help_index,
-                                $"faq={helpPage.HelpPage.ToLower()}"),
-                            this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
-                            selectedStyle);
+                            @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span>{0}</span></h6>",
+                            this.GetText("HELP_INDEX", category.HelpCategory));
 
                         htmlDropDown.AppendFormat(
-                            @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
-                            YafBuildLink.GetLink(
-                                ForumPages.help_index,
-                                $"faq={helpPage.HelpPage.ToLower()}"),
-                            this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
-                    }
-                }
+                            @"<h6 class=""dropdown-header"">{0}</h6>",
+                            this.GetText("HELP_INDEX", category.HelpCategory));
 
-                html.Append(@"</ul>");
-            }
+                        html.Append(@"<ul class=""nav flex-column mb-2"">");
+
+                        category.HelpPages.ForEach(
+                            helpPage =>
+                                {
+                                    selectedStyle = string.Empty;
+
+                                    if (helpPage.HelpPage.ToLower().Equals(faqPage))
+                                    {
+                                        selectedStyle = @"style=""color:red;""";
+                                    }
+
+                                    if (helpPage.HelpPage.Equals("REGISTRATION"))
+                                    {
+                                        if (!this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+                                        {
+                                            html.AppendFormat(
+                                                @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                                                YafBuildLink.GetLink(
+                                                    ForumPages.help_index,
+                                                    $"faq={helpPage.HelpPage.ToLower()}"),
+                                                this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
+                                                selectedStyle);
+
+                                            htmlDropDown.AppendFormat(
+                                                @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
+                                                YafBuildLink.GetLink(
+                                                    ForumPages.help_index,
+                                                    $"faq={helpPage.HelpPage.ToLower()}"),
+                                                this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        html.AppendFormat(
+                                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                                            YafBuildLink.GetLink(
+                                                ForumPages.help_index,
+                                                $"faq={helpPage.HelpPage.ToLower()}"),
+                                            this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
+                                            selectedStyle);
+
+                                        htmlDropDown.AppendFormat(
+                                            @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
+                                            YafBuildLink.GetLink(
+                                                ForumPages.help_index,
+                                                $"faq={helpPage.HelpPage.ToLower()}"),
+                                            this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
+                                    }
+                                });
+
+                        html.Append(@"</ul>");
+                    });
 
             htmlDropDown.Append(@"</div></div>");
 

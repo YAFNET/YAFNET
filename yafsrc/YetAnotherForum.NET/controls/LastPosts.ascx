@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.LastPosts"
     CodeBehind="LastPosts.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <asp:Timer ID="LastPostUpdateTimer" runat="server" Interval="30000" OnTick="LastPostUpdateTimer_Tick">

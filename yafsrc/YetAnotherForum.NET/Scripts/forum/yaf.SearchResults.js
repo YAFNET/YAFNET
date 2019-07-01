@@ -82,10 +82,10 @@
                 $("#loadModal").modal('hide');
             }),
             success: (function success(data) {
-                //$('#loadModal').on('shown.bs.modal',
-                //    function () {
-                //        $("#loadModal").modal('hide');
-                //    });
+                $('#loadModal').on('shown.bs.modal',
+                    function () {
+                        $("#loadModal").modal('hide');
+                    });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
                 var by = $("#SearchResultsPlaceholder").data("by");
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");

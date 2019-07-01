@@ -1,25 +1,13 @@
 <%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.eventlog"
     CodeBehind="eventlog.ascx.cs" %>
 
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<script type="text/javascript">
-function toggleItem(detailId)
-{
-    var show = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;<%# this.GetText("ADMIN_EVENTLOG", "SHOW")%>';
-    var hide = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;<%# this.GetText("ADMIN_EVENTLOG", "HIDE")%>';
-
-    jQuery('#Show'+ detailId).html($('#Show'+ detailId).html() == show ? hide : show);
-
-	jQuery('#eventDetails' + detailId).slideToggle('slow');
-
-	return false;
-
-}
-</script>
 
 
     <div class="row">
@@ -34,9 +22,9 @@ function toggleItem(detailId)
                     <i class="fa fa-book fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
             </div>
                 <div class="card-body">
-                    <h4>
+                     
                         <YAF:HelpLabel ID="SinceDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
-                    </h4>
+                     
                         <div class='input-group mb-3 date datepickerinput'>
                             <span class="input-group-prepend">
                                 <button class="btn btn-secondary datepickerbutton" type="button">
@@ -47,9 +35,9 @@ function toggleItem(detailId)
                         </div>
 
                    <hr />
-                    <h4>
+                     
                 <YAF:HelpLabel ID="ToDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
-                        </h4>
+                         
                     <div class='input-group mb-3 date datepickerinput'>
                         <span class="input-group-prepend">
                             <button class="btn btn-secondary datepickerbutton" type="button">
@@ -59,9 +47,9 @@ function toggleItem(detailId)
                             <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                    <hr />
-            <h4>
+             
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
-            </h4>
+             
             <p>
                 <asp:DropDownList ID="Types" runat="server" CssClass="custom-select"></asp:DropDownList>
             </p>
@@ -87,25 +75,19 @@ function toggleItem(detailId)
             </HeaderTemplate>
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between text-break" onclick="javascript:toggleItem(<%# this.Eval("EventLogID") %>);">
+                    <div class="d-flex w-100 justify-content-between text-break" onclick="javascript:$('<%# "#eventDetails{0}".Fmt(this.Eval("EventLogID")) %>').collapse('toggle');">
                         <h5 class="mb-1">
-                            <a name="event<%# this.Eval("EventLogID")%>" ></a>
                             <asp:HiddenField ID="EventTypeID" Value='<%# this.Eval("Type")%>' runat="server"/>
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                                                LocalizedTag="SOURCE" 
                                                                                LocalizedPage="ADMIN_EVENTLOG" />:&nbsp;
                             <%# this.HtmlEncode(this.Eval( "Source")).IsSet() ? this.HtmlEncode(this.Eval( "Source")) : "N/A" %>
                         </h5>
-                        <small>
-                            <a class="showEventItem btn btn-info btn-sm" 
-                               href="#event<%# this.Eval("EventLogID")%>" id="Show<%# this.Eval("EventLogID") %>"><i class="fa fa-caret-square-down fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" LocalizedPage="ADMIN_EVENTLOG" /></a>&nbsp;&nbsp;
-                            <YAF:ThemeButton runat="server" 
-                                             Type="Danger"
-                                             CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
-                                             ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
-                                             Icon="trash" 
-                                             TextLocalizedTag="DELETE">
-                            </YAF:ThemeButton>
+                        <small class="d-none d-md-block">
+                            <span class="font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                                               LocalizedTag="TIME" 
+                                                                               LocalizedPage="ADMIN_EVENTLOG" />:</span>&nbsp;
+                            <%# this.Get<IDateTime>().FormatDateTimeTopic(Container.DataItemToField<DateTime>("EventTime")) %>
                         </small>
                     </div>
                     <p class="mb-1">
@@ -115,19 +97,33 @@ function toggleItem(detailId)
                         <%# this.HtmlEncode(this.Eval( "Name")).IsSet() ? this.HtmlEncode(this.Eval( "Name")) : "N/A" %>&nbsp;
                     </p>
                     <small>
-                        <span class="font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                           LocalizedTag="TIME" 
-                                                                           LocalizedPage="ADMIN_EVENTLOG" />:</span>&nbsp;
-                        <%# this.Get<IDateTime>().FormatDateTimeTopic(Container.DataItemToField<DateTime>("EventTime")) %>
+                        <YAF:ThemeButton runat="server"
+                                         Type="Info"
+                                         Size="Small"
+                                         TextLocalizedTag="SHOW" TextLocalizedPage="ADMIN_EVENTLOG"
+                                         Icon="caret-square-down"
+                                         DataToggle="collapse"
+                                         DataTarget='<%# "eventDetails{0}".Fmt(this.Eval("EventLogID")) %>'>
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server" 
+                                         Type="Danger"
+                                         Size="Small"
+                                         CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="DELETE">
+                        </YAF:ThemeButton>
                     </small>
                     
-                      <div class="EventDetails" id="eventDetails<%# this.Eval("EventLogID") %>" style="display: none;margin:0;padding:0;">
-                            <pre class="pre-scrollable">
+                      <div class="collapse mt-3" id="eventDetails<%# this.Eval("EventLogID") %>">
+                          <div class="card card-body">
+                              <pre class="pre-scrollable">
                                 <code>
                                     <%# this.HtmlEncode(this.Eval( "Description")) %>
                                 </code>
-                            </pre>
-                        </div>
+                               </pre>
+                          </div>
+                      </div>
                 </li>
             </ItemTemplate>
             <FooterTemplate>

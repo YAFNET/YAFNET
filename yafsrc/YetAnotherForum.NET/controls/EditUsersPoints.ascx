@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersPoints" Codebehind="EditUsersPoints.ascx.cs" %>
 
 
+
 <h2>
             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="USER_REPUTATION" LocalizedPage="ADMIN_EDITUSER" />
         </h2>

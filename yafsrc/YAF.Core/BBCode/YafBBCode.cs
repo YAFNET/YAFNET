@@ -684,12 +684,12 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
                         OpenQuoteUserIdRegex,
-                        @"<div class=""card mb-3"">${quote}",
+                        @"<div class=""card bg-light mb-3"">${quote}",
                         Options));
 
                 // simple open quote tag
                 var simpleOpenQuoteReplace =
-                    $@"<div class=""card mb-3""><div class=""card-header text-muted"">{localQuoteStr}</div><div class=""card-body""><p class=""card-text"">";
+                    $@"<div class=""card bg-light mb-3""><div class=""card-header text-muted"">{localQuoteStr}</div><div class=""card-body""><p class=""card-text"">";
 
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(OpenQuoteRegex, simpleOpenQuoteReplace, Options) { RuleRank = 62 });

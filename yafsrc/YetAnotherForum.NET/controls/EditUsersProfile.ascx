@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersProfile" Codebehind="EditUsersProfile.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
     <asp:PlaceHolder ID="ProfilePlaceHolder" runat="server">
 
@@ -36,9 +37,9 @@
             <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="HIDEME" />
         </h4>
-        <p>
-            <asp:CheckBox CssClass="form-control" ID="HideMe" runat="server" Checked="false" />
-        </p>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="HideMe" runat="server" Checked="false" />
+        </div>
     <hr />
     </asp:PlaceHolder>
         <h4>

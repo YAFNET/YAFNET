@@ -9,7 +9,7 @@ namespace YAF.UrlRewriter.Utilities
     /// <summary>
     /// Constants for the parser.
     /// </summary>
-    internal static class Constants
+    public static class Constants
     {
         public const string Messages = "YAF.UrlRewriter.Messages";
         public const string RewriterNode = "rewriter";

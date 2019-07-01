@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumLastPost" CodeBehind="ForumLastPost.ascx.cs" %>
+
 <asp:PlaceHolder ID="LastPostedHolder" runat="server">
     <h6>
         <asp:PlaceHolder ID="TopicInPlaceHolder" runat="server">

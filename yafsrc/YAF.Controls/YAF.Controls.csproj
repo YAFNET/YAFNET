@@ -59,6 +59,7 @@
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj" />
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\YAF.UrlRewriter\YAF.UrlRewriter.csproj" />
     <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj" />
   </ItemGroup>
 </Project>

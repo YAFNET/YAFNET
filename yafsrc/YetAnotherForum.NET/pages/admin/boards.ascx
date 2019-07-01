@@ -1,11 +1,14 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boards" Codebehind="boards.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
         <div class="col-xl-12">
-            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BOARDS" /></h1>
+            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                    LocalizedTag="TITLE" 
+                                    LocalizedPage="ADMIN_BOARDS" /></h1>
         </div>
     </div>
     <div class="row">

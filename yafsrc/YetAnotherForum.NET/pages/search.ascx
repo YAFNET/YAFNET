@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.search" CodeBehind="search.ascx.cs" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
 <div class="input-group">
@@ -12,7 +13,7 @@
             NavigateUrl="javascript:getSeachResultsData(0);">
         </YAF:ThemeButton>
         <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="optionsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-cog fa-fw align-middle"></i>
+            <i class="fas fa-cog fa-fw"></i>
             <YAF:LocalizedLabel runat="server" LocalizedTag="Options"></YAF:LocalizedLabel>
         </button>
         <div class="dropdown-menu" aria-labelledby="optionsDropDown">
@@ -56,23 +57,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', (event) => {
-            $(function () {
-                $('.dropdown-menu').on('click', function (e) {
-                    if (e.target.type == 'button')
-                        $().dropdown('toggle')
-                    else
-                        e.stopPropagation();
-                });
-                $(window).on('click', function () {
-                    if (!$('.dropdown-menu').is(':hidden')) {
-                        $().dropdown('toggle')
-                    }
-                });
-            });
-        });
-    </script>
 </div>
 
 <div id="SearchResultsListBox">

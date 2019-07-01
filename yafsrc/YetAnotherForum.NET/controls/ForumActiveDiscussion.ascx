@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumActiveDiscussion"
     CodeBehind="ForumActiveDiscussion.ascx.cs" %>
+
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
             <asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">

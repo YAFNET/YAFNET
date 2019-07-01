@@ -68,7 +68,8 @@ namespace YAF.Editors
         /// <param name="e">The e.</param>
         protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJsInclude("tinymce", this.ResolveUrl("tinymce/tinymce.min.js"));
+            YafContext.Current.PageElements.AddScriptReference(
+                "tinymce", "tinymce/tinymce.min.js");
 
             this.RegisterTinyMceCustomJS();
 

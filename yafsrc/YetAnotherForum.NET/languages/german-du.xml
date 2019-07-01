@@ -390,6 +390,9 @@
     <Resource tag="BOARD_THREADED_HELP">Threaded Ansicht von Beiträgen erlauben.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Zeige Themen Standard:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Die Standard Themen Ansicht.</Resource>
+    <Resource tag="CDVVERSION">CRM Version</Resource>
+    <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
+    <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Entfernungsschlüssel:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Entfernen Sie die Copyright-Informationen und den Link zu YAF aus der Fußzeile Ihrer gesamten Forum Domäne.  Erhältlich &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt; auf der YAF.NET Website &lt;/ a&gt;.</Resource>
@@ -2716,6 +2719,7 @@
     <Resource tag="MARKALL">Alle Foren als gelesen markieren</Resource>
     <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatoren</Resource>
+    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Kein Zutritt)</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
     <Resource tag="ONDATE">am {0}</Resource>
