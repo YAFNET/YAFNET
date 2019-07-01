@@ -27,7 +27,10 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
+
+#if DEBUG
     using System.IO;
+#endif
     using System.Linq;
     using System.Text;
     using System.Web;
@@ -36,7 +39,9 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
+#if DEBUG
     using YAF.Core.Data.Profiling;
+#endif
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
@@ -48,14 +53,14 @@ namespace YAF.Controls
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
-    #endregion
+#endregion
 
     /// <summary>
     /// The email_digest.
     /// </summary>
     public partial class emaildigest : BaseUserControl
     {
-        #region Constants and Fields
+#region Constants and Fields
 
         /// <summary>
         ///   The _combined user data.
@@ -87,9 +92,9 @@ namespace YAF.Controls
         /// </summary>
         private bool? _showErrors;
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         ///   Gets ActiveTopics.
@@ -180,9 +185,9 @@ namespace YAF.Controls
             }
         }
 
-        #endregion
+#endregion
 
-        #region Public Methods
+#region Public Methods
 
         /// <summary>
         /// Gets the localized text.
@@ -206,9 +211,9 @@ namespace YAF.Controls
             return this._localization.GetText("DIGEST", tag);
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// Gets the message formatted and truncated.
@@ -308,7 +313,7 @@ namespace YAF.Controls
                 {
                     this.OutputError($"No topics for the last {this.BoardSettings.DigestSendEveryXHours} hours.");
 
-                    // this.Response.Write(GetDebug());
+                     this.Response.Write(this.GetDebug());
                 }
 
                 this.Response.End();
@@ -326,7 +331,7 @@ namespace YAF.Controls
                 this.BoardSettings.AllowUserTheme,
                 this.BoardSettings.Theme);
 
-            var subject = string.Format(this.GetText("SUBJECT"), this.BoardSettings.Name);
+            var subject = this.GetTextFormatted("SUBJECT", this.BoardSettings.Name);
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
@@ -338,7 +343,7 @@ namespace YAF.Controls
             }
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// Gets the debug information.

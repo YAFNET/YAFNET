@@ -258,11 +258,13 @@ namespace YAF.Controls
                     }
                     else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {
-                        icon.Text = "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-success\"></i></span>";
+                        icon.Text =
+                            "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-success\"></i></span>";
                     }
                     else
                     {
-                        icon.Text = "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-secondary\"></i></span>";
+                        icon.Text =
+                            "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-secondary\"></i></span>";
                     }
                 }
                 catch

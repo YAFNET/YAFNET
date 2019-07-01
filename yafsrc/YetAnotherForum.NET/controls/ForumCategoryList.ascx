@@ -20,12 +20,7 @@
                                             AttachedControlID="body" CssClass="pl-0">
                         </YAF:CollapseButton>
                         <div class="d-none d-md-block">
-                            <i class="fas fa-folder fa-fw text-warning" aria-hidden="true"></i>&nbsp;<asp:Image ID="uxCategoryImage" 
-                                                                                                                CssClass="category_image" 
-                                                                                                                AlternateText=" " 
-                                                                                                                ImageUrl='<%# "{0}{1}/{2}".Fmt(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Categories, DataBinder.Eval(Container.DataItem, "CategoryImage")) %>'
-                                                                             Visible='<%# DataBinder.Eval(Container.DataItem, "CategoryImage").ToString().IsSet() %>'
-                                                                             runat="server" />
+                            <%#  this.GetCategoryImage((System.Data.DataRowView)Container.DataItem) %>
                         </div>
                         <%# this.Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
                     </div>
