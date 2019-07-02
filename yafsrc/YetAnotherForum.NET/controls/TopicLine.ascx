@@ -19,7 +19,7 @@
             <asp:HyperLink runat="server" ID="TopicLink"></asp:HyperLink>
             <asp:Label runat="server" ID="FavoriteCount"></asp:Label>
         </h5>
-        <asp:Label runat="server" ID="Description"></asp:Label>
+        <asp:Label runat="server" ID="Description" CssClass="font-italic"></asp:Label>
         <p class="card-text">
             <YAF:UserLink runat="server" ID="topicStarterLink">
             </YAF:UserLink>

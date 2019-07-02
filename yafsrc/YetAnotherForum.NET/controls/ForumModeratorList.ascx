@@ -6,24 +6,30 @@
 
 <asp:Repeater ID="ModeratorList" runat="server">
     <HeaderTemplate>
-        <p><small>
-        <span class="font-weight-bold">
-            <i class="fa fa-user-secret fa-fw"></i>&nbsp;<%# this.GetText("DEFAULT", "MODERATORS")%>:
-        </span>
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <span class="font-weight-bold">
+                    <i class="fa fa-user-secret fa-fw"></i>&nbsp;<%# this.GetText("DEFAULT", "MODERATORS")%>:
+                </span>
+            </li>
     </HeaderTemplate>
     <ItemTemplate>
         <asp:PlaceHolder ID="ModeratorUser" runat="server" Visible='<%# ((DataRow)Container.DataItem)["IsGroup"].ToType<int>() == 0 %>'>
-            <YAF:UserLink ID="ModeratorUserLink" runat="server" 
+            <li class="list-inline-item">
+                <YAF:UserLink ID="ModeratorUserLink" runat="server" 
                           UserID='<%# ((DataRow)Container.DataItem)["ModeratorID"].ToType<int>()  %>' 
-                          ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? ((DataRow)Container.DataItem)["ModeratorDisplayName"].ToString() : ((DataRow)Container.DataItem)["ModeratorName"].ToString() %>' />
+                          ReplaceName='<%#  ((DataRow)Container.DataItem)[this.Get<YafBoardSettings>().EnableDisplayName ? "ModeratorDisplayName" : "ModeratorName"].ToString() %>' />
+            </li>
         </asp:PlaceHolder>
         <asp:PlaceHolder ID="ModeratorGroup" runat="server" 
                          Visible='<%# ((DataRow)Container.DataItem)["IsGroup"].ToType<int>() != 0 %>'>
-            <%# this.Get<YafBoardSettings>().EnableDisplayName ? ((DataRow)Container.DataItem)["ModeratorDisplayName"].ToString() : ((DataRow)Container.DataItem)["ModeratorName"].ToString()%>
+            <li class="list-inline-item">
+                <%#  ((DataRow)Container.DataItem)[this.Get<YafBoardSettings>().EnableDisplayName ? "ModeratorDisplayName": "ModeratorName"].ToString()%>
+            </li>
         </asp:PlaceHolder>
     </ItemTemplate>
     <FooterTemplate>
-        </small></p>
+        </ul>
     </FooterTemplate>
 </asp:Repeater>
 <asp:PlaceHolder ID="BlankDash" runat="server">- </asp:PlaceHolder>

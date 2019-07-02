@@ -31,6 +31,24 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.PlaceHolder SubForums;
         
         /// <summary>
+        /// CollapsibleImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.CollapseButton CollapsibleImage;
+        
+        /// <summary>
+        /// body control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl body;
+        
+        /// <summary>
         /// ForumList control.
         /// </summary>
         /// <remarks>

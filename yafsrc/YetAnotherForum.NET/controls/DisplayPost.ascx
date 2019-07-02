@@ -62,7 +62,7 @@
                                 <YAF:UserLink  ID="UserProfileLink" runat="server" 
                                                UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
                                                ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
-                                               PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>'
+                                               PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
                                                Style='<%# this.DataRow["Style"]%>' 
                                                EnableHoverCard="False" 
                                                Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
@@ -115,10 +115,10 @@
                             DataRow="<%# this.DataRow %>"></YAF:DisplayPostFooter>
                     </div>
                     <div class="col-md-6 px-2">
-                        <div id="<%# "dvThanksInfo" + this.DataRow["MessageID"] %>" class="pl-1">
+                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1">
                             <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
                         </div>
-                        <div id="<%# "dvThanks" + this.DataRow["MessageID"] %>" class="pl-1">
+                        <div id="<%# "dvThanks{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1">
                             <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                             TextLocalizedTag="BUTTON_RETWEET"
                             TitleLocalizedTag="BUTTON_RETWEET_TT"
                             OnClick="Retweet_Click" />
-                        <span id="<%# "dvThankBox" + this.DataRow["MessageID"] %>">
+                        <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
                             <YAF:ThemeButton ID="Thank" runat="server"
                                 Type="Link"
                                 Icon="thumbs-up"

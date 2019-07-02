@@ -18,18 +18,18 @@
                                                                                  LocalizedTag="TITLE" />
             </div>
             <div class="card-body text-center">
-                <form>
+                <div class="input-group mb-3">
+                        <asp:TextBox runat="server" ID="UserName" CssClass="form-control" PlaceHolder='<%# this.GetText("USER") %>' />
+                        <div class="input-group-append">
+                            <asp:Button runat="server" ID="FindUsers" 
+                                        OnClick="FindUsers_Click" 
+                                        CssClass="btn btn-secondary btn-sm" />
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="UserName">
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER" />
-                        </asp:Label>
-                        <asp:TextBox runat="server" ID="UserName" CssClass="form-control" />
                         <asp:DropDownList runat="server" ID="ToList"
                                           Visible="false" 
                                           CssClass="standardSelectMenu" />
-                        <asp:Button runat="server" ID="FindUsers" 
-                                    OnClick="FindUsers_Click" 
-                                    CssClass="btn btn-secondary btn-sm" />
                     </div>
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="AccessMaskID">
@@ -37,7 +37,6 @@
                         </asp:Label>
                         <asp:DropDownList runat="server" ID="AccessMaskID" CssClass="standardSelectMenu" />
                     </div>
-                </form>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" ID="Update"

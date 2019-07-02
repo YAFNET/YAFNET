@@ -126,7 +126,7 @@ namespace YAF.Pages
             // forum page
             this.PageLinks.AddForum(this.PageContext.PageForumID);
 
-            // currect page
+            // current page
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
@@ -185,7 +185,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            // do not repeat on postbact
+            // do not repeat on postback
             if (this.IsPostBack)
             {
                 return;
@@ -210,23 +210,24 @@ namespace YAF.Pages
                 this.Request.QueryString.GetFirstOrDefault("u"),
                 this.PageContext.PageForumID))
             {
-                foreach (DataRow row in dt.Rows)
-                {
-                    // set username and disable its editing
-                    this.UserName.Text = this.PageContext.BoardSettings.EnableDisplayName
-                                             ? row["DisplayName"].ToString()
-                                             : row["Name"].ToString();
-                    this.UserName.Enabled = false;
+                dt.AsEnumerable().ForEach(
+                    row =>
+                        {
+                            // set username and disable its editing
+                            this.UserName.Text = this.PageContext.BoardSettings.EnableDisplayName
+                                                     ? row["DisplayName"].ToString()
+                                                     : row["Name"].ToString();
+                            this.UserName.Enabled = false;
 
-                    // we don't need to find users now
-                    this.FindUsers.Visible = false;
+                            // we don't need to find users now
+                            this.FindUsers.Visible = false;
 
-                    // get access mask for this user                
-                    if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
-                    {
-                        this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
-                    }
-                }
+                            // get access mask for this user                
+                            if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
+                            {
+                                this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
+                            }
+                        });
             }
         }
 
@@ -257,7 +258,7 @@ namespace YAF.Pages
             // we need to verify user exists
             var userId = this.Get<IUserDisplayName>().GetId(this.UserName.Text.Trim());
 
-            // there is no such user or reference is ambiugous
+            // there is no such user or reference is ambiguous
             if (!userId.HasValue)
             {
                 this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"));

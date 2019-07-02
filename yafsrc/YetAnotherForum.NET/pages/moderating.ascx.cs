@@ -205,28 +205,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The delete user_ load.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void DeleteUser_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return confirm('{this.GetText("moderate", "confirm_delete_user")}')";
-        }
-
-        /// <summary>
-        /// The delete_ load.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return confirm('{this.GetText("moderate", "confirm_delete")}')";
-        }
-
-        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -304,14 +282,14 @@ namespace YAF.Pages
 
                     this.BindData();
 
-                    // clear moderatorss cache
+                    // clear moderators cache
                     this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
                     break;
             }
         }
 
         /// <summary>
-        /// The topiclist_ item command.
+        /// The topic list item command.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>

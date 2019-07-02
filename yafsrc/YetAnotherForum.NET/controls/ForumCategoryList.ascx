@@ -2,7 +2,6 @@
     CodeBehind="ForumCategoryList.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
 
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
@@ -17,7 +16,8 @@
                     <div class="card-header d-flex align-items-center">
                         <YAF:CollapseButton ID="CollapsibleImage" runat="server"
                                             PanelID='<%# "categoryPanel{0}".Fmt(DataBinder.Eval(Container.DataItem, "CategoryID")) %>'
-                                            AttachedControlID="body" CssClass="pl-0">
+                                            AttachedControlID="body" 
+                                            CssClass="pl-0">
                         </YAF:CollapseButton>
                         <div class="d-none d-md-block">
                             <%#  this.GetCategoryImage((System.Data.DataRowView)Container.DataItem) %>
