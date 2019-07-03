@@ -124,7 +124,7 @@ namespace YAF.Pages
             // Send Notification to Mods about the Reported Post.
             if (this.Get<YafBoardSettings>().EmailModeratorsOnReportedPost)
             {
-                // not approved, notifiy moderators
+                // not approved, notify moderators
                 this.Get<ISendNotification>()
                     .ToModeratorsThatMessageWasReported(
                         this.PageContext.PageForumID,

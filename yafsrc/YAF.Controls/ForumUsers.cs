@@ -101,7 +101,7 @@ namespace YAF.Controls
 
             writer.WriteLine(@"<div class=""card-header"">");
 
-            writer.WriteLine(topicId ? this.GetText("TOPICBROWSERS") : this.GetText("FORUMUSERS"));
+            writer.WriteLine(this.GetText(topicId ? "TOPICBROWSERS" : "FORUMUSERS"));
 
             writer.WriteLine("</div>");
 

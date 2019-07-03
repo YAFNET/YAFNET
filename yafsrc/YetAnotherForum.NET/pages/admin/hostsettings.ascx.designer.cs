@@ -553,15 +553,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel186;
         
         /// <summary>
-        /// GetRemovalKey control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton GetRemovalKey;
-        
-        /// <summary>
         /// AkismetApiKey control.
         /// </summary>
         /// <remarks>
@@ -569,6 +560,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AkismetApiKey;
+        
+        /// <summary>
+        /// GetRemovalKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton GetRemovalKey;
         
         /// <summary>
         /// HelpLabel239 control.
@@ -634,15 +634,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel225;
         
         /// <summary>
-        /// ThemeButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton ThemeButton1;
-        
-        /// <summary>
         /// BotScoutApiKey control.
         /// </summary>
         /// <remarks>
@@ -650,6 +641,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox BotScoutApiKey;
+        
+        /// <summary>
+        /// ThemeButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton ThemeButton1;
         
         /// <summary>
         /// HelpLabel192 control.
@@ -661,15 +661,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel192;
         
         /// <summary>
-        /// ThemeButton2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton ThemeButton2;
-        
-        /// <summary>
         /// StopForumSpamApiKey control.
         /// </summary>
         /// <remarks>
@@ -677,6 +668,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox StopForumSpamApiKey;
+        
+        /// <summary>
+        /// ThemeButton2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton ThemeButton2;
         
         /// <summary>
         /// HelpLabel226 control.

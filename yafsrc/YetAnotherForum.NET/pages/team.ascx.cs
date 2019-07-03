@@ -190,20 +190,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Protects from script in "location" field
-        /// </summary>
-        /// <param name="svalue">
-        /// the Object to format
-        /// </param>
-        /// <returns>
-        /// The get string safely.
-        /// </returns>
-        protected string GetStringSafely([NotNull] object svalue)
-        {
-            return svalue == null ? string.Empty : this.HtmlEncode(svalue.ToString());
-        }
-
-        /// <summary>
         /// Gets the avatar Url for the user
         /// </summary>
         /// <param name="userId">The user id.</param>
@@ -273,6 +259,15 @@ namespace YAF.Pages
             this.BindData();
         }
 
+        /// <summary>
+        /// The admins list_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void AdminsList_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)

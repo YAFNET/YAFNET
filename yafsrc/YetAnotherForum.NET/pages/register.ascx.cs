@@ -517,7 +517,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-            var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            //var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
 
             var password = this.CreateUserStepContainer.FindControlAs<TextBox>("Password");
             var confirmPassword = this.CreateUserStepContainer.FindControlAs<TextBox>("ConfirmPassword");
@@ -795,9 +795,7 @@ namespace YAF.Pages
             {
                 var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
-                imgCaptcha.ImageUrl = string.Format(
-                    "{0}resource.ashx?c=1&t=",
-                    YafForumInfo.ForumClientFileRoot,DateTime.UtcNow);
+                imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1&t={DateTime.UtcNow}";
 
                 var refreshCaptcha = this.CreateUserStepContainer.FindControlAs<LinkButton>("RefreshCaptcha");
 
@@ -855,7 +853,7 @@ namespace YAF.Pages
         /// Fills the location data.
         /// </summary>
         /// <param name="country">The country.</param>
-        private void FillLocationData([NotNull]DropDownList country)
+        private void FillLocationData([NotNull]ListControl country)
         {
             var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
