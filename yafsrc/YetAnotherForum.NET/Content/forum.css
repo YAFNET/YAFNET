@@ -8459,6 +8459,9 @@ span.form-check > label {
   padding: 0px 5px 0px 10px;
   display: block; }
 
+.list-inline {
+  margin: 0; }
+
 .dropdown-submenu {
   position: relative; }
 
