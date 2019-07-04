@@ -95,7 +95,7 @@ namespace YAF.Modules
                 new ScriptResourceDefinition
                     {
                         Path = YafForumInfo.GetURLToScripts($"jquery.ForumAdminExtensions.min.js?v={version}"),
-                        DebugPath = YafForumInfo.GetURLToScripts($"~jquery.ForumAdminExtensions.js?v={version}")
+                        DebugPath = YafForumInfo.GetURLToScripts($"jquery.ForumAdminExtensions.js?v={version}")
                 });
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
