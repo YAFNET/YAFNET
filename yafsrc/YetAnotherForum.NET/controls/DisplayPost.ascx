@@ -5,8 +5,21 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
 
+<asp:PlaceHolder runat="server" ID="ShowHideIgnoredUserPost" Visible="False">
+    <YAF:Alert runat="server" Type="info" Dismissing="True">
+        <YAF:ThemeButton ID="btnTogglePost" runat="server" 
+                         Type="Info"
+                         TextLocalizedPage="POSTS"
+                         TextLocalizedTag="TOGGLEPOST"
+                         Icon="eye"
+                         DataToggle="collapse"
+                         DataTarget='<%# this.MessageRow.ClientID %>'/>
+    </YAF:Alert>
+</asp:PlaceHolder>
 
-<div class="row">
+
+<asp:Panel runat="server" ID="MessageRow">
+    <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
@@ -181,4 +194,5 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
+</asp:Panel>

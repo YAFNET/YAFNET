@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Utilities;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -61,20 +60,6 @@ namespace YAF.Pages
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
-
-            base.OnPreRender(e);
-        }
 
         /// <summary>
         /// Handles the Load event of the Page control.

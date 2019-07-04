@@ -183,15 +183,6 @@ namespace YAF.Classes.Utilities
                     ? YafContext.Current.CultureUser.Substring(0, 2)
                     : YafContext.Current.Get<YafBoardSettings>().Culture.Substring(0, 2));
 
-        /// <summary>
-        ///   Gets ToggleMessageJS.
-        /// </summary>
-        [NotNull]
-        public static string ToggleMessageJs =>
-            $@"
-                      function toggleMessage(divId)
-                      {{ {Config.JQueryAlias}('#' + divId).toggle(); }}";
-
         #endregion
 
         #region Public Methods
