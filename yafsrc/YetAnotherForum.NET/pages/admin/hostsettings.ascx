@@ -453,17 +453,9 @@
 
                          
                             <YAF:HelpLabel ID="HelpLabel228" runat="server" LocalizedTag="CDN_JQUERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                        <div class="custom-control custom-switch">
+    
+                    <div class="custom-control custom-switch">
                             <asp:CheckBox Text="&nbsp;" ID="JqueryCDNHosted" runat="server"></asp:CheckBox>
-
-                    </div><hr />
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel230" runat="server" LocalizedTag="BOARD_CDN_HOSTED" />
-                         
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox Text="&nbsp;" ID="JqueryUIThemeCDNHosted" runat="server" />
 
                     </div>
 
