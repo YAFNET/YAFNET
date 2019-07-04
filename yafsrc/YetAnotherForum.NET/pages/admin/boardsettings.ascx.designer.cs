@@ -112,15 +112,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel2;
         
         /// <summary>
-        /// GetRemovalKey control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton GetRemovalKey;
-        
-        /// <summary>
         /// CopyrightRemovalKey control.
         /// </summary>
         /// <remarks>
@@ -128,6 +119,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox CopyrightRemovalKey;
+        
+        /// <summary>
+        /// GetRemovalKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton GetRemovalKey;
         
         /// <summary>
         /// LocalizedLabel4 control.

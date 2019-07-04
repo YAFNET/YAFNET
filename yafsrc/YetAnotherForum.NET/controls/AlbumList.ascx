@@ -17,7 +17,8 @@
                 <YAF:ThemeButton ID="AddAlbum" runat="server" 
                                  Visible="false" OnClick="AddAlbum_Click"
                                  Type="Primary"
-                                 Icon="images"/>
+                                 Icon="images"
+                                 CssClass="mb-3"/>
 
                 <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
                 <asp:Repeater runat="server" ID="Albums" OnItemCommand="Albums_ItemCommand" OnItemDataBound="Albums_ItemDataBound">

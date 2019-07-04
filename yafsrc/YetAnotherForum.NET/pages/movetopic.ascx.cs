@@ -102,12 +102,13 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Löst das <see cref="E:System.Web.UI.Control.Init" />-Ereignis aus.
+        /// The on init.
         /// </summary>
-        /// <param name="e">Ein <see cref="T:System.EventArgs" />-Objekt, das die Ereignisdaten enthält.</param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             InitializeComponent();
             base.OnInit(e);
         }

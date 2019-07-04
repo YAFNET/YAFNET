@@ -29,6 +29,7 @@ namespace YAF.Core.Model
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
+
     using ServiceStack.OrmLite;
 
     using YAF.Classes;
@@ -51,8 +52,11 @@ namespace YAF.Core.Model
         /// <summary>
         /// Gets all the post by a user.
         /// </summary>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="userID">
         /// The user id.
@@ -64,6 +68,7 @@ namespace YAF.Core.Model
         /// Top count to return. Null is all.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable AllUserAsDataTable(
             this IRepository<Message> repository,
@@ -83,10 +88,14 @@ namespace YAF.Core.Model
         /// <summary>
         /// The post_list.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="topicId">
         /// The topic id.
         /// </param>
-        /// <param name="currentUserID"> </param>
+        /// <param name="currentUserID">
+        /// </param>
         /// <param name="authorUserID">
         /// The author User ID.
         /// </param>
@@ -98,6 +107,9 @@ namespace YAF.Core.Model
         /// </param>
         /// <param name="styledNicks">
         /// The styled nicks.
+        /// </param>
+        /// <param name="showReputation">
+        /// The show Reputation.
         /// </param>
         /// <param name="sincePostedDate">
         /// The posted date.
@@ -129,12 +141,13 @@ namespace YAF.Core.Model
         /// The sort Position.
         /// </param>
         /// <param name="showThanks">
-        /// The show thanks. Returnes thanked posts. Not implemented.
+        /// The show thanks. Returns thanked posts. Not implemented.
         /// </param>
         /// <param name="messagePosition">
         /// The message Position.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable PostListAsDataTable(
             this IRepository<Message> repository,
@@ -183,9 +196,15 @@ namespace YAF.Core.Model
         /// <summary>
         /// Gets all the post by a user.
         /// </summary>
-        /// <param name="boardID">The board id.</param>
-        /// <param name="userID">The user id.</param>
-        /// <returns> Returns all the post by a user.</returns>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <returns>
+        /// Returns all the post by a user.
+        /// </returns>
         public static IOrderedEnumerable<Message> GetAllUserMessages(this IRepository<Message> repository, int userId)
         {
             return repository.Get(m => m.UserID == userId).OrderByDescending(m => m.Posted);
@@ -197,20 +216,29 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="boardId">The board identifier.</param>
         /// <returns>Returns all Messages as Typed Search Message List</returns>
-        public static IEnumerable<SearchMessage> GetAllMessagesByBoard(this IRepository<Message> repository, int? boardId)
+        public static IEnumerable<SearchMessage> GetAllMessagesByBoard(
+            this IRepository<Message> repository,
+            int? boardId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetAsDataTable(cdb => cdb.message_list_search(BoardID: boardId ?? repository.BoardID))
+            return repository.DbFunction
+                .GetAsDataTable(cdb => cdb.message_list_search(BoardID: boardId ?? repository.BoardID))
                 .SelectTypedList(t => new SearchMessage(t));
         }
 
         /// <summary>
         /// The message_list.
         /// </summary>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
         public static IEnumerable<TypedMessageList> MessageList(this IRepository<Message> repository, int messageId)
         {
@@ -231,12 +259,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.SqlList(
-                "message_list",
-                new
-                    {
-                       MessageID = messageId
-                });
+            return repository.SqlList("message_list", new { MessageID = messageId });
         }
 
         /// <summary>
@@ -309,7 +332,25 @@ namespace YAF.Core.Model
             repository.UpdateOnly(() => new Message { Flags = flags }, where: u => u.ID == messageId);
         }
 
-        public static DataTable SimpleListAsDataTable(this IRepository<Message> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
+        /// <summary>
+        /// The simple list as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="startId">
+        /// The start id.
+        /// </param>
+        /// <param name="limit">
+        /// The limit.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable SimpleListAsDataTable(
+            this IRepository<Message> repository,
+            [CanBeNull] int startId = 0,
+            [CanBeNull] int limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -319,6 +360,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The message_delete.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -331,17 +375,26 @@ namespace YAF.Core.Model
         /// <param name="isDeleteAction">
         /// The is delete action.
         /// </param>
-        /// <param name="DeleteLinked">
+        /// <param name="deleteLinked">
         /// The delete linked.
         /// </param>
-        public static void Delete(this IRepository<Message> repository, [NotNull] int messageID, bool isModeratorChanged, [NotNull] string deleteReason, int isDeleteAction, bool DeleteLinked)
+        public static void Delete(
+            this IRepository<Message> repository,
+            [NotNull] int messageID,
+            bool isModeratorChanged,
+            [NotNull] string deleteReason,
+            int isDeleteAction,
+            bool deleteLinked)
         {
-            repository.Delete(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false);
+            repository.Delete(messageID, isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, false);
         }
 
         /// <summary>
         /// The message_delete.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -354,33 +407,37 @@ namespace YAF.Core.Model
         /// <param name="isDeleteAction">
         /// The is delete action.
         /// </param>
-        /// <param name="DeleteLinked">
+        /// <param name="deleteLinked">
         /// The delete linked.
         /// </param>
         /// <param name="eraseMessage">
         /// The erase message.
         /// </param>
-        public static void Delete(this IRepository<Message> repository,
+        public static void Delete(
+            this IRepository<Message> repository,
             [NotNull] int messageID,
             bool isModeratorChanged,
             [NotNull] string deleteReason,
             int isDeleteAction,
-            bool DeleteLinked,
+            bool deleteLinked,
             bool eraseMessage)
         {
-           repository.DeleteRecursively(
+            repository.DeleteRecursively(
                 messageID,
                 isModeratorChanged,
                 deleteReason,
                 isDeleteAction,
-                DeleteLinked,
+                deleteLinked,
                 false,
                 eraseMessage);
         }
 
         /// <summary>
-        /// message movind function
+        /// message move function
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -391,11 +448,12 @@ namespace YAF.Core.Model
         /// The move all.
         /// </param>
         public static void Move(
-            this IRepository<Message> repository, [NotNull] int messageID, [NotNull] int moveToTopic, bool moveAll)
+            this IRepository<Message> repository,
+            [NotNull] int messageID,
+            [NotNull] int moveToTopic,
+            bool moveAll)
         {
-            repository.DbFunction.Scalar.message_move(
-                MessageID: messageID,
-                MoveToTopic: moveToTopic);
+            repository.DbFunction.Scalar.message_move(MessageID: messageID, MoveToTopic: moveToTopic);
 
             if (!moveAll)
             {
@@ -406,19 +464,20 @@ namespace YAF.Core.Model
             // it's in charge of moving answers of moved post
             var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID);
 
-            foreach (var replyId in replies)
-            {
-                repository.MoveRecursively(replyId, moveToTopic);
-            }
+            replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopic));
         }
 
         /// <summary>
         /// gets list of replies to message
         /// </summary>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         [NotNull]
         public static DataTable RepliesListAsDataTable(this IRepository<Message> repository, [NotNull] int messageId)
@@ -429,6 +488,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The message_list.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -444,12 +506,27 @@ namespace YAF.Core.Model
         /// <summary>
         /// Finds the Unread Message
         /// </summary>
-        /// <param name="topicID">The topic id.</param>
-        /// <param name="messageId">The message Id.</param>
-        /// <param name="lastRead">The last read.</param>
-        /// <param name="showDeleted">The show Deleted.</param>
-        /// <param name="authorUserID">The author User ID.</param>
-        /// <returns></returns>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="lastRead">
+        /// The last read.
+        /// </param>
+        /// <param name="showDeleted">
+        /// The show Deleted.
+        /// </param>
+        /// <param name="authorUserId">
+        /// The author User Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable FindUnreadAsDataTable(
             this IRepository<Message> repository,
             [NotNull] int topicId,
@@ -476,10 +553,14 @@ namespace YAF.Core.Model
         /// <summary>
         /// Retrieve all reported messages with the correct forumID argument.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListReportedAsDataTable(this IRepository<Message> repository, [NotNull] int forumId)
         {
@@ -489,14 +570,16 @@ namespace YAF.Core.Model
         /// <summary>
         /// Here we get reporters list for a reported message
         /// </summary>
-        /// <param name="messageID">
-        /// The message ID.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <returns>
         /// Returns reporters DataTable for a reported message.
         /// </returns>
-        public static DataTable ListReportersAsDataTable(
-            this IRepository<Message> repository, int messageId)
+        public static DataTable ListReportersAsDataTable(this IRepository<Message> repository, int messageId)
         {
             return repository.DbFunction.GetData.message_listreporters(MessageID: messageId, UserID: 0);
         }
@@ -504,29 +587,36 @@ namespace YAF.Core.Model
         /// <summary>
         /// The message_listreporters.
         /// </summary>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <returns>
         /// </returns>
         public static DataTable ListReportersAsDataTable(
-            this IRepository<Message> repository, int messageId, [NotNull] int userId)
+            this IRepository<Message> repository,
+            int messageId,
+            [NotNull] int userId)
         {
             return repository.DbFunction.GetData.message_listreporters(MessageID: messageId, UserID: userId);
         }
 
-        // <summary> Save reported message back to the database. </summary>
         /// <summary>
-        /// The message_report.
+        /// Save reported message back to the database.
         /// </summary>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="reportedDateTime">
         /// The reported date time.
@@ -550,31 +640,39 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Copy current Message text over reported Message text. </summary>
-        /// <summary>
-        /// <param name="messageID">
-        /// The message id.
+        /// Copy current Message text over reported Message text.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        public static void ReportCopyOver(
-            this IRepository<Message> repository, [NotNull] int messageId)
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        public static void ReportCopyOver(this IRepository<Message> repository, [NotNull] int messageId)
         {
             repository.DbFunction.Scalar.message_reportcopyover(MessageID: messageId);
         }
 
         /// <summary>
-        /// Copy current Message text over reported Message text. </summary>
-        /// <summary>
+        /// Copy current Message text over reported Message text.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageFlag">
         /// The message flag.
         /// </param>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         public static void ReportResolve(
-            this IRepository<Message> repository, [NotNull] int messageFlag, [NotNull] int messageId, [NotNull] int userId)
+            this IRepository<Message> repository,
+            [NotNull] int messageFlag,
+            [NotNull] int messageId,
+            [NotNull] int userId)
         {
             repository.DbFunction.Scalar.message_reportresolve(
                 MessageFlag: messageFlag,
@@ -586,11 +684,14 @@ namespace YAF.Core.Model
         /// <summary>
         /// The message_save.
         /// </summary>
-        /// <param name="topicID">
-        /// The topic id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="message">
         /// The message.
@@ -614,7 +715,7 @@ namespace YAF.Core.Model
         /// The message id.
         /// </param>
         /// <returns>
-        /// The message_save.
+        /// The <see cref="bool"/>.
         /// </returns>
         public static bool Save(
             this IRepository<Message> repository,
@@ -659,42 +760,51 @@ namespace YAF.Core.Model
         /// <summary>
         /// Returns message data based on user access rights
         /// </summary>
-        /// <param name="MessageID">
-        /// The Message Id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <param name="pageUserId">
         /// The page User Id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable SecAsDataTable(
-            this IRepository<Message> repository, int messageId, [NotNull] int pageUserId)
+            this IRepository<Message> repository,
+            int messageId,
+            [NotNull] int pageUserId)
         {
-            return repository.DbFunction.GetData.message_secdata(
-                PageUserID: pageUserId,
-                MessageID: messageId);
+            return repository.DbFunction.GetData.message_secdata(PageUserID: pageUserId, MessageID: messageId);
         }
 
         /// <summary>
         /// The message_unapproved.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable UnapprovedAsDataTable(
-            this IRepository<Message> repository, [NotNull] int forumId)
+        public static DataTable UnapprovedAsDataTable(this IRepository<Message> repository, [NotNull] int forumId)
         {
-            return repository.DbFunction.GetData.message_unapproved(
-                ForumID: forumId);
+            return repository.DbFunction.GetData.message_unapproved(ForumID: forumId);
         }
 
         /// <summary>
         /// The message_update.
         /// </summary>
-        /// <param name="messageID">
-        /// The message id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
         /// <param name="priority">
         /// The priority.
@@ -707,6 +817,9 @@ namespace YAF.Core.Model
         /// </param>
         /// <param name="status">
         /// The status.
+        /// </param>
+        /// <param name="styles">
+        /// The styles.
         /// </param>
         /// <param name="subject">
         /// The subject.
@@ -763,8 +876,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The messagehistory_list.
+        /// Gets the List of all message changes.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageId">
         /// The Message ID.
         /// </param>
@@ -772,10 +888,12 @@ namespace YAF.Core.Model
         /// Days to clean.
         /// </param>
         /// <returns>
-        /// List of all message changes.
+        /// Returns the List of all message changes.
         /// </returns>
         public static DataTable HistoryListAsDataTable(
-            this IRepository<Message> repository, int messageId, int daysToClean)
+            this IRepository<Message> repository,
+            int messageId,
+            int daysToClean)
         {
             return repository.DbFunction.GetData.messagehistory_list(
                 MessageID: messageId,
@@ -788,6 +906,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The message_delete recursively.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -826,17 +947,15 @@ namespace YAF.Core.Model
                 // Delete replies
                 var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID);
 
-                foreach (var replyId in replies)
-                {
-                    repository.DeleteRecursively(
+                replies.ForEach(
+                    replyId => repository.DeleteRecursively(
                         replyId,
                         isModeratorChanged,
                         deleteReason,
                         isDeleteAction,
                         true,
-                        true,
-                        eraseMessages);
-                }
+                        isLinked,
+                        eraseMessages));
             }
 
             // If the files are actually saved in the Hard Drive
@@ -844,9 +963,8 @@ namespace YAF.Core.Model
             {
                 var attachments = repository.DbFunction.GetData.attachment_list(MessageID: messageID);
 
-                var uploadDir =
-                    HostingEnvironment.MapPath(
-                        string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                var uploadDir = HostingEnvironment.MapPath(
+                    string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
                 foreach (DataRow row in attachments.Rows)
                 {
@@ -869,14 +987,15 @@ namespace YAF.Core.Model
             // Ederon : erase message for good
             if (eraseMessages)
             {
-                repository.DbFunction.Scalar.message_delete(
-                    MessageID: messageID,
-                    EraseMessage: eraseMessages);
+                // Delete Message from Search Index
+                YafContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+
+                repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: eraseMessages);
             }
             else
             {
                 // Delete Message
-                // undelete function added
+                // un-delete function added
                 repository.DbFunction.Scalar.message_deleteundelete(
                     MessageID: messageID,
                     isModeratorChanged: isModeratorChanged,
@@ -885,10 +1004,12 @@ namespace YAF.Core.Model
             }
         }
 
-
         /// <summary>
         /// moves answers of moved post
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageID">
         /// The message id.
         /// </param>
@@ -896,18 +1017,15 @@ namespace YAF.Core.Model
         /// The move to topic.
         /// </param>
         private static void MoveRecursively(
-            this IRepository<Message> repository, [NotNull] int messageID, [NotNull] int moveToTopic)
+            this IRepository<Message> repository,
+            [NotNull] int messageID,
+            [NotNull] int moveToTopic)
         {
             var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID);
 
-            foreach (var replyId in replies)
-            {
-                repository.MoveRecursively(replyId, moveToTopic);
-            }
+            replies.ForEach(replyId => repository.MoveRecursively(replyId, moveToTopic));
 
-            repository.DbFunction.Scalar.message_move(
-                MessageID: messageID,
-                MoveToTopic: moveToTopic);
+            repository.DbFunction.Scalar.message_move(MessageID: messageID, MoveToTopic: moveToTopic);
         }
     }
 }

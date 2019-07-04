@@ -41,7 +41,6 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -57,19 +56,14 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   The _show topic list selected.
+        ///   The show topic list selected.
         /// </summary>
-        private int _showTopicListSelected;
+        private int showTopicListSelected;
 
         /// <summary>
-        ///   The _forum.
+        /// The forum.
         /// </summary>
-        private Forum _forum;
-
-        /// <summary>
-        ///   The _forum flags.
-        /// </summary>
-        private ForumFlags _forumFlags;
+        private Forum forum;
 
         #endregion
 
@@ -101,7 +95,7 @@ namespace YAF.Pages
         #region Public Methods
 
         /// <summary>
-        /// The style transform func wrap.
+        /// The style transform function wrap.
         /// </summary>
         /// <param name="dt">
         /// The DateTable
@@ -142,7 +136,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this._forumFlags.IsLocked)
+            if (this.forum.ForumFlags.IsLocked)
             {
                 this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
                 return;
@@ -190,7 +184,6 @@ namespace YAF.Pages
             this.NewTopic2.Click += this.NewTopic_Click;
             this.WatchForum.Click += this.WatchForum_Click;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             base.OnInit(e);
         }
 
@@ -232,7 +225,7 @@ namespace YAF.Pages
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
                 this.ShowList.DataTextField = "TopicText";
                 this.ShowList.DataValueField = "TopicValue";
-                this._showTopicListSelected = this.Get<IYafSession>().ShowList == -1
+                this.showTopicListSelected = this.Get<IYafSession>().ShowList == -1
                                                   ? this.Get<YafBoardSettings>().ShowTopicsDefault
                                                   : this.Get<IYafSession>().ShowList;
 
@@ -266,24 +259,22 @@ namespace YAF.Pages
                 this.PageContext.PageBoardID,
                 this.PageContext.PageForumID);
 
-            this._forum = dt.FirstOrDefault();
+            this.forum = dt.FirstOrDefault();
 
-            if (this._forum.RemoteURL.IsSet())
+            if (this.forum.RemoteURL.IsSet())
             {
                 this.Response.Clear();
-                this.Response.Redirect(this._forum.RemoteURL);
+                this.Response.Redirect(this.forum.RemoteURL);
             }
 
-            this._forumFlags = this._forum.ForumFlags;
-
-            this.PageTitle.Text = this._forum.Description.IsSet()
-                                      ? $"{this.HtmlEncode(this._forum.Name)} - <em>{this.HtmlEncode(this._forum.Description)}</em>"
-                                      : this.HtmlEncode(this._forum.Name);
+            this.PageTitle.Text = this.forum.Description.IsSet()
+                                      ? $"{this.HtmlEncode(this.forum.Name)} - <em>{this.HtmlEncode(this.forum.Description)}</em>"
+                                      : this.HtmlEncode(this.forum.Name);
 
             this.BindData(); // Always because of yaf:TopicLine
 
             if (!this.PageContext.ForumPostAccess
-                || this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+                || this.forum.ForumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
                 this.NewTopic1.Visible = false;
                 this.NewTopic2.Visible = false;
@@ -402,7 +393,7 @@ namespace YAF.Pages
 
             DataTable topicList;
 
-            if (this._showTopicListSelected == 0)
+            if (this.showTopicListSelected == 0)
             {
                 topicList = this.GetRepository<Topic>().ListAsDataTable(
                     this.PageContext.PageForumID,
@@ -423,7 +414,7 @@ namespace YAF.Pages
             {
                 int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
 
-                var date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
+                var date = DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]);
 
                 topicList = this.GetRepository<Topic>().ListAsDataTable(
                     this.PageContext.PageForumID,
@@ -447,8 +438,8 @@ namespace YAF.Pages
             this.DataBind();
 
             // setup the show topic list selection after data binding
-            this.ShowList.SelectedIndex = this._showTopicListSelected;
-            this.Get<IYafSession>().ShowList = this._showTopicListSelected;
+            this.ShowList.SelectedIndex = this.showTopicListSelected;
+            this.Get<IYafSession>().ShowList = this.showTopicListSelected;
 
             if (topicList != null && topicList.HasRows())
             {
@@ -520,7 +511,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ShowList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this._showTopicListSelected = this.ShowList.SelectedIndex;
+            this.showTopicListSelected = this.ShowList.SelectedIndex;
             this.BindData();
         }
 

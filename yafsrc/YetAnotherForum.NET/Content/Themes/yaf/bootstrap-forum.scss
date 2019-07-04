@@ -1,4 +1,6 @@
-﻿@import "../../bootstrap/bootstrap.scss";
+﻿@import "_variables.scss";
+
+@import "../../bootstrap/bootstrap.scss";
 
 .forum-logo {
     background: url("../../images/YafLogo.png") no-repeat;

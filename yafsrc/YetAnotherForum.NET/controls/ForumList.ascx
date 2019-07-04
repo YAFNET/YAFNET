@@ -30,16 +30,17 @@
                 <%# this.GetViewing(Container.DataItem) %>
             </asp:Label>
         </h5>
-        <asp:Label runat="server" ID="Description"  Visible='<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]").ToString().IsSet() %>'>
+        <asp:Label runat="server" ID="Description" 
+                   Visible='<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]").ToString().IsSet() %>'
+                   CssClass="font-italic">
             <%# this.Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
         </asp:Label>
-
-        <p class="card-text">
+        <div>
             <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
-            <YAF:ForumSubForumList ID="SubForumList" runat="server" 
+            <YAF:ForumSubForumList ID="SubForumList" runat="server"
                                    DataSource='<%# this.GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
                                    Visible='<%# this.HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
-        </p>
+        </div>
     </div>
     <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value %>'>
     <div class="col-md-2">

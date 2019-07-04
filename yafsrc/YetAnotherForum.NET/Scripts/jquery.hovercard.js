@@ -9,7 +9,6 @@
 
         //Set defauls for the control
         var defaults = {
-            width: 300,
             openOnLeft: false,
             openOnTop: false,
             cardImgSrc: "",
@@ -56,7 +55,7 @@
 
             //append this detail after the selected element
             obj.after(hcDetails);
-            obj.siblings(".hc-details").eq(0).css({ 'width': options.width, 'background': options.background });
+            obj.siblings(".hc-details").eq(0).css({ 'background': options.background });
 
             //toggle hover card details on hover
             obj.closest(".hc-preview").hoverIntent(function() {

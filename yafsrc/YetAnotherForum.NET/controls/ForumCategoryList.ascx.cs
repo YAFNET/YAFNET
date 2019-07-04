@@ -27,7 +27,9 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Web.UI.WebControls;
 
+    using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -36,6 +38,8 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -45,6 +49,30 @@ namespace YAF.Controls
     public partial class ForumCategoryList : BaseUserControl
     {
         #region Methods
+
+        /// <summary>
+        /// Gets the Category Image
+        /// </summary>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetCategoryImage([NotNull] DataRowView row)
+        {
+            var hasCategoryImage = row["CategoryImage"].ToString().IsSet();
+
+            var image = new Image
+                            {
+                                ImageUrl =
+                                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{row["CategoryImage"]}"
+                            };
+
+            return hasCategoryImage
+                       ? $"{image.RenderToString()}&nbsp;"
+                       : @"<i class=""fas fa-folder fa-fw text-warning"" aria-hidden=""true""></i>&nbsp;";
+        }
 
         /// <summary>
         /// The mark all_ click.

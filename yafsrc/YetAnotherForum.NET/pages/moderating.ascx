@@ -14,8 +14,11 @@
                                                                                  LocalizedPage="MODERATE" />
             </div>
             <div class="card-body">
-                <ul class="list-group list-group-flush">
+                
     <asp:Repeater runat="server" ID="UserList" OnItemCommand="UserList_ItemCommand">
+        <HeaderTemplate>
+            <ul class="list-group list-group-flush">
+        </HeaderTemplate>
         <ItemTemplate>
             <li class="list-group-item">
                 <span class="font-weight-bold">
@@ -36,7 +39,7 @@
                                  Size="Small"
                                  Icon="edit"></YAF:ThemeButton>
                 <YAF:ThemeButton ID="ThemeButtonRemove" runat="server"
-                                 OnLoad="DeleteUser_Load"
+                                 ReturnConfirmText='<%#this.GetText("moderate", "confirm_delete_user") %>'
                                  CommandName='remove' CommandArgument='<%#
     this.Eval("UserID") %>' 
                                  TitleLocalizedTag="REMOVE" 
@@ -45,8 +48,10 @@
                                  Icon="trash"></YAF:ThemeButton>
             </li>
         </ItemTemplate>
+        <FooterTemplate>
+            </ul>
+        </FooterTemplate>
     </asp:Repeater> 
-               </ul>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" ID="AddUser" 
@@ -80,44 +85,54 @@
             </div>
             <div class="card-footer text-center">
                 <!-- Move Topic Button -->
-
-        <button type="button" title="Go to Page..."
-                class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-            <i class="fa fa-arrows-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" ID="TITLE" LocalizedTag="MOVE" LocalizedPage="MOVETOPIC"></YAF:LocalizedLabel>
-        </button>
+        <YAF:ThemeButton runat="server"
+                         TextLocalizedTag="MOVE" 
+                         TextLocalizedPage="MOVETOPIC"
+                         CssClass="dropdown-toggle"
+                         DataToggle="dropdown"
+                         Icon="arrows-alt"
+                         Type="Primary"></YAF:ThemeButton>
         <div class="dropdown-menu">
-            <form class="px-4 py-3">
+            <div class="px-4 py-3">
                 <div class="form-group">
-                    <label for='<%= this.ForumList.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="select_forum" /></label>
-                    <asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" CssClass="form-control" />
+                    <asp:Label AssociatedControlID="ForumList" runat="server">
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="select_forum" />
+                    </asp:Label>
+                    <asp:DropDownList ID="ForumList" runat="server" 
+                                      DataValueField="ForumID" 
+                                      DataTextField="Title" 
+                                      CssClass="form-control" />
                 </div>
                 <div class="dropdown-divider"></div>
-                <div id="trLeaveLink" runat="server" class="form-check">
-                    <label class="form-check-label">
-                        <asp:CheckBox ID="LeavePointer" runat="server" />
-                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="LEAVE_POINTER" />
-                    </label>
+                <div id="trLeaveLink" runat="server" 
+                     class="custom-control custom-checkbox">
+                    <asp:CheckBox ID="LeavePointer" runat="server" 
+                                  Text='<%# this.GetText("LEAVE_POINTER") %>' />
                 </div>
                 <div class="dropdown-divider"></div>
                 <div class="form-group" id="trLeaveLinkDays" runat="server">
-                    <label for='<%= this.LinkDays.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="POINTER_DAYS" /></label>
+                    <asp:Label AssociatedControlID="LinkDays" runat="server">
+                        <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="POINTER_DAYS" />
+                    </asp:Label>
                     <asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" TextMode="Number" />
                 </div>
                 <div class="dropdown-divider"></div>
-                <YAF:ThemeButton ID="Move" Type="Primary" Size="Small" runat="server" OnClick="Move_Click"
+                <YAF:ThemeButton ID="Move" runat="server" 
+                                 OnClick="Move_Click" 
+                                 Type="Primary" 
+                                 Size="Small"
+                                 Icon="arrows-alt"
                                  TextLocalizedTag="MOVE" TextLocalizedPage="MOVETOPIC"/>
-            </form>
+            </div>
         </div>
   
 <!-- End of Move Topic Button -->
-<YAF:ThemeButton ID="DeleteTopic" runat="server" 
-                 TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
-                 OnLoad="Delete_Load" 
-                 OnClick="DeleteTopics_Click"
-                 Type="Danger"
-                 Icon="trash"
+                <YAF:ThemeButton ID="DeleteTopic" runat="server"
+                                 TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
+                                 ReturnConfirmText='<%# this.GetText("moderate", "confirm_delete") %>'
+                                 OnClick="DeleteTopics_Click"
+                                 Type="Danger"
+                                 Icon="trash"
                  />
             </div>
         </div>

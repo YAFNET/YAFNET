@@ -209,17 +209,19 @@
 
                          
                             <YAF:HelpLabel ID="HelpLabel186" runat="server" LocalizedTag="AKISMET_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <YAF:ThemeButton runat="server" ID="GetRemovalKey" 
-                                             NavigateUrl="https://akismet.com/signup/"
-                                             CssClass="btn btn-info float-right"
-                                             Icon="sign-in-alt"
-                                             TextLocalizedTag="AKISMET_KEY_DOWN">
-                            </YAF:ThemeButton>
-                         
-                        <p>
+                            
+                        <div class="input-group">
                             <asp:TextBox ID="AkismetApiKey" CssClass="form-control" runat="server"></asp:TextBox>
+                            <div class="input-group-append">
+                                <YAF:ThemeButton runat="server" ID="GetRemovalKey" 
+                                                 NavigateUrl="https://akismet.com/signup/"
+                                                 Type="Info"
+                                                 Icon="sign-in-alt"
+                                                 TextLocalizedTag="AKISMET_KEY_DOWN">
+                                </YAF:ThemeButton>
+                            </div>
 
-                    </p><hr />
+                    </div><hr />
 
                          
                             <YAF:HelpLabel ID="HelpLabel239" runat="server" LocalizedTag="IGNORE_SPAMCHECK_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -246,31 +248,34 @@
 
                          
                             <YAF:HelpLabel ID="HelpLabel225" runat="server" LocalizedTag="BOTSCOUT_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <YAF:ThemeButton runat="server" ID="ThemeButton1" 
-                                             NavigateUrl="http://botscout.com/getkey.htm"
-                                             CssClass="btn btn-info float-right"
-                                             Icon="sign-in-alt"
-                                             TextLocalizedTag="AKISMET_KEY_DOWN">
-                            </YAF:ThemeButton>
+                        
                          
-                        <p>
+                        <div class="input-group">
                             <asp:TextBox ID="BotScoutApiKey" CssClass="form-control" runat="server"></asp:TextBox>
-
-                    </p><hr />
+                            <div class="input-group-append">
+                                <YAF:ThemeButton runat="server" ID="ThemeButton1" 
+                                                 NavigateUrl="http://botscout.com/getkey.htm"
+                                                 Type="Info"
+                                                 Icon="sign-in-alt"
+                                                 TextLocalizedTag="AKISMET_KEY_DOWN">
+                                </YAF:ThemeButton>
+                            </div>
+                    </div><hr />
 
                          
                             <YAF:HelpLabel ID="HelpLabel192" runat="server" LocalizedTag="STOPFORUMSPAM_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <YAF:ThemeButton runat="server" ID="ThemeButton2" 
-                                             NavigateUrl="http://stopforumspam.com"
-                                             CssClass="btn btn-info float-right"
-                                             Icon="sign-in-alt"
-                                             TextLocalizedTag="AKISMET_KEY_DOWN">
-                            </YAF:ThemeButton>
-                         
-                        <p>
+                        
+                        <div class="input-group">
                             <asp:TextBox ID="StopForumSpamApiKey" CssClass="form-control" runat="server"></asp:TextBox>
-
-                    </p><hr />
+                            <div class="input-group-append">
+                                <YAF:ThemeButton runat="server" ID="ThemeButton2" 
+                                                 NavigateUrl="http://stopforumspam.com"
+                                                 Type="Info"
+                                                 Icon="sign-in-alt"
+                                                 TextLocalizedTag="AKISMET_KEY_DOWN">
+                                </YAF:ThemeButton>
+                            </div>
+                    </div><hr />
 
                          
                             <YAF:HelpLabel ID="HelpLabel226" runat="server" LocalizedTag="BOT_CHECK_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1381,7 +1386,10 @@
                             <YAF:HelpLabel ID="HelpLabel26" runat="server" LocalizedTag="POST_AD" LocalizedPage="ADMIN_HOSTSETTINGS" />
                          
                         <p>
-                            <asp:TextBox Height="80px" CssClass="form-control" TextMode="MultiLine" runat="server" ID="AdPost" />
+                            <asp:TextBox  ID="AdPost" runat="server"
+                                          Height="80px" 
+                                          CssClass="form-control" 
+                                          TextMode="MultiLine" />
 
                     </p><hr />
 
@@ -1389,7 +1397,8 @@
                             <YAF:HelpLabel ID="HelpLabel27" runat="server" LocalizedTag="SHOWAD_LOGINUSERS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                          
                         <div class="custom-control custom-switch">
-                            <asp:CheckBox runat="server" CssClass="form-control" ID="ShowAdsToSignedInUsers" />
+                            <asp:CheckBox runat="server" ID="ShowAdsToSignedInUsers"
+                                          Text="&nbsp;"/>
 
                     </div>
 
@@ -1415,7 +1424,7 @@
                             <YAF:HelpLabel ID="HelpLabel160" runat="server" LocalizedTag="ALLOW_USERTEXTEDITOR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                          
                         <div class="custom-control custom-switch">
-                            <asp:CheckBox runat="server" CssClass="form-control" ID="AllowUsersTextEditor" />
+                            <asp:CheckBox runat="server" ID="AllowUsersTextEditor" Text="&nbsp;" />
 
                     </div><hr />
 
@@ -1791,10 +1800,12 @@
                          
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ForumStatisticsCacheTimeout" />
-                            <YAF:ThemeButton Type="Primary" ID="ForumStatisticsCacheReset" 
-                                        TextLocalizedTag="CLEAR"  runat="server" 
+                            <YAF:ThemeButton ID="ForumStatisticsCacheReset" runat="server" 
+                                             Type="Primary" 
+                                             TextLocalizedTag="CLEAR" 
+                                             CssClass="mt-1"
                                              Icon="trash"
-                                        OnClick="ForumStatisticsCacheResetClick" />
+                                             OnClick="ForumStatisticsCacheResetClick" />
 
                     </p><hr />
 
@@ -2022,10 +2033,10 @@
                          
                             <YAF:HelpLabel ID="HelpLabel210" runat="server" LocalizedTag="LOG_VIEWSTATEERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                          
-                        <p>
+                        <div class="custom-control custom-switch">
                             <asp:CheckBox Text="&nbsp;" ID="LogViewStateError" runat="server"></asp:CheckBox>
 
-                    </p><hr />
+                    </div><hr />
 
                          
                             <YAF:HelpLabel ID="HelpLabel211" runat="server" LocalizedTag="LOG_BANNEDIP" LocalizedPage="ADMIN_HOSTSETTINGS" />

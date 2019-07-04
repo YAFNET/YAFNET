@@ -269,6 +269,9 @@ legend {
   line-height: inherit;
   color: inherit;
   white-space: normal; }
+  @media (max-width: 1200px) {
+    legend {
+      font-size: calc(1.275rem + 0.3vw) ; } }
 
 progress {
   vertical-align: baseline; }
@@ -309,12 +312,21 @@ h1, h2, h3, h4, h5, h6,
 
 h1, .h1 {
   font-size: 2.03125rem; }
+  @media (max-width: 1200px) {
+    h1, .h1 {
+      font-size: calc(1.32813rem + 0.9375vw) ; } }
 
 h2, .h2 {
   font-size: 1.625rem; }
+  @media (max-width: 1200px) {
+    h2, .h2 {
+      font-size: calc(1.2875rem + 0.45vw) ; } }
 
 h3, .h3 {
   font-size: 1.42188rem; }
+  @media (max-width: 1200px) {
+    h3, .h3 {
+      font-size: calc(1.26719rem + 0.20625vw) ; } }
 
 h4, .h4 {
   font-size: 1.21875rem; }
@@ -333,21 +345,33 @@ h6, .h6 {
   font-size: 6rem;
   font-weight: 300;
   line-height: 1.2; }
+  @media (max-width: 1200px) {
+    .display-1 {
+      font-size: calc(1.725rem + 5.7vw) ; } }
 
 .display-2 {
   font-size: 5.5rem;
   font-weight: 300;
   line-height: 1.2; }
+  @media (max-width: 1200px) {
+    .display-2 {
+      font-size: calc(1.675rem + 5.1vw) ; } }
 
 .display-3 {
   font-size: 4.5rem;
   font-weight: 300;
   line-height: 1.2; }
+  @media (max-width: 1200px) {
+    .display-3 {
+      font-size: calc(1.575rem + 3.9vw) ; } }
 
 .display-4 {
   font-size: 3.5rem;
   font-weight: 300;
   line-height: 1.2; }
+  @media (max-width: 1200px) {
+    .display-4 {
+      font-size: calc(1.475rem + 2.7vw) ; } }
 
 hr {
   margin-top: 1rem;
@@ -4672,6 +4696,9 @@ input[type="button"].btn-block {
   color: #000;
   text-shadow: 0 1px 0 #fff;
   opacity: .5; }
+  @media (max-width: 1200px) {
+    .close {
+      font-size: calc(1.3375rem + 1.05vw) ; } }
   .close:hover {
     color: #000;
     text-decoration: none; }

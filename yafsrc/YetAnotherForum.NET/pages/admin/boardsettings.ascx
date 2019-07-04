@@ -36,17 +36,18 @@
            <asp:PlaceHolder ID="CopyrightHolder" runat="server">
              
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS" />
-                <YAF:ThemeButton runat="server" ID="GetRemovalKey" 
-                                 NavigateUrl="http://yetanotherforum.net/purchase.aspx"
-                                 CssClass="float-right"
-                                 Type="Info"
-                                 Icon="key"
-                                 TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">
-                </YAF:ThemeButton>
              
-            <p>
+            <div class="input-group">
                 <asp:TextBox ID="CopyrightRemovalKey" runat="server" CssClass="form-control"></asp:TextBox>
-            </p><hr />
+                <div class="input-group-append">
+                    <YAF:ThemeButton runat="server" ID="GetRemovalKey" 
+                                     NavigateUrl="http://yetanotherforum.net/purchase.aspx"
+                                     Type="Info"
+                                     Icon="key"
+                                     TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">
+                    </YAF:ThemeButton>
+                </div>
+            </div><hr />
 
         </asp:PlaceHolder>
 
@@ -181,18 +182,19 @@
              
                 <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="CdvVersion"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
-                <YAF:ThemeButton runat="server"
-                                 OnClick="IncreaseVersionOnClick"
-                                 CssClass="float-right"
-                                 Type="Info"
-                                 Icon="file-code"
-                                 TextLocalizedTag="CDVVERSION_BUTTON"
-                                 TitleLocalizedTag="CDVVERSION_HELP">
-                </YAF:ThemeButton>
-             
-            <p>
-                <asp:TextBox ID="CdvVersion" runat="server" CssClass="form-control" Enabled="False"></asp:TextBox>
-            </p>  
+                            <div class="input-group">
+                                <asp:TextBox ID="CdvVersion" runat="server" CssClass="form-control" Enabled="False"></asp:TextBox>
+                                <div class="input-group-append">
+                    <YAF:ThemeButton runat="server"
+                                     OnClick="IncreaseVersionOnClick"
+                                     CssClass="float-right"
+                                     Type="Info"
+                                     Icon="file-code"
+                                     TextLocalizedTag="CDVVERSION_BUTTON"
+                                     TitleLocalizedTag="CDVVERSION_HELP">
+                    </YAF:ThemeButton>
+                </div>
+            </div>  
 
                         </div>
                         <div class="card-footer text-center">

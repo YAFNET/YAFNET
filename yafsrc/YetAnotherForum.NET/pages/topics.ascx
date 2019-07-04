@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.topics" Codebehind="topics.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="ServiceStack" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="TopicLine" Src="../controls/TopicLine.ascx" %>
 
@@ -12,9 +13,14 @@
         <div class="col">
             <div class="card mb-3">
                 <div class="card-header d-flex align-items-center">
+                    <YAF:CollapseButton ID="CollapsibleImage" runat="server"
+                                        PanelID='<%# "forumPanel{0}".Fmt(this.PageContext.PageForumID) %>'
+                                        AttachedControlID="body" 
+                                        CssClass="pl-0">
+                    </YAF:CollapseButton>
                     <i class="fas fa-comments fa-fw text-secondary"></i>&nbsp;<%= this.GetSubForumTitle()%>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="body" runat="server">
                     <YAF:ForumList AltLastPost="<%# this.LastPostImageTT %>" runat="server" ID="ForumList" />
                 </div>
             </div>
