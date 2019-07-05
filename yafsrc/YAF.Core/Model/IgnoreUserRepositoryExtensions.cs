@@ -26,8 +26,8 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = repository.DbAccess.Execute(
-                              db => db.Connection.Delete<IgnoreUser>(x => x.UserID == userId && x.IgnoredUserID == ignoreUserId))
-                          == 1;
+                              db => db.Connection.Delete<IgnoreUser>(
+                                  x => x.UserID == userId && x.IgnoredUserID == ignoreUserId)) == 1;
 
             if (success)
             {
