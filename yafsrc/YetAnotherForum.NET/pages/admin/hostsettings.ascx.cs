@@ -469,7 +469,7 @@ namespace YAF.Pages.Admin
 
                 if (control is TextBox && settingCollection.SettingsDouble[name].CanRead)
                 {
-                    ((TextBox)control).CssClass = "Numeric";
+                    ((TextBox)control).CssClass = "form-control";
 
                     // get the value from the property...
                     ((TextBox)control).Text =

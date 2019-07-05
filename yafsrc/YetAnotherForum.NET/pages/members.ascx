@@ -43,7 +43,7 @@
                         <asp:DropDownList ID="NumPostDDL" runat="server" CssClass="standardSelectMenu">
                         </asp:DropDownList>
                         <asp:TextBox ID="NumPostsTB" runat="server" 
-                                     CssClass="Numeric" 
+                                     CssClass="form-control" 
                                      TextMode="Number"></asp:TextBox>
                     </div>
                 </div>

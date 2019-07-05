@@ -379,8 +379,12 @@
                     <YAF:ThemeButton CommandName="deleteall" Type="Danger" Size="Small" 
                         Icon="trash" TextLocalizedTag="DELETE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
                         runat="server" />&nbsp;
-                    <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="form-control Numeric" 
-                        TextMode="Number"></asp:TextBox>
+                    <asp:TextBox ID="DaysOld" runat="server" 
+                                 MaxLength="5" 
+                                 Text="14" 
+                                 CssClass="form-control"
+                                 TextMode="Number">
+                    </asp:TextBox>
                 </div>
             </FooterTemplate>
         </asp:Repeater>
