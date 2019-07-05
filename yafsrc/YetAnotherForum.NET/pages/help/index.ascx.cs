@@ -222,19 +222,19 @@ namespace YAF.Pages.help
                 check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
                 check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
 
+            if (searchlist.Count.Equals(0))
+            {
+                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
+
+                return;
+            }
+
             foreach (var item in searchlist)
             {
                 item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
                   item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
                 item.HelpTitle = this.Get<IFormatMessage>().SurroundWordList(
                   item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
-            }
-
-            if (searchlist.Count.Equals(0))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
-
-                return;
             }
 
             this.HelpList.DataSource = searchlist;

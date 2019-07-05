@@ -303,6 +303,7 @@ namespace YAF.Controls
         protected override void Render([NotNull] HtmlTextWriter output)
         {
             output.WriteLine($@"<div class=""yafUserBox"" id=""{this.ClientID}"">");
+            output.WriteLine(@"<ul class=""list-group list-group-flush"">");
 
             var userBox = this.CachedUserBox;
 
@@ -317,6 +318,7 @@ namespace YAF.Controls
             // output the user box info...
             output.WriteLine(userBox);
 
+            output.WriteLine("</ul>");
             output.WriteLine("</div>");
         }
 
