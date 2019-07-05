@@ -24,14 +24,10 @@
                     DataValueField="ID" DataTextField="Name" CssClass="custom-select">
                 </asp:DropDownList>
             </p><hr />
-      
-        
-             
+
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="PARENT_FORUM" LocalizedPage="ADMIN_EDITFORUM" />
-                <strong></strong>
-                <br />
-             
-            <p>
+
+                    <p>
                 <asp:DropDownList ID="ParentList" runat="server" CssClass="custom-select">
                 </asp:DropDownList>
             </p><hr />

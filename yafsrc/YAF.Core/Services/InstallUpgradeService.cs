@@ -31,8 +31,6 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Web;
 
-    using ServiceStack.OrmLite;
-
     using YAF.Classes;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -159,15 +157,20 @@ namespace YAF.Core.Services
         /// <param name="adminEmail">The admin email.</param>
         /// <param name="adminProviderUserKey">The admin provider user key.</param>
         public void InitializeForum(
-            string forumName, string timeZone, string culture, string forumEmail, string forumBaseUrlMask, string adminUserName, string adminEmail, object adminProviderUserKey)
+            string forumName,
+            string timeZone,
+            string culture,
+            string forumEmail,
+            string forumBaseUrlMask,
+            string adminUserName,
+            string adminEmail,
+            object adminProviderUserKey)
         {
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            foreach (var drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture))
-            {
-                langFile = (string)drow["CultureFile"];
-            }
+            cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture)
+                .ForEach(drow => langFile = (string)drow["CultureFile"]);
 
             this.GetRepository<Board>().SystemInitialize(
                 forumName,
@@ -239,8 +242,8 @@ namespace YAF.Core.Services
                 this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
 
                 // Ederon : 9/7/2007
-                // resync all boards - necessary for propr last post bubbling
-                this.GetRepository<Board>().Resync();
+                // re-sync all boards - necessary for proper last post bubbling
+                this.GetRepository<Board>().ReSync();
 
                 this.RaiseEvent.RaiseIssolated(
                     new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion),
@@ -266,15 +269,22 @@ namespace YAF.Core.Services
                         {
                             this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
                             this.Get<YafBoardSettings>().UserBoxAvatar = @"<li class=""list-group-item"">{0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxMedals = @"<li class=""list-group-item""><strong>{0}</strong><br /> {1}{2}</li>";
+                            this.Get<YafBoardSettings>().UserBoxMedals =
+                                @"<li class=""list-group-item""><strong>{0}</strong><br /> {1}{2}</li>";
                             this.Get<YafBoardSettings>().UserBoxRankImage = @"<li class=""list-group-item"">{0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxRank = @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
-                            this.Get<YafBoardSettings>().UserBoxGroups = @"<li class=""list-group-item""><strong>{0}:</strong><br /> {1}</li>";
-                            this.Get<YafBoardSettings>().UserBoxJoinDate = @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
-                            this.Get<YafBoardSettings>().UserBoxPosts = @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxReputation = @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
+                            this.Get<YafBoardSettings>().UserBoxRank =
+                                @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxGroups =
+                                @"<li class=""list-group-item""><strong>{0}:</strong><br /> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxJoinDate =
+                                @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxPosts =
+                                @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
+                            this.Get<YafBoardSettings>().UserBoxReputation =
+                                @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
                             this.Get<YafBoardSettings>().UserBoxCountryImage = @"{0}";
-                            this.Get<YafBoardSettings>().UserBoxLocation = @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
+                            this.Get<YafBoardSettings>().UserBoxLocation =
+                                @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
                             this.Get<YafBoardSettings>().UserBoxGender = @"{0}&nbsp;";
                             this.Get<YafBoardSettings>().UserBoxThanksFrom = @"<li class=""list-group-item"">{0}</li>";
                             this.Get<YafBoardSettings>().UserBoxThanksTo = @"<li class=""list-group-item"">{0}</li>";
@@ -285,25 +295,14 @@ namespace YAF.Core.Services
                         }
                     }
 
-                    try
-                    {
-                        // Check if BaskeUrlMask is set and if not automatically write it
-                        if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
-                        {
-                            this.Get<YafBoardSettings>().BaseUrlMask = BaseUrlBuilder.GetBaseUrlFromVariables();
-                        }
-                    }
-                    catch (Exception)
+                    // Check if BaseUrlMask is set and if not automatically write it
+                    if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
                     {
                         this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
                     }
 
-                    this.Get<YafBoardSettings>().CdvVersion++;
-                    ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                    this.GetRepository<Registry>().Save("cdvversion", this.Get<YafBoardSettings>().CdvVersion++);
                 }
-
-                // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security
-                // DB.system_deleteinstallobjects();
             }
 
             if (this.IsForumInstalled)
@@ -364,6 +363,7 @@ namespace YAF.Core.Services
             this.DbAccess.Information.UpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
         }
 
+        /*
         /// <summary>
         /// Create missing tables
         /// </summary>
@@ -424,7 +424,7 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicReadTracking>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumReadTracking>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ReputationVote>());
-        }
+        }*/
 
         /// <summary>
         /// The execute script.
@@ -491,19 +491,20 @@ namespace YAF.Core.Services
             var boards = this.GetRepository<Board>().ListTyped();
 
             // Upgrade all Boards
-            foreach (var board in boards)
-            {
-                this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(board.ID));
+            boards.ForEach(
+                board =>
+                    {
+                        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(board.ID));
 
-                // load default bbcode if available...
-                loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
+                        // load default bbcode if available...
+                        loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
 
-                // load default extensions if available...
-                loadWrapper(FileImport, s => DataImport.FileExtensionImport(board.ID, s));
+                        // load default extensions if available...
+                        loadWrapper(FileImport, s => DataImport.FileExtensionImport(board.ID, s));
 
-                // load default spam word if available...
-                loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
-            }
+                        // load default spam word if available...
+                        loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
+                    });
         }
 
         #endregion

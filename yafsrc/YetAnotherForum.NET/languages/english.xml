@@ -11,6 +11,7 @@
   <Resource tag="ADMIN_BANNEDIP_EDIT">Edits banned IPs</Resource>
   <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
   <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
+  <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
   <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
   <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
   <Resource tag="ADMIN_BBCODE">Views BBCodes</Resource>
@@ -4498,7 +4499,7 @@
   <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
   <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
   <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
-  <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+  <Resource tag="TOGGLEPOST">Show/Hide Post of an Ignored User</Resource>
   <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
   <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
   <Resource tag="TOOLS">Tools</Resource>

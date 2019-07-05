@@ -46,17 +46,42 @@ namespace YAF.Core.Model
         /// <summary>
         /// The system_initialize.
         /// </summary>
-        /// <param name="forumName">The forum name.</param>
-        /// <param name="timeZone">The time zone.</param>
-        /// <param name="culture">The culture.</param>
-        /// <param name="languageFile">The language File.</param>
-        /// <param name="forumEmail">The forum email.</param>
-        /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
-        /// <param name="smtpServer">The smtp server.</param>
-        /// <param name="userName">The user name.</param>
-        /// <param name="userEmail">The user email.</param>
-        /// <param name="providerUserKey">The provider user key.</param>
-        /// <param name="rolePrefix">The role Prefix.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumName">
+        /// The forum name.
+        /// </param>
+        /// <param name="timeZone">
+        /// The time zone.
+        /// </param>
+        /// <param name="culture">
+        /// The culture.
+        /// </param>
+        /// <param name="languageFile">
+        /// The language File.
+        /// </param>
+        /// <param name="forumEmail">
+        /// The forum email.
+        /// </param>
+        /// <param name="forumBaseUrlMask">
+        /// The forum base URL mask.
+        /// </param>
+        /// <param name="smtpServer">
+        /// The SMTP server.
+        /// </param>
+        /// <param name="userName">
+        /// The user name.
+        /// </param>
+        /// <param name="userEmail">
+        /// The user email.
+        /// </param>
+        /// <param name="providerUserKey">
+        /// The provider user key.
+        /// </param>
+        /// <param name="rolePrefix">
+        /// The role Prefix.
+        /// </param>
         public static void SystemInitialize(
             this IRepository<Board> repository,
             [NotNull] string forumName,
@@ -201,7 +226,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The poststats.
+        /// Gets the post stats.
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="boardID">The board id.</param>
@@ -210,7 +235,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable" />.
         /// </returns>
-        public static DataRow Poststats(this IRepository<Board> repository, int boardID, bool styledNicks, bool showNoCountPosts)
+        public static DataRow PostStats(this IRepository<Board> repository, int boardID, bool styledNicks, bool showNoCountPosts)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -233,7 +258,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The resync.
+        /// Re-Sync the Board
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -241,7 +266,7 @@ namespace YAF.Core.Model
         /// <param name="boardID">
         /// The board id.
         /// </param>
-        public static void Resync(this IRepository<Board> repository, int? boardID = null)
+        public static void ReSync(this IRepository<Board> repository, int? boardID = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -297,7 +322,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The userstats.
+        /// Gets the User Stats.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -308,7 +333,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataRow Userstats(this IRepository<Board> repository, int? boardID)
+        public static DataRow UserStats(this IRepository<Board> repository, int? boardID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 

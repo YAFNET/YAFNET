@@ -71,11 +71,6 @@ namespace YAF.Controls
         /// </summary>
         public PostDataHelperWrapper PostData { get; private set; }
 
-        /// <summary>
-        ///   Gets the Provides access to the Toggle Post button.
-        /// </summary>
-        public ThemeButton TogglePost => this.btnTogglePost;
-
         #endregion
 
         #region Methods

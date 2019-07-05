@@ -114,7 +114,7 @@
                     <asp:Label AssociatedControlID="LinkDays" runat="server">
                         <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="POINTER_DAYS" />
                     </asp:Label>
-                    <asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" TextMode="Number" />
+                    <asp:TextBox ID="LinkDays" runat="server" CssClass="form-control" TextMode="Number" />
                 </div>
                 <div class="dropdown-divider"></div>
                 <YAF:ThemeButton ID="Move" runat="server" 

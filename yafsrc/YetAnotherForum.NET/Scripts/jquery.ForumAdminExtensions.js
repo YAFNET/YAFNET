@@ -33602,7 +33602,6 @@ S2.define('jquery.select2',[
 
         //Set defauls for the control
         var defaults = {
-            width: 300,
             openOnLeft: false,
             openOnTop: false,
             cardImgSrc: "",
@@ -33649,7 +33648,7 @@ S2.define('jquery.select2',[
 
             //append this detail after the selected element
             obj.after(hcDetails);
-            obj.siblings(".hc-details").eq(0).css({ 'width': options.width, 'background': options.background });
+            obj.siblings(".hc-details").eq(0).css({ 'background': options.background });
 
             //toggle hover card details on hover
             obj.closest(".hc-preview").hoverIntent(function() {
@@ -52229,29 +52228,6 @@ function ScrollToTop() {
     return false;
 }
 
-/// <summary>
-/// Toggles the container.
-/// </summary>
-/// <param name="id">The identifier.</param>
-/// <param name="senderId">The sender identifier.</param>
-/// <param name="showText">The show text.</param>
-/// <param name="hideText">The hide text.</param>
-/// <returns></returns>
-function toggleContainer(id, senderId, showText, hideText) {
-    var el = jQuery('#' + id);
-    var sender = jQuery('#' + senderId);
-
-    el.toggle(function () {
-        sender.attr("title", hideText);
-        sender.html(hideText);
-        sender.addClass('hide');
-    }, function () {
-        sender.attr("title", showText);
-        sender.html(showText);
-        sender.addClass('show');
-    });
-}
-
 function getEvent(eventobj) {
     if (eventobj.stopPropagation) {
         eventobj.stopPropagation();
@@ -52357,7 +52333,7 @@ function formatState(state) {
 
     var $state = $($(state.element).data("content"));
     return $state;
-};
+}
 
 function doClick(buttonName, e) {
     var key;

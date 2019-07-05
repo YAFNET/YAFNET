@@ -200,7 +200,6 @@ namespace YAF.Core.Model
                 $"select {CommandTextHelpers.GetObjectName("forum_save_parentschecker")}(@ForumID, @ParentID)",
                 CommandType.Text))
             {
-
                 cmd.AddParam("@ForumID", forumId);
                 cmd.AddParam("@ParentID", parentId);
 
@@ -311,7 +310,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The forum_listall_sorted.
+        /// Gets the forum list all sorted as data table.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -323,6 +322,7 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListAllSortedAsDataTable(
             [NotNull] this IRepository<Forum> repository,
@@ -333,7 +333,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The forum_listall_sorted.
+        /// Gets the forum list all sorted as data table.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -344,8 +344,8 @@ namespace YAF.Core.Model
         /// <param name="userID">
         /// The user id.
         /// </param>
-        /// <param name="forumidExclusions">
-        /// The forumid exclusions.
+        /// <param name="forumIdExclusions">
+        /// The forum Id Exclusions.
         /// </param>
         /// <param name="emptyFirstRow">
         /// The empty first row.
@@ -354,13 +354,14 @@ namespace YAF.Core.Model
         /// The start at.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         [NotNull]
         public static DataTable ListAllSortedAsDataTable(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardID,
             [NotNull] int userID,
-            [NotNull] int[] forumidExclusions,
+            [NotNull] int[] forumIdExclusions,
             bool emptyFirstRow,
             int startAt)
         {
@@ -369,22 +370,30 @@ namespace YAF.Core.Model
                 var baseForumId = 0;
                 var baseCategoryId = 0;
 
-                if (startAt != 0)
+                if (startAt == 0)
                 {
-                    // find the base ids...
-                    foreach (DataRow dataRow in dataTable.Rows)
+                    return repository.SortList(
+                        dataTable,
+                        baseForumId,
+                        baseCategoryId,
+                        0,
+                        forumIdExclusions,
+                        emptyFirstRow);
+                }
+                
+                // find the base ids...
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    if (dataRow["ForumID"].ToType<int>() == startAt && dataRow["ParentID"] != DBNull.Value
+                                                                       && dataRow["CategoryID"] != DBNull.Value)
                     {
-                        if (Convert.ToInt32(dataRow["ForumID"]) == startAt && dataRow["ParentID"] != DBNull.Value
-                                                                           && dataRow["CategoryID"] != DBNull.Value)
-                        {
-                            baseForumId = Convert.ToInt32(dataRow["ParentID"]);
-                            baseCategoryId = Convert.ToInt32(dataRow["CategoryID"]);
-                            break;
-                        }
+                        baseForumId = dataRow["ParentID"].ToType<int>();
+                        baseCategoryId = dataRow["CategoryID"].ToType<int>();
+                        break;
                     }
                 }
 
-                return repository.SortList(dataTable, baseForumId, baseCategoryId, 0, forumidExclusions, emptyFirstRow);
+                return repository.SortList(dataTable, baseForumId, baseCategoryId, 0, forumIdExclusions, emptyFirstRow);
             }
         }
 
@@ -398,6 +407,7 @@ namespace YAF.Core.Model
         /// The forum ID.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListPathAsDataTable([NotNull] this IRepository<Forum> repository, [NotNull] int forumID)
         {
@@ -448,8 +458,6 @@ namespace YAF.Core.Model
                 StyledNicks: useStyledNicks,
                 FindLastRead: findLastRead);
         }
-
-
 
         /// <summary>
         /// Gets a list of topics in a forum
@@ -534,17 +542,16 @@ namespace YAF.Core.Model
         /// The forum ID.
         /// </param>
         /// <returns>
-        /// bool to indicate that forum has been deleted
+        /// Indicate that forum has been deleted
         /// </returns>
         public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumID)
         {
-
             if (!(repository.DbFunction.GetData.forum_listSubForums(ForumID: forumID) is DBNull))
             {
                 return false;
             }
 
-            repository.DeleteAttachments(forumID);
+            DeleteAttachments(forumID);
 
             repository.DbFunction.Scalar.forum_delete(ForumID: forumID);
 
@@ -564,11 +571,10 @@ namespace YAF.Core.Model
         /// The forum New ID.
         /// </param>
         /// <returns>
-        /// bool to indicate that forum has been deleted
+        /// Indicates that forum has been deleted
         /// </returns>
         public static bool Move(this IRepository<Forum> repository, [NotNull] int forumOldID, [NotNull] int forumNewID)
         {
-
             if (!(repository.DbFunction.GetData.forum_listSubForums(ForumID: forumOldID) is DBNull))
             {
                 return false;
@@ -635,12 +641,11 @@ namespace YAF.Core.Model
                     return ds;
                 }
             }
-
         }
 
         /// <summary>
-        /// Return admin view of Categories with Forums/Subforums ordered accordingly.
-        /// </summary
+        /// Return admin view of Categories with Forums/Sub-forums ordered accordingly.
+        /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
@@ -659,7 +664,6 @@ namespace YAF.Core.Model
             [NotNull] object userID,
             [NotNull] object boardID)
         {
-
             using (var ds = new DataSet())
             {
                 var sqlConnection = repository.DbAccess.CreateConnectionOpen() as SqlConnection;
@@ -691,33 +695,28 @@ namespace YAF.Core.Model
                         // vzrus: Remove here all forums with no reports. Would be better to do it in query...
                         // Array to write categories numbers
                         var categories = new int[ds.Tables[CommandTextHelpers.GetObjectName("Forum")].Rows.Count];
-                        var cntr = 0;
+                        var count = 0;
 
-                        // We should make it before too as the colection was changed
+                        // We should make it before too as the collection was changed
                         ds.Tables[CommandTextHelpers.GetObjectName("Forum")].AcceptChanges();
                         foreach (DataRow dr in ds.Tables[CommandTextHelpers.GetObjectName("Forum")].Rows)
                         {
-                            categories[cntr] = dr["CategoryID"].ToType<int>();
+                            categories[count] = dr["CategoryID"].ToType<int>();
                             if (dr["ReportedCount"].ToType<int>() == 0 && dr["MessageCount"].ToType<int>() == 0)
                             {
                                 dr.Delete();
-                                categories[cntr] = 0;
+                                categories[count] = 0;
                             }
 
-                            cntr++;
+                            count++;
                         }
 
                         ds.Tables[CommandTextHelpers.GetObjectName("Forum")].AcceptChanges();
 
-                        foreach (var dr in from DataRow dr in ds.Tables[CommandTextHelpers.GetObjectName("Category")]
-                                               .Rows
-                                           let dr1 = dr
-                                           where !categories.Any(
-                                                     category => category == dr1["CategoryID"].ToType<int>())
-                                           select dr)
-                        {
-                            dr.Delete();
-                        }
+                        (from DataRow dr in ds.Tables[CommandTextHelpers.GetObjectName("Category")].Rows
+                         let dr1 = dr
+                         where categories.All(category => category != dr1["CategoryID"].ToType<int>())
+                         select dr).ForEach(dr => dr.Delete());
 
                         ds.Tables[CommandTextHelpers.GetObjectName("Category")].AcceptChanges();
 
@@ -739,13 +738,10 @@ namespace YAF.Core.Model
         /// <summary>
         /// Deletes attachments out of a entire forum
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
         /// <param name="forumID">
         /// The forum ID.
         /// </param>
-        private static void DeleteAttachments(this IRepository<Forum> repository, [NotNull] int forumID)
+        private static void DeleteAttachments([NotNull] int forumID)
         {
             var topicRepository = YafContext.Current.GetRepository<Topic>();
 
@@ -770,13 +766,14 @@ namespace YAF.Core.Model
         /// <param name="startingIndent">
         /// The starting indent.
         /// </param>
-        /// <param name="forumidExclusions">
+        /// <param name="forumIdExclusions">
         /// The forum id exclusions.
         /// </param>
         /// <param name="emptyFirstRow">
         /// The empty first row.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         [NotNull]
         private static DataTable SortList(
@@ -785,7 +782,7 @@ namespace YAF.Core.Model
             int parentID,
             int categoryID,
             int startingIndent,
-            [NotNull] int[] forumidExclusions,
+            [NotNull] int[] forumIdExclusions,
             bool emptyFirstRow)
         {
             var listDestination = new DataTable { TableName = "forum_sort_list" };
@@ -804,9 +801,9 @@ namespace YAF.Core.Model
             // filter the forum list
             var dv = listSource.DefaultView;
 
-            if (forumidExclusions != null && forumidExclusions.Length > 0)
+            if (forumIdExclusions != null && forumIdExclusions.Length > 0)
             {
-                dv.RowFilter = $"ForumID NOT IN ({forumidExclusions.ToDelimitedString(",")})";
+                dv.RowFilter = $"ForumID NOT IN ({forumIdExclusions.ToDelimitedString(",")})";
                 dv.ApplyDefaultSort = true;
             }
 
@@ -894,50 +891,50 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The forum_list_sort_basic.
+        /// Basic Sorting for the Forum List
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listsource">
+        /// <param name="listSource">
         /// The list source.
         /// </param>
         /// <param name="list">
         /// The list.
         /// </param>
-        /// <param name="parentid">
+        /// <param name="parentId">
         /// The parent Id.
         /// </param>
-        /// <param name="currentLvl">
-        /// The current lvl.
+        /// <param name="currentLevel">
+        /// The current level.
         /// </param>
         private static void ForumListSortBasic(
-            [NotNull] DataTable listsource,
+            [NotNull] DataTable listSource,
             [NotNull] DataTable list,
-            int parentid,
-            int currentLvl)
+            int parentId,
+            int currentLevel)
         {
-            for (var i = 0; i < listsource.Rows.Count; i++)
+            for (var i = 0; i < listSource.Rows.Count; i++)
             {
-                var row = listsource.Rows[i];
+                var row = listSource.Rows[i];
                 if (row["ParentID"] == DBNull.Value)
                 {
                     row["ParentID"] = 0;
                 }
 
-                if ((int)row["ParentID"] == parentid)
+                if ((int)row["ParentID"] != parentId)
                 {
-                    var indent = string.Empty;
-                    var iIndent = currentLvl.ToType<int>();
-                    for (var j = 0; j < iIndent; j++)
-                    {
-                        indent += "--";
-                    }
-
-                    row["Name"] = $" -{indent} {row["Name"]}";
-                    list.Rows.Add(row.ItemArray);
-                    ForumListSortBasic(listsource, list, (int)row["ForumID"], currentLvl + 1);
+                    continue;
                 }
+
+                var indent = string.Empty;
+                var intentIndex = currentLevel.ToType<int>();
+
+                for (var j = 0; j < intentIndex; j++)
+                {
+                    indent += "--";
+                }
+
+                row["Name"] = $" -{indent} {row["Name"]}";
+                list.Rows.Add(row.ItemArray);
+                ForumListSortBasic(listSource, list, (int)row["ForumID"], currentLevel + 1);
             }
         }
     }

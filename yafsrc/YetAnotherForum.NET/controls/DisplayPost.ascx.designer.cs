@@ -13,6 +13,33 @@ namespace YAF.Controls {
     public partial class DisplayPost {
         
         /// <summary>
+        /// ShowHideIgnoredUserPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ShowHideIgnoredUserPost;
+        
+        /// <summary>
+        /// btnTogglePost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton btnTogglePost;
+        
+        /// <summary>
+        /// MessageRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel MessageRow;
+        
+        /// <summary>
         /// MessageIsAnswerBadge control.
         /// </summary>
         /// <remarks>
