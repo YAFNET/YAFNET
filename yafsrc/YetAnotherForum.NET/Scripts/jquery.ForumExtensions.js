@@ -35959,7 +35959,7 @@ Prism.languages.vbnet = Prism.languages.extend("basic", {
             var popoverHTML = '<div class="selectionSharer" id="selectionSharerPopover" style="position:absolute;">'
                 + '  <div id="selectionSharerPopover-inner">'
                 + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-reply"></i></a></li>'
+                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-quote-left"></i></a></li>'
                 + '    </ul>'
                 + '  </div>'
                 + '  <div class="selectionSharerPopover-clip"><span class="selectionSharerPopover-arrow"></span></div>'
@@ -35969,7 +35969,7 @@ Prism.languages.vbnet = Prism.languages.extend("basic", {
                 + '  <div id="selectionSharerPopunder-inner">'
                 + '    <label>' + self.ToolTip + '</label>'
                 + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-reply"></i></a></li>'
+                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-quote-left"></i></a></li>'
                 + '    </ul>'
                 + '  </div>'
                 + '</div>';

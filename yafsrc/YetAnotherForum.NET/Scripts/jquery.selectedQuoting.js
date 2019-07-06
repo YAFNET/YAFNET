@@ -195,7 +195,7 @@
             var popoverHTML = '<div class="selectionSharer" id="selectionSharerPopover" style="position:absolute;">'
                 + '  <div id="selectionSharerPopover-inner">'
                 + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><svg width="20" height="20"><path d="M1920 1024q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22-17 2-30.5-9t-17.5-29v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-130 71-248.5t191-204.5 286-136.5 348-50.5q244 0 450 85.5t326 233 120 321.5z" fill="#fff"/></svg></a></li>'
+                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-quote-left"></i></a></li>'
                 + '    </ul>'
                 + '  </div>'
                 + '  <div class="selectionSharerPopover-clip"><span class="selectionSharerPopover-arrow"></span></div>'
@@ -205,7 +205,7 @@
                 + '  <div id="selectionSharerPopunder-inner">'
                 + '    <label>' + self.ToolTip + '</label>'
                 + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><svg width="20" height="20"><path d="M1920 1024q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22-17 2-30.5-9t-17.5-29v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-130 71-248.5t191-204.5 286-136.5 348-50.5q244 0 450 85.5t326 233 120 321.5z" fill="#fff"/></svg></a></li>'
+                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-quote-left"></i></a></li>'
                 + '    </ul>'
                 + '  </div>'
                 + '</div>';
