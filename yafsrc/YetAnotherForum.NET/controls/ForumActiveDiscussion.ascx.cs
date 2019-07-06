@@ -48,20 +48,6 @@ namespace YAF.Controls
     /// </summary>
     public partial class ForumActiveDiscussion : BaseUserControl
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///  The last post tooltip string.
-        /// </summary>
-        private string lastPostToolTip;
-
-        /// <summary>
-        ///  The first Unread post tooltip string
-        /// </summary>
-        private string firstUnreadPostToolTip;
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -161,8 +147,6 @@ namespace YAF.Controls
                         Text = 
                                 $"<span class=\"fa-stack\"><i class=\"fas fa-comment fa-stack-2x {(DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead ? "text-success" : "text-secondary")}\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i></span>"
                     });
-
-
             }
 
             forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());
@@ -234,10 +218,10 @@ namespace YAF.Controls
                 }
             }
 
-            this.RssFeed.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
+            this.RssFeed.Visible = this.Footer.Visible =
+                                       this.Get<IPermissions>()
+                                           .Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
 
-            this.lastPostToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
-            this.firstUnreadPostToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();
 

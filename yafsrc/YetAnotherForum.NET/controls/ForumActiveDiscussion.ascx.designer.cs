@@ -49,6 +49,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Repeater LatestPosts;
         
         /// <summary>
+        /// Footer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Footer;
+        
+        /// <summary>
         /// RssFeed control.
         /// </summary>
         /// <remarks>
