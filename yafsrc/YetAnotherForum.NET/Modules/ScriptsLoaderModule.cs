@@ -196,7 +196,8 @@ namespace YAF.Modules
             var element = YafContext.Current.CurrentForumPage.TopPageControl;
 
             element.Controls.Add(
-                ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")));
+                ControlHelper.MakeCssIncludeControl(
+                    $"{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}?v={version}"));
 
             // make the style sheet link controls.
             element.Controls.Add(
