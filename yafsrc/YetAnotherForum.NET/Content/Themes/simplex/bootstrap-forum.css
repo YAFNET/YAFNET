@@ -3023,7 +3023,7 @@ input[type="button"].btn-block {
   position: relative;
   display: block;
   min-height: 1.21875rem;
-  padding-left: 1.5rem; }
+  padding-left: 1.8rem; }
 
 .custom-control-inline, .custom-control-inline li {
   display: -webkit-inline-box;
@@ -3059,22 +3059,22 @@ input[type="button"].btn-block {
   vertical-align: top; }
   .custom-control-label::before, .custom-radio label::before, .custom-checkbox label::before, .custom-switch label::before {
     position: absolute;
-    top: 0.10938rem;
-    left: -1.5rem;
+    top: -0.04063rem;
+    left: -1.8rem;
     display: block;
-    width: 1rem;
-    height: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
     pointer-events: none;
     content: "";
     background-color: #fff;
     border: #adb5bd solid 1px; }
   .custom-control-label::after, .custom-radio label::after, .custom-checkbox label::after, .custom-switch label::after {
     position: absolute;
-    top: 0.10938rem;
-    left: -1.5rem;
+    top: -0.04063rem;
+    left: -1.8rem;
     display: block;
-    width: 1rem;
-    height: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
     content: "";
     background: no-repeat 50% / 50% 50%; }
 
@@ -3107,19 +3107,19 @@ input[type="button"].btn-block {
   background-color: rgba(217, 35, 15, 0.5); }
 
 .custom-switch {
-  padding-left: 2.25rem; }
+  padding-left: 2.775rem; }
   .custom-switch .custom-control-label::before, .custom-switch .custom-radio label::before, .custom-radio .custom-switch label::before, .custom-switch .custom-checkbox label::before, .custom-checkbox .custom-switch label::before, .custom-switch label::before {
-    left: -2.25rem;
-    width: 1.75rem;
+    left: -2.775rem;
+    width: 2.275rem;
     pointer-events: all;
-    border-radius: 0.5rem; }
+    border-radius: 0.65rem; }
   .custom-switch .custom-control-label::after, .custom-switch .custom-radio label::after, .custom-radio .custom-switch label::after, .custom-switch .custom-checkbox label::after, .custom-checkbox .custom-switch label::after, .custom-switch label::after {
-    top: calc(0.10938rem + 2px);
-    left: calc(-2.25rem + 2px);
-    width: calc(1rem - 4px);
-    height: calc(1rem - 4px);
+    top: calc(-0.04063rem + 2px);
+    left: calc(-2.775rem + 2px);
+    width: calc(1.3rem - 4px);
+    height: calc(1.3rem - 4px);
     background-color: #adb5bd;
-    border-radius: 0.5rem;
+    border-radius: 0.65rem;
     -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -3130,8 +3130,8 @@ input[type="button"].btn-block {
         transition: none; } }
   .custom-switch .custom-control-input:checked ~ .custom-control-label::after, .custom-switch .custom-radio input:checked ~ .custom-control-label::after, .custom-radio .custom-switch input:checked ~ .custom-control-label::after, .custom-switch .custom-checkbox input:checked ~ .custom-control-label::after, .custom-checkbox .custom-switch input:checked ~ .custom-control-label::after, .custom-switch input:checked ~ .custom-control-label::after, .custom-switch .custom-radio .custom-control-input:checked ~ label::after, .custom-radio .custom-switch .custom-control-input:checked ~ label::after, .custom-switch .custom-radio input:checked ~ label::after, .custom-radio .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox .custom-radio input:checked ~ label::after, .custom-radio .custom-checkbox .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox .custom-control-input:checked ~ label::after, .custom-checkbox .custom-switch .custom-control-input:checked ~ label::after, .custom-switch .custom-radio .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-switch .custom-radio input:checked ~ label::after, .custom-radio .custom-switch .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-radio .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-switch input:checked ~ label::after, .custom-switch .custom-control-input:checked ~ label::after, .custom-switch input:checked ~ label::after {
     background-color: #fff;
-    -webkit-transform: translateX(0.75rem);
-            transform: translateX(0.75rem); }
+    -webkit-transform: translateX(0.975rem);
+            transform: translateX(0.975rem); }
   .custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-radio input:disabled:checked ~ .custom-control-label::before, .custom-radio .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-checkbox input:disabled:checked ~ .custom-control-label::before, .custom-checkbox .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-radio .custom-control-input:disabled:checked ~ label::before, .custom-radio .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-checkbox .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox .custom-control-input:disabled:checked ~ label::before, .custom-checkbox .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch .custom-radio .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-switch .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-switch .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-radio .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch input:disabled:checked ~ label::before {
     background-color: rgba(217, 35, 15, 0.5); }
 

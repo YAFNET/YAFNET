@@ -51,3 +51,8 @@ $font-family-sans-serif:      "Ubuntu", -apple-system, BlinkMacSystemFont, "Sego
 
 $table-dark-bg:               $dark !default;
 $table-dark-border-color:     darken($dark, 5%) !default;
+
+//
+// Overrides
+//
+$custom-control-indicator-size: 1.3rem !default;
