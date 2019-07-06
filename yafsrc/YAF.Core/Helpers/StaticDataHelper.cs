@@ -44,41 +44,10 @@ namespace YAF.Core.Helpers
     /// </summary>
     public class StaticDataHelper
     {
-        #region Public Methods
+        #region Public Methods  
 
         /// <summary>
-        /// The allow disallow.
-        /// </summary>
-        /// <returns>
-        /// Returns a Data Table with allow disallow values.
-        /// </returns>
-        public static DataTable AllowDisallow()
-        {
-            using (var dt = new DataTable("AllowDisallow"))
-            {
-                dt.Columns.Add("Text", typeof(string));
-                dt.Columns.Add("Value", typeof(int));
-
-                string[] textArray =
-                    {
-                        YafContext.Current.Get<ILocalization>().GetText("COMMON", "ALLOWED"),
-                        YafContext.Current.Get<ILocalization>().GetText("COMMON", "DISALLOWED")
-                    };
-
-                for (var i = 0; i < textArray.Length; i++)
-                {
-                    var dr = dt.NewRow();
-                    dr["Text"] = textArray[i];
-                    dr["Value"] = i;
-                    dt.Rows.Add(dr);
-                }
-
-                return dt;
-            }
-        }
-
-        /// <summary>
-        /// Gets all country names (localized).
+        /// The country.
         /// </summary>
         /// <param name="localization">
         /// The localization.
@@ -94,10 +63,10 @@ namespace YAF.Core.Helpers
                 dt.Columns.Add("Name", typeof(string));
 
                 // Add empty row to data table for dropdown lists with empty selection option.
-                var drow = dt.NewRow();
-                drow["Value"] = null;
-                drow["Name"] = localization.GetText("COMMON", "NONE");
-                dt.Rows.Add(drow);
+                var newRow = dt.NewRow();
+                newRow["Value"] = null;
+                newRow["Name"] = localization.GetText("COMMON", "NONE");
+                dt.Rows.Add(newRow);
 
                 var countries = localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty))
                     .OrderBy(c => c.Value).ToList();
@@ -108,10 +77,7 @@ namespace YAF.Core.Helpers
                     return dt;
                 }
 
-                foreach (var node in countries)
-                {
-                    dt.Rows.Add(node.tag, node.Value);
-                }
+                countries.ForEach(node => dt.Rows.Add(node.tag, node.Value));
 
                 return dt;
             }
@@ -161,21 +127,17 @@ namespace YAF.Core.Helpers
                 dt.Columns.Add("Name", typeof(string));
 
                 // Add empty row to data table for dropdown lists with empty selection option.
-                var drow = dt.NewRow();
+                var newRow = dt.NewRow();
 
-                drow["Value"] = null;
-                drow["Name"] = null;
+                newRow["Value"] = null;
+                newRow["Name"] = null;
 
-                dt.Rows.Add(drow);
+                dt.Rows.Add(newRow);
 
-                var countries = localization.GetCountryNodesUsingQuery(
-                    "REGION",
-                    x => x.tag.StartsWith($"RGN_{culture}_")).ToList();
+                var countries = localization
+                    .GetCountryNodesUsingQuery("REGION", x => x.tag.StartsWith($"RGN_{culture}_")).ToList();
 
-                foreach (var node in countries)
-                {
-                    dt.Rows.Add(node.tag.Replace($"RGN_{culture}_", string.Empty), node.Value);
-                }
+                countries.ForEach(node => dt.Rows.Add(node.tag.Replace($"RGN_{culture}_", string.Empty), node.Value));
 
                 return dt;
             }
@@ -211,8 +173,7 @@ namespace YAF.Core.Helpers
 
                 // Get all language files info
                 var dir = new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>()
-                        .MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
+                    YafContext.Current.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
 
                 // Create an array with tags
@@ -242,25 +203,27 @@ namespace YAF.Core.Helpers
                 }
 
                 var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-                foreach (var ci in cultures)
-                {
-                    for (var j = 0; j < files.Length; j++)
-                    {
-                        if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2)
-                                .Contains(ci.TwoLetterISOLanguageName.ToLower()))
-                        {
-                            continue;
-                        }
 
-                        var dr = dt.NewRow();
-                        dr["CultureTag"] = ci.IetfLanguageTag;
-                        dr["CultureFile"] = tags[0, j];
-                        dr["CultureEnglishName"] = ci.EnglishName;
-                        dr["CultureNativeName"] = ci.NativeName;
-                        dr["CultureDisplayName"] = ci.DisplayName;
-                        dt.Rows.Add(dr);
-                    }
-                }
+                cultures.ForEach(
+                    ci =>
+                        {
+                            for (var j = 0; j < files.Length; j++)
+                            {
+                                if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2)
+                                        .Contains(ci.TwoLetterISOLanguageName.ToLower()))
+                                {
+                                    continue;
+                                }
+
+                                var dr = dt.NewRow();
+                                dr["CultureTag"] = ci.IetfLanguageTag;
+                                dr["CultureFile"] = tags[0, j];
+                                dr["CultureEnglishName"] = ci.EnglishName;
+                                dr["CultureNativeName"] = ci.NativeName;
+                                dr["CultureDisplayName"] = ci.DisplayName;
+                                dt.Rows.Add(dr);
+                            }
+                        });
 
                 return dt;
             }
@@ -284,8 +247,7 @@ namespace YAF.Core.Helpers
 
             // Get all language files info
             var dir = new DirectoryInfo(
-                YafContext.Current.Get<HttpRequestBase>()
-                    .MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
+                YafContext.Current.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
             var files = dir.GetFiles(fileName);
 
             if (files.Length <= 0)
@@ -330,24 +292,25 @@ namespace YAF.Core.Helpers
                 dt.Columns.Add("FileName", typeof(string));
 
                 var dir = new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>()
-                        .MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
+                    YafContext.Current.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
-                foreach (var file in files)
-                {
-                    try
-                    {
-                        var doc = new XmlDocument();
-                        doc.Load(file.FullName);
-                        var dr = dt.NewRow();
-                        dr["Language"] = doc.DocumentElement.Attributes["language"].Value;
-                        dr["FileName"] = file.Name;
-                        dt.Rows.Add(dr);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
+
+                files.ForEach(
+                    file =>
+                        {
+                            try
+                            {
+                                var doc = new XmlDocument();
+                                doc.Load((string)file.FullName);
+                                var dr = dt.NewRow();
+                                dr["Language"] = doc.DocumentElement.Attributes["language"].Value;
+                                dr["FileName"] = file.Name;
+                                dt.Rows.Add(dr);
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        });
 
                 return dt;
             }
@@ -362,8 +325,8 @@ namespace YAF.Core.Helpers
         public static List<string> Themes()
         {
             var dir = new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>().MapPath(
-                        $"{YafForumInfo.ForumServerFileRoot}{"/Content/Themes"}"));
+                YafContext.Current.Get<HttpRequestBase>().MapPath(
+                    $"{YafForumInfo.ForumServerFileRoot}/Content/Themes"));
 
             return dir.GetDirectories().Select(folder => folder.Name).ToList();
         }
@@ -393,15 +356,12 @@ namespace YAF.Core.Helpers
                 dt.Columns.Add("Value", typeof(string));
                 dt.Columns.Add("Name", typeof(string));
 
-                foreach (var timeZoneInfo in getSystemTimeZones)
-                {
-                    dt.Rows.Add(timeZoneInfo.Id, timeZoneInfo.DisplayName);
-                }
+                getSystemTimeZones.ForEach(timeZoneInfo => dt.Rows.Add(timeZoneInfo.Id, timeZoneInfo.DisplayName));
 
                 return dt;
             }
         }
-        
+
 
         /// <summary>
         /// Gets all topic times.

@@ -100,13 +100,9 @@
              
                 <YAF:HelpLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_FILE_EXTENSIONS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
-             
-            
-                <div class="custom-control custom-radio custom-control-inline">
-                    <asp:RadioButtonList ID="FileExtensionAllow" runat="server"
-                                         RepeatLayout="UnorderedList"
-                                         CssClass="list-unstyled">
-                    </asp:RadioButtonList>
+                            
+                <div class="custom-control custom-switch">
+                    <asp:CheckBox ID="FileExtensionAllow" runat="server" Text="&nbsp;"></asp:CheckBox>
                 </div>
             <hr />
 
