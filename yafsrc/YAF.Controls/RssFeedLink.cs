@@ -102,7 +102,7 @@ namespace YAF.Controls
 
             // write dropdown
             output.WriteBeginTag("div");
-            output.WriteAttribute("class", "dropdown-menu");
+            output.WriteAttribute("class", "dropdown-menu dropdown-menu-right");
             output.WriteAttribute("aria-labelledby", this.ClientID);
             output.Write(HtmlTextWriter.TagRightChar);
 
@@ -122,7 +122,7 @@ namespace YAF.Controls
                             ? string.Empty
                             : $"&{this.AdditionalParameters}"));
                 output.Write(HtmlTextWriter.TagRightChar);
-                output.Write(@"<i class=""fa fa-rss""></i>&nbsp;{0}", this.GetText("ATOMFEED"));
+                output.Write(@"<i class=""fas fa-rss""></i>&nbsp;{0}", this.GetText("ATOMFEED"));
                 output.WriteEndTag("a");
             }
 
@@ -142,7 +142,7 @@ namespace YAF.Controls
                             ? string.Empty
                             : $"&{this.AdditionalParameters}"));
                 output.Write(HtmlTextWriter.TagRightChar);
-                output.Write(@"<i class=""fa fa-rss""></i>&nbsp;{0}", this.GetText("RSSFEED"));
+                output.Write(@"<i class=""fas fa-rss""></i>&nbsp;{0}", this.GetText("RSSFEED"));
                 output.WriteEndTag("a");
             }
 

@@ -14,7 +14,7 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel 
+                <i class="fas fa-user-shield fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
                                                                  ID="LocalizedLabel2"
                                                                  runat="server" 
                                                                  LocalizedTag="Admins" LocalizedPage="TEAM" />
@@ -82,7 +82,7 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-secret fa-fw"></i>&nbsp;<YAF:LocalizedLabel 
+                <i class="fas fa-user-secret fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
                                                                  ID="LocalizedLabel1" 
                                                                  runat="server" 
                                                                  LocalizedTag="MODS" LocalizedPage="TEAM" />

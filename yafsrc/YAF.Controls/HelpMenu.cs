@@ -83,7 +83,7 @@ namespace YAF.Controls
             htmlDropDown.Append(@"<div class=""dropdown d-lg-none"">");
 
             htmlDropDown.Append(
-                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+                @"<button class=""btn btn-secondary dropdown-toggle w-100 text-left mb-4"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
 
             htmlDropDown.AppendFormat(@"{0}</button>", this.GetText("HELP_INDEX", "INDEX"));
 
@@ -105,7 +105,7 @@ namespace YAF.Controls
             }
 
             html.AppendFormat(
-                @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span><a href=""{2}"" {3}>{0} &amp; {1}</a></span></h6>",
+                @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span class=""text-uppercase font-weight-bold""><a class=""text-secondary text-bold"" href=""{2}"" {3}>{0} &amp; {1}</a></span></h6>",
                 this.GetText("HELP_INDEX", "INDEX"),
                 this.GetText("BTNSEARCH"),
                 YafBuildLink.GetLink(ForumPages.help_index, "faq=index"),
@@ -186,18 +186,19 @@ namespace YAF.Controls
             htmlDropDown.Append(@"</div></div>");
 
             writer.BeginRender();
-            writer.WriteLine(@"<div id=""container-fluid""><div class=""row"">");
+            writer.WriteLine(@"<div id=""container-fluid""><div class=""row no-gutters"">");
 
             // render the contents of the help menu....
             writer.WriteLine(
-                @"<div class=""col-md-2 d-none d-md-block bg-light sidebar""><div class=""sidebar-sticky"">");
+                @"<div class=""col-md-3 d-none d-lg-block bg-light sidebar""><div class=""sidebar-sticky"">");
 
             writer.Write(html.ToString());
 
             writer.WriteLine(@"</div></div>");
 
             // contents of the help pages...
-            writer.WriteLine(@"<div class=""col-md-9 ml-sm-auto col-lg-10 px-4"">");
+//            writer.WriteLine(@"<div class=""col-md-9 ml-sm-auto col-lg-10 px-4"">");
+            writer.WriteLine(@"<div class=""col flex-grow-1 ml-lg-3"">");
 
             // Write Mobile Drop down
             writer.WriteLine(htmlDropDown.ToString());

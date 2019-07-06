@@ -331,9 +331,15 @@ namespace YAF.Core
             {
                 TimeZoneInfo timeZoneInfo;
 
+                string tz = this.DBRow.Field<string>("TimeZone");
+                if (System.Text.RegularExpressions.Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
+                {
+                    return TimeZoneInfo.Local;
+                }
+
                 try
                 {
-                    timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(this.DBRow.Field<string>("TimeZone"));
+                    timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(tz);
                 }
                 catch (Exception)
                 {
