@@ -94,6 +94,12 @@ namespace YAF.Core.Helpers
             return dbFunction.ValidateAndExecute("GetSQLEngine", f => f.GetScalar<string>(s => s.GetSQLEngine()));
         }
 
+        /// <summary>
+        /// The shrink database.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
         public static void ShrinkDatabase([NotNull] this IDbFunction dbFunction)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
@@ -101,6 +107,15 @@ namespace YAF.Core.Helpers
             dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ShrinkDatabase()));
         }
 
+        /// <summary>
+        /// The re index database.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string ReIndexDatabase([NotNull] this IDbFunction dbFunction)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
@@ -108,6 +123,21 @@ namespace YAF.Core.Helpers
             return dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ReIndexDatabase()));
         }
 
+        /// <summary>
+        /// The system initialize executescripts.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="script">
+        /// The script.
+        /// </param>
+        /// <param name="scriptFile">
+        /// The script file.
+        /// </param>
+        /// <param name="useTransactions">
+        /// The use transactions.
+        /// </param>
         public static void SystemInitializeExecutescripts(
             [NotNull] this IDbFunction dbFunction,
             [NotNull] string script,

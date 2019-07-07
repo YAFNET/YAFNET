@@ -8,18 +8,16 @@ namespace ServiceStack.FluentValidation.Internal {
 	/// Selects validators that belong to the specified rulesets.
 	/// </summary>
 	public class RulesetValidatorSelector : IValidatorSelector {
-		readonly string[] rulesetsToExecute;
-
-		/// <summary>
+        /// <summary>
 		/// Rule sets
 		/// </summary>
-		public string[] RuleSets => rulesetsToExecute;
+		public string[] RuleSets { get; }
 
-		/// <summary>
+        /// <summary>
 		/// Creates a new instance of the RulesetValidatorSelector.
 		/// </summary>
 		public RulesetValidatorSelector(params string[] rulesetsToExecute) {
-			this.rulesetsToExecute = rulesetsToExecute;
+			this.RuleSets = rulesetsToExecute;
 		}
 
 		/// <summary>
@@ -30,16 +28,16 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <param name="context">Contextual information</param>
 		/// <returns>Whether or not the validator can execute.</returns>
 		public bool CanExecute(IValidationRule rule, string propertyPath, ValidationContext context) {
-			if (string.IsNullOrEmpty(rule.RuleSet) && rulesetsToExecute.Length > 0) {
+			if (string.IsNullOrEmpty(rule.RuleSet) && this.RuleSets.Length > 0) {
 				if (IsIncludeRule(rule)) {
 					return true;
 				}
 			}
 
-			if (string.IsNullOrEmpty(rule.RuleSet) && rulesetsToExecute.Length == 0) return true;
-			if (string.IsNullOrEmpty(rule.RuleSet) && rulesetsToExecute.Length > 0 && rulesetsToExecute.Contains("default", StringComparer.OrdinalIgnoreCase)) return true;
-			if (!string.IsNullOrEmpty(rule.RuleSet) && rulesetsToExecute.Length > 0 && rulesetsToExecute.Contains(rule.RuleSet)) return true;
-			if (rulesetsToExecute.Contains("*")) return true;
+			if (string.IsNullOrEmpty(rule.RuleSet) && this.RuleSets.Length == 0) return true;
+			if (string.IsNullOrEmpty(rule.RuleSet) && this.RuleSets.Length > 0 && this.RuleSets.Contains("default", StringComparer.OrdinalIgnoreCase)) return true;
+			if (!string.IsNullOrEmpty(rule.RuleSet) && this.RuleSets.Length > 0 && this.RuleSets.Contains(rule.RuleSet)) return true;
+			if (this.RuleSets.Contains("*")) return true;
 
 			return false;
 		}

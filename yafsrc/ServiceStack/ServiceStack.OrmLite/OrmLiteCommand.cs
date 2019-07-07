@@ -6,91 +6,91 @@ namespace ServiceStack.OrmLite
     public class OrmLiteCommand : IDbCommand, IHasDbCommand
     {
         private OrmLiteConnection dbConn;
-        private readonly IDbCommand dbCmd;
+
         public IOrmLiteDialectProvider DialectProvider;
         public bool IsDisposed { get; private set; }
 
         public OrmLiteCommand(OrmLiteConnection dbConn, IDbCommand dbCmd)
         {
             this.dbConn = dbConn;
-            this.dbCmd = dbCmd;
+            this.DbCommand = dbCmd;
             this.DialectProvider = dbConn.GetDialectProvider();
         }
 
         public void Dispose()
         {
             IsDisposed = true;
-            dbCmd.Dispose();
+            this.DbCommand.Dispose();
         }
 
         public void Prepare()
         {
-            dbCmd.Prepare();
+            this.DbCommand.Prepare();
         }
 
         public void Cancel()
         {
-            dbCmd.Cancel();
+            this.DbCommand.Cancel();
         }
 
         public IDbDataParameter CreateParameter()
         {
-            return dbCmd.CreateParameter();
+            return this.DbCommand.CreateParameter();
         }
 
         public int ExecuteNonQuery()
         {
-            return dbCmd.ExecuteNonQuery();
+            return this.DbCommand.ExecuteNonQuery();
         }
 
         public IDataReader ExecuteReader()
         {
-            return dbCmd.ExecuteReader();
+            return this.DbCommand.ExecuteReader();
         }
 
         public IDataReader ExecuteReader(CommandBehavior behavior)
         {
-            return dbCmd.ExecuteReader(behavior);
+            return this.DbCommand.ExecuteReader(behavior);
         }
 
         public object ExecuteScalar()
         {
-            return dbCmd.ExecuteScalar();
+            return this.DbCommand.ExecuteScalar();
         }
 
         public IDbConnection Connection
         {
-            get => dbCmd.Connection;
-            set => dbCmd.Connection = value;
+            get => this.DbCommand.Connection;
+            set => this.DbCommand.Connection = value;
         }
         public IDbTransaction Transaction
         {
-            get => dbCmd.Transaction;
-            set => dbCmd.Transaction = value;
+            get => this.DbCommand.Transaction;
+            set => this.DbCommand.Transaction = value;
         }
         public string CommandText
         {
-            get => dbCmd.CommandText;
-            set => dbCmd.CommandText = value;
+            get => this.DbCommand.CommandText;
+            set => this.DbCommand.CommandText = value;
         }
         public int CommandTimeout
         {
-            get => dbCmd.CommandTimeout;
-            set => dbCmd.CommandTimeout = value;
+            get => this.DbCommand.CommandTimeout;
+            set => this.DbCommand.CommandTimeout = value;
         }
         public CommandType CommandType
         {
-            get => dbCmd.CommandType;
-            set => dbCmd.CommandType = value;
+            get => this.DbCommand.CommandType;
+            set => this.DbCommand.CommandType = value;
         }
-        public IDataParameterCollection Parameters => dbCmd.Parameters;
+        public IDataParameterCollection Parameters => this.DbCommand.Parameters;
 
         public UpdateRowSource UpdatedRowSource
         {
-            get => dbCmd.UpdatedRowSource;
-            set => dbCmd.UpdatedRowSource = value;
+            get => this.DbCommand.UpdatedRowSource;
+            set => this.DbCommand.UpdatedRowSource = value;
         }
 
-        public IDbCommand DbCommand => dbCmd;
+        public IDbCommand DbCommand { get; }
     }
 }

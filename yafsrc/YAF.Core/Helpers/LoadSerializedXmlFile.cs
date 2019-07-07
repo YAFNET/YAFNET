@@ -24,123 +24,124 @@
 
 namespace YAF.Core
 {
-	#region Using
+    #region Using
 
-	using System;
-	using System.IO;
-	using System.Text;
-	using System.Web;
-	using System.Web.Caching;
-	using System.Xml;
-	using System.Xml.Serialization;
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Web;
+    using System.Web.Caching;
+    using System.Xml;
+    using System.Xml.Serialization;
 
-	using YAF.Types.Extensions;
+    using YAF.Types.Extensions;
 
     #endregion
 
-	/// <summary>
-	/// The load serialized xml file.
-	/// </summary>
-	/// <typeparam name="T">
-	/// </typeparam>
-	public class LoadSerializedXmlFile<T>
-		where T : class
-	{
-		#region Public Methods and Operators
+    /// <summary>
+    /// The load serialized xml file.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    public class LoadSerializedXmlFile<T>
+        where T : class
+    {
+        #region Public Methods and Operators
 
-		/// <summary>
-		/// The attempt load file.
-		/// </summary>
-		/// <param name="xmlFileName">
-		/// The File Name. 
-		/// </param>
-		/// <param name="cacheName">
-		/// The cache Name. 
-		/// </param>
-		/// <param name="transformResource">
-		/// The transform Resource.
-		/// </param>
-		/// <returns>
-		/// </returns>
-		public T FromFile(string xmlFileName, string cacheName, Action<T> transformResource = null)
-		{
+        /// <summary>
+        /// The attempt load file.
+        /// </summary>
+        /// <param name="xmlFileName">
+        /// The File Name. 
+        /// </param>
+        /// <param name="cacheName">
+        /// The cache Name. 
+        /// </param>
+        /// <param name="transformResource">
+        /// The transform Resource.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public T FromFile(string xmlFileName, string cacheName, Action<T> transformResource = null)
+        {
             if (HttpRuntime.Cache.Get(cacheName) is T file)
-			{
-				return file;
-			}
+            {
+                return file;
+            }
 
-			if (xmlFileName.IsSet() && File.Exists(xmlFileName))
-			{
-				lock (this)
-				{
-					var serializer = new XmlSerializer(typeof(T));
-					var sourceEncoding = this.GetEncodingForXmlFile(xmlFileName);
+            if (!xmlFileName.IsSet() || !File.Exists(xmlFileName))
+            {
+                return null;
+            }
 
-					using (var sourceReader = new StreamReader(xmlFileName, sourceEncoding))
-					{
-						var resources = (T)serializer.Deserialize(sourceReader);
+            lock (this)
+            {
+                var serializer = new XmlSerializer(typeof(T));
+                var sourceEncoding = this.GetEncodingForXmlFile(xmlFileName);
 
-                        transformResource?.Invoke(resources);
+                using (var sourceReader = new StreamReader(xmlFileName, sourceEncoding))
+                {
+                    var resources = (T)serializer.Deserialize(sourceReader);
 
-                        if (cacheName.IsSet())
-						{
-							var fileDependency = new CacheDependency(xmlFileName);
-							HttpRuntime.Cache.Add(
-								cacheName, 
-								resources, 
-								fileDependency, 
-								DateTime.UtcNow.AddHours(1.0), 
-								TimeSpan.Zero, 
-								CacheItemPriority.Default, 
-								null);
-						}
+                    transformResource?.Invoke(resources);
 
-						return resources;
-					}
-				}
-			}
+                    if (cacheName.IsSet())
+                    {
+                        var fileDependency = new CacheDependency(xmlFileName);
+                        HttpRuntime.Cache.Add(
+                            cacheName,
+                            resources,
+                            fileDependency,
+                            DateTime.UtcNow.AddHours(1.0),
+                            TimeSpan.Zero,
+                            CacheItemPriority.Default,
+                            null);
+                    }
 
-			return null;
-		}
+                    return resources;
+                }
+            }
 
-		#endregion
+        }
 
-		#region Methods
+        #endregion
 
-		/// <summary>
-		/// The get encoding for xml file.
-		/// </summary>
-		/// <param name="xmlFileName">
-		/// The xml file name. 
-		/// </param>
-		/// <returns>
-		/// </returns>
-		private Encoding GetEncodingForXmlFile(string xmlFileName)
-		{
-			var doc = new XmlDocument();
+        #region Methods
 
-			doc.Load(xmlFileName);
+        /// <summary>
+        /// The get encoding for xml file.
+        /// </summary>
+        /// <param name="xmlFileName">
+        /// The xml file name. 
+        /// </param>
+        /// <returns>
+        /// </returns>
+        private Encoding GetEncodingForXmlFile(string xmlFileName)
+        {
+            var doc = new XmlDocument();
 
-			// The first child of a standard XML document is the XML declaration.
-			// The following code assumes and reads the first child as the XmlDeclaration.
-			if (doc.FirstChild.NodeType == XmlNodeType.XmlDeclaration)
-			{
-				// Get the encoding declaration.
-				var decl = (XmlDeclaration)doc.FirstChild;
-				try
-				{
-					var currentEncoding = Encoding.GetEncoding(decl.Encoding);
-					return currentEncoding;
-				}
-				catch
-				{
-					// use default...
-				}
-			}
+            doc.Load(xmlFileName);
 
-			return Encoding.UTF8;
-		}
+            // The first child of a standard XML document is the XML declaration.
+            // The following code assumes and reads the first child as the XmlDeclaration.
+            if (doc.FirstChild.NodeType == XmlNodeType.XmlDeclaration)
+            {
+                // Get the encoding declaration.
+                var decl = (XmlDeclaration)doc.FirstChild;
+                try
+                {
+                    var currentEncoding = Encoding.GetEncoding(decl.Encoding);
+                    return currentEncoding;
+                }
+                catch
+                {
+                    // use default...
+                }
+            }
 
-		#endregion
-	}
+            return Encoding.UTF8;
+        }
+
+        #endregion
+    }
 }

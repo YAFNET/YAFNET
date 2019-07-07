@@ -31,16 +31,14 @@ namespace ServiceStack
     {
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
-        private static readonly ParseStringSegmentDelegate CachedParseFn;
-
         static DeserializeDynamic()
         {
-            CachedParseFn = ParseDynamic;
+            ParseStringSegment = ParseDynamic;
         }
 
-        public static ParseStringDelegate Parse => v => CachedParseFn(new StringSegment(v));
+        public static ParseStringDelegate Parse => v => ParseStringSegment(new StringSegment(v));
 
-        public static ParseStringSegmentDelegate ParseStringSegment => CachedParseFn;
+        public static ParseStringSegmentDelegate ParseStringSegment { get; }
 
         public static IDynamicMetaObjectProvider ParseDynamic(string value) => ParseDynamic(new StringSegment(value));
 

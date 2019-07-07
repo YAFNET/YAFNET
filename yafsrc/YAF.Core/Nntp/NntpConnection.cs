@@ -40,24 +40,9 @@ namespace YAF.Core.Nntp
     #region Private variables
 
     /// <summary>
-    /// The connected group.
-    /// </summary>
-    private Newsgroup connectedGroup;
-
-    /// <summary>
-    /// The connected server.
-    /// </summary>
-    private string connectedServer;
-
-    /// <summary>
     /// The password.
     /// </summary>
-    private string password = null;
-
-    /// <summary>
-    /// The port.
-    /// </summary>
-    private int port;
+    private string password;
 
     /// <summary>
     /// The sr.
@@ -72,7 +57,7 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// The tcp client.
     /// </summary>
-    private TcpClient tcpClient = null;
+    private TcpClient tcpClient;
 
     /// <summary>
     /// The timeout.
@@ -82,12 +67,12 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// The username.
     /// </summary>
-    private string username = null;
+    private string username;
 
     /// <summary>
     /// The on request.
     /// </summary>
-    private event OnRequestDelegate onRequest = null;
+    private event OnRequestDelegate onRequest;
 
     #endregion
 
@@ -112,17 +97,17 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// Gets ConnectedServer.
     /// </summary>
-    public string ConnectedServer => this.connectedServer;
+    public string ConnectedServer { get; private set; }
 
     /// <summary>
     /// Gets ConnectedGroup.
     /// </summary>
-    public Newsgroup ConnectedGroup => this.connectedGroup;
+    public Newsgroup ConnectedGroup { get; private set; }
 
     /// <summary>
     /// Gets Port.
     /// </summary>
-    public int Port => this.port;
+    public int Port { get; private set; }
 
     /// <summary>
     /// The on request.
@@ -145,8 +130,8 @@ namespace YAF.Core.Nntp
     /// </summary>
     private void Reset()
     {
-      this.connectedServer = null;
-      this.connectedGroup = null;
+      this.ConnectedServer = null;
+      this.ConnectedGroup = null;
       this.username = null;
       this.password = null;
       if (this.tcpClient != null)
@@ -247,23 +232,19 @@ namespace YAF.Core.Nntp
       string response = null;
       var header = new ArticleHeader();
       string name = null;
-      string value = null;
       header.ReferenceIds = new string[0];
-      string[] values = null;
-      string[] values2 = null;
-      Match m = null;
       part = null;
-      var i = -1;
       while ((response = this.sr.ReadLine()) != null && response != string.Empty)
       {
-        m = Regex.Match(response, @"^\s+(\S+)$");
+        var m = Regex.Match(response, @"^\s+(\S+)$");
+        string value = null;
         if (m.Success)
         {
           value = m.Groups[1].ToString();
         }
         else
         {
-          i = response.IndexOf(':');
+          var i = response.IndexOf(':');
           if (i == -1)
           {
             continue;
@@ -276,8 +257,8 @@ namespace YAF.Core.Nntp
         switch (name)
         {
           case "REFERENCES":
-            values = value.Trim().Split(' ');
-            values2 = header.ReferenceIds;
+            var values = value.Trim().Split(' ');
+            var values2 = header.ReferenceIds;
             header.ReferenceIds = new string[values.Length + values2.Length];
             values.CopyTo(header.ReferenceIds, 0);
             values2.CopyTo(header.ReferenceIds, values.Length);
@@ -533,12 +514,12 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void ConnectServer(string server, int port)
     {
-      if (this.connectedServer != null && this.connectedServer != server)
+      if (this.ConnectedServer != null && this.ConnectedServer != server)
       {
         this.Disconnect();
       }
 
-      if (this.connectedServer != server)
+      if (this.ConnectedServer != server)
       {
         this.tcpClient.Connect(server, port);
         var stream = this.tcpClient.GetStream();
@@ -557,8 +538,8 @@ namespace YAF.Core.Nntp
           throw new NntpException(res.Code);
         }
 
-        this.connectedServer = server;
-        this.port = port;
+        this.ConnectedServer = server;
+        this.Port = port;
       }
     }
 
@@ -576,7 +557,7 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void ProvideIdentity(string username, string password)
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
@@ -629,25 +610,25 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public Newsgroup ConnectGroup(string group)
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
 
-      if (this.connectedGroup == null || this.connectedGroup.Group != group)
+      if (this.ConnectedGroup == null || this.ConnectedGroup.Group != group)
       {
         var res = this.MakeRequest("GROUP " + group);
         if (res.Code != 211)
         {
-          this.connectedGroup = null;
+          this.ConnectedGroup = null;
           throw new NntpException(res.Code, res.Request);
         }
 
         var values = res.Message.Split(' ');
-        this.connectedGroup = new Newsgroup(group, int.Parse(values[1]), int.Parse(values[2]));
+        this.ConnectedGroup = new Newsgroup(group, int.Parse(values[1]), int.Parse(values[2]));
       }
 
-      return this.connectedGroup;
+      return this.ConnectedGroup;
     }
 
     /// <summary>
@@ -660,7 +641,7 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public ArrayList GetGroupList()
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
@@ -697,12 +678,12 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public string GetMessageId(int articleId)
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
 
-      if (this.connectedGroup == null)
+      if (this.ConnectedGroup == null)
       {
         throw new NntpException("No connecting newsgroup.");
       }
@@ -732,12 +713,12 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int GetArticleId(string messageId)
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
 
-      if (this.connectedGroup == null)
+      if (this.ConnectedGroup == null)
       {
         throw new NntpException("No connecting newsgroup.");
       }
@@ -770,12 +751,12 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public IList<Article> GetArticleList(int low, int high)
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
 
-      if (this.connectedGroup == null)
+      if (this.ConnectedGroup == null)
       {
         throw new NntpException("No connecting newsgroup.");
       }
@@ -868,12 +849,12 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public Article GetArticle(string messageId)
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
 
-      if (this.connectedGroup == null)
+      if (this.ConnectedGroup == null)
       {
         throw new NntpException("No connecting newsgroup.");
       }
@@ -915,12 +896,12 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void PostArticle(Article article)
     {
-      if (this.connectedServer == null)
+      if (this.ConnectedServer == null)
       {
         throw new NntpException("No connecting newsserver.");
       }
 
-      if (this.connectedGroup == null)
+      if (this.ConnectedGroup == null)
       {
         throw new NntpException("No connecting newsgroup.");
       }
@@ -936,7 +917,7 @@ namespace YAF.Core.Nntp
       sb.Append("From: ");
       sb.Append(article.Header.From);
       sb.Append("\r\nNewsgroups: ");
-      sb.Append(this.connectedGroup.Group);
+      sb.Append(this.ConnectedGroup.Group);
 
       if (article.Header.ReferenceIds != null && article.Header.ReferenceIds.Length != 0)
       {
@@ -965,7 +946,7 @@ namespace YAF.Core.Nntp
     [MethodImpl(MethodImplOptions.Synchronized)]
     public void Disconnect()
     {
-      if (this.connectedServer != null)
+      if (this.ConnectedServer != null)
       {
         string response = null;
         if (((NetworkStream) this.sr.BaseStream).DataAvailable)

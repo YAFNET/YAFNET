@@ -11,93 +11,92 @@ namespace ServiceStack.Caching
     /// </summary>
     public class CacheClientWithPrefix : ICacheClient, ICacheClientExtended, IRemoveByPattern
     {
-        private readonly string prefix;
         private readonly ICacheClient cache;
 
         public CacheClientWithPrefix(ICacheClient cache, string prefix)
         {
-            this.prefix = prefix;
+            this.Prefix = prefix;
             this.cache = cache;
         }
 
         public bool Remove(string key)
         {
-            return cache.Remove(prefix + key);
+            return cache.Remove(this.Prefix + key);
         }
 
         public T Get<T>(string key)
         {
-            return cache.Get<T>(prefix + key);
+            return cache.Get<T>(this.Prefix + key);
         }
 
         public long Increment(string key, uint amount)
         {
-            return cache.Increment(prefix + key, amount);
+            return cache.Increment(this.Prefix + key, amount);
         }
 
         public long Decrement(string key, uint amount)
         {
-            return cache.Decrement(prefix + key, amount);
+            return cache.Decrement(this.Prefix + key, amount);
         }
 
         public bool Add<T>(string key, T value)
         {
-            return cache.Add(prefix + key, value);
+            return cache.Add(this.Prefix + key, value);
         }
 
         public bool Set<T>(string key, T value)
         {
-            return cache.Set(prefix + key, value);
+            return cache.Set(this.Prefix + key, value);
         }
 
         public bool Replace<T>(string key, T value)
         {
-            return cache.Replace(prefix + key, value);
+            return cache.Replace(this.Prefix + key, value);
         }
 
         public void SetAll<T>(IDictionary<string, T> values)
         {
-            cache.SetAll(values.ToDictionary(x => prefix + x.Key, x => x.Value));
+            cache.SetAll(values.ToDictionary(x => this.Prefix + x.Key, x => x.Value));
         }
 
         public IDictionary<string, T> GetAll<T>(IEnumerable<string> keys)
         {
-            return cache.GetAll<T>(keys.Select(x => prefix + x));
+            return cache.GetAll<T>(keys.Select(x => this.Prefix + x));
         }
 
         public bool Replace<T>(string key, T value, TimeSpan expiresIn)
         {
-            return cache.Replace(prefix + key, value, expiresIn);
+            return cache.Replace(this.Prefix + key, value, expiresIn);
         }
 
         public bool Set<T>(string key, T value, TimeSpan expiresIn)
         {
-            return cache.Set(prefix + key, value, expiresIn);
+            return cache.Set(this.Prefix + key, value, expiresIn);
         }
 
         public bool Add<T>(string key, T value, TimeSpan expiresIn)
         {
-            return cache.Add(prefix + key, value, expiresIn);
+            return cache.Add(this.Prefix + key, value, expiresIn);
         }
 
         public bool Replace<T>(string key, T value, DateTime expiresAt)
         {
-            return cache.Replace(prefix + key, value, expiresAt);
+            return cache.Replace(this.Prefix + key, value, expiresAt);
         }
 
         public bool Set<T>(string key, T value, DateTime expiresAt)
         {
-            return cache.Set(prefix + key, value, expiresAt);
+            return cache.Set(this.Prefix + key, value, expiresAt);
         }
 
         public bool Add<T>(string key, T value, DateTime expiresAt)
         {
-            return cache.Add(prefix + key, value, expiresAt);
+            return cache.Add(this.Prefix + key, value, expiresAt);
         }
 
         public void RemoveAll(IEnumerable<string> keys)
         {
-            cache.RemoveAll(keys.Select(x => prefix + x));
+            cache.RemoveAll(keys.Select(x => this.Prefix + x));
         }
 
         public void FlushAll()
@@ -113,17 +112,17 @@ namespace ServiceStack.Caching
 
         public void RemoveByPattern(string pattern)
         {
-            (cache as IRemoveByPattern)?.RemoveByPattern(prefix + pattern);
+            (cache as IRemoveByPattern)?.RemoveByPattern(this.Prefix + pattern);
         }
 
         public void RemoveByRegex(string regex)
         {
-            (cache as IRemoveByPattern)?.RemoveByRegex(prefix + regex);
+            (cache as IRemoveByPattern)?.RemoveByRegex(this.Prefix + regex);
         }
 
         public IEnumerable<string> GetKeysByPattern(string pattern)
         {
-            return (cache as ICacheClientExtended)?.GetKeysByPattern(prefix + pattern);
+            return (cache as ICacheClientExtended)?.GetKeysByPattern(this.Prefix + pattern);
         }
 
         public TimeSpan? GetTimeToLive(string key)
@@ -131,7 +130,7 @@ namespace ServiceStack.Caching
             return (cache as ICacheClientExtended)?.GetTimeToLive(key);
         }
         
-        public string Prefix => prefix;
+        public string Prefix { get; }
     }
 
     public static class CacheClientWithPrefixExtensions

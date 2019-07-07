@@ -26,16 +26,13 @@ namespace ServiceStack.OrmLite
         private List<string> orderByProperties = new List<string>();
         private string selectExpression = string.Empty;
         private string fromExpression = null;
-        private string whereExpression;
-        private string groupBy = string.Empty;
-        private string havingExpression;
+
         private string orderBy = string.Empty;
         public HashSet<string> OnlyFields { get; protected set; }
 
         public List<string> UpdateFields { get; set; }
         public List<string> InsertFields { get; set; }
 
-        private string sep = string.Empty;
         protected bool useFieldName = false;
         protected bool selectDistinct = false;
         protected bool CustomSelect { get; set; }
@@ -49,7 +46,7 @@ namespace ServiceStack.OrmLite
         public int? Rows { get; set; }
         public int? Offset { get; set; }
 
-        protected string Sep => sep;
+        protected string Sep { get; private set; } = string.Empty;
 
         protected SqlExpression(IOrmLiteDialectProvider dialectProvider)
         {
@@ -78,9 +75,9 @@ namespace ServiceStack.OrmLite
             to.orderByProperties = orderByProperties;
             to.selectExpression = selectExpression;
             to.fromExpression = fromExpression;
-            to.whereExpression = whereExpression;
-            to.groupBy = groupBy;
-            to.havingExpression = havingExpression;
+            to.WhereExpression = this.WhereExpression;
+            to.GroupByExpression = this.GroupByExpression;
+            to.HavingExpression = this.HavingExpression;
             to.orderBy = orderBy;
             to.OnlyFields = OnlyFields != null ? new HashSet<string>(OnlyFields, StringComparer.OrdinalIgnoreCase) : null;
             to.UpdateFields = UpdateFields;
@@ -231,7 +228,7 @@ namespace ServiceStack.OrmLite
 
         private SqlExpression<T> InternalSelect(Expression fields, bool distinct=false)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = true;
             CustomSelect = true;
             var selectSql = Visit(fields);
@@ -359,7 +356,7 @@ namespace ServiceStack.OrmLite
         {
             underlyingExpression = null; //Where() clears the expression
 
-            whereExpression = null;
+            this.WhereExpression = null;
             return this;
         }
 
@@ -459,7 +456,7 @@ namespace ServiceStack.OrmLite
                 return this;
 
             useFieldName = true;
-            sep = " ";
+            this.Sep = " ";
             var newExpr = WhereExpressionToString(Visit(predicate));
             return AppendToWhere(condition, newExpr);
         }
@@ -473,11 +470,11 @@ namespace ServiceStack.OrmLite
 
         protected SqlExpression<T> AppendToWhere(string condition, string sqlExpression)
         {
-            whereExpression = string.IsNullOrEmpty(whereExpression)
+            this.WhereExpression = string.IsNullOrEmpty(this.WhereExpression)
                 ? this.WhereStatementWithoutWhereString ? "" : "WHERE "
-                : whereExpression + " " + condition + " ";
+                : this.WhereExpression + " " + condition + " ";
 
-            whereExpression += sqlExpression;
+            this.WhereExpression += sqlExpression;
             return this;
         }
 
@@ -490,13 +487,13 @@ namespace ServiceStack.OrmLite
         {
             groupBy.SqlVerifyFragment();
             if (!string.IsNullOrEmpty(groupBy))
-                this.groupBy = "GROUP BY " + groupBy;
+                this.GroupByExpression = "GROUP BY " + groupBy;
             return this;
         }
 
         private SqlExpression<T> InternalGroupBy(Expression keySelector)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = true;
 
             var groupByKey = Visit(keySelector);
@@ -542,20 +539,20 @@ namespace ServiceStack.OrmLite
 
         public virtual SqlExpression<T> Having(string sqlFilter, params object[] filterParams)
         {
-            havingExpression = FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams);
+            this.HavingExpression = FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams);
 
-            if (havingExpression != null)
-                havingExpression = "HAVING " + havingExpression;
+            if (this.HavingExpression != null)
+                this.HavingExpression = "HAVING " + this.HavingExpression;
 
             return this;
         }
 
         public virtual SqlExpression<T> UnsafeHaving(string sqlFilter, params object[] filterParams)
         {
-            havingExpression = FormatFilter(sqlFilter, filterParams);
+            this.HavingExpression = FormatFilter(sqlFilter, filterParams);
 
-            if (havingExpression != null)
-                havingExpression = "HAVING " + havingExpression;
+            if (this.HavingExpression != null)
+                this.HavingExpression = "HAVING " + this.HavingExpression;
 
             return this;
         }
@@ -565,13 +562,13 @@ namespace ServiceStack.OrmLite
             if (predicate != null)
             {
                 useFieldName = true;
-                sep = " ";
-                havingExpression = WhereExpressionToString(Visit(predicate));
-                if (!string.IsNullOrEmpty(havingExpression))
-                    havingExpression = "HAVING " + havingExpression;
+                this.Sep = " ";
+                this.HavingExpression = WhereExpressionToString(Visit(predicate));
+                if (!string.IsNullOrEmpty(this.HavingExpression))
+                    this.HavingExpression = "HAVING " + this.HavingExpression;
             }
             else
-                havingExpression = string.Empty;
+                this.HavingExpression = string.Empty;
 
             return this;
         }
@@ -718,7 +715,7 @@ namespace ServiceStack.OrmLite
 
         private SqlExpression<T> OrderByInternal(Expression keySelector)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = true;
             orderByProperties.Clear();
             var orderBySql = Visit(keySelector);
@@ -758,7 +755,7 @@ namespace ServiceStack.OrmLite
 
         private SqlExpression<T> ThenByInternal(Expression keySelector)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = true;
             var orderBySql = Visit(keySelector);
             if (IsSqlClass(orderBySql))
@@ -782,7 +779,7 @@ namespace ServiceStack.OrmLite
 
         private SqlExpression<T> OrderByDescendingInternal(Expression keySelector)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = true;
             orderByProperties.Clear();
             var orderBySql = Visit(keySelector);
@@ -834,7 +831,7 @@ namespace ServiceStack.OrmLite
 
         private SqlExpression<T> ThenByDescendingInternal(Expression keySelector)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = true;
             var orderBySql = Visit(keySelector);
             if (IsSqlClass(orderBySql))
@@ -981,7 +978,7 @@ namespace ServiceStack.OrmLite
         /// </param>
         public virtual SqlExpression<T> Update(Expression<Func<T, object>> fields)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = false;
             this.UpdateFields = fields.GetFieldNames().ToList();
             return this;
@@ -1007,7 +1004,7 @@ namespace ServiceStack.OrmLite
         /// </typeparam>
         public virtual SqlExpression<T> Insert<TKey>(Expression<Func<T, TKey>> fields)
         {
-            sep = string.Empty;
+            this.Sep = string.Empty;
             useFieldName = false;
             var fieldList = Visit(fields);
             InsertFields = fieldList.ToString().Split(',').Select(f => f.Trim()).ToList();
@@ -1208,24 +1205,11 @@ namespace ServiceStack.OrmLite
             + (string.IsNullOrEmpty(GroupByExpression) ? "" : "\n" + GroupByExpression)
             + (string.IsNullOrEmpty(HavingExpression) ? "" : "\n" + HavingExpression);
 
-        public string WhereExpression
-        {
-            get => whereExpression;
-            set => whereExpression = value;
-        }
+        public string WhereExpression { get; set; }
 
-        public string GroupByExpression
-        {
-            get => groupBy;
-            set => groupBy = value;
-        }
+        public string GroupByExpression { get; set; } = string.Empty;
 
-        public string HavingExpression
-        {
-            get => havingExpression;
-            set => havingExpression = value;
-        }
-
+        public string HavingExpression { get; set; }
 
         public string OrderByExpression
         {
@@ -1324,7 +1308,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual object VisitLambda(LambdaExpression lambda)
         {
-            if (lambda.Body.NodeType == ExpressionType.MemberAccess && sep == " ")
+            if (lambda.Body.NodeType == ExpressionType.MemberAccess && this.Sep == " ")
             {
                 var m = lambda.Body as MemberExpression;
 
@@ -1341,7 +1325,7 @@ namespace ServiceStack.OrmLite
                 }
 
             }
-            else if (lambda.Body.NodeType == ExpressionType.Conditional && sep == " ")
+            else if (lambda.Body.NodeType == ExpressionType.Conditional && this.Sep == " ")
             {
                 var c = lambda.Body as ConditionalExpression;
 
@@ -1482,7 +1466,7 @@ namespace ServiceStack.OrmLite
                 Swap(ref left, ref right); // "null is x" will not work, so swap the operands
             }
 
-            var separator = sep;
+            var separator = this.Sep;
             if (right.ToString().Equals("null", StringComparison.OrdinalIgnoreCase))
             {
                 if (operand == "=")
@@ -1870,7 +1854,7 @@ namespace ServiceStack.OrmLite
                     var ifTrue = Visit(e.IfTrue);
                     if (!IsSqlClass(ifTrue))
                     {
-                        if (sep == " ")
+                        if (this.Sep == " ")
                             ifTrue = new PartialSqlString(ConvertToParam(ifTrue));
                     }
                     else if (e.IfTrue.Type == typeof(bool))
@@ -1878,7 +1862,7 @@ namespace ServiceStack.OrmLite
                         var isBooleanComparison = IsBooleanComparison(e.IfTrue);
                         if (!isBooleanComparison)
                         {
-                            if (sep == " ")
+                            if (this.Sep == " ")
                                 ifTrue = ifTrue.ToString();
                             else
                                 ifTrue = new PartialSqlString($"(CASE WHEN {ifTrue} THEN {1} ELSE {0} END)");
@@ -1891,7 +1875,7 @@ namespace ServiceStack.OrmLite
                 var ifFalse = Visit(e.IfFalse);
                 if (!IsSqlClass(ifFalse))
                 {
-                    if (sep == " ")
+                    if (this.Sep == " ")
                         ifFalse = new PartialSqlString(ConvertToParam(ifFalse));
                 }
                 else if (e.IfFalse.Type == typeof(bool))
@@ -1899,7 +1883,7 @@ namespace ServiceStack.OrmLite
                     var isBooleanComparison = IsBooleanComparison(e.IfFalse);
                     if (!isBooleanComparison)
                     {
-                        if (sep == " ")
+                        if (this.Sep == " ")
                             ifFalse = ifFalse.ToString();
                         else
                             ifFalse = new PartialSqlString($"(CASE WHEN {ifFalse} THEN {1} ELSE {0} END)");

@@ -18,7 +18,7 @@
                 <asp:Repeater ID="bbCodeList" runat="server" OnItemCommand="BbCodeListItemCommand">
                     <HeaderTemplate>
                         <div class="card-header">
-                            <i class="fa fa-plug fa-fw"></i>&nbsp;<YAF:LocalizedLabel 
+                            <i class="fa fa-plug fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
                                                                       ID="LocalizedLabel2" 
                                                                       runat="server" 
                                                                       LocalizedTag="HEADER" 

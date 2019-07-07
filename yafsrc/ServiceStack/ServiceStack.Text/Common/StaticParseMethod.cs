@@ -100,16 +100,14 @@ namespace ServiceStack.Text.Common
         const string ParseMethod = "Parse";
         const string ParseStringSegmentMethod = "ParseStringSegment";
 
-        private static readonly ParseStringDelegate CacheFn;
-        private static readonly ParseStringSegmentDelegate CacheStringSegmentFn;
+        public static ParseStringDelegate Parse { get; }
 
-        public static ParseStringDelegate Parse => CacheFn;
-        public static ParseStringSegmentDelegate ParseStringSegment => CacheStringSegmentFn;
+        public static ParseStringSegmentDelegate ParseStringSegment { get; }
 
         static StaticParseMethod()
         {
-            CacheFn = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
-            CacheStringSegmentFn = ParseMethodUtilities.GetParseStringSegmentFn<T>(ParseMethod);
+            Parse = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
+            ParseStringSegment = ParseMethodUtilities.GetParseStringSegmentFn<T>(ParseMethod);
         }
 
     }
@@ -125,16 +123,14 @@ namespace ServiceStack.Text.Common
             ? "ParseStringSegmentJsv"
             : "ParseStringSegmentJson";
 
-        private static readonly ParseStringDelegate CacheFn;
-        private static readonly ParseStringSegmentDelegate CacheStringSegmentFn;
+        public static ParseStringDelegate Parse { get; }
 
-        public static ParseStringDelegate Parse => CacheFn;
-        public static ParseStringSegmentDelegate ParseStringSegment => CacheStringSegmentFn;
+        public static ParseStringSegmentDelegate ParseStringSegment { get; }
 
         static StaticParseRefTypeMethod()
         {
-            CacheFn = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
-            CacheStringSegmentFn = ParseMethodUtilities.GetParseStringSegmentFn<T>(ParseStringSegmentMethod);
+            Parse = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
+            ParseStringSegment = ParseMethodUtilities.GetParseStringSegmentFn<T>(ParseStringSegmentMethod);
         }
     }
 

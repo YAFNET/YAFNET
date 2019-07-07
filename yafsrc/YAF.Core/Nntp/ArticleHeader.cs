@@ -30,124 +30,44 @@ namespace YAF.Core.Nntp
   /// </summary>
   public class ArticleHeader
   {
-    /// <summary>
-    /// The _date.
-    /// </summary>
-    private DateTime _date;
-
-    /// <summary>
-    /// The _timeZoneOffset to hold an article timezone offset to UTC in minutes.
-    /// </summary>
-    private int _timeZoneOffset;
-
-    /// <summary>
-    /// The _from.
-    /// </summary>
-    private string _from;
-
-    /// <summary>
-    /// The _line count.
-    /// </summary>
-    private int _lineCount;
-
-    /// <summary>
-    /// The _posting host.
-    /// </summary>
-    private string _postingHost;
-
-    /// <summary>
-    /// The _reference ids.
-    /// </summary>
-    private string[] _referenceIds;
-
-    /// <summary>
-    /// The _sender.
-    /// </summary>
-    private string _sender;
-
-    /// <summary>
-    /// The _subject.
-    /// </summary>
-    private string _subject;
-
-    /// <summary>
+      /// <summary>
     /// Gets or sets ReferenceIds.
     /// </summary>
-    public string[] ReferenceIds
-    {
-      get => this._referenceIds;
-
-      set => this._referenceIds = value;
-    }
+    public string[] ReferenceIds { get; set; }
 
     /// <summary>
     /// Gets or sets an Article Time Zone offset to UTC.
     /// </summary>
-    public int TimeZoneOffset
-    {
-      get => this._timeZoneOffset;
-
-      set => this._timeZoneOffset = value;
-    }     
+    public int TimeZoneOffset { get; set; }
 
     /// <summary>
     /// Gets or sets Subject.
     /// </summary>
-    public string Subject
-    {
-      get => this._subject;
-
-      set => this._subject = value;
-    }
+    public string Subject { get; set; }
 
     /// <summary>
     /// Gets or sets Date.
     /// </summary>
-    public DateTime Date
-    {
-      get => this._date;
-
-      set => this._date = value;
-    }
+    public DateTime Date { get; set; }
 
     /// <summary>
     /// Gets or sets From.
     /// </summary>
-    public string From
-    {
-      get => this._from;
-
-      set => this._from = value;
-    }
+    public string From { get; set; }
 
     /// <summary>
     /// Gets or sets Sender.
     /// </summary>
-    public string Sender
-    {
-      get => this._sender;
-
-      set => this._sender = value;
-    }
+    public string Sender { get; set; }
 
     /// <summary>
     /// Gets or sets PostingHost.
     /// </summary>
-    public string PostingHost
-    {
-      get => this._postingHost;
-
-      set => this._postingHost = value;
-    }
+    public string PostingHost { get; set; }
 
     /// <summary>
     /// Gets or sets LineCount.
     /// </summary>
-    public int LineCount
-    {
-      get => this._lineCount;
-
-      set => this._lineCount = value;
-    }
+    public int LineCount { get; set; }
   }
 }

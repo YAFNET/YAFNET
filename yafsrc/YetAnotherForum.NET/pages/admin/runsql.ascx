@@ -11,7 +11,7 @@
                <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                             <i class="fa fa-database fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SQL_COMMAND" LocalizedPage="ADMIN_RUNSQL" />
+                             <i class="fa fa-database fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SQL_COMMAND" LocalizedPage="ADMIN_RUNSQL" />
                         </div>
                         <div class="card-body">
                             <div class="form-group">

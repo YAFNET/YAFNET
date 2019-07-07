@@ -34,12 +34,6 @@ namespace YAF.Core.Data
     {
         #region Fields
 
-        private int _id;
-
-        private string _name;
-
-        private string _value;
-
         #endregion
 
         #region Constructors and Destructors
@@ -61,9 +55,9 @@ namespace YAF.Core.Data
         /// </param>
         public DbConnectionParam(int id, string name, [NotNull] string defaultValue = null)
         {
-            this._id = id;
-            this._name = name;
-            this._value = defaultValue ?? string.Empty;
+            this.ID = id;
+            this.Name = name;
+            this.Value = defaultValue ?? string.Empty;
         }
 
         #endregion
@@ -73,22 +67,17 @@ namespace YAF.Core.Data
         /// <summary>
         ///     Gets or sets ID.
         /// </summary>
-        public int ID
-        {
-            get => this._id;
-
-            set => this._id = value;
-        }
+        public int ID { get; set; }
 
         /// <summary>
         ///     Gets or sets Label.
         /// </summary>
-        public string Name => this._name;
+        public string Name { get; }
 
         /// <summary>
         ///     Gets or sets DefaultValue.
         /// </summary>
-        public string Value => this._value;
+        public string Value { get; }
 
         #endregion
     }

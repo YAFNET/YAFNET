@@ -31,95 +31,35 @@ namespace YAF.Core.Nntp
   /// </summary>
   public class Article
   {
-    /// <summary>
-    /// The article id.
-    /// </summary>
-    private int articleId;
-
-    /// <summary>
-    /// The body.
-    /// </summary>
-    private ArticleBody body;
-
-    /// <summary>
-    /// The children.
-    /// </summary>
-    private ArrayList children;
-
-    /// <summary>
-    /// The header.
-    /// </summary>
-    private ArticleHeader header;
-
-    /// <summary>
-    /// The last reply.
-    /// </summary>
-    private DateTime lastReply;
-
-    /// <summary>
-    /// The message id.
-    /// </summary>
-    private string messageId;
-
-    /// <summary>
+      /// <summary>
     /// Gets or sets MessageId.
     /// </summary>
-    public string MessageId
-    {
-      get => this.messageId;
-
-      set => this.messageId = value;
-    }
+    public string MessageId { get; set; }
 
     /// <summary>
     /// Gets or sets ArticleId.
     /// </summary>
-    public int ArticleId
-    {
-      get => this.articleId;
-
-      set => this.articleId = value;
-    }
+    public int ArticleId { get; set; }
 
     /// <summary>
     /// Gets or sets Header.
     /// </summary>
-    public ArticleHeader Header
-    {
-      get => this.header;
-
-      set => this.header = value;
-    }
+    public ArticleHeader Header { get; set; }
 
     /// <summary>
     /// Gets or sets Body.
     /// </summary>
-    public ArticleBody Body
-    {
-      get => this.body;
-
-      set => this.body = value;
-    }
+    public ArticleBody Body { get; set; }
 
     /// <summary>
     /// Gets or sets LastReply.
     /// </summary>
-    public DateTime LastReply
-    {
-      get => this.lastReply;
-
-      set => this.lastReply = value;
-    }
+    public DateTime LastReply { get; set; }
 
     /// <summary>
     /// Gets or sets Children.
     /// </summary>
-    public ArrayList Children
-    {
-      get => this.children;
-
-      set => this.children = value;
-    }
+    public ArrayList Children { get; set; }
 
     public MIMEPart MimePart { get; set; }
   }

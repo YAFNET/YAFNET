@@ -93,12 +93,9 @@ namespace YAF.Core
                 var sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
                 if (result.Length > 0 && result.Length == sray.Length)
                 {
-                    var i = 0;
-                    foreach (var str in result)
-                    {
-                        res.Add(sray[i].Trim(), str);
-                        i++;
-                    }
+                    const int i = 0;
+
+                    result.ForEach(str => res.Add(sray[i].Trim(), str));
                 }
             }
             catch

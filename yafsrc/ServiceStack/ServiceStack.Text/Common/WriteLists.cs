@@ -471,15 +471,14 @@ namespace ServiceStack.Text.Common
     internal static class WriteLists<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
-        private static readonly WriteObjectDelegate CacheFn;
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
         static WriteLists()
         {
-            CacheFn = GetWriteFn();
+            Write = GetWriteFn();
         }
 
-        public static WriteObjectDelegate Write => CacheFn;
+        public static WriteObjectDelegate Write { get; }
 
         public static WriteObjectDelegate GetWriteFn()
         {

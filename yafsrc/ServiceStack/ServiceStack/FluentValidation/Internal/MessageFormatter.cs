@@ -5,9 +5,7 @@ namespace ServiceStack.FluentValidation.Internal {
 	/// Assists in the construction of validation messages.
 	/// </summary>
 	public class MessageFormatter {
-		readonly Dictionary<string, object> _placeholderValues = new Dictionary<string, object>(2);
-		object[] _additionalArguments = new object[0];
-		private bool _shouldUseAdditionalArgs;
+        private bool _shouldUseAdditionalArgs;
 
 		/// <summary>
 		/// Default Property Name placeholder.
@@ -30,7 +28,7 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <param name="value"></param>
 		/// <returns></returns>
 		public MessageFormatter AppendArgument(string name, object value) {
-			_placeholderValues[name] = value;
+			this.PlaceholderValues[name] = value;
 			return this;
 		}
 
@@ -59,8 +57,8 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <param name="additionalArgs">Additional arguments</param>
 		/// <returns></returns>
 		public MessageFormatter AppendAdditionalArguments(params object[] additionalArgs) {
-			_additionalArguments = additionalArgs;
-			_shouldUseAdditionalArgs = _additionalArguments != null && _additionalArguments.Length > 0;
+			this.AdditionalArguments = additionalArgs;
+			_shouldUseAdditionalArgs = this.AdditionalArguments != null && this.AdditionalArguments.Length > 0;
 			return this;
 		}
 
@@ -73,12 +71,12 @@ namespace ServiceStack.FluentValidation.Internal {
 
 			var result = messageTemplate;
 
-			foreach(var pair in _placeholderValues) {
+			foreach(var pair in this.PlaceholderValues) {
 				result = ReplacePlaceholderWithValue(result, pair.Key, pair.Value);
 			}
 
 			if(_shouldUseAdditionalArgs) {
-				return string.Format(result, _additionalArguments);
+				return string.Format(result, this.AdditionalArguments);
 			}
 			return result;
 		}
@@ -86,14 +84,14 @@ namespace ServiceStack.FluentValidation.Internal {
 		/// <summary>
 		/// Additional arguments to use
 		/// </summary>
-		public object[] AdditionalArguments => _additionalArguments;
+		public object[] AdditionalArguments { get; private set; } = new object[0];
 
-		/// <summary>
+        /// <summary>
 		/// Additional placeholder values
 		/// </summary>
-		public Dictionary<string, object> PlaceholderValues => _placeholderValues;
+		public Dictionary<string, object> PlaceholderValues { get; } = new Dictionary<string, object>(2);
 
-		protected virtual string ReplacePlaceholderWithValue(string template, string key, object value) {
+        protected virtual string ReplacePlaceholderWithValue(string template, string key, object value) {
 			var placeholder =  GetPlaceholder(key);
 			return template.Replace(placeholder, value?.ToString());
 		}

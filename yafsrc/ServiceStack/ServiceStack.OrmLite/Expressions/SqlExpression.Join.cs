@@ -186,7 +186,7 @@ namespace ServiceStack.OrmLite
 
             //Changes how Sql Expressions are generated.
             useFieldName = true;
-            sep = " ";
+            this.Sep = " ";
 
             if (!tableDefs.Contains(sourceDef))
                 tableDefs.Add(sourceDef);

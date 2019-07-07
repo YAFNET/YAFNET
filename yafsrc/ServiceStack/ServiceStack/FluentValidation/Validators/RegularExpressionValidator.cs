@@ -25,23 +25,22 @@ namespace ServiceStack.FluentValidation.Validators {
 	using Results;
 
 	public class RegularExpressionValidator : PropertyValidator, IRegularExpressionValidator {
-		readonly string expression;
-		readonly Func<object, Regex> regexFunc;
+        readonly Func<object, Regex> regexFunc;
 
 		public RegularExpressionValidator(string expression) :base(new LanguageStringSource(nameof(RegularExpressionValidator))) {
-			this.expression = expression;
+			this.Expression = expression;
 
 			var regex = new Regex(expression);
 			this.regexFunc = x => regex;
 		}
 
 		public RegularExpressionValidator(Regex regex) : base(new LanguageStringSource(nameof(RegularExpressionValidator))) {
-			this.expression = regex.ToString();
+			this.Expression = regex.ToString();
 			this.regexFunc = x => regex;
 		}
 
 		public RegularExpressionValidator(string expression, RegexOptions options) : base(new LanguageStringSource(nameof(RegularExpressionValidator))) {
-			this.expression = expression;
+			this.Expression = expression;
 			var regex = new Regex(expression, options);
 			this.regexFunc = x => regex;
 		}
@@ -69,7 +68,7 @@ namespace ServiceStack.FluentValidation.Validators {
 			return true;
 		}
 
-		public string Expression => expression;
+		public string Expression { get; }
     }
 
 	public interface IRegularExpressionValidator : IPropertyValidator {

@@ -15,7 +15,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-graduation-cap fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RANKS" />
+                    <i class="fa fa-graduation-cap fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RANKS" />
                 </div>
                 <div class="card-body">
 		<asp:Repeater ID="RankList" OnItemCommand="RankListItemCommand" runat="server">

@@ -49,7 +49,7 @@
                 <HeaderTemplate>
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                    <i class="fa fa-shield-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                                                     LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
 					</div>
                 <div class="card-body">

@@ -12,7 +12,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="FORUMS" LocalizedPage="TEAM" />
+                    <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="FORUMS" LocalizedPage="TEAM" />
                  </div>
                 <div class="card-body">
 		<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="CategoryList_ItemCommand">
@@ -95,6 +95,7 @@
                                  Type="Primary"
 				                 Icon="plus-square" 
                                  TextLocalizedTag="NEW_FORUM"
+                                 TextLocalizedPage="ADMIN_FORUMS"
                                  CssClass="mt-1"></YAF:ThemeButton>
 
                 </div>

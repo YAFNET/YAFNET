@@ -27,10 +27,8 @@ namespace ServiceStack.FluentValidation.Resources {
 	/// </summary>
 	public class LocalizedStringSource : IStringSource {
 		readonly Func<string> accessor;
-		readonly Type resourceType;
-		readonly string resourceName;
 
-		/// <summary>
+        /// <summary>
 		/// Creates a new instance of the LocalizedErrorMessageSource class using the specified resource name and resource type.
 		/// </summary>
 		/// <param name="resourceType">The resource type</param>
@@ -38,8 +36,8 @@ namespace ServiceStack.FluentValidation.Resources {
 		public LocalizedStringSource(Type resourceType, string resourceName) {
 			var resourceAccessor = BuildResourceAccessor(resourceType, resourceName);
 
-			this.resourceType = resourceAccessor.ResourceType;
-			this.resourceName = resourceAccessor.ResourceName;
+			this.ResourceType = resourceAccessor.ResourceType;
+			this.ResourceName = resourceAccessor.ResourceName;
 			this.accessor = resourceAccessor.Accessor;
 		}
 
@@ -53,8 +51,8 @@ namespace ServiceStack.FluentValidation.Resources {
 		public LocalizedStringSource(Type resourceType, string resourceName, IResourceAccessorBuilder resourceAccessorBuilder) {
 		    var resourceAccessor = resourceAccessorBuilder.GetResourceAccessor(resourceType, resourceName);
 
-            this.resourceType = resourceAccessor.ResourceType;
-			this.resourceName = resourceAccessor.ResourceName;
+            this.ResourceType = resourceAccessor.ResourceType;
+			this.ResourceName = resourceAccessor.ResourceName;
 			this.accessor = resourceAccessor.Accessor;
 		}
 
@@ -96,12 +94,12 @@ namespace ServiceStack.FluentValidation.Resources {
 		/// <summary>
 		/// The name of the resource if localized.
 		/// </summary>
-		public string ResourceName => resourceName;
+		public string ResourceName { get; }
 
         /// <summary>
 		/// The type of the resource provider if localized.
 		/// </summary>
-		public Type ResourceType => resourceType;
+		public Type ResourceType { get; }
 
         protected virtual ResourceAccessor BuildResourceAccessor(Type resourceType, string resourceName) {
 			var property = GetResourceProperty(ref resourceType, ref resourceName);

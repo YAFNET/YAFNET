@@ -37,24 +37,22 @@ namespace ServiceStack.FluentValidation.Validators
 
         readonly Func<object, IValidator> childValidatorProvider;
 
-        readonly Type childValidatorType;
-
         public override bool IsAsync => true;
 
-        public Type ChildValidatorType => childValidatorType;
+        public Type ChildValidatorType { get; }
 
         public Func<object, bool> Predicate { get; set; }
 
         public ChildCollectionValidatorAdaptor(IValidator childValidator)
         {
             this.childValidatorProvider = _ => childValidator;
-            this.childValidatorType = childValidator.GetType();
+            this.ChildValidatorType = childValidator.GetType();
         }
 
         public ChildCollectionValidatorAdaptor(Func<object, IValidator> childValidatorProvider, Type childValidatorType)
         {
             this.childValidatorProvider = childValidatorProvider;
-            this.childValidatorType = childValidatorType;
+            this.ChildValidatorType = childValidatorType;
         }
 
         public override IEnumerable<ValidationFailure> Validate(PropertyValidatorContext context)

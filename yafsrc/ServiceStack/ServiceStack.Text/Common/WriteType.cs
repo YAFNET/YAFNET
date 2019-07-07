@@ -26,7 +26,6 @@ namespace ServiceStack.Text.Common
     {
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
-        private static readonly WriteObjectDelegate CacheFn;
         internal static TypePropertyWriter[] PropertyWriters;
         private static readonly WriteObjectDelegate WriteTypeInfo;
 
@@ -40,11 +39,11 @@ namespace ServiceStack.Text.Common
         {
             if (typeof(T) == typeof(Object))
             {
-                CacheFn = WriteObjectType;
+                Write = WriteObjectType;
             }
             else
             {
-                CacheFn = Init() ? GetWriteFn() : WriteEmptyType;
+                Write = Init() ? GetWriteFn() : WriteEmptyType;
             }
 
             if (IsIncluded)
@@ -57,7 +56,7 @@ namespace ServiceStack.Text.Common
                 WriteTypeInfo = TypeInfoWriter;
                 if (!JsConfig.PreferInterfaces || !typeof(T).IsInterface)
                 {
-                    CacheFn = WriteAbstractProperties;
+                    Write = WriteAbstractProperties;
                 }
             }
         }
@@ -89,7 +88,7 @@ namespace ServiceStack.Text.Common
             return true;
         }
 
-        public static WriteObjectDelegate Write => CacheFn;
+        public static WriteObjectDelegate Write { get; }
 
         private static WriteObjectDelegate GetWriteFn()
         {

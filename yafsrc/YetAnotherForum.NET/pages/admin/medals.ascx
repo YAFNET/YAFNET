@@ -12,7 +12,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                    <i class="fa fa-trophy fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                                 LocalizedTag="TITLE" 
                                                                                 LocalizedPage="ADMIN_MEDALS" />
                 </div>

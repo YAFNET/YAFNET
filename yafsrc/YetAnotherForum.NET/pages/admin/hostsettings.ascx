@@ -12,7 +12,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-cog fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                     </div>
                 <div class="card-body">
   <asp:Panel id="HostSettingsTabs" runat="server">

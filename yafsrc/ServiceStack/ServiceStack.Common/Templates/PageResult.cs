@@ -1125,21 +1125,20 @@ namespace ServiceStack.Templates
             }
         }
 
-        public string ResultOutput => resultOutput;
+        public string ResultOutput { get; private set; }
 
-        private string resultOutput;
         public string Result
         {
             get
             {
                 try
                 {
-                    if (resultOutput != null)
-                        return resultOutput;
+                    if (this.ResultOutput != null)
+                        return this.ResultOutput;
     
                     Init().Wait();
-                    resultOutput = this.RenderToStringAsync().Result;
-                    return resultOutput;
+                    this.ResultOutput = this.RenderToStringAsync().Result;
+                    return this.ResultOutput;
                 }
                 catch (AggregateException e)
                 {

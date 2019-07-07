@@ -30,124 +30,44 @@ namespace YAF.Core.Nntp
   /// </summary>
   public class MIMEPart
   {
-    /// <summary>
-    /// The binary data.
-    /// </summary>
-    private byte[] binaryData;
-
-    /// <summary>
-    /// The boundary.
-    /// </summary>
-    private string boundary;
-
-    /// <summary>
-    /// The charset.
-    /// </summary>
-    private string charset;
-
-    /// <summary>
-    /// The content transfer encoding.
-    /// </summary>
-    private string contentTransferEncoding;
-
-    /// <summary>
-    /// The content type.
-    /// </summary>
-    private string contentType;
-
-    /// <summary>
-    /// The embedded part list.
-    /// </summary>
-    private ArrayList embeddedPartList;
-
-    /// <summary>
-    /// The filename.
-    /// </summary>
-    private string filename;
-
-    /// <summary>
-    /// The text.
-    /// </summary>
-    private string text;
-
-    /// <summary>
+      /// <summary>
     /// Gets or sets BinaryData.
     /// </summary>
-    public byte[] BinaryData
-    {
-      get => this.binaryData;
-
-      set => this.binaryData = value;
-    }
+    public byte[] BinaryData { get; set; }
 
     /// <summary>
     /// Gets or sets Boundary.
     /// </summary>
-    public string Boundary
-    {
-      get => this.boundary;
-
-      set => this.boundary = value;
-    }
+    public string Boundary { get; set; }
 
     /// <summary>
     /// Gets or sets ContentType.
     /// </summary>
-    public string ContentType
-    {
-      get => this.contentType;
-
-      set => this.contentType = value;
-    }
+    public string ContentType { get; set; }
 
     /// <summary>
     /// Gets or sets ContentTransferEncoding.
     /// </summary>
-    public string ContentTransferEncoding
-    {
-      get => this.contentTransferEncoding;
-
-      set => this.contentTransferEncoding = value;
-    }
+    public string ContentTransferEncoding { get; set; }
 
     /// <summary>
     /// Gets or sets Charset.
     /// </summary>
-    public string Charset
-    {
-      get => this.charset;
-
-      set => this.charset = value;
-    }
+    public string Charset { get; set; }
 
     /// <summary>
     /// Gets or sets Filename.
     /// </summary>
-    public string Filename
-    {
-      get => this.filename;
-
-      set => this.filename = value;
-    }
+    public string Filename { get; set; }
 
     /// <summary>
     /// Gets or sets Text.
     /// </summary>
-    public string Text
-    {
-      get => this.text;
-
-      set => this.text = value;
-    }
+    public string Text { get; set; }
 
     /// <summary>
     /// Gets or sets EmbeddedPartList.
     /// </summary>
-    public ArrayList EmbeddedPartList
-    {
-      get => this.embeddedPartList;
-
-      set => this.embeddedPartList = value;
-    }
+    public ArrayList EmbeddedPartList { get; set; }
   }
 }

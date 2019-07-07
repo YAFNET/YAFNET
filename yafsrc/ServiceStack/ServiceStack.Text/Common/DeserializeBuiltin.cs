@@ -21,15 +21,14 @@ namespace ServiceStack.Text.Common
 {
     public static class DeserializeBuiltin<T>
     {
-        private static readonly ParseStringSegmentDelegate CachedParseFn;
         static DeserializeBuiltin()
         {
-            CachedParseFn = GetParseStringSegmentFn();
+            ParseStringSegment = GetParseStringSegmentFn();
         }
 
-        public static ParseStringDelegate Parse => v => CachedParseFn(new StringSegment(v));
+        public static ParseStringDelegate Parse => v => ParseStringSegment(new StringSegment(v));
 
-        public static ParseStringSegmentDelegate ParseStringSegment => CachedParseFn;
+        public static ParseStringSegmentDelegate ParseStringSegment { get; }
 
         private static ParseStringDelegate GetParseFn() => v => GetParseStringSegmentFn()(new StringSegment(v));
 

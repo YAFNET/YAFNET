@@ -28,6 +28,7 @@ namespace YAF.Core.Nntp
   using System;
   using System.Collections;
   using System.IO;
+  using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Web;
@@ -128,16 +129,13 @@ namespace YAF.Core.Nntp
 
     public static int Base64Decode([NotNull] string encodedData, Stream output)
     {
-      CodeContracts.VerifyNotNull(encodedData, "encodedData");
+        CodeContracts.VerifyNotNull(encodedData, "encodedData");
 
-      var decodedDataAsBytes = Convert.FromBase64String(encodedData);
+        var decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
-      foreach (var decodedByte in decodedDataAsBytes)
-      {
-        output.WriteByte(decodedByte);
-      }
+        decodedDataAsBytes.AsEnumerable().ForEach(output.WriteByte);
 
-      return decodedDataAsBytes.Length;
+        return decodedDataAsBytes.Length;
     }
 
     /// <summary>
@@ -268,15 +266,15 @@ namespace YAF.Core.Nntp
         {
           if (ipos > 0)
           {
-            var ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) +
-                          TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
+            var ts = TimeSpan.FromHours(tz.Substring(0, 2).ToType<int>()) +
+                          TimeSpan.FromMinutes(tz.Substring(2, 2).ToType<int>());
             tzi = ts.Minutes;
             return dtc + ts;
           }
           else if (ineg > 0)
           {
-            var ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) +
-                          TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
+            var ts = TimeSpan.FromHours(tz.Substring(0, 2).ToType<int>()) +
+                          TimeSpan.FromMinutes(tz.Substring(2, 2).ToType<int>());
             tzi = ts.Minutes;
             return dtc - ts;
           }
