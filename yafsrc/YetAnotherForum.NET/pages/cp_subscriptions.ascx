@@ -22,7 +22,7 @@
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-envelope fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="TITLE" />
+                        <i class="fa fa-envelope fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="TITLE" />
                     </div>
                     <div class="card-body">
                         
@@ -67,7 +67,7 @@
                 <div class="col">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="forums" />
+                            <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="forums" />
                         </div>
                         <div class="card-body">
                             <asp:Repeater ID="ForumList" runat="server">
@@ -105,7 +105,7 @@
                 <div class="col">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
+                            <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
                         </div>
                         <div class="card-body">
                             <YAF:Pager ID="PagerTop" runat="server" PageSize="25" OnPageChange="PagerTop_PageChange"

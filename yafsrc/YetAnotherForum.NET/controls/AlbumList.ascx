@@ -10,7 +10,7 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-images fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" 
+                <i class="fa fa-images fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="AlbumHeaderLabel" runat="server" 
                                                                                   LocalizedTag="ALBUMS_HEADER_TEXT" />
             </div>
             <div class="card-body">

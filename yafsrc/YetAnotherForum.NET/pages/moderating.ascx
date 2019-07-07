@@ -9,7 +9,7 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-secret fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                <i class="fa fa-user-secret fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                                                  LocalizedTag="MEMBERS" 
                                                                                  LocalizedPage="MODERATE" />
             </div>
@@ -71,7 +71,7 @@
     <div class="col">
         <div class="card mb-3 mt-3">
             <div class="card-header">
-                <i class="fa fa-tasks fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="title" LocalizedPage="MODERATE" />
+                <i class="fa fa-tasks fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="title" LocalizedPage="MODERATE" />
             </div>
             <div class="card-body">
                 <asp:Repeater ID="topiclist" runat="server" OnItemCommand="topiclist_ItemCommand">

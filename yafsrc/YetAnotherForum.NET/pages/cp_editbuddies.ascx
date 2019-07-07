@@ -39,7 +39,7 @@
             <div id="BuddyListTab" class="tab-pane" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-user-friends fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                        <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                                                                           LocalizedTag="BUDDYLIST" />
                     </div>
                     <div class="card-body">
@@ -49,7 +49,7 @@
             <div id="PendingRequestsTab" class="tab-pane" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-user-friends fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                        <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                                                           LocalizedTag="PENDING_REQUESTS" />
                     </div>
                     <div class="card-body">
@@ -59,7 +59,7 @@
             <div id="YourRequestsTab" class="tab-pane" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-user-friends fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                        <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                                                                           LocalizedTag="YOUR_REQUESTS" />
                     </div>
                     <div class="card-body">

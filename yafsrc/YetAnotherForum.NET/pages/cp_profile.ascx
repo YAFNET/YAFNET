@@ -11,7 +11,7 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="ControlPanel" runat="server" LocalizedTag="YOUR_ACCOUNT" />
+                <i class="fa fa-user fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="ControlPanel" runat="server" LocalizedTag="YOUR_ACCOUNT" />
             </div>
             <div class="card-body">
                 <YAF:ProfileYourAccount ID="YourAccount" runat="server" />

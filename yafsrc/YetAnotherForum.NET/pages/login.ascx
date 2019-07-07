@@ -16,7 +16,7 @@
                         <div class="col">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <i class="fa fa-sign-in-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                                    <i class="fa fa-sign-in-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
                                 </div>
                                 <div class="card-body">
                                     <form>

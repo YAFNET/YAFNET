@@ -19,7 +19,7 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-paperclip fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                <i class="fa fa-paperclip fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                                                   LocalizedTag="TITLE" />
             </div>
             <div class="card-body">

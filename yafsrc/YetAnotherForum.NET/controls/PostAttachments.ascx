@@ -10,7 +10,7 @@
        role="button" 
        aria-expanded="false" 
        aria-controls="collapseExample">
-        <i class="fa fa-paperclip fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" 
+        <i class="fa fa-paperclip fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" 
                                                                     LocalizedTag="BUTTON_ATTACH_TT" 
                                                                     LocalizedPage="BUTTON" />
     </a>
