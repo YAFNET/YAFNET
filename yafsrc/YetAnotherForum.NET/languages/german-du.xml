@@ -1819,7 +1819,7 @@
     <Resource tag="LATEST_VERSION">Die aktuell letzte Finale Version ist verfügbar &lt;strong&gt;{0}&lt;/strong&gt; veröffentlicht am &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Sie verwenden YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Datum: {1}).</Resource>
     <Resource tag="TITLE">Version Checken</Resource>
-    <Resource tag="UPGRADE_VERSION">Sie können die neueste Version von &lt;a target="_top" href="http://yafnet.codeplex.com/"&gt;
+    <Resource tag="UPGRADE_VERSION">Sie können die neueste Version von &lt;a target="_top" href="http://yetanotherforum.net/download/"&gt;
 						CodePlex&lt;/a&gt; laden.</Resource>
   </page>
   <page name="ADMINMENU">

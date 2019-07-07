@@ -1841,7 +1841,7 @@
     <Resource tag="LATEST_VERSION">La última versión disponible es &lt;strong&gt;{0}&lt;/strong&gt; liberado &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Estás ejecutando la versión &lt;strong&gt;{0}&lt;/strong&gt; (Fecha: {1}) de YetAnotherForum.NET.</Resource>
     <Resource tag="TITLE">Comprobar versión</Resource>
-    <Resource tag="UPGRADE_VERSION">Puedes descargar la última versión de &lt;a target="_top" href="http://yafnet.codeplex.com/"&gt;
+    <Resource tag="UPGRADE_VERSION">Puedes descargar la última versión de &lt;a target="_top" href="http://yetanotherforum.net/download/"&gt;
 						aquí&lt;/a&gt;.</Resource>
   </page>
   <page name="ADMINMENU">
