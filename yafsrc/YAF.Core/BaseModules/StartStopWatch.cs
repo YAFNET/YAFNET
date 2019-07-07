@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
   #region Using
 
@@ -43,7 +43,7 @@ namespace YAF.Core
     /// <summary>
     /// The _stop watch.
     /// </summary>
-    private readonly IStopWatch _stopWatch;
+    private readonly IStopWatch stopWatch;
 
     #endregion
 
@@ -57,7 +57,7 @@ namespace YAF.Core
     /// </param>
     public StartStopWatch([NotNull] IStopWatch stopWatch)
     {
-      this._stopWatch = stopWatch;
+      this.stopWatch = stopWatch;
     }
 
     #endregion
@@ -78,7 +78,7 @@ namespace YAF.Core
     public void Handle(ForumPageInitEvent @event)
     {
       // start the stop watch on init...
-      this._stopWatch.Start();      
+      this.stopWatch.Start();      
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ namespace YAF.Core
     public void Handle(ForumPageUnloadEvent @event)
     {
       // stop the stop watch in case the footer did not...
-      this._stopWatch.Stop();
+      this.stopWatch.Stop();
     }
 
     #endregion

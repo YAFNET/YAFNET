@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseControls
 {
   #region Using
 
@@ -30,7 +30,7 @@ namespace YAF.Core
 
   using YAF.Types.Interfaces;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The base user control.
