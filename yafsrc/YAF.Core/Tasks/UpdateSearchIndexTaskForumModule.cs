@@ -27,6 +27,7 @@ namespace YAF.Core.Tasks
 
     using System;
 
+    using YAF.Core.BaseModules;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
@@ -36,7 +37,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// The Update Search Index Task
     /// </summary>
-    /// <seealso cref="YAF.Core.BaseForumModule" />
+    /// <seealso cref="BaseForumModule" />
     [YafModule("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
     public class UpdateSearchIndexTaskForumModule : BaseForumModule
     {
