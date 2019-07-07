@@ -32,7 +32,6 @@ namespace YAF.Core.Controllers
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Utils.Helpers.StringUtils;
 
     /// <summary>
@@ -61,13 +60,13 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("ThankYou/AddThanks/{messageId}")]
         [HttpPost]
-        public ThankYouInfo AddThanks([NotNull] int messageId)
+        public IHttpActionResult AddThanks([NotNull] int messageId)
         {
             var membershipUser = UserMembershipHelper.GetUser();
 
             if (membershipUser == null)
             {
-                return null;
+                return this.NotFound();
             }
 
             var username = this.GetRepository<Thanks>().AddMessageThanks(
@@ -77,12 +76,13 @@ namespace YAF.Core.Controllers
 
             // if the user is empty, return a null object...
             return username.IsNotSet()
-                       ? null
-                       : this.Get<IThankYou>().CreateThankYou(
-                           new UnicodeEncoder().XSSEncode(username),
-                           "BUTTON_THANKSDELETE",
-                           "BUTTON_THANKSDELETE_TT",
-                           messageId);
+                       ? (IHttpActionResult)this.NotFound()
+                       : this.Ok(
+                           this.Get<IThankYou>().CreateThankYou(
+                               new UnicodeEncoder().XSSEncode(username),
+                               "BUTTON_THANKSDELETE",
+                               "BUTTON_THANKSDELETE_TT",
+                               messageId));
         }
 
         /// <summary>
@@ -96,14 +96,15 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("ThankYou/RemoveThanks/{messageId}")]
         [HttpPost]
-        public ThankYouInfo RemoveThanks([NotNull] int messageId)
+        public IHttpActionResult RemoveThanks([NotNull] int messageId)
         {
             var username = this.GetRepository<Thanks>().RemoveMessageThanks(
                 UserMembershipHelper.GetUserIDFromProviderUserKey(UserMembershipHelper.GetUser().ProviderUserKey),
                 messageId,
                 this.Get<YafBoardSettings>().EnableDisplayName);
 
-            return this.Get<IThankYou>().CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId);
+            return this.Ok(
+                this.Get<IThankYou>().CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
         }
     }
 }

@@ -55,17 +55,15 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("Search/GetSimilarTitles")]
         [HttpPost]
-        public SearchGridDataSet GetSimilarTitles(SearchTopic searchTopic)
+        public IHttpActionResult GetSimilarTitles(SearchTopic searchTopic)
         {
             var results = this.Get<ISearch>().SearchSimilar(searchTopic.UserId, searchTopic.SearchTerm, "Topic");
 
-            return new SearchGridDataSet
-            {
-                PageNumber = 1,
-                TotalRecords = results.Count,
-                PageSize = 20,
-                SearchResults = results
-            };
+            return this.Ok(
+                new SearchGridDataSet
+                    {
+                        PageNumber = 1, TotalRecords = results.Count, PageSize = 20, SearchResults = results
+                    });
         }
 
         /// <summary>
@@ -79,8 +77,7 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("Search/GetSearchResults")]
         [HttpPost]
-        public SearchGridDataSet GetSearchResults(
-            SearchTopic searchTopic)
+        public IHttpActionResult GetSearchResults(SearchTopic searchTopic)
         {
             var results = this.Get<ISearch>().SearchPaged(
                 out var totalHits,
@@ -90,13 +87,14 @@ namespace YAF.Core.Controllers
                 searchTopic.Page,
                 searchTopic.PageSize);
 
-            return new SearchGridDataSet
-            {
-                PageNumber = searchTopic.Page,
-                TotalRecords = totalHits,
-                PageSize = searchTopic.PageSize,
-                SearchResults = results
-            };
+            return this.Ok(
+                new SearchGridDataSet
+                    {
+                        PageNumber = searchTopic.Page,
+                        TotalRecords = totalHits,
+                        PageSize = searchTopic.PageSize,
+                        SearchResults = results
+                    });
         }
     }
 }
