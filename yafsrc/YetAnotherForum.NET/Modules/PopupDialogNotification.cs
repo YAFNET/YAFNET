@@ -31,6 +31,7 @@ namespace YAF.Modules
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -99,9 +100,9 @@ namespace YAF.Modules
                       }} }}";
             }
 
-            YafContext.Current.PageElements.RegisterJsBlock(this, this.ShowModalFunction, javaScriptFunction);
+            YafContext.Current.PageElements.RegisterJsBlock(thisControl: this, name: this.ShowModalFunction, script: javaScriptFunction);
 
-            base.OnPreRender(e);
+            base.OnPreRender(e: e);
         }
 
         #endregion

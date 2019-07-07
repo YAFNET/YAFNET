@@ -33,6 +33,9 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// The group repository extensions.
+    /// </summary>
     public static class GroupRepositoryExtensions
     {
         #region Public Methods and Operators

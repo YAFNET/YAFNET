@@ -57,27 +57,48 @@ namespace YAF.Types.Models
         [Alias("MedalID")]
         [AutoIncrement]
         public int ID { get; set; }
+
         [Required]
+        [StringLength(100)]
         public string Name { get; set; }
+
         public string Description { get; set; }
+
         [Required]
+        [StringLength(100)]
         public string Message { get; set; }
+
+        [StringLength(50)]
         public string Category { get; set; }
+
         [Required]
+        [StringLength(250)]
         public string MedalURL { get; set; }
+
+        [StringLength(250)]
         public string RibbonURL { get; set; }
+
         [Required]
+        [StringLength(250)]
         public string SmallMedalURL { get; set; }
+
+        [StringLength(250)]
         public string SmallRibbonURL { get; set; }
+
         [Required]
         public short SmallMedalWidth { get; set; }
+
         [Required]
         public short SmallMedalHeight { get; set; }
+
         public short? SmallRibbonWidth { get; set; }
+
         public short? SmallRibbonHeight { get; set; }
+
         [Required]
         [Default(255)]
         public byte SortOrder { get; set; }
+
         [Required]
         [Default(0)]
         public int Flags { get; set; }

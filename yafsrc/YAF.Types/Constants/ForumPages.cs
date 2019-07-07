@@ -144,6 +144,11 @@ namespace YAF.Types.Constants
         albums,
 
         /// <summary>
+        /// The cp_blockoptions.
+        /// </summary>
+        cp_blockoptions,
+
+        /// <summary>
         /// The cp_editalbumimages.
         /// </summary>
         cp_editalbumimages,

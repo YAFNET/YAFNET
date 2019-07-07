@@ -60,6 +60,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the browser.
         /// </summary>
+        [StringLength(50)]
         public string Browser { get; set; }
 
         /// <summary>
@@ -76,12 +77,14 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the forum page.
         /// </summary>
+        [StringLength(1024)]
         public string ForumPage { get; set; }
 
         /// <summary>
         /// Gets or sets the ip.
         /// </summary>
         [Required]
+        [StringLength(39)]
         public string IP { get; set; }
 
         /// <summary>
@@ -93,6 +96,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
+        [StringLength(255)]
         public string Location { get; set; }
 
         /// <summary>
@@ -104,12 +108,14 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the platform.
         /// </summary>
+        [StringLength(50)]
         public string Platform { get; set; }
 
         /// <summary>
         /// Gets or sets the session id.
         /// </summary>
         [Required]
+        [StringLength(24)]
         public string SessionID { get; set; }
 
         /// <summary>

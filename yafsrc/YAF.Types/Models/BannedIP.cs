@@ -52,11 +52,13 @@ namespace YAF.Types.Models
         public int BoardID { get; set; }
 
         [Required]
+        [StringLength(15)]
         public string Mask { get; set; }
 
         [Required]
         public DateTime Since { get; set; }
 
+        [StringLength(128)]
         public string Reason { get; set; }
 
         public int? UserID { get; set; }

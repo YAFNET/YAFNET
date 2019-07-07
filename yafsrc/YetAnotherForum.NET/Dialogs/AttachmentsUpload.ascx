@@ -1,10 +1,11 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.AttachmentsUpload" CodeBehind="AttachmentsUpload.ascx.cs" %>
 
+
 <div class="modal fade" id="UploadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_TITLE") %></h5>
+          <h5 class="modal-title" id="myModalLabel"><%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "UPLOAD_TITLE") %></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -16,11 +17,11 @@
                       <div class="fileupload-buttonbar">
                           <div id="dropzone" class="card text-white bg-dark border-danger mb-3">
                               <div class="card-body">
-                                  <p class="card-text"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></p>
+                                  <p class="card-text"><%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "DROP_HERE") %></p>
                               </div>
                           </div>
                           <div class="alert alert-danger uploadCompleteWarning" role="alert" style="display: none">
-                              <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "COMPLETE_WARNING") %>
+                              <%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "COMPLETE_WARNING") %>
                           </div>
                           <div class="fileupload-buttons">
                               <span class="btn btn-success fileinput-button">
@@ -28,7 +29,7 @@
                                   <input type="file" name="files[]" multiple>
                               </span>
                               <button type="submit" class="btn btn-primary start">
-                                  <i class="fa fa-upload fa-fw"></i><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %>
+                                  <i class="fa fa-upload fa-fw"></i><%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "START_UPLOADS") %>
                               </button>
                               <span class="fileupload-process"></span>
                           </div>
@@ -58,7 +59,7 @@
                 <button class="start" disabled style="display:none">Start</button>
             {% } %}
                       {% if (!i) { %}
-                                      <button class="btn btn-danger cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
+                                      <button class="btn btn-danger cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText(page: "COMMON", tag: "CANCEL") %></button>
                                   {% } %}
                               </td>
                           </tr>

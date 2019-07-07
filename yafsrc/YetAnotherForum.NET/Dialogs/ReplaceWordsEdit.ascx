@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ReplaceWordsEdit.ascx.cs" Inherits="YAF.Dialogs.ReplaceWordsEdit" %>
 
+
 <div class="modal fade" id="ReplaceWordsEditDialog" tabindex="-1" role="dialog" aria-labelledby="ReplaceWordsEditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 

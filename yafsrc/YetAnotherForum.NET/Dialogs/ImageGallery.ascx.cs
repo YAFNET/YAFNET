@@ -30,6 +30,7 @@ namespace YAF.Dialogs
     using System;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
 
     #endregion
@@ -47,7 +48,7 @@ namespace YAF.Dialogs
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            base.OnPreRender(e);
+            base.OnPreRender(e: e);
         }
     }
 }

@@ -18,8 +18,7 @@
                 <div class="card-body">
              
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="CATEGORY" LocalizedPage="ADMIN_EDITFORUM" />
-             
-            <p>
+                    <p>
                 <asp:DropDownList ID="CategoryList" runat="server" OnSelectedIndexChanged="CategoryChange"
                     DataValueField="ID" DataTextField="Name" CssClass="custom-select">
                 </asp:DropDownList>

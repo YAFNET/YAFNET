@@ -10,7 +10,7 @@
 namespace YAF.Pages {
     
     
-    public partial class ViewThanks {
+    public partial class cp_blockoptions {
         
         /// <summary>
         /// PageLinks control.
@@ -22,22 +22,13 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// LocalizedLabel6 control.
+        /// LocalizedLabel11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
-        
-        /// <summary>
-        /// MenuHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MenuHolder;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
         
         /// <summary>
         /// ProfileMenu1 control.
@@ -49,22 +40,67 @@ namespace YAF.Pages {
         protected global::YAF.Controls.ProfileMenu ProfileMenu1;
         
         /// <summary>
-        /// ThanksTabs control.
+        /// LocalizedLabel12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ThanksTabs;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// LocalizedLabel200 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel200;
+        
+        /// <summary>
+        /// BlockPMs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox BlockPMs;
+        
+        /// <summary>
+        /// BlockFriendRequests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox BlockFriendRequests;
+        
+        /// <summary>
+        /// BlockEmails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox BlockEmails;
+        
+        /// <summary>
+        /// SaveUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton SaveUser;
+        
+        /// <summary>
+        /// IgnoredUserHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder IgnoredUserHolder;
         
         /// <summary>
         /// LocalizedLabel1 control.
@@ -76,48 +112,12 @@ namespace YAF.Pages {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// UserIgnoredList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
-        
-        /// <summary>
-        /// ThanksFromList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ViewThanksList ThanksFromList;
-        
-        /// <summary>
-        /// LocalizedLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
-        
-        /// <summary>
-        /// ThanksToList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ViewThanksList ThanksToList;
-        
-        /// <summary>
-        /// hidLastTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
+        protected global::System.Web.UI.WebControls.Repeater UserIgnoredList;
     }
 }

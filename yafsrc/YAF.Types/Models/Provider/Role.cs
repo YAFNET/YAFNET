@@ -62,9 +62,11 @@ namespace YAF.Types.Models.Provider
 
         [Required]
         [Index]
+        [StringLength(256)]
         public string RoleName { get; set; }
 
         [Required]
+        [StringLength(256)]
         public string RoleNameLwd { get; set; }
 
         #endregion

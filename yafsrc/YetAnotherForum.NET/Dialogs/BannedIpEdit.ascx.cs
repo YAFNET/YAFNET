@@ -31,6 +31,7 @@ namespace YAF.Dialogs
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -58,9 +59,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? BannedId
         {
-            get => this.ViewState["BannedId"].ToType<int?>();
+            get => this.ViewState[key: "BannedId"].ToType<int?>();
 
-            set => this.ViewState["BannedId"] = value;
+            set => this.ViewState[key: "BannedId"] = value;
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace YAF.Dialogs
             if (this.BannedId.HasValue)
             {
                 // Edit
-                var banned = this.GetRepository<BannedIP>().GetById(this.BannedId.Value);
+                var banned = this.GetRepository<BannedIP>().GetById(id: this.BannedId.Value);
 
                 if (banned != null)
                 {
@@ -113,14 +114,14 @@ namespace YAF.Dialogs
 
             if (ipParts.Length != 4)
             {
-                ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"));
+                ipError.AppendLine(value: this.GetText(page: "ADMIN_BANNEDIP_EDIT", tag: "INVALID_ADRESS"));
             }
 
             foreach (var ip in ipParts)
             {
                 // see if they are numbers...
                 ulong number;
-                if (!ulong.TryParse(ip, out number))
+                if (!ulong.TryParse(s: ip, result: out number))
                 {
                     if (ip.Trim() == "*")
                     {
@@ -129,11 +130,11 @@ namespace YAF.Dialogs
 
                     if (ip.Trim().Length != 0)
                     {
-                        ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
+                        ipError.AppendFormat(format: this.GetText(page: "ADMIN_BANNEDIP_EDIT", tag: "INVALID_SECTION"), arg0: ip);
                     }
                     else
                     {
-                        ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
+                        ipError.AppendLine(value: this.GetText(page: "ADMIN_BANNEDIP_EDIT", tag: "INVALID_VALUE"));
                     }
 
                     break;
@@ -142,32 +143,32 @@ namespace YAF.Dialogs
                 // try parse succeeded... verify number amount...
                 if (number > 255)
                 {
-                    ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
+                    ipError.AppendFormat(format: this.GetText(page: "ADMIN_BANNEDIP_EDIT", tag: "INVALID_LESS"), arg0: ip);
                 }
             }
 
             // show error(s) if not valid...
             if (ipError.Length > 0)
             {
-                this.PageContext.AddLoadMessage(ipError.ToString());
+                this.PageContext.AddLoadMessage(message: ipError.ToString());
                 return;
             }
 
             this.GetRepository<BannedIP>().Save(
-                this.BannedId,
-                this.mask.Text.Trim(),
-                this.BanReason.Text.Trim(),
-                this.PageContext.PageUserID);
+                id: this.BannedId,
+                mask: this.mask.Text.Trim(),
+                reason: this.BanReason.Text.Trim(),
+                userId: this.PageContext.PageUserID);
 
             if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
-                    $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
-                    EventLogTypes.IpBanSet);
+                    message: $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
+                    eventType: EventLogTypes.IpBanSet);
             }
 
             // go back to banned IP's administration page
-            YafBuildLink.Redirect(ForumPages.admin_bannedip);
+            YafBuildLink.Redirect(page: ForumPages.admin_bannedip);
         }
 
         #endregion

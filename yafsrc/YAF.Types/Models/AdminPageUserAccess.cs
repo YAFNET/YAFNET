@@ -56,6 +56,7 @@ namespace YAF.Types.Models
         public int UserID { get; set; }
 
         [Required]
+        [StringLength(128)]
         public string PageName { get; set; }
 
         #endregion

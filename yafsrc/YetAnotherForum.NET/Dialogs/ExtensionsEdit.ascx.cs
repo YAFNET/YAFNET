@@ -29,6 +29,7 @@ namespace YAF.Dialogs
     using System;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -55,9 +56,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ExtensionId
         {
-            get => this.ViewState["ExtensionId"].ToType<int?>();
+            get => this.ViewState[key: "ExtensionId"].ToType<int?>();
 
-            set => this.ViewState["ExtensionId"] = value;
+            set => this.ViewState[key: "ExtensionId"] = value;
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace YAF.Dialogs
             if (this.ExtensionId.HasValue)
             {
                 // Edit
-                var exten = this.GetRepository<FileExtension>().GetById(this.ExtensionId.Value);
+                var exten = this.GetRepository<FileExtension>().GetById(id: this.ExtensionId.Value);
 
                 if (exten != null)
                 {
@@ -107,13 +108,13 @@ namespace YAF.Dialogs
         {
             if (newExtension.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EXTENSIONS_EDIT", "MSG_ENTER"));
+                this.PageContext.AddLoadMessage(message: this.GetText(page: "ADMIN_EXTENSIONS_EDIT", tag: "MSG_ENTER"));
                 return false;
             }
 
-            if (newExtension.IndexOf('.') != -1)
+            if (newExtension.IndexOf(value: '.') != -1)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EXTENSIONS_EDIT", "MSG_REMOVE"));
+                this.PageContext.AddLoadMessage(message: this.GetText(page: "ADMIN_EXTENSIONS_EDIT", tag: "MSG_REMOVE"));
                 return false;
             }
 
@@ -130,14 +131,14 @@ namespace YAF.Dialogs
         {
             var fileExtension = this.extension.Text.Trim();
 
-            if (this.IsValidExtension(fileExtension))
+            if (this.IsValidExtension(newExtension: fileExtension))
             {
                 this.GetRepository<FileExtension>().Save(
-                    this.ExtensionId,
-                    fileExtension,
-                    this.PageContext.PageBoardID);
+                    id: this.ExtensionId,
+                    extension: fileExtension,
+                    boardId: this.PageContext.PageBoardID);
 
-                YafBuildLink.Redirect(ForumPages.admin_extensions);
+                YafBuildLink.Redirect(page: ForumPages.admin_extensions);
             }
         }
 

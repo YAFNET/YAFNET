@@ -323,6 +323,11 @@ namespace YAF.Core
         public string ThemeFile => this.DBRow.Field<string>("ThemeFile");
 
         /// <summary>
+        /// The block.
+        /// </summary>
+        public UserBlockFlags Block => new UserBlockFlags(this.DBRow.Field<int>("BlockFlags"));
+
+        /// <summary>
         ///   Gets TimeZone.
         /// </summary>
         public TimeZoneInfo TimeZoneInfo

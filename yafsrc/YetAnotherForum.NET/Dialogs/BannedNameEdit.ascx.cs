@@ -29,6 +29,7 @@ namespace YAF.Dialogs
     using System;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -55,9 +56,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? BannedId
         {
-            get => this.ViewState["BannedId"].ToType<int?>();
+            get => this.ViewState[key: "BannedId"].ToType<int?>();
 
-            set => this.ViewState["BannedId"] = value;
+            set => this.ViewState[key: "BannedId"] = value;
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace YAF.Dialogs
             if (this.BannedId.HasValue)
             {
                 // Edit
-                var banned = this.GetRepository<BannedName>().GetById(this.BannedId.Value);
+                var banned = this.GetRepository<BannedName>().GetById(id: this.BannedId.Value);
 
                 if (banned != null)
                 {
@@ -106,12 +107,12 @@ namespace YAF.Dialogs
             if (this.mask.Text.IsSet())
             {
                 this.GetRepository<BannedName>().Save(
-                    this.BannedId,
-                    this.mask.Text.Trim(),
-                    this.BanReason.Text.Trim());
+                    id: this.BannedId,
+                    mask: this.mask.Text.Trim(),
+                    reason: this.BanReason.Text.Trim());
 
                 // go back to banned IP's administration page
-                YafBuildLink.Redirect(ForumPages.admin_bannedname);
+                YafBuildLink.Redirect(page: ForumPages.admin_bannedname);
             }
         }
 

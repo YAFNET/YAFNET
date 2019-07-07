@@ -32,6 +32,7 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Classes;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -113,18 +114,11 @@ namespace YAF.Core
         /// Returns the Found User
         /// </returns>
         [NotNull]
-        public IDictionary<int, string> Find([NotNull] string contains)
+        public IList<User> Find([NotNull] string contains)
         {
-            IList<User> found;
-
-            if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
-            {
-                found = this.GetRepository<User>().FindUserTyped(filter: true, displayName: contains);
-                return found.ToDictionary(k => k.ID, v => v.DisplayName);
-            }
-
-            found = this.GetRepository<User>().FindUserTyped(filter: true, userName: contains);
-            return found.ToDictionary(k => k.ID, v => v.Name);
+            return YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+                       ? this.GetRepository<User>().Get(u => u.DisplayName.Contains(contains))
+                       : this.GetRepository<User>().Get(u => u.Name.Contains(contains));
         }
 
         /// <summary>

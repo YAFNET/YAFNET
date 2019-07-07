@@ -31,6 +31,7 @@ namespace YAF.Dialogs
     using System.Web;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -53,11 +54,11 @@ namespace YAF.Dialogs
         public ForumLink CancelButtonLink
         {
             get =>
-                this.ViewState["CancelButtonLink"] != null
-                    ? (ForumLink)this.ViewState["CancelButtonLink"]
+                this.ViewState[key: "CancelButtonLink"] != null
+                    ? (ForumLink)this.ViewState[key: "CancelButtonLink"]
                     : new ForumLink();
 
-            set => this.ViewState["CancelButtonLink"] = value;
+            set => this.ViewState[key: "CancelButtonLink"] = value;
         }
 
         /// <summary>
@@ -66,11 +67,11 @@ namespace YAF.Dialogs
         public ForumLink OkButtonLink
         {
             get =>
-                this.ViewState["OkButtonLink"] != null
-                    ? (ForumLink)this.ViewState["OkButtonLink"]
+                this.ViewState[key: "OkButtonLink"] != null
+                    ? (ForumLink)this.ViewState[key: "OkButtonLink"]
                     : new ForumLink();
 
-            set => this.ViewState["OkButtonLink"] = value;
+            set => this.ViewState[key: "OkButtonLink"] = value;
         }
 
         #endregion
@@ -91,9 +92,9 @@ namespace YAF.Dialogs
             [NotNull] DialogButton cancelButton)
         {
             // Message Header
-            this.Header.Text = !string.IsNullOrEmpty(title)
+            this.Header.Text = !string.IsNullOrEmpty(value: title)
                                    ? title
-                                   : this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+                                   : this.GetText(page: "COMMON", tag: "MODAL_NOTIFICATION_HEADER");
 
             // Message Text
             this.MessageText.Text = message;
@@ -110,7 +111,7 @@ namespace YAF.Dialogs
                 }
                 else
                 {
-                    okButton.Text = this.GetText("COMMON", "OK");
+                    okButton.Text = this.GetText(page: "COMMON", tag: "OK");
                 }
 
                 this.OkButton.CssClass = okButton.CssClass.IsSet() ? okButton.CssClass : "btn btn-primary";
@@ -126,11 +127,11 @@ namespace YAF.Dialogs
 
                 this.CancelButton.Text = cancelButton.Text.IsSet()
                                              ? cancelButton.Text
-                                             : this.GetText("COMMON", "CANCEL");
+                                             : this.GetText(page: "COMMON", tag: "CANCEL");
 
                 this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "btn btn-secondary";
 
-                if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+                if (this.CancelButtonLink.ForumPage.Equals(obj: YafContext.Current.ForumPageType))
                 {
                     this.CancelButton.OnClientClick =
                         $"jQuery('#{this.YafForumPageErrorPopup.ClientID}').modal('hide');return false;";
@@ -150,15 +151,15 @@ namespace YAF.Dialogs
 
             var script = new StringBuilder();
 
-            script.Append("Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(ShowNotificationPopup);");
+            script.Append(value: "Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(ShowNotificationPopup);");
 
             script.AppendFormat(
-                "function ShowNotificationPopup() {{ jQuery(document).ready(function() {{jQuery('#{0}').modal('show');return false; }});}}",
-                this.YafForumPageErrorPopup.ClientID);
+                format: "function ShowNotificationPopup() {{ jQuery(document).ready(function() {{jQuery('#{0}').modal('show');return false; }});}}",
+                arg0: this.YafForumPageErrorPopup.ClientID);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(this.Page, $"PopUp{Guid.NewGuid()}", script.ToString());
+            this.PageContext.PageElements.RegisterJsBlockStartup(thisControl: this.Page, name: $"PopUp{Guid.NewGuid()}", script: script.ToString());
 
-            if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+            if (this.OkButtonLink.ForumPage.Equals(obj: YafContext.Current.ForumPageType))
             {
                 this.OkButton.OnClientClick =
                     $"jQuery('#{this.YafForumPageErrorPopup.ClientID}').modal('hide');return false;";
@@ -184,10 +185,10 @@ namespace YAF.Dialogs
         /// </param>
         protected void CancelButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+            if (this.CancelButtonLink.ForumPage.Equals(obj: YafContext.Current.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all querystrings
-                this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());
+                this.Get<HttpResponseBase>().Redirect(url: this.Get<HttpRequestBase>().Url.ToString());
             }
             else
             {
@@ -195,13 +196,13 @@ namespace YAF.Dialogs
                     !this.CancelButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
                 {
                     YafBuildLink.Redirect(
-                        this.CancelButtonLink.ForumPage,
-                        this.CancelButtonLink.ForumLinkFormat,
-                        this.CancelButtonLink.ForumLinkArgs);
+                        page: this.CancelButtonLink.ForumPage,
+                        format: this.CancelButtonLink.ForumLinkFormat,
+                        args: this.CancelButtonLink.ForumLinkArgs);
                 }
                 else
                 {
-                    YafBuildLink.Redirect(this.CancelButtonLink.ForumPage);
+                    YafBuildLink.Redirect(page: this.CancelButtonLink.ForumPage);
                 }
             }
         }
@@ -217,21 +218,21 @@ namespace YAF.Dialogs
         /// </param>
         protected void OkButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+            if (this.OkButtonLink.ForumPage.Equals(obj: YafContext.Current.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all querystrings
-                this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());
+                this.Get<HttpResponseBase>().Redirect(url: this.Get<HttpRequestBase>().Url.ToString());
             }
             else
             {
                 if (this.OkButtonLink.ForumLinkFormat.IsSet() && !this.OkButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
                 {
                     YafBuildLink.Redirect(
-                        this.OkButtonLink.ForumPage, this.OkButtonLink.ForumLinkFormat, this.OkButtonLink.ForumLinkArgs);
+                        page: this.OkButtonLink.ForumPage, format: this.OkButtonLink.ForumLinkFormat, args: this.OkButtonLink.ForumLinkArgs);
                 }
                 else
                 {
-                    YafBuildLink.Redirect(this.OkButtonLink.ForumPage);
+                    YafBuildLink.Redirect(page: this.OkButtonLink.ForumPage);
                 }
             }
         }

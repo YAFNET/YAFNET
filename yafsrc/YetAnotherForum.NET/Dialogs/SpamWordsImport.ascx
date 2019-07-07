@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SpamWordsImport.ascx.cs" Inherits="YAF.Dialogs.SpamWordsImport" %>
 
+
 <div class="modal fade" id="SpamWordsImportDialog" tabindex="-1" role="dialog" aria-labelledby="SpamWordsImportDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 

@@ -57,9 +57,11 @@ namespace YAF.Types.Models
         [References(typeof(User))]
         public int? UserID { get; set; }
 
+        [StringLength(100)]
         public string UserName { get; set; }
 
         [Required]
+        [StringLength(50)]
         public string Source { get; set; }
 
         public string Description { get; set; }

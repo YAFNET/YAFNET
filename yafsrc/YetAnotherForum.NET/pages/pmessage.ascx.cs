@@ -29,6 +29,7 @@ namespace YAF.Pages
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
@@ -40,7 +41,6 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -229,20 +229,20 @@ namespace YAF.Pages
         {
             if (this.To.Text.Length < 2)
             {
-                // need at least 2 latters of user's name
+                // need at least 2 letters of user's name
                 YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
                 return;
             }
 
             // try to find users by user name
-            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim());
+            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim()).Where(u => !u.Block.BlockPMs).ToList();
 
             if (usersFound.Count > 0)
             {
                 // we found a user(s)
                 this.ToList.DataSource = usersFound;
-                this.ToList.DataValueField = "Key";
-                this.ToList.DataTextField = "Value";
+                this.ToList.DataValueField = "ID";
+                this.ToList.DataTextField = this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
                 this.ToList.DataBind();
 
                 // ToList.SelectedIndex = 0;

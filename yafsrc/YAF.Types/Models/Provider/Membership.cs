@@ -54,6 +54,7 @@ namespace YAF.Types.Models.Provider
         [Required]
         [Index(Clustered = true)]
 
+        [StringLength(64)]
         public string Id { get; set; }
 
         [Required]
@@ -62,24 +63,33 @@ namespace YAF.Types.Models.Provider
 
         [Required]
         [Index]
+        [StringLength(256)]
         public string Username { get; set; }
 
         [Required]
+        [StringLength(256)]
         public string UsernameLwd { get; set; }
 
+        [StringLength(256)]
         public string Password { get; set; }
 
+        [StringLength(256)]
         public string PasswordSalt { get; set; }
 
+        [StringLength(256)]
         public string PasswordFormat { get; set; }
 
         [Index]
+        [StringLength(256)]
         public string Email { get; set; }
 
+        [StringLength(256)]
         public string EmailLwd { get; set; }
 
+        [StringLength(256)]
         public string PasswordQuestion { get; set; }
 
+        [StringLength(256)]
         public string PasswordAnswer { get; set; }
 
         public bool? IsApproved { get; set; }

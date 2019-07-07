@@ -383,6 +383,7 @@ namespace YAF.Core.Services
                         row.Field<int>("ModeratorID"),
                         row.Field<string>("ModeratorName"),
                         row.Field<string>("ModeratorEmail"),
+                        row.Field<int>("ModeratorBlockFlags"),
                         row.Field<string>("ModeratorAvatar"),
                         row.Field<bool>("ModeratorAvatarImage"),
                         row.Field<string>("ModeratorDisplayName"),

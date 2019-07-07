@@ -53,6 +53,7 @@ namespace YAF.Types.Models.Provider
         [Alias("UserID")]
         [Required]
         [Index(Clustered = true)]
+        [StringLength(64)]
         public string Id { get; set; }
 
         [Required]

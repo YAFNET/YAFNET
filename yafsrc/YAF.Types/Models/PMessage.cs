@@ -55,6 +55,7 @@ namespace YAF.Types.Models
         [Required]
         public DateTime Created { get; set; }
         [Required]
+        [StringLength(100)]
         public string Subject { get; set; }
         public string Body { get; set; }
         [Required]

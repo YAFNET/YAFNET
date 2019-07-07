@@ -40,7 +40,7 @@ namespace YAF.Modules
     /// <summary>
     /// Page Logo Handler Module
     /// </summary>
-    [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Page Logo Handler Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class PageLogoHandlerForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -75,15 +75,15 @@ namespace YAF.Modules
         /// </param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
+            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>(id: "BannerLink");
 
             if (bannerLink == null)
             {
                 return;
             }
 
-            bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
-            bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
+            bannerLink.NavigateUrl = YafBuildLink.GetLink(page: ForumPages.forum);
+            bannerLink.ToolTip = this.GetText(page: "TOOLBAR", tag: "FORUM_TITLE");
 
             if (!this.CurrentForumPage.ShowToolBar)
             {

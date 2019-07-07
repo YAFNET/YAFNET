@@ -113,9 +113,9 @@ namespace YAF.Pages.Admin
                     {
                         var userFound = this.Get<IUserDisplayName>().Find(commandArgument[1]).FirstOrDefault();
 
-                        var user = this.Get<MembershipProvider>().GetUser(userFound.Value, false);
+                        var user = this.Get<MembershipProvider>().GetUser(userFound.Name, false);
 
-                        this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.Key);
+                        this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
                     }
 
                     break;

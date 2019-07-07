@@ -41,7 +41,7 @@ namespace YAF.Modules
     /// <summary>
     /// Suspend Check Forum Module
     /// </summary>
-    [YafModule("Suspend Check Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Suspend Check Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class SuspendCheckForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields
@@ -91,23 +91,23 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
-                <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
+            if (this.Get<IDateTime>().GetUserDateTime(dateTime: this.PageContext.SuspendedUntil)
+                <= this.Get<IDateTime>().GetUserDateTime(dateTime: DateTime.UtcNow))
             {
-                this.GetRepository<User>().Suspend(this.PageContext.PageUserID);
+                this.GetRepository<User>().Suspend(userId: this.PageContext.PageUserID);
 
                 this.Get<ISendNotification>()
                     .SendUserSuspensionEndedNotification(
-                        this.PageContext.CurrentUserData.Email,
-                        this.PageContext.BoardSettings.EnableDisplayName
+                        email: this.PageContext.CurrentUserData.Email,
+                        userName: this.PageContext.BoardSettings.EnableDisplayName
                             ? this.PageContext.CurrentUserData.DisplayName
                             : this.PageContext.CurrentUserData.UserName);
 
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+                this.Get<IRaiseEvent>().Raise(eventObject: new UpdateUserEvent(userId: this.PageContext.PageUserID));
             }
             else
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.Suspended);
+                YafBuildLink.RedirectInfoPage(infoMessage: InfoMessage.Suspended);
             }
         }
 

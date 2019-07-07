@@ -59,6 +59,7 @@ namespace YAF.Types.Models
         public int BoardID { get; set; }
 
         [Required]
+        [StringLength(255)]
         public string Name { get; set; }
 
         [Ignore]
@@ -78,6 +79,7 @@ namespace YAF.Types.Models
         public int PMLimit { get; set; }
 
         [Index]
+        [StringLength(255)]
         public string Style { get; set; }
 
         [Required]
@@ -85,14 +87,17 @@ namespace YAF.Types.Models
         [Default(0)]
         public short SortOrder { get; set; }
 
+        [StringLength(128)]
         public string Description { get; set; }
 
         [Required]
         [Default(0)]
         public int UsrSigChars { get; set; }
 
+        [StringLength(255)]
         public string UsrSigBBCodes { get; set; }
 
+        [StringLength(255)]
         public string UsrSigHTMLTags { get; set; }
 
         [Required]

@@ -29,6 +29,7 @@ namespace YAF.Dialogs
     using System;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -55,9 +56,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? MedalId
         {
-            get => this.ViewState["MedalId"].ToType<int?>();
+            get => this.ViewState[key: "MedalId"].ToType<int?>();
 
-            set => this.ViewState["MedalId"] = value;
+            set => this.ViewState[key: "MedalId"] = value;
         }
 
         /// <summary>
@@ -65,9 +66,9 @@ namespace YAF.Dialogs
         /// </summary>
         public int? GroupId
         {
-            get => this.ViewState["GroupId"].ToType<int?>();
+            get => this.ViewState[key: "GroupId"].ToType<int?>();
 
-            set => this.ViewState["GroupId"] = value;
+            set => this.ViewState[key: "GroupId"] = value;
         }
 
         /// <summary>
@@ -110,30 +111,30 @@ namespace YAF.Dialogs
             {
                 // Edit
                 // load group-medal to the controls
-                var row = this.GetRepository<Medal>().GroupMedalListAsDataTable(this.GroupId, this.MedalId)
+                var row = this.GetRepository<Medal>().GroupMedalListAsDataTable(groupID: this.GroupId, medalID: this.MedalId)
                     .GetFirstRow();
 
                 // tweak it for editing
-                this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_GROUP");
+                this.GroupMedalEditTitle.Text = this.GetText(page: "ADMIN_EDITMEDAL", tag: "EDIT_MEDAL_GROUP");
                 this.AvailableGroupList.Enabled = false;
 
                 // load data to controls
                 this.AvailableGroupList.SelectedIndex = -1;
-                this.AvailableGroupList.Items.FindByValue(row["GroupID"].ToString()).Selected = true;
-                this.GroupMessage.Text = row["Message"].ToString();
-                this.GroupSortOrder.Text = row["SortOrder"].ToString();
-                this.GroupOnlyRibbon.Checked = row["OnlyRibbon"].ToType<bool>();
-                this.GroupHide.Checked = row["Hide"].ToType<bool>();
+                this.AvailableGroupList.Items.FindByValue(value: row[columnName: "GroupID"].ToString()).Selected = true;
+                this.GroupMessage.Text = row[columnName: "Message"].ToString();
+                this.GroupSortOrder.Text = row[columnName: "SortOrder"].ToString();
+                this.GroupOnlyRibbon.Checked = row[columnName: "OnlyRibbon"].ToType<bool>();
+                this.GroupHide.Checked = row[columnName: "Hide"].ToType<bool>();
 
                 // remove all user medals...
                 this.Get<IDataCache>().Remove(
-                    k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+                    whereFunc: k => k.StartsWith(value: string.Format(format: Constants.Cache.UserMedals, arg0: string.Empty)));
             }
             else
             {
                 // Add
                 // set title
-                this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_TOGROUP");
+                this.GroupMedalEditTitle.Text = this.GetText(page: "ADMIN_EDITMEDAL", tag: "ADD_TOGROUP");
             }
         }
 
@@ -148,21 +149,21 @@ namespace YAF.Dialogs
             if (this.AvailableGroupList.SelectedIndex < 0)
             {
                 // no group selected
-                this.PageContext.AddLoadMessage("Please select user group!", MessageTypes.warning);
+                this.PageContext.AddLoadMessage(message: "Please select user group!", messageType: MessageTypes.warning);
                 return;
             }
 
             // save group, if there is no message specified, pass null
             this.GetRepository<Medal>().GroupMedalSave(
-                this.AvailableGroupList.SelectedValue,
-                this.MedalId,
-                this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
-                this.GroupHide.Checked,
-                this.GroupOnlyRibbon.Checked,
-                this.GroupSortOrder.Text);
+                groupID: this.AvailableGroupList.SelectedValue,
+                medalID: this.MedalId,
+                message: this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
+                hide: this.GroupHide.Checked,
+                onlyRibbon: this.GroupOnlyRibbon.Checked,
+                sortOrder: this.GroupSortOrder.Text);
 
             // re-bind data
-            YafBuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", this.MedalId.Value);
+            YafBuildLink.Redirect(page: ForumPages.admin_editmedal, format: "medalid={0}", this.MedalId.Value);
         }
 
         #endregion

@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UsersImport.ascx.cs" Inherits="YAF.Dialogs.UsersImport" %>
 
+
 <div class="modal fade" id="UsersImportDialog" tabindex="-1" role="dialog" aria-labelledby="UsersImportDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 

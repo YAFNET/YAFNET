@@ -40,7 +40,7 @@ namespace YAF.Modules
   /// <summary>
   /// The clear cache on events.
   /// </summary>
-  [ExportService(ServiceLifetimeScope.InstancePerScope)]
+  [ExportService(serviceLifetimeScope: ServiceLifetimeScope.InstancePerScope)]
   public class ClearCacheOnEvents : IHaveServiceLocator, 
                                     IHandleEvent<SuccessfulUserLoginEvent>, 
                                     IHandleEvent<UpdateUserEvent>, 
@@ -59,8 +59,8 @@ namespace YAF.Modules
     /// </param>
     public ClearCacheOnEvents([NotNull] IServiceLocator serviceLocator, [NotNull] IDataCache dataCache)
     {
-      CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
-      CodeContracts.VerifyNotNull(dataCache, "dataCache");
+      CodeContracts.VerifyNotNull(obj: serviceLocator, argumentName: "serviceLocator");
+      CodeContracts.VerifyNotNull(obj: dataCache, argumentName: "dataCache");
 
       this.ServiceLocator = serviceLocator;
       this.DataCache = dataCache;
@@ -100,8 +100,8 @@ namespace YAF.Modules
     void IHandleEvent<SuccessfulUserLoginEvent>.Handle([NotNull] SuccessfulUserLoginEvent @event)
     {
       // vzrus: to clear the cache to show user in the list at once));
-      this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
-      this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
+      this.DataCache.Remove(key: Constants.Cache.UsersOnlineStatus);
+      this.DataCache.Remove(key: Constants.Cache.ForumActiveDiscussions);
     }
 
     #endregion
@@ -119,18 +119,18 @@ namespace YAF.Modules
       // clear the cache for this user...
       var userId = @event.UserId;
 
-      this.Get<IUserDisplayName>().Clear(userId);
-      this.DataCache.Remove(string.Format(Constants.Cache.UserListForID, userId));
-      this.DataCache.Remove(string.Format(Constants.Cache.UserBuddies, userId));
+      this.Get<IUserDisplayName>().Clear(userId: userId);
+      this.DataCache.Remove(key: string.Format(format: Constants.Cache.UserListForID, arg0: userId));
+      this.DataCache.Remove(key: string.Format(format: Constants.Cache.UserBuddies, arg0: userId));
 
       var cache = this.DataCache.GetOrSet(
-        Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
+        key: Constants.Cache.UserSignatureCache, getValue: () => new MostRecentlyUsed(maxItems: 250), timeout: TimeSpan.FromMinutes(value: 10));
 
       // remove from the the signature cache...
-      cache.Remove(userId);
+      cache.Remove(key: userId);
 
       // Clearing cache with old Active User Lazy Data ...
-      this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
+      this.DataCache.Remove(key: string.Format(format: Constants.Cache.ActiveUserLazyData, arg0: userId));
     }
 
     #endregion
@@ -146,8 +146,8 @@ namespace YAF.Modules
     void IHandleEvent<UserLogoutEvent>.Handle([NotNull] UserLogoutEvent @event)
     {
       // Clearing user cache with permissions data and active users cache...));
-      this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
-      this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+      this.DataCache.Remove(key: string.Format(format: Constants.Cache.ActiveUserLazyData, arg0: @event.UserId));
+      this.DataCache.Remove(key: Constants.Cache.UsersOnlineStatus);
     }
 
     #endregion

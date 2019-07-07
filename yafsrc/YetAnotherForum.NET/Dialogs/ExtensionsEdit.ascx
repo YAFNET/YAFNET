@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ExtensionsEdit.ascx.cs" Inherits="YAF.Dialogs.ExtensionsEdit" %>
 
+
 <div class="modal fade" id="ExtensionsEditDialog" tabindex="-1" role="dialog" aria-labelledby="ExtensionsEditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 

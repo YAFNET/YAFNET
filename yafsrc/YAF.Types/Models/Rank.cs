@@ -66,29 +66,47 @@ namespace YAF.Types.Models
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
+
         [Required]
+        [StringLength(50)]
         public string Name { get; set; }
+
         public int? MinPosts { get; set; }
+
+        [StringLength(50)]
         public string RankImage { get; set; }
+
         [Required]
         [Default(0)]
         public int Flags { get; set; }
 
         [Default(0)]
         public int? PMLimit { get; set; }
+
+        [StringLength(255)]
         public string Style { get; set; }
+
         [Required]
         [Default(0)]
         public short SortOrder { get; set; }
+
+        [StringLength(128)]
         public string Description { get; set; }
+
         [Required]
         [Default(0)]
         public int UsrSigChars { get; set; }
+
+        [StringLength(255)]
         public string UsrSigBBCodes { get; set; }
+
+        [StringLength(255)]
         public string UsrSigHTMLTags { get; set; }
+
         [Required]
         [Default(0)]
         public int UsrAlbums { get; set; }
+
         [Required]
         [Default(0)]
         public int UsrAlbumImages { get; set; }

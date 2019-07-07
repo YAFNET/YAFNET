@@ -29,6 +29,7 @@ namespace YAF.Dialogs
     using System;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Services.Import;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -52,11 +53,11 @@ namespace YAF.Dialogs
         protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // import selected file (if it's the proper format)...
-            if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
+            if (!this.importFile.PostedFile.ContentType.StartsWith(value: "text"))
             {
                 this.PageContext.AddLoadMessage(
-                    string
-                        .Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED"), this.importFile.PostedFile.ContentType));
+                    message: string
+                        .Format(format: this.GetText(page: "ADMIN_BANNEDIP_IMPORT", tag: "IMPORT_FAILED"), arg0: this.importFile.PostedFile.ContentType));
 
                 return;
             }
@@ -64,20 +65,20 @@ namespace YAF.Dialogs
             try
             {
                 var importedCount = DataImport.BannedIpAdressesImport(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID,
-                    this.importFile.PostedFile.InputStream);
+                    boardId: this.PageContext.PageBoardID,
+                    userId: this.PageContext.PageUserID,
+                    inputStream: this.importFile.PostedFile.InputStream);
 
                 this.PageContext.AddLoadMessage(
-                    importedCount > 0
-                        ? string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS"), importedCount)
-                        : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
-                    MessageTypes.success);
+                    message: importedCount > 0
+                        ? string.Format(format: this.GetText(page: "ADMIN_BANNEDIP_IMPORT", tag: "IMPORT_SUCESS"), arg0: importedCount)
+                        : this.GetText(page: "ADMIN_BANNEDIP_IMPORT", tag: "IMPORT_NOTHING"),
+                    messageType: MessageTypes.success);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
+                    message: string.Format(format: this.GetText(page: "ADMIN_BANNEDIP_IMPORT", tag: "IMPORT_FAILED"), arg0: x.Message), messageType: MessageTypes.danger);
             }
         }
 

@@ -61,8 +61,10 @@ namespace YAF.Types.Models
         public int? ParentID { get; set; }
 
         [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
+        [StringLength(255)]
         public string Description { get; set; }
 
         [Required]
@@ -79,8 +81,10 @@ namespace YAF.Types.Models
         [References(typeof(User))]
         public int? LastUserID { get; set; }
 
+        [StringLength(255)]
         public string LastUserName { get; set; }
 
+        [StringLength(255)]
         public string LastUserDisplayName { get; set; }
 
         [Required]
@@ -89,6 +93,7 @@ namespace YAF.Types.Models
         [Required]
         public int NumPosts { get; set; }
 
+        [StringLength(100)]
         public string RemoteURL { get; set; }
 
         [Compute]
@@ -107,13 +112,16 @@ namespace YAF.Types.Models
             set => this.Flags = value.BitValue;
         }
 
+        [StringLength(50)]
         public string ThemeURL { get; set; }
 
         [References(typeof(PollGroupCluster))]
         public int? PollGroupID { get; set; }
 
+        [StringLength(128)]
         public string ImageURL { get; set; }
 
+        [StringLength(255)]
         public string Styles { get; set; }
 
         [Compute]

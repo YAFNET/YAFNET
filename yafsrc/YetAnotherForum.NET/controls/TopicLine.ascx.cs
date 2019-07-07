@@ -7,6 +7,7 @@ namespace YAF.Controls
     using System.Text;
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Exceptions;

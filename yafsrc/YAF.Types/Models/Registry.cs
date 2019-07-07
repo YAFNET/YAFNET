@@ -65,6 +65,7 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         [Index]
+        [StringLength(255)]
         public string Name { get; set; }
 
         /// <summary>

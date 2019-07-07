@@ -34,6 +34,8 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Utilities;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -385,13 +387,15 @@ namespace YAF.Controls
 
             var userId = this.DataRow["UserID"].ToType<int>();
 
-            if (this.Get<YafBoardSettings>().EnableBuddyList &&
-                this.PageContext.PageUserID != userId)
+            if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.PageUserID != userId)
             {
                 // Should we add the "Add Buddy" item?
-                if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest)
+                if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest
+                                                               && !this.GetRepository<User>()
+                                                                   .GetSingle(u => u.ID == userId).Block
+                                                                   .BlockFriendRequests)
                 {
-                    this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-plus");
+                    this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");
                 }
                 else if (this.Get<IBuddy>().IsBuddy(userId, true) && !this.PageContext.IsGuest)
                 {
@@ -399,7 +403,8 @@ namespace YAF.Controls
                     this.PopMenu1.AddClientScriptItemWithPostback(
                         this.GetText("BUDDY", "REMOVEBUDDY"),
                         "removebuddy",
-                        $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}");
+                        $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}",
+                        "fa fa-user-times");
                 }
             }
 
@@ -633,17 +638,21 @@ namespace YAF.Controls
                         this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]);
                     break;
                 case "addbuddy":
-                    this.PopMenu1.RemovePostBackItem("addbuddy");
                     var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
-                    if (Convert.ToBoolean(strBuddyRequest[1]))
+
+                    if (Convert.ToBoolean(strBuddyRequest[1].ToType<int>()))
                     {
                         this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]), MessageTypes.success);
+                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]),
+                            MessageTypes.success);
+
+                        this.PopMenu1.RemovePostBackItem("addbuddy");
 
                         this.PopMenu1.AddClientScriptItemWithPostback(
                             this.GetText("BUDDY", "REMOVEBUDDY"),
                             "removebuddy",
-                            $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}");
+                            $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}",
+                            "fa fa-user-times");
                     }
                     else
                     {
@@ -653,8 +662,12 @@ namespace YAF.Controls
                     break;
                 case "removebuddy":
                     {
+                        this.Get<IBuddy>().Remove(this.PostData.UserId);
+
                         this.PopMenu1.RemovePostBackItem("removebuddy");
-                        this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
+
+                        this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");
+
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted(
                                 "REMOVEBUDDY_NOTIFICATION", this.Get<IBuddy>().Remove(this.PostData.UserId)),

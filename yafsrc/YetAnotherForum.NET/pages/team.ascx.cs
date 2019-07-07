@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -154,6 +155,7 @@ namespace YAF.Pages
                         Name = mod.Name,
                         ModeratorID = mod.ModeratorID,
                         Email = mod.Email,
+                        Block = new UserBlockFlags(mod.BlockFlags),
                         Avatar = mod.Avatar,
                         AvatarImage = mod.AvatarImage,
                         DisplayName = mod.DisplayName,
@@ -302,14 +304,45 @@ namespace YAF.Pages
                 return;
             }
 
+            var blockFlags = new UserBlockFlags(itemDataItem.Row["BlockFlags"].ToType<int>());
+            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
+
             pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+
+            if (pm.Visible)
+            {
+                if (blockFlags.BlockPMs)
+                {
+                    pm.Visible = false;
+                }
+
+                if (this.PageContext.IsAdmin || isFriend)
+                {
+                    pm.Visible = true;
+                }
+            }
+
             pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
             email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
-            email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
-            email.ParamTitle0 = displayName;
+
+            if (email.Visible)
+            {
+                if (blockFlags.BlockEmails)
+                {
+                    email.Visible = false;
+                }
+
+                if (this.PageContext.IsAdmin && isFriend)
+                {
+                    email.Visible = true;
+                }
+
+                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.ParamTitle0 = displayName;
+            }
         }
 
         /// <summary>
@@ -359,12 +392,12 @@ namespace YAF.Pages
             adminUserButton.Visible = this.PageContext.IsAdmin;
 
             var itemDataItem = (Moderator)e.Item.DataItem;
-            var userid = itemDataItem.ModeratorID;
+            var userid = itemDataItem.ModeratorID.ToType<int>();
             var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
 
             var modAvatar = e.Item.FindControlAs<Image>("ModAvatar");
 
-            modAvatar.ImageUrl = this.GetAvatarUrlFileName(userid.ToType<int>(), itemDataItem.Avatar, itemDataItem.AvatarImage, itemDataItem.Email);
+            modAvatar.ImageUrl = this.GetAvatarUrlFileName(userid, itemDataItem.Avatar, itemDataItem.AvatarImage, itemDataItem.Email);
 
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;
@@ -374,14 +407,45 @@ namespace YAF.Pages
                 return;
             }
 
+
+            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
+
             pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+
+            if (pm.Visible)
+            {
+                if (mod.Block.BlockPMs)
+                {
+                    pm.Visible = false;
+                }
+
+                if (this.PageContext.IsAdmin || isFriend)
+                {
+                    pm.Visible = true;
+                }
+            }
+
             pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
             email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
-            email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
-            email.ParamTitle0 = displayName;
+
+            if (email.Visible)
+            {
+                if (mod.Block.BlockEmails && !this.PageContext.IsAdmin)
+                {
+                    email.Visible = false;
+                }
+
+                if (this.PageContext.IsAdmin || isFriend)
+                {
+                    email.Visible = true;
+                }
+
+                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.ParamTitle0 = displayName;
+            }
         }
 
         /// <summary>
@@ -430,6 +494,8 @@ namespace YAF.Pages
             ///   Gets or sets The Moderator Email
             /// </summary>
             public string Email { get; set; }
+
+            public UserBlockFlags Block { get; set; }
 
             /// <summary>
             ///   Gets or sets The Moderator Avatar

@@ -58,11 +58,13 @@ namespace YAF.Types.Models
 
         [Required]
         [Index]
+        [StringLength(128)]
         public string Name { get; set; }
 
         [Required]
         public short SortOrder { get; set; }
 
+        [StringLength(255)]
         public string CategoryImage { get; set; }
 
         [References(typeof(PollGroupCluster))]

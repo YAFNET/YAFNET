@@ -51,10 +51,12 @@ namespace YAF.Types.Models
         public int MessageID { get; set; }
         public string Message { get; set; }
         [Required]
+        [StringLength(39)]
         public string IP { get; set; }
         [Required]
         public DateTime Edited { get; set; }
         public int? EditedBy { get; set; }
+        [StringLength(100)]
         public string EditReason { get; set; }
         [Required]
         [Default(0)]

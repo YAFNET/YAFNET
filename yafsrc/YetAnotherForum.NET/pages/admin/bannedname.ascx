@@ -30,9 +30,12 @@
                     </p>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="search" runat="server"  Type="Primary" Size="Small"
-                        TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
-                        OnClick="Search_Click">
+                    <YAF:ThemeButton ID="search" runat="server" 
+                                     Type="Primary" 
+                                     Size="Small"
+                                     TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" 
+                                     Icon="search"
+                                     OnClick="Search_Click">
                     </YAF:ThemeButton>
                 </div>
             </div>

@@ -29,6 +29,7 @@ namespace YAF.Dialogs
     using System;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -55,9 +56,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ServerId
         {
-            get => this.ViewState["ServerId"].ToType<int?>();
+            get => this.ViewState[key: "ServerId"].ToType<int?>();
 
-            set => this.ViewState["ServerId"] = value;
+            set => this.ViewState[key: "ServerId"] = value;
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace YAF.Dialogs
             if (this.ServerId.HasValue)
             {
                 // Edit
-                var row = this.GetRepository<NntpServer>().GetById(this.ServerId.Value);
+                var row = this.GetRepository<NntpServer>().GetById(id: this.ServerId.Value);
 
                 this.Name.Text = row.Name;
                 this.Address.Text = row.Address;
@@ -109,29 +110,29 @@ namespace YAF.Dialogs
             if (this.Name.Text.Trim().Length == 0)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_NAME"),
-                    MessageTypes.danger);
+                    message: this.GetText(page: "ADMIN_EDITNNTPSERVER", tag: "MSG_SERVER_NAME"),
+                    messageType: MessageTypes.danger);
                 return;
             }
 
             if (this.Address.Text.Trim().Length == 0)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_ADR"),
-                    MessageTypes.danger);
+                    message: this.GetText(page: "ADMIN_EDITNNTPSERVER", tag: "MSG_SERVER_ADR"),
+                    messageType: MessageTypes.danger);
                 return;
             }
 
             this.GetRepository<NntpServer>().Save(
-                this.ServerId,
-                this.PageContext.PageBoardID,
-                this.Name.Text,
-                this.Address.Text,
-                this.Port.Text.Length > 0 ? this.Port.Text.ToType<int?>() : null,
-                this.UserName.Text.Length > 0 ? this.UserName.Text : null,
-                this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
+                nntpServerId: this.ServerId,
+                boardId: this.PageContext.PageBoardID,
+                name: this.Name.Text,
+                address: this.Address.Text,
+                port: this.Port.Text.Length > 0 ? this.Port.Text.ToType<int?>() : null,
+                userName: this.UserName.Text.Length > 0 ? this.UserName.Text : null,
+                userPass: this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
 
-            YafBuildLink.Redirect(ForumPages.admin_nntpservers);
+            YafBuildLink.Redirect(page: ForumPages.admin_nntpservers);
         }
 
         #endregion

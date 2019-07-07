@@ -59,13 +59,16 @@ namespace YAF.Types.Models
 
         [Alias("Choice")]
         [Required]
+        [StringLength(50)]
         public string ChoiceName { get; set; }
 
         [Required]
         public int Votes { get; set; }
 
+        [StringLength(255)]
         public string ObjectPath { get; set; }
 
+        [StringLength(50)]
         public string MimeType { get; set; }
 
         #endregion

@@ -54,10 +54,13 @@ namespace YAF.Types.Models
         public int BoardID { get; set; }
 
         [Required]
+        [StringLength(255)]
         public string Name { get; set; }
 
+        [StringLength(4000)]
         public string Description { get; set; }
 
+        [StringLength(1000)]
         public string OnClickJS { get; set; }
 
         public string DisplayJS { get; set; }
@@ -70,12 +73,14 @@ namespace YAF.Types.Models
 
         public string ReplaceRegex { get; set; }
 
+        [StringLength(1000)]
         public string Variables { get; set; }
 
         public bool? UseModule { get; set; }
 
         public bool? UseToolbar { get; set; }
 
+        [StringLength(255)]
         public string ModuleClass { get; set; }
 
         [Required]

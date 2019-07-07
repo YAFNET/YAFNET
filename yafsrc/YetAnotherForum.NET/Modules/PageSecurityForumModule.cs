@@ -37,7 +37,7 @@ namespace YAF.Modules
   /// <summary>
   /// Module that handles individual page security features -- needs to be expanded.
   /// </summary>
-  [YafModule("Page Security Module", "Tiny Gecko", 1)]
+  [YafModule(moduleName: "Page Security Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
   public class PageSecurityForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields

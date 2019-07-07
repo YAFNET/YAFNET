@@ -55,6 +55,7 @@ namespace YAF.Types.Models
         [Required]
         public int UserID { get; set; }
 
+        [StringLength(255)]
         public string Email { get; set; }
 
         [Required]
@@ -62,6 +63,7 @@ namespace YAF.Types.Models
 
         [Required]
         [Index]
+        [StringLength(32)]
         public string Hash { get; set; }
 
         #endregion

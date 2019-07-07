@@ -30,6 +30,7 @@ namespace YAF.Dialogs
     using System.Linq;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -56,9 +57,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ForumId
         {
-            get => this.ViewState["ForumId"].ToType<int?>();
+            get => this.ViewState[key: "ForumId"].ToType<int?>();
 
-            set => this.ViewState["ForumId"] = value;
+            set => this.ViewState[key: "ForumId"] = value;
         }
 
         /// <summary>
@@ -67,13 +68,13 @@ namespace YAF.Dialogs
         /// <param name="forumId">The forum identifier.</param>
         public void BindData(int? forumId)
         {
-            this.NntpServerID.DataSource = this.GetRepository<NntpServer>().GetByBoardId().OrderBy(s => s.Name);
+            this.NntpServerID.DataSource = this.GetRepository<NntpServer>().GetByBoardId().OrderBy(keySelector: s => s.Name);
             this.NntpServerID.DataValueField = "ID";
             this.NntpServerID.DataTextField = "Name";
             this.NntpServerID.DataBind();
 
             this.ForumID.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID);
+                boardID: this.PageContext.PageBoardID, userID: this.PageContext.PageUserID);
             this.ForumID.DataValueField = "ForumID";
             this.ForumID.DataTextField = "Title";
             this.ForumID.DataBind();
@@ -86,13 +87,13 @@ namespace YAF.Dialogs
             if (this.ForumId.HasValue)
             {
                 // Edit
-                var forum = this.GetRepository<NntpForum>().GetById(this.ForumId.Value);
+                var forum = this.GetRepository<NntpForum>().GetById(id: this.ForumId.Value);
 
                 if (forum != null)
                 {
-                    this.NntpServerID.Items.FindByValue(forum.NntpServerID.ToString()).Selected = true;
+                    this.NntpServerID.Items.FindByValue(value: forum.NntpServerID.ToString()).Selected = true;
                     this.GroupName.Text = forum.GroupName;
-                    this.ForumID.Items.FindByValue(forum.ForumID.ToString()).Selected = true;
+                    this.ForumID.Items.FindByValue(value: forum.ForumID.ToString()).Selected = true;
                     this.Active.Checked = forum.Active;
                     this.DateCutOff.Text = forum.DateCutOff.ToString();
                 }
@@ -122,32 +123,32 @@ namespace YAF.Dialogs
             if (this.GroupName.Text.Trim().IsNotSet())
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITNNTPFORUM", "MSG_VALID_GROUP"), MessageTypes.warning);
+                    message: this.GetText(page: "ADMIN_EDITNNTPFORUM", tag: "MSG_VALID_GROUP"), messageType: MessageTypes.warning);
                 return;
             }
 
             if (this.ForumID.SelectedValue.ToType<int>() <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"));
+                this.PageContext.AddLoadMessage(message: this.GetText(page: "ADMIN_EDITNNTPFORUM", tag: "MSG_SELECT_FORUM"));
                 return;
             }
 
             DateTime dateCutOff;
 
-            if (!DateTime.TryParse(this.DateCutOff.Text, out dateCutOff))
+            if (!DateTime.TryParse(s: this.DateCutOff.Text, result: out dateCutOff))
             {
                 dateCutOff = DateTime.MinValue;
             }
 
             this.GetRepository<NntpForum>().Save(
-                this.ForumId,
-                this.NntpServerID.SelectedValue.ToType<int>(),
-                this.GroupName.Text,
-                this.ForumID.SelectedValue.ToType<int>(),
-                this.Active.Checked,
-                dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
+                nntpForumId: this.ForumId,
+                nntpServerId: this.NntpServerID.SelectedValue.ToType<int>(),
+                groupName: this.GroupName.Text,
+                forumID: this.ForumID.SelectedValue.ToType<int>(),
+                active: this.Active.Checked,
+                datecutoff: dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
 
-            YafBuildLink.Redirect(ForumPages.admin_nntpforums);
+            YafBuildLink.Redirect(page: ForumPages.admin_nntpforums);
         }
 
         #endregion

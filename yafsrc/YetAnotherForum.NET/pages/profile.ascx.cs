@@ -181,16 +181,11 @@ namespace YAF.Pages
             {
                 var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
 
-                if (Convert.ToBoolean(strBuddyRequest[1]))
-                {
-                    this.PageContext.AddLoadMessage(
-                        string.Format(this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0]),
-                        MessageTypes.success);
-                }
-                else
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.success);
-                }
+                this.PageContext.AddLoadMessage(
+                    Convert.ToBoolean(strBuddyRequest[1])
+                        ? string.Format(this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0])
+                        : this.GetText("NOTIFICATION_BUDDYREQUEST"),
+                    MessageTypes.success);
             }
             else
             {
@@ -282,7 +277,6 @@ namespace YAF.Pages
 
             this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(userData.UserName);
 
-            // EmailRow.Visible = PageContext.IsAdmin;
             this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
 
             this.AdminUserButton.Visible = this.PageContext.IsAdmin;
@@ -390,7 +384,7 @@ namespace YAF.Pages
             }
             else
             {
-                if (!this.PageContext.IsGuest)
+                if (!this.PageContext.IsGuest && !userData.Block.BlockFriendRequests)
                 {
                     this.lnkBuddy.Visible = true;
                     this.lnkBuddy.Text =
@@ -400,6 +394,10 @@ namespace YAF.Pages
 
                     this.lnkBuddy.CommandArgument = "addbuddy";
                     this.lnkBuddy.Attributes["onclick"] = string.Empty;
+                }
+                else
+                {
+                    this.lnkBuddy.Visible = false;
                 }
             }
 
@@ -443,14 +441,45 @@ namespace YAF.Pages
                 return;
             }
 
+
+            var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userData.UserID);
+
             this.PM.Visible = !userData.IsGuest && this.User != null
                               && this.Get<YafBoardSettings>().AllowPrivateMessages;
+
+            if (this.PM.Visible)
+            {
+                if (userData.Block.BlockPMs)
+                {
+                    this.PM.Visible = false;
+                }
+
+                if (this.PageContext.IsAdmin || isFriend)
+                {
+                    this.PM.Visible = true;
+                }
+            }
+
             this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
             this.PM.ParamTitle0 = userName;
 
             // email link
             this.Email.Visible = !userData.IsGuest && this.User != null
                                  && this.Get<YafBoardSettings>().AllowEmailSending;
+
+            if (this.Email.Visible)
+            {
+                if (userData.Block.BlockEmails && !this.PageContext.IsAdmin)
+                {
+                    this.Email.Visible = false;
+                }
+
+                if (this.PageContext.IsAdmin || isFriend)
+                {
+                    this.Email.Visible = true;
+                }
+            }
+
             this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
             if (this.PageContext.IsAdmin)
             {

@@ -50,15 +50,25 @@ namespace YAF.Types.Models
         [Alias("NntpServerID")]
         [AutoIncrement]
         public int ID { get; set; }
+
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
+
         [Required]
+        [StringLength(50)]
         public string Name { get; set; }
+
         [Required]
+        [StringLength(100)]
         public string Address { get; set; }
+
         public int? Port { get; set; }
+
+        [StringLength(255)]
         public string UserName { get; set; }
+
+        [StringLength(50)]
         public string UserPass { get; set; }
 
         #endregion

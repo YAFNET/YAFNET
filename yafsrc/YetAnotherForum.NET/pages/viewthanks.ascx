@@ -10,10 +10,12 @@
     </div>
 </div>
 
+<asp:PlaceHolder runat="server" ID="MenuHolder">
 <div class="row">
 <div class="col-sm-auto">
     <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
 </div>
+</asp:PlaceHolder>
 <div class="col">
 
        <asp:Panel id="ThanksTabs" runat="server">

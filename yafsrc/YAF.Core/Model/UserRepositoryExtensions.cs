@@ -1135,5 +1135,26 @@ namespace YAF.Core.Model
                           },
                 where: u => u.ID == userId);
         }
+
+        /// <summary>
+        /// Updates Block Flags for the User.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        public static void UpdateBlockFlags(this IRepository<User> repository, int userId, int flags)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(
+                () => new User { BlockFlags = flags },
+                u => u.ID == userId);
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace YAF.Modules
 
   using YAF.Controls;
   using YAF.Core;
+  using YAF.Core.BaseModules;
   using YAF.Types;
   using YAF.Types.Constants;
 

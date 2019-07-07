@@ -46,7 +46,7 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var hiddenContent = this.Parameters["inner"];
+            var hiddenContent = this.Parameters[key: "inner"];
 
             var messageId = this.MessageID;
 
@@ -56,12 +56,12 @@ namespace YAF.Modules.BBCode
             }
 
             var description = this.LocalizedString(
-                    "HIDEMOD_REPLY",
-                    "Hidden Content (You must be registered and reply to the message to see the hidden Content)");
+                    tag: "HIDEMOD_REPLY",
+                    defaultStr: "Hidden Content (You must be registered and reply to the message to see the hidden Content)");
 
             var descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GUEST",
-                "This board requires you to be registered and logged-in before you can view hidden messages.");
+                tag: "HIDDENMOD_GUEST",
+                defaultStr: "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
@@ -69,7 +69,7 @@ namespace YAF.Modules.BBCode
 
             if (YafContext.Current.IsAdmin)
             {
-                writer.Write(hiddenContent);
+                writer.Write(s: hiddenContent);
                 return;
             }
 
@@ -77,18 +77,18 @@ namespace YAF.Modules.BBCode
 
             if (YafContext.Current.IsGuest)
             {
-                writer.Write(shownContentGuest);
+                writer.Write(s: shownContentGuest);
                 return;
             }
 
             if (this.DisplayUserID == userId ||
-                this.GetRepository<User>().RepliedTopic(messageId.ToType<int>(), userId))
+                this.GetRepository<User>().RepliedTopic(messageId: messageId.ToType<int>(), userId: userId))
             {
                 // Show hidden content if user is the poster or have thanked the poster.
                 shownContent = hiddenContent;
             }
 
-            writer.Write(shownContent);
+            writer.Write(s: shownContent);
         }
     }
 }

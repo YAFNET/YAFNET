@@ -56,7 +56,8 @@ namespace YAF.Types.Models
         [Required]
         public int PollID { get; set; }
         public int? UserID { get; set; }
-        public string RemoteIP { get; set; }
+        [StringLength(57)]
+        string RemoteIP { get; set; }
 
         #endregion
 
