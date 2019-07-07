@@ -36,6 +36,7 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
@@ -285,11 +286,13 @@ namespace YAF.Controls
         {
             Regex regex;
 
-            if (!this.UserBoxRegex.TryGetValue(search, out regex))
+            if (this.UserBoxRegex.TryGetValue(search, out regex))
             {
-                regex = new Regex(search, RegexOptions.Compiled);
-                this.UserBoxRegex.AddOrUpdate(search, (k) => regex, (k, v) => regex);
+                return regex;
             }
+
+            regex = new Regex(search, RegexOptions.Compiled);
+            this.UserBoxRegex.AddOrUpdate(search, (k) => regex, (k, v) => regex);
 
             return regex;
         }
@@ -304,7 +307,7 @@ namespace YAF.Controls
         {
             var userBox = this.CachedUserBox;
 
-            if (string.IsNullOrEmpty(userBox))
+            if (userBox.IsNotSet())
             {
                 userBox = this.CreateUserBox();
 
@@ -449,7 +452,7 @@ namespace YAF.Controls
         /// The role Style Table.
         /// </param>
         /// <returns>
-        /// Returns the Groups Userbox string.
+        /// Returns the Groups UserBox string.
         /// </returns>
         [NotNull]
         private string MatchUserBoxGroups([NotNull] string userBox, [NotNull] DataTable roleStyleTable)
@@ -932,7 +935,7 @@ namespace YAF.Controls
         /// The user box.
         /// </param>
         /// <returns>
-        /// Returns the emptyd string
+        /// Returns the empty string
         /// </returns>
         [NotNull]
         private string RemoveEmptyDividers([NotNull] string userBox)

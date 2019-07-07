@@ -32,6 +32,7 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
 
@@ -160,12 +161,14 @@ namespace YAF.Controls
         /// <param name="clientScript">
         /// The client script.
         /// </param>
+        /// <param name="icon"></param>
         public void AddClientScriptItemWithPostback(
             [NotNull] string description,
             [NotNull] string argument,
-            [NotNull] string clientScript)
+            [NotNull] string clientScript,
+            string icon)
         {
-            this.items.Add(new InternalPopMenuItem(description, argument, clientScript, null));
+            this.items.Add(new InternalPopMenuItem(description, argument, clientScript, icon));
         }
 
         /// <summary>

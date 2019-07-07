@@ -28,6 +28,7 @@ namespace YAF.Controls
     using ServiceStack;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

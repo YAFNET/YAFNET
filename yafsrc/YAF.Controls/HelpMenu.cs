@@ -33,7 +33,7 @@ namespace YAF.Controls
     using System.Xml.Serialization;
 
     using YAF.Classes;
-    using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -66,7 +66,7 @@ namespace YAF.Controls
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath = this.Get<HttpContextBase>().Server.MapPath(
-                $"{YafForumInfo.ForumServerFileRoot}Resources/{"HelpMenuList.xml"}");
+                $"{YafForumInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
 
             if (File.Exists(xmlFilePath))
             {

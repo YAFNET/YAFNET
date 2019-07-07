@@ -30,6 +30,7 @@ namespace YAF.Controls
     using System.Web.UI.HtmlControls;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
 
