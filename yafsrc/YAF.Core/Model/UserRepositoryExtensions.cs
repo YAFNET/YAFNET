@@ -447,7 +447,6 @@ namespace YAF.Core.Model
             this IRepository<User> repository,
             [NotNull] int userID,
             [NotNull] int boardID,
-            bool showPendingMails,
             bool showPendingBuddies,
             bool showUnreadPMs,
             bool showUserAlbums,
@@ -462,7 +461,6 @@ namespace YAF.Core.Model
                     return repository.DbFunction.GetData.user_lazydata(
                         UserID: userID,
                         BoardID: boardID,
-                        ShowPendingMails: showPendingMails,
                         ShowPendingBuddies: showPendingBuddies,
                         ShowUnreadPMs: showUnreadPMs,
                         ShowUserAlbums: showUserAlbums,

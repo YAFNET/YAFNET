@@ -129,7 +129,6 @@ namespace YAF.Core.Services
                     this.GetRepository<User>().LazyDataRow(
                         userId,
                         YafContext.Current.PageBoardID,
-                        this.BoardSettings.AllowEmailSending,
                         this.BoardSettings.EnableBuddyList,
                         this.BoardSettings.AllowPrivateMessages,
                         this.BoardSettings.EnableAlbum,

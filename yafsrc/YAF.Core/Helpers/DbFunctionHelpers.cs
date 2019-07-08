@@ -124,7 +124,7 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// The system initialize executescripts.
+        /// The system initialize execute scripts.
         /// </summary>
         /// <param name="dbFunction">
         /// The db function.
@@ -151,6 +151,15 @@ namespace YAF.Core.Helpers
                 f => f.Scalar.SystemInitializeExecutescripts(script, scriptFile, useTransactions));
         }
 
+        /// <summary>
+        /// The system initialize fix access.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="grantAccess">
+        /// The grant access.
+        /// </param>
         public static void SystemInitializeFixaccess(
             [NotNull] this IDbFunction dbFunction,
             bool grantAccess)
@@ -162,6 +171,21 @@ namespace YAF.Core.Helpers
                 f => f.Scalar.SystemInitializeFixaccess(grantAccess));
         }
 
+        /// <summary>
+        /// The run sql.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="sql">
+        /// The sql.
+        /// </param>
+        /// <param name="useTransaction">
+        /// The use transaction.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string RunSQL(
             [NotNull] this IDbFunction dbFunction,
             string sql,
@@ -174,6 +198,18 @@ namespace YAF.Core.Helpers
                 f => f.Scalar.RunSQL(sql, useTransaction));
         }
 
+        /// <summary>
+        /// The change recovery mode.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="recoveryMode">
+        /// The recovery mode.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string ChangeRecoveryMode(
             [NotNull] this IDbFunction dbFunction,
             string recoveryMode)
