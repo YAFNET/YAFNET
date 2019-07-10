@@ -631,6 +631,8 @@
             using (var searcher = new IndexSearcher(Directory, true))
             {
                 var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+				if (hitsLimit == 0) // 0 => Lucene error;
+                    hitsLimit = pageSize;
                 var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
 
                 var formatter = new SimpleHTMLFormatter("<mark>", "</mark>");
@@ -667,17 +669,11 @@
                 {
                     var parser = new MultiFieldQueryParser(
                         Lucene.Net.Util.Version.LUCENE_30,
-                        new[] { "Message", "Topic", "Author" },
+                        new String[] { "Message", "Topic", "Author" },
                         analyzer);
 
                     var query = ParseQuery(searchQuery, parser);
                     scorer = new QueryScorer(query);
-
-                    if (hitsLimit == 0)
-                    {
-                        hitsLimit = 1000; // 0 => Lucene error;
-                    }
-
                     // sort by date
                     var sort = new Sort(new SortField("Posted", SortField.STRING, true));
                     var hits = searcher.Search(query, null, hitsLimit, sort).ScoreDocs;

@@ -53,7 +53,7 @@
             if (searchInput.length) {
                 searchText += "AND Author:" + searchInputUser;
             } else {
-                searchText += "+Author:" + searchInputUser;
+                searchText = "+Author:" + searchInputUser;
             }
         }
 
@@ -65,7 +65,6 @@
         searchTopic.SearchTerm = searchText;
 
         var ajaxUrl = $("#SearchResultsPlaceholder").data("url") + "api/Search/GetSearchResults";
-
         $.ajax({
             type: "POST",
             url: ajaxUrl,
@@ -78,14 +77,14 @@
                 $('#loadModal').modal('show');
             }),
             complete: (function before() {
-                // hide loading screen 
-                $("#loadModal").modal('hide');
+                // A function to be called when the request finishes (after success and error callbacks are executed)
+                $("#loadModal").modal('hide');  // hide loading screen 
             }),
             success: (function success(data) {
-                $('#loadModal').on('shown.bs.modal',
-                    function () {
-                        $("#loadModal").modal('hide');
-                    });
+                //$('#loadModal').on('shown.bs.modal',
+                //    function () {
+                //        $("#loadModal").modal('hide');
+                //    });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
                 var by = $("#SearchResultsPlaceholder").data("by");
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");

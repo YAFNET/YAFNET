@@ -416,7 +416,7 @@ namespace YAF.Core.Services
             ruleEngine.Process(ref message);
 
             // Format Emoticons
-            message = EmojiOne.ShortnameToUnicode(message, true);
+            message = EmojiOne.ShortnameToUnicode(message, false);
 
             return message;
         }
