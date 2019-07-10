@@ -20,7 +20,7 @@
 
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                        <i class="fa fa-user fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                                           LocalizedTag="TITLE" />
                     </div>
                     <div class="card-body">
@@ -191,7 +191,7 @@
 				<ContentTemplate>
                     <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
+                        <i class="fa fa-user fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
                                                                                   LocalizedTag="PROFILE" />
                     </div>
                     <div class="card-body">
@@ -246,7 +246,7 @@
                         <div class="col">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <i class="fa fa-user-check fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                                    <i class="fa fa-user-check fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
                                 </div>
                                 <div class="card-body text-center">
                                     <YAF:Alert runat="server" Type="success">

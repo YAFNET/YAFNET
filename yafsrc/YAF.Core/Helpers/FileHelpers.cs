@@ -28,7 +28,6 @@ namespace YAF.Core.Helpers
 
     using YAF.Classes;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Models;
 
     /// <summary>
@@ -61,7 +60,6 @@ namespace YAF.Core.Helpers
                 File.Delete(fileNameOld);
                 return true;
             }
-
 
             var fileName =
                 $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload";

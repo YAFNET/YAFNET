@@ -29,6 +29,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -63,39 +64,69 @@ namespace YAF.Types.Models
         [Alias("UserID")]
         [AutoIncrement]
         public int ID { get; set; }
+
         [References(typeof(Board))]
         [Required]
         [Index(NonClustered = true)]
         public int BoardID { get; set; }
+
+        [StringLength(255)]
         public string ProviderUserKey { get; set; }
+
         [Required]
         [Index]
+        [StringLength(255)]
         public string Name { get; set; }
+
         [Required]
         [Index]
+        [StringLength(255)]
         public string DisplayName { get; set; }
+
         [Required]
+        [StringLength(32)]
         public string Password { get; set; }
+
+        [StringLength(255)]
         public string Email { get; set; }
+
         [Required]
         [Index]
         public DateTime Joined { get; set; }
+
         [Required]
         public DateTime LastVisit { get; set; }
+
+        [StringLength(39)]
         public string IP { get; set; }
+
         [Required]
         public int NumPosts { get; set; }
+
         public string TimeZone { get; set; }
+
+        [StringLength(255)]
         public string Avatar { get; set; }
+
         public string Signature { get; set; }
+
         public byte[] AvatarImage { get; set; }
+
+        [StringLength(50)]
         public string AvatarImageType { get; set; }
+
         [References(typeof(Rank))]
         [Required]
         public int RankID { get; set; }
+
         public DateTime? Suspended { get; set; }
+
+        [StringLength(50)]
         public string LanguageFile { get; set; }
+
+        [StringLength(50)]
         public string ThemeFile { get; set; }
+
         [Required]
         [Default(1)]
         public bool PMNotification { get; set; }
@@ -106,47 +137,90 @@ namespace YAF.Types.Models
 
         [Default(10)]
         public int? NotificationType { get; set; }
+
         [Required]
         [Default(0)]
         public int Flags { get; set; }
+
+        [Ignore]
+        public UserFlags UserFlags
+        {
+            get => new UserFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
+
+        [Required]
+        [Default(0)]
+        public int BlockFlags { get; set; }
+
+        [Ignore]
+        public UserBlockFlags Block
+        {
+            get => new UserBlockFlags(this.BlockFlags);
+
+            set => this.BlockFlags = value.BitValue;
+        }
+
         [Required]
         [Default(1)]
         public int Points { get; set; }
+
         [Compute]
         public bool? IsApproved { get; set; }
+
         [Compute]
         public bool? IsActiveExcluded { get; set; }
+
+        [StringLength(10)]
         public string Culture { get; set; }
+
+        [StringLength(50)]
         public string TextEditor { get; set; }
+
         [Compute]
         public bool? IsGuest { get; set; }
+
         [Compute]
         public bool? IsCaptchaExcluded { get; set; }
+
         [Compute]
         public bool? IsDST { get; set; }
+
         [Compute]
         public bool? IsDirty { get; set; }
+
         [Required]
         [Default(0)]
         public bool IsFacebookUser { get; set; }
+
         [Required]
         [Default(0)]
         public bool IsTwitterUser { get; set; }
+
         [Index]
+        [StringLength(510)]
         public string UserStyle { get; set; }
+
         [Required]
         [Default(0)]
         public int StyleFlags { get; set; }
+
         [Compute]
         public bool? IsUserStyle { get; set; }
+
         [Compute]
         public bool? IsGroupStyle { get; set; }
+
         [Compute]
         public bool? IsRankStyle { get; set; }
+
         [Required]
         [Default(0)]
         public bool IsGoogleUser { get; set; }
+
         public string SuspendedReason { get; set; }
+
         [Required]
         [Default(0)]
         public int SuspendedBy { get; set; }

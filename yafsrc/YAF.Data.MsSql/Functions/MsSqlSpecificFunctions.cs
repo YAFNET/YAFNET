@@ -101,6 +101,12 @@ namespace YAF.Data.MsSql.Functions
             }
         }
 
+        /// <summary>
+        /// The shrink database.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
         public static void ShrinkDatabase(this IDbAccess dbAccess)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
@@ -108,6 +114,15 @@ namespace YAF.Data.MsSql.Functions
             dbAccess.Execute(db => db.Connection.ExecuteSql($"DBCC SHRINKDATABASE(N'{db.Connection.Database}')"));
         }
 
+        /// <summary>
+        /// The re index database.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string ReIndexDatabase(this IDbAccess dbAccess)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
@@ -354,11 +369,11 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         /// The db_runsql.
         /// </summary>
+        /// <param name="dbAccess">
+        /// The db Access.
+        /// </param>
         /// <param name="sql">
         /// The sql.
-        /// </param>
-        /// <param name="connectionManager">
-        /// The conn man.
         /// </param>
         /// <param name="useTransaction">
         /// The use Transaction.
@@ -412,7 +427,7 @@ namespace YAF.Data.MsSql.Functions
             {
                 try
                 {
-                    command.Transaction = useTransaction ? command.Connection.BeginTransaction() : null;
+                    command.Transaction = useTransaction ? command.Transaction : null;
                     reader = command.ExecuteReader();
 
                     if (reader != null)
@@ -439,10 +454,11 @@ namespace YAF.Data.MsSql.Functions
                                 results.AppendFormat(@"""{0}""", rowIndex++);
 
                                 // dump all columns...
-                                foreach (var col in columnNames)
-                                {
-                                    results.AppendFormat(@",""{0}""", reader[col].ToString().Replace("\"", "\"\""));
-                                }
+
+                                columnNames.ForEach(
+                                    col => results.AppendFormat(
+                                        @",""{0}""",
+                                        reader[(string)col].ToString().Replace("\"", "\"\"")));
 
                                 results.AppendLine();
                             }

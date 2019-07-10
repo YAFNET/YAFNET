@@ -129,7 +129,6 @@ namespace YAF.Core.Services
                     this.GetRepository<User>().LazyDataRow(
                         userId,
                         YafContext.Current.PageBoardID,
-                        this.BoardSettings.AllowEmailSending,
                         this.BoardSettings.EnableBuddyList,
                         this.BoardSettings.AllowPrivateMessages,
                         this.BoardSettings.EnableAlbum,
@@ -383,6 +382,7 @@ namespace YAF.Core.Services
                         row.Field<int>("ModeratorID"),
                         row.Field<string>("ModeratorName"),
                         row.Field<string>("ModeratorEmail"),
+                        row.Field<int>("ModeratorBlockFlags"),
                         row.Field<string>("ModeratorAvatar"),
                         row.Field<bool>("ModeratorAvatarImage"),
                         row.Field<string>("ModeratorDisplayName"),

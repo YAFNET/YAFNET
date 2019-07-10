@@ -20,7 +20,7 @@
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" UsePostBack="True" />
     <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
+                    <i class="fa fa-user fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
                     <div class="input-group float-right user-search-dropdown">
                         &nbsp;
                         <YAF:ThemeButton runat="server"

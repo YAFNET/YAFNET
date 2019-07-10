@@ -106,20 +106,13 @@ namespace YAF.Core
 
             try
             {
-                userID = YafContext.Current.GetRepository<User>().Aspnet(
-                    pageBoardID,
-                    user.UserName,
-                    displayName,
-                    user.Email,
-                    user.ProviderUserKey,
-                    user.IsApproved);
+                userID = YafContext.Current.GetRepository<User>().Aspnet(pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
 
-                foreach (var role in GetRolesForUser(user.UserName))
-                {
-                    YafContext.Current.GetRepository<User>().SetRole(pageBoardID, user.ProviderUserKey.ToString(), role);
-                }
-
-                // YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}", user.UserName));
+                GetRolesForUser(user.UserName).ForEach(
+                    role => YafContext.Current.GetRepository<User>().SetRole(
+                        pageBoardID,
+                        user.ProviderUserKey.ToString(),
+                        role));
             }
             catch (Exception x)
             {

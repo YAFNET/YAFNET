@@ -50,6 +50,8 @@ namespace YAF.Types.Models
         public int ID { get; set; }
         [Required]
         public int UserID { get; set; }
+
+        [StringLength(255)]
         public string Title { get; set; }
         public int? CoverImageID { get; set; }
         [Required]

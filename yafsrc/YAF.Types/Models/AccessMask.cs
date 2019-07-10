@@ -79,6 +79,7 @@ namespace YAF.Types.Models
         ///     Gets or sets the name.
         /// </summary>
         [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
         /// <summary>

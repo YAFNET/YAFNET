@@ -32,30 +32,22 @@ namespace MarkdownDeep
 	{
 		public HtmlTag(string name)
 		{
-			m_name = name;
+			this.name = name;
 		}
 
 		// Get the tag name eg: "div"
-		public string name => m_name;
+		public string name { get; }
 
         // Get a dictionary of attribute values (no decoding done)
-		public Dictionary<string, string> attributes => m_attributes;
+		public Dictionary<string, string> attributes { get; } = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
 
         // Is this tag closed eg; <br />
-		public bool closed
-		{
-			get => m_closed;
-            set => m_closed = value;
-        }
+		public bool closed { get; set; }
 
-		// Is this a closing tag eg: </div>
-		public bool closing => m_closing;
+        // Is this a closing tag eg: </div>
+		public bool closing { get; private set; }
 
-        string m_name;
-		Dictionary<string, string> m_attributes = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
-		bool m_closed;
-		bool m_closing;
-		HtmlTagFlags m_flags = 0;
+        HtmlTagFlags m_flags = 0;
 
 		public HtmlTagFlags Flags
 		{
@@ -122,7 +114,7 @@ namespace MarkdownDeep
 		// Check if this tag is safe
 		public bool IsSafe()
 		{
-			var name_lower=m_name.ToLowerInvariant();
+			var name_lower=this.name.ToLowerInvariant();
 
 			// Check if tag is in whitelist
 			if (!Utils.IsInList(name_lower, m_allowed_tags))
@@ -133,11 +125,11 @@ namespace MarkdownDeep
 			if (!m_allowed_attributes.TryGetValue(name_lower, out allowed_attributes))
 			{
 				// No allowed attributes, check we don't have any
-				return m_attributes.Count == 0;
+				return this.attributes.Count == 0;
 			}
 
 			// Check all are allowed
-			foreach (var i in m_attributes)
+			foreach (var i in this.attributes)
 			{
 				if (!Utils.IsInList(i.Key.ToLowerInvariant(), allowed_attributes))
 					return false;
@@ -145,14 +137,14 @@ namespace MarkdownDeep
 
 			// Check href attribute is ok
 			string href;
-			if (m_attributes.TryGetValue("href", out href))
+			if (this.attributes.TryGetValue("href", out href))
 			{
 				if (!Utils.IsSafeUrl(href))
 					return false;
 			}
 
 			string src;
-			if (m_attributes.TryGetValue("src", out src))
+			if (this.attributes.TryGetValue("src", out src))
 			{
 				if (!Utils.IsSafeUrl(src))
 					return false;
@@ -168,7 +160,7 @@ namespace MarkdownDeep
 		{
 			dest.Append("<");
 			dest.Append(name);
-			foreach (var i in m_attributes)
+			foreach (var i in this.attributes)
 			{
 				dest.Append(" ");
 				dest.Append(i.Key);
@@ -177,7 +169,7 @@ namespace MarkdownDeep
 				dest.Append("\"");
 			}
 
-			if (m_closed)
+			if (this.closed)
 				dest.Append(" />");
 			else
 				dest.Append(">");
@@ -238,8 +230,8 @@ namespace MarkdownDeep
 				if (p.Find("-->"))
 				{
 					var t = new HtmlTag("!");
-					t.m_attributes.Add("content", p.Extract());
-					t.m_closed = true;
+					t.attributes.Add("content", p.Extract());
+					t.closed = true;
 					p.SkipForward(3);
 					return t;
 				}
@@ -255,7 +247,7 @@ namespace MarkdownDeep
 
 			// Probably a tag, create the HtmlTag object now
 			var tag = new HtmlTag(tagName);
-			tag.m_closing = bClosing;
+			tag.closing = bClosing;
 
 
 			// If it's a closing tag, no attributes
@@ -277,7 +269,7 @@ namespace MarkdownDeep
 				// Check for closed tag eg: <hr />
 				if (p.SkipString("/>"))
 				{
-					tag.m_closed=true;
+					tag.closed=true;
 					return tag;
 				}
 
@@ -310,7 +302,7 @@ namespace MarkdownDeep
 							return null;
 
 						// Store the value
-						tag.m_attributes.Add(attributeName, p.Extract());
+						tag.attributes.Add(attributeName, p.Extract());
 
 						// Skip closing quote
 						p.SkipForward(1);
@@ -325,13 +317,13 @@ namespace MarkdownDeep
 						if (!p.eof)
 						{
 							// Store the value
-							tag.m_attributes.Add(attributeName, p.Extract());
+							tag.attributes.Add(attributeName, p.Extract());
 						}
 					}
 				}
 				else
 				{
-					tag.m_attributes.Add(attributeName, "");
+					tag.attributes.Add(attributeName, "");
 				}
 			}
 

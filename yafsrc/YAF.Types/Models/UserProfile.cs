@@ -56,10 +56,12 @@ namespace YAF.Types.Models
         public DateTime LastUpdatedDate { get; set; }
         public DateTime? LastActivity { get; set; }
         [Required]
+        [StringLength(255)]
         public string ApplicationName { get; set; }
         [Required]
         public bool IsAnonymous { get; set; }
         [Required]
+        [StringLength(255)]
         public string UserName { get; set; }
         public string RealName { get; set; }
         public string Country { get; set; }

@@ -119,6 +119,11 @@ namespace YAF.Pages
       {
           var userId = Security.StringToIntOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
+          if (userId != this.PageContext.PageUserID)
+          {
+              this.MenuHolder.Visible = false;
+          }
+
           if (!this.IsPostBack)
           {
               var displayName = this.PageContext.BoardSettings.EnableDisplayName

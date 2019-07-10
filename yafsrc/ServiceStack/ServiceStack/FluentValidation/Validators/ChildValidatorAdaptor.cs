@@ -12,9 +12,8 @@ namespace ServiceStack.FluentValidation.Validators {
 		static readonly Task<IEnumerable<ValidationFailure>> AsyncEmptyResult = TaskHelpers.FromResult(Enumerable.Empty<ValidationFailure>());
 
 		readonly Func<object, IValidator> validatorProvider;
-		readonly Type validatorType;
 
-		public Type ValidatorType => validatorType;
+        public Type ValidatorType { get; }
 
         public override bool IsAsync => true;
 
@@ -23,7 +22,7 @@ namespace ServiceStack.FluentValidation.Validators {
 
 		public ChildValidatorAdaptor(Func<object, IValidator> validatorProvider, Type validatorType) {
 			this.validatorProvider = validatorProvider;
-			this.validatorType = validatorType;
+			this.ValidatorType = validatorType;
 		}
 
 		public override IEnumerable<ValidationFailure> Validate(PropertyValidatorContext context) {

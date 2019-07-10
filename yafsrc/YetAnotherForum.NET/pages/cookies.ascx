@@ -11,7 +11,7 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-cookie fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" />
+                <i class="fa fa-cookie fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" />
             </div>
             <div class="card-body">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="COOKIES_TEXT" EnableBBCode="true" />

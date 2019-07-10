@@ -25,6 +25,8 @@ namespace YAF.Types.Interfaces
 {
   using System.Collections.Generic;
 
+  using YAF.Types.Models;
+
   /// <summary>
   /// User Display Name interface.
   /// </summary>
@@ -55,7 +57,7 @@ namespace YAF.Types.Interfaces
     /// </param>
     /// <returns>
     /// </returns>
-    IDictionary<int, string> Find(string contains);
+    IList<User> Find(string contains);
 
     /// <summary>
     /// Clears a user value (if there is one) for <paramref name="userId"/> from the cache

@@ -69,6 +69,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The spam word.
         /// </value>
+        [StringLength(255)]
         public string SpamWord { get; set; }
 
         #endregion

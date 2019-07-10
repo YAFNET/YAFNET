@@ -48,41 +48,41 @@ namespace YAF.Modules.BBCode
             var session = this.Get<HttpSessionStateBase>();
             var settings = this.Get<YafBoardSettings>();
 
-            if (session["imagePreviewWidth"] == null)
+            if (session[name: "imagePreviewWidth"] == null)
             {
-                session["imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
+                session[name: "imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
             }
 
-            if (session["imagePreviewHeight"] == null)
+            if (session[name: "imagePreviewHeight"] == null)
             {
-                session["imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
+                session[name: "imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
             }
 
-            if (session["imagePreviewCropped"] == null)
+            if (session[name: "imagePreviewCropped"] == null)
             {
-                session["imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
+                session[name: "imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
             }
 
-            if (session["localizationFile"] == null)
+            if (session[name: "localizationFile"] == null)
             {
-                session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
+                session[name: "localizationFile"] = this.Get<ILocalization>().LanguageFileName;
             }
 
             var sb = new StringBuilder();
 
             sb.AppendFormat(
-                @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery>",
-                YafForumInfo.ForumClientFileRoot,
-                this.Parameters["inner"]);
+                format: @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery>",
+                arg0: YafForumInfo.ForumClientFileRoot,
+                arg1: this.Parameters[key: "inner"]);
 
             sb.AppendFormat(
-                @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-fluid img-thumbnail"" />",
-                YafForumInfo.ForumClientFileRoot,
-                this.Parameters["inner"]);
+                format: @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-fluid img-thumbnail"" />",
+                arg0: YafForumInfo.ForumClientFileRoot,
+                arg1: this.Parameters[key: "inner"]);
 
-            sb.Append("</a>");
+            sb.Append(value: "</a>");
 
-            writer.Write(sb.ToString());
+            writer.Write(s: sb.ToString());
         }
     }
 }

@@ -9,47 +9,41 @@ namespace ServiceStack.MiniProfiler.Data
 {
     public class ProfiledCommand : DbCommand, IHasDbCommand
     {
-        private DbCommand _cmd;
         private DbConnection _conn;
         private DbTransaction _tran;
-        private IDbProfiler _profiler;
 
         public ProfiledCommand(DbCommand cmd, DbConnection conn, IDbProfiler profiler)
         {
             if (cmd == null) throw new ArgumentNullException("cmd");
 
-            _cmd = cmd;
+            this.DbCommand = cmd;
             _conn = conn;
 
             if (profiler != null)
             {
-                _profiler = profiler;
+                this.DbProfiler = profiler;
             }
         }
 
         public override string CommandText
         {
-            get => _cmd.CommandText;
-            set => _cmd.CommandText = value;
+            get => this.DbCommand.CommandText;
+            set => this.DbCommand.CommandText = value;
         }
 
         public override int CommandTimeout
         {
-            get => _cmd.CommandTimeout;
-            set => _cmd.CommandTimeout = value;
+            get => this.DbCommand.CommandTimeout;
+            set => this.DbCommand.CommandTimeout = value;
         }
 
         public override CommandType CommandType
         {
-            get => _cmd.CommandType;
-            set => _cmd.CommandType = value;
+            get => this.DbCommand.CommandType;
+            set => this.DbCommand.CommandType = value;
         }
 
-        public DbCommand DbCommand
-        {
-            get => _cmd;
-            protected set => _cmd = value;
-        }
+        public DbCommand DbCommand { get; protected set; }
 
         IDbCommand IHasDbCommand.DbCommand => DbCommand;
 
@@ -59,11 +53,11 @@ namespace ServiceStack.MiniProfiler.Data
             set
             {
                 _conn = value;
-                _cmd.Connection = !(value is ProfiledConnection awesomeConn) ? value : awesomeConn.WrappedConnection;
+                this.DbCommand.Connection = !(value is ProfiledConnection awesomeConn) ? value : awesomeConn.WrappedConnection;
             }
         }
 
-        protected override DbParameterCollection DbParameterCollection => _cmd.Parameters;
+        protected override DbParameterCollection DbParameterCollection => this.DbCommand.Parameters;
 
         protected override DbTransaction DbTransaction
         {
@@ -71,129 +65,125 @@ namespace ServiceStack.MiniProfiler.Data
             set
             {
                 this._tran = value;
-                _cmd.Transaction = !(value is ProfiledDbTransaction awesomeTran) || !(awesomeTran.DbTransaction is DbTransaction) ?
+                this.DbCommand.Transaction = !(value is ProfiledDbTransaction awesomeTran) || !(awesomeTran.DbTransaction is DbTransaction) ?
                     value : (DbTransaction)awesomeTran.DbTransaction;
             }
         }
 
-        protected IDbProfiler DbProfiler
-        {
-            get => _profiler;
-            set => _profiler = value;
-        }
+        protected IDbProfiler DbProfiler { get; set; }
 
         public override bool DesignTimeVisible
         {
-            get => _cmd.DesignTimeVisible;
-            set => _cmd.DesignTimeVisible = value;
+            get => this.DbCommand.DesignTimeVisible;
+            set => this.DbCommand.DesignTimeVisible = value;
         }
 
         public override UpdateRowSource UpdatedRowSource
         {
-            get => _cmd.UpdatedRowSource;
-            set => _cmd.UpdatedRowSource = value;
+            get => this.DbCommand.UpdatedRowSource;
+            set => this.DbCommand.UpdatedRowSource = value;
         }
 
 
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
-            if (_profiler == null || !_profiler.IsActive)
+            if (this.DbProfiler == null || !this.DbProfiler.IsActive)
             {
-                return _cmd.ExecuteReader(behavior);
+                return this.DbCommand.ExecuteReader(behavior);
             }
 
             DbDataReader result = null;
-            _profiler.ExecuteStart(this, ExecuteType.Reader);
+            this.DbProfiler.ExecuteStart(this, ExecuteType.Reader);
             try
             {
-                result = _cmd.ExecuteReader(behavior);
-                result = new ProfiledDbDataReader(result, _conn, _profiler);
+                result = this.DbCommand.ExecuteReader(behavior);
+                result = new ProfiledDbDataReader(result, _conn, this.DbProfiler);
             }
             catch (Exception e)
             {
-                _profiler.OnError(this, ExecuteType.Reader, e);
+                this.DbProfiler.OnError(this, ExecuteType.Reader, e);
                 throw;
             }
             finally
             {
-                _profiler.ExecuteFinish(this, ExecuteType.Reader, result);
+                this.DbProfiler.ExecuteFinish(this, ExecuteType.Reader, result);
             }
             return result;
         }
 
         public override int ExecuteNonQuery()
         {
-            if (_profiler == null || !_profiler.IsActive)
+            if (this.DbProfiler == null || !this.DbProfiler.IsActive)
             {
-                return _cmd.ExecuteNonQuery();
+                return this.DbCommand.ExecuteNonQuery();
             }
 
             int result;
 
-            _profiler.ExecuteStart(this, ExecuteType.NonQuery);
+            this.DbProfiler.ExecuteStart(this, ExecuteType.NonQuery);
             try
             {
-                result = _cmd.ExecuteNonQuery();
+                result = this.DbCommand.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                _profiler.OnError(this, ExecuteType.NonQuery, e);
+                this.DbProfiler.OnError(this, ExecuteType.NonQuery, e);
                 throw;
             }
             finally
             {
-                _profiler.ExecuteFinish(this, ExecuteType.NonQuery, null);
+                this.DbProfiler.ExecuteFinish(this, ExecuteType.NonQuery, null);
             }
             return result;
         }
 
         public override object ExecuteScalar()
         {
-            if (_profiler == null || !_profiler.IsActive)
+            if (this.DbProfiler == null || !this.DbProfiler.IsActive)
             {
-                return _cmd.ExecuteScalar();
+                return this.DbCommand.ExecuteScalar();
             }
 
             object result;
-            _profiler.ExecuteStart(this, ExecuteType.Scalar);
+            this.DbProfiler.ExecuteStart(this, ExecuteType.Scalar);
             try
             {
-                result = _cmd.ExecuteScalar();
+                result = this.DbCommand.ExecuteScalar();
             }
             catch (Exception e)
             {
-                _profiler.OnError(this, ExecuteType.Scalar, e);
+                this.DbProfiler.OnError(this, ExecuteType.Scalar, e);
                 throw;
             }
             finally
             {
-                _profiler.ExecuteFinish(this, ExecuteType.Scalar, null);
+                this.DbProfiler.ExecuteFinish(this, ExecuteType.Scalar, null);
             }
             return result;
         }
 
         public override void Cancel()
         {
-            _cmd.Cancel();
+            this.DbCommand.Cancel();
         }
 
         public override void Prepare()
         {
-            _cmd.Prepare();
+            this.DbCommand.Prepare();
         }
 
         protected override DbParameter CreateDbParameter()
         {
-            return _cmd.CreateParameter();
+            return this.DbCommand.CreateParameter();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _cmd?.Dispose();
+                this.DbCommand?.Dispose();
             }
-            _cmd = null;
+            this.DbCommand = null;
             base.Dispose(disposing);
         }
     }

@@ -74,7 +74,7 @@ namespace MarkdownDeep
 			if (pos > str.Length)
 				pos = str.Length;
 
-			this.str = str;
+			this.input = str;
 			this.start = pos;
 			this.pos = pos;
 			this.end = pos + len;
@@ -84,7 +84,7 @@ namespace MarkdownDeep
 		}
 
 		// Get the entire input string
-		public string input => str;
+		public string input { get; private set; }
 
         // Get the character at the current position
 		public char current
@@ -94,7 +94,7 @@ namespace MarkdownDeep
 				if (pos < start || pos >= end)
 					return '\0';
 				else
-					return str[pos];
+					return this.input[pos];
 			}
 		}
 
@@ -121,7 +121,7 @@ namespace MarkdownDeep
 		{
 			while (pos < end)
 			{
-				var ch=str[pos];
+				var ch=this.input[pos];
 				if (ch=='\r' || ch=='\n')
 					break;
 				pos++;
@@ -133,11 +133,11 @@ namespace MarkdownDeep
 		{
 			if (pos < end)
 			{
-				var ch = str[pos];
+				var ch = this.input[pos];
 				if (ch == '\r')
 				{
 					pos++;
-					if (pos < end && str[pos] == '\n')
+					if (pos < end && this.input[pos] == '\n')
 						pos++;
 					return true;
 				}
@@ -145,7 +145,7 @@ namespace MarkdownDeep
 				else if (ch == '\n')
 				{
 					pos++;
-					if (pos < end && str[pos] == '\r')
+					if (pos < end && this.input[pos] == '\r')
 						pos++;
 					return true;
 				}
@@ -171,7 +171,7 @@ namespace MarkdownDeep
 				return '\0';
 			if (index >= end)
 				return '\0';
-			return str[index];
+			return this.input[index];
 		}
 
 		// Skip a number of characters
@@ -302,7 +302,7 @@ namespace MarkdownDeep
 		// Extract a substring
 		public string Substring(int start)
 		{
-			return str.Substring(start, end-start);
+			return this.input.Substring(start, end-start);
 		}
 
 		// Extract a substring
@@ -311,7 +311,7 @@ namespace MarkdownDeep
 			if (start + len > end)
 				len = end - start;
 
-			return str.Substring(start, len);
+			return this.input.Substring(start, len);
 		}
 
 		// Scan forward for a character
@@ -321,7 +321,7 @@ namespace MarkdownDeep
 				return false;
 
 			// Find it
-			var index = str.IndexOf(ch, pos);
+			var index = this.input.IndexOf(ch, pos);
 			if (index < 0 || index>=end)
 				return false;
 
@@ -337,7 +337,7 @@ namespace MarkdownDeep
 				return false;
 
 			// Find it
-			var index = str.IndexOfAny(chars, pos);
+			var index = this.input.IndexOfAny(chars, pos);
 			if (index < 0 || index>=end)
 				return false;
 
@@ -352,7 +352,7 @@ namespace MarkdownDeep
 			if (pos >= end)
 				return false;
 
-			var index = str.IndexOf(find, pos);
+			var index = this.input.IndexOf(find, pos);
 			if (index < 0 || index > end-find.Length)
 				return false;
 
@@ -366,7 +366,7 @@ namespace MarkdownDeep
 			if (pos >= end)
 				return false;
 
-			var index = str.IndexOf(find, pos, StringComparison.OrdinalIgnoreCase);
+			var index = this.input.IndexOf(find, pos, StringComparison.OrdinalIgnoreCase);
 			if (index < 0 || index >= end - find.Length)
 				return false;
 
@@ -395,14 +395,14 @@ namespace MarkdownDeep
 			if (mark >= pos)
 				return "";
 
-			return str.Substring(mark, pos - mark);
+			return this.input.Substring(mark, pos - mark);
 		}
 
 		// Skip an identifier
 		public bool SkipIdentifier(ref string identifier)
 		{
 			var savepos = position;
-			if (!Utils.ParseIdentifier(this.str, ref pos, ref identifier))
+			if (!Utils.ParseIdentifier(this.input, ref pos, ref identifier))
 				return false;
 			if (pos >= end)
 			{
@@ -448,7 +448,7 @@ namespace MarkdownDeep
 		public bool SkipHtmlEntity(ref string entity)
 		{
 			var savepos = position;
-			if (!Utils.SkipHtmlEntity(this.str, ref pos, ref entity))
+			if (!Utils.SkipHtmlEntity(this.input, ref pos, ref entity))
 				return false;
 			if (pos > end)
 			{
@@ -496,8 +496,7 @@ namespace MarkdownDeep
 		}
 
 		// Attributes
-		string str;
-		int start;
+        int start;
 		int pos;
 		int end;
 		int mark;

@@ -17,7 +17,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
+                    <i class="fa fa-shield-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
             </div>
                 <div class="card-body">
                      
@@ -57,7 +57,7 @@
                 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" />
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
+                    <i class="fa fa-shield-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
             </div>
                 <div class="card-body">
         <asp:Repeater runat="server" ID="List">

@@ -63,11 +63,11 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("Album/ChangeAlbumTitle")]
         [HttpPost]
-        public ReturnClass ChangeAlbumTitle(JObject jsonData)
+        public IHttpActionResult ChangeAlbumTitle(JObject jsonData)
         {
             dynamic json = jsonData;
 
-            return this.Get<IAlbum>().ChangeAlbumTitle((int)json.AlbumId, (string)json.NewTitle);
+            return this.Ok(this.Get<IAlbum>().ChangeAlbumTitle((int)json.AlbumId, (string)json.NewTitle));
         }
 
         /// <summary>
@@ -81,11 +81,11 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("Album/ChangeImageCaption")]
         [HttpPost]
-        public ReturnClass ChangeImageCaption(JObject jsonData)
+        public IHttpActionResult ChangeImageCaption(JObject jsonData)
         {
             dynamic json = jsonData;
 
-            return this.Get<IAlbum>().ChangeImageCaption((int)json.ImageId, (string)json.NewCaption);
+            return this.Ok(this.Get<IAlbum>().ChangeImageCaption((int)json.ImageId, (string)json.NewCaption));
         }
 
         /// <summary>
@@ -99,49 +99,47 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("Album/GetAlbumImages")]
         [HttpPost]
-        public GridDataSet GetAlbumImages(PagedResults pagedResults)
+        public IHttpActionResult GetAlbumImages(PagedResults pagedResults)
         {
             var userId = pagedResults.UserId;
             var pageSize = pagedResults.PageSize;
             var pageNumber = pagedResults.PageNumber;
 
-            var albumImages = YafContext.Current.GetRepository<UserAlbumImage>().GetUserAlbumImagesPaged(
+            var albumImages = this.GetRepository<UserAlbumImage>().GetUserAlbumImagesPaged(
                 userId: userId,
                 pageIndex: pageNumber,
                 pageSize: pageSize);
 
             var images = new List<AttachmentItem>();
 
-            foreach (var image in albumImages)
-            {
-                var url = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
+            albumImages.ForEach(
+                image =>
+                    {
+                        var url = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
 
-                var attachment = new AttachmentItem
-                {
-                    FileName = image.FileName,
-                    OnClick = $"setStyle('AlbumImgId', '{image.ID}')",
-                    IconImage =
-                                             string
-                                                 .Format(
-                                                     @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" width=""40"" height=""40"" />",
-                                                     url,
-                                                         image.Caption.IsSet() ? image.Caption : image.FileName),
-                    DataURL = url
-                };
+                        var attachment = new AttachmentItem
+                                             {
+                                                 FileName = image.FileName,
+                                                 OnClick = $"setStyle('AlbumImgId', '{image.ID}')",
+                                                 IconImage =
+                                                     $@"<img class=""popupitemIcon"" src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" width=""40"" height=""40"" />",
+                                                 DataURL = url
+                                             };
 
-                images.Add(attachment);
-            }
+                        images.Add(attachment);
+                    });
 
-            return new GridDataSet
-            {
-                PageNumber = pageNumber,
-                TotalRecords =
-                               albumImages.Any()
-                                   ? YafContext.Current.GetRepository<UserAlbumImage>().GetUserAlbumImageCount(userId)
-                                   : 0,
-                PageSize = pageSize,
-                AttachmentList = images
-            };
+            return this.Ok(
+                new GridDataSet
+                    {
+                        PageNumber = pageNumber,
+                        TotalRecords =
+                            albumImages.Any()
+                                ? this.GetRepository<UserAlbumImage>().GetUserAlbumImageCount(userId)
+                                : 0,
+                        PageSize = pageSize,
+                        AttachmentList = images
+                    });
         }
     }
 }

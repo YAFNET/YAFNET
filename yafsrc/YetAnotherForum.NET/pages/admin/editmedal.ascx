@@ -16,7 +16,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                    <i class="fa fa-trophy fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                                                 LocalizedTag="TITLE" 
                                                                                 LocalizedPage="ADMIN_EDITMEDAL" />
                 </div>
@@ -125,7 +125,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITMEDAL" />
+                    <i class="fa fa-trophy fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITMEDAL" />
                 </div>
                 <div class="card-body">
 		<asp:Repeater ID="GroupList" runat="server" OnItemCommand="GroupListItemCommand">
@@ -192,7 +192,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_EDITMEDAL" />
+                    <i class="fa fa-trophy fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_EDITMEDAL" />
                     </div>
                 <div class="card-body">
         <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">

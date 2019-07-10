@@ -28,7 +28,6 @@ namespace YAF.Core.Helpers
     using System.Linq;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -95,6 +94,12 @@ namespace YAF.Core.Helpers
             return dbFunction.ValidateAndExecute("GetSQLEngine", f => f.GetScalar<string>(s => s.GetSQLEngine()));
         }
 
+        /// <summary>
+        /// The shrink database.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
         public static void ShrinkDatabase([NotNull] this IDbFunction dbFunction)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
@@ -102,6 +107,15 @@ namespace YAF.Core.Helpers
             dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ShrinkDatabase()));
         }
 
+        /// <summary>
+        /// The re index database.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string ReIndexDatabase([NotNull] this IDbFunction dbFunction)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
@@ -109,6 +123,21 @@ namespace YAF.Core.Helpers
             return dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ReIndexDatabase()));
         }
 
+        /// <summary>
+        /// The system initialize execute scripts.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="script">
+        /// The script.
+        /// </param>
+        /// <param name="scriptFile">
+        /// The script file.
+        /// </param>
+        /// <param name="useTransactions">
+        /// The use transactions.
+        /// </param>
         public static void SystemInitializeExecutescripts(
             [NotNull] this IDbFunction dbFunction,
             [NotNull] string script,
@@ -122,6 +151,15 @@ namespace YAF.Core.Helpers
                 f => f.Scalar.SystemInitializeExecutescripts(script, scriptFile, useTransactions));
         }
 
+        /// <summary>
+        /// The system initialize fix access.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="grantAccess">
+        /// The grant access.
+        /// </param>
         public static void SystemInitializeFixaccess(
             [NotNull] this IDbFunction dbFunction,
             bool grantAccess)
@@ -133,6 +171,21 @@ namespace YAF.Core.Helpers
                 f => f.Scalar.SystemInitializeFixaccess(grantAccess));
         }
 
+        /// <summary>
+        /// The run sql.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="sql">
+        /// The sql.
+        /// </param>
+        /// <param name="useTransaction">
+        /// The use transaction.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string RunSQL(
             [NotNull] this IDbFunction dbFunction,
             string sql,
@@ -145,6 +198,18 @@ namespace YAF.Core.Helpers
                 f => f.Scalar.RunSQL(sql, useTransaction));
         }
 
+        /// <summary>
+        /// The change recovery mode.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="recoveryMode">
+        /// The recovery mode.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string ChangeRecoveryMode(
             [NotNull] this IDbFunction dbFunction,
             string recoveryMode)

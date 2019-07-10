@@ -11,7 +11,7 @@
                 <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                             <i class="fa fa-cogs fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BOARD_SETUP"
+                             <i class="fa fa-cogs fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BOARD_SETUP"
                                  LocalizedPage="ADMIN_BOARDSETTINGS" />
                         </div>
                         <div class="card-body">
@@ -100,13 +100,9 @@
              
                 <YAF:HelpLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_FILE_EXTENSIONS"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />
-             
-            
-                <div class="custom-control custom-radio custom-control-inline">
-                    <asp:RadioButtonList ID="FileExtensionAllow" runat="server"
-                                         RepeatLayout="UnorderedList"
-                                         CssClass="list-unstyled">
-                    </asp:RadioButtonList>
+                            
+                <div class="custom-control custom-switch">
+                    <asp:CheckBox ID="FileExtensionAllow" runat="server" Text="&nbsp;"></asp:CheckBox>
                 </div>
             <hr />
 

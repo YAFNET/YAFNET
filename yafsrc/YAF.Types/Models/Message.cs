@@ -192,6 +192,7 @@ namespace YAF.Types.Models
         [Index]
 
         public int UserID { get; set; }
+        [StringLength(255)]
         public string UserName { get; set; }
 
         [Ignore]
@@ -201,6 +202,7 @@ namespace YAF.Types.Models
         [Alias("Message")]
         public string MessageText { get; set; }
         [Required]
+        [StringLength(39)]
         public string IP { get; set; }
         public DateTime? Edited { get; set; }
         [Required]
@@ -216,6 +218,7 @@ namespace YAF.Types.Models
 
             set => this.Flags = value.BitValue;
         }
+        [StringLength(100)]
         public string EditReason { get; set; }
 
         [Ignore]
@@ -223,15 +226,20 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public bool? IsModeratorChanged { get; set; }
+        [StringLength(100)]
         public string DeleteReason { get; set; }
         [Compute]
         public bool? IsDeleted { get; set; }
         [Compute]
         public bool? IsApproved { get; set; }
+        [StringLength(50)]
         public string BlogPostID { get; set; }
         public int? EditedBy { get; set; }
+        [StringLength(255)]
         public string ExternalMessageId { get; set; }
+        [StringLength(255)]
         public string ReferenceMessageId { get; set; }
+        [StringLength(255)]
         public string UserDisplayName { get; set; }
 
         [Ignore]

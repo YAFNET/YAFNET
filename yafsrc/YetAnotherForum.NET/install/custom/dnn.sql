@@ -81,12 +81,6 @@ BEGIN TRY
 
 	DECLARE @newRank smallint = (SELECT RankId FROM  [{databaseOwner}].[{objectQualifier}Rank] WHERE BoardID = @boardID AND MinPosts = 0)
 
-	-- PRINT N'Populate Smileys:';
-	MERGE INTO  [{databaseOwner}].[{objectQualifier}Smiley] T
-	USING (SELECT * FROM  [{databaseOwner}].[{objectQualifier}Smiley] WHERE BoardID = @tplBoardID) S ON T.BoardID = @BoardID AND T.SortOrder = S.SortORder
-	WHEN NOT MATCHED THEN INSERT ( BoardID,   [Code],   Icon,   Emoticon,   SortOrder)
-						  VALUES (@BoardID, S.[Code], S.Icon, S.Emoticon, S.SortOrder);
-
 	-- PRINT N'Populate SpamWords:';
 	MERGE INTO  [{databaseOwner}].[{objectQualifier}Spam_Words] T
 	USING (SELECT * FROM  [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardID = @tplBoardID) S ON T.BoardID = @BoardID AND T.SpamWord = S.SpamWord

@@ -1006,19 +1006,18 @@ namespace ServiceStack.Text.FastMember
 
         sealed class TypeAccessorWrapper : ObjectAccessor
         {
-            private readonly object target;
             private readonly TypeAccessor accessor;
             public TypeAccessorWrapper(object target, TypeAccessor accessor)
             {
-                this.target = target;
+                this.Target = target;
                 this.accessor = accessor;
             }
             public override object this[string name]
             {
-                get => this.accessor[this.target, name.ToUpperInvariant()];
-                set => this.accessor[this.target, name.ToUpperInvariant()] = value;
+                get => this.accessor[this.Target, name.ToUpperInvariant()];
+                set => this.accessor[this.Target, name.ToUpperInvariant()] = value;
             }
-            public override object Target => this.target;
+            public override object Target { get; }
         }
 
         //sealed class DynamicWrapper : ObjectAccessor

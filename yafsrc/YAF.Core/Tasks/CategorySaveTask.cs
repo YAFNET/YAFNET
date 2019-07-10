@@ -69,57 +69,27 @@ namespace YAF.Core.Tasks
           set => this._categoryId = value;
       }
 
-      private object _categoryName;
-
       /// <summary>
       /// Gets or sets CategoryName.
       /// </summary>
-      public object CategoryName
-      {
-          get => this._categoryName;
-
-          set => this._categoryName = value;
-      }
-
-      private object _categoryImage;
+      public object CategoryName { get; set; }
 
       /// <summary>
       /// Gets or sets CategoryImage.
       /// </summary>
-      public object CategoryImage
-      {
-          get => this._categoryImage;
-
-          set => this._categoryImage = value;
-      }
-
-      private object _sortOrder;
+      public object CategoryImage { get; set; }
 
       /// <summary>
       /// Gets or sets SortOrder.
       /// </summary>
-      public object SortOrder
-      {
-          get => this._sortOrder;
-
-          set => this._sortOrder = value;
-      }
-
-      private  static long _categoryOut;
+      public object SortOrder { get; set; }
 
       /// <summary>
       /// Gets or sets CategoryOut.
       /// </summary>
-      public static long CategoryOut
-      {
-          get => _categoryOut;
+      public static long CategoryOut { get; set; }
 
-          set => _categoryOut = value;
-      }
-
-   
-
-    /// <summary>
+      /// <summary>
     /// The _task name.
     /// </summary>
     private const string _taskName = "CategorySaveTask";

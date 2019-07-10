@@ -57,6 +57,7 @@ namespace YAF.Types.Models
         public int BoardId { get; set; }
 
         [Required]
+        [StringLength(10)]
         public string Extension { get; set; }
 
 

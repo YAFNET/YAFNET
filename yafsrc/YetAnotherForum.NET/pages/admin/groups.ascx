@@ -14,7 +14,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                    <i class="fa fa-users fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                                                LocalizedTag="PROVIDER_ROLES" 
                                                                                LocalizedPage="ADMIN_GROUPS" />
                 </div>
@@ -75,7 +75,7 @@
     <div class="col-xl-12">
         <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                    <i class="fa fa-users fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                                                LocalizedTag="HEADER" 
                                                                                LocalizedPage="ADMIN_GROUPS" />
                 </div>

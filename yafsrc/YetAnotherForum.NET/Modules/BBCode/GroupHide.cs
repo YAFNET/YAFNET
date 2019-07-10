@@ -44,9 +44,9 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var hiddenContent = this.Parameters["inner"];
+            var hiddenContent = this.Parameters[key: "inner"];
 
-            var groupString = this.Parameters["group"];
+            var groupString = this.Parameters[key: "group"];
 
             if (hiddenContent.IsNotSet())
             {
@@ -54,8 +54,8 @@ namespace YAF.Modules.BBCode
             }
 
            var descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GUEST",
-                "This board requires you to be registered and logged-in before you can view hidden messages.");
+                tag: "HIDDENMOD_GUEST",
+                defaultStr: "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
@@ -64,7 +64,7 @@ namespace YAF.Modules.BBCode
                 // Hide from Guests only
                 if (YafContext.Current.IsGuest)
                 {
-                    writer.Write(shownContentGuest);
+                    writer.Write(s: shownContentGuest);
                     return;
                 }
             }
@@ -72,13 +72,13 @@ namespace YAF.Modules.BBCode
             {
                 if (YafContext.Current.IsGuest)
                 {
-                    writer.Write(shownContentGuest);
+                    writer.Write(s: shownContentGuest);
                     return;
                 }
 
                 descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GROUP",
-                "You dont´t have the right to see the Hidden Content.");
+                tag: "HIDDENMOD_GROUP",
+                defaultStr: "You dont´t have the right to see the Hidden Content.");
 
                 shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
@@ -105,7 +105,7 @@ namespace YAF.Modules.BBCode
 
                 // Check For Role Hiding
                 if (RoleMembershipHelper.GetRolesForUser(
-                            YafContext.Current.User.UserName).Any(role => !groups.Any(role.Equals)))
+                            username: YafContext.Current.User.UserName).Any(predicate: role => !groups.Any(predicate: role.Equals)))
                 {
                     shownContentGuest = hiddenContent;
                 }
@@ -128,7 +128,7 @@ namespace YAF.Modules.BBCode
                 shownContentGuest = hiddenContent;
             }
 
-            writer.Write(shownContentGuest);
+            writer.Write(s: shownContentGuest);
         }
     }
 }

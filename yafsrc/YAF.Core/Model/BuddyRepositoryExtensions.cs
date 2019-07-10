@@ -44,17 +44,26 @@ namespace YAF.Core.Model
         /// <summary>
         /// Adds a buddy request. (Should be approved later by "ToUserID")
         /// </summary>
-        /// <param name="FromUserID">The from user id.</param>
-        /// <param name="ToUserID">The to user id.</param>
-        /// <param name="useDisplayName">Display name of the use.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from User Id.
+        /// </param>
+        /// <param name="toUserId">
+        /// The to User Id.
+        /// </param>
+        /// <param name="useDisplayName">
+        /// Display name of the use.
+        /// </param>
         /// <returns>
         /// The name of the second user + Whether this request is approved or not.
         /// </returns>
         [NotNull]
         public static string[] AddRequest(
             this IRepository<Buddy> repository,
-            [NotNull] int FromUserId,
-            [NotNull] int ToUserId,
+            [NotNull] int fromUserId,
+            [NotNull] int toUserId,
             [NotNull] bool useDisplayName)
         {
             IDbDataParameter parameterOutput = null;
@@ -66,8 +75,8 @@ namespace YAF.Core.Model
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.AddParam("FromUserID", FromUserId);
-                        cmd.AddParam("ToUserID", ToUserId);
+                        cmd.AddParam("FromUserID", fromUserId);
+                        cmd.AddParam("ToUserID", toUserId);
                         cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
                         cmd.AddParam("UseDisplayName", useDisplayName);
 
@@ -81,14 +90,20 @@ namespace YAF.Core.Model
         /// <summary>
         /// Approves a buddy request.
         /// </summary>
-        /// <param name="FromUserID">
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="fromUserID">
         /// The from user id.
         /// </param>
-        /// <param name="ToUserID">
+        /// <param name="toUserID">
         /// The to user id.
         /// </param>
-        /// <param name="Mutual">
+        /// <param name="mutual">
         /// Should the requesting user (ToUserID) be added to FromUserID's buddy list too?
+        /// </param>
+        /// <param name="useDisplayName">
+        /// The use Display Name.
         /// </param>
         /// <returns>
         /// the name of the second user.
@@ -96,9 +111,9 @@ namespace YAF.Core.Model
         [NotNull]
         public static string ApproveRequest(
             this IRepository<Buddy> repository,
-            [NotNull] int FromUserID,
-            [NotNull] int ToUserID,
-            [NotNull] bool Mutual,
+            [NotNull] int fromUserID,
+            [NotNull] int toUserID,
+            [NotNull] bool mutual,
             [NotNull] bool useDisplayName)
         {
             IDbDataParameter parameterOutput = null;
@@ -109,9 +124,9 @@ namespace YAF.Core.Model
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.AddParam("FromUserID", FromUserID);
-                        cmd.AddParam("ToUserID", ToUserID);
-                        cmd.AddParam("mutual", Mutual);
+                        cmd.AddParam("FromUserID", fromUserID);
+                        cmd.AddParam("ToUserID", toUserID);
+                        cmd.AddParam("mutual", mutual);
                         cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
                         cmd.AddParam("UseDisplayName", useDisplayName);
 
@@ -124,17 +139,26 @@ namespace YAF.Core.Model
         /// <summary>
         /// Denies a buddy request.
         /// </summary>
-        /// <param name="FromUserID">The from user id.</param>
-        /// <param name="ToUserID">The to user id.</param>
-        /// <param name="useDisplayName">Display name of the use.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="fromUserID">
+        /// The from user id.
+        /// </param>
+        /// <param name="toUserID">
+        /// The to user id.
+        /// </param>
+        /// <param name="useDisplayName">
+        /// Display name of the use.
+        /// </param>
         /// <returns>
         /// the name of the second user.
         /// </returns>
         [NotNull]
         public static string DenyRequest(
             this IRepository<Buddy> repository,
-            [NotNull] int FromUserID,
-            [NotNull] int ToUserID,
+            [NotNull] int fromUserID,
+            [NotNull] int toUserID,
             [NotNull] bool useDisplayName)
         {
             IDbDataParameter parameterOutput = null;
@@ -145,8 +169,8 @@ namespace YAF.Core.Model
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.AddParam("FromUserID", FromUserID);
-                        cmd.AddParam("ToUserID", ToUserID);
+                        cmd.AddParam("FromUserID", fromUserID);
+                        cmd.AddParam("ToUserID", toUserID);
                         cmd.AddParam("UseDisplayName", useDisplayName);
 
                         parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
@@ -158,17 +182,26 @@ namespace YAF.Core.Model
         /// <summary>
         /// Removes the "ToUserID" from "FromUserID"'s buddy list.
         /// </summary>
-        /// <param name="FromUserID">The from user id.</param>
-        /// <param name="ToUserID">The to user id.</param>
-        /// <param name="useDisplayName">Display name of the use.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="fromUserID">
+        /// The from user id.
+        /// </param>
+        /// <param name="toUserID">
+        /// The to user id.
+        /// </param>
+        /// <param name="useDisplayName">
+        /// Display name of the use.
+        /// </param>
         /// <returns>
         /// The name of the second user.
         /// </returns>
         [NotNull]
         public static string Remove(
             this IRepository<Buddy> repository,
-            [NotNull] int FromUserID,
-            [NotNull] int ToUserID,
+            [NotNull] int fromUserID,
+            [NotNull] int toUserID,
             [NotNull] bool useDisplayName)
         {
             IDbDataParameter parameterOutput = null;
@@ -179,8 +212,8 @@ namespace YAF.Core.Model
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.AddParam("FromUserID", FromUserID);
-                        cmd.AddParam("ToUserID", ToUserID);
+                        cmd.AddParam("FromUserID", fromUserID);
+                        cmd.AddParam("ToUserID", toUserID);
                         cmd.AddParam("UseDisplayName", useDisplayName);
 
                         parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
@@ -202,6 +235,30 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.buddy_list(FromUserID: fromUserID);
+        }
+
+        /// <summary>
+        /// The check is friend.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        /// <param name="toUserId">
+        /// The to user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool CheckIsFriend(this IRepository<Buddy> repository, int fromUserId, int toUserId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var buddy = repository.GetSingle(b => b.Approved && b.FromUserID == fromUserId && b.ToUserID == toUserId);
+
+            return buddy != null;
         }
 
         #endregion

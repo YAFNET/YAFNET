@@ -9,22 +9,20 @@ namespace ServiceStack.Text
         bool disposed;
         JsConfigScope parent;
 
-        [ThreadStatic]
-        private static JsConfigScope head;
-
         internal JsConfigScope()
         {
             PclExport.Instance.BeginThreadAffinity();
 
-            this.parent = head;
-            head = this;
+            this.parent = Current;
+            Current = this;
         }
 
-        internal static JsConfigScope Current => head;
+        [field: ThreadStatic]
+        internal static JsConfigScope Current { get; private set; }
 
         public static void DisposeCurrent()
         {
-            head?.Dispose();
+            Current?.Dispose();
         }
 
         public void Dispose()
@@ -32,7 +30,7 @@ namespace ServiceStack.Text
             if (!this.disposed)
             {
                 this.disposed = true;
-                head = this.parent;
+                Current = this.parent;
 
                 PclExport.Instance.EndThreadAffinity();
             }

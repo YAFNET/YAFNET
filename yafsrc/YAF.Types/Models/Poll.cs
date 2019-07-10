@@ -50,6 +50,7 @@ namespace YAF.Types.Models
         [AutoIncrement]
         public int ID { get; set; }
         [Required]
+        [StringLength(50)]
         public string Question { get; set; }
         public DateTime? Closes { get; set; }
         [References(typeof(PollGroupCluster))]
@@ -57,7 +58,9 @@ namespace YAF.Types.Models
         [Required]
         [Default(1)]
         public int UserID { get; set; }
+        [StringLength(255)]
         public string ObjectPath { get; set; }
+        [StringLength(50)]
         public string MimeType { get; set; }
         [Default(0)]
         public int Flags { get; set; }

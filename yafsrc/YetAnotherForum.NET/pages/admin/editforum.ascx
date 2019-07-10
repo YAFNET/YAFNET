@@ -13,13 +13,12 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_EDITFORUM" />&nbsp;<asp:Label ID="ForumNameTitle" runat="server"></asp:Label>
+                    <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_EDITFORUM" />&nbsp;<asp:Label ID="ForumNameTitle" runat="server"></asp:Label>
                 </div>
                 <div class="card-body">
              
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="CATEGORY" LocalizedPage="ADMIN_EDITFORUM" />
-             
-            <p>
+                    <p>
                 <asp:DropDownList ID="CategoryList" runat="server" OnSelectedIndexChanged="CategoryChange"
                     DataValueField="ID" DataTextField="Name" CssClass="custom-select">
                 </asp:DropDownList>

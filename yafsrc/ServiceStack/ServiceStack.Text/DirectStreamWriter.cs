@@ -14,13 +14,12 @@ namespace ServiceStack.Text
         private byte[] curChar = new byte[1];
         private bool needFlush = false;
 
-        private Encoding encoding;
-        public override Encoding Encoding => this.encoding;
+        public override Encoding Encoding { get; }
 
         public DirectStreamWriter(Stream stream, Encoding encoding)
         {
             this.stream = stream;
-            this.encoding = encoding;
+            this.Encoding = encoding;
         }
 
         public override void Write(string s)

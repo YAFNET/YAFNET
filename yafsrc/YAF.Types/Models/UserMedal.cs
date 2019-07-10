@@ -49,19 +49,26 @@ namespace YAF.Types.Models
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
         [References(typeof(Medal))]
         [Required]
         public int MedalID { get; set; }
+
+        [StringLength(100)]
         public string Message { get; set; }
+
         [Required]
         [Default(0)]
         public bool Hide { get; set; }
+
         [Required]
         [Default(0)]
         public bool OnlyRibbon { get; set; }
+
         [Required]
         [Default(255)]
         public byte SortOrder { get; set; }
+
         [Required]
         public DateTime DateAwarded { get; set; }
 

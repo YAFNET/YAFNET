@@ -57,6 +57,7 @@ namespace YAF.Types.Models
         public int EventTypeID { get; set; }
 
         [Required]
+        [StringLength(128)]
         public string EventTypeName { get; set; }
 
         [Required]

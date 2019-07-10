@@ -76,6 +76,7 @@
     <Resource tag="ATTACHMENTS">Handles attachments</Resource>
     <Resource tag="AVATAR">Views avatar</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
+    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
     <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
     <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
@@ -1836,7 +1837,7 @@
     <Resource tag="LATEST_VERSION">The latest final version available is &lt;strong&gt;{0}&lt;/strong&gt; released &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">You are running YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Date: {1}).</Resource>
     <Resource tag="TITLE">Version Check</Resource>
-    <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target="_top" href="http://yafnet.codeplex.com/"&gt;
+    <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target="_top" href="http://yetanotherforum.net/download/"&gt;
 						here&lt;/a&gt;.</Resource>
   </page>
   <page name="ADMINMENU">
@@ -2466,6 +2467,18 @@
     <Resource tag="ZA">South Africa</Resource>
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
+  </page>
+  <page name="CP_BLOCKOPTIONS">
+    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
+    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
+    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
+    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
+    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
+    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
+    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
+    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
+    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
+    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Submit</Resource>

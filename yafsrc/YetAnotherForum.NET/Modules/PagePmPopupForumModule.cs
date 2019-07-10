@@ -42,7 +42,7 @@ namespace YAF.Modules
     /// <summary>
     /// The Page PM Popup Module
     /// </summary>
-    [YafModule("Page PopUp Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Page PopUp Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class PagePmPopupForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -108,25 +108,25 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
-                                          || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
+            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_pm)
+                                          || !this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_editbuddies)))
             {
                 if (!(this.Get<YafBoardSettings>().NotifcationNativeOnMobile
                       && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
                 {
                     notification.Show(
-                        string.Format(this.GetText("COMMON", "UNREAD_MSG2"), this.PageContext.UnreadPrivate),
-                        this.GetText("COMMON", "UNREAD_MSG_TITLE"),
-                        new DialogBox.DialogButton
+                        message: string.Format(format: this.GetText(page: "COMMON", tag: "UNREAD_MSG2"), arg0: this.PageContext.UnreadPrivate),
+                        title: this.GetText(page: "COMMON", tag: "UNREAD_MSG_TITLE"),
+                        okButton: new DialogBox.DialogButton
                             {
-                                Text = this.GetText("COMMON", "YES"),
+                                Text = this.GetText(page: "COMMON", tag: "YES"),
                                 CssClass = "btn btn-success btn-sm",
                                 ForumPageLink =
                                     new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
                             },
-                        new DialogBox.DialogButton
+                        cancelButton: new DialogBox.DialogButton
                             {
-                                Text = this.GetText("COMMON", "NO"),
+                                Text = this.GetText(page: "COMMON", tag: "NO"),
                                 CssClass = "btn btn-danger btn-sm",
                                 ForumPageLink =
                                     new DialogBox.ForumLink
@@ -139,7 +139,7 @@ namespace YAF.Modules
                 else
                 {
                     this.PageContext.AddLoadMessage(
-                        string.Format(this.GetText("COMMON", "UNREAD_MSG"), this.PageContext.UnreadPrivate));
+                        message: string.Format(format: this.GetText(page: "COMMON", tag: "UNREAD_MSG"), arg0: this.PageContext.UnreadPrivate));
                 }
 
                 this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
@@ -148,7 +148,7 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies) || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm))
+            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_editbuddies) || this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_pm))
             {
                 return;
             }
@@ -157,18 +157,18 @@ namespace YAF.Modules
                   && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
             {
                 notification.Show(
-                    string.Format(this.GetText("BUDDY", "PENDINGBUDDIES2"), this.PageContext.PendingBuddies),
-                    this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
-                    new DialogBox.DialogButton
+                    message: string.Format(format: this.GetText(page: "BUDDY", tag: "PENDINGBUDDIES2"), arg0: this.PageContext.PendingBuddies),
+                    title: this.GetText(page: "BUDDY", tag: "PENDINGBUDDIES_TITLE"),
+                    okButton: new DialogBox.DialogButton
                         {
-                            Text = this.GetText("COMMON", "YES"),
+                            Text = this.GetText(page: "COMMON", tag: "YES"),
                             CssClass = "btn btn-success btn-sm",
                             ForumPageLink =
                                 new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
                         },
-                    new DialogBox.DialogButton
+                    cancelButton: new DialogBox.DialogButton
                         {
-                            Text = this.GetText("COMMON", "NO"),
+                            Text = this.GetText(page: "COMMON", tag: "NO"),
                             CssClass = "btn btn-danger btn-sm",
                             ForumPageLink =
                                 new DialogBox.ForumLink
@@ -181,7 +181,7 @@ namespace YAF.Modules
             else
             {
                 this.PageContext.AddLoadMessage(
-                    string.Format(this.GetText("BUDDY", "PENDINGBUDDIES2"), this.PageContext.PendingBuddies));
+                    message: string.Format(format: this.GetText(page: "BUDDY", tag: "PENDINGBUDDIES2"), arg0: this.PageContext.PendingBuddies));
             }
 
             this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;

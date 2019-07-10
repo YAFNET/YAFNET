@@ -38,6 +38,7 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.BaseControls;
 #if DEBUG
     using YAF.Core.Data.Profiling;
 #endif

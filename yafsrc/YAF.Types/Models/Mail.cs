@@ -50,13 +50,18 @@ namespace YAF.Types.Models
         [Alias("MailID")]
         public int ID { get; set; }
 
+        [StringLength(255)]
         public string FromUser { get; set; }
+        [StringLength(255)]
         public string FromUserName { get; set; }
+        [StringLength(255)]
         public string ToUser { get; set; }
+        [StringLength(255)]
         public string ToUserName { get; set; }
         [Required]
         public DateTime Created { get; set; }
         [Required]
+        [StringLength(100)]
         public string Subject { get; set; }
         public string Body { get; set; }
         public string BodyHtml { get; set; }

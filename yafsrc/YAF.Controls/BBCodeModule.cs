@@ -28,6 +28,7 @@ namespace YAF.Controls
     using System.Collections.Generic;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;

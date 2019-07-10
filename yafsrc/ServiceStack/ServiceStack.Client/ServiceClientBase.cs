@@ -225,12 +225,7 @@ namespace ServiceStack
         }
         private TimeSpan? timeout;
 
-        public TimeSpan? ReadWriteTimeout
-        {
-            get => this.readWriteTimeout;
-            set => this.readWriteTimeout = value;
-        }
-        private TimeSpan? readWriteTimeout;
+        public TimeSpan? ReadWriteTimeout { get; set; }
 
         public virtual string Accept => ContentType;
 
@@ -312,12 +307,7 @@ namespace ServiceStack
         }
         private CookieContainer cookieContainer;
 
-        public bool AllowAutoRedirect
-        {
-            get => allowAutoRedirect;
-            set => allowAutoRedirect = value;
-        }
-        private bool allowAutoRedirect = true;
+        public bool AllowAutoRedirect { get; set; } = true;
 
         /// <summary>
         /// Called before request resend, when the initial request required authentication

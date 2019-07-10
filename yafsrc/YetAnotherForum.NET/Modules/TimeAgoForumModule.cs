@@ -38,7 +38,7 @@ namespace YAF.Modules
     /// <summary>
     /// The time ago module.
     /// </summary>
-    [YafModule("Time Ago Javascript Loading Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Time Ago Javascript Loading Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class TimeAgoForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -63,13 +63,13 @@ namespace YAF.Modules
         private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.BoardSettings.ShowRelativeTime
-                || this.PageContext.Vars.ContainsKey("RegisteredTimeago"))
+                || this.PageContext.Vars.ContainsKey(key: "RegisteredTimeago"))
             {
                 return;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
-            this.PageContext.Vars["RegisteredTimeago"] = true;
+            YafContext.Current.PageElements.RegisterJsBlockStartup(name: "timeagoloadjs", script: JavaScriptBlocks.MomentLoadJs);
+            this.PageContext.Vars[key: "RegisteredTimeago"] = true;
         }
 
         #endregion

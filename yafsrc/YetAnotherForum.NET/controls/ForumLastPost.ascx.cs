@@ -30,6 +30,7 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

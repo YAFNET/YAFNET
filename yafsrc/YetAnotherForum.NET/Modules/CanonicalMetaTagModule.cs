@@ -1,22 +1,25 @@
-﻿using System;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using YAF.Types;
-using YAF.Types.Attributes;
-using YAF.Types.Constants;
-using YAF.Utils;
-using YAF.Utils.Helpers;
-
-namespace YAF.Modules
+﻿namespace YAF.Modules
 {
+    using System;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
     /// </summary>
-    [YafModule("Canonical Meta Tag Module", "BonzoFestoon", 1)]
+    [YafModule(moduleName: "Canonical Meta Tag Module", moduleAuthor: "BonzoFestoon", moduleVersion: 1)]
     public class CanonicalMetaTagModule : SimpleBaseForumModule
     {
+        /// <summary>
+        /// The init after page.
+        /// </summary>
         public override void InitAfterPage()
         {
             this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
@@ -29,10 +32,10 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            const string topicLinkParams = "t={0}";
+            const string TopicLinkParams = "t={0}";
 
             var head = this.ForumControl.Page.Header
-                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
 
             if (head == null)
             {
@@ -45,7 +48,7 @@ namespace YAF.Modules
             if (this.ForumPageType == ForumPages.posts)
             {
                 var topicId = this.PageContext.PageTopicID;
-                var topicUrl = YafBuildLink.GetLink(ForumPages.posts, true, topicLinkParams, topicId);
+                var topicUrl = YafBuildLink.GetLink(page: ForumPages.posts, fullUrl: true, format: TopicLinkParams, topicId);
 
                 tag = $"<link rel=\"canonical\" href=\"{topicUrl}\" />";
             }
@@ -59,7 +62,7 @@ namespace YAF.Modules
 
             if (tag.IsSet())
             {
-                head.Controls.Add(new LiteralControl(tag));
+                head.Controls.Add(child: new LiteralControl(text: tag));
             }
         }
     }

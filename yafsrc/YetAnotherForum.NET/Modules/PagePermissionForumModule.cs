@@ -38,7 +38,7 @@ namespace YAF.Modules
   /// <summary>
   /// Module that handles page permission feature
   /// </summary>
-  [YafModule("Page Permission Module", "Tiny Gecko", 1)]
+  [YafModule(moduleName: "Page Permission Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
   public class PagePermissionForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields
@@ -94,18 +94,18 @@ namespace YAF.Modules
       switch (this.ForumPageType)
       {
         case ForumPages.activeusers:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+          this.permissions.HandleRequest(permission: this.PageContext.BoardSettings.ActiveUsersViewPermissions);
           break;
         case ForumPages.members:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+          this.permissions.HandleRequest(permission: this.PageContext.BoardSettings.MembersListViewPermissions);
           break;
         case ForumPages.profile:
         case ForumPages.albums:
         case ForumPages.album:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+          this.permissions.HandleRequest(permission: this.PageContext.BoardSettings.ProfileViewPermissions);
           break;
         case ForumPages.search:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.SearchPermissions);
+          this.permissions.HandleRequest(permission: this.PageContext.BoardSettings.SearchPermissions);
           break;
       }
     }

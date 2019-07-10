@@ -55,6 +55,7 @@ namespace YAF.Types.Models
         [Required]
         public int MedalID { get; set; }
 
+        [StringLength(100)]
         public string Message { get; set; }
 
         [Required]

@@ -31,6 +31,7 @@ namespace YAF.Dialogs
     using System.Linq;
 
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -56,11 +57,11 @@ namespace YAF.Dialogs
         protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // import selected file (if it's the proper format)...
-            if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
+            if (!this.importFile.PostedFile.ContentType.StartsWith(value: "text"))
             {
                 this.PageContext.AddLoadMessage(
-                    string.Format(
-                        this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
+                    message: string.Format(
+                        format: this.GetText(page: "ADMIN_REPLACEWORDS_IMPORT", tag: "MSG_IMPORTED_FAILEDX"), arg0: "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
 
                 return;
             }
@@ -69,42 +70,42 @@ namespace YAF.Dialogs
             {
                 // import replace words...
                 var replaceWords = new DataSet();
-                replaceWords.ReadXml(this.importFile.PostedFile.InputStream);
+                replaceWords.ReadXml(stream: this.importFile.PostedFile.InputStream);
 
-                if (replaceWords.Tables["YafReplaceWords"] != null
-                    && replaceWords.Tables["YafReplaceWords"].Columns["badword"] != null
-                    && replaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
+                if (replaceWords.Tables[name: "YafReplaceWords"] != null
+                    && replaceWords.Tables[name: "YafReplaceWords"].Columns[name: "badword"] != null
+                    && replaceWords.Tables[name: "YafReplaceWords"].Columns[name: "goodword"] != null)
                 {
                     var importedCount = 0;
 
                     var replaceWordsList = this.GetRepository<Replace_Words>().GetByBoardId();
 
                     // import any extensions that don't exist...
-                    foreach (DataRow row in replaceWords.Tables["YafReplaceWords"].Rows)
+                    foreach (DataRow row in replaceWords.Tables[name: "YafReplaceWords"].Rows)
                     {
-                        if (!replaceWordsList.Any(w => w.BadWord == row["badword"].ToString() && w.GoodWord == row["goodword"].ToString()))
+                        if (!replaceWordsList.Any(predicate: w => w.BadWord == row[columnName: "badword"].ToString() && w.GoodWord == row[columnName: "goodword"].ToString()))
                         {
                             // add this...
-                            this.GetRepository<Replace_Words>().Save(replaceWordId: null, badWord: row["badword"].ToString(), goodWord: row["goodword"].ToString());
+                            this.GetRepository<Replace_Words>().Save(replaceWordId: null, badWord: row[columnName: "badword"].ToString(), goodWord: row[columnName: "goodword"].ToString());
                             importedCount++;
                         }
                     }
 
                     this.PageContext.AddLoadMessage(
-                        importedCount > 0
-                            ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
-                            : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
-                        importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
+                        message: importedCount > 0
+                            ? string.Format(format: this.GetText(page: "ADMIN_REPLACEWORDS_IMPORT", tag: "MSG_IMPORTED"), arg0: importedCount)
+                            : this.GetText(page: "ADMIN_REPLACEWORDS_IMPORT", tag: "MSG_NOTHING"),
+                        messageType: importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
                 }
                 else
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"));
+                    this.PageContext.AddLoadMessage(message: this.GetText(page: "ADMIN_REPLACEWORDS_IMPORT", tag: "MSG_IMPORTED_FAILED"));
                 }
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message));
+                    message: string.Format(format: this.GetText(page: "ADMIN_REPLACEWORDS_IMPORT", tag: "MSG_IMPORTED_FAILEDX"), arg0: x.Message));
             }
         }
 

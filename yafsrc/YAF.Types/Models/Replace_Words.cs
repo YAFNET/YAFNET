@@ -57,7 +57,11 @@ namespace YAF.Types.Models
         [Required]
         [Default(1)]
         public int BoardID { get; set; }
+
+        [StringLength(255)]
         public string BadWord { get; set; }
+
+        [StringLength(255)]
         public string GoodWord { get; set; }
 
         #endregion

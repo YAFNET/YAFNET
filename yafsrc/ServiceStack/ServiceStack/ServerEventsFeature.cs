@@ -405,17 +405,17 @@ namespace ServiceStack
 
         private long subscribed = 1;
 
-        private readonly IResponse response;
         private long msgId;
 
-        public IResponse Response => this.response;
-        public IRequest Request => this.response.Request;
+        public IResponse Response { get; }
+
+        public IRequest Request => this.Response.Request;
 
         public long LastMessageId => Interlocked.Read(ref msgId);
 
         public EventSubscription(IResponse response)
         {
-            this.response = response;
+            this.Response = response;
             this.Meta = new Dictionary<string, string>();
             this.WriteEvent = HostContext.GetPlugin<ServerEventsFeature>().WriteEvent;
         }
@@ -431,7 +431,7 @@ namespace ServiceStack
         public Action<IEventSubscription, IResponse, string> OnPublish { get; set; }
         public Action<IResponse, string> WriteEvent { get; set; }
         public Action<IEventSubscription, Exception> OnError { get; set; }
-        public bool IsClosed => this.response.IsClosed;
+        public bool IsClosed => this.Response.IsClosed;
 
         public void Publish(string selector)
         {
@@ -449,15 +449,15 @@ namespace ServiceStack
 
         public void PublishRaw(string frame)
         {
-            if (response.IsClosed) return;
+            if (this.Response.IsClosed) return;
 
             try
             {
-                lock (response)
+                lock (this.Response)
                 {
-                    WriteEvent(response, frame);
+                    WriteEvent(this.Response, frame);
 
-                    OnPublish?.Invoke(this, response, frame);
+                    OnPublish?.Invoke(this, this.Response, frame);
                 }
             }
             catch (Exception ex)
@@ -469,7 +469,7 @@ namespace ServiceStack
                 try
                 {
                     // This will throw an exception, but on Mono (Linux/OSX) the socket will leak if we not close the OutputStream
-                    response.OutputStream.Close();
+                    this.Response.OutputStream.Close();
                 }
                 catch(Exception innerEx)
                 {
@@ -499,12 +499,12 @@ namespace ServiceStack
         public void Dispose()
         {
             OnUnsubscribe = null;
-            if (response.IsClosed) return;
+            if (this.Response.IsClosed) return;
             try
             {
-                lock (response)
+                lock (this.Response)
                 {
-                    response.EndHttpHandlerRequest(skipHeaders: true);
+                    this.Response.EndHttpHandlerRequest(skipHeaders: true);
                 }
             }
             catch (Exception ex)

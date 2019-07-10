@@ -56,6 +56,7 @@ namespace YAF.Types.Models
         [Required]
         [Default(1)]
         public int ReportedNumber { get; set; }
+        [StringLength(4000)]
         public string ReportText { get; set; }
 
         #endregion

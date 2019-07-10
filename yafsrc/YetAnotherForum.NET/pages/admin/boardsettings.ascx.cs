@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
 
             this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
 
-            // create list boxes by populating datasources from Data class
+            // create list boxes by populating data sources from Data class
             var themeData = StaticDataHelper.Themes();
 
             if (themeData.Any())
@@ -91,10 +91,6 @@ namespace YAF.Pages.Admin
             this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
             this.ShowTopic.DataTextField = "TopicText";
             this.ShowTopic.DataValueField = "TopicValue";
-
-            this.FileExtensionAllow.DataSource = StaticDataHelper.AllowDisallow();
-            this.FileExtensionAllow.DataTextField = "Text";
-            this.FileExtensionAllow.DataValueField = "Value";
 
             this.BindData();
 
@@ -152,11 +148,10 @@ namespace YAF.Pages.Admin
 
             SetSelectedOnList(ref this.ShowTopic, boardSettings.ShowTopicsDefault.ToString());
             SetSelectedOnList(
-                ref this.FileExtensionAllow, boardSettings.FileExtensionAreAllowed ? "0" : "1");
-
-            SetSelectedOnList(
                 ref this.DefaultNotificationSetting,
                 boardSettings.DefaultNotificationSetting.ToInt().ToString());
+
+            this.FileExtensionAllow.Checked = boardSettings.FileExtensionAreAllowed;
 
             this.NotificationOnUserRegisterEmailList.Text =
                 boardSettings.NotificationOnUserRegisterEmailList;
@@ -183,7 +178,7 @@ namespace YAF.Pages.Admin
 
             this.PollGroupList.Visible = true;
 
-            // Copyright Linkback Algorithm
+            // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             this.CopyrightHolder.Visible = true;
         }
@@ -242,8 +237,7 @@ namespace YAF.Pages.Admin
             // allow null/empty as a mobile theme many not be desired.
             boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
             boardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
-            boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>()
-                                                                   == 0;
+            boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.Checked;
             boardSettings.NotificationOnUserRegisterEmailList =
                 this.NotificationOnUserRegisterEmailList.Text.Trim();
 

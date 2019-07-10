@@ -31,9 +31,10 @@ namespace YAF.Controls
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Objects;
 
     #endregion
 
@@ -100,12 +101,12 @@ namespace YAF.Controls
         /// <summary>
         /// The attach.
         /// </summary>
-        /// <param name="ctl">
-        /// The ctl.
+        /// <param name="control">
+        /// The control.
         /// </param>
-        public void Attach([NotNull] WebControl ctl)
+        public void Attach([NotNull] WebControl control)
         {
-            this.ButtonId = ctl.ClientID;
+            this.ButtonId = control.ClientID;
         }
 
         /// <summary>
@@ -160,12 +161,16 @@ namespace YAF.Controls
         /// <param name="clientScript">
         /// The client script.
         /// </param>
+        /// <param name="icon">
+        /// The icon.
+        /// </param>
         public void AddClientScriptItemWithPostback(
             [NotNull] string description,
             [NotNull] string argument,
-            [NotNull] string clientScript)
+            [NotNull] string clientScript,
+            string icon)
         {
-            this.items.Add(new InternalPopMenuItem(description, argument, clientScript, null));
+            this.items.Add(new InternalPopMenuItem(description, argument, clientScript, icon));
         }
 
         /// <summary>
@@ -254,34 +259,37 @@ namespace YAF.Controls
                 this.ButtonId);
 
             // add the items
-            foreach (var thisItem in this.items)
-            {
-                string onClick;
-                var iconImage = string.Empty;
+            this.items.ForEach(
+                thisItem =>
+                    {
+                        string onClick;
+                        var iconImage = string.Empty;
 
-                if (thisItem.ClientScript.IsSet())
-                {
-                    // js style
-                    onClick = thisItem.ClientScript.Replace(
-                        "{postbackcode}",
-                        this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
-                }
-                else
-                {
-                    onClick = this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
-                }
+                        if (thisItem.ClientScript.IsSet())
+                        {
+                            // js style
+                            onClick = thisItem.ClientScript.Replace(
+                                "{postbackcode}",
+                                this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
+                        }
+                        else
+                        {
+                            onClick = this.Page.ClientScript.GetPostBackClientHyperlink(
+                                this,
+                                thisItem.PostBackArgument);
+                        }
 
-                if (thisItem.Icon.IsSet())
-                {
-                    iconImage = $@"<i class=""{thisItem.Icon}""></i>&nbsp;";
-                }
+                        if (thisItem.Icon.IsSet())
+                        {
+                            iconImage = $@"<i class=""{thisItem.Icon}""></i>&nbsp;";
+                        }
 
-                sb.AppendFormat(
-                    @"<a class=""dropdown-item"" onclick=""{2}"" title=""{1}"">{0}{1}</a>",
-                    iconImage,
-                    thisItem.Description,
-                    onClick);
-            }
+                        sb.AppendFormat(
+                            @"<a class=""dropdown-item"" onclick=""{2}"" title=""{1}"" href=""#"">{0}{1}</a>",
+                            iconImage,
+                            thisItem.Description,
+                            onClick);
+                    });
 
             sb.AppendFormat("</div>");
 
@@ -289,67 +297,6 @@ namespace YAF.Controls
 
             base.Render(writer);
         }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// The internal pop menu item.
-    /// </summary>
-    public class InternalPopMenuItem
-    {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InternalPopMenuItem"/> class.
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="postbackArgument">
-        /// The postback argument.
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        /// <param name="icon">
-        /// The icon.
-        /// </param>
-        public InternalPopMenuItem(
-            [NotNull] string description,
-            [NotNull] string postbackArgument,
-            [NotNull] string clientScript,
-            [NotNull] string icon)
-        {
-            this.Description = description;
-            this.PostBackArgument = postbackArgument;
-            this.ClientScript = clientScript;
-            this.Icon = icon;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets Icon.
-        /// </summary>
-        public string Icon { get; set; }
-
-        /// <summary>
-        ///   Gets or sets ClientScript.
-        /// </summary>
-        public string ClientScript { get; set; }
-
-        /// <summary>
-        ///   Gets or sets Description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        ///   Gets or sets PostBackArgument.
-        /// </summary>
-        public string PostBackArgument { get; set; }
 
         #endregion
     }

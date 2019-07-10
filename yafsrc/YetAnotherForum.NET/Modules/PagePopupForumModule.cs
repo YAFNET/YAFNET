@@ -36,7 +36,7 @@ namespace YAF.Modules
     /// <summary>
     /// The Page Popup Module
     /// </summary>
-    [YafModule("Page Popup Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Page Popup Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class PagePopupForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields
@@ -95,17 +95,17 @@ namespace YAF.Modules
             // Get the clean JS string.
             message.Message = message.Message.ToJsString();
 
-            if (string.IsNullOrEmpty(message.Message))
+            if (string.IsNullOrEmpty(value: message.Message))
             {
                 return;
             }
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                this.ForumControl.Page,
-                "modalNotification",
-                string
+                thisControl: this.ForumControl.Page,
+                name: "modalNotification",
+                script: string
                     .Format(
-                        "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
+                        format: "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
                         message.Message,
                             message.MessageType.ToString().ToLower(),
                             this.errorPopup.ShowModalFunction,
@@ -117,7 +117,7 @@ namespace YAF.Modules
         /// </summary>
         private void AddErrorPopup()
         {
-            if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
+            if (this.ForumControl.FindControl(id: "YafForumPageErrorPopup1") == null)
             {
                 // add error control...
                 this.errorPopup = new PopupDialogNotification
@@ -125,12 +125,12 @@ namespace YAF.Modules
                         ID = "YafForumPageErrorPopup1"
                     };
 
-                this.ForumControl.Controls.Add(this.errorPopup);
+                this.ForumControl.Controls.Add(child: this.errorPopup);
             }
             else
             {
                 // reference existing control...
-                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
+                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl(id: "YafForumPageErrorPopup1");
             }
         }
 

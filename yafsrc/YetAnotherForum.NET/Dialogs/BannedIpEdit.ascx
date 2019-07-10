@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BannedIpEdit.ascx.cs" Inherits="YAF.Dialogs.BannedIpEdit" %>
 
+
 <div class="modal fade" id="EditDialog" tabindex="-1" role="dialog" aria-labelledby="EditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 

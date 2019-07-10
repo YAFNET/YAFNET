@@ -35,12 +35,11 @@
                    CssClass="font-italic">
             <%# this.Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
         </asp:Label>
-        <div>
-            <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
+        <hr />
+        <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
             <YAF:ForumSubForumList ID="SubForumList" runat="server"
                                    DataSource='<%# this.GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
                                    Visible='<%# this.HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
-        </div>
     </div>
     <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value %>'>
     <div class="col-md-2">

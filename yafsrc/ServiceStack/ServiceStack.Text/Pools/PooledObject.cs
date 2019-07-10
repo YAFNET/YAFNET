@@ -12,23 +12,22 @@
     {
         private readonly Action<ObjectPool<T>, T> _releaser;
         private readonly ObjectPool<T> _pool;
-        private T _pooledObject;
 
         public PooledObject(ObjectPool<T> pool, Func<ObjectPool<T>, T> allocator, Action<ObjectPool<T>, T> releaser) : this()
         {
             this._pool = pool;
-            this._pooledObject = allocator(pool);
+            this.Object = allocator(pool);
             this._releaser = releaser;
         }
 
-        public T Object => this._pooledObject;
+        public T Object { get; private set; }
 
         public void Dispose()
         {
-            if (this._pooledObject != null)
+            if (this.Object != null)
             {
-                this._releaser(this._pool, this._pooledObject);
-                this._pooledObject = null;
+                this._releaser(this._pool, this.Object);
+                this.Object = null;
             }
         }
 

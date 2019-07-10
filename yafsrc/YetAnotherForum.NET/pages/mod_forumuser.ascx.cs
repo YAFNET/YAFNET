@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -155,8 +156,8 @@ namespace YAF.Pages
             {
                 // set and enable user dropdown, disable text box
                 this.ToList.DataSource = foundUsers;
-                this.ToList.DataValueField = "Key";
-                this.ToList.DataTextField = "Value";
+                this.ToList.DataValueField = "ID";
+                this.ToList.DataTextField = this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
 
                 // ToList.SelectedIndex = 0;
                 this.ToList.Visible = true;

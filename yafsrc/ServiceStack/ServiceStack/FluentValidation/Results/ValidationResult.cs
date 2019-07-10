@@ -28,9 +28,7 @@ namespace ServiceStack.FluentValidation.Results {
 	[Serializable]
 #endif
 	public partial class ValidationResult {
-		private readonly IList<ValidationFailure> errors;
-
-		/// <summary>
+        /// <summary>
 		/// Whether validation succeeded
 		/// </summary>
 		public virtual bool IsValid => Errors.Count == 0;
@@ -38,13 +36,13 @@ namespace ServiceStack.FluentValidation.Results {
 		/// <summary>
 		/// A collection of errors
 		/// </summary>
-		public IList<ValidationFailure> Errors => errors;
+		public IList<ValidationFailure> Errors { get; }
 
-		/// <summary>
+        /// <summary>
 		/// Creates a new validationResult
 		/// </summary>
 		public ValidationResult() {
-			this.errors = new List<ValidationFailure>();
+			this.Errors = new List<ValidationFailure>();
 		}
 
 		/// <summary>
@@ -55,7 +53,7 @@ namespace ServiceStack.FluentValidation.Results {
 		/// Every caller is responsible for not adding <c>null</c> to the list.
 		/// </remarks>
 		public ValidationResult(IEnumerable<ValidationFailure> failures) {
-			errors = failures.Where(failure => failure != null).ToList();
+			this.Errors = failures.Where(failure => failure != null).ToList();
 		}
 	}
 }

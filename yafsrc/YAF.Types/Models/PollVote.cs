@@ -60,6 +60,7 @@ namespace YAF.Types.Models
         public int? UserID { get; set; }
 
         [Index]
+        [StringLength(39)]
         public string RemoteIP { get; set; }
         public int? ChoiceID { get; set; }
 

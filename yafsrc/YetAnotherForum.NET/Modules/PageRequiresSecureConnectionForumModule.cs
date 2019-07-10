@@ -38,7 +38,7 @@ namespace YAF.Modules
   /// <summary>
   /// The page requires secure connection module.
   /// </summary>
-  [YafModule("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
+  [YafModule(moduleName: "Page Requires Secure Connection Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
   public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
   {
     #region Public Methods
@@ -89,7 +89,7 @@ namespace YAF.Modules
 
       if (accessDenied)
       {
-        YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+        YafBuildLink.RedirectInfoPage(infoMessage: InfoMessage.AccessDenied);
       }
     }
 

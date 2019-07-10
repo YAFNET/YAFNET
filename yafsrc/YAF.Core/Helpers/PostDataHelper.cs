@@ -133,7 +133,7 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets UserId.
         /// </summary>
-        public int UserId => this.DataRow != null ? Convert.ToInt32(this.DataRow["UserID"]) : 0;
+        public int UserId => this.DataRow?["UserID"].ToType<int>() ?? 0;
 
         /// <summary>
         /// Gets the message identifier.
@@ -158,10 +158,10 @@ namespace YAF.Core.Helpers
         public bool IsLocked => this.messageFlags != null && this.messageFlags.IsLocked;
 
         /// <summary>
-        /// Gets a value indicating whether this instance is sponser message.
+        /// Gets a value indicating whether this instance is sponsor message.
         /// </summary>
         /// <value>
-        /// <c>true</c> if this instance is sponser message; otherwise, <c>false</c>.
+        /// <c>true</c> if this instance is sponsor message; otherwise, <c>false</c>.
         /// </value>
         public bool IsSponserMessage => this.DataRow["IP"].ToString() == "none";
 

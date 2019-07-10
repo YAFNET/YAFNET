@@ -68,6 +68,7 @@ namespace YAF.Types.Models
         /// Gets or sets the file name.
         /// </summary>
         [Required]
+        [StringLength(255)]
         public string FileName { get; set; }
 
         /// <summary>

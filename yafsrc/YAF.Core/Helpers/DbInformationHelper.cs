@@ -31,16 +31,28 @@ namespace YAF.Core.Helpers
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// The DB information helper.
+    /// </summary>
     public static class DbInformationHelper
     {
         /// <summary>
         /// Build connection string with userid and password...
         /// </summary>
-        /// <param name="information"></param>
-        /// <param name="parameters"></param>
-        /// <param name="userId"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// <param name="information">
+        /// </param>
+        /// <param name="parameters">
+        /// </param>
+        /// <param name="userId">
+        /// </param>
+        /// <param name="password">
+        /// </param>
+        /// <param name="param11">
+        /// The param 11.
+        /// </param>
+        /// <returns>
+        /// Returns the Connection String
+        /// </returns>
         public static string BuildConnectionString(this IDbInformation information, IDbConnectionParam[] parameters, string userId, string password, bool param11)
         {
             var paramList = parameters.ToList();

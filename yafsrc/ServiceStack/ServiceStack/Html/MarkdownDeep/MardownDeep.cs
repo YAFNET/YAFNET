@@ -40,7 +40,7 @@ namespace MarkdownDeep
 			HtmlClassFootnotes = "footnotes";
 			m_StringBuilder = new StringBuilder();
 			m_StringScanner = new StringScanner();
-			m_SpanFormatter = new SpanFormatter(this);
+			this.SpanFormatter = new SpanFormatter(this);
 			m_LinkDefinitions = new Dictionary<string, LinkDefinition>(StringComparer.CurrentCultureIgnoreCase);
 			m_Footnotes = new Dictionary<string, Block>();
 			m_UsedFootnotes = new List<Block>();
@@ -888,7 +888,7 @@ namespace MarkdownDeep
 				return null;
 
 			// Extract a pandoc style cleaned header id from the header text
-			var strBase=m_SpanFormatter.MakeID(strHeaderText, startOffset, length);
+			var strBase=this.SpanFormatter.MakeID(strHeaderText, startOffset, length);
 
 			// If nothing left, use "section"
 			if (String.IsNullOrEmpty(strBase))
@@ -928,7 +928,7 @@ namespace MarkdownDeep
 		}
 
 
-		internal SpanFormatter SpanFormatter => m_SpanFormatter;
+		internal SpanFormatter SpanFormatter { get; }
 
         #region Block Pooling
 
@@ -954,8 +954,8 @@ namespace MarkdownDeep
 		// Attributes
 		StringBuilder m_StringBuilder;
 		StringScanner m_StringScanner;
-		SpanFormatter m_SpanFormatter;
-		Dictionary<string, LinkDefinition> m_LinkDefinitions;
+
+        Dictionary<string, LinkDefinition> m_LinkDefinitions;
 		Dictionary<string, Block> m_Footnotes;
 		List<Block> m_UsedFootnotes;
 		Dictionary<string, bool> m_UsedHeaderIDs;

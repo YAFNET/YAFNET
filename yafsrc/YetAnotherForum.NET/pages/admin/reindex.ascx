@@ -12,7 +12,7 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-database fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REINDEX" />
+                <i class="fa fa-database fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REINDEX" />
             </div>
             <div class="card-body">
                 <asp:TextBox ID="txtIndexStatistics" runat="server" Height="400px" TextMode="MultiLine"

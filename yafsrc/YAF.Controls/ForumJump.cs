@@ -33,6 +33,7 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -46,7 +47,7 @@ namespace YAF.Controls
     /// <summary>
     /// The Forum Jump Control
     /// </summary>
-    /// <seealso cref="YAF.Core.BaseControl" />
+    /// <seealso cref="BaseControl" />
     /// <seealso cref="System.Web.UI.IPostBackDataHandler" />
     public class ForumJump : BaseControl, IPostBackDataHandler
     {

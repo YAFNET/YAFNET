@@ -798,6 +798,13 @@
     <Compile Include="pages\cp_signature.ascx.designer.cs">
       <DependentUpon>cp_signature.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\cp_blockoptions.ascx.cs">
+      <DependentUpon>cp_blockoptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_blockoptions.ascx.designer.cs">
+      <DependentUpon>cp_blockoptions.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\cp_subscriptions.ascx.designer.cs">
       <DependentUpon>cp_subscriptions.ascx</DependentUpon>
     </Compile>
@@ -2014,6 +2021,7 @@
     <Content Include="pages\cp_pm.ascx" />
     <Content Include="pages\cp_profile.ascx" />
     <Content Include="pages\cp_signature.ascx" />
+    <Content Include="pages\cp_blockoptions.ascx" />
     <Content Include="pages\cp_subscriptions.ascx" />
     <Content Include="pages\deletemessage.ascx" />
     <Content Include="pages\emailtopic.ascx" />
@@ -3354,7 +3362,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

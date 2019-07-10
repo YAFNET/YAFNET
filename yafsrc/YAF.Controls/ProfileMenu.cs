@@ -30,7 +30,7 @@ namespace YAF.Controls
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -225,6 +225,18 @@ namespace YAF.Controls
                 "dropdown-item",
                 ForumPages.cp_subscriptions,
                 this.GetText("SUBSCRIPTIONS"));
+
+            this.RenderMenuItem(
+                html,
+                "list-group-item",
+                ForumPages.cp_blockoptions,
+                this.GetText("CP_BLOCKOPTIONS", "TITLE"));
+
+            this.RenderMenuItem(
+                htmlDropDown,
+                "dropdown-item",
+                ForumPages.cp_blockoptions,
+                this.GetText("CP_BLOCKOPTIONS", "TITLE"));
 
             if (!Config.IsDotNetNuke && this.Get<YafBoardSettings>().AllowPasswordChange)
             {

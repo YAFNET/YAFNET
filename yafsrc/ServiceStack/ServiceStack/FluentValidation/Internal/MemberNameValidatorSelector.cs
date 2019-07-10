@@ -26,21 +26,19 @@ namespace ServiceStack.FluentValidation.Internal {
 	/// Selects validators that are associated with a particular property.
 	/// </summary>
 	public class MemberNameValidatorSelector : IValidatorSelector {
-		readonly IEnumerable<string> memberNames;
-
-		/// <summary>
+        /// <summary>
 		/// Creates a new instance of MemberNameValidatorSelector.
 		/// </summary>
 		public MemberNameValidatorSelector(IEnumerable<string> memberNames) {
-			this.memberNames = memberNames;
+			this.MemberNames = memberNames;
 		}
 
 		/// <summary>
 		/// Member names that are validated.
 		/// </summary>
-		public IEnumerable<string> MemberNames => this.memberNames;
+		public IEnumerable<string> MemberNames { get; }
 
-		/// <summary>
+        /// <summary>
 		/// Determines whether or not a rule should execute.
 		/// </summary>
 		/// <param name="rule">The rule</param>
@@ -51,7 +49,7 @@ namespace ServiceStack.FluentValidation.Internal {
 			// Validator selector only applies to the top level.
  			// If we're running in a child context then this means that the child validator has already been selected
 			// Because of this, we assume that the rule should continue (ie if the parent rule is valid, all children are valid)
-			return context.IsChildContext || memberNames.Any(x => x == propertyPath || propertyPath.StartsWith(x + "."));
+			return context.IsChildContext || this.MemberNames.Any(x => x == propertyPath || propertyPath.StartsWith(x + "."));
 		}
 
 		///<summary>

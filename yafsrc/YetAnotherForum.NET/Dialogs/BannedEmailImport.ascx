@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BannedEmailImport.ascx.cs" Inherits="YAF.Dialogs.BannedEmailImport" %>
 
+
 <div class="modal fade" id="ImportDialog" tabindex="-1" role="dialog" aria-labelledby="ImportDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 

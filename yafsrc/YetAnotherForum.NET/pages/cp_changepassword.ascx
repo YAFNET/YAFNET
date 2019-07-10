@@ -36,7 +36,7 @@
                     <div class="tab-pane active" id="password" role="tabpanel" aria-labelledby="password-tab">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <i class="fa fa-lock fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
+                                <i class="fa fa-lock fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
                             </div>
                            
                         <asp:ChangePassword ID="ChangePassword1" runat="server">
@@ -123,7 +123,7 @@
                     <div class="tab-pane" id="question" role="tabpanel" aria-labelledby="question-tab">
                     <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-lock fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="TITLE_SECURITY" />
+                        <i class="fa fa-lock fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="TITLE_SECURITY" />
                     </div>
                     <div class="card-body">
                         <form>

@@ -159,16 +159,14 @@ namespace ServiceStack.Text.Common
     {
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
-        private static readonly ParseStringSegmentDelegate CacheFn;
-
         static DeserializeArray()
         {
-            CacheFn = GetParseStringSegmentFn();
+            ParseStringSegment = GetParseStringSegmentFn();
         }
 
-        public static ParseStringDelegate Parse => v => CacheFn(new StringSegment(v));
+        public static ParseStringDelegate Parse => v => ParseStringSegment(new StringSegment(v));
 
-        public static ParseStringSegmentDelegate ParseStringSegment => CacheFn;
+        public static ParseStringSegmentDelegate ParseStringSegment { get; }
 
         public static ParseStringDelegate GetParseFn() => v => GetParseStringSegmentFn()(new StringSegment(v));
 

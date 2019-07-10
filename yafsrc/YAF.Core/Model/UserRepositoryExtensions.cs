@@ -447,7 +447,6 @@ namespace YAF.Core.Model
             this IRepository<User> repository,
             [NotNull] int userID,
             [NotNull] int boardID,
-            bool showPendingMails,
             bool showPendingBuddies,
             bool showUnreadPMs,
             bool showUserAlbums,
@@ -462,7 +461,6 @@ namespace YAF.Core.Model
                     return repository.DbFunction.GetData.user_lazydata(
                         UserID: userID,
                         BoardID: boardID,
-                        ShowPendingMails: showPendingMails,
                         ShowPendingBuddies: showPendingBuddies,
                         ShowUnreadPMs: showUnreadPMs,
                         ShowUserAlbums: showUserAlbums,
@@ -1134,6 +1132,27 @@ namespace YAF.Core.Model
                               IsGoogleUser = isGoogleUser
                           },
                 where: u => u.ID == userId);
+        }
+
+        /// <summary>
+        /// Updates Block Flags for the User.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        public static void UpdateBlockFlags(this IRepository<User> repository, int userId, int flags)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(
+                () => new User { BlockFlags = flags },
+                u => u.ID == userId);
         }
     }
 }

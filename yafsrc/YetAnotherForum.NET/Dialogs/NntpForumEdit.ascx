@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NntpForumEdit.ascx.cs" Inherits="YAF.Dialogs.NntpForumEdit" %>
 
+
 <div class="modal fade" id="NntpForumEditDialog" tabindex="-1" role="dialog" aria-labelledby="NntpForumEditDialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 

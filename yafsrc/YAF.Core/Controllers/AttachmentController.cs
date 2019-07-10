@@ -61,58 +61,59 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("Attachment/GetAttachments")]
         [HttpPost]
-        public GridDataSet GetAttachments(PagedResults pagedResults)
+        public IHttpActionResult GetAttachments(PagedResults pagedResults)
         {
             var userId = pagedResults.UserId;
             var pageSize = pagedResults.PageSize;
             var pageNumber = pagedResults.PageNumber;
 
-            var attachments = YafContext.Current.GetRepository<Attachment>().GetPaged(
+            var attachments = this.GetRepository<Attachment>().GetPaged(
                 a => a.UserID == userId,
                 pageIndex: pageNumber,
                 pageSize: pageSize);
 
             var attachmentItems = new List<AttachmentItem>();
 
-            foreach (var attach in attachments)
-            {
-                var url = attach.FileName.IsImageName()
-                              ? $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true"
-                              : $"{YafForumInfo.ForumClientFileRoot}Images/document.png";
+            attachments.ForEach(
+                attach =>
+                    {
+                        var url = attach.FileName.IsImageName()
+                                      ? $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true"
+                                      : $"{YafForumInfo.ForumClientFileRoot}Images/document.png";
 
-                var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
+                        var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
-                var iconImage = attach.FileName.IsImageName()
-                                    ? string
-                                        .Format(@"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />", url, description)
-                                    : "<i class=\"far fa-file-alt attachment-icon\"></i>";
+                        var iconImage = attach.FileName.IsImageName()
+                                            ? $@"<img class=""popupitemIcon"" src=""{url}"" alt=""{description}"" title=""{description}"" />"
+                                            : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
-                var attachment = new AttachmentItem
-                {
-                    FileName = attach.FileName,
-                    OnClick = $"insertAttachment('{attach.ID}', '{url}')",
-                    IconImage = $@"{iconImage}<span>{description}</span>"
-                };
+                        var attachment = new AttachmentItem
+                                             {
+                                                 FileName = attach.FileName,
+                                                 OnClick = $"insertAttachment('{attach.ID}', '{url}')",
+                                                 IconImage = $@"{iconImage}<span>{description}</span>"
+                                             };
 
-                if (attach.FileName.IsImageName())
-                {
-                    attachment.DataURL = url;
-                }
+                        if (attach.FileName.IsImageName())
+                        {
+                            attachment.DataURL = url;
+                        }
 
-                attachmentItems.Add(attachment);
-            }
+                        attachmentItems.Add(attachment);
+                    });
 
-            return new GridDataSet
-            {
-                PageNumber = pageNumber,
-                TotalRecords =
-                               attachments.Any()
-                                   ? YafContext.Current.GetRepository<Attachment>().Count(a => a.UserID == userId)
-                                       .ToType<int>()
-                                   : 0,
-                PageSize = pageSize,
-                AttachmentList = attachmentItems
-            };
+            return this.Ok(
+                new GridDataSet
+                    {
+                        PageNumber = pageNumber,
+                        TotalRecords =
+                            attachments.Any()
+                                ? this.GetRepository<Attachment>().Count(a => a.UserID == userId)
+                                    .ToType<int>()
+                                : 0,
+                        PageSize = pageSize,
+                        AttachmentList = attachmentItems
+                    });
         }
     }
 }

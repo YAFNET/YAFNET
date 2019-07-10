@@ -34,6 +34,7 @@ namespace YAF.Core
     using Autofac;
     using Autofac.Core;
 
+    using YAF.Core.BaseModules;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;

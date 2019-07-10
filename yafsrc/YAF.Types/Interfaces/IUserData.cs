@@ -28,6 +28,7 @@ namespace YAF.Types.Interfaces
     using System.Web.Security;
 
     using YAF.Types.Constants;
+    using YAF.Types.Flags;
 
     /// <summary>
     /// The UserData Interface
@@ -148,6 +149,11 @@ namespace YAF.Types.Interfaces
         ///   Gets ThemeFile.
         /// </summary>
         string ThemeFile { get; }
+
+        /// <summary>
+        /// Gets the User Block Flags.
+        /// </summary>
+        UserBlockFlags Block { get; }
 
         /// <summary>
         /// Gets the time zone information.

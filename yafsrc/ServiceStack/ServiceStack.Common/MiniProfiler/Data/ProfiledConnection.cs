@@ -10,9 +10,6 @@ namespace ServiceStack.MiniProfiler.Data
     /// </summary>
     public class ProfiledConnection : DbConnection, IHasDbConnection
     {
-        private DbConnection _conn;
-        private IDbProfiler _profiler;
-
         /// <summary>
         /// Returns a new <see cref="ProfiledConnection"/> that wraps <paramref name="connection"/>, 
         /// providing query execution profiling.  If profiler is null, no profiling will occur.
@@ -30,12 +27,12 @@ namespace ServiceStack.MiniProfiler.Data
     		if (connection == null) throw new ArgumentNullException("connection");
 
     	    AutoDisposeConnection = autoDisposeConnection;
-    		_conn = connection;
-    		_conn.StateChange += StateChangeHandler;
+    		this.InnerConnection = connection;
+    		this.InnerConnection.StateChange += StateChangeHandler;
 
     		if (profiler != null)
     		{
-    			_profiler = profiler;
+    			this.Profiler = profiler;
     		}
     	}
 
@@ -55,57 +52,49 @@ namespace ServiceStack.MiniProfiler.Data
         /// <summary>
         /// The underlying, real database connection to your db provider.
         /// </summary>
-        public DbConnection InnerConnection
-        {
-            get => _conn;
-            protected set => _conn = value;
-        }
+        public DbConnection InnerConnection { get; protected set; }
 
-        public IDbConnection DbConnection => _conn;
+        public IDbConnection DbConnection => this.InnerConnection;
 
         /// <summary>
         /// The current profiler instance; could be null.
         /// </summary>
-        public IDbProfiler Profiler
-        {
-            get => _profiler;
-            protected set => _profiler = value;
-        }
+        public IDbProfiler Profiler { get; protected set; }
 
         /// <summary>
         /// The raw connection this is wrapping
         /// </summary>
-        public DbConnection WrappedConnection => _conn;
+        public DbConnection WrappedConnection => this.InnerConnection;
 
         protected override bool CanRaiseEvents => true;
 
         public override string ConnectionString
         {
-            get => _conn.ConnectionString;
-            set => _conn.ConnectionString = value;
+            get => this.InnerConnection.ConnectionString;
+            set => this.InnerConnection.ConnectionString = value;
         }
 
-        public override int ConnectionTimeout => _conn.ConnectionTimeout;
+        public override int ConnectionTimeout => this.InnerConnection.ConnectionTimeout;
 
-        public override string Database => _conn.Database;
+        public override string Database => this.InnerConnection.Database;
 
-        public override string DataSource => _conn.DataSource;
+        public override string DataSource => this.InnerConnection.DataSource;
 
-        public override string ServerVersion => _conn.ServerVersion;
+        public override string ServerVersion => this.InnerConnection.ServerVersion;
 
-        public override ConnectionState State => _conn.State;
+        public override ConnectionState State => this.InnerConnection.State;
 
         protected bool AutoDisposeConnection { get; set; }
 
         public override void ChangeDatabase(string databaseName)
         {
-            _conn.ChangeDatabase(databaseName);
+            this.InnerConnection.ChangeDatabase(databaseName);
         }
 
         public override void Close()
         {
             if (AutoDisposeConnection)
-                _conn.Close();
+                this.InnerConnection.Close();
         }
 
 		//public override void EnlistTransaction(System.Transactions.Transaction transaction)
@@ -115,46 +104,46 @@ namespace ServiceStack.MiniProfiler.Data
 #if !NETSTANDARD2_0
         public override DataTable GetSchema()
         {
-            return _conn.GetSchema();
+            return this.InnerConnection.GetSchema();
         }
 
         public override DataTable GetSchema(string collectionName)
         {
-            return _conn.GetSchema(collectionName);
+            return this.InnerConnection.GetSchema(collectionName);
         }
 
         public override DataTable GetSchema(string collectionName, string[] restrictionValues)
         {
-            return _conn.GetSchema(collectionName, restrictionValues);
+            return this.InnerConnection.GetSchema(collectionName, restrictionValues);
         }
 #endif
 
         public override void Open()
         {
-            if (_conn.State != ConnectionState.Open)
-                _conn.Open();
+            if (this.InnerConnection.State != ConnectionState.Open)
+                this.InnerConnection.Open();
         }
 
         protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
         {
-            return new ProfiledDbTransaction(_conn.BeginTransaction(isolationLevel), this);
+            return new ProfiledDbTransaction(this.InnerConnection.BeginTransaction(isolationLevel), this);
         }
 
         protected override DbCommand CreateDbCommand()
         {
-            return new ProfiledCommand(_conn.CreateCommand(), this, _profiler);
+            return new ProfiledCommand(this.InnerConnection.CreateCommand(), this, this.Profiler);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _conn != null)
+            if (disposing && this.InnerConnection != null)
             {
-                _conn.StateChange -= StateChangeHandler;
+                this.InnerConnection.StateChange -= StateChangeHandler;
                 if (AutoDisposeConnection)
-                    _conn.Dispose();
+                    this.InnerConnection.Dispose();
             }
-            _conn = null;
-            _profiler = null;
+            this.InnerConnection = null;
+            this.Profiler = null;
             base.Dispose(disposing);
         }
 

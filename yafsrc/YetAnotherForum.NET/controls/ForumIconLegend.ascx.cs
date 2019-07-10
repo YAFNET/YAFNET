@@ -28,6 +28,7 @@ namespace YAF.Controls
   using System;
 
   using YAF.Core;
+  using YAF.Core.BaseControls;
   using YAF.Types;
 
   #endregion

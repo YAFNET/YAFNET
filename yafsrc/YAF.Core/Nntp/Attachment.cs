@@ -30,22 +30,7 @@ namespace YAF.Core.Nntp
   /// </summary>
   public class Attachment
   {
-    /// <summary>
-    /// The binary data.
-    /// </summary>
-    private byte[] binaryData;
-
-    /// <summary>
-    /// The filename.
-    /// </summary>
-    private string filename;
-
-    /// <summary>
-    /// The id.
-    /// </summary>
-    private string id;
-
-    /// <summary>
+      /// <summary>
     /// Initializes a new instance of the <see cref="Attachment"/> class.
     /// </summary>
     /// <param name="id">
@@ -59,25 +44,25 @@ namespace YAF.Core.Nntp
     /// </param>
     public Attachment(string id, string filename, byte[] binaryData)
     {
-      this.id = id;
-      this.filename = filename;
-      this.binaryData = binaryData;
+      this.Id = id;
+      this.Filename = filename;
+      this.BinaryData = binaryData;
     }
 
     /// <summary>
     /// Gets Id.
     /// </summary>
-    public string Id => this.id;
+    public string Id { get; }
 
     /// <summary>
     /// Gets Filename.
     /// </summary>
-    public string Filename => this.filename;
+    public string Filename { get; }
 
     /// <summary>
     /// Gets BinaryData.
     /// </summary>
-    public byte[] BinaryData => this.binaryData;
+    public byte[] BinaryData { get; }
 
     /// <summary>
     /// The save as.
@@ -101,17 +86,9 @@ namespace YAF.Core.Nntp
     /// </param>
     public void SaveAs(string path, bool isOverwrite)
     {
-      FileStream fs = null;
-      if (isOverwrite)
-      {
-        fs = new FileStream(path, FileMode.Create);
-      }
-      else
-      {
-        fs = new FileStream(path, FileMode.CreateNew);
-      }
+        var fs = isOverwrite ? new FileStream(path, FileMode.Create) : new FileStream(path, FileMode.CreateNew);
 
-      fs.Write(this.binaryData, 0, this.binaryData.Length);
+      fs.Write(this.BinaryData, 0, this.BinaryData.Length);
       fs.Close();
     }
   }

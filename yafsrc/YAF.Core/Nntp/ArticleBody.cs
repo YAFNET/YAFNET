@@ -28,49 +28,19 @@ namespace YAF.Core.Nntp
   /// </summary>
   public class ArticleBody
   {
-    /// <summary>
-    /// The _attachments.
-    /// </summary>
-    private Attachment[] _attachments;
-
-    /// <summary>
-    /// The _is html.
-    /// </summary>
-    private bool _isHtml;
-
-    /// <summary>
-    /// The _text.
-    /// </summary>
-    private string _text;
-
-    /// <summary>
+      /// <summary>
     /// Gets or sets a value indicating whether IsHtml.
     /// </summary>
-    public bool IsHtml
-    {
-      get => this._isHtml;
-
-      set => this._isHtml = value;
-    }
+    public bool IsHtml { get; set; }
 
     /// <summary>
     /// Gets or sets Text.
     /// </summary>
-    public string Text
-    {
-      get => this._text;
-
-      set => this._text = value;
-    }
+    public string Text { get; set; }
 
     /// <summary>
     /// Gets or sets Attachments.
     /// </summary>
-    public Attachment[] Attachments
-    {
-      get => this._attachments;
-
-      set => this._attachments = value;
-    }
+    public Attachment[] Attachments { get; set; }
   }
 }

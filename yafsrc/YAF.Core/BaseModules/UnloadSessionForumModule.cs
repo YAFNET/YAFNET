@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
   #region Using
 
@@ -34,7 +34,7 @@ namespace YAF.Core
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The unload session module.
@@ -58,7 +58,7 @@ namespace YAF.Core
     /// </summary>
     public override void Init()
     {
-      (this.ForumControlObj as Control).Unload += this.UnloadSessionModule_Unload;
+      ((Control)this.ForumControlObj).Unload += this.UnloadSessionModule_Unload;
     }
 
     #endregion

@@ -49,10 +49,14 @@ namespace YAF.Types.Models
         [Alias("NntpTopicID")]
         [AutoIncrement]
         public int ID { get; set; }
+
         [References(typeof(NntpForum))]
         [Required]
         public int NntpForumID { get; set; }
+
+        [StringLength(64)]
         public string Thread { get; set; }
+
         [References(typeof(Topic))]
         [Required]
         public int TopicID { get; set; }

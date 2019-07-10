@@ -23,9 +23,7 @@ namespace ServiceStack
 
         private readonly bool allowCredentials;
 
-        private readonly ICollection<string> allowOriginWhitelist;
-
-        public ICollection<string> AllowOriginWhitelist => allowOriginWhitelist;
+        public ICollection<string> AllowOriginWhitelist { get; }
 
         public bool AutoHandleOptionsRequests { get; set; }
 
@@ -50,7 +48,7 @@ namespace ServiceStack
             this.allowedMethods = allowedMethods;
             this.allowedHeaders = allowedHeaders;
             this.allowCredentials = allowCredentials;
-            this.allowOriginWhitelist = allowOriginWhitelist;
+            this.AllowOriginWhitelist = allowOriginWhitelist;
             this.AutoHandleOptionsRequests = true;
             this.exposeHeaders = exposeHeaders;
             this.maxAge = maxAge;
@@ -61,7 +59,7 @@ namespace ServiceStack
             if (appHost.HasMultiplePlugins<CorsFeature>())
                 throw new NotSupportedException("CorsFeature has already been registered");
 
-            if (!string.IsNullOrEmpty(allowedOrigins) && allowOriginWhitelist == null)
+            if (!string.IsNullOrEmpty(allowedOrigins) && this.AllowOriginWhitelist == null)
                 appHost.Config.GlobalResponseHeaders.Add(HttpHeaders.AllowOrigin, allowedOrigins);
             if (!string.IsNullOrEmpty(allowedMethods))
                 appHost.Config.GlobalResponseHeaders.Add(HttpHeaders.AllowMethods, allowedMethods);
@@ -74,12 +72,12 @@ namespace ServiceStack
             if (maxAge != null)
                 appHost.Config.GlobalResponseHeaders.Add(HttpHeaders.AccessControlMaxAge, maxAge.Value.ToString());
 
-            if (allowOriginWhitelist != null)
+            if (this.AllowOriginWhitelist != null)
             {
                 void allowOriginFilter(IRequest httpReq, IResponse httpRes)
                 {
                     var origin = httpReq.Headers.Get(HttpHeaders.Origin);
-                    if (allowOriginWhitelist.Contains(origin))
+                    if (this.AllowOriginWhitelist.Contains(origin))
                     {
                         httpRes.AddHeader(HttpHeaders.AllowOrigin, origin);
                     }

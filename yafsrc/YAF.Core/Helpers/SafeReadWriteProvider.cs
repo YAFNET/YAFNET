@@ -5,6 +5,11 @@ namespace YAF.Core.Helpers
 
     using YAF.Types.Interfaces;
 
+    /// <summary>
+    /// The safe read write provider.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
     public class SafeReadWriteProvider<T> : IReadWriteProvider<T>
         where T : class
     {

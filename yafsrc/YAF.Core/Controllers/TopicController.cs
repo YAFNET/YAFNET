@@ -62,7 +62,7 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("Topic/GetTopics")]
         [HttpPost]
-        public SelectPagedOptions GetTopics(SearchTopic searchTopic)
+        public IHttpActionResult GetTopics(SearchTopic searchTopic)
         {
             if (!YafContext.Current.IsAdmin && !YafContext.Current.IsForumModerator)
             {
@@ -95,7 +95,7 @@ namespace YAF.Core.Controllers
 
                 var pagedTopics = new SelectPagedOptions { Total = 0, Results = topicsList };
 
-               return pagedTopics;
+               return this.Ok(pagedTopics);
             }
             else
             {
@@ -125,7 +125,7 @@ namespace YAF.Core.Controllers
                     Results = topicsList
                 };
 
-              return pagedTopics;
+              return this.Ok(pagedTopics);
             }
         }
     }

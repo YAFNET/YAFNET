@@ -47,43 +47,43 @@ namespace YAF.Modules.BBCode
         /// <param name="writer">The writer.</param>
         protected override void Render(HtmlTextWriter writer)
         {
-            if (!ValidationHelper.IsNumeric(this.Parameters["inner"]))
+            if (!ValidationHelper.IsNumeric(valueToCheck: this.Parameters[key: "inner"]))
             {
                 return;
             }
 
-            var attachment = this.GetRepository<Attachment>().GetById(this.Parameters["inner"].ToType<int>());
+            var attachment = this.GetRepository<Attachment>().GetById(id: this.Parameters[key: "inner"].ToType<int>());
 
             if (attachment == null)
             {
                 return;
             }
 
-            var stats = this.GetText("ATTACHMENTINFO");
+            var stats = this.GetText(tag: "ATTACHMENTINFO");
             var filename = attachment.FileName.ToLower();
             var showImage = false;
 
             var session = this.Get<HttpSessionStateBase>();
             var settings = this.Get<YafBoardSettings>();
 
-            if (session["imagePreviewWidth"] == null)
+            if (session[name: "imagePreviewWidth"] == null)
             {
-                session["imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
+                session[name: "imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
             }
 
-            if (session["imagePreviewHeight"] == null)
+            if (session[name: "imagePreviewHeight"] == null)
             {
-                session["imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
+                session[name: "imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
             }
 
-            if (session["imagePreviewCropped"] == null)
+            if (session[name: "imagePreviewCropped"] == null)
             {
-                session["imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
+                session[name: "imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
             }
 
-            if (session["localizationFile"] == null)
+            if (session[name: "localizationFile"] == null)
             {
-                session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
+                session[name: "localizationFile"] = this.Get<ILocalization>().LanguageFileName;
             }
 
             // verify it's not too large to display
@@ -101,21 +101,21 @@ namespace YAF.Modules.BBCode
                 {
                     // user has rights to download, show him image
                     writer.Write(
-                        !this.Get<YafBoardSettings>().EnableImageAttachmentResize
+                        format: !this.Get<YafBoardSettings>().EnableImageAttachmentResize
                             ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""UserPostedImage attachedImage"" />"
                             : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery><img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" /></a>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
-                        this.HtmlEncode(attachment.FileName),
+                        this.HtmlEncode(data: attachment.FileName),
                         this.PageContext.PageBoardID);
                 }
                 else
                 {
                     // user doesn't have rights to download, don't show the image
                     writer.Write(
-                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
-                        attachment.FileName,
-                        this.GetText("ATTACH_NO"));
+                        format: @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
+                        arg0: attachment.FileName,
+                        arg1: this.GetText(tag: "ATTACH_NO"));
                 }
             }
             else
@@ -127,19 +127,19 @@ namespace YAF.Modules.BBCode
                 if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                 {
                     writer.Write(
-                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;<a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> <span class=""attachmentinfo"">{3}</span>",
+                        format: @"<i class=""fa fa-file fa-fw""></i>&nbsp;<a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> <span class=""attachmentinfo"">{3}</span>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         attachment.FileName,
-                        string.Format(stats, kb,attachment.Downloads),
+                        string.Format(format: stats, arg0: kb,arg1: attachment.Downloads),
                         this.PageContext.PageBoardID);
                 }
                 else
                 {
                     writer.Write(
-                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
-                        attachment.FileName,
-                        this.GetText("ATTACH_NO"));
+                        format: @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
+                        arg0: attachment.FileName,
+                        arg1: this.GetText(tag: "ATTACH_NO"));
                 }
             }
         }

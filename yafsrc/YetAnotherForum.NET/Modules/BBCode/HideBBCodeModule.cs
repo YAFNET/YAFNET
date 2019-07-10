@@ -48,20 +48,20 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var hiddenContent = this.Parameters["inner"];
+            var hiddenContent = this.Parameters[key: "inner"];
 
             var postsCount = -1;
 
-            if (this.Parameters.ContainsKey("posts"))
+            if (this.Parameters.ContainsKey(key: "posts"))
             {
-                postsCount = int.Parse(this.Parameters["posts"]);
+                postsCount = int.Parse(s: this.Parameters[key: "posts"]);
             }
 
             var thanksCount = -1;
 
-            if (this.Parameters.ContainsKey("thanks"))
+            if (this.Parameters.ContainsKey(key: "thanks"))
             {
-                thanksCount = int.Parse(this.Parameters["thanks"]);
+                thanksCount = int.Parse(s: this.Parameters[key: "thanks"]);
             }
 
             var messageId = this.MessageID;
@@ -72,12 +72,12 @@ namespace YAF.Modules.BBCode
             }
 
             var description = this.LocalizedString(
-                "HIDDENMOD_DESC",
-                "The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You only need to thank the Current Post");
+                tag: "HIDDENMOD_DESC",
+                defaultStr: "The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You only need to thank the Current Post");
 
             var descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GUEST",
-                "This board requires you to be registered and logged-in before you can view hidden messages.");
+                tag: "HIDDENMOD_GUEST",
+                defaultStr: "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
@@ -85,7 +85,7 @@ namespace YAF.Modules.BBCode
 
             if (YafContext.Current.IsAdmin)
             {
-                writer.Write(hiddenContent);
+                writer.Write(s: hiddenContent);
                 return;
             }
 
@@ -94,15 +94,15 @@ namespace YAF.Modules.BBCode
             if (postsCount > -1)
             {
                 // Handle Hide Posts Count X BBCOde
-                var descriptionPost = string.Format(this.LocalizedString(
-                    "HIDDENMOD_POST",
-                    "Hidden Content (You must be registered and have {0} post(s) or more)"), postsCount);
+                var descriptionPost = string.Format(format: this.LocalizedString(
+                    tag: "HIDDENMOD_POST",
+                    defaultStr: "Hidden Content (You must be registered and have {0} post(s) or more)"), arg0: postsCount);
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
                 if (YafContext.Current.IsGuest)
                 {
-                    writer.Write(shownContentGuest);
+                    writer.Write(s: shownContentGuest);
                     return;
                 }
 
@@ -119,20 +119,20 @@ namespace YAF.Modules.BBCode
             else if (thanksCount > -1)
             {
                 // Handle Hide Thanks Count X BBCode
-                var descriptionPost = string.Format(this.LocalizedString(
-                    "HIDDENMOD_THANKS",
-                    "Hidden Content (You must be registered and have at least {0} thank(s) received)"), thanksCount);
+                var descriptionPost = string.Format(format: this.LocalizedString(
+                    tag: "HIDDENMOD_THANKS",
+                    defaultStr: "Hidden Content (You must be registered and have at least {0} thank(s) received)"), arg0: thanksCount);
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
                 if (YafContext.Current.IsGuest)
                 {
-                    writer.Write(shownContentGuest);
+                    writer.Write(s: shownContentGuest);
                     return;
                 }
 
                 if (this.DisplayUserID == userId ||
-                    this.GetRepository<Thanks>().Count(t => t.ThanksFromUserID == userId) >= thanksCount)
+                    this.GetRepository<Thanks>().Count(criteria: t => t.ThanksFromUserID == userId) >= thanksCount)
                 {
                     shownContent = hiddenContent;
                 }
@@ -146,18 +146,18 @@ namespace YAF.Modules.BBCode
                 // Handle Hide Thanks
                 if (!this.Get<YafBoardSettings>().EnableThanksMod)
                 {
-                    writer.Write(hiddenContent);
+                    writer.Write(s: hiddenContent);
                     return;
                 }
 
                 if (YafContext.Current.IsGuest)
                 {
-                    writer.Write(shownContentGuest);
+                    writer.Write(s: shownContentGuest);
                     return;
                 }
 
                 if (this.DisplayUserID == userId ||
-                    this.GetRepository<User>().ThankedMessage(messageId.ToType<int>(), userId))
+                    this.GetRepository<User>().ThankedMessage(messageId: messageId.ToType<int>(), userId: userId))
                 {
                     // Show hidden content if user is the poster or have thanked the poster.
                     shownContent = hiddenContent;
@@ -172,7 +172,7 @@ namespace YAF.Modules.BBCode
                 }
             }
 
-            writer.Write(shownContent);
+            writer.Write(s: shownContent);
         }
     }
 }

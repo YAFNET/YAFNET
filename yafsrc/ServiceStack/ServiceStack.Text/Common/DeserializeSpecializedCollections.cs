@@ -12,16 +12,14 @@ namespace ServiceStack.Text.Common
     internal static class DeserializeSpecializedCollections<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
-        private readonly static ParseStringSegmentDelegate CacheFn;
-
         static DeserializeSpecializedCollections()
         {
-            CacheFn = GetParseStringSegmentFn();
+            ParseStringSegment = GetParseStringSegmentFn();
         }
 
-        public static ParseStringDelegate Parse => v => CacheFn(new StringSegment(v));
+        public static ParseStringDelegate Parse => v => ParseStringSegment(new StringSegment(v));
 
-        public static ParseStringSegmentDelegate ParseStringSegment => CacheFn;
+        public static ParseStringSegmentDelegate ParseStringSegment { get; }
 
         public static ParseStringDelegate GetParseFn() => v => GetParseStringSegmentFn()(new StringSegment(v));
 

@@ -58,8 +58,7 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("MultiQuote/HandleMultiQuote")]
         [HttpPost]
-        public ReturnClass HandleMultiQuote(
-            [NotNull] MultiQuoteButton quoteButton)
+        public IHttpActionResult HandleMultiQuote([NotNull] MultiQuoteButton quoteButton)
         {
             var buttonId = quoteButton.ButtonId;
             var isMultiQuoteButton = quoteButton.IsMultiQuoteButton;
@@ -98,7 +97,7 @@ namespace YAF.Core.Controllers
                 buttonCssClass = "MultiQuoteButton";
             }
 
-            return new ReturnClass { Id = buttonId, NewTitle = buttonCssClass };
+            return this.Ok(new ReturnClass { Id = buttonId, NewTitle = buttonCssClass });
         }
     }
 }

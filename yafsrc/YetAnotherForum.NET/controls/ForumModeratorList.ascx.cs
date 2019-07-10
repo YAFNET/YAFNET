@@ -30,6 +30,7 @@ namespace YAF.Controls
   using System.Data;
 
   using YAF.Core;
+  using YAF.Core.BaseControls;
   using YAF.Types;
 
   #endregion

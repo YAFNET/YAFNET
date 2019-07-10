@@ -40,7 +40,7 @@ namespace YAF.Modules
     /// <summary>
     /// The last visit handler.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerScope)]
+    [ExportService(serviceLifetimeScope: ServiceLifetimeScope.InstancePerScope)]
     public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandleEvent<ForumPageUnloadEvent>
     {
         /// <summary>
@@ -112,20 +112,20 @@ namespace YAF.Modules
         {
             var previousVisitKey = "PreviousVisit";
 
-            if (!YafContext.Current.IsGuest && YafContext.Current.Page[previousVisitKey] != DBNull.Value
+            if (!YafContext.Current.IsGuest && YafContext.Current.Page[key: previousVisitKey] != DBNull.Value
                 && !this.YafSession.LastVisit.HasValue)
             {
-                this.YafSession.LastVisit = Convert.ToDateTime(YafContext.Current.Page[previousVisitKey]);
+                this.YafSession.LastVisit = Convert.ToDateTime(value: YafContext.Current.Page[key: previousVisitKey]);
             }
             else if (YafContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
             {
-                if (this._requestBase.Cookies.Get(previousVisitKey) != null)
+                if (this._requestBase.Cookies.Get(name: previousVisitKey) != null)
                 {
                     // have previous visit cookie...
-                    var previousVisitInsecure = this._requestBase.Cookies.Get(previousVisitKey).Value;
+                    var previousVisitInsecure = this._requestBase.Cookies.Get(name: previousVisitKey).Value;
                     DateTime previousVisit;
 
-                    if (DateTime.TryParse(previousVisitInsecure, out previousVisit))
+                    if (DateTime.TryParse(s: previousVisitInsecure, result: out previousVisit))
                     {
                         this.YafSession.LastVisit = previousVisit;
                     }
@@ -136,11 +136,11 @@ namespace YAF.Modules
                 }
 
                 // set the last visit cookie...
-                var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString())
+                var httpCookie = new HttpCookie(name: previousVisitKey, value: DateTime.UtcNow.ToString())
                     {
-                       Expires = DateTime.Now.AddMonths(6) 
+                       Expires = DateTime.Now.AddMonths(months: 6) 
                     };
-                this._responseBase.Cookies.Add(httpCookie);
+                this._responseBase.Cookies.Add(cookie: httpCookie);
             }
         }
 

@@ -58,6 +58,7 @@ namespace YAF.Types.Models.Provider
 
         [Required]
         [Index]
+        [StringLength(64)]
         public string UserID { get; set; }
 
         #endregion

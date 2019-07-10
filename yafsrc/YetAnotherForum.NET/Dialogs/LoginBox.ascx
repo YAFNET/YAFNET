@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Dialogs.LoginBox" CodeBehind="LoginBox.ascx.cs" %>
 
 
+
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError" OnLoggedIn="Login1_LoggedIn"

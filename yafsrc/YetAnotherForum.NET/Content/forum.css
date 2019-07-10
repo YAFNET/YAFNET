@@ -477,7 +477,7 @@ div.code-toolbar > .toolbar span:focus {
 
 .selectionSharer a.action {
   display: block;
-  text-indent: -200px;
+  color: white;
   margin: 5px 7px;
   width: 20px;
   height: 20px;

@@ -60,8 +60,10 @@ namespace YAF.Types.Models.Provider
         public Guid Id { get; set; }
 
         [Index]
+        [StringLength(256)]
         public string ApplicationName { get; set; }
 
+        [StringLength(256)]
         public string ApplicationNameLwd { get; set; }
 
         public string Description { get; set; }

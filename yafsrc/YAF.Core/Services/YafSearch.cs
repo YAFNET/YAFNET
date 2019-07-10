@@ -180,22 +180,24 @@
 
             try
             {
-                var indexWriter = new IndexWriter(
+                using (var indexWriter = new IndexWriter(
                     Directory,
                     analyzer,
                     !IndexReader.IndexExists(Directory),
-                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH));
+                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
+                {
+                    indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
+                    indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
 
-                indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
-                indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
+                    messageList.ForEach(message => AddToSearchIndex(message, indexWriter));
 
-                messageList.ForEach(message => AddToSearchIndex(message, indexWriter));
-
-                indexWriter.Dispose();
+                    indexWriter.Optimize();
+                    indexWriter.Commit();
+                    indexWriter.Dispose();
+                }
             }
             catch (ThreadAbortException)
             {
-
             }
             finally
             {

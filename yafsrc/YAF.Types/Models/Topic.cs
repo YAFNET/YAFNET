@@ -53,32 +53,48 @@ namespace YAF.Types.Models
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
+
         [References(typeof(User))]
         [Required]
         [Index]
 
         public int UserID { get; set; }
+
+        [StringLength(255)]
         public string UserName { get; set; }
+
         [Required]
         public DateTime Posted { get; set; }
+
         [Required]
         [Alias("Topic")]
+        [StringLength(100)]
         public string TopicName { get; set; }
+
         [Required]
         public int Views { get; set; }
+
         [Required]
         public short Priority { get; set; }
+
         [References(typeof(PollGroupCluster))]
         public int? PollID { get; set; }
+
         [References(typeof(Topic))]
         public int? TopicMovedID { get; set; }
+
         [Index]
         public DateTime? LastPosted { get; set; }
-       // [References(typeof(Message))]
+
+        // [References(typeof(Message))]
         public int? LastMessageID { get; set; }
+
         [References(typeof(User))]
         public int? LastUserID { get; set; }
+
+        [StringLength(255)]
         public string LastUserName { get; set; }
+
         [Required]
         public int NumPosts { get; set; }
 
@@ -91,22 +107,40 @@ namespace YAF.Types.Models
 
             set => this.Flags = value.BitValue;
         }
+
         [Required]
         [Index]
 
         public int Flags { get; set; }
+
         [Compute]
         public bool? IsDeleted { get; set; }
+
         [Compute]
         public bool? IsQuestion { get; set; }
+
         public int? AnswerMessageId { get; set; }
+
         public int? LastMessageFlags { get; set; }
+
+        [StringLength(255)]
         public string TopicImage { get; set; }
+
+        [StringLength(255)]
         public string Description { get; set; }
+
+        [StringLength(255)]
         public string Status { get; set; }
+
+        [StringLength(255)]
         public string Styles { get; set; }
+
         public DateTime? LinkDate { get; set; }
+
+        [StringLength(255)]
         public string UserDisplayName { get; set; }
+
+        [StringLength(255)]
         public string LastUserDisplayName { get; set; }
 
 

@@ -54,9 +54,9 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("FavoriteTopic/AddFavoriteTopic/{topicId}")]
         [HttpPost]
-        public int AddFavoriteTopic(int topicId)
+        public IHttpActionResult AddFavoriteTopic(int topicId)
         {
-            return this.Get<IFavoriteTopic>().AddFavoriteTopic(topicId);
+            return this.Ok(this.Get<IFavoriteTopic>().AddFavoriteTopic(topicId));
         }
 
         /// <summary>
@@ -70,9 +70,9 @@ namespace YAF.Core.Controllers
         /// </returns>
         [Route("FavoriteTopic/RemoveFavoriteTopic/{topicId}")]
         [HttpPost]
-        public int RemoveFavoriteTopic(int topicId)
+        public IHttpActionResult RemoveFavoriteTopic(int topicId)
         {
-            return this.Get<IFavoriteTopic>().RemoveFavoriteTopic(topicId);
+            return this.Ok(this.Get<IFavoriteTopic>().RemoveFavoriteTopic(topicId));
         }
     }
 }

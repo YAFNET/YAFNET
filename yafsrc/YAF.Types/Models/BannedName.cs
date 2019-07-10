@@ -71,6 +71,7 @@ namespace YAF.Types.Models
         /// The mask.
         /// </value>
         [Required]
+        [StringLength(255)]
         public string Mask { get; set; }
 
         /// <summary>
@@ -88,6 +89,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The reason.
         /// </value>
+        [StringLength(128)]
         public string Reason { get; set; }
 
         #endregion
