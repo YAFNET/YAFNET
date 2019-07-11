@@ -25,7 +25,7 @@
                           </div>
                           <div class="fileupload-buttons">
                               <span class="btn btn-success fileinput-button">
-                                  <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
+                                  <i class="fa fa-plus fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
                                   <input type="file" name="files[]" multiple>
                               </span>
                               <button type="submit" class="btn btn-primary start">

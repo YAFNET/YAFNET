@@ -53,6 +53,11 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
+        /// Gets or sets the associated control id.
+        /// </summary>
+        public virtual string AssociatedControlID { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether EnableBBCode.
         /// </summary>
         public bool EnableBBCode { get; set; }
@@ -72,10 +77,7 @@ namespace YAF.Controls
         /// </summary>
         public string LocalizedHelpTag
         {
-            get =>
-                string.IsNullOrEmpty(this.localizedHelpTag)
-                    ? $"{this.LocalizedTag}_HELP"
-                    : this.localizedHelpTag;
+            get => this.localizedHelpTag.IsNotSet() ? $"{this.LocalizedTag}_HELP" : this.localizedHelpTag;
 
             set => this.localizedHelpTag = value;
         }
@@ -86,32 +88,32 @@ namespace YAF.Controls
         public string LocalizedTag { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Param0.
+        /// Gets or sets Parameter 0.
         /// </summary>
         public string Param0 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Param1.
+        /// Gets or sets Parameter 1.
         /// </summary>
         public string Param1 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Param2.
+        /// Gets or sets Parameter 2.
         /// </summary>
         public string Param2 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets ParamHelp0.
+        /// Gets or sets Parameter Help 0.
         /// </summary>
         public string ParamHelp0 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets ParamHelp1.
+        /// Gets or sets Parameter Help 1.
         /// </summary>
         public string ParamHelp1 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets ParamHelp2.
+        /// Gets or sets Parameter Help 2.
         /// </summary>
         public string ParamHelp2 { get; set; } = string.Empty;
 
@@ -127,31 +129,37 @@ namespace YAF.Controls
         {
             output.BeginRender();
 
-            output.Write("<h6>");
-
-            var text = string
-                    .Format(this.GetText(this.LocalizedPage, this.LocalizedTag), this.Param0, this.Param1, this.Param2);
+            var text = this.GetTextFormatted(this.LocalizedTag, this.Param0, this.Param1, this.Param2);
 
             if (text.IsSet() && text.EndsWith(":"))
             {
                 text = text.Remove(text.Length - 1, 1);
             }
 
-            // Write Title
-            output.Write(text);
+            var control = this.FindControl(this.AssociatedControlID);
+
+            var label = new HtmlGenericControl("label");
+
+            label.Attributes.Add(HtmlTextWriterAttribute.For.ToString(), control.ClientID);
+            label.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "font-weight-bold");
+
+            label.Controls.Add(new Literal { Text = $"{text}" });
 
             // Append Suffix
             if (this.Suffix.IsSet())
             {
-                output.Write(this.Suffix);
+                label.Controls.Add(new Literal { Text = this.Suffix });
             }
 
-            var tooltip = string
-                .Format(this.GetText(this.LocalizedPage, this.LocalizedHelpTag), this.ParamHelp0, this.ParamHelp1, this.ParamHelp2);
+            var tooltip = this.GetTextFormatted(
+                this.LocalizedHelpTag,
+                this.ParamHelp0,
+                this.ParamHelp1,
+                this.ParamHelp2);
 
             tooltip = tooltip.IsSet() ? this.HtmlEncode(tooltip) : text;
 
-            output.Write("&nbsp;");
+            label.Controls.Add(new Literal { Text = "&nbsp;" });
 
             var button = new HtmlGenericControl("button");
             button.Attributes.Add(HtmlTextWriterAttribute.Type.ToString(), "button");
@@ -163,9 +171,9 @@ namespace YAF.Controls
 
             button.Controls.Add(new Literal { Text = "<i class=\"fa fa-question\"></i>" });
 
-            button.RenderControl(output);
+            label.Controls.Add(button);
 
-            output.Write("</h6>");
+            label.RenderControl(output);
 
             output.EndRender();
         }

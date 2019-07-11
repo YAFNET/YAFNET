@@ -16,9 +16,9 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_BANNEDIP_IMPORT" />
-                        </h4>
+                        <YAF:HelpLabel ID="HelpLabel1" runat="server" 
+                                       AssociatedControlID="importFile"
+                                       LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_BANNEDIP_IMPORT" />
                         <YAF:Alert runat="server" Type="warning">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDIP">
@@ -35,13 +35,18 @@
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">
-                        <YAF:ThemeButton id="Import" runat="server" OnClick="Import_OnClick" 
-                            TextLocalizedTag="ADMIN_BANNEDIP_IMPORT" TextLocalizedPage="IMPORT"
-                            Type="Primary" Icon="upload">
+                        <YAF:ThemeButton id="Import" runat="server" 
+                                         OnClick="Import_OnClick"
+                                         TextLocalizedTag="ADMIN_BANNEDIP_IMPORT" TextLocalizedPage="IMPORT"
+                                         Type="Primary" 
+                                         Icon="upload">
                         </YAF:ThemeButton>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fa fa-times fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>
-                        </button>
+                        <YAF:ThemeButton runat="server" ID="Cancel"
+                                         DataDismiss="modal"
+                                         TextLocalizedTag="CANCEL"
+                                         Type="Secondary"
+                                         Icon="times">
+                        </YAF:ThemeButton>
                     </div>
                 </div>
     </div>

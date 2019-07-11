@@ -15,55 +15,59 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel23" runat="server" LocalizedTag="MEDAL_USER" LocalizedPage="ADMIN_EDITMEDAL" />
-                        </h4>
-                        <p>
-                            <asp:TextBox ID="UserName" runat="server" 
-                                         CssClass="form-control" />
-                            <asp:DropDownList  runat="server" ID="UserNameList" 
-                                               Visible="false" 
-                                               CssClass="custom-select" />
-                            </p>
-                        <p>
-                            <YAF:ThemeButton runat="server" ID="FindUsers" 
-                                             OnClick="FindUsersClick" 
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel23" runat="server" 
+                                           AssociatedControlID="UserName"
+                                           LocalizedTag="MEDAL_USER" LocalizedPage="ADMIN_EDITMEDAL"/>
+                            <asp:TextBox ID="UserName" runat="server"
+                                         CssClass="form-control"/>
+                            <asp:DropDownList runat="server" ID="UserNameList"
+                                              Visible="false"
+                                              CssClass="custom-select"/>
+                            <YAF:ThemeButton runat="server" ID="FindUsers"
+                                             OnClick="FindUsersClick"
                                              Type="Info"
                                              Size="Small"
                                              TextLocalizedTag="FIND"/>
-                            <YAF:ThemeButton runat="server" ID="Clear" 
-                                             OnClick="ClearClick" 
-                                             Visible="false" 
-                                             Type="Info" 
+                            <YAF:ThemeButton runat="server" ID="Clear"
+                                             OnClick="ClearClick"
+                                             Visible="false"
+                                             Type="Info"
                                              Size="Small"
                                              TextLocalizedTag="CLEAR"/>
-                            <asp:TextBox Visible="false" ID="UserID" runat="server" 
-                                         CssClass="form-control" />
-                        </p><hr />
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel19" runat="server" LocalizedTag="OVERRIDE_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                        </h4>
-                        <p>
-                            <asp:TextBox ID="UserMessage" runat="server" MaxLength="100" CssClass="form-control"  />
-                        </p><hr />
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel20" runat="server" LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
-                        </h4>
-                        <p>
-                            <asp:TextBox ID="UserSortOrder" runat="server" CssClass="form-control" TextMode="Number"  />
-                        </p><hr />
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel21" runat="server" LocalizedTag="ONLY_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
-                        </h4>
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox runat="server" ID="UserOnlyRibbon" Checked="false" Text="&nbsp;"  />
-                        </div><hr />
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel22" runat="server" LocalizedTag="HIDE" LocalizedPage="ADMIN_EDITMEDAL" />
-                        </h4>
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox runat="server" ID="UserHide" Checked="false" Text="&nbsp;" />
+                            <asp:TextBox Visible="false" ID="UserID" runat="server"
+                                         CssClass="form-control"/>
                         </div>
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel19" runat="server" 
+                                           AssociatedControlID="UserMessage"
+                                           LocalizedTag="OVERRIDE_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL"/>
+                            <asp:TextBox ID="UserMessage" runat="server" MaxLength="100" CssClass="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel20" runat="server" 
+                                           AssociatedControlID="UserSortOrder"
+                                           LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL"/>
+                            <asp:TextBox ID="UserSortOrder" runat="server" CssClass="form-control" TextMode="Number"/>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel21" runat="server" 
+                                               AssociatedControlID="UserOnlyRibbon"
+                                               LocalizedTag="ONLY_RIBBON" LocalizedPage="ADMIN_EDITMEDAL"/>
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox runat="server" ID="UserOnlyRibbon" Checked="false" Text="&nbsp;"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel22" runat="server" 
+                                               AssociatedControlID="UserHide"
+                                               LocalizedTag="HIDE" LocalizedPage="ADMIN_EDITMEDAL"/>
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox runat="server" ID="UserHide" Checked="false" Text="&nbsp;"/>
+                                </div>
+                            </div>
+                            </div>
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">
@@ -74,9 +78,13 @@
                                          Icon="save" 
                                          TextLocalizedTag="SAVE" />&nbsp;
                         
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fa fa-times fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>
-                        </button>
+                        
+                        <YAF:ThemeButton runat="server" ID="Cancel"
+                                         DataDismiss="modal"
+                                         TextLocalizedTag="CANCEL"
+                                         Type="Secondary"
+                                         Icon="times">
+                        </YAF:ThemeButton>
                     </div>
                 </div>
     </div>

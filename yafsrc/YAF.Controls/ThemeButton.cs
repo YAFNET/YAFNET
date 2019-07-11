@@ -32,7 +32,6 @@ namespace YAF.Controls
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -277,6 +276,12 @@ namespace YAF.Controls
 
             set => this.ViewState["DataToggle"] = value;
         }
+
+        /// <summary>
+        /// Gets or sets the data dismiss.
+        /// </summary>
+        [CanBeNull]
+        public string DataDismiss { get; set; }
 
         /// <summary>
         ///    Gets or sets the Setting the link property will make this control non postback.
@@ -584,6 +589,11 @@ namespace YAF.Controls
                 {
                     output.WriteAttribute("aria-haspopup", "true");
                 }
+            }
+
+            if (this.DataDismiss.IsSet())
+            {
+                output.WriteAttribute("data-dismiss", this.DataDismiss);
             }
 
             // Write Dropdown

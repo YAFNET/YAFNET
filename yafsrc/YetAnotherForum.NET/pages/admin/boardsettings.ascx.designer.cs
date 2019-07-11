@@ -130,24 +130,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.ThemeButton GetRemovalKey;
         
         /// <summary>
-        /// LocalizedLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
-        
-        /// <summary>
-        /// AllowThreaded control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowThreaded;
-        
-        /// <summary>
         /// LocalizedLabel5 control.
         /// </summary>
         /// <remarks>
@@ -184,24 +166,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowThemedLogo;
         
         /// <summary>
-        /// LocalizedLabel10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel10;
-        
-        /// <summary>
-        /// Culture control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Culture;
-        
-        /// <summary>
         /// LocalizedLabel11 control.
         /// </summary>
         /// <remarks>
@@ -218,6 +182,42 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ShowTopic;
+        
+        /// <summary>
+        /// LocalizedLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
+        
+        /// <summary>
+        /// AllowThreaded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowThreaded;
+        
+        /// <summary>
+        /// LocalizedLabel10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel LocalizedLabel10;
+        
+        /// <summary>
+        /// Culture control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Culture;
         
         /// <summary>
         /// LocalizedLabel12 control.
@@ -263,6 +263,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList PollGroupListDropDown;
+        
+        /// <summary>
+        /// LocalizedLabel17 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel LocalizedLabel17;
+        
+        /// <summary>
+        /// DefaultNotificationSetting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DefaultNotificationSetting;
         
         /// <summary>
         /// LocalizedLabel13 control.
@@ -337,24 +355,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowDigestEmail;
         
         /// <summary>
-        /// HelpLabelDigest1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabelDigest1;
-        
-        /// <summary>
-        /// DigestSendEveryXHours control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DigestSendEveryXHours;
-        
-        /// <summary>
         /// LocalizedLabel16 control.
         /// </summary>
         /// <remarks>
@@ -373,22 +373,22 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox DefaultSendDigestEmail;
         
         /// <summary>
-        /// LocalizedLabel17 control.
+        /// HelpLabelDigest1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel17;
+        protected global::YAF.Controls.HelpLabel HelpLabelDigest1;
         
         /// <summary>
-        /// DefaultNotificationSetting control.
+        /// DigestSendEveryXHours control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DefaultNotificationSetting;
+        protected global::System.Web.UI.WebControls.TextBox DigestSendEveryXHours;
         
         /// <summary>
         /// HelpLabel6 control.

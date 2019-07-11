@@ -16,29 +16,36 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_EDITACCESSMASKS" />
-                        </h4>
-                        <p>
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel1" runat="server" 
+                                           AssociatedControlID="mask"
+                                           LocalizedTag="MASK" LocalizedPage="ADMIN_EDITACCESSMASKS" />
                             <asp:TextBox CssClass="form-control" ID="mask" runat="server"></asp:TextBox>
-                        </p>
-                        <hr />
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="BanReason" runat="server" MaxLength="128"></asp:TextBox>
-                        </p>
+                        </div>
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel2" runat="server" 
+                                           AssociatedControlID="BanReason"
+                                           LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                            <asp:TextBox CssClass="form-control" ID="BanReason" runat="server" 
+                                         MaxLength="128"
+                                         Height="100"
+                                         TextMode="MultiLine"></asp:TextBox>
+                        </div>
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">
-                        <YAF:ThemeButton id="Save" runat="server" OnClick="Save_OnClick" 
-                            TextLocalizedTag="ADMIN_BANNEDIP_EDIT" TextLocalizedPage="SAVE"
-                            Type="Primary" Icon="save">
+                        <YAF:ThemeButton id="Save" runat="server" 
+                                         OnClick="Save_OnClick"
+                                         TextLocalizedTag="ADMIN_BANNEDIP_EDIT" TextLocalizedPage="SAVE"
+                                         Type="Primary" 
+                                         Icon="save">
                         </YAF:ThemeButton>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fa fa-times fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>
-                        </button>
+                        <YAF:ThemeButton runat="server" ID="Cancel"
+                                         DataDismiss="modal"
+                                         TextLocalizedTag="CANCEL"
+                                         Type="Secondary"
+                                         Icon="times">
+                        </YAF:ThemeButton>
                     </div>
                 </div>
     </div>
