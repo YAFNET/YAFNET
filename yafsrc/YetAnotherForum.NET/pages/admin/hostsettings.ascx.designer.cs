@@ -2452,24 +2452,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox MessageNotifcationDuration;
         
         /// <summary>
-        /// HelpLabel215 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel215;
-        
-        /// <summary>
-        /// NotifcationNativeOnMobile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox NotifcationNativeOnMobile;
-        
-        /// <summary>
         /// LocalizedLabel13 control.
         /// </summary>
         /// <remarks>

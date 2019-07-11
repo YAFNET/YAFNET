@@ -27,13 +27,11 @@ namespace YAF.Modules
     #region Using
 
     using System;
-    using System.Web;
 
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -54,6 +52,12 @@ namespace YAF.Modules
 
         #region Methods
 
+        /// <summary>
+        /// The on pre render.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // add js for client-side error settings...
@@ -81,6 +85,7 @@ namespace YAF.Modules
                       }}
 
                       $.notify({{
+                                   title: ""{this.Get<YafBoardSettings>().Name}"",
                                    message: newErrorStr,
                                    icon: iconFA
                             }},
@@ -90,7 +95,7 @@ namespace YAF.Modules
                         }});}} }}";
 
             // Override Notification Setting if Mobile Device is used
-            if (this.Get<YafBoardSettings>().NotifcationNativeOnMobile
+           /* if (this.Get<YafBoardSettings>().NotifcationNativeOnMobile
                 && this.Get<HttpRequestBase>().Browser.IsMobileDevice)
             {
                 // Show as Modal Dialog
@@ -98,7 +103,7 @@ namespace YAF.Modules
                     $@"function {this.ShowModalFunction}(newErrorStr) {{  if (newErrorStr != null && newErrorStr != """") {{
                                                     alert(newErrorStr);
                       }} }}";
-            }
+            }*/
 
             YafContext.Current.PageElements.RegisterJsBlock(thisControl: this, name: this.ShowModalFunction, script: javaScriptFunction);
 

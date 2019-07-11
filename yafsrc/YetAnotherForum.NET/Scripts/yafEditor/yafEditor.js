@@ -397,7 +397,18 @@ function SaveData(autoSaveKey, editorInstance) {
     if (quotaExceeded) {
         alert("Browser localStorage is full, clear your storage or Increase database size");
     } else {
-        $.notify('Auto Saved', { allow_dismiss: true, type: "success" });
+        $.notify({
+                message: "Auto Saved",
+                icon: "fa fa-check"
+            },
+            {
+                allow_dismiss: true,
+                type: "success",
+                element: "body",
+                position: null,
+                placement: {
+                    from: "top", align: "center" }
+            });
     }
 }
 

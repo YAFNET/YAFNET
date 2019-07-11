@@ -1089,15 +1089,7 @@
 
                     </p><hr />
 
-                         
-                            <YAF:HelpLabel ID="HelpLabel215" runat="server" LocalizedTag="NOTIFICATION_MOBILE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox Text="&nbsp;" ID="NotifcationNativeOnMobile" runat="server"></asp:CheckBox>
-
-                    </div>
-
-	</div>
+    </div>
     <div id="View3" class="tab-pane" role="tabpanel">
 
 
