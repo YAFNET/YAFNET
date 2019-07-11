@@ -44,22 +44,7 @@
                         <asp:CheckBox  ID="ReadAccess" runat="server" Text="&nbsp;"/>
                     </div>
                 </small>
-            </li>
-                <tr>
-                     <td>
-                        <strong>
-                           
-                        </strong>
-                      </td>
-                     <td>
-                        <strong>
-                           
-                        </strong>
-                    </td>
-                    <td>
-                     
-                    </td>
-                </tr>
+                </li>
             </ItemTemplate>
               <FooterTemplate>
                   </ul>

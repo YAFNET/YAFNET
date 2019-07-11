@@ -16,50 +16,63 @@
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <h4>
-                            <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                        </h4>
-                        <p>
-                            <asp:DropDownList ID="NntpServerID" runat="server" CssClass="custom-select" />
-                        </p>
-                        <hr />
-                        <h4>
-                            <YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GROUP" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                        </h4>
-                        <p>
-                            <asp:TextBox ID="GroupName" runat="server"  CssClass="form-control" />
-                        </p>
-                        <hr />
-                        <h4>
-                            <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                        </h4>
-                        <p>
-                            <asp:DropDownList ID="ForumID" runat="server"  CssClass="custom-select" />
-                        </p>
-                        <hr />
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="DATECUTOFF" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                        </h4>
-                        <p>
-                            <asp:TextBox  CssClass="form-control" ID="DateCutOff" runat="server" Enabled="true" TextMode="DateTime" />
-                        </p>
-                        <hr />
-                        <h4>
-                            <YAF:HelpLabel ID="LocalizedLabel5" runat="server" LocalizedTag="ACTIVE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                        </h4>
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox ID="Active" runat="server" Checked="true" Text="&nbsp;" />
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="LocalizedLabel2" runat="server"
+                                               AssociatedControlID="NntpServerID"
+                                               LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                                <asp:DropDownList ID="NntpServerID" runat="server"
+                                                  CssClass="custom-select" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
+                                               AssociatedControlID="GroupName"
+                                               LocalizedTag="GROUP" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                                <asp:TextBox ID="GroupName" runat="server"
+                                             CssClass="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="LocalizedLabel4" runat="server"
+                                           AssociatedControlID="ForumID"
+                                           LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                            <asp:DropDownList ID="ForumID" runat="server" 
+                                              CssClass="custom-select" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel10" runat="server"
+                                               AssociatedControlID="DateCutOff"
+                                               LocalizedTag="DATECUTOFF" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                                <asp:TextBox ID="DateCutOff" runat="server" 
+                                             CssClass="form-control" 
+                                             Enabled="true" 
+                                             TextMode="DateTime" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
+                                               AssociatedControlID="Active"
+                                               LocalizedTag="ACTIVE" LocalizedPage="ADMIN_EDITNNTPFORUM" />
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox ID="Active" runat="server" Checked="true" Text="&nbsp;" />
+                                </div>
+                            </div>
                         </div>
                         <!-- Modal Content END !-->
                     </div>
                     <div class="modal-footer">
-                        <YAF:ThemeButton id="Save" runat="server" OnClick="Save_OnClick" 
-                            TextLocalizedTag="ADMIN_EDITNNTPFORUM" TextLocalizedPage="TITLE"
-                            Type="Primary" Icon="save">
+                        <YAF:ThemeButton id="Save" runat="server" 
+                                         OnClick="Save_OnClick"
+                                         TextLocalizedTag="ADMIN_EDITNNTPFORUM" TextLocalizedPage="TITLE"
+                                         Type="Primary" 
+                                         Icon="save">
                         </YAF:ThemeButton>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fa fa-times fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>
-                        </button>
+                        <YAF:ThemeButton runat="server" ID="Cancel"
+                                         DataDismiss="modal"
+                                         TextLocalizedTag="CANCEL"
+                                         Type="Secondary"
+                                         Icon="times">
+                        </YAF:ThemeButton>
                     </div>
                 </div>
     </div>

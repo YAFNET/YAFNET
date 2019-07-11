@@ -35,11 +35,15 @@
             </p>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="Delete" runat="server" CssClass="btn btn-danger"
-                                     Icon="trash" TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM"
+                    <YAF:ThemeButton ID="Delete" runat="server" 
+                                     CssClass="btn btn-danger"
+                                     Icon="trash" 
+                                     TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM"
                                      ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE") %>'></YAF:ThemeButton>&nbsp;
-                    <YAF:ThemeButton ID="Cancel" runat="server" Type="Secondary"
-                                     Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="Cancel" runat="server" 
+                                     Type="Secondary"
+                                     Icon="times" 
+                                     TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

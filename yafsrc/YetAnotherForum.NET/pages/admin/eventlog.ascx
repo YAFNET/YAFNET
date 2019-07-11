@@ -22,8 +22,10 @@
                     <i class="fa fa-book fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOG" />
             </div>
                 <div class="card-body">
-                     
-                        <YAF:HelpLabel ID="SinceDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="SinceDateLabel" runat="server" 
+                                       AssociatedControlID="SinceDate"
+                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
                      
                         <div class='input-group mb-3 date datepickerinput'>
                             <span class="input-group-prepend">
@@ -33,31 +35,36 @@
                             </span>
                             <asp:TextBox ID="SinceDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-
-                   <hr />
-                     
-                <YAF:HelpLabel ID="ToDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
+                    </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="ToDateLabel" runat="server" 
+                                       AssociatedControlID="ToDate"
+                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
                          
-                    <div class='input-group mb-3 date datepickerinput'>
-                        <span class="input-group-prepend">
-                            <button class="btn btn-secondary datepickerbutton" type="button">
-                                <i class="fa fa-calendar-day fa-fw"></i>
-                            </button>
-                        </span>
+                        <div class='input-group mb-3 date datepickerinput'>
+                            <span class="input-group-prepend">
+                                <button class="btn btn-secondary datepickerbutton" type="button">
+                                    <i class="fa fa-calendar-day fa-fw"></i>
+                                </button>
+                            </span>
                             <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-                   <hr />
-             
-                <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
-             
-            <p>
-                <asp:DropDownList ID="Types" runat="server" CssClass="custom-select"></asp:DropDownList>
-            </p>
-        </div>
+                    </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel1" runat="server" 
+                                       AssociatedControlID="Types"
+                                       LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
+                        <asp:DropDownList ID="Types" runat="server" CssClass="custom-select"></asp:DropDownList>
+                    </div>
+                </div>
                 <div class="card-footer text-center">
-                <YAF:ThemeButton ID="ApplyButton" Type="Primary" OnClick="ApplyButtonClick"
-                    TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="APPLY" Icon="check" runat="server"></YAF:ThemeButton>
-            </div>
+                <YAF:ThemeButton ID="ApplyButton" runat="server"
+                                 Type="Primary" 
+                                 OnClick="ApplyButtonClick"
+                                 TextLocalizedPage="ADMIN_EVENTLOG" 
+                                 TextLocalizedTag="APPLY" 
+                                 Icon="check"></YAF:ThemeButton>
+                </div>
            </div>
          </div>
     </div>

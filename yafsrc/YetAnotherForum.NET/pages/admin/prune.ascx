@@ -20,31 +20,32 @@
             </div>
             <div class="card-body">
                 <asp:Label ID="lblPruneInfo" runat="server"></asp:Label>
-                 
+                <div class="form-group">
                     <YAF:HelpLabel ID="LocalizedLabel4" runat="server"
-                        LocalizedTag="PRUNE_FORUM"
-                        LocalizedPage="ADMIN_PRUNE" />
-                 
-                <p>
+                                   LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE"
+                                   AssociatedControlID="forumlist"/>
                     <asp:DropDownList ID="forumlist" runat="server"
-                        CssClass="custom-select">
+                                      CssClass="custom-select">
                     </asp:DropDownList>
-                </p>
-                <hr />
-                 
-                    <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
-                        LocalizedTag="PRUNE_DAYS"
-                        LocalizedPage="ADMIN_PRUNE" />
-                 
-                <p>
-                    <asp:TextBox ID="days" runat="server" CssClass="form-control DaysInput" TextMode="Number"></asp:TextBox>
-                </p>
-                <hr />
-                 
-                    <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="PRUNE_PERMANENT" LocalizedPage="ADMIN_PRUNE" />
-                 
-                <div class="custom-control custom-switch">
-                    <asp:CheckBox ID="permDeleteChkBox" runat="server" Text="&nbsp;" />
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
+                                       LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE"
+                                       AssociatedControlID="days"/>
+                        <asp:TextBox ID="days" runat="server" 
+                                     CssClass="form-control DaysInput" 
+                                     TextMode="Number"></asp:TextBox>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
+                                       LocalizedTag="PRUNE_PERMANENT" LocalizedPage="ADMIN_PRUNE"
+                                       AssociatedControlID="permDeleteChkBox"/>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox ID="permDeleteChkBox" runat="server" 
+                                          Text="&nbsp;" />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-footer text-center">

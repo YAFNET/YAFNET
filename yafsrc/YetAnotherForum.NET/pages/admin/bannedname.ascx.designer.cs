@@ -40,13 +40,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
-        /// LocalizedLabel12 control.
+        /// HelpLabel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Controls.HelpLabel HelpLabel1;
         
         /// <summary>
         /// SearchInput control.

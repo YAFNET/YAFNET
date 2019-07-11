@@ -24,12 +24,14 @@
                      <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
                 </div>
                 <div class="card-body">
-                     
-                        <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
-                     
-                    <p>
-                        <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="form-control"></asp:TextBox>
-                    </p>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel1" runat="server"
+                                         AssociatedControlID="SearchInput"
+                                         LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
+                        <asp:TextBox ID="SearchInput" runat="server" 
+                                     Width="90%" 
+                                     CssClass="form-control"></asp:TextBox>
+                    </div>
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="search" runat="server"  Type="Primary" Size="Small"

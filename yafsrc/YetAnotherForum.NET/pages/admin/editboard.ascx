@@ -18,27 +18,35 @@
                 </div>
                 <div class="card-body">
              
-                <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_EDITBOARD" />
+                <YAF:HelpLabel ID="HelpLabel1" runat="server" 
+                               AssociatedControlID="Name"
+                               LocalizedTag="NAME" LocalizedPage="ADMIN_EDITBOARD" />
              
             <p>
                 <asp:TextBox ID="Name" runat="server" CssClass="form-control"></asp:TextBox>
             </p><hr />
               <p>
              
-                <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="CULTURE" LocalizedPage="ADMIN_EDITBOARD" />
+                <YAF:HelpLabel ID="HelpLabel2" runat="server" 
+                               AssociatedControlID="Culture"
+                               LocalizedTag="CULTURE" LocalizedPage="ADMIN_EDITBOARD" />
              
             <p>
                 <asp:DropDownList ID="Culture" runat="server" CssClass="custom-select" />
             </p><hr />
              
-                <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="THREADED" LocalizedPage="ADMIN_EDITBOARD" />
+                <YAF:HelpLabel ID="HelpLabel3" runat="server" 
+                               AssociatedControlID="AllowThreaded"
+                               LocalizedTag="THREADED" LocalizedPage="ADMIN_EDITBOARD" />
              
             <div class="custom-control custom-switch">
                 <asp:CheckBox runat="server" ID="AllowThreaded" Text="&nbsp;" />
             </div><hr />
         <asp:PlaceHolder runat="server" ID="BoardMembershipAppNameHolder">
              
-                <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="MEMBSHIP_APP_NAME" LocalizedPage="ADMIN_EDITBOARD" />
+                <YAF:HelpLabel ID="HelpLabel4" runat="server" 
+                               AssociatedControlID="BoardMembershipAppName"
+                               LocalizedTag="MEMBSHIP_APP_NAME" LocalizedPage="ADMIN_EDITBOARD" />
              
             <p>
                 <asp:TextBox ID="BoardMembershipAppName" runat="server" CssClass="form-control"></asp:TextBox>
@@ -46,7 +54,9 @@
         </asp:PlaceHolder>
         <asp:PlaceHolder runat="server" ID="CreateNewAdminHolder">
              
-                <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="ADMIN_USER" LocalizedPage="ADMIN_EDITBOARD" />
+                <YAF:HelpLabel ID="HelpLabel5" runat="server" 
+                               AssociatedControlID="CreateAdminUser"
+                               LocalizedTag="ADMIN_USER" LocalizedPage="ADMIN_EDITBOARD" />
              
             <div class="custom-control custom-switch">
                 <asp:CheckBox runat="server" ID="CreateAdminUser" 
@@ -60,37 +70,49 @@
                   <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITBOARD" />
                 </h3>
                  
-                    <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="USER_NAME" LocalizedPage="ADMIN_EDITBOARD" />
+                    <YAF:HelpLabel ID="HelpLabel6" runat="server" 
+                                   AssociatedControlID="UserName"
+                                   LocalizedTag="USER_NAME" LocalizedPage="ADMIN_EDITBOARD" />
                  
                 <p>
                     <asp:TextBox runat="server" ID="UserName" CssClass="form-control" />
                 </p><hr />
                  
-                    <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="USER_MAIL" LocalizedPage="ADMIN_EDITBOARD" />
+                    <YAF:HelpLabel ID="HelpLabel7" runat="server" 
+                                   AssociatedControlID="UserEmail"
+                                   LocalizedTag="USER_MAIL" LocalizedPage="ADMIN_EDITBOARD" />
                  
                 <p>
                     <asp:TextBox runat="server" ID="UserEmail" CssClass="form-control" />
                 </p><hr />
                  
-                    <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITBOARD" />
+                    <YAF:HelpLabel ID="HelpLabel8" runat="server" 
+                                   AssociatedControlID="UserPass1"
+                                   LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITBOARD" />
                  
                 <p>
                     <asp:TextBox runat="server" ID="UserPass1" TextMode="password" CssClass="form-control" />
                 </p><hr />
                  
-                    <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="VERIFY_PASS" LocalizedPage="ADMIN_EDITBOARD" />
+                    <YAF:HelpLabel ID="HelpLabel9" runat="server" 
+                                   AssociatedControlID="UserPass2"
+                                   LocalizedTag="VERIFY_PASS" LocalizedPage="ADMIN_EDITBOARD" />
                  
                 <p>
                     <asp:TextBox runat="server" ID="UserPass2" TextMode="password" CssClass="form-control" />
                 </p><hr />
                  
-                    <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="SECURITY_QUESTION" LocalizedPage="ADMIN_EDITBOARD" />
+                    <YAF:HelpLabel ID="HelpLabel10" runat="server" 
+                                   AssociatedControlID="UserPasswordQuestion"
+                                   LocalizedTag="SECURITY_QUESTION" LocalizedPage="ADMIN_EDITBOARD" />
                  
                 <p>
                     <asp:TextBox runat="server" ID="UserPasswordQuestion" CssClass="form-control" />
                 </p><hr />
                  
-                    <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="SECURITY_ANSWER" LocalizedPage="ADMIN_EDITBOARD" />
+                    <YAF:HelpLabel ID="HelpLabel11" runat="server" 
+                                   AssociatedControlID="UserPasswordAnswer"
+                                   LocalizedTag="SECURITY_ANSWER" LocalizedPage="ADMIN_EDITBOARD" />
                  
                 <p>
                     <asp:TextBox runat="server" ID="UserPasswordAnswer" CssClass="form-control" />
