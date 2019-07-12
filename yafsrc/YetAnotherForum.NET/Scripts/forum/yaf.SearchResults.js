@@ -77,14 +77,9 @@
                 $('#loadModal').modal('show');
             }),
             complete: (function before() {
-                // A function to be called when the request finishes (after success and error callbacks are executed)
                 $("#loadModal").modal('hide');  // hide loading screen 
             }),
             success: (function success(data) {
-                //$('#loadModal').on('shown.bs.modal',
-                //    function () {
-                //        $("#loadModal").modal('hide');
-                //    });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
                 var by = $("#SearchResultsPlaceholder").data("by");
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");
@@ -140,6 +135,10 @@
                         });
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
+                //$('#loadModal').on('shown.bs.modal',
+                //    function () {
+                        $("#loadModal").modal('hide');
+                //    });
             }),
             error: (function error(request) {
                 console.log(request);
