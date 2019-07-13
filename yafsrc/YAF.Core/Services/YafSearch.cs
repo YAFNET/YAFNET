@@ -180,12 +180,12 @@
 
             try
             {
-                using (var indexWriter = new IndexWriter(
+                var indexWriter = new IndexWriter(
                     Directory,
                     analyzer,
                     !IndexReader.IndexExists(Directory),
-                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
-                {
+                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH));
+
                     indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
                     indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
 
@@ -194,7 +194,10 @@
                     indexWriter.Optimize();
                     indexWriter.Commit();
                     indexWriter.Dispose();
-                }
+            }
+            catch (LockObtainFailedException ex)
+            {
+              // TODO: 
             }
             catch (ThreadAbortException)
             {
@@ -631,6 +634,13 @@
             using (var searcher = new IndexSearcher(Directory, true))
             {
                 var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+
+                // 0 => Lucene error;
+                if (hitsLimit == 0)
+                {
+                    hitsLimit = pageSize;
+                }
+
                 var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
 
                 var formatter = new SimpleHTMLFormatter("<mark>", "</mark>");
@@ -672,11 +682,6 @@
 
                     var query = ParseQuery(searchQuery, parser);
                     scorer = new QueryScorer(query);
-
-                    if (hitsLimit == 0)
-                    {
-                        hitsLimit = 1000; // 0 => Lucene error;
-                    }
 
                     // sort by date
                     var sort = new Sort(new SortField("Posted", SortField.STRING, true));

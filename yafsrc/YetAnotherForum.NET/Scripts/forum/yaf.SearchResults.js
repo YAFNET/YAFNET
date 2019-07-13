@@ -53,7 +53,7 @@
             if (searchInput.length) {
                 searchText += "AND Author:" + searchInputUser;
             } else {
-                searchText += "+Author:" + searchInputUser;
+                searchText = "+Author:" + searchInputUser;
             }
         }
 
