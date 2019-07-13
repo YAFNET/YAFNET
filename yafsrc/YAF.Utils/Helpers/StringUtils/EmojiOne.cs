@@ -36,14 +36,14 @@ namespace YAF.Utils.Helpers.StringUtils
         /// <param name="str">The input string</param>
         /// <param name="ascii"><c>true</c> to also convert ascii emoji in the inpur string to unicode.</param>
         /// <returns>A string with unicode replacements</returns>
-        public static string ShortnameToUnicode(string str, bool ascii = false)
+        public static string ShortNameToUnicode(string str, bool ascii = false)
         {
             if (str != null)
             {
                 str = Regex.Replace(
                     str,
-                    IGNORE_PATTERN + "|" + SHORTNAME_PATTERN,
-                    ShortnameToUnicodeCallback,
+                    $"{IGNORE_PATTERN}|{SHORTNAME_PATTERN}",
+                    ShortNameToUnicodeCallback,
                     RegexOptions.IgnoreCase);
             }
 
@@ -68,7 +68,7 @@ namespace YAF.Utils.Helpers.StringUtils
             {
                 str = Regex.Replace(
                     str,
-                    IGNORE_PATTERN + "|" + ASCII_PATTERN,
+                    $"{IGNORE_PATTERN}|{ASCII_PATTERN}",
                     AsciiToUnicodeCallback,
                     RegexOptions.IgnoreCase);
             }
@@ -96,13 +96,13 @@ namespace YAF.Utils.Helpers.StringUtils
         /// </summary>
         /// <param name="match">The match.</param>
         /// <returns>Returns the converted string</returns>
-        private static string ShortnameToUnicodeCallback(Match match)
+        private static string ShortNameToUnicodeCallback(Match match)
         {
             // check if the emoji exists in our dictionaries
-            var shortname = match.Value;
+            var shortName = match.Value;
 
-            return SHORTNAME_TO_CODEPOINT.ContainsKey(shortname)
-                       ? ToUnicode(SHORTNAME_TO_CODEPOINT[shortname])
+            return SHORTNAME_TO_CODEPOINT.ContainsKey(shortName)
+                       ? ToUnicode(SHORTNAME_TO_CODEPOINT[shortName])
                        : match.Value;
 
             // we didn't find a replacement so just return the entire match
@@ -158,7 +158,7 @@ namespace YAF.Utils.Helpers.StringUtils
                     }
                 }
 
-                return hilos.Any(x => x != null) ? string.Concat(hilos) : new String(chars);
+                return hilos.Any(x => x != null) ? string.Concat(hilos) : new string(chars);
             }
             else
             {
