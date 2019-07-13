@@ -75,8 +75,9 @@ namespace YAF.Pages.Admin
         {
             int value;
 
-            if (this.Request.QueryString.GetFirstOrDefault(name) != null
-                && int.TryParse(this.Request.QueryString.GetFirstOrDefault(name), out value))
+            if (this.Request.QueryString.GetFirstOrDefault(name) != null && int.TryParse(
+                    this.Request.QueryString.GetFirstOrDefault(name),
+                    out value))
             {
                 return value;
             }
@@ -113,13 +114,13 @@ namespace YAF.Pages.Admin
 
             var forumId = this.GetQueryStringAsInt("fa");
 
-            var forum = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId).FirstOrDefault();
+            var forum = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId)
+                .FirstOrDefault();
 
             this.ForumNameTitle.Text = forum.Name;
 
-                // populate parent forums list with forums according to selected category
-                this.BindParentList();
-            
+            // populate parent forums list with forums according to selected category
+            this.BindParentList();
         }
 
         /// <summary>
@@ -129,7 +130,8 @@ namespace YAF.Pages.Admin
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
@@ -249,7 +251,10 @@ namespace YAF.Pages.Admin
 
                 // schedule...
                 ForumDeleteTask.Start(
-                    this.PageContext.PageBoardID, forumId.Value, this.ForumList.SelectedValue.ToType<int>(), out errorMessage);
+                    this.PageContext.PageBoardID,
+                    forumId.Value,
+                    this.ForumList.SelectedValue.ToType<int>(),
+                    out errorMessage);
 
                 // enable timer...
                 this.UpdateStatusTimer.Enabled = true;

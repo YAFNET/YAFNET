@@ -74,29 +74,34 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("Description", typeof(string));
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
-                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                dr["FileName"] =
+                    $"{YafForumInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
                 dr["Description"] = "None";
                 dt.Rows.Add(dr);
 
-                var dir =
-                  new DirectoryInfo(
+                var dir = new DirectoryInfo(
                     this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Categories}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
                     long fileId = 1;
 
-                    foreach (var file in from file in files
-                                              let sExt = file.Extension.ToLower()
-                                              where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
-                                              select file)
-                    {
-                        dr = dt.NewRow();
-                        dr["FileID"] = fileId++;
-                        dr["FileName"] = file.Name;
-                        dr["Description"] = file.Name;
-                        dt.Rows.Add(dr);
-                    }
+                    var filesList = from file in files
+                                let sExt = file.Extension.ToLower()
+                                where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
+                                select file;
+
+                    filesList.ForEach(
+                        file =>
+                        {
+                            dr = dt.NewRow();
+                            dr["FileID"] = fileId++;
+                            dr["FileName"] =
+                                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{file.Name}";
+                            dr["Description"] = file.Name;
+                            dt.Rows.Add(dr);
+                        });
+                    
                 }
 
                 this.CategoryImages.DataSource = dt;
@@ -121,10 +126,6 @@ namespace YAF.Pages.Admin
             // Populate Category Table
             this.CreateImagesDataTable();
 
-            this.CategoryImages.Attributes["onchange"] =
-                string.Format(
-                    "getElementById('{1}').src='{0}{2}/' + this.value", YafForumInfo.ForumClientFileRoot,this.Preview.ClientID, YafBoardFolders.Current.Categories);
-
             this.BindData();
         }
 
@@ -134,7 +135,9 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
@@ -163,12 +166,14 @@ namespace YAF.Pages.Admin
 
             if (this.CategoryImages.SelectedIndex > 0)
             {
-                categoryImage = this.CategoryImages.SelectedValue;
+                categoryImage = this.CategoryImages.SelectedItem.Text;
             }
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"),
+                    MessageTypes.danger);
                 return;
             }
 
@@ -179,7 +184,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (string.IsNullOrEmpty(name))
+            if (name.IsNotSet())
             {
                 // error...
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.danger);
@@ -201,10 +206,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.Preview.Src = $"{YafForumInfo.ForumClientFileRoot}Content/images/spacer.gif";
-
             if (this.Request.QueryString.GetFirstOrDefault("c") == null)
             {
+                this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_CATEGORY";
+                    
                 // Currently creating a New Category, and auto fill the Category Sort Order + 1
                 var sortOrder = 1;
 
@@ -222,28 +227,27 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var category = this.GetRepository<Category>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("c")).FirstOrDefault();
+            var category = this.GetRepository<Category>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("c"))
+                .FirstOrDefault();
 
-            if (category != null)
+            if (category == null)
             {
-                this.Name.Text = category.Name;
-                this.SortOrder.Text = category.SortOrder.ToString();
-
-                this.CategoryNameTitle.Text = this.Label1.Text = this.Name.Text;
-
-                var item = this.CategoryImages.Items.FindByText(category.CategoryImage);
-
-                if (item == null)
-                {
-                    return;
-                }
-
-                item.Selected = true;
-                this.Preview.Src = string.Format(
-                    "{0}{2}/{1}",
-                    YafForumInfo.ForumClientFileRoot,category.CategoryImage,
-                        YafBoardFolders.Current.Categories);
+                return;
             }
+
+            this.Name.Text = category.Name;
+            this.SortOrder.Text = category.SortOrder.ToString();
+
+            this.CategoryNameTitle.Text = this.Label1.Text = this.Name.Text;
+
+            var item = this.CategoryImages.Items.FindByText(category.CategoryImage);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            item.Selected = true;
         }
 
         #endregion

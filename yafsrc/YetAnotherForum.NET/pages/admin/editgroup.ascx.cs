@@ -58,7 +58,7 @@ namespace YAF.Pages.Admin
         public IList<AccessMask> AccessMasksList { get; set; }
 
         /// <summary>
-        /// Handles databinding event of initial access maks dropdown control.
+        /// Handles databinding event of initial access masks dropdown control.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -149,56 +149,55 @@ namespace YAF.Pages.Admin
             var row = this.GetRepository<Group>().List(
                 groupId: this.Request.QueryString.GetFirstOrDefaultAs<int>("i"),
                 boardId: this.PageContext.PageBoardID).FirstOrDefault();
-            
-               // get role flags
-                var flags = row.GroupFlags;
 
-                // set controls to role values
-                this.Name.Text = row.Name;
+            // get role flags
+            var flags = row.GroupFlags;
 
-                this.IsAdminX.Checked = flags.IsAdmin;
-                this.IsAdminX.Enabled = !flags.IsGuest;
+            // set controls to role values
+            this.Name.Text = row.Name;
 
-                this.IsStartX.Checked = flags.IsStart;
-                this.IsStartX.Enabled = !flags.IsGuest;
+            this.IsAdminX.Checked = flags.IsAdmin;
+            this.IsAdminX.Enabled = !flags.IsGuest;
 
-                this.IsModeratorX.Checked = flags.IsModerator;
-                this.IsModeratorX.Enabled = !flags.IsGuest;
+            this.IsStartX.Checked = flags.IsStart;
+            this.IsStartX.Enabled = !flags.IsGuest;
 
-                this.PMLimit.Text = row.PMLimit.ToString();
-                this.PMLimit.Enabled = !flags.IsGuest;
+            this.IsModeratorX.Checked = flags.IsModerator;
+            this.IsModeratorX.Enabled = !flags.IsGuest;
 
-                this.StyleTextBox.Text = row.Style;
+            this.PMLimit.Text = row.PMLimit.ToString();
+            this.PMLimit.Enabled = !flags.IsGuest;
 
-                this.Priority.Text = row.SortOrder.ToString();
+            this.StyleTextBox.Text = row.Style;
 
-                this.UsrAlbums.Text = row.UsrAlbums.ToString();
-                this.UsrAlbums.Enabled = !flags.IsGuest;
+            this.Priority.Text = row.SortOrder.ToString();
 
-                this.UsrAlbumImages.Text = row.UsrAlbumImages.ToString();
-                this.UsrAlbumImages.Enabled = !flags.IsGuest;
+            this.UsrAlbums.Text = row.UsrAlbums.ToString();
+            this.UsrAlbums.Enabled = !flags.IsGuest;
 
-                this.UsrSigChars.Text = row.UsrSigChars.ToString();
-                this.UsrSigChars.Enabled = !flags.IsGuest;
+            this.UsrAlbumImages.Text = row.UsrAlbumImages.ToString();
+            this.UsrAlbumImages.Enabled = !flags.IsGuest;
 
-                this.UsrSigBBCodes.Text = row.UsrSigBBCodes;
-                this.UsrSigBBCodes.Enabled = !flags.IsGuest;
+            this.UsrSigChars.Text = row.UsrSigChars.ToString();
+            this.UsrSigChars.Enabled = !flags.IsGuest;
 
-                this.UsrSigHTMLTags.Text = row.UsrSigHTMLTags;
-                this.UsrSigHTMLTags.Enabled = !flags.IsGuest;
+            this.UsrSigBBCodes.Text = row.UsrSigBBCodes;
+            this.UsrSigBBCodes.Enabled = !flags.IsGuest;
 
-                this.Description.Text = row.Description;
+            this.UsrSigHTMLTags.Text = row.UsrSigHTMLTags;
+            this.UsrSigHTMLTags.Enabled = !flags.IsGuest;
 
-                this.IsGuestX.Checked = flags.IsGuest;
+            this.Description.Text = row.Description;
 
-                // IsGuest flag can be set for only one role. if it isn't for this, disable that row
-                if (flags.IsGuest)
-                {
-                    this.IsGuestTR.Visible = true;
-                    this.IsGuestX.Enabled = !flags.IsGuest;
-                    this.AccessList.Visible = false;
-                }
-            
+            this.IsGuestX.Checked = flags.IsGuest;
+
+            // IsGuest flag can be set for only one role. if it isn't for this, disable that row
+            if (flags.IsGuest)
+            {
+                this.IsGuestTR.Visible = true;
+                this.IsGuestX.Enabled = !flags.IsGuest;
+                this.AccessList.Visible = false;
+            }
         }
 
         /// <summary>
@@ -259,16 +258,13 @@ namespace YAF.Pages.Admin
             var roleName = this.Name.Text.Trim();
             var oldRoleName = string.Empty;
 
-            // if we are editing exising role, get it's original name
+            // if we are editing existing role, get it's original name
             if (roleId != 0)
             {
                 // get the current role name in the DB
                 var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
-                foreach (var group in groups)
-                {
-                    oldRoleName = group.Name;
-                }
+                groups.ForEach(group => oldRoleName = @group.Name);
             }
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)
@@ -325,7 +321,7 @@ namespace YAF.Pages.Admin
             // Access masks for a newly created or an existing role
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                // go trhough all forums
+                // go through all forums
                 for (var i = 0; i < this.AccessList.Items.Count; i++)
                 {
                     // get current repeater item
@@ -334,7 +330,7 @@ namespace YAF.Pages.Admin
                     // get forum ID
                     var forumId = int.Parse(item.FindControlAs<Label>("ForumID").Text);
 
-                    // save forum access maks for this role
+                    // save forum access masks for this role
                     this.GetRepository<ForumAccess>().Save(
                         forumId,
                         roleId.ToType<int>(),
@@ -348,8 +344,8 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // Clearing cache with old permissions data...
-            this.Get<IDataCache>()
-                .Remove(k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
+            this.Get<IDataCache>().Remove(
+                k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
             // Clear Styling Caching
             this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
@@ -387,11 +383,11 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            // set datasource of access list (list of forums and role's access masks) if we are editing existing mask
+            // set data source of access list (list of forums and role's access masks) if we are editing existing mask
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                this.AccessList.DataSource =
-                    this.GetRepository<ForumAccess>().GroupAsDataTable(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+                this.AccessList.DataSource = this.GetRepository<ForumAccess>()
+                    .GroupAsDataTable(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
             }
 
             this.AccessMasksList = this.GetRepository<AccessMask>().GetByBoardId();

@@ -5,116 +5,140 @@
 
     <div class="row">
         <div class="col-xl-12">
-            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITRANK" /></h1>
+            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                    LocalizedTag="TITLE" 
+                                    LocalizedPage="ADMIN_EDITRANK" /></h1>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-graduation-cap fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITRANK" />
+                    <i class="fa fa-graduation-cap fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                                                                                       LocalizedTag="TITLE" 
+                                                                                                       LocalizedPage="ADMIN_EDITRANK" />
                 </div>
                 <div class="card-body">
-			 
-				<YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="RANK_NAME" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox  ID="Name" runat="server" CssClass="form-control" />
-		    </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="IS_START" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<div class="custom-control custom-switch">
-				<asp:CheckBox ID="IsStart" runat="server" Text="&nbsp;"></asp:CheckBox>
-		    </div><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="LADDER_GROUP" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<div class="custom-control custom-switch">
-				<asp:CheckBox ID="IsLadder" runat="server" Text="&nbsp;"></asp:CheckBox>
-		    </div><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="MIN_POSTS" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="MinPosts"  runat="server" CssClass="form-control" TextMode="Number" />
-		    </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="PRIVATE_MESSAGES" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="PMLimit"  Text="0" runat="server" CssClass="form-control" TextMode="Number" />
-		    </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="RANK_DESC" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="Description" runat="server" CssClass="form-control" />
-		     </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="SIG_LENGTH" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="UsrSigChars" runat="server" CssClass="form-control" TextMode="Number" />
-		    </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="SIG_BBCODE" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="UsrSigBBCodes" runat="server" CssClass="form-control" />
-
-	        </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="UsrSigHTMLTags" runat="server" CssClass="form-control" />
-
-			</p><hr />
-			 
-				<YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="ALBUMS_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="UsrAlbums" Text="0" runat="server" CssClass="form-control" TextMode="Number" />
-
-		    </p><hr />
-			 
-				<YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="UsrAlbumImages" Text="0" runat="server" CssClass="form-control" TextMode="Number" />
-
-		    </p><hr />
-			 
-				<YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="RANK_PRIO" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="RankPriority" Text="0" runat="server" CssClass="form-control" TextMode="Number" />
-		   </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel13" runat="server" LocalizedTag="RANK_STYLE" LocalizedPage="ADMIN_EDITRANK" />
-             
-			<p>
-				<asp:TextBox ID="Style" Text="" TextMode="MultiLine" runat="server" CssClass="form-control" />
-		    </p><hr />
-
-			 
-				<YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="RANK_IMAGE" LocalizedPage="ADMIN_EDITRANK" />
-			 
-			<p>
-				<asp:DropDownList ID="RankImage" runat="server" CssClass="custom-select" />
-				<img style="vertical-align:middle" src="" alt="Rank Image" runat="server" id="Preview" />
-			</p>
-
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <YAF:HelpLabel ID="HelpLabel1" runat="server"
+                                           AssociatedControlID="Name"
+                                           LocalizedTag="RANK_NAME" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="Name" runat="server" 
+                                          CssClass="form-control" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <YAF:HelpLabel ID="HelpLabel6" runat="server"
+                                           AssociatedControlID="Description"
+                                           LocalizedTag="RANK_DESC" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="Description" runat="server" 
+                                         CssClass="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel12" runat="server"
+                                           AssociatedControlID="RankPriority"
+                                           LocalizedTag="RANK_PRIO" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="RankPriority" runat="server" 
+                                         Text="0" 
+                                         CssClass="form-control" 
+                                         TextMode="Number" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel2" runat="server"
+                                           AssociatedControlID="IsStart"
+                                           LocalizedTag="IS_START" LocalizedPage="ADMIN_EDITRANK" />
+                            <div class="custom-control custom-switch">
+                                <asp:CheckBox ID="IsStart" runat="server" 
+                                              Text="&nbsp;"></asp:CheckBox>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel3" runat="server"
+                                           AssociatedControlID="IsLadder"
+                                           LocalizedTag="LADDER_GROUP" LocalizedPage="ADMIN_EDITRANK" />
+                            <div class="custom-control custom-switch">
+                                <asp:CheckBox ID="IsLadder" runat="server" 
+                                              Text="&nbsp;"></asp:CheckBox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel4" runat="server"
+                                           AssociatedControlID="MinPosts"
+                                           LocalizedTag="MIN_POSTS" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="MinPosts" runat="server" 
+                                         CssClass="form-control" 
+                                         TextMode="Number" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel5" runat="server"
+                                           AssociatedControlID="PMLimit"
+                                           LocalizedTag="PRIVATE_MESSAGES" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="PMLimit" runat="server" 
+                                         Text="0"
+                                         CssClass="form-control" 
+                                         TextMode="Number" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel7" runat="server"
+                                           AssociatedControlID="UsrSigChars"
+                                           LocalizedTag="SIG_LENGTH" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="UsrSigChars" runat="server" 
+                                         CssClass="form-control" 
+                                         TextMode="Number" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel8" runat="server"
+                                       AssociatedControlID="UsrSigBBCodes"
+                                       LocalizedTag="SIG_BBCODE" LocalizedPage="ADMIN_EDITRANK" />
+                        <asp:TextBox ID="UsrSigBBCodes" runat="server" 
+                                     CssClass="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel9" runat="server"
+                                       AssociatedControlID="UsrSigHTMLTags"
+                                       LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITRANK" />
+                        <asp:TextBox ID="UsrSigHTMLTags" runat="server" 
+                                     CssClass="form-control" />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel10" runat="server"
+                               AssociatedControlID="UsrAlbums"
+                               LocalizedTag="ALBUMS_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="UsrAlbums" runat="server" 
+                                         Text="0" 
+                                         CssClass="form-control" 
+                                         TextMode="Number" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <YAF:HelpLabel ID="HelpLabel11" runat="server"
+                                           AssociatedControlID="UsrAlbumImages"
+                                           LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
+                            <asp:TextBox ID="UsrAlbumImages" runat="server" 
+                                         Text="0" 
+                                         CssClass="form-control" 
+                                         TextMode="Number" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel13" runat="server"
+                                       AssociatedControlID="Style"
+                                       LocalizedTag="RANK_STYLE" LocalizedPage="ADMIN_EDITRANK" />
+                        <asp:TextBox ID="Style" runat="server" 
+                                     CssClass="form-control"
+                                     TextMode="MultiLine" />
+                    </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel14" runat="server"
+                                       AssociatedControlID="RankImage"
+                                       LocalizedTag="RANK_IMAGE" LocalizedPage="ADMIN_EDITRANK" />
+                        <YAF:ImageListBox ID="RankImage" runat="server" CssClass="selectpicker custom-select" />
+                    </div>
                 </div>
                 <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="Save" runat="server" 

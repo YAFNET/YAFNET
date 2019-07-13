@@ -103,6 +103,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
+        /// HelpLabel14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel14;
+        
+        /// <summary>
+        /// UseToolbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseToolbar;
+        
+        /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
@@ -148,22 +166,22 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox txtReplaceRegEx;
         
         /// <summary>
-        /// HelpLabel14 control.
+        /// HelpLabel8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel14;
+        protected global::YAF.Controls.HelpLabel HelpLabel8;
         
         /// <summary>
-        /// UseToolbar control.
+        /// txtVariables control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UseToolbar;
+        protected global::System.Web.UI.WebControls.TextBox txtVariables;
         
         /// <summary>
         /// HelpLabel6 control.
@@ -200,24 +218,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtModuleClass;
-        
-        /// <summary>
-        /// HelpLabel8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel8;
-        
-        /// <summary>
-        /// txtVariables control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVariables;
         
         /// <summary>
         /// LocalizedLabel3 control.

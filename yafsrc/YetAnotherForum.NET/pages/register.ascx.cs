@@ -516,9 +516,6 @@ namespace YAF.Pages
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and DatePicker JS...
-            //var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
-
             var password = this.CreateUserStepContainer.FindControlAs<TextBox>("Password");
             var confirmPassword = this.CreateUserStepContainer.FindControlAs<TextBox>("ConfirmPassword");
 
@@ -609,7 +606,7 @@ namespace YAF.Pages
             timeZones.DataSource = StaticDataHelper.TimeZones();
 
             // get the country data source
-            var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            var country = (CountryImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
             country.DataSource = StaticDataHelper.Country();
 
             if (!this.Get<YafBoardSettings>().EmailVerification)

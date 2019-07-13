@@ -191,8 +191,8 @@ namespace YAF.Controls
                                     var resStyle = "post_res";
                                     try
                                     {
-                                        if (!(string.IsNullOrEmpty(textString[0])
-                                              && string.IsNullOrEmpty(this.ResolvedDate)))
+                                        if (!(textString[0].IsNotSet()
+                                              && this.ResolvedDate.IsNotSet()))
                                         {
                                             if (Convert.ToDateTime(textString[0])
                                                 < Convert.ToDateTime(this.ResolvedDate))

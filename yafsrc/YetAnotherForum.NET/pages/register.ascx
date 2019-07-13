@@ -200,7 +200,7 @@
                     </h5>
 							<div class="form-group">
 								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" />
-								<YAF:ImageListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" 
+								<YAF:CountryImageListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" 
                                                   CssClass="selectpicker custom-select" />
 						</div>
 

@@ -53283,7 +53283,7 @@ function getSeachResultsData(pageNumber) {
             if (searchInput.length) {
                 searchText += "AND Author:" + searchInputUser;
             } else {
-                searchText += "+Author:" + searchInputUser;
+                searchText = "+Author:" + searchInputUser;
             }
         }
 
@@ -53553,10 +53553,13 @@ jQuery(document).ready(function () {
         max: 720
     });
 
-    jQuery(".yaf-net .standardSelectMenu").select2({
-        theme: "bootstrap4",
-        dropdownAutoWidth: true,
-        width: 'style'
+    $(".yaf-net .standardSelectMenu").each(function () {
+        $(this).select2({
+            theme: "bootstrap4",
+            dropdownAutoWidth: true,
+            width: 'style',
+            placeholder: $(this).attr('placeholder')
+        });
     });
 
     jQuery(".yaf-net .selectpicker").select2({

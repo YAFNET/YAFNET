@@ -26,11 +26,12 @@
         </SeparatorTemplate>
 	</asp:Repeater>
 	<hr/>
-                <div class="custom-control custom-switch">
-                    <asp:CheckBox runat="server" Text="&nbsp;" ID="SendEmail"/>
-                    
-                </div>
+                
 <div class="text-lg-center">
+    <div class="custom-control custom-switch">
+        <asp:CheckBox runat="server" Text="&nbsp;" ID="SendEmail"/>
+                    
+    </div>
     <YAF:ThemeButton ID="Save" runat="server" 
                      Type="Primary" 
                      OnClick="Save_Click" 

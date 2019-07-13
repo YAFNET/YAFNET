@@ -41,7 +41,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -116,17 +115,21 @@ namespace YAF.Pages.Admin
                     var files = dir.GetFiles("*.*");
                     long fileId = 1;
 
-                    foreach (var file in from file in files
-                                         let sExt = file.Extension.ToLower()
-                                         where sExt == ".png" || sExt == ".gif" || sExt == ".jpg" || sExt == ".jpeg"
-                                         select file)
-                    {
-                        dr = dt.NewRow();
-                        dr["FileID"] = fileId++;
-                        dr["FileName"] = file.Name;
-                        dr["Description"] = file.Name;
-                        dt.Rows.Add(dr);
-                    }
+                    var filesList = from file in files
+                                    let sExt = file.Extension.ToLower()
+                                    where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
+                                    select file;
+
+                    filesList.ForEach(
+                        file =>
+                            {
+                                dr = dt.NewRow();
+                                dr["FileID"] = fileId++;
+                                dr["FileName"] =
+                                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Forums}/{file.Name}";
+                                dr["Description"] = file.Name;
+                                dt.Rows.Add(dr);
+                            });
                 }
 
                 this.ForumImages.DataSource = dt;
@@ -205,25 +208,24 @@ namespace YAF.Pages.Admin
             // Populate Forum Images Table
             this.CreateImagesDataTable();
 
-            this.ForumImages.Attributes["onchange"] = string.Format(
-                "getElementById('{1}').src='{0}{2}/' + this.value",
-                YafForumInfo.ForumClientFileRoot,this.Preview.ClientID,
-                    YafBoardFolders.Current.Forums);
-
             this.BindData();
 
             var forumId = this.GetQueryStringAsInt("fa") ?? this.GetQueryStringAsInt("copy");
 
             if (!forumId.HasValue)
             {
+
+                this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_FORUM";
+
                 var sortOrder = 1;
 
                 try
                 {
-                        // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
-                        var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null).OrderByDescending(a => a.SortOrder).FirstOrDefault();
+                    // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
+                    var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null)
+                        .OrderByDescending(a => a.SortOrder).FirstOrDefault();
 
-                        sortOrder = forum.SortOrder + sortOrder;
+                    sortOrder = forum.SortOrder + sortOrder;
                 }
                 catch
                 {
@@ -233,69 +235,62 @@ namespace YAF.Pages.Admin
                 this.SortOrder.Text = sortOrder.ToString();
 
                 return;
-                
+
             }
 
             var dt = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId);
-            
-                var row = dt.FirstOrDefault();
-                this.Name.Text = row.Name;
-                this.Description.Text = row.Description;
-                this.SortOrder.Text = row.SortOrder.ToString();
-                this.HideNoAccess.Checked = row.ForumFlags.IsHidden;
-                this.Locked.Checked = row.ForumFlags.IsLocked;
-                this.IsTest.Checked = row.ForumFlags.IsTest;
-                this.ForumNameTitle.Text = this.Label1.Text = this.Name.Text;
-                this.Moderated.Checked = row.ForumFlags.IsModerated;
 
-                this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
-                this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;
+            var row = dt.FirstOrDefault();
+            this.Name.Text = row.Name;
+            this.Description.Text = row.Description;
+            this.SortOrder.Text = row.SortOrder.ToString();
+            this.HideNoAccess.Checked = row.ForumFlags.IsHidden;
+            this.Locked.Checked = row.ForumFlags.IsLocked;
+            this.IsTest.Checked = row.ForumFlags.IsTest;
+            this.ForumNameTitle.Text = this.Label1.Text = this.Name.Text;
+            this.Moderated.Checked = row.ForumFlags.IsModerated;
 
-                if (!row.ModeratedPostCount.HasValue)
-                {
-                    this.ModerateAllPosts.Checked = true;
-                }
-                else
-                {
-                    this.ModerateAllPosts.Checked = false;
-                    this.ModeratedPostCount.Visible = true;
-                    this.ModeratedPostCount.Text = row.ModeratedPostCount.Value.ToString();
-                }
+            this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
+            this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;
 
-                this.ModerateNewTopicOnly.Checked = row.IsModeratedNewTopicOnly;
+            if (!row.ModeratedPostCount.HasValue)
+            {
+                this.ModerateAllPosts.Checked = true;
+            }
+            else
+            {
+                this.ModerateAllPosts.Checked = false;
+                this.ModeratedPostCount.Visible = true;
+                this.ModeratedPostCount.Text = row.ModeratedPostCount.Value.ToString();
+            }
 
-                this.Styles.Text = row.Styles;
+            this.ModerateNewTopicOnly.Checked = row.IsModeratedNewTopicOnly;
 
-                this.CategoryList.SelectedValue = row.CategoryID.ToString();
+            this.Styles.Text = row.Styles;
 
-                this.Preview.Src =
-                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+            this.CategoryList.SelectedValue = row.CategoryID.ToString();
 
-                var item = this.ForumImages.Items.FindByText(row.ImageURL);
-                if (item != null)
-                {
-                    item.Selected = true;
-                    this.Preview.Src = string.Format(
-                        "{0}{2}/{1}",
-                        YafForumInfo.ForumClientFileRoot,row.ImageURL,
-                            YafBoardFolders.Current.Forums); // path corrected
-                }
+            var item = this.ForumImages.Items.FindByText(row.ImageURL);
+            if (item != null)
+            {
+                item.Selected = true;
+            }
 
-                // populate parent forums list with forums according to selected category
-                this.BindParentList();
+            // populate parent forums list with forums according to selected category
+            this.BindParentList();
 
-                if (row.ParentID.HasValue)
-                {
-                    this.ParentList.SelectedValue = row.ParentID.ToString();
-                }
+            if (row.ParentID.HasValue)
+            {
+                this.ParentList.SelectedValue = row.ParentID.ToString();
+            }
 
-                if (row.ThemeURL.IsSet())
-                {
-                    this.ThemeList.SelectedValue = row.ThemeURL;
-                }
+            if (row.ThemeURL.IsSet())
+            {
+                this.ThemeList.SelectedValue = row.ThemeURL;
+            }
 
-                this.remoteurl.Text = row.RemoteURL;
-            
+            this.remoteurl.Text = row.RemoteURL;
+
 
             this.NewGroupRow.Visible = false;
         }
@@ -389,8 +384,7 @@ namespace YAF.Pages.Admin
             // Load forum's themes
             var listheader = new ListItem
                                  {
-                                     Text = this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"),
-                                     Value = string.Empty
+                                     Text = this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"), Value = string.Empty
                                  };
 
             this.AccessMaskID.DataBind();
@@ -597,15 +591,16 @@ namespace YAF.Pages.Admin
             // Access
             if (forumId.HasValue || forumCopyId.HasValue)
             {
-                foreach (var item in this.AccessList.Items.OfType<RepeaterItem>())
-                {
-                    var groupId = int.Parse(item.FindControlAs<Label>("GroupID").Text);
+                this.AccessList.Items.OfType<RepeaterItem>().ForEach(
+                    item =>
+                        {
+                            var groupId = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
-                    this.GetRepository<ForumAccess>().Save(
-                        newForumId.ToType<int>(),
-                        groupId,
-                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
-                }
+                            this.GetRepository<ForumAccess>().Save(
+                                newForumId.ToType<int>(),
+                                groupId,
+                                item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
+                        });
             }
 
             this.ClearCaches();

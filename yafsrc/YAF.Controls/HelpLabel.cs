@@ -25,6 +25,7 @@ namespace YAF.Controls
 {
     #region Using
 
+    using System;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
@@ -136,11 +137,21 @@ namespace YAF.Controls
                 text = text.Remove(text.Length - 1, 1);
             }
 
-            var control = this.FindControl(this.AssociatedControlID);
+            string associatedControlID;
+
+            try
+            {
+                var control = this.FindControl(this.AssociatedControlID);
+                associatedControlID = control.ClientID;
+            }
+            catch (Exception)
+            {
+                associatedControlID = string.Empty;
+            }
 
             var label = new HtmlGenericControl("label");
 
-            label.Attributes.Add(HtmlTextWriterAttribute.For.ToString(), control.ClientID);
+            label.Attributes.Add(HtmlTextWriterAttribute.For.ToString(), associatedControlID);
             label.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "font-weight-bold");
 
             label.Controls.Add(new Literal { Text = $"{text}" });

@@ -109,8 +109,10 @@
                 LocalizedTag="COUNTRY" />
         </h4>
         <p>
-            <YAF:ImageListBox ID="Country" AutoPostBack="true" OnTextChanged="LookForNewRegions" runat="server"
-                CssClass="selectpicker custom-select" />
+            <YAF:CountryImageListBox runat="server" ID="Country" 
+                                     AutoPostBack="true" 
+                                     OnTextChanged="LookForNewRegions"
+                                     CssClass="selectpicker custom-select" />
         </p>
     <hr />
      <asp:PlaceHolder id="RegionTr" visible="false" runat="server">

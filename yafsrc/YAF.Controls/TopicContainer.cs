@@ -87,7 +87,7 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get => string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
+            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
 
             set => this.altLastPost = value;
         }
@@ -98,7 +98,7 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastUnreadPost
         {
-            get => string.IsNullOrEmpty(this.altFirstUnreadPost) ? string.Empty : this.altFirstUnreadPost;
+            get => this.altFirstUnreadPost.IsNotSet() ? string.Empty : this.altFirstUnreadPost;
 
             set => this.altFirstUnreadPost = value;
         }
@@ -555,12 +555,12 @@ namespace YAF.Controls
                     topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>()
                                        ?? DateTimeHelper.SqlDbMinTime());
 
-                if (string.IsNullOrEmpty(this.AltLastPost))
+                if (this.AltLastPost.IsNotSet())
                 {
                     this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
                 }
 
-                if (string.IsNullOrEmpty(this.AltLastUnreadPost))
+                if (this.AltLastUnreadPost.IsNotSet())
                 {
                     this.AltLastUnreadPost = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
                 }

@@ -89,10 +89,10 @@ namespace YAF.Controls
             this.btnChangePassword.Text =
                 $"<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
 
-            this.lblPassRequirements.Text =
-                string.Format(
-                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_REQUIREMENT"),
-                    this.Get<MembershipProvider>().MinRequiredPasswordLength,this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters);
+            this.lblPassRequirements.Text = this.Get<ILocalization>().GetTextFormatted(
+                "PASS_REQUIREMENT",
+                this.Get<MembershipProvider>().MinRequiredPasswordLength,
+                this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters);
 
             this.PasswordValidator.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_NEW_PASS");
             this.RequiredFieldValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_CONFIRM_PASS");
@@ -104,6 +104,13 @@ namespace YAF.Controls
                 this.btnResetPassword.Enabled = false;
                 this.rblPasswordResetFunction.Enabled = false;
             }
+        }
+        else
+        {
+            this.btnResetPassword.Text =
+                $"<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "RESET_PASS")}";
+            this.btnChangePassword.Text =
+                $"<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
         }
 
         this.BindData();

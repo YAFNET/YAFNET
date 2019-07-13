@@ -77,8 +77,6 @@
                                          Type="Primary"
                                          Icon="save" 
                                          TextLocalizedTag="SAVE" />&nbsp;
-                        
-                        
                         <YAF:ThemeButton runat="server" ID="Cancel"
                                          DataDismiss="modal"
                                          TextLocalizedTag="CANCEL"

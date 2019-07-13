@@ -70,7 +70,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             this.InitializeComponent();
             base.OnInit(e);
         }
@@ -112,27 +111,10 @@ namespace YAF.Pages.Admin
                     if (item != null)
                     {
                         item.Selected = true;
-                        this.Preview.Src =
-                            $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Ranks}/{rank.RankImage}";
                     }
-                    else
-                    {
-                        this.Preview.Src =
-                            YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-                    }
-                }
-                else
-                {
-                    this.Preview.Src = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 }
             }
-
-            this.RankImage.Attributes["onchange"] =
-                string.Format(
-                    "getElementById('{2}').src='{0}{1}/' + this.value", YafForumInfo.ForumClientFileRoot,YafBoardFolders.Current.Ranks, this.Preview.ClientID);
         }
-
-
 
         /// <summary>
         /// Creates page links for this page.
@@ -153,7 +135,6 @@ namespace YAF.Pages.Admin
                 $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RANKS", "TITLE")} - {this.GetText("ADMIN_EDITRANK", "TITLE")}";
         }
         
-
         /// <summary>
          /// Save (New) Rank
          /// </summary>
@@ -201,7 +182,7 @@ namespace YAF.Pages.Admin
             object rankImage = null;
             if (this.RankImage.SelectedIndex > 0)
             {
-                rankImage = this.RankImage.SelectedValue;
+                rankImage = this.RankImage.SelectedItem.Text;
             }
 
             this.GetRepository<Rank>().Save(
@@ -222,7 +203,7 @@ namespace YAF.Pages.Admin
                 this.UsrAlbums.Text.Trim().ToType<int>(),
                 this.UsrAlbumImages.Text.Trim().ToType<int>());
 
-            // Clearing cache with old permisssions data...
+            // Clearing cache with old permissions data...
             this.Get<IDataCache>()
                 .RemoveOf<object>(k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
@@ -252,7 +233,7 @@ namespace YAF.Pages.Admin
                     new DirectoryInfo(
                         this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Ranks}"));
                 var files = dir.GetFiles("*.*");
-                long nFileID = 1;
+                long fileID = 1;
 
                 foreach (var file in from file in files
                                           let sExt = file.Extension.ToLower()
@@ -260,8 +241,8 @@ namespace YAF.Pages.Admin
                                           select file)
                 {
                     dr = dt.NewRow();
-                    dr["FileID"] = nFileID++;
-                    dr["FileName"] = file.Name;
+                    dr["FileID"] = fileID++;
+                    dr["FileName"] = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Ranks}/{file.Name}";
                     dr["Description"] = file.Name;
                     dt.Rows.Add(dr);
                 }

@@ -196,7 +196,7 @@ namespace YAF.Controls
             var outText = new StringBuilder();
 
             // Find a user page name. If it's missing we are very probably on the start page 
-            if (string.IsNullOrEmpty(forumPageName))
+            if (forumPageName.IsNotSet())
             {
                 forumPageName = "MAINPAGE";
             }
@@ -221,8 +221,8 @@ namespace YAF.Controls
                 {
                     if (Config.IsDotNetNuke)
                     {
-                        var idxfrst = forumPageName.IndexOf("&", StringComparison.Ordinal);
-                        forumPageName = forumPageName.Substring(idxfrst + 1);
+                        var indexOf = forumPageName.IndexOf("&", StringComparison.Ordinal);
+                        forumPageName = forumPageName.Substring(indexOf + 1);
                     }
 
                     var idx = forumPageName.IndexOf("=", StringComparison.Ordinal);
@@ -233,6 +233,7 @@ namespace YAF.Controls
                             forumPageName.IndexOf("&", StringComparison.Ordinal) > 0
                                 ? forumPageName.IndexOf("&", StringComparison.Ordinal)
                                 : forumPageName.Length - 1);
+
                         forumPageName = forumPageName.Substring(0, idx);
                     }
                 }
@@ -359,7 +360,7 @@ namespace YAF.Controls
 
             var outputText = outText.ToString();
 
-            if (outputText.Contains("ACTIVELOCATION") || string.IsNullOrEmpty(outputText.Trim())
+            if (outputText.Contains("ACTIVELOCATION") || outputText.Trim().IsNotSet()
                                                       || forumPageName.IndexOf("p=", StringComparison.Ordinal) == 0)
             {
                 if (forumPageName.Contains("p="))

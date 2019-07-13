@@ -35,9 +35,9 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// Custom DropDown List Controls with Images
+    /// Custom DropDown List Controls with Flag Icons
     /// </summary>
-    public class ImageListBox : DropDownList
+    public class CountryImageListBox : DropDownList
     {
         #region Methods
 
@@ -52,7 +52,7 @@ namespace YAF.Controls
             this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
                 item => item.Attributes.Add(
                     "data-content",
-                    $"<span class=\"standardSelectMenu-Icon\"><img src=\"{item.Value.ToLower()}\" /><span><span>&nbsp;{item.Text}</span>"));
+                    $"<span class=\"flag-icon flag-icon-{item.Value.ToLower()} standardSelectMenu-Icon\" /><span>&nbsp;{item.Text}</span>"));
             
             base.Render(writer);
         }
