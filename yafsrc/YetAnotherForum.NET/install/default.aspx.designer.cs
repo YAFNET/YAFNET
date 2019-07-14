@@ -145,7 +145,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernButton btnTestPermissions;
+        protected global::YAF.Web.ModernButton btnTestPermissions;
         
         /// <summary>
         /// WizCreatePassword control.
@@ -568,7 +568,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernButton btnTestDBConnection;
+        protected global::YAF.Web.ModernButton btnTestDBConnection;
         
         /// <summary>
         /// ConnectionInfoHolder control.
@@ -676,7 +676,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernButton btnTestDBConnectionManual;
+        protected global::YAF.Web.ModernButton btnTestDBConnectionManual;
         
         /// <summary>
         /// ManualConnectionInfoHolder control.
@@ -721,7 +721,7 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ModernButton btnTestSmtp;
+        protected global::YAF.Web.ModernButton btnTestSmtp;
         
         /// <summary>
         /// SmtpInfoHolder control.

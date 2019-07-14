@@ -34,7 +34,7 @@ namespace YAF.Install
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
