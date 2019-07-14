@@ -1917,11 +1917,8 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='UserDisplayName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] add UserDisplayName nvarchar(255) 
-
 end
 GO
-
-
 
 if not exists (select top 1 1 from sys.columns where object_id =  object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
 begin

@@ -10533,7 +10533,7 @@ BEGIN
 		join [{databaseOwner}].[{objectQualifier}Message] m on m.TopicID = t.TopicID
 		join  [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID
     where
-        c.BoardID=1 and
+        c.BoardID=@BoardID and
 		t.IsDeleted = 0 and
 		m.IsDeleted = 0 and
 		m.IsApproved = 1 and
