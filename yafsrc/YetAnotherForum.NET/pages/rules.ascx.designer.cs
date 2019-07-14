@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel1-Steuerelement
@@ -28,7 +28,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// LocalizedLabel3-Steuerelement
@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// RulesText-Steuerelement
@@ -46,7 +46,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel RulesText;
+        protected global::YAF.Web.LocalizedLabel RulesText;
         
         /// <summary>
         /// Accept-Steuerelement
@@ -55,7 +55,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Accept;
+        protected global::YAF.Web.ThemeButton Accept;
         
         /// <summary>
         /// Cancel-Steuerelement
@@ -64,6 +64,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Cancel;
+        protected global::YAF.Web.ThemeButton Cancel;
     }
 }

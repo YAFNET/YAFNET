@@ -28,7 +28,7 @@ namespace YAF.Core.Services
     using System.Net;
     using System.Text.RegularExpressions;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;

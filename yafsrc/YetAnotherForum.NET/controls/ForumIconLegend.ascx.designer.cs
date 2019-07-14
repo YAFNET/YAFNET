@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel NewPostsLabel;
+        protected global::YAF.Web.LocalizedLabel NewPostsLabel;
         
         /// <summary>
         /// NoNewPostsLabel control.
@@ -28,7 +28,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel NoNewPostsLabel;
+        protected global::YAF.Web.LocalizedLabel NoNewPostsLabel;
         
         /// <summary>
         /// ForumLockedLabel control.
@@ -37,6 +37,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ForumLockedLabel;
+        protected global::YAF.Web.LocalizedLabel ForumLockedLabel;
     }
 }

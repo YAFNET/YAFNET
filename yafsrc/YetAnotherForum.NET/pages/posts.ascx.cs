@@ -35,14 +35,15 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
-    using YAF.Classes;
-    using YAF.Classes.Utilities;
+
+    using YAF.Configuration;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Services.Auth;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Exceptions;
@@ -52,6 +53,7 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     #endregion
 
@@ -70,7 +72,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _forum.
         /// </summary>
-        private Forum forum;
+        private Types.Models.Forum forum;
 
         /// <summary>
         ///   The _forum flags.
@@ -491,13 +493,13 @@ namespace YAF.Pages
 
             this._topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
 
-            // in case topic is deleted or not existant
+            // in case topic is deleted or not existent
             if (this._topic == null)
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
-            var dt = this.GetRepository<Forum>().List(
+            var dt = this.GetRepository<Types.Models.Forum>().List(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageForumID);
 

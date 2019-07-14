@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.PageLinks PageLinks;
         
         /// <summary>
         /// ProfileMenu1 control.
@@ -28,7 +28,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ProfileMenu ProfileMenu1;
+        protected global::YAF.Web.ProfileMenu ProfileMenu1;
         
         /// <summary>
         /// LocalizedLabel11 control.
@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel11;
         
         /// <summary>
         /// QuestionLink control.
@@ -55,7 +55,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// LocalizedLabel5 control.
@@ -64,7 +64,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel5;
         
         /// <summary>
         /// ChangePassword1 control.
@@ -100,7 +100,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
         /// Label1 control.
@@ -118,7 +118,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel7;
         
         /// <summary>
         /// QuestionOld control.
@@ -145,7 +145,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
         /// AnswerOld control.
@@ -181,7 +181,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel9;
         
         /// <summary>
         /// QuestionNew control.
@@ -208,7 +208,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel10;
         
         /// <summary>
         /// AnswerNew control.
@@ -235,6 +235,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton ChangeSecurityAnswer;
+        protected global::YAF.Web.ThemeButton ChangeSecurityAnswer;
     }
 }

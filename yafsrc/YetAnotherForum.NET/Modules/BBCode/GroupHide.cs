@@ -27,9 +27,9 @@ namespace YAF.Modules.BBCode
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Types.Extensions;
+    using YAF.Web;
 
     /// <summary>
     /// Hide Group BBCode Module

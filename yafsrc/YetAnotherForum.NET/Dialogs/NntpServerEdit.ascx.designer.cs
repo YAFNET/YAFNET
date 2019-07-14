@@ -19,7 +19,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel Title;
+        protected global::YAF.Web.LocalizedLabel Title;
         
         /// <summary>
         /// LocalizedLabel2 control.
@@ -28,7 +28,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel2;
+        protected global::YAF.Web.HelpLabel LocalizedLabel2;
         
         /// <summary>
         /// Name control.
@@ -46,7 +46,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel3;
+        protected global::YAF.Web.HelpLabel LocalizedLabel3;
         
         /// <summary>
         /// Address control.
@@ -64,7 +64,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel4;
+        protected global::YAF.Web.HelpLabel LocalizedLabel4;
         
         /// <summary>
         /// Port control.
@@ -82,7 +82,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel5;
+        protected global::YAF.Web.HelpLabel LocalizedLabel5;
         
         /// <summary>
         /// UserName control.
@@ -100,7 +100,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel6;
+        protected global::YAF.Web.HelpLabel LocalizedLabel6;
         
         /// <summary>
         /// UserPass control.
@@ -118,7 +118,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Save;
+        protected global::YAF.Web.ThemeButton Save;
         
         /// <summary>
         /// Cancel control.
@@ -127,6 +127,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Cancel;
+        protected global::YAF.Web.ThemeButton Cancel;
     }
 }

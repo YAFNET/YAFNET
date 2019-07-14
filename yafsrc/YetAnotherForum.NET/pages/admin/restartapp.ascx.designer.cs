@@ -19,7 +19,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel1 control.
@@ -28,7 +28,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// LocalizedLabel3 control.
@@ -37,7 +37,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// LocalizedLabel4 control.
@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// RestartApp control.
@@ -55,6 +55,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton RestartApp;
+        protected global::YAF.Web.ThemeButton RestartApp;
     }
 }

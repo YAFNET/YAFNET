@@ -29,8 +29,7 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Core;
+    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -41,6 +40,7 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     #endregion
 
@@ -95,7 +95,7 @@ namespace YAF.Controls
                 categoryId = resultId;
             }
 
-            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
+            var dt = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
                 boardID: this.PageContext.PageBoardID,
                 userID: this.PageContext.PageUserID,
                 categoryID: categoryId,
@@ -131,7 +131,7 @@ namespace YAF.Controls
                 categoryId = resultId;
             }
 
-            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
+            var dt = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
                 boardID: this.PageContext.PageBoardID,
                 userID: this.PageContext.PageUserID,
                 categoryID: categoryId,

@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel11 control.
@@ -28,7 +28,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel11;
         
         /// <summary>
         /// ProfileMenu1 control.
@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ProfileMenu ProfileMenu1;
+        protected global::YAF.Web.ProfileMenu ProfileMenu1;
         
         /// <summary>
         /// LocalizedLabel12 control.
@@ -46,7 +46,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
         /// LocalizedLabel200 control.
@@ -55,7 +55,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel200;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel200;
         
         /// <summary>
         /// BlockPMs control.
@@ -91,7 +91,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton SaveUser;
+        protected global::YAF.Web.ThemeButton SaveUser;
         
         /// <summary>
         /// IgnoredUserHolder control.
@@ -109,7 +109,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// UserIgnoredList control.

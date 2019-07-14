@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" MaintainScrollPositionOnPostback="true" %>
-<%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 <script runat="server">
 </script>
 <!doctype html>

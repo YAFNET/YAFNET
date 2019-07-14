@@ -31,7 +31,7 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Net.Mail;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Interfaces;
 

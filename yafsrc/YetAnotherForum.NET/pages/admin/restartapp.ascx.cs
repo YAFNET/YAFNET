@@ -29,7 +29,7 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web;
 
-    using YAF.Controls;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;

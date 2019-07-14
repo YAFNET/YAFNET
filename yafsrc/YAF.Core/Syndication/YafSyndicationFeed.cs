@@ -31,7 +31,7 @@ namespace YAF.Core.Syndication
 
   using ServiceStack;
 
-  using YAF.Classes;
+  using YAF.Configuration;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;

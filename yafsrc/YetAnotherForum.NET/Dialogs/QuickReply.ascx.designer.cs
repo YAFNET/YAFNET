@@ -37,7 +37,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel13;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel13;
         
         /// <summary>
         /// imgCaptcha control.
@@ -55,7 +55,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel14;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel14;
         
         /// <summary>
         /// tbCaptcha control.
@@ -91,7 +91,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel TopicWatchLabel;
+        protected global::YAF.Web.LocalizedLabel TopicWatchLabel;
         
         /// <summary>
         /// Reply control.
@@ -100,6 +100,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Reply;
+        protected global::YAF.Web.ThemeButton Reply;
     }
 }

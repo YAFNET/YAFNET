@@ -30,7 +30,7 @@ namespace YAF.Pages.moderate
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Controls;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;

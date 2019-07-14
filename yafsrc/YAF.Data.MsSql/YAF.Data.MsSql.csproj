@@ -38,7 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite.SqlServer\ServiceStack.OrmLite.SqlServer.csproj" />
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj" />
+    <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>

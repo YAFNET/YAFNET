@@ -31,7 +31,7 @@ namespace YAF.Providers.Membership
     using System.Data.SqlClient;
     using System.Web.Security;
 
-    using YAF.Classes.Pattern;
+    using YAF.Configuration.Pattern;
     using YAF.Core.Data;
     using YAF.Providers.Utils;
     using YAF.Types;

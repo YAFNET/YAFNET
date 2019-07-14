@@ -29,7 +29,7 @@ namespace YAF
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;

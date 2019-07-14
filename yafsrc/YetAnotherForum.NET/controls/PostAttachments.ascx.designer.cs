@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel NewPostOptionsLabel;
+        protected global::YAF.Web.LocalizedLabel NewPostOptionsLabel;
         
         /// <summary>
         /// AttachmentsHolder-Steuerelement
@@ -37,7 +37,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// LoadingText-Steuerelement
@@ -46,7 +46,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LoadingText;
+        protected global::YAF.Web.LocalizedLabel LoadingText;
         
         /// <summary>
         /// ThemeButton1-Steuerelement
@@ -55,6 +55,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ThemeButton1;
+        protected global::YAF.Web.LocalizedLabel ThemeButton1;
     }
 }

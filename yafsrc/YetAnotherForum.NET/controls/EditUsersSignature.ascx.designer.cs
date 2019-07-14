@@ -28,7 +28,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// PreviewLine-Steuerelement
@@ -46,7 +46,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// EditorLine-Steuerelement
@@ -64,7 +64,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// TagsAllowedWarning-Steuerelement
@@ -82,7 +82,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton preview;
+        protected global::YAF.Web.ThemeButton preview;
         
         /// <summary>
         /// save-Steuerelement
@@ -91,7 +91,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton save;
+        protected global::YAF.Web.ThemeButton save;
         
         /// <summary>
         /// cancel-Steuerelement
@@ -100,6 +100,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton cancel;
+        protected global::YAF.Web.ThemeButton cancel;
     }
 }

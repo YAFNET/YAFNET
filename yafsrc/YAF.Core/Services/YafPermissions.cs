@@ -29,7 +29,7 @@ namespace YAF.Core.Services
     using System.Web;
     using System.Web.Hosting;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
     using YAF.Types;

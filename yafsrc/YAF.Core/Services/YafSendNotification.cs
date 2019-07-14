@@ -35,7 +35,7 @@ namespace YAF.Core.Services
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;

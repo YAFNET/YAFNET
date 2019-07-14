@@ -32,7 +32,7 @@ namespace YAF.Core.Services.Auth
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;

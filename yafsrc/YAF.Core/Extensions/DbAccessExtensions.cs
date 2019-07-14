@@ -25,7 +25,7 @@ namespace YAF.Core.Extensions
 {
     using System.Data.Common;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
 

@@ -34,8 +34,8 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -765,7 +765,7 @@ namespace YAF.Pages
             // Check if Forum is Moderated
             var isForumModerated = false;
 
-            var forumInfo = this.GetRepository<Forum>()
+            var forumInfo = this.GetRepository<Types.Models.Forum>()
                 .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
             
             if (forumInfo != null)
@@ -846,7 +846,7 @@ namespace YAF.Pages
             // Check if Forum is Moderated
             var isForumModerated = false;
 
-            var forumInfo = this.GetRepository<Forum>()
+            var forumInfo = this.GetRepository<Types.Models.Forum>()
                 .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
 
             if (forumInfo != null)
@@ -1494,7 +1494,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns if the forum needs to be moderated
         /// </returns>
-        private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
+        private bool CheckForumModerateStatus(Types.Models.Forum forumInfo, bool isNewTopic)
         {
             var forumModerated = forumInfo.ForumFlags.IsModerated;
 

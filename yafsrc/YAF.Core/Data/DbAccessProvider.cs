@@ -28,7 +28,7 @@ namespace YAF.Core.Data
 
     using Autofac.Features.Indexed;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Exceptions;

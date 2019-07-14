@@ -30,7 +30,7 @@ namespace YAF.Controls
     using System.Text;
     using System.Threading;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
@@ -42,6 +42,7 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     #endregion
 

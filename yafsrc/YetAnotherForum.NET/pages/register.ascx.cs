@@ -35,13 +35,12 @@ namespace YAF.Pages
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Utilities;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -50,6 +49,9 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
+    using YAF.Web.Localized;
+    using YAF.Web.ReCAPTCHA;
 
     #endregion
 

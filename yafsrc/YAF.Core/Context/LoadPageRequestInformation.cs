@@ -25,7 +25,7 @@ namespace YAF.Core
 {
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;

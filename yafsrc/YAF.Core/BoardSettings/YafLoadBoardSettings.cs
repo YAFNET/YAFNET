@@ -30,7 +30,7 @@ namespace YAF.Core
     using System.Data;
     using System.Web.Security;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Exceptions;

@@ -29,11 +29,11 @@ namespace YAF.Dialogs
     using System;
     using System.Linq;
 
-    using YAF.Classes;
-    using YAF.Classes.Utilities;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

@@ -37,7 +37,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ActiveUsersLabel;
+        protected global::YAF.Web.LocalizedLabel ActiveUsersLabel;
         
         /// <summary>
         /// ActiveUserCount control.
@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ActiveUsers ActiveUsers1;
+        protected global::YAF.Web.ActiveUsers ActiveUsers1;
         
         /// <summary>
         /// MostUsersCount control.
@@ -82,7 +82,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel RecentUsersLabel;
+        protected global::YAF.Web.LocalizedLabel RecentUsersLabel;
         
         /// <summary>
         /// RecentUsers control.
@@ -91,7 +91,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ActiveUsers RecentUsers;
+        protected global::YAF.Web.ActiveUsers RecentUsers;
         
         /// <summary>
         /// RecentUsersCount control.
@@ -109,7 +109,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Statistics.MostActiveUsers MostActiveList;
+        protected global::YAF.Web.Statistics.MostActiveUsers MostActiveList;
         
         /// <summary>
         /// StatsHeader control.
@@ -118,7 +118,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel StatsHeader;
+        protected global::YAF.Web.LocalizedLabel StatsHeader;
         
         /// <summary>
         /// StatsPostsTopicCount control.
@@ -154,7 +154,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.UserLink LastPostUserLink;
+        protected global::YAF.Web.UserLink LastPostUserLink;
         
         /// <summary>
         /// StatsMembersCount control.
@@ -181,7 +181,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.UserLink NewestMemberUserLink;
+        protected global::YAF.Web.UserLink NewestMemberUserLink;
         
         /// <summary>
         /// AntiSpamStatsHolder control.
@@ -199,7 +199,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel StatsSpamDenied;
+        protected global::YAF.Web.LocalizedLabel StatsSpamDenied;
         
         /// <summary>
         /// StatsSpamBanned control.
@@ -208,7 +208,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel StatsSpamBanned;
+        protected global::YAF.Web.LocalizedLabel StatsSpamBanned;
         
         /// <summary>
         /// StatsSpamReported control.
@@ -217,6 +217,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel StatsSpamReported;
+        protected global::YAF.Web.LocalizedLabel StatsSpamReported;
     }
 }

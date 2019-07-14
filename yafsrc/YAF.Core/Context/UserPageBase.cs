@@ -30,7 +30,7 @@ namespace YAF.Core
     using System.Collections.Generic;
     using System.Threading;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Utils.Helpers;

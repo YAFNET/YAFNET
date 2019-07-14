@@ -31,8 +31,7 @@ namespace YAF.Controls
     using System.Text;
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Utilities;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -40,6 +39,7 @@ namespace YAF.Controls
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Services.Auth;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -47,6 +47,7 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     #endregion
 
@@ -619,7 +620,7 @@ namespace YAF.Controls
         /// The pop menu 1_ item click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="YAF.Controls.PopEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="PopEventArgs"/> instance containing the event data.</param>
         private void PopMenu1_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item)

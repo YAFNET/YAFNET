@@ -28,7 +28,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel14;
+        protected global::YAF.Web.HelpLabel HelpLabel14;
         
         /// <summary>
         /// AvailableGroupList control.
@@ -46,7 +46,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel15;
+        protected global::YAF.Web.HelpLabel HelpLabel15;
         
         /// <summary>
         /// GroupMessage control.
@@ -64,7 +64,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel16;
+        protected global::YAF.Web.HelpLabel HelpLabel16;
         
         /// <summary>
         /// GroupSortOrder control.
@@ -82,7 +82,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel17;
+        protected global::YAF.Web.HelpLabel HelpLabel17;
         
         /// <summary>
         /// GroupOnlyRibbon control.
@@ -100,7 +100,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel18;
+        protected global::YAF.Web.HelpLabel HelpLabel18;
         
         /// <summary>
         /// GroupHide control.
@@ -118,7 +118,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton AddGroupSave;
+        protected global::YAF.Web.ThemeButton AddGroupSave;
         
         /// <summary>
         /// Cancel control.
@@ -127,6 +127,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Cancel;
+        protected global::YAF.Web.ThemeButton Cancel;
     }
 }

@@ -31,7 +31,7 @@ namespace YAF.Core
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;

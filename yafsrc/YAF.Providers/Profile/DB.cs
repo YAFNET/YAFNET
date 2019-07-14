@@ -33,7 +33,7 @@ namespace YAF.Providers.Profile
     using System.Data.SqlClient;
     using System.Text;
 
-    using YAF.Classes.Pattern;
+    using YAF.Configuration.Pattern;
     using YAF.Core;
     using YAF.Core.Data;
     using YAF.Data.MsSql.Functions;

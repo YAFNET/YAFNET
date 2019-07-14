@@ -26,7 +26,7 @@
 using System;
 using System.Web.Services;
 
-using YAF.Classes;
+using YAF.Configuration;
 using YAF.Core;
 using YAF.Core.Model;
 using YAF.Types;
@@ -193,6 +193,3 @@ public class YafWebService : WebService, IHaveServiceLocator
 
     #endregion
 }
-
-
-

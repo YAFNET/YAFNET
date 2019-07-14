@@ -37,7 +37,7 @@ namespace YAF.Core.Services
     using System.Text;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Auth;

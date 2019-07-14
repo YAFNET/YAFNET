@@ -30,7 +30,7 @@ namespace YAF.Core.Tasks
     using System.Globalization;
     using System.Linq;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;

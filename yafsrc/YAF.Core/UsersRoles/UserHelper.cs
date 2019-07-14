@@ -25,7 +25,7 @@ namespace YAF.Core.UsersRoles
 {
     using System;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Theme;
     using YAF.Types.Interfaces;
 

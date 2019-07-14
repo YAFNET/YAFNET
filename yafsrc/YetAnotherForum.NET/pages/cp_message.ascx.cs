@@ -31,8 +31,8 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;

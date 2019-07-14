@@ -31,7 +31,7 @@ namespace YAF.Core.Services.Logger
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;

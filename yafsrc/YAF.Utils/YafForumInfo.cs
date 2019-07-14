@@ -27,7 +27,7 @@ namespace YAF.Utils
     using System;
     using System.Text;
     using System.Web;
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

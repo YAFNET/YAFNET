@@ -30,10 +30,10 @@ namespace YAF.Pages.Admin
     using System.Collections.Generic;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Utilities;
-    using YAF.Controls;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

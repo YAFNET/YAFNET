@@ -34,7 +34,7 @@ namespace YAF.Controls
     using System.Text;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;

@@ -30,7 +30,7 @@ namespace YAF.Core.Services
 
     using FarsiLibrary.Utils;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;

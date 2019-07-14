@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.PageLinks PageLinks;
         
         /// <summary>
         /// PollList-Steuerelement
@@ -64,7 +64,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.MessagePost PreviewMessagePost;
+        protected global::YAF.Web.MessagePost PreviewMessagePost;
         
         /// <summary>
         /// SubjectRow-Steuerelement
@@ -82,7 +82,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel TopicSubjectLabel;
+        protected global::YAF.Web.LocalizedLabel TopicSubjectLabel;
         
         /// <summary>
         /// TopicSubjectTextBox-Steuerelement
@@ -109,7 +109,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel TopicDescriptionLabel;
+        protected global::YAF.Web.LocalizedLabel TopicDescriptionLabel;
         
         /// <summary>
         /// TopicDescriptionTextBox-Steuerelement
@@ -172,7 +172,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// TopicStylesTextBox-Steuerelement
@@ -208,7 +208,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// LocalizedLblMaxNumberOfPost-Steuerelement
@@ -217,7 +217,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLblMaxNumberOfPost;
+        protected global::YAF.Web.LocalizedLabel LocalizedLblMaxNumberOfPost;
         
         /// <summary>
         /// PostOptions1-Steuerelement
@@ -298,7 +298,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Preview;
+        protected global::YAF.Web.ThemeButton Preview;
         
         /// <summary>
         /// PostReply-Steuerelement
@@ -307,7 +307,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton PostReply;
+        protected global::YAF.Web.ThemeButton PostReply;
         
         /// <summary>
         /// Cancel-Steuerelement
@@ -316,7 +316,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Cancel;
+        protected global::YAF.Web.ThemeButton Cancel;
         
         /// <summary>
         /// LastPosts1-Steuerelement

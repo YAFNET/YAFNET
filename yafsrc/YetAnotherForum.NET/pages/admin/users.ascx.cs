@@ -35,13 +35,13 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
-    using YAF.Classes;
-    using YAF.Classes.Utilities;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

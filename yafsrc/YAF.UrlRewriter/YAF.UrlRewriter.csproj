@@ -86,9 +86,9 @@
     <None Include="UrlRewriter.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj" />
+    <Content Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License.txt" />
+    <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
   </ItemGroup>
 </Project>

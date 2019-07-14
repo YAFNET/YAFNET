@@ -28,8 +28,8 @@ namespace YAF.Pages.Admin
     using System;
     using System.Globalization;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;

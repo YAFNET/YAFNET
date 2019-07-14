@@ -26,7 +26,7 @@ namespace YAF.Core.Helpers
     using System.IO;
     using System.Web.Hosting;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Models;
 

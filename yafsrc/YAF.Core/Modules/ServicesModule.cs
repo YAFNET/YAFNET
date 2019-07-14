@@ -30,7 +30,7 @@ namespace YAF.Core.Modules
 
     using Autofac;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;

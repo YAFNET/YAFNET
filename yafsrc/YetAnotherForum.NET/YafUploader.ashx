@@ -1,1 +1,1 @@
-﻿<%@ WebHandler Language="C#" CodeBehind="~/Classes/FileUploader.cs" Class="YAF.Classes.FileUploader" %>
+﻿<%@ WebHandler Language="C#" CodeBehind="FileUploader.cs" Class="YAF.Core.Handlers.FileUploader" %>

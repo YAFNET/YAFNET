@@ -33,8 +33,8 @@ namespace YAF.Pages
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;

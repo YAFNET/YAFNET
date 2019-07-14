@@ -185,28 +185,11 @@
     <Compile Include="auth.aspx.designer.cs">
       <DependentUpon>auth.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Editors\CKEditor.cs" />
-    <Compile Include="Classes\Editors\CKEditorBBCodeEditor.cs" />
-    <Compile Include="Classes\Editors\CKEditorHtmlEditor.cs" />
-    <Compile Include="Classes\Editors\FreeTextBoxEditor.cs" />
-    <Compile Include="Classes\Editors\FreeTextBoxEditorv3.cs" />
-    <Compile Include="Classes\Editors\RadEditor.cs" />
-    <Compile Include="Classes\Editors\TinyMceEditor.cs" />
-    <Compile Include="Classes\Editors\TinyMceBBCodeEditor.cs" />
-    <Compile Include="Classes\Editors\TinyMceHtmlEditor.cs" />
-    <Compile Include="Classes\Editors\BasicBBCodeEditor.cs" />
-    <Compile Include="Classes\Editors\BBCodeEditor.cs" />
-    <Compile Include="Classes\Editors\RichClassEditor.cs" />
-    <Compile Include="Classes\Editors\TextEditor.cs" />
-    <Compile Include="Classes\FileUploader.cs" />
-    <Compile Include="Classes\Forum.cs" />
     <Compile Include="Classes\ForumPageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Classes\LatestInformationService.cs" />
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
-    <Compile Include="Classes\Utilities\JavaScriptBlocks.cs" />
-    <Compile Include="Classes\YafResourceHandler.cs" />
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -3240,13 +3223,13 @@
       <Project>{A188180B-D366-457B-AE92-91C1FC0F7DF4}</Project>
       <Name>ServiceStack</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
-      <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
-      <Name>YAF.Classes.Config</Name>
+    <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj">
+      <Project>{ef89e4df-d79f-4e83-a703-3be176f9428e}</Project>
+      <Name>YAF.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Controls\YAF.Controls.csproj">
+    <ProjectReference Include="..\YAF.Web\YAF.Web.csproj">
       <Project>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</Project>
-      <Name>YAF.Controls</Name>
+      <Name>YAF.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>

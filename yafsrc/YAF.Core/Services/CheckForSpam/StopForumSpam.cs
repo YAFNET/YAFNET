@@ -26,7 +26,7 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Net;
     using System.Runtime.Serialization;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

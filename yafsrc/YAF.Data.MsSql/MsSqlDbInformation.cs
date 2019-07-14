@@ -29,7 +29,7 @@ namespace YAF.Data.MsSql
     using System.Data.SqlClient;
     using System.Linq;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;

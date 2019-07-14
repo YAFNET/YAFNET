@@ -16,7 +16,7 @@
     using Lucene.Net.Search.Highlight;
     using Lucene.Net.Store;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;

@@ -28,8 +28,8 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -156,7 +156,7 @@ namespace YAF.Pages
                 this.LinkDays.Text = "1";
             }
 
-            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            this.ForumList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

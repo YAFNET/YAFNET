@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel Title;
+        protected global::YAF.Web.LocalizedLabel Title;
         
         /// <summary>
         /// PagerTop control.
@@ -28,7 +28,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerTop;
+        protected global::YAF.Web.Pager PagerTop;
         
         /// <summary>
         /// TopicList control.
@@ -46,7 +46,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerBottom;
+        protected global::YAF.Web.Pager PagerBottom;
         
         /// <summary>
         /// SinceLabel control.
@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SinceLabel;
+        protected global::YAF.Web.LocalizedLabel SinceLabel;
         
         /// <summary>
         /// Since control.
@@ -73,7 +73,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton MarkAll;
+        protected global::YAF.Web.ThemeButton MarkAll;
         
         /// <summary>
         /// RssFeed control.
@@ -82,6 +82,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.RssFeedLink RssFeed;
+        protected global::YAF.Web.RssFeedLink RssFeed;
     }
 }

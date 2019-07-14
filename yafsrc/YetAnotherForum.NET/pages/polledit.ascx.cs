@@ -33,8 +33,8 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -304,7 +304,7 @@ namespace YAF.Pages
                     this.PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", this._categoryId));
             }
 
-            var name = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._returnForum)
+            var name = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, this._returnForum)
                 .FirstOrDefault().Name;
 
             if (this._returnForum > 0)
@@ -660,7 +660,7 @@ namespace YAF.Pages
                 // If a topic poll is edited or new topic created
                 if (this._topicId > 0 && this.topicInfo != null)
                 {
-                    // topicid should not be null here 
+                    // topic id should not be null here 
                     if (this.topicInfo.PollID != null)
                     {
                         pgidt = this.topicInfo.PollID.Value;
@@ -672,12 +672,12 @@ namespace YAF.Pages
                 }
                 else if (this._forumId > 0 && (!(this._topicId > 0) || !(this._editTopicId > 0)))
                 {
-                    // forumid should not be null here
-                    pgidt = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._forumId).FirstOrDefault().PollGroupID.Value;
+                    // forum id should not be null here
+                    pgidt = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, this._forumId).FirstOrDefault().PollGroupID.Value;
                 }
                 else if (this._categoryId > 0)
                 {
-                    // categoryid should not be null here
+                    // category id should not be null here
                     pgidt =
                         this.GetRepository<Category>()
                             .Listread(this.PageContext.PageUserID, this._categoryId)

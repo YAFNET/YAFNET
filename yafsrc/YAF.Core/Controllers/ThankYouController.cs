@@ -26,7 +26,7 @@ namespace YAF.Core.Controllers
 {
     using System.Web.Http;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;

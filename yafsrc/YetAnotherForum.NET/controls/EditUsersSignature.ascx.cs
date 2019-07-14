@@ -29,11 +29,10 @@ namespace YAF.Controls
     using System;
     using System.Text;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
-    using YAF.Editors;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -42,6 +41,8 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
+    using YAF.Web.Editors;
 
     #endregion
 

@@ -31,7 +31,7 @@ namespace YAF.Core.Services
     using System.Text.RegularExpressions;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BBCode.ReplaceRules;
     using YAF.Core.Extensions;

@@ -19,7 +19,7 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SelectFile;
+        protected global::YAF.Web.LocalizedLabel SelectFile;
         
         /// <summary>
         /// AddFiles-Steuerelement
@@ -28,7 +28,7 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel AddFiles;
+        protected global::YAF.Web.LocalizedLabel AddFiles;
         
         /// <summary>
         /// UploadNodePlaceHold-Steuerelement
@@ -55,7 +55,7 @@ namespace YAF.Dialogs {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ExtensionTitle;
+        protected global::YAF.Web.LocalizedLabel ExtensionTitle;
         
         /// <summary>
         /// ExtensionsList-Steuerelement

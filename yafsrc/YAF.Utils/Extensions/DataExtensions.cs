@@ -25,7 +25,7 @@ namespace YAF.Utils.Extensions
 {
     #region Using
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
 
     #endregion

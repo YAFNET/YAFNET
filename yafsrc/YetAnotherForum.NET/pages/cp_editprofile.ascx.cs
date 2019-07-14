@@ -27,8 +27,8 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;

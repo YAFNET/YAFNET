@@ -29,7 +29,7 @@ namespace YAF.Core.Data.Filters
     using System.Data;
     using System.Linq;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 

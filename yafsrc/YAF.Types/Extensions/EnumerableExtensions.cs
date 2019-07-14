@@ -34,6 +34,9 @@ namespace YAF.Types.Extensions
 
     #endregion
 
+    /// <summary>
+    /// The enumerable extensions.
+    /// </summary>
     public static class EnumerableExtensions
     {
         #region Public Methods and Operators
@@ -49,10 +52,7 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(list, "list");
             CodeContracts.VerifyNotNull(action, "action");
 
-            foreach (var item in list.ToList())
-            {
-                action(item);
-            }
+            list.ToList().ForEach(action);
         }
 
         /// <summary>
@@ -67,11 +67,13 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(action, "action");
 
             var isFirst = true;
-            foreach (var item in list.ToList())
-            {
-                action(item, isFirst);
-                isFirst = false;
-            }
+
+            list.ToList().ForEach(
+                item =>
+                    {
+                        action(item, isFirst);
+                        isFirst = false;
+                    });
         }
 
         /// <summary>
@@ -86,10 +88,8 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(action, "action");
 
             var i = 0;
-            foreach (var item in list.ToList())
-            {
-                action(item, i++);
-            }
+
+            list.ToList().ForEach(item => action(item, i++));
         }
 
         /// <summary>

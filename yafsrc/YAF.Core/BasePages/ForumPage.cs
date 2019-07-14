@@ -31,7 +31,7 @@ namespace YAF.Core
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Data.Profiling;
     using YAF.Types;
     using YAF.Types.Attributes;

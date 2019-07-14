@@ -26,11 +26,11 @@ namespace YAF.Modules
     using System.Text;
     using System.Web.UI;
 
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     /// <summary>
     /// The BB Code UserLink Module

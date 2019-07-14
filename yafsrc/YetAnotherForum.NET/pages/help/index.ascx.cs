@@ -33,8 +33,8 @@ namespace YAF.Pages.help
     using System.Web;
     using System.Xml.Serialization;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;

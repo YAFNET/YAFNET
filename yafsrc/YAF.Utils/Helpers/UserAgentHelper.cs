@@ -29,7 +29,7 @@ namespace YAF.Utils.Helpers
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
 

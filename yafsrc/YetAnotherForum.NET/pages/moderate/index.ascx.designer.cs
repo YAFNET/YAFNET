@@ -19,7 +19,7 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.PageLinks PageLinks;
         
         /// <summary>
         /// CategoryList control.
@@ -46,6 +46,6 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel NoCountInfo;
+        protected global::YAF.Web.LocalizedLabel NoCountInfo;
     }
 }

@@ -32,7 +32,7 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;

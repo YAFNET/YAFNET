@@ -32,7 +32,7 @@ namespace YAF.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Dialogs;

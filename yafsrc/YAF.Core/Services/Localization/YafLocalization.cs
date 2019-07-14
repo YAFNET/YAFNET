@@ -32,7 +32,7 @@ namespace YAF.Core.Services.Localization
     using System.Text.RegularExpressions;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;

@@ -28,8 +28,8 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Classes.Utilities;
     using YAF.Core;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Attributes;
 

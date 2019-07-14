@@ -37,7 +37,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ActiveDiscussionHeader;
+        protected global::YAF.Web.LocalizedLabel ActiveDiscussionHeader;
         
         /// <summary>
         /// LatestPosts control.
@@ -64,6 +64,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.RssFeedLink RssFeed;
+        protected global::YAF.Web.RssFeedLink RssFeed;
     }
 }

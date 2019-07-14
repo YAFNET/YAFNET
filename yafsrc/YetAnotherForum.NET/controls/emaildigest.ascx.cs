@@ -37,7 +37,7 @@ namespace YAF.Controls
 
     using ServiceStack;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
 #if DEBUG

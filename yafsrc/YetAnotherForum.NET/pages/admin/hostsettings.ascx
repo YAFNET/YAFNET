@@ -32,49 +32,34 @@
 	</ul>
       <div class="tab-content">
       <div id="View0" class="tab-pane" role="tabpanel">
-                 <h2>
-                           <YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h2>
-                    <hr />
-                         
-                            <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="SERVER_VERSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:Label ID="SQLVersion" runat="server" CssClass="small"></asp:Label>
-
-                     
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel231" runat="server" LocalizedTag="APP_OS_NAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:Label ID="AppOSName" runat="server" CssClass="small"></asp:Label>
-
-                     
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel232" runat="server" LocalizedTag="APP_RUNTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:Label ID="AppRuntime" runat="server" CssClass="small"></asp:Label>
-
-                     
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel233" runat="server" LocalizedTag="APP_CORES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:Label ID="AppCores" runat="server" CssClass="small"></asp:Label>
-
-                     
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel234" runat="server" LocalizedTag="APP_MEMORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:Label ID="AppMemory" runat="server" CssClass="small"></asp:Label>
-
-                          </div>
+          <h2>
+              <YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
+          </h2>
+          <hr />
+          
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                  <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="SERVER_VERSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                  <asp:Label ID="SQLVersion" runat="server" CssClass="small"></asp:Label>
+              </li>
+              <li class="list-group-item">
+                  <YAF:HelpLabel ID="HelpLabel231" runat="server" LocalizedTag="APP_OS_NAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                  <asp:Label ID="AppOSName" runat="server" CssClass="small"></asp:Label>
+              </li>
+              <li class="list-group-item">
+                  <YAF:HelpLabel ID="HelpLabel232" runat="server" LocalizedTag="APP_RUNTIME" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                  <asp:Label ID="AppRuntime" runat="server" CssClass="small"></asp:Label>
+              </li>
+              <li class="list-group-item">
+                  <YAF:HelpLabel ID="HelpLabel233" runat="server" LocalizedTag="APP_CORES" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                  <asp:Label ID="AppCores" runat="server" CssClass="small"></asp:Label>
+              </li>
+              <li class="list-group-item">
+                  <YAF:HelpLabel ID="HelpLabel234" runat="server" LocalizedTag="APP_MEMORY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                  <asp:Label ID="AppMemory" runat="server" CssClass="small"></asp:Label>
+              </li>
+          </ul>
+      </div>
     <div id="View1" class="tab-pane" role="tabpanel">
                         <h2>
                            <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1693,203 +1678,185 @@
 	</div>
     <asp:PlaceHolder runat="server" ID="AvatarsTab">
     <div id="View8" class="tab-pane" role="tabpanel">
-		    <h2>
-                            <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="HEADER_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h2>
-                    <hr />
-                    <asp:PlaceHolder runat="server" ID="AvatarSettingsHolder">
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel189" runat="server" LocalizedTag="AVATAR_GALLERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox Text="&nbsp;" ID="AvatarGallery" runat="server"></asp:CheckBox>
-
-                    </div><hr />
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel50" runat="server" LocalizedTag="REMOTE_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox Text="&nbsp;" ID="AvatarRemote" runat="server"></asp:CheckBox>
-
-                    </div><hr />
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel51" runat="server" LocalizedTag="AVATAR_UPLOAD" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox Text="&nbsp;" ID="AvatarUpload" runat="server"></asp:CheckBox>
-
-                    </div><hr />
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel52" runat="server" LocalizedTag="ALLOW_GRAVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox Text="&nbsp;" ID="AvatarGravatar" runat="server"></asp:CheckBox>
-
-                    </div><hr />
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel53" runat="server" LocalizedTag="GRAVATAR_RATING" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:DropDownList CssClass="custom-select" ID="GravatarRating" runat="server">
-                                <asp:ListItem Value="G"></asp:ListItem>
-                                <asp:ListItem Value="PG"></asp:ListItem>
-                                <asp:ListItem Value="R"></asp:ListItem>
-                                <asp:ListItem Value="X"></asp:ListItem>
-                            </asp:DropDownList>
-
-                     
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel56" runat="server" LocalizedTag="AVATAR_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" ID="AvatarSize" runat="server"></asp:TextBox>
-                                             
+        <h2>
+            <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="HEADER_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+        </h2>
+        <hr />
+        <asp:PlaceHolder runat="server" ID="AvatarSettingsHolder">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <YAF:HelpLabel ID="HelpLabel189" runat="server" 
+                                   AssociatedControlID="AvatarGallery"
+                                   LocalizedTag="AVATAR_GALLERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <div class="custom-control custom-switch">
+                        <asp:CheckBox Text="&nbsp;" ID="AvatarGallery" runat="server"></asp:CheckBox>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <YAF:HelpLabel ID="HelpLabel50" runat="server" 
+                                   AssociatedControlID="AvatarRemote"
+                                   LocalizedTag="REMOTE_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <div class="custom-control custom-switch">
+                        <asp:CheckBox Text="&nbsp;" ID="AvatarRemote" runat="server"></asp:CheckBox>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <YAF:HelpLabel ID="HelpLabel51" runat="server" 
+                                   AssociatedControlID="AvatarUpload"
+                                   LocalizedTag="AVATAR_UPLOAD" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <div class="custom-control custom-switch">
+                        <asp:CheckBox Text="&nbsp;" ID="AvatarUpload" runat="server"></asp:CheckBox>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <YAF:HelpLabel ID="HelpLabel52" runat="server" LocalizedTag="ALLOW_GRAVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="AvatarGravatar" runat="server"></asp:CheckBox>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <YAF:HelpLabel ID="HelpLabel53" runat="server" LocalizedTag="GRAVATAR_RATING" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:DropDownList CssClass="custom-select" ID="GravatarRating" runat="server">
+                                    <asp:ListItem Value="G"></asp:ListItem>
+                                    <asp:ListItem Value="PG"></asp:ListItem>
+                                    <asp:ListItem Value="R"></asp:ListItem>
+                                    <asp:ListItem Value="X"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <YAF:HelpLabel ID="HelpLabel56" runat="server" LocalizedTag="AVATAR_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:TextBox CssClass="form-control" ID="AvatarSize" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <YAF:HelpLabel ID="HelpLabel54" runat="server" LocalizedTag="AVATAR_WIDTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:TextBox CssClass="form-control" ID="AvatarWidth" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <YAF:HelpLabel ID="HelpLabel55" runat="server" LocalizedTag="AVATAR_HEIGHT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:TextBox CssClass="form-control" ID="AvatarHeight" runat="server"></asp:TextBox>
+                            </div>
+                        </div>
                     </asp:PlaceHolder>
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel54" runat="server" LocalizedTag="AVATAR_WIDTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" ID="AvatarWidth" runat="server"></asp:TextBox>
-
-                     
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel55" runat="server" LocalizedTag="AVATAR_HEIGHT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" ID="AvatarHeight" runat="server"></asp:TextBox>
-
-                     
-
 	</div>
     </asp:PlaceHolder>
     <div id="View9" class="tab-pane" role="tabpanel">
-
-
-                        <h2>
-                            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="HEADER_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h2>
-                    <hr />
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel41" runat="server" LocalizedTag="STATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="ForumStatisticsCacheTimeout" />
-                            <YAF:ThemeButton ID="ForumStatisticsCacheReset" runat="server" 
-                                             Type="Primary" 
-                                             TextLocalizedTag="CLEAR" 
-                                             CssClass="mt-1"
-                                             Icon="trash"
-                                             OnClick="ForumStatisticsCacheResetClick" />
-
-                     
-
-                         
-                            <YAF:HelpLabel ID="HelpLabel42" runat="server" LocalizedTag="USRSTATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="BoardUserStatsCacheTimeout" />
-                            <YAF:ThemeButton Type="Primary" ID="BoardUserStatsCacheReset" 
+        <h2>
+            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" 
+                                LocalizedTag="HEADER_CACHE" 
+                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+        </h2>
+        <hr />
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <YAF:HelpLabel ID="HelpLabel41" runat="server" LocalizedTag="STATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                <asp:TextBox CssClass="form-control" runat="server" ID="ForumStatisticsCacheTimeout" />
+            </div>
+            <div class="form-group col-md-2">
+                <YAF:ThemeButton ID="ForumStatisticsCacheReset" runat="server" 
+                                 Type="Primary" 
+                                 TextLocalizedTag="CLEAR" 
+                                 CssClass="mt-1"
+                                 Icon="trash"
+                                 OnClick="ForumStatisticsCacheResetClick" />
+            </div>
+        </div>
+        <div class="form-row">
+    <div class="form-group col-md-4">
+        <YAF:HelpLabel ID="HelpLabel42" runat="server" LocalizedTag="USRSTATS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+    <asp:TextBox CssClass="form-control" runat="server" ID="BoardUserStatsCacheTimeout" />
+        </div>
+        <div class="form-group col-md-2">
+        <YAF:ThemeButton Type="Primary" ID="BoardUserStatsCacheReset" 
                                              TextLocalizedTag="CLEAR"  runat="server" 
                                              Icon="trash"
-                                             OnClick="BoardUserStatsCacheResetClick" />
-
-                     
-
-                         
+                                             OnClick="BoardUserStatsCacheResetClick" /></div>
+        </div>
+    <div class="form-row">
+    <div class="form-group col-md-4">
                             <YAF:HelpLabel ID="HelpLabel43" runat="server" LocalizedTag="DISCUSSIONS_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="ActiveDiscussionsCacheTimeout" />
-                            <YAF:ThemeButton Type="Primary" ID="ActiveDiscussionsCacheReset" 
+    <asp:TextBox CssClass="form-control" runat="server" ID="ActiveDiscussionsCacheTimeout" />
+    </div>
+    <div class="form-group col-md-2">
+    <YAF:ThemeButton Type="Primary" ID="ActiveDiscussionsCacheReset" 
                                              TextLocalizedTag="CLEAR"  
                                              runat="server" 
                                              Icon="trash"
                                              OnClick="ActiveDiscussionsCacheResetClick" />
-
-                     
-
-                         
+    </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
                             <YAF:HelpLabel ID="HelpLabel44" runat="server" LocalizedTag="CAT_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="BoardCategoriesCacheTimeout" />
+        <asp:TextBox CssClass="form-control" runat="server" ID="BoardCategoriesCacheTimeout" />
+    </div>
+    <div class="form-group col-md-2">
                             <YAF:ThemeButton Type="Primary" ID="BoardCategoriesCacheReset" 
                                              TextLocalizedTag="CLEAR"  runat="server" 
                                              Icon="trash"
                                              OnClick="BoardCategoriesCacheResetClick" />
-
-                     
-
-                         
+        </div>
+    </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
                             <YAF:HelpLabel ID="HelpLabel45" runat="server" LocalizedTag="MOD_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="BoardModeratorsCacheTimeout" />
+            <asp:TextBox CssClass="form-control" runat="server" ID="BoardModeratorsCacheTimeout" />
+        </div>
+        <div class="form-group col-md-2">
                             <YAF:ThemeButton Type="Primary" ID="BoardModeratorsCacheReset" 
                                              TextLocalizedTag="CLEAR"  runat="server" 
                                              Icon="trash"
                                              OnClick="BoardModeratorsCacheResetClick" />
 
-                     
-
-                         
+            </div>
+        </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
                             <YAF:HelpLabel ID="HelpLabel46" runat="server" LocalizedTag="REPLACE_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="ReplaceRulesCacheTimeout" />
+                <asp:TextBox CssClass="form-control" runat="server" ID="ReplaceRulesCacheTimeout" />
+            </div>
+            <div class="form-group col-md-2">
                             <YAF:ThemeButton Type="Primary" ID="ReplaceRulesCacheReset" 
                                              TextLocalizedTag="CLEAR"
                                              runat="server" 
                                              Icon="trash"
                                              OnClick="ReplaceRulesCacheResetClick" />
-
-                     
-
-                         
+                </div>
+            </div>
+                <div class="form-group">
+                   
                             <YAF:HelpLabel ID="HelpLabel47" runat="server" LocalizedTag="SEO_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="FirstPostCacheTimeout" />
+                    <asp:TextBox CssClass="form-control" runat="server" ID="FirstPostCacheTimeout" />
 
-                     
+                </div>
+                <div class="form-group">
 
-                         
                             <YAF:HelpLabel ID="HelpLabel48" runat="server" LocalizedTag="ONLINE_STATUS_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="OnlineStatusCacheTimeout" />
-
+                        <asp:TextBox CssClass="form-control" runat="server" ID="OnlineStatusCacheTimeout" />
+                </div>
                      
-
-                         
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
                             <YAF:HelpLabel ID="HelpLabel49" runat="server" LocalizedTag="LAZY_CACHE_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                         
-                         
-                            <asp:TextBox CssClass="form-control" runat="server" ID="ActiveUserLazyDataCacheTimeout" />
-
-                    
-                     
+                                <asp:TextBox CssClass="form-control" runat="server" ID="ActiveUserLazyDataCacheTimeout" />
+                            </div>
+                            <div class="form-group col-md-2">
                         <YAF:ThemeButton Type="Primary" ID="ActiveUserLazyDataCacheReset" 
                                          TextLocalizedTag="CLEAR" runat="server" 
                                          Icon="trash"
                                          OnClick="UserLazyDataCacheResetClick" />
-                    
+                    </div>
+                            </div>
 
-                        <span class="text-lg-center">
+                        <div class="text-lg-center">
                            <YAF:ThemeButton  Type="Primary" runat="server" ID="ResetCacheAll" 
                                              TextLocalizedTag="CLEAR_CACHE"
                                              Icon="trash"
                                              OnClick="ResetCacheAllClick" />
-                        </span>
+                        </div>
 
 	</div>
     <div id="View10" class="tab-pane" role="tabpanel">

@@ -26,7 +26,7 @@ namespace YAF.Core.Tasks
   using System;
   using System.Web;
 
-  using YAF.Classes;
+  using YAF.Configuration;
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 

@@ -13,7 +13,7 @@ namespace YAF.UrlRewriter
     using YAF.UrlRewriter.Configuration;
     using YAF.UrlRewriter.Utilities;
 
-    using YAF.Classes;
+    using YAF.Configuration;
 
     /// <summary>
     /// Main HTTP Module for the URL Rewriter.

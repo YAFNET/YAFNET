@@ -25,7 +25,7 @@ namespace YAF.Modules
 {
   #region Using
 
-  using YAF.Controls;
+ using YAF.Web;
   using YAF.Core;
   using YAF.Core.BaseModules;
   using YAF.Types;

@@ -27,7 +27,7 @@ namespace YAF.Core.URLBuilder
 
     using System;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Helpers;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

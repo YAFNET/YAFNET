@@ -31,7 +31,7 @@ namespace YAF.Core
     using System.Data;
     using System.Linq;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;

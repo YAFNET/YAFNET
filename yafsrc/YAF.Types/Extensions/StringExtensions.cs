@@ -183,24 +183,24 @@ namespace YAF.Types.Extensions
         /// <param name="length">
         /// the length of the random string
         /// </param>
-        /// <param name="pickfrom">
+        /// <param name="pickFrom">
         /// the string of characters to pick randomly from
         /// </param>
         /// <returns>
         /// The generate random string.
         /// </returns>
-        public static string GenerateRandomString(int length, [NotNull] string pickfrom)
+        public static string GenerateRandomString(int length, [NotNull] string pickFrom)
         {
-            CodeContracts.VerifyNotNull(pickfrom, "pickfrom");
+            CodeContracts.VerifyNotNull(pickFrom, "pickfrom");
 
             var r = new Random();
             var result = string.Empty;
-            var picklen = pickfrom.Length - 1;
+            var pickFromLength = pickFrom.Length - 1;
 
             for (var i = 0; i < length; i++)
             {
-                var index = r.Next(picklen);
-                result = result + pickfrom.Substring(index, 1);
+                var index = r.Next(pickFromLength);
+                result += pickFrom.Substring(index, 1);
             }
 
             return result;
@@ -350,7 +350,7 @@ namespace YAF.Types.Extensions
 
             var s = new StringBuilder();
 
-            emailBytes.ForEach(b => s.Append((string)b.ToString("x2").ToLower()));
+            emailBytes.ForEach(b => s.Append(b.ToString("x2").ToLower()));
 
             return s.ToString();
         }

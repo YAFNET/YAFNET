@@ -30,7 +30,7 @@ namespace YAF.Providers.Roles
     using System.Data;
     using System.Data.SqlClient;
 
-    using YAF.Classes.Pattern;
+    using YAF.Configuration.Pattern;
     using YAF.Core.Data;
     using YAF.Providers.Utils;
     using YAF.Types.Interfaces.Data;

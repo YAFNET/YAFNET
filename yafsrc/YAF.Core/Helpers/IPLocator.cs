@@ -30,7 +30,7 @@ namespace YAF.Core
     using System.Collections.Generic;
     using System.Net;
     using System.Xml.Serialization;
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

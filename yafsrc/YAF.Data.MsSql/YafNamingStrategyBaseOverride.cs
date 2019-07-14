@@ -26,7 +26,7 @@ namespace YAF.Data.MsSql
 {
     using ServiceStack.OrmLite;
 
-    using YAF.Classes;
+    using YAF.Configuration;
 
     /// <summary>
     /// The YAF naming strategy base override.

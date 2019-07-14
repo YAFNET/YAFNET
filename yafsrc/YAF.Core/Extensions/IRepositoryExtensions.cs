@@ -31,7 +31,7 @@ namespace YAF.Core.Extensions
     using ServiceStack;
     using ServiceStack.OrmLite;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

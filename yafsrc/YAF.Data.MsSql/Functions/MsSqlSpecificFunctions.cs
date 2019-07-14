@@ -33,7 +33,7 @@ namespace YAF.Data.MsSql.Functions
 
     using ServiceStack.OrmLite;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -202,12 +202,7 @@ namespace YAF.Data.MsSql.Functions
                         catch (Exception x)
                         {
                             trans.Rollback();
-                            throw new Exception(
-                                string.Format(
-                                    "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}",
-                                    scriptFile,
-                                    sql,
-                                    x.Message));
+                            throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
                         }
                     }
 
@@ -239,8 +234,7 @@ namespace YAF.Data.MsSql.Functions
 
                     catch (Exception x)
                     {
-                        throw new Exception(
-                            string.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message));
+                        throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
                     }
                 }
             }

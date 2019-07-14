@@ -31,8 +31,8 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -222,7 +222,7 @@ namespace YAF.Pages.Admin
                 try
                 {
                     // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
-                    var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null)
+                    var forum = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, null)
                         .OrderByDescending(a => a.SortOrder).FirstOrDefault();
 
                     sortOrder = forum.SortOrder + sortOrder;
@@ -399,7 +399,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ParentList.DataSource = this.GetRepository<Forum>().ListAllFromCatAsDataTable(
+            this.ParentList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllFromCatAsDataTable(
                 this.PageContext.PageBoardID,
                 this.CategoryList.SelectedValue.ToType<int>());
 
@@ -522,7 +522,7 @@ namespace YAF.Pages.Admin
             // If we update a forum ForumID > 0 
             if (forumId.HasValue && parentId != null)
             {
-                var dependency = this.GetRepository<Forum>().SaveParentsChecker(forumId.Value, parentId.Value);
+                var dependency = this.GetRepository<Types.Models.Forum>().SaveParentsChecker(forumId.Value, parentId.Value);
                 if (dependency > 0)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
@@ -545,7 +545,7 @@ namespace YAF.Pages.Admin
             // duplicate name checking...
             if (!forumId.HasValue)
             {
-                var forumList = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null);
+                var forumList = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, null);
 
                 if (forumList.Any() && !this.Get<YafBoardSettings>().AllowForumsWithSameName
                                     && forumList.Any(dr => dr.Name == this.Name.Text.Trim()))
@@ -564,7 +564,7 @@ namespace YAF.Pages.Admin
                 themeUrl = this.ThemeList.SelectedValue;
             }
 
-            var newForumId = this.GetRepository<Forum>().Save(
+            var newForumId = this.GetRepository<Types.Models.Forum>().Save(
                 forumId,
                 this.CategoryList.SelectedValue,
                 parentId,

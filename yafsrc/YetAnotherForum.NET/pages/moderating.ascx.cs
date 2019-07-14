@@ -31,7 +31,7 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -42,6 +42,7 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     #endregion
 
@@ -103,7 +104,7 @@ namespace YAF.Pages
                 this.PagerTop.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
             }
 
-            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            this.ForumList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

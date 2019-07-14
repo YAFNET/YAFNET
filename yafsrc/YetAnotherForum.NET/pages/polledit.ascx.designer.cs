@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Web.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel4 control.
@@ -28,7 +28,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// PollRow1 control.
@@ -46,7 +46,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// Question control.
@@ -73,7 +73,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PollQuestionObjectLabel;
+        protected global::YAF.Web.LocalizedLabel PollQuestionObjectLabel;
         
         /// <summary>
         /// QuestionObjectPath control.
@@ -118,7 +118,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel AllowMultipleChoicesLabel;
+        protected global::YAF.Web.LocalizedLabel AllowMultipleChoicesLabel;
         
         /// <summary>
         /// tr_AllowSkipVote control.
@@ -145,7 +145,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel AllowSkipVoteLocalizedLabel;
+        protected global::YAF.Web.LocalizedLabel AllowSkipVoteLocalizedLabel;
         
         /// <summary>
         /// tr_ShowVoters control.
@@ -172,7 +172,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ShowVotersLocalizedLabel;
+        protected global::YAF.Web.LocalizedLabel ShowVotersLocalizedLabel;
         
         /// <summary>
         /// PollRowExpire control.
@@ -190,7 +190,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// PollExpire control.
@@ -208,7 +208,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// IsBound control.
@@ -235,7 +235,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel IsBoundLabel;
+        protected global::YAF.Web.LocalizedLabel IsBoundLabel;
         
         /// <summary>
         /// IsClosedBound control.
@@ -262,7 +262,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel IsClosedBoundLabel;
+        protected global::YAF.Web.LocalizedLabel IsClosedBoundLabel;
         
         /// <summary>
         /// IsClosedBoundExplainLabel control.
@@ -271,7 +271,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel IsClosedBoundExplainLabel;
+        protected global::YAF.Web.LocalizedLabel IsClosedBoundExplainLabel;
         
         /// <summary>
         /// PollGroupList control.
@@ -289,7 +289,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PollGroupListLabel;
+        protected global::YAF.Web.LocalizedLabel PollGroupListLabel;
         
         /// <summary>
         /// PollGroupListDropDown control.
@@ -307,7 +307,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton SavePoll;
+        protected global::YAF.Web.ThemeButton SavePoll;
         
         /// <summary>
         /// Cancel control.
@@ -316,6 +316,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Cancel;
+        protected global::YAF.Web.ThemeButton Cancel;
     }
 }

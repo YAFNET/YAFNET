@@ -34,7 +34,7 @@ namespace YAF.Core.BBCode
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.BBCode.ReplaceRules;
     using YAF.Core.Extensions;
     using YAF.Core.Services;

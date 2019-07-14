@@ -28,10 +28,10 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Classes.Utilities;
-    using YAF.Controls;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -172,7 +172,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 
-            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            this.ForumList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
             this.ForumList.DataTextField = "Title";

@@ -29,7 +29,7 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Controls;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;

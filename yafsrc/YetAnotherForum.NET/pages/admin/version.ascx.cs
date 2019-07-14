@@ -28,7 +28,7 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Controls;
+   using YAF.Web;
     using YAF.Core;
     using YAF.RegisterV2;
     using YAF.Types;

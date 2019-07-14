@@ -37,14 +37,14 @@ namespace YAF.Controls
 
     using FarsiLibrary.Utils;
 
-    using YAF.Classes;
-    using YAF.Classes.Utilities;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;

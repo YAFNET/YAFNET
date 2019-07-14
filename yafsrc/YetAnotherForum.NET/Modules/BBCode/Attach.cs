@@ -26,8 +26,7 @@ namespace YAF.Modules.BBCode
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
@@ -35,6 +34,7 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     /// <summary>
     /// The Attachment BB Code Module.

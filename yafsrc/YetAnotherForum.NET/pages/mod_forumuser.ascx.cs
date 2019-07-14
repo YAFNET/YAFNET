@@ -30,8 +30,8 @@ namespace YAF.Pages
     using System.Collections.Generic;
     using System.Data;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
+   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;

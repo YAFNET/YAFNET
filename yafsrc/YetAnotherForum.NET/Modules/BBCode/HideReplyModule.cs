@@ -26,12 +26,12 @@ namespace YAF.Modules.BBCode
 {
     using System.Web.UI;
 
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Web;
 
     /// <summary>
     /// Hide Reply BBCode Module
