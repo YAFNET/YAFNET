@@ -1922,7 +1922,7 @@
     <Resource tag="ERROR_TOOBIG">Takto veľké súbory nie je možné priložiť.</Resource>
     <Resource tag="FILEERROR">'{0}' nie je platný súbor pre nahranie.</Resource>
     <Resource tag="FILENAME">Meno súboru</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Zvolte súbor, ktorý chcete nahrať.</Resource>
     <Resource tag="SIZE">Veľkosť</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

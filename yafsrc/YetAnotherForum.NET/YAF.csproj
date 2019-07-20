@@ -3227,10 +3227,6 @@
       <Project>{ef89e4df-d79f-4e83-a703-3be176f9428e}</Project>
       <Name>YAF.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Web\YAF.Web.csproj">
-      <Project>{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}</Project>
-      <Name>YAF.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>
@@ -3250,6 +3246,10 @@
     <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj">
       <Project>{F80E0025-E57E-4BB5-89F2-CFBCAC1AFCF4}</Project>
       <Name>YAF.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Web\YAF.Web.csproj">
+      <Project>{c72a5fc8-4b1c-4a24-a306-fb550729dbf0}</Project>
+      <Name>YAF.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

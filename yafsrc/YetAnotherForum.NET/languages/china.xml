@@ -1922,7 +1922,7 @@
     <Resource tag="ERROR_TOOBIG">你不能用那么大的附件.</Resource>
     <Resource tag="FILEERROR">'{0}' 不能上传.</Resource>
     <Resource tag="FILENAME">文件名</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">选择一个您要上传的文件.</Resource>
     <Resource tag="SIZE">大小</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

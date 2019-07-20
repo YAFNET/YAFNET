@@ -52501,7 +52501,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 var list = $('#PostAlbumsListPlaceholder ul');
                 var notext = $("#PostAlbumsListPlaceholder").data("notext");
 
-				list.append('<li><em>' + notext + '</em></li>');
+                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + '</div></li>');
 			}
 
             $.each(data.AttachmentList, function (id, data) {
@@ -52649,7 +52649,7 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
 				var list = $('#PostAttachmentListPlaceholder ul');
 				var notext = $("#PostAttachmentListPlaceholder").data("notext");
 
-				list.append('<li><em>' + notext + '</em></li>');
+                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + '</div></li>');
 			}
 
             $.each(data.AttachmentList, function (id, data) {

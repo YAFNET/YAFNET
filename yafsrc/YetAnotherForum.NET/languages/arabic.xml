@@ -1916,7 +1916,7 @@
     <Resource tag="ERROR_TOOBIG">لا تستطيع ارفاق ملف كبير</Resource>
     <Resource tag="FILEERROR">'{0}' نوع ملف غير مسموح برفعه</Resource>
     <Resource tag="FILENAME">اسم الملف</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">اختار الملف الذي تريد رفعه</Resource>
     <Resource tag="SIZE">الحجم</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

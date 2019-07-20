@@ -1922,7 +1922,7 @@
     <Resource tag="ERROR_TOOBIG">Du kan inte bifoga så stora filer.</Resource>
     <Resource tag="FILEERROR">'{0}' är inte en giltig fil för uppladdning.</Resource>
     <Resource tag="FILENAME">Filnamn</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Välj den fil du vill ladda upp.</Resource>
     <Resource tag="SIZE">Storlek</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

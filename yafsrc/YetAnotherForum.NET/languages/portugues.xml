@@ -1922,7 +1922,7 @@
     <Resource tag="ERROR_TOOBIG">Você não pode anexar arquivos grandes demais.</Resource>
     <Resource tag="FILEERROR">'{0}' não é um arquivo válido para ser carregado.</Resource>
     <Resource tag="FILENAME">Nome do Arquivo</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Selecione o arquivo que você deseja carregar.</Resource>
     <Resource tag="SIZE">Tamanho</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

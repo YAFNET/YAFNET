@@ -1936,7 +1936,7 @@
     <Resource tag="DROP_HERE">فایل (ها) را اینجا بکشید</Resource>
     <Resource tag="FILEERROR">'{0}' فایل مجاز برای ارسال نمی باشد.</Resource>
     <Resource tag="FILENAME">نام فایل</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">فایلی را که مایل به ارسال آن هستید انتخاب کنید.</Resource>
     <Resource tag="SIZE">اندازه</Resource>
     <Resource tag="START_UPLOADS">شروع آپلود</Resource>

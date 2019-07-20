@@ -1922,7 +1922,7 @@
     <Resource tag="ERROR_TOOBIG">Et voi ladata näin isoa tiedostoa.</Resource>
     <Resource tag="FILEERROR">'{0}' ei ole hyväksytty tiedostomuoto.</Resource>
     <Resource tag="FILENAME">Tiedostonimi</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Valitse ladattava tiedosto.</Resource>
     <Resource tag="SIZE">Koko</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>
