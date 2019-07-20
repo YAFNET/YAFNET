@@ -416,8 +416,6 @@ namespace YAF.Pages
                 // message info should be always returned as 1 row 
                 if (messagesRow == null)
                 {
-                    this.PageContext.AddLoadMessage("test3");
-
                     return;
                 }
 

@@ -60,7 +60,11 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
                                 </span>
                                 <div class="mb-3">
-                                <%# this.FormatMessage((System.Data.DataRowView)Container.DataItem)%>
+                                    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
+                                                         DataRow='<%# ((System.Data.DataRowView)Container.DataItem).Row %>'
+                                                         ShowAttachments="false" 
+                                                         ShowEditMessage="False" ShowSignature="False">
+                                    </YAF:MessagePostData>
                                 </div>
                             </div>
                         </div>

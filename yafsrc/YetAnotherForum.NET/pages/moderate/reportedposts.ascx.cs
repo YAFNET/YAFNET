@@ -80,40 +80,6 @@ namespace YAF.Pages.moderate
         }
 
         /// <summary>
-        /// Format message.
-        /// </summary>
-        /// <param name="row">
-        /// Message data row.
-        /// </param>
-        /// <returns>
-        /// Formatted string with escaped HTML markup and formatted.
-        /// </returns>
-        protected string FormatMessage([NotNull] DataRowView row)
-        {
-            // get message flags
-            var messageFlags = new MessageFlags(row["Flags"]);
-
-            // message
-            string msg;
-
-            // format message?
-            if (messageFlags.NotFormatted)
-            {
-                // just encode it for HTML output
-                msg = this.HtmlEncode(row["OriginalMessage"].ToString());
-            }
-            else
-            {
-                // fully format message
-                msg = this.Get<IFormatMessage>().FormatMessage(
-                  row["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
-            }
-
-            // return formatted message
-            return msg;
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
