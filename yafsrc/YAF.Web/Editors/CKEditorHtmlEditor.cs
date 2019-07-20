@@ -30,7 +30,7 @@ namespace YAF.Web.Editors
     using YAF.Types.Interfaces;
 
     /// <summary>
-    /// The tiny mce html editor.
+    /// The CKEditor HTML Editor.
     /// </summary>
     public class CKEditorHtmlEditor : CKEditor
     {
@@ -62,7 +62,7 @@ namespace YAF.Web.Editors
         #region Methods
 
         /// <summary>
-        /// The register ckeditor custom js.
+        /// The register CKEditor custom JS.
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {

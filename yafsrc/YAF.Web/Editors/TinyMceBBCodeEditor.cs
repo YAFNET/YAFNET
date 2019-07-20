@@ -23,8 +23,6 @@
  */
 namespace YAF.Web.Editors
 {
-    using System.Web.UI;
-
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
@@ -32,7 +30,7 @@ namespace YAF.Web.Editors
     using YAF.Types.Interfaces;
 
     /// <summary>
-    /// The tinyMCE bb code editor.
+    /// The tinyMCE BBCode editor.
     /// </summary>
     public class TinyMceBBCodeEditor : TinyMceEditor
     {
@@ -64,7 +62,7 @@ namespace YAF.Web.Editors
         #region Methods
 
         /// <summary>
-        /// The register tiny mce custom js.
+        /// The register TinyMCE custom JS.
         /// </summary>
         protected override void RegisterTinyMceCustomJS()
         {
@@ -74,11 +72,7 @@ namespace YAF.Web.Editors
                                                 ? YafContext.Current.CultureUser.Substring(0, 2)
                                                 : this.Get<YafBoardSettings>().Culture.Substring(0, 2))}"";");
 
-            ScriptManager.RegisterClientScriptInclude(
-                this.Page,
-                this.Page.GetType(),
-                "tinymceinit",
-                this.ResolveUrl("tinymce/tinymce_initbbcode.js"));
+            YafContext.Current.PageElements.AddScriptReference("tinymceinit", "tinymce/tinymce_initbbcode.js");
         }
 
         #endregion

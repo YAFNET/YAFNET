@@ -24,7 +24,7 @@
 namespace YAF.Web.Editors
 {
     /// <summary>
-    /// The free text box editorv 3.
+    /// The free text box editor v3.
     /// </summary>
     public class FreeTextBoxEditorv3 : FreeTextBoxEditor
     {

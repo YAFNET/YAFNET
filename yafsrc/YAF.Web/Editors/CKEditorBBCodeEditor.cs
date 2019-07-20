@@ -23,8 +23,6 @@
  */
 namespace YAF.Web.Editors
 {
-    using System.Web.UI;
-
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
@@ -64,7 +62,7 @@ namespace YAF.Web.Editors
         #region Methods
 
         /// <summary>
-        /// The register ckeditor custom js.
+        /// The register CKEditor custom JS.
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
@@ -74,11 +72,9 @@ namespace YAF.Web.Editors
                                                 ? YafContext.Current.CultureUser.Substring(0, 2)
                                                 : this.Get<YafBoardSettings>().Culture.Substring(0, 2))}"";");
 
-            ScriptManager.RegisterClientScriptInclude(
-                this.Page,
-                this.Page.GetType(),
+            YafContext.Current.PageElements.AddScriptReference(
                 "ckeditorinitbbcode",
-                this.ResolveUrl("ckeditor/ckeditor_initbbcode.js"));
+                "ckeditor/ckeditor_initbbcode.js");
         }
 
         #endregion
