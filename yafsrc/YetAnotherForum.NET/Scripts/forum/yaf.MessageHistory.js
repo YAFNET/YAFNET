@@ -1,7 +1,7 @@
 ﻿function toggleNewSelection(source) {
     var isChecked = source.checked;
     $("input[id*='New']").each(function () {
-        $(this).attr('checked', false);
+        $(this).prop('checked', false);
     });
     source.checked = isChecked;
 }
@@ -9,7 +9,7 @@
 function toggleOldSelection(source) {
     var isChecked = source.checked;
     $("input[id*='Old']").each(function () {
-        $(this).attr('checked', false);
+        $(this).prop('checked', false);
     });
     source.checked = isChecked;
 }

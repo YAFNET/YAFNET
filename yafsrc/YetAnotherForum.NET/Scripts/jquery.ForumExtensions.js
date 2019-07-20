@@ -52881,7 +52881,7 @@ function doClick(buttonName, e) {
 function toggleNewSelection(source) {
     var isChecked = source.checked;
     $("input[id*='New']").each(function () {
-        $(this).attr('checked', false);
+        $(this).prop('checked', false);
     });
     source.checked = isChecked;
 }
@@ -52889,7 +52889,7 @@ function toggleNewSelection(source) {
 function toggleOldSelection(source) {
     var isChecked = source.checked;
     $("input[id*='Old']").each(function () {
-        $(this).attr('checked', false);
+        $(this).prop('checked', false);
     });
     source.checked = isChecked;
 }
