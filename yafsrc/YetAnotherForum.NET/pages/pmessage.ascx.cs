@@ -36,7 +36,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -49,6 +48,7 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     #endregion
 
@@ -405,15 +405,19 @@ namespace YAF.Pages
 
                 // get quoted message
                 var messagesRow =
-                    this.GetRepository<Message>().ListReportedAsDataTable(
-                        Security.StringToIntOrRedirect(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")))
+                        this.GetRepository<Message>().ListReportersAsDataTable(
+                            Security.StringToLongOrRedirect(
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
+                            Security.StringToLongOrRedirect(
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>())
                         .GetFirstRow();
 
                 // there is such a message
                 // message info should be always returned as 1 row 
                 if (messagesRow == null)
                 {
+                    this.PageContext.AddLoadMessage("test3");
+
                     return;
                 }
 
