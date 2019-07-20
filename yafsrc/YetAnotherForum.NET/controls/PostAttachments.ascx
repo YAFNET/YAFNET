@@ -3,20 +3,16 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 
-<p>
-    <a class="btn btn-secondary" 
-       data-toggle="collapse" 
-       href="#collapseExample" 
-       role="button" 
-       aria-expanded="false" 
-       aria-controls="collapseExample">
-        <i class="fa fa-paperclip fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" 
-                                                                    LocalizedTag="BUTTON_ATTACH_TT" 
-                                                                    LocalizedPage="BUTTON" />
-    </a>
-</p>
+<YAF:ThemeButton runat="server"
+                 Type="Secondary"
+                 DataToggle="collapse"
+                 DataTarget="Attachments"
+                 CssClass="mt-3 mb-3"
+                 Icon="paperclip"
+                 TextLocalizedTag="BUTTON_ATTACH_TT"
+></YAF:ThemeButton>
 <asp:PlaceHolder ID="AttachmentsHolder" runat="server">
-    <div class="collapse" id="collapseExample">
+    <div class="collapse" id="Attachments">
         <div class="card">
             <div class="card-header">
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="CURRENT_UPLOADS" LocalizedPage="ATTACHMENTS" />

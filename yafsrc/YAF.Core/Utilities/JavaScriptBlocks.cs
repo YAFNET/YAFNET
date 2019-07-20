@@ -161,15 +161,16 @@ namespace YAF.Core.Utilities
 ";
 
         /// <summary>
-        ///   Gets the Moment.js Load JS.
+        ///   Gets the MomentJS Load JS.
         /// </summary>
         public static string MomentLoadJs =>
-            string.Format(
-                @" if( typeof(CKEDITOR) == 'undefined') {{
+            $@" if( typeof(CKEDITOR) == 'undefined') {{
             function loadTimeAgo() {{
             
-		     moment.locale('{1}');
-            {0}('abbr.timeago').html(function(index, value) {{
+		     moment.locale('{(YafContext.Current.CultureUser.IsSet()
+                                  ? YafContext.Current.CultureUser.Substring(0, 2)
+                                  : YafContext.Current.Get<YafBoardSettings>().Culture.Substring(0, 2))}');
+            {Config.JQueryAlias}('abbr.timeago').html(function(index, value) {{
                  
             return moment(value).fromNow();
             }});
@@ -177,11 +178,7 @@ namespace YAF.Core.Utilities
             Prism.highlightAll();
 			      }}
                    Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
-                   }};",
-                Config.JQueryAlias,
-                YafContext.Current.CultureUser.IsSet()
-                    ? YafContext.Current.CultureUser.Substring(0, 2)
-                    : YafContext.Current.Get<YafBoardSettings>().Culture.Substring(0, 2));
+                   }};";
 
         #endregion
 
@@ -347,51 +344,44 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// </returns>
         public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId, string onClickEvent)
         {
-            return string.Format(
-                @"{2}(document).ready(function() {{
-            var selectedTab = {2}(""#{1}"");
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+            var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
             var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
-            {2}('#{0} a[href=""#' + tabId + '""]').tab('show');
-            {2}(""#{0} a"").click(function() {{
-                var tab = {2}(this).attr(""href"").substring(1);
+            {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
+            {Config.JQueryAlias}(""#{tabId} a"").click(function() {{
+                var tab = {Config.JQueryAlias}(this).attr(""href"").substring(1);
                 if (!tab.startsWith(""avascript""))
 {{
-                selectedTab.val({2}(this).attr(""href"").substring(1));
+                selectedTab.val({Config.JQueryAlias}(this).attr(""href"").substring(1));
 }}
-                {3}
+                {onClickEvent}
             }});
-                           }});",
-                tabId,
-                hiddenId,
-                Config.JQueryAlias,
-                onClickEvent);
+                           }});";
         }
 
         /// <summary>
-        /// The drop down toggle js.
+        /// The drop down toggle JS.
         /// </summary>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
         public static string DropDownToggleJs()
         {
-            return string.Format(
-                @"document.addEventListener('DOMContentLoaded', (event) => {{
-                {0}(function() {{
-                {0}('.dropdown-menu').on('click', function(e) {{
+            return $@"document.addEventListener('DOMContentLoaded', (event) => {{
+                {Config.JQueryAlias}(function() {{
+                {Config.JQueryAlias}('.dropdown-menu').on('click', function(e) {{
                     if (e.target.type == 'button')
-                        {0}().dropdown('toggle')
+                        {Config.JQueryAlias}().dropdown('toggle')
                     else
                         e.stopPropagation();
                 }});
-                {0}(window).on('click', function() {{
-                    if (!{0}('.dropdown-menu').is (':hidden')) {{
-                        {0}().dropdown('toggle')
+                {Config.JQueryAlias}(window).on('click', function() {{
+                    if (!{Config.JQueryAlias}('.dropdown-menu').is (':hidden')) {{
+                        {Config.JQueryAlias}().dropdown('toggle')
                      }}
                  }});
                  }});
-                }});",
-                Config.JQueryAlias);
+                }});";
         }
 
         /// <summary>
@@ -687,27 +677,26 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] int imageMaxWidth,
             [NotNull] int imageMaxHeight)
         {
-            return string.Format(
-                @"{0}(function() {{
+            return $@"{Config.JQueryAlias}(function() {{
 
-            {0}('#fileupload').yafFileUpload({{
-                url: '{3}',
-                acceptFileTypes: new RegExp('(\.|\/)(' + '{2}' + ')', 'i'),
-                imageMaxWidth: {8},
-                imageMaxHeight: {9},
+            {Config.JQueryAlias}('#fileupload').yafFileUpload({{
+                url: '{fileUploaderUrl}',
+                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
+                imageMaxWidth: {imageMaxWidth},
+                imageMaxHeight: {imageMaxHeight},
                 disableImageResize: /Android(?!.*Chrome)|Opera/
                 .test(window.navigator && navigator.userAgent),
                 dataType: 'json',
-                {1}
+                {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 start: function (e) {{
-                    {0}('.uploadCompleteWarning').toggle();
+                    {Config.JQueryAlias}('.uploadCompleteWarning').toggle();
                 }},
                 done: function (e, data) {{
                     insertAttachment(data.result[0].fileID, data.result[0].fileID);
-                    {0}('#fileupload').find('.files tr:first').remove();
+                    {Config.JQueryAlias}('#fileupload').find('.files tr:first').remove();
 
-                    if ({0}('#fileupload').find('.files tr').length == 0) {{
-                        {0}('#UploadDialog').modal('hide');
+                    if ({Config.JQueryAlias}('#fileupload').find('.files tr').length == 0) {{
+                        {Config.JQueryAlias}('#UploadDialog').modal('hide');
 
                         var pageSize = 5;
                         var pageNumber = 0;
@@ -715,16 +704,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     }}
                 }},
                 formData: {{
-                    forumID: '{4}',
-                    boardID: '{5}',
-                    userID: '{6}',
-                    uploadFolder: '{7}',
+                    forumID: '{forumId}',
+                    boardID: '{boardId}',
+                    userID: '{YafContext.Current.PageUserID}',
+                    uploadFolder: '{YafBoardFolders.Current.Uploads}',
                     allowedUpload: true
                 }},
-                dropZone: {0}('#UploadDialog')
+                dropZone: {Config.JQueryAlias}('#UploadDialog')
             }});
-            {0}(document).bind('dragover', function (e) {{
-                var dropZone = {0}('#dropzone'),
+            {Config.JQueryAlias}(document).bind('dragover', function (e) {{
+                var dropZone = {Config.JQueryAlias}('#dropzone'),
                     timeout = window.dropZoneTimeout;
                 if (!timeout) {{
                     dropZone.addClass('ui-state-highlight');
@@ -750,17 +739,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     dropZone.removeClass('ui-state-highlight ui-widget-content');
                 }}, 100);
             }});
-        }});",
-                Config.JQueryAlias,
-                maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty,
-                acceptedFileTypes,
-                fileUploaderUrl,
-                forumId,
-                boardId,
-                YafContext.Current.PageUserID,
-                YafBoardFolders.Current.Uploads,
-                imageMaxWidth,
-                imageMaxHeight);
+        }});";
         }
 
         /// <summary>
