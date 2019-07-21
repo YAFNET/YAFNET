@@ -29,8 +29,8 @@ namespace YAF.Web.Controls.Localized
     using System.Web.UI.WebControls;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Web.Extensions;
 
     #endregion
 
