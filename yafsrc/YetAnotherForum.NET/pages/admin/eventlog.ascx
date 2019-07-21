@@ -85,6 +85,7 @@
                     <div class="d-flex w-100 justify-content-between text-break" onclick="javascript:$('<%# "#eventDetails{0}".Fmt(this.Eval("EventLogID")) %>').collapse('toggle');">
                         <h5 class="mb-1">
                             <asp:HiddenField ID="EventTypeID" Value='<%# this.Eval("Type")%>' runat="server"/>
+                            <%# this.EventIcon(Container.DataItem) %>
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                                                LocalizedTag="SOURCE" 
                                                                                LocalizedPage="ADMIN_EVENTLOG" />:&nbsp;

@@ -35,7 +35,6 @@ namespace YAF.Pages.Admin
     using FarsiLibrary.Utils;
 
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -80,40 +79,99 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// return HTML code of event log entry image
         /// </returns>
-        protected string EventCssClass([NotNull] object dataRow)
+        protected string EventIcon([NotNull] object dataRow)
         {
             // cast object to the DataRowView
             var row = (DataRowView)dataRow;
 
-            string cssClass;
+            string cssClass, icon;
+
+            var eventType = EventLogTypes.Information;
 
             try
             {
                 // find out of what type event log entry is
-                var eventType = (EventLogTypes)row["Type"].ToType<int>();
-
-                switch (eventType)
-                {
-                    case EventLogTypes.Error:
-                        cssClass = "danger";
-                        break;
-                    case EventLogTypes.Warning:
-                        cssClass = "warning";
-                        break;
-                    case EventLogTypes.Information:
-                        cssClass = "info";
-                        break;
-                    default:
-                        cssClass = "active";
-                        break;
-                }
+                eventType = (EventLogTypes)row["Type"].ToType<int>();
             }
             catch (Exception)
             {
-                return "active";
+                icon = "exclamation";
+                cssClass = "info";
             }
 
-            return cssClass;
+            switch (eventType)
+            {
+                case EventLogTypes.Error:
+                    icon = "radiation";
+                    cssClass = "danger";
+                    break;
+                case EventLogTypes.Warning:
+                    icon = "exclamation-triangle";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.Information:
+                    icon = "exclamation";
+                    cssClass = "info";
+                    break;
+                case EventLogTypes.Debug:
+                    icon = "exclamation-triangle"; 
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.Trace:
+                    icon = "exclamation-triangle";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.SqlError:
+                    icon = "exclamation-triangle";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.UserSuspended:
+                    icon = "user-clock";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.UserUnsuspended:
+                    icon = "user-check";
+                    cssClass = "info";
+                    break;
+                case EventLogTypes.UserDeleted:
+                    icon = "user-alt-slash";
+                    cssClass = "danger";
+                    break;
+                case EventLogTypes.IpBanSet:
+                    icon = "hand-paper";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.IpBanLifted:
+                    icon = "slash";
+                    cssClass = "success";
+                    break;
+                case EventLogTypes.IpBanDetected:
+                    icon = "hand-paper";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.SpamBotReported:
+                    icon = "user-ninja";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.SpamBotDetected:
+                    icon = "user-lock";
+                    cssClass = "warning";
+                    break;
+                case EventLogTypes.SpamMessageReported:
+                    icon = "flag";
+                    cssClass = "success";
+                    break;
+                case EventLogTypes.SpamMessageDetected:
+                    icon = "shield-alt";
+                    cssClass = "warning";
+                    break;
+                default:
+                    icon = "exclamation-circle";
+                    cssClass = "primary";
+                    break;
+            }
+
+            return $@"<i class=""fas fa-{icon} text-{cssClass}""></i>";
         }
 
         /// <summary>
