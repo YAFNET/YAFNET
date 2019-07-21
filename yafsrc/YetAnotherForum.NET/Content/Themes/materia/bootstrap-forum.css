@@ -1647,9 +1647,6 @@ pre {
   .form-control::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.4);
     opacity: 1; }
-  .form-control::-moz-placeholder {
-    color: rgba(0, 0, 0, 0.4);
-    opacity: 1; }
   .form-control::-ms-input-placeholder {
     color: rgba(0, 0, 0, 0.4);
     opacity: 1; }
@@ -4005,10 +4002,8 @@ input[type="button"].btn-block {
 @media (min-width: 576px) {
   .card-columns {
     -webkit-column-count: 3;
-       -moz-column-count: 3;
             column-count: 3;
     -webkit-column-gap: 1.25rem;
-       -moz-column-gap: 1.25rem;
             column-gap: 1.25rem;
     orphans: 1;
     widows: 1; }
@@ -8230,10 +8225,6 @@ a.text-dark:hover, a.text-dark:focus {
     .navbar.bg-dark input[type=password]::-webkit-input-placeholder, .navbar.bg-primary input[type=text]::-webkit-input-placeholder,
     .navbar.bg-primary input[type=password]::-webkit-input-placeholder {
       color: rgba(255, 255, 255, 0.5); }
-    .navbar.bg-dark input[type=text]::-moz-placeholder,
-    .navbar.bg-dark input[type=password]::-moz-placeholder, .navbar.bg-primary input[type=text]::-moz-placeholder,
-    .navbar.bg-primary input[type=password]::-moz-placeholder {
-      color: rgba(255, 255, 255, 0.5); }
     .navbar.bg-dark input[type=text]::-ms-input-placeholder,
     .navbar.bg-dark input[type=password]::-ms-input-placeholder, .navbar.bg-primary input[type=text]::-ms-input-placeholder,
     .navbar.bg-primary input[type=password]::-ms-input-placeholder {
@@ -8942,30 +8933,6 @@ input[type=number],
   [contenteditable].form-control[disabled],
   [contenteditable].form-control[disabled]::-webkit-input-placeholder {
     color: #ddd; }
-  textarea[disabled], textarea[disabled]::-moz-placeholder,
-  textarea.form-control[disabled],
-  textarea.form-control[disabled]::-moz-placeholder,
-  input.form-control[disabled],
-  input.form-control[disabled]::-moz-placeholder,
-  input[type=text][disabled],
-  input[type=text][disabled]::-moz-placeholder,
-  input[type=password][disabled],
-  input[type=password][disabled]::-moz-placeholder,
-  input[type=email][disabled],
-  input[type=email][disabled]::-moz-placeholder,
-  input[type=number][disabled],
-  input[type=number][disabled]::-moz-placeholder,
-  [type=text].form-control[disabled],
-  [type=text].form-control[disabled]::-moz-placeholder,
-  [type=password].form-control[disabled],
-  [type=password].form-control[disabled]::-moz-placeholder,
-  [type=email].form-control[disabled],
-  [type=email].form-control[disabled]::-moz-placeholder,
-  [type=tel].form-control[disabled],
-  [type=tel].form-control[disabled]::-moz-placeholder,
-  [contenteditable].form-control[disabled],
-  [contenteditable].form-control[disabled]::-moz-placeholder {
-    color: #ddd; }
   textarea[disabled], textarea[disabled]::-ms-input-placeholder,
   textarea.form-control[disabled],
   textarea.form-control[disabled]::-ms-input-placeholder,
@@ -9370,7 +9337,6 @@ select.form-control {
   color: inherit; }
 
 .forum-logo {
-  background: url("../../images/YafLogo.png") no-repeat;
-  width: 250px;
+  background: url("../../images/YAFLogo.svg") no-repeat;
   height: 125px;
   display: block; }

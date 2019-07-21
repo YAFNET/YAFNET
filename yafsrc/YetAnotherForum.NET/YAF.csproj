@@ -960,7 +960,6 @@
     </Content>
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
-    <Content Include="Content\images\YafLogoSmall.png" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -1860,7 +1859,7 @@
     <Content Include="Images\Medals\medal_silver_2.png" />
     <Content Include="Images\Medals\medal_silver_2_small.png" />
     <Content Include="Images\Medals\medal_small.png" />
-    <Content Include="Content\images\YafLogo.png" />
+    <Content Include="Content\images\YAFLogo.svg" />
     <Content Include="install\custom\custom.sql" />
     <Content Include="install\custom\dnn.sql" />
     <Content Include="install\mssql\install\azure\InstallCommon.sql" />
@@ -3034,6 +3033,7 @@
     <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
+    <Content Include="libman.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3329,6 +3329,15 @@ del ServiceStack.Client.dll</PostBuildEvent>
   <Import Project="BuildScripts\YAF.Package.Targets" />
   <Target Name="AfterBuild" DependsOnTargets="PackageModule">
   </Target>
+  <PropertyGroup>
+    <TempFolder>$([System.IO.Path]::GetTempPath())</TempFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <BrowsersListNodeJsFiles Include="$(TempFolder)\WebCompiler*\node_modules\browserslist\node.js" />
+  </ItemGroup>
+  <Target Name="BrowsersListWarningsAsInfo" BeforeTargets="WebCompile">
+    <FileUpdate Files="@(BrowsersListNodeJsFiles)" Regex="console.warn" ReplacementText="console.log" />
+  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
@@ -3348,4 +3357,11 @@ del ServiceStack.Client.dll</PostBuildEvent>
       <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
+  </Target>
 </Project>
