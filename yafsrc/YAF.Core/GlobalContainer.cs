@@ -40,11 +40,6 @@ namespace YAF.Core
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The _container.
-        /// </summary>
-        private static readonly IContainer _container;
-
         #endregion
 
         /// <summary>
@@ -54,7 +49,7 @@ namespace YAF.Core
         {
             var container = CreateContainer();
             ServiceLocatorAccess.CurrentServiceProvider = container.Resolve<IServiceLocator>();
-            _container = container;
+            Container = container;
         }
 
         #region Properties
@@ -62,7 +57,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Container.
         /// </summary>
-        public static IContainer Container => _container;
+        public static IContainer Container { get; }
 
         #endregion
 

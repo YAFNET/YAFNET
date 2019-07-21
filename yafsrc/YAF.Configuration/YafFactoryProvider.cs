@@ -125,7 +125,7 @@ namespace YAF.Configuration
                 }
                 else
                 {
-                    urlAssembly = "YAF.Classes.DefaultUrlBuilder";
+                    urlAssembly = "YAF.Configuration.DefaultUrlBuilder";
                 }
 
                 return urlAssembly;
@@ -138,7 +138,7 @@ namespace YAF.Configuration
         private static string UserDisplayNameType =>
             Config.GetProvider("UserDisplayName").IsSet()
                 ? Config.GetProvider("UserDisplayName")
-                : "YAF.Classes.Core.DefaultUserDisplayName,YAF.Classes.Core";
+                : "YAF.Core.DefaultUserDisplayName,YAF.Core";
 
         #endregion
     }
