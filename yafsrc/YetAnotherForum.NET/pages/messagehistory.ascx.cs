@@ -31,7 +31,6 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -41,6 +40,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web;
 
     #endregion
 
@@ -226,17 +226,6 @@ namespace YAF.Pages
 
                     break;
             }
-        }
-
-        /// <summary>
-        /// Add Confirm Dialog to the Restore Message Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void RestoreVersion_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return confirm('{this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE")}')";
         }
 
         /// <summary>

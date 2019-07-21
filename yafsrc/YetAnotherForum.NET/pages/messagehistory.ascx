@@ -86,11 +86,15 @@
                 <td><%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %></td>
                 <td>
                     <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
-                        CommandName='restore' CommandArgument='<%# Container.DataItemToField<DateTime>("Edited") %>' 
-                        TitleLocalizedTag="RESTORE_MESSAGE" TextLocalizedTag="RESTORE_MESSAGE"
-                        Visible='<%# (this.PageContext.IsAdmin || this.PageContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>'
-                        OnLoad="RestoreVersion_Load"
-                                     Type="Secondary" Size="Small" Icon="undo">
+                                     CommandName='restore' 
+                                     CommandArgument='<%# Container.DataItemToField<DateTime>("Edited") %>'
+                                     TitleLocalizedTag="RESTORE_MESSAGE" 
+                                     TextLocalizedTag="RESTORE_MESSAGE"
+                                     Visible='<%# (this.PageContext.IsAdmin || this.PageContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>'
+                                     ReturnConfirmText='<%# this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE") %>'
+                                     Type="Secondary" 
+                                     Size="Small" 
+                                     Icon="undo">
                     </YAF:ThemeButton>
                 </td>
             </tr>

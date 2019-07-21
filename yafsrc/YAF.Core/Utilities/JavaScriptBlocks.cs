@@ -360,6 +360,31 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
+        /// Gets the Bootstrap Tab Load JS.
+        /// </summary>
+        /// <param name="tabId">The tab Id.</param>
+        /// <param name="hiddenId">The hidden field id.</param>
+        /// <param name="onClickEvent">The on click event.</param>
+        /// <returns>
+        /// Returns the the Bootstrap Tab Load JS string
+        /// </returns>
+        public static string BootstrapNavsLoadJs([NotNull] string tabId, string hiddenId)
+        {
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+            var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
+            var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
+            {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
+            {Config.JQueryAlias}(""#{tabId} a"").click(function() {{
+                var tab = {Config.JQueryAlias}(this).attr(""href"").substring(1);
+                if (!tab.startsWith(""avascript""))
+{{
+                selectedTab.val({Config.JQueryAlias}(this).attr(""href"").substring(1));
+}}
+            }});
+                           }});";
+        }
+
+        /// <summary>
         /// The drop down toggle JS.
         /// </summary>
         /// <returns>

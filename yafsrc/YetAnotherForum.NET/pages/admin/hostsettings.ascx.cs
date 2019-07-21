@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Helpers;
     using YAF.Core.Utilities;
@@ -38,6 +37,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web;
 
     #endregion
 
@@ -146,8 +146,8 @@ namespace YAF.Pages.Admin
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(
-                    this.HostSettingsTabs.ClientID,
+                JavaScriptBlocks.BootstrapNavsLoadJs(
+                    "v-pills-tab",
                     this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
