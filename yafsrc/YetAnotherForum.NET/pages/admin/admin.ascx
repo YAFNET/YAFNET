@@ -4,6 +4,7 @@
 
 <%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
                 <div class="row">
                 <div class="col-xl-12">
@@ -310,9 +311,6 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
                             LocalizedPage="ADMIN_ADMIN" />
                     </th>
-                    <th>
-                        &nbsp;
-                    </th>
                 </tr>
                     </thead>
                 <tbody>
@@ -333,21 +331,40 @@
                         <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                     </td>
                     <td>
-					    <span class="float-right">
-                        <YAF:ThemeButton runat="server" CommandName="resendEmail" CommandArgument='<%# this.Eval("Email") + ";" + this.Eval("Name") %>' 
-                            Icon="share" TextLocalizedTag="ADMIN_RESEND_EMAIL"
-                            Type="Info" Size="Small">
-                        </YAF:ThemeButton>&nbsp;
-                        <YAF:ThemeButton runat="server" CommandName="approve" CommandArgument='<%# this.Eval("UserID") %>'
-                            Type="Primary" Size="Small" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
-                            Icon="check" TextLocalizedTag="ADMIN_APPROVE">
-                        </YAF:ThemeButton>&nbsp;
-                        <YAF:ThemeButton runat="server" CommandName="delete" CommandArgument='<%# this.Eval("UserID") %>'
-                            Type="Danger" Size="Small" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
-                            Icon="trash" TextLocalizedTag="ADMIN_DELETE">
+					    <div class="btn-group btn-group-sm float-right" role="group">
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="resendEmail" 
+                                         CommandArgument='<%# "{0};{1}".Fmt(this.Eval("Email"), this.Eval("Name")) %>'
+                                         Icon="share" 
+                                         TextLocalizedTag="ADMIN_RESEND_EMAIL"
+                                         Type="Info" 
+                                         Size="Small">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="approve" 
+                                         CommandArgument='<%# this.Eval("UserID") %>'
+                                         Type="Primary" 
+                                         Size="Small" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
+                                         Icon="check" 
+                                         TextLocalizedTag="ADMIN_APPROVE">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval("UserID") %>'
+                                         Type="Danger" 
+                                         Size="Small" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="ADMIN_DELETE">
                         </YAF:ThemeButton>
 
-					    </span>
+					    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+
                     </td>
                 </tr>
             </ItemTemplate>

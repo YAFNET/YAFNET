@@ -37,7 +37,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel ActiveUsersLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel ActiveUsersLabel;
         
         /// <summary>
         /// ActiveUserCount control.
@@ -82,7 +82,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel RecentUsersLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel RecentUsersLabel;
         
         /// <summary>
         /// RecentUsers control.
@@ -118,7 +118,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel StatsHeader;
+        protected global::YAF.Web.Controls.LocalizedLabel StatsHeader;
         
         /// <summary>
         /// StatsPostsTopicCount control.
@@ -199,7 +199,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel StatsSpamDenied;
+        protected global::YAF.Web.Controls.LocalizedLabel StatsSpamDenied;
         
         /// <summary>
         /// StatsSpamBanned control.
@@ -208,7 +208,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel StatsSpamBanned;
+        protected global::YAF.Web.Controls.LocalizedLabel StatsSpamBanned;
         
         /// <summary>
         /// StatsSpamReported control.
@@ -217,6 +217,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel StatsSpamReported;
+        protected global::YAF.Web.Controls.LocalizedLabel StatsSpamReported;
     }
 }

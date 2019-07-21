@@ -34,7 +34,6 @@ namespace YAF.Web.Controls
     using YAF.Core.BaseControls;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Web.Localized;
 
     #endregion
 

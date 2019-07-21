@@ -37,7 +37,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel ActiveDiscussionHeader;
+        protected global::YAF.Web.Controls.LocalizedLabel ActiveDiscussionHeader;
         
         /// <summary>
         /// LatestPosts control.

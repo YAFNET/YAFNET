@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// UserInfoMobile control.
@@ -172,7 +172,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel TopicStarterText;
+        protected global::YAF.Web.Controls.LocalizedLabel TopicStarterText;
         
         /// <summary>
         /// UserBox1 control.

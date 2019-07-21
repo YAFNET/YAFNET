@@ -8,7 +8,7 @@
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUMS" LocalizedPage="TEAM" /></h1>
     </div>
     </div>
-    <div class="row">
+    <div class="row">s
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -23,8 +23,8 @@
                 <li class="list-group-item list-group-item-action active">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%# this.HtmlEncode(this.Eval( "Name"))%></h5>
-                    <small>
-                        <YAF:LocalizedLabel runat="server" 
+                    <small class="d-none d-md-block">
+                        <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="SORT_ORDER">&nbsp;</YAF:LocalizedLabel><%# this.Eval( "SortOrder") %>
                     </small>
                 </div>

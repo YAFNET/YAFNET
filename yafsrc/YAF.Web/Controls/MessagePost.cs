@@ -255,17 +255,15 @@ namespace YAF.Web.Controls
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
             var messageHistoryButton =
-                $@"<a href=""{YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm mr-1"">
+                $@"<hr />
+                   <p class=""mb-0""><a href=""{YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm mr-1"">
                          <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
-                      </a>";
+                      </a></p>";
 
             writer.Write(
                 @"<div class=""alert alert-secondary"" role=""alert"">
-                      {4}<i class=""fa fa-edit fa-fw text-secondary""></i>{0} {1}
-                      &nbsp;{2}&nbsp;|&nbsp;<em>{3}</em> 
-                      <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
-                          <span aria-hidden=""true"">&times;</span>
-                      </button></div>",
+                      <i class=""fa fa-edit fa-fw text-secondary""></i>{0} {1}
+                      &nbsp;{2}&nbsp;|&nbsp;<em>{3}</em> {4}</div>",
                 this.GetText("EDITED"),
                 whoChanged,
                 editedDateTime,

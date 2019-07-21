@@ -46,6 +46,6 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel NoCountInfo;
+        protected global::YAF.Web.Controls.LocalizedLabel NoCountInfo;
     }
 }

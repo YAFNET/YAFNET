@@ -82,7 +82,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel TopicSubjectLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel TopicSubjectLabel;
         
         /// <summary>
         /// TopicSubjectTextBox-Steuerelement
@@ -109,7 +109,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel TopicDescriptionLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel TopicDescriptionLabel;
         
         /// <summary>
         /// TopicDescriptionTextBox-Steuerelement
@@ -172,7 +172,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// TopicStylesTextBox-Steuerelement
@@ -208,7 +208,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// LocalizedLblMaxNumberOfPost-Steuerelement
@@ -217,7 +217,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLblMaxNumberOfPost;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLblMaxNumberOfPost;
         
         /// <summary>
         /// PostOptions1-Steuerelement

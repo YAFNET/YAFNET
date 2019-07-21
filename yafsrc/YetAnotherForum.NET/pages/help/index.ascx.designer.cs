@@ -28,7 +28,7 @@ namespace YAF.Pages.help {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel Title;
+        protected global::YAF.Web.Controls.LocalizedLabel Title;
         
         /// <summary>
         /// HelpList control.
@@ -73,7 +73,7 @@ namespace YAF.Pages.help {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel SearchFor;
+        protected global::YAF.Web.Controls.LocalizedLabel SearchFor;
         
         /// <summary>
         /// search control.

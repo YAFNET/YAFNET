@@ -28,7 +28,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel SearchMembersLocalizedLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel SearchMembersLocalizedLabel;
         
         /// <summary>
         /// SearchRolesLocalizedLabel control.
@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel SearchRolesLocalizedLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel SearchRolesLocalizedLabel;
         
         /// <summary>
         /// Group control.
@@ -55,7 +55,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel SearchRankLocalizedLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel SearchRankLocalizedLabel;
         
         /// <summary>
         /// Ranks control.
@@ -73,7 +73,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel NumPostsLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel NumPostsLabel;
         
         /// <summary>
         /// NumPostDDL control.
@@ -100,7 +100,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel SearchMemberLocalizedLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel SearchMemberLocalizedLabel;
         
         /// <summary>
         /// UserSearchName control.
@@ -145,7 +145,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// Pager control.
@@ -163,7 +163,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
         
         /// <summary>
         /// SortUserName control.

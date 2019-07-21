@@ -21,39 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web
+namespace YAF.Web.Controls.Localized
 {
     #region Using
 
-    using System.Web.UI;
+    using System;
+    using System.Web.UI.WebControls;
 
-    using YAF.Core.BaseControls;
-    using YAF.Web.Localized;
+    using YAF.Core;
+    using YAF.Types.Interfaces;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Makes a very simple localized label
+    /// The localized required field validator.
     /// </summary>
-    public class LocalizedLabel : BaseControl, ILocalizationSupport
+    public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocalizationSupport
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LocalizedLabel"/> class.
-        /// </summary>
-        public LocalizedLabel()
-        {
-            this.LocalizedPage = string.Empty;
-            this.EnableBBCode = false;
-            this.LocalizedTag = string.Empty;
-            this.Param2 = string.Empty;
-            this.Param1 = string.Empty;
-            this.Param0 = string.Empty;
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -70,6 +55,23 @@ namespace YAF.Web
         /// Gets or sets LocalizedTag.
         /// </summary>
         public string LocalizedTag { get; set; }
+
+        /// <summary>
+        /// Gets PageContext.
+        /// </summary>
+        public YafContext PageContext
+        {
+            get
+            {
+                if (this.Site != null && this.Site.DesignMode)
+                {
+                    // design-time, return null...
+                    return null;
+                }
+
+                return YafContext.Current;
+            }
+        }
 
         /// <summary>
         /// Gets or sets Parameter 0.
@@ -91,23 +93,16 @@ namespace YAF.Web
         #region Methods
 
         /// <summary>
-        /// Shows the localized text string (if available)
+        /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
         /// </summary>
-        /// <param name="output">The output.</param>
-        protected override void Render(HtmlTextWriter output)
+        /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnLoad(EventArgs e)
         {
-            output.BeginRender();
+            base.OnLoad(e);
 
-            if (!this.DesignMode)
-            {
-                output.Write(this.LocalizeAndRender(this));
-            }
-            else
-            {
-                output.Write("[{0}][{1}]", this.LocalizedPage, this.LocalizedTag);
-            }
-
-            output.EndRender();
+            // localize ErrorMessage, ToolTip
+            this.ErrorMessage = this.Localize(this);
+            this.ToolTip = this.Localize(this);
         }
 
         #endregion

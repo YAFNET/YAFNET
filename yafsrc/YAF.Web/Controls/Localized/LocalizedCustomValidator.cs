@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Localized
+namespace YAF.Web.Controls.Localized
 {
     #region Using
 
@@ -29,13 +29,15 @@ namespace YAF.Web.Localized
     using System.Web.UI.WebControls;
 
     using YAF.Core;
+    using YAF.Types.Interfaces;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The localized required field validator.
+    /// The localized custom validator.
     /// </summary>
-    public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocalizationSupport
+    public class LocalizedCustomValidator : CustomValidator, ILocalizationSupport
     {
         #region Properties
 

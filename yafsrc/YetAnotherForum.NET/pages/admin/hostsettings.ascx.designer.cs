@@ -28,7 +28,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel41;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel41;
         
         /// <summary>
         /// LocalizedLabel12 control.
@@ -37,7 +37,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
         /// LocalizedLabel13 control.
@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel13;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel13;
         
         /// <summary>
         /// LocalizedLabel14 control.
@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel14;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel14;
         
         /// <summary>
         /// LocalizedLabel15 control.
@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel15;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel15;
         
         /// <summary>
         /// LocalizedLabel16 control.
@@ -73,7 +73,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel16;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel16;
         
         /// <summary>
         /// LocalizedLabel17 control.
@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel17;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel17;
         
         /// <summary>
         /// LocalizedLabel18 control.
@@ -91,7 +91,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel18;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel18;
         
         /// <summary>
         /// LocalizedLabel19 control.
@@ -100,7 +100,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel19;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel19;
         
         /// <summary>
         /// LocalizedLabel20 control.
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel20;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel20;
         
         /// <summary>
         /// LocalizedLabel23 control.
@@ -118,7 +118,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel23;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel23;
         
         /// <summary>
         /// LocalizedLabel24 control.
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel24;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel24;
         
         /// <summary>
         /// LocalizedLabel26 control.
@@ -136,7 +136,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel26;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel26;
         
         /// <summary>
         /// LocalizedLabel25 control.
@@ -145,7 +145,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel25;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel25;
         
         /// <summary>
         /// LocalizedLabel36 control.
@@ -154,7 +154,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel36;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel36;
         
         /// <summary>
         /// LocalizedLabel45 control.
@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel45;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel45;
         
         /// <summary>
         /// LocalizedLabel46 control.
@@ -172,7 +172,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel46;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel46;
         
         /// <summary>
         /// LocalizedLabel47 control.
@@ -181,7 +181,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel47;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel47;
         
         /// <summary>
         /// LocalizedLabel48 control.
@@ -190,7 +190,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel48;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel48;
         
         /// <summary>
         /// LocalizedLabel49 control.
@@ -199,7 +199,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel49;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel49;
         
         /// <summary>
         /// LocalizedLabel50 control.
@@ -208,7 +208,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel50;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel50;
         
         /// <summary>
         /// LocalizedLabel51 control.
@@ -217,7 +217,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel51;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel51;
         
         /// <summary>
         /// LocalizedLabel52 control.
@@ -226,7 +226,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel52;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel52;
         
         /// <summary>
         /// LocalizedLabel53 control.
@@ -235,7 +235,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel53;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel53;
         
         /// <summary>
         /// LocalizedLabel54 control.
@@ -244,7 +244,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel54;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel54;
         
         /// <summary>
         /// HostSettingsTabs control.
@@ -262,7 +262,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel55;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel55;
         
         /// <summary>
         /// LocalizedLabel56 control.
@@ -271,7 +271,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel56;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel56;
         
         /// <summary>
         /// HelpLabel1 control.
@@ -370,7 +370,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel57;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel57;
         
         /// <summary>
         /// LocalizedLabel58 control.
@@ -379,7 +379,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel58;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel58;
         
         /// <summary>
         /// LocalizedLabel1 control.
@@ -388,7 +388,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
         /// LocalizedLabel32 control.
@@ -397,7 +397,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel32;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel32;
         
         /// <summary>
         /// LocalizedLabel39 control.
@@ -406,7 +406,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel39;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel39;
         
         /// <summary>
         /// LocalizedLabel21 control.
@@ -415,7 +415,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel21;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel21;
         
         /// <summary>
         /// LocalizedLabel43 control.
@@ -424,7 +424,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel43;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel43;
         
         /// <summary>
         /// LocalizedLabel22 control.
@@ -433,7 +433,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel22;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel22;
         
         /// <summary>
         /// LocalizedLabel40 control.
@@ -442,7 +442,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel40;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel40;
         
         /// <summary>
         /// HelpLabel2 control.
@@ -1225,7 +1225,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel59;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel59;
         
         /// <summary>
         /// LocalizedLabel60 control.
@@ -1234,7 +1234,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel60;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel60;
         
         /// <summary>
         /// LocalizedLabel2 control.
@@ -1243,7 +1243,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
         /// LocalizedLabel3 control.
@@ -1252,7 +1252,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// LocalizedLabel4 control.
@@ -1261,7 +1261,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// LocalizedLabel5 control.
@@ -1270,7 +1270,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
         
         /// <summary>
         /// LocalizedLabel6 control.
@@ -1279,7 +1279,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
         
         /// <summary>
         /// LocalizedLabel7 control.
@@ -1288,7 +1288,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel7;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
         
         /// <summary>
         /// LocalizedLabel8 control.
@@ -1297,7 +1297,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel8;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
         /// LocalizedLabel9 control.
@@ -1306,7 +1306,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel9;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel9;
         
         /// <summary>
         /// LocalizedLabel10 control.
@@ -1315,7 +1315,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel10;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel10;
         
         /// <summary>
         /// LocalizedLabel11 control.
@@ -1324,7 +1324,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel11;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel11;
         
         /// <summary>
         /// HelpLabel193 control.
@@ -2602,7 +2602,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel61;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel61;
         
         /// <summary>
         /// LocalizedLabel62 control.
@@ -2611,7 +2611,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel62;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel62;
         
         /// <summary>
         /// HelpLabel152 control.
@@ -3205,7 +3205,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel63;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel63;
         
         /// <summary>
         /// LocalizedLabel64 control.
@@ -3214,7 +3214,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel64;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel64;
         
         /// <summary>
         /// HelpLabel26 control.
@@ -3268,7 +3268,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel65;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel65;
         
         /// <summary>
         /// LocalizedLabel66 control.
@@ -3277,7 +3277,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel66;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel66;
         
         /// <summary>
         /// HelpLabel88 control.
@@ -3349,7 +3349,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel67;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel67;
         
         /// <summary>
         /// LocalizedLabel68 control.
@@ -3358,7 +3358,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel68;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel68;
         
         /// <summary>
         /// HelpLabel84 control.
@@ -3691,7 +3691,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel69;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel69;
         
         /// <summary>
         /// LocalizedLabel70 control.
@@ -3700,7 +3700,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel70;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel70;
         
         /// <summary>
         /// HelpLabel57 control.
@@ -3979,7 +3979,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel71;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel71;
         
         /// <summary>
         /// LocalizedLabel72 control.
@@ -3988,7 +3988,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel72;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel72;
         
         /// <summary>
         /// AvatarSettingsHolder control.
@@ -4159,7 +4159,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel73;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel73;
         
         /// <summary>
         /// LocalizedLabel74 control.
@@ -4168,7 +4168,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel74;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel74;
         
         /// <summary>
         /// HelpLabel41 control.
@@ -4411,7 +4411,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel75;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel75;
         
         /// <summary>
         /// LocalizedLabel76 control.
@@ -4420,7 +4420,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel76;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel76;
         
         /// <summary>
         /// HelpLabel28 control.
@@ -4510,7 +4510,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel77;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel77;
         
         /// <summary>
         /// LocalizedLabel78 control.
@@ -4519,7 +4519,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel78;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel78;
         
         /// <summary>
         /// HelpLabel140 control.
@@ -4618,7 +4618,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.LocalizedLabel LocalizedLabel27;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel27;
         
         /// <summary>
         /// LogErrorLabel control.
