@@ -131,7 +131,7 @@
                             <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
                         </div>
                         <div class="card-footer text-center">
-                            <YAF:themeButton ID="UnsubscribeTopics" runat="server" 
+                            <YAF:ThemeButton ID="UnsubscribeTopics" runat="server" 
                                              OnClick="UnsubscribeTopics_Click"
                                              TextLocalizedTag="unsubscribe"
                                              Type="Danger"

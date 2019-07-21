@@ -19,7 +19,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel1 control.
@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton btnLoadPageLocalization;
+        protected global::YAF.Web.Controls.ThemeButton btnLoadPageLocalization;
         
         /// <summary>
         /// lblInfo control.
@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Alert Alert2;
+        protected global::YAF.Web.Controls.Alert Alert2;
         
         /// <summary>
         /// LocalizedLabel5 control.
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton btnSave;
+        protected global::YAF.Web.Controls.ThemeButton btnSave;
         
         /// <summary>
         /// btnCancel control.
@@ -118,6 +118,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton btnCancel;
+        protected global::YAF.Web.Controls.ThemeButton btnCancel;
     }
 }

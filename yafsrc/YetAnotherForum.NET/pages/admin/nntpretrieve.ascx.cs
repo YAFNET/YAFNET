@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Web.Controls;
 
     #endregion
 

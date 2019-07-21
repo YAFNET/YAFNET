@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ActiveUsers ActiveUsers1;
+        protected global::YAF.Web.Controls.ActiveUsers ActiveUsers1;
         
         /// <summary>
         /// MostUsersCount control.
@@ -91,7 +91,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ActiveUsers RecentUsers;
+        protected global::YAF.Web.Controls.ActiveUsers RecentUsers;
         
         /// <summary>
         /// RecentUsersCount control.
@@ -109,7 +109,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Statistics.MostActiveUsers MostActiveList;
+        protected global::YAF.Web.Controls.MostActiveUsers MostActiveList;
         
         /// <summary>
         /// StatsHeader control.
@@ -154,7 +154,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.UserLink LastPostUserLink;
+        protected global::YAF.Web.Controls.UserLink LastPostUserLink;
         
         /// <summary>
         /// StatsMembersCount control.
@@ -181,7 +181,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.UserLink NewestMemberUserLink;
+        protected global::YAF.Web.Controls.UserLink NewestMemberUserLink;
         
         /// <summary>
         /// AntiSpamStatsHolder control.

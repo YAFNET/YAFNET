@@ -46,6 +46,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton CreatePoll1;
+        protected global::YAF.Web.Controls.ThemeButton CreatePoll1;
     }
 }

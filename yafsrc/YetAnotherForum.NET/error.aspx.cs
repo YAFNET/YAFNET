@@ -55,12 +55,12 @@ namespace YAF
             var errorMessage = @"There has been a serious error loading the forum. No further information is available.";
 
             // show error message if one was provided...
-            if (this.Session["StartupException"] != null)
+            if (this.Session[name: "StartupException"] != null)
             {
                 errorMessage =
-                    $"<strong>Error:</strong> {this.Server.HtmlEncode(this.Session["StartupException"].ToString())}";
+                    $"<strong>Error:</strong> {this.Server.HtmlEncode(s: this.Session[name: "StartupException"].ToString())}";
 
-                this.Session["StartupException"] = null;
+                this.Session[name: "StartupException"] = null;
             }
 
             this.ErrorMessage.Text = errorMessage;

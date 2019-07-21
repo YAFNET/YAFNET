@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Pager PagerTop;
+        protected global::YAF.Web.Controls.Pager PagerTop;
         
         /// <summary>
         /// MobileInfo control.
@@ -28,7 +28,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Alert MobileInfo;
+        protected global::YAF.Web.Controls.Alert MobileInfo;
         
         /// <summary>
         /// LocalizedLabel220 control.
@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerBottom;
         
         /// <summary>
         /// lblExportType control.

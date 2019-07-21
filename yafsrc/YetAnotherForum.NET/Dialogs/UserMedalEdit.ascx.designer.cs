@@ -28,7 +28,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel23;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel23;
         
         /// <summary>
         /// UserName control.
@@ -55,7 +55,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton FindUsers;
+        protected global::YAF.Web.Controls.ThemeButton FindUsers;
         
         /// <summary>
         /// Clear control.
@@ -64,7 +64,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Clear;
+        protected global::YAF.Web.Controls.ThemeButton Clear;
         
         /// <summary>
         /// UserID control.
@@ -82,7 +82,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel19;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel19;
         
         /// <summary>
         /// UserMessage control.
@@ -100,7 +100,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel20;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel20;
         
         /// <summary>
         /// UserSortOrder control.
@@ -118,7 +118,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel21;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel21;
         
         /// <summary>
         /// UserOnlyRibbon control.
@@ -136,7 +136,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel22;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel22;
         
         /// <summary>
         /// UserHide control.
@@ -154,7 +154,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton AddUserSave;
+        protected global::YAF.Web.Controls.ThemeButton AddUserSave;
         
         /// <summary>
         /// Cancel control.
@@ -163,6 +163,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

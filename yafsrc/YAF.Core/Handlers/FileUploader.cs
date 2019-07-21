@@ -131,7 +131,7 @@ namespace YAF.Core.Handlers
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="statuses">The statuses.</param>
-        private void UploadWholeFile(HttpContext context, List<FilesUploadStatus> statuses)
+        private void UploadWholeFile(HttpContext context, ICollection<FilesUploadStatus> statuses)
         {
             var forumId = HttpContext.Current.Request["forumID"].ToType<int>();
             var boardId = HttpContext.Current.Request["boardID"].ToType<int>();

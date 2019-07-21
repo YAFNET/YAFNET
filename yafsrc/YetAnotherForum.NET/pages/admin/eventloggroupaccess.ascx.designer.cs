@@ -19,7 +19,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel2 control.
@@ -73,7 +73,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
         
         /// <summary>
         /// GrantAll control.
@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton GrantAll;
+        protected global::YAF.Web.Controls.ThemeButton GrantAll;
         
         /// <summary>
         /// RevokeAll control.
@@ -91,7 +91,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton RevokeAll;
+        protected global::YAF.Web.Controls.ThemeButton RevokeAll;
         
         /// <summary>
         /// GrantAllDelete control.
@@ -100,7 +100,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton GrantAllDelete;
+        protected global::YAF.Web.Controls.ThemeButton GrantAllDelete;
         
         /// <summary>
         /// RevokeAllDelete control.
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton RevokeAllDelete;
+        protected global::YAF.Web.Controls.ThemeButton RevokeAllDelete;
         
         /// <summary>
         /// Cancel control.
@@ -118,6 +118,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

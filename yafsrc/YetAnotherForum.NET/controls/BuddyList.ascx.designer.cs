@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// Pager-Steuerelement
@@ -28,7 +28,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.Pager Pager;
+        protected global::YAF.Web.Controls.Pager Pager;
         
         /// <summary>
         /// rptBuddy-Steuerelement
@@ -46,6 +46,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.Pager Pager1;
+        protected global::YAF.Web.Controls.Pager Pager1;
     }
 }

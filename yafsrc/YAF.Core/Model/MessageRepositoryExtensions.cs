@@ -581,7 +581,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable ListReportersAsDataTable(this IRepository<Message> repository, int messageId)
         {
-            return repository.DbFunction.GetData.message_listreporters(MessageID: messageId, UserID: 0);
+            return repository.ListReportersAsDataTable(messageId, 0);
         }
 
         /// <summary>

@@ -91,7 +91,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.UserLink topicStarterLink;
+        protected global::YAF.Web.Controls.UserLink topicStarterLink;
         
         /// <summary>
         /// StartDate control.
@@ -100,7 +100,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.DisplayDateTime StartDate;
+        protected global::YAF.Web.Controls.DisplayDateTime StartDate;
         
         /// <summary>
         /// LocalizedLabel4 control.
@@ -127,7 +127,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton GoToLastPost;
+        protected global::YAF.Web.Controls.ThemeButton GoToLastPost;
         
         /// <summary>
         /// GoToLastUnread control.
@@ -136,7 +136,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton GoToLastUnread;
+        protected global::YAF.Web.Controls.ThemeButton GoToLastUnread;
         
         /// <summary>
         /// UserLast control.
@@ -145,7 +145,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.UserLink UserLast;
+        protected global::YAF.Web.Controls.UserLink UserLast;
         
         /// <summary>
         /// LastDate control.
@@ -154,6 +154,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.DisplayDateTime LastDate;
+        protected global::YAF.Web.Controls.DisplayDateTime LastDate;
     }
 }

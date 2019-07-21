@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-    <Compile Update="BaseReportedPosts.cs">
+    <Compile Update="Controls\BaseReportedPosts.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>

@@ -28,7 +28,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel2;
         
         /// <summary>
         /// extension control.
@@ -46,7 +46,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
         
         /// <summary>
         /// Cancel control.
@@ -55,6 +55,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

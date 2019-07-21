@@ -33,6 +33,7 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Web;
+    using YAF.Web.Controls;
 
     /// <summary>
     /// Hide Reply Thanks BBCode Module

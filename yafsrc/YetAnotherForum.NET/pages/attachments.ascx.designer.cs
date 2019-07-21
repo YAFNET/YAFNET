@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel6-Steuerelement
@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ProfileMenu ProfileMenu1;
+        protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
         
         /// <summary>
         /// LocalizedLabel1-Steuerelement
@@ -55,7 +55,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.Pager PagerTop;
+        protected global::YAF.Web.Controls.Pager PagerTop;
         
         /// <summary>
         /// List-Steuerelement
@@ -73,7 +73,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton DeleteAttachment2;
+        protected global::YAF.Web.Controls.ThemeButton DeleteAttachment2;
         
         /// <summary>
         /// PagerBottom-Steuerelement
@@ -82,7 +82,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerBottom;
         
         /// <summary>
         /// Back-Steuerelement
@@ -91,6 +91,6 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Back;
+        protected global::YAF.Web.Controls.ThemeButton Back;
     }
 }

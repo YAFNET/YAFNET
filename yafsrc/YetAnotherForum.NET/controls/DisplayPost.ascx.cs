@@ -48,6 +48,7 @@ namespace YAF.Controls
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web;
+    using YAF.Web.Controls;
 
     #endregion
 

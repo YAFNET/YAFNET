@@ -11,6 +11,7 @@ namespace YAF.Pages {
     using System.Web.UI.WebControls;
 
    using YAF.Web;
+    using YAF.Web.Controls;
 
     public partial class printtopic {
         

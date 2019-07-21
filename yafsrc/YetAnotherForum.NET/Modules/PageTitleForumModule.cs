@@ -37,6 +37,7 @@ namespace YAF.Modules
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
 

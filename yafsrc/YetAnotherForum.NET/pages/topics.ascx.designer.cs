@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// SubForums control.
@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.CollapseButton CollapsibleImage;
+        protected global::YAF.Web.Controls.CollapseButton CollapsibleImage;
         
         /// <summary>
         /// body control.
@@ -64,7 +64,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Pager Pager;
+        protected global::YAF.Web.Controls.Pager Pager;
         
         /// <summary>
         /// moderate1 control.
@@ -73,7 +73,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton moderate1;
+        protected global::YAF.Web.Controls.ThemeButton moderate1;
         
         /// <summary>
         /// NewTopic1 control.
@@ -82,7 +82,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton NewTopic1;
+        protected global::YAF.Web.Controls.ThemeButton NewTopic1;
         
         /// <summary>
         /// PageTitle control.
@@ -163,7 +163,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ForumJump ForumJump1;
+        protected global::YAF.Web.Controls.ForumJump ForumJump1;
         
         /// <summary>
         /// ForumSearchHolder control.
@@ -199,7 +199,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton forumSearchOK;
+        protected global::YAF.Web.Controls.ThemeButton forumSearchOK;
         
         /// <summary>
         /// WatchForum control.
@@ -208,7 +208,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton WatchForum;
+        protected global::YAF.Web.Controls.ThemeButton WatchForum;
         
         /// <summary>
         /// MarkRead control.
@@ -217,7 +217,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton MarkRead;
+        protected global::YAF.Web.Controls.ThemeButton MarkRead;
         
         /// <summary>
         /// RssFeed control.
@@ -226,7 +226,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.RssFeedLink RssFeed;
+        protected global::YAF.Web.Controls.RssFeedLink RssFeed;
         
         /// <summary>
         /// PagerBottom control.
@@ -235,7 +235,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerBottom;
         
         /// <summary>
         /// moderate2 control.
@@ -244,7 +244,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton moderate2;
+        protected global::YAF.Web.Controls.ThemeButton moderate2;
         
         /// <summary>
         /// NewTopic2 control.
@@ -253,7 +253,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton NewTopic2;
+        protected global::YAF.Web.Controls.ThemeButton NewTopic2;
         
         /// <summary>
         /// IconLegend1 control.
@@ -262,7 +262,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.IconLegend IconLegend1;
+        protected global::YAF.Web.Controls.IconLegend IconLegend1;
         
         /// <summary>
         /// PageAccess1 control.
@@ -271,6 +271,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageAccess PageAccess1;
+        protected global::YAF.Web.Controls.PageAccess PageAccess1;
     }
 }

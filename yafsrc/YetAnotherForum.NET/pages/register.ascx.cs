@@ -50,6 +50,7 @@ namespace YAF.Pages
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web;
+    using YAF.Web.Controls;
     using YAF.Web.Localized;
     using YAF.Web.ReCAPTCHA;
 

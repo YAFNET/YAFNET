@@ -19,7 +19,7 @@ namespace YAF.Pages.help {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// Title control.
@@ -91,6 +91,6 @@ namespace YAF.Pages.help {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton DoSearch;
+        protected global::YAF.Web.Controls.ThemeButton DoSearch;
     }
 }

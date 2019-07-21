@@ -28,7 +28,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton MoreDetails;
+        protected global::YAF.Web.Controls.ThemeButton MoreDetails;
         
         /// <summary>
         /// close control.
@@ -37,6 +37,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton close;
+        protected global::YAF.Web.Controls.ThemeButton close;
     }
 }

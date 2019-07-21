@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// LocalizedLabel11 control.
@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ProfileMenu ProfileMenu1;
+        protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
         
         /// <summary>
         /// PreferencesUpdatePanel control.
@@ -118,7 +118,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton SaveUser;
+        protected global::YAF.Web.Controls.ThemeButton SaveUser;
         
         /// <summary>
         /// SubscriptionsUpdatePanel control.
@@ -172,7 +172,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton UnsubscribeForums;
+        protected global::YAF.Web.Controls.ThemeButton UnsubscribeForums;
         
         /// <summary>
         /// TopicsHolder control.
@@ -199,7 +199,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Pager PagerTop;
+        protected global::YAF.Web.Controls.Pager PagerTop;
         
         /// <summary>
         /// TopicList control.
@@ -217,7 +217,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerBottom;
         
         /// <summary>
         /// UnsubscribeTopics control.
@@ -226,6 +226,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton UnsubscribeTopics;
+        protected global::YAF.Web.Controls.ThemeButton UnsubscribeTopics;
     }
 }

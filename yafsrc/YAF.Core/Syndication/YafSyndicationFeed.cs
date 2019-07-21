@@ -88,7 +88,7 @@ namespace YAF.Core.Syndication
       this.LastUpdatedTime = DateTime.UtcNow;
       this.Language = YafContext.Current.Get<ILocalization>().LanguageCode;
       this.ImageUrl =
-        new Uri(YafForumInfo.ForumBaseUrl.CombineWith("/Content/Images/YAFLogo.png"));
+        new Uri(YafForumInfo.ForumBaseUrl.CombineWith("/Content/Images/YAFLogo.svg"));
 
       this.Id =
           $"urn:{urlAlphaNum}:{(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED") : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"))}:{YafContext.Current.BoardSettings.Name}:{subTitle}:{YafContext.Current.PageBoardID}"

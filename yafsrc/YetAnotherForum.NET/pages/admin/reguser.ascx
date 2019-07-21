@@ -153,12 +153,12 @@
                                      TextLocalizedTag="REGISTER" TextLocalizedPage="ADMIN_REGUSER">
                     </YAF:ThemeButton>
                     &nbsp;
-                    <YAF:Themebutton id="cancel" runat="server" 
+                    <YAF:ThemeButton id="cancel" runat="server" 
                                      Onclick="CancelClick" 
                                      Type="Secondary"
                                      Icon="times" 
                                      TextLocalizedTag="CANCEL">
-                    </YAF:Themebutton>
+                    </YAF:ThemeButton>
                 </div>
             </div>
         </div>

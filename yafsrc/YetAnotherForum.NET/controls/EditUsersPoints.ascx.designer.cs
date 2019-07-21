@@ -73,7 +73,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton btnUserPoints;
+        protected global::YAF.Web.Controls.ThemeButton btnUserPoints;
         
         /// <summary>
         /// LocalizedLabel4-Steuerelement
@@ -109,7 +109,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton btnAddPoints;
+        protected global::YAF.Web.Controls.ThemeButton btnAddPoints;
         
         /// <summary>
         /// LocalizedLabel5-Steuerelement
@@ -145,6 +145,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Button1;
+        protected global::YAF.Web.Controls.ThemeButton Button1;
     }
 }

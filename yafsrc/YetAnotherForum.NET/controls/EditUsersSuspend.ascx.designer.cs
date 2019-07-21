@@ -82,7 +82,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.UserLink SuspendedBy;
+        protected global::YAF.Web.Controls.UserLink SuspendedBy;
         
         /// <summary>
         /// LocalizedLabel2 control.
@@ -100,7 +100,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton RemoveSuspension;
+        protected global::YAF.Web.Controls.ThemeButton RemoveSuspension;
         
         /// <summary>
         /// LocalizedLabel6 control.
@@ -172,6 +172,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Suspend;
+        protected global::YAF.Web.Controls.ThemeButton Suspend;
     }
 }

@@ -9,8 +9,8 @@
         var delay = new byte[1];
         RandomNumberGenerator prng = new RNGCryptoServiceProvider();
 
-        prng.GetBytes(delay);
-        Thread.Sleep(delay[0]);
+        prng.GetBytes(data: delay);
+        Thread.Sleep(millisecondsTimeout: delay[index0: 0]);
 
         var disposable = prng.ToType<IDisposable>();
         disposable.Dispose();

@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <YafSpamWordsList>
   <YafSpamWords>
     <SpamWord>kitchen.*?co.uk</SpamWord>
@@ -178,5 +179,26 @@
   </YafSpamWords>
   <YafSpamWords>
     <SpamWord>ZE.AM</SpamWord>
+  </YafSpamWords>
+  <YafSpamWords>
+    <SpamWord>Visit Here \: http</SpamWord>
+  </YafSpamWords>
+  <YafSpamWords>
+    <SpamWord>Read More \: http</SpamWord>
+  </YafSpamWords>
+  <YafSpamWords>
+    <SpamWord>Read more: http</SpamWord>
+  </YafSpamWords>
+  <YafSpamWords>
+    <SpamWord>Visit Here - </SpamWord>
+  </YafSpamWords>
+  <YafSpamWords>
+    <SpamWord>Visit Us:[url</SpamWord>
+  </YafSpamWords>
+  <YafSpamWords>
+    <SpamWord>Visit Us : [url</SpamWord>
+  </YafSpamWords>
+  <YafSpamWords>
+    <SpamWord>visit us : </SpamWord>
   </YafSpamWords>
 </YafSpamWordsList>

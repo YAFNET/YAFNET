@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// TopicsTabs control.
@@ -217,7 +217,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ForumJump ForumJump1;
+        protected global::YAF.Web.Controls.ForumJump ForumJump1;
         
         /// <summary>
         /// IconLegend1 control.
@@ -226,6 +226,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.IconLegend IconLegend1;
+        protected global::YAF.Web.Controls.IconLegend IconLegend1;
     }
 }

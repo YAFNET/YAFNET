@@ -19,7 +19,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
         /// UserLabel1 control.
@@ -28,7 +28,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.UserLabel UserLabel1;
+        protected global::YAF.Web.Controls.UserLabel UserLabel1;
         
         /// <summary>
         /// lnkBuddy control.
@@ -46,7 +46,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton PM;
+        protected global::YAF.Web.Controls.ThemeButton PM;
         
         /// <summary>
         /// Email control.
@@ -55,7 +55,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Email;
+        protected global::YAF.Web.Controls.ThemeButton Email;
         
         /// <summary>
         /// AdminUserButton control.
@@ -64,7 +64,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton AdminUserButton;
+        protected global::YAF.Web.Controls.ThemeButton AdminUserButton;
         
         /// <summary>
         /// Avatar control.
@@ -118,7 +118,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.DisplayDateTime LastVisitDateTime;
+        protected global::YAF.Web.Controls.DisplayDateTime LastVisitDateTime;
         
         /// <summary>
         /// RealNameTR control.
@@ -595,7 +595,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Blog;
+        protected global::YAF.Web.Controls.ThemeButton Blog;
         
         /// <summary>
         /// XMPP control.
@@ -604,7 +604,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton XMPP;
+        protected global::YAF.Web.Controls.ThemeButton XMPP;
         
         /// <summary>
         /// Skype control.
@@ -613,7 +613,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Skype;
+        protected global::YAF.Web.Controls.ThemeButton Skype;
         
         /// <summary>
         /// Facebook control.
@@ -622,7 +622,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Facebook;
+        protected global::YAF.Web.Controls.ThemeButton Facebook;
         
         /// <summary>
         /// Twitter control.
@@ -631,7 +631,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Twitter;
+        protected global::YAF.Web.Controls.ThemeButton Twitter;
         
         /// <summary>
         /// InterestsTR control.
@@ -676,7 +676,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton SearchUser;
+        protected global::YAF.Web.Controls.ThemeButton SearchUser;
         
         /// <summary>
         /// LastPosts control.

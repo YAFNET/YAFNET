@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Alert GuestUserMessage;
+        protected global::YAF.Web.Controls.Alert GuestUserMessage;
         
         /// <summary>
         /// GuestMessage control.
@@ -190,6 +190,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton doQuickSearch;
+        protected global::YAF.Web.Controls.ThemeButton doQuickSearch;
     }
 }

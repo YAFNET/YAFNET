@@ -28,7 +28,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel1;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
         
         /// <summary>
         /// Name control.
@@ -46,7 +46,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel2;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
         
         /// <summary>
         /// DisplayName control.
@@ -64,7 +64,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel3;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel3;
         
         /// <summary>
         /// Email control.
@@ -82,7 +82,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel4;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel4;
         
         /// <summary>
         /// RankID control.
@@ -109,7 +109,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel5;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel5;
         
         /// <summary>
         /// IsHostAdminX control.
@@ -136,7 +136,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel6;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel6;
         
         /// <summary>
         /// IsCaptchaExcluded control.
@@ -163,7 +163,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel7;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel7;
         
         /// <summary>
         /// IsExcludedFromActiveUsers control.
@@ -181,7 +181,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel8;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel8;
         
         /// <summary>
         /// IsApproved control.
@@ -208,7 +208,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel9;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel9;
         
         /// <summary>
         /// IsGuestX control.
@@ -226,7 +226,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel10;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel10;
         
         /// <summary>
         /// Joined control.
@@ -244,7 +244,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel11;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel11;
         
         /// <summary>
         /// LastVisit control.
@@ -262,7 +262,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel12;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel12;
         
         /// <summary>
         /// IsFacebookUser control.
@@ -280,7 +280,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel13;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel13;
         
         /// <summary>
         /// IsTwitterUser control.
@@ -298,7 +298,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.HelpLabel HelpLabel14;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel14;
         
         /// <summary>
         /// IsGoogleUser control.
@@ -316,6 +316,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
     }
 }

@@ -39,6 +39,7 @@ namespace YAF.Web.Editors
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Web.Controls;
 
     #endregion
 

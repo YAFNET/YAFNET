@@ -28,6 +28,7 @@ namespace YAF.Modules
 
     using YAF.Core;
     using YAF.Web;
+    using YAF.Web.Controls;
 
     /// <summary>
     /// The spoiler bb code module.

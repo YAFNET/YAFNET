@@ -34,6 +34,7 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Web.Controls;
 
     #endregion
 

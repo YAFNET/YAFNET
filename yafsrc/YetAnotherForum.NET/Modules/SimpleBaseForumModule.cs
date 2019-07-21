@@ -30,8 +30,9 @@ namespace YAF.Modules
   using YAF.Core.BaseModules;
   using YAF.Types;
   using YAF.Types.Constants;
+ using YAF.Web.Controls;
 
-    #endregion
+ #endregion
 
     /// <summary>
     /// The simple base forum module.

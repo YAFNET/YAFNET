@@ -40,6 +40,7 @@ namespace YAF.Pages.moderate
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Controls;
 
     #endregion
 

@@ -19,7 +19,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton ReportPost;
+        protected global::YAF.Web.Controls.ThemeButton ReportPost;
         
         /// <summary>
         /// MarkAsAnswer control.
@@ -28,6 +28,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton MarkAsAnswer;
+        protected global::YAF.Web.Controls.ThemeButton MarkAsAnswer;
     }
 }

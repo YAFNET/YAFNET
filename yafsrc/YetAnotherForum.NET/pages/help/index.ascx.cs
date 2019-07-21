@@ -42,6 +42,7 @@ namespace YAF.Pages.help
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Web.Controls;
 
     #endregion
 

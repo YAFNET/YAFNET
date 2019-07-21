@@ -33,6 +33,7 @@ namespace YAF.Controls
   using YAF.Types.Interfaces;
   using YAF.Types.Models;
   using YAF.Web;
+  using YAF.Web.Controls;
 
   #endregion
 

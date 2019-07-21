@@ -53,7 +53,7 @@ namespace YAF.Dialogs
         /// <value>
         /// The file extensions.
         /// </value>
-        private IEnumerable<FileExtension> FileExentsions
+        private IEnumerable<FileExtension> FileExtensions
         {
             get
             {
@@ -88,16 +88,17 @@ namespace YAF.Dialogs
             var types = string.Empty;
             var first = true;
 
-            foreach (var extension in this.FileExentsions)
-            {
-                types += string.Format(format: "{1}*.{0}", arg0: extension.Extension, arg1: first ? string.Empty : ", ");
+            this.FileExtensions.ForEach(
+                extension =>
+                    {
+                        types += $"{(first ? string.Empty : ", ")}*.{extension.Extension}";
 
-                if (first)
-                {
-                    first = false;
-                }
-            }
-
+                        if (first)
+                        {
+                            first = false;
+                        }
+                    });
+            
             if (types.IsSet())
             {
                 this.ExtensionsList.Text = types;
@@ -127,7 +128,7 @@ namespace YAF.Dialogs
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 name: "fileUploadjs",
                 script: JavaScriptBlocks.FileUploadLoadJs(
-                    acceptedFileTypes: string.Join(separator: "|", values: this.FileExentsions.Select(selector: ext => ext.Extension)),
+                    acceptedFileTypes: string.Join(separator: "|", values: this.FileExtensions.Select(selector: ext => ext.Extension)),
                     maxFileSize: this.Get<YafBoardSettings>().MaxFileSize,
                     fileUploaderUrl: $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
                     forumId: this.PageContext.PageForumID,

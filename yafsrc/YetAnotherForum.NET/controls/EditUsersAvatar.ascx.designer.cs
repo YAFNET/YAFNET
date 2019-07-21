@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton DeleteAvatar;
+        protected global::YAF.Web.Controls.ThemeButton DeleteAvatar;
         
         /// <summary>
         /// AvatarOurs-Steuerelement
@@ -127,7 +127,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton UpdateRemote;
+        protected global::YAF.Web.Controls.ThemeButton UpdateRemote;
         
         /// <summary>
         /// AvatarUploadRow-Steuerelement
@@ -181,7 +181,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton UpdateUpload;
+        protected global::YAF.Web.Controls.ThemeButton UpdateUpload;
         
         /// <summary>
         /// Back-Steuerelement
@@ -190,6 +190,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Web.ThemeButton Back;
+        protected global::YAF.Web.Controls.ThemeButton Back;
     }
 }

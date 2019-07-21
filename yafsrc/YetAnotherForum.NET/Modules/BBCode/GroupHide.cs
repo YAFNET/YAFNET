@@ -30,6 +30,7 @@ namespace YAF.Modules.BBCode
     using YAF.Core;
     using YAF.Types.Extensions;
     using YAF.Web;
+    using YAF.Web.Controls;
 
     /// <summary>
     /// Hide Group BBCode Module
