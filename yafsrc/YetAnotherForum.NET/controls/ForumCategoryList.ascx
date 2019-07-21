@@ -45,7 +45,8 @@
                                                  Icon="eye"
                                                  TextLocalizedTag="WATCHFORUM_ALL"
                                                  TitleLocalizedTag="WATCHFORUM_ALL_HELP"
-                                                 CommandArgument="<%# this.PageContext.PageCategoryID != 0 ? this.PageContext.PageCategoryID.ToString() : null %>"/>
+                                                 CommandArgument="<%# this.PageContext.PageCategoryID != 0 ? this.PageContext.PageCategoryID.ToString() : null %>"
+                                                 Visible="<%# !this.PageContext.IsGuest %>"/>
                                 <YAF:ThemeButton runat="server" ID="MarkAll"
                                                  OnClick="MarkAllClick" 
                                                  Type="Secondary"
