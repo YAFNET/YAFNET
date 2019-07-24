@@ -128,10 +128,10 @@
                             DataRow="<%# this.DataRow %>"></YAF:DisplayPostFooter>
                     </div>
                     <div class="col-md-6 px-2">
-                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1">
+                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1 small">
                             <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
                         </div>
-                        <div id="<%# "dvThanks{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1">
+                        <div id="<%# "dvThanks{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1 small">
                             <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
                         </div>
                     </div>

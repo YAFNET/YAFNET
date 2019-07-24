@@ -132,17 +132,23 @@
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Preview" runat="server"
-                    OnClick="Preview_Click"
-                    TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
-                    Type="Secondary" Icon="image" />
+                                 CssClass="mt-1"
+                                 OnClick="Preview_Click"
+                                 TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
+                                 Type="Secondary" 
+                                 Icon="image" />
                 <YAF:ThemeButton ID="PostReply" runat="server"
-                    OnClick="PostReply_Click"
-                    TextLocalizedTag="SAVE" TitleLocalizedTag="SAVE_TITLE"
-                    Type="Primary" Icon="save" />
+                                 CssClass="mt-1"
+                                 OnClick="PostReply_Click"
+                                 TextLocalizedTag="SAVE" TitleLocalizedTag="SAVE_TITLE"
+                                 Type="Primary" 
+                                 Icon="save" />
                 <YAF:ThemeButton ID="Cancel" runat="server"
-                    OnClick="Cancel_Click"
-                    TextLocalizedTag="CANCEL"
-                    Type="Secondary" Icon="times" />
+                                 CssClass="mt-1"
+                                 OnClick="Cancel_Click"
+                                 TextLocalizedTag="CANCEL"
+                                 Type="Secondary" 
+                                 Icon="times" />
             </div>
         </div>
     </div>
