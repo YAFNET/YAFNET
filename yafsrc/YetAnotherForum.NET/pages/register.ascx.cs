@@ -51,6 +51,7 @@ namespace YAF.Pages
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Controls.Localized;
+    using YAF.Web.Extensions;
     using YAF.Web.ReCAPTCHA;
 
     #endregion

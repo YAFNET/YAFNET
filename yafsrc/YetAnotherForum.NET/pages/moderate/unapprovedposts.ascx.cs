@@ -41,6 +41,7 @@ namespace YAF.Pages.moderate
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Controls;
+    using YAF.Web.Extensions;
 
     #endregion
 

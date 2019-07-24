@@ -256,24 +256,6 @@ namespace YAF.Pages {
         protected global::YAF.Web.Controls.RssFeedLink RssFeed;
         
         /// <summary>
-        /// ForumUsers1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ForumUsers ForumUsers1;
-        
-        /// <summary>
-        /// SimilarTopics control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.SimilarTopics SimilarTopics;
-        
-        /// <summary>
         /// PagerBottom control.
         /// </summary>
         /// <remarks>
@@ -362,6 +344,24 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton QuickReplyLink2;
+        
+        /// <summary>
+        /// ForumUsers1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ForumUsers ForumUsers1;
+        
+        /// <summary>
+        /// SimilarTopics control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.SimilarTopics SimilarTopics;
         
         /// <summary>
         /// PageLinksBottom control.

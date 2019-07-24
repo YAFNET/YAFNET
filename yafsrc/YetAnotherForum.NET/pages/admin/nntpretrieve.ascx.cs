@@ -39,6 +39,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Web.Controls;
+    using YAF.Web.Extensions;
 
     #endregion
 

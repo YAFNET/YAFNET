@@ -40,7 +40,6 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web;
     using YAF.Web.Controls;
 
     #endregion
@@ -68,8 +67,9 @@ namespace YAF.Controls
             var image = new Image
                             {
                                 ImageUrl =
-                                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{row["CategoryImage"]}"
-                            };
+                                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{row["CategoryImage"]}",
+                                AlternateText = row["Name"].ToString() 
+            };
 
             return hasCategoryImage
                        ? $"{image.RenderToString()}&nbsp;"
