@@ -27,7 +27,6 @@ namespace YAF.Modules
     using System.Web.UI;
 
     using YAF.Core;
-    using YAF.Web;
     using YAF.Web.Controls;
 
     /// <summary>
@@ -53,7 +52,7 @@ namespace YAF.Modules
     {
       var sb = new StringBuilder();
 
-      var spoilerTitle = this.HtmlEncode(data: this.LocalizedString(tag: "SPOILERMOD_TOOLTIP", defaultStr: "Click here to show or hide the hidden text (also known as a spoiler)"));
+      var spoilerTitle = this.HtmlEncode(data: this.LocalizedString(tag: "SPOILERMOD_TOOLTIP", defaultString: "Click here to show or hide the hidden text (also known as a spoiler)"));
 
       sb.AppendLine(value: "<!-- BEGIN spoiler -->");
       sb.AppendLine(value: @"<div class=""mb-3"">");
@@ -61,7 +60,7 @@ namespace YAF.Modules
         format: @"<input type=""button"" value=""{2}"" class=""btn btn-secondary btn-sm"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' title=""{3}"" /></div><div class=""card card-body"" id=""{1}"" style=""display:none"">", 
         this.GetUniqueID(prefix: "spoilerBtn"), 
         this.GetUniqueID(prefix: "spoil_"), 
-        this.HtmlEncode(data: this.LocalizedString(tag: "SPOILERMOD_SHOW", defaultStr: "Show Spoiler")), 
+        this.HtmlEncode(data: this.LocalizedString(tag: "SPOILERMOD_SHOW", defaultString: "Show Spoiler")), 
         spoilerTitle);
       sb.AppendLine(value: this.Parameters[key: "inner"]);
       sb.AppendLine(value: "</div>");

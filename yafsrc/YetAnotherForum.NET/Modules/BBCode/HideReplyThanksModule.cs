@@ -32,7 +32,6 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Web;
     using YAF.Web.Controls;
 
     /// <summary>
@@ -59,11 +58,11 @@ namespace YAF.Modules.BBCode
 
             var description = this.LocalizedString(
                      tag: "HIDEMOD_REPLYTHANKS",
-                     defaultStr: "Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content)");
+                     defaultString: "Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content)");
 
             var descriptionGuest = this.LocalizedString(
                 tag: "HIDDENMOD_GUEST",
-                defaultStr: "This board requires you to be registered and logged-in before you can view hidden messages.");
+                defaultString: "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 

@@ -33,7 +33,6 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Web;
     using YAF.Web.Controls;
 
     /// <summary>
@@ -74,11 +73,11 @@ namespace YAF.Modules.BBCode
 
             var description = this.LocalizedString(
                 tag: "HIDDENMOD_DESC",
-                defaultStr: "The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You only need to thank the Current Post");
+                defaultString: "The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You only need to thank the Current Post");
 
             var descriptionGuest = this.LocalizedString(
                 tag: "HIDDENMOD_GUEST",
-                defaultStr: "This board requires you to be registered and logged-in before you can view hidden messages.");
+                defaultString: "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
@@ -95,9 +94,11 @@ namespace YAF.Modules.BBCode
             if (postsCount > -1)
             {
                 // Handle Hide Posts Count X BBCOde
-                var descriptionPost = string.Format(format: this.LocalizedString(
-                    tag: "HIDDENMOD_POST",
-                    defaultStr: "Hidden Content (You must be registered and have {0} post(s) or more)"), arg0: postsCount);
+                var descriptionPost = string.Format(
+                    format: this.LocalizedString(
+                        tag: "HIDDENMOD_POST",
+                        defaultString: "Hidden Content (You must be registered and have {0} post(s) or more)"),
+                    arg0: postsCount);
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
@@ -120,9 +121,12 @@ namespace YAF.Modules.BBCode
             else if (thanksCount > -1)
             {
                 // Handle Hide Thanks Count X BBCode
-                var descriptionPost = string.Format(format: this.LocalizedString(
-                    tag: "HIDDENMOD_THANKS",
-                    defaultStr: "Hidden Content (You must be registered and have at least {0} thank(s) received)"), arg0: thanksCount);
+                var descriptionPost = string.Format(
+                    format: this.LocalizedString(
+                        tag: "HIDDENMOD_THANKS",
+                        defaultString:
+                        "Hidden Content (You must be registered and have at least {0} thank(s) received)"),
+                    arg0: thanksCount);
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 

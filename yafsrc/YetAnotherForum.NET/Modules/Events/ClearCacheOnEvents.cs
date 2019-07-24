@@ -31,7 +31,6 @@ namespace YAF.Modules
   using YAF.Types.Attributes;
   using YAF.Types.Constants;
   using YAF.Types.EventProxies;
-  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utils.Structures;
 

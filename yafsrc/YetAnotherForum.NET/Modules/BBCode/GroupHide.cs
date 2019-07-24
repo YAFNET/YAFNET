@@ -29,7 +29,6 @@ namespace YAF.Modules.BBCode
 
     using YAF.Core;
     using YAF.Types.Extensions;
-    using YAF.Web;
     using YAF.Web.Controls;
 
     /// <summary>
@@ -56,7 +55,7 @@ namespace YAF.Modules.BBCode
 
            var descriptionGuest = this.LocalizedString(
                 tag: "HIDDENMOD_GUEST",
-                defaultStr: "This board requires you to be registered and logged-in before you can view hidden messages.");
+                defaultString: "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
@@ -79,7 +78,7 @@ namespace YAF.Modules.BBCode
 
                 descriptionGuest = this.LocalizedString(
                 tag: "HIDDENMOD_GROUP",
-                defaultStr: "You dont´t have the right to see the Hidden Content.");
+                defaultString: "You dont´t have the right to see the Hidden Content.");
 
                 shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
