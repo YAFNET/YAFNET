@@ -72,17 +72,18 @@ namespace YAF.Web.Controls
 
             var styles = this.RawStyles.Split('/').Where(s => s.IsSet()).Select(s => s.Trim().Split('!')).ToList();
 
-            foreach (var styleElements in styles)
-            {
-                if (styleElements.Length >= 2)
-                {
-                    writer.WriteLine(
-                        $"<span style=\"{styleElements[1]}\">{styleElements[0]}{(index++ == styles.Count ? string.Empty : ", ")}</span>");
-                }
+            styles.ForEach(
+                styleElements =>
+                    {
+                        if (styleElements.Length >= 2)
+                        {
+                            writer.WriteLine(
+                                $"<span style=\"{styleElements[1]}\">{styleElements[0]}{(index++ == styles.Count ? string.Empty : ", ")}</span>");
+                        }
 
-                // write ending tag
-                writer.WriteLine("</span>");
-            }
+                        // write ending tag
+                        writer.WriteLine("</span>");
+                    });
         }
 
         #endregion

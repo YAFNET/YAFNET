@@ -34,6 +34,7 @@ namespace YAF.Web.Controls
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Web.EventsArgs;
 
     #endregion
 

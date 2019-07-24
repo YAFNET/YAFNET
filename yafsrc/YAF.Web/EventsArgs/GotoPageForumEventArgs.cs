@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -11,9 +11,7 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
-
  * http://www.apache.org/licenses/LICENSE-2.0
-
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,47 +20,36 @@
  * under the License.
  */
 
-namespace YAF.Web.Controls
+namespace YAF.Web.EventsArgs
 {
     using System;
 
-    using YAF.Types;
-
     /// <summary>
-    /// The pop event args.
+    ///     The goto page forum event args.
     /// </summary>
-    public class PopEventArgs : EventArgs
+    public class GotoPageForumEventArgs : EventArgs
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _item.
-        /// </summary>
-        private readonly string _item;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PopEventArgs"/> class.
+        ///     Initializes a new instance of the <see cref="GotoPageForumEventArgs" /> class.
         /// </summary>
-        /// <param name="eventArgument">
-        /// The event argument.
+        /// <param name="gotoPage">
+        ///     The goto page.
         /// </param>
-        public PopEventArgs([NotNull] string eventArgument)
+        public GotoPageForumEventArgs(int gotoPage)
         {
-            this._item = eventArgument;
+            this.GotoPage = gotoPage;
         }
 
         #endregion
 
-        #region Properties
+        #region Public Properties
 
         /// <summary>
-        ///   Gets Item.
+        ///     Gets or sets GotoPage.
         /// </summary>
-        public string Item => this._item;
+        public int GotoPage { get; set; }
 
         #endregion
     }

@@ -72,17 +72,17 @@ namespace YAF.Web.Controls
         /// <param name="tag">
         /// The tag.
         /// </param>
-        /// <param name="defaultStr">
-        /// The default str.
+        /// <param name="defaultString">
+        /// The default string.
         /// </param>
         /// <returns>
         /// Returns the localized string.
         /// </returns>
-        protected string LocalizedString([NotNull] string tag, [NotNull] string defaultStr)
+        protected string LocalizedString([NotNull] string tag, [NotNull] string defaultString)
         {
             return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
                        ? this.GetText("BBCODEMODULE", tag)
-                       : defaultStr;
+                       : defaultString;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace YAF.Web.Controls
         /// The bb code string.
         /// </param>
         /// <returns>
-        /// Returns the procced string
+        /// Returns the proceed string
         /// </returns>
         protected string ProcessBBCodeString([NotNull] string codeString)
         {

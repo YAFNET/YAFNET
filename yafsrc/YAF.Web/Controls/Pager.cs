@@ -37,6 +37,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.EventsArgs;
 
     #endregion
 
@@ -65,11 +66,6 @@ namespace YAF.Web.Controls
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///     Gets or sets GotoPageValue.
-        /// </summary>
-        public int GotoPageValue { get; set; }
 
         /// <summary>
         ///   Gets or sets Count.

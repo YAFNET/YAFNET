@@ -126,7 +126,7 @@ namespace YAF.Web.Controls
                 output.WriteEndTag("a");
             }
 
-            // Render Atomn Menu Item
+            // Render Atom Menu Item
             if (this.PageContext.BoardSettings.ShowRSSLink)
             {
                 output.WriteBeginTag("a");

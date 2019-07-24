@@ -37,7 +37,6 @@ namespace YAF.Web.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Web.Controls.Localized;
 
     using AttributeCollection = System.Web.UI.AttributeCollection;
 
@@ -186,6 +185,9 @@ namespace YAF.Web.Controls
             set => this.ViewState["commandName"] = value;
         }
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
         [CanBeNull]
         public string Text
         {
@@ -195,7 +197,7 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        /// Gets or sets the css class.
+        /// Gets or sets the CSS class.
         /// </summary>
         [CanBeNull]
         public string CssClass

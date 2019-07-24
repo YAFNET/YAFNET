@@ -261,7 +261,7 @@ namespace YAF.Web.Controls
                       </a></p>";
 
             writer.Write(
-                @"<div class=""alert alert-secondary"" role=""alert"">
+                @"<div class=""alert alert-secondary mt-1"" role=""alert"">
                       <i class=""fa fa-edit fa-fw text-secondary""></i>{0} {1}
                       &nbsp;{2}&nbsp;|&nbsp;<em>{3}</em> {4}</div>",
                 this.GetText("EDITED"),

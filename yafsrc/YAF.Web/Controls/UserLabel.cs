@@ -54,7 +54,7 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets the onclick value for the profile link
+        ///   Gets or sets the OnClick value for the profile link
         /// </summary>
         [NotNull]
         public string OnClick
@@ -65,7 +65,7 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets The onmouseover value for the profile link
+        ///   Gets or sets The OnMouseOver value for the profile link
         /// </summary>
         [NotNull]
         public string OnMouseOver
@@ -120,7 +120,7 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets The userid of this user for the link
+        ///   Gets or sets The User Id of this user for the link
         /// </summary>
         public int UserID
         {

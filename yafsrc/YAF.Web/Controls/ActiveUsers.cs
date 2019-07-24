@@ -84,7 +84,7 @@ namespace YAF.Web.Controls
                 // save it to view state
                 this.ViewState["ActiveUserTable"] = value;
 
-                // save it also to local variable to avoid repetitive casting from viewstate in getter
+                // save it also to local variable to avoid repetitive casting from ViewState in getter
                 this.activeUserTable = value;
             }
         }

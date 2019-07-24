@@ -66,20 +66,6 @@ namespace YAF.Web.Controls
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether TreatGuestAsHidden.
-        /// </summary>
-        public bool TreatGuestAsHidden
-        {
-            get => this.activeUsers.TreatGuestAsHidden;
-
-            set => this.activeUsers.TreatGuestAsHidden = value;
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>

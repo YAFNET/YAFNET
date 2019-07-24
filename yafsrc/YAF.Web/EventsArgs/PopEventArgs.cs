@@ -21,62 +21,43 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
-{
-    #region Using
 
+namespace YAF.Web.EventsArgs
+{
     using System;
 
-    using YAF.Core.BaseModules;
     using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
-
-    #endregion
 
     /// <summary>
-    /// The mail sending module.
+    /// The pop event args.
     /// </summary>
-    [YafModule("Mail Queue Starting Module", "Tiny Gecko", 1)]
-    public class MailSendingForumModule : BaseForumModule
+    public class PopEventArgs : EventArgs
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The _key name.
-        /// </summary>
-        private const string _keyName = "MailSendTask";
-
         #endregion
 
-        #region Public Methods
+        #region Constructors and Destructors
 
         /// <summary>
-        /// The init.
+        /// Initializes a new instance of the <see cref="PopEventArgs"/> class.
         /// </summary>
-        public override void Init()
+        /// <param name="eventArgument">
+        /// The event argument.
+        /// </param>
+        public PopEventArgs([NotNull] string eventArgument)
         {
-            // hook the page init for mail sending...
-            YafContext.Current.AfterInit += this.Current_AfterInit;
+            this.Item = eventArgument;
         }
 
         #endregion
 
-        #region Methods
+        #region Properties
 
         /// <summary>
-        /// The current_ after init.
+        ///   Gets Item.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<ITaskModuleManager>().StartTask(_keyName, () => new MailSendTask());
-        }
+        public string Item { get; }
 
         #endregion
     }

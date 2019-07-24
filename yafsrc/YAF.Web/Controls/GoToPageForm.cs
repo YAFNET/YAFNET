@@ -33,38 +33,9 @@ namespace YAF.Web.Controls
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Web.EventsArgs;
 
     #endregion
-
-    /// <summary>
-    ///     The goto page forum event args.
-    /// </summary>
-    public class GotoPageForumEventArgs : EventArgs
-    {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="GotoPageForumEventArgs" /> class.
-        /// </summary>
-        /// <param name="gotoPage">
-        ///     The goto page.
-        /// </param>
-        public GotoPageForumEventArgs(int gotoPage)
-        {
-            this.GotoPage = gotoPage;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets GotoPage.
-        /// </summary>
-        public int GotoPage { get; set; }
-
-        #endregion
-    }
 
     /// <summary>
     ///     The goto page form.
@@ -102,12 +73,6 @@ namespace YAF.Web.Controls
         #region Public Properties
 
         /// <summary>
-        ///     Gets GotoButtonClientID.
-        /// </summary>
-        [NotNull]
-        public string GotoButtonClientID => this.gotoButton.ClientID;
-
-        /// <summary>
         ///     Gets or sets GotoPageValue.
         /// </summary>
         public int GotoPageValue
@@ -116,12 +81,6 @@ namespace YAF.Web.Controls
 
             set => this.gotoPageValue = value;
         }
-
-        /// <summary>
-        ///     Gets GotoTextBoxClientID.
-        /// </summary>
-        [NotNull]
-        public string GotoTextBoxClientID => this.gotoTextBox.ClientID;
 
         #endregion
 

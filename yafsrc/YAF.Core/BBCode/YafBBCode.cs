@@ -31,7 +31,6 @@ namespace YAF.Core.BBCode
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Web;
     using System.Web.UI;
 
     using YAF.Configuration;
@@ -41,8 +40,6 @@ namespace YAF.Core.BBCode
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -126,14 +123,14 @@ namespace YAF.Core.BBCode
         /// </summary>
         private static readonly Regex _rgxCode1 = new Regex(
             @"\[code\](?<inner>(.*?))\[/code\]",
-            Options | RegexOptions.Compiled);
+            Options);
 
         /// <summary>
         ///   The regex code with language string.
         /// </summary>
         private static readonly Regex _regexCodeWithLanguage = new Regex(
             @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]",
-            Options | RegexOptions.Compiled);
+            Options);
 
         /// <summary>
         ///   The _rgx hr.
@@ -293,7 +290,7 @@ namespace YAF.Core.BBCode
         /// The URL Regex
         /// </summary>
         private static readonly Regex _RgxUrl3 = new Regex(
-            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!"")(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,~/(/)]*)?)",
+            @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!"")(?<!href="")(?<!src="")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
         /// <summary>
@@ -302,6 +299,7 @@ namespace YAF.Core.BBCode
         private static readonly Regex _RgxUrl4 = new Regex(
             @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)",
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+
 
         #endregion
 
@@ -490,25 +488,24 @@ namespace YAF.Core.BBCode
                             },
                         50) { RuleRank = 11 });
 
-                ruleEngine.AddRule(
-                    new VariableRegexReplaceRule(
-                        _RgxUrl3,
-                        "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
-                            .Replace("{0}", target).Replace("{1}", nofollow),
-                        new[] { "before" },
-                        new[] { string.Empty },
-                        50) { RuleRank = 12 });
+                 // urls
+                 ruleEngine.AddRule(
+                     new VariableRegexReplaceRule(
+                         _RgxUrl3,
+                         "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                             .Replace("{0}", target).Replace("{1}", nofollow),
+                         new[] { "before" },
+                         new[] { string.Empty },
+                         50) { RuleRank = 12 });
 
-                // urls
                 ruleEngine.AddRule(
-                    new VariableRegexReplaceRule(
-                        _RgxUrl4,
-                        "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
-                            .Replace("{0}", target).Replace("{1}", nofollow),
-                        new[] { "before" },
-                        new[] { string.Empty },
-                        50) { RuleRank = 13 });
-
+                     new VariableRegexReplaceRule(
+                         _RgxUrl4,
+                         "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                             .Replace("{0}", target).Replace("{1}", nofollow),
+                         new[] { "before" },
+                         new[] { string.Empty },
+                         50) { RuleRank = 13 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -642,7 +639,10 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SyntaxHighlightedCodeRegexReplaceRule(
                         _regexCodeWithLanguage,
-                        @"<div class=""code"">${inner}</div>") { RuleRank = 30 });
+                        @"<div class=""code"">${inner}</div>")
+                        {
+                            RuleRank = 2
+                        });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);

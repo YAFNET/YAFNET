@@ -48,11 +48,6 @@ namespace YAF.Web.Controls
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The _user name.
-        /// </summary>
-        private string _userName = string.Empty;
-
         #endregion
 
         #region Properties
@@ -65,12 +60,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets or sets UserName.
         /// </summary>
-        public string UserName
-        {
-            get => this._userName;
-
-            set => this._userName = value;
-        }
+        public string UserName { get; set; } = string.Empty;
 
         #endregion
 

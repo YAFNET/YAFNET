@@ -75,6 +75,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         public override void Replace(ref string text, IReplaceBlocks replacement)
         {
             var m = this._regExSearch.Match(text);
+
             while (m.Success)
             {
                 var inner = this.syntaxHighlighter.ColorText(
