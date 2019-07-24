@@ -199,13 +199,6 @@
     </div>                         
 </asp:PlaceHolder>
 <div class="row mb-3">
-    <div class="col align-self-start">
-        <YAF:ForumUsers ID="ForumUsers1" runat="server" />
-    </div>
-    <YAF:SimilarTopics ID="SimilarTopics"  runat="server">
-    </YAF:SimilarTopics>
-</div>
-<div class="row mb-3">
     <div class="col-md-4">
         <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
     </div>
@@ -270,6 +263,13 @@
                              DataTarget="QuickReplyDialog"
                              CssClass="mt-1"/>
     </div>
+</div>
+<div class="row mb-3">
+    <div class="col align-self-start">
+        <YAF:ForumUsers ID="ForumUsers1" runat="server" />
+    </div>
+    <YAF:SimilarTopics ID="SimilarTopics"  runat="server">
+    </YAF:SimilarTopics>
 </div>
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
 <%--<div class="row">
