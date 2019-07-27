@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -44,7 +43,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -116,7 +114,7 @@ namespace YAF.Pages
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
 
             return avatarUrl.IsNotSet()
-                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif"
+                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
                        : avatarUrl;
         }
 

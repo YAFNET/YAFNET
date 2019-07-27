@@ -29,14 +29,12 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Controls;
-    using YAF.Web;
     using YAF.Core;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion

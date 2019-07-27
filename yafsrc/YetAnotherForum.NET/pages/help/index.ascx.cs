@@ -34,7 +34,6 @@ namespace YAF.Pages.help
     using System.Xml.Serialization;
 
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -42,7 +41,6 @@ namespace YAF.Pages.help
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion

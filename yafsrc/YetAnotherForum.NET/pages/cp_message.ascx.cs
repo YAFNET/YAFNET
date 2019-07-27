@@ -27,12 +27,10 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -43,7 +41,6 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion

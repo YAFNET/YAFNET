@@ -99,7 +99,7 @@ namespace YAF.Core.Services
             catch (Exception)
             {
                 // Return NoAvatar Image if there something wrong with the user
-                return $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif";
+                return $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg";
             }
         }
 
@@ -169,32 +169,22 @@ namespace YAF.Core.Services
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 avatarUrl =
-                    string.Format(
-                        "{3}resource.ashx?url={0}&width={1}&height={2}",
-                        HttpUtility.UrlEncode(avatarString),this._yafBoardSettings.AvatarWidth,
-                            this._yafBoardSettings.AvatarHeight,
-                            YafForumInfo.ForumClientFileRoot);
+                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(avatarString)}&width={this._yafBoardSettings.AvatarWidth}&height={this._yafBoardSettings.AvatarHeight}";
             }
             else if (this._yafBoardSettings.AvatarGravatar && email.IsSet())
             {
                 // JoeOuts added 8/17/09 for Gravatar use
-
-                // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
                 var gravatarUrl =
                     $@"http://www.gravatar.com/avatar/{email.StringToHexBytes()}.jpg?r={this._yafBoardSettings.GravatarRating}";
 
                 avatarUrl =
-                    string.Format(
-                        @"{3}resource.ashx?url={0}&width={1}&height={2}",
-                        HttpUtility.UrlEncode(gravatarUrl),this._yafBoardSettings.AvatarWidth,
-                            this._yafBoardSettings.AvatarHeight,
-                            YafForumInfo.ForumClientFileRoot);
+                    $@"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(gravatarUrl)}&width={this._yafBoardSettings.AvatarWidth}&height={this._yafBoardSettings.AvatarHeight}";
             }
 
             // Return NoAvatar Image is no Avatar available for that user.
             if (avatarUrl.IsNotSet())
             {
-                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif";
+                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg";
             }
 
             return avatarUrl;

@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -207,7 +206,7 @@ namespace YAF.Pages
                 userId, avatarString, hasAvatarImage, email);
 
             return avatarUrl.IsNotSet()
-                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif"
+                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
                        : avatarUrl;
         }
 

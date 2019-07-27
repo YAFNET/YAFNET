@@ -42,8 +42,6 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion

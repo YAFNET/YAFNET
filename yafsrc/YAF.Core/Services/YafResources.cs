@@ -121,7 +121,7 @@ namespace YAF.Core.Services
                 var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
 
                 avatarUrl = avatarUrl.IsNotSet()
-                           ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.gif"
+                           ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
                            : avatarUrl;
 
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
@@ -437,10 +437,7 @@ namespace YAF.Core.Services
                     $"URL: {avatarUrl}<br />Referer URL: {context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty}<br />Exception: {exception}");
 
                 // Output the data
-                context.Response.Redirect(avatarUrl);
-
-                /*context.Response.Redirect(
-                                    "{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));*/
+                context.Response.Redirect($"{YafForumInfo.ForumClientFileRoot}/Images/noavatar.svg");
             }
         }
     }
