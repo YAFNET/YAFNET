@@ -344,14 +344,6 @@
                     </tr>
                     <tr>
                          <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel191" runat="server" LocalizedTag="ENABLE_SSO" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </td>
-                        <td class="post">
-                            <asp:CheckBox ID="AllowSingleSignOn" runat="server" />
-                        </td>
-                    </tr>
-                    <tr>
-                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel20" runat="server" LocalizedTag="MODAL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">

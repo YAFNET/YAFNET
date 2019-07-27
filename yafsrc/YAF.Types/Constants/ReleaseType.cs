@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,8 +22,31 @@
  * under the License.
  */
 
-using System.Reflection;
+ namespace YAF.Types.Constants
+{
+    /// <summary>
+    /// The release type.
+    /// </summary>
+    public enum ReleaseType
+    {
+        /// <summary>
+        /// regular release
+        /// </summary>
+        Regular = 0,
 
-[assembly: AssemblyVersion("2.2.4.18")]
-[assembly: AssemblyFileVersion("2.2.4.18")]
-[assembly: AssemblyCopyright("Copyright © YetAnotherForum.NET")]
+        /// <summary>
+        /// alpha release
+        /// </summary>
+        Alpha = 1,
+
+        /// <summary>
+        /// beta release
+        /// </summary>
+        BETA = 2,
+
+        /// <summary>
+        /// release candidate release
+        /// </summary>
+        RC = 3
+    }
+}

@@ -89,7 +89,7 @@ namespace YAF.RegisterV2 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://yetanotherforum.net/RegisterV2/LatestInfo", RequestNamespace="http://yetanotherforum.net/RegisterV2", ResponseNamespace="http://yetanotherforum.net/RegisterV2", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public LatestVersionInformation LatestInfo(long currentVersion, string culture) {
+        public LatestVersionInformation LatestInfo(byte[] currentVersion, string culture) {
             object[] results = this.Invoke("LatestInfo", new object[] {
                         currentVersion,
                         culture});
@@ -133,9 +133,9 @@ namespace YAF.RegisterV2 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://yetanotherforum.net/RegisterV2/LatestVersion", RequestNamespace="http://yetanotherforum.net/RegisterV2", ResponseNamespace="http://yetanotherforum.net/RegisterV2", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public long LatestVersion() {
+        public byte[] LatestVersion() {
             object[] results = this.Invoke("LatestVersion", new object[0]);
-            return ((long)(results[0]));
+            return ((byte[])(results[0]));
         }
         
         /// <remarks/>
@@ -287,7 +287,7 @@ namespace YAF.RegisterV2 {
         
         private string messageField;
         
-        private long versionField;
+        private byte[] versionField;
         
         private bool isWarningField;
         
@@ -322,7 +322,7 @@ namespace YAF.RegisterV2 {
         }
         
         /// <remarks/>
-        public long Version {
+        public byte[] Version {
             get {
                 return this.versionField;
             }

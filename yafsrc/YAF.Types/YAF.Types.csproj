@@ -66,6 +66,7 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Constants\ReleaseType.cs" />
     <Compile Include="Exceptions\BaseUrlMaskRequiredException.cs" />
     <Compile Include="Exceptions\CantLoadThemeException.cs" />
     <Compile Include="Exceptions\DbFunctionCancelledException.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Objects\GoogleUser.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="Objects\SettingsProfilePropertyColumn.cs" />
+    <Compile Include="Objects\YAFVersion.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
     <Compile Include="Constants\CollapsiblePanelState.cs" />

@@ -49,7 +49,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///     The _last version.
         /// </summary>
-        private long _lastVersion;
+        private byte[] _lastVersion;
 
         /// <summary>
         ///     The _last version date.
@@ -66,13 +66,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The last version.
         /// </value>
-        protected string LastVersion
-        {
-            get
-            {
-                return YafForumInfo.AppVersionNameFromCode(this._lastVersion);
-            }
-        }
+        protected string LastVersion => YafForumInfo.AppVersionNameFromCode(this._lastVersion);
 
         /// <summary>
         /// Gets the last version date.
@@ -80,13 +74,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The last version date.
         /// </value>
-        protected string LastVersionDate
-        {
-            get
-            {
-                return this.Get<IDateTime>().FormatDateShort(this._lastVersionDate);
-            }
-        }
+        protected string LastVersionDate => this.Get<IDateTime>().FormatDateShort(this._lastVersionDate);
 
         #endregion
 
@@ -114,7 +102,8 @@ namespace YAF.Pages.Admin
                         this.LastVersion,
                         this.LastVersionDate);
 
-                    this.UpgradeVersionHolder.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
+                    this.UpgradeVersionHolder.Visible = BitConverter.ToInt64(this._lastVersion, 0)
+                                                        > BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0);
                 }
                 catch (Exception)
                 {

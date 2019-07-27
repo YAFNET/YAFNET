@@ -41,13 +41,7 @@ namespace YAF.Classes
         /// <summary>
         /// Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         /// <summary>
         /// Gets the latest version information.
@@ -55,10 +49,7 @@ namespace YAF.Classes
         /// <returns>Returns the LatestVersionInformation</returns>
         public LatestVersionInformation GetLatestVersionInformation()
         {
-            var latestInfo =
-                this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] as LatestVersionInformation;
-
-            if (latestInfo != null)
+            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is LatestVersionInformation latestInfo)
             {
                 return latestInfo;
             }

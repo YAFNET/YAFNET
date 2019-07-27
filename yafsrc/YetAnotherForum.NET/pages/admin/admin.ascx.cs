@@ -315,7 +315,8 @@ namespace YAF.Pages.Admin
 
             var latestInfo = new LatestInformationService().GetLatestVersionInformation();
 
-            if (latestInfo == null || latestInfo.Version <= YafForumInfo.AppVersionCode)
+            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0)
+                <= BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0))
             {
                 return;
             }
