@@ -35,7 +35,6 @@ namespace YAF.Core
     using Autofac.Core;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     using NamedParameter = YAF.Types.NamedParameter;

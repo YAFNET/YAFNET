@@ -32,7 +32,6 @@ namespace YAF.Core.Data
     using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Exceptions;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 

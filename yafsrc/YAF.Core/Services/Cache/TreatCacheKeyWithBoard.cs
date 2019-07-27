@@ -26,7 +26,6 @@ namespace YAF.Core.Services.Cache
   #region Using
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion

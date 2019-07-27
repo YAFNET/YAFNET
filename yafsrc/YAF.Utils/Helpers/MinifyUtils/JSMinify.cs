@@ -14,8 +14,6 @@ namespace YAF.Utils.Helpers.MinifyUtils
     using System.IO;
     using System.Text;
 
-    using YAF.Types.Extensions;
-
     #endregion
 
     /// <summary>

@@ -67,15 +67,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
-        /// boardSelector control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl boardSelector;
-        
-        /// <summary>
         /// BoardStatsSelect control.
         /// </summary>
         /// <remarks>
@@ -85,13 +76,13 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList BoardStatsSelect;
         
         /// <summary>
-        /// LocalizedLabel18 control.
+        /// LocalizedLabel8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel18;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
         /// NumPosts control.

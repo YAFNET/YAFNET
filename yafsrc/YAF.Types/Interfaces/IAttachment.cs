@@ -25,8 +25,6 @@ namespace YAF.Types.Interfaces
 {
     using System.Web;
 
-    using YAF.Types.Objects;
-
     /// <summary>
     /// The Attachment interface.
     /// </summary>

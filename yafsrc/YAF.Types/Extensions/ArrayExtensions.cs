@@ -26,7 +26,10 @@ namespace YAF.Types.Extensions
 {
     #region Using
 
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Text;
 
     using YAF.Types;
@@ -63,7 +66,7 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Sets or unsets bit of bitValue integer at position specified by bitShift, depending on value parameter.
+        /// Sets or un-sets bit of bitValue integer at position specified by bitShift, depending on value parameter.
         /// </summary>
         /// <param name="bitValue">
         /// Integer value. 
@@ -110,14 +113,11 @@ namespace YAF.Types.Extensions
         {
             CodeContracts.VerifyNotNull(hashedBytes, "hashedBytes");
 
-            var hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
+            var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
 
-            foreach (var b in hashedBytes)
-            {
-                hashedSB.AppendFormat("{0:X2}", b);
-            }
+            hashedBytes.ForEach(b => { builder.AppendFormat("{0:X2}", b); });
 
-            return hashedSB.ToString();
+            return builder.ToString();
         }
 
         /// <summary>
@@ -135,6 +135,14 @@ namespace YAF.Types.Extensions
             arrayBool.ForEachIndex((b, i) => finalValue = SetBitFromBool(finalValue, i, b));
 
             return finalValue;
+        }
+
+        public static List<T> ToListOf<T>(this byte[] array, Func<byte[], int, T> bitConverter)
+        {
+            var size = Marshal.SizeOf(typeof(T));
+            return Enumerable.Range(0, array.Length / size)
+                .Select(i => bitConverter(array, i * size))
+                .ToList();
         }
 
         #endregion

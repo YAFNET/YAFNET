@@ -23,7 +23,7 @@ namespace YAF.RegisterV2 {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="RegisterV2Soap", Namespace="http://yetanotherforum.net/RegisterV2")]
@@ -89,7 +89,7 @@ namespace YAF.RegisterV2 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://yetanotherforum.net/RegisterV2/LatestInfo", RequestNamespace="http://yetanotherforum.net/RegisterV2", ResponseNamespace="http://yetanotherforum.net/RegisterV2", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public LatestVersionInformation LatestInfo(long currentVersion, string culture) {
+        public LatestVersionInformation LatestInfo(byte[] currentVersion, string culture) {
             object[] results = this.Invoke("LatestInfo", new object[] {
                         currentVersion,
                         culture});
@@ -133,9 +133,9 @@ namespace YAF.RegisterV2 {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://yetanotherforum.net/RegisterV2/LatestVersion", RequestNamespace="http://yetanotherforum.net/RegisterV2", ResponseNamespace="http://yetanotherforum.net/RegisterV2", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public long LatestVersion() {
+        public byte[] LatestVersion() {
             object[] results = this.Invoke("LatestVersion", new object[0]);
-            return ((long)(results[0]));
+            return ((byte[])(results[0]));
         }
         
         /// <remarks/>
@@ -274,7 +274,7 @@ namespace YAF.RegisterV2 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3190.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -287,7 +287,7 @@ namespace YAF.RegisterV2 {
         
         private string messageField;
         
-        private long versionField;
+        private byte[] versionField;
         
         private bool isWarningField;
         
@@ -322,7 +322,7 @@ namespace YAF.RegisterV2 {
         }
         
         /// <remarks/>
-        public long Version {
+        public byte[] Version {
             get {
                 return this.versionField;
             }
@@ -343,11 +343,11 @@ namespace YAF.RegisterV2 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void LatestInfoCompletedEventHandler(object sender, LatestInfoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class LatestInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -369,11 +369,11 @@ namespace YAF.RegisterV2 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void LatestVersionCompletedEventHandler(object sender, LatestVersionCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class LatestVersionCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -395,11 +395,11 @@ namespace YAF.RegisterV2 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void LatestVersionDateCompletedEventHandler(object sender, LatestVersionDateCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class LatestVersionDateCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -421,11 +421,11 @@ namespace YAF.RegisterV2 {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     public delegate void RegisterForumCompletedEventHandler(object sender, RegisterForumCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class RegisterForumCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

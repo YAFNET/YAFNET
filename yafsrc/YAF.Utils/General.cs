@@ -30,7 +30,6 @@ namespace YAF.Utils
     using System.Web;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 

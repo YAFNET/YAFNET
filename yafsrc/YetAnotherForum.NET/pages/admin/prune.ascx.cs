@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
@@ -39,7 +38,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion

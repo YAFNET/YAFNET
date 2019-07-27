@@ -32,8 +32,6 @@ namespace YAF.Utils.Helpers
     using System.Net;
     using System.Web;
 
-    using YAF.Types.Extensions;
-
     #endregion
 
     /// <summary>

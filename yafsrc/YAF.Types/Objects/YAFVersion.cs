@@ -22,33 +22,43 @@
  * under the License.
  */
 
-namespace YAF.Types.Extensions
+namespace YAF.Types.Objects
 {
-    #region Using
-
-    using System.Data;
-
-    using YAF.Types;
-
-    #endregion
+    using YAF.Types.Constants;
 
     /// <summary>
-    /// The DataTable Extensions
+    /// The YAF version.
     /// </summary>
-    public static class DataTableExtensions
+    public class YafVersion
     {
-        #region Public Methods
+        /// <summary>
+        /// Gets or sets the major.
+        /// </summary>
+        public int Major { get; set; }
 
         /// <summary>
-        /// Determines whether the specified table has rows.
+        /// Gets or sets the minor.
         /// </summary>
-        /// <param name="table">The table.</param>
-        /// <returns>Returns if the table has rows or not</returns>
-        public static bool HasRows([CanBeNull] this DataTable table)
-        {
-            return table.Rows.Count > 0;
-        }
+        public int Minor { get; set; }
 
-        #endregion
+        /// <summary>
+        /// Gets or sets the build.
+        /// </summary>
+        public int Build { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sub.
+        /// </summary>
+        public int Sub { get; set; }
+
+        /// <summary>
+        /// Gets or sets the release type.
+        /// </summary>
+        public ReleaseType ReleaseType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the release number.
+        /// </summary>
+        public int ReleaseNumber { get; set; }
     }
 }

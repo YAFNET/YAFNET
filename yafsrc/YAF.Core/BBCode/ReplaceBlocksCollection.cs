@@ -27,7 +27,6 @@ namespace YAF.Core.BBCode
     using System.Collections.Generic;
     using System.Text;
 
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     /// <summary>

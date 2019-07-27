@@ -26,7 +26,6 @@ namespace YAF.Core.Syndication
   #region Using
 
   using System;
-  using System.IO;
   using System.ServiceModel.Syndication;
 
   using ServiceStack;

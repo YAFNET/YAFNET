@@ -29,8 +29,6 @@ namespace YAF.Core.Services.Auth
     using System;
     using System.Web;
 
-    using YAF.Types.Extensions;
-
     #endregion
 
     /// <summary>

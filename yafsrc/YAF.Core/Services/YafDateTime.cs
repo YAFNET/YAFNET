@@ -33,7 +33,6 @@ namespace YAF.Core.Services
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion

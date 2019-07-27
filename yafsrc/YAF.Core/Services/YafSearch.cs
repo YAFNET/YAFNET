@@ -80,7 +80,7 @@
                     IndexWriter.Unlock(directoryTemp);
                 }
 
-                var lockFilePath = Path.Combine(LuceneDir, "write.lock");
+                /*var lockFilePath = Path.Combine(LuceneDir, "write.lock");
 
                 if (!File.Exists(lockFilePath))
                 {
@@ -101,7 +101,7 @@
                     }
                 }
 
-                File.Delete(lockFilePath);
+                File.Delete(lockFilePath);*/
 
                 return directoryTemp;
             }
@@ -180,12 +180,12 @@
 
             try
             {
-                var indexWriter = new IndexWriter(
+                using (var indexWriter = new IndexWriter(
                     Directory,
                     analyzer,
                     !IndexReader.IndexExists(Directory),
-                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH));
-
+                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
+                {
                     indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
                     indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
 
@@ -194,6 +194,8 @@
                     indexWriter.Optimize();
                     indexWriter.Commit();
                     indexWriter.Dispose();
+                }
+
             }
             catch (LockObtainFailedException ex)
             {
@@ -229,11 +231,9 @@
         /// </returns>
         public List<SearchMessage> Search(int forumId, int userId, string input, string fieldName = "")
         {
-            var totalHits = 0;
-
             return input.IsNotSet()
                        ? new List<SearchMessage>()
-                       : this.SearchIndex(out totalHits, forumId, userId, input, fieldName);
+                       : this.SearchIndex(out _, forumId, userId, input, fieldName);
 
             /*    var terms = input.Trim().Replace("-", " ").Split(' ').Where(x => !string.IsNullOrEmpty(x))
                     .Select(x => x.Trim() + "*");
@@ -301,10 +301,9 @@
         /// </returns>
         public List<SearchMessage> SearchDefault(int forumId, int userId, string input, string fieldName = "")
         {
-            var totalHits = 0;
             return input.IsNotSet()
                        ? new List<SearchMessage>()
-                       : this.SearchIndex(out totalHits, forumId, userId, input, fieldName);
+                       : this.SearchIndex(out _, forumId, userId, input, fieldName);
         }
 
         /// <summary>
@@ -427,13 +426,31 @@
         }
 
         /// <summary>
-        /// Maps the search document to data.
+        /// Maps the search to data list.
         /// </summary>
-        /// <param name="doc">The document.</param>
+        /// <param name="searcher">The searcher.</param>
+        /// <param name="hits">The hits.</param>
         /// <param name="userAccessList">The user access list.</param>
         /// <returns>
-        /// Returns the Search Message
+        /// Returns the search list
         /// </returns>
+        private static List<SearchMessage> MapSearchToDataList(
+            Searchable searcher,
+            IEnumerable<ScoreDoc> hits,
+            List<vaccess> userAccessList)
+        {
+            return hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
+                .GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
+        }
+        
+        /// <summary>
+         /// Maps the search document to data.
+         /// </summary>
+         /// <param name="doc">The document.</param>
+         /// <param name="userAccessList">The user access list.</param>
+         /// <returns>
+         /// Returns the Search Message
+         /// </returns>
         private static SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
         {
             var forumId = doc.Get("ForumId").ToType<int>();
@@ -577,24 +594,6 @@
         }
 
         /// <summary>
-        /// Maps the search to data list.
-        /// </summary>
-        /// <param name="searcher">The searcher.</param>
-        /// <param name="hits">The hits.</param>
-        /// <param name="userAccessList">The user access list.</param>
-        /// <returns>
-        /// Returns the search list
-        /// </returns>
-        private List<SearchMessage> MapSearchToDataList(
-            Searchable searcher,
-            IEnumerable<ScoreDoc> hits,
-            List<vaccess> userAccessList)
-        {
-            return hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
-                .GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
-        }
-
-        /// <summary>
         /// Searches the index.
         /// </summary>
         /// <param name="totalHits">The total hits.</param>
@@ -735,7 +734,7 @@
 
                 var hits = searcher.Search(query, hitsLimit).ScoreDocs;
 
-                var results = this.MapSearchToDataList(searcher, hits, userAccessList);
+                var results = MapSearchToDataList(searcher, hits, userAccessList);
 
                 analyzer.Close();
                 searcher.Dispose();

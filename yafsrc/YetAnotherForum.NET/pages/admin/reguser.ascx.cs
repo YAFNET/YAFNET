@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Web.Security;
 
     using YAF.Configuration;
-   using YAF.Web;
     using YAF.Core;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -40,7 +39,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion

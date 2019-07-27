@@ -22,33 +22,31 @@
  * under the License.
  */
 
-namespace YAF.Types.Extensions
+ namespace YAF.Types.Constants
 {
-    #region Using
-
-    using System.Data;
-
-    using YAF.Types;
-
-    #endregion
-
     /// <summary>
-    /// The DataTable Extensions
+    /// The release type.
     /// </summary>
-    public static class DataTableExtensions
+    public enum ReleaseType
     {
-        #region Public Methods
+        /// <summary>
+        /// regular release
+        /// </summary>
+        Regular = 0,
 
         /// <summary>
-        /// Determines whether the specified table has rows.
+        /// alpha release
         /// </summary>
-        /// <param name="table">The table.</param>
-        /// <returns>Returns if the table has rows or not</returns>
-        public static bool HasRows([CanBeNull] this DataTable table)
-        {
-            return table.Rows.Count > 0;
-        }
+        Alpha = 1,
 
-        #endregion
+        /// <summary>
+        /// beta release
+        /// </summary>
+        BETA = 2,
+
+        /// <summary>
+        /// release candidate release
+        /// </summary>
+        RC = 3
     }
 }

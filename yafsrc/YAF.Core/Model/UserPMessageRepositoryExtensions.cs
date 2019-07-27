@@ -2,7 +2,6 @@ namespace YAF.Core.Model
 {
     using System.Data;
 
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;

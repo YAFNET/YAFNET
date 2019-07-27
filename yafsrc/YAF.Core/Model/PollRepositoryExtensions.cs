@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Types;
-
 namespace YAF.Core.Model
 {
     #region Using

@@ -25,7 +25,6 @@
 namespace YAF.Types.Exceptions
 {
     using System;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The No TopicRow Exception

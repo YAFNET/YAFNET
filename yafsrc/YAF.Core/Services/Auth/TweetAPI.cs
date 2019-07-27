@@ -27,7 +27,6 @@ namespace YAF.Core.Services.Auth
     using System.Collections.Generic;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Objects;
     using YAF.Utils.Extensions;
 

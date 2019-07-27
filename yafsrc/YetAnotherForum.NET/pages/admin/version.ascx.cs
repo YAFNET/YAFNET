@@ -28,14 +28,12 @@ namespace YAF.Pages.Admin
 
     using System;
 
-   using YAF.Web;
     using YAF.Core;
     using YAF.RegisterV2;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -50,7 +48,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///     The _last version.
         /// </summary>
-        private long lastVersion;
+        private byte[] lastVersion;
 
         /// <summary>
         ///     The _last version date.
@@ -103,7 +101,8 @@ namespace YAF.Pages.Admin
                         this.LastVersion,
                         this.LastVersionDate);
 
-                    this.UpgradeVersionHolder.Visible = this.lastVersion > YafForumInfo.AppVersionCode;
+                    this.UpgradeVersionHolder.Visible = BitConverter.ToInt64(this.lastVersion, 0)
+                                                        > BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0);
                 }
                 catch (Exception)
                 {

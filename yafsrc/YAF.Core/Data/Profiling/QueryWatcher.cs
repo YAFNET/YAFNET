@@ -27,8 +27,6 @@ namespace YAF.Core.Data.Profiling
     using System.Diagnostics;
     using System.Web;
 
-    using YAF.Types.Extensions;
-
     public class QueryWatcher : IDisposable
     {
 #if DEBUG

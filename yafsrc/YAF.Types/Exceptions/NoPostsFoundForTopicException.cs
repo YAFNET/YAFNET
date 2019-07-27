@@ -26,8 +26,6 @@ namespace YAF.Types.Exceptions
 {
     using System;
 
-    using YAF.Types.Extensions;
-
     /// <summary>
     /// No Posts Found For Topic Exception
     /// </summary>

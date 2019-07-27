@@ -26,7 +26,6 @@ namespace YAF.Types.Interfaces
     using System;
 
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
 
     /// <summary>
     ///     The logger extensions.

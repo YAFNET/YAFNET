@@ -1,7 +1,5 @@
 ﻿namespace YAF.Types.Objects
 {
-    using System;
-
     /// <summary>
     /// the HTML elements class.
     /// </summary>

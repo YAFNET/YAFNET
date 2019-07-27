@@ -25,44 +25,21 @@
 namespace YAF.Utils
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Web;
     using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// Class provides helper functions related to the forum path and URLs as well as forum version information.
     /// </summary>
     public static class YafForumInfo
     {
-        /// <summary>
-        /// The YAF.NET Release Type
-        /// </summary>
-        private enum ReleaseType
-        {
-            /// <summary>
-            /// regular release
-            /// </summary>
-            Regular = 0,
-
-            /// <summary>
-            /// alpha release
-            /// </summary>
-            Alpha,
-
-            /// <summary>
-            /// beta release
-            /// </summary>
-            BETA,
-
-            /// <summary>
-            /// release candidate release
-            /// </summary>
-            RC
-        }
-
         /// <summary>
         /// Gets the forum path (client-side).
         /// May not be the actual URL of the forum.
@@ -115,7 +92,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Application Version
         /// </summary>
-        public static long AppVersionCode
+        public static byte[] AppVersionCode
         {
             get
             {
@@ -127,22 +104,17 @@ namespace YAF.Utils
                 const ReleaseType ReleaseType = ReleaseType.BETA;
                 const byte ReleaseNumber = 0;
 
-                var version = Major.ToType<long>() << 24;
-                version |= Minor.ToType<long>() << 16;
-                version |= (Build & 0x0F).ToType<long>() << 12;
+                var list = new List<int>
+                                      {
+                                          Major,
+                                          Minor,
+                                          Build,
+                                          Sub,
+                                          ReleaseType.ToType<int>(),
+                                          ReleaseNumber
+                                      };
 
-                if (Sub > 0)
-                {
-                    version |= Sub.ToType<long>() << 8;
-                }
-
-                if (ReleaseType != ReleaseType.Regular)
-                {
-                    version |= ReleaseType.ToType<long>() << 4;
-                    version |= (ReleaseNumber & 0x0F).ToType<long>() + 1;
-                }
-
-                return version;
+                return list.SelectMany(BitConverter.GetBytes).ToArray();
             }
         }
 
@@ -160,43 +132,41 @@ namespace YAF.Utils
         /// <returns>
         /// Application Version String
         /// </returns>
-        public static string AppVersionNameFromCode(long code)
+        public static string AppVersionNameFromCode(byte[] code)
         {
-            var version = new StringBuilder();
+            var originalList = code.ToListOf(BitConverter.ToInt32);
 
-            version.AppendFormat("{0}.{1}.{2}", (code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 12) & 0x0F);
+            var version = new YafVersion
+                              {
+                                  Major = originalList[0],
+                                  Minor = originalList[1],
+                                  Build = originalList[2],
+                                  Sub = originalList[3],
+                                  ReleaseType = originalList[4].ToEnum<ReleaseType>(),
+                                  ReleaseNumber = originalList[5]
+                              };
 
-            if (((code >> 8) & 0x0F) > 0)
+            var versionString = new StringBuilder();
+
+            versionString.AppendFormat("{0}.{1}{2}", version.Major, version.Minor, version.Build);
+
+            if (version.Sub > 0)
             {
-                version.AppendFormat(".{0}", (code >> 8) & 0x0F);
+                versionString.AppendFormat(".{0}", version.Sub);
             }
 
-            if (((code >> 4) & 0x0F) <= 0)
+            if (version.ReleaseType == ReleaseType.Regular)
             {
-                return version.ToString();
+                return versionString.ToString();
             }
 
-            var value = (code >> 4) & 0x0F;
+            var number = version.ReleaseNumber >= 1
+                             ? version.ReleaseNumber.ToString()
+                             : AppVersionDate.ToString("yyyyMMdd");
 
-            var number = string.Empty;
+            versionString.AppendFormat(" {0} {1}", version.ReleaseType.ToString().ToUpper(), number);
 
-            if ((code & 0x0F) > 1)
-            {
-                number = ((code & 0x0F).ToType<int>() - 1).ToString();
-            }
-            else if ((code & 0x0F) == 1)
-            {
-                number = AppVersionDate.ToString("yyyyMMdd");
-            }
-
-            var releaseType = value.ToEnum<ReleaseType>();
-
-            if (releaseType != ReleaseType.Regular)
-            {
-                version.AppendFormat(" {0} {1}", releaseType.ToString().ToUpper(), number);
-            }
-
-            return version.ToString();
+            return versionString.ToString();
         }
 
         #endregion

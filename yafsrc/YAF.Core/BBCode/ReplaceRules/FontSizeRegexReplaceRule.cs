@@ -25,10 +25,6 @@ namespace YAF.Core.BBCode.ReplaceRules
 {
     using System.Text.RegularExpressions;
 
-    using ServiceStack;
-
-    using YAF.Types.Extensions;
-
     /// <summary>
     /// For the font size with replace
     /// </summary>

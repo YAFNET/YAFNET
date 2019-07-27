@@ -33,7 +33,6 @@ namespace YAF.Core
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion

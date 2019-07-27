@@ -48,10 +48,7 @@ namespace YAF.Classes
         /// <returns>Returns the LatestVersionInformation</returns>
         public LatestVersionInformation GetLatestVersionInformation()
         {
-            var latestInfo =
-                this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] as LatestVersionInformation;
-
-            if (latestInfo != null)
+            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is LatestVersionInformation latestInfo)
             {
                 return latestInfo;
             }
