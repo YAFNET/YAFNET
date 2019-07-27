@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.4.18
+## New Features:
+* Upgraded to CKEditor 4.12.1
+
+## Fixed Issues:
+* Fixed issue with display of current YAF Version
+
+
 # YetAnotherForum.NET v2.2.4.17
 ## New Features:
 * You can now use relative urls for remote forum urls
