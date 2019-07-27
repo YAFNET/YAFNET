@@ -77,9 +77,8 @@ namespace YAF.Core.Controllers
             attachments.ForEach(
                 attach =>
                     {
-                        var url = attach.FileName.IsImageName()
-                                      ? $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true"
-                                      : $"{YafForumInfo.ForumClientFileRoot}Images/document.png";
+                        var url =
+                            $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true";
 
                         var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
