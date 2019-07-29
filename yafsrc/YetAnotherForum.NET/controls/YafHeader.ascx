@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YafHeader.ascx.cs" Inherits="YAF.Controls.YafHeader" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Classes" %>
 
 
 <%@ Register TagPrefix="YAF" TagName="AdminMenu" Src="AdminMenu.ascx" %>

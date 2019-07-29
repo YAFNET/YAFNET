@@ -2,7 +2,6 @@
 
 <%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Classes" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
 <div class="row">

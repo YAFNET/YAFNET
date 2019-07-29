@@ -40,6 +40,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils;
 
     #endregion
@@ -90,13 +91,13 @@ namespace YAF.Controls
             notification.Show(
                 this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
                 "Logout?",
-                new DialogBox.DialogButton
+                new DialogButton
                     {
                         Text = this.GetText("TOOLBAR", "LOGOUT"),
                         CssClass = "btn btn-primary",
-                        ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
+                        ForumPageLink = new ForumLink { ForumPage = ForumPages.logout }
                     },
-                new DialogBox.DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "btn btn-secondary" });
+                new DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "btn btn-secondary" });
         }
 
         /// <summary>
@@ -510,17 +511,6 @@ namespace YAF.Controls
                 string.Empty,
                 string.Empty,
                 "comment");
-
-            /*RenderMenuItem(
-                this.MyTopicItem,
-                "dropdown-item",
-                "<i class=\"fa fa-comment fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYTOPICS")),
-                this.GetText("TOOLBAR", "MYTOPICS"),
-                YafBuildLink.GetLink(ForumPages.mytopics),
-                false,
-                this.PageContext.UnreadTopics > 0,
-                this.PageContext.UnreadTopics.ToString(),
-                this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(this.PageContext.UnreadTopics));*/
 
             // Logout
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)

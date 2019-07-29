@@ -35,7 +35,6 @@ namespace YAF.Controls
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
@@ -371,7 +370,7 @@ namespace YAF.Controls
             }
             else
             {
-                this.AvatarImg.ImageUrl = "../images/noavatar.gif";
+                this.AvatarImg.ImageUrl = "../images/noavatar.svg";
                 this.NoAvatar.Visible = true;
             }
 
