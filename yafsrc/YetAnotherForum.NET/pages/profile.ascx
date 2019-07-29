@@ -37,7 +37,7 @@
         </div>
         <div class="col-md-2">
             <asp:Image ID="Avatar" runat="server" 
-                       CssClass="img-fluid float-right" 
+                       CssClass="img-fluid float-right rounded" 
                        AlternateText="avatar" />
         </div>
     </div>

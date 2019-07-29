@@ -8106,6 +8106,20 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   bottom: 0;
   left: 0; }
 
+.suggest {
+  /* position: relative; */
+  top: 7px;
+  z-index: 30;
+  text-align: left; }
+  .suggest > .dropdown-menu {
+    margin-top: 15px;
+    position: absolute; }
+    .suggest > .dropdown-menu > a.dropdown-item {
+      border-top: 1px solid #eeeeee;
+      padding: 5px 10px; }
+      .suggest > .dropdown-menu > a.dropdown-item:first-child {
+        border-top: 0; }
+
 /* Attachments List Drop Down */
 .AttachmentListMenu {
   width: 300px;

@@ -25,7 +25,6 @@ namespace YAF.Modules
 {
   using System.Web.UI;
 
-  using YAF.Web;
   using YAF.Web.Controls;
 
   /// <summary>

@@ -39,6 +39,7 @@ namespace YAF.Web.Editors
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils;
     using YAF.Web.Controls;
 
     #endregion
@@ -112,7 +113,24 @@ namespace YAF.Web.Editors
                   }}
                   function insertAttachment(id,url) {{
                            {this.SafeID}.FormatText('attach', id);
-                  }}");
+                  }}
+
+                  $("".BBCodeEditor"").suggest(""@"",
+                          {{
+            data: function(q) {{
+                if (q && q.length > 3) {{
+                    return $.getJSON(""{YafForumInfo.ForumClientFileRoot}resource.ashx?users="" + q);
+                           }}
+                          }},
+                          map: function(user)
+                         {{
+    return {{
+        value: ""[userlink]"" + user.UserName + ""[/userlink]"",
+        text: ""<i class='fas fa-user mr-1'></i><strong>"" + user.UserName + ""</strong>""
+    }};
+}}
+}});
+");
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use

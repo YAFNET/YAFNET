@@ -175,11 +175,9 @@ namespace YAF.Core.Services
             {
                 const string GravatarBaseUrl = "https://www.gravatar.com/avatar/";
 
-                var noAvatarGraphicUrl = HttpUtility.UrlEncode($"{YafForumInfo.ForumBaseUrl}/images/noavatar.svg");
-
                 // JoeOuts added 8/17/09 for Gravatar use
                 var gravatarUrl =
-                    $@"{GravatarBaseUrl}{email.StringToHexBytes()}.jpg?r={this._yafBoardSettings.GravatarRating}&default={noAvatarGraphicUrl}&s={this._yafBoardSettings.AvatarWidth}";
+                    $@"{GravatarBaseUrl}{email.StringToHexBytes()}.jpg?r={this._yafBoardSettings.GravatarRating}&s={this._yafBoardSettings.AvatarWidth}";
 
                 avatarUrl =
                     $@"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(gravatarUrl)}&width={this._yafBoardSettings.AvatarWidth}&height={this._yafBoardSettings.AvatarHeight}";

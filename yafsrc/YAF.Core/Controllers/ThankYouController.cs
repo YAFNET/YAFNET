@@ -27,6 +27,7 @@ namespace YAF.Core.Controllers
     using System.Web.Http;
 
     using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -69,10 +70,17 @@ namespace YAF.Core.Controllers
                 return this.NotFound();
             }
 
+            var fromUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+
+            var message = this.GetRepository<Message>().GetById(messageId);
+
             var username = this.GetRepository<Thanks>().AddMessageThanks(
-                UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey),
+                fromUserId,
                 messageId,
                 this.Get<YafBoardSettings>().EnableDisplayName);
+
+            this.Get<IActivityStream>().AddThanksReceivedToStream(message.UserID, message.TopicID, messageId, fromUserId);
+            this.Get<IActivityStream>().AddThanksGivenToStream(fromUserId, message.TopicID, messageId, message.UserID);
 
             // if the user is empty, return a null object...
             return username.IsNotSet()
@@ -102,6 +110,9 @@ namespace YAF.Core.Controllers
                 UserMembershipHelper.GetUserIDFromProviderUserKey(UserMembershipHelper.GetUser().ProviderUserKey),
                 messageId,
                 this.Get<YafBoardSettings>().EnableDisplayName);
+
+            this.GetRepository<Activity>()
+                .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 4096));
 
             return this.Ok(
                 this.Get<IThankYou>().CreateThankYou(username, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));

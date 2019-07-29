@@ -34,7 +34,6 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web;
     using YAF.Web.Controls;
 
     /// <summary>

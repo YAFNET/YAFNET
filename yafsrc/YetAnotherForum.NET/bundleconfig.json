@@ -33,6 +33,7 @@
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
+      "Scripts/bootstrap-suggest.js",
       "Scripts/select2.js",
       "Scripts/blueimp-gallery.js",
       "Scripts/jquery.blueimp-gallery.js",

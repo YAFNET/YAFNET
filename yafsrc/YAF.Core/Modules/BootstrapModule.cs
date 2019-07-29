@@ -29,6 +29,9 @@ namespace YAF.Core.Modules
     using Autofac;
     using Autofac.Core;
 
+    /// <summary>
+    /// The bootstrap module.
+    /// </summary>
     public class BootstrapModule : BaseModule
     {
         /// <summary>
@@ -36,6 +39,12 @@ namespace YAF.Core.Modules
         /// </summary>
         public override int SortOrder => 1;
 
+        /// <summary>
+        /// The load.
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
         protected override void Load(ContainerBuilder builder)
         {
             // register all the modules in this assembly first -- excluding this module

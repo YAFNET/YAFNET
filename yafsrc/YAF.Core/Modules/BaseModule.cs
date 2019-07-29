@@ -147,14 +147,9 @@ namespace YAF.Core
 
             using (var moduleContainer = moduleFinder.Build())
             {
-                var modules = moduleContainer.Resolve<IEnumerable<IModule>>()
-                    .ByOptionalSortOrder()
-                    .ToList();
+                var modules = moduleContainer.Resolve<IEnumerable<IModule>>().ByOptionalSortOrder().ToList();
 
-                foreach (var module in modules)
-                {
-                    builder.RegisterModule(module);
-                }
+                modules.ForEach(module => builder.RegisterModule(module));
             }
 
             this.UpdateRegistry(builder);

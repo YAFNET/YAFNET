@@ -38,18 +38,27 @@ namespace YAF.Core.Modules
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// The general module.
+    /// </summary>
     public class GeneralModule : BaseModule
     {
         #region Methods
 
+        /// <summary>
+        /// The load.
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
         protected override void Load(ContainerBuilder builder)
         {
-            this.RegisterDataBindings(builder);
-            this.RegisterGeneral(builder);
-            this.RegisterEventBindings(builder);
-            this.RegisterMembershipProviders(builder);
-            this.RegisterModules(builder);
-            this.RegisterPages(builder);
+            RegisterDataBindings(builder);
+            RegisterGeneral(builder);
+            RegisterEventBindings(builder);
+            RegisterMembershipProviders(builder);
+            RegisterModules(builder);
+            RegisterPages(builder);
         }
 
         /// <summary>
@@ -58,7 +67,7 @@ namespace YAF.Core.Modules
         /// <param name="builder">
         ///     The builder.
         /// </param>
-        private void RegisterDataBindings(ContainerBuilder builder)
+        private static void RegisterDataBindings(ContainerBuilder builder)
         {
             // data
             builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
@@ -79,9 +88,12 @@ namespace YAF.Core.Modules
         }
 
         /// <summary>
-        ///     Register event bindings
+        /// Register event bindings
         /// </summary>
-        private void RegisterEventBindings(ContainerBuilder builder)
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterEventBindings(ContainerBuilder builder)
         {
             builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
@@ -92,9 +104,12 @@ namespace YAF.Core.Modules
         }
 
         /// <summary>
-        ///     The register basic bindings.
+        /// The register basic bindings.
         /// </summary>
-        private void RegisterGeneral(ContainerBuilder builder)
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterGeneral(ContainerBuilder builder)
         {
             builder.Register(x => ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
             builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().InstancePerLifetimeScope();
@@ -128,9 +143,12 @@ namespace YAF.Core.Modules
         }
 
         /// <summary>
-        ///     Register membership providers
+        /// Register membership providers
         /// </summary>
-        private void RegisterMembershipProviders(ContainerBuilder builder)
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterMembershipProviders(ContainerBuilder builder)
         {
             // membership
             builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -150,9 +168,12 @@ namespace YAF.Core.Modules
         }
 
         /// <summary>
-        ///     The register modules.
+        /// The register modules.
         /// </summary>
-        private void RegisterModules(ContainerBuilder builder)
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterModules(ContainerBuilder builder)
         {
             var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
 
@@ -170,9 +191,12 @@ namespace YAF.Core.Modules
         }
 
         /// <summary>
-        ///     The register pages
+        /// The register pages
         /// </summary>
-        private void RegisterPages(ContainerBuilder builder)
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterPages(ContainerBuilder builder)
         {
             var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
 

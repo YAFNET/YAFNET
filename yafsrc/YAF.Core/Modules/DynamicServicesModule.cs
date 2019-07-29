@@ -36,16 +36,28 @@ namespace YAF.Core.Modules
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
+    /// <summary>
+    /// The dynamic services module.
+    /// </summary>
     public class DynamicServicesModule : BaseModule
     {
         #region Public Properties
 
+        /// <summary>
+        /// The sort order.
+        /// </summary>
         public override int SortOrder => 500;
 
         #endregion
 
         #region Methods
 
+        /// <summary>
+        /// The load.
+        /// </summary>
+        /// <param name="containerBuilder">
+        /// The container builder.
+        /// </param>
         protected override void Load(ContainerBuilder containerBuilder)
         {
             // external first...
@@ -55,6 +67,12 @@ namespace YAF.Core.Modules
             this.RegisterDynamicServices(new[] { Assembly.GetExecutingAssembly() });
         }
 
+        /// <summary>
+        /// The register dynamic services.
+        /// </summary>
+        /// <param name="assemblies">
+        /// The assemblies.
+        /// </param>
         private void RegisterDynamicServices([NotNull] Assembly[] assemblies)
         {
             CodeContracts.VerifyNotNull(assemblies, "assemblies");

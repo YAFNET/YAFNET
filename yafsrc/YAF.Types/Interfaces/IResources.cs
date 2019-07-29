@@ -43,6 +43,14 @@ namespace YAF.Types.Interfaces
         void GetCustomBBCodes([NotNull] HttpContext context);
 
         /// <summary>
+        /// Get all Mentioned Users
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        void GetMentionUsers([NotNull] HttpContext context);
+
+        /// <summary>
         /// Gets the twitter user info as JSON string for the hover cards
         /// </summary>
         /// <param name="context">The context.</param>

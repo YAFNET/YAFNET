@@ -68,17 +68,8 @@ namespace YAF.Core.Modules
 
             // optional defaults.
             builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
-
-            if (Config.IsDotNetNuke)
-            {
-                builder.RegisterType<YafActivityStream>()
-                    .As<IActivityStream>()
-                    .SingleInstance()
-                    .PreserveExistingDefaults();
-            }
-
+            builder.RegisterType<YafActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
-
             builder.RegisterType<YafSearch>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDigest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope().PreserveExistingDefaults();

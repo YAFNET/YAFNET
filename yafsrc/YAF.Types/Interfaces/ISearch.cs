@@ -42,7 +42,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Clears the search Index.
         /// </summary>
-        /// <returns>Returns if clearing was sucessfull</returns>
+        /// <returns>Returns if clearing was successful</returns>
         bool ClearSearchIndex();
 
         /// <summary>

@@ -1127,27 +1127,57 @@ namespace YAF.Pages
             {
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (Config.IsDotNetNuke && this.EditMessageId == null && !this.PageContext.IsGuest)
+                if (this.EditMessageId == null && !this.PageContext.IsGuest)
                 {
+                    // Handle Mentions
+                    BBCodeHelper.FindMentions(this.ForumEditor.Text).ForEach(
+                        user =>
+                            {
+                                var userId = this.Get<IUserDisplayName>().GetId(user.UserName).Value;
+
+                                if (userId != this.PageContext.PageUserID)
+                                {
+                                    this.Get<IActivityStream>().AddMentionToStream(
+                                        userId,
+                                        newTopic.ToType<int>(),
+                                        messageId.ToType<int>(),
+                                        this.PageContext.PageUserID);
+                                }
+                            });
+
+                    // Handle User Quoting
+                    BBCodeHelper.FindUserQuoting(this.ForumEditor.Text).ForEach(
+                        user =>
+                            {
+                                var userId = this.Get<IUserDisplayName>().GetId(user.UserName).Value;
+
+                                if (userId != this.PageContext.PageUserID)
+                                {
+                                    this.Get<IActivityStream>().AddQuotingToStream(
+                                        userId,
+                                        newTopic.ToType<int>(),
+                                        messageId.ToType<int>(),
+                                        this.PageContext.PageUserID);
+                                }
+                            });
+
                     if (this.TopicId != null)
                     {
-                        this.Get<IActivityStream>()
-                            .AddReplyToStream(
-                                this.PageContext.PageForumID,
-                                newTopic,
-                                messageId.ToType<int>(),
-                                this.PageContext.PageTopicName,
-                                this.ForumEditor.Text);
+                        this.Get<IActivityStream>().AddReplyToStream(
+                            Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
+                            newTopic,
+                            messageId.ToType<int>(),
+                            this.PageContext.PageTopicName,
+                            this.ForumEditor.Text);
                     }
                     else
                     {
-                        this.Get<IActivityStream>()
-                            .AddTopicToStream(
-                                this.PageContext.PageForumID,
-                                newTopic,
-                                messageId.ToType<int>(),
-                                this.TopicSubjectTextBox.Text,
-                                this.ForumEditor.Text);
+                        this.Get<IActivityStream>().AddTopicToStream(
+                            Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
+                            newTopic,
+                            messageId.ToType<int>(),
+                            this.TopicSubjectTextBox.Text,
+                            this.ForumEditor.Text);
                     }
                 }
 

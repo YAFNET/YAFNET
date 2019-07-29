@@ -30,7 +30,6 @@ namespace YAF.Modules
     using System.Text;
     using System.Web.UI.HtmlControls;
 
-   using YAF.Web;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;

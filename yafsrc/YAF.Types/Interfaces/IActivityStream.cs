@@ -50,5 +50,73 @@ namespace YAF.Types.Interfaces
         /// <param name="topicTitle">The topic title.</param>
         /// <param name="message">The message.</param>
         void AddReplyToStream(int forumID, long topicID, int messageID, string topicTitle, string message);
+
+        /// <summary>
+        /// Add Mention to Users Stream
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddMentionToStream(int userId, int topicId, int messageId, int fromUserId);
+
+        /// <summary>
+        /// Add Quoting to Users Stream
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddQuotingToStream(int userId, int topicId, int messageId, int fromUserId);
+
+        /// <summary>
+        /// The add thanks received to stream.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddThanksReceivedToStream(int userId, int topicId, int messageId, int fromUserId);
+
+        /// <summary>
+        /// The add thanks given to stream.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddThanksGivenToStream(int userId, int topicId, int messageId, int fromUserId);
     }
 }

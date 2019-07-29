@@ -187,7 +187,6 @@ namespace YAF.Core.Model
             this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int messageId, [NotNull] bool useDisplayName)
         {
             IDbDataParameter parameterOutput = null;
-            IDbDataParameter parameterThanksToPostsNumber = null;
 
             repository.SqlList(
                 "message_addthanks",

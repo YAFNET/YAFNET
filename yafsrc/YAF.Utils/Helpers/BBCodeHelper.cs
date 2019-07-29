@@ -24,13 +24,66 @@
 
 namespace YAF.Utils.Helpers
 {
+    using System.Collections.Generic;
     using System.Text.RegularExpressions;
+
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The bb code helper.
     /// </summary>
     public static class BBCodeHelper
     {
+        /// <summary>
+        /// The find user quoting.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<UserSimple> FindUserQuoting(string text)
+        {
+            var mentions = Regex.Matches(
+                text,
+                @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
+                RegexOptions.Singleline);
+
+            var users = new List<UserSimple>();
+
+            foreach (Match match in mentions)
+            {
+                users.Add(new UserSimple { UserName = match.Groups["user"].Value });
+            }
+
+            return users;
+        }
+
+        /// <summary>
+        /// Find all User mentions in the text
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<UserSimple> FindMentions(string text)
+        {
+            var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase);
+
+            var users = new List<UserSimple>();
+
+            foreach (Match match in mentions)
+            {
+                users.Add(new UserSimple { UserName = match.Groups["inner"].Value });
+            }
+
+            return users;
+        }
+
+
         /// <summary>
         /// The strip bb code.
         /// </summary>

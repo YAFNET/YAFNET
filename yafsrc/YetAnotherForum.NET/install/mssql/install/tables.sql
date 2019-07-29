@@ -1062,5 +1062,20 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
+/* Create Activity Table */
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Activity]') and type in (N'U'))
+CREATE TABLE [{databaseOwner}].[{objectQualifier}Activity](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Created] [datetime] NOT NULL,
+	[Flags] [int] NOT NULL,
+	[TopicID] [int] NULL,
+	[MessageID] [int] NULL,
+	[FromUserID] [int] NULL,
+	[Notification]  bit NOT NULL default (0),
+	constraint [PK_{objectQualifier}Activity] primary key(ID)
+	)
+go
+
 exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}Board, BoardUID')
 GO

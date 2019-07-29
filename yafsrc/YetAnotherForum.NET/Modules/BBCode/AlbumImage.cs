@@ -30,7 +30,6 @@ namespace YAF.Modules.BBCode
     using YAF.Configuration;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Web;
     using YAF.Web.Controls;
 
     /// <summary>

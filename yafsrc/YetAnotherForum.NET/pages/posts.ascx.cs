@@ -452,6 +452,13 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+                {
+                    var mentionId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m");
+
+                    this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, mentionId);
+                }
+
                 // The html code for "Favorite Topic" theme buttons.
                 var tagButtonHtml =
                     $"'<a class=\"btn btn-secondary\" href=\"javascript:addFavoriteTopic(' + response + ');\" title=\"{this.GetText("BUTTON_TAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_TAGFAVORITE")}</span></a>'";

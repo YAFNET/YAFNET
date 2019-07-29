@@ -221,6 +221,13 @@
     <Compile Include="controls\CookieConsent.ascx.designer.cs">
       <DependentUpon>CookieConsent.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\ProfileTimeline.ascx.cs">
+      <DependentUpon>ProfileTimeline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ProfileTimeline.ascx.designer.cs">
+      <DependentUpon>ProfileTimeline.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\UserMedalEdit.ascx.cs">
       <DependentUpon>UserMedalEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -958,6 +965,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1710,6 +1718,7 @@
     <Content Include="Content\fontawesome\_stacked.scss" />
     <Content Include="Content\fontawesome\_variables.scss" />
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
+    <Content Include="Content\bootstrap-suggest.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\icons\authIcons.png" />
@@ -1769,6 +1778,7 @@
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\CookieConsent.ascx" />
+    <Content Include="controls\ProfileTimeline.ascx" />
     <Content Include="Dialogs\UserMedalEdit.ascx" />
     <Content Include="Dialogs\GroupMedalEdit.ascx" />
     <Content Include="Dialogs\QuickReply.ascx" />
@@ -1860,6 +1870,7 @@
     <Content Include="Images\Medals\medal_silver_2_small.png" />
     <Content Include="Images\Medals\medal_small.png" />
     <Content Include="Content\images\YAFLogo.svg" />
+    <Content Include="Images\noavatar.svg" />
     <Content Include="install\custom\custom.sql" />
     <Content Include="install\custom\dnn.sql" />
     <Content Include="install\mssql\install\azure\InstallCommon.sql" />
@@ -1893,8 +1904,6 @@
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
-    <Content Include="Images\noavatar.gif" />
-    <Content Include="Images\document.png" />
     <Content Include="Images\noCover.png" />
     <Content Include="Images\Ranks\Administration.png" />
     <Content Include="Images\Ranks\Advanced-Member.png" />
@@ -2048,6 +2057,7 @@
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
+    <Content Include="Scripts\bootstrap-suggest.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -2334,6 +2344,19 @@
     <Content Include="Scripts\cookiealert-standalone.js" />
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
+    <Content Include="Scripts\fontawesome\all.js" />
+    <Content Include="Scripts\fontawesome\all.min.js" />
+    <Content Include="Scripts\fontawesome\brands.js" />
+    <Content Include="Scripts\fontawesome\brands.min.js" />
+    <Content Include="Scripts\fontawesome\fontawesome.js" />
+    <Content Include="Scripts\fontawesome\fontawesome.min.js" />
+    <Content Include="Scripts\fontawesome\LICENSE-fontawesome.txt" />
+    <Content Include="Scripts\fontawesome\regular.js" />
+    <Content Include="Scripts\fontawesome\regular.min.js" />
+    <Content Include="Scripts\fontawesome\solid.js" />
+    <Content Include="Scripts\fontawesome\solid.min.js" />
+    <Content Include="Scripts\fontawesome\v4-shims.js" />
+    <Content Include="Scripts\fontawesome\v4-shims.min.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />
@@ -3296,26 +3319,8 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>del YAF.dll.config
-del ServiceStack.Client.dll
-del ServiceStack.Client.pdb
-del Lucene.Net.Contrib.SpellChecker.dll
-del Lucene.Net.Contrib.SpellChecker.pdb
-del Lucene.Net.Contrib.Snowball.dll
-del Lucene.Net.Contrib.Snowball.pdb
-del Lucene.Net.Contrib.SimpleFacetedSearch.dll
-del Lucene.Net.Contrib.SimpleFacetedSearch.pdb
-del Lucene.Net.Contrib.Regex.dll
-del Lucene.Net.Contrib.Regex.pdb
-del Lucene.Net.Contrib.Queries.dll
-del Lucene.Net.Contrib.Queries.pdb
 del Lucene.Net.Contrib.Memory.dll
 del Lucene.Net.Contrib.Memory.pdb
-del Lucene.Net.Contrib.FastVectorHighlighter.dll
-del Lucene.Net.Contrib.FastVectorHighlighter.pdb
-del Lucene.Net.Contrib.Core.dll
-del Lucene.Net.Contrib.Core.pdb
-del Lucene.Net.Contrib.Analyzers.dll
-del Lucene.Net.Contrib.Analyzers.pdb
 del ServiceStack.Client.dll</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

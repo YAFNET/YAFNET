@@ -212,6 +212,27 @@ namespace YAF.Core
                                                   : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
 
         /// <summary>
+        /// The last received thanks.
+        /// </summary>
+        public int LastReceivedThanks => this.Page["LastReceivedThanks"].ToString().IsNotSet()
+                                            ? 0
+                                            : this.Page["LastReceivedThanks"].ToType<int>();
+
+        /// <summary>
+        /// The last mention.
+        /// </summary>
+        public int LastMention => this.Page["LastMention"].ToString().IsNotSet()
+                                            ? 0
+                                            : this.Page["LastMention"].ToType<int>();
+
+        /// <summary>
+        /// The last quoted.
+        /// </summary>
+        public int LastQuoted => this.Page["LastQuoted"].ToString().IsNotSet()
+                                      ? 0
+                                      : this.Page["LastQuoted"].ToType<int>();
+
+        /// <summary>
         ///   Gets LastUnreadPm.
         /// </summary>
         public DateTime LastUnreadPm => this.Page["LastUnreadPm"].ToString().IsNotSet()
@@ -366,6 +387,21 @@ namespace YAF.Core
         /// The time zone user off set.
         /// </value>
         public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.Page["TimeZoneUser"].ToString());
+
+        /// <summary>
+        /// The received thanks.
+        /// </summary>
+        public int ReceivedThanks => this.Page["ReceivedThanks"].ToType<int>();
+
+        /// <summary>
+        /// The mention.
+        /// </summary>
+        public int Mention => this.Page["Mention"].ToType<int>();
+
+        /// <summary>
+        /// The quoted.
+        /// </summary>
+        public int Quoted => this.Page["Quoted"].ToType<int>();
 
         /// <summary>
         ///   Gets the number of private messages that are unread

@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Utils
+namespace YAF.Core.Modules
 {
     #region Using
 
@@ -54,7 +54,7 @@ namespace YAF.Utils
         {
             builder.RegisterType<QueryProfile>().As<IProfileQuery>().SingleInstance().PreserveExistingDefaults();
 
-            this.RegisterWebAbstractions(builder);
+            RegisterWebAbstractions(builder);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace YAF.Utils
         /// <param name="builder">
         /// The builder.
         /// </param>
-        private void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
+        private static void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
         {
             CodeContracts.VerifyNotNull(builder, "builder");
 

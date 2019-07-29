@@ -27,6 +27,7 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Drawing;
     using System.Drawing.Drawing2D;
@@ -85,9 +86,9 @@ namespace YAF.Core.Services
         {
             try
             {
-                var userId = context.Request.QueryString.GetFirstOrDefault("userinfo").ToType<int>();
+                var userId = context.Request.QueryString.GetFirstOrDefaultAs<int>("userinfo");
 
-                var boardId = context.Request.QueryString.GetFirstOrDefault("boardId").ToType<int>();
+                var boardId = context.Request.QueryString.GetFirstOrDefaultAs<int>("boardId");
 
                 var user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
 
@@ -224,6 +225,69 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// Get all Mentioned Users
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        public void GetMentionUsers([NotNull] HttpContext context)
+        {
+            try
+            {
+                if (YafContext.Current == null)
+                {
+                    context.Response.Write(
+                        "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                    return;
+                }
+
+                var searchQuery = context.Request.QueryString.GetFirstOrDefault("users");
+
+                var usersList = YafContext.Current.GetRepository<User>().Get(
+                    user => this.Get<YafBoardSettings>().EnableDisplayName
+                                ? user.DisplayName.StartsWith(searchQuery)
+                                : user.Name.StartsWith(searchQuery));
+
+                var users = new List<UserSimple>();
+
+                usersList.ForEach(
+                    user =>
+                        {
+                            // Check if user is blocked
+                            if (this.Get<IUserIgnored>().IsIgnored(user.ID))
+                            {
+                                return;
+                            }
+
+                            var userSimple = new UserSimple
+                                                 {
+                                                     UserName = this.Get<YafBoardSettings>().EnableDisplayName
+                                                                    ? user.DisplayName
+                                                                    : user.Name
+                                                 };
+                            users.Add(userSimple);
+                        });
+
+                context.Response.Clear();
+
+                context.Response.ContentType = "application/json";
+                context.Response.ContentEncoding = Encoding.UTF8;
+
+                context.Response.Write(users.ToJson());
+
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+            }
+            catch (Exception x)
+            {
+                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
+
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+            }
+        }
+
+        /// <summary>
         /// Gets the twitter user info as JSON string for the hover cards
         /// </summary>
         /// <param name="context">The context.</param>
@@ -231,7 +295,7 @@ namespace YAF.Core.Services
         {
             try
             {
-                var twitterName = context.Request.QueryString.GetFirstOrDefault("twitterinfo").ToType<string>();
+                var twitterName = context.Request.QueryString.GetFirstOrDefault("twitterinfo");
 
                 if (!Config.IsTwitterEnabled)
                 {
@@ -275,7 +339,7 @@ namespace YAF.Core.Services
             try
             {
                 var user = YafContext.Current.GetRepository<User>()
-                    .GetById(context.Request.QueryString.GetFirstOrDefault("u").ToType<int>());
+                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("u"));
 
                 if (user == null)
                 {
