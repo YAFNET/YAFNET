@@ -28,12 +28,10 @@ namespace YAF.Dialogs
 
     using System;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Services.Import;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion

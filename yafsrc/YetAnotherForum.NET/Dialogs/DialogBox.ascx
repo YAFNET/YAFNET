@@ -15,18 +15,15 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <asp:Button ID="OkButton" runat="server" 
-                            CausesValidation="false" 
-                            OnClick="OkButton_Click" 
-                            Text="Ok" 
-                            data-dismiss="modal" />
-                <asp:Button ID="CancelButton"
+                <YAF:ThemeButton ID="OkButton" runat="server" 
+                            OnClick="OkButton_Click"
+                                 Icon="check"/>
+                <YAF:ThemeButton ID="CancelButton"
                             runat="server" 
-                            CausesValidation="false" 
                             OnClick="CancelButton_Click" 
-                            Visible="false" 
-                            Text="Cancel" 
-                            data-dismiss="modal" />
+                                 Icon="times"
+                            Visible="false"
+                                 DataDismiss="modal"/>
             </div>
         </div>
     </div>

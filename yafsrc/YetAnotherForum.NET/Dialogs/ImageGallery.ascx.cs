@@ -29,7 +29,6 @@ namespace YAF.Dialogs
 
     using System;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Types;
 
