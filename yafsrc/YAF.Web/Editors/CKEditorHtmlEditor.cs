@@ -67,7 +67,7 @@ namespace YAF.Web.Editors
         protected override void RegisterCKEditorCustomJS()
         {
             YafContext.Current.PageElements.RegisterJsBlock(
-                "teditorlang",
+                "editorlang",
                 $@"var editorLanguage = ""{(YafContext.Current.CultureUser.IsSet()
                                                 ? YafContext.Current.CultureUser.Substring(0, 2)
                                                 : this.Get<YafBoardSettings>().Culture.Substring(0, 2))}"";");

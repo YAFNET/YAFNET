@@ -116,16 +116,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets a value indicating whether Find Unread.
-        /// </summary>
-        public bool FindUnread
-        {
-            get => this.ViewState["FindUnread"] != null && Convert.ToBoolean(this.ViewState["FindUnread"]);
-
-            set => this.ViewState["FindUnread"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets a value indicating whether IsAlt.
         /// </summary>
         public bool IsAlt { get; set; }
@@ -318,7 +308,6 @@ namespace YAF.Web.Controls
 
             if (pager != string.Empty)
             {
-
                 var altMultipages = string.Format(this.GetText("GOTO_POST_PAGER"), string.Empty);
                 writer.Write("<span> - <i class=\"fa fa-copy fa-fw\"></i>{0}</span>", pager);
             }
@@ -580,7 +569,7 @@ namespace YAF.Web.Controls
             if (row["TopicMovedID"].ToString().Length > 0)
             {
                 return
-                    "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
+                    "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
             }
 
             var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
@@ -600,63 +589,63 @@ namespace YAF.Web.Controls
                 if (row["PollID"] != DBNull.Value)
                 {
                     return
-                        "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-poll-h fa-stack-1x fa-inverse\"></i>";
+                        "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-poll-h fa-stack-1x fa-inverse\"></i>";
                 }
 
                 switch (row["Priority"].ToString())
                 {
                     case "1":
                         return
-                            "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
+                            "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
                     case "2":
                         return
-                            "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
+                            "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
                     default:
                         if (topicFlags.IsLocked || forumFlags.IsLocked)
                         {
                             return
-                                "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
+                                "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
                         }
 
                         if (isHot)
                         {
                             return
-                                "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
+                                "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
                         }
 
                         return
-                            "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
+                            "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
                 }
             }
 
             if (row["PollID"] != DBNull.Value)
             {
-                return "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-poll fa-stack-1x fa-inverse\"></i>";
+                return "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-poll fa-stack-1x fa-inverse\"></i>";
             }
 
             switch (row["Priority"].ToString())
             {
                 case "1":
                     return
-                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
+                        "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
                 case "2":
                     return
-                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
+                        "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
                 default:
                     if (topicFlags.IsLocked || forumFlags.IsLocked)
                     {
                         return
-                            "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
+                            "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
                     }
 
                     if (isHot)
                     {
                         return
-                            "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
+                            "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
                     }
 
                     return
-                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
+                        "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
             }
         }
 

@@ -34,7 +34,7 @@ namespace YAF.Web.Editors
     #endregion
 
     /// <summary>
-    /// The CKEDitor.
+    /// The CKEditor.
     /// </summary>
     public abstract class CKEditor : TextEditor
     {
