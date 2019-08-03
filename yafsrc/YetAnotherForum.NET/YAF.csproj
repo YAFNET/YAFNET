@@ -2348,6 +2348,8 @@
     <Content Include="Scripts\fontawesome\all.min.js" />
     <Content Include="Scripts\fontawesome\brands.js" />
     <Content Include="Scripts\fontawesome\brands.min.js" />
+    <Content Include="Scripts\fontawesome\conflict-detection.js" />
+    <Content Include="Scripts\fontawesome\conflict-detection.min.js" />
     <Content Include="Scripts\fontawesome\fontawesome.js" />
     <Content Include="Scripts\fontawesome\fontawesome.min.js" />
     <Content Include="Scripts\fontawesome\LICENSE-fontawesome.txt" />
@@ -3359,7 +3361,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
