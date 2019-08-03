@@ -202,7 +202,7 @@ namespace YAF.Pages.help
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.search.Text))
+            if (this.search.Text.IsNotSet())
             {
                 return;
             }

@@ -6,9 +6,6 @@ using ServiceStack.Logging;
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Jsv;
-using System.Linq;
-using System.Threading;
-using ServiceStack.Web;
 
 namespace ServiceStack.Serialization
 {

@@ -11,8 +11,6 @@
 // Licensed under the same terms of ServiceStack.
 //
 
-using System;
-using System.Collections.Generic;
 using System.Text;
 using ServiceStack.Text.Common;
 

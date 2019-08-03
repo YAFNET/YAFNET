@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using ServiceStack.OrmLite.Dapper;
+
 using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite

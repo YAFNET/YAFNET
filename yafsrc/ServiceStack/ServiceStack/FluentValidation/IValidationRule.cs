@@ -21,8 +21,8 @@ namespace ServiceStack.FluentValidation {
 	using System.Collections.Generic;
 	using System.Threading;
 	using System.Threading.Tasks;
-	using Internal;
-	using Results;
+
+    using Results;
 	using Validators;
 
 	/// <summary>

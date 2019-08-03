@@ -48,7 +48,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Lable1.Param0 = this.Get<YafBoardSettings>().Name;
+            this.Label1.Param0 = this.Get<YafBoardSettings>().Name;
 
             this.MoreDetails.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.cookies);
         }

@@ -17,13 +17,10 @@
 #endregion
 
 namespace ServiceStack.FluentValidation.Validators {
-	using System;
-	using Attributes;
-	using Internal;
+    using Internal;
 	using Resources;
-	using Results;
 
-	public class PredicateValidator : PropertyValidator, IPredicateValidator {
+    public class PredicateValidator : PropertyValidator, IPredicateValidator {
         public delegate bool Predicate(object instanceToValidate, object propertyValue, PropertyValidatorContext propertyValidatorContext);
 
 		private readonly Predicate predicate;

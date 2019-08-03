@@ -360,7 +360,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetLocalizedText([NotNull] string text, string page)
         {
-            return this.HtmlEncode(!string.IsNullOrEmpty(page) ? this.GetText(page, text) : this.GetText(text));
+            return this.HtmlEncode(page.IsSet() ? this.GetText(page, text) : this.GetText(text));
         }
 
         /// <summary>

@@ -32,11 +32,8 @@
 
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using ServiceStack.Text;
-using System.Globalization;
 
 //Dummy namespaces
 namespace System.Collections.Specialized {}
@@ -46,10 +43,7 @@ namespace ServiceStack.Pcl {}
 namespace ServiceStack
 {
     using System;
-    using System.Collections.Generic;
     using System.Web;
-    using ServiceStack.Web;
-    using ServiceStack.Pcl;
     using System.Collections.Specialized;
 
     public class PclExportClient 

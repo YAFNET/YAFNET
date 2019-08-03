@@ -13,14 +13,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 
 using ServiceStack.Text.Json;
-using ServiceStack.Text.Pools;
-using ServiceStack.Text.Support;
 
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;

@@ -73,7 +73,7 @@ namespace YAF.Controls
         [NotNull]
         public string Alt
         {
-            get => string.IsNullOrEmpty(this.alt) ? string.Empty : this.alt;
+            get => this.alt.IsNotSet() ? string.Empty : this.alt;
 
             set => this.alt = value;
         }
@@ -141,7 +141,7 @@ namespace YAF.Controls
                     this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUser"]
                         .ToString();
 
-                if (string.IsNullOrEmpty(this.Alt))
+                if (this.Alt.IsNotSet())
                 {
                     this.Alt = this.GetText("GO_LAST_POST");
                 }

@@ -1,8 +1,7 @@
 ﻿namespace ServiceStack.FluentValidation.Resources {
 	using System;
-	using System.Globalization;
 
-	/// <summary>
+    /// <summary>
 	/// IStringSource implementation that uses the default language manager.
 	/// </summary>
 	public class LanguageStringSource : IStringSource {

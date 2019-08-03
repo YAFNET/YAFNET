@@ -18,9 +18,8 @@
 
 namespace ServiceStack.FluentValidation.Internal {
 	using System;
-	using System.ComponentModel;
 
-	/// <summary>
+    /// <summary>
 	/// Represents an object that is configurable.
 	/// </summary>
 	/// <typeparam name="TConfiguration">Type of object being configured</typeparam>

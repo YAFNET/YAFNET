@@ -23,9 +23,8 @@ namespace ServiceStack.FluentValidation
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Reflection;
-    using Internal;
 
-	/// <summary>
+    /// <summary>
 	/// Class that can be used to find all the validators from a collection of types.
 	/// </summary>
 	public class AssemblyScanner : IEnumerable<AssemblyScanner.AssemblyScanResult> {

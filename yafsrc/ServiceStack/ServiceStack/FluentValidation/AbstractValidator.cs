@@ -28,9 +28,8 @@ namespace ServiceStack.FluentValidation
 	using System.Threading.Tasks;
 	using Internal;
 	using Results;
-	using Validators;
 
-	/// <summary>
+    /// <summary>
 	/// Base class for entity validator classes.
 	/// </summary>
 	/// <typeparam name="T">The type of the object being validated</typeparam>

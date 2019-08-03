@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using ServiceStack.Messaging;
-using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    using ServiceStack.Text;
+
     public static class MqExtensions
     {
         public static Dictionary<string, string> ToHeaders(this IMessage message)

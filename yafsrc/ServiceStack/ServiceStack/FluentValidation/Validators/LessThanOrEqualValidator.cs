@@ -18,10 +18,9 @@
 
 namespace ServiceStack.FluentValidation.Validators {
 	using System;
-	using System.Linq.Expressions;
-	using System.Reflection;
-	using Attributes;
-	using Internal;
+    using System.Reflection;
+
+    using Internal;
 	using Resources;
 
 	public class LessThanOrEqualValidator : AbstractComparisonValidator {

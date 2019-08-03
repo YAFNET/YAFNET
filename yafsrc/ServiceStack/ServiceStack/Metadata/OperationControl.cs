@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using ServiceStack.Host;
 using ServiceStack.Templates;
@@ -8,6 +6,8 @@ using ServiceStack.Web;
 
 namespace ServiceStack.Metadata
 {
+    using System.Linq;
+
     public class OperationControl
     {
         public ServiceEndpointsMetadataConfig MetadataConfig { get; set; }

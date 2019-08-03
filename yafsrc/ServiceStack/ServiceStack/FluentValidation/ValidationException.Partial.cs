@@ -17,16 +17,15 @@
 #endregion
 
 using ServiceStack.Model;
-using ServiceStack.Text;
 using ServiceStack.Validation;
 
 namespace ServiceStack.FluentValidation {
 	using System;
 	using System.Collections.Generic;
-	using Results;
-	using System.Linq;
 
-	/// <summary>
+    using ServiceStack.Text;
+
+    /// <summary>
 	/// An exception that represents failed validation
 	/// </summary>
 	public partial class ValidationException : ArgumentException, IResponseStatusConvertible

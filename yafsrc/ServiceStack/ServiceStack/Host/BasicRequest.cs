@@ -6,11 +6,12 @@ using System.Net;
 using ServiceStack.Configuration;
 using ServiceStack.IO;
 using ServiceStack.Messaging;
-using ServiceStack.Text;
 using ServiceStack.Web;
 
 namespace ServiceStack.Host
 {
+    using ServiceStack.Text;
+
     public class BasicRequest : IRequest, IHasResolver, IHasVirtualFiles
     {
         public object Dto { get; set; }

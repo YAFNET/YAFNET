@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace ServiceStack
 {
     public interface IServiceClient : IServiceClientAsync, IReplyClient, IOneWayClient, IRestClient, IHasSessionId, IHasVersion

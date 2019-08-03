@@ -15,11 +15,7 @@ using Microsoft.Extensions.Primitives;
 #else
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
-
-using ServiceStack.Text.Support;
 
 #endif
 

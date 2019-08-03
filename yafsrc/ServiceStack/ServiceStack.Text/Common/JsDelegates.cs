@@ -16,7 +16,7 @@ using System.IO;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #else
-using ServiceStack.Text.Support;
+
 #endif
 
 

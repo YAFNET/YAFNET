@@ -10,6 +10,7 @@ namespace YAF.UrlRewriter.Parsers
     using System;
     using System.Xml;
 
+    using YAF.Types.Extensions;
     using YAF.UrlRewriter.Actions;
     using YAF.UrlRewriter.Configuration;
     using YAF.UrlRewriter.Extensions;
@@ -54,7 +55,7 @@ namespace YAF.UrlRewriter.Parsers
             }
 
             var cookieName = node.GetOptionalAttribute(Constants.AttrCookie);
-            if (string.IsNullOrEmpty(cookieName))
+            if (cookieName.IsNotSet())
             {
                 return null;
             }

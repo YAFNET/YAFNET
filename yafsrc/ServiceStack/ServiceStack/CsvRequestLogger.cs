@@ -7,7 +7,6 @@ using System.Threading;
 using ServiceStack.IO;
 using ServiceStack.Logging;
 using ServiceStack.Text;
-using ServiceStack.VirtualPath;
 
 namespace ServiceStack
 {

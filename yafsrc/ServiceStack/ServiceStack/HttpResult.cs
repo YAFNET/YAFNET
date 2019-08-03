@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Web;
 using ServiceStack.Host;
 using ServiceStack.IO;
-using ServiceStack.Logging;
 using ServiceStack.Text;
 using ServiceStack.Web;
 

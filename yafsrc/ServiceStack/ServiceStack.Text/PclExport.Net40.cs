@@ -1,13 +1,11 @@
 ﻿#if !NETSTANDARD2_0
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -20,11 +18,9 @@ using System.Threading.Tasks;
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
-using ServiceStack.Text.Support;
-
 #if !__IOS__ && !NETSTANDARD2_0
 using System.Reflection.Emit;
-using FastMember = ServiceStack.Text.FastMember;
+
 #endif
 
 #if __UNIFIED__

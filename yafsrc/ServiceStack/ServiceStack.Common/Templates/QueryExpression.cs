@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ServiceStack.DataAnnotations;
+
 using ServiceStack.Text;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;

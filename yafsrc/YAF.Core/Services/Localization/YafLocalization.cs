@@ -35,7 +35,6 @@ namespace YAF.Core.Services.Localization
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -43,7 +42,7 @@ namespace YAF.Core.Services.Localization
     #endregion
 
     /// <summary>
-    /// The yaf localization.
+    /// The YAF localization.
     /// </summary>
     public class YafLocalization : ILocalization
     {
@@ -280,11 +279,17 @@ namespace YAF.Core.Services.Localization
         /// </returns>
         public string GetAttributeText([NotNull] string text)
         {
-            return System.Web.HttpUtility.HtmlAttributeEncode(GetText(text));
+            return HttpUtility.HtmlAttributeEncode(this.GetText(text));
         }
 
+        /// <summary>
+        /// The _rgx begin.
+        /// </summary>
         private static readonly Regex _rgxBegin = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])", RegexOptions.Compiled);
 
+        /// <summary>
+        /// The _rgx end.
+        /// </summary>
         private static readonly Regex _rgxEnd = new Regex(@"(?<inner>\[/b\])(?!\[/noparse\])", RegexOptions.Compiled);
 
         /// <summary>
@@ -347,7 +352,7 @@ namespace YAF.Core.Services.Localization
         /// </returns>
         public string GetAttributeText([NotNull] string page, [NotNull] string tag)
         {
-            return System.Web.HttpUtility.HtmlAttributeEncode(GetText(page, tag));
+            return HttpUtility.HtmlAttributeEncode(this.GetText(page, tag));
         }
 
         /// <summary>
@@ -369,7 +374,7 @@ namespace YAF.Core.Services.Localization
         {
             string localizedText;
 
-            if (!string.IsNullOrEmpty(languageFile))
+            if (languageFile.IsSet())
             {
                 var localization = new YafLocalization();
                 localization.LoadTranslation(languageFile);
@@ -385,7 +390,7 @@ namespace YAF.Core.Services.Localization
 #if !DEBUG
                 string filename;
 
-                if (!string.IsNullOrEmpty(languageFile))
+                if (languageFile.IsSet())
                 {
                     filename = languageFile;
                 }
@@ -411,9 +416,8 @@ namespace YAF.Core.Services.Localization
                 YafContext.Current.Get<ILogger>()
                     .Log(
                         YafContext.Current.PageUserID,
-                        page.ToLower() + ".ascx",
-                        string.Format("Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper()),
-                        EventLogTypes.Error);
+                        $"{page.ToLower()}.ascx",
+                        $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
                 return string.Format("[{1}.{0}]", tag.ToUpper(), page.ToUpper());
             }
@@ -547,7 +551,7 @@ namespace YAF.Core.Services.Localization
         }
 
         /// <summary>
-        /// The load translation.
+        /// Loads the Translation
         /// </summary>
         /// <returns>
         /// The load translation.
@@ -599,12 +603,10 @@ namespace YAF.Core.Services.Localization
         /// </returns>
         protected string GetLocalizedTextInternal([NotNull] string page, [NotNull] string tag)
         {
-            string localizedText;
-
             this.LoadTranslation();
 
             this.localizer.SetPage(page);
-            this.localizer.GetText(tag, out localizedText);
+            this.localizer.GetText(tag, out var localizedText);
 
             // If not default language, try to use that instead
             if (localizedText != null || this.defaultLocale == null)

@@ -16,12 +16,7 @@ using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
 using System.Threading;
-
-using ServiceStack.Text.Json;
-using ServiceStack.Text.Support;
 
 namespace ServiceStack.Text.Common
 {

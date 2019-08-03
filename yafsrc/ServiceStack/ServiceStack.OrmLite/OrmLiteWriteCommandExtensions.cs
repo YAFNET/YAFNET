@@ -16,7 +16,6 @@ using System.Data;
 using System.Linq;
 using ServiceStack.Data;
 using ServiceStack.Logging;
-using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {

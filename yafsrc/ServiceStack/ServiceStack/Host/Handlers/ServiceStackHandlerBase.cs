@@ -4,18 +4,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceStack.MiniProfiler;
 using ServiceStack.Serialization;
-using ServiceStack.Text;
 using ServiceStack.Web;
 
 namespace ServiceStack.Host.Handlers
 {
+    using ServiceStack.Text;
+
     public interface IRequestHttpHandler
     {
         string RequestName { get; }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
 using ServiceStack.Web;

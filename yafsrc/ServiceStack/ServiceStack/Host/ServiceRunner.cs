@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ServiceStack.Logging;
 using ServiceStack.Messaging;
-using ServiceStack.Text;
 using ServiceStack.Web;
 
 namespace ServiceStack.Host
 {
+    using ServiceStack.Text;
+
     public class ServiceRunner<TRequest> : IServiceRunner<TRequest>
     {
         protected static readonly ILog Log = LogManager.GetLogger(typeof(ServiceRunner<>));

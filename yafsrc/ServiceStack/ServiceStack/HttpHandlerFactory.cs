@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
 using ServiceStack.Host;
 using ServiceStack.Host.Handlers;
 using ServiceStack.Text;
-using ServiceStack.VirtualPath;
 using ServiceStack.Web;
 
 namespace ServiceStack

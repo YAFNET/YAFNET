@@ -1,4 +1,4 @@
-[![YAF logo](http://yetanotherforum.net/forum/Content/images/YafLogo.png)](http://www.yetanotherforum.net)
+[![YAF logo](http://yetanotherforum.net/forum/Content/images/YAFLogo.svg)](http://www.yetanotherforum.net)
 
 **YetAnotherForum.NET** (YAF.NET) ASP.NET Open Source Forum solution! The **YAF.NET** project is an international collaboration of like-minded, skilled, and creative individuals who are striving to make **YAF.NET** the most robust and malleable forum solutions available.
 

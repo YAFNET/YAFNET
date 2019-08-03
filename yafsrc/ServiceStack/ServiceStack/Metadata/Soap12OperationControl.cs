@@ -1,5 +1,3 @@
-using System.Web;
-
 namespace ServiceStack.Metadata
 {
     internal class Soap12OperationControl : OperationControl

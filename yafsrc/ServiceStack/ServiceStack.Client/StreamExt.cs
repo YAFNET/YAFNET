@@ -5,8 +5,6 @@ using System;
 using System.IO;
 using System.Text;
 using ServiceStack.Caching;
-using ServiceStack.Text;
-using System.Security.Cryptography;
 
 namespace ServiceStack
 {

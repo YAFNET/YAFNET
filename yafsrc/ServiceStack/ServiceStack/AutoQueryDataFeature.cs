@@ -13,9 +13,7 @@ using Funq;
 using ServiceStack.Caching;
 using ServiceStack.DataAnnotations;
 using ServiceStack.MiniProfiler;
-using ServiceStack.Reflection;
 using ServiceStack.Web;
-using ServiceStack.Logging;
 using ServiceStack.Text;
 
 #if NETSTANDARD2_0

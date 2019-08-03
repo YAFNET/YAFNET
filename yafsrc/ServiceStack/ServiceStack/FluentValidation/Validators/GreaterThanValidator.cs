@@ -19,8 +19,8 @@
 namespace ServiceStack.FluentValidation.Validators {
 	using System;
 	using System.Reflection;
-	using Attributes;
-	using Internal;
+
+    using Internal;
 	using Resources;
 
 	public class GreaterThanValidator : AbstractComparisonValidator {

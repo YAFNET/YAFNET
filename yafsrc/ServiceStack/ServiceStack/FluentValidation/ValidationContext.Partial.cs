@@ -19,10 +19,7 @@
 using ServiceStack.Web;
 
 namespace ServiceStack.FluentValidation {
-	using System.Collections.Generic;
-	using Internal;
-
-	/// <summary>
+    /// <summary>
 	/// Validation context
 	/// </summary>
 	/// <typeparam name="T"></typeparam>

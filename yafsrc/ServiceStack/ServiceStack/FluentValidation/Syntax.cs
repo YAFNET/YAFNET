@@ -18,8 +18,8 @@
 
 namespace ServiceStack.FluentValidation {
 	using System;
-	using System.Collections.Generic;
-	using Internal;
+
+    using Internal;
 	using Validators;
 
 	/// <summary>

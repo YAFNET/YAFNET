@@ -2,8 +2,6 @@
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 #if !SL5 && !XBOX
-using System;
-
 namespace ServiceStack.Web
 {
     /// <summary>

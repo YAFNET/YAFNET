@@ -18,8 +18,8 @@
 
 namespace ServiceStack.FluentValidation.Validators {
 	using System;
-	using Attributes;
-	using Internal;
+
+    using Internal;
 	using Resources;
 
 	public class ExclusiveBetweenValidator : PropertyValidator, IBetweenValidator {

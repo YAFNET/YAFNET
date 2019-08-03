@@ -22,8 +22,8 @@ namespace ServiceStack.FluentValidation.Validators {
 	using System.Linq;
 	using System.Threading;
 	using System.Threading.Tasks;
-	using FluentValidation.Internal;
-	using Resources;
+
+    using Resources;
 	using Results;
 
 	public class DelegatingValidator : IPropertyValidator, IDelegatingValidator {

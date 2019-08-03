@@ -15,11 +15,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Jsv;
-using ServiceStack.Text.Pools;
 
 namespace ServiceStack.Text
 {

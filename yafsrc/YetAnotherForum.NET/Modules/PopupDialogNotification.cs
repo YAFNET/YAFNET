@@ -94,18 +94,10 @@ namespace YAF.Modules
                                   element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<YafBoardSettings>().MessageNotifcationDuration} * 1000
                         }});}} }}";
 
-            // Override Notification Setting if Mobile Device is used
-           /* if (this.Get<YafBoardSettings>().NotifcationNativeOnMobile
-                && this.Get<HttpRequestBase>().Browser.IsMobileDevice)
-            {
-                // Show as Modal Dialog
-                javaScriptFunction =
-                    $@"function {this.ShowModalFunction}(newErrorStr) {{  if (newErrorStr != null && newErrorStr != """") {{
-                                                    alert(newErrorStr);
-                      }} }}";
-            }*/
-
-            YafContext.Current.PageElements.RegisterJsBlock(thisControl: this, name: this.ShowModalFunction, script: javaScriptFunction);
+            YafContext.Current.PageElements.RegisterJsBlock(
+                thisControl: this,
+                name: this.ShowModalFunction,
+                script: javaScriptFunction);
 
             base.OnPreRender(e: e);
         }

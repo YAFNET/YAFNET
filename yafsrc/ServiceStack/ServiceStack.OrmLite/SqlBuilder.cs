@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Threading;
-using ServiceStack.Text;
+
 using PropertyAttributes = System.Reflection.PropertyAttributes;
 
 namespace ServiceStack.OrmLite

@@ -57,7 +57,7 @@
             <div>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedPage="MODERATE" LocalizedTag="VIEWS" />:
-                <% this.Response.Write(FormatViews());%>
+                <% this.Response.Write(this.FormatViews());%>
             </div>
         </div>
     </div>

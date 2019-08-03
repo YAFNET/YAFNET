@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using ServiceStack.Auth;
 using ServiceStack.Caching;
-using ServiceStack.Configuration;
 using ServiceStack.Host;
 using ServiceStack.Logging;
-using ServiceStack.Redis;
 using ServiceStack.Testing;
 using ServiceStack.Web;
 
 namespace ServiceStack
 {
+    using System.Linq;
+
     public static class ServiceExtensions
     {
         public static ILog Log = LogManager.GetLogger(typeof(ServiceExtensions));

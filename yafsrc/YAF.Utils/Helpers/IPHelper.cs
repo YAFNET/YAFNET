@@ -168,7 +168,7 @@ namespace YAF.Utils.Helpers
                     ipAddresses.FirstOrDefault(
                         ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
 
-                if (!string.IsNullOrEmpty(firstNonLocalAddress))
+                if (firstNonLocalAddress.IsSet())
                 {
                     return firstNonLocalAddress;
                 }
@@ -272,7 +272,7 @@ namespace YAF.Utils.Helpers
         /// string array of numbers
         /// </param>
         /// <returns>
-        /// ulong represending an encoding IP address
+        /// ulong representing an encoding IP address
         /// </returns>
         public static ulong StringToIP([NotNull] string[] ip)
         {

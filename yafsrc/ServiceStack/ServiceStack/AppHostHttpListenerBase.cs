@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using ServiceStack.Host;
 using ServiceStack.Host.Handlers;
 using ServiceStack.Host.HttpListener;
-using ServiceStack.Text;
 
 namespace ServiceStack
 {

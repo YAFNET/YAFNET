@@ -24,12 +24,13 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 
 namespace ServiceStack.Text
 {
     // Internalize to avoid conflicts
+    using System.Linq;
+
     using Events = RecyclableMemoryStreamManager.Events;
 
     public static class MemoryStreamFactory
@@ -124,7 +125,6 @@ namespace ServiceStack.Text
         /// </summary>
         private readonly ConcurrentStack<byte[]>[] largePools;
 
-        private readonly int maximumBufferSize;
         private readonly ConcurrentStack<byte[]> smallPool;
 
         private long smallPoolFreeSize;
@@ -166,7 +166,7 @@ namespace ServiceStack.Text
 
             this.blockSize = blockSize;
             this.largeBufferMultiple = largeBufferMultiple;
-            this.maximumBufferSize = maximumBufferSize;
+            this.MaximumBufferSize = maximumBufferSize;
 
             if (!this.IsLargeBufferMultiple(maximumBufferSize))
             {
@@ -206,7 +206,7 @@ namespace ServiceStack.Text
         /// </summary>
         /// <remarks>Any buffer that is returned to the pool that is larger than this will be
         /// discarded and garbage collected.</remarks>
-        public int MaximumBufferSize => this.maximumBufferSize;
+        public int MaximumBufferSize { get; }
 
         /// <summary>
         /// Number of bytes in small pool not currently in use

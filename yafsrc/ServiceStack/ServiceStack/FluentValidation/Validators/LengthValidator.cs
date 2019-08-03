@@ -18,9 +18,8 @@
 
 namespace ServiceStack.FluentValidation.Validators {
 	using System;
-	using System.Linq.Expressions;
-	using Attributes;
-	using Resources;
+
+    using Resources;
 
 	public class LengthValidator : PropertyValidator, ILengthValidator {
 		public int Min { get; private set; }

@@ -20,9 +20,8 @@ namespace ServiceStack.FluentValidation.Validators {
 	using System;
 	using System.Collections;
 	using System.Reflection;
-	using Attributes;
-	using Internal;
-	using Resources;
+
+    using Resources;
 
 	public class NotEqualValidator : PropertyValidator, IComparisonValidator {
 		readonly IEqualityComparer comparer;

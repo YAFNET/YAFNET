@@ -18,8 +18,8 @@
 
 namespace ServiceStack.FluentValidation.Internal {
 	using System;
-	using System.Linq.Expressions;
-	using Validators;
+
+    using Validators;
 
 	/// <summary>
 	/// Builds a validation rule and constructs a validator.

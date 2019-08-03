@@ -18,8 +18,20 @@ YetAnotherForum.NET Changelog
 * [NEW #89] Added Buton "Get Location from IP Address" to Retrieve the Country & City from the IP Address
 * [NEW #107] Added Button "Watch all Forums"
 * [NEW #258] Anti Spam statistics
+* [NEW #256] automatically save message draft and also added save button
+* [NEW #286] Mentions of users via @Username
+* [NEW #287] Onsite Notification for Quoted Posts, Mentions and received Thanks
 
 ## Fixed Issues:
+* Fixed Unicode Urls
+
+
+# YetAnotherForum.NET v2.2.4.18
+## New Features:
+* Upgraded to CKEditor 4.12.1
+
+## Fixed Issues:
+* Fixed issue with display of current YAF Version
 
 
 # YetAnotherForum.NET v2.2.4.17

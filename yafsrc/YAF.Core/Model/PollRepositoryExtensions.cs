@@ -52,6 +52,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// Gets a typed poll group list.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -61,8 +64,15 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board id.
         /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
-        public static IEnumerable<TypedPollGroup> PollGroupList(this IRepository<Poll> repository, int userID, int? forumId, int boardId)
+        public static IEnumerable<TypedPollGroup> PollGroupList(
+            this IRepository<Poll> repository,
+            int userID,
+            int? forumId,
+            int boardId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -70,9 +80,13 @@ namespace YAF.Core.Model
                 .GetAsDataTable(cdb => cdb.pollgroup_list(UserID: userID, ForumID: forumId, BoardID: boardId))
                 .SelectTypedList(t => new TypedPollGroup(t));
         }
+
         /// <summary>
         /// The poll_remove.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="pollGroupID">
         /// The poll group id. The parameter should always be present.
         /// </param>
@@ -103,13 +117,16 @@ namespace YAF.Core.Model
         /// <summary>
         /// The poll_stats.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="pollId">
         /// The poll id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable StatsAsDataTable(
-        this IRepository<Poll> repository, int? pollId)
+        public static DataTable StatsAsDataTable(this IRepository<Poll> repository, int? pollId)
         {
             return repository.DbFunction.GetData.poll_stats(PollID: pollId);
         }
@@ -117,6 +134,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The poll_update.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="pollID">
         /// The poll id.
         /// </param>
@@ -148,7 +168,7 @@ namespace YAF.Core.Model
         /// The question file mime type.
         /// </param>
         public static void Update(
-this IRepository<Poll> repository,
+            this IRepository<Poll> repository,
             [NotNull] object pollID,
             [NotNull] object question,
             [NotNull] object closes,
@@ -176,6 +196,9 @@ this IRepository<Poll> repository,
         /// <summary>
         /// The pollgroup_attach.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="pollGroupId">
         /// The poll group id.
         /// </param>
@@ -195,27 +218,51 @@ this IRepository<Poll> repository,
         /// The pollgroup_attach.
         /// </returns>
         public static int PollGroupAttach(
-        this IRepository<Poll> repository, int? pollGroupId, int? topicId, int? forumId, int? categoryId, int? boardId)
+            this IRepository<Poll> repository,
+            int? pollGroupId,
+            int? topicId,
+            int? forumId,
+            int? categoryId,
+            int? boardId)
         {
-            return repository.DbFunction.GetData.pollgroup_attach(PollGroupID : pollGroupId,
-                TopicID : topicId,
-                ForumID : forumId,
-                CategoryID : categoryId,
-                BoardID : boardId);
+            return repository.DbFunction.GetData.pollgroup_attach(
+                PollGroupID: pollGroupId,
+                TopicID: topicId,
+                ForumID: forumId,
+                CategoryID: categoryId,
+                BoardID: boardId);
         }
 
         /// <summary>
         /// The poll_remove.
         /// </summary>
-        /// <param name="pollGroupID">The poll group id. The parameter should always be present.</param>
-        /// <param name="topicId">The topic identifier.</param>
-        /// <param name="forumId">The forum identifier.</param>
-        /// <param name="categoryId">The category Id.</param>
-        /// <param name="boardId">The BoardID id.</param>
-        /// <param name="removeCompletely">The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely,
-        /// else only one poll is deleted completely.</param>
-        /// <param name="removeEverywhere">if set to <c>true</c> [remove everywhere].</param>
-        public static void PollGroupRemove(this IRepository<Poll> repository,
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="pollGroupID">
+        /// The poll group id. The parameter should always be present.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic identifier.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum identifier.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category Id.
+        /// </param>
+        /// <param name="boardId">
+        /// The BoardID id.
+        /// </param>
+        /// <param name="removeCompletely">
+        /// The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely,
+        /// else only one poll is deleted completely.
+        /// </param>
+        /// <param name="removeEverywhere">
+        /// if set to <c>true</c> [remove everywhere].
+        /// </param>
+        public static void PollGroupRemove(
+            this IRepository<Poll> repository,
             [NotNull] object pollGroupID,
             [NotNull] object topicId,
             [NotNull] object forumId,
@@ -237,13 +284,16 @@ this IRepository<Poll> repository,
         /// <summary>
         /// The pollgroup_stats.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="pollGroupId">
         /// The poll group id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable PollGroupStatsAsDataTable(
-        this IRepository<Poll> repository, int? pollGroupId)
+        public static DataTable PollGroupStatsAsDataTable(this IRepository<Poll> repository, int? pollGroupId)
         {
             return repository.DbFunction.GetData.pollgroup_stats(PollGroupID: pollGroupId);
         }
@@ -251,6 +301,9 @@ this IRepository<Poll> repository,
         /// <summary>
         /// Checks for a vote in the database
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="pollGroupId">
         /// The pollGroupid.
         /// </param>
@@ -260,8 +313,11 @@ this IRepository<Poll> repository,
         /// <param name="remoteIp">
         /// The remoteip.
         /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable PollGroupVotecheckAsDataTable(
-        this IRepository<Poll> repository,
+            this IRepository<Poll> repository,
             [NotNull] object pollGroupId,
             [NotNull] object userId,
             [NotNull] object remoteIp)
@@ -275,16 +331,17 @@ this IRepository<Poll> repository,
         /// <summary>
         /// The method saves many questions and answers to them in a single transaction
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="pollList">
         /// List to hold all polls data
         /// </param>
         /// <returns>
         /// Last saved poll id.
         /// </returns>
-        public static int? Save(
-        this IRepository<Poll> repository, [NotNull] List<PollSaveList> pollList)
+        public static int? Save(this IRepository<Poll> repository, [NotNull] List<PollSaveList> pollList)
         {
-
             foreach (var question in pollList)
             {
                 var sb = new StringBuilder();
@@ -331,14 +388,14 @@ this IRepository<Poll> repository,
                 }
 
                 sb.Append(
-                  ",@UserID, (CASE WHEN  @NewPollGroupID IS NULL THEN @PollGroupID ELSE @NewPollGroupID END), @QuestionObjectPath,@QuestionMimeType,@PollFlags");
+                    ",@UserID, (CASE WHEN  @NewPollGroupID IS NULL THEN @PollGroupID ELSE @NewPollGroupID END), @QuestionObjectPath,@QuestionMimeType,@PollFlags");
                 sb.Append("); ");
                 sb.Append("SET @PollID = SCOPE_IDENTITY(); ");
 
                 // The cycle through question reply choices
                 for (uint choiceCount = 0; choiceCount < question.Choice.GetUpperBound(1) + 1; choiceCount++)
                 {
-                    if (string.IsNullOrEmpty(question.Choice[0, choiceCount]))
+                    if (question.Choice[0, choiceCount].IsNotSet())
                     {
                         continue;
                     }
@@ -346,7 +403,9 @@ this IRepository<Poll> repository,
                     sb.Append("INSERT INTO ");
                     sb.Append(CommandTextHelpers.GetObjectName("Choice"));
                     sb.Append("(PollID,Choice,Votes,ObjectPath,MimeType) VALUES (");
-                    sb.AppendFormat("@PollID,@Choice{0},@Votes{0},@ChoiceObjectPath{0}, @ChoiceMimeType{0}", choiceCount);
+                    sb.AppendFormat(
+                        "@PollID,@Choice{0},@Votes{0},@ChoiceObjectPath{0}, @ChoiceMimeType{0}",
+                        choiceCount);
                     sb.Append("); ");
                 }
 
@@ -383,27 +442,27 @@ this IRepository<Poll> repository,
                 using (var cmd = repository.DbAccess.GetCommand(sb.ToString(), CommandType.Text))
                 {
                     var ret = new SqlParameter
-                    {
-                        ParameterName = "@PollID",
-                        SqlDbType = SqlDbType.Int,
-                        Direction = ParameterDirection.Output
-                    };
+                                  {
+                                      ParameterName = "@PollID",
+                                      SqlDbType = SqlDbType.Int,
+                                      Direction = ParameterDirection.Output
+                                  };
                     cmd.Parameters.Add(ret);
 
                     var ret2 = new SqlParameter
-                    {
-                        ParameterName = "@PollGroupID",
-                        SqlDbType = SqlDbType.Int,
-                        Direction = ParameterDirection.Output
-                    };
+                                   {
+                                       ParameterName = "@PollGroupID",
+                                       SqlDbType = SqlDbType.Int,
+                                       Direction = ParameterDirection.Output
+                                   };
                     cmd.Parameters.Add(ret2);
 
                     var ret3 = new SqlParameter
-                    {
-                        ParameterName = "@NewPollGroupID",
-                        SqlDbType = SqlDbType.Int,
-                        Direction = ParameterDirection.Output
-                    };
+                                   {
+                                       ParameterName = "@NewPollGroupID",
+                                       SqlDbType = SqlDbType.Int,
+                                       Direction = ParameterDirection.Output
+                                   };
                     cmd.Parameters.Add(ret3);
 
                     cmd.AddParam("@Question", question.Question);
@@ -423,11 +482,11 @@ this IRepository<Poll> repository,
                     cmd.AddParam("@UserID", question.UserId);
                     cmd.AddParam("@Flags", groupFlags);
                     cmd.AddParam(
-                      "@QuestionObjectPath",
-                      string.IsNullOrEmpty(question.QuestionObjectPath) ? string.Empty : question.QuestionObjectPath);
+                        "@QuestionObjectPath",
+                        question.QuestionObjectPath.IsNotSet() ? string.Empty : question.QuestionObjectPath);
                     cmd.AddParam(
-                      "@QuestionMimeType",
-                      string.IsNullOrEmpty(question.QuestionMimeType) ? string.Empty : question.QuestionMimeType);
+                        "@QuestionMimeType",
+                        question.QuestionMimeType.IsNotSet() ? string.Empty : question.QuestionMimeType);
 
                     var pollFlags = question.IsClosedBound ? 0 | 4 : 0;
                     pollFlags = question.AllowMultipleChoices ? pollFlags | 8 : pollFlags;
@@ -445,10 +504,14 @@ this IRepository<Poll> repository,
 
                             cmd.AddParam(
                                 $"@ChoiceObjectPath{choiceCount1}",
-                              question.Choice[1, choiceCount1].IsNotSet() ? string.Empty : question.Choice[1, choiceCount1]);
+                                question.Choice[1, choiceCount1].IsNotSet()
+                                    ? string.Empty
+                                    : question.Choice[1, choiceCount1]);
                             cmd.AddParam(
                                 $"@ChoiceMimeType{choiceCount1}",
-                              question.Choice[2, choiceCount1].IsNotSet() ? string.Empty : question.Choice[2, choiceCount1]);
+                                question.Choice[2, choiceCount1].IsNotSet()
+                                    ? string.Empty
+                                    : question.Choice[2, choiceCount1]);
                         }
                     }
 

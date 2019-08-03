@@ -10,6 +10,7 @@ namespace YAF.UrlRewriter.Parsers
     using System;
     using System.Xml;
 
+    using YAF.Types.Extensions;
     using YAF.UrlRewriter.Actions;
     using YAF.UrlRewriter.Configuration;
     using YAF.UrlRewriter.Extensions;
@@ -54,7 +55,7 @@ namespace YAF.UrlRewriter.Parsers
             }
 
             var propertyName = node.GetOptionalAttribute(Constants.AttrProperty);
-            if (string.IsNullOrEmpty(propertyName))
+            if (propertyName.IsNotSet())
             {
                 return null;
             }

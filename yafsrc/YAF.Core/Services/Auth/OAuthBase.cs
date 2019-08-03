@@ -334,7 +334,7 @@ namespace YAF.Core.Services.Auth
                                         {
                                             Key =
                                                 Encoding.ASCII.GetBytes(
-                                                    $"{this.UrlEncode(consumerSecret)}&{(string.IsNullOrEmpty(tokenSecret) ? string.Empty : this.UrlEncode(tokenSecret))}")
+                                                    $"{this.UrlEncode(consumerSecret)}&{(tokenSecret.IsNotSet() ? string.Empty : this.UrlEncode(tokenSecret))}")
                                         };
 
                     return this.GenerateSignatureUsingHash(signatureBase, hmacsha1);
@@ -405,17 +405,17 @@ namespace YAF.Core.Services.Auth
                 token = string.Empty;
             }
 
-            if (string.IsNullOrEmpty(consumerKey))
+            if (consumerKey.IsNotSet())
             {
                 throw new ArgumentNullException("consumerKey");
             }
 
-            if (string.IsNullOrEmpty(httpMethod))
+            if (httpMethod.IsNotSet())
             {
                 throw new ArgumentNullException("httpMethod");
             }
 
-            if (string.IsNullOrEmpty(signatureType))
+            if (signatureType.IsNotSet())
             {
                 throw new ArgumentNullException("signatureType");
             }
@@ -427,18 +427,18 @@ namespace YAF.Core.Services.Auth
             parameters.Add(new QueryParameter(OAuthSignatureMethodKey, signatureType));
             parameters.Add(new QueryParameter(OAuthConsumerKeyKey, consumerKey));
 
-            if (!string.IsNullOrEmpty(callBackUrl))
+            if (callBackUrl.IsSet())
             {
                 parameters.Add(new QueryParameter(OAuthCallbackKey, this.UrlEncode(callBackUrl)));
             }
 
-            if (!string.IsNullOrEmpty(token))
+            if (token.IsSet())
             {
                 parameters.Add(new QueryParameter(OAuthTokenKey, token));
             }
 
             // Pin Based Authentication
-            if (!string.IsNullOrEmpty(pin))
+            if (pin.IsSet())
             {
                 parameters.Add(new QueryParameter(OAuthVerifierKey, pin));
             }
@@ -554,7 +554,7 @@ namespace YAF.Core.Services.Auth
         /// Helper function to compute a hash value
         /// </summary>
         /// <param name="hashAlgorithm">
-        /// The hashing algoirhtm used. If that algorithm needs some initialization, like HMAC and its derivatives, they should be initialized prior to passing it to this function
+        /// The hashing algorithm used. If that algorithm needs some initialization, like HMAC and its derivatives, they should be initialized prior to passing it to this function
         /// </param>
         /// <param name="data">
         /// The data to hash
@@ -570,7 +570,7 @@ namespace YAF.Core.Services.Auth
                 throw new ArgumentNullException("hashAlgorithm");
             }
 
-            if (string.IsNullOrEmpty(data))
+            if (data.IsNotSet())
             {
                 throw new ArgumentNullException("data");
             }
@@ -582,7 +582,7 @@ namespace YAF.Core.Services.Auth
         }
 
         /// <summary>
-        /// Internal function to cut out all non oauth query string parameters (all parameters not begining with "oauth_")
+        /// Internal function to cut out all non oauth query string parameters (all parameters not beginning with "oauth_")
         /// </summary>
         /// <param name="parameters">
         /// The query string part of the Url
@@ -599,13 +599,13 @@ namespace YAF.Core.Services.Auth
 
             var result = new List<QueryParameter>();
 
-            if (string.IsNullOrEmpty(parameters))
+            if (parameters.IsNotSet())
             {
                 return result;
             }
 
             var p = parameters.Split('&');
-            foreach (var s in p.Where(s => !string.IsNullOrEmpty(s) && !s.StartsWith(OAuthParameterPrefix)))
+            foreach (var s in p.Where(s => s.IsSet() && !s.StartsWith(OAuthParameterPrefix)))
             {
                 if (s.IndexOf('=') > -1)
                 {
@@ -630,16 +630,6 @@ namespace YAF.Core.Services.Auth
         {
             #region Constants and Fields
 
-            /// <summary>
-            /// The name.
-            /// </summary>
-            private readonly string name;
-
-            /// <summary>
-            /// The value.
-            /// </summary>
-            private readonly string value;
-
             #endregion
 
             #region Constructors and Destructors
@@ -655,8 +645,8 @@ namespace YAF.Core.Services.Auth
             /// </param>
             public QueryParameter(string name, string value)
             {
-                this.name = name;
-                this.value = value;
+                this.Name = name;
+                this.Value = value;
             }
 
             #endregion
@@ -666,12 +656,12 @@ namespace YAF.Core.Services.Auth
             /// <summary>
             /// Gets Name.
             /// </summary>
-            public string Name => this.name;
+            public string Name { get; }
 
             /// <summary>
             /// Gets Value.
             /// </summary>
-            public string Value => this.value;
+            public string Value { get; }
 
             #endregion
         }

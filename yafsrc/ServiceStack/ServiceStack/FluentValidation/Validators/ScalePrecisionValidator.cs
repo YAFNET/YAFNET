@@ -19,7 +19,7 @@
 namespace ServiceStack.FluentValidation.Validators
 {
     using System;
-    using System.Linq.Expressions;
+
     using Resources;
 
     /// <summary>

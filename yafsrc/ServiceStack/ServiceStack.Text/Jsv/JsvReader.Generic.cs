@@ -10,7 +10,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 
 using ServiceStack.Text.Common;
-using ServiceStack.Text.Support;
 
 #endif
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
-using Funq;
+
 using ServiceStack.Host.Handlers;
 
 namespace ServiceStack

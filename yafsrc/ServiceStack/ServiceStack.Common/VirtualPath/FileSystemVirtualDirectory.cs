@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using ServiceStack.IO;
 using ServiceStack.Logging;
-using ServiceStack.Text;
 
 namespace ServiceStack.VirtualPath
 {

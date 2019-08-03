@@ -95,7 +95,7 @@ namespace YAF.Modules
             // Get the clean JS string.
             message.Message = message.Message.ToJsString();
 
-            if (string.IsNullOrEmpty(value: message.Message))
+            if (message.Message.IsNotSet())
             {
                 return;
             }

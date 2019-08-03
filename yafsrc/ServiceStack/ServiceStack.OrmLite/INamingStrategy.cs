@@ -1,5 +1,4 @@
-﻿using System;
-namespace ServiceStack.OrmLite
+﻿namespace ServiceStack.OrmLite
 {
     public interface INamingStrategy
     {

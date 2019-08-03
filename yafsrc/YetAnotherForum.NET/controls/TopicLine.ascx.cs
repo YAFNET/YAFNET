@@ -36,11 +36,6 @@ namespace YAF.Controls
         /// </summary>
         private string altFirstUnreadPost;
 
-        /// <summary>
-        ///   The _the topic row.
-        /// </summary>
-        private DataRowView theTopicRow;
-
         #endregion
 
         #region Properties
@@ -69,7 +64,7 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get => string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
+            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
 
             set => this.altLastPost = value;
         }
@@ -80,7 +75,7 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastUnreadPost
         {
-            get => string.IsNullOrEmpty(this.altFirstUnreadPost) ? string.Empty : this.altFirstUnreadPost;
+            get => this.altFirstUnreadPost.IsNotSet() ? string.Empty : this.altFirstUnreadPost;
 
             set => this.altFirstUnreadPost = value;
         }
@@ -92,7 +87,7 @@ namespace YAF.Controls
         {
             set
             {
-                this.theTopicRow = value as DataRowView;
+                this.TopicRow = value as DataRowView;
                 this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
             }
         }
@@ -138,7 +133,7 @@ namespace YAF.Controls
         /// <summary>
         ///  Gets the TopicRow.
         /// </summary>
-        protected DataRowView TopicRow => this.theTopicRow;
+        protected DataRowView TopicRow { get; private set; }
 
         #endregion
 
@@ -557,12 +552,12 @@ namespace YAF.Controls
                         forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
                         topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-                if (string.IsNullOrEmpty(this.AltLastPost))
+                if (this.AltLastPost.IsNotSet())
                 {
                     this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
                 }
 
-                if (string.IsNullOrEmpty(this.AltLastUnreadPost))
+                if (this.AltLastUnreadPost.IsNotSet())
                 {
                     this.AltLastUnreadPost = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
                 }

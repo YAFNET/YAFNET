@@ -457,7 +457,7 @@ namespace YAF.Providers.Profile
             // application name
             this._appName = config["applicationName"];
 
-            if (string.IsNullOrEmpty(this._appName))
+            if (this._appName.IsNotSet())
             {
                 this._appName = "YetAnotherForum";
             }
@@ -480,7 +480,7 @@ namespace YAF.Providers.Profile
         {
             var username = (string)context["UserName"];
 
-            if (string.IsNullOrEmpty(username) || collection.Count < 1)
+            if (username.IsNotSet() || collection.Count < 1)
             {
                 return;
             }

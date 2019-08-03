@@ -15,7 +15,6 @@ using System.Globalization;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #endif
-using ServiceStack.Text.Support;
 
 namespace ServiceStack.Text.Common
 {

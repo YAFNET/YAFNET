@@ -12,7 +12,7 @@
 
 using System;
 using System.IO;
-using System.Text;
+
 using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text

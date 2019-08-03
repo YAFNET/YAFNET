@@ -11,19 +11,13 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Threading;
 using ServiceStack.Text.Json;
-using ServiceStack.Text.Pools;
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #endif
-using ServiceStack.Text.Support;
-
 
 namespace ServiceStack.Text.Common
 {

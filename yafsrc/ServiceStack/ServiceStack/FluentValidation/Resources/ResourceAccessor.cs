@@ -1,9 +1,7 @@
 namespace ServiceStack.FluentValidation.Resources {
 	using System;
-	using System.Reflection;
-	using Internal;
 
-	/// <summary>
+    /// <summary>
 	/// Defines an accessor for localization resources
 	/// </summary>
     public class ResourceAccessor {

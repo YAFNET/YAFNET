@@ -13,13 +13,13 @@ namespace YAF.Controls {
     public partial class CookieConsent {
         
         /// <summary>
-        /// Lable1 control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel Lable1;
+        protected global::YAF.Web.Controls.LocalizedLabel Label1;
         
         /// <summary>
         /// MoreDetails control.

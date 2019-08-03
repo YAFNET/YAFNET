@@ -19,12 +19,10 @@
 namespace ServiceStack.FluentValidation.Validators {
 	using System;
 	using System.Text.RegularExpressions;
-	using Attributes;
-	using Internal;
-	using Resources;
-	using Results;
 
-	public class RegularExpressionValidator : PropertyValidator, IRegularExpressionValidator {
+    using Resources;
+
+    public class RegularExpressionValidator : PropertyValidator, IRegularExpressionValidator {
         readonly Func<object, Regex> regexFunc;
 
 		public RegularExpressionValidator(string expression) :base(new LanguageStringSource(nameof(RegularExpressionValidator))) {

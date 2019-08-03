@@ -1,8 +1,9 @@
 using System;
-using ServiceStack.Text;
 
 namespace ServiceStack.Metadata
 {
+    using ServiceStack.Text;
+
     public class JsvMetadataHandler : BaseMetadataHandler
     {
         public override Format Format => Format.Jsv;

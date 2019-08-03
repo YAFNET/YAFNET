@@ -18,12 +18,10 @@
 
 namespace ServiceStack.FluentValidation {
 	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Threading;
+    using System.Threading;
 	using System.Threading.Tasks;
-	using Internal;
-	using Results;
+
+    using Results;
 
 	/// <summary>
 	/// Defines a validator for a particular type.

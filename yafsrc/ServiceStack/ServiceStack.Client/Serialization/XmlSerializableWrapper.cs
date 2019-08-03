@@ -2,7 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
-using ServiceStack.Text;
+
 using static System.String;
 
 namespace ServiceStack.Serialization

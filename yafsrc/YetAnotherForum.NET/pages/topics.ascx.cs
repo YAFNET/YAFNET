@@ -44,6 +44,7 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -290,6 +291,22 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// The create topic line.
+        /// </summary>
+        /// <param name="containerDataItem">
+        /// The container data item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string CreateTopicLine(DataRowView containerDataItem)
+        {
+            var topicLine = new TopicContainer { DataRow = containerDataItem };
+
+            return topicLine.RenderToString();
+        }
+
+        /// <summary>
         /// The watch forum_ click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -326,6 +343,8 @@ namespace YAF.Pages
             }
 
             this.HandleWatchForum();
+
+            this.BindData();
         }
 
         /// <summary>
@@ -491,6 +510,7 @@ namespace YAF.Pages
         private void MarkRead_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageContext.PageForumID);
+
             this.BindData();
         }
 

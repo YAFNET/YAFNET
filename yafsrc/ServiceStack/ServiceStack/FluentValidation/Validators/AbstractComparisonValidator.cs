@@ -18,14 +18,12 @@
 
 namespace ServiceStack.FluentValidation.Validators {
 	using System;
-	using System.Linq.Expressions;
-	using System.Reflection;
-	using Attributes;
-	using Internal;
-	using Resources;
-	using Results;
+    using System.Reflection;
 
-	/// <summary>
+    using Internal;
+	using Resources;
+
+    /// <summary>
 	/// Base class for all comparison validators
 	/// </summary>
 	public abstract class AbstractComparisonValidator : PropertyValidator, IComparisonValidator {

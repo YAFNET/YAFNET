@@ -195,7 +195,7 @@ namespace YAF.Pages
             var notNullcount =
                 (from RepeaterItem ri in this.ChoiceRepeater.Items
                  select ri.FindControlAs<TextBox>("PollChoice").Text.Trim()).Count(
-                     value => !string.IsNullOrEmpty(value));
+                     value => value.IsSet());
 
             if (notNullcount < 2)
             {

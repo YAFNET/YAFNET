@@ -20,8 +20,8 @@ namespace ServiceStack.FluentValidation.Validators
 {
 	using System;
 	using System.Reflection;
-	using FluentValidation.Internal;
-	using Resources;
+
+    using Resources;
 
 	public class EnumValidator : PropertyValidator
 	{

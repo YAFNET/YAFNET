@@ -13,11 +13,9 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 
 using ServiceStack.Text.Json;
-using ServiceStack.Text.Pools;
 using ServiceStack.Text.Support;
 
 namespace ServiceStack.Text.Common

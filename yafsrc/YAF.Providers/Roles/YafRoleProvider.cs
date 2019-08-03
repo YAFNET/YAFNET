@@ -327,7 +327,7 @@ namespace YAF.Providers.Roles
             // application name
             this._appName = config["applicationName"];
 
-            if (string.IsNullOrEmpty(this._appName))
+            if (this._appName.IsNotSet())
             {
                 this._appName = "YetAnotherForum";
             }

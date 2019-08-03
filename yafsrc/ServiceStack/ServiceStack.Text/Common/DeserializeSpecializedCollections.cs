@@ -4,7 +4,7 @@ using System.Collections.Generic;
 #if NETSTANDARD2_0  
 using Microsoft.Extensions.Primitives;
 #else
-using ServiceStack.Text.Support;
+
 #endif
 
 namespace ServiceStack.Text.Common

@@ -12,12 +12,9 @@
 
 using System;
 using System.IO;
-using System.Reflection;
-using System.Text;
 
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
-using ServiceStack.Text.Pools;
 
 namespace ServiceStack.Text
 {

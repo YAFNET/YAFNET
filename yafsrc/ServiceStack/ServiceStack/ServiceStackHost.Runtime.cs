@@ -6,19 +6,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using System.Xml;
+
 using ServiceStack.Auth;
 using ServiceStack.Caching;
 using ServiceStack.Configuration;
 using ServiceStack.Data;
-using ServiceStack.DataAnnotations;
 using ServiceStack.FluentValidation;
 using ServiceStack.Host;
 using ServiceStack.Host.Handlers;
@@ -29,7 +26,6 @@ using ServiceStack.MiniProfiler;
 using ServiceStack.Redis;
 using ServiceStack.Serialization;
 using ServiceStack.Support.WebHost;
-using ServiceStack.Text;
 using ServiceStack.Web;
 
 namespace ServiceStack

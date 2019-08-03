@@ -14,11 +14,8 @@
 using Microsoft.Extensions.Primitives;
 #else
 using System;
-using System.Linq;
-using System.Reflection;
 
 using ServiceStack.Text.Jsv;
-using ServiceStack.Text.Support;
 
 #endif
 

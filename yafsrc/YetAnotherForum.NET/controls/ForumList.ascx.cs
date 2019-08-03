@@ -74,7 +74,7 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get => string.IsNullOrEmpty(this.altLastPost) ? string.Empty : this.altLastPost;
+            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
 
             set => this.altLastPost = value;
         }
@@ -99,18 +99,18 @@ namespace YAF.Controls
                     arr = new DataRow[((DataRowCollection)this.dataSource).Count];
                     ((DataRowCollection)this.dataSource).CopyTo(arr, 0);
 
-                    for (var i = 0; i < arr.Count(); i++)
+                    foreach (var t1 in arr)
                     {
                         // these are all sub forums related to start page forums
-                        if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
+                        if (!t1["ParentID"].IsNullOrEmptyDBField())
                         {
                             if (this.SubDataSource == null)
                             {
-                                this.SubDataSource = arr[i].Table.Clone();
+                                this.SubDataSource = t1.Table.Clone();
                             }
 
                             var drow = this.SubDataSource.NewRow();
-                            drow.ItemArray = arr[i].ItemArray;
+                            drow.ItemArray = t1.ItemArray;
 
                             parents.Add(drow["ForumID"].ToType<int>());
 
@@ -121,12 +121,12 @@ namespace YAF.Controls
                             }
                             else
                             {
-                                arlist.Add(arr[i]);
+                                arlist.Add(t1);
                             }
                         }
                         else
                         {
-                            arlist.Add(arr[i]);
+                            arlist.Add(t1);
                         }
                     }
                 }
@@ -134,23 +134,23 @@ namespace YAF.Controls
                 {
                     // (t.Name == "DataRow[]")
                     arr = (DataRow[])this.dataSource;
-                    for (var i = 0; i < arr.Count(); i++)
+                    foreach (var t1 in arr)
                     {
-                        if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
+                        if (!t1["ParentID"].IsNullOrEmptyDBField())
                         {
                             if (this.SubDataSource == null)
                             {
-                                this.SubDataSource = arr[i].Table.Clone();
+                                this.SubDataSource = t1.Table.Clone();
                             }
 
                             var drow = this.SubDataSource.NewRow();
-                            drow.ItemArray = arr[i].ItemArray;
+                            drow.ItemArray = t1.ItemArray;
 
                             this.SubDataSource.Rows.Add(drow);
                         }
                         else
                         {
-                            arlist.Add(arr[i]);
+                            arlist.Add(t1);
                         }
                     }
                 }
@@ -195,16 +195,9 @@ namespace YAF.Controls
 
             if (row["ReadAccess"].ToType<int>() > 0)
             {
-                if (row["RemoteURL"] != DBNull.Value)
-                {
-                    output =
-                        $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>";
-                }
-                else
-                {
-                    output =
-                        $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\">{this.Page.HtmlEncode(output)}</a>";
-                }
+                output = row["RemoteURL"] != DBNull.Value
+                             ? $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
+                             : $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\">{this.Page.HtmlEncode(output)}</a>";
             }
             else
             {
@@ -375,7 +368,7 @@ namespace YAF.Controls
         [NotNull]
         protected string GetModeratorsFooter([NotNull] Repeater sender)
         {
-            if (sender.DataSource is DataRow[] && ((DataRow[])sender.DataSource).Length < 1)
+            if (sender.DataSource is DataRow[] rows && rows.Length < 1)
             {
                 return "-";
             }

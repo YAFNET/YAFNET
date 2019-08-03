@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Auth;
 using ServiceStack.Templates;
-using ServiceStack.Text;
 using ServiceStack.Web;
 
 namespace ServiceStack
 {
+    using ServiceStack.Text;
+
     // ReSharper disable InconsistentNaming
     
     public class TemplateServiceStackFilters : TemplateFilter

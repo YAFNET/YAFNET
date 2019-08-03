@@ -5,12 +5,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack.Configuration;
 using ServiceStack.IO;
 using ServiceStack.Text;
-using ServiceStack.VirtualPath;
+
 #if NETSTANDARD2_0
 using Microsoft.Extensions.Primitives;
 #endif

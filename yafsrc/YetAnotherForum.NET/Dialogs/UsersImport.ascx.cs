@@ -69,37 +69,37 @@ namespace YAF.Dialogs
                 {
                     case "text/xml":
                         {
-                            importedCount = this.ImportingUsers(imputStream: this.importFile.PostedFile.InputStream, isXml: true);
+                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: true);
                         }
 
                         break;
                     case "text/csv":
                         {
-                            importedCount = this.ImportingUsers(imputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
                         }
 
                         break;
                     case "text/comma-separated-values":
                         {
-                            importedCount = this.ImportingUsers(imputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
                         }
 
                         break;
                     case "application/csv":
                         {
-                            importedCount = this.ImportingUsers(imputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
                         }
 
                         break;
                     case "application/vnd.csv":
                         {
-                            importedCount = this.ImportingUsers(imputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
                         }
 
                         break;
                     case "application/vnd.ms-excel":
                         {
-                            importedCount = this.ImportingUsers(imputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
                         }
 
                         break;
@@ -128,7 +128,7 @@ namespace YAF.Dialogs
         /// <summary>
         /// Import Users from the InputStream
         /// </summary>
-        /// <param name="imputStream">
+        /// <param name="inputStream">
         /// The input stream.
         /// </param>
         /// <param name="isXml">
@@ -140,14 +140,14 @@ namespace YAF.Dialogs
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        private int ImportingUsers(Stream imputStream, bool isXml)
+        private int ImportingUsers(Stream inputStream, bool isXml)
         {
             var importedCount = 0;
 
             if (isXml)
             {
                 var usersDataSet = new DataSet();
-                usersDataSet.ReadXml(stream: imputStream);
+                usersDataSet.ReadXml(stream: inputStream);
 
                 if (usersDataSet.Tables[name: "YafUser"] != null)
                 {
@@ -166,7 +166,7 @@ namespace YAF.Dialogs
             {
                 var usersTable = new DataTable();
 
-                var streamReader = new StreamReader(stream: imputStream);
+                var streamReader = new StreamReader(stream: inputStream);
 
                 var headers = streamReader.ReadLine().Split(',');
 
@@ -220,10 +220,10 @@ namespace YAF.Dialogs
             var securityAnswer = Membership.GeneratePassword(length: 64, numberOfNonAlphanumericCharacters: 30);
             var securityQuestion = "Answer is a generated Pass";
 
-            if (row.Table.Columns.Contains(name: "Password") && !string.IsNullOrEmpty(value: (string)row[columnName: "Password"])
+            if (row.Table.Columns.Contains(name: "Password") && ((string)row[columnName: "Password"]).IsSet()
                 && row.Table.Columns.Contains(name: "SecurityQuestion")
-                && !string.IsNullOrEmpty(value: (string)row[columnName: "SecurityQuestion"])
-                && row.Table.Columns.Contains(name: "SecurityAnswer") && !string.IsNullOrEmpty(value: (string)row[columnName: "SecurityAnswer"]))
+                && ((string)row[columnName: "SecurityQuestion"]).IsSet()
+                && row.Table.Columns.Contains(name: "SecurityAnswer") && ((string)row[columnName: "SecurityAnswer"]).IsSet())
             {
                 pass = (string)row[columnName: "Password"];
 
@@ -241,7 +241,7 @@ namespace YAF.Dialogs
                 providerUserKey: null,
                 status: out status);
 
-            // setup inital roles (if any) for this user
+            // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(pageBoardID: YafContext.Current.PageBoardID, userName: (string)row[columnName: "Name"]);
 
             // create the user in the YAF DB as well as sync roles...
@@ -251,17 +251,17 @@ namespace YAF.Dialogs
             var userProfile = YafUserProfile.GetProfile(userName: (string)row[columnName: "Name"]);
 
             // Add Profile Fields to User List Table.
-            if (row.Table.Columns.Contains(name: "RealName") && !string.IsNullOrEmpty(value: (string)row[columnName: "RealName"]))
+            if (row.Table.Columns.Contains(name: "RealName") && ((string)row[columnName: "RealName"]).IsSet())
             {
                 userProfile.RealName = (string)row[columnName: "RealName"];
             }
 
-            if (row.Table.Columns.Contains(name: "Blog") && !string.IsNullOrEmpty(value: (string)row[columnName: "Blog"]))
+            if (row.Table.Columns.Contains(name: "Blog") && ((string)row[columnName: "Blog"]).IsSet())
             {
                 userProfile.Blog = (string)row[columnName: "Blog"];
             }
 
-            if (row.Table.Columns.Contains(name: "Gender") && !string.IsNullOrEmpty(value: (string)row[columnName: "Gender"]))
+            if (row.Table.Columns.Contains(name: "Gender") && ((string)row[columnName: "Gender"]).IsSet())
             {
                 int gender;
 
@@ -270,7 +270,7 @@ namespace YAF.Dialogs
                 userProfile.Gender = gender;
             }
 
-            if (row.Table.Columns.Contains(name: "Birthday") && !string.IsNullOrEmpty(value: (string)row[columnName: "Birthday"]))
+            if (row.Table.Columns.Contains(name: "Birthday") && ((string)row[columnName: "Birthday"]).IsSet())
             {
                 DateTime userBirthdate;
 
@@ -283,88 +283,88 @@ namespace YAF.Dialogs
             }
 
             if (row.Table.Columns.Contains(name: "BlogServiceUsername")
-                && !string.IsNullOrEmpty(value: (string)row[columnName: "BlogServiceUsername"]))
+                && ((string)row[columnName: "BlogServiceUsername"]).IsSet())
             {
                 userProfile.BlogServiceUsername = (string)row[columnName: "BlogServiceUsername"];
             }
 
             if (row.Table.Columns.Contains(name: "BlogServicePassword")
-                && !string.IsNullOrEmpty(value: (string)row[columnName: "BlogServicePassword"]))
+                && ((string)row[columnName: "BlogServicePassword"]).IsSet())
             {
                 userProfile.BlogServicePassword = (string)row[columnName: "BlogServicePassword"];
             }
 
-            if (row.Table.Columns.Contains(name: "GoogleId") && !string.IsNullOrEmpty(value: (string)row[columnName: "GoogleId"]))
+            if (row.Table.Columns.Contains(name: "GoogleId") && ((string)row[columnName: "GoogleId"]).IsSet())
             {
                 userProfile.GoogleId = (string)row[columnName: "GoogleId"];
             }
 
-            if (row.Table.Columns.Contains(name: "Location") && !string.IsNullOrEmpty(value: (string)row[columnName: "Location"]))
+            if (row.Table.Columns.Contains(name: "Location") && ((string)row[columnName: "Location"]).IsSet())
             {
                 userProfile.Location = (string)row[columnName: "Location"];
             }
 
-            if (row.Table.Columns.Contains(name: "Country") && !string.IsNullOrEmpty(value: (string)row[columnName: "Country"]))
+            if (row.Table.Columns.Contains(name: "Country") && ((string)row[columnName: "Country"]).IsSet())
             {
                 userProfile.Country = (string)row[columnName: "Country"];
             }
 
-            if (row.Table.Columns.Contains(name: "Region") && !string.IsNullOrEmpty(value: (string)row[columnName: "Region"]))
+            if (row.Table.Columns.Contains(name: "Region") && ((string)row[columnName: "Region"]).IsSet())
             {
                 userProfile.Region = (string)row[columnName: "Region"];
             }
 
-            if (row.Table.Columns.Contains(name: "City") && !string.IsNullOrEmpty(value: (string)row[columnName: "City"]))
+            if (row.Table.Columns.Contains(name: "City") && ((string)row[columnName: "City"]).IsSet())
             {
                 userProfile.City = (string)row[columnName: "City"];
             }
 
-            if (row.Table.Columns.Contains(name: "Interests") && !string.IsNullOrEmpty(value: (string)row[columnName: "Interests"]))
+            if (row.Table.Columns.Contains(name: "Interests") && ((string)row[columnName: "Interests"]).IsSet())
             {
                 userProfile.Interests = (string)row[columnName: "Interests"];
             }
 
-            if (row.Table.Columns.Contains(name: "Homepage") && !string.IsNullOrEmpty(value: (string)row[columnName: "Homepage"]))
+            if (row.Table.Columns.Contains(name: "Homepage") && ((string)row[columnName: "Homepage"]).IsSet())
             {
                 userProfile.Homepage = (string)row[columnName: "Homepage"];
             }
 
-            if (row.Table.Columns.Contains(name: "Skype") && !string.IsNullOrEmpty(value: (string)row[columnName: "Skype"]))
+            if (row.Table.Columns.Contains(name: "Skype") && ((string)row[columnName: "Skype"]).IsSet())
             {
                 userProfile.Skype = (string)row[columnName: "Skype"];
             }
 
-            if (row.Table.Columns.Contains(name: "ICQe") && !string.IsNullOrEmpty(value: (string)row[columnName: "ICQ"]))
+            if (row.Table.Columns.Contains(name: "ICQe") && ((string)row[columnName: "ICQ"]).IsSet())
             {
                 userProfile.ICQ = (string)row[columnName: "ICQ"];
             }
 
-            if (row.Table.Columns.Contains(name: "XMPP") && !string.IsNullOrEmpty(value: (string)row[columnName: "XMPP"]))
+            if (row.Table.Columns.Contains(name: "XMPP") && ((string)row[columnName: "XMPP"]).IsSet())
             {
                 userProfile.XMPP = (string)row[columnName: "XMPP"];
             }
 
-            if (row.Table.Columns.Contains(name: "Occupation") && !string.IsNullOrEmpty(value: (string)row[columnName: "Occupation"]))
+            if (row.Table.Columns.Contains(name: "Occupation") && ((string)row[columnName: "Occupation"]).IsSet())
             {
                 userProfile.Occupation = (string)row[columnName: "Occupation"];
             }
 
-            if (row.Table.Columns.Contains(name: "Twitter") && !string.IsNullOrEmpty(value: (string)row[columnName: "Twitter"]))
+            if (row.Table.Columns.Contains(name: "Twitter") && ((string)row[columnName: "Twitter"]).IsSet())
             {
                 userProfile.Twitter = (string)row[columnName: "Twitter"];
             }
 
-            if (row.Table.Columns.Contains(name: "TwitterId") && !string.IsNullOrEmpty(value: (string)row[columnName: "TwitterId"]))
+            if (row.Table.Columns.Contains(name: "TwitterId") && ((string)row[columnName: "TwitterId"]).IsSet())
             {
                 userProfile.TwitterId = (string)row[columnName: "TwitterId"];
             }
 
-            if (row.Table.Columns.Contains(name: "Facebook") && !string.IsNullOrEmpty(value: (string)row[columnName: "Facebook"]))
+            if (row.Table.Columns.Contains(name: "Facebook") && ((string)row[columnName: "Facebook"]).IsSet())
             {
                 userProfile.Facebook = (string)row[columnName: "Facebook"];
             }
 
-            if (row.Table.Columns.Contains(name: "FacebookId") && !string.IsNullOrEmpty(value: (string)row[columnName: "FacebookId"]))
+            if (row.Table.Columns.Contains(name: "FacebookId") && ((string)row[columnName: "FacebookId"]).IsSet())
             {
                 userProfile.FacebookId = (string)row[columnName: "FacebookId"];
             }
@@ -386,14 +386,14 @@ namespace YAF.Dialogs
 
             var isDst = false;
 
-            if (row.Table.Columns.Contains(name: "IsDST") && !string.IsNullOrEmpty(value: (string)row[columnName: "IsDST"]))
+            if (row.Table.Columns.Contains(name: "IsDST") && ((string)row[columnName: "IsDST"]).IsSet())
             {
                 bool.TryParse(value: (string)row[columnName: "IsDST"], result: out isDst);
             }
 
             var timeZone = 0;
 
-            if (row.Table.Columns.Contains(name: "Timezone") && !string.IsNullOrEmpty(value: (string)row[columnName: "Timezone"]))
+            if (row.Table.Columns.Contains(name: "Timezone") && ((string)row[columnName: "Timezone"]).IsSet())
             {
                 int.TryParse(s: (string)row[columnName: "Timezone"], result: out timeZone);
             }
@@ -418,7 +418,7 @@ namespace YAF.Dialogs
                 dSTUser: autoWatchTopicsEnabled,
                 hideUser: isDst,
                 notificationType: null,
-                utcTimeStamp: null);
+                null);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(

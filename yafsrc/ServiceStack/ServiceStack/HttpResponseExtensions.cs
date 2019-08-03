@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,6 +11,8 @@ using ServiceStack.Web;
 
 namespace ServiceStack
 {
+    using System.Linq;
+
     public static class HttpResponseExtensions
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(HttpResponseExtensions));
