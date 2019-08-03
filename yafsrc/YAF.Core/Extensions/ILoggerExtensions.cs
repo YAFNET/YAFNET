@@ -32,7 +32,7 @@ namespace YAF.Core.Extensions
     using YAF.Types.Interfaces;
 
     /// <summary>
-    ///     The i logger extensions.
+    ///     The Logger extensions.
     /// </summary>
     public static class ILoggerExtensions
     {
@@ -126,8 +126,19 @@ namespace YAF.Core.Extensions
                 sourceDescription = source.ToString().Truncate(50);
             }
 
+            string message;
+
+            try
+            {
+                message = $"Exception at URL: {YafContext.Current.Get<HttpRequestBase>().Url}";
+            }
+            catch (Exception e)
+            {
+                message = "Exception";
+            }
+            
             logger.Log(
-                $"Exception at URL: {YafContext.Current.Get<HttpRequestBase>().Url}",
+                message,
                 eventType,
                 username,
                 sourceDescription,

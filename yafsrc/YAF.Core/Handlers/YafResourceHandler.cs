@@ -106,6 +106,10 @@ namespace YAF.Core.Handlers
                 {
                     this.Get<IResources>().GetCustomBBCodes(context);
                 }
+                else if (context.Request.QueryString.GetFirstOrDefault("users") != null)
+                {
+                    this.Get<IResources>().GetMentionUsers(context);
+                }
                 else if (context.Request.QueryString.GetFirstOrDefault("u") != null)
                 {
                     this.Get<IResources>().GetResponseLocalAvatar(context);
@@ -149,7 +153,6 @@ namespace YAF.Core.Handlers
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
                 {
-                    // TommyB: End MOD: Preview Images   ##########
                     // captcha
                     this.Get<IResources>().GetResponseCaptcha(context);
                 }

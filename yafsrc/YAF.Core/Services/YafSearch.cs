@@ -1,4 +1,28 @@
-﻿namespace YAF.Core.Services
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2019 Ingo Herbote
+ * http://www.yetanotherforum.net/
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+namespace YAF.Core.Services
 {
     using System;
     using System.Collections.Generic;
@@ -32,19 +56,49 @@
     /// </summary>
     /// <seealso cref="YAF.Types.Interfaces.ISearch" />
     /// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
-    public class YafSearch : ISearch, IHaveServiceLocator
+    public class YafSearch : ISearch, IHaveServiceLocator, IDisposable
     {
         /// <summary>
-        /// The Lucene directory.
+        /// The write lock file.
         /// </summary>
-        private static readonly string LuceneDir = Path.Combine(
+        private const string WriteLockFile = "write.lock";
+
+        /// <summary>
+        /// The search index folder.
+        /// </summary>
+        private static readonly string SearchIndexFolder = Path.Combine(
             AppDomain.CurrentDomain.GetData("DataDirectory").ToString(),
             "search_index");
 
         /// <summary>
-        /// The directory temporary
+        /// The directory temp.
         /// </summary>
         private static FSDirectory directoryTemp;
+
+        /// <summary>
+        /// The standardAnalyzer.
+        /// </summary>
+        private readonly StandardAnalyzer standardAnalyzer;
+
+        /// <summary>
+        /// The index Searcher.
+        /// </summary>
+        private readonly IndexSearcher indexSearcher;
+
+        /// <summary>
+        /// The indexWriter lock.
+        /// </summary>
+        private readonly object indexWriterLock = new object();
+
+        /// <summary>
+        /// The indexWriter.
+        /// </summary>
+        private IndexWriter indexWriter;
+
+        /// <summary>
+        /// The index reader.
+        /// </summary>
+        private IndexReader indexReader;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YafSearch" /> class.
@@ -53,6 +107,8 @@
         public YafSearch([NotNull] IServiceLocator serviceLocator)
         {
             this.ServiceLocator = serviceLocator;
+
+            this.standardAnalyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
         }
 
         /// <summary>
@@ -61,49 +117,49 @@
         public IServiceLocator ServiceLocator { get; protected set; }
 
         /// <summary>
-        /// Gets the directory.
+        /// Gets the writer.
         /// </summary>
-        /// <value>
-        /// The directory.
-        /// </value>
-        private static FSDirectory Directory
+        private IndexWriter Writer
         {
             get
             {
-                if (directoryTemp == null)
+                if (this.indexWriter != null)
                 {
-                    directoryTemp = FSDirectory.Open(new DirectoryInfo(LuceneDir));
+                    return this.indexWriter;
                 }
 
-                if (IndexWriter.IsLocked(directoryTemp))
+                lock (this.indexWriterLock)
                 {
-                    IndexWriter.Unlock(directoryTemp);
-                }
-
-                /*var lockFilePath = Path.Combine(LuceneDir, "write.lock");
-
-                if (!File.Exists(lockFilePath))
-                {
-                    return directoryTemp;
-                }
-
-                var file = new FileInfo(lockFilePath);
-
-                while (IsFileLocked(file))
-                {
-                    try
+                    if (this.indexWriter != null)
                     {
-                        Thread.Sleep(1000);
+                        return this.indexWriter;
                     }
-                    catch (ThreadAbortException)
+
+                    var lockFile = Path.Combine(SearchIndexFolder, WriteLockFile);
+
+                    if (File.Exists(lockFile))
                     {
-                        // ignore
+                        try
+                        {
+                            File.Delete(lockFile);
+                        }
+                        catch (IOException ex)
+                        {
+                            this.Get<ILogger>().Log(null, this, ex);
+                        }
                     }
+
+                    var writer = new IndexWriter(
+                        FSDirectory.Open(SearchIndexFolder),
+                        this.standardAnalyzer,
+                        IndexWriter.MaxFieldLength.UNLIMITED);
+
+                    this.indexReader = writer.GetReader();
+                    Thread.MemoryBarrier();
+                    this.indexWriter = writer;
                 }
 
-                File.Delete(lockFilePath);*/
-
-                return directoryTemp;
+                return this.indexWriter;
             }
         }
 
@@ -112,12 +168,31 @@
         /// </summary>
         public void Optimize()
         {
-            var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-            using (var writer = new IndexWriter(Directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            var writer = this.indexWriter;
+
+            if (writer == null || !writer.HasDeletions())
             {
-                analyzer.Close();
-                writer.Optimize();
-                writer.Dispose();
+                return;
+            }
+
+            this.indexWriter.Optimize();
+
+            this.Commit();
+        }
+
+        /// <summary>
+        /// The commit.
+        /// </summary>
+        public void Commit()
+        {
+            if (this.indexWriter == null)
+            {
+                return;
+            }
+
+            lock (this.indexWriterLock)
+            {
+                this.indexWriter?.Commit();
             }
         }
 
@@ -131,16 +206,7 @@
         {
             try
             {
-                var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-                using (var writer = new IndexWriter(Directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
-                {
-                    // remove older index entries
-                    writer.DeleteAll();
-
-                    // close handles
-                    analyzer.Close();
-                    writer.Dispose();
-                }
+                this.Writer.DeleteAll();
             }
             catch (Exception)
             {
@@ -156,18 +222,9 @@
         /// <param name="messageId">The message identifier.</param>
         public void ClearSearchIndexRecord(int messageId)
         {
-            var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-
-            using (var writer = new IndexWriter(Directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
-            {
-                // remove older index entry
-                var searchQuery = new TermQuery(new Term("MessageId", messageId.ToString()));
-                writer.DeleteDocuments(searchQuery);
-
-                // close handles
-                analyzer.Close();
-                writer.Dispose();
-            }
+            // remove older index entry
+            var searchQuery = new TermQuery(new Term("MessageId", messageId.ToString()));
+            this.Writer.DeleteDocuments(searchQuery);
         }
 
         /// <summary>
@@ -176,37 +233,24 @@
         /// <param name="messageList">The message list.</param>
         public void AddUpdateSearchIndex(IEnumerable<SearchMessage> messageList)
         {
-            var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-
             try
             {
-                using (var indexWriter = new IndexWriter(
-                    Directory,
-                    analyzer,
-                    !IndexReader.IndexExists(Directory),
-                    new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH)))
-                {
-                    indexWriter.SetMergeScheduler(new ConcurrentMergeScheduler());
-                    indexWriter.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
+                this.Writer.SetMergeScheduler(new ConcurrentMergeScheduler());
+                this.Writer.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
 
-                    messageList.ForEach(message => AddToSearchIndex(message, indexWriter));
-
-                    indexWriter.Optimize();
-                    indexWriter.Commit();
-                    indexWriter.Dispose();
-                }
-
+                messageList.ForEach(this.AddToSearchIndex);
             }
             catch (LockObtainFailedException ex)
             {
-              // TODO: 
+                this.Get<ILogger>().Log(null, this, ex);
             }
-            catch (ThreadAbortException)
+            catch (ThreadAbortException ex)
             {
+                this.Get<ILogger>().Log(null, this, ex);
             }
             finally
             {
-                analyzer.Close();
+                this.Optimize();
             }
         }
 
@@ -307,80 +351,41 @@
         }
 
         /// <summary>
-        /// Adds the index of to search.
+        /// The dispose.
         /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="writer">The writer.</param>
-        private static void AddToSearchIndex(SearchMessage message, IndexWriter writer)
+        public void Dispose()
         {
-            try
-            {
-                var searchQuery = new TermQuery(new Term("MessageId", message.MessageId.ToString()));
-                writer.DeleteDocuments(searchQuery);
-
-                var doc = new Document();
-
-                doc.Add(
-                    new Field("MessageId", message.MessageId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("Message", message.Message, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field("Flags", message.Flags.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("Posted", message.Posted, Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-                var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
-                doc.Add(new Field("Author", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                name = message.UserDisplayName ?? string.Empty;
-                doc.Add(new Field("AuthorDisplay", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                name = message.UserStyle ?? string.Empty;
-                doc.Add(new Field("AuthorStyle", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                doc.Add(new Field("UserId", message.UserId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("TopicId", message.TopicId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("Topic", message.Topic, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field("ForumName", message.ForumName, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field("ForumId", message.ForumId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-                name = message.Description ?? (message.Topic ?? string.Empty);
-                doc.Add(new Field("Description", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                writer.AddDocument(doc);
-            }
-            catch
-            {
-            }
+            this.DisposeWriter();
+            this.DisposeReaders();
         }
 
         /// <summary>
-        /// Determines whether [is file locked] [the specified file].
+        /// The get searcher.
         /// </summary>
-        /// <param name="file">The file.</param>
         /// <returns>
-        ///   <c>true</c> if [is file locked] [the specified file]; otherwise, <c>false</c>.
+        /// The <see cref="IndexSearcher"/>.
         /// </returns>
-        private static bool IsFileLocked(FileInfo file)
+        public IndexSearcher GetSearcher()
         {
-            FileStream stream = null;
+            IndexSearcher searcher;
 
-            if (!File.Exists(file.FullName))
+            if (this.indexReader != null)
             {
-                return false;
-            }
+                var newReader = this.indexReader.Reopen();
 
-            try
-            {
-                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+                if (this.indexReader != newReader)
+                {
+                    Interlocked.Exchange(ref this.indexReader, newReader);
+                }
+
+                searcher = new IndexSearcher(this.indexReader);
             }
-            catch (IOException)
+            else
             {
-                return true;
-            }
-            finally
-            {
-                stream?.Close();
+                searcher = new IndexSearcher(FSDirectory.Open(SearchIndexFolder), true);
             }
 
-            return false;
+            return searcher;
         }
 
         /// <summary>
@@ -442,15 +447,15 @@
             return hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
                 .GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
         }
-        
+
         /// <summary>
-         /// Maps the search document to data.
-         /// </summary>
-         /// <param name="doc">The document.</param>
-         /// <param name="userAccessList">The user access list.</param>
-         /// <returns>
-         /// Returns the Search Message
-         /// </returns>
+        /// Maps the search document to data.
+        /// </summary>
+        /// <param name="doc">The document.</param>
+        /// <param name="userAccessList">The user access list.</param>
+        /// <returns>
+        /// Returns the Search Message
+        /// </returns>
         private static SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
         {
             var forumId = doc.Get("ForumId").ToType<int>();
@@ -475,6 +480,63 @@
                            ForumName = doc.Get("ForumName"),
                            UserStyle = doc.Get("AuthorStyle")
                        };
+        }
+
+        /// <summary>
+        /// Adds the index of to search.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        private void AddToSearchIndex(SearchMessage message)
+        {
+            try
+            {
+                this.ClearSearchIndexRecord(message.MessageId.Value);
+
+                var doc = new Document();
+
+                doc.Add(
+                    new Field("MessageId", message.MessageId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("Message", message.Message, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("Flags", message.Flags.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("Posted", message.Posted, Field.Store.YES, Field.Index.NOT_ANALYZED));
+
+                var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+                doc.Add(new Field("Author", name, Field.Store.YES, Field.Index.ANALYZED));
+
+                name = message.UserDisplayName ?? string.Empty;
+                doc.Add(new Field("AuthorDisplay", name, Field.Store.YES, Field.Index.ANALYZED));
+
+                name = message.UserStyle ?? string.Empty;
+                doc.Add(new Field("AuthorStyle", name, Field.Store.YES, Field.Index.ANALYZED));
+
+                doc.Add(new Field("UserId", message.UserId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("TopicId", message.TopicId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("Topic", message.Topic, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("ForumName", message.ForumName, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("ForumId", message.ForumId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+
+                name = message.Description ?? (message.Topic ?? string.Empty);
+                doc.Add(new Field("Description", name, Field.Store.YES, Field.Index.ANALYZED));
+
+                try
+                {
+                    this.Writer.AddDocument(doc);
+                }
+                catch (OutOfMemoryException)
+                {
+                    lock (this.indexWriterLock)
+                    {
+                        this.DisposeWriter();
+                        this.Writer.AddDocument(doc);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Get<ILogger>().Log(null, this, ex);
+            }
         }
 
         /// <summary>
@@ -630,78 +692,77 @@
                 userAccessList = userAccessList.FindAll(v => v.ForumID == forumId);
             }
 
-            using (var searcher = new IndexSearcher(Directory, true))
+            var searcher = this.GetSearcher();
+
+            var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+
+            // 0 => Lucene error;
+            if (hitsLimit == 0)
             {
-                var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+                hitsLimit = pageSize;
+            }
 
-                // 0 => Lucene error;
-                if (hitsLimit == 0)
-                {
-                    hitsLimit = pageSize;
-                }
+            var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
 
-                var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            var formatter = new SimpleHTMLFormatter("<mark>", "</mark>");
+            var fragmenter = new SimpleFragmenter(hitsLimit);
+            QueryScorer scorer;
 
-                var formatter = new SimpleHTMLFormatter("<mark>", "</mark>");
-                var fragmenter = new SimpleFragmenter(hitsLimit);
-                QueryScorer scorer;
+            // search by single field
+            if (searchField.IsSet())
+            {
+                var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, analyzer);
+                var query = ParseQuery(searchQuery, parser);
+                scorer = new QueryScorer(query);
 
-                // search by single field
-                if (searchField.IsSet())
-                {
-                    var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, analyzer);
-                    var query = ParseQuery(searchQuery, parser);
-                    scorer = new QueryScorer(query);
+                var hits = searcher.Search(query, hitsLimit).ScoreDocs;
+                totalHits = hits.Length;
 
-                    var hits = searcher.Search(query, hitsLimit).ScoreDocs;
-                    totalHits = hits.Length;
+                var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
 
-                    var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
+                var results = this.MapSearchToDataList(
+                    highlighter,
+                    analyzer,
+                    searcher,
+                    hits,
+                    pageIndex,
+                    pageSize,
+                    userAccessList);
 
-                    var results = this.MapSearchToDataList(
-                        highlighter,
-                        analyzer,
-                        searcher,
-                        hits,
-                        pageIndex,
-                        pageSize,
-                        userAccessList);
+                analyzer.Close();
+                searcher.Dispose();
 
-                    analyzer.Close();
-                    searcher.Dispose();
+                return results;
+            }
+            else
+            {
+                var parser = new MultiFieldQueryParser(
+                    Lucene.Net.Util.Version.LUCENE_30,
+                    new[] { "Message", "Topic", "Author" },
+                    analyzer);
 
-                    return results;
-                }
-                else
-                {
-                    var parser = new MultiFieldQueryParser(
-                        Lucene.Net.Util.Version.LUCENE_30,
-                        new[] { "Message", "Topic", "Author" },
-                        analyzer);
+                var query = ParseQuery(searchQuery, parser);
+                scorer = new QueryScorer(query);
 
-                    var query = ParseQuery(searchQuery, parser);
-                    scorer = new QueryScorer(query);
+                // sort by date
+                var sort = new Sort(new SortField("Posted", SortField.STRING, true));
+                var hits = searcher.Search(query, null, hitsLimit, sort).ScoreDocs;
 
-                    // sort by date
-                    var sort = new Sort(new SortField("Posted", SortField.STRING, true));
-                    var hits = searcher.Search(query, null, hitsLimit, sort).ScoreDocs;
+                totalHits = hits.Length;
+                var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
 
-                    totalHits = hits.Length;
-                    var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
+                var results = this.MapSearchToDataList(
+                    highlighter,
+                    analyzer,
+                    searcher,
+                    hits,
+                    pageIndex,
+                    pageSize,
+                    userAccessList);
 
-                    var results = this.MapSearchToDataList(
-                        highlighter,
-                        analyzer,
-                        searcher,
-                        hits,
-                        pageIndex,
-                        pageSize,
-                        userAccessList);
-
-                    analyzer.Close();
-                    searcher.Dispose();
-                    return results;
-                }
+                analyzer.Close();
+                searcher.Dispose();
+                return results;
             }
         }
 
@@ -724,23 +785,61 @@
             // Insert forum access here
             var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == userId);
 
-            using (var searcher = new IndexSearcher(Directory, true))
+            var searcher = this.GetSearcher();
+
+            var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+
+            var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, this.standardAnalyzer);
+            var query = ParseQuery(searchQuery, parser);
+
+            var hits = searcher.Search(query, hitsLimit).ScoreDocs;
+
+            var results = MapSearchToDataList(searcher, hits, userAccessList);
+
+            searcher.Dispose();
+
+            return results;
+        }
+
+        /// <summary>
+        /// The dispose writer.
+        /// </summary>
+        /// <param name="commit">
+        /// The commit.
+        /// </param>
+        private void DisposeWriter(bool commit = true)
+        {
+            if (this.indexWriter == null)
             {
-                var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
-                var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-
-                var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, analyzer);
-                var query = ParseQuery(searchQuery, parser);
-
-                var hits = searcher.Search(query, hitsLimit).ScoreDocs;
-
-                var results = MapSearchToDataList(searcher, hits, userAccessList);
-
-                analyzer.Close();
-                searcher.Dispose();
-
-                return results;
+                return;
             }
+
+            lock (this.indexWriterLock)
+            {
+                if (this.indexWriter == null)
+                {
+                    return;
+                }
+
+                this.indexReader.Dispose();
+                this.indexReader = null;
+
+                if (commit)
+                {
+                    this.indexWriter.Commit();
+                }
+
+                this.indexWriter.Dispose();
+                this.indexWriter = null;
+            }
+        }
+
+        /// <summary>
+        /// The dispose readers.
+        /// </summary>
+        private void DisposeReaders()
+        {
+            this.indexReader = null;
         }
     }
 }

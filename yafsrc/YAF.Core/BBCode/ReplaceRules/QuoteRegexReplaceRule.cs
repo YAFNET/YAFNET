@@ -79,14 +79,14 @@ namespace YAF.Core.BBCode.ReplaceRules
                 {
                     // special handling to truncate urls
                     innerReplace.Replace(
-                      "${innertrunc}", match.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
+                        "${innertrunc}",
+                        match.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
                 }
 
                 var quote = match.Groups["quote"].Value;
 
                 var localQuoteWrote = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
-                var localQuotePosted = YafContext.Current.Get<ILocalization>()
-                                                    .GetText("COMMON", "BBCODE_QUOTEPOSTED");
+                var localQuotePosted = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
 
                 // extract post id if exists
                 if (quote.Contains(";"))
@@ -107,21 +107,9 @@ namespace YAF.Core.BBCode.ReplaceRules
                         userName = quote;
                     }
 
-                    if (postId.IsSet())
-                    {
-                        quote =
-                            string.Format(
-                                @"<div class=""card-header text-muted"">{0} <a href=""{1}"">{2}</a></div><div class=""card-body""><p class=""card-text"">",
-                                localQuotePosted.Replace("{0}", userName),
-                                    YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId),
-                                    @"<i class=""fas fa-external-link-alt""></i>",
-                                    YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"));
-                    }
-                    else
-                    {
-                        quote =
-                            $@"<div class=""card-header text-muted"">{localQuoteWrote.Replace("{0}", quote)}</div><div class=""card-body""><p class=""card-text"">";
-                    }
+                    quote = postId.IsSet()
+                                ? $@"<div class=""card-header text-muted"">{localQuotePosted.Replace("{0}", userName)} <a href=""{YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId)}""><i class=""fas fa-external-link-alt""></i></a></div><div class=""card-body""><p class=""card-text"">"
+                                : $@"<div class=""card-header text-muted"">{localQuoteWrote.Replace("{0}", quote)}</div><div class=""card-body""><p class=""card-text"">";
                 }
                 else
                 {

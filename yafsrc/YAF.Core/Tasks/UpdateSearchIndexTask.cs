@@ -43,7 +43,7 @@ namespace YAF.Core.Tasks
         #region Constants and Fields
 
         /// <summary>
-        ///   The _task name.
+        ///   The task name.
         /// </summary>
         private const string _TaskName = "UpdateSearchIndexTask";
 
@@ -87,15 +87,16 @@ namespace YAF.Core.Tasks
                 var boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
 
                 // go through each board...
-                foreach (var boardId in boardIds)
-                {
-                    var messages = this.GetRepository<Message>().GetAllMessagesByBoard(boardId);
+                boardIds.ForEach(
+                    boardId =>
+                        {
+                            var messages = this.GetRepository<Message>().GetAllMessagesByBoard(boardId);
 
-                    this.Get<ISearch>().AddUpdateSearchIndex(messages);
+                            this.Get<ISearch>().AddUpdateSearchIndex(messages);
 
-                    // sleep for a second...
-                    Thread.Sleep(1000);
-                }
+                            // sleep for a second...
+                            Thread.Sleep(1000);
+                        });
             }
             catch (Exception x)
             {
