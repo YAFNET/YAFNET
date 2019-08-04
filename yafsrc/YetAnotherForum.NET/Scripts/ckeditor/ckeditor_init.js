@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
     var yafCKEditor = jQuery('textarea.YafTextEditor').ckeditor({
-        extraPlugins: 'autosave,bbcodehtml,syntaxhighlight,bbcodeselector,codemirror,textselection,wordcount,emojione',
+        extraPlugins: 'autosave,bbcodehtml,syntaxhighlight,bbcodeselector,codemirror,textselection,wordcount,emojione,mentions',
         autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']",
         toolbar: [
             ['Source'],

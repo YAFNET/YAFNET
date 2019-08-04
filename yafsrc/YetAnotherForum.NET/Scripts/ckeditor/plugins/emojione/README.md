@@ -41,4 +41,3 @@ After that you can register the plugin within your CKeditor configuration:
 ```
 
 This addon has been inspired by the [smiley plugin](https://github.com/ckeditor/ckeditor-dev/tree/master/plugins/smiley) and added support for native emojis.
-

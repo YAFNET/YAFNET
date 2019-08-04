@@ -91,7 +91,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\select2.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2\select2.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2\select2-bootstrap.css" />
     </ItemGroup>
 
     <ItemGroup>
@@ -111,7 +112,6 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.gif" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\**\jQuery.FileUpload\**;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.png" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xml" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.txt" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.aspx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.sql" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xsl" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
