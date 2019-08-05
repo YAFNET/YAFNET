@@ -90,6 +90,21 @@ namespace YAF.Core.Handlers
         }
 
         /// <summary>
+        /// Writes the JSON iFrame safe.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="statuses">The statuses.</param>
+        private static void WriteJsonIframeSafe(HttpContext context, List<FilesUploadStatus> statuses)
+        {
+            context.Response.AddHeader("Vary", "Accept");
+
+            context.Response.ContentType = "application/json";
+
+            var jsonObject = new JavaScriptSerializer().Serialize(statuses.ToArray());
+            context.Response.Write(jsonObject);
+        }
+
+        /// <summary>
         /// Handle request based on method
         /// </summary>
         /// <param name="context">The context.</param>
@@ -123,7 +138,7 @@ namespace YAF.Core.Handlers
 
             this.UploadWholeFile(context, statuses);
 
-            this.WriteJsonIframeSafe(context, statuses);
+            WriteJsonIframeSafe(context, statuses);
         }
 
         /// <summary>
@@ -224,21 +239,6 @@ namespace YAF.Core.Handlers
         }
 
         /// <summary>
-        /// Writes the JSON iFrame safe.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="statuses">The statuses.</param>
-        private void WriteJsonIframeSafe(HttpContext context, List<FilesUploadStatus> statuses)
-        {
-            context.Response.AddHeader("Vary", "Accept");
-
-            context.Response.ContentType = "application/json";
-
-            var jsonObject = new JavaScriptSerializer().Serialize(statuses.ToArray());
-            context.Response.Write(jsonObject);
-        }
-
-        /// <summary>
         /// Checks the access rights.
         /// </summary>
         /// <param name="boardId">The board id.</param>
@@ -248,6 +248,12 @@ namespace YAF.Core.Handlers
         /// </returns>
         private bool CheckAccessRights([NotNull] int boardId, [NotNull] int forumId)
         {
+            if (forumId == 0)
+            {
+                // is private message upload
+                return true;
+            }
+
             // Find user name
             var user = UserMembershipHelper.GetUser();
 
@@ -255,8 +261,6 @@ namespace YAF.Core.Handlers
                 $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
             var platform = HttpContext.Current.Request.Browser.Platform;
             var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
-            bool isSearchEngine;
-            bool dontTrack;
             var userAgent = HttpContext.Current.Request.UserAgent;
 
             // try and get more verbose platform name by ref and other parameters
@@ -265,8 +269,8 @@ namespace YAF.Core.Handlers
                 HttpContext.Current.Request.Browser.Crawler,
                 ref platform,
                 ref browser,
-                out isSearchEngine,
-                out dontTrack);
+                out var isSearchEngine,
+                out var doNotTrack);
 
             this.Get<StartupInitializeDb>().Run();
 
@@ -290,9 +294,9 @@ namespace YAF.Core.Handlers
                 forumId,
                 null,
                 null,
-                isSearchEngine, // don't track if this is a search engine
+                isSearchEngine,
                 isMobileDevice,
-                dontTrack);
+                doNotTrack);
 
             return pageRow["UploadAccess"].ToType<bool>() || pageRow["ModeratorAccess"].ToType<bool>();
         }

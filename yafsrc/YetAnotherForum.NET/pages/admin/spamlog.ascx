@@ -10,14 +10,18 @@
 
 <div class="row">
             <div class="col-xl-12">
-                <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" /></h1>
+                <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                        LocalizedTag="TITLE" 
+                                        LocalizedPage="ADMIN_SPAMLOG" /></h1>
             </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
+                    <i class="fa fa-shield-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                                                                                                   LocalizedTag="TITLE"
+                                                                                                   LocalizedPage="ADMIN_SPAMLOG" />
             </div>
                 <div class="card-body">
                     <div class="form-group">
@@ -65,7 +69,9 @@
                 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" />
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
+                    <i class="fa fa-shield-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
+                                                                                                   LocalizedTag="TITLE" 
+                                                                                                   LocalizedPage="ADMIN_SPAMLOG" />
             </div>
                 <div class="card-body">
         <asp:Repeater runat="server" ID="List">
@@ -127,6 +133,13 @@
                </ul>
             </FooterTemplate>
         </asp:Repeater>
+                    <YAF:Alert runat="server" ID="NoInfo" 
+                               Type="success" 
+                               Visible="False">
+                        <i class="fa fa-check fa-fw text-success"></i>
+                        <YAF:LocalizedLabel runat="server"
+                                            LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
+                    </YAF:Alert>
                 </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" 

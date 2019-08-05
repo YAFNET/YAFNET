@@ -868,6 +868,7 @@
   <Resource tag="DELETE_ALL">Delete All</Resource>
   <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
   <Resource tag="HIDE">Hide</Resource>
+   <Resource tag="NO_ENTRY">No Entries found</Resource>
   <Resource tag="SHOW">Show</Resource>
   <Resource tag="SINCEDATE">Start Date</Resource>
   <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
@@ -2202,6 +2203,12 @@
   <Resource tag="UNREAD_MSG">You have {0} unread message(s) in your Inbox.</Resource>
   <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
   <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
+   <Resource tag="UNREAD_QUOTED_TITLE">Somebody Quoted you in a Topic</Resource>
+   <Resource tag="UNREAD_QUOTED_MSG">You have {0} unread quoted Posts, would you like to go to the newest one?</Resource>
+   <Resource tag="UNREAD_MENTION_TITLE">Somebody Mentioned you in a Topic</Resource>
+   <Resource tag="UNREAD_MENTION_MSG">You have {0} unread Mentions, would you like to go to the newest one?</Resource>
+   <Resource tag="UNREAD_THANKS_TITLE">Somebody Thanked you for a Message</Resource>
+   <Resource tag="UNREAD_THANKS_MSG">You have {0} unread received Thanks, would you like to go to the newest one?</Resource>
   <Resource tag="UPDATE">Update</Resource>
   <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
   <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
@@ -2641,7 +2648,20 @@
   <Resource tag="TO">To</Resource>
  </page>
  <page name="CP_PROFILE">
-  <Resource tag="ARCHIVE">Archive</Resource>
+   <Resource tag="ACTIVITY">Your Activity</Resource>
+   <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
+   <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+   <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
+   <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
+   <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
+   <Resource tag="WAS_QUOTED">Was Quoted</Resource>
+   <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
+   <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
+   <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
+   <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
+   <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
+   <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+   <Resource tag="ARCHIVE">Archive</Resource>
   <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
   <Resource tag="CONTROL_PANEL">Control Panel</Resource>
   <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
@@ -3189,17 +3209,17 @@
 
     &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
 
-    [img]{0}Content/images/YafLogo.png[/img]&lt;br /&gt;&lt;br /&gt;
-    [img={0}Content/images/YafLogo.png]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
+    [img]{0}Content/images/YAFLogo.svg[/img]&lt;br /&gt;&lt;br /&gt;
+    [img={0}Content/images/YAFLogo.svg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
     [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
 
 
     &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
 
-    &lt;img src=&quot;{0}Content/images/YafLogo.png&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
-    &lt;br /&gt;&lt;img src=&quot;{0}Content/images/YafLogo.png&quot; alt=&quot;YAF Logo&quot; title=&quot;YAF Logo&quot; /&gt;&lt;br /&gt;
+    &lt;img src=&quot;{0}Content/images/YAFLogo.svg&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+    &lt;br /&gt;&lt;img src=&quot;{0}Content/images/YAFLogo.svg&quot; alt=&quot;YAF Logo&quot; title=&quot;YAF Logo&quot; /&gt;&lt;br /&gt;
     &lt;br /&gt;
-    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;YAF Logo&quot;&gt;&lt;img class=&quot;inlineimg&quot; src=&quot;{0}Content/images/YafLogo.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt; (Linked)
+    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;YAF Logo&quot;&gt;&lt;img class=&quot;inlineimg&quot; src=&quot;{0}Content/images/YAFLogo.svg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt; (Linked)
     &lt;/div&gt;
     &lt;/div&gt;
 

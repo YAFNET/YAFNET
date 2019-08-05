@@ -846,6 +846,7 @@
     <Resource tag="DELETE_ALL">Delete All</Resource>
     <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
     <Resource tag="HIDE">Hide</Resource>
+    <Resource tag="NO_ENTRY">No Entries found</Resource>
     <Resource tag="SHOW">Show</Resource>
     <Resource tag="SINCEDATE">Start Date</Resource>
     <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
@@ -2239,6 +2240,8 @@
     <Resource tag="TT_QUOTE">Quote</Resource>
     <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">Underline</Resource>
+    <Resource tag="UNREAD_MENTION_MSG">You have {0} unread Mentions, would you like to go to the newest one?</Resource>
+    <Resource tag="UNREAD_MENTION_TITLE">Somebody Mentioned you in a Topic</Resource>
     <Resource tag="UNREAD_MSG">
       Jūs {0} neskaitytų pranešimą (-us) į aplanką Gauti
 
@@ -2246,6 +2249,10 @@
     </Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
     <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
+    <Resource tag="UNREAD_QUOTED_MSG">You have {0} unread quoted Posts, would you like to go to the newest one?</Resource>
+    <Resource tag="UNREAD_QUOTED_TITLE">Somebody Quoted you in a Topic</Resource>
+    <Resource tag="UNREAD_THANKS_MSG">You have {0} unread received Thanks, would you like to go to the newest one?</Resource>
+    <Resource tag="UNREAD_THANKS_TITLE">Somebody Thanked you for a Message</Resource>
     <Resource tag="UPDATE">Atnaujinti </Resource>
     <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
     <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
@@ -2738,12 +2745,19 @@
     <Resource tag="TO">To</Resource>
   </page>
   <page name="CP_PROFILE">
+    <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">Archive</Resource>
     <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
     <Resource tag="CONTROL_PANEL">Valdymo skydas </Resource>
+    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
+    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
+    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">Keisti Avataras </Resource>
     <Resource tag="EDIT_PROFILE">Redaguoti profilį </Resource>
     <Resource tag="EDIT_SIGNATURE">Redaguoti Parašas </Resource>
+    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
+    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Jūs esate narys šių grupių: </Resource>
     <Resource tag="INBOX">Gauti laiškai </Resource>
     <Resource tag="JOINED">Jūs buvote narys nuo: </Resource>
@@ -2751,10 +2765,16 @@
     <Resource tag="NEW_MESSAGE">Nauja žinutė </Resource>
     <Resource tag="NUMPOSTS">Etatų skaičius: </Resource>
     <Resource tag="PERSONAL_PROFILE">Asmeninis profilis: </Resource>
+    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
+    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
     <Resource tag="SENTITEMS">Siùstieji </Resource>
     <Resource tag="SIGNATURE">Parašas </Resource>
     <Resource tag="SUBSCRIPTIONS">Prenumerata </Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
+    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
+    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
+    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
+    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">Jūsų sąskaita </Resource>
     <Resource tag="YOUR_EMAIL">Jūsų el.pašto adresas: </Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>

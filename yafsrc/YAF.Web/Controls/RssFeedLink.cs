@@ -90,6 +90,7 @@ namespace YAF.Web.Controls
             output.WriteAttribute("data-toggle", "dropdown");
             output.WriteAttribute("aria-haspopup", "true");
             output.WriteAttribute("aria-expanded", "false");
+            output.WriteAttribute("aria-label", "RSS Feed");
             output.Write(HtmlTextWriter.TagRightChar);
 
             // icon

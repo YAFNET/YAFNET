@@ -37,15 +37,14 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
                     </asp:Label>
                 <asp:PlaceHolder runat="server" ID="UserInfoMobile">
-                <YAF:LocalizedLabel LocalizedTag="POSTEDBY" runat="server"></YAF:LocalizedLabel>:
-                <YAF:UserLink  ID="UserLink1" runat="server" 
-                               UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
-                               ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
-                               PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
-                               Style='<%# this.DataRow["Style"]%>' 
-                               EnableHoverCard="False" 
-                               Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
-                               CssClass="dropdown-toggle" />
+                    <YAF:LocalizedLabel LocalizedTag="POSTEDBY" runat="server"></YAF:LocalizedLabel>:
+                    <YAF:UserLink  ID="UserLink1" runat="server" 
+                                   UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
+                                   ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
+                                   PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
+                                   Style='<%# this.DataRow["Style"]%>' 
+                                   EnableHoverCard="False" 
+                                   Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>' />
                 </asp:PlaceHolder>
                 <span id="IPSpan1" runat="server" visible="false" class="float-right d-none d-md-block"> 
                     &nbsp;&nbsp;

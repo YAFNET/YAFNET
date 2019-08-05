@@ -607,6 +607,11 @@ namespace YAF.Web.Controls
                 output.WriteAttribute("aria-expanded", "false");
             }
 
+            if (this.Text.IsNotSet() && this.Icon.IsSet())
+            {
+                output.WriteAttribute("aria-label", this.Icon);
+            }
+
             output.Write(HtmlTextWriter.TagRightChar);
 
             if (this.Icon.IsSet())

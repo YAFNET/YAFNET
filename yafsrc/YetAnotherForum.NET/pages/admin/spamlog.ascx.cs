@@ -150,7 +150,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // do it only once, not on postbacks
+            // do it only once, not on post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -278,6 +278,11 @@ namespace YAF.Pages.Admin
 
             // bind data to controls
             this.DataBind();
+
+            if (this.List.Items.Count == 0)
+            {
+                this.NoInfo.Visible = true;
+            }
         }
 
         /// <summary>

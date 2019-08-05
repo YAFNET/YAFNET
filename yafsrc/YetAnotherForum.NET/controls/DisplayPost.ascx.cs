@@ -166,7 +166,7 @@ namespace YAF.Controls
 
             return sb.ToString();
         }
-        
+
         /// <summary>
         /// The get post class.
         /// </summary>
@@ -279,9 +279,10 @@ namespace YAF.Controls
 
             this.PageContext.AddLoadMessage(
                 this.GetTextFormatted(
-                   "REP_VOTE_DOWN_MSG",
-                   this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
+                    "REP_VOTE_DOWN_MSG",
+                    this.Get<HttpServerUtilityBase>().HtmlEncode(
+                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
+                            .ToString())),
                 MessageTypes.success);
         }
 
@@ -301,36 +302,43 @@ namespace YAF.Controls
                                   : string.Empty;
 
             // process message... clean html, strip html, remove bbcode, etc...
-            var twitterMsg =
-                BBCodeHelper.StripBBCode(
-                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))).RemoveMultipleWhitespace();
+            var twitterMsg = BBCodeHelper
+                .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"])))
+                .RemoveMultipleWhitespace();
 
-            var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", this.DataRow["MessageID"]);
+            var topicUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.posts,
+                true,
+                "m={0}#post{0}",
+                this.DataRow["MessageID"]);
 
             // Send Re-tweet Directly thru the Twitter API if User is Twitter User
-            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet() &&
-                this.Get<IYafSession>().TwitterToken.IsSet() && this.Get<IYafSession>().TwitterTokenSecret.IsSet() &&
-                this.Get<IYafSession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
+            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()
+                                                  && this.Get<IYafSession>().TwitterToken.IsSet()
+                                                  && this.Get<IYafSession>().TwitterTokenSecret.IsSet()
+                                                  && this.Get<IYafSession>().TwitterTokenSecret.IsSet()
+                                                  && this.PageContext.IsTwitterUser)
             {
                 var auth = new OAuthTwitter
-                {
-                    ConsumerKey = Config.TwitterConsumerKey,
-                    ConsumerSecret = Config.TwitterConsumerSecret,
-                    Token = this.Get<IYafSession>().TwitterToken,
-                    TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
-                };
+                               {
+                                   ConsumerKey = Config.TwitterConsumerKey,
+                                   ConsumerSecret = Config.TwitterConsumerSecret,
+                                   Token = this.Get<IYafSession>().TwitterToken,
+                                   TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
+                               };
 
                 var tweets = new TweetAPI(auth);
 
                 tweets.UpdateStatus(
                     TweetAPI.ResponseFormat.json,
-                    this.Server.UrlEncode(string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
+                    this.Server.UrlEncode(
+                        string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
                     string.Empty);
             }
             else
             {
                 this.Get<HttpResponseBase>().Redirect(
-                    $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}: {0}", twitterMsg.Truncate(100), twitterName))}");
+                    $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(s: $"RT {twitterName}: {twitterMsg.Truncate(100)}")}");
             }
         }
 
@@ -340,8 +348,8 @@ namespace YAF.Controls
         private void ShowIpInfo()
         {
             // Display admin/moderator only info
-            if (!this.PageContext.IsAdmin
-                && (!this.Get<YafBoardSettings>().AllowModeratorsViewIPs || !this.PageContext.ForumModeratorAccess))
+            if (!this.PageContext.IsAdmin && (!this.Get<YafBoardSettings>().AllowModeratorsViewIPs
+                                              || !this.PageContext.ForumModeratorAccess))
             {
                 return;
             }
@@ -378,11 +386,17 @@ namespace YAF.Controls
             {
                 if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
                 {
-                    this.PopMenu1.AddPostBackItem("toggleuserposts_show", this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"), "fa fa-eye");
+                    this.PopMenu1.AddPostBackItem(
+                        "toggleuserposts_show",
+                        this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"),
+                        "fa fa-eye");
                 }
                 else
                 {
-                    this.PopMenu1.AddPostBackItem("toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"), "fa fa-eye-slash");
+                    this.PopMenu1.AddPostBackItem(
+                        "toggleuserposts_hide",
+                        this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"),
+                        "fa fa-eye-slash");
                 }
             }
 
@@ -409,8 +423,10 @@ namespace YAF.Controls
                 }
             }
 
-            this.PopMenu1.Attach(
-                UserAgentHelper.IsMobileDevice(this.Get<HttpRequestBase>()) ? this.UserLink1 : this.UserProfileLink);
+            if (!UserAgentHelper.IsMobileDevice(this.Get<HttpRequestBase>()))
+            {
+                this.PopMenu1.Attach(this.UserProfileLink);
+            }
         }
 
         /// <summary>
@@ -444,16 +460,24 @@ namespace YAF.Controls
 
             this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.postmessage, "m={0}", this.PostData.MessageId);
+                ForumPages.postmessage,
+                "m={0}",
+                this.PostData.MessageId);
             this.MovePost.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
             this.MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.movemessage, "m={0}", this.PostData.MessageId);
+                ForumPages.movemessage,
+                "m={0}",
+                this.PostData.MessageId);
             this.Delete.Visible = !this.PostData.PostDeleted && this.PostData.CanDeletePost && !this.PostData.IsLocked;
             this.Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage, "m={0}&action=delete", this.PostData.MessageId);
+                ForumPages.deletemessage,
+                "m={0}&action=delete",
+                this.PostData.MessageId);
             this.UnDelete.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
             this.UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage, "m={0}&action=undelete", this.PostData.MessageId);
+                ForumPages.deletemessage,
+                "m={0}&action=undelete",
+                this.PostData.MessageId);
 
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
@@ -472,9 +496,11 @@ namespace YAF.Controls
                     $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);
+                    "MultiQuoteButtonJs",
+                    JavaScriptBlocks.MultiQuoteButtonJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                  "MultiQuoteCallbackSuccessJS", JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
+                    "MultiQuoteCallbackSuccessJS",
+                    JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
                 this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
@@ -494,7 +520,9 @@ namespace YAF.Controls
                 this.Manage.Visible = false;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){console.log(res);  }");
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "asynchCallFailedJs",
+                "function CallFailed(res){console.log(res);  }");
 
             this.FormatThanksRow();
 
@@ -512,8 +540,8 @@ namespace YAF.Controls
         /// </summary>
         private void AddReputationControls()
         {
-            if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>() &&
-                this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
+            if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>()
+                && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
             {
                 if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
                 {
@@ -533,8 +561,7 @@ namespace YAF.Controls
                 }
 
                 // Check if the Value is 0 or Bellow
-                if (this.DataRow["Points"].ToType<int>() > 0 &&
-                    this.Get<YafBoardSettings>().ReputationAllowNegative)
+                if (this.DataRow["Points"].ToType<int>() > 0 && this.Get<YafBoardSettings>().ReputationAllowNegative)
                 {
                     this.RemoveReputation.Visible = true;
                 }
@@ -568,12 +595,14 @@ namespace YAF.Controls
             const string RemoveThankBoxHTML =
                 "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fa fa-user-times fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
-            var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine + JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML);
+            var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine
+                                                                            + JavaScriptBlocks.RemoveThanksJs(
+                                                                                AddThankBoxHTML);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
-            this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
-                                 this.Get<YafBoardSettings>().EnableThanksMod;
+            this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest
+                                                            && this.Get<YafBoardSettings>().EnableThanksMod;
 
             if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
             {
@@ -597,15 +626,17 @@ namespace YAF.Controls
                 return;
             }
 
-            var username =
-                this.HtmlEncode(
-                    this.Get<YafBoardSettings>().EnableDisplayName
-                        ? UserMembershipHelper.GetDisplayNameFromID(this.PostData.UserId)
-                        : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
+            var username = this.HtmlEncode(
+                this.Get<YafBoardSettings>().EnableDisplayName
+                    ? UserMembershipHelper.GetDisplayNameFromID(this.PostData.UserId)
+                    : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
 
             var thanksLabelText = thanksNumber == 1
-                                  ? string.Format(this.Get<ILocalization>().GetText("THANKSINFOSINGLE"), username)
-                                  : string.Format(this.Get<ILocalization>().GetText("THANKSINFO"), thanksNumber, username);
+                                      ? string.Format(this.Get<ILocalization>().GetText("THANKSINFOSINGLE"), username)
+                                      : string.Format(
+                                          this.Get<ILocalization>().GetText("THANKSINFO"),
+                                          thanksNumber,
+                                          username);
 
             this.ThanksDataLiteral.Text =
                 $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksLabelText}";
@@ -636,7 +667,9 @@ namespace YAF.Controls
                     YafBuildLink.Redirect(
                         ForumPages.search,
                         "postedby={0}",
-                        this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]);
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.DataRow["DisplayName"]
+                            : this.DataRow["UserName"]);
                     break;
                 case "addbuddy":
                     var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
@@ -671,7 +704,8 @@ namespace YAF.Controls
 
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted(
-                                "REMOVEBUDDY_NOTIFICATION", this.Get<IBuddy>().Remove(this.PostData.UserId)),
+                                "REMOVEBUDDY_NOTIFICATION",
+                                this.Get<IBuddy>().Remove(this.PostData.UserId)),
                             MessageTypes.success);
                         break;
                     }
