@@ -64,24 +64,26 @@ namespace YAF.Core
 
       var item = httpApplicationState[key];
 
-      if (Equals(item, default(T)))
+      if (!Equals(item, default(T)))
       {
-        try
-        {
+          return (T)item;
+      }
+
+      try
+      {
           httpApplicationState.Lock();
 
           item = httpApplicationState[key];
 
           if (Equals(item, default(T)))
           {
-            item = getValue();
-            httpApplicationState[key] = item;
+              item = getValue();
+              httpApplicationState[key] = item;
           }
-        }
-        finally
-        {
+      }
+      finally
+      {
           httpApplicationState.UnLock();
-        }
       }
 
       return (T)item;

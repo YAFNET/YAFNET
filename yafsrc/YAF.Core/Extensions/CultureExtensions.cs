@@ -35,6 +35,9 @@ namespace YAF.Core.Extensions
 
     #endregion
 
+    /// <summary>
+    /// The culture extensions.
+    /// </summary>
     public static class CultureExtensions
     {
         /// <summary>

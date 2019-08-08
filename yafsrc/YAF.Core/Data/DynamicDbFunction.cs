@@ -92,11 +92,8 @@ namespace YAF.Core.Data
         /// <param name="dbAccessProvider">
         /// The db Access Provider. 
         /// </param>
-        /// <param name="dbSpecificFunctions">
-        /// The db Specific Functions. 
-        /// </param>
-        /// <param name="dbFilterFunctions">
-        /// The db Filter Functions. 
+        /// <param name="serviceLocator">
+        /// The service Locator.
         /// </param>
         public DynamicDbFunction(
             [NotNull] IDbAccessProvider dbAccessProvider, 
@@ -198,6 +195,9 @@ namespace YAF.Core.Data
 
         #region Methods
 
+        /// <summary>
+        /// The db specific functions.
+        /// </summary>
         public IEnumerable<IDbSpecificFunction> DbSpecificFunctions =>
             this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
                 .WhereProviderName(this._dbAccessProvider.ProviderName)

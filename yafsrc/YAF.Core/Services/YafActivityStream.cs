@@ -137,7 +137,7 @@ namespace YAF.Core.Services
 
             this.GetRepository<Activity>().Insert(activity);
 
-            YafContext.Current.Get<IDataCache>().Remove(
+            this.Get<IDataCache>().Remove(
                 string.Format(Constants.Cache.ActiveUserLazyData, userId));
         }
 
@@ -173,7 +173,7 @@ namespace YAF.Core.Services
 
             this.GetRepository<Activity>().Insert(activity);
 
-            YafContext.Current.Get<IDataCache>().Remove(
+            this.Get<IDataCache>().Remove(
                 string.Format(Constants.Cache.ActiveUserLazyData, userId));
         }
 
@@ -209,7 +209,7 @@ namespace YAF.Core.Services
 
             this.GetRepository<Activity>().Insert(activity);
 
-            YafContext.Current.Get<IDataCache>().Remove(
+            this.Get<IDataCache>().Remove(
                 string.Format(Constants.Cache.ActiveUserLazyData, userId));
         }
 

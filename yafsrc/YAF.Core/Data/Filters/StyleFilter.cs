@@ -45,8 +45,7 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     The _styled nick operations.
         /// </summary>
-        private readonly string[] _styledNickOperations = new[]
-                                                              {
+        private readonly string[] _styledNickOperations = {
                                                                   "active_list", 
                                                                   "active_listtopic", 
                                                                   "active_listforum", 
@@ -144,7 +143,7 @@ namespace YAF.Core.Data.Filters
             }
 
             var dataTable = (DataTable)data;
-            this.StyleTransform.DecodeStyleByTable(dataTable, colorOnly);
+            this.StyleTransform.DecodeStyleByTable(dataTable, false);
         }
 
         #endregion

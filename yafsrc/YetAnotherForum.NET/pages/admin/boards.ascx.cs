@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -38,7 +37,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -51,26 +49,14 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the Delete control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void DeleteLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return (confirm('{this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE")}') && confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE")}'))";
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.List.ItemCommand += this.ListItemCommand;
-            this.New.Click += this.New_Click;
+            this.New.Click += New_Click;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             base.OnInit(e);
         }
 
@@ -100,11 +86,23 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
                 $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDS", "TITLE")}";
+        }
+
+        /// <summary>
+        /// Redirects to the Create New Board Page
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private static void New_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.admin_editboard);
         }
 
         /// <summary>
@@ -129,20 +127,10 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<Board>().DeleteById(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Board>().DeleteBoard(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
             }
-        }
-
-        /// <summary>
-        /// Redirects to the Create New Board Page
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void New_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.admin_editboard);
         }
 
         #endregion

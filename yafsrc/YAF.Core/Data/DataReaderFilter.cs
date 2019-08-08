@@ -49,11 +49,6 @@ namespace YAF.Core.Data
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the data reader.
-        /// </summary>
-        protected IDataReader DataReader { get; set; }
-
-        /// <summary>
         /// Gets the depth.
         /// </summary>
         public virtual int Depth => this.DataReader.Depth;
@@ -72,6 +67,11 @@ namespace YAF.Core.Data
         /// Gets the records affected.
         /// </summary>
         public int RecordsAffected => this.DataReader.RecordsAffected;
+
+        /// <summary>
+        /// Gets or sets the data reader.
+        /// </summary>
+        protected IDataReader DataReader { get; set; }
 
         #endregion
 

@@ -38,11 +38,6 @@ namespace YAF.Core
   {
     #region Constants and Fields
 
-    /// <summary>
-    ///   The _dic.
-    /// </summary>
-    private readonly TypeDictionary _dic;
-
     #endregion
 
     #region Constructors and Destructors
@@ -55,7 +50,7 @@ namespace YAF.Core
     /// </param>
     public ContextVariableRepository([NotNull] TypeDictionary dictionary)
     {
-      this._dic = dictionary;
+      this.Vars = dictionary;
     }
 
     #endregion
@@ -76,7 +71,7 @@ namespace YAF.Core
     /// <summary>
     ///   Gets Vars.
     /// </summary>
-    protected TypeDictionary Vars => this._dic;
+    protected TypeDictionary Vars { get; }
 
     #endregion
   }

@@ -70,6 +70,20 @@ namespace YAF.Core.Extensions
             return success;
         }
 
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="haveId">
+        /// The have id.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool Delete<T>([NotNull] this IRepository<T> repository, [NotNull] IHaveID haveId) where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(haveId, "haveId");
@@ -78,6 +92,20 @@ namespace YAF.Core.Extensions
             return repository.DeleteById(haveId.ID);
         }
 
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="criteria">
+        /// The criteria.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public static int Delete<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -120,7 +148,7 @@ namespace YAF.Core.Extensions
         /// <typeparam name="T">The type parameter.</typeparam>
         /// <param name="repository">The repository.</param>
         /// <param name="ids">The ids.</param>
-        /// <returns>Returns if deleting was succesfull or not</returns>
+        /// <returns>Returns if deleting was successful or not</returns>
         public static bool DeleteByIds<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids) where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -161,9 +189,9 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var newboardId = boardId ?? repository.BoardID;
+            var newBoardId = boardId ?? repository.BoardID;
 
-            return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newboardId }));
+            return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newBoardId }));
         }
 
         /// <summary>
@@ -435,11 +463,9 @@ namespace YAF.Core.Extensions
 
             expression.Where(criteria).OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-            return repository.DbAccess.Execute(db => db.Connection.Select<T>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.Select(expression));
         }
 
         #endregion
-
-       
     }
 }

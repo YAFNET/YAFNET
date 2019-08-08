@@ -15,9 +15,10 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-globe fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                                               LocalizedTag="TITLE" 
-                                                                               LocalizedPage="ADMIN_BOARDS" />
+                    <i class="fa fa-globe fa-fw text-secondary pr-1"></i>
+                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
+                                        LocalizedTag="TITLE"
+                                        LocalizedPage="ADMIN_BOARDS" />
                 </div>
                 <div class="card-body">
                     <asp:Repeater ID="List" runat="server">
@@ -32,24 +33,31 @@
                         <%# this.HtmlEncode(this.Eval( "Name")) %>
                     </h5>
                     <small>
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ID" LocalizedPage="ADMIN_BOARDS" />: <%# this.Eval( "BoardID") %>
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                            LocalizedTag="ID" 
+                                            LocalizedPage="ADMIN_BOARDS" />: <%# this.Eval( "BoardID") %>
                     </small>
                 </div>
                 <small>
-					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "BoardID") %>'
-                            TitleLocalizedTag="EDIT"
-                            TextLocalizedTag="EDIT"
-                            Icon="edit"
-                            runat="server">
+					    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                                         Type="Info" 
+                                         Size="Small"
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval( "BoardID") %>'
+                                         TitleLocalizedTag="EDIT"
+                                         TextLocalizedTag="EDIT"
+                                         Icon="edit">
 					    </YAF:ThemeButton>
                         &nbsp;
-                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
-                            CommandName='delete' CommandArgument='<%# this.Eval( "BoardID") %>'
-                            TitleLocalizedTag="DELETE"
-                            TextLocalizedTag="DELETE"
-                            Icon="trash"
-                            OnLoad="DeleteLoad"  runat="server">
+                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                                         Type="Danger" 
+                                         Size="Small"
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval( "BoardID") %>'
+                                         TitleLocalizedTag="DELETE"
+                                         TextLocalizedTag="DELETE"
+                                         Icon="trash"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
                         </YAF:ThemeButton>
                     </small>
                 </li>
@@ -60,9 +68,10 @@
 		</asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="New" runat="server" Type="Primary" 
-                        TextLocalizedTag="NEW_BOARD"
-                        Icon="plus-square"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="New" runat="server" 
+                                     Type="Primary" 
+                                     TextLocalizedTag="NEW_BOARD"
+                                     Icon="plus-square"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

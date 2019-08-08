@@ -23,7 +23,7 @@
  */
 namespace YAF.Core.Nntp
 {
-  /// <summary>
+    /// <summary>
   /// The article body.
   /// </summary>
   public class ArticleBody

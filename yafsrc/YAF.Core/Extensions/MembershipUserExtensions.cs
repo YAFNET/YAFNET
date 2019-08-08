@@ -46,6 +46,7 @@ namespace YAF.Core
     /// The membership user.
     /// </param>
     /// <returns>
+    /// The <see cref="IUserData"/>.
     /// </returns>
     [NotNull]
     public static IUserData GetUserData([NotNull] this MembershipUser membershipUser)

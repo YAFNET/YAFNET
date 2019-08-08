@@ -282,7 +282,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         public static string BlockUiExecuteJs([NotNull] string messageId, [NotNull] string buttonId)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
-                      {Config.JQueryAlias}('{buttonId}').click(function() {{ {Config.JQueryAlias}.blockUI({{ message: {Config.JQueryAlias}('#{messageId}') }});
+                      {Config.JQueryAlias}('{buttonId}').click(function() {{ 
+                                   {Config.JQueryAlias}.blockUI({{ 
+                                                 message: {Config.JQueryAlias}('#{messageId}') }});
                        }});
                       }});";
         }
@@ -307,16 +309,19 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             }
 
             return $@"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
-                  function loadDatePicker() {{	{Config.JQueryAlias}(document).ready(function() {{ {Config.JQueryAlias}('.datepickerinput').datetimepicker({{format: '{dateFormat}'{cultureJs},icons:{{
-            time: 'fa fa-clock fa-fw',
-            date: 'fa fa-calendar fa-fw',
-            up: 'fa fa-chevron-up fa-fw',
-            down: 'fa fa-chevron-down fa-fw',
-            previous: 'fa fa-chevron-left fa-fw',
-            next: 'fa fa-chevron-right fa-fw',
-            today: 'fa fa-sun fa-fw',
-            clear: 'fa fa-trash fa-fw',
-            close: 'fa fa-times fa-fw'
+                  function loadDatePicker() {{	
+                                 {Config.JQueryAlias}(document).ready(function() {{ 
+                                {Config.JQueryAlias}('.datepickerinput').datetimepicker({{
+                                                        format: '{dateFormat}'{cultureJs},icons:{{
+                                                        time: 'fa fa-clock fa-fw',
+                                                        date: 'fa fa-calendar fa-fw',
+                                                        up: 'fa fa-chevron-up fa-fw',
+                                                        down: 'fa fa-chevron-down fa-fw',
+                                                        previous: 'fa fa-chevron-left fa-fw',
+                                                        next: 'fa fa-chevron-right fa-fw',
+                                                        today: 'fa fa-sun fa-fw',
+                                                        clear: 'fa fa-trash fa-fw',
+                                                        close: 'fa fa-times fa-fw'
         }}}}); }});}} ";
         }
 
@@ -362,9 +367,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <summary>
         /// Gets the Bootstrap Tab Load JS.
         /// </summary>
-        /// <param name="tabId">The tab Id.</param>
-        /// <param name="hiddenId">The hidden field id.</param>
-        /// <param name="onClickEvent">The on click event.</param>
+        /// <param name="tabId">
+        /// The tab Id.
+        /// </param>
+        /// <param name="hiddenId">
+        /// The hidden field id.
+        /// </param>
         /// <returns>
         /// Returns the the Bootstrap Tab Load JS string
         /// </returns>
@@ -420,7 +428,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         public static string LoadTableSorter([NotNull] string selector, [CanBeNull] string options)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
-                        {Config.JQueryAlias}('{selector}').tablesorter( {(options.IsSet() ? $"{{ theme: 'bootstrap', {options} }}" : "{{ theme: 'bootstrap' }}")} );
+                        {Config.JQueryAlias}('{selector}').tablesorter( 
+                                          {(options.IsSet() ? $"{{ theme: 'bootstrap', {options} }}" : "{{ theme: 'bootstrap' }}")} );
                     }});";
         }
 
@@ -639,7 +648,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string errorHtml)
         {
             return
-                $"{Config.JQueryAlias}('{clientId}').hovercard({{{(type.IsSet() ? $"show{type}Card: true," : string.Empty)}width: 350,loadingHTML: '{loadingHtml}',errorHTML: '{errorHtml}', delay: {YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay} }});";
+                $@"{Config.JQueryAlias}('{clientId}').hovercard({{
+                                  {(type.IsSet() ? $"show{type}Card: true," : string.Empty)}
+                                  width: 350,
+                                  loadingHTML: '{loadingHtml}',
+                                  errorHTML: '{errorHtml}', 
+                                  delay: {YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay} }});";
         }
 
         /// <summary>
@@ -662,7 +676,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string twitterUrl)
         {
             return
-                $"{Config.JQueryAlias}('{clientId}').hovercard({{{(type.IsSet() ? $"show{type}Card: true," : string.Empty)}width: 350,loadingHTML: '{loadingHtml}',errorHTML: '{errorHtml}', delay: {YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay}, twitterURL: '{twitterUrl}' }});";
+                $@"{Config.JQueryAlias}('{clientId}').hovercard({{
+                              {(type.IsSet() ? $"show{type}Card: true," : string.Empty)}
+                              width: 350,
+                              loadingHTML: '{loadingHtml}',
+                              errorHTML: '{errorHtml}', 
+                              delay: {YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay}, 
+                              twitterURL: '{twitterUrl}' }});";
         }
 
         /// <summary>

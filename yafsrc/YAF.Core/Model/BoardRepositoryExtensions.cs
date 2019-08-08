@@ -340,6 +340,22 @@ namespace YAF.Core.Model
             return ((DataTable)repository.DbFunction.GetData.board_userstats(BoardID: boardID)).Rows[0];
         }
 
+        /// <summary>
+        /// The delete board.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        public static void DeleteBoard(this IRepository<Board> repository, int boardId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.DbFunction.Query.board_delete(BoardID: boardId);
+        }
+
         #endregion
     }
 }

@@ -172,55 +172,6 @@ namespace YAF.Core.Nntp
     }
 
     /// <summary>
-    /// The convert list to tree.
-    /// </summary>
-    /// <param name="list">
-    /// The list.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static ArrayList ConvertListToTree(ArrayList list)
-    {
-      var hash = new Hashtable(list.Count);
-      var treeList = new ArrayList();
-      int len;
-      bool isTop;
-      foreach (Article article in list)
-      {
-        isTop = true;
-        hash[article.MessageId] = article;
-        article.LastReply = article.Header.Date;
-        article.Children = new ArrayList();
-        len = article.Header.ReferenceIds.Length;
-        for (var i = 0; i < len; i++)
-        {
-          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
-          {
-            ((Article)hash[article.Header.ReferenceIds[i]]).LastReply = article.LastReply;
-            break;
-          }
-        }
-
-        for (var i = len - 1; i >= 0; i--)
-        {
-          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
-          {
-            isTop = false;
-            ((Article)hash[article.Header.ReferenceIds[i]]).Children.Add(article);
-            break;
-          }
-        }
-
-        if (isTop)
-        {
-          treeList.Add(article);
-        }
-      }
-
-      return treeList;
-    }
-
-    /// <summary>
     /// Date from an Article Header converted to UTC
     /// </summary>
     /// <param name="nntpDateTime">

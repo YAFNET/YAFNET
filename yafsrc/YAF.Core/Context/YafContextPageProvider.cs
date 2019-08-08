@@ -68,6 +68,9 @@ namespace YAF.Core
         /// <param name="lifetimeScope">
         /// The container.
         /// </param>
+        /// <param name="injectServices">
+        /// The inject Services.
+        /// </param>
         public YafContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
         {
             this._lifetimeScope = lifetimeScope;

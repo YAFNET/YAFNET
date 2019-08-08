@@ -33,6 +33,7 @@ namespace YAF.Core
 
     using YAF.Types;
     using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -43,6 +44,17 @@ namespace YAF.Core
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The find classes with attribute.
+        /// </summary>
+        /// <param name="assemblies">
+        /// The assemblies.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
         public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
             where T : Attribute
@@ -53,15 +65,10 @@ namespace YAF.Core
             var attributeType = typeof(T);
 
             // get classes...
-            foreach (
-                var types in
-                    assemblies.Select(
-                        a =>
-                        a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any()).ToList()))
-            {
-                moduleClassTypes.AddRange(types);
-            }
-
+            assemblies.Select(
+                a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any())
+                    .ToList()).ForEach(types => { moduleClassTypes.AddRange(types); });
+            
             return moduleClassTypes.Distinct();
         }
 

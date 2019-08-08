@@ -23,51 +23,51 @@
  */
 namespace YAF.Core.Nntp
 {
-  using System;
-
-  /// <summary>
-  /// The article header.
-  /// </summary>
-  public class ArticleHeader
-  {
-      /// <summary>
-    /// Gets or sets ReferenceIds.
-    /// </summary>
-    public string[] ReferenceIds { get; set; }
+    using System;
 
     /// <summary>
-    /// Gets or sets an Article Time Zone offset to UTC.
+    /// The article header.
     /// </summary>
-    public int TimeZoneOffset { get; set; }
+    public class ArticleHeader
+    {
+        /// <summary>
+        /// Gets or sets ReferenceIds.
+        /// </summary>
+        public string[] ReferenceIds { get; set; }
 
-    /// <summary>
-    /// Gets or sets Subject.
-    /// </summary>
-    public string Subject { get; set; }
+        /// <summary>
+        /// Gets or sets an Article Time Zone offset to UTC.
+        /// </summary>
+        public int TimeZoneOffset { get; set; }
 
-    /// <summary>
-    /// Gets or sets Date.
-    /// </summary>
-    public DateTime Date { get; set; }
+        /// <summary>
+        /// Gets or sets Subject.
+        /// </summary>
+        public string Subject { get; set; }
 
-    /// <summary>
-    /// Gets or sets From.
-    /// </summary>
-    public string From { get; set; }
+        /// <summary>
+        /// Gets or sets Date.
+        /// </summary>
+        public DateTime Date { get; set; }
 
-    /// <summary>
-    /// Gets or sets Sender.
-    /// </summary>
-    public string Sender { get; set; }
+        /// <summary>
+        /// Gets or sets From.
+        /// </summary>
+        public string From { get; set; }
 
-    /// <summary>
-    /// Gets or sets PostingHost.
-    /// </summary>
-    public string PostingHost { get; set; }
+        /// <summary>
+        /// Gets or sets Sender.
+        /// </summary>
+        public string Sender { get; set; }
 
-    /// <summary>
-    /// Gets or sets LineCount.
-    /// </summary>
-    public int LineCount { get; set; }
-  }
+        /// <summary>
+        /// Gets or sets PostingHost.
+        /// </summary>
+        public string PostingHost { get; set; }
+
+        /// <summary>
+        /// Gets or sets LineCount.
+        /// </summary>
+        public int LineCount { get; set; }
+    }
 }

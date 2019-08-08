@@ -72,7 +72,7 @@ namespace YAF.Pages.Admin
             YafContext.Current.PageElements.RegisterJsBlock(
                 "TouchSpinLoadJs",
                 JavaScriptBlocks.LoadTouchSpin(
-                    ".SecondsInput",
+                    $"#{this.Seconds.ClientID}",
                     $"postfix: '{this.GetText("ADMIN_NNTPRETRIEVE", "SECONDS")}'"));
 
             base.OnPreRender(e);
@@ -143,7 +143,13 @@ namespace YAF.Pages.Admin
         {
             this.List.DataSource = this.GetRepository<NntpForum>()
                 .NntpForumList(this.PageContext.PageBoardID, 10, null, true);
+
             this.DataBind();
+
+            if (this.List.Items.Count == 0)
+            {
+                this.Retrieve.Visible = false;
+            }
         }
 
         #endregion

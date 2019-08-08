@@ -319,11 +319,13 @@ namespace YAF.Core.Nntp
       nntpConnection.ConnectServer(nntpForum.Address.ToLower(), nntpForum.Port ?? 119);
 
       // provide authentication if required...
-      if (nntpForum.UserName.IsSet() && nntpForum.UserPass.IsSet())
+      if (!nntpForum.UserName.IsSet() || !nntpForum.UserPass.IsSet())
       {
-        nntpConnection.ProvideIdentity(nntpForum.UserName, nntpForum.UserPass);
-        nntpConnection.SendIdentity();
+          return nntpConnection;
       }
+
+      nntpConnection.ProvideIdentity(nntpForum.UserName, nntpForum.UserPass);
+      nntpConnection.SendIdentity();
 
       return nntpConnection;
     }

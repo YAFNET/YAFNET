@@ -22,44 +22,47 @@
  * under the License.
  */
 
-using System;
-
 namespace YAF.Core
 {
-    public static class BinaryExtensions
-  {
-    /// <summary>
-    /// The binary and.
-    /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="checkAgainst">
-    /// The check against.
-    /// </param>
-    /// <returns>
-    /// The binary and.
-    /// </returns>
-    public static bool BinaryAnd(this int value, int checkAgainst)
-    {
-      return (value & checkAgainst) == checkAgainst;
-    }
+    using YAF.Types.Extensions;
 
     /// <summary>
-    /// The binary and.
+    /// The binary extensions.
     /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="checkAgainst">
-    /// The check against.
-    /// </param>
-    /// <returns>
-    /// The binary and.
-    /// </returns>
-    public static bool BinaryAnd(this object value, object checkAgainst)
+    public static class BinaryExtensions
     {
-        return BinaryAnd(Convert.ToInt32(value), Convert.ToInt32(checkAgainst));
-    }    
-  }
+        /// <summary>
+        /// The binary and.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="checkAgainst">
+        /// The check against.
+        /// </param>
+        /// <returns>
+        /// The binary and.
+        /// </returns>
+        public static bool BinaryAnd(this int value, int checkAgainst)
+        {
+            return (value & checkAgainst) == checkAgainst;
+        }
+
+        /// <summary>
+        /// The binary and.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="checkAgainst">
+        /// The check against.
+        /// </param>
+        /// <returns>
+        /// The binary and.
+        /// </returns>
+        public static bool BinaryAnd(this object value, object checkAgainst)
+        {
+            return BinaryAnd(value.ToType<int>(), checkAgainst.ToType<int>());
+        }
+    }
 }

@@ -23,44 +23,47 @@
  */
 namespace YAF.Core.Nntp
 {
-  using System;
-  using System.Collections;
-
-  /// <summary>
-  /// The article.
-  /// </summary>
-  public class Article
-  {
-      /// <summary>
-    /// Gets or sets MessageId.
-    /// </summary>
-    public string MessageId { get; set; }
+    using System;
+    using System.Collections;
 
     /// <summary>
-    /// Gets or sets ArticleId.
+    /// The article.
     /// </summary>
-    public int ArticleId { get; set; }
+    public class Article
+    {
+        /// <summary>
+        /// Gets or sets MessageId.
+        /// </summary>
+        public string MessageId { get; set; }
 
-    /// <summary>
-    /// Gets or sets Header.
-    /// </summary>
-    public ArticleHeader Header { get; set; }
+        /// <summary>
+        /// Gets or sets ArticleId.
+        /// </summary>
+        public int ArticleId { get; set; }
 
-    /// <summary>
-    /// Gets or sets Body.
-    /// </summary>
-    public ArticleBody Body { get; set; }
+        /// <summary>
+        /// Gets or sets Header.
+        /// </summary>
+        public ArticleHeader Header { get; set; }
 
-    /// <summary>
-    /// Gets or sets LastReply.
-    /// </summary>
-    public DateTime LastReply { get; set; }
+        /// <summary>
+        /// Gets or sets Body.
+        /// </summary>
+        public ArticleBody Body { get; set; }
 
-    /// <summary>
-    /// Gets or sets Children.
-    /// </summary>
-    public ArrayList Children { get; set; }
+        /// <summary>
+        /// Gets or sets LastReply.
+        /// </summary>
+        public DateTime LastReply { get; set; }
 
-    public MIMEPart MimePart { get; set; }
-  }
+        /// <summary>
+        /// Gets or sets Children.
+        /// </summary>
+        public ArrayList Children { get; set; }
+
+        /// <summary>
+        /// Gets or sets the mime part.
+        /// </summary>
+        public MIMEPart MimePart { get; set; }
+    }
 }

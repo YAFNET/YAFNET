@@ -76,7 +76,7 @@ namespace YAF.Core
     /// The target blank override.
     /// </param>
     /// <returns>
-    /// The formated message.
+    /// The formatted message.
     /// </returns>
     public static string FormatMessage([NotNull] this IFormatMessage formatMessage, 
       [NotNull] string message, 

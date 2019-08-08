@@ -104,7 +104,7 @@ namespace YAF.Core
         /// </summary>
         protected override YafLegacyBoardSettings _legacyBoardSettings
         {
-            get => base._legacyBoardSettings ?? (base._legacyBoardSettings = this.SetupLegacyBoardSettings(this.CurrentBoardRow));
+            get => base._legacyBoardSettings ?? (base._legacyBoardSettings = SetupLegacyBoardSettings(this.CurrentBoardRow));
 
             set => base._legacyBoardSettings = value;
         }
@@ -197,7 +197,7 @@ namespace YAF.Core
         /// <returns>
         /// The <see cref="YafBoardSettings.YafLegacyBoardSettings"/>.
         /// </returns>
-        private YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] DataRow board)
+        private static YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] DataRow board)
         {
             CodeContracts.VerifyNotNull(board, "board");
 
