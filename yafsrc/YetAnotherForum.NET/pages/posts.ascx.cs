@@ -427,7 +427,6 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             this.InitializeComponent();
             base.OnInit(e);
         }
@@ -514,7 +513,6 @@ namespace YAF.Pages
 
             this.forum = dt.FirstOrDefault();
             
-
             this.forumFlags = this.forum.ForumFlags;
 
             if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
@@ -531,7 +529,7 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                // Clear Multiquotes if topic is different
+                // Clear Multi-quotes if topic is different
                 if (this.Get<IYafSession>().MultiQuoteIds != null)
                 {
                     if (!this.Get<IYafSession>().MultiQuoteIds.Any(m => m.TopicID.Equals(this.PageContext.PageTopicID)))
@@ -816,8 +814,7 @@ namespace YAF.Pages
             {
                return;
             }
-           
-
+            
             if (this.Page.Header == null || !this.Get<YafBoardSettings>().AddDynamicPageMetaTags)
             {
                 return;
@@ -1481,7 +1478,12 @@ namespace YAF.Pages
 
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("LINKBACK_TOPIC"),
-                    $"prompt('{this.GetText("LINKBACK_TOPIC_PROMT")}','{topicUrl}');return false;",
+                    $@"bootbox.prompt({{ 
+                                      title: '{this.GetText("LINKBACK_TOPIC")}',
+                                      message: '{this.GetText("LINKBACK_TOPIC_PROMT")}',
+	                                  value: '{topicUrl}',
+                                      callback: function(){{}}
+	                              }});",
                     "fa fa-link");
                 this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
 

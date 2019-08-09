@@ -45,44 +45,24 @@ namespace YAF.Web.Controls
     /// <summary>
     /// The theme button.
     /// </summary>
-    public class ThemeButton : BaseControl, IPostBackEventHandler
+    public sealed class ThemeButton : BaseControl, IPostBackEventHandler
     {
         #region Constants and Fields
 
         /// <summary>
-        /// The _param Title 0.
+        ///   The click event.
         /// </summary>
-        protected string _paramTitle0 = string.Empty;
+        private static readonly object ClickEvent = new object();
 
         /// <summary>
-        /// The _param Title 1.
+        ///   The command event.
         /// </summary>
-        protected string _paramTitle1 = string.Empty;
+        private static readonly object CommandEvent = new object();
 
         /// <summary>
-        /// The _param Title 2.
+        ///   The localized label.
         /// </summary>
-        protected string _paramTitle2 = string.Empty;
-
-        /// <summary>
-        ///   The _click event.
-        /// </summary>
-        protected static object _clickEvent = new object();
-
-        /// <summary>
-        ///   The _command event.
-        /// </summary>
-        protected static object _commandEvent = new object();
-
-        /// <summary>
-        ///   The _attribute collection.
-        /// </summary>
-        protected AttributeCollection _attributeCollection;
-
-        /// <summary>
-        ///   The _localized label.
-        /// </summary>
-        protected LocalizedLabel _localizedLabel = new LocalizedLabel();
+        private readonly LocalizedLabel localizedLabel = new LocalizedLabel();
 
         #endregion
 
@@ -94,7 +74,7 @@ namespace YAF.Web.Controls
         public ThemeButton()
         {
             this.Load += this.ThemeButtonLoad;
-            this._attributeCollection = new AttributeCollection(this.ViewState);
+            this.Attributes = new AttributeCollection(this.ViewState);
         }
 
         #endregion
@@ -106,9 +86,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public event EventHandler Click
         {
-            add => this.Events.AddHandler(_clickEvent, value);
+            add => this.Events.AddHandler(ClickEvent, value);
 
-            remove => this.Events.RemoveHandler(_clickEvent, value);
+            remove => this.Events.RemoveHandler(ClickEvent, value);
         }
 
         /// <summary>
@@ -116,9 +96,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public event CommandEventHandler Command
         {
-            add => this.Events.AddHandler(_commandEvent, value);
+            add => this.Events.AddHandler(CommandEvent, value);
 
-            remove => this.Events.RemoveHandler(_commandEvent, value);
+            remove => this.Events.RemoveHandler(CommandEvent, value);
         }
 
         #endregion
@@ -138,7 +118,6 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Gets or sets the behavior mode (single-line, multiline, or password) of the <see cref="T:System.Web.UI.WebControls.TextBox" /> control.
         /// </summary>
-        /// [Bindable(true)]
         [Category("Appearance")]
         [DefaultValue(ButtonAction.Primary)]
         public ButtonAction Type
@@ -163,7 +142,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets Attributes.
         /// </summary>
-        public AttributeCollection Attributes => this._attributeCollection;
+        public AttributeCollection Attributes { get; }
 
         /// <summary>
         ///   Gets or sets CommandArgument.
@@ -287,7 +266,7 @@ namespace YAF.Web.Controls
         public string DataDismiss { get; set; }
 
         /// <summary>
-        ///    Gets or sets the Setting the link property will make this control non postback.
+        ///    Gets or sets the Setting the link property will make this control non post-back.
         /// </summary>
         [CanBeNull]
         public string NavigateUrl
@@ -302,9 +281,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public string TextLocalizedPage
         {
-            get => this._localizedLabel.LocalizedPage;
+            get => this.localizedLabel.LocalizedPage;
 
-            set => this._localizedLabel.LocalizedPage = value;
+            set => this.localizedLabel.LocalizedPage = value;
         }
 
         /// <summary>
@@ -312,9 +291,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public string TextLocalizedTag
         {
-            get => this._localizedLabel.LocalizedTag;
+            get => this.localizedLabel.LocalizedTag;
 
-            set => this._localizedLabel.LocalizedTag = value;
+            set => this.localizedLabel.LocalizedTag = value;
         }
 
         /// <summary>
@@ -332,63 +311,48 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        /// Gets or sets Param Title 0.
+        /// Gets or sets Parameter Title 0.
         /// </summary>
-        public string ParamTitle0
-        {
-            get => this._paramTitle0;
-
-            set => this._paramTitle0 = value;
-        }
+        public string ParamTitle0 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Param Title 1.
+        /// Gets or sets Parameter Title 1.
         /// </summary>
-        public string ParamTitle1
-        {
-            get => this._paramTitle1;
-
-            set => this._paramTitle1 = value;
-        }
+        public string ParamTitle1 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Param Title 2.
+        /// Gets or sets Parameter Title 2.
         /// </summary>
-        public string ParamTitle2
-        {
-            get => this._paramTitle2;
-
-            set => this._paramTitle2 = value;
-        }
+        public string ParamTitle2 { get; set; } = string.Empty;
 
         /// <summary>
-        /// Gets or sets Param Text 0.
+        /// Gets or sets Parameter Text 0.
         /// </summary>
         public string ParamText0
         {
-            get => this._localizedLabel.Param0;
+            get => this.localizedLabel.Param0;
 
-            set => this._localizedLabel.Param0 = value;
+            set => this.localizedLabel.Param0 = value;
         }
 
         /// <summary>
-        /// Gets or sets Param Text 1.
+        /// Gets or sets Parameter Text 1.
         /// </summary>
         public string ParamText1
         {
-            get => this._localizedLabel.Param1;
+            get => this.localizedLabel.Param1;
 
-            set => this._localizedLabel.Param1 = value;
+            set => this.localizedLabel.Param1 = value;
         }
 
         /// <summary>
-        /// Gets or sets Param Text 2.
+        /// Gets or sets Parameter Text 2.
         /// </summary>
         public string ParamText2
         {
-            get => this._localizedLabel.Param2;
+            get => this.localizedLabel.Param2;
 
-            set => this._localizedLabel.Param2 = value;
+            set => this.localizedLabel.Param2 = value;
         }
 
         /// <summary>
@@ -444,64 +408,6 @@ namespace YAF.Web.Controls
         #region Methods
 
         /// <summary>
-        /// Gets the localized title.
-        /// </summary>
-        /// <returns>
-        /// The get localized title.
-        /// </returns>
-        protected string GetLocalizedTitle()
-        {
-            if (this.Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
-            {
-                return $"[TITLE:{this.TitleLocalizedTag}]";
-            }
-
-            if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
-            {
-                return string.Format(
-                    this.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag),
-                    this.ParamTitle0,
-                    this.ParamTitle1,
-                    this.ParamTitle2);
-            }
-
-            return this.TitleLocalizedTag.IsSet()
-                       ? string.Format(
-                           this.GetText(this.TitleLocalizedTag),
-                           this.ParamTitle0,
-                           this.ParamTitle1,
-                           this.ParamTitle2)
-                       : null;
-        }
-
-        /// <summary>
-        /// The on click.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected virtual void OnClick([NotNull] EventArgs e)
-        {
-            var handler = (EventHandler)this.Events[_clickEvent];
-            handler?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// The on command.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected virtual void OnCommand([NotNull] CommandEventArgs e)
-        {
-            var handler = (CommandEventHandler)this.Events[_commandEvent];
-
-            handler?.Invoke(this, e);
-
-            this.RaiseBubbleEvent(this, e);
-        }
-
-        /// <summary>
         /// The render.
         /// </summary>
         /// <param name="output">
@@ -516,7 +422,7 @@ namespace YAF.Web.Controls
             output.WriteBeginTag("a");
             output.WriteAttribute("id", this.ClientID);
 
-            var actionClass = this.GetAttributeValue(this.Type);
+            var actionClass = GetAttributeValue(this.Type);
 
             var cssClass = new StringBuilder();
 
@@ -524,7 +430,7 @@ namespace YAF.Web.Controls
 
             if (this.Size != ButtonSize.Normal)
             {
-                cssClass.AppendFormat(" {0}", this.GetButtonSizeClass(this.Size));
+                cssClass.AppendFormat(" {0}", GetButtonSizeClass(this.Size));
             }
 
             if (!this.Enabled)
@@ -557,22 +463,22 @@ namespace YAF.Web.Controls
                     : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty));
 
             // handle additional attributes (if any)
-            if (this._attributeCollection.Count > 0)
+            if (this.Attributes.Count > 0)
             {
                 // add attributes...
-                foreach (string key in this._attributeCollection.Keys)
+                foreach (string key in this.Attributes.Keys)
                 {
                     // get the attribute and write it...
                     if (key.ToLower() == "onclick")
                     {
                         // special handling... add to it...
-                        output.WriteAttribute(key, $"{this._attributeCollection[key]};");
+                        output.WriteAttribute(key, $"{this.Attributes[key]};");
                     }
                     else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on")
                                                                || key.ToLower() == "rel" || key.ToLower() == "target")
                     {
                         // only write javascript attributes -- and a few other attributes...
-                        output.WriteAttribute(key, this._attributeCollection[key]);
+                        output.WriteAttribute(key, this.Attributes[key]);
                     }
                 }
             }
@@ -580,7 +486,10 @@ namespace YAF.Web.Controls
             // Write Confirm Dialog
             if (this.ReturnConfirmText.IsSet())
             {
-                output.WriteAttribute("onclick", $"return confirm('{this.ReturnConfirmText}')");
+                this.DataToggle = "confirm";
+                output.WriteAttribute("data-title", this.ReturnConfirmText);
+                output.WriteAttribute("data-yes", this.GetText("YES"));
+                output.WriteAttribute("data-no", this.GetText("NO"));
             }
 
             // Write Modal
@@ -641,26 +550,12 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        /// Setup the controls before render
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ThemeButtonLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // render the text if available
-            if (this._localizedLabel.LocalizedTag.IsSet())
-            {
-                this.Controls.Add(this._localizedLabel);
-            }
-        }
-
-        /// <summary>
-        /// Gets the css class value.
+        /// Gets the CSS class value.
         /// </summary>
         /// <param name="mode">The button action.</param>
-        /// <returns>Returns the Css Class for the button</returns>
+        /// <returns>Returns the CSS Class for the button</returns>
         /// <exception cref="InvalidOperationException">Exception when other value</exception>
-        private string GetAttributeValue(ButtonAction mode)
+        private static string GetAttributeValue(ButtonAction mode)
         {
             switch (mode)
             {
@@ -696,18 +591,18 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        /// Gets the css class value.
+        /// Gets the CSS class value.
         /// </summary>
         /// <param name="size">
         /// The size.
         /// </param>
         /// <returns>
-        /// Returns the Css Class for the button
+        /// Returns the CSS Class for the button
         /// </returns>
         /// <exception cref="InvalidOperationException">
         /// Exception when other value
         /// </exception>
-        private string GetButtonSizeClass(ButtonSize size)
+        private static string GetButtonSizeClass(ButtonSize size)
         {
             switch (size)
             {
@@ -719,6 +614,78 @@ namespace YAF.Web.Controls
                     return "btn-sm";
                 default:
                     throw new InvalidOperationException();
+            }
+        }
+
+        /// <summary>
+        /// Gets the localized title.
+        /// </summary>
+        /// <returns>
+        /// The get localized title.
+        /// </returns>
+        private string GetLocalizedTitle()
+        {
+            if (this.Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
+            {
+                return $"[TITLE:{this.TitleLocalizedTag}]";
+            }
+
+            if (this.TitleLocalizedPage.IsSet() && this.TitleLocalizedTag.IsSet())
+            {
+                return string.Format(
+                    this.GetText(this.TitleLocalizedPage, this.TitleLocalizedTag),
+                    this.ParamTitle0,
+                    this.ParamTitle1,
+                    this.ParamTitle2);
+            }
+
+            return this.TitleLocalizedTag.IsSet()
+                       ? string.Format(
+                           this.GetText(this.TitleLocalizedTag),
+                           this.ParamTitle0,
+                           this.ParamTitle1,
+                           this.ParamTitle2)
+                       : null;
+        }
+
+        /// <summary>
+        /// The on click.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void OnClick([NotNull] EventArgs e)
+        {
+            var handler = (EventHandler)this.Events[ClickEvent];
+            handler?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// The on command.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void OnCommand([NotNull] CommandEventArgs e)
+        {
+            var handler = (CommandEventHandler)this.Events[CommandEvent];
+
+            handler?.Invoke(this, e);
+
+            this.RaiseBubbleEvent(this, e);
+        }
+
+        /// <summary>
+        /// Setup the controls before render
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void ThemeButtonLoad([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // render the text if available
+            if (this.localizedLabel.LocalizedTag.IsSet())
+            {
+                this.Controls.Add(this.localizedLabel);
             }
         }
 

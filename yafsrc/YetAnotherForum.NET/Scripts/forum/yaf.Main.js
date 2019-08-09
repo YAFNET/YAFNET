@@ -1,22 +1,22 @@
 // Generic Functions
 jQuery(document).ready(function () {
     // Main Menu
-    $('.dropdown-menu a.dropdown-toggle').on('click', function () {
+    $(".dropdown-menu a.dropdown-toggle").on("click", function () {
 		var $el = $(this);
 		var $parent = $(this).offsetParent(".dropdown-menu");
-		if (!$(this).next().hasClass('show')) {
-			$(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+		if (!$(this).next().hasClass("show")) {
+			$(this).parents(".dropdown-menu").first().find(".show").removeClass("show");
 		}
 		var $subMenu = $(this).next(".dropdown-menu");
-		$subMenu.toggleClass('show');
+		$subMenu.toggleClass("show");
 
-		$(this).parent("li").toggleClass('show');
+		$(this).parent("li").toggleClass("show");
 
-		$(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function () {
-			$('.dropdown-menu .show').removeClass("show");
+		$(this).parents("li.nav-item.dropdown.show").on("hidden.bs.dropdown", function () {
+			$(".dropdown-menu .show").removeClass("show");
 		});
 
-		if (!$parent.parent().hasClass('navbar-nav')) {
+		if (!$parent.parent().hasClass("navbar-nav")) {
 			$el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
 		}
 
@@ -28,7 +28,7 @@ jQuery(document).ready(function () {
     }
 
     $(".acceptcookies").click(function () {
-        setCookie("YAF-AcceptCookies", true, 60);
+        setCookie("YAF-AcceptCookies", true, 180);
         jQuery(".cookiealert").removeClass("show");
     });
 
@@ -46,8 +46,8 @@ jQuery(document).ready(function () {
         $(this).select2({
             theme: "bootstrap4",
             dropdownAutoWidth: true,
-            width: 'style',
-            placeholder: $(this).attr('placeholder')
+            width: "style",
+            placeholder: $(this).attr("placeholder")
         });
     });
 
@@ -56,7 +56,7 @@ jQuery(document).ready(function () {
         dropdownAutoWidth: true,
         templateResult: formatState,
         templateSelection: formatState,
-        width: 'style'
+        width: "style"
     });
 
     jQuery('[data-toggle="tooltip"]').tooltip();
@@ -65,7 +65,7 @@ jQuery(document).ready(function () {
     jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage, .previewPostContent .UserPostedImage").each(function () {
         var image = jQuery(this);
 
-        if (!image.parents('a').length) {
+        if (!image.parents("a").length) {
             image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery />');
         }
     });
@@ -74,20 +74,20 @@ jQuery(document).ready(function () {
     jQuery("input[type='password']").keypress(function (e) {
         var s = String.fromCharCode(e.which);
         if (s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey) {
-            jQuery('.CapsLockWarning').show();
+            jQuery(".CapsLockWarning").show();
         }
         else {
-            jQuery('.CapsLockWarning').hide();
+            jQuery(".CapsLockWarning").hide();
         }
     });
 
-    if (jQuery('#PostAttachmentListPlaceholder').length) {
+    if (jQuery("#PostAttachmentListPlaceholder").length) {
         var pageSize = 5;
         var pageNumber = 0;
         getPaginationData(pageSize, pageNumber, false);
     }
 
-    if (jQuery('#SearchResultsPlaceholder').length) {
+    if (jQuery("#SearchResultsPlaceholder").length) {
 
          jQuery(".searchInput").keypress(function (e) {
 
@@ -102,7 +102,44 @@ jQuery(document).ready(function () {
 
         });
     }
+
+    
+
 });
 
-if (document.addEventListener) document.addEventListener("click", function (e) { window.event = e; }, true);
-if (document.addEventListener) document.addEventListener("mouseover", function(e) { window.event = e; }, true);
+// Confirm Dialog
+$(document).on("click",
+    "[data-toggle=\"confirm\"]",
+    function(e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
+        var text = $(this).data("title");
+        bootbox.confirm({
+                message: text,
+                buttons: {
+                    confirm: {
+                        label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
+                        className: "btn-danger"
+                    }
+                },
+                callback: function(confirmed) {
+                    if (confirmed) {
+                        document.location.href = link;
+                    }
+                }
+            }
+        );
+    }
+);
+
+
+if (document.addEventListener) {
+    document.addEventListener("click", function (e) { window.event = e; }, true);
+}
+if (document.addEventListener) {
+    document.addEventListener("mouseover", function(e) { window.event = e; }, true);
+}

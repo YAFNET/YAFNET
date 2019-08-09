@@ -24,8 +24,10 @@
              <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header form-inline">
-                            <i class="fa fa-tachometer-alt fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                                                           LocalizedTag="HEADER3" LocalizedPage="ADMIN_ADMIN" />&nbsp;
+                            <i class="fa fa-tachometer-alt fa-fw text-secondary pr-1"></i>
+                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
+                                                LocalizedTag="HEADER3" 
+                                                LocalizedPage="ADMIN_ADMIN" />&nbsp;
                             <asp:DropDownList ID="BoardStatsSelect" runat="server" 
                                               DataTextField="Name" 
                                               DataValueField="BoardID"
@@ -184,29 +186,33 @@
                             </div>
                         <div class="card-footer text-muted">
                             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
-                                                LocalizedTag="STATS_DONTCOUNT" LocalizedPage="ADMIN_ADMIN" />
+                                                LocalizedTag="STATS_DONTCOUNT" 
+                                                LocalizedPage="ADMIN_ADMIN" />
                         </div>
                     </div>
              </div>
     </div>
     <p id="UpgradeNotice" runat="server" visible="false">
-        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_UPGRADE"
-            LocalizedPage="ADMIN_ADMIN" />
+        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
+                            LocalizedTag="ADMIN_UPGRADE"
+                            LocalizedPage="ADMIN_ADMIN" />
     </p>
-
-
-
-    <div class="row">
+<div class="row">
              <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fa fa-users fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_ADMIN" />
+                            <i class="fa fa-users fa-fw text-secondary pr-1"></i>
+                            <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" 
+                                                LocalizedTag="HEADER1" 
+                                                LocalizedPage="ADMIN_ADMIN" />
                         </div>
                         <div class="card-body">
                             <asp:Repeater ID="ActiveList" runat="server">
                     <HeaderTemplate>
                         <YAF:Alert runat="server" Type="info" MobileOnly="True">
-                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" 
+                                                LocalizedTag="TABLE_RESPONSIVE" 
+                                                LocalizedPage="ADMIN_COMMON" />
                             <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </YAF:Alert>
                         <div class="table-responsive">
@@ -265,12 +271,12 @@
                             </tbody>
                         </table>
                         </div>
-                        <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
+                        <div id="ActiveUsersPager"class=" tableSorterPager form-inline">
                             <select class="pagesize custom-select">
-		                        <option selected="selected"  value="10">10</option>
+		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
-                        	    <option  value="40">40</option>
+                        	    <option value="40">40</option>
                             </select>
                             &nbsp;
                             <div class="btn-group"  role="group">
@@ -295,10 +301,14 @@
              <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fa fa-user-plus fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_ADMIN" />
+                            <i class="fa fa-user-plus fa-fw text-secondary pr-1"></i>
+                            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" 
+                                                LocalizedTag="HEADER2" 
+                                                LocalizedPage="ADMIN_ADMIN" />
                         </div>
                         <div class="card-body">
-                                    <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">
+                                    <asp:Repeater ID="UserList" runat="server" 
+                                                  OnItemCommand="UserListItemCommand">
             <HeaderTemplate>
                 <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
@@ -376,11 +386,6 @@
 					    </div>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="3">
-
-                    </td>
-                </tr>
             </ItemTemplate>
             <FooterTemplate>
                 </tbody>
@@ -404,12 +409,20 @@
                     </div>
                </div>
                 <div class="card-footer form-inline">
-                    <YAF:ThemeButton CommandName="approveall" Type="Primary" Size="Small" 
-                        Icon="check" TextLocalizedTag="APROVE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
-                        runat="server"/>&nbsp;
-                    <YAF:ThemeButton CommandName="deleteall" Type="Danger" Size="Small" 
-                        Icon="trash" TextLocalizedTag="DELETE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
-                        runat="server" />&nbsp;
+                    <YAF:ThemeButton runat="server" 
+                                     CommandName="approveall" 
+                                     Type="Primary" 
+                                     Icon="check" 
+                                     TextLocalizedTag="APROVE_ALL" 
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
+                        />&nbsp;
+                    <YAF:ThemeButton runat="server"
+                                     CommandName="deleteall" 
+                                     Type="Danger" 
+                                     Icon="trash" 
+                                     TextLocalizedTag="DELETE_ALL" 
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                         />&nbsp;
                     <asp:TextBox ID="DaysOld" runat="server" 
                                  MaxLength="5" 
                                  Text="14" 

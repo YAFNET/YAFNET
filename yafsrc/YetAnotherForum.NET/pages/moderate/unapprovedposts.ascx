@@ -16,7 +16,7 @@
             <div class="col-xl-12">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-comment fa-fw"></i>
+                        <i class="fa fa-comment fa-fw text-secondary pr-1"></i>
                         <span class="font-weight-bold">
                             <YAF:LocalizedLabel
                                 ID="TopicLabel" runat="server"
