@@ -3081,7 +3081,7 @@
 
 
     &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
-    &lt;a href=&quot;{0}yaf_postst123_topic_title.aspx&quot; target=&quot;_blank&quot; title=&quot;Go to Topic&quot;&gt;Go to Topic&lt;/a&gt;&lt;/div&gt;
+    &lt;a href=&quot;{0}posts/t123-topic-title&quot; target=&quot;_blank&quot; title=&quot;Go to Topic&quot;&gt;Go to Topic&lt;/a&gt;&lt;/div&gt;
     &lt;/div&gt;
 
     &lt;div class=&quot;card mb-3&quot;&gt;
@@ -3098,7 +3098,7 @@
 
     [post=123]Go to Post[/post]
     &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
-    &lt;a href=&quot;{0}yaf_postsm123_topic_title.aspx#post123&quot; target=&quot;_blank&quot; title=&quot;Go to Post&quot;&gt;Go to Post&lt;/a&gt;
+    &lt;a href=&quot;{0}posts/m123-topic-title#post123&quot; target=&quot;_blank&quot; title=&quot;Go to Post&quot;&gt;Go to Post&lt;/a&gt;
     &lt;/div&gt;
     &lt;/div&gt;
 
@@ -3211,7 +3211,7 @@
 
     [img]{0}Content/images/YAFLogo.svg[/img]&lt;br /&gt;&lt;br /&gt;
     [img={0}Content/images/YAFLogo.svg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-    [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
+    [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Linked)
 
 
     &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;

@@ -3193,7 +3193,7 @@
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postst123_topic_title.aspx" target="_blank" title="Go to Topic"&gt;Go to Topic&lt;/a&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;a href="{0}posts/t123-topic-title" target="_blank" title="Go to Topic"&gt;Go to Topic&lt;/a&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Post Links&lt;/td&gt;
@@ -3217,7 +3217,7 @@
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postsm123_topic_title.aspx#post123" target="_blank" title="Go to Post"&gt;Go to Post&lt;/a&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;a href="{0}posts/m123-topic-title#post123" target="_blank" title="Go to Post"&gt;Go to Post&lt;/a&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 &lt;br /&gt;
@@ -3349,19 +3349,19 @@
       &lt;strong&gt;Usage&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;
-      [img]{0}forumlogo.jpg[/img]&lt;br /&gt;&lt;br /&gt;
-      [img={0}forumlogo.jpg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-	  [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
+      [img]{0}Content/images/YAFLogo.svg[/img]&lt;br /&gt;&lt;br /&gt;
+      [img={0}Content/images/YAFLogo.svg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
+	  [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Linked)
 	&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
-    &lt;td&gt;&lt;img src="{0}forumlogo.jpg" alt="" /&gt;&lt;br /&gt;
-		&lt;br /&gt;&lt;img src="{0}forumlogo.jpg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
+    &lt;td&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;br /&gt;
+		&lt;br /&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
 		&lt;br /&gt;
-		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}forumlogo.jpg" alt="" /&gt;&lt;/a&gt; (Linked)
+		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;/a&gt; (Linked)
 	&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
