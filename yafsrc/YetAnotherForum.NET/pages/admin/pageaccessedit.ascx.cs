@@ -226,7 +226,7 @@ namespace YAF.Pages.Admin
                 var hostPages = new[]
                                     {
                                         "admin_boards", "admin_hostsettings", "admin_pageaccesslist",
-                                        "admin_pageaccessedit", "admin_eventloggroups", "admin_eventloggroupaccess"
+                                        "admin_pageaccessedit"
                                     };
 
                 // Iterate thru all admin pages

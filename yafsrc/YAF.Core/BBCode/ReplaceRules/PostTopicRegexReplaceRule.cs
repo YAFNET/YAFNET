@@ -74,23 +74,25 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// </returns>
     protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
     {
-      if (variableName == "post" || variableName == "topic")
-      {
-        var id = 0;
-        if (int.TryParse(variableValue, out id))
+        if (variableName != "post" && variableName != "topic")
         {
-          if (variableName == "post")
-          {
-            return YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", id);
-          }
-          else if (variableName == "topic")
-          {
-            return YafBuildLink.GetLink(ForumPages.posts, "t={0}", id);
-          }
+            return variableValue;
         }
-      }
 
-      return variableValue;
+        if (!int.TryParse(variableValue, out var id))
+        {
+            return variableValue;
+        }
+
+        switch (variableName)
+        {
+            case "post":
+                return YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", id);
+            case "topic":
+                return YafBuildLink.GetLink(ForumPages.posts, "t={0}", id);
+            default:
+                return variableValue;
+        }
     }
 
     #endregion

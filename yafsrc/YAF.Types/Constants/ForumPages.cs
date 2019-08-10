@@ -379,16 +379,6 @@ namespace YAF.Types.Constants
         admin_pageaccessedit,
 
         /// <summary>
-        /// The admin_eventloggroups.
-        /// </summary>
-        admin_eventloggroups,
-
-        /// <summary>
-        /// The admin_eventloggroupaccess.
-        /// </summary>
-        admin_eventloggroupaccess,
-
-        /// <summary>
         /// The admin_prune.
         /// </summary>
         admin_prune,

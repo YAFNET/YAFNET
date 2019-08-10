@@ -161,20 +161,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 go
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and type in (N'U'))
-	create table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess](
-		GroupID		    int NOT NULL,	
-		EventTypeID     int NOT NULL,  	
-		EventTypeName	nvarchar (128) NOT NULL,
-		DeleteAccess    bit NOT NULL,
- constraint [PK_{objectQualifier}EventLogGroupAccess] PRIMARY KEY CLUSTERED 
-(
-	[GroupID] ASC,
-	[EventTypeID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-go
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}BannedIP]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}BannedIP](
 		ID				int IDENTITY (1,1) NOT NULL,
@@ -2898,3 +2884,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Activity](
 	constraint [PK_{objectQualifier}Activity] primary key(ID)
 	)
 go
+
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and type in (N'U'))
+	drop table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]
+GO

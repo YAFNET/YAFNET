@@ -565,20 +565,6 @@
     <Compile Include="pages\admin\spamlog.ascx.designer.cs">
       <DependentUpon>spamlog.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\admin\eventloggroupaccess.ascx.cs">
-      <DependentUpon>eventloggroupaccess.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\eventloggroupaccess.ascx.designer.cs">
-      <DependentUpon>eventloggroupaccess.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\eventloggroups.ascx.cs">
-      <DependentUpon>eventloggroups.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\eventloggroups.ascx.designer.cs">
-      <DependentUpon>eventloggroups.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\admin\pageaccessedit.ascx.cs">
       <DependentUpon>pageaccessedit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1894,8 +1880,6 @@
     <Content Include="pages\admin\bannedemail.ascx" />
     <Content Include="pages\admin\bannedname.ascx" />
     <Content Include="pages\admin\spamlog.ascx" />
-    <Content Include="pages\admin\eventloggroupaccess.ascx" />
-    <Content Include="pages\admin\eventloggroups.ascx" />
     <Content Include="pages\admin\pageaccessedit.ascx" />
     <Content Include="pages\admin\pageaccesslist.ascx" />
     <Content Include="pages\admin\deleteforum.ascx" />

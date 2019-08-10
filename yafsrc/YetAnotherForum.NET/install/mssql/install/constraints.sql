@@ -199,10 +199,6 @@ if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}AdminPa
 	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] with nocheck add constraint [PK_{objectQualifier}AdminPageUserAccess] primary key clustered(UserID,PageName)   
 go
 
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] with nocheck add constraint [PK_{objectQualifier}EventLogGroupAccess] primary key clustered(GroupID,EventTypeID)   
-go
-
 /*
 ** Unique constraints
 */
@@ -643,10 +639,6 @@ go
 
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] add constraint [FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) ON DELETE CASCADE
-go
-
-if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}EventLogGroupAccess_{objectQualifier}GroupID' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] add constraint [FK_{objectQualifier}EventLogGroupAccess_{objectQualifier}GroupID] foreign key (GroupID) references [{databaseOwner}].[{objectQualifier}Group](GroupID) ON DELETE CASCADE
 go
 
 /* Default Constraints */

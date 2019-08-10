@@ -59,12 +59,6 @@
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_eventloggroups) %>"
-                               class="dropdown-item">
-                                <i class="fa fa-users fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="admin_eventloggroups"></YAF:LocalizedLabel>
-                            </a>
                         </div>
                   </li>
                     </asp:PlaceHolder>
@@ -91,11 +85,6 @@
                                class="dropdown-item">
                                 <i class="fa fa-building fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
-                            </a>
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_eventloggroups) %>"
-                               class="dropdown-item">
-                                <i class="fa fa-users fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" LocalizedTag="admin_eventloggroups"></YAF:LocalizedLabel>
                             </a>
                         </div>
                   </li>

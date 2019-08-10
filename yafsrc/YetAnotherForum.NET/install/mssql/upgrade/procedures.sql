@@ -2428,8 +2428,6 @@ else
 begin
         select @TotalRows = count(1)  from
         [{databaseOwner}].[{objectQualifier}EventLog] a
-        left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
-        join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
         left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
     where
         (b.UserID IS NULL or b.BoardID = @BoardID)		and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs))	 and a.EventTime between @SinceDate and @ToDate
@@ -2448,8 +2446,6 @@ begin
         select @FirstSelectRowID = EventLogID
       from
         [{databaseOwner}].[{objectQualifier}EventLog] a
-        left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
-        join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
         left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
     where
         (b.UserID IS NULL or b.BoardID = @BoardID)	and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs))	 and a.EventTime between @SinceDate and @ToDate
@@ -2462,8 +2458,6 @@ begin
         TotalRows = @TotalRows
          from
         [{databaseOwner}].[{objectQualifier}EventLog] a
-        left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
-        join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
         left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
     where	  EventLogID <= @FirstSelectRowID and (b.UserID IS NULL or b.BoardID = @BoardID) and (@EventIDs IS NULL OR  a.[Type] IN (select * from @ParsedEventIDs)) and a.EventTime between @SinceDate and @ToDate
       order by a.EventLogID  desc
@@ -3090,7 +3084,6 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
-    delete from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}UserGroup] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}Group] where GroupID = @GroupID
@@ -10474,48 +10467,6 @@ begin
         JOIN [{databaseOwner}].[{objectQualifier}Board] b ON b.BoardID = u.BoardID
         where (u.Flags & 1) <> 1
         order by  b.BoardID,u.Name,ap.PageName;
-end
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}eventloggroupaccess_save] (@GroupID int, @EventTypeID int, @EventTypeName nvarchar(128), @DeleteAccess bit = 0) as
-begin
-    if not exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] where GroupID = @GroupID and EventTypeName = @EventTypeName)
-        begin
-        insert into [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  (GroupID,EventTypeID,EventTypeName,DeleteAccess)
-        values(@GroupID,@EventTypeID,@EventTypeName,@DeleteAccess)
-    end
-    else
-    begin
-        update [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  set DeleteAccess = @DeleteAccess
-        where GroupID = @GroupID and EventTypeID = @EventTypeID
-    end
-end
-GO
-
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}eventloggroupaccess_delete] (@GroupID int, @EventTypeID int, @EventTypeName nvarchar(128)) as
-begin
-    if @EventTypeName is not null
-    begin
-        delete from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  where GroupID = @GroupID and EventTypeID = @EventTypeID
-    end
-    else
-    begin
-    -- delete all access rights
-        delete from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]  where GroupID = @GroupID
-    end
-end
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}eventloggroupaccess_list] (@GroupID int, @EventTypeID int = null) as
-begin
--- TODO - exclude host admins from list
-if @EventTypeID is null
-        select e.*, g.Name as GroupName from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e
-        join [{databaseOwner}].[{objectQualifier}Group] g on g.GroupID = e.GroupID where  e.GroupID = @GroupID
-        else
-        select e.*, g.Name as GroupName from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e
-        join [{databaseOwner}].[{objectQualifier}Group] g on g.GroupID = e.GroupID where  e.GroupID = @GroupID and e.EventTypeID = @EventTypeID
 end
 GO
 

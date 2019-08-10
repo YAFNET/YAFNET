@@ -856,45 +856,6 @@
     <Resource tag="TYPES">نوع</Resource>
     <Resource tag="TYPES_HELP">برای محدود کردن لاگ به نوع خاصی انتخاب کنید</Resource>
   </page>
-  <page name="ADMIN_EVENTLOGGROUPS">
-    <Resource tag="CANACCESS">مجاز</Resource>
-    <Resource tag="CANCEL">انصراف</Resource>
-    <Resource tag="GROUPNAME">نقش</Resource>
-    <Resource tag="HEADER">نقش های نمایش رویدادها</Resource>
-    <Resource tag="SAVE">ذخیره</Resource>
-    <Resource tag="TITLE">نقش های نمایش رویدادها</Resource>
-  </page>
-  <page name="ADMIN_EVENTLOGROUPACCESS">
-    <Resource tag="BOARDNAME">نام تابلو</Resource>
-    <Resource tag="CANCEL">انصراف</Resource>
-    <Resource tag="DELETEACCESS">توانایی حذف</Resource>
-    <Resource tag="EVENT">نام لاگ</Resource>
-    <Resource tag="GRANTALL">Grant All View</Resource>
-    <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
-    <Resource tag="GROUPNAME">نقش</Resource>
-    <Resource tag="HEADER">دسترسی به لاگ برای</Resource>
-    <Resource tag="LT_DEBUG">دیباگ</Resource>
-    <Resource tag="LT_ERROR">خطاها</Resource>
-    <Resource tag="LT_INFORMATION">اطلاعات</Resource>
-    <Resource tag="LT_IPBANDETECTED">شناسایی IP ممنوع</Resource>
-    <Resource tag="LT_IPBANLIFTED">لغو ممنوعیت IP</Resource>
-    <Resource tag="LT_IPBANSET">تنظیمات ممنوعیت IP</Resource>
-    <Resource tag="LT_SpamBotDetected">شناسایی روبات اسپم</Resource>
-    <Resource tag="LT_SpamBotReported">گزارش ربات اسپم</Resource>
-    <Resource tag="LT_SpamMessageDetected">شناسایی پیام اسپم</Resource>
-    <Resource tag="LT_SpamMessageReported">گزارش پیام اسپم</Resource>
-    <Resource tag="LT_SQLERROR">خطاهای SQL</Resource>
-    <Resource tag="LT_TRACE">ردیابی</Resource>
-    <Resource tag="LT_USERDELETED">کاربران حذف شده</Resource>
-    <Resource tag="LT_USERSUSPENDED">کاربران معلق شده</Resource>
-    <Resource tag="LT_USERUNSUSPENDED">کاربران لغو تعلیق شده</Resource>
-    <Resource tag="LT_WARNING">خطر</Resource>
-    <Resource tag="REVOKEALL">لغو همه نمایش ها</Resource>
-    <Resource tag="REVOKEALLDELETE">لغو همه حذف ها</Resource>
-    <Resource tag="SAVE">ذخیره</Resource>
-    <Resource tag="TITLE">ویرایش نقش نمایش رویدادها</Resource>
-    <Resource tag="VIEWACCESS">توانایی نمایش</Resource>
-  </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">افزودن</Resource>
     <Resource tag="CONFIRM_DELETE">آیا این پسوند حذف شود؟</Resource>
@@ -1864,8 +1825,6 @@
     <Resource tag="admin_boardsettings">تنظیمات تابلو</Resource>
     <Resource tag="admin_digest">خلاصه</Resource>
     <Resource tag="admin_eventlog">نمایشگر رویدادها</Resource>
-    <Resource tag="admin_eventloggroupaccess">ویرایش دسترسی های نمایشگر رویدادها</Resource>
-    <Resource tag="admin_eventloggroups">نقش های نمایشگر رویدادها</Resource>
     <Resource tag="admin_extensions">پسوند فایل ها</Resource>
     <Resource tag="admin_forums">انجمن ها</Resource>
     <Resource tag="admin_groups">نقش ها</Resource>

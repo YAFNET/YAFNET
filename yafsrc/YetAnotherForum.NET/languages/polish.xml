@@ -856,45 +856,6 @@
     <Resource tag="TYPES">Type</Resource>
     <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
   </page>
-  <page name="ADMIN_EVENTLOGGROUPS">
-    <Resource tag="CANACCESS">Allowed</Resource>
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="GROUPNAME">Role</Resource>
-    <Resource tag="HEADER">Event Log Roles</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Event Log Roles</Resource>
-  </page>
-  <page name="ADMIN_EVENTLOGROUPACCESS">
-    <Resource tag="BOARDNAME">Board Name</Resource>
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="DELETEACCESS">Can Delete</Resource>
-    <Resource tag="EVENT">Log Name</Resource>
-    <Resource tag="GRANTALL">Grant All View</Resource>
-    <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
-    <Resource tag="GROUPNAME">Role</Resource>
-    <Resource tag="HEADER">Event Log Access For</Resource>
-    <Resource tag="LT_DEBUG">Debug</Resource>
-    <Resource tag="LT_ERROR">Errors</Resource>
-    <Resource tag="LT_INFORMATION">Information</Resource>
-    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
-    <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
-    <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
-    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
-    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
-    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
-    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
-    <Resource tag="LT_SQLERROR">Sql Errors</Resource>
-    <Resource tag="LT_TRACE">Trace</Resource>
-    <Resource tag="LT_USERDELETED">Deleting users</Resource>
-    <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
-    <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
-    <Resource tag="LT_WARNING">Warnings</Resource>
-    <Resource tag="REVOKEALL">Revoke All View</Resource>
-    <Resource tag="REVOKEALLDELETE">Revoke All Delete</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Event Log Role Edit</Resource>
-    <Resource tag="VIEWACCESS">Can View</Resource>
-  </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">Dodaj</Resource>
     <Resource tag="CONFIRM_DELETE">Usunąć to rozszerzenie?</Resource>
@@ -1844,8 +1805,6 @@
     <Resource tag="admin_boardsettings">Ustawienia Forum</Resource>
     <Resource tag="admin_digest">Digest</Resource>
     <Resource tag="admin_eventlog">Dziennik zdarzeń</Resource>
-    <Resource tag="admin_eventloggroupaccess">Dostęp do edycji dzienniku zdarzeń</Resource>
-    <Resource tag="admin_eventloggroups">Role dzienniku zdarzeń</Resource>
     <Resource tag="admin_extensions">Rozszrzenia plików</Resource>
     <Resource tag="admin_forums">Działy</Resource>
     <Resource tag="admin_groups">Role</Resource>

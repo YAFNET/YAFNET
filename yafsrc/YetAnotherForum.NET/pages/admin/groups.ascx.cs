@@ -256,7 +256,6 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // delete role
-                    this.GetRepository<EventLogGroupAccess>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
                     this.GetRepository<ForumAccess>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
                     this.GetRepository<UserGroup>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
                     this.GetRepository<Group>().Delete(g => g.ID == e.CommandArgument.ToType<int>());

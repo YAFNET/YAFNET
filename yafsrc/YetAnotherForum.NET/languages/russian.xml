@@ -857,45 +857,6 @@
     <Resource tag="TYPES">Type</Resource>
     <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
   </page>
-  <page name="ADMIN_EVENTLOGGROUPS">
-    <Resource tag="CANACCESS">Доступ</Resource>
-    <Resource tag="CANCEL">Отмена</Resource>
-    <Resource tag="GROUPNAME">Роль</Resource>
-    <Resource tag="HEADER">Журнал событий и роли</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Журнал событий и роли</Resource>
-  </page>
-  <page name="ADMIN_EVENTLOGROUPACCESS">
-    <Resource tag="BOARDNAME">Название конференции</Resource>
-    <Resource tag="CANCEL">Отмена</Resource>
-    <Resource tag="DELETEACCESS">Может удалять</Resource>
-    <Resource tag="EVENT">Тип События</Resource>
-    <Resource tag="GRANTALL">Разрешить смотреть всё</Resource>
-    <Resource tag="GRANTALLDELETE">Разрешить удалять всё</Resource>
-    <Resource tag="GROUPNAME">Роль</Resource>
-    <Resource tag="HEADER">Доступ к журналу событий для</Resource>
-    <Resource tag="LT_DEBUG">Debug</Resource>
-    <Resource tag="LT_ERROR">Ошибки</Resource>
-    <Resource tag="LT_INFORMATION">Информация</Resource>
-    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
-    <Resource tag="LT_IPBANLIFTED">Отмена бана по IP</Resource>
-    <Resource tag="LT_IPBANSET">Установка бана по IP </Resource>
-    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
-    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
-    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
-    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
-    <Resource tag="LT_SQLERROR">Ошибки Sql</Resource>
-    <Resource tag="LT_TRACE">Trace</Resource>
-    <Resource tag="LT_USERDELETED">Удаление пользователей</Resource>
-    <Resource tag="LT_USERSUSPENDED">Временное отстранение пользователей</Resource>
-    <Resource tag="LT_USERUNSUSPENDED">Возвращение временно отстранённых пользователей</Resource>
-    <Resource tag="LT_WARNING">Предупреждения</Resource>
-    <Resource tag="REVOKEALL">Запретить смотреть всё</Resource>
-    <Resource tag="REVOKEALLDELETE">Запретить удалять всё</Resource>
-    <Resource tag="SAVE">Сохранить</Resource>
-    <Resource tag="TITLE">Доступ к журналу событий для ролей</Resource>
-    <Resource tag="VIEWACCESS">Просмотр</Resource>
-  </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">Создать</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить это расширение?</Resource>
@@ -1832,8 +1793,6 @@
     <Resource tag="admin_boardsettings">Данные конференции</Resource>
     <Resource tag="admin_digest">Дайджест</Resource>
     <Resource tag="admin_eventlog">Журнал</Resource>
-    <Resource tag="admin_eventloggroupaccess">Редактирование доступа к журналу</Resource>
-    <Resource tag="admin_eventloggroups">Доступ к журналу</Resource>
     <Resource tag="admin_extensions">Расширения файлов</Resource>
     <Resource tag="admin_forums">Форумы</Resource>
     <Resource tag="admin_groups">Роли</Resource>

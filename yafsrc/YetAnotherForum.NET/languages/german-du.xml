@@ -856,45 +856,6 @@
     <Resource tag="TYPES">Typen</Resource>
     <Resource tag="TYPES_HELP">Wählen Sie ein Ereignislog Typ um nur bestimmte Ereignisse anzuzeigen.</Resource>
   </page>
-  <page name="ADMIN_EVENTLOGGROUPS">
-    <Resource tag="CANACCESS">Erlaubt</Resource>
-    <Resource tag="CANCEL">Abbruch</Resource>
-    <Resource tag="GROUPNAME">Gruppe</Resource>
-    <Resource tag="HEADER">Ereignisprotokoll Gruppen</Resource>
-    <Resource tag="SAVE">Speichern</Resource>
-    <Resource tag="TITLE">Ereignisprotokoll Gruppen</Resource>
-  </page>
-  <page name="ADMIN_EVENTLOGROUPACCESS">
-    <Resource tag="BOARDNAME">Board Name</Resource>
-    <Resource tag="CANCEL">Abbruch</Resource>
-    <Resource tag="DELETEACCESS">Kann Löschen</Resource>
-    <Resource tag="EVENT">Logname</Resource>
-    <Resource tag="GRANTALL">Alle Ansehen erlauben</Resource>
-    <Resource tag="GRANTALLDELETE">Alle Löschen erlauben</Resource>
-    <Resource tag="GROUPNAME">Gruppe</Resource>
-    <Resource tag="HEADER">Ereignisprotokoll Zugriff für</Resource>
-    <Resource tag="LT_DEBUG">Debug</Resource>
-    <Resource tag="LT_ERROR">Fehler</Resource>
-    <Resource tag="LT_INFORMATION">Information</Resource>
-    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
-    <Resource tag="LT_IPBANLIFTED">IP-Verbot Abbrechen </Resource>
-    <Resource tag="LT_IPBANSET">Festlegen von einem IP-Verbot</Resource>
-    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
-    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
-    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
-    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
-    <Resource tag="LT_SQLERROR">SQL Fehler</Resource>
-    <Resource tag="LT_TRACE">Trace</Resource>
-    <Resource tag="LT_USERDELETED">Löschen von Benutzern</Resource>
-    <Resource tag="LT_USERSUSPENDED">Benutzer sperren</Resource>
-    <Resource tag="LT_USERUNSUSPENDED">Entsperren von Benutzern</Resource>
-    <Resource tag="LT_WARNING">Warnungen</Resource>
-    <Resource tag="REVOKEALL">Alle Ansehen wiederrufen</Resource>
-    <Resource tag="REVOKEALLDELETE">Alle Löschen wiederrufen</Resource>
-    <Resource tag="SAVE">Speichern</Resource>
-    <Resource tag="TITLE">Ereignisprotokoll Gruppe bearbeiten</Resource>
-    <Resource tag="VIEWACCESS">Kann Ansehen</Resource>
-  </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">Hinzufügen</Resource>
     <Resource tag="CONFIRM_DELETE">Diese Erweiterung löschen?</Resource>
@@ -1834,8 +1795,6 @@
     <Resource tag="admin_boardsettings">Board Einstellungen</Resource>
     <Resource tag="admin_digest">Digest</Resource>
     <Resource tag="admin_eventlog">Ereignisprotokoll</Resource>
-    <Resource tag="admin_eventloggroupaccess">Ereignisprotokoll Zugriff Bearbeiten</Resource>
-    <Resource tag="admin_eventloggroups">Ereignisprotokoll Rollen</Resource>
     <Resource tag="admin_extensions">Dateierweiterungen</Resource>
     <Resource tag="admin_forums">Foren</Resource>
     <Resource tag="admin_groups">Gruppen</Resource>

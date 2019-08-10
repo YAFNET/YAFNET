@@ -858,45 +858,6 @@
     <Resource tag="TYPES">Tipos</Resource>
     <Resource tag="TYPES_HELP">Selecciónalo para restringir el log a unos tipos de eventos concretos.</Resource>
   </page>
-  <page name="ADMIN_EVENTLOGGROUPS">
-    <Resource tag="CANACCESS">Permitido</Resource>
-    <Resource tag="CANCEL">Cancelar</Resource>
-    <Resource tag="GROUPNAME">Rol</Resource>
-    <Resource tag="HEADER">Roles del log de eventos</Resource>
-    <Resource tag="SAVE">Guardar</Resource>
-    <Resource tag="TITLE">Roles del log de eventos</Resource>
-  </page>
-  <page name="ADMIN_EVENTLOGROUPACCESS">
-    <Resource tag="BOARDNAME">Nombre del tablero</Resource>
-    <Resource tag="CANCEL">Cancelar</Resource>
-    <Resource tag="DELETEACCESS">Puede eliminar</Resource>
-    <Resource tag="EVENT">Nombre del log</Resource>
-    <Resource tag="GRANTALL">Conceder todos los permisos de visualización</Resource>
-    <Resource tag="GRANTALLDELETE">Conceder todos los permisos de eliminación</Resource>
-    <Resource tag="GROUPNAME">Rol</Resource>
-    <Resource tag="HEADER">Acceso al log de eventos para</Resource>
-    <Resource tag="LT_DEBUG">Depurar</Resource>
-    <Resource tag="LT_ERROR">Errores</Resource>
-    <Resource tag="LT_INFORMATION">Información</Resource>
-    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
-    <Resource tag="LT_IPBANLIFTED">Cancelar baneo de IP</Resource>
-    <Resource tag="LT_IPBANSET">Configurar baneo de IP</Resource>
-    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
-    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
-    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
-    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
-    <Resource tag="LT_SQLERROR">Errores SQL</Resource>
-    <Resource tag="LT_TRACE">Rastrear</Resource>
-    <Resource tag="LT_USERDELETED">Eliminando usuarios</Resource>
-    <Resource tag="LT_USERSUSPENDED">Suspendiendo usuarios</Resource>
-    <Resource tag="LT_USERUNSUSPENDED">Reactivando usuarios</Resource>
-    <Resource tag="LT_WARNING">Advertencias</Resource>
-    <Resource tag="REVOKEALL">Quitar todos los permisos de visualización</Resource>
-    <Resource tag="REVOKEALLDELETE">Quitar todos los permisos de eliminación</Resource>
-    <Resource tag="SAVE">Guardar</Resource>
-    <Resource tag="TITLE">Editar rol del log de eventos</Resource>
-    <Resource tag="VIEWACCESS">Puede ver</Resource>
-  </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">Añadir</Resource>
     <Resource tag="CONFIRM_DELETE">¿Eliminar esta extensión?</Resource>
@@ -1856,8 +1817,6 @@
     <Resource tag="admin_boardsettings">Preferencias de tablero</Resource>
     <Resource tag="admin_digest">Resumen</Resource>
     <Resource tag="admin_eventlog">Log de eventos</Resource>
-    <Resource tag="admin_eventloggroupaccess">Editar acceso a log de eventos</Resource>
-    <Resource tag="admin_eventloggroups">Roles del log de eventos</Resource>
     <Resource tag="admin_extensions">Extensiones de archivo</Resource>
     <Resource tag="admin_forums">Foros</Resource>
     <Resource tag="admin_groups">Roles</Resource>
