@@ -65,27 +65,65 @@
                                                             OnClick="RegisterLinkClick" 
                                                             CssClass="btn btn-secondary"></asp:LinkButton>
                                     </asp:PlaceHolder>
-                                     <asp:PlaceHolder id="SingleSignOnRow" runat="server" Visible="false">
-                                           <asp:LinkButton runat="server" ID="FacebookRegister" CssClass="authLogin facebookLogin" Visible="False" OnClick="FacebookFormClick"></asp:LinkButton>
-                                           <asp:LinkButton runat="server" ID="TwitterRegister" CssClass="authLogin twitterLogin" Visible="False" OnClick="TwitterFormClick"></asp:LinkButton>
-                                           <asp:LinkButton runat="server" ID="GoogleRegister" CssClass="authLogin googleLogin" Visible="False" OnClick="GoogleFormClick"></asp:LinkButton>
+                                     <asp:PlaceHolder id="SingleSignOnRow" runat="server" 
+                                                      Visible="false">
+                                           <YAF:ThemeButton runat="server" ID="FacebookRegister" 
+                                                            Type="None"
+                                                            Size="Small"
+                                                            CssClass="btn btn-social btn-facebook mr-2"
+                                                            Icon="facebook"
+                                                            IconCssClass="fab"
+                                                            Visible="False" 
+                                                            OnClick="FacebookFormClick"></YAF:ThemeButton>
+                                           <YAF:ThemeButton runat="server" ID="TwitterRegister" 
+                                                            Type="None"
+                                                            Size="Small"
+                                                            Icon="twitter"
+                                                            IconCssClass="fab"
+                                                            CssClass="btn btn-social btn-twitter mr-2" 
+                                                            Visible="False" 
+                                                            OnClick="TwitterFormClick"></YAF:ThemeButton>
+                                           <YAF:ThemeButton runat="server" ID="GoogleRegister" 
+                                                            Type="None"
+                                                            Size="Small"
+                                                            Icon="google"
+                                                            IconCssClass="fab"
+                                                            CssClass="btn btn-social btn-google mr-2" 
+                                                            Visible="False" 
+                                                            OnClick="GoogleFormClick"></YAF:ThemeButton>
                                           
-                                           <asp:PlaceHolder id="FacebookHolder" runat="server" Visible="false">
-                                              <a id="FacebookLogin" runat="server" class="authLogin facebookLogin">
-                                                   <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
-                                               </a>
+                                           <asp:PlaceHolder id="FacebookHolder" runat="server" 
+                                                            Visible="false">
+                                               <YAF:ThemeButton id="FacebookLogin" runat="server"
+                                                                Type="None"
+                                                                Size="Small"
+                                                                Icon="facebook"
+                                                                IconCssClass="fab"
+                                                                CssClass="btn-social btn-facebook mr-2"
+                                                                TextLocalizedTag="FACEBOOK_LOGIN" />
                                            </asp:PlaceHolder>
-                                           <asp:PlaceHolder id="TwitterHolder" runat="server" Visible="false">
-                                               <a id="TwitterLogin" runat="server" class="authLogin twitterLogin">
-                                                   <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TWITTER_LOGIN" />
-                                               </a>
+                                           <asp:PlaceHolder id="TwitterHolder" runat="server" 
+                                                            Visible="false">
+                                               <YAF:ThemeButton id="TwitterLogin" runat="server" 
+                                                                Type="None"
+                                                                Size="Small"
+                                                                Icon="twitter"
+                                                                IconCssClass="fab"
+                                                                CssClass="btn btn-social btn-twitter mr-2"
+                                                                TextLocalizedTag="TWITTER_LOGIN" />
                                            </asp:PlaceHolder>
-                                           <asp:PlaceHolder id="GoogleHolder" runat="server" Visible="false">
-                                              <a id="GoogleLogin" runat="server" class="authLogin googleLogin">
-                                                   <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="GOOGLE_LOGIN" />
-                                               </a>
+                                           <asp:PlaceHolder id="GoogleHolder" runat="server" 
+                                                            Visible="false">
+                                              <YAF:ThemeButton id="GoogleLogin" runat="server" 
+                                                               Type="None"
+                                                               Size="Small"
+                                                               Icon="google"
+                                                               IconCssClass="fab"
+                                                               CssClass="btn btn-social btn-google mr-2"
+                                                               TextLocalizedTag="GOOGLE_LOGIN" />
                                            </asp:PlaceHolder>
-                                           <YAF:ThemeButton runat="server" ID="Cancel" Visible="False" 
+                                           <YAF:ThemeButton runat="server" ID="Cancel" 
+                                                            Visible="False" 
                                                             OnClick="CancelAuthLoginClick"
                                                             TextLocalizedTag="CANCEL" 
                                                             Type="Secondary" 

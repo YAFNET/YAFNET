@@ -1721,7 +1721,6 @@
     <Content Include="Content\bootstrap-suggest.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
-    <Content Include="Content\icons\authIcons.png" />
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error.svg" />
     <Content Include="Content\images\play-pause.png" />
@@ -3381,7 +3380,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

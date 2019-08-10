@@ -50,9 +50,7 @@ namespace YAF.Pages
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
-    using YAF.Web.Controls.Localized;
     using YAF.Web.Extensions;
-    using YAF.Web.ReCAPTCHA;
 
     #endregion
 
@@ -569,13 +567,13 @@ namespace YAF.Pages
 
             dstUser.Text = this.GetText("CP_EDITPROFILE", "DST");
 
-            var facebookRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
-            var twitterRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
-            var googleRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("GoogleRegister");
+            var facebookRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
+            var twitterRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
+            var googleRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("GoogleRegister");
 
-            var loginButton = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("LoginButton");
+            var loginButton = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("LoginButton");
 
-            var authPanel = (Panel)this.CreateUserWizard1.FindWizardControlRecursive("AuthPanel");
+            var authPanel = (PlaceHolder)this.CreateUserWizard1.FindWizardControlRecursive("AuthPanel");
 
             if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {

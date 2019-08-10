@@ -254,17 +254,17 @@ namespace YAF.Pages
             var singleSignOnRow = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnRow");
 
             var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
-            var facebookLogin = this.Login1.FindControlAs<HtmlAnchor>("FacebookLogin");
+            var facebookLogin = this.Login1.FindControlAs<ThemeButton>("FacebookLogin");
 
             var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
-            var twitterLogin = this.Login1.FindControlAs<HtmlAnchor>("TwitterLogin");
+            var twitterLogin = this.Login1.FindControlAs<ThemeButton>("TwitterLogin");
 
             var googleHolder = this.Login1.FindControlAs<PlaceHolder>("GoogleHolder");
-            var googleLogin = this.Login1.FindControlAs<HtmlAnchor>("GoogleLogin");
+            var googleLogin = this.Login1.FindControlAs<ThemeButton>("GoogleLogin");
 
-            var facebookRegister = this.Login1.FindControlAs<LinkButton>("FacebookRegister");
-            var twitterRegister = this.Login1.FindControlAs<LinkButton>("TwitterRegister");
-            var googleRegister = this.Login1.FindControlAs<LinkButton>("GoogleRegister");
+            var facebookRegister = this.Login1.FindControlAs<ThemeButton>("FacebookRegister");
+            var twitterRegister = this.Login1.FindControlAs<ThemeButton>("TwitterRegister");
+            var googleRegister = this.Login1.FindControlAs<ThemeButton>("GoogleRegister");
 
             userName.Focus();
 
@@ -294,7 +294,8 @@ namespace YAF.Pages
             {
                 password.Attributes.Add(
                     "onkeydown",
-                    $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ");
+                    $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
+                              document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ");
             }
 
             if (registerLinkPlaceHolder != null && this.PageContext.IsGuest
@@ -322,21 +323,24 @@ namespace YAF.Pages
                     {
                         facebookRegister.Visible = true;
                         facebookRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Facebook");
-                        facebookRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook");
+                        facebookRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                        facebookRegister.ParamTitle0 = "Facebook";
                     }
 
                     if (twitterEnabled)
                     {
                         twitterRegister.Visible = true;
                         twitterRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Twitter");
-                        twitterRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Twitter");
+                        twitterRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                        twitterRegister.ParamTitle0 = "Twitter";
                     } 
                     
                     if (googleEnabled)
                     {
                         googleRegister.Visible = true;
                         googleRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Google");
-                        googleRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Google");
+                        googleRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                        googleRegister.ParamTitle0 = "Google";
                     }
                 }
                 else

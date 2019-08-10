@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Web.ReCAPTCHA
+namespace YAF.Web.Controls
 {
     #region Using
 
@@ -37,6 +37,7 @@ namespace YAF.Web.ReCAPTCHA
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
+    using YAF.Web.ReCAPTCHA;
 
     #endregion
 
@@ -85,7 +86,7 @@ namespace YAF.Web.ReCAPTCHA
         /// </summary>
         [Category("Appearence")]
         [Description("When using custom theming, this is a div element which contains the widget. ")]
-        [DefaultValue((string)null)]
+        [DefaultValue(null)]
         public string CustomThemeWidget { get; set; }
 
         /// <summary>

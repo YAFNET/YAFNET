@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Web.Controls.Localized
+namespace YAF.Web.Controls
 {
     #region Using
 

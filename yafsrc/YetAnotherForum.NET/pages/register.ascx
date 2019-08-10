@@ -163,23 +163,40 @@
                                     CssClass="btn btn-success" 
                                     CommandName="MoveNext"
                                     ValidationGroup="CreateUserWizard1" />
-                        <asp:LinkButton runat="server" ID="LoginButton" Visible="False" 
-                                        OnClick="LoginClick"
-                                        CssClass="btn btn-secondary"></asp:LinkButton>
-                        <asp:Panel runat="server" Visible="False" ID="AuthPanel">
-                            <asp:LinkButton runat="server" ID="FacebookRegister" 
-                                            CssClass="authLogin facebookLogin" Visible="False" 
-                                            OnClick="FacebookRegisterClick">
-                            </asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="TwitterRegister" 
-                                            CssClass="authLogin twitterLogin" Visible="False" 
-                                            OnClick="TwitterRegisterClick">
-                            </asp:LinkButton>
-                            <asp:LinkButton runat="server" ID="GoogleRegister" 
-                                            CssClass="authLogin googleLogin" Visible="False" 
-                                            OnClick="GoogleRegisterClick">
-                            </asp:LinkButton>
-                        </asp:Panel>
+                        <YAF:ThemeButton runat="server" ID="LoginButton"
+                                         Visible="False" 
+                                         OnClick="LoginClick"
+                                         Type="Primary"
+                                         Icon="user-plus"></YAF:ThemeButton>
+                        <asp:PlaceHolder runat="server" Visible="False" ID="AuthPanel">
+                            <YAF:ThemeButton runat="server" ID="FacebookRegister"
+                                             Type="None"
+                                             Size="Small"
+                                             CssClass="btn btn-social btn-facebook mr-2"
+                                             Icon="facebook"
+                                             IconCssClass="fab"
+                                             Visible="False" 
+                                             OnClick="FacebookRegisterClick">
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton runat="server" ID="TwitterRegister"
+                                             Type="None"
+                                             Size="Small"
+                                             CssClass="btn btn-social btn-twitter mr-2"
+                                             Icon="twitter"
+                                             IconCssClass="fab"
+                                             Visible="False" 
+                                             OnClick="TwitterRegisterClick">
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton runat="server" ID="GoogleRegister"
+                                             Type="None"
+                                             Size="Small"
+                                             CssClass="btn btn-social btn-google mr-2"
+                                             Icon="google"
+                                             IconCssClass="fab"
+                                             Visible="False" 
+                                             OnClick="GoogleRegisterClick">
+                            </YAF:ThemeButton>
+                        </asp:PlaceHolder>
                     </div>
                 </div>	
 				</ContentTemplate>
@@ -223,7 +240,10 @@
                     <div class="form-group">
 								<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TIMEZONE" />
 								:
-								<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" CssClass="standardSelectMenu" />
+								<asp:DropDownList ID="TimeZones" runat="server" 
+                                                  DataTextField="Name" 
+                                                  DataValueField="Value" 
+                                                  CssClass="standardSelectMenu" />
                         </div>
                     <div class="form-group">
                                  <asp:CheckBox runat="server" ID="DSTUser" Visible="False" />

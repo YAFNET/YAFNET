@@ -235,10 +235,10 @@
                                      Type="None" Icon="skype" CssClass="fab"/>
                     <YAF:ThemeButton ID="Facebook" runat="server" Visible="false" 
                                      TitleLocalizedTag="FACEBOOK_TITLE" TitleLocalizedPage="POSTS"
-                                     Type="None" Icon="facebook" CssClass="fab"/>
+                                     Type="None" Icon="facebook" IconCssClass="fab"/>
                     <YAF:ThemeButton ID="Twitter" runat="server" Visible="false" 
                                      TitleLocalizedTag="TWITTER_TITLE" TitleLocalizedPage="POSTS"
-                                     Type="None" Icon="twitter" CssClass="fab"/>
+                                     Type="None" Icon="twitter" IconCssClass="fab"/>
                     
                 </div>
             </div>

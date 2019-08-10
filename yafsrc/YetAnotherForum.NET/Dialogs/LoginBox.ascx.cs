@@ -43,6 +43,7 @@ namespace YAF.Dialogs
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -211,13 +212,13 @@ namespace YAF.Dialogs
             var passwordRecovery = this.Login1.FindControlAs<LinkButton>(id: "PasswordRecovery");
 
             var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>(id: "FaceBookHolder");
-            var facebookRegister = this.Login1.FindControlAs<LinkButton>(id: "FacebookRegister");
+            var facebookRegister = this.Login1.FindControlAs<ThemeButton>(id: "FacebookRegister");
 
             var twitterHolder = this.Login1.FindControlAs<PlaceHolder>(id: "TwitterHolder");
-            var twitterRegister = this.Login1.FindControlAs<LinkButton>(id: "TwitterRegister");
+            var twitterRegister = this.Login1.FindControlAs<ThemeButton>(id: "TwitterRegister");
 
             var googleHolder = this.Login1.FindControlAs<PlaceHolder>(id: "GoogleHolder");
-            var googleRegister = this.Login1.FindControlAs<LinkButton>(id: "GoogleRegister");
+            var googleRegister = this.Login1.FindControlAs<ThemeButton>(id: "GoogleRegister");
 
             userName.Focus();
 
@@ -231,7 +232,8 @@ namespace YAF.Dialogs
                 forumLogin.Text = this.GetText(tag: "forum_login");
 
                 var script =
-                    $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ";
+                    $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
+                          document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ";
 
                 userName.Attributes.Add(key: "onkeydown", value: script);
 
@@ -253,21 +255,24 @@ namespace YAF.Dialogs
                 {
                     twitterRegister.Visible = true;
                     twitterRegister.Text = this.GetTextFormatted(tag: "AUTH_CONNECT", "Twitter");
-                    twitterRegister.ToolTip = this.GetTextFormatted(tag: "AUTH_CONNECT_HELP", "Twitter");
+                    twitterRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                    twitterRegister.ParamTitle0 = "Twitter";
                 }
 
                 if (faceBookHolder.Visible)
                 {
                     facebookRegister.Visible = true;
                     facebookRegister.Text = this.GetTextFormatted(tag: "AUTH_CONNECT", "Facebook");
-                    facebookRegister.ToolTip = this.GetTextFormatted(tag: "AUTH_CONNECT_HELP", "Facebook");
+                    facebookRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                    facebookRegister.ParamTitle0 = "Facebook";
                 }
 
                 if (googleHolder.Visible)
                 {
                     googleRegister.Visible = true;
                     googleRegister.Text = this.GetTextFormatted(tag: "AUTH_CONNECT", "Google");
-                    googleRegister.ToolTip = this.GetTextFormatted(tag: "AUTH_CONNECT_HELP", "Google");
+                    googleRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                    googleRegister.ParamTitle0 = "Google";
                 }
             }
 

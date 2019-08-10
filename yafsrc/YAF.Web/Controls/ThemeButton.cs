@@ -201,6 +201,20 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
+        /// Gets or sets the icon CSS Class.
+        /// </summary>
+        /// <value>
+        /// The icon CSS class.
+        /// </value>
+        [CanBeNull]
+        public string IconCssClass
+        {
+            get => this.ViewState["IconCssClass"] != null ? this.ViewState["IconCssClass"] as string : "fa";
+
+            set => this.ViewState["IconCssClass"] = value;
+        }
+
+        /// <summary>
         /// Gets or sets the icon.
         /// </summary>
         /// <value>
@@ -526,14 +540,8 @@ namespace YAF.Web.Controls
             if (this.Icon.IsSet())
             {
                 var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
-                if (this.CssClass.IsSet() && this.CssClass.Equals("fab"))
-                {
-                    output.Write("<i class=\"fab fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass);
-                }
-                else
-                {
-                    output.Write("<i class=\"fa fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass);
-                }
+
+                output.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass, this.IconCssClass);
             }
 
             if (this.Text.IsSet())

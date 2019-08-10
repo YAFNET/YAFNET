@@ -284,15 +284,13 @@ namespace YAF.Web.Controls
         /// </returns>
         protected Regex GetRegex([NotNull] string search)
         {
-            Regex regex;
-
-            if (this.UserBoxRegex.TryGetValue(search, out regex))
+            if (this.UserBoxRegex.TryGetValue(search, out var regex))
             {
                 return regex;
             }
 
             regex = new Regex(search, RegexOptions.Compiled);
-            this.UserBoxRegex.AddOrUpdate(search, (k) => regex, (k, v) => regex);
+            this.UserBoxRegex.AddOrUpdate(search, k => regex, (k, v) => regex);
 
             return regex;
         }
@@ -362,15 +360,16 @@ namespace YAF.Web.Controls
                 {
                     filler = string.Format(
                         this.Get<YafBoardSettings>().UserBoxAvatar,
-                        string.Format(
-                            @"<a href=""{1}"" title=""{2}""><img class=""rounded img-fluid"" src=""{0}"" alt=""{2}"" title=""{2}""  /></a>",
-                            avatarUrl,
-                            YafBuildLink.GetLinkNotEscaped(
-                                ForumPages.profile,
-                                "u={0}&name={1}",
-                                this.UserId,
-                                displayName),
-                            this.Page.HtmlEncode(displayName)));
+                        $@"<a href=""{YafBuildLink.GetLinkNotEscaped(
+                            ForumPages.profile,
+                            "u={0}&name={1}",
+                            this.UserId,
+                            displayName)}"" 
+                            title=""{this.Page.HtmlEncode(displayName)}"">
+                              <img class=""rounded img-fluid"" 
+                                   src=""{avatarUrl}"" 
+                                   alt=""{this.Page.HtmlEncode(displayName)}"" 
+                                   title=""{this.Page.HtmlEncode(displayName)}""  /></a>");
                 }
             }
 
@@ -685,7 +684,7 @@ namespace YAF.Web.Controls
                         var title = $"{r["Name"]}{(f.ShowMessage ? $": {r["Message"]}" : string.Empty)}";
 
                         ribbonBar.AppendFormat(
-                            "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" />",
+                            "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" class=\"mr-1\" />",
                             YafForumInfo.ForumClientFileRoot,
                             r["SmallRibbonURL"],
                             r["SmallRibbonWidth"],
@@ -779,15 +778,10 @@ namespace YAF.Web.Controls
         {
             var rx = this.GetRegex(Constants.UserBox.Posts);
 
-            // vzrus: should not display posts count string if the user post only in a forum with no post count?
-            // if ((int)this.DataRow["Posts"] > 0)
-            // {
             var filler = string.Format(
                 this.Get<YafBoardSettings>().UserBoxPosts,
                 this.GetText("posts"),
                 this.DataRow["Posts"]);
-
-            // }
 
             // replaces template placeholder with actual post count
             userBox = rx.Replace(userBox, filler);
