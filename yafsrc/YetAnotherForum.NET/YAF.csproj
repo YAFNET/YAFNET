@@ -3247,10 +3247,6 @@
       <Project>{36423383-f6df-4c0e-9b73-cd53e304b383}</Project>
       <Name>ServiceStack.Text</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceStack\ServiceStack\ServiceStack.csproj">
-      <Project>{A188180B-D366-457B-AE92-91C1FC0F7DF4}</Project>
-      <Name>ServiceStack</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj">
       <Project>{ef89e4df-d79f-4e83-a703-3be176f9428e}</Project>
       <Name>YAF.Configuration</Name>
@@ -3325,8 +3321,7 @@
     </PreBuildEvent>
     <PostBuildEvent>del YAF.dll.config
 del Lucene.Net.Contrib.Memory.dll
-del Lucene.Net.Contrib.Memory.pdb
-del ServiceStack.Client.dll</PostBuildEvent>
+del Lucene.Net.Contrib.Memory.pdb</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -3364,7 +3359,7 @@ del ServiceStack.Client.dll</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

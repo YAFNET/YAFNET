@@ -1,4 +1,4 @@
-@ECHo OFF
+@echo off
 
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\arabic.xml" -o
 YafLanguageSync.exe "..\..\YetAnotherForum.NET\languages\english.xml" "..\..\YetAnotherForum.NET\languages\china.xml" -o
