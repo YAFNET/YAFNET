@@ -175,6 +175,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Web.Controls.ThemeButton search;
         
         /// <summary>
+        /// ResetUserSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton ResetUserSearch;
+        
+        /// <summary>
         /// UserList control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater UserList;
+        
+        /// <summary>
+        /// NoInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert NoInfo;
         
         /// <summary>
         /// ImportAndSyncHolder control.

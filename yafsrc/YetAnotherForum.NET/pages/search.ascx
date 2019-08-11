@@ -12,10 +12,13 @@
             TextLocalizedTag="btnsearch"
             NavigateUrl="javascript:getSeachResultsData(0);">
         </YAF:ThemeButton>
-        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="optionsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-cog fa-fw"></i>
-            <YAF:LocalizedLabel runat="server" LocalizedTag="Options"></YAF:LocalizedLabel>
-        </button>
+        <YAF:ThemeButton runat="server"
+                         CssClass="dropdown-toggle"
+                         DataToggle="dropdown"
+                         Type="Secondary"
+                         Icon="cog"
+                         TextLocalizedTag="OPTIONS"
+                         TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
         <div class="dropdown-menu" aria-labelledby="optionsDropDown">
             <div class="px-3 py-1">
                 <div class="form-group">

@@ -17,24 +17,6 @@
   background-color: #f5f5f5;
 }
 
-.dropdown-item {
-    label {
-        font-weight: 700
-    }
-}
-.user-search-dropdown {
-    width: 100px;
-    .btn-primary {
-        color: white;
-        margin-top: 10px
-    }
-}
-@media (max-width: 767px) {
-    .user-search-dropdown {
-        width: 300px;
-        float: none
-    }
-}
 
 
 /* TABS */

@@ -36,6 +36,7 @@ namespace YAF.Pages
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -97,6 +98,17 @@ namespace YAF.Pages
             YafBuildLink.Redirect(ForumPages.members);
         }
 
+        /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            YafContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
+            base.OnPreRender(e);
+        }
+
         #endregion
 
         #region Methods
@@ -116,20 +128,6 @@ namespace YAF.Pages
             return avatarUrl.IsNotSet()
                        ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
                        : avatarUrl;
-        }
-
-        /// <summary>
-        /// protects from script in "location" field
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <returns>
-        /// The get string safely.
-        /// </returns>
-        protected string GetStringSafely(object value)
-        {
-            return value == null ? string.Empty : this.HtmlEncode(value.ToString());
         }
 
         /// <summary>
@@ -399,8 +397,6 @@ namespace YAF.Pages
             var selectedCharLetter = this.AlphaSort1.CurrentLetter;
 
             // get the user list...
-            int totalCount;
-
             var selectedLetter = this.UserSearchName.Text.IsSet() ? this.UserSearchName.Text.Trim() : selectedCharLetter.ToString();
             
             int numpostsTb;
@@ -423,7 +419,7 @@ namespace YAF.Pages
                 selectedLetter,
                 0,
                 this.UserSearchName.Text.IsNotSet() || selectedCharLetter == char.MinValue && selectedCharLetter == '#',
-                out totalCount);
+                out var totalCount);
             
             this.Pager.Count = totalCount;
             this.MemberList.DataSource = this._userListDataTable;

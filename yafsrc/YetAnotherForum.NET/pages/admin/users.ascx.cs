@@ -35,6 +35,7 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
+
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -97,15 +98,17 @@ namespace YAF.Pages.Admin
                     }
 
                     // get user(s) we are about to delete
-                    using (
-                        var dataTable = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, e.CommandArgument.ToType<int>(), DBNull.Value))
+                    using (var dataTable = this.GetRepository<User>().ListAsDataTable(
+                        this.PageContext.PageBoardID,
+                        e.CommandArgument.ToType<int>(),
+                        DBNull.Value))
                     {
                         // examine each if he's possible to delete
                         foreach (DataRow row in dataTable.Rows)
                         {
                             if (row["IsGuest"].ToType<int>() > 0)
                             {
-                                // we cannot detele guest
+                                // we cannot delete guest
                                 this.PageContext.AddLoadMessage(
                                     this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                                     MessageTypes.danger);
@@ -146,6 +149,17 @@ namespace YAF.Pages.Admin
         {
             // re-bind data
             this.BindData();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the Reset control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        public void Reset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // re-direct to self.
+            YafBuildLink.Redirect(ForumPages.admin_users);
         }
 
         /// <summary>
@@ -196,6 +210,9 @@ namespace YAF.Pages.Admin
                 "BlockUIExecuteJs",
                 JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", this.SyncUsers.ClientID));
 
+            // setup jQuery and Jquery Ui Tabs.
+            YafContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
             base.OnPreRender(e);
         }
 
@@ -244,16 +261,15 @@ namespace YAF.Pages.Admin
         {
             var lastVisit = this.Get<IYafSession>().LastVisit;
 
-            // value 0, for since last visted
+            // value 0, for since last visit
             this.Since.Items.Add(
                 new ListItem(
                     this.GetTextFormatted(
                         "last_visit",
-                        this.Get<IDateTime>()
-                            .FormatDateTime(
-                                lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
-                                    ? lastVisit.Value
-                                    : DateTime.UtcNow)),
+                        this.Get<IDateTime>().FormatDateTime(
+                            lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                                ? lastVisit.Value
+                                : DateTime.UtcNow)),
                     "0"));
 
             // negative values for hours backward
@@ -289,7 +305,7 @@ namespace YAF.Pages.Admin
                 this.SyncUsers.Visible = false;
             }
 
-            // intialize since filter items
+            // initialize since filter items
             this.InitSinceDropdown();
 
             // set since filter to last item "All time"
@@ -302,22 +318,22 @@ namespace YAF.Pages.Admin
 
             this.group.DataTextField = "Name";
             this.group.DataValueField = "ID";
+            this.group.DataSource = groups;
 
             this.group.DataBind();
 
             // get list of user ranks for filtering
             var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
-            
-                // add empty for for no filtering
-                ranks.Insert(0, new Rank { Name = this.GetText("FILTER_NO"), ID = 0 });
 
-                this.rank.DataSource = ranks;
-                this.rank.DataTextField = "Name";
-                this.rank.DataValueField = "ID";
-                this.rank.DataBind();
-            
+            // add empty for for no filtering
+            ranks.Insert(0, new Rank { Name = this.GetText("FILTER_NO"), ID = 0 });
 
-            // TODO : page size difinable?
+            this.rank.DataSource = ranks;
+            this.rank.DataTextField = "Name";
+            this.rank.DataValueField = "ID";
+            this.rank.DataBind();
+
+            // TODO : page size definable?
             this.PagerTop.PageSize = 25;
 
             // Hide "New User" & Sync Button on DotNetNuke
@@ -425,14 +441,13 @@ namespace YAF.Pages.Admin
             // page size defined by pager's size
 
             // get users, eventually filter by groups or ranks
-            using (
-                var dt = this.GetRepository<User>().ListAsDataTable(
-                    this.PageContext.PageBoardID,
-                    null,
-                    null,
-                    this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
-                    this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
-                    false))
+            using (var dt = this.GetRepository<User>().ListAsDataTable(
+                this.PageContext.PageBoardID,
+                null,
+                null,
+                this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue,
+                this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
+                false))
             {
                 using (var dv = dt.DefaultView)
                 {
@@ -440,19 +455,14 @@ namespace YAF.Pages.Admin
                     if (this.name.Text.Trim().Length > 0 || this.Email.Text.Trim().Length > 0)
                     {
                         dv.RowFilter =
-                            string.Format(
-                                "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'",
-                                this.name.Text.Trim(),
-                                    this.Email.Text.Trim());
+                            $"(Name LIKE '%{this.name.Text.Trim()}%' OR DisplayName LIKE '%{this.name.Text.Trim()}%') AND Email LIKE '%{this.Email.Text.Trim()}%'";
                     }
 
                     // filter by date of registration
                     if (sinceValue != 9999)
                     {
-                        dv.RowFilter += string.Format(
-                            "{1}Joined > '{0}'",
-                            sinceDate.ToString(CultureInfo.InvariantCulture),
-                                dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
+                        dv.RowFilter +=
+                            $"{(dv.RowFilter.IsNotSet() ? string.Empty : " AND ")}Joined > '{sinceDate.ToString(CultureInfo.InvariantCulture)}'";
                     }
 
                     // show only suspended ?
@@ -479,6 +489,8 @@ namespace YAF.Pages.Admin
                     this.UserList.DataBind();
                 }
             }
+
+            this.NoInfo.Visible = this.UserList.Items.Count == 0;
         }
 
         /// <summary>

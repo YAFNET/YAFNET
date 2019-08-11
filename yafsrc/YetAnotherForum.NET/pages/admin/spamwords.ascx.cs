@@ -114,6 +114,38 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The add click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void AddClick(object sender, EventArgs e)
+        {
+            this.EditDialog.BindData(null);
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
+        }
+
+        /// <summary>
+        /// The export click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ExportClick(object sender, EventArgs e)
+        {
+            this.ExportWords();
+        }
+
+        /// <summary>
         /// Loads the Data
         /// </summary>
         private void BindData()
@@ -185,14 +217,6 @@ namespace YAF.Pages.Admin
         {
             switch (e.CommandName)
             {
-                case "add":
-                    this.EditDialog.BindData(null);
-
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "openModalJs",
-                        JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
-
-                    break;
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
@@ -205,12 +229,6 @@ namespace YAF.Pages.Admin
                     this.GetRepository<Spam_Words>().DeleteById(e.CommandArgument.ToType<int>());
                     this.Get<IObjectStore>().Remove(Constants.Cache.SpamWords);
                     this.BindData();
-                    break;
-                case "export":
-                    {
-                        this.ExportWords();
-                    }
-
                     break;
             }
         }

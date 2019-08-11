@@ -1,5 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" CodeBehind="members.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -15,84 +14,89 @@
     </div>
 </div>
 
-
-<div class="row">
-    <div class="col">
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-search-plus fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="SearchMembersLocalizedLabel" runat="server" LocalizedTag="Search_Members" />
-            </div>
-            <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <asp:Label runat="server" AssociatedControlID="Group">
-                            <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" LocalizedTag="Search_Role" />
-                        </asp:Label>
-                        <asp:DropDownList ID="Group" runat="server" CssClass="standardSelectMenu" Width="300">
-                        </asp:DropDownList>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <asp:Label runat="server" AssociatedControlID="Ranks">
-                            <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" LocalizedTag="Search_Rank" />
-                        </asp:Label>
-                        <asp:DropDownList ID="Ranks" runat="server" CssClass="standardSelectMenu" Width="300">
-                        </asp:DropDownList>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <asp:Label runat="server" AssociatedControlID="NumPostsTB">
-                            <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" LocalizedTag="NUMPOSTS" />
-                        </asp:Label>
-                        <div class="form-row">
-                            <div class="col-md-8">
-                                <asp:DropDownList ID="NumPostDDL" runat="server" CssClass="standardSelectMenu">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:TextBox ID="NumPostsTB" runat="server"
-                                    CssClass="form-control"
-                                    TextMode="Number"></asp:TextBox>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col form-group">
-                        <asp:Label runat="server" AssociatedControlID="UserSearchName">
-                            <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server" LocalizedTag="Search_Member" />
-                        </asp:Label>
-                        <asp:TextBox ID="UserSearchName" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer text-center">
-                <YAF:ThemeButton ID="SearchByUserName" runat="server"
-                    OnClick="Search_Click"
-                    TextLocalizedTag="BTNSEARCH"
-                    Type="Primary"
-                    Icon="search">
-                </YAF:ThemeButton>
-                &nbsp;
-                <YAF:ThemeButton ID="ResetUserSearch" runat="server"
-                    OnClick="Reset_Click"
-                    TextLocalizedTag="CLEAR"
-                    Type="Secondary"
-                    Icon="trash">
-                </YAF:ThemeButton>
-            </div>
-        </div>
+<div class="row mb-3">
+    <div class="col-xl-12">
+        <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
     </div>
 </div>
 
-<YAF:AlphaSort ID="AlphaSort1" runat="server" />
 <div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-users fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                <i class="fas fa-users fa-fw text-secondary pr-1"></i>
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                    LocalizedTag="TITLE" />
+                <div class="float-right">
+                        &nbsp;
+                        <YAF:ThemeButton runat="server"
+                                         CssClass="dropdown-toggle"
+                                         DataToggle="dropdown"
+                                         Type="Secondary"
+                                         Icon="filter"
+                                         TextLocalizedTag="FILTER_DROPDOWN"
+                                         TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
+                        <div class="dropdown-menu">
+                            <div class="px-3 py-1">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <asp:Label runat="server" AssociatedControlID="Group">
+                                            <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" LocalizedTag="Search_Role" />
+                                        </asp:Label>
+                                        <asp:DropDownList ID="Group" runat="server" CssClass="standardSelectMenu">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <asp:Label runat="server" AssociatedControlID="Ranks">
+                                            <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" LocalizedTag="Search_Rank" />
+                                        </asp:Label>
+                                        <asp:DropDownList ID="Ranks" runat="server" CssClass="standardSelectMenu">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <asp:Label runat="server" AssociatedControlID="NumPostDDL">
+                                            <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" LocalizedTag="NUMPOSTS" />
+                                        </asp:Label>
+                                        <asp:DropDownList ID="NumPostDDL" runat="server" CssClass="standardSelectMenu">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <asp:Label runat="server" AssociatedControlID="NumPostsTB">&nbsp;</asp:Label>
+                                        <asp:TextBox ID="NumPostsTB" runat="server"
+                                                     CssClass="form-control"
+                                                     TextMode="Number"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <asp:Label runat="server" AssociatedControlID="UserSearchName">
+                                        <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server" LocalizedTag="Search_Member" />
+                                    </asp:Label>
+                                    <asp:TextBox ID="UserSearchName" runat="server" CssClass="form-control"></asp:TextBox>
+                                </div>
+                                <div class="form-group">
+                                    <YAF:ThemeButton ID="SearchByUserName" runat="server"
+                                                     OnClick="Search_Click"
+                                                     TextLocalizedTag="BTNSEARCH"
+                                                     Type="Primary"
+                                                     Icon="search">
+                                    </YAF:ThemeButton>
+                                    &nbsp;
+                                    <YAF:ThemeButton ID="ResetUserSearch" runat="server"
+                                                     OnClick="Reset_Click"
+                                                     TextLocalizedTag="CLEAR"
+                                                     Type="Secondary"
+                                                     Icon="trash">
+                                    </YAF:ThemeButton>
+                                </div>
+                                
+                                </div>
+                            </div>
+                        </div>
             </div>
             <div class="card-body">
-                <YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
+                <YAF:AlphaSort ID="AlphaSort1" runat="server" />
                 <div class="table-responsive">
                     <table class="table mt-3">
                         <thead>
@@ -151,8 +155,9 @@
                         </asp:Repeater>
                     </table>
                 </div>
-                <YAF:Pager runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
             </div>
         </div>
     </div>
 </div>
+
+<YAF:Pager runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
