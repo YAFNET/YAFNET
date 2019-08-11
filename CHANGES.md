@@ -1,6 +1,11 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.4.19
+## Fixed Issues:
+* [FIXED] Attachments Upload on Private Message
+
+ 
 # YetAnotherForum.NET v2.2.4.18
 ## New Features:
 * Upgraded to CKEditor 4.12.1

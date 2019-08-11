@@ -275,6 +275,12 @@ namespace YAF.Classes
         /// </returns>
         private bool CheckAccessRights([NotNull] int boardID, [NotNull] int forumID)
         {
+            if (forumID == 0)
+            {
+                // is private message upload
+                return true;
+            }
+
             // Find user name
             var user = UserMembershipHelper.GetUser();
 
