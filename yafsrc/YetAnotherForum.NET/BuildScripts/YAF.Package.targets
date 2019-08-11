@@ -27,10 +27,12 @@
       <DefaultExclude Include="**\.nuget\**" />
       <DefaultExclude Include="**\_source\**" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.FileUpload\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootbox.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-suggest.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />
