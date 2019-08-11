@@ -23,240 +23,245 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Net.Mail;
-  using System.Web.Security;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Net.Mail;
+    using System.Web.Security;
+    using System.Web.UI.WebControls;
 
-  using YAF.Configuration;
-  using YAF.Core;
-  using YAF.Core.BaseControls;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-
-  #endregion
-
-  /// <summary>
-  /// The edit users reset pass.
-  /// </summary>
-  public partial class EditUsersResetPass : BaseUserControl
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets CurrentUserID.
-    /// </summary>
-    public long? CurrentUserID => this.PageContext.QueryIDs["u"];
+    using YAF.Configuration;
+    using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The page_ load.
+    /// The edit users reset pass.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class EditUsersResetPass : BaseUserControl
     {
-        this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+        #region Properties
 
-        if (!this.PageContext.IsAdmin)
+        /// <summary>
+        ///   Gets CurrentUserID.
+        /// </summary>
+        public long? CurrentUserID => this.PageContext.QueryIDs["u"];
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.AccessDenied();
-        }
+            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-        if (!this.IsPostBack)
-        {
-            this.rblPasswordResetFunction.Items.Add(new ListItem(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_OPTION_RESET"), "reset", true));
-            this.rblPasswordResetFunction.Items.Add(new ListItem(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_OPTION_CHANGE"), "change"));
-
-            this.rblPasswordResetFunction.SelectedIndex = 0;
-
-
-            this.btnResetPassword.Text =
-                $"<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "RESET_PASS")}";
-            this.btnChangePassword.Text =
-                $"<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
-
-            this.lblPassRequirements.Text = this.Get<ILocalization>().GetTextFormatted(
-                "PASS_REQUIREMENT",
-                this.Get<MembershipProvider>().MinRequiredPasswordLength,
-                this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters);
-
-            this.PasswordValidator.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_NEW_PASS");
-            this.RequiredFieldValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_CONFIRM_PASS");
-            this.CompareValidator1.ErrorMessage = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH");
-
-            if (!this.Get<MembershipProvider>().EnablePasswordReset)
+            if (!this.PageContext.IsAdmin)
             {
-                this.PasswordResetErrorHolder.Visible = true;
-                this.btnResetPassword.Enabled = false;
-                this.rblPasswordResetFunction.Enabled = false;
+                YafBuildLink.AccessDenied();
+            }
+
+            if (!this.IsPostBack)
+            {
+                this.rblPasswordResetFunction.Items.Add(
+                    new ListItem(
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_OPTION_RESET"),
+                        "reset",
+                        true));
+                this.rblPasswordResetFunction.Items.Add(
+                    new ListItem(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_OPTION_CHANGE"), "change"));
+
+                this.rblPasswordResetFunction.SelectedIndex = 0;
+
+                this.btnResetPassword.Text =
+                    $"<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "RESET_PASS")}";
+                this.btnChangePassword.Text =
+                    $"<i class=\"fa fa-key fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
+
+                this.lblPassRequirements.Text = this.Get<ILocalization>().GetTextFormatted(
+                    "PASS_REQUIREMENT",
+                    this.Get<MembershipProvider>().MinRequiredPasswordLength,
+                    this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters);
+
+                this.PasswordValidator.ErrorMessage =
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_NEW_PASS");
+                this.RequiredFieldValidator1.ErrorMessage =
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_CONFIRM_PASS");
+                this.CompareValidator1.ErrorMessage =
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH");
+
+                if (!this.Get<MembershipProvider>().EnablePasswordReset)
+                {
+                    this.PasswordResetErrorHolder.Visible = true;
+                    this.btnResetPassword.Enabled = false;
+                    this.rblPasswordResetFunction.Enabled = false;
+                }
+            }
+            else
+            {
+                this.btnResetPassword.Text =
+                    $"<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "RESET_PASS")}";
+                this.btnChangePassword.Text =
+                    $"<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
             }
         }
-        else
+
+        /// <summary>
+        /// The toggle change pass UI enabled.
+        /// </summary>
+        /// <param name="status">
+        /// The status.
+        /// </param>
+        protected void ToggleChangePassUIEnabled(bool status)
         {
-            this.btnResetPassword.Text =
-                $"<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "RESET_PASS")}";
-            this.btnChangePassword.Text =
-                $"<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
+            this.ChangePasswordHolder.Visible = status;
+            this.btnChangePassword.Visible = status;
+            this.btnResetPassword.Visible = !status;
         }
 
-        this.BindData();
-    }
-
-      /// <summary>
-    /// The toggle change pass ui enabled.
-    /// </summary>
-    /// <param name="status">
-    /// The status.
-    /// </param>
-    protected void ToggleChangePassUIEnabled(bool status)
-    {
-      this.ChangePasswordHolder.Visible = status;
-      this.btnChangePassword.Visible = status;
-      this.btnResetPassword.Visible = !status;
-    }
-
-    /// <summary>
-    /// The btn change password_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnChangePassword_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.Page.IsValid)
-      {
-        return;
-      }
-
-      // change password...
-      try
-      {
-        var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
-
-        if (user != null)
+        /// <summary>
+        /// The btn change password_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void btnChangePassword_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-          // new password...
-          var newPass = this.txtNewPassword.Text.Trim();
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
 
-          // reset the password...
-          user.UnlockUser();
-          var tempPass = user.ResetPassword();
+            // change password...
+            try
+            {
+                var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
 
-          // change to new password...
-          user.ChangePassword(tempPass, newPass);
+                if (user == null)
+                {
+                    return;
+                }
 
-          if (this.chkEmailNotify.Checked)
-          {
-            // email a notification...
-            var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
+                // new password...
+                var newPass = this.txtNewPassword.Text.Trim();
 
-            var subject =
-              string.Format(
-                this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), this.PageContext.BoardSettings.Name);
+                // reset the password...
+                user.UnlockUser();
+                var tempPass = user.ResetPassword();
 
-            passwordRetrieval.TemplateParams["{username}"] = user.UserName;
-            passwordRetrieval.TemplateParams["{password}"] = newPass;
-            passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                // change to new password...
+                user.ChangePassword(tempPass, newPass);
 
-            passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                if (this.chkEmailNotify.Checked)
+                {
+                    // email a notification...
+                    var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-            this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"));
-          }
-          else
-          {
-            this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED"));
-          }
+                    var subject = string.Format(
+                        this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"),
+                        this.PageContext.BoardSettings.Name);
+
+                    passwordRetrieval.TemplateParams["{username}"] = user.UserName;
+                    passwordRetrieval.TemplateParams["{password}"] = newPass;
+                    passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+                    passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+
+                    passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+
+                    this.PageContext.AddLoadMessage(
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"));
+                }
+                else
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED"));
+                }
+            }
+            catch (Exception x)
+            {
+                this.PageContext.AddLoadMessage($"Exception: {x.Message}");
+            }
         }
-      }
-      catch (Exception x)
-      {
-        this.PageContext.AddLoadMessage($"Exception: {x.Message}");
-      }
-    }
 
-    /// <summary>
-    /// The btn reset password_ click.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void btnResetPassword_Click([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // reset password...
-      try
-      {
-        var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
-
-        if (user != null)
+        /// <summary>
+        /// The btn reset password_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void btnResetPassword_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-          // reset the password...
-          user.UnlockUser();
-          var newPassword = user.ResetPassword();
+            // reset password...
+            try
+            {
+                var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
 
-          // email a notification...
-          var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
+                if (user == null)
+                {
+                    return;
+                }
 
-          var subject =
-            string.Format(
-              this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"), this.PageContext.BoardSettings.Name);
+                // reset the password...
+                user.UnlockUser();
+                var newPassword = user.ResetPassword();
 
-          passwordRetrieval.TemplateParams["{username}"] = user.UserName;
-          passwordRetrieval.TemplateParams["{password}"] = newPassword;
-          passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-          passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                // email a notification...
+                var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-          passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                var subject = string.Format(
+                    this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"),
+                    this.PageContext.BoardSettings.Name);
 
-          this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_RESET"));
+                passwordRetrieval.TemplateParams["{username}"] = user.UserName;
+                passwordRetrieval.TemplateParams["{password}"] = newPassword;
+                passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+                passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+
+                passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+
+                this.PageContext.AddLoadMessage(
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_RESET"));
+            }
+            catch (Exception x)
+            {
+                this.PageContext.AddLoadMessage($"Exception: {x.Message}");
+            }
         }
-      }
-      catch (Exception x)
-      {
-        this.PageContext.AddLoadMessage($"Exception: {x.Message}");
-      }
-    }
 
-    /// <summary>
-    /// The rbl password reset function_ selected index changed.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void rblPasswordResetFunction_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.ToggleChangePassUIEnabled(this.rblPasswordResetFunction.SelectedValue == "change");
-    }
+        /// <summary>
+        /// The rbl password reset function_ selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void rblPasswordResetFunction_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.ToggleChangePassUIEnabled(this.rblPasswordResetFunction.SelectedValue == "change");
+        }
 
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
+        #endregion
     }
-
-    #endregion
-  }
 }

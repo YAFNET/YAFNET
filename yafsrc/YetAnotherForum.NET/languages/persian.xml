@@ -82,6 +82,7 @@
     <Resource tag="CP_EDITAVATAR">ویرایش تصویر پروفایل</Resource>
     <Resource tag="CP_EDITBUDDIES">ویرایش دوستان</Resource>
     <Resource tag="CP_EDITPROFILE">ویرایش پروفایل</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">نمایش پیام‌های خصوصی</Resource>
     <Resource tag="CP_PM">نمایش پیام‌های خصوصی</Resource>
     <Resource tag="CP_PROFILE">نمایش تنظیمات پروفایل</Resource>
@@ -820,6 +821,7 @@
     <Resource tag="USER_PROFILE">پروفایل کاربر</Resource>
     <Resource tag="USER_REPUTATION">اعتبار کاربر</Resource>
     <Resource tag="USER_ROLES">نقش های کاربر</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">امضا کاربر</Resource>
     <Resource tag="USER_SUSPEND">تعلیق کاربر</Resource>
     <Resource tag="USERINFO_APPROVED">تایید شده:</Resource>
@@ -2604,6 +2606,9 @@
     <Resource tag="XMPP">شناسه Jabber:</Resource>
     <Resource tag="YIM">شناسه Yahoo:</Resource>
   </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">صندوق دریافت</Resource>
     <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>
@@ -2651,6 +2656,7 @@
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">ویرایش تصویر پروفایل</Resource>
     <Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">ویرایش امضا</Resource>
     <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>

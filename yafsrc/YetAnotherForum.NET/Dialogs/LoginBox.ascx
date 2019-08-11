@@ -47,7 +47,7 @@
                                 <div class="alert alert-danger CapsLockWarning" style="display: none;" role="alert">
                                     <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />
                                 </div>
-                                <div class="form-check pl-0">
+                                <div class="custom-control custom-checkbox">
                                     <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
                                 </div>
                             </div>

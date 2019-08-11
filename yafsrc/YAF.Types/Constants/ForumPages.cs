@@ -159,6 +159,11 @@ namespace YAF.Types.Constants
         cp_editprofile,
 
         /// <summary>
+        /// The cp_editsettings.
+        /// </summary>
+        cp_editsettings,
+
+        /// <summary>
         /// The cp_editavatar.
         /// </summary>
         cp_editavatar,

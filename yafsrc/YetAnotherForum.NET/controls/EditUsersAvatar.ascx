@@ -39,43 +39,59 @@
                     <hr />
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" id="AvatarOurs">
-                    <h4>
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITAVATAR"
-                                            LocalizedTag="ouravatar" />
-                    </h4>
-                    <p>
-                        [
-                        <asp:HyperLink ID="OurAvatar" runat="server" />
-                        ]</p>
+                    <div class="form-group">
+                        <h4><asp:Label runat="server">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITAVATAR"
+                                                LocalizedTag="ouravatar" />
+                        </asp:Label>
+                        </h4>
+                        <p>
+                            [
+                            <asp:HyperLink ID="OurAvatar" runat="server" />
+                            ]</p>
+                    </div>
+                    
                     <hr />
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" id="AvatarRemoteRow">
-                    <h4>
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="CP_EDITAVATAR"
-                                            LocalizedTag="avatarremote" />
-                    </h4>
-                    <p>
-                        <asp:TextBox CssClass="form-control" ID="Avatar" runat="server" TextMode="Url" />
-                    </p>
+                    <div class="form-group">
+                        <h4><asp:Label runat="server" AssociatedControlID="Avatar">
+                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                LocalizedPage="CP_EDITAVATAR"
+                                                LocalizedTag="avatarremote" />
+                        </asp:Label>
+                        </h4>
+                        <asp:TextBox CssClass="form-control" ID="Avatar" runat="server" 
+                                     TextMode="Url" />
+                    </div>
                     <YAF:Alert runat="server" Type="info">
                         <asp:Label id="noteRemote" runat="server"></asp:Label>
                     </YAF:Alert>
-                    <p>
-                        <YAF:ThemeButton ID="UpdateRemote" Type="Primary" runat="server" OnClick="RemoteUpdate_Click" TextLocalizedTag="UPDATE" Icon="save" />
-                    </p>
+                    <div class="form-group">
+                        <YAF:ThemeButton ID="UpdateRemote" runat="server" 
+                                         Type="Primary" 
+                                         OnClick="RemoteUpdate_Click" 
+                                         TextLocalizedTag="UPDATE" 
+                                         Icon="save" />
+                    </div>
                     <hr />
                 </asp:PlaceHolder>
                 <asp:PlaceHolder runat="server" id="AvatarUploadRow">
-                    <h4>
-                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="CP_EDITAVATAR"
-                                            LocalizedTag="avatarupload" />
-                    </h4>
-                    <div class="custom-file mb-3">
-                        <input type="file" id="File" runat="server" class="custom-file-input" />
-                        <asp:Label runat="server" AssociatedControlID="File" CssClass="custom-file-label">
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITAVATAR"
+                    <div class="form-group">
+                        <h4><asp:Label runat="server" AssociatedControlID="File">
+                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                LocalizedPage="CP_EDITAVATAR"
                                                 LocalizedTag="avatarupload" />
                         </asp:Label>
+                        </h4>
+                        <div class="custom-file mb-3">
+                            <input type="file" id="File" runat="server" class="custom-file-input" />
+                            <asp:Label runat="server" AssociatedControlID="File" CssClass="custom-file-label">
+                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                    LocalizedPage="CP_EDITAVATAR"
+                                                    LocalizedTag="avatarupload" />
+                            </asp:Label>
+                        </div>
                     </div>
                     <YAF:Alert runat="server" Type="info">
                         <asp:Label id="noteLocal" runat="server"></asp:Label>

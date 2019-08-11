@@ -82,6 +82,7 @@
     <Resource tag="CP_EDITAVATAR">Editar su avatar</Resource>
     <Resource tag="CP_EDITBUDDIES">Editar amigos</Resource>
     <Resource tag="CP_EDITPROFILE">Editar su perfil</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">Ver mensajes privados</Resource>
     <Resource tag="CP_PM">Ver mensajes privados</Resource>
     <Resource tag="CP_PROFILE">Ver perfil de usuario</Resource>
@@ -822,6 +823,7 @@
     <Resource tag="USER_PROFILE">Perfil del usuario</Resource>
     <Resource tag="USER_REPUTATION">Reputación del usuario</Resource>
     <Resource tag="USER_ROLES">Roles del usurio</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">Firma del usuario</Resource>
     <Resource tag="USER_SUSPEND">Suspensión del usuario</Resource>
     <Resource tag="USERINFO_APPROVED">Está aprobado:</Resource>
@@ -2593,6 +2595,9 @@
     <Resource tag="XMPP">Tu ID de Jabber:</Resource>
     <Resource tag="YIM">Tu ID de Yahoo:</Resource>
   </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Bandeja de entrada</Resource>
     <Resource tag="MSG_DELETED">Mensaje eliminado.</Resource>
@@ -2640,6 +2645,7 @@
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">Modificar avatar</Resource>
     <Resource tag="EDIT_PROFILE">Editar perfil</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">Editar firma</Resource>
     <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>

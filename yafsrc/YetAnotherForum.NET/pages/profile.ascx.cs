@@ -404,6 +404,8 @@ namespace YAF.Pages
 
             this.BuddyList.CurrentUserID = userID;
             this.BuddyList.Mode = 1;
+
+            this.BuddyCard.Visible = this.BuddyList.Count > 0;
         }
 
         /// <summary>

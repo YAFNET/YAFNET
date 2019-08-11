@@ -82,6 +82,7 @@
     <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
     <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
     <Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
     <Resource tag="CP_PM">Views Private Messages</Resource>
     <Resource tag="CP_PROFILE">Views a user profile</Resource>
@@ -823,6 +824,7 @@
     <Resource tag="USER_PROFILE">User Profile</Resource>
     <Resource tag="USER_REPUTATION">User Reputation</Resource>
     <Resource tag="USER_ROLES">User Roles</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">User Signature</Resource>
     <Resource tag="USER_SUSPEND">User Suspend</Resource>
     <Resource tag="USERINFO_APPROVED">Is Approved:</Resource>
@@ -2587,6 +2589,9 @@
     <Resource tag="XMPP">Your Jabber ID:</Resource>
     <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Tin nhắn</Resource>
     <Resource tag="MSG_DELETED">Tin nhắn đã xóa.</Resource>
@@ -2634,6 +2639,7 @@
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">Sửa hình đại diện</Resource>
     <Resource tag="EDIT_PROFILE">Sửa lý lịch</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">Sửa chữ ký</Resource>
     <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>

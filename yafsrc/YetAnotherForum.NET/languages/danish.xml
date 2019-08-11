@@ -82,6 +82,7 @@
     <Resource tag="CP_EDITAVATAR">Rediger hans avatar</Resource>
     <Resource tag="CP_EDITBUDDIES">Rediger venner</Resource>
     <Resource tag="CP_EDITPROFILE">Rediger hans profil</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">Vis private beskeder</Resource>
     <Resource tag="CP_PM">Vis private beskeder</Resource>
     <Resource tag="CP_PROFILE">Vis brugerens profil</Resource>
@@ -823,6 +824,7 @@
     <Resource tag="USER_PROFILE">User Profile</Resource>
     <Resource tag="USER_REPUTATION">User Reputation</Resource>
     <Resource tag="USER_ROLES">User Roles</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">User Signature</Resource>
     <Resource tag="USER_SUSPEND">User Suspend</Resource>
     <Resource tag="USERINFO_APPROVED">Is Approved:</Resource>
@@ -2587,6 +2589,9 @@
     <Resource tag="XMPP">Your Jabber ID:</Resource>
     <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Indbakke</Resource>
     <Resource tag="MSG_DELETED">Beskeden blev slettet.</Resource>
@@ -2634,6 +2639,7 @@
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">Ændre avatar</Resource>
     <Resource tag="EDIT_PROFILE">Ændre profil</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">Rediger signatur</Resource>
     <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>

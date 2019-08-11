@@ -71,7 +71,8 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
+            YafBuildLink.Redirect(
+                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
         }
 
         /// <summary>
@@ -97,7 +98,8 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
+                                                              && this.PageContext.QueryIDs.ContainsKey("u"))
             {
                 this.currentUserId = this.PageContext.QueryIDs["u"].ToType<int>();
             }
@@ -157,7 +159,7 @@ namespace YAF.Controls
         protected void RemoteUpdate_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.Avatar.Text.Length > 0 && !this.Avatar.Text.StartsWith("http://")
-                && !this.Avatar.Text.StartsWith("https://"))
+                                            && !this.Avatar.Text.StartsWith("https://"))
             {
                 this.Avatar.Text = $"http://{this.Avatar.Text}";
             }
@@ -182,7 +184,7 @@ namespace YAF.Controls
         protected void UploadUpdate_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0
-                || this.File.PostedFile.ContentLength <= 0)
+                                             || this.File.PostedFile.ContentLength <= 0)
             {
                 return;
             }
@@ -217,13 +219,16 @@ namespace YAF.Controls
                     image.Save(memoryStream, image.RawFormat);
                     memoryStream.Position = 0;
 
-                    this.GetRepository<User>().SaveAvatar(this.currentUserId, null, memoryStream, this.File.PostedFile.ContentType);
+                    this.GetRepository<User>().SaveAvatar(
+                        this.currentUserId,
+                        null,
+                        memoryStream,
+                        this.File.PostedFile.ContentType);
                 }
                 else
                 {
-                    var uploadFolderPath =
-                        this.Get<HttpRequestBase>()
-                            .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                    var uploadFolderPath = this.Get<HttpRequestBase>().MapPath(
+                        string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
                     // check if Uploads folder exists
                     if (!Directory.Exists(uploadFolderPath))
@@ -289,13 +294,12 @@ namespace YAF.Controls
             }
             catch (Exception exception)
             {
-                this.Logger
-                    .Log(
-                        exception.Message,
-                        EventLogTypes.Error,
-                        this.PageContext.CurrentUserData.UserName,
-                        string.Empty,
-                        exception);
+                this.Logger.Log(
+                    exception.Message,
+                    EventLogTypes.Error,
+                    this.PageContext.CurrentUserData.UserName,
+                    string.Empty,
+                    exception);
 
                 // image is probably invalid...
                 this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "INVALID_FILE"), MessageTypes.danger);
@@ -309,7 +313,10 @@ namespace YAF.Controls
         {
             DataRow row;
 
-            using (var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.currentUserId, null))
+            using (var dt = this.GetRepository<User>().ListAsDataTable(
+                this.PageContext.PageBoardID,
+                this.currentUserId,
+                null))
             {
                 row = dt.Rows[0];
             }
@@ -319,8 +326,7 @@ namespace YAF.Controls
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;
 
-            if (row["HasAvatarImage"] != null
-                && long.Parse(row["HasAvatarImage"].ToString()) > 0)
+            if (row["HasAvatarImage"] != null && long.Parse(row["HasAvatarImage"].ToString()) > 0)
             {
                 this.AvatarImg.ImageUrl =
                     $"{YafForumInfo.ForumClientFileRoot}resource.ashx?u={this.currentUserId}&v={DateTime.Now.Ticks}";
@@ -331,12 +337,7 @@ namespace YAF.Controls
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 this.AvatarImg.ImageUrl =
-                    string.Format(
-                        "{3}resource.ashx?url={0}&width={1}&height={2}&v={4}",
-                        this.Server.UrlEncode(row["Avatar"].ToString()),this.Get<YafBoardSettings>().AvatarWidth,
-                            this.Get<YafBoardSettings>().AvatarHeight,
-                            YafForumInfo.ForumClientFileRoot,
-                            DateTime.Now.Ticks);
+                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(row["Avatar"].ToString())}&width={this.Get<YafBoardSettings>().AvatarWidth}&height={this.Get<YafBoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
 
                 this.Avatar.Text = row["Avatar"].ToString();
                 this.DeleteAvatar.Visible = true;
@@ -347,10 +348,8 @@ namespace YAF.Controls
                 var bs = Encoding.UTF8.GetBytes(this.PageContext.User.Email);
                 bs = x.ComputeHash(bs);
                 var s = new StringBuilder();
-                foreach (var b in bs)
-                {
-                    s.Append(b.ToString("x2").ToLower());
-                }
+
+                bs.ForEach(b => s.Append(b.ToString("x2").ToLower()));
 
                 var emailHash = s.ToString();
 
@@ -358,12 +357,7 @@ namespace YAF.Controls
                     $"http://www.gravatar.com/avatar/{emailHash}.jpg?r={this.Get<YafBoardSettings>().GravatarRating}";
 
                 this.AvatarImg.ImageUrl =
-                    string.Format(
-                        "{3}resource.ashx?url={0}&width={1}&height={2}&v={4}",
-                        this.Server.UrlEncode(gravatarUrl),this.Get<YafBoardSettings>().AvatarWidth,
-                            this.Get<YafBoardSettings>().AvatarHeight,
-                            YafForumInfo.ForumClientFileRoot,
-                            DateTime.Now.Ticks);
+                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(gravatarUrl)}&width={this.Get<YafBoardSettings>().AvatarWidth}&height={this.Get<YafBoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
 
                 this.NoAvatar.Text = "Gravatar Image";
                 this.NoAvatar.Visible = true;
@@ -374,9 +368,12 @@ namespace YAF.Controls
                 this.NoAvatar.Visible = true;
             }
 
-            this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarUpload;
-            this.AvatarRemoteRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarRemote;
-            this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarGallery;
+            this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
+                                           || this.Get<YafBoardSettings>().AvatarUpload;
+            this.AvatarRemoteRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
+                                           || this.Get<YafBoardSettings>().AvatarRemote;
+            this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage
+                                      || this.Get<YafBoardSettings>().AvatarGallery;
         }
 
         #endregion

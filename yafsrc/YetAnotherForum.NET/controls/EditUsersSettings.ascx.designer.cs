@@ -7,243 +7,207 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
+namespace YAF.Controls {
     
     
-    public partial class edituser {
+    public partial class EditUsersSettings {
         
         /// <summary>
-        /// PageLinks control.
+        /// ForumSettingsRows control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected global::System.Web.UI.WebControls.PlaceHolder ForumSettingsRows;
         
         /// <summary>
-        /// Header control.
+        /// LocalizedLabel23 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Header;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel23;
         
         /// <summary>
-        /// Header2 control.
+        /// HideTr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Header2;
+        protected global::System.Web.UI.WebControls.PlaceHolder HideTr;
         
         /// <summary>
-        /// EditUserTabs control.
+        /// LocalizedLabel35 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel EditUserTabs;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel35;
         
         /// <summary>
-        /// LocalizedLabel1 control.
+        /// HideMe control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::System.Web.UI.WebControls.CheckBox HideMe;
         
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// LocalizedLabel24 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel24;
         
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// TimeZones control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::System.Web.UI.WebControls.DropDownList TimeZones;
         
         /// <summary>
-        /// LocalizedLabel10 control.
+        /// UserThemeRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel10;
+        protected global::System.Web.UI.WebControls.PlaceHolder UserThemeRow;
         
         /// <summary>
-        /// LocalizedLabel4 control.
+        /// LocalizedLabel22 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel22;
         
         /// <summary>
-        /// LocalizedLabel5 control.
+        /// Theme control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::System.Web.UI.WebControls.DropDownList Theme;
         
         /// <summary>
-        /// LocalizedLabel7 control.
+        /// TrTextEditors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
+        protected global::System.Web.UI.WebControls.PlaceHolder TrTextEditors;
         
         /// <summary>
-        /// LocalizedLabel6 control.
+        /// LocalizedLabel19 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel19;
         
         /// <summary>
-        /// LocalizedLabel8 control.
+        /// ForumEditor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel8;
+        protected global::System.Web.UI.WebControls.DropDownList ForumEditor;
         
         /// <summary>
-        /// LocalizedLabel9 control.
+        /// UserLanguageRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel9;
+        protected global::System.Web.UI.WebControls.PlaceHolder UserLanguageRow;
         
         /// <summary>
-        /// QuickEditControl control.
+        /// LocalizedLabel20 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersInfo QuickEditControl;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel20;
         
         /// <summary>
-        /// GroupEditControl control.
+        /// Culture control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersGroups GroupEditControl;
+        protected global::System.Web.UI.WebControls.DropDownList Culture;
         
         /// <summary>
-        /// ProfileEditControl control.
+        /// LoginInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersProfile ProfileEditControl;
+        protected global::System.Web.UI.WebControls.PlaceHolder LoginInfo;
         
         /// <summary>
-        /// ProfileSettings control.
+        /// LocalizedLabel18 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersSettings ProfileSettings;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel18;
         
         /// <summary>
-        /// AvatarEditControl control.
+        /// LocalizedLabel17 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersAvatar AvatarEditControl;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel17;
         
         /// <summary>
-        /// SignatureEditControl control.
+        /// Email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersSignature SignatureEditControl;
+        protected global::System.Web.UI.WebControls.TextBox Email;
         
         /// <summary>
-        /// UserPointsControl control.
+        /// UpdateProfile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersPoints UserPointsControl;
+        protected global::YAF.Web.Controls.ThemeButton UpdateProfile;
         
         /// <summary>
-        /// FielsNoGuests control.
+        /// Cancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder FielsNoGuests;
-        
-        /// <summary>
-        /// ResetPasswordControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.EditUsersResetPass ResetPasswordControl;
-        
-        /// <summary>
-        /// SuspendUserControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.EditUsersSuspend SuspendUserControl;
-        
-        /// <summary>
-        /// KillEdit1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.EditUsersKill KillEdit1;
-        
-        /// <summary>
-        /// hidLastTab control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

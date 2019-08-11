@@ -82,6 +82,7 @@
     <Resource tag="CP_EDITAVATAR">Bewerkt zijn avatar</Resource>
     <Resource tag="CP_EDITBUDDIES">Bewerkt vriendenlijst</Resource>
     <Resource tag="CP_EDITPROFILE">Bewerkt zijn profiel</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">Bekijkt PMs</Resource>
     <Resource tag="CP_PM">Bekijkt PMs</Resource>
     <Resource tag="CP_PROFILE">Bekijkt een gebruikersprofiel</Resource>
@@ -821,6 +822,7 @@
     <Resource tag="USER_PROFILE">Profiel</Resource>
     <Resource tag="USER_REPUTATION">Gebruiker Reputatie</Resource>
     <Resource tag="USER_ROLES">Gebruiker Rollen</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">Handtekening</Resource>
     <Resource tag="USER_SUSPEND">Ban</Resource>
     <Resource tag="USERINFO_APPROVED">Is Goedgekeurd:</Resource>
@@ -2584,6 +2586,9 @@
     <Resource tag="XMPP">Je Jabber ID:</Resource>
     <Resource tag="YIM">Je Yahoo ID:</Resource>
   </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Postvak IN</Resource>
     <Resource tag="MSG_DELETED">Bericht is verwijderd.</Resource>
@@ -2631,6 +2636,7 @@
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">Avatar bewerken</Resource>
     <Resource tag="EDIT_PROFILE">Profiel bewerken</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">Wijzig handtekening</Resource>
     <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>

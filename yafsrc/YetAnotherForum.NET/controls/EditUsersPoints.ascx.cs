@@ -141,7 +141,8 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ltrCurrentPoints.Text = this.GetRepository<User>().GetPoints(this.CurrentUserID).ToString();
+            this.ltrCurrentPoints.Text = this.txtUserPoints.Text =
+                                             this.GetRepository<User>().GetPoints(this.CurrentUserID).ToString();
         }
 
         #endregion

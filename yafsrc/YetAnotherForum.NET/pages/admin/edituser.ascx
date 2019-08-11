@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="uc1" TagName="QuickEdit" Src="../../controls/EditUsersInfo.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="GroupsEdit" Src="../../controls/EditUsersGroups.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ProfileEdit" Src="../../controls/EditUsersProfile.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="ProfileSettings" Src="../../controls/EditUsersSettings.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SuspendEdit" Src="../../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="PointsEdit" Src="../../controls/EditUsersPoints.ascx" %>
@@ -39,6 +40,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#View3" data-toggle="tab" role="tab">
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USER_PROFILE" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View10" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="USER_SETTINGS" LocalizedPage="ADMIN_EDITUSER" />
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -84,6 +90,9 @@
                         <div class="tab-pane" id="View3" role="tabpanel">
                             <uc1:ProfileEdit ID="ProfileEditControl" runat="server" />
                         </div>
+                            <div class="tab-pane" id="View10" role="tabpanel">
+                                <uc1:ProfileSettings ID="ProfileSettings" runat="server" />
+                            </div>
                         <div class="tab-pane" id="View4" role="tabpanel">
                             <uc1:AvatarEdit runat="server" ID="AvatarEditControl" />
                         </div>

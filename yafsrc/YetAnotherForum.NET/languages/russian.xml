@@ -82,6 +82,7 @@
     <Resource tag="CP_EDITAVATAR">Редактирует свой аватар</Resource>
     <Resource tag="CP_EDITBUDDIES">Редактирует друзей</Resource>
     <Resource tag="CP_EDITPROFILE">Редактирует свой профиль</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">Отправляет личное сообщение</Resource>
     <Resource tag="CP_PM">Просматривает личные сообщения</Resource>
     <Resource tag="CP_PROFILE">Просматривает настройки профиля</Resource>
@@ -821,6 +822,7 @@
     <Resource tag="USER_PROFILE">Профиль пользователя</Resource>
     <Resource tag="USER_REPUTATION">Репутация пользователя</Resource>
     <Resource tag="USER_ROLES">Роли пользователя</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">Подпись пользователя</Resource>
     <Resource tag="USER_SUSPEND">Временно запретить</Resource>
     <Resource tag="USERINFO_APPROVED">Одобрен:</Resource>
@@ -2571,6 +2573,9 @@
     <Resource tag="XMPP">Ваш Jabber ID:</Resource>
     <Resource tag="YIM">Ваш Yahoo ID:</Resource>
   </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="MSG_DELETED">Сообщение удалено.</Resource>
@@ -2618,6 +2623,7 @@
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">Изменить аватар</Resource>
     <Resource tag="EDIT_PROFILE">Изменить профиль</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">Редактировать подпись</Resource>
     <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>

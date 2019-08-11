@@ -27,13 +27,9 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Globalization;
-    using System.Linq;
-    using System.Net.Mail;
     using System.Text.RegularExpressions;
     using System.Web;
-    using System.Web.Security;
 
     using FarsiLibrary.Utils;
 
@@ -43,7 +39,6 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -81,16 +76,6 @@ namespace YAF.Controls
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets a value indicating whether UpdateEmailFlag.
-        /// </summary>
-        protected bool UpdateEmailFlag
-        {
-            get => this.ViewState["bUpdateEmail"] != null && this.ViewState["bUpdateEmail"].ToType<bool>();
-
-            set => this.ViewState["bUpdateEmail"] = value;
-        }
 
         /// <summary>
         /// Gets the current Culture information.
@@ -135,16 +120,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Handles the TextChanged event of the Email control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void EmailTextChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.UpdateEmailFlag = true;
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
@@ -184,21 +159,12 @@ namespace YAF.Controls
                 return;
             }
 
-            this.LoginInfo.Visible = true;
-
             // Begin Modifications for enhanced profile
             this.Gender.Items.Add(this.GetText("PROFILE", "gender0"));
             this.Gender.Items.Add(this.GetText("PROFILE", "gender1"));
             this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
             // End Modifications for enhanced profile
-            this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme
-                                             || this.Get<YafBoardSettings>().AllowUserLanguage;
-
-            this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
-            this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
-            this.UserLanguageRow.Visible = this.Get<YafBoardSettings>().AllowUserLanguage;
-            this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
             this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName
                                                   && this.Get<YafBoardSettings>().AllowDisplayNameModification;
 
@@ -208,8 +174,6 @@ namespace YAF.Controls
                 this.ProfilePlaceHolder.Visible = false;
 
                 this.IMServicesPlaceHolder.Visible = false;
-
-                this.LoginInfo.Visible = false;
             }
 
             this.BindData();
@@ -300,12 +264,6 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.Google.Text.IsSet() && !ValidationHelper.IsValidURL(this.Google.Text))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_GOOGLE"), MessageTypes.warning);
-                return;
-            }
-
             string displayName = null;
 
             if (this.Get<YafBoardSettings>().EnableDisplayName
@@ -346,46 +304,6 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.UpdateEmailFlag)
-            {
-                var newEmail = this.Email.Text.Trim();
-
-                if (!ValidationHelper.IsValidEmail(newEmail))
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-                    return;
-                }
-
-                var userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
-
-                if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-                    return;
-                }
-
-                if (this.Get<YafBoardSettings>().EmailVerification)
-                {
-                    this.SendEmailVerification(newEmail);
-                }
-                else
-                {
-                    // just update the e-mail...
-                    try
-                    {
-                        UserMembershipHelper.UpdateEmail(this.currentUserId, this.Email.Text.Trim());
-                    }
-                    catch (ApplicationException)
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                            MessageTypes.warning);
-
-                        return;
-                    }
-                }
-            }
-
             if (this.Interests.Text.Trim().Length > 400)
             {
                 this.PageContext.AddLoadMessage(
@@ -406,38 +324,6 @@ namespace YAF.Controls
 
             this.UpdateUserProfile(userName);
 
-            // vzrus: We should do it as we need to write null value to db, else it will be empty.
-            // Localizer currently treats only nulls.
-            object language = null;
-            object culture = this.Culture.SelectedValue;
-            object theme = this.Theme.SelectedValue;
-            object editor = this.ForumEditor.SelectedValue;
-
-            if (this.Theme.SelectedValue.IsNotSet())
-            {
-                theme = null;
-            }
-
-            if (this.ForumEditor.SelectedValue.IsNotSet())
-            {
-                editor = null;
-            }
-
-            if (this.Culture.SelectedValue.IsNotSet())
-            {
-                culture = null;
-            }
-            else
-            {
-                foreach (var row in
-                    StaticDataHelper.Cultures()
-                        .Rows.Cast<DataRow>()
-                        .Where(row => culture.ToString() == row["CultureTag"].ToString()))
-                {
-                    language = row["CultureFile"].ToString();
-                }
-            }
-
             // save remaining settings to the DB
             this.GetRepository<User>().Save(
                 this.currentUserId,
@@ -445,25 +331,17 @@ namespace YAF.Controls
                 null,
                 displayName,
                 null,
-                this.TimeZones.SelectedValue,
-                language,
-                culture,
-                theme,
-                editor,
+                this.UserData.TimeZoneInfo.Id,
+                this.UserData.LanguageFile,
+                this.UserData.CultureUser,
+                this.UserData.ThemeFile,
+                this.UserData.TextEditor,
                 null,
                 null,
                 null,
                 false,
-                this.HideMe.Checked,
+                this.UserData.IsActiveExcluded,
                 null);
-
-            // vzrus: If it's a guest edited by an admin registry value should be changed
-            var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.currentUserId, true, null, null, false);
-
-            if (dt.HasRows() && dt.Rows[0]["IsGuest"].ToType<bool>())
-            {
-                this.GetRepository<Registry>().Save("timezone", this.TimeZones.SelectedValue, this.PageContext.PageBoardID);
-            }
 
             // clear the cache for this user...)
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
@@ -543,20 +421,6 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.TimeZones.DataSource = StaticDataHelper.TimeZones();
-
-            if (this.Get<YafBoardSettings>().AllowUserTheme)
-            {
-                this.Theme.DataSource = StaticDataHelper.Themes();
-            }
-
-            if (this.Get<YafBoardSettings>().AllowUserLanguage)
-            {
-                this.Culture.DataSource = StaticDataHelper.Cultures();
-                this.Culture.DataValueField = "CultureTag";
-                this.Culture.DataTextField = "CultureNativeName";
-            }
-
             this.Country.DataSource = StaticDataHelper.Country();
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
@@ -564,13 +428,6 @@ namespace YAF.Controls
             if (this.UserData.Profile.Country.IsSet())
             {
                 this.LookForNewRegionsBind(this.UserData.Profile.Country);
-            }
-
-            if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
-            {
-                this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
-                this.ForumEditor.DataValueField = "Value";
-                this.ForumEditor.DataTextField = "Name";
             }
 
             this.DataBind();
@@ -602,7 +459,6 @@ namespace YAF.Controls
             this.City.Text = this.UserData.Profile.City;
             this.Location.Text = this.UserData.Profile.Location;
             this.HomePage.Text = this.UserData.Profile.Homepage;
-            this.Email.Text = this.UserData.Email;
             this.Realname.Text = this.UserData.Profile.RealName;
             this.Occupation.Text = this.UserData.Profile.Occupation;
             this.Interests.Text = this.UserData.Profile.Interests;
@@ -635,123 +491,6 @@ namespace YAF.Controls
                     regionItem.Selected = true;
                 }
             }
-
-            var timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZoneInfo.Id);
-
-            if (timeZoneItem != null)
-            {
-                timeZoneItem.Selected = true;
-            }
-
-            this.HideMe.Checked = this.UserData.IsActiveExcluded
-                                  && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
-
-            if (this.Get<YafBoardSettings>().AllowUserTheme && this.Theme.Items.Count > 0)
-            {
-                // Allows to use different per-forum themes,
-                // While "Allow User Change Theme" option in hostsettings is true
-                var themeFile = this.Get<YafBoardSettings>().Theme;
-
-                if (this.UserData.ThemeFile.IsSet())
-                {
-                    themeFile = this.UserData.ThemeFile;
-                }
-
-                var themeItem = this.Theme.Items.FindByValue(themeFile);
-
-                if (themeItem != null)
-                {
-                    themeItem.Selected = true;
-                }
-                else
-                {
-                    themeItem = this.Theme.Items.FindByValue("yaf");
-
-                    if (themeItem != null)
-                    {
-                        themeItem.Selected = true;
-                    }
-                }
-            }
-
-            if (this.Get<YafBoardSettings>().AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
-            {
-                // Text editor
-                var textEditor = this.UserData.TextEditor.IsSet()
-                                        ? this.UserData.TextEditor
-                                        : this.Get<YafBoardSettings>().ForumEditor;
-
-                var editorItem = this.ForumEditor.Items.FindByValue(textEditor);
-                if (editorItem != null)
-                {
-                    editorItem.Selected = true;
-                }
-                else
-                {
-                    editorItem = this.ForumEditor.Items.FindByValue("1");
-                    editorItem.Selected = true;
-                }
-            }
-
-            if (!this.Get<YafBoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
-            {
-                return;
-            }
-
-            // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-            var foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
-
-            if (foundCultItem != null)
-            {
-                foundCultItem.Selected = true;
-            }
-
-            if (!this.Page.IsPostBack)
-            {
-                this.Realname.Focus();
-            }
-        }
-
-        /// <summary>
-        /// The send email verification.
-        /// </summary>
-        /// <param name="newEmail">
-        /// The new email.
-        /// </param>
-        private void SendEmailVerification([NotNull] string newEmail)
-        {
-            var hashinput = $"{DateTime.UtcNow}{this.Email.Text}{Security.CreatePassword(20)}";
-            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
-
-            // Create Email
-            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
-                                  {
-                                      TemplateParams =
-                                          {
-                                              ["{user}"] =
-                                              this.PageContext
-                                                  .PageUserName,
-                                              ["{link}"] =
-                                                  $"{YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
-                                              ["{newemail}"] =
-                                              this.Email.Text,
-                                              ["{key}"] = hash,
-                                              ["{forumname}"] =
-                                              this.Get<YafBoardSettings>()
-                                                  .Name,
-                                              ["{forumlink}"] =
-                                              YafForumInfo.ForumURL
-                                          }
-                                  };
-
-            // save a change email reference to the db
-            this.GetRepository<CheckEmail>().Save(this.currentUserId, hash, newEmail);
-
-            // send a change email message...
-            changeEmail.SendEmail(new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
-
-            // show a confirmation
-            this.PageContext.AddLoadMessage(string.Format(this.GetText("PROFILE", "mail_sent"), this.Email.Text));
         }
 
         /// <summary>

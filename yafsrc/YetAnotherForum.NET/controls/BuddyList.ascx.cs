@@ -60,6 +60,8 @@ namespace YAF.Controls
         /// </summary>
         public int Mode { get; set; }
 
+        public int Count { get; set; }
+
         #endregion
 
         #region Methods
@@ -243,6 +245,8 @@ namespace YAF.Controls
             }
 
             this.DataBind();
+
+            this.Count = this.rptBuddy.Items.Count;
         }
 
         /// <summary>

@@ -125,6 +125,14 @@ namespace YAF.Web.Controls
                     "dropdown-item",
                     ForumPages.cp_editprofile,
                     this.GetText("EDIT_PROFILE"));
+
+                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editsettings, this.GetText("EDIT_SETTINGS"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_editsettings,
+                    this.GetText("EDIT_SETTINGS"));
             }
 
             if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableThanksMod)

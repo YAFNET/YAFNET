@@ -82,6 +82,7 @@
     <Resource tag="CP_EDITAVATAR">Editeaza avatarul lui</Resource>
     <Resource tag="CP_EDITBUDDIES">Editeaza prieteni</Resource>
     <Resource tag="CP_EDITPROFILE">Editeaza profilul lui</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">Vezi mesaje PM</Resource>
     <Resource tag="CP_PM">Vezi mesaje PM</Resource>
     <Resource tag="CP_PROFILE">Vezi profilul utilizatorului</Resource>
@@ -823,6 +824,7 @@
     <Resource tag="USER_PROFILE">User Profile</Resource>
     <Resource tag="USER_REPUTATION">User Reputation</Resource>
     <Resource tag="USER_ROLES">User Roles</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">User Signature</Resource>
     <Resource tag="USER_SUSPEND">User Suspend</Resource>
     <Resource tag="USERINFO_APPROVED">Is Approved:</Resource>
@@ -2585,6 +2587,9 @@
     <Resource tag="XMPP">Your Jabber ID:</Resource>
     <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">Primite</Resource>
     <Resource tag="MSG_DELETED">Mesajul a fost sters.</Resource>
@@ -2632,6 +2637,7 @@
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">Modifica Avatar</Resource>
     <Resource tag="EDIT_PROFILE">Editeaza profil</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">Editeaza Signature</Resource>
     <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>

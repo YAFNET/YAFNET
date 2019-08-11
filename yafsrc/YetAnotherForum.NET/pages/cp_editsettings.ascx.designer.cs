@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
+namespace YAF.Pages {
     
     
-    public partial class BuddyList {
+    public partial class cp_editsettings {
         
         /// <summary>
         /// PageLinks control.
@@ -22,30 +22,30 @@ namespace YAF.Controls {
         protected global::YAF.Web.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// Pager control.
+        /// ProfileMenu1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager Pager;
+        protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
         
         /// <summary>
-        /// rptBuddy control.
+        /// ProfileUpdatePanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptBuddy;
+        protected global::System.Web.UI.UpdatePanel ProfileUpdatePanel;
         
         /// <summary>
-        /// Pager1 control.
+        /// ProfileSettings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager Pager1;
+        protected global::YAF.Controls.EditUsersSettings ProfileSettings;
     }
 }

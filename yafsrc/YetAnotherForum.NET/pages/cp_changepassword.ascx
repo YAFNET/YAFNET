@@ -38,13 +38,12 @@
                             <div class="card-header">
                                 <i class="fa fa-lock fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
                             </div>
-                           
-                        <asp:ChangePassword ID="ChangePassword1" runat="server">
+                            <asp:ChangePassword ID="ChangePassword1" runat="server">
         <ChangePasswordTemplate>
             <div class="card-body">
-            
-                    <div class="form-group">
-                        <asp:Label ID="CurrentPasswordLabel" runat="server" AssociatedControlID="CurrentPassword">
+                <div class="form-group">
+                        <asp:Label ID="CurrentPasswordLabel" runat="server" 
+                                   AssociatedControlID="CurrentPassword">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="OLD_PASSWORD" />
                         </asp:Label>
                         <asp:TextBox ID="CurrentPassword" runat="server" 
@@ -56,7 +55,8 @@
                                                     ToolTip="Password is required." 
                                                     ValidationGroup="ctl00$ChangePassword1">*</asp:RequiredFieldValidator>
                     </div>
-                    <div class="form-group">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
                         <asp:Label ID="NewPasswordLabel" runat="server" AssociatedControlID="NewPassword">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NEW_PASSWORD" />
                         </asp:Label>
@@ -69,8 +69,9 @@
                                                     ToolTip="New Password is required."
                                                     ValidationGroup="ctl00$ChangePassword1">*</asp:RequiredFieldValidator>
                     </div>
-                    <div class="form-group">
-                        <asp:Label ID="ConfirmNewPasswordLabel" runat="server" AssociatedControlID="ConfirmNewPassword">
+                    <div class="form-group col-md-6">
+                        <asp:Label ID="ConfirmNewPasswordLabel" runat="server" 
+                                   AssociatedControlID="ConfirmNewPassword">
                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="CONFIRM_PASSWORD" />
                         </asp:Label>
                         <asp:TextBox ID="ConfirmNewPassword" runat="server" 
@@ -82,13 +83,23 @@
                                                     ToolTip="Confirm New Password is required."
                                                     ValidationGroup="ctl00$ChangePassword1">*</asp:RequiredFieldValidator>
                     </div>
-                    <small class="form-text text-muted">
-                        <asp:CompareValidator ID="NewPasswordCompare" runat="server" ControlToCompare="NewPassword"
-                            ControlToValidate="ConfirmNewPassword" Display="Dynamic" ErrorMessage="The Confirm New Password must match the New Password entry."
-                            ValidationGroup="ctl00$ChangePassword1"></asp:CompareValidator>
-                       <asp:CompareValidator ID="NewOldPasswordCompare" ControlToValidate="NewPassword" ControlToCompare="CurrentPassword" 
-                               Type="String" Operator="NotEqual" Text="New Password must be different from the old one." ValidationGroup="ctl00$ChangePassword1" Runat="Server" /> 
-                        <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                </div>
+                <small class="form-text text-muted">
+                        <asp:CompareValidator ID="NewPasswordCompare" runat="server" 
+                                              ControlToCompare="NewPassword"
+                                              ControlToValidate="ConfirmNewPassword" 
+                                              Display="Dynamic" 
+                                              ErrorMessage="The Confirm New Password must match the New Password entry."
+                                              ValidationGroup="ctl00$ChangePassword1"></asp:CompareValidator>
+                       <asp:CompareValidator ID="NewOldPasswordCompare" 
+                                             ControlToValidate="NewPassword" 
+                                             ControlToCompare="CurrentPassword" 
+                                             Type="String" 
+                                             Operator="NotEqual" 
+                                             Text="New Password must be different from the old one." 
+                                             ValidationGroup="ctl00$ChangePassword1" Runat="Server" /> 
+                        <asp:Literal ID="FailureText" runat="server" 
+                                     EnableViewState="False"></asp:Literal>
                     </small>
             </div>
         <div class="card-footer text-center">
@@ -107,15 +118,19 @@
         </ChangePasswordTemplate>
         <SuccessTemplate>
             <div class="card-header">
-                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                    LocalizedTag="TITLE" />
             </div>
             <div class="card-body">
-                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CHANGE_SUCCESS" />
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                    LocalizedTag="CHANGE_SUCCESS" />
             </div>
         </SuccessTemplate>
     </asp:ChangePassword>
-    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True"
-        ValidationGroup="ctl00$ChangePassword1" ShowSummary="False" />
+    <asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                           ShowMessageBox="True"
+                           ValidationGroup="ctl00$ChangePassword1" 
+                           ShowSummary="False" />
                     </div>
                            
                         </div>
@@ -128,12 +143,12 @@
                     <div class="card-body">
                         <form>
                             <div class="form-group">
-                                <asp:Label runat="server" ID="Label1">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SECURITY_QUESTION_OLD" />
+                                <asp:Label runat="server" ID="Label1" AssociatedControlID="QuestionOld">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                                                        LocalizedTag="SECURITY_QUESTION_OLD" />
                                 </asp:Label>
-                                <asp:TextBox runat="server" 
-                                             ReadOnly="True" 
-                                             ID="QuestionOld" 
+                                <asp:TextBox runat="server" ID="QuestionOld" 
+                                             ReadOnly="True"
                                              CssClass="form-control">
                                 </asp:TextBox>
                             </div>
@@ -149,23 +164,25 @@
                                                                 ToolTip="Answer is required.">*</asp:RequiredFieldValidator>
                                 </small>
                             </div>
-                            <div class="form-group">
-                                <asp:Label runat="server" ID="Label3" AssociatedControlID="QuestionNew">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="SECURITY_QUESTION_NEW" />
-                                </asp:Label>
-                                <asp:TextBox ID="QuestionNew" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <asp:Label runat="server" ID="Label4" AssociatedControlID="AnswerNew">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="SECURITY_ANSWER_NEW" />
-                                </asp:Label>
-                                <asp:TextBox ID="AnswerNew" runat="server" CssClass="form-control"></asp:TextBox>
-                                <small class="form-text text-muted">
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                                                                ControlToValidate="AnswerNew"
-                                                                ErrorMessage="Answer is required." 
-                                                                ToolTip="Answer is required.">*</asp:RequiredFieldValidator>
-                                </small>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <asp:Label runat="server" ID="Label3" AssociatedControlID="QuestionNew">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="SECURITY_QUESTION_NEW" />
+                                    </asp:Label>
+                                    <asp:TextBox ID="QuestionNew" runat="server" CssClass="form-control"></asp:TextBox>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <asp:Label runat="server" ID="Label4" AssociatedControlID="AnswerNew">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="SECURITY_ANSWER_NEW" />
+                                    </asp:Label>
+                                    <asp:TextBox ID="AnswerNew" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <small class="form-text text-muted">
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                                                                    ControlToValidate="AnswerNew"
+                                                                    ErrorMessage="Answer is required." 
+                                                                    ToolTip="Answer is required.">*</asp:RequiredFieldValidator>
+                                    </small>
+                                </div>
                             </div>
                         </form>
                     </div>            

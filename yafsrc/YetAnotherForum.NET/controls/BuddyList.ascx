@@ -1,5 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.BuddyList" Codebehind="BuddyList.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -12,8 +13,7 @@
     <ItemTemplate>
         <li class="list-group-item">
             <YAF:UserLink ID="UserProfileLink" runat="server" 
-                          UserID='<%#
-    this.CurrentUserID == Convert.ToInt32(this.Eval("UserID")) ? this.Eval("FromUserID") : this.Eval("UserID") %>' />
+                          UserID='<%# this.CurrentUserID == this.Eval("UserID").ToType<int>() ? (int)this.Eval("FromUserID") : (int)this.Eval("UserID") %>' />
             <div class="btn-group" role="group">
             <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
                 <YAF:ThemeButton ID="lnkRemove" runat="server"

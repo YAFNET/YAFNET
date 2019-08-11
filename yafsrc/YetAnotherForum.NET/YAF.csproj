@@ -221,6 +221,13 @@
     <Compile Include="controls\CookieConsent.ascx.designer.cs">
       <DependentUpon>CookieConsent.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\EditUsersSettings.ascx.cs">
+      <DependentUpon>EditUsersSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\EditUsersSettings.ascx.designer.cs">
+      <DependentUpon>EditUsersSettings.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\ProfileTimeline.ascx.cs">
       <DependentUpon>ProfileTimeline.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -758,6 +765,13 @@
     </Compile>
     <Compile Include="pages\cp_editbuddies.ascx.designer.cs">
       <DependentUpon>cp_editbuddies.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_editsettings.ascx.cs">
+      <DependentUpon>cp_editsettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_editsettings.ascx.designer.cs">
+      <DependentUpon>cp_editsettings.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\cp_editprofile.ascx.designer.cs">
       <DependentUpon>cp_editprofile.ascx</DependentUpon>
@@ -1763,6 +1777,7 @@
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\CookieConsent.ascx" />
+    <Content Include="controls\EditUsersSettings.ascx" />
     <Content Include="controls\ProfileTimeline.ascx" />
     <Content Include="Dialogs\UserMedalEdit.ascx" />
     <Content Include="Dialogs\GroupMedalEdit.ascx" />
@@ -1990,6 +2005,7 @@
     <Content Include="pages\cp_editalbumimages.ascx" />
     <Content Include="pages\cp_editavatar.ascx" />
     <Content Include="pages\cp_editbuddies.ascx" />
+    <Content Include="pages\cp_editsettings.ascx" />
     <Content Include="pages\cp_editprofile.ascx" />
     <Content Include="pages\cp_message.ascx" />
     <Content Include="pages\cp_pm.ascx" />
@@ -3359,7 +3375,7 @@ del Lucene.Net.Contrib.Memory.pdb</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

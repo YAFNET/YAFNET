@@ -82,6 +82,7 @@
   <Resource tag="CP_EDITAVATAR">Edit the avatar</Resource>
   <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
   <Resource tag="CP_EDITPROFILE">Edit the profile</Resource>
+   <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
   <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
   <Resource tag="CP_PM">Views Private Messages</Resource>
   <Resource tag="CP_PROFILE">Views profile settings</Resource>
@@ -843,6 +844,7 @@
   <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
   <Resource tag="USER_PASS">User Password</Resource>
   <Resource tag="USER_PROFILE">User Profile</Resource>
+   <Resource tag="USER_SETTINGS">User Settings</Resource>
   <Resource tag="USER_REPUTATION">User Reputation</Resource>
   <Resource tag="USER_ROLES">User Roles</Resource>
   <Resource tag="USER_SIG">User Signature</Resource>
@@ -2570,6 +2572,9 @@
   <Resource tag="XMPP">Your Jabber ID:</Resource>
   <Resource tag="YIM">Your Yahoo ID:</Resource>
  </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
  <page name="CP_MESSAGE">
   <Resource tag="INBOX">Inbox</Resource>
   <Resource tag="MSG_DELETED">Message was deleted.</Resource>
@@ -2625,6 +2630,7 @@
   <Resource tag="CONTROL_PANEL">Control Panel</Resource>
   <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
   <Resource tag="EDIT_PROFILE">Edit Profile</Resource>
+   <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
   <Resource tag="EDIT_SIGNATURE">Edit Signature</Resource>
   <Resource tag="GROUPS">You are a member of these groups:</Resource>
   <Resource tag="INBOX">Inbox</Resource>
