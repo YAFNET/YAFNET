@@ -58,7 +58,7 @@ namespace YAF.Web.Controls
             htmlDropDown.Append(@"<div class=""dropdown d-lg-none mb-3"">");
 
             htmlDropDown.Append(
-                @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+                @"<button class=""btn btn-secondary dropdown-toggle w-100 text-left mb-3"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
             htmlDropDown.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
             htmlDropDown.Append(@"</button>");
 
