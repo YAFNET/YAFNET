@@ -179,8 +179,7 @@ namespace YAF.Web.Controls
                     this.GetText("EDIT_BUDDIES"));
             }
 
-            if (!this.PageContext.IsGuest
-                && (this.Get<YafBoardSettings>().EnableAlbum || this.PageContext.NumAlbums > 0))
+            if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableAlbum)
             {
                 this.RenderMenuItem(
                     html,
@@ -261,9 +260,9 @@ namespace YAF.Web.Controls
                     this.GetText("CHANGE_PASSWORD"));
             }
 
-            htmlDropDown.Append(@"</div></div>");
+            htmlDropDown.Append("</div></div>");
 
-            html.Append(@"</div>");
+            html.Append("</div>");
 
             writer.Write(html.ToString());
             writer.Write(htmlDropDown.ToString());
