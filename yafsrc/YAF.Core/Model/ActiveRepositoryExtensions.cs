@@ -96,7 +96,12 @@ namespace YAF.Core.Model
         /// The <see cref="DataTable"/> . 
         /// </returns>
         public static DataTable List(
-            this IRepository<Active> repository, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
+            this IRepository<Active> repository,
+            bool guests,
+            bool showCrawlers,
+            int activeTime,
+            bool styledNicks,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -108,7 +113,7 @@ namespace YAF.Core.Model
                 StyledNicks: styledNicks,
                 UTCTIMESTAMP: DateTime.UtcNow);
         }
-        
+
         /// <summary>
         /// The list typed.
         /// </summary>
@@ -170,16 +175,22 @@ namespace YAF.Core.Model
         /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable ListUserAsDataTable(
-            this IRepository<Active> repository, int userID, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
+            this IRepository<Active> repository,
+            int userID,
+            bool guests,
+            bool showCrawlers,
+            int activeTime,
+            bool styledNicks,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.active_list_user(
-                BoardID: boardId ?? repository.BoardID, 
-                UserID: userID, 
-                Guests: guests, 
-                ShowCrawlers: showCrawlers, 
-                ActiveTime: activeTime, 
+                BoardID: boardId ?? repository.BoardID,
+                UserID: userID,
+                Guests: guests,
+                ShowCrawlers: showCrawlers,
+                ActiveTime: activeTime,
                 StyledNicks: styledNicks);
         }
 
@@ -199,7 +210,8 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return ((DataTable)repository.DbFunction.GetData.active_stats(BoardID: boardId ?? repository.BoardID)).Rows[0];
+            return ((DataTable)repository.DbFunction.GetData.active_stats(BoardID: boardId ?? repository.BoardID))
+                .Rows[0];
         }
 
         /// <summary>
@@ -214,7 +226,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.active_updatemaxstats(BoardID: boardId ?? repository.BoardID, UTCTIMESTAMP: DateTime.UtcNow);
+            return repository.DbFunction.GetData.active_updatemaxstats(
+                BoardID: boardId ?? repository.BoardID,
+                UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         #endregion

@@ -73,7 +73,7 @@ namespace YAF.Core.Model
         /// The album Id.
         /// </param>
         /// <returns>
-        /// a Datatable containing the image(s).
+        /// a Data table containing the image(s).
         /// </returns>
         public static List<UserAlbumImage> List(
             [NotNull] this IRepository<UserAlbumImage> repository,
@@ -92,11 +92,11 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="albumId">
-        /// The album Id.
+        /// <param name="imageId">
+        /// The image Id.
         /// </param>
         /// <returns>
-        /// a Datatable containing the image(s).
+        /// a Data table containing the image(s).
         /// </returns>
         public static List<Tuple<UserAlbumImage, UserAlbum>> ListImage(
             [NotNull] this IRepository<UserAlbumImage> repository,
@@ -166,9 +166,21 @@ namespace YAF.Core.Model
         /// <param name="imageId">The image identifier.</param>
         public static void IncrementDownload(this IRepository<UserAlbumImage> repository, [NotNull] int imageId)
         {
-            repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, where: u => u.ID == imageId);
+            repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, u => u.ID == imageId);
         }
 
+        /// <summary>
+        /// The update caption.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="imageId">
+        /// The image id.
+        /// </param>
+        /// <param name="caption">
+        /// The caption.
+        /// </param>
         public static void UpdateCaption(
             this IRepository<UserAlbumImage> repository,
             [NotNull] int imageId,
@@ -177,16 +189,18 @@ namespace YAF.Core.Model
             repository.UpdateOnly(
                 () => new UserAlbumImage { Caption = caption },
                 f => f.ID == imageId);
-
         }
 
         /// <summary>
         /// Inserts/Saves a user image.
         /// </summary>
-        /// <param name="imageID">
-        /// the image id of an existing image.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="albumID">
+        /// <param name="imageId">
+        /// The image Id.
+        /// </param>
+        /// <param name="albumId">
         /// the album id for adding a new image.
         /// </param>
         /// <param name="caption">
@@ -204,7 +218,7 @@ namespace YAF.Core.Model
         public static void Save(
             this IRepository<UserAlbumImage> repository,
             [NotNull] int? imageId,
-            [NotNull] int albumID,
+            [NotNull] int albumId,
             [NotNull] string caption,
             [NotNull] string fileName,
             [NotNull] int bytes,
@@ -214,14 +228,14 @@ namespace YAF.Core.Model
                 new UserAlbumImage
                     {
                         ID = imageId ?? 0,
-                        AlbumID = albumID,
+                        AlbumID = albumId,
                         Caption = caption,
                         Bytes = bytes,
                         ContentType = contentType,
                         Uploaded = DateTime.UtcNow,
+                        FileName = fileName,
                         Downloads = 0
                     });
-
         }
 
         #endregion
