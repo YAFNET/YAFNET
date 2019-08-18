@@ -50,8 +50,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// </returns>
         public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
         {
-            string responseText;
-            return this.IsBot(ipAddress, emailAddress, userName, out responseText);
+            return this.IsBot(ipAddress, emailAddress, userName, out _);
         }
 
         /// <summary>

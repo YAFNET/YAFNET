@@ -1,4 +1,4 @@
-/* Yet Another Foru.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -48,8 +48,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// </returns>
         public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
         {
-            string responseText;
-            return this.IsBot(ipAddress, emailAddress, userName, out responseText);
+            return this.IsBot(ipAddress, emailAddress, userName, out _);
         }
 
         /// <summary>
@@ -70,16 +69,19 @@ namespace YAF.Core.Services.CheckForSpam
         {
             try
             {
+                const string BotScoutUrl = "http://www.botscout.com/test/?multi";
+
                 var url =
-                    $"http://www.botscout.com/test/?multi{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey.IsSet() ? $"&key={YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey}" : string.Empty)}";
+                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey.IsSet() ? $"&key={YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey}" : string.Empty)}";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
                 var response = (HttpWebResponse)webRequest.GetResponse();
 
-                var streamReader = new StreamReader(response.GetResponseStream());
-
-                responseText = streamReader.ReadToEnd();
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    responseText = streamReader.ReadToEnd();
+                }
 
                 if (!responseText.StartsWith("Y|"))
                 {
