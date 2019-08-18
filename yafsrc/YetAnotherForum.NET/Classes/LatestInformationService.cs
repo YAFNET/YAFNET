@@ -48,17 +48,16 @@ namespace YAF.Classes
         /// <returns>Returns the LatestVersionInformation</returns>
         public LatestVersionInformation GetLatestVersionInformation()
         {
-            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is LatestVersionInformation latestInfo)
+            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is LatestVersionInformation
+                    latestInfo)
             {
                 return latestInfo;
             }
 
             try
             {
-                using (var reg = new RegisterV2())
+                using (var reg = new RegisterV2 { Timeout = 30000 })
                 {
-                    reg.Timeout = 30000;
-
                     // load the latest info -- but only provide the current version information and the user's two-letter language information. Nothing trackable.))
                     latestInfo = reg.LatestInfo(YafForumInfo.AppVersionCode, "US");
 
@@ -77,7 +76,7 @@ namespace YAF.Classes
             catch (Exception)
             {
 #endif
-            return null;
+                return null;
             }
 
             return latestInfo;

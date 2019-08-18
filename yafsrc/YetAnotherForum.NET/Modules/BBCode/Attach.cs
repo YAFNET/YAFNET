@@ -102,7 +102,7 @@ namespace YAF.Modules.BBCode
                     // user has rights to download, show him image
                     writer.Write(
                         format: !this.Get<YafBoardSettings>().EnableImageAttachmentResize
-                            ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""UserPostedImage attachedImage"" />"
+                            ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" />"
                             : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery><img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" /></a>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,

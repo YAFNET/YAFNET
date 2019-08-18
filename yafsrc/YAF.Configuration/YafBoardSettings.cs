@@ -1145,7 +1145,7 @@ namespace YAF.Configuration
         /// </summary>
         public int ImageAttachmentResizeWidth
         {
-            get => this._reg.GetValue("ImageAttachmentResizeWidth", 500);
+            get => this._reg.GetValue("ImageAttachmentResizeWidth", 2000);
 
             set => this._reg.SetValue("ImageAttachmentResizeWidth", value);
         }
@@ -1155,7 +1155,7 @@ namespace YAF.Configuration
         /// </summary>
         public int ImageAttachmentResizeHeight
         {
-            get => this._reg.GetValue("ImageAttachmentResizeHeight", 500);
+            get => this._reg.GetValue("ImageAttachmentResizeHeight", 2000);
 
             set => this._reg.SetValue("ImageAttachmentResizeHeight", value);
         }
