@@ -102,9 +102,15 @@ span.form-check > label {
     }
 }
 
-// Scrollable Mobile Dropdowns
+// -- Scrollable Mobile Dropdowns
 .scrollable-dropdown {
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
+}
+
+// -- user posted images
+.img-user-posted {
+    max-height: 200px;
+    max-width: 200px;
 }
