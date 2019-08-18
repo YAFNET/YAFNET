@@ -24,12 +24,12 @@ jQuery(document).ready(function () {
 	});
     // Cookie alert
     if (!getCookie("YAF-AcceptCookies")) {
-        jQuery(".cookiealert").addClass("show");
+        $(".cookiealert").addClass("show");
     }
 
     $(".acceptcookies").click(function () {
         setCookie("YAF-AcceptCookies", true, 180);
-        jQuery(".cookiealert").removeClass("show");
+        $(".cookiealert").removeClass("show");
     });
 
     // Numeric Spinner Inputs
@@ -62,12 +62,22 @@ jQuery(document).ready(function () {
     jQuery('[data-toggle="tooltip"]').tooltip();
 
     // Convert user posted image to modal images
-    jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage, .previewPostContent .UserPostedImage").each(function () {
+    jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
+        var messageId = image.parents(".selectionQuoteable")[0].id;
+
         if (!image.parents("a").length) {
-            image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery />');
+            image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
         }
+    });
+
+    jQuery(".attachedImage").each(function () {
+        var imageLink = jQuery(this);
+
+        var messageId = imageLink.parents(".selectionQuoteable")[0].id;
+
+        imageLink.attr("data-gallery", "#MessageID" + messageId);
     });
 
     // Show caps lock info on password fields

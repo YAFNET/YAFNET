@@ -227,10 +227,7 @@ namespace YAF.Core.Services
         /// <param name="context">The context.</param>
         /// <param name="localizationFile">The localization file.</param>
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-        public void GetAlbumImagePreview(
-            [NotNull] HttpContext context,
-            string localizationFile,
-            bool previewCropped)
+        public void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
             var eTag =
                 $@"""{context.Request.QueryString.GetFirstOrDefault("imgprv")}{localizationFile.GetHashCode()}""";
@@ -247,12 +244,10 @@ namespace YAF.Core.Services
 
                     var sUpDir = YafBoardFolders.Current.Uploads;
 
-                    var oldFileName =
-                        context.Server.MapPath(
-                            $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}");
-                    var newFileName =
-                        context.Server.MapPath(
-                            $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}.yafalbum");
+                    var oldFileName = context.Server.MapPath(
+                        $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}");
+                    var newFileName = context.Server.MapPath(
+                        $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}.yafalbum");
 
                     // use the new fileName (with extension) if it exists...
                     var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
@@ -295,12 +290,11 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>()
-                    .Log(
-                        YafContext.Current.PageUserID,
-                        this,
-                        $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
-                        EventLogTypes.Information);
+                this.Get<ILogger>().Log(
+                    YafContext.Current.PageUserID,
+                    this,
+                    $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
+                    EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -312,10 +306,7 @@ namespace YAF.Core.Services
         /// <param name="context">The context.</param>
         /// <param name="localizationFile">The localization file.</param>
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-        public void GetAlbumCover(
-            [NotNull] HttpContext context,
-            string localizationFile,
-            bool previewCropped)
+        public void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
             var eTag = $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
 
@@ -326,8 +317,7 @@ namespace YAF.Core.Services
                 var data = new MemoryStream();
                 if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
                 {
-                    fileName =
-                        context.Server.MapPath($"{YafForumInfo.ForumClientFileRoot}/images/{"noCover.png"}");
+                    fileName = context.Server.MapPath($"{YafForumInfo.ForumClientFileRoot}/images/{"noCover.png"}");
                 }
                 else
                 {
@@ -340,12 +330,10 @@ namespace YAF.Core.Services
                         var row = dt.FirstOrDefault();
                         var sUpDir = YafBoardFolders.Current.Uploads;
 
-                        var oldFileName =
-                            context.Server.MapPath(
-                                $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}");
-                        var newFileName =
-                            context.Server.MapPath(
-                                $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}.yafalbum");
+                        var oldFileName = context.Server.MapPath(
+                            $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}");
+                        var newFileName = context.Server.MapPath(
+                            $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}.yafalbum");
 
                         // use the new fileName (with extension) if it exists...
                         fileName = File.Exists(newFileName) ? newFileName : oldFileName;
@@ -362,8 +350,8 @@ namespace YAF.Core.Services
 
                 // reset position...
                 data.Position = 0;
-                var imagesNumber =
-                    this.GetRepository<UserAlbumImage>().CountAlbumImages(context.Request.QueryString.GetFirstOrDefaultAs<int>("album"));
+                var imagesNumber = this.GetRepository<UserAlbumImage>()
+                    .CountAlbumImages(context.Request.QueryString.GetFirstOrDefaultAs<int>("album"));
                 var ms = GetAlbumOrAttachmentImageResized(
                     data,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
@@ -415,12 +403,10 @@ namespace YAF.Core.Services
 
                     var sUpDir = YafBoardFolders.Current.Uploads;
 
-                    var oldFileName =
-                        context.Server.MapPath(
-                            $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}");
-                    var newFileName =
-                        context.Server.MapPath(
-                            $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}.yafalbum");
+                    var oldFileName = context.Server.MapPath(
+                        $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}");
+                    var newFileName = context.Server.MapPath(
+                        $"{sUpDir}/{row.Item2.UserID}.{row.Item1.AlbumID}.{row.Item1.FileName}.yafalbum");
 
                     // use the new fileName (with extension) if it exists...
                     var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
@@ -456,12 +442,11 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>()
-                   .Log(
-                       YafContext.Current.PageUserID,
-                       this,
-                       $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
-                       EventLogTypes.Information);
+                this.Get<ILogger>().Log(
+                    YafContext.Current.PageUserID,
+                    this,
+                    $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
+                    EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -474,12 +459,9 @@ namespace YAF.Core.Services
         /// <param name="context">The context.</param>
         /// <param name="localizationFile">The localization file.</param>
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-        public void GetResponseImagePreview(
-            [NotNull] HttpContext context,
-            string localizationFile,
-            bool previewCropped)
+        public void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
-            var eTag = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
+            var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
             // defaults
             const int PreviewMaxWidth = 200;
@@ -488,9 +470,8 @@ namespace YAF.Core.Services
             try
             {
                 // AttachmentID
-                var attachment =
-                    this.GetRepository<Attachment>()
-                        .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
+                var attachment = this.GetRepository<Attachment>()
+                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
 
                 var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
@@ -511,13 +492,11 @@ namespace YAF.Core.Services
                 {
                     var uploadFolder = YafBoardFolders.Current.Uploads;
 
-                    var oldFileName =
-                         context.Server.MapPath(
-                             $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
+                    var oldFileName = context.Server.MapPath(
+                        $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
 
-                    var newFileName =
-                        context.Server.MapPath(
-                            $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
+                    var newFileName = context.Server.MapPath(
+                        $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
                     var fileName = oldFileName;
 
@@ -527,8 +506,7 @@ namespace YAF.Core.Services
                     }
                     else
                     {
-                        oldFileName =
-                        context.Server.MapPath(
+                        oldFileName = context.Server.MapPath(
                             $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload");
 
                         // use the new fileName (with extension) if it exists...
@@ -577,19 +555,18 @@ namespace YAF.Core.Services
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
-                context.Response.Cache.SetETag(eTag);
+                context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
                 ms.Dispose();
             }
             catch (Exception x)
             {
-                this.Get<ILogger>()
-                    .Log(
-                        YafContext.Current.PageUserID,
-                        this,
-                        $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
-                        EventLogTypes.Information);
+                this.Get<ILogger>().Log(
+                    YafContext.Current.PageUserID,
+                    this,
+                    $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
+                    EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -641,14 +618,13 @@ namespace YAF.Core.Services
 
                     var ratio = Math.Min(xRatio, yRatio);
 
-                    newImgSize =
-                        new Size(
-                            Math.Min(
-                                newImgSize.Width,
-                                Math.Round(src.Width * ratio, MidpointRounding.AwayFromZero).ToType<int>()),
-                            Math.Min(
-                                newImgSize.Height,
-                                Math.Round(src.Height * ratio, MidpointRounding.AwayFromZero).ToType<int>()));
+                    newImgSize = new Size(
+                        Math.Min(
+                            newImgSize.Width,
+                            Math.Round(src.Width * ratio, MidpointRounding.AwayFromZero).ToType<int>()),
+                        Math.Min(
+                            newImgSize.Height,
+                            Math.Round(src.Height * ratio, MidpointRounding.AwayFromZero).ToType<int>()));
 
                     newImgSize.Width = newImgSize.Width - PixelPadding;
                     newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
@@ -676,14 +652,16 @@ namespace YAF.Core.Services
 
                 var heightToSmallFix = newImgSize.Height <= BottomSize + PixelPadding;
 
-                using (
-                    var dst = new Bitmap(
-                        newImgSize.Width + PixelPadding,
-                        newImgSize.Height + BottomSize + PixelPadding,
-                        PixelFormat.Format24bppRgb))
+                using (var dst = new Bitmap(
+                    newImgSize.Width + PixelPadding,
+                    newImgSize.Height + BottomSize + PixelPadding,
+                    PixelFormat.Format24bppRgb))
                 {
                     var rSrcImg = new Rectangle(
-                        0, 0, src.Width, src.Height + (heightToSmallFix ? BottomSize + PixelPadding : 0));
+                        0,
+                        0,
+                        src.Width,
+                        src.Height + (heightToSmallFix ? BottomSize + PixelPadding : 0));
 
                     if (previewCropped)
                     {
@@ -713,10 +691,10 @@ namespace YAF.Core.Services
                             using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
                             {
                                 var sf = new StringFormat
-                                {
-                                    Alignment = StringAlignment.Near,
-                                    LineAlignment = StringAlignment.Center
-                                };
+                                             {
+                                                 Alignment = StringAlignment.Near,
+                                                 LineAlignment = StringAlignment.Center
+                                             };
 
                                 g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt1, sf);
 
@@ -741,7 +719,5 @@ namespace YAF.Core.Services
         }
 
         #endregion
-
-
     }
 }

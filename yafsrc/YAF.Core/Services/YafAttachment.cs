@@ -43,7 +43,7 @@ namespace YAF.Core.Services
     #endregion
 
     /// <summary>
-    /// The yaf attachment.
+    /// The YAF attachment Handler.
     /// </summary>
     public class YafAttachment : IAttachment, IHaveServiceLocator
     {
@@ -96,7 +96,6 @@ namespace YAF.Core.Services
                 }
 
                 byte[] data;
-
 
                 this.GetRepository<Attachment>()
                     .IncrementDownloadCounter(attachment.ID);
@@ -174,13 +173,12 @@ namespace YAF.Core.Services
         {
             try
             {
-                var eTag = $@"""{context.Request.QueryString.GetFirstOrDefault("i")}""";
+                var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("i")}""";
 
                 // AttachmentID
                 var attachment =
                     this.GetRepository<Attachment>()
                         .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
-
 
                 if (context.Request.QueryString.GetFirstOrDefault("editor") == null)
                 {
@@ -222,7 +220,6 @@ namespace YAF.Core.Services
                     if (File.Exists(oldFileName))
                     {
                         fileName = oldFileName;
-
                     }
                     else
                     {
@@ -247,7 +244,7 @@ namespace YAF.Core.Services
 
                 context.Response.ContentType = attachment.ContentType;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetETag(eTag);
+                context.Response.Cache.SetETag(etag);
                 context.Response.OutputStream.Write(data, 0, data.Length);
             }
             catch (Exception x)

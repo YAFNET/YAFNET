@@ -114,117 +114,123 @@ namespace YAF.Web.Controls
             {
                 var firstItem = true;
 
-                foreach (var attachment in attachments)
-                {
-                    var filename = attachment.FileName.ToLower();
-                    var showImage = false;
-
-                    // verify it's not too large to display
-                    // Ederon : 02/17/2009 - made it board setting
-                    if (attachment.Bytes.ToType<int>() <= settings.PictureAttachmentDisplayTreshold)
-                    {
-                        // is it an image file?
-                        showImage = filename.IsImageName();
-                    }
-
-                    if (showImage && tmpDisplaySort == 1)
-                    {
-                        if (firstItem)
+                attachments.ForEach(
+                    attachment =>
                         {
-                            writer.Write(@"<div class=""imgtitle"">");
+                            var filename = attachment.FileName.ToLower();
+                            var showImage = false;
 
-                            writer.Write(
-                                this.GetText("IMAGE_ATTACHMENT_TEXT"),
-                                this.HtmlEncode(Convert.ToString(this.UserName)));
-
-                            writer.Write("</div>");
-
-                            firstItem = false;
-                        }
-
-                        // Ederon : download rights
-                        if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
-                        {
-                            // user has rights to download, show him image
-                            if (!settings.EnableImageAttachmentResize)
+                            // verify it's not too large to display
+                            // Ederon : 02/17/2009 - made it board setting
+                            if (attachment.Bytes.ToType<int>() <= settings.PictureAttachmentDisplayTreshold)
                             {
-                                writer.Write(
-                                    @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>",
-                                    YafForumInfo.ForumClientFileRoot,
-                                    attachment.ID,
-                                    this.HtmlEncode(attachment.FileName),
-                                    settings.BoardID);
+                                // is it an image file?
+                                showImage = filename.IsImageName();
                             }
-                            else
+
+                            if (showImage && tmpDisplaySort == 1)
                             {
-                                var attachFilesText =
-                                    $"{string.Format(this.GetText("IMAGE_ATTACHMENT_TEXT"), this.HtmlEncode(Convert.ToString(this.UserName)))} {this.HtmlEncode(attachment.FileName)}";
+                                if (firstItem)
+                                {
+                                    writer.Write(@"<div class=""imgtitle"">");
 
-                                // TommyB: Start MOD: Preview Images
-                                writer.Write(
-                                    @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}&b={4}"" title=""{2}"" title=""{2}"" data-gallery><img src=""{0}resource.ashx?p={1}&b={4}"" alt=""{3}"" title=""{2}"" /></a></div>",
-                                    YafForumInfo.ForumClientFileRoot,
-                                    attachment.ID,
-                                    attachFilesText,
-                                    this.HtmlEncode(attachment.FileName),
-                                    settings.BoardID);
+                                    writer.Write(
+                                        this.GetText("IMAGE_ATTACHMENT_TEXT"),
+                                        this.HtmlEncode(Convert.ToString(this.UserName)));
 
-                                // TommyB: End MOD: Preview Images
+                                    writer.Write("</div>");
+
+                                    firstItem = false;
+                                }
+
+                                // Ederon : download rights
+                                if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
+                                {
+                                    // user has rights to download, show him image
+                                    if (!settings.EnableImageAttachmentResize)
+                                    {
+                                        writer.Write(
+                                            @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>",
+                                            YafForumInfo.ForumClientFileRoot,
+                                            attachment.ID,
+                                            this.HtmlEncode(attachment.FileName),
+                                            settings.BoardID);
+                                    }
+                                    else
+                                    {
+                                        var attachFilesText =
+                                            $"{string.Format(this.GetText("IMAGE_ATTACHMENT_TEXT"), this.HtmlEncode(Convert.ToString(this.UserName)))} {this.HtmlEncode(attachment.FileName)}";
+
+                                        // TommyB: Start MOD: Preview Images
+                                        writer.Write(
+                                            @"<div class=""attachedimg"" style=""display: inline;"">
+                                                  <a href=""{0}resource.ashx?i={1}&b={4}"" title=""{2}"" title=""{2}"" data-gallery>
+                                                      <img src=""{0}resource.ashx?p={1}&b={4}"" alt=""{3}"" title=""{2}"" />
+                                                  </a>
+                                              </div>",
+                                            YafForumInfo.ForumClientFileRoot,
+                                            attachment.ID,
+                                            attachFilesText,
+                                            this.HtmlEncode(attachment.FileName),
+                                            settings.BoardID);
+
+                                        // TommyB: End MOD: Preview Images
+                                    }
+                                }
+                                else
+                                {
+                                    var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
+
+                                    // user doesn't have rights to download, don't show the image
+                                    writer.Write(@"<div class=""attachedfile"">");
+
+                                    writer.Write(
+                                        @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
+                                        fileIcon,
+                                        attachment.FileName,
+                                        string.Format(stats, kb, attachment.Downloads));
+
+                                    writer.Write(@"</div>");
+                                }
                             }
-                        }
-                        else
-                        {
-                            var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
+                            else if (!showImage && tmpDisplaySort == 0)
+                            {
+                                if (firstItem)
+                                {
+                                    writer.Write(@"<div class=""filetitle"">{0}</div>", this.GetText("ATTACHMENTS"));
+                                    firstItem = false;
+                                }
 
-                            // user doesn't have rights to download, don't show the image
-                            writer.Write(@"<div class=""attachedfile"">");
+                                // regular file attachment
+                                var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
 
-                            writer.Write(
-                                @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
-                                fileIcon,
-                                attachment.FileName,
-                                string.Format(stats, kb, attachment.Downloads));
+                                writer.Write(@"<div class=""attachedfile"">");
 
-                            writer.Write(@"</div>");
-                        }
-                    }
-                    else if (!showImage && tmpDisplaySort == 0)
-                    {
-                        if (firstItem)
-                        {
-                            writer.Write(@"<div class=""filetitle"">{0}</div>", this.GetText("ATTACHMENTS"));
-                            firstItem = false;
-                        }
+                                // Ederon : download rights
+                                if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
+                                {
+                                    writer.Write(
+                                        @"{0} <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> 
+                                              <span class=""attachmentinfo"">{4}</span>",
+                                        fileIcon,
+                                        YafForumInfo.ForumClientFileRoot,
+                                        attachment.ID,
+                                        attachment.FileName,
+                                        string.Format(stats, kb, attachment.Downloads),
+                                        settings.BoardID);
+                                }
+                                else
+                                {
+                                    writer.Write(
+                                        @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
+                                        fileIcon,
+                                        attachment.FileName,
+                                        string.Format(stats, kb, attachment.Downloads));
+                                }
 
-                        // regular file attachment
-                        var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
-
-                        writer.Write(@"<div class=""attachedfile"">");
-
-                        // Ederon : download rights
-                        if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
-                        {
-                            writer.Write(
-                                @"{0} <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
-                                fileIcon,
-                                YafForumInfo.ForumClientFileRoot,
-                                attachment.ID,
-                                attachment.FileName,
-                                string.Format(stats, kb, attachment.Downloads),
-                                settings.BoardID);
-                        }
-                        else
-                        {
-                            writer.Write(
-                                @"{0} {1} <span class=""attachmentinfo"">{2}</span>",
-                                fileIcon,
-                                attachment.FileName,
-                                string.Format(stats, kb, attachment.Downloads));
-                        }
-
-                        writer.Write(@"</div>");
-                    }
-                }
+                                writer.Write(@"</div>");
+                            }
+                        });
 
                 // now show images
                 tmpDisplaySort++;

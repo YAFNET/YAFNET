@@ -34121,78 +34121,73 @@ S2.define('jquery.select2',[
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
-/* global define, window, document */
+/* global define */
 
-;(function (factory) {
-  'use strict';
+; (function (factory) {
+    'use strict'
     if (typeof define === 'function' && define.amd) {
-    define([
-      'jquery',
-      './blueimp-gallery'
-    ], factory);
+        define(['jquery', './blueimp-gallery'], factory)
     } else {
-    factory(
-      window.jQuery,
-      window.blueimp.Gallery
-    );
+        factory(window.jQuery, window.blueimp.Gallery)
     }
-}(function ($, Gallery) {
-  'use strict'; // Global click handler to open links with data-gallery attribute
-  // in the Gallery lightbox:
-  $(document).on('click', '[data-gallery]', function (event) {
-    // Get the container id from the data-gallery attribute:
-    var id = $(this).data('gallery');
-      var widget = $(id);
-      var container = (widget.length && widget) ||
-          $(Gallery.prototype.options.container);
-      var callbacks = {
-      onopen: function () {
-        container
-          .data('gallery', this)
-          .trigger('open');
-      },
-      onopened: function () {
-        container.trigger('opened');
-      },
-      onslide: function () {
-        container.trigger('slide', arguments);
-      },
-      onslideend: function () {
-        container.trigger('slideend', arguments);
-      },
-      onslidecomplete: function () {
-        container.trigger('slidecomplete', arguments);
-      },
-      onclose: function () {
-        container.trigger('close');
-      },
-      onclosed: function () {
-        container
-          .trigger('closed')
-          .removeData('gallery');
-      }
-    };
-      var options = $.extend(
-      // Retrieve custom options from data-attributes
-      // on the Gallery widget:
-      container.data(),
-      {
-        container: container[0],
-        index: this,
-        event: event
-      },
-      callbacks
-    ); // Select all links with the same data-gallery attribute:
-    var links = $('[data-gallery="' + id + '"]');
-      if (options.filter) {
-      links = links.filter(options.filter);
-      }
-    return new Gallery(links, options);
-  });
-}));
+})(function ($, Gallery) {
+    'use strict'
+
+    // Global click handler to open links with data-gallery attribute
+    // in the Gallery lightbox:
+    $(document).on('click', '[data-gallery]', function (event) {
+        // Get the container id from the data-gallery attribute:
+        var id = $(this).data('gallery')
+        var widget = $(id)
+        var container =
+            (widget.length && widget) || $(Gallery.prototype.options.container)
+        var callbacks = {
+            onopen: function () {
+                container.data('gallery', this).trigger('open')
+            },
+            onopened: function () {
+                container.trigger('opened')
+            },
+            onslide: function () {
+                container.trigger('slide', arguments)
+            },
+            onslideend: function () {
+                container.trigger('slideend', arguments)
+            },
+            onslidecomplete: function () {
+                container.trigger('slidecomplete', arguments)
+            },
+            onclose: function () {
+                container.trigger('close')
+            },
+            onclosed: function () {
+                container.trigger('closed').removeData('gallery')
+            }
+        }
+        var options = $.extend(
+            // Retrieve custom options from data-attributes
+            // on the Gallery widget:
+            container.data(),
+            {
+                container: container[0],
+                index: this,
+                event: event
+            },
+            callbacks
+        )
+        // Select all links with the same data-gallery attribute:
+        var links = $(this)
+            .closest('[data-gallery-group], body')
+            .find('[data-gallery="' + id + '"]')
+        if (options.filter) {
+            links = links.filter(options.filter)
+        }
+        return new Gallery(links, options)
+    })
+})
 
 /*
  * Bootstrap Image Gallery
@@ -54050,12 +54045,12 @@ jQuery(document).ready(function () {
 	});
     // Cookie alert
     if (!getCookie("YAF-AcceptCookies")) {
-        jQuery(".cookiealert").addClass("show");
+        $(".cookiealert").addClass("show");
     }
 
     $(".acceptcookies").click(function () {
         setCookie("YAF-AcceptCookies", true, 180);
-        jQuery(".cookiealert").removeClass("show");
+        $(".cookiealert").removeClass("show");
     });
 
     // Numeric Spinner Inputs
@@ -54088,12 +54083,22 @@ jQuery(document).ready(function () {
     jQuery('[data-toggle="tooltip"]').tooltip();
 
     // Convert user posted image to modal images
-    jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage, .previewPostContent .UserPostedImage").each(function () {
+    jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
+        var messageId = image.parents(".selectionQuoteable")[0].id;
+
         if (!image.parents("a").length) {
-            image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery />');
+            image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
         }
+    });
+
+    jQuery(".attachedImage").each(function () {
+        var imageLink = jQuery(this);
+
+        var messageId = imageLink.parents(".selectionQuoteable")[0].id;
+
+        imageLink.attr("data-gallery", "#MessageID" + messageId);
     });
 
     // Show caps lock info on password fields
