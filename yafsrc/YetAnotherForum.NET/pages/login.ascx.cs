@@ -248,7 +248,7 @@ namespace YAF.Pages
             var singleSignOnOptionsRow = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnOptionsRow");
             var singleSignOnOptions = this.Login1.FindControlAs<RadioButtonList>("SingleSignOnOptions");
 
-            var registerLink = this.Login1.FindControlAs<LinkButton>("RegisterLink");
+            var registerLink = this.Login1.FindControlAs<ThemeButton>("RegisterLink");
             var registerLinkPlaceHolder = this.Login1.FindControlAs<PlaceHolder>("RegisterLinkPlaceHolder");
 
             var singleSignOnRow = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnRow");
@@ -303,7 +303,7 @@ namespace YAF.Pages
             {
                 registerLinkPlaceHolder.Visible = true;
 
-                registerLink.Text = this.GetText("REGISTER_INSTEAD");
+                registerLink.TextLocalizedTag = "REGISTER_INSTEAD";
             }
 
             if (this.Get<YafBoardSettings>().AllowSingleSignOn

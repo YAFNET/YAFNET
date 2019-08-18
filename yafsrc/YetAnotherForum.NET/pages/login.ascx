@@ -3,9 +3,14 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <div align="center">
-            <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError" OnLoggedIn="Login1_LoggedIn"
-             OnAuthenticate="Login1_Authenticate" VisibleWhenLoggedIn="True">
+        <asp:Login ID="Login1" runat="server" 
+                   RememberMeSet="True" 
+                   OnLoginError="Login1_LoginError" 
+                   OnLoggedIn="Login1_LoggedIn"
+                   OnAuthenticate="Login1_Authenticate" 
+                   VisibleWhenLoggedIn="True"
+                   CssClass="mx-auto"
+                   Width="400px">
                 <LayoutTemplate>
                     <div class="row">
                         <div class="col-xl-12">
@@ -16,11 +21,11 @@
                         <div class="col">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <i class="fa fa-sign-in-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                                    <i class="fa fa-sign-in-alt fa-fw text-secondary pr-1"></i>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
                                 </div>
                                 <div class="card-body">
-                                    <form>
-                                        <asp:PlaceHolder runat="server" id="SingleSignOnOptionsRow" Visible="False">
+                                    <asp:PlaceHolder runat="server" id="SingleSignOnOptionsRow" Visible="False">
                                             <div class="custom-control custom-radio custom-control-inline">
                                                 <asp:RadioButtonList runat="server" id="SingleSignOnOptions"
                                                                      AutoPostBack="true"
@@ -44,26 +49,38 @@
                                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
                                                 </asp:Label>
                                                 <asp:TextBox ID="Password" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox><br/>
-                                                <asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="btn btn-secondary btn-sm"
-                                                            OnClick="PasswordRecovery_Click" />
+                                                
                                                 <div class="alert alert-danger CapsLockWarning" style="display: none;" role="alert">
                                                     <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />
                                                 </div>
+                                                
                                             </div>
                                         </asp:PlaceHolder>
-                                        <div class="custom-control custom-checkbox">
-                                            <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <div class="custom-control custom-checkbox">
+                                                    <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 text-right">
+                                                <asp:Button ID="LoginButton" runat="server" 
+                                                            CssClass="btn btn-primary" 
+                                                            CommandName="Login" 
+                                                            ValidationGroup="Login1" />
+                                            </div>
                                         </div>
-                                    </form>
                                 </div>
                                 <div class="card-footer">
-                                    <asp:Button ID="LoginButton" runat="server" CssClass="btn btn-primary" 
-                                                CommandName="Login" ValidationGroup="Login1" />
+                                    <asp:Button ID="PasswordRecovery" runat="server" 
+                                                CausesValidation="false" 
+                                                CssClass="btn btn-secondary btn-sm"
+                                                OnClick="PasswordRecovery_Click" />
                                     <asp:PlaceHolder ID="RegisterLinkPlaceHolder" runat="server" Visible="false">
-                                       
-                                            <asp:LinkButton ID="RegisterLink" runat="server" 
-                                                            OnClick="RegisterLinkClick" 
-                                                            CssClass="btn btn-secondary"></asp:LinkButton>
+                                        <YAF:ThemeButton ID="RegisterLink" runat="server"
+                                                         OnClick="RegisterLinkClick"
+                                                         Type="OutlineSecondary"
+                                                         Size="Small">
+                                            </YAF:ThemeButton>
                                     </asp:PlaceHolder>
                                      <asp:PlaceHolder id="SingleSignOnRow" runat="server" 
                                                       Visible="false">
@@ -137,6 +154,5 @@
                     
                 </LayoutTemplate>
             </asp:Login>
-        </div>
     </ContentTemplate>
 </asp:UpdatePanel>
