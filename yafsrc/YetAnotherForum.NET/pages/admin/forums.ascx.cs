@@ -39,39 +39,16 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Summary description for forums.
+    /// The Admin Manage Forums and Categories Page.
     /// </summary>
     public partial class forums : AdminPage
     {
         #region Methods
-
-        /// <summary>
-        /// Add Confirm Dialog to the Category Delete Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT")}')";
-        }
-
-        /// <summary>
-        /// Add Confirm Dialog to the Forum Delete Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return (confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE")}') && confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE")}'))";
-        }
 
         /// <summary>
         /// Handle Commands for Edit/Copy/Delete Forum

@@ -76,10 +76,9 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            var displayName =
-                UserMembershipHelper.GetDisplayNameFromID(
-                    Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
-            
+            var displayName = UserMembershipHelper.GetDisplayNameFromID(
+                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
+
             // Generate the Page Links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
@@ -87,9 +86,12 @@ namespace YAF.Pages
                 this.Get<YafBoardSettings>().EnableDisplayName
                     ? displayName
                     : UserMembershipHelper.GetUserNameFromID(
-                        Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))),
+                        Security.StringToLongOrRedirect(
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))),
                 YafBuildLink.GetLink(
-                    ForumPages.profile, "u={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
+                    ForumPages.profile,
+                    "u={0}",
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 
             // Initialize the Album List control.

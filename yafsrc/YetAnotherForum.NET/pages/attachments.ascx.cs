@@ -77,17 +77,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Handles the Load event of the Delete control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return confirm('{this.GetText("ATTACHMENTS", "CONFIRM_DELETE")}')";
-        }
-
-        /// <summary>
         /// Handles the ItemCommand event of the List control.
         /// </summary>
         /// <param name="source">The source of the event.</param>
@@ -163,10 +152,7 @@ namespace YAF.Pages
                 $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
 
             return isImage
-                       ? string.Format(
-                           "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" data-url=\"{0}\"style=\"max-width:30px\" />",
-                           url,
-                               fileName)
+                       ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" />"
                        : "<i class=\"far fa-file-alt attachment-icon\"></i>";
         }
 
@@ -181,21 +167,16 @@ namespace YAF.Pages
         /// </param>
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
-            foreach (var item in from RepeaterItem item in this.List.Items
-                                          where
-                                              item.ItemType == ListItemType.Item
-                                              || item.ItemType == ListItemType.AlternatingItem
-                                          where item.FindControlAs<CheckBox>("Selected").Checked
-                                          select item)
-            {
-                this.GetRepository<Attachment>()
-                    .DeleteById(item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>());
-            }
-
+            (from RepeaterItem item in this.List.Items
+             where item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem
+             where item.FindControlAs<CheckBox>("Selected").Checked
+             select item).ForEach(
+                item => this.GetRepository<Attachment>().DeleteById(
+                    item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>()));
+            
             this.BindData();
         }
         
-
         /// <summary>
         /// Binds the data.
         /// </summary>

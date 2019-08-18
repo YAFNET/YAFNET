@@ -398,16 +398,6 @@ namespace YAF.Pages
 
             this.Announcements.DataSource = dt;
 
-            /*if (!m_bIgnoreQueryString && Request.QueryString["p"] != null)
-                        {
-                                // show specific page (p is 1 based)
-                                int tPage = (int)Security.StringToLongOrRedirect(Request.QueryString["p"]);
-            
-                                if (tPage > 0)
-                                {
-                                        Pager.CurrentPageIndex = tPage - 1;
-                                }
-                        }*/
             var pagerCurrentPageIndex = this.Pager.CurrentPageIndex;
 
             DataTable topicList;

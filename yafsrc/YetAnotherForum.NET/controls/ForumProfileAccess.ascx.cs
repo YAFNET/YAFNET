@@ -59,7 +59,7 @@ namespace YAF.Controls
                 return;
             }
 
-            var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+            var userID = Security.StringToIntOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
             using (var dt2 = this.GetRepository<ForumAccess>().UserAccessMasksAsDataTable(this.PageContext.PageBoardID, userID))
             {

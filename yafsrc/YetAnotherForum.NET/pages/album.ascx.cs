@@ -79,7 +79,8 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            var userId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+            var userId =
+                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             var albumId = Security.StringToLongOrRedirect(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
@@ -88,13 +89,16 @@ namespace YAF.Pages
             // Generate the page links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName));
+            this.PageLinks.AddLink(
+                displayName,
+                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             // Set the title text.
             this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
-            this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(this.GetRepository<UserAlbum>().GetTitle(albumId.ToType<int>()));
+            this.LocalizedLabel1.Param1 =
+                this.Server.HtmlEncode(this.GetRepository<UserAlbum>().GetTitle(albumId.ToType<int>()));
 
             // Initialize the Album Image List control.
             this.AlbumImageList1.UserID = (int)userId;
@@ -109,7 +113,9 @@ namespace YAF.Pages
         protected void Back_Click(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(
-                ForumPages.albums, "u={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                ForumPages.albums,
+                "u={0}",
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
         }
 
         #endregion

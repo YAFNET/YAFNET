@@ -29,17 +29,21 @@
                     </small>
                 </div>
                 <small>
-                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" Size="Small"
+                    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
+                                     Type="Info" 
+                                     Size="Small"
                                      CommandName='edit' CommandArgument='<%# this.Eval( "CategoryID") %>'
                                      TitleLocalizedTag="EDIT" Icon="edit"
-                                     TextLocalizedTag="EDIT"
-                                     runat="server">
+                                     TextLocalizedTag="EDIT">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" Size="Small"
-                                     OnLoad="DeleteCategory_Load"  CommandName='delete' CommandArgument='<%# this.Eval( "CategoryID") %>'
-                                     TitleLocalizedTag="DELETE" Icon="trash"
-                                     TextLocalizedTag="DELETE"
-                                     runat="server">
+                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                                     Type="Danger" 
+                                     Size="Small"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT") %>'
+                                     CommandName='delete' CommandArgument='<%# this.Eval( "CategoryID") %>'
+                                     TitleLocalizedTag="DELETE" 
+                                     Icon="trash"
+                                     TextLocalizedTag="DELETE">
                     </YAF:ThemeButton>
                 </small>
 				</li>

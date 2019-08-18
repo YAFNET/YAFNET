@@ -17,7 +17,9 @@
              <h1 class="">
                  <YAF:UserLabel ID="UserLabel1" runat="server" />
              </h1>
-            <asp:LinkButton ID="lnkBuddy" runat="server" OnCommand="lnk_AddBuddy"/>
+            <YAF:ThemeButton ID="lnkBuddy" runat="server" 
+                             OnCommand="lnk_AddBuddy"
+                             ReturnConfirmText='<%#this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE") %>'/>
             <YAF:ThemeButton  ID="PM" runat="server" Visible="false" 
                               TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
                               TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS"

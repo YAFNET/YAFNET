@@ -35,13 +35,13 @@
                                 <%# this.GetPreviewImage(Container.DataItem) %>
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             
-                                <YAF:ThemeButton ID="ThemeButtonDelete"
+                                <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                                  CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>' 
                                                  TitleLocalizedTag="DELETE" 
                                                  TextLocalizedTag="DELETE"
                                                  Icon="trash"
                                                  Type="Danger"
-                                                 OnLoad="Delete_Load"  runat="server">
+                                                 ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'>
                                 </YAF:ThemeButton>
                             
                         </li>
@@ -52,7 +52,8 @@
                 </asp:Repeater>
                 <YAF:ThemeButton ID="DeleteAttachment2" runat="server"
                                  TextLocalizedTag="BUTTON_DELETEATTACHMENT" TitleLocalizedTag="BUTTON_DELETEATTACHMENT_TT"
-                                 OnLoad="Delete_Load" OnClick="DeleteAttachments_Click"
+                                 ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'
+                                 OnClick="DeleteAttachments_Click"
                                  Icon="trash"
                                  Type="Danger"
                                  CssClass="m-3"/>

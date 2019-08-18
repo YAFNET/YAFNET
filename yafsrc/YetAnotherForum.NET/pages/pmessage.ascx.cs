@@ -302,7 +302,7 @@ namespace YAF.Pages
             // set attributes of editor
             this._editor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -406,10 +406,10 @@ namespace YAF.Pages
                 // get quoted message
                 var messagesRow =
                         this.GetRepository<Message>().ListReportersAsDataTable(
-                            Security.StringToLongOrRedirect(
-                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
-                            Security.StringToLongOrRedirect(
-                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>())
+                            Security.StringToIntOrRedirect(
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")),
+                            Security.StringToIntOrRedirect(
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")))
                         .GetFirstRow();
 
                 // there is such a message
@@ -699,7 +699,7 @@ namespace YAF.Pages
                         messageFlags.BitValue,
                         replyTo);
 
-                    // reset reciever's lazy data as he should be informed at once
+                    // reset lazy data as he should be informed at once
                     this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
 
                     if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
@@ -883,7 +883,6 @@ namespace YAF.Pages
             }
 
             ///////////////////////////////
-
 
             // test sending user's PM count
             // get user's name

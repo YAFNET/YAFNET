@@ -37,7 +37,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBuddy;
+        protected global::YAF.Web.Controls.ThemeButton lnkBuddy;
         
         /// <summary>
         /// PM control.

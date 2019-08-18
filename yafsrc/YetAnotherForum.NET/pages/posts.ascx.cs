@@ -153,20 +153,6 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The delete message_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// <param name="sender">The source of the event.</param>
-        /// </param>
-        /// <param name="e">
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        /// </param>
-        protected void DeleteMessage_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((LinkButton)sender).Attributes["onclick"] = $"return confirm('{this.GetText("confirm_deletemessage")}')";
-        }
-
-        /// <summary>
         /// The delete topic_ click.
         /// </summary>
         /// <param name="sender">

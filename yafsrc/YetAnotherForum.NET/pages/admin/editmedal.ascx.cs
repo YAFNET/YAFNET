@@ -47,7 +47,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     using Image = System.Drawing.Image;
@@ -220,17 +219,6 @@ namespace YAF.Pages.Admin
                     this.BindData();
                     break;
             }
-        }
-
-        /// <summary>
-        /// Adds Java Script popup to remove group link button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void GroupRemoveLoad([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                $"return confirm('{this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP")}')";
         }
 
         /// <summary>

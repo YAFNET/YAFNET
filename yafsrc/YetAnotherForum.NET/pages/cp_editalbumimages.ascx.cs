@@ -77,12 +77,16 @@ namespace YAF.Pages
         {
             if (this.List.Items.Count > 0)
             {
-                var albid = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
+                var albumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
 
                 // This is an existing album
-                if (albid.IsSet() && !albid.Contains("new"))
+                if (albumId.IsSet() && !albumId.Contains("new"))
                 {
-                    YafBuildLink.Redirect(ForumPages.album, "u={0}&a={1}", this.PageContext.PageUserID.ToString(), albid);
+                    YafBuildLink.Redirect(
+                        ForumPages.album,
+                        "u={0}&a={1}",
+                        this.PageContext.PageUserID.ToString(),
+                        albumId);
                 }
                 else
                 {
@@ -103,12 +107,14 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var path =
-              this.Get<HttpRequestBase>().MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+            var path = this.Get<HttpRequestBase>()
+                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
             this.Get<IAlbum>().AlbumImageDelete(
-              path, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
+                path,
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"),
+                this.PageContext.PageUserID,
+                null);
 
             // clear the cache for this user to update albums|images stats...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
@@ -117,7 +123,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The repater Item command event responsible for handling deletion of uploaded files.
+        /// The repeater Item command event responsible for handling deletion of uploaded files.
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
@@ -126,18 +132,23 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    var path =
-                      this.Get<HttpRequestBase>().MapPath(
+                    var path = this.Get<HttpRequestBase>().MapPath(
                         string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-                    this.Get<IAlbum>().AlbumImageDelete(path, null, this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
+                    this.Get<IAlbum>().AlbumImageDelete(
+                        path,
+                        null,
+                        this.PageContext.PageUserID,
+                        e.CommandArgument.ToType<int>());
 
                     // If the user is trying to edit an existing album, initialize the repeater.
-                    this.BindVariousControls(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
+                    this.BindVariousControls(
+                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
 
-                    var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+                    var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+                        this.PageContext.PageUserID,
+                        YafContext.Current.PageBoardID);
 
-                    // int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
                     var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
                     // Has the user uploaded maximum number of images?   
@@ -156,7 +167,10 @@ namespace YAF.Pages
                         }
 
                         this.imagesInfo.Text = this.GetTextFormatted(
-                          "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed, this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
+                            "IMAGES_INFO",
+                            this.List.Items.Count,
+                            usrAlbumImagesAllowed,
+                            this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
                     }
                     else
                     {
@@ -185,7 +199,9 @@ namespace YAF.Pages
                 return;
             }
 
-            var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+            var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+                this.PageContext.PageUserID,
+                YafContext.Current.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
@@ -240,10 +256,11 @@ namespace YAF.Pages
             // Add the page links.
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-               displayName,
+                displayName,
                 YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID.ToString(), displayName));
             this.PageLinks.AddLink(
-                this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));
+                this.GetText("ALBUMS"),
+                YafBuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.BindData();
@@ -266,7 +283,10 @@ namespace YAF.Pages
                 }
 
                 this.imagesInfo.Text = this.GetTextFormatted(
-                    "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed, this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
+                    "IMAGES_INFO",
+                    this.List.Items.Count,
+                    usrAlbumImagesAllowed,
+                    this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
             }
             else
             {
@@ -287,7 +307,8 @@ namespace YAF.Pages
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
             {
-                albumId = this.GetRepository<UserAlbum>().Save(this.PageContext.PageUserID, this.txtTitle.Text, null).ToString();
+                albumId = this.GetRepository<UserAlbum>().Save(this.PageContext.PageUserID, this.txtTitle.Text, null)
+                    .ToString();
             }
             else
             {
@@ -315,9 +336,10 @@ namespace YAF.Pages
 
                 this.BindData();
 
-                var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+                var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+                    this.PageContext.PageUserID,
+                    YafContext.Current.PageBoardID);
 
-                // int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
                 var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
                 // Has the user uploaded maximum number of images?   
@@ -336,7 +358,10 @@ namespace YAF.Pages
                     }
 
                     this.imagesInfo.Text = this.GetTextFormatted(
-                      "IMAGES_INFO", this.List.Items.Count, usrAlbumImagesAllowed, this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
+                        "IMAGES_INFO",
+                        this.List.Items.Count,
+                        usrAlbumImagesAllowed,
+                        this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
                 }
                 else
                 {
@@ -427,20 +452,20 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Save the attached file both physically and in the db.
+        /// Save the attached file both physically and in the Database
         /// </summary>
         /// <param name="file">the file.</param>
         /// <exception cref="Exception">Album Image File is too big</exception>
         private void SaveAttachment([NotNull] HtmlInputFile file)
         {
-            if (file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0 || file.PostedFile.ContentLength == 0)
+            if (file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0
+                                        || file.PostedFile.ContentLength == 0)
             {
                 return;
             }
 
-            var path =
-              this.Get<HttpRequestBase>().MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+            var path = this.Get<HttpRequestBase>()
+                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
             // check if Uploads folder exists
             if (!Directory.Exists(path))
@@ -463,14 +488,16 @@ namespace YAF.Pages
             }
 
             // verify the size of the attachment
-            if (this.Get<YafBoardSettings>().AlbumImagesSizeMax > 0 &&
-                file.PostedFile.ContentLength > this.Get<YafBoardSettings>().AlbumImagesSizeMax)
+            if (this.Get<YafBoardSettings>().AlbumImagesSizeMax > 0
+                && file.PostedFile.ContentLength > this.Get<YafBoardSettings>().AlbumImagesSizeMax)
             {
                 throw new Exception(this.GetText("ERROR_TOOBIG"));
             }
 
             // vzrus: the checks here are useless but in a case...
-            var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+            var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
+                this.PageContext.PageUserID,
+                YafContext.Current.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
             var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
@@ -478,19 +505,30 @@ namespace YAF.Pages
             // if (!usrAlbums.HasValue || usrAlbums <= 0) return;
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
             {
-                var alstats = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageContext.PageUserID);
+                var allStats = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageContext.PageUserID);
 
                 // Albums count. If we reached limit then we exit.
-                if (alstats >= usrAlbumsAllowed)
+                if (allStats >= usrAlbumsAllowed)
                 {
                     this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed));
                     return;
                 }
 
-                var newAlbumId = this.GetRepository<UserAlbum>().Save(this.PageContext.PageUserID, this.txtTitle.Text, null);
+                var newAlbumId = this.GetRepository<UserAlbum>().Save(
+                    this.PageContext.PageUserID,
+                    this.txtTitle.Text,
+                    null);
+
                 file.PostedFile.SaveAs(
                     $"{path}/{this.PageContext.PageUserID}.{newAlbumId.ToString()}.{filename}.yafalbum");
-                this.GetRepository<UserAlbumImage>().Save(null, newAlbumId, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
+
+                this.GetRepository<UserAlbumImage>().Save(
+                    null,
+                    newAlbumId,
+                    null,
+                    filename,
+                    file.PostedFile.ContentLength,
+                    file.PostedFile.ContentType);
 
                 // clear the cache for this user to update albums|images stats...
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
@@ -500,11 +538,11 @@ namespace YAF.Pages
             else
             {
                 // vzrus: the checks here are useless but in a case...
-                var alstats = this.GetRepository<UserAlbumImage>().CountAlbumImages(
+                var allStats = this.GetRepository<UserAlbumImage>().CountAlbumImages(
                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a"));
 
                 // Images count. If we reached limit then we exit.
-                if (alstats >= usrAlbumImagesAllowed)
+                if (allStats >= usrAlbumImagesAllowed)
                 {
                     this.PageContext.AddLoadMessage(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed));
                     return;

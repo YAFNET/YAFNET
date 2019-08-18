@@ -36,7 +36,6 @@ namespace YAF.Pages
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -133,8 +132,6 @@ namespace YAF.Pages
             {
                 YafBuildLink.AccessDenied(/*No such user exists*/);
             }
-
-            //this.Albums.Visible = this.AlbumsTabIsVisible();
 
             this.BindData();
         }
@@ -262,11 +259,10 @@ namespace YAF.Pages
                 this.BuddyCard.Visible = false;
             }
 
-            var userNameOrDisplayName = this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName
-                                            ? userData.DisplayName
-                                            : userData.UserName);
+            var userNameOrDisplayName = this.HtmlEncode(
+                this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
 
-            this.SetupUserProfileInfo(this.UserId, user, userData, userNameOrDisplayName);
+            this.SetupUserProfileInfo(userData);
 
             this.AddPageLinks(userNameOrDisplayName);
 
@@ -274,7 +270,7 @@ namespace YAF.Pages
 
             this.SetupUserLinks(userData, userNameOrDisplayName);
 
-            this.SetupAvatar(this.UserId, userData);
+            this.SetupAvatar(this.UserId);
 
             this.Groups.DataSource = RoleMembershipHelper.GetRolesForUser(userData.UserName);
 
@@ -284,9 +280,11 @@ namespace YAF.Pages
 
             if (this.LastPosts.Visible)
             {
-                this.LastPosts.DataSource =
-                    this.GetRepository<Message>().AllUserAsDataTable(this.PageContext.PageBoardID, this.UserId, this.PageContext.PageUserID, 10)
-                            .AsEnumerable();
+                this.LastPosts.DataSource = this.GetRepository<Message>().AllUserAsDataTable(
+                    this.PageContext.PageBoardID,
+                    this.UserId,
+                    this.PageContext.PageUserID,
+                    10).AsEnumerable();
 
                 this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.search,
@@ -298,58 +296,12 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The albums tab is visible.
-        /// </summary>
-        /// <returns>
-        /// The true if albums tab should be visible.
-        /// </returns>
-        protected bool AlbumsTabIsVisible()
-        {
-            var albumUser = this.PageContext.PageUserID;
-
-            if (this.PageContext.IsAdmin && this.UserId > 0)
-            {
-                albumUser = this.UserId;
-            }
-
-            // Add check if Albums Tab is visible
-            if (this.PageContext.IsGuest || !this.Get<YafBoardSettings>().EnableAlbum)
-            {
-                return false;
-            }
-
-            var albumCount = this.GetRepository<UserAlbum>().CountUserAlbum(albumUser);
-
-            // Check if the user already has albums.
-            if (albumCount > 0)
-            {
-                return true;
-            }
-
-            // If this is the album owner we show him the tab, else it should be hidden
-            if (albumUser != this.PageContext.PageUserID && !this.PageContext.IsAdmin)
-            {
-                return false;
-            }
-
-            // Check if a user have permissions to have albums, even if he has no albums at all.
-            var usrAlbums =
-                this.GetRepository<User>().AlbumsDataAsDataTable(albumUser, YafContext.Current.PageBoardID)
-                    .GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-
-            return usrAlbums.HasValue && usrAlbums > 0;
-        }
-
-        /// <summary>
         /// The setup avatar.
         /// </summary>
         /// <param name="userID">
         /// The user id.
         /// </param>
-        /// <param name="userData">
-        /// The user data.
-        /// </param>
-        private void SetupAvatar(int userID, [NotNull] CombinedUserDataHelper userData)
+        private void SetupAvatar(int userID)
         {
             this.Avatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
         }
@@ -363,7 +315,7 @@ namespace YAF.Pages
         /// <param name="userData">
         /// The user data.
         /// </param>
-        private void SetupBuddyList(int userID, [NotNull] CombinedUserDataHelper userData)
+        private void SetupBuddyList(int userID, [NotNull] IUserData userData)
         {
             if (userID == this.PageContext.PageUserID)
             {
@@ -372,12 +324,12 @@ namespace YAF.Pages
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
-                this.lnkBuddy.Text =
-                    $"<i class=\"fa fa-user-minus fa-fw\"></i>&nbsp;{this.GetText("BUDDY", "REMOVEBUDDY")}";
-                this.lnkBuddy.CssClass = "btn btn-warning";
+                this.lnkBuddy.Icon = "user-minus";
+                this.lnkBuddy.TextLocalizedTag = "REMOVEBUDDY";
+                this.lnkBuddy.Type = ButtonAction.Warning;
+                this.lnkBuddy.TextLocalizedPage = "PAGE";
                 this.lnkBuddy.CommandArgument = "removebuddy";
-                this.lnkBuddy.Attributes["onclick"] =
-                    $"return confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')";
+                this.lnkBuddy.ReturnConfirmText = this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE");
             }
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
             {
@@ -388,13 +340,12 @@ namespace YAF.Pages
                 if (!this.PageContext.IsGuest && !userData.Block.BlockFriendRequests)
                 {
                     this.lnkBuddy.Visible = true;
-                    this.lnkBuddy.Text =
-                        $"<i class=\"fa fa-user-plus fa-fw\"></i>&nbsp;{this.GetText("BUDDY", "ADDBUDDY")}";
-                    this.lnkBuddy.CssClass = "btn btn-success";
-
+                    this.lnkBuddy.TextLocalizedTag = "ADDBUDDY";
+                    this.lnkBuddy.TextLocalizedPage = "PAGE";
+                    this.lnkBuddy.Icon = "user-plus";
+                    this.lnkBuddy.Type = ButtonAction.Success;
 
                     this.lnkBuddy.CommandArgument = "addbuddy";
-                    this.lnkBuddy.Attributes["onclick"] = string.Empty;
                 }
                 else
                 {
@@ -444,11 +395,10 @@ namespace YAF.Pages
                 return;
             }
 
-
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userData.UserID);
 
             this.PM.Visible = !userData.IsGuest && this.User != null
-                              && this.Get<YafBoardSettings>().AllowPrivateMessages;
+                                                && this.Get<YafBoardSettings>().AllowPrivateMessages;
 
             if (this.PM.Visible)
             {
@@ -468,7 +418,7 @@ namespace YAF.Pages
 
             // email link
             this.Email.Visible = !userData.IsGuest && this.User != null
-                                 && this.Get<YafBoardSettings>().AllowEmailSending;
+                                                   && this.Get<YafBoardSettings>().AllowEmailSending;
 
             if (this.Email.Visible)
             {
@@ -499,25 +449,18 @@ namespace YAF.Pages
             this.Skype.NavigateUrl = $"skype:{userData.Profile.Skype}?call";
             this.Skype.ParamTitle0 = userName;
 
-            if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible && !this.Twitter.Visible)
+            if (!this.Skype.Visible && !this.Blog.Visible && !this.XMPP.Visible && !this.Facebook.Visible
+                && !this.Twitter.Visible)
             {
                 this.SocialMediaHolder.Visible = false;
             }
-
         }
 
         /// <summary>
         /// The setup user profile info.
         /// </summary>
-        /// <param name="userID">The user id.</param>
-        /// <param name="user">The user.</param>
         /// <param name="userData">The user data.</param>
-        /// <param name="userDisplayName">The user display name.</param>
-        private void SetupUserProfileInfo(
-            int userID,
-            [NotNull] MembershipUser user,
-            [NotNull] IUserData userData,
-            [NotNull] string userDisplayName)
+        private void SetupUserProfileInfo([NotNull] IUserData userData)
         {
             this.UserLabel1.UserID = userData.UserID;
 
@@ -586,15 +529,13 @@ namespace YAF.Pages
             if (this.User != null && userData.Profile.RealName.IsSet())
             {
                 this.RealNameTR.Visible = true;
-                this.RealName.Text = this.HtmlEncode(
-                    this.Get<IBadWordReplace>().Replace(userData.Profile.RealName));
+                this.RealName.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.RealName));
             }
 
             if (this.User != null && userData.Profile.Interests.IsSet())
             {
                 this.InterestsTR.Visible = true;
-                this.Interests.Text =
-                    this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Interests));
+                this.Interests.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Interests));
             }
 
             if (this.User != null && userData.Profile.Gender > 0)
@@ -637,39 +578,11 @@ namespace YAF.Pages
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
 
-            var loadHoverCardJs = false;
-
-            if (loadHoverCardJs && this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
-            {
-                var hoverCardLoadJs = new StringBuilder();
-
-                hoverCardLoadJs.Append(
-                    JavaScriptBlocks.HoverCardLoadJs(
-                        ".Facebook-HoverCard",
-                        "Facebook",
-                        this.GetText("DEFAULT", "LOADING_FB_HOVERCARD").ToJsString(),
-                        this.GetText("DEFAULT", "ERROR_FB_HOVERCARD").ToJsString()));
-
-                hoverCardLoadJs.Append(
-                    JavaScriptBlocks.HoverCardLoadJs(
-                        ".Twitter-HoverCard",
-                        "Twitter",
-                        this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD").ToJsString(),
-                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD").ToJsString(),
-                        $"{BaseUrlBuilder.BaseUrl.TrimEnd('/')}{BaseUrlBuilder.AppPath}resource.ashx?twitterinfo="));
-
-                // Setup Hover Card JS
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "hovercardtwitterfacebookjs",
-                    hoverCardLoadJs.ToString());
-            }
-
             if (this.User != null && userData.Profile.Birthday >= DateTimeHelper.SqlDbMinTime())
             {
                 this.BirthdayTR.Visible = true;
-                this.Birthday.Text =
-                    this.Get<IDateTime>()
-                        .FormatDateLong(userData.Profile.Birthday.AddMinutes((double)-userData.TimeZone));
+                this.Birthday.Text = this.Get<IDateTime>()
+                    .FormatDateLong(userData.Profile.Birthday.AddMinutes((double)-userData.TimeZone));
             }
             else
             {
@@ -679,92 +592,99 @@ namespace YAF.Pages
             // Show User Medals
             if (this.Get<YafBoardSettings>().ShowMedals)
             {
-                var userMedalsTable = this.Get<YafDbBroker>().UserMedals(this.UserId);
-
-                if (!userMedalsTable.HasRows())
-                {
-                    this.MedalsRow.Visible = false;
-
-                    return;
-                }
-
-                var ribbonBar = new StringBuilder(500);
-                var medals = new StringBuilder(500);
-
-                DataRow r;
-                MedalFlags f;
-
-                var i = 0;
-                var inRow = 0;
-
-                // do ribbon bar first
-                while (userMedalsTable.Rows.Count > i)
-                {
-                    r = userMedalsTable.Rows[i];
-                    f = new MedalFlags(r["Flags"]);
-
-                    // do only ribbon bar items first
-                    if (!r["OnlyRibbon"].ToType<bool>())
-                    {
-                        break;
-                    }
-
-                    // skip hidden medals
-                    if (!f.AllowHiding || !r["Hide"].ToType<bool>())
-                    {
-                        if (inRow == 3)
-                        {
-                            // add break - only three ribbons in a row
-                            ribbonBar.Append("<br />");
-                            inRow = 0;
-                        }
-
-                        var title =
-                            $"{r["Name"]}{(f.ShowMessage ? $": {r["Message"]}" : string.Empty)}";
-
-                        ribbonBar.AppendFormat(
-                            "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" />",
-                            YafForumInfo.ForumClientFileRoot,
-                            r["SmallRibbonURL"],
-                            r["SmallRibbonWidth"],
-                            r["SmallRibbonHeight"],
-                            title,
-                            YafBoardFolders.Current.Medals);
-
-                        inRow++;
-                    }
-
-                    // move to next row
-                    i++;
-                }
-
-                // follow with the rest
-                while (userMedalsTable.Rows.Count > i)
-                {
-                    r = userMedalsTable.Rows[i];
-                    f = new MedalFlags(r["Flags"]);
-
-                    // skip hidden medals
-                    if (!f.AllowHiding || !r["Hide"].ToType<bool>())
-                    {
-                        medals.AppendFormat(
-                            "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
-                            YafForumInfo.ForumClientFileRoot,
-                            r["SmallMedalURL"],
-                            r["SmallMedalWidth"],
-                            r["SmallMedalHeight"],
-                            r["Name"],
-                            f.ShowMessage ? $": {r["Message"]}" : string.Empty,
-                            YafBoardFolders.Current.Medals);
-                    }
-
-                    // move to next row
-                    i++;
-                }
-
-                this.MedalsPlaceHolder.Text = $"{ribbonBar}<br />{medals}";
-                this.MedalsRow.Visible = true;
+                this.ShowUserMedals();
             }
+        }
+
+        /// <summary>
+        /// Show the user medals.
+        /// </summary>
+        private void ShowUserMedals()
+        {
+            var userMedalsTable = this.Get<YafDbBroker>().UserMedals(this.UserId);
+
+            if (!userMedalsTable.HasRows())
+            {
+                this.MedalsRow.Visible = false;
+
+                return;
+            }
+
+            var ribbonBar = new StringBuilder(500);
+            var medals = new StringBuilder(500);
+
+            DataRow r;
+            MedalFlags f;
+
+            var i = 0;
+            var inRow = 0;
+
+            // do ribbon bar first
+            while (userMedalsTable.Rows.Count > i)
+            {
+                r = userMedalsTable.Rows[i];
+                f = new MedalFlags(r["Flags"]);
+
+                // do only ribbon bar items first
+                if (!r["OnlyRibbon"].ToType<bool>())
+                {
+                    break;
+                }
+
+                // skip hidden medals
+                if (!f.AllowHiding || !r["Hide"].ToType<bool>())
+                {
+                    if (inRow == 3)
+                    {
+                        // add break - only three ribbons in a row
+                        ribbonBar.Append("<br />");
+                        inRow = 0;
+                    }
+
+                    var title = $"{r["Name"]}{(f.ShowMessage ? $": {r["Message"]}" : string.Empty)}";
+
+                    ribbonBar.AppendFormat(
+                        "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" />",
+                        YafForumInfo.ForumClientFileRoot,
+                        r["SmallRibbonURL"],
+                        r["SmallRibbonWidth"],
+                        r["SmallRibbonHeight"],
+                        title,
+                        YafBoardFolders.Current.Medals);
+
+                    inRow++;
+                }
+
+                // move to next row
+                i++;
+            }
+
+            // follow with the rest
+            while (userMedalsTable.Rows.Count > i)
+            {
+                r = userMedalsTable.Rows[i];
+                f = new MedalFlags(r["Flags"]);
+
+                // skip hidden medals
+                if (!f.AllowHiding || !r["Hide"].ToType<bool>())
+                {
+                    medals.AppendFormat(
+                        "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
+                        YafForumInfo.ForumClientFileRoot,
+                        r["SmallMedalURL"],
+                        r["SmallMedalWidth"],
+                        r["SmallMedalHeight"],
+                        r["Name"],
+                        f.ShowMessage ? $": {r["Message"]}" : string.Empty,
+                        YafBoardFolders.Current.Medals);
+                }
+
+                // move to next row
+                i++;
+            }
+
+            this.MedalsPlaceHolder.Text = $"{ribbonBar}<br />{medals}";
+            this.MedalsRow.Visible = true;
         }
 
         /// <summary>
@@ -773,7 +693,7 @@ namespace YAF.Pages
         /// <param name="userData">
         /// The user data.
         /// </param>
-        private void SetupUserStatistics([NotNull] CombinedUserDataHelper userData)
+        private void SetupUserStatistics([NotNull] IUserData userData)
         {
             var allPosts = 0.0;
 

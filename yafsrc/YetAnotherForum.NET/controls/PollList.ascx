@@ -38,7 +38,7 @@
            <asp:PlaceHolder id="PollCommandRow" runat="server">
                
                     <YAF:ThemeButton ID="RemovePollAll" runat="server" Visible="false" 
-                                     CommandName="removeall" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' 
+                                     CommandName="removeall" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>'
                                      CssClass="btn-sm mr-1"
                                      TextLocalizedTag="REMOVEPOLL_ALL"
                                      ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL") %>'
@@ -78,18 +78,21 @@
             <asp:PlaceHolder id="PollGroupCommandRow" runat="server">
                     <YAF:ThemeButton ID="RemoveGroupAll" runat="server" Visible='<%# this.CanRemoveGroupCompletely() %>'
                                      CommandName="removegroupall" 
+                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLLROUP_DELETE_ALL") %>'
                                      TextLocalizedTag="REMOVEPOLLGROUP_ALL"
                                      CssClass="mr-1"
                                      Type="Secondary"
                                      Icon="trash"/>
                     <YAF:ThemeButton ID="RemoveGroupEverywhere" runat="server" Visible='<%# this.CanRemoveGroupEverywhere() %>'
                                      CommandName="removegroupevery" 
+                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLLROUP_DETACH_EVR") %>'
                                      TextLocalizedTag="DETACHGROUP_EVERYWHERE"
                                      CssClass="mr-1"
                                      Type="Secondary"
                                      Icon="compress-arrows-alt"/>
                     <YAF:ThemeButton ID="RemoveGroup" runat="server" Visible='<%# this.CanRemoveGroup() %>'
                                      CommandName="removegroup" 
+                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLLGROUP_DETACH") %>'
                                      TextLocalizedTag="DETACHPOLLGROUP"
                                      Type="Secondary"
                                      Icon="compress-arrows-alt"/>

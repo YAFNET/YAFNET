@@ -197,9 +197,6 @@ namespace YAF.Pages
 
             // Get Forum Link
             this.PageLinks.AddRoot();
-            this.btnReport.Attributes.Add(
-                "onclick",
-                $"return confirm('{this.GetText("CONFIRM_REPORTPOST")}');");
         }
 
         /// <summary>

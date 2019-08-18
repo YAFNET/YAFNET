@@ -233,8 +233,7 @@ namespace YAF.Web.Controls
             {
                 // set a new page...
                 this.CurrentPageIndex =
-                    Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"))
-                        .ToType<int>() - 1;
+                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
             }
 
             this.gotoPageForm.ID = this.GetExtendedID("GotoPageForm");
