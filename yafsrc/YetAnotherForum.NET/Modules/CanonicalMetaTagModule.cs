@@ -1,15 +1,15 @@
-﻿using System;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using YAF.Types;
-using YAF.Types.Attributes;
-using YAF.Types.Constants;
-using YAF.Utils;
-using YAF.Utils.Helpers;
-
-namespace YAF.Modules
+﻿namespace YAF.Modules
 {
+    using System;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
+
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
@@ -49,7 +49,7 @@ namespace YAF.Modules
 
                 tag = "<link rel=\"canonical\" href=\"{0}\" />".FormatWith(topicUrl);
             }
-            else
+            else if (this.ForumPageType != ForumPages.forum)
             {
                 // there is not much SEO value to having lists indexed
                 // because they change as soon as some adds a new topic
