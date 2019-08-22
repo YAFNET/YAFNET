@@ -40,7 +40,7 @@
             }
 
             // in cases where we are not going to index, but follow, we will not add a canonical tag.
-            string tag;
+            var tag = string.Empty;
 
             if (this.ForumPageType == ForumPages.posts)
             {
