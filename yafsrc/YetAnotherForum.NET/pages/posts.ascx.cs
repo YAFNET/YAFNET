@@ -656,7 +656,7 @@ namespace YAF.Pages
         /// </returns>
         protected int PollGroupId()
         {
-            return _topic.PollID ?? 0;
+            return this._topic.PollID ?? 0;
         }
 
         /// <summary>
@@ -842,7 +842,7 @@ namespace YAF.Pages
 
                         this.Page.Header.Controls.Remove(descriptionMeta);
 
-                        descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(descriptionContent);
+                        descriptionMeta = ControlHelper.MakeMetaDescriptionControl(descriptionContent);
 
                         // add to the header...
                         this.Page.Header.Controls.Add(descriptionMeta);
@@ -850,7 +850,7 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    descriptionMeta = ControlHelper.MakeMetaDiscriptionControl(descriptionContent);
+                    descriptionMeta = ControlHelper.MakeMetaDescriptionControl(descriptionContent);
 
                     // add to the header...
                     this.Page.Header.Controls.Add(descriptionMeta);
@@ -885,12 +885,6 @@ namespace YAF.Pages
                 // add to the header...
                 this.Page.Header.Controls.Add(keywordMeta);
             }
-
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
-            {
-                // add no-index tag
-                this.Page.Header.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
-            }
         }
 
         /// <summary>
@@ -915,14 +909,14 @@ namespace YAF.Pages
                 showDeleted = true;
             }
 
-           int messagePosition;
-           if (!this.Get<YafBoardSettings>().ShowDeletedMessages || !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
-           {
-               // normally, users can always see own deleted topics or stubs we set a false id to hide them.
-               userId = -1;
-           }
+            if (!this.Get<YafBoardSettings>().ShowDeletedMessages
+                || !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            {
+                // normally, users can always see own deleted topics or stubs we set a false id to hide them.
+                userId = -1;
+            }
 
-            var findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition);
+            var findMessageId = this.GetFindMessageId(showDeleted, userId, out var messagePosition);
             if (findMessageId > 0)
             {
                 this.CurrentMessage = findMessageId;
@@ -954,7 +948,7 @@ namespace YAF.Pages
 
             if (this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive
+                // Add necessary columns for later use in displaypost.ascx (Prevent repetitive
                 // calls to database.)
                 if (!postListDataTable.Columns.Contains("ThanksInfo"))
                 {
@@ -1354,15 +1348,6 @@ namespace YAF.Pages
                         {
                             this.Get<HttpResponseBase>().Redirect(tweetUrl);
                         }
-                    }
-
-                    break;
-                case "digg":
-                    {
-                        var diggUrl =
-                            $"http://digg.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this._topic.TopicName)}";
-
-                        this.Get<HttpResponseBase>().Redirect(diggUrl);
                     }
 
                     break;

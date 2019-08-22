@@ -1,6 +1,7 @@
 ﻿namespace YAF.Modules
 {
     using System;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
 
@@ -8,6 +9,7 @@
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -18,7 +20,7 @@
     public class CanonicalMetaTagModule : SimpleBaseForumModule
     {
         /// <summary>
-        /// The init after page.
+        /// The initialization after page.
         /// </summary>
         public override void InitAfterPage()
         {
@@ -43,26 +45,28 @@
             }
 
             // in cases where we are not going to index, but follow, we will not add a canonical tag.
-            string tag;
-
             if (this.ForumPageType == ForumPages.posts)
             {
-                var topicId = this.PageContext.PageTopicID;
-                var topicUrl = YafBuildLink.GetLink(page: ForumPages.posts, fullUrl: true, format: TopicLinkParams, topicId);
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+                {
+                    // add no-index tag
+                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl()); 
+                }
+                else
+                {
+                    var topicId = this.PageContext.PageTopicID;
+                    var topicUrl = YafBuildLink.GetLink(ForumPages.posts, true, TopicLinkParams, topicId);
 
-                tag = $"<link rel=\"canonical\" href=\"{topicUrl}\" />";
+                    head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
+                }
             }
-            else
+            else if (this.ForumPageType != ForumPages.forum)
             {
                 // there is not much SEO value to having lists indexed
                 // because they change as soon as some adds a new topic
                 // or post so don't index them, but follow the links
-                tag = "<meta name=\"robots\" content=\"noindex,follow\" />";
-            }
-
-            if (tag.IsSet())
-            {
-                head.Controls.Add(child: new LiteralControl(text: tag));
+                // add no-index tag
+                head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
             }
         }
     }

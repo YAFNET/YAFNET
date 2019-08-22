@@ -37,13 +37,14 @@ namespace YAF.Modules
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
+    using YAF.Web.EventsArgs;
 
     #endregion
 
     /// <summary>
     /// Page Title Module
     /// </summary>
-    [YafModule(moduleName: "Page Title Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+    [YafModule("Page Title Module", "Tiny Gecko", 1)]
     public class PageTitleForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields

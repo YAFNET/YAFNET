@@ -160,7 +160,7 @@ namespace YAF.Utils.Helpers
         /// The id.
         /// </param>
         /// <typeparam name="T">
-        /// the typeparameter
+        /// the type parameter
         /// </typeparam>
         /// <returns>
         /// Returns the Control as strongly typed
@@ -178,7 +178,7 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Finds the control recursive as.
         /// </summary>
-        /// <typeparam name="T">the typeparameter</typeparam>
+        /// <typeparam name="T">the type parameter</typeparam>
         /// <param name="sourceControl">The source control.</param>
         /// <param name="id">The id.</param>
         /// <returns>
@@ -198,7 +198,7 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Finds the control recursive both as.
         /// </summary>
-        /// <typeparam name="T">the typeparameter</typeparam>
+        /// <typeparam name="T">the type parameter</typeparam>
         /// <param name="sourceControl">The source control.</param>
         /// <param name="id">The id.</param>
         /// <returns>
@@ -275,19 +275,23 @@ namespace YAF.Utils.Helpers
 
             var foundControl = sourceControl.FindControl(id);
 
-            if (foundControl == null)
+            if (foundControl != null)
             {
-                if (sourceControl.HasControls())
+                return foundControl;
+            }
+
+            if (!sourceControl.HasControls())
+            {
+                return foundControl;
+            }
+
+            foreach (Control tmpCtr in sourceControl.Controls)
+            {
+                // Check all child controls of sourceControl
+                foundControl = FindControlRecursive(tmpCtr, id);
+                if (foundControl != null)
                 {
-                    foreach (Control tmpCtr in sourceControl.Controls)
-                    {
-                        // Check all child controls of sourceControl
-                        foundControl = FindControlRecursive(tmpCtr, id);
-                        if (foundControl != null)
-                        {
-                            break;
-                        }
-                    }
+                    break;
                 }
             }
 
@@ -318,7 +322,7 @@ namespace YAF.Utils.Helpers
         /// </summary>
         /// <param name="href">The href.</param>
         /// <returns>
-        /// The make css include control.
+        /// The make CSS include control.
         /// </returns>
         [NotNull]
         public static HtmlLink MakeCssIncludeControl([NotNull] string href)
@@ -333,13 +337,13 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// The make css control.
+        /// The make CSS control.
         /// </summary>
         /// <param name="css">
         /// The style information to add to the control.
         /// </param>
         /// <returns>
-        /// Returns the css control
+        /// Returns the CSS control
         /// </returns>
         [NotNull]
         public static HtmlGenericControl MakeCssControl([NotNull] string css)
@@ -371,8 +375,7 @@ namespace YAF.Utils.Helpers
         /// <returns><see cref="HtmlMeta"/> control</returns>
         public static HtmlMeta MakeMetaNoIndexControl()
         {
-
-            var meta = new HtmlMeta { Name = "robots", Content = "noindex" };
+            var meta = new HtmlMeta { Name = "robots", Content = "noindex,follow" };
 
             return meta;
         }
@@ -382,7 +385,7 @@ namespace YAF.Utils.Helpers
         /// </summary>
         /// <param name="description">description that go inside the meta</param>
         /// <returns><see cref="HtmlMeta"/> control</returns>
-        public static HtmlMeta MakeMetaDiscriptionControl(string description)
+        public static HtmlMeta MakeMetaDescriptionControl(string description)
         {
             var meta = new HtmlMeta { Name = "description", Content = description };
 
