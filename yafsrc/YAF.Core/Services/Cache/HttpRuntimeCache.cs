@@ -260,7 +260,7 @@ namespace YAF.Core.Services.Cache
     {
       CodeContracts.VerifyNotNull(originalKey, "key");
 
-      return HttpRuntime.Cache[this.CreateKey(originalKey)] ?? null;
+      return HttpRuntime.Cache[this.CreateKey(originalKey)];
     }
 
     #endregion

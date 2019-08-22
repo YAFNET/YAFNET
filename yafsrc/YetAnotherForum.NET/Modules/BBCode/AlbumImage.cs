@@ -76,7 +76,7 @@ namespace YAF.Modules.BBCode
                 arg1: this.Parameters[key: "inner"]);
 
             sb.AppendFormat(
-                format: @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-fluid img-thumbnail"" />",
+                format: @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" />",
                 arg0: YafForumInfo.ForumClientFileRoot,
                 arg1: this.Parameters[key: "inner"]);
 

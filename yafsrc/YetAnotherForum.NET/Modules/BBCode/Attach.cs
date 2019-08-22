@@ -59,7 +59,6 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
-            var stats = this.GetText(tag: "ATTACHMENTINFO");
             var filename = attachment.FileName.ToLower();
             var showImage = false;
 
@@ -102,8 +101,10 @@ namespace YAF.Modules.BBCode
                     // user has rights to download, show him image
                     writer.Write(
                         format: !this.Get<YafBoardSettings>().EnableImageAttachmentResize
-                            ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" />"
-                            : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery><img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" /></a>",
+                                    ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" />"
+                                    : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery>
+                                            <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" class=""img-user-posted img-thumbnail"" />
+                                        </a>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         this.HtmlEncode(data: attachment.FileName),
@@ -113,9 +114,9 @@ namespace YAF.Modules.BBCode
                 {
                     // user doesn't have rights to download, don't show the image
                     writer.Write(
-                        format: @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
-                        arg0: attachment.FileName,
-                        arg1: this.GetText(tag: "ATTACH_NO"));
+                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
+                        attachment.FileName,
+                        this.GetText(tag: "ATTACH_NO"));
                 }
             }
             else
@@ -127,19 +128,21 @@ namespace YAF.Modules.BBCode
                 if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                 {
                     writer.Write(
-                        format: @"<i class=""fa fa-file fa-fw""></i>&nbsp;<a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> <span class=""attachmentinfo"">{3}</span>",
+                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;
+                         <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
+                         <span class=""attachmentinfo"">{3}</span>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         attachment.FileName,
-                        string.Format(format: stats, arg0: kb,arg1: attachment.Downloads),
+                        this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
                         this.PageContext.PageBoardID);
                 }
                 else
                 {
                     writer.Write(
-                        format: @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
-                        arg0: attachment.FileName,
-                        arg1: this.GetText(tag: "ATTACH_NO"));
+                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
+                        attachment.FileName,
+                        this.GetText(tag: "ATTACH_NO"));
                 }
             }
         }

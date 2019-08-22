@@ -7,7 +7,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <span class="float-left">
-                    <a onclick="ScrollToTop();" href="javascript: void(0)">            
+                    <a onclick="ScrollToTop();" href="javascript: void(0)" class="btn btn-outline-secondary btn-sm">            
                         <i class="fa fa-angle-double-up fa-fw"></i>
                     </a>
                 </span>
