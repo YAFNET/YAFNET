@@ -37,7 +37,7 @@
                                            ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".Fmt(YafForumInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
                                            ToolTip='<%# this.HtmlEncode(this.Eval("Title")) %>' 
                                            AlternateText='<%# this.Eval("ID") %>'
-                                           CssClass="img-fluid img-thumbnail mt-4"/>
+                                           CssClass="img-thumbnail mt-4"/>
                                 <div class="card-body">
                                     <div class="card-text">
                                         <div class="d-flex justify-content-between align-items-center">

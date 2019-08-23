@@ -28,6 +28,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Web;
 
@@ -38,7 +39,6 @@ namespace YAF.Controls
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Services.Auth;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -62,6 +62,11 @@ namespace YAF.Controls
         ///   The current Post Data for this post.
         /// </summary>
         private PostDataHelperWrapper postDataHelperWrapper;
+
+        /// <summary>
+        ///   Instance of the style transformation class
+        /// </summary>
+        private IStyleTransform styleTransform;
 
         #endregion
 
@@ -113,6 +118,20 @@ namespace YAF.Controls
                 return this.postDataHelperWrapper;
             }
         }
+
+        /// <summary>
+        ///   Gets Refines style string from other skins info
+        /// </summary>
+        private IStyleTransform TransformStyle =>
+            this.styleTransform ?? (this.styleTransform = this.Get<IStyleTransform>());
+
+        /// <summary>
+        /// The role rank style table.
+        /// </summary>
+        private DataTable roleRankStyleTable => this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.GroupRankStyles,
+            () => this.GetRepository<Group>().RankStyleAsDataTable(YafContext.Current.PageBoardID),
+            TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
 
         #endregion
 
@@ -237,7 +256,6 @@ namespace YAF.Controls
             this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
 
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() + 1;
-            this.UserBox1.PageCache = null;
 
             this.PageContext.AddLoadMessage(
                 this.GetTextFormatted(
@@ -275,7 +293,6 @@ namespace YAF.Controls
             this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
 
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() - 1;
-            this.UserBox1.PageCache = null;
 
             this.PageContext.AddLoadMessage(
                 this.GetTextFormatted(
@@ -287,59 +304,124 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Re-tweets Message thru the Twitter API
+        /// Get the User Groups
         /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data.
-        /// </param>
-        protected void Retweet_Click(object sender, EventArgs e)
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string GetUserRoles()
         {
-            var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
-                                  ? $"@{this.Get<YafBoardSettings>().TwitterUserName} "
-                                  : string.Empty;
+            var filler = string.Empty;
 
-            // process message... clean html, strip html, remove bbcode, etc...
-            var twitterMsg = BBCodeHelper
-                .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"])))
-                .RemoveMultipleWhitespace();
-
-            var topicUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.posts,
-                true,
-                "m={0}#post{0}",
-                this.DataRow["MessageID"]);
-
-            // Send Re-tweet Directly thru the Twitter API if User is Twitter User
-            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()
-                                                  && this.Get<IYafSession>().TwitterToken.IsSet()
-                                                  && this.Get<IYafSession>().TwitterTokenSecret.IsSet()
-                                                  && this.Get<IYafSession>().TwitterTokenSecret.IsSet()
-                                                  && this.PageContext.IsTwitterUser)
+            if (!this.Get<YafBoardSettings>().ShowGroups)
             {
-                var auth = new OAuthTwitter
-                               {
-                                   ConsumerKey = Config.TwitterConsumerKey,
-                                   ConsumerSecret = Config.TwitterConsumerSecret,
-                                   Token = this.Get<IYafSession>().TwitterToken,
-                                   TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
-                               };
-
-                var tweets = new TweetAPI(auth);
-
-                tweets.UpdateStatus(
-                    TweetAPI.ResponseFormat.json,
-                    this.Server.UrlEncode(
-                        string.Format("RT {1}: {0} {2}", twitterMsg.Truncate(100), twitterName, topicUrl)),
-                    string.Empty);
+                return filler;
             }
-            else
+
+            const string StyledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
+
+            var groupsText = new StringBuilder(500);
+
+            var first = true;
+            var hasRole = false;
+            string roleStyle = null;
+
+            var userName = this.DataRow["IsGuest"].ToType<bool>()
+                               ? UserMembershipHelper.GuestUserName
+                               : this.DataRow["UserName"].ToString();
+
+            RoleMembershipHelper.GetRolesForUser(userName).ForEach(
+                role =>
+                    {
+                        var role1 = role;
+
+                        foreach (var dataRow in this.roleRankStyleTable.Rows.Cast<DataRow>().Where(
+                            row => row["LegendID"].ToType<int>() == 1 && row["Style"] != null
+                                                                        && row["Name"].ToString() == role1))
+                        {
+                            roleStyle = this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true);
+                            break;
+                        }
+
+                        if (first)
+                        {
+                            groupsText.AppendLine(
+                                this.Get<YafBoardSettings>().UseStyledNicks
+                                    ? string.Format(StyledNick, role, roleStyle)
+                                    : role);
+
+                            first = false;
+                        }
+                        else
+                        {
+                            if (this.Get<YafBoardSettings>().UseStyledNicks)
+                            {
+                                groupsText.AppendLine(string.Format(@", " + StyledNick, role, roleStyle));
+                            }
+                            else
+                            {
+                                groupsText.AppendFormat(", {0}", role);
+                            }
+                        }
+
+                        roleStyle = null;
+                        hasRole = true;
+                    });
+
+            // vzrus: Only a guest normally has no role
+            if (!hasRole)
             {
-                this.Get<HttpResponseBase>().Redirect(
-                    $"http://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(s: $"RT {twitterName}: {twitterMsg.Truncate(100)}")}");
+                var dt = this.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.GuestGroupsCache,
+                    () => this.GetRepository<Group>().MemberAsDataTable(
+                        this.PageContext.PageBoardID,
+                        this.DataRow["UserID"]),
+                    TimeSpan.FromMinutes(60));
+
+                foreach (var guestRole in dt.Rows.Cast<DataRow>().Where(role => role["Member"].ToType<int>() > 0)
+                    .Select(role => role["Name"].ToString()))
+                {
+                    foreach (var dataRow in this.roleRankStyleTable.Rows.Cast<DataRow>().Where(
+                        row => row["LegendID"].ToType<int>() == 1 && row["Style"] != null
+                                                                    && row["Name"].ToString() == guestRole))
+                    {
+                        roleStyle = this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true);
+                        break;
+                    }
+
+                    groupsText.AppendLine(
+                        this.Get<YafBoardSettings>().UseStyledNicks
+                            ? string.Format(StyledNick, guestRole, roleStyle)
+                            : guestRole);
+                    break;
+                }
             }
+
+            filler = $"<strong>{this.GetText("GROUPS")}:</strong> {groupsText}";
+
+            // Remove the space before the first comma when multiple groups exist.
+            filler = filler.Replace("\r\n,", ",");
+
+            return filler;
+        }
+
+        /// <summary>
+        /// Get the User Rank
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string GetUserRank()
+        {
+            var rankStyle = (from DataRow dataRow in this.roleRankStyleTable.Rows
+                             where dataRow["LegendID"].ToType<int>() == 2 && dataRow["Style"] != null
+                                                                          && dataRow["Name"].ToString()
+                                                                          == this.DataRow["RankName"].ToString()
+                             select this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true))
+                .FirstOrDefault();
+
+            return
+                $"<strong>{this.GetText("RANK")}:</strong> {(this.Get<YafBoardSettings>().UseStyledNicks ? $@"<span class=""YafRank_{this.DataRow["RankName"]}"" style=""{rankStyle}"">{this.DataRow["RankName"]}</span>" : this.DataRow["RankName"].ToString())}";
         }
 
         /// <summary>
@@ -355,7 +437,8 @@ namespace YAF.Controls
             }
 
             // We should show IP
-            this.IPSpan1.Visible = true;
+            this.IPInfo.Visible = true;
+            this.IPHolder.Visible = true;
             var ip = IPHelper.GetIp4Address(this.PostData.DataRow["IP"].ToString());
             this.IPLink1.HRef = string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ip);
             this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
@@ -400,7 +483,7 @@ namespace YAF.Controls
                 }
             }
 
-            var userId = this.DataRow["UserID"].ToType<int>();
+            var userId = this.PostData.UserId;
 
             if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.PageUserID != userId)
             {
@@ -423,10 +506,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (!UserAgentHelper.IsMobileDevice(this.Get<HttpRequestBase>()))
-            {
-                this.PopMenu1.Attach(this.UserProfileLink);
-            }
+            this.PopMenu1.Attach(this.UserProfileLink);
         }
 
         /// <summary>
@@ -454,9 +534,6 @@ namespace YAF.Controls
             {
                 this.MessageRow.CssClass = "collapse show";
             }
-
-            this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo)
-                                   && !this.PostData.PostDeleted && !this.PostData.IsLocked;
 
             this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
@@ -528,11 +605,26 @@ namespace YAF.Controls
 
             this.ShowIpInfo();
 
-            var isMobile = UserAgentHelper.IsMobileDevice(this.Get<HttpRequestBase>());
+            this.panMessage.CssClass = "col";
 
-            this.UserInfoPlaceHolder.Visible = !isMobile;
-            this.UserInfoMobile.Visible = isMobile;
-            this.panMessage.CssClass = isMobile ? "col" : "col-md-9";
+            var userId = this.PostData.UserId;
+
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
+            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
+                                  ? UserMembershipHelper.GetDisplayNameFromID(userId)
+                                  : UserMembershipHelper.GetUserNameFromID(userId);
+
+            if (avatarUrl.IsSet())
+            {
+                this.Avatar.Visible = true;
+                this.Avatar.AlternateText = displayName;
+                this.Avatar.ToolTip = displayName;
+                this.Avatar.ImageUrl = avatarUrl;
+            }
+            else
+            {
+                this.Avatar.Visible = false;
+            }
         }
 
         /// <summary>
@@ -540,7 +632,7 @@ namespace YAF.Controls
         /// </summary>
         private void AddReputationControls()
         {
-            if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>()
+            if (this.PageContext.PageUserID != this.PostData.UserId
                 && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
             {
                 if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))

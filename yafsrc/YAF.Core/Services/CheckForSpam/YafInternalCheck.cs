@@ -81,9 +81,6 @@ namespace YAF.Core.Services.CheckForSpam
                 var bannedEmailRepository = YafContext.Current.Get<IRepository<BannedEmail>>();
                 var bannedIPRepository = YafContext.Current.Get<IRepository<BannedIP>>();
 
-                /* var bannedIPs = YafContext.Current.Get<IDataCache>().GetOrSet(
-                                Constants.Cache.BannedIP,
-                                () => this.BannedIpRepository.ListTyped().Select(x => x.Mask.Trim()).ToList());*/
                 var bannedIpList = YafContext.Current.Get<IDataCache>().GetOrSet(
                     Constants.Cache.BannedIP,
                     () => bannedIPRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID)
@@ -129,7 +126,7 @@ namespace YAF.Core.Services.CheckForSpam
                             continue;
                         }
 
-                        responseText = $"internal detection found name {userName}";
+                        responseText = $"internal detection found name {name.Mask}";
                         isBot = true;
                         break;
                     }

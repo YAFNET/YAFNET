@@ -84,7 +84,6 @@ namespace YAF.Core.Model
                 topCount: topCount);
         }
 
-
         /// <summary>
         /// The post_list.
         /// </summary>
@@ -95,6 +94,7 @@ namespace YAF.Core.Model
         /// The topic id.
         /// </param>
         /// <param name="currentUserID">
+        /// The current User ID.
         /// </param>
         /// <param name="authorUserID">
         /// The author User ID.
@@ -192,7 +192,6 @@ namespace YAF.Core.Model
                 UTCTIMESTAMP: DateTime.UtcNow);
         }
 
-
         /// <summary>
         /// Gets all the post by a user.
         /// </summary>
@@ -228,7 +227,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_list.
+        /// Gets the Typed Message List
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -247,7 +246,6 @@ namespace YAF.Core.Model
             return repository.DbFunction.GetAsDataTable(cdb => cdb.message_list(MessageID: messageId))
                 .SelectTypedList(t => new TypedMessageList(t));
         }
-
 
         /// <summary>
         /// A list of messages.
@@ -270,7 +268,7 @@ namespace YAF.Core.Model
         /// <param name="userId">The user identifier.</param>
         /// <param name="message">The message.</param>
         /// <param name="guestUserName">Name of the guest user.</param>
-        /// <param name="ip">The ip.</param>
+        /// <param name="ip">The IP address.</param>
         /// <param name="posted">The posted.</param>
         /// <param name="replyTo">The reply to.</param>
         /// <param name="blogPostId">The blog post identifier.</param>
@@ -491,17 +489,16 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageID">
+        /// <param name="messageId">
         /// The message id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListAsDataTable(this IRepository<Message> repository, [NotNull] int messageId)
         {
             return repository.DbFunction.GetData.message_list(MessageID: messageId);
         }
-
-
 
         /// <summary>
         /// Finds the Unread Message
@@ -585,18 +582,19 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_listreporters.
+        /// List the reporters as data table.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
         /// <param name="messageId">
-        /// The message Id.
+        /// The message id.
         /// </param>
         /// <param name="userId">
-        /// The user Id.
+        /// The user id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListReportersAsDataTable(
             this IRepository<Message> repository,
@@ -729,7 +727,6 @@ namespace YAF.Core.Model
             [NotNull] int flags,
             ref long messageID)
         {
-
             IDbDataParameter parameterMessage = null;
 
             repository.SqlList(
@@ -990,7 +987,7 @@ namespace YAF.Core.Model
                 // Delete Message from Search Index
                 YafContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
 
-                repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: eraseMessages);
+                repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: true);
             }
             else
             {

@@ -145,10 +145,6 @@ namespace YAF.Controls
 
             this.BindData();
 
-            HttpContext.Current.Session["imagePreviewWidth"] = this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
-            HttpContext.Current.Session["imagePreviewHeight"] = this.Get<YafBoardSettings>().ImageAttachmentResizeHeight;
-            HttpContext.Current.Session["imagePreviewCropped"] =
-                this.Get<YafBoardSettings>().ImageAttachmentResizeCropped;
             HttpContext.Current.Session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
             // Show Albums Max Info

@@ -214,6 +214,13 @@
     <Compile Include="controls\AlbumList.ascx.designer.cs">
       <DependentUpon>AlbumList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\ScrollTop.ascx.cs">
+      <DependentUpon>ScrollTop.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ScrollTop.ascx.designer.cs">
+      <DependentUpon>ScrollTop.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\CookieConsent.ascx.cs">
       <DependentUpon>CookieConsent.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -966,6 +973,12 @@
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
+    <Content Include="Content\icons\android-chrome-192x192.png" />
+    <Content Include="Content\icons\android-chrome-512x512.png" />
+    <Content Include="Content\icons\apple-touch-icon.png" />
+    <Content Include="Content\icons\favicon-16x16.png" />
+    <Content Include="Content\icons\favicon-32x32.png" />
+    <Content Include="Content\icons\favicon.ico" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1719,6 +1732,9 @@
     <Content Include="Content\fontawesome\_variables.scss" />
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
     <Content Include="Content\bootstrap-suggest.scss" />
+    <Content Include="Content\bootstrap\bootstrap.min.css.gz">
+      <DependentUpon>bootstrap.min.css</DependentUpon>
+    </Content>
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\images\error.png" />
@@ -1776,6 +1792,7 @@
     <Content Include="controls\AdminMenu.ascx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
+    <Content Include="controls\ScrollTop.ascx" />
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
     <Content Include="controls\ProfileTimeline.ascx" />
@@ -3134,7 +3151,12 @@
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\editor.scss" />
     <Content Include="Content\forum\social-icons.scss" />
+    <Content Include="Content\forum\button-scroll.scss" />
     <None Include="Content\forum\user-albums.scss" />
+    <Content Include="Content\icons\site.webmanifest" />
+    <Content Include="Content\InstallWizard.min.css.gz">
+      <DependentUpon>InstallWizard.min.css</DependentUpon>
+    </Content>
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="YafUploader.ashx" />
@@ -3216,6 +3238,57 @@
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
     <Content Include="libman.json" />
+    <Content Include="Content\Themes\yeti\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\united\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\superhero\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\solar\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\slate\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\simplex\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\pulse\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\minty\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\materia\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lux\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lumen\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\litera\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\journal\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\flatly\bootstrap-forum.min.css.gz">
+      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3293,6 +3366,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
@@ -3355,6 +3429,18 @@ del Lucene.Net.Contrib.Memory.pdb</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <BrowsersListNodeJsFiles Include="$(TempFolder)\WebCompiler*\node_modules\browserslist\node.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Install.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Install.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Install.de-de.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Install.de-de.designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Target Name="BrowsersListWarningsAsInfo" BeforeTargets="WebCompile">
     <FileUpdate Files="@(BrowsersListNodeJsFiles)" Regex="console.warn" ReplacementText="console.log" />

@@ -276,7 +276,7 @@ namespace YAF.Controls
             // init ids...
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -315,8 +315,9 @@ namespace YAF.Controls
                     continue;
                 }
 
-                var linkUserBan = string.Format(
-                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN"),
+                var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
+                    "ADMIN_EDITUSER",
+                    "LINK_USER_BAN",
                     this.CurrentUserId,
                     YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
                     this.HtmlEncode(name));
@@ -344,11 +345,14 @@ namespace YAF.Controls
             this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
-            foreach (var ipAddress in this.IPAddresses.Take(5))
-            {
-                this.IpAddresses.Text +=
-                    $"<a href=\"{string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ipAddress)}\" target=\"_blank\" title=\"{this.GetText("COMMON", "TT_IPDETAILS")}\">{ipAddress}</a><br />";
-            }
+            this.IPAddresses.Take(5).ForEach(
+                ipAddress => this.IpAddresses.Text +=
+                                 $@"<a href=""{string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ipAddress)}""
+                                       target=""_blank"" 
+                                       title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
+                                       {ipAddress}
+                                    </a>
+                                    <br />");
 
             // if no ip disable BanIp checkbox
             if (!this.IPAddresses.Any())

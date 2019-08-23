@@ -48,11 +48,7 @@
             <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" 
                                 LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View7" class="nav-link" data-toggle="pill" role="tab">
-            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" 
-                                LocalizedTag="HOST_TEMPLATES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-        </a>
-        <a href="#View8" class="nav-link" data-toggle="pill" role="tab">
+                <a href="#View8" class="nav-link" data-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" 
                                 LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
@@ -100,11 +96,7 @@
             <YAF:LocalizedLabel ID="LocalizedLabel49" runat="server" 
                                 LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
-        <a href="#View7" class="nav-link" data-toggle="pill" role="tab">
-            <YAF:LocalizedLabel ID="LocalizedLabel50" runat="server" 
-                                LocalizedTag="HOST_TEMPLATES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-        </a>
-        <a href="#View8" class="nav-link" data-toggle="pill" role="tab">
+            <a href="#View8" class="nav-link" data-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel51" runat="server" 
                                 LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
@@ -728,24 +720,6 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel94" runat="server" 
-                                               AssociatedControlID="AllowGenderInUserBox"
-                                               LocalizedTag="ALLOW_DISPLAY_GENDER" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="AllowGenderInUserBox" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel202" runat="server" 
-                                               AssociatedControlID="ShowCountryInfoInUserBox"
-                                               LocalizedTag="ALLOW_DISPLAY_COUNTRY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="ShowCountryInfoInUserBox" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel95" runat="server" 
                                                AssociatedControlID="AllowUserHideHimself"
                                                LocalizedTag="ALLOW_USER_HIDE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -895,21 +869,12 @@
                             <asp:DropDownList CssClass="custom-select" ID="ShowShareTopicTo" runat="server" DataValueField="Value" DataTextField="Name">
                             </asp:DropDownList>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel184" runat="server"
-                                               AssociatedControlID="ShowRetweetMessageTo"
-                                               LocalizedTag="ENABLE_RETWEET_MSG" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:DropDownList CssClass="custom-select" ID="ShowRetweetMessageTo" runat="server" DataValueField="Value" DataTextField="Name">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group">
                                 <YAF:HelpLabel ID="HelpLabel173" runat="server" 
                                                AssociatedControlID="TwitterUserName"
                                                LocalizedTag="TWITTER_USERNAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control" ID="TwitterUserName" runat="server"></asp:TextBox>
                             </div>
-                        </div>
                         </div>
                         <div class="tab-pane fade" id="hover" role="tabpanel" aria-labelledby="hover-tab">
                             <div class="form-row">
@@ -1806,110 +1771,6 @@
                     </div>
                     <div class="card-footer text-lg-center">
                         <YAF:ThemeButton ID="ThemeButton7" runat="server"  Type="Primary" OnClick="SaveClick"
-                                         Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
-                        </YAF:ThemeButton>
-                    </div>
-                </div>
-            </div><div class="tab-pane fade" id="View7" role="tabpanel">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel69" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        - <YAF:LocalizedLabel ID="LocalizedLabel70" runat="server" 
-                                              LocalizedTag="HEADER_TEMPLATES" 
-                                              LocalizedPage="ADMIN_HOSTSETTINGS" />
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                       <YAF:HelpLabel ID="HelpLabel57" runat="server" 
-                                      LocalizedTag="USERBOX_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                       <asp:TextBox ID="UserBox" runat="server" 
-                                    TextMode="MultiLine"
-                                    Height="100"
-                                    CssClass="form-control"></asp:TextBox>
-                       </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel58" runat="server"
-                           AssociatedControlID="UserBoxAvatar"
-                           LocalizedTag="AVATAR_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxAvatar" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel59" runat="server"
-                           AssociatedControlID="UserBoxMedals"
-                           LocalizedTag="MEDALS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxMedals" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel60" runat="server"
-                           AssociatedControlID="UserBoxRankImage"
-                           LocalizedTag="RANKIMAGE_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxRankImage" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel61" runat="server"
-                           AssociatedControlID="UserBoxRank"
-                           LocalizedTag="RANK_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxRank" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel62" runat="server"
-                           AssociatedControlID="UserBoxGroups"
-                           LocalizedTag="GROUPS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxGroups" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel63" runat="server" 
-                           AssociatedControlID="UserBoxJoinDate"
-                           LocalizedTag="JOINDATE_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxJoinDate" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel64" runat="server" 
-                           AssociatedControlID="UserBoxPosts"
-                           LocalizedTag="POSTS_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxPosts" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel65" runat="server" 
-                           AssociatedControlID="UserBoxReputation"
-                           LocalizedTag="REPUTATION_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxReputation" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel196" runat="server" 
-                           AssociatedControlID="UserBoxCountryImage"
-                           LocalizedTag="COUNTRYIMAGE_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxCountryImage" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel66" runat="server" 
-                           AssociatedControlID="UserBoxLocation"
-                           LocalizedTag="LOCATION_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxLocation" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel67" runat="server"  
-                           AssociatedControlID="UserBoxGender"
-                           LocalizedTag="GENDER_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxGender" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel68" runat="server"  
-                           AssociatedControlID="UserBoxThanksFrom" 
-                           LocalizedTag="THANKS_FROM_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxThanksFrom" runat="server"></asp:TextBox>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel69" runat="server"  
-                           AssociatedControlID="UserBoxThanksTo" 
-                           LocalizedTag="THANKS_TO_TEMPLATE" LocalizedPage="ADMIN_HOSTSETTINGS"/>
-            <asp:TextBox CssClass="form-control" ID="UserBoxThanksTo" runat="server"></asp:TextBox>
-        </div>
-                    </div>
-                    <div class="card-footer text-lg-center">
-                        <YAF:ThemeButton ID="ThemeButton8" runat="server"  Type="Primary" OnClick="SaveClick"
                                          Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
                         </YAF:ThemeButton>
                     </div>

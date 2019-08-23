@@ -459,6 +459,8 @@ namespace YAF.Web.Controls
                 cssClass.AppendFormat(" {0}", this.CssClass);
             }
 
+            cssClass.Append(" mb-1");
+
             output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), cssClass.ToString());
 
             if (title.IsSet())

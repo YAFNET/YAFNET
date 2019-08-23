@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <asp:PlaceHolder runat="server" ID="ShowHideIgnoredUserPost" Visible="False">
     <YAF:Alert runat="server" Type="info" Dismissing="True">
@@ -23,40 +24,112 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <a onclick="ScrollToTop();" href="javascript: void(0)" class="btn btn-outline-secondary btn-sm">            
-                        <i class="fas fa-angle-double-up fa-fw"></i>
-                    </a>
-                    <a id="post<%# this.DataRow["MessageID"] %>" 
-                       href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", this.DataRow["MessageID"]) %>'>
-                        #<%# this.CurrentPage * this.Get<YafBoardSettings>().PostsPerPage + this.PostCount + 1%>
-                    </a>
-                    <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
-                               Visible='<%# this.PostData.PostIsAnswer %>'
-                               ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
-                        <i class="fas fa-check fa-fw"></i>
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
-                    </asp:Label>
-                <asp:PlaceHolder runat="server" ID="UserInfoMobile">
-                    <YAF:LocalizedLabel LocalizedTag="POSTEDBY" runat="server"></YAF:LocalizedLabel>:
-                    <YAF:UserLink  ID="UserLink1" runat="server" 
-                                   UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
-                                   ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
-                                   PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
-                                   Style='<%# this.DataRow["Style"]%>' 
-                                   EnableHoverCard="False" 
-                                   Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>' />
-                </asp:PlaceHolder>
-                <span id="IPSpan1" runat="server" visible="false" class="float-right d-none d-md-block"> 
-                    &nbsp;&nbsp;
-                    <strong><i class="fas fa-laptop fa-fw text-secondary"></i>&nbsp;<%# this.GetText("IP") %>:</strong>&nbsp;<a id="IPLink1" href="#" target="_blank" runat="server"></a>			   
-                </span> 
-                <time class="float-right">
-                    <i class="fas fa-calendar-alt fa-fw text-secondary"></i>
-                    <YAF:DisplayDateTime id="DisplayDateTime" runat="server" 
-                                         DateTime='<%# this.DataRow["Posted"] %>'>
-                    </YAF:DisplayDateTime>
-                </time>
-               
+                <div class="row">
+                    <div class="col-auto d-none d-md-block">
+                        <asp:Image runat="server" ID="Avatar" 
+                                   CssClass="rounded img-thumbnail img-avatar-sm" />
+                    </div>
+                    <div class="col-auto mr-auto">
+                        <asp:PlaceHolder runat="server" ID="UserInfo">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a id="post<%# this.DataRow["MessageID"] %>" 
+                                       href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", this.DataRow["MessageID"]) %>'>
+                                        #<%# this.CurrentPage * this.Get<YafBoardSettings>().PostsPerPage + this.PostCount + 1%>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <YAF:UserLink  ID="UserProfileLink" runat="server" 
+                                                   UserID='<%# PostData.UserId%>'
+                                                   ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
+                                                   PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
+                                                   Style='<%# this.DataRow["Style"]%>' 
+                                                   EnableHoverCard="False" 
+                                                   Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
+                                                   CssClass="dropdown-toggle" />
+                                    <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
+                                    <YAF:ThemeButton ID="AddReputation" runat="server" 
+                                                     CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataRow["UserID"])%>'
+                                                     Size="Small"
+                                                     Icon="thumbs-up"
+                                                     IconColor="text-success"
+                                                     Type="None"
+                                                     Visible="false" 
+                                                     TitleLocalizedTag="VOTE_UP_TITLE"
+                                                     OnClick="AddUserReputation">
+                                    </YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="RemoveReputation" runat="server" 
+                                                     CssClass='<%# "RemoveReputation_{0}".Fmt(this.DataRow["UserID"])%>'
+                                                     Type="None"
+                                                     Size="Small"
+                                                     IconColor="text-danger"
+                                                     Icon="thumbs-down"
+                                                     Visible="false" 
+                                                     TitleLocalizedTag="VOTE_DOWN_TITLE"
+                                                     OnClick="RemoveUserReputation">
+                                    </YAF:ThemeButton>
+                                    <asp:Label ID="TopicStarterBadge" runat="server" 
+                                               CssClass="badge badge-dark mb-2"
+                                               Visible='<%# this.DataRow["TopicOwnerID"].ToType<int>().Equals(this.PostData.UserId) %>'
+                                               ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
+                                        <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
+                                                            LocalizedTag="TOPIC_STARTER" 
+                                                            LocalizedPage="POSTS" />
+                                    </asp:Label>
+                                    <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
+                                               Visible='<%# this.PostData.PostIsAnswer %>'
+                                               ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
+                                        <i class="fas fa-check fa-fw"></i>
+                                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
+                                    </asp:Label>
+                                </li>
+                                <asp:PlaceHolder runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowGroups %>'>
+                                    <li class="list-inline-item d-none d-md-inline-block"><%# this.GetUserRoles() %></li>
+                                </asp:PlaceHolder>
+                                
+                                <li class="list-inline-item d-none d-md-inline-block"><%# this.GetUserRank() %></li>
+                                <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<YafBoardSettings>().DisplayPoints && !this.DataRow["IsGuest"].ToType<bool>() %>'>
+                                    <li class="d-none d-md-block">
+                                        <%# YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId) %>
+                                    </li>
+                                </asp:PlaceHolder>
+                            </ul>
+                        </asp:PlaceHolder>
+                    </div>
+                    <div class="col-auto">
+                        <ul class="list-inline">
+                            <li class="list-inline-item d-none d-md-inline-block">
+                                <strong><YAF:LocalizedLabel runat="server" LocalizedTag="POSTS"></YAF:LocalizedLabel>:</strong>
+                                 <%# this.DataRow["Posts"] %>
+                            </li>
+                            <li class="list-inline-item d-none d-md-inline-block">
+                                <strong><YAF:LocalizedLabel runat="server" LocalizedTag="JOINED"></YAF:LocalizedLabel>:</strong>
+                                 <%# this.Get<IDateTime>().FormatDateShort((DateTime)this.DataRow["Joined"]) %>
+                            </li>
+                            <asp:PlaceHolder runat="server" ID="IPHolder" Visible="False">
+                                <li class="list-inline-item">
+                                    <asp:Label id="IPInfo" runat="server" 
+                                               Visible="false" 
+                                               CssClass="d-none d-md-inline-block"> 
+                                        &nbsp;&nbsp;
+                                        <strong>
+                                            <i class="fas fa-laptop fa-fw text-secondary"></i>&nbsp;<%# this.GetText("IP") %>:
+                                        </strong>&nbsp;
+                                        <a id="IPLink1" href="#" target="_blank" runat="server"></a>			   
+                                    </asp:Label> 
+                                </li>
+                            </asp:PlaceHolder>
+                            <li class="list-inline-item">
+                                <time>
+                                    <i class="fas fa-calendar-alt fa-fw text-secondary"></i>
+                                    <YAF:DisplayDateTime id="DisplayDateTime" runat="server" 
+                                                         DateTime='<%# this.DataRow["Posted"] %>'>
+                                    </YAF:DisplayDateTime>
+                                </time>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -66,58 +139,7 @@
                                                  IsAltMessage="<%# this.IsAlt %>"
                                                  ShowEditMessage="True">
                             </YAF:MessagePostData>
-                        </asp:panel> 
-                    <asp:PlaceHolder runat="server" ID="UserInfoPlaceHolder">
-                    <div class="col-md-3">
-                            <div class="card mb-3">
-                                <div class="card-body p-2 text-center">
-                                <YAF:UserLink  ID="UserProfileLink" runat="server" 
-                                               UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
-                                               ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
-                                               PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
-                                               Style='<%# this.DataRow["Style"]%>' 
-                                               EnableHoverCard="False" 
-                                               Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
-                                               CssClass="dropdown-toggle" />
-                                <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
-                                <div class="m-1">
-                                    <YAF:ThemeButton ID="AddReputation" runat="server" 
-                                                     CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataRow["UserID"])%>'
-                                                     Size="Small"
-                                                     Icon="thumbs-up"
-                                                     Type="Success"
-                                                     Visible="false" 
-                                                     TitleLocalizedTag="VOTE_UP_TITLE"
-                                                     OnClick="AddUserReputation">
-                                </YAF:ThemeButton>
-                                <YAF:ThemeButton ID="RemoveReputation" runat="server" 
-                                                 CssClass='<%# "RemoveReputation_{0}".Fmt(this.DataRow["UserID"])%>'
-                                                 Type="Danger"
-                                                 Size="Small"
-                                                 Icon="thumbs-down"
-                                                 Visible="false" 
-                                                 TitleLocalizedTag="VOTE_DOWN_TITLE"
-                                                 OnClick="RemoveUserReputation">
-                                </YAF:ThemeButton>
-                                    </div>
-                                <asp:Label ID="TopicStarterBadge" runat="server" 
-                                           CssClass="badge badge-dark mb-2"
-                                           Visible='<%# this.DataRow["TopicOwnerID"].ToType<int>().Equals(this.DataRow["UserID"].ToType<int>()) %>'
-                                           ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
-                                    <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
-                                                        LocalizedTag="TOPIC_STARTER" 
-                                                        LocalizedPage="POSTS" />
-                                </asp:Label>
-                                <ul class="list-group list-group-flush">
-                                    <YAF:UserBox id="UserBox1" runat="server"
-                                                 Visible="<%# !this.PostData.IsSponserMessage %>" 
-                                                 PageCache="<%# this.PageContext.CurrentForumPage.PageCache %>" 
-                                                 DataRow='<%# this.DataRow %>'></YAF:UserBox>
-                                </ul>
-                                </div>
-                            </div>
-                    </div>
-                </asp:PlaceHolder>
+                        </asp:panel>
                 </div>
             </div>
             <div class="card-footer">
@@ -135,12 +157,6 @@
                         </div>
                     </div>
                     <div class="col-md-4 px-0 d-flex flex-wrap">
-                        <YAF:ThemeButton ID="Retweet" runat="server"
-                            Type="Link"
-                            Icon="retweet"
-                            TextLocalizedTag="BUTTON_RETWEET"
-                            TitleLocalizedTag="BUTTON_RETWEET_TT"
-                            OnClick="Retweet_Click" />
                         <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
                             <YAF:ThemeButton ID="Thank" runat="server"
                                 Type="Link"
@@ -182,10 +198,10 @@
                                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
                         </div>
                         <YAF:ThemeButton ID="Quote" runat="server"
-                            Type="Link"
-                            Icon="quote-left"
-                            TextLocalizedTag="BUTTON_QUOTE"
-                            TitleLocalizedTag="BUTTON_QUOTE_TT" />
+                                         Type="Link"
+                                         Icon="quote-left"
+                                         TextLocalizedTag="BUTTON_QUOTE"
+                                         TitleLocalizedTag="BUTTON_QUOTE_TT" />
                         <asp:CheckBox runat="server" ID="MultiQuote" 
                                       CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
                     </div>

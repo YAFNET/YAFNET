@@ -41,7 +41,6 @@ namespace YAF.Dialogs
     using YAF.Types.Models;
     using YAF.Utils;
 
-
     #endregion
 
     /// <summary>

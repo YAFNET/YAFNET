@@ -262,39 +262,6 @@ namespace YAF.Core.Services
                         this.GetRepository<Topic>().UnencodeAllTopicsSubjects(HttpUtility.HtmlDecode);
                     }
 
-                    if (prevVersion < 70)
-                    {
-                        // Reset The UserBox Template
-                        try
-                        {
-                            this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
-                            this.Get<YafBoardSettings>().UserBoxAvatar = @"<li class=""list-group-item"">{0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxMedals =
-                                @"<li class=""list-group-item""><strong>{0}</strong><br /> {1}{2}</li>";
-                            this.Get<YafBoardSettings>().UserBoxRankImage = @"<li class=""list-group-item"">{0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxRank =
-                                @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
-                            this.Get<YafBoardSettings>().UserBoxGroups =
-                                @"<li class=""list-group-item""><strong>{0}:</strong><br /> {1}</li>";
-                            this.Get<YafBoardSettings>().UserBoxJoinDate =
-                                @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
-                            this.Get<YafBoardSettings>().UserBoxPosts =
-                                @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxReputation =
-                                @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxCountryImage = @"{0}";
-                            this.Get<YafBoardSettings>().UserBoxLocation =
-                                @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>";
-                            this.Get<YafBoardSettings>().UserBoxGender = @"{0}&nbsp;";
-                            this.Get<YafBoardSettings>().UserBoxThanksFrom = @"<li class=""list-group-item"">{0}</li>";
-                            this.Get<YafBoardSettings>().UserBoxThanksTo = @"<li class=""list-group-item"">{0}</li>";
-                        }
-                        catch (Exception)
-                        {
-                            this.GetRepository<Registry>().Save("userbox", Constants.UserBox.DisplayTemplateDefault);
-                        }
-                    }
-
                     // Check if BaseUrlMask is set and if not automatically write it
                     if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
                     {

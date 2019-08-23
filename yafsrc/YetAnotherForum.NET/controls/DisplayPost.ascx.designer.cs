@@ -40,85 +40,22 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Panel MessageRow;
         
         /// <summary>
-        /// MessageIsAnswerBadge control.
+        /// Avatar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MessageIsAnswerBadge;
+        protected global::System.Web.UI.WebControls.Image Avatar;
         
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// UserInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-        
-        /// <summary>
-        /// UserInfoMobile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UserInfoMobile;
-        
-        /// <summary>
-        /// UserLink1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.UserLink UserLink1;
-        
-        /// <summary>
-        /// IPSpan1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl IPSpan1;
-        
-        /// <summary>
-        /// IPLink1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor IPLink1;
-        
-        /// <summary>
-        /// DisplayDateTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.DisplayDateTime DisplayDateTime;
-        
-        /// <summary>
-        /// panMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panMessage;
-        
-        /// <summary>
-        /// UserInfoPlaceHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UserInfoPlaceHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder UserInfo;
         
         /// <summary>
         /// UserProfileLink control.
@@ -175,13 +112,76 @@ namespace YAF.Controls {
         protected global::YAF.Web.Controls.LocalizedLabel TopicStarterText;
         
         /// <summary>
-        /// UserBox1 control.
+        /// MessageIsAnswerBadge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.UserBox UserBox1;
+        protected global::System.Web.UI.WebControls.Label MessageIsAnswerBadge;
+        
+        /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+        
+        /// <summary>
+        /// UserReputation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserReputation;
+        
+        /// <summary>
+        /// IPHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder IPHolder;
+        
+        /// <summary>
+        /// IPInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label IPInfo;
+        
+        /// <summary>
+        /// IPLink1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor IPLink1;
+        
+        /// <summary>
+        /// DisplayDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.DisplayDateTime DisplayDateTime;
+        
+        /// <summary>
+        /// panMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panMessage;
         
         /// <summary>
         /// PostFooter control.
@@ -209,15 +209,6 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal thanksDataExtendedLiteral;
-        
-        /// <summary>
-        /// Retweet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Retweet;
         
         /// <summary>
         /// Thank control.

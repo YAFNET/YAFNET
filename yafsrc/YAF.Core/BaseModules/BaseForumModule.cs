@@ -50,7 +50,7 @@ namespace YAF.Core.BaseModules
     public virtual string Description => this.GetType().GetAttribute<YafModule>().ModuleName;
 
     /// <summary>
-    ///   Gets or sets ForumControlObj.
+    ///   Gets or sets Forum Control Object.
     /// </summary>
     public virtual object ForumControlObj { get; set; }
 

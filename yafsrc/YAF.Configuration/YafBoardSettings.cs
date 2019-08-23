@@ -135,16 +135,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether User gender icons in user box are enabled.
-        /// </summary>
-        public bool AllowGenderInUserBox
-        {
-            get => this._reg.GetValue("AllowGenderInUserBox", true);
-
-            set => this._reg.SetValue("AllowGenderInUserBox", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether to enable Display Name.
         /// </summary>
         public bool EnableDisplayName
@@ -598,16 +588,6 @@ namespace YAF.Configuration
             get => this._reg.GetValue("ShowShareTopicTo", 1);
 
             set => this._reg.SetValue("ShowShareTopicTo", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Enable Re-tweet Message.
-        /// </summary>
-        public int ShowRetweetMessageTo
-        {
-            get => this._reg.GetValue("ShowRetweetMessageTo", 1);
-
-            set => this._reg.SetValue("ShowRetweetMessageTo", value);
         }
 
         /// <summary>
@@ -1117,7 +1097,7 @@ namespace YAF.Configuration
         {
             get => this._reg.GetValue<int>("MaxPostSize", short.MaxValue);
 
-            set => this._reg.SetValue<int>("MaxPostSize", value);
+            set => this._reg.SetValue("MaxPostSize", value);
         }
 
         /// <summary>
@@ -1398,16 +1378,6 @@ namespace YAF.Configuration
             get => this._reg.GetValue("ShowCrawlersInActiveList", false);
 
             set => this._reg.SetValue("ShowCrawlersInActiveList", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Show Country Info In User Box.
-        /// </summary>
-        public bool ShowCountryInfoInUserBox
-        {
-            get => this._reg.GetValue("ShowCountryInfoInUserBox", true);
-
-            set => this._reg.SetValue("ShowCountryInfoInUserBox", value);
         }
 
         /// <summary>
@@ -2513,148 +2483,6 @@ namespace YAF.Configuration
 
         /* 6/16/2007 */
         /* Ederon : 7/14/2007 */
-
-        /// <summary>
-        /// Gets or sets UserBox.
-        /// </summary>
-        public string UserBox
-        {
-            get => this._reg.GetValue("UserBox", Constants.UserBox.DisplayTemplateDefault);
-
-            set => this._reg.SetValue("UserBox", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxAvatar.
-        /// </summary>
-        public string UserBoxAvatar
-        {
-            get => this._reg.GetValue("UserBoxAvatar", @"<li class=""list-group-item"">{0}</li>");
-
-            set => this._reg.SetValue("UserBoxAvatar", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxMedals.
-        /// </summary>
-        public string UserBoxMedals
-        {
-            get => this._reg.GetValue("UserBoxMedals", @"<li class=""list-group-item""><strong>{0}</strong><br /> {1}{2}</li>");
-
-            set => this._reg.SetValue("UserBoxMedals", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxRankImage.
-        /// </summary>
-        public string UserBoxRankImage
-        {
-            get => this._reg.GetValue("UserBoxRankImage", @"<li class=""list-group-item"">{0}</li>");
-
-            set => this._reg.SetValue("UserBoxRankImage", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxCountryImage.
-        /// </summary>
-        public string UserBoxCountryImage
-        {
-            get => this._reg.GetValue("UserBoxCountryImage", @"<li class=""list-group-item"">{0}</li>");
-
-            set => this._reg.SetValue("UserBoxCountryImage", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxRank.
-        /// </summary>
-        public string UserBoxRank
-        {
-            get => this._reg.GetValue("UserBoxRank", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
-
-            set => this._reg.SetValue("UserBoxRank", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxGroups.
-        /// </summary>
-        public string UserBoxGroups
-        {
-            get => this._reg.GetValue("UserBoxGroups", @"<li class=""list-group-item""><strong>{0}:</strong><br /> {1}</li>");
-
-            set => this._reg.SetValue("UserBoxGroups", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxJoinDate.
-        /// </summary>
-        public string UserBoxJoinDate
-        {
-            get => this._reg.GetValue("UserBoxJoinDate", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
-
-            set => this._reg.SetValue("UserBoxJoinDate", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxGender.
-        /// </summary>
-        public string UserBoxGender
-        {
-            get => this._reg.GetValue("UserBoxGender", @"<li class=""list-group-item"">{0}</li>");
-
-            set => this._reg.SetValue("UserBoxGender", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxPosts.
-        /// </summary>
-        public string UserBoxPosts
-        {
-            get => this._reg.GetValue("UserBoxPosts", @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>");
-
-            set => this._reg.SetValue("UserBoxPosts", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxReputation.
-        /// </summary>
-        public string UserBoxReputation
-        {
-            get => this._reg.GetValue("UserBoxReputation", @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>");
-
-            set => this._reg.SetValue("UserBoxReputation", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxLocation.
-        /// </summary>
-        public string UserBoxLocation
-        {
-            get => this._reg.GetValue("UserBoxLocation", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
-
-            set => this._reg.SetValue("UserBoxLocation", value);
-        }
-
-        /* 7/14/2007 */
-
-        /// <summary>
-        /// Gets or sets UserBoxThanksFrom.
-        /// </summary>
-        public string UserBoxThanksFrom
-        {
-            get => this._reg.GetValue("UserBoxThanksFrom", @"<li class=""list-group-item"">{0}</li>");
-
-            set => this._reg.SetValue("UserBoxThanksFrom", value);
-        }
-
-        /// <summary>
-        /// Gets or sets UserBoxThanksTo.
-        /// </summary>
-        public string UserBoxThanksTo
-        {
-            get => this._reg.GetValue("UserBoxThanksTo", @"<li class=""list-group-item"">{0}</li>");
-
-            set => this._reg.SetValue("UserBoxThanksTo", value);
-        }
 
         /// <summary>
         /// Gets or sets LastDigestSend.

@@ -39,42 +39,12 @@ namespace YAF.Web.Controls
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Web.EventsArgs;
 
     #endregion
-
-    /// <summary>
-    /// EventArgs class for the PageTitleSet event
-    /// </summary>
-    public class ForumPageTitleArgs : EventArgs
-    {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForumPageTitleArgs"/> class.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        public ForumPageTitleArgs([NotNull] string title)
-        {
-            this.Title = title;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///   Gets Title.
-        /// </summary>
-        public string Title { get; }
-
-        #endregion
-    }
 
     /// <summary>
     /// EventArgs class for the YafBeforeForumPageLoad event
@@ -123,16 +93,17 @@ namespace YAF.Web.Controls
         public Forum()
         {
             // validate YafTaskModule is running...
-            this.TaskModuleRunning();
+            TaskModuleRunning();
 
             // init the modules and run them immediately...
             var baseModules = this.Get<IModuleManager<IBaseForumModule>>();
 
-            foreach (var module in baseModules.GetAll())
-            {
-                module.ForumControlObj = this;
-                module.Init();
-            }
+            baseModules.GetAll().ForEach(
+                module =>
+                    {
+                        module.ForumControlObj = this;
+                        module.Init();
+                    });
         }
 
         #endregion
@@ -342,7 +313,7 @@ namespace YAF.Web.Controls
             {
                 this.currentForumPage = (ForumPage)this.LoadControl(src);
 
-                this.Header = this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/{"YafHeader"}.ascx");
+                this.Header = this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/YafHeader.ascx");
 
                 this.Footer = new Footer();
             }
@@ -382,7 +353,7 @@ namespace YAF.Web.Controls
             }
 
             this.NotificationBox = (BaseUserControl)this.LoadControl(
-                $"{YafForumInfo.ForumServerFileRoot}Dialogs/{"DialogBox"}.ascx");
+                $"{YafForumInfo.ForumServerFileRoot}Dialogs/DialogBox.ascx");
 
             this.currentForumPage.Notification = this.NotificationBox;
 
@@ -410,16 +381,44 @@ namespace YAF.Web.Controls
                     this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/CookieConsent.ascx"));
             }
 
-            // Add smart Scroller
+            // Add smart Scroll
             if (Config.IsAnyPortal)
             {
                 this.Controls.Add(new SmartScroller());
             }
 
+            // Add Scroll top button
+            this.Controls.Add(this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/ScrollTop.ascx"));
+
             // load plugins/functionality modules
             this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());
 
             base.OnLoad(e);
+        }
+
+        /// <summary>
+        /// The task module running.
+        /// </summary>
+        private static void TaskModuleRunning()
+        {
+            if (HttpContext.Current.Application[Constants.Cache.TaskModule] != null)
+            {
+                return;
+            }
+
+#if DEBUG
+            throw new YafTaskModuleNotRegisteredException(
+                @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
+#else
+
+            // YAF is not setup properly...
+            HttpContext.Current.Session["StartupException"] =
+                @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
+
+            // go immediately to the error page.
+            HttpContext.Current.Response.Redirect($"{YafForumInfo.ForumClientFileRoot}error.aspx");
+
+#endif
         }
 
         /// <summary>
@@ -457,31 +456,6 @@ namespace YAF.Web.Controls
                 .ForEach(path => { src[0] = src[0].Replace($"/{path}_", $"/{path}/"); });
 
             return src[0];
-        }
-
-        /// <summary>
-        /// The task module running.
-        /// </summary>
-        private void TaskModuleRunning()
-        {
-            if (HttpContext.Current.Application[Constants.Cache.TaskModule] != null)
-            {
-                return;
-            }
-
-#if DEBUG
-            throw new YafTaskModuleNotRegisteredException(
-                @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
-#else
-
-            // YAF is not setup properly...
-            HttpContext.Current.Session["StartupException"] =
-                @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
-
-            // go immediately to the error page.
-            HttpContext.Current.Response.Redirect($"{YafForumInfo.ForumClientFileRoot}error.aspx");
-
-#endif
         }
 
         #endregion

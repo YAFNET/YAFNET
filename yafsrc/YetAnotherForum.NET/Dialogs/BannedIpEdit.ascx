@@ -19,13 +19,13 @@
                         <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="mask"
-                                           LocalizedTag="MASK" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                                           LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
                             <asp:TextBox CssClass="form-control" ID="mask" runat="server"></asp:TextBox>
                         </div>
                         <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="BanReason"
-                                           LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                                           LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
                             <asp:TextBox CssClass="form-control" ID="BanReason" runat="server" 
                                          MaxLength="128"
                                          Height="100"

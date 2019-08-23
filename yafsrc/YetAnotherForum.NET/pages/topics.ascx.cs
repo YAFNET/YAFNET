@@ -281,6 +281,12 @@ namespace YAF.Pages
                 this.NewTopic2.Visible = false;
             }
 
+            if (this.PageContext.IsGuest)
+            {
+                this.WatchForum.Visible = false;
+                this.MarkRead.Visible = false;
+            }
+
             if (this.PageContext.ForumModeratorAccess)
             {
                 return;

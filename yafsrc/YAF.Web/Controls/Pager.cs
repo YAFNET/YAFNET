@@ -263,11 +263,11 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            output.Write(@"<div class=""btn-toolbar pagination mt-n1"" role=""toolbar"">");
+            output.Write(@"<div class=""btn-toolbar pagination mt-1"" role=""toolbar"">");
 
             output.WriteLine(
                 @"<div class=""btn-group mt-1"" role=""group"">
-                      <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
+                      <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle mb-1"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                       {1:N0} {2}</button>",
                 this.Get<ILocalization>().TransPage.IsSet()
                     ? this.GetText("COMMON", "GOTOPAGE_HEADER")

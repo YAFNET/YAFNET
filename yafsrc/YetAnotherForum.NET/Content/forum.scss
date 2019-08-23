@@ -28,6 +28,7 @@
 @import "forum/user-albums.scss";
 @import "forum/social-icons.scss";
 @import "forum/cookie-alert.scss";
+@import "forum/button-scroll.scss";
 
 // -- Main
 #YafBody {
@@ -113,4 +114,9 @@ span.form-check > label {
 .img-user-posted {
     max-height: 200px;
     max-width: 200px;
+}
+
+// Small Avatars inside Posts
+.img-avatar-sm {
+    max-height: 40px;
 }

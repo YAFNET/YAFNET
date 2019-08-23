@@ -24,11 +24,8 @@
 namespace YAF.Modules.BBCode
 {
     using System.Text;
-    using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
-    using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Web.Controls;
 
@@ -45,29 +42,6 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var session = this.Get<HttpSessionStateBase>();
-            var settings = this.Get<YafBoardSettings>();
-
-            if (session[name: "imagePreviewWidth"] == null)
-            {
-                session[name: "imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
-            }
-
-            if (session[name: "imagePreviewHeight"] == null)
-            {
-                session[name: "imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
-            }
-
-            if (session[name: "imagePreviewCropped"] == null)
-            {
-                session[name: "imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
-            }
-
-            if (session[name: "localizationFile"] == null)
-            {
-                session[name: "localizationFile"] = this.Get<ILocalization>().LanguageFileName;
-            }
-
             var sb = new StringBuilder();
 
             sb.AppendFormat(

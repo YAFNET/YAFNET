@@ -444,7 +444,7 @@ namespace YAF.Core.Services.Localization
         {
             return this.GetLocalizedTextInternal(page, tag).IsSet();
         }
-
+        
         /// <summary>
         /// Formats a localized string -- but verifies the parameter count matches
         /// </summary>
@@ -470,11 +470,8 @@ namespace YAF.Core.Services.Localization
 
             for (var arrayIndex = args.Length; arrayIndex < arraySize; arrayIndex++)
             {
-                copiedArgs[arrayIndex] = string.Format(
-                    "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]",
-                    text.ToUpper(),
-                        this.TransPage.IsNotSet() ? "NULL" : this.TransPage.ToUpper(),
-                        arrayIndex);
+                copiedArgs[arrayIndex] =
+                    $"[INVALID: {(this.TransPage.IsNotSet() ? "NULL" : this.TransPage.ToUpper())}.{text.ToUpper()} -- EMPTY PARAM #{arrayIndex}]";
             }
 
             // run format command...

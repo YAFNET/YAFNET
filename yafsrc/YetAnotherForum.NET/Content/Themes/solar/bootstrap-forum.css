@@ -1650,9 +1650,6 @@ pre {
   .form-control::-webkit-input-placeholder {
     color: #657B83;
     opacity: 1; }
-  .form-control::-moz-placeholder {
-    color: #657B83;
-    opacity: 1; }
   .form-control::-ms-input-placeholder {
     color: #657B83;
     opacity: 1; }
@@ -4008,10 +4005,8 @@ input[type="button"].btn-block {
 @media (min-width: 576px) {
   .card-columns {
     -webkit-column-count: 3;
-       -moz-column-count: 3;
             column-count: 3;
     -webkit-column-gap: 1.25rem;
-       -moz-column-gap: 1.25rem;
             column-gap: 1.25rem;
     orphans: 1;
     widows: 1; }
@@ -8336,6 +8331,5 @@ a.text-dark:hover, a.text-dark:focus {
 
 .forum-logo {
   background: url("../../images/YAFLogo.svg") no-repeat;
-  width: 250px;
   height: 125px;
   display: block; }

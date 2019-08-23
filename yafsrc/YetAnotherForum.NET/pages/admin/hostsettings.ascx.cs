@@ -328,23 +328,12 @@ namespace YAF.Pages.Admin
         {
             var localizations = new[] { "FORBIDDEN", "REG_USERS", "ALL_USERS" };
 
-            var dropDownLists = new[]
-                                    {
-                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName,
-                                        this.PostLatestFeedAccess, this.ForumFeedAccess, this.TopicsFeedAccess,
-                                        this.ActiveTopicFeedAccess, this.FavoriteTopicFeedAccess,
-                                        this.ReportPostPermissions, this.ProfileViewPermissions,
-                                        this.MembersListViewPermissions, this.ActiveUsersViewPermissions,
-                                        this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo,
-                                        this.ShowRetweetMessageTo, this.ShowShareTopicTo
-                                    };
+            var dropDownLists = new[] { this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess, this.ForumFeedAccess, this.TopicsFeedAccess, this.ActiveTopicFeedAccess, this.FavoriteTopicFeedAccess, this.ReportPostPermissions, this.ProfileViewPermissions, this.MembersListViewPermissions, this.ActiveUsersViewPermissions, this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo, this.ShowShareTopicTo };
 
-            foreach (var ddl in dropDownLists)
-            {
-                ddl.Items.AddRange(
+            dropDownLists.ForEach(
+                ddl => ddl.Items.AddRange(
                     localizations.Select((t, i) => new ListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString()))
-                        .ToArray());
-            }
+                        .ToArray()));
 
             this.CaptchaTypeRegister.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
             this.CaptchaTypeRegister.Items.Add(new ListItem("YafCaptcha", "1"));
@@ -369,12 +358,9 @@ namespace YAF.Pages.Admin
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
 
-            this.SendWelcomeNotificationAfterRegister.Items.Add(
-                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_0"), "0"));
-            this.SendWelcomeNotificationAfterRegister.Items.Add(
-                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_1"), "1"));
-            this.SendWelcomeNotificationAfterRegister.Items.Add(
-                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_2"), "2"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_0"), "0"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_1"), "1"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_2"), "2"));
         }
 
         /// <summary>

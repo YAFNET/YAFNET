@@ -33,7 +33,7 @@
                        title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + this.AlbumID + "[/ALBUMIMG]"%>'
                        data-gallery>
                         <img src='<%# "{0}resource.ashx?imgprv={1}".Fmt(YafForumInfo.ForumClientFileRoot, this.Eval("ID")) %>'
-                             class="img-fluid img-thumbnail"
+                             class="img-thumbnail"
                              alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' 
                              title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />
                     </a>

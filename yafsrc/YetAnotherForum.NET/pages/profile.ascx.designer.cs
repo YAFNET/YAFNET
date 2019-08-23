@@ -550,7 +550,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ReputationReceived;
+        protected global::System.Web.UI.WebControls.Literal ReputationReceived;
         
         /// <summary>
         /// MedalsRow control.

@@ -30,6 +30,8 @@ namespace YAF.Web.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
+    using ServiceStack;
+
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Types.Extensions;
@@ -130,7 +132,7 @@ namespace YAF.Web.Controls
         {
             output.BeginRender();
 
-            var text = this.GetTextFormatted(this.LocalizedTag, this.Param0, this.Param1, this.Param2);
+            var text = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
 
             if (text.IsSet() && text.EndsWith(":"))
             {
@@ -162,8 +164,7 @@ namespace YAF.Web.Controls
                 label.Controls.Add(new Literal { Text = this.Suffix });
             }
 
-            var tooltip = this.GetTextFormatted(
-                this.LocalizedHelpTag,
+            var tooltip = this.GetText(this.LocalizedPage, this.LocalizedHelpTag).Fmt(
                 this.ParamHelp0,
                 this.ParamHelp1,
                 this.ParamHelp2);

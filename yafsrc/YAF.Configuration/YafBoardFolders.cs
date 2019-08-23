@@ -27,56 +27,54 @@ namespace YAF.Configuration
     using YAF.Configuration.Pattern;
 
     /// <summary>
-  /// The YAF board folders.
-  /// </summary>
-  public class YafBoardFolders
-  {
-    /// <summary>
-    /// Gets Current.
+    /// The YAF board folders.
     /// </summary>
-    public static YafBoardFolders Current => PageSingleton<YafBoardFolders>.Instance;
+    public class YafBoardFolders
+    {
+        /// <summary>
+        /// Gets Current.
+        /// </summary>
+        public static YafBoardFolders Current => PageSingleton<YafBoardFolders>.Instance;
 
-    /// <summary>
-    /// Gets BoardFolder.
-    /// </summary>
-    public string BoardFolder =>
-        Config.MultiBoardFolders
-            ? string.Format(Config.BoardRoot + "{0}/", YafControlSettings.Current.BoardID)
-            : Config.BoardRoot;
+        /// <summary>
+        /// Gets BoardFolder.
+        /// </summary>
+        public string BoardFolder =>
+            Config.MultiBoardFolders ? $"{Config.BoardRoot}{YafControlSettings.Current.BoardID}/" : Config.BoardRoot;
 
-    /// <summary>
-    /// Gets Uploads.
-    /// </summary>
-    public string Uploads => string.Concat(this.BoardFolder, "Uploads");
+        /// <summary>
+        /// Gets Uploads.
+        /// </summary>
+        public string Uploads => string.Concat(this.BoardFolder, "Uploads");
 
-    /// <summary>
-    /// Gets Images.
-    /// </summary>
-    public string Images => string.Concat(this.BoardFolder, "Images");
+        /// <summary>
+        /// Gets Images.
+        /// </summary>
+        public string Images => string.Concat(this.BoardFolder, "Images");
 
-    /// <summary>
-    /// Gets Avatars.
-    /// </summary>
-    public string Avatars => string.Concat(this.BoardFolder, "Images/Avatars");
+        /// <summary>
+        /// Gets Avatars.
+        /// </summary>
+        public string Avatars => string.Concat(this.BoardFolder, "Images/Avatars");
 
-    /// <summary>
-    /// Gets Categories.
-    /// </summary>
-    public string Categories => string.Concat(this.BoardFolder, "Images/Categories");
+        /// <summary>
+        /// Gets Categories.
+        /// </summary>
+        public string Categories => string.Concat(this.BoardFolder, "Images/Categories");
 
-    /// <summary>
-    /// Gets Categories.
-    /// </summary>
-    public string Forums => string.Concat(this.BoardFolder, "Images/Forums");
+        /// <summary>
+        /// Gets Categories.
+        /// </summary>
+        public string Forums => string.Concat(this.BoardFolder, "Images/Forums");
 
-    /// <summary>
-    /// Gets Medals.
-    /// </summary>
-    public string Medals => string.Concat(this.BoardFolder, "Images/Medals");
+        /// <summary>
+        /// Gets Medals.
+        /// </summary>
+        public string Medals => string.Concat(this.BoardFolder, "Images/Medals");
 
-    /// <summary>
-    /// Gets Ranks.
-    /// </summary>
-    public string Ranks => string.Concat(this.BoardFolder, "Images/Ranks");
-  }
+        /// <summary>
+        /// Gets Ranks.
+        /// </summary>
+        public string Ranks => string.Concat(this.BoardFolder, "Images/Ranks");
+    }
 }

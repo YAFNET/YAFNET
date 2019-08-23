@@ -34,9 +34,11 @@
                             TextLocalizedTag="ADMIN_SPAMWORDS_IMPORT" TextLocalizedPage="TITLE"
                             Type="Primary" Icon="upload">
                         </YAF:ThemeButton>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fa fa-times fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>
-                        </button>
+                        <YAF:ThemeButton runat="server"
+                                         Type="Secondary"
+                                         DataDismiss="modal"
+                                         Icon="times"
+                                         TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                     </div>
                 </div>
     </div>

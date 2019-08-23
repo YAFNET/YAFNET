@@ -7485,6 +7485,27 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
     -webkit-transition-delay: 1000ms;
             transition-delay: 1000ms; }
 
+.scrolltop {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 20px;
+  right: 10px; }
+
+.scroll-top {
+  display: none;
+  width: 100%;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 20px;
+  right: 10px; }
+
+.btn-scroll {
+  position: absolute;
+  right: 20px;
+  bottom: 20px; }
+
 #YafBody {
   padding-right: 15px;
   padding-left: 15px;

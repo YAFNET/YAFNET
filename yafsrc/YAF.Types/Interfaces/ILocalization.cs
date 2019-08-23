@@ -27,6 +27,9 @@ namespace YAF.Types.Interfaces
     using System.Collections.Generic;
     using System.Globalization;
 
+    /// <summary>
+    /// The Localization interface.
+    /// </summary>
     public interface ILocalization
     {
         /// <summary>

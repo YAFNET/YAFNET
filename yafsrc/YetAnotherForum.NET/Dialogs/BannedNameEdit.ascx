@@ -7,8 +7,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            <YAF:LocalizedLabel ID="Title" runat="server" LocalizedTag="TITLE" 
-                                LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
+                            <YAF:LocalizedLabel ID="Title" runat="server" 
+                                                LocalizedTag="TITLE" 
+                                                LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -19,7 +20,7 @@
                         <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                            AssociatedControlID="mask"
-                                           LocalizedTag="MASK" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                                           LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
                             <asp:TextBox ID="mask" runat="server"
                                          CssClass="form-control" 
                                          Height="100"
@@ -28,8 +29,10 @@
                         <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="BanReason"
-                                           LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
-                            <asp:TextBox CssClass="form-control" ID="BanReason" runat="server" MaxLength="128"></asp:TextBox>
+                                           LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
+                            <asp:TextBox ID="BanReason" runat="server"
+                                         CssClass="form-control" 
+                                         MaxLength="128"></asp:TextBox>
                         </div>
                         <!-- Modal Content END !-->
                     </div>

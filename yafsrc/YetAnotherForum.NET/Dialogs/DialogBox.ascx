@@ -16,13 +16,12 @@
             </div>
             <div class="modal-footer">
                 <YAF:ThemeButton ID="OkButton" runat="server" 
-                            OnClick="OkButton_Click"
+                                 OnClick="OkButton_Click"
                                  Icon="check"/>
-                <YAF:ThemeButton ID="CancelButton"
-                            runat="server" 
-                            OnClick="CancelButton_Click" 
+                <YAF:ThemeButton ID="CancelButton" runat="server" 
+                                 OnClick="CancelButton_Click" 
                                  Icon="times"
-                            Visible="false"
+                                 Visible="false"
                                  DataDismiss="modal"/>
             </div>
         </div>

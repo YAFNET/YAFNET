@@ -202,10 +202,11 @@
 								</li>
 							</asp:PlaceHolder>
                             <asp:PlaceHolder id="divRR" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableUserReputation %>">
-                                <li class="list-group-item text-right">
-                                <span class="float-left font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />
-                                </span>
-									<asp:Label ID="ReputationReceived" runat="server" />
+                                <li class="list-group-item">
+                                    <span class="font-weight-bold">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />
+                                    </span>
+									<asp:Literal ID="ReputationReceived" runat="server" />
 								</li>
 							</asp:PlaceHolder>
                             <asp:PlaceHolder runat="server" id="MedalsRow" Visible="False">

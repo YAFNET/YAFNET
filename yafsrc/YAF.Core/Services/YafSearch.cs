@@ -81,11 +81,6 @@ namespace YAF.Core.Services
         private readonly StandardAnalyzer standardAnalyzer;
 
         /// <summary>
-        /// The index Searcher.
-        /// </summary>
-        private readonly IndexSearcher indexSearcher;
-
-        /// <summary>
         /// The indexWriter lock.
         /// </summary>
         private readonly object indexWriterLock = new object();

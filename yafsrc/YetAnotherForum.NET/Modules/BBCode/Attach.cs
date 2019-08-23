@@ -23,12 +23,12 @@
  */
 namespace YAF.Modules.BBCode
 {
-    using System.Web;
     using System.Web.UI;
 
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -59,31 +59,16 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
+            if (this.PageContext.ForumPageType == ForumPages.profile
+                || this.PageContext.ForumPageType == ForumPages.search)
+            {
+                writer.Write(@"<i class=""fa fa-file fa-fw""></i>&nbsp;{0}", attachment.FileName);
+
+                return;
+            }
+
             var filename = attachment.FileName.ToLower();
             var showImage = false;
-
-            var session = this.Get<HttpSessionStateBase>();
-            var settings = this.Get<YafBoardSettings>();
-
-            if (session[name: "imagePreviewWidth"] == null)
-            {
-                session[name: "imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
-            }
-
-            if (session[name: "imagePreviewHeight"] == null)
-            {
-                session[name: "imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
-            }
-
-            if (session[name: "imagePreviewCropped"] == null)
-            {
-                session[name: "imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
-            }
-
-            if (session[name: "localizationFile"] == null)
-            {
-                session[name: "localizationFile"] = this.Get<ILocalization>().LanguageFileName;
-            }
 
             // verify it's not too large to display
             // Ederon : 02/17/2009 - made it board setting
@@ -93,57 +78,43 @@ namespace YAF.Modules.BBCode
                 showImage = filename.IsImageName();
             }
 
+            // user doesn't have rights to download, don't show the image
+            if (!this.PageContext.ForumDownloadAccess && !this.PageContext.ForumModeratorAccess)
+            {
+                writer.Write(
+                    @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
+                    attachment.FileName,
+                    this.GetText(tag: "ATTACH_NO"));
+            }
+
             if (showImage)
             {
-                // Ederon : download rights
-                if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
-                {
-                    // user has rights to download, show him image
-                    writer.Write(
-                        format: !this.Get<YafBoardSettings>().EnableImageAttachmentResize
-                                    ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" />"
-                                    : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery>
+                // user has rights to download, show him image
+                writer.Write(
+                    format: !this.Get<YafBoardSettings>().EnableImageAttachmentResize
+                                ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" />"
+                                : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery>
                                             <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" class=""img-user-posted img-thumbnail"" />
                                         </a>",
-                        YafForumInfo.ForumClientFileRoot,
-                        attachment.ID,
-                        this.HtmlEncode(data: attachment.FileName),
-                        this.PageContext.PageBoardID);
-                }
-                else
-                {
-                    // user doesn't have rights to download, don't show the image
-                    writer.Write(
-                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
-                        attachment.FileName,
-                        this.GetText(tag: "ATTACH_NO"));
-                }
+                    YafForumInfo.ForumClientFileRoot,
+                    attachment.ID,
+                    this.HtmlEncode(data: attachment.FileName),
+                    this.PageContext.PageBoardID);
             }
             else
             {
                 // regular file attachment
                 var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
 
-                // Ederon : download rights
-                if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
-                {
-                    writer.Write(
-                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;
+                writer.Write(
+                    @"<i class=""fa fa-file fa-fw""></i>&nbsp;
                          <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
                          <span class=""attachmentinfo"">{3}</span>",
-                        YafForumInfo.ForumClientFileRoot,
-                        attachment.ID,
-                        attachment.FileName,
-                        this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
-                        this.PageContext.PageBoardID);
-                }
-                else
-                {
-                    writer.Write(
-                        @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
-                        attachment.FileName,
-                        this.GetText(tag: "ATTACH_NO"));
-                }
+                    YafForumInfo.ForumClientFileRoot,
+                    attachment.ID,
+                    attachment.FileName,
+                    this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
+                    this.PageContext.PageBoardID);
             }
         }
     }

@@ -44,7 +44,7 @@ namespace YAF.Web.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets the additional rss feed url parameters.
+        ///   Gets or sets the additional RSS feed url parameters.
         /// </summary>
         public string AdditionalParameters
         {
@@ -85,7 +85,7 @@ namespace YAF.Web.Controls
 
             // write button
             output.WriteBeginTag("button");
-            output.WriteAttribute("class", "btn btn-warning btn-sm dropdown-toggle");
+            output.WriteAttribute("class", "btn btn-warning btn-sm dropdown-toggle mb-1");
             output.WriteAttribute("id", this.ClientID);
             output.WriteAttribute("data-toggle", "dropdown");
             output.WriteAttribute("aria-haspopup", "true");
@@ -108,7 +108,7 @@ namespace YAF.Web.Controls
             output.Write(HtmlTextWriter.TagRightChar);
 
             // Render Rss Menu Item
-            if (this.PageContext.BoardSettings.ShowRSSLink)
+            if (this.PageContext.BoardSettings.ShowAtomLink)
             {
                 output.WriteBeginTag("a");
                 output.WriteAttribute("class", "dropdown-item");

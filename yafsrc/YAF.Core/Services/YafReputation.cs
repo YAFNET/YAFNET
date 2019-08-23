@@ -77,31 +77,15 @@ namespace YAF.Core.Services
 
             var percentage = ConvertPointsToPercentage(points);
 
-            var pointsSign = string.Empty;
-
-            if (points > 0)
-            {
-                pointsSign = "+";
-            }
-            else if (points < 0)
-            {
-                pointsSign = "-";
-            }
-
-            return
-                string
-                    .Format(
-                        @"<div class=""text-center"">{1}</div>
-                  <div class=""progress"">
-                      <div class=""progress-bar progress-bar-striped{2}"" role=""progressbar""  style=""width:{0}%;"" aria-valuenow=""{0}"" aria-valuemax=""100"">
-                      {0}%
+            return $@"<div class=""progress"">
+                      <div class=""progress-bar progress-bar-striped{GetReputationBarColor(percentage)}"" 
+                           role=""progressbar""
+                           style=""width:{percentage.ToString(formatInfo)}%;"" 
+                           aria-valuenow=""{percentage.ToString(formatInfo)}"" 
+                           aria-valuemax=""100"">
+                      {percentage.ToString(formatInfo)}% ({GetReputationBarText(percentage)})
                       </div>
-                  </div>",
-                        percentage.ToString(formatInfo),
-                            GetReputationBarText(percentage),
-                            GetReputationBarColor(percentage),
-                            pointsSign,
-                            points);
+                  </div>";
         }
 
         /// <summary>
@@ -176,7 +160,7 @@ namespace YAF.Core.Services
         [NotNull]
         public static float ConvertPointsToPercentage([NotNull] int points)
         {
-            var percantage = points;
+            var percentage = points;
 
             var minValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxNegative;
 
@@ -189,23 +173,22 @@ namespace YAF.Core.Services
 
             var testValue = minValue + maxValue;
 
-            if (percantage.Equals(0) && YafContext.Current.Get<YafBoardSettings>().ReputationAllowNegative)
+            if (percentage.Equals(0) && YafContext.Current.Get<YafBoardSettings>().ReputationAllowNegative)
             {
                 return 50;
             }
 
-            if (percantage >= maxValue)
+            if (percentage >= maxValue)
             {
                 return 100;
             }
 
-            if (percantage <= minValue)
+            if (percentage <= minValue)
             {
                 return 0;
             }
 
-            //// ((100 / (float)(maxValue * 2)) * percantage) + 50;
-            var returnValue = 100 / (float)testValue * percantage + 50;
+            var returnValue = 100 / (float)testValue * percentage + 50;
 
             return returnValue > 100 ? 100 : returnValue;
         }

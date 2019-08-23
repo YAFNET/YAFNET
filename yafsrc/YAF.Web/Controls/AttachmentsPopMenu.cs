@@ -59,32 +59,6 @@ namespace YAF.Web.Controls
         /// </summary>
         public string Control { get; set; } = string.Empty;
 
-        /// <summary>
-        ///   Gets ControlOnClick.
-        /// </summary>
-        public string ControlOnClick => $"yaf_popit('{this.ClientID}')";
-
-        /// <summary>
-        ///   Gets ControlOnMouseOver.
-        /// </summary>
-        public string ControlOnMouseOver => $"yaf_mouseover('{this.ClientID}')";
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The attach.
-        /// </summary>
-        /// <param name="control">
-        /// The control.
-        /// </param>
-        public void Attach([NotNull] WebControl control)
-        {
-            control.Attributes["onclick"] = this.ControlOnClick;
-            control.Attributes["onmouseover"] = this.ControlOnMouseOver;
-        }
-
         #endregion
 
         #region Implemented Interfaces
