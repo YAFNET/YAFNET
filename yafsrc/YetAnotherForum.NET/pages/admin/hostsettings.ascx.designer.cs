@@ -1120,6 +1120,42 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ImageAttachmentResizeCropped;
         
         /// <summary>
+        /// HelpLabel20 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel20;
+        
+        /// <summary>
+        /// ImageThumbnailMaxWidth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ImageThumbnailMaxWidth;
+        
+        /// <summary>
+        /// HelpLabel29 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel29;
+        
+        /// <summary>
+        /// ImageThumbnailMaxHeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ImageThumbnailMaxHeight;
+        
+        /// <summary>
         /// HelpLabel23 control.
         /// </summary>
         /// <remarks>

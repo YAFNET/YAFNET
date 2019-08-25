@@ -526,7 +526,7 @@
                                 <asp:TextBox CssClass="form-control" ID="PictureAttachmentDisplayTreshold" runat="server"></asp:TextBox>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <YAF:HelpLabel ID="HelpLabel22" runat="server" 
                                                    AssociatedControlID="EnableImageAttachmentResize"
                                                    LocalizedTag="IMAGE_ATTACH_RESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -534,7 +534,7 @@
                                         <asp:CheckBox Text="&nbsp;" ID="EnableImageAttachmentResize" runat="server" />
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <YAF:HelpLabel ID="HelpLabel217" runat="server" 
                                                    AssociatedControlID="ResizePostedImages"
                                                    LocalizedTag="POSTED_IMAGE_RESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -542,13 +542,27 @@
                                         <asp:CheckBox Text="&nbsp;" ID="ResizePostedImages" runat="server" />
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <YAF:HelpLabel ID="HelpLabel25" runat="server" 
-                                                   AssociatedControlID="ImageAttachmentResizeCropped"
-                                                   LocalizedTag="CROP_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="custom-control custom-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <YAF:HelpLabel ID="HelpLabel25" runat="server" 
+                                               AssociatedControlID="ImageAttachmentResizeCropped"
+                                               LocalizedTag="CROP_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <YAF:HelpLabel ID="HelpLabel20" runat="server" 
+                                                   AssociatedControlID="ImageThumbnailMaxWidth"
+                                                   LocalizedTag="IMAGE_THUMB_WIDTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                    <asp:TextBox CssClass="form-control" ID="ImageThumbnailMaxWidth" runat="server"></asp:TextBox>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <YAF:HelpLabel ID="HelpLabel29" runat="server" 
+                                                   AssociatedControlID="ImageThumbnailMaxHeight"
+                                                   LocalizedTag="IMAGE_THUMB_HEIGHT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                    <asp:TextBox CssClass="form-control" ID="ImageThumbnailMaxHeight" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="form-row">

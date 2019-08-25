@@ -464,8 +464,8 @@ namespace YAF.Core.Services
             var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
             // defaults
-            const int PreviewMaxWidth = 200;
-            const int PreviewMaxHeight = 200;
+            var previewMaxWidth = this.Get<YafBoardSettings>().ImageThumbnailMaxWidth;
+            var previewMaxHeight = this.Get<YafBoardSettings>().ImageThumbnailMaxHeight;
 
             try
             {
@@ -541,8 +541,8 @@ namespace YAF.Core.Services
 
                 var ms = GetAlbumOrAttachmentImageResized(
                     data,
-                    PreviewMaxWidth,
-                    PreviewMaxHeight,
+                    previewMaxWidth,
+                    previewMaxHeight,
                     previewCropped,
                     attachment.Downloads,
                     localizationFile,

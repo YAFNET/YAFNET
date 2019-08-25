@@ -92,14 +92,16 @@ namespace YAF.Modules.BBCode
                 // user has rights to download, show him image
                 writer.Write(
                     format: !this.Get<YafBoardSettings>().EnableImageAttachmentResize
-                                ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" />"
-                                : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery>
-                                            <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" class=""img-user-posted img-thumbnail"" />
+                                ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:{4}px;max-height:{5}px"" />"
+                                : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" title=""{2}""  data-gallery>
+                                            <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:{4}px;max-height:{5}px"" />
                                         </a>",
                     YafForumInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(data: attachment.FileName),
-                    this.PageContext.PageBoardID);
+                    this.PageContext.PageBoardID,
+                    this.Get<YafBoardSettings>().ImageThumbnailMaxWidth,
+                    this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
             }
             else
             {

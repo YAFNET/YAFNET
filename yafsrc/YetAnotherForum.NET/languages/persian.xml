@@ -1164,6 +1164,10 @@
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">حداکثر ارتفاع تصاویر کوچک شده ضمیمه</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH">حداکثر اندازه عرض کوچک سازی تصاویر ضمیمه:</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH_HELP">حداکثر اندازه عرض کوچک سازی تصاویر ضمیمه را مشخص می کند.</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT">Thumbnail Image  Max Height:</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT_HELP">Maximum Height of the attachment and album image thumbnail.</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH">Thumbnail Image  Max Width:</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
     <Resource tag="IMAGES_PER_PAGE">تعداد تصاویر در صفحه:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">تعداد تصاویر برای نمایش در هر صفحه.</Resource>
     <Resource tag="IP_INFOSERVICE">فعال کردن سرویس اطلاعات IP:</Resource>

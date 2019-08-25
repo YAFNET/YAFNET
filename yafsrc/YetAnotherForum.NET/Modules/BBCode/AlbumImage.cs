@@ -26,6 +26,8 @@ namespace YAF.Modules.BBCode
     using System.Text;
     using System.Web.UI;
 
+    using YAF.Configuration;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Web.Controls;
 
@@ -45,14 +47,16 @@ namespace YAF.Modules.BBCode
             var sb = new StringBuilder();
 
             sb.AppendFormat(
-                format: @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery>",
-                arg0: YafForumInfo.ForumClientFileRoot,
-                arg1: this.Parameters[key: "inner"]);
+                @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery title=""{1}"">",
+                YafForumInfo.ForumClientFileRoot,
+                this.Parameters[key: "inner"]);
 
             sb.AppendFormat(
-                format: @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" />",
-                arg0: YafForumInfo.ForumClientFileRoot,
-                arg1: this.Parameters[key: "inner"]);
+                @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:{2}px;max-height:{3}px"" />",
+                YafForumInfo.ForumClientFileRoot,
+                this.Parameters[key: "inner"],
+                this.Get<YafBoardSettings>().ImageThumbnailMaxWidth,
+                this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
 
             sb.Append(value: "</a>");
 

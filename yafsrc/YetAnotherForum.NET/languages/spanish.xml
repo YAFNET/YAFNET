@@ -1170,6 +1170,10 @@
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Altura máxima de las imágenes adjuntadas redimensionadas.</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH">Ancho máximo para el redimensionado de imagen</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Ancho máximo para las imágenes adjuntas redimensionadas.</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT">Thumbnail Image  Max Height:</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT_HELP">Maximum Height of the attachment and album image thumbnail.</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH">Thumbnail Image  Max Width:</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
     <Resource tag="IMAGES_PER_PAGE">Imágenes por página:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Número de imágenes a mostrar por página:</Resource>
     <Resource tag="IP_INFOSERVICE">Activar servicio de información de IP:</Resource>

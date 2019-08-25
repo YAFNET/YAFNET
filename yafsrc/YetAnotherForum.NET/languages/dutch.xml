@@ -1165,6 +1165,10 @@
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximumale hoogte van de foto-bijlagen na het verkleinen.</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH">Maximale breedte van de verkleinde foto-bijlagen:</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximale breedte van de foto-bijlagen na het verkleinen.</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT">Thumbnail Image  Max Height:</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT_HELP">Maximum Height of the attachment and album image thumbnail.</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH">Thumbnail Image  Max Width:</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
     <Resource tag="IMAGES_PER_PAGE">Plaatjes Per Pagina:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Het aantal plaatjes dat per pagina zichtbaar is.</Resource>
     <Resource tag="IP_INFOSERVICE">Zet de IP Info Service aan:</Resource>

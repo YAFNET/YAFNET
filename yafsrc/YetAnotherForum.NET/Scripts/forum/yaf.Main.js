@@ -65,10 +65,12 @@ jQuery(document).ready(function () {
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
-        var messageId = image.parents(".selectionQuoteable")[0].id;
+        if (image.parents(".selectionQuoteable").length) {
+            var messageId = image.parents(".selectionQuoteable")[0].id;
 
-        if (!image.parents("a").length) {
-            image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
+            if (!image.parents("a").length) {
+                image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
+            }
         }
     });
 
@@ -112,44 +114,4 @@ jQuery(document).ready(function () {
 
         });
     }
-
-    
-
 });
-
-// Confirm Dialog
-$(document).on("click",
-    "[data-toggle=\"confirm\"]",
-    function(e) {
-        e.preventDefault();
-        var link = $(this).attr("href");
-        var text = $(this).data("title");
-        bootbox.confirm({
-                message: text,
-                buttons: {
-                    confirm: {
-                        label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
-                        className: "btn-success"
-                    },
-                    cancel: {
-                        label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
-                        className: "btn-danger"
-                    }
-                },
-                callback: function(confirmed) {
-                    if (confirmed) {
-                        document.location.href = link;
-                    }
-                }
-            }
-        );
-    }
-);
-
-
-if (document.addEventListener) {
-    document.addEventListener("click", function (e) { window.event = e; }, true);
-}
-if (document.addEventListener) {
-    document.addEventListener("mouseover", function(e) { window.event = e; }, true);
-}

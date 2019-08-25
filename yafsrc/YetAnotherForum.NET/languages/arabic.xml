@@ -1166,6 +1166,10 @@
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH">Image Resize Max Width:</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images (Be aware that Values above 500 pixel break the Forum Layout).</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT">Thumbnail Image  Max Height:</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT_HELP">Maximum Height of the attachment and album image thumbnail.</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH">Thumbnail Image  Max Width:</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
     <Resource tag="IMAGES_PER_PAGE">Images Per Page:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Number of images to show per page.</Resource>
     <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>

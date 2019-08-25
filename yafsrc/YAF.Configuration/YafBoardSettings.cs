@@ -1141,6 +1141,26 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets the image thumbnail max width.
+        /// </summary>
+        public int ImageThumbnailMaxWidth
+        {
+            get => this._reg.GetValue("ImageThumbnailMaxWidth", 200);
+
+            set => this._reg.SetValue("ImageThumbnailMaxWidth", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the image thumbnail max height.
+        /// </summary>
+        public int ImageThumbnailMaxHeight
+        {
+            get => this._reg.GetValue("ImageThumbnailMaxHeight", 200);
+
+            set => this._reg.SetValue("ImageThumbnailMaxHeight", value);
+        }
+
+        /// <summary>
         /// Gets or sets ActiveListTime.
         /// </summary>
         public int ActiveListTime

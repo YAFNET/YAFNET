@@ -28,7 +28,7 @@
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $('#PostAlbumsListPlaceholder ul'),
-                    listItem = $('<li class="list-group-item" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
+                    listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
 
@@ -46,12 +46,13 @@
 
             if (isPageChange) {
                 jQuery(".albums-toggle").dropdown('toggle');
-                jQuery('[data-toggle="tooltip"]').tooltip({
-                    html: true,
-                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                    placement: 'top'
-                });
             }
+
+            jQuery('#PostAlbumsListPlaceholder ul li').tooltip({
+                html: true,
+                template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+                placement: 'top'
+            });
 		}),
         error: (function Error(request, status, error) {
             console.log(request);

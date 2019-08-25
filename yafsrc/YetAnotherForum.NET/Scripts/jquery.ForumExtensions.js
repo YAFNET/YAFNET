@@ -54522,109 +54522,7 @@ function getCookie(cname) {
     return "";
 }
 
-/// <summary>
-/// Scrolls to document to the top.
-/// </summary>
-function ScrollToTop() {
-    jQuery('body,html').animate({ scrollTop: 0 }, 820);
-    return false;
-}
-
-function getEvent(eventobj) {
-    if (eventobj.stopPropagation) {
-        eventobj.stopPropagation();
-        eventobj.preventDefault();
-        return eventobj;
-    } else {
-        window.event.returnValue = false;
-        window.event.cancelBubble = true;
-        return window.event;
-    }
-}
-
-function yaf_mouseover() {
-    var evt = getEvent(window.event);
-    if (evt.srcElement) {
-        evt.srcElement.style.cursor = "hand";
-    } else if (evt.target) {
-        evt.target.style.cursor = "pointer";
-    }
-}
-
-function yaf_left(obj) {
-    return jQuery(obj).position().left;
-}
-
-function yaf_top(obj) {
-    return jQuery(obj).position().top + jQuery(obj).outerHeight() + 1;
-}
-
-function yaf_popit(menuName) {
-    var evt = getEvent(window.event);
-    var target;
-
-    if (!document.getElementById) {
-        throw ('ERROR: missing getElementById');
-    }
-
-    if (evt.srcElement)
-        target = evt.srcElement;
-    else if (evt.target)
-        target = evt.target;
-    else {
-        throw ('ERROR: missing event target');
-    }
-
-    var newmenu = document.getElementById(menuName);
-
-    if (window.themenu && window.themenu.id != newmenu.id)
-        yaf_hidemenu();
-
-    window.themenu = newmenu;
-    if (!window.themenu.style) {
-        throw ('ERROR: missing style');
-    }
-
-    if (!jQuery(themenu).is(":visible")) {
-        var x = yaf_left(target);
-        // Make sure the menu stays inside the page
-        // offsetWidth or clientWidth?!?
-        if (x + jQuery(themenu).outerWidth() + 2 > jQuery(document).width()) {
-            x = jQuery(document).width() - jQuery(themenu).outerWidth() - 2;
-        }
-
-        themenu.style.left = x + "px";
-        themenu.style.top = yaf_top(target) + "px";
-        themenu.style.zIndex = 100;
-
-        jQuery(themenu).fadeIn();
-    } else {
-        yaf_hidemenu();
-    }
-
-    return false;
-}
-
-function yaf_hidemenu() {
-    if (window.themenu) {
-        jQuery(window.themenu).fadeOut();
-        window.themenu = null;
-    }
-}
-
-function mouseHover(cell, hover) {
-    if (hover) {
-        cell.className = "list-group-item";
-        try {
-            cell.style.cursor = "pointer";
-        } catch (e) {
-            cell.style.cursor = "hand";
-        }
-    } else {
-        cell.className = "list-group-item";
-    }
-}
-
+// Helper Function for Select2
 function formatState(state) {
     if (!state.id) {
         return state.text;
@@ -54637,6 +54535,7 @@ function formatState(state) {
     return $state;
 }
 
+// --
 function doClick(buttonName, e) {
     var key;
 
@@ -54655,6 +54554,50 @@ function doClick(buttonName, e) {
         }
     }
 }
+
+// Confirm Dialog
+$(document).on("click",
+    "[data-toggle=\"confirm\"]",
+    function (e) {
+        e.preventDefault();
+        var link = $(this).attr("href");
+        var text = $(this).data("title");
+        bootbox.confirm({
+                centerVertical: true,
+                message: text,
+                buttons: {
+                    confirm: {
+                        label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
+                        className: "btn-danger"
+                    }
+                },
+                callback: function (confirmed) {
+                    if (confirmed) {
+                        document.location.href = link;
+                    }
+                }
+            }
+        );
+    }
+);
+
+$(window).scroll(function () {
+    if ($(this).scrollTop() > 50) {
+        $(".scroll-top:hidden").stop(true, true).fadeIn();
+    } else {
+        $(".scroll-top").stop(true, true).fadeOut();
+    }
+});
+$(function () {
+    $(".btn-scroll").click(function () {
+        $("html,body").animate({ scrollTop: $("header").offset().top }, "1000");
+        return false;
+    });
+});
 function toggleNewSelection(source) {
     var isChecked = source.checked;
     $("input[id*='New']").each(function () {
@@ -54741,7 +54684,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $('#PostAlbumsListPlaceholder ul'),
-                    listItem = $('<li class="list-group-item" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
+                    listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
 
@@ -54759,12 +54702,13 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
 
             if (isPageChange) {
                 jQuery(".albums-toggle").dropdown('toggle');
-                jQuery('[data-toggle="tooltip"]').tooltip({
-                    html: true,
-                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                    placement: 'top'
-                });
             }
+
+            jQuery('#PostAlbumsListPlaceholder ul li').tooltip({
+                html: true,
+                template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+                placement: 'top'
+            });
 		}),
         error: (function Error(request, status, error) {
             console.log(request);
@@ -54889,14 +54833,14 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $('#PostAttachmentListPlaceholder ul'),
-                    listItem = $('<li class="list-group-item" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
+                    listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
 
                 if (data.DataURL) {
                     listItem.attr("title", "<img src=\"" + data.DataURL + "\" class=\"img-thumbnail\" />");
                     listItem.attr("data-toggle", "tooltip");
-				}
+                }
 
 				listItem.append(data.IconImage);
 
@@ -54907,13 +54851,14 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
 
             if (isPageChange) {
                 jQuery(".attachments-toggle").dropdown('toggle');
-                jQuery('[data-toggle="tooltip"]').tooltip({
-                    html: true,
-                    template:
-                        '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                    placement: 'top'
-                });
             }
+
+            jQuery('#PostAttachmentListPlaceholder ul li').tooltip({
+                html: true,
+                template:
+                    '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+                placement: 'top'
+            });
         }),
 		error: (function Error(request, status, error) {
 			$("#PostAttachmentLoader").hide();
@@ -55353,10 +55298,12 @@ jQuery(document).ready(function () {
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
-        var messageId = image.parents(".selectionQuoteable")[0].id;
+        if (image.parents(".selectionQuoteable").length) {
+            var messageId = image.parents(".selectionQuoteable")[0].id;
 
-        if (!image.parents("a").length) {
-            image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
+            if (!image.parents("a").length) {
+                image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
+            }
         }
     });
 
@@ -55400,44 +55347,4 @@ jQuery(document).ready(function () {
 
         });
     }
-
-    
-
 });
-
-// Confirm Dialog
-$(document).on("click",
-    "[data-toggle=\"confirm\"]",
-    function(e) {
-        e.preventDefault();
-        var link = $(this).attr("href");
-        var text = $(this).data("title");
-        bootbox.confirm({
-                message: text,
-                buttons: {
-                    confirm: {
-                        label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
-                        className: "btn-success"
-                    },
-                    cancel: {
-                        label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
-                        className: "btn-danger"
-                    }
-                },
-                callback: function(confirmed) {
-                    if (confirmed) {
-                        document.location.href = link;
-                    }
-                }
-            }
-        );
-    }
-);
-
-
-if (document.addEventListener) {
-    document.addEventListener("click", function (e) { window.event = e; }, true);
-}
-if (document.addEventListener) {
-    document.addEventListener("mouseover", function(e) { window.event = e; }, true);
-}
