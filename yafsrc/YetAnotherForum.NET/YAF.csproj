@@ -178,6 +178,16 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App_GlobalResources\Install.de-de.designer.cs">
+      <DependentUpon>Install.de-de.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\Install.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Install.resx</DependentUpon>
+    </Compile>
     <Compile Include="auth.aspx.cs">
       <DependentUpon>auth.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -513,6 +523,7 @@
     <Compile Include="Modules\BBCode\HideReplyThanksModule.cs" />
     <Compile Include="Modules\BBCode\SpoilerBBCodeModule.cs" />
     <Compile Include="Modules\BBCode\UserLinkBBCodeModule.cs" />
+    <Compile Include="Modules\FaviconModule.cs" />
     <Compile Include="Modules\CanonicalMetaTagModule.cs" />
     <Compile Include="Modules\Events\ClearCacheOnEvents.cs" />
     <Compile Include="Modules\Events\LastVisitEventHandler.cs" />
@@ -972,13 +983,15 @@
     <Content Include="Content\bootstrap\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Content\favicons\android-chrome-144x144.png" />
+    <Content Include="Content\favicons\apple-touch-icon.png" />
+    <Content Include="Content\favicons\browserconfig.xml" />
+    <Content Include="Content\favicons\favicon-16x16.png" />
+    <Content Include="Content\favicons\favicon-32x32.png" />
+    <Content Include="Content\favicons\favicon.ico" />
+    <Content Include="Content\favicons\mstile-150x150.png" />
+    <Content Include="Content\favicons\safari-pinned-tab.svg" />
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
-    <Content Include="Content\icons\android-chrome-192x192.png" />
-    <Content Include="Content\icons\android-chrome-512x512.png" />
-    <Content Include="Content\icons\apple-touch-icon.png" />
-    <Content Include="Content\icons\favicon-16x16.png" />
-    <Content Include="Content\icons\favicon-32x32.png" />
-    <Content Include="Content\icons\favicon.ico" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1735,6 +1748,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css.gz">
       <DependentUpon>bootstrap.min.css</DependentUpon>
     </Content>
+    <Content Include="Content\favicons\site.webmanifest" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\images\error.png" />
@@ -3153,7 +3167,6 @@
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
     <None Include="Content\forum\user-albums.scss" />
-    <Content Include="Content\icons\site.webmanifest" />
     <Content Include="Content\InstallWizard.min.css.gz">
       <DependentUpon>InstallWizard.min.css</DependentUpon>
     </Content>
@@ -3434,6 +3447,7 @@ del Lucene.Net.Contrib.Memory.pdb</PostBuildEvent>
     <Content Include="App_GlobalResources\Install.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Install.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -3461,7 +3475,7 @@ del Lucene.Net.Contrib.Memory.pdb</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
