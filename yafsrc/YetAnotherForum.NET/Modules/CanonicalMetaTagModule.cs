@@ -16,7 +16,7 @@
     /// <summary>
     ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
     /// </summary>
-    [YafModule(moduleName: "Canonical Meta Tag Module", moduleAuthor: "BonzoFestoon", moduleVersion: 1)]
+    [YafModule("Canonical Meta Tag Module", "BonzoFestoon", 1)]
     public class CanonicalMetaTagModule : SimpleBaseForumModule
     {
         /// <summary>
@@ -37,7 +37,7 @@
             const string TopicLinkParams = "t={0}";
 
             var head = this.ForumControl.Page.Header
-                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
+                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
             if (head == null)
             {
@@ -60,7 +60,7 @@
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }
             }
-            else if (this.ForumPageType != ForumPages.forum)
+            else if (this.ForumPageType != ForumPages.forum && this.ForumPageType != ForumPages.topics)
             {
                 // there is not much SEO value to having lists indexed
                 // because they change as soon as some adds a new topic
