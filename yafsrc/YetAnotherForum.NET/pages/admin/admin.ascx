@@ -145,7 +145,7 @@
                                                                     LocalizedPage="ADMIN_ADMIN" />
                                             </h5>
                                             <span class="h2 font-weight-bold mb-0">
-                                                <asp:Label ID="BoardStart" runat="server"></asp:Label>
+                                                <asp:Label ID="BoardStartAgo" runat="server"></asp:Label>
                                             </span>
                                         </div>
                                         <div class="col-auto">
@@ -155,6 +155,11 @@
                                             </span>
                                         </div>
                                     </div>
+                                    <p class="mt-3 mb-0 text-muted small">
+                                        <span class="text-nowrap">
+                                            <asp:Label ID="BoardStart" runat="server"></asp:Label>
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -439,8 +444,3 @@
           </div>
         </div>
     </asp:PlaceHolder>
-
-
-
-
-

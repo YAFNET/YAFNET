@@ -71,11 +71,6 @@ namespace YAF.Core.Services
             "search_index");
 
         /// <summary>
-        /// The directory temp.
-        /// </summary>
-        private static FSDirectory directoryTemp;
-
-        /// <summary>
         /// The standardAnalyzer.
         /// </summary>
         private readonly StandardAnalyzer standardAnalyzer;
@@ -219,6 +214,10 @@ namespace YAF.Core.Services
         {
             // remove older index entry
             var searchQuery = new TermQuery(new Term("MessageId", messageId.ToString()));
+
+            this.Writer.SetMergeScheduler(new ConcurrentMergeScheduler());
+            this.Writer.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
+
             this.Writer.DeleteDocuments(searchQuery);
         }
 
@@ -487,7 +486,12 @@ namespace YAF.Core.Services
         {
             try
             {
-                this.ClearSearchIndexRecord(message.MessageId.Value);
+                var searchQuery = new TermQuery(new Term("MessageId", message.MessageId.Value.ToString()));
+
+                this.Writer.SetMergeScheduler(new ConcurrentMergeScheduler());
+                this.Writer.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
+
+                this.Writer.DeleteDocuments(searchQuery);
 
                 var doc = new Document();
 

@@ -268,22 +268,25 @@ namespace YAF.Web.Controls
             output.WriteLine(
                 @"<div class=""btn-group mt-1"" role=""group"">
                       <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle mb-1"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                      {1:N0} {2}</button>",
+                          <i class=""fas fa-copy""></i>&nbsp;{1:N0} {2}
+                      </button>",
                 this.Get<ILocalization>().TransPage.IsSet()
                     ? this.GetText("COMMON", "GOTOPAGE_HEADER")
                     : "Go to page...",
                 this.PageCount(),
                 this.GetText("COMMON", "PAGES"));
 
-            output.Write(@"<ul class=""dropdown-menu dropdown-menu-right"">");
+            output.Write(@"<div class=""dropdown-menu"">");
 
-            output.Write(@"<li class=""dropdown-item"">");
+            output.Write(@"<div class=""px-3 py-1"">");
+            output.Write(@"<div class=""form-group"">");
 
             this.gotoPageForm.RenderControl(output);
 
-            output.Write("</li>");
+            output.Write("</div></div>");
 
-            output.Write("</ul></div>");
+            output.Write("</div>");
+            output.Write("</div>");
 
             output.Write(@"<div class=""btn-group mt-1"" role=""group"">");
 
@@ -437,3 +440,4 @@ namespace YAF.Web.Controls
         #endregion
     }
 }
+ 

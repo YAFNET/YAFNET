@@ -91,9 +91,11 @@ namespace YAF.Web.Controls
         /// </summary>
         protected void BuildForm()
         {
-            var headerLabel = new HtmlGenericControl("label");
-
-            headerLabel.Controls.Add(new Literal { Text = this.GetText("COMMON", "GOTOPAGE_HEADER") });
+            var headerLabel = new Label
+                                  {
+                                      Text = this.GetText("COMMON", "GOTOPAGE_HEADER"),
+                                      AssociatedControlID = this.gotoTextBox.ID
+                                  };
 
             this.Controls.Add(headerLabel);
 
@@ -107,11 +109,11 @@ namespace YAF.Web.Controls
 
             inputGroup.Controls.Add(this.gotoTextBox);
 
-            var groupBtn = new HtmlGenericControl("span");
-            groupBtn.Attributes.Add("class", "input-group-btn");
+            var groupBtn = new HtmlGenericControl("div");
+            groupBtn.Attributes.Add("class", "input-group-append");
 
             this.gotoButton.ID = this.GetExtendedID("GotoButton");
-            this.gotoButton.CssClass = "btn btn-primary ml-1";
+            this.gotoButton.CssClass = "btn btn-primary";
             this.gotoButton.CausesValidation = false;
             this.gotoButton.UseSubmitBehavior = false;
             this.gotoButton.Click += this.GotoButtonClick;
@@ -150,11 +152,8 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///     The on init.
-        /// </summary>
-        /// <param name="e">
-        ///     The e.
-        /// </param>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);

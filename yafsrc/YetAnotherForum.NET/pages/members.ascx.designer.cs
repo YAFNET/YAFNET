@@ -148,6 +148,24 @@ namespace YAF.Pages {
         protected global::YAF.Web.Controls.AlphaSort AlphaSort1;
         
         /// <summary>
+        /// MobileInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert MobileInfo;
+        
+        /// <summary>
+        /// LocalizedLabel220 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel220;
+        
+        /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
         /// <remarks>

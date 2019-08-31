@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>Adresa de email</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Introduceți numele super utilizatorului</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Parola</value>
+  </data>
+  <data name="AdminPassword2" xml:space="preserve">
+    <value>Verifică parola</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Introduceți numele noului consiliu</value>
+  </data>
+  <data name="ConfigPassword" xml:space="preserve">
+    <value>Configurați parola</value>
+  </data>
+  <data name="ConnectionDetails" xml:space="preserve">
+    <value>Detalii conexiune</value>
+  </data>
+  <data name="ConnectionExist" xml:space="preserve">
+    <value>Selectați șirul de conexiune existent</value>
+  </data>
+  <data name="ConnectionExistDesc" xml:space="preserve">
+    <value>Selectați șirul de conexiune la baza de date SQL Server:</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Eroare de conexiune:</value>
+  </data>
+  <data name="ConnectionNew" xml:space="preserve">
+    <value>Creați șir de conexiune nou</value>
+  </data>
+  <data name="ConnectionNewNote" xml:space="preserve">
+    <value>Cablul de conexiune va fi salvat ca</value>
+  </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>Conexiunea a reușit</value>
+  </data>
+  <data name="ConnectionTest" xml:space="preserve">
+    <value>Test de conexiune la baza de date</value>
+  </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Creați un nou Consiliu</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Creați parola de configurare</value>
+  </data>
+  <data name="CreatePasswordText" xml:space="preserve">
+    <value>Deoarece este prima dată când instalați sau actualizați această versiune a forumului, trebuie să creați o parolă de configurare pentru securitate.</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Creați un nou utilizator super (gazdă)</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>Cultura utilizatorului invitat (limbă)</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Versiune curentă:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Bază de date</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Introduceți sursa de date (numele sau adresa serverului sql)</value>
+  </data>
+  <data name="DBConnection" xml:space="preserve">
+    <value>Conexiune de baze de date YAF.NET</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Introduceți numele bazei de date</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Un nume de utilizator pentru acea adresă de e-mail există deja. Vă rugăm să introduceți o altă adresă de e-mail.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Nume de utilizator deja existent. Vă rugăm să introduceți un nume de utilizator diferit.</value>
+  </data>
+  <data name="EnterConfigPassword" xml:space="preserve">
+    <value>Introduceți parola de configurare</value>
+  </data>
+  <data name="EnterConfigPasswordDesc" xml:space="preserve">
+    <value>Introduceți parola de configurare pentru a actualiza sau instala manual manual forumul.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="ErrorBoardInstalled" xml:space="preserve">
+    <value>Placa este deja instalată.</value>
+  </data>
+  <data name="ErrorBoardName" xml:space="preserve">
+    <value>Trebuie să introduceți un nume de consiliu.</value>
+  </data>
+  <data name="ErrorConfigPassword" xml:space="preserve">
+    <value>Pentru a continua, trebuie să actualizați setările de aplicații cu cheia YAF.ConfigPassword. NOTĂ: Numele cheii este sensibil cu litere mari și mici.</value>
+  </data>
+  <data name="ErrorForumEmail" xml:space="preserve">
+    <value>Trebuie să introduceți o adresă de e-mail a Consiliului.</value>
+  </data>
+  <data name="ErrorPassword" xml:space="preserve">
+    <value>Trebuie să introduceți o parolă.</value>
+  </data>
+  <data name="ErrorUserCreate" xml:space="preserve">
+    <value>Crearea utilizatorului de administrator eșuat:</value>
+  </data>
+  <data name="ErrorUserEmail" xml:space="preserve">
+    <value>Trebuie să introduceți adresa de e-mail super utilizator.</value>
+  </data>
+  <data name="ErrorUserName" xml:space="preserve">
+    <value>Trebuie să introduceți numele de utilizator super,</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Numele de utilizator existent nu este valid și nu reprezintă un utilizator curent în magazinul de membri.</value>
+  </data>
+  <data name="ErrorWrongPassword" xml:space="preserve">
+    <value>Ați introdus &lt;strong&gt; parola greșită &lt;/strong&gt;!</value>
+  </data>
+  <data name="ExistConnection" xml:space="preserve">
+    <value>Utilizați șirul de conexiune DB existent</value>
+  </data>
+  <data name="ExistingUser" xml:space="preserve">
+    <value>Utilizați un utilizator existent</value>
+  </data>
+  <data name="ExistingUserName" xml:space="preserve">
+    <value>Introduceți numele utilizatorului existent pentru a face super utilizator (gazdă)</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>finalizarea</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>Dacă faceți clic pe Finish vă va duce la pagina principală a Forumului.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Terminat</value>
+  </data>
+  <data name="ForumEmail" xml:space="preserve">
+    <value>Adresa de e-mail a forumului</value>
+  </data>
+  <data name="ForumUrl" xml:space="preserve">
+    <value>Forum Mask Url de bază</value>
+  </data>
+  <data name="FromEmail" xml:space="preserve">
+    <value>Introduceți adresa de la e-mail</value>
+  </data>
+  <data name="InitFinish" xml:space="preserve">
+    <value>Forumul dvs. este acum gata.</value>
+  </data>
+  <data name="Initialize" xml:space="preserve">
+    <value>Inițializare</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Instalare</value>
+  </data>
+  <data name="Integrated" xml:space="preserve">
+    <value>Utilizați securitate integrată</value>
+  </data>
+  <data name="InvalidAnswer" xml:space="preserve">
+    <value>Răspunsul de recuperare a parolei furnizat nu este valid. Verificați valoarea și încercați din nou.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Adresa de e-mail furnizată nu este validă. Verificați valoarea și încercați din nou.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Parola furnizată nu este validă. Vă rugăm să introduceți o valoare de parolă validă.</value>
+  </data>
+  <data name="InvalidQuestion" xml:space="preserve">
+    <value>Întrebarea de recuperare a parolei furnizată nu este validă. Verificați valoarea și încercați din nou.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Numele de utilizator furnizat nu este valid. Verificați valoarea și încercați din nou.</value>
+  </data>
+  <data name="MailTest" xml:space="preserve">
+    <value>Test de trimitere prin poștă (SMTP)</value>
+  </data>
+  <data name="MailTestDesc" xml:space="preserve">
+    <value>Trimite un mesaj de testare la adresa de e-mail care este definită ca Trimite la adresă</value>
+  </data>
+  <data name="ManuallyPassword" xml:space="preserve">
+    <value>Fără acces de scriere la setările aplicației</value>
+  </data>
+  <data name="ManuallyPasswordDesc" xml:space="preserve">
+    <value>Faceți clic pe „Următorul” când sunteți gata.</value>
+  </data>
+  <data name="ManuallyPasswordError" xml:space="preserve">
+    <value>Imposibil de modificat fișierul de configurare pentru a scrie parola de instalare din cauza unei probleme de permisiune.</value>
+  </data>
+  <data name="Migrate" xml:space="preserve">
+    <value>Migrarea rolurilor și a utilizatorilor</value>
+  </data>
+  <data name="MigrateCount" xml:space="preserve">
+    <value>utilizator (i) găsiți în baza de date a forumului.</value>
+  </data>
+  <data name="MigrateDesc" xml:space="preserve">
+    <value>Faceți clic pe „Următorul” pentru a începe actualizarea (migrarea) tuturor rolurilor și utilizatorilor din vechea dvs. bază de date Forum.NET la modelul de furnizor .NET.</value>
+  </data>
+  <data name="MigrateNote" xml:space="preserve">
+    <value>Sarcina de migrare poate dura foarte mult &lt;strong&gt; în funcție de câți utilizatori sunt pe forumul tău.</value>
+  </data>
+  <data name="MigrateSkip" xml:space="preserve">
+    <value>Dezactivați migrarea (nu este recomandat)</value>
+  </data>
+  <data name="MigrateUsers" xml:space="preserve">
+    <value>Migrarea utilizatorilor ...</value>
+  </data>
+  <data name="MigrateUsersText" xml:space="preserve">
+    <value>Vă rugăm să nu navigați departe de această pagină în timp ce migrația este în curs. Poate dura foarte mult timp pentru a efectua migrația.</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>Creați șir de conexiune DB nouă</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Următor →</value>
+  </data>
+  <data name="NextInitDb" xml:space="preserve">
+    <value>Făcând clic pe „Următorul” va inițializa baza de date la cea mai recentă versiune.</value>
+  </data>
+  <data name="NextReady" xml:space="preserve">
+    <value>Faceți clic pe „Următorul” când sunteți gata.</value>
+  </data>
+  <data name="NextUpgradeDb" xml:space="preserve">
+    <value>Făcând clic pe „Următorul” va actualiza baza de date la cea mai recentă versiune.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>NU</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Notă</value>
+  </data>
+  <data name="NoWriteAppSettings" xml:space="preserve">
+    <value>Fără acces de scriere la setări</value>
+  </data>
+  <data name="NoWriteAppSettingsNote" xml:space="preserve">
+    <value>Imposibil de modificat fișierul de configurare pentru a seta conexiunea bazei de date din cauza permisiunii de scriere.</value>
+  </data>
+  <data name="NoWriteConnSettings" xml:space="preserve">
+    <value>Fără acces în scris la șirurile de conexiune la baze de date</value>
+  </data>
+  <data name="NoWriteConnSettingsNote" xml:space="preserve">
+    <value>Imposibil de modificat fișierul de configurare pentru a seta șirul conexiunii bazei de date din cauza permisiunii de scriere.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Vă rugăm să deschideți</value>
+  </data>
+  <data name="OpenFileDesc" xml:space="preserve">
+    <value>fișați în directorul rădăcină al aplicației și adăugați / actualizați următoarea cheie din secțiunea &lt;Aplicări&gt;</value>
+  </data>
+  <data name="OpenFileDesc2" xml:space="preserve">
+    <value>fișați în directorul rădăcină al aplicației și adăugați / actualizați următoarea cheie din secțiunea &lt;conectareStrings&gt;:</value>
+  </data>
+  <data name="PasswordFile" xml:space="preserve">
+    <value>Această parolă este stocată împreună cu aplicația dvs. Setări în fișier ...</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>Verificarea nu este aceeași cu parola dvs.</value>
+  </data>
+  <data name="PermissionApp" xml:space="preserve">
+    <value>YAF.NET are acces de scriere la directorul de aplicații rădăcină ("~ /") ...</value>
+  </data>
+  <data name="PermissionUpload" xml:space="preserve">
+    <value>YAF.NET are acces de scriere la directorul „~ / Upload” ...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="ProviderError" xml:space="preserve">
+    <value>Furnizorul de autentificare a returnat o eroare. Vă rugăm să verificați înscrierea și încercați din nou. Dacă problema persistă, contactați administratorul de sistem.</value>
+  </data>
+  <data name="ReenterConfigPassword" xml:space="preserve">
+    <value>Reintroduceți parola de configurare</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>Răspunsul la întrebarea de securitate</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>Întrebarea vi se va pune atunci când va trebui să vă regăsiți parola pierdută</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>Înființat</value>
+  </data>
+  <data name="SmtpTestBody" xml:space="preserve">
+    <value>Trimiterea prin e-mail pare să funcționeze de la instalarea dvs. YAF.</value>
+  </data>
+  <data name="SmtpTestDetails" xml:space="preserve">
+    <value>Detalii test SMTP</value>
+  </data>
+  <data name="SmtpTestSubject" xml:space="preserve">
+    <value>Testează e-mailul încă de pe un alt Forum.NET</value>
+  </data>
+  <data name="SmtpTestSuccess" xml:space="preserve">
+    <value>Mail trimis. Verificați că a fost primit la adresa de e-mail introdusă.</value>
+  </data>
+  <data name="SqlPass" xml:space="preserve">
+    <value>Introduceți parola SQL</value>
+  </data>
+  <data name="SqlUser" xml:space="preserve">
+    <value>Introduceți numele de utilizator SQL</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>Test de conexiune</value>
+  </data>
+  <data name="TestEmail" xml:space="preserve">
+    <value>Testează setările Smtp</value>
+  </data>
+  <data name="TestPermission" xml:space="preserve">
+    <value>Permis de testare</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>Setări test</value>
+  </data>
+  <data name="TestSettingsDesc" xml:space="preserve">
+    <value>Faceți clic pe butonul „Precedent” pentru a edita configurația bazei de date.</value>
+  </data>
+  <data name="TestSettingsText" xml:space="preserve">
+    <value>Poate doriți să testați setările de configurare YAF aici înainte de a continua.</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Fusul orar al utilizatorului oaspeților</value>
+  </data>
+  <data name="ToEmail" xml:space="preserve">
+    <value>Introduceți adresa de e-mail</value>
+  </data>
+  <data name="Unchecked" xml:space="preserve">
+    <value>necontenit</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>O eroare necunoscută s-a întamplat. Vă rugăm să verificați înscrierea și încercați din nou. Dacă problema persistă, contactați administratorul de sistem.</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>Modernizare</value>
+  </data>
+  <data name="UpgradeExtensions" xml:space="preserve">
+    <value>Actualizați extensiile BBCode, extensiile de fișiere și cuvintele spam</value>
+  </data>
+  <data name="UpgradeFinish" xml:space="preserve">
+    <value>Forumul dvs. a fost actualizat la cea mai recentă versiune.</value>
+  </data>
+  <data name="UpgradeNote" xml:space="preserve">
+    <value>Dacă este vorba despre o actualizare, introduceți parola de configurare pe care ați creat-o la prima instalare a forumului, nu parola de utilizator admin.</value>
+  </data>
+  <data name="UpgradeVersion" xml:space="preserve">
+    <value>Versiunea de upgrade:</value>
+  </data>
+  <data name="UserRejected" xml:space="preserve">
+    <value>Cererea de creare a utilizatorului a fost anulată. Vă rugăm să verificați introducerea și încercați din nou. Dacă problema persistă, contactați administratorul de sistem.</value>
+  </data>
+  <data name="ValidatePermission" xml:space="preserve">
+    <value>Validarea permiselor</value>
+  </data>
+  <data name="ValidatePermissionDesc" xml:space="preserve">
+    <value>Instalarea YetAnotherForum.NET este mai ușoară atunci când aplicația are acces de scriere la .config
+                        fișiere.</value>
+  </data>
+  <data name="ValidatePermissionText" xml:space="preserve">
+    <value>Faceți clic mai jos pentru a testa dacă permisiunile sunt corecte. Dacă nu sunt, poți
+                        utilizați în continuare expertul de instalare.</value>
+  </data>
+  <data name="WarningUpgrade" xml:space="preserve">
+    <value>Ești pe cale să actualizezi YAF.NET la cea mai recentă versiune. Înainte de a continua procesul de actualizare, vă rugăm să vă asigurați că ...
+                        &lt;Ul&gt;
+                            &lt;li&gt; ați creat o copie de rezervă a instalării dvs. existente &lt;/li&gt;
+                        &lt;/ Ul&gt;</value>
+  </data>
+  <data name="WelcomeInstall" xml:space="preserve">
+    <value>Bine ați venit la Instalarea YAF.NET</value>
+  </data>
+  <data name="WelcomeInstallDesc" xml:space="preserve">
+    <value>Faceți clic pe „Următorul” pentru a începe procesul de instalare.</value>
+  </data>
+  <data name="WelcomeInstallText" xml:space="preserve">
+    <value>Acest program de instalare vă va ghida prin etapele necesare instalării YetAnotherForum.NET (YAF.NET).</value>
+  </data>
+  <data name="WelcomeUpgrade" xml:space="preserve">
+    <value>Bine ați venit la procesul de actualizare YAF.NET</value>
+  </data>
+  <data name="WelcomeUpgradeDesc" xml:space="preserve">
+    <value>Faceți clic pe „Următorul” pentru a începe procesul de actualizare.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>DA</value>
+  </data>
+</root>

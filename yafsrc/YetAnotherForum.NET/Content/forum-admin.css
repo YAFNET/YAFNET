@@ -7540,15 +7540,6 @@ span.form-check > label {
 .gotoPageForm {
   z-index: 99999; }
 
-.btn-circle {
-  width: 30px;
-  height: 30px;
-  padding: 6px 0;
-  border-radius: 15px;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.428571429; }
-
 .bootstrap-touchspin {
   width: 250px; }
 

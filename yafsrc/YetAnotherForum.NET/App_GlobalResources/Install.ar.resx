@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>عنوان البريد الإلكتروني</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>أدخل اسم المستخدم الفائق</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>كلمه السر</value>
+  </data>
+  <data name="AdminPassword2" xml:space="preserve">
+    <value>اكد كلمة المرور</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>أدخل اسم المجلس الجديد</value>
+  </data>
+  <data name="ConfigPassword" xml:space="preserve">
+    <value>كلمة مرور التكوين</value>
+  </data>
+  <data name="ConnectionDetails" xml:space="preserve">
+    <value>تفاصيل الاتصال</value>
+  </data>
+  <data name="ConnectionExist" xml:space="preserve">
+    <value>حدد سلسلة الاتصال الحالية</value>
+  </data>
+  <data name="ConnectionExistDesc" xml:space="preserve">
+    <value>حدد سلسلة اتصال قاعدة بيانات SQL Server:</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>فشل الاتصال:</value>
+  </data>
+  <data name="ConnectionNew" xml:space="preserve">
+    <value>إنشاء سلسلة اتصال جديدة</value>
+  </data>
+  <data name="ConnectionNewNote" xml:space="preserve">
+    <value>سيتم حفظ سلسلة الاتصال باسم</value>
+  </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>اتصال نجحت</value>
+  </data>
+  <data name="ConnectionTest" xml:space="preserve">
+    <value>اختبار اتصال قاعدة البيانات</value>
+  </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>إنشاء مجلس جديد</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>إنشاء كلمة مرور التكوين</value>
+  </data>
+  <data name="CreatePasswordText" xml:space="preserve">
+    <value>نظرًا لأن هذه هي المرة الأولى التي تقوم فيها بتثبيت أو ترقية هذا الإصدار من المنتدى ، فأنت بحاجة إلى إنشاء كلمة مرور تكوين للأمان.</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>إنشاء مستخدم سوبر جديد (مضيف)</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>ضيف ثقافة المستخدم (اللغة)</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>النسخة الحالية:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>قاعدة البيانات</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>أدخل مصدر البيانات (اسم أو عنوان خادم sql)</value>
+  </data>
+  <data name="DBConnection" xml:space="preserve">
+    <value>YAF.NET اتصال قاعدة البيانات</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>أدخل اسم قاعدة البيانات</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>يوجد بالفعل اسم مستخدم لعنوان البريد الإلكتروني هذا. الرجاء إدخال عنوان بريد إلكتروني مختلف.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>اسم المستخدم موجود بالفعل. من فضلك أدخل اسم مستخدم آخر.</value>
+  </data>
+  <data name="EnterConfigPassword" xml:space="preserve">
+    <value>أدخل كلمة مرور التهيئة</value>
+  </data>
+  <data name="EnterConfigPasswordDesc" xml:space="preserve">
+    <value>أدخل كلمة مرور التكوين لترقية أو تثبيت المنتدى يدويًا.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="ErrorBoardInstalled" xml:space="preserve">
+    <value>تم تثبيت اللوحة بالفعل.</value>
+  </data>
+  <data name="ErrorBoardName" xml:space="preserve">
+    <value>يجب إدخال اسم لوحة.</value>
+  </data>
+  <data name="ErrorConfigPassword" xml:space="preserve">
+    <value>يجب عليك تحديث إعداداتك من خلال مفتاح YAF.ConfigPassword للمتابعة. ملاحظة: اسم المفتاح حساس لحالة الأحرف.</value>
+  </data>
+  <data name="ErrorForumEmail" xml:space="preserve">
+    <value>يجب إدخال عنوان البريد الإلكتروني للمجلس.</value>
+  </data>
+  <data name="ErrorPassword" xml:space="preserve">
+    <value>يجب إدخال كلمة مرور.</value>
+  </data>
+  <data name="ErrorUserCreate" xml:space="preserve">
+    <value>فشل إنشاء مستخدم المسؤول:</value>
+  </data>
+  <data name="ErrorUserEmail" xml:space="preserve">
+    <value>يجب إدخال عنوان البريد الإلكتروني للمستخدم الفائق.</value>
+  </data>
+  <data name="ErrorUserName" xml:space="preserve">
+    <value>يجب إدخال اسم المستخدم الفائق ،</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>اسم المستخدم الحالي غير صالح ولا يمثل المستخدم الحالي في مخزن العضوية.</value>
+  </data>
+  <data name="ErrorWrongPassword" xml:space="preserve">
+    <value>لقد أدخلت &lt;strong&gt; كلمة مرور خاطئة &lt;/ strong&gt;!</value>
+  </data>
+  <data name="ExistConnection" xml:space="preserve">
+    <value>استخدم سلسلة اتصال DB الموجودة</value>
+  </data>
+  <data name="ExistingUser" xml:space="preserve">
+    <value>استخدام المستخدم الحالي</value>
+  </data>
+  <data name="ExistingUserName" xml:space="preserve">
+    <value>أدخل اسم المستخدم الحالي لجعل المستخدم السوبر (المضيف)</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>إنهاء</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>سيؤدي النقر فوق "إنهاء" إلى نقلك إلى صفحة المنتدى الرئيسية.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>تم الانتهاء من</value>
+  </data>
+  <data name="ForumEmail" xml:space="preserve">
+    <value>عنوان البريد الإلكتروني للمنتدى</value>
+  </data>
+  <data name="ForumUrl" xml:space="preserve">
+    <value>منتدى قاعدة عنوان قناع</value>
+  </data>
+  <data name="FromEmail" xml:space="preserve">
+    <value>أدخل من عنوان البريد الإلكتروني</value>
+  </data>
+  <data name="InitFinish" xml:space="preserve">
+    <value>منتداك جاهز الآن.</value>
+  </data>
+  <data name="Initialize" xml:space="preserve">
+    <value>تهيئة</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>التركيب</value>
+  </data>
+  <data name="Integrated" xml:space="preserve">
+    <value>استخدام الأمن المتكامل</value>
+  </data>
+  <data name="InvalidAnswer" xml:space="preserve">
+    <value>إجابة استرداد كلمة المرور المقدمة غير صالحة. يرجى التحقق من القيمة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>عنوان البريد الإلكتروني المقدم غير صالح. يرجى التحقق من القيمة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>كلمة المرور المقدمة غير صالحة. الرجاء إدخال قيمة كلمة مرور صالحة.</value>
+  </data>
+  <data name="InvalidQuestion" xml:space="preserve">
+    <value>سؤال استرداد كلمة المرور المقدم غير صالح. يرجى التحقق من القيمة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>اسم المستخدم المقدم غير صالح. يرجى التحقق من القيمة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="MailTest" xml:space="preserve">
+    <value>اختبار إرسال البريد (SMTP)</value>
+  </data>
+  <data name="MailTestDesc" xml:space="preserve">
+    <value>إرسال اختبار رسالة إلى عنوان البريد الإلكتروني الذي تم تعريفه على أنه إرسال إلى عنوان</value>
+  </data>
+  <data name="ManuallyPassword" xml:space="preserve">
+    <value>لا يوجد وصول الكتابة إلى إعدادات التطبيق</value>
+  </data>
+  <data name="ManuallyPasswordDesc" xml:space="preserve">
+    <value>انقر فوق "التالي" عندما تكون جاهزًا.</value>
+  </data>
+  <data name="ManuallyPasswordError" xml:space="preserve">
+    <value>غير قادر على تعديل ملف التكوين الخاص بك لكتابة كلمة مرور التثبيت بسبب مشكلة إذن.</value>
+  </data>
+  <data name="Migrate" xml:space="preserve">
+    <value>ترحيل الأدوار والمستخدمين</value>
+  </data>
+  <data name="MigrateCount" xml:space="preserve">
+    <value>مستخدم (مستخدمين) موجود في قاعدة بيانات المنتدى.</value>
+  </data>
+  <data name="MigrateDesc" xml:space="preserve">
+    <value>انقر فوق "التالي" لبدء ترقية (الترحيل) لجميع الأدوار والمستخدمين من قاعدة بيانات Forum.NET القديمة الخاصة بك إلى نموذج موفر .NET.</value>
+  </data>
+  <data name="MigrateNote" xml:space="preserve">
+    <value>قد تستغرق مهمة الترحيل وقتًا طويلاً &lt;strong&gt; جدًا &lt;/ strong&gt; حسب عدد المستخدمين في منتداك.</value>
+  </data>
+  <data name="MigrateSkip" xml:space="preserve">
+    <value>تعطيل الترحيل (غير مستحسن)</value>
+  </data>
+  <data name="MigrateUsers" xml:space="preserve">
+    <value>ترحيل المستخدمين ...</value>
+  </data>
+  <data name="MigrateUsersText" xml:space="preserve">
+    <value>يرجى عدم الانتقال بعيدًا عن هذه الصفحة أثناء عملية الترحيل. قد تستغرق عملية الترحيل وقتًا طويلاً جدًا.</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>إنشاء سلسلة اتصال DB جديدة</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالى</value>
+  </data>
+  <data name="NextInitDb" xml:space="preserve">
+    <value>يؤدي النقر فوق "التالي" إلى تهيئة قاعدة البيانات الخاصة بك إلى أحدث إصدار.</value>
+  </data>
+  <data name="NextReady" xml:space="preserve">
+    <value>انقر فوق "التالي" عندما تكون جاهزًا.</value>
+  </data>
+  <data name="NextUpgradeDb" xml:space="preserve">
+    <value>سيؤدي النقر فوق "التالي" إلى ترقية قاعدة البيانات الخاصة بك إلى أحدث إصدار.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>ملحوظة</value>
+  </data>
+  <data name="NoWriteAppSettings" xml:space="preserve">
+    <value>لا الكتابة الوصول إلى الإعدادات</value>
+  </data>
+  <data name="NoWriteAppSettingsNote" xml:space="preserve">
+    <value>غير قادر على تعديل ملف التكوين الخاص بك لضبط اتصال قاعدة البيانات بسبب عدم وجود إذن الكتابة.</value>
+  </data>
+  <data name="NoWriteConnSettings" xml:space="preserve">
+    <value>لا الكتابة الوصول إلى سلاسل اتصال قاعدة البيانات</value>
+  </data>
+  <data name="NoWriteConnSettingsNote" xml:space="preserve">
+    <value>غير قادر على تعديل ملف التكوين الخاص بك لتعيين سلسلة اتصال قاعدة البيانات بسبب عدم وجود إذن الكتابة.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>من فضلك افتح</value>
+  </data>
+  <data name="OpenFileDesc" xml:space="preserve">
+    <value>ملف في دليل جذر التطبيق وإضافة / تحديث المفتاح التالي في علامة &amp; lt؛ AppSettings &amp; gt؛ الجزء:</value>
+  </data>
+  <data name="OpenFileDesc2" xml:space="preserve">
+    <value>ملف في دليل جذر التطبيق وإضافة / تحديث المفتاح التالي في علامة &amp; lt؛ connectionStrings &amp; gt؛ الجزء:</value>
+  </data>
+  <data name="PasswordFile" xml:space="preserve">
+    <value>يتم تخزين كلمة المرور هذه مع إعداداتك في الملف ...</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>التحقق ليس هو نفسه كلمة المرور الخاصة بك.</value>
+  </data>
+  <data name="PermissionApp" xml:space="preserve">
+    <value>YAF.NET له حق الوصول للكتابة إلى دليل تطبيق الجذر ("~ /") ...</value>
+  </data>
+  <data name="PermissionUpload" xml:space="preserve">
+    <value>YAF.NET لديه حق الوصول للكتابة إلى دليل "~ / تحميل" ...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>سابق</value>
+  </data>
+  <data name="ProviderError" xml:space="preserve">
+    <value>أرجع مزود المصادقة خطأ. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك.</value>
+  </data>
+  <data name="ReenterConfigPassword" xml:space="preserve">
+    <value>أعد إدخال كلمة مرور التهيئة</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>الجواب على سؤال الأمان</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>السؤال الذي سيتم طرحه عندما تحتاج إلى استرداد كلمة المرور المفقودة</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>اقامة</value>
+  </data>
+  <data name="SmtpTestBody" xml:space="preserve">
+    <value>يبدو أن إرسال البريد الإلكتروني يعمل من خلال تثبيت YAF.</value>
+  </data>
+  <data name="SmtpTestDetails" xml:space="preserve">
+    <value>تفاصيل اختبار SMTP</value>
+  </data>
+  <data name="SmtpTestSubject" xml:space="preserve">
+    <value>اختبار البريد الإلكتروني من آخر Forum.NET</value>
+  </data>
+  <data name="SmtpTestSuccess" xml:space="preserve">
+    <value>البريد المرسلة. تحقق من استلامها على عنوان البريد الإلكتروني الذي أدخلته.</value>
+  </data>
+  <data name="SqlPass" xml:space="preserve">
+    <value>أدخل كلمة مرور SQL</value>
+  </data>
+  <data name="SqlUser" xml:space="preserve">
+    <value>أدخل اسم مستخدم SQL</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>اختبار الاتصال</value>
+  </data>
+  <data name="TestEmail" xml:space="preserve">
+    <value>اختبار إعدادات Smtp</value>
+  </data>
+  <data name="TestPermission" xml:space="preserve">
+    <value>إذن الاختبار</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>إعدادات الاختبار</value>
+  </data>
+  <data name="TestSettingsDesc" xml:space="preserve">
+    <value>انقر فوق الزر "السابق" لتحرير تكوين قاعدة البيانات.</value>
+  </data>
+  <data name="TestSettingsText" xml:space="preserve">
+    <value>قد ترغب في اختبار إعدادات التكوين YAF هنا قبل المتابعة.</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>ضيف المنطقة الزمنية للمستخدم</value>
+  </data>
+  <data name="ToEmail" xml:space="preserve">
+    <value>أدخل عنوان البريد الإلكتروني</value>
+  </data>
+  <data name="Unchecked" xml:space="preserve">
+    <value>غير مفحوص</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>حدث خطأ غير معروف. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك.</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>تطوير</value>
+  </data>
+  <data name="UpgradeExtensions" xml:space="preserve">
+    <value>ترقية ملحقات BBCode ، امتدادات الملفات وكلمات البريد العشوائي</value>
+  </data>
+  <data name="UpgradeFinish" xml:space="preserve">
+    <value>تمت ترقية منتداك الآن إلى أحدث إصدار.</value>
+  </data>
+  <data name="UpgradeNote" xml:space="preserve">
+    <value>إذا كانت هذه ترقية ، فالرجاء إدخال كلمة مرور التكوين التي قمت بإنشائها عند تثبيت المنتدى لأول مرة ، وليس كلمة مرور مستخدم المسؤول.</value>
+  </data>
+  <data name="UpgradeVersion" xml:space="preserve">
+    <value>نسخة مطورة:</value>
+  </data>
+  <data name="UserRejected" xml:space="preserve">
+    <value>تم إلغاء طلب إنشاء المستخدم. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك.</value>
+  </data>
+  <data name="ValidatePermission" xml:space="preserve">
+    <value>التحقق من الأذونات</value>
+  </data>
+  <data name="ValidatePermissionDesc" xml:space="preserve">
+    <value>يكون تثبيت YetAnotherForum.NET أسهل عندما يكون للتطبيق حق وصول للكتابة إلى .config
+                        الملفات.</value>
+  </data>
+  <data name="ValidatePermissionText" xml:space="preserve">
+    <value>انقر أدناه لاختبار ما إذا كانت الأذونات صحيحة. إذا لم تكن كذلك ، يمكنك ذلك
+                        لا تزال تستخدم معالج التثبيت.</value>
+  </data>
+  <data name="WarningUpgrade" xml:space="preserve">
+    <value>أنت على وشك ترقية YAF.NET إلى الإصدار الأحدث. قبل متابعة عملية الترقية ، يرجى التأكد من ...
+                        &lt;UL&gt;
+                            &lt;li&gt; لقد أنشأت نسخة احتياطية من التثبيت الحالي &lt;/ li&gt;
+                        &lt;/ UL&gt;</value>
+  </data>
+  <data name="WelcomeInstall" xml:space="preserve">
+    <value>مرحبًا بك في YAF.NET Installation</value>
+  </data>
+  <data name="WelcomeInstallDesc" xml:space="preserve">
+    <value>انقر فوق "التالي" لبدء عملية التثبيت.</value>
+  </data>
+  <data name="WelcomeInstallText" xml:space="preserve">
+    <value>سيقوم هذا المثبت بإرشادك خلال الخطوات المطلوبة لتثبيت YetAnotherForum.NET (YAF.NET).</value>
+  </data>
+  <data name="WelcomeUpgrade" xml:space="preserve">
+    <value>مرحبًا بك في عملية ترقية YAF.NET</value>
+  </data>
+  <data name="WelcomeUpgradeDesc" xml:space="preserve">
+    <value>انقر فوق "التالي" لبدء عملية الترقية.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم فعلا</value>
+  </data>
+</root>

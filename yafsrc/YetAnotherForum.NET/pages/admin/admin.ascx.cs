@@ -51,6 +51,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -416,13 +417,15 @@ namespace YAF.Pages.Admin
             var span = DateTime.UtcNow - (DateTime)row["BoardStart"];
             double days = span.Days;
 
-            this.BoardStart.Text =
-                string.Format(
-                    this.GetText("ADMIN_ADMIN", "DAYS_AGO"),
-                    this.Get<YafBoardSettings>().UseFarsiCalender
-                            ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
-                            : row["BoardStart"],
-                        days);
+            this.BoardStart.Text = this.Get<IDateTime>().FormatDateTimeTopic(
+                this.Get<YafBoardSettings>().UseFarsiCalender
+                    ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
+                    : row["BoardStart"]);
+
+            this.BoardStartAgo.Text = new DisplayDateTime
+                                          {
+                                              DateTime = (DateTime)row["BoardStart"], Format = DateTimeFormat.BothTopic
+                                          }.RenderToString();
 
             if (days < 1)
             {

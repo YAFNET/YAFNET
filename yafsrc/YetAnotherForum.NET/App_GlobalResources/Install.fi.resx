@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>Sähköpostiosoite</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Kirjoita superkäyttäjän nimi</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="AdminPassword2" xml:space="preserve">
+    <value>Vahvista salasana</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Kirjoita uuden hallituksen nimi</value>
+  </data>
+  <data name="ConfigPassword" xml:space="preserve">
+    <value>Määritä salasana</value>
+  </data>
+  <data name="ConnectionDetails" xml:space="preserve">
+    <value>Yhteyden yksityiskohdat</value>
+  </data>
+  <data name="ConnectionExist" xml:space="preserve">
+    <value>Valitse Nykyinen yhteysjono</value>
+  </data>
+  <data name="ConnectionExistDesc" xml:space="preserve">
+    <value>Valitse SQL Server Database Connection String:</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Ei voida yhdistää:</value>
+  </data>
+  <data name="ConnectionNew" xml:space="preserve">
+    <value>Luo uusi yhteysjono</value>
+  </data>
+  <data name="ConnectionNewNote" xml:space="preserve">
+    <value>Yhteysjono tallennetaan nimellä</value>
+  </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>Yhteys onnistui</value>
+  </data>
+  <data name="ConnectionTest" xml:space="preserve">
+    <value>Tietokantayhteystesti</value>
+  </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Luo uusi hallitus</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Luo määritysalasana</value>
+  </data>
+  <data name="CreatePasswordText" xml:space="preserve">
+    <value>Koska tämä on ensimmäinen kerta, kun asennat tai päivität tätä foorumifoorumin versiota, sinun on luotava suojausasetusten salasana.</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Luo uusi superkäyttäjä (isäntä)</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>Vieraskäyttäjän kulttuuri (kieli)</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Nykyinen versio:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Tietokanta</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Kirjoita tietolähde (SQL-palvelimen nimi tai osoite)</value>
+  </data>
+  <data name="DBConnection" xml:space="preserve">
+    <value>YAF.NET-tietokantayhteys</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Kirjoita tietokannan nimi</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Kyseisen sähköpostiosoitteen käyttäjänimi on jo olemassa. Anna toinen sähköpostiosoite.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Käyttäjätunnus on jo olemassa. Anna toinen käyttäjänimi.</value>
+  </data>
+  <data name="EnterConfigPassword" xml:space="preserve">
+    <value>Kirjoita Config-salasana</value>
+  </data>
+  <data name="EnterConfigPasswordDesc" xml:space="preserve">
+    <value>Syötä kokoonpanon salasana päivittääksesi tai asentamalla foorumi manuaalisesti.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="ErrorBoardInstalled" xml:space="preserve">
+    <value>Taulu on jo asennettu.</value>
+  </data>
+  <data name="ErrorBoardName" xml:space="preserve">
+    <value>Sinun on annettava hallituksen nimi.</value>
+  </data>
+  <data name="ErrorConfigPassword" xml:space="preserve">
+    <value>Jatka päivittämällä sovellusasetuksesi YAF.ConfigPassword-avaimella. HUOMAUTUS: Avaimen nimi on kirjainkoko.</value>
+  </data>
+  <data name="ErrorForumEmail" xml:space="preserve">
+    <value>Sinun on annettava hallituksen sähköpostiosoite.</value>
+  </data>
+  <data name="ErrorPassword" xml:space="preserve">
+    <value>Sinun on annettava salasana.</value>
+  </data>
+  <data name="ErrorUserCreate" xml:space="preserve">
+    <value>Luo järjestelmänvalvojan käyttäjä epäonnistui:</value>
+  </data>
+  <data name="ErrorUserEmail" xml:space="preserve">
+    <value>Sinun on annettava superkäyttäjän sähköpostiosoite.</value>
+  </data>
+  <data name="ErrorUserName" xml:space="preserve">
+    <value>Sinun on annettava superkäyttäjänimi,</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Nykyinen käyttäjänimi on virheellinen, eikä se edusta nykyistä käyttäjää jäsenkaupassa.</value>
+  </data>
+  <data name="ErrorWrongPassword" xml:space="preserve">
+    <value>Annoit &lt;strong&gt; väärän salasanan &lt;/strong&gt;!</value>
+  </data>
+  <data name="ExistConnection" xml:space="preserve">
+    <value>Käytä olemassa olevaa DB-yhteysjonoa</value>
+  </data>
+  <data name="ExistingUser" xml:space="preserve">
+    <value>Käytä olemassa olevaa käyttäjää</value>
+  </data>
+  <data name="ExistingUserName" xml:space="preserve">
+    <value>Kirjoita nykyisen käyttäjän nimi, jotta superkäyttäjä (isäntä)</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Suorittaa loppuun</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>Napsauttamalla Valmis vie sinut foorumin pääsivulle.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Valmiit</value>
+  </data>
+  <data name="ForumEmail" xml:space="preserve">
+    <value>Foorumin sähköpostiosoite</value>
+  </data>
+  <data name="ForumUrl" xml:space="preserve">
+    <value>Foorumipohjainen URL-naamio</value>
+  </data>
+  <data name="FromEmail" xml:space="preserve">
+    <value>Kirjoita sähköpostiosoitteesta</value>
+  </data>
+  <data name="InitFinish" xml:space="preserve">
+    <value>Foorumi on nyt valmis.</value>
+  </data>
+  <data name="Initialize" xml:space="preserve">
+    <value>Alustaa</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Asennus</value>
+  </data>
+  <data name="Integrated" xml:space="preserve">
+    <value>Käytä integroitua suojausta</value>
+  </data>
+  <data name="InvalidAnswer" xml:space="preserve">
+    <value>Antama vastaus salasanan hakuun on virheellinen. Tarkista arvo ja yritä uudelleen.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Annettu sähköpostiosoite on virheellinen. Tarkista arvo ja yritä uudelleen.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Annettu salasana on virheellinen. Anna kelvollinen salasanan arvo.</value>
+  </data>
+  <data name="InvalidQuestion" xml:space="preserve">
+    <value>Annettu salasananhakukysymys on virheellinen. Tarkista arvo ja yritä uudelleen.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Annettu käyttäjänimi on virheellinen. Tarkista arvo ja yritä uudelleen.</value>
+  </data>
+  <data name="MailTest" xml:space="preserve">
+    <value>Postin (SMTP) lähetystesti</value>
+  </data>
+  <data name="MailTestDesc" xml:space="preserve">
+    <value>Lähettää testiviestin sähköpostiosoitteeseen, joka määritetään Lähetä osoitteeseen</value>
+  </data>
+  <data name="ManuallyPassword" xml:space="preserve">
+    <value>Ei kirjoitusoikeutta sovellusasetuksiin</value>
+  </data>
+  <data name="ManuallyPasswordDesc" xml:space="preserve">
+    <value>Napsauta Seuraava, kun olet valmis.</value>
+  </data>
+  <data name="ManuallyPasswordError" xml:space="preserve">
+    <value>Konfiguraatiotiedostoa ei voi muokata asennussalasanan kirjoittamiseen lupaongelman vuoksi.</value>
+  </data>
+  <data name="Migrate" xml:space="preserve">
+    <value>Siirrä roolit ja käyttäjät</value>
+  </data>
+  <data name="MigrateCount" xml:space="preserve">
+    <value>foorumin tietokannasta löytyneet käyttäjät.</value>
+  </data>
+  <data name="MigrateDesc" xml:space="preserve">
+    <value>Napsauta "Seuraava" aloittaaksesi kaikkien roolien ja käyttäjien päivityksen (siirron) vanhasta Yet Another Forum.NET -tietokannasta .NET-palveluntarjoajamalliin.</value>
+  </data>
+  <data name="MigrateNote" xml:space="preserve">
+    <value>Siirtotehtävä voi viedä &lt;strong&gt; erittäin &lt;/strong&gt; kauan riippuen siitä, kuinka monta käyttäjää olet foorumissasi.</value>
+  </data>
+  <data name="MigrateSkip" xml:space="preserve">
+    <value>Poista siirto käytöstä (ei suositella)</value>
+  </data>
+  <data name="MigrateUsers" xml:space="preserve">
+    <value>Siirtää käyttäjiä ...</value>
+  </data>
+  <data name="MigrateUsersText" xml:space="preserve">
+    <value>Älä siirry pois tältä sivulta siirron aikana. Siirtymisen suorittaminen voi viedä hyvin kauan.</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>Luo uusi DB-yhteysjono</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="NextInitDb" xml:space="preserve">
+    <value>Napsauttamalla "Seuraava" alustaa tietokanta uusimpaan versioon.</value>
+  </data>
+  <data name="NextReady" xml:space="preserve">
+    <value>Napsauta Seuraava, kun olet valmis.</value>
+  </data>
+  <data name="NextUpgradeDb" xml:space="preserve">
+    <value>Napsauttamalla "Seuraava" päivitetään tietokanta uusimpaan versioon.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>EI</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Huomautus</value>
+  </data>
+  <data name="NoWriteAppSettings" xml:space="preserve">
+    <value>Ei kirjoitusoikeutta asetuksiin</value>
+  </data>
+  <data name="NoWriteAppSettingsNote" xml:space="preserve">
+    <value>Konfigurointitiedostoa ei voi muokata asemaan tietokantayhteyttä, koska kirjoitusoikeutta ei ole.</value>
+  </data>
+  <data name="NoWriteConnSettings" xml:space="preserve">
+    <value>Ei kirjoitusoikeutta tietokantayhteysjonoihin</value>
+  </data>
+  <data name="NoWriteConnSettingsNote" xml:space="preserve">
+    <value>Konfigurointitiedostoa ei voi muokata määrittämään tietokantayhteysjonoa, koska kirjoitusoikeutta ei ole.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Avaa</value>
+  </data>
+  <data name="OpenFileDesc" xml:space="preserve">
+    <value>tiedosto sovelluksen juurikansioon ja lisää / päivitä seuraava avain &amp; lt; AppSettings &amp; gt; jakso:</value>
+  </data>
+  <data name="OpenFileDesc2" xml:space="preserve">
+    <value>tiedosto sovelluksen juurikansioon ja lisää / päivitä seuraava avain &amp; lt; connectionStrings &amp; gt; jakso:</value>
+  </data>
+  <data name="PasswordFile" xml:space="preserve">
+    <value>Tämä salasana tallennetaan sovellusasetuksiesi kanssa tiedostoon ...</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>Vahvistus ei ole sama kuin salasanasi.</value>
+  </data>
+  <data name="PermissionApp" xml:space="preserve">
+    <value>YAF.NET on kirjoittanut pääsyn juurisovellushakemistoon ("~ /") ...</value>
+  </data>
+  <data name="PermissionUpload" xml:space="preserve">
+    <value>YAF.NETillä on kirjoitusoikeus "~ / Upload" -hakemistoon ...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="ProviderError" xml:space="preserve">
+    <value>Todennustoimittaja palautti virheen. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan.</value>
+  </data>
+  <data name="ReenterConfigPassword" xml:space="preserve">
+    <value>Kirjoita kokoonpano salasana uudelleen</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>Vastaus turvallisuuskysymykseen</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>Kysymys, joka sinulta kysytään, kun sinun on haettava kadonneen salasanasi</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>Perustaa</value>
+  </data>
+  <data name="SmtpTestBody" xml:space="preserve">
+    <value>Sähköpostin lähettäminen näyttää toimivan YAF-asennuksesi perusteella.</value>
+  </data>
+  <data name="SmtpTestDetails" xml:space="preserve">
+    <value>SMTP-testitiedot</value>
+  </data>
+  <data name="SmtpTestSubject" xml:space="preserve">
+    <value>Testaa sähköpostia vielä yhdeltä foorumilta.NET</value>
+  </data>
+  <data name="SmtpTestSuccess" xml:space="preserve">
+    <value>Posti lähetetty. Varmista, että se on vastaanotettu antamassasi sähköpostiosoitteessa.</value>
+  </data>
+  <data name="SqlPass" xml:space="preserve">
+    <value>Kirjoita SQL-salasana</value>
+  </data>
+  <data name="SqlUser" xml:space="preserve">
+    <value>Kirjoita SQL-käyttäjänimi</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>Testaa yhteys</value>
+  </data>
+  <data name="TestEmail" xml:space="preserve">
+    <value>Testaa Smtp-asetukset</value>
+  </data>
+  <data name="TestPermission" xml:space="preserve">
+    <value>Testilupa</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>Testaa asetukset</value>
+  </data>
+  <data name="TestSettingsDesc" xml:space="preserve">
+    <value>Napsauta "Edellinen" -painiketta muokataksesi tietokannan määrityksiä.</value>
+  </data>
+  <data name="TestSettingsText" xml:space="preserve">
+    <value>Voit testata YAF-kokoonpanoasetuksesi täällä ennen jatkamista.</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Vieraskäyttäjän aikavyöhyke</value>
+  </data>
+  <data name="ToEmail" xml:space="preserve">
+    <value>Kirjoita sähköpostiosoite</value>
+  </data>
+  <data name="Unchecked" xml:space="preserve">
+    <value>esteettä</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Tapahtui tuntematon virhe. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan.</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>parantaa</value>
+  </data>
+  <data name="UpgradeExtensions" xml:space="preserve">
+    <value>Päivitä BBCode-laajennukset, tiedostopääte ja roskapostisanat</value>
+  </data>
+  <data name="UpgradeFinish" xml:space="preserve">
+    <value>Foorumi on nyt päivitetty uusimpaan versioon.</value>
+  </data>
+  <data name="UpgradeNote" xml:space="preserve">
+    <value>Jos kyseessä on päivitys, kirjoita foorumin ensimmäistä asennusta varten luomaasi määritysalasana, ei järjestelmänvalvojan salasana.</value>
+  </data>
+  <data name="UpgradeVersion" xml:space="preserve">
+    <value>Päivitysversio:</value>
+  </data>
+  <data name="UserRejected" xml:space="preserve">
+    <value>Käyttäjän luomispyyntö on peruutettu. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan.</value>
+  </data>
+  <data name="ValidatePermission" xml:space="preserve">
+    <value>Vahvista käyttöoikeudet</value>
+  </data>
+  <data name="ValidatePermissionDesc" xml:space="preserve">
+    <value>YetAnotherForum.NET -sovelluksen asennus on helpompaa, kun sovelluksella on kirjoitusoikeus .config-tiedostoon
+                        tiedostot.</value>
+  </data>
+  <data name="ValidatePermissionText" xml:space="preserve">
+    <value>Napsauta alla testataksesi oikeudet oikein. Jos he eivät ole, voit
+                        käytä edelleen ohjattua asennusta.</value>
+  </data>
+  <data name="WarningUpgrade" xml:space="preserve">
+    <value>Olet päivittämässä YAF.NET -sovellusta uusimpaan versioon. Ennen kuin jatkat päivitysprosessia, varmista, että ...
+                        &lt;Ul&gt;
+                            &lt;li&gt; loit varmuuskopion nykyisestä asennuksesta &lt;/li&gt;
+                        &lt;/ Ul&gt;</value>
+  </data>
+  <data name="WelcomeInstall" xml:space="preserve">
+    <value>Tervetuloa YAF.NET-asennukseen</value>
+  </data>
+  <data name="WelcomeInstallDesc" xml:space="preserve">
+    <value>Napsauta "Seuraava" aloittaaksesi asennusprosessin.</value>
+  </data>
+  <data name="WelcomeInstallText" xml:space="preserve">
+    <value>Tämä asennusohjelma opastaa sinut vaiheissa, joita tarvitaan YetAnotherForum.NET (YAF.NET) asennukseen.</value>
+  </data>
+  <data name="WelcomeUpgrade" xml:space="preserve">
+    <value>Tervetuloa YAF.NET-päivitysprosessiin</value>
+  </data>
+  <data name="WelcomeUpgradeDesc" xml:space="preserve">
+    <value>Napsauta "Seuraava" aloittaaksesi päivitysprosessin.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>JOO</value>
+  </data>
+</root>

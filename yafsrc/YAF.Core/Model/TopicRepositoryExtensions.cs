@@ -28,9 +28,7 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.IO;
     using System.Linq;
-    using System.Web.Hosting;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -72,7 +70,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateOnly(() => new Topic { AnswerMessageId = messageId }, where: t => t.ID == topicId);
+            repository.UpdateOnly(() => new Topic { AnswerMessageId = messageId }, t => t.ID == topicId);
         }
 
         /// <summary>
@@ -84,7 +82,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateOnly(() => new Topic { AnswerMessageId = null }, where: t => t.ID == topicId);
+            repository.UpdateOnly(() => new Topic { AnswerMessageId = null }, t => t.ID == topicId);
         }
 
         /// <summary>
@@ -112,7 +110,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateOnly(() => new Topic { Flags = flags }, where: t => t.ID == topicId);
+            repository.UpdateOnly(() => new Topic { Flags = flags }, t => t.ID == topicId);
         }
 
         /// <summary>
@@ -296,7 +294,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets all topics where the pageUserid has posted
+        /// Gets all topics where the page User id has posted
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -1137,28 +1135,7 @@ namespace YAF.Core.Model
             // If the files are actually saved in the Hard Drive
             if (!useFileTable)
             {
-                var attachments = repository.DbFunction.GetData.attachment_list(MessageID: messageID);
-
-                var uploadDir =
-                    HostingEnvironment.MapPath(
-                        string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-
-                foreach (DataRow row in attachments.Rows)
-                {
-                    try
-                    {
-                        var fileName = $"{uploadDir}/{messageID}.{row["FileName"]}.yafupload";
-
-                        if (File.Exists(fileName))
-                        {
-                            File.Delete(fileName);
-                        }
-                    }
-                    catch
-                    {
-                        // error deleting that file...
-                    }
-                }
+                YafContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
             }
 
             // Ederon : erase message for good

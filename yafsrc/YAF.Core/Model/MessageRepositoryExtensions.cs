@@ -26,9 +26,7 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.IO;
     using System.Linq;
-    using System.Web.Hosting;
 
     using ServiceStack.OrmLite;
 
@@ -958,27 +956,7 @@ namespace YAF.Core.Model
             // If the files are actually saved in the Hard Drive
             if (!useFileTable)
             {
-                var attachments = repository.DbFunction.GetData.attachment_list(MessageID: messageID);
-
-                var uploadDir = HostingEnvironment.MapPath(
-                    string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-
-                foreach (DataRow row in attachments.Rows)
-                {
-                    try
-                    {
-                        var fileName = $"{uploadDir}/{messageID}.{row["FileName"]}.yafupload";
-
-                        if (File.Exists(fileName))
-                        {
-                            File.Delete(fileName);
-                        }
-                    }
-                    catch
-                    {
-                        // error deleting that file...
-                    }
-                }
+                YafContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
             }
 
             // Ederon : erase message for good

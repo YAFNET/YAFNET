@@ -25,8 +25,6 @@ namespace YAF.Utils
 {
     #region Using
 
-    using System.Linq;
-    using System.Reflection;
     using System.Web;
 
     using YAF.Types;
@@ -38,40 +36,7 @@ namespace YAF.Utils
     /// </summary>
     public static class General
     {
-        /* Ederon : 9/12/2007 */
         #region Public Methods
-
-        /// <summary>
-        /// Compares two messages.
-        /// </summary>
-        /// <param name="originalMessage">
-        /// Original message text.
-        /// </param>
-        /// <param name="newMessage">
-        /// New message text.
-        /// </param>
-        /// <returns>
-        /// True if messages differ, <see langword="false"/> if they are identical.
-        /// </returns>
-        public static bool CompareMessage([NotNull] object originalMessage, [NotNull] object newMessage)
-        {
-            CodeContracts.VerifyNotNull(originalMessage, "originalMessage");
-            CodeContracts.VerifyNotNull(newMessage, "newMessage");
-
-            return originalMessage.ToString() != newMessage.ToString();
-        }
-
-        /// <summary>
-        /// Encodes the message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        /// <returns>Returns the encoded message</returns>
-        public static string EncodeMessage([NotNull] string message)
-        {
-            CodeContracts.VerifyNotNull(message, "message");
-
-            return message.IndexOf('<') >= 0 ? HttpUtility.HtmlEncode(message) : message;
-        }
 
         /// <summary>
         /// Gets the safe raw URL.
@@ -100,31 +65,6 @@ namespace YAF.Utils
             processedRaw = processedRaw.Replace(">", "%3E");
             processedRaw = processedRaw.Replace("&", "%26");
             return processedRaw.Replace("'", string.Empty);
-        }
-
-        /// <summary>
-        /// Traces the resources.
-        /// </summary>
-        /// <returns>Returns the founded Resources</returns>
-        public static string TraceResources()
-        {
-            var a = Assembly.GetExecutingAssembly();
-
-            // get a list of resource names from the manifest
-            var resNames = a.GetManifestResourceNames();
-
-            // populate the textbox with information about our resources
-            // also look for images and put them in our arraylist
-            var txtInfo = string.Empty;
-
-            txtInfo += $"Found {resNames.Length} resources\r\n";
-            txtInfo += "----------\r\n";
-
-            txtInfo = resNames.Aggregate(txtInfo, (current, s) => current + s + "\r\n");
-
-            txtInfo += "----------\r\n";
-
-            return txtInfo;
         }
 
         #endregion

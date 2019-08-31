@@ -112,6 +112,7 @@
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" 
                                          Type="Danger"
+                                         Size="Small"
                                          CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
                                          ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
                                          Icon="trash" 

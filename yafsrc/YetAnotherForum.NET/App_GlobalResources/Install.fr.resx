@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>Adresse email</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Entrez le nom du super utilisateur</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="AdminPassword2" xml:space="preserve">
+    <value>vérifier le mot de passe</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Entrez le nom du nouveau conseil</value>
+  </data>
+  <data name="ConfigPassword" xml:space="preserve">
+    <value>Mot de passe de configuration</value>
+  </data>
+  <data name="ConnectionDetails" xml:space="preserve">
+    <value>Détails de la connexion</value>
+  </data>
+  <data name="ConnectionExist" xml:space="preserve">
+    <value>Sélectionner une chaîne de connexion existante</value>
+  </data>
+  <data name="ConnectionExistDesc" xml:space="preserve">
+    <value>Sélectionnez la chaîne de connexion à la base de données SQL Server:</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Échec de connexion:</value>
+  </data>
+  <data name="ConnectionNew" xml:space="preserve">
+    <value>Créer une nouvelle chaîne de connexion</value>
+  </data>
+  <data name="ConnectionNewNote" xml:space="preserve">
+    <value>La chaîne de connexion sera enregistrée en tant que</value>
+  </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>Connexion réussie</value>
+  </data>
+  <data name="ConnectionTest" xml:space="preserve">
+    <value>Test de connexion à la base de données</value>
+  </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Créer un nouveau conseil</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Créer un mot de passe de configuration</value>
+  </data>
+  <data name="CreatePasswordText" xml:space="preserve">
+    <value>Comme c'est la première fois que vous installez ou mettez à niveau cette version du forum, vous devez créer un mot de passe de configuration pour la sécurité.</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Créer un nouveau super utilisateur (hôte)</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>Culture de l'utilisateur invité (langue)</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Version actuelle:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Base de données</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Entrez la source de données (nom ou adresse du serveur SQL)</value>
+  </data>
+  <data name="DBConnection" xml:space="preserve">
+    <value>Connexion à la base de données YAF.NET</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Entrez le nom de la base de données</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Un nom d'utilisateur pour cette adresse e-mail existe déjà. Veuillez entrer une adresse e-mail différente.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Ce nom d'utilisateur existe déjà. Veuillez entrer un nom d'utilisateur différent.</value>
+  </data>
+  <data name="EnterConfigPassword" xml:space="preserve">
+    <value>Entrez le mot de passe de configuration</value>
+  </data>
+  <data name="EnterConfigPasswordDesc" xml:space="preserve">
+    <value>Entrez le mot de passe de configuration pour mettre à niveau ou installer manuellement le forum.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="ErrorBoardInstalled" xml:space="preserve">
+    <value>Le conseil est déjà installé.</value>
+  </data>
+  <data name="ErrorBoardName" xml:space="preserve">
+    <value>Vous devez entrer un nom de conseil.</value>
+  </data>
+  <data name="ErrorConfigPassword" xml:space="preserve">
+    <value>Vous devez mettre à jour vos appSettings avec la clé YAF.ConfigPassword pour continuer. REMARQUE: le nom de la clé est sensible à la casse.</value>
+  </data>
+  <data name="ErrorForumEmail" xml:space="preserve">
+    <value>Vous devez entrer une adresse électronique du conseil.</value>
+  </data>
+  <data name="ErrorPassword" xml:space="preserve">
+    <value>Vous devez entrer un mot de passe.</value>
+  </data>
+  <data name="ErrorUserCreate" xml:space="preserve">
+    <value>Échec de la création de l'utilisateur administrateur:</value>
+  </data>
+  <data name="ErrorUserEmail" xml:space="preserve">
+    <value>Vous devez entrer l'adresse email du super utilisateur.</value>
+  </data>
+  <data name="ErrorUserName" xml:space="preserve">
+    <value>Vous devez entrer le nom d'utilisateur du super utilisateur,</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Le nom d'utilisateur existant n'est pas valide et ne représente pas un utilisateur actuel dans le magasin d'appartenance.</value>
+  </data>
+  <data name="ErrorWrongPassword" xml:space="preserve">
+    <value>Vous avez entré le &lt;strong&gt; mot de passe incorrect &lt;/ strong&gt;!</value>
+  </data>
+  <data name="ExistConnection" xml:space="preserve">
+    <value>Utiliser une chaîne de connexion à la base de données existante</value>
+  </data>
+  <data name="ExistingUser" xml:space="preserve">
+    <value>Utiliser un utilisateur existant</value>
+  </data>
+  <data name="ExistingUserName" xml:space="preserve">
+    <value>Entrez le nom de l'utilisateur existant à rendre super utilisateur (hôte)</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>terminer</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>Cliquez sur Terminer pour accéder à la page principale du forum.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Fini</value>
+  </data>
+  <data name="ForumEmail" xml:space="preserve">
+    <value>Adresse e-mail du forum</value>
+  </data>
+  <data name="ForumUrl" xml:space="preserve">
+    <value>Masque d'URL de base du forum</value>
+  </data>
+  <data name="FromEmail" xml:space="preserve">
+    <value>Entrez l'adresse e-mail de</value>
+  </data>
+  <data name="InitFinish" xml:space="preserve">
+    <value>Votre forum est maintenant prêt.</value>
+  </data>
+  <data name="Initialize" xml:space="preserve">
+    <value>Initialiser</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Installation</value>
+  </data>
+  <data name="Integrated" xml:space="preserve">
+    <value>Utiliser la sécurité intégrée</value>
+  </data>
+  <data name="InvalidAnswer" xml:space="preserve">
+    <value>La réponse de récupération de mot de passe fournie n'est pas valide. Veuillez vérifier la valeur et réessayer.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>L'adresse e-mail fournie n'est pas valide. Veuillez vérifier la valeur et réessayer.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Le mot de passe fourni est invalide. Veuillez entrer un mot de passe valide.</value>
+  </data>
+  <data name="InvalidQuestion" xml:space="preserve">
+    <value>La question de récupération du mot de passe fournie est invalide. Veuillez vérifier la valeur et réessayer.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Le nom d'utilisateur fourni n'est pas valide. Veuillez vérifier la valeur et réessayer.</value>
+  </data>
+  <data name="MailTest" xml:space="preserve">
+    <value>Test d'envoi de courrier (SMTP)</value>
+  </data>
+  <data name="MailTestDesc" xml:space="preserve">
+    <value>Envoie un message de test à l'adresse électronique définie comme adresse d'envoi à</value>
+  </data>
+  <data name="ManuallyPassword" xml:space="preserve">
+    <value>Pas d'accès en écriture aux paramètres de l'application</value>
+  </data>
+  <data name="ManuallyPasswordDesc" xml:space="preserve">
+    <value>Cliquez sur "Suivant" lorsque vous êtes prêt.</value>
+  </data>
+  <data name="ManuallyPasswordError" xml:space="preserve">
+    <value>Impossible de modifier votre fichier de configuration pour écrire le mot de passe d'installation en raison d'un problème d'autorisation.</value>
+  </data>
+  <data name="Migrate" xml:space="preserve">
+    <value>Migrer des rôles et des utilisateurs</value>
+  </data>
+  <data name="MigrateCount" xml:space="preserve">
+    <value>utilisateur (s) trouvé (s) dans la base de données de votre forum.</value>
+  </data>
+  <data name="MigrateDesc" xml:space="preserve">
+    <value>Cliquez sur "Suivant" pour lancer la mise à niveau (migration) de tous les rôles et utilisateurs de votre ancienne base de données Yet Another Forum.NET vers le modèle de fournisseur .NET.</value>
+  </data>
+  <data name="MigrateNote" xml:space="preserve">
+    <value>La tâche de migration peut prendre &lt;strong&gt; très &lt;/ strong&gt; beaucoup de temps, en fonction du nombre d'utilisateurs sur votre forum.</value>
+  </data>
+  <data name="MigrateSkip" xml:space="preserve">
+    <value>Désactiver la migration (non recommandé)</value>
+  </data>
+  <data name="MigrateUsers" xml:space="preserve">
+    <value>Migration des utilisateurs ...</value>
+  </data>
+  <data name="MigrateUsersText" xml:space="preserve">
+    <value>Veuillez ne pas quitter cette page lorsque la migration est en cours. La migration peut prendre beaucoup de temps.</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>Créer une nouvelle chaîne de connexion à la base de données</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Prochain</value>
+  </data>
+  <data name="NextInitDb" xml:space="preserve">
+    <value>En cliquant sur "Suivant", votre base de données sera initialisée à la dernière version.</value>
+  </data>
+  <data name="NextReady" xml:space="preserve">
+    <value>Cliquez sur "Suivant" lorsque vous êtes prêt.</value>
+  </data>
+  <data name="NextUpgradeDb" xml:space="preserve">
+    <value>En cliquant sur "Suivant", votre base de données sera mise à niveau vers la dernière version.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>NON</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Remarque</value>
+  </data>
+  <data name="NoWriteAppSettings" xml:space="preserve">
+    <value>Pas d'accès en écriture aux paramètres</value>
+  </data>
+  <data name="NoWriteAppSettingsNote" xml:space="preserve">
+    <value>Impossible de modifier votre fichier de configuration pour définir la connexion à la base de données en raison de l'absence d'autorisation en écriture.</value>
+  </data>
+  <data name="NoWriteConnSettings" xml:space="preserve">
+    <value>Pas d'accès en écriture aux chaînes de connexion à la base de données</value>
+  </data>
+  <data name="NoWriteConnSettingsNote" xml:space="preserve">
+    <value>Impossible de modifier votre fichier de configuration pour définir la chaîne de connexion à la base de données car elle ne dispose d'aucun droit en écriture.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>S'il vous plaît ouvrir le</value>
+  </data>
+  <data name="OpenFileDesc" xml:space="preserve">
+    <value>fichier dans le répertoire racine de l'application et ajoutez / mettez à jour la clé suivante dans l '&amp; lt; AppSettings &amp; gt; section:</value>
+  </data>
+  <data name="OpenFileDesc2" xml:space="preserve">
+    <value>fichier dans le répertoire racine de l'application et ajoutez / mettez à jour la clé suivante dans &amp; lt; connectionStrings &amp; gt; section:</value>
+  </data>
+  <data name="PasswordFile" xml:space="preserve">
+    <value>Ce mot de passe est stocké avec vos appSettings dans le fichier ...</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>La vérification n'est pas la même chose que votre mot de passe.</value>
+  </data>
+  <data name="PermissionApp" xml:space="preserve">
+    <value>YAF.NET a un accès en écriture au répertoire de l'application racine ("~ /") ...</value>
+  </data>
+  <data name="PermissionUpload" xml:space="preserve">
+    <value>YAF.NET a un accès en écriture au répertoire "~ / Upload" ...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>précédent</value>
+  </data>
+  <data name="ProviderError" xml:space="preserve">
+    <value>Le fournisseur d'authentification a renvoyé une erreur. Veuillez vérifier votre entrée et réessayer. Si le problème persiste, veuillez contacter votre administrateur système.</value>
+  </data>
+  <data name="ReenterConfigPassword" xml:space="preserve">
+    <value>Ressaisissez le mot de passe de configuration</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>La réponse à la question de sécurité</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>La question qui vous sera posée quand vous aurez besoin de récupérer votre mot de passe perdu</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="SmtpTestBody" xml:space="preserve">
+    <value>L'envoi de courrier électronique semble fonctionner depuis votre installation YAF.</value>
+  </data>
+  <data name="SmtpTestDetails" xml:space="preserve">
+    <value>Détails du test SMTP</value>
+  </data>
+  <data name="SmtpTestSubject" xml:space="preserve">
+    <value>Testez vos e-mails à partir d'un autre forum.NET</value>
+  </data>
+  <data name="SmtpTestSuccess" xml:space="preserve">
+    <value>Email envoyé. Vérifiez qu'il est reçu à l'adresse e-mail que vous avez entrée.</value>
+  </data>
+  <data name="SqlPass" xml:space="preserve">
+    <value>Entrez le mot de passe SQL</value>
+  </data>
+  <data name="SqlUser" xml:space="preserve">
+    <value>Entrez le nom d'utilisateur SQL</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>Test de connexion</value>
+  </data>
+  <data name="TestEmail" xml:space="preserve">
+    <value>Test des paramètres Smtp</value>
+  </data>
+  <data name="TestPermission" xml:space="preserve">
+    <value>Permission de test</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>Paramètres de test</value>
+  </data>
+  <data name="TestSettingsDesc" xml:space="preserve">
+    <value>Cliquez sur le bouton "Précédent" pour modifier la configuration de la base de données.</value>
+  </data>
+  <data name="TestSettingsText" xml:space="preserve">
+    <value>Vous voudrez peut-être tester vos paramètres de configuration YAF ici avant de continuer.</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Fuseau horaire de l'utilisateur invité</value>
+  </data>
+  <data name="ToEmail" xml:space="preserve">
+    <value>Entrez l'adresse e-mail</value>
+  </data>
+  <data name="Unchecked" xml:space="preserve">
+    <value>Décoché</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Une erreur inconnue est survenue. Veuillez vérifier votre entrée et réessayer. Si le problème persiste, veuillez contacter votre administrateur système.</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>Améliorer</value>
+  </data>
+  <data name="UpgradeExtensions" xml:space="preserve">
+    <value>Mettre à niveau les extensions BBCode, les extensions de fichier et les mots de spam</value>
+  </data>
+  <data name="UpgradeFinish" xml:space="preserve">
+    <value>Votre forum a maintenant été mis à niveau vers la dernière version.</value>
+  </data>
+  <data name="UpgradeNote" xml:space="preserve">
+    <value>S'il s'agit d'une mise à niveau, veuillez saisir le mot de passe de configuration que vous avez créé lors de la première installation du forum, pas le mot de passe de l'utilisateur admin.</value>
+  </data>
+  <data name="UpgradeVersion" xml:space="preserve">
+    <value>Version de mise à niveau:</value>
+  </data>
+  <data name="UserRejected" xml:space="preserve">
+    <value>La demande de création d'utilisateur a été annulée. Veuillez vérifier votre entrée et réessayer. Si le problème persiste, veuillez contacter votre administrateur système.</value>
+  </data>
+  <data name="ValidatePermission" xml:space="preserve">
+    <value>Valider les autorisations</value>
+  </data>
+  <data name="ValidatePermissionDesc" xml:space="preserve">
+    <value>YetAnotherForum.NET L'installation est plus facile lorsque l'application dispose d'un accès en écriture à votre .config
+                        des dossiers.</value>
+  </data>
+  <data name="ValidatePermissionText" xml:space="preserve">
+    <value>Cliquez ci-dessous pour vérifier si les autorisations sont correctes. S'ils ne le sont pas, vous pouvez
+                        continuez à utiliser l'assistant d'installation.</value>
+  </data>
+  <data name="WarningUpgrade" xml:space="preserve">
+    <value>Vous êtes sur le point de mettre à niveau YAF.NET vers la version la plus récente. Avant de poursuivre le processus de mise à niveau, veuillez vous assurer que ...
+                        &lt;ul&gt;
+                            &lt;li&gt; vous avez créé une sauvegarde de votre installation existante &lt;/ li&gt;
+                        &lt;/ ul&gt;</value>
+  </data>
+  <data name="WelcomeInstall" xml:space="preserve">
+    <value>Bienvenue sur l'installation de YAF.NET</value>
+  </data>
+  <data name="WelcomeInstallDesc" xml:space="preserve">
+    <value>Cliquez sur "Suivant" pour lancer le processus d'installation.</value>
+  </data>
+  <data name="WelcomeInstallText" xml:space="preserve">
+    <value>Ce programme d'installation vous guidera à travers les étapes nécessaires à l'installation de YetAnotherForum.NET (YAF.NET).</value>
+  </data>
+  <data name="WelcomeUpgrade" xml:space="preserve">
+    <value>Bienvenue dans le processus de mise à niveau de YAF.NET</value>
+  </data>
+  <data name="WelcomeUpgradeDesc" xml:space="preserve">
+    <value>Cliquez sur "Suivant" pour lancer le processus de mise à niveau.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>OUI</value>
+  </data>
+</root>

@@ -154,7 +154,6 @@ namespace YAF.Web.Controls
             var label = new HtmlGenericControl("label");
 
             label.Attributes.Add(HtmlTextWriterAttribute.For.ToString(), associatedControlID);
-            label.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "font-weight-bold");
 
             label.Controls.Add(new Literal { Text = $"{text}" });
 
@@ -175,13 +174,13 @@ namespace YAF.Web.Controls
 
             var button = new HtmlGenericControl("button");
             button.Attributes.Add(HtmlTextWriterAttribute.Type.ToString(), "button");
-            button.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn btn-info btn-circle btn-sm");
+            button.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn btn-sm");
             button.Attributes.Add(HtmlTextWriterAttribute.Title.ToString(), tooltip);
 
             button.Attributes.Add("data-toggle", "tooltip");
             button.Attributes.Add("data-placement", "right");
 
-            button.Controls.Add(new Literal { Text = "<i class=\"fa fa-question\"></i>" });
+            button.Controls.Add(new Literal { Text = @"<i class=""fas fa-info-circle text-info fa-lg""></i>" });
 
             label.Controls.Add(button);
 

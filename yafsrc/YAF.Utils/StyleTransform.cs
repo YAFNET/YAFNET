@@ -28,6 +28,7 @@ namespace YAF.Utils
     using System.Data;
     using System.Linq;
 
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -63,7 +64,7 @@ namespace YAF.Utils
         #region IStyleTransform
 
         /// <summary>
-        /// The decode style by string.
+        /// Decode Style by String
         /// </summary>
         /// <param name="styleStr">The style str.</param>
         /// <param name="colorOnly">The color only.</param>
@@ -74,11 +75,9 @@ namespace YAF.Utils
         {
             var styleRow = styleStr.Trim().Split('/');
 
-            foreach (var pair in styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1))
-            {
-                styleStr = colorOnly ? this.GetColorOnly(pair[1]) : pair[1];
-            }
-
+            styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1).ForEach(
+                pair => { styleStr = colorOnly ? GetColorOnly(pair[1]) : pair[1]; });
+            
             return styleStr;
         }
 
@@ -96,16 +95,18 @@ namespace YAF.Utils
         /// </param>
         public void DecodeStyleByTable(DataTable dt, bool colorOnly = false, string[] styleColumns = null)
         {
-            styleColumns = styleColumns ?? new string[] { "Style" }; 
+            styleColumns = styleColumns ?? new string[] { "Style" };
 
-            foreach (var row in dt.Rows.Cast<DataRow>())
-            {
-                foreach (var t in styleColumns)
-                {
-                    var dr = row;
-                    this.DecodeStyleByRow(dr, t, colorOnly);
-                }
-            }
+            dt.Rows.Cast<DataRow>().ForEach(
+                row =>
+                    {
+                        styleColumns.ForEach(
+                            t =>
+                                {
+                                    var dr = row;
+                                    this.DecodeStyleByRow(dr, t, colorOnly);
+                                });
+                    });
         }
 
         #endregion
@@ -123,7 +124,7 @@ namespace YAF.Utils
         /// <returns>
         /// The get color only.
         /// </returns>
-        private string GetColorOnly(string styleString)
+        private static string GetColorOnly(string styleString)
         {
             var styleArray = styleString.Split(';');
             return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));

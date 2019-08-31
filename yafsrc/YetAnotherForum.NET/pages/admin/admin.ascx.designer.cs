@@ -193,6 +193,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
+        /// BoardStartAgo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BoardStartAgo;
+        
+        /// <summary>
         /// BoardStart control.
         /// </summary>
         /// <remarks>

@@ -24,7 +24,10 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.IO;
+    using System.Web.Hosting;
 
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Types;
@@ -68,6 +71,44 @@ namespace YAF.Core.Model
             }
 
             repository.DeleteById(attachmentId);
+        }
+
+        /// <summary>
+        /// Deletes all Attachments by Message Id
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        public static void DeleteByMessageId(this IRepository<Attachment> repository, int messageId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var attachments = repository.Get(a => a.MessageID == messageId);
+
+            var uploadDir =
+                HostingEnvironment.MapPath(
+                    string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+
+            attachments.ForEach(
+                attachment =>
+                    {
+                        try
+                        {
+                            var fileName = $"{uploadDir}/{messageId}.{attachment.FileName}.yafupload";
+
+                            if (File.Exists(fileName))
+                            {
+                                File.Delete(fileName);
+                            }
+                        }
+                        catch
+                        {
+                            // error deleting that file...
+                        }
+                    });
         }
 
         /// <summary>

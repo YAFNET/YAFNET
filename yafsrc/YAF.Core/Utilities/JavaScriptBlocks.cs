@@ -631,61 +631,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         #endregion
 
         /// <summary>
-        /// Renders the Hover card Load JS.
-        /// </summary>
-        /// <param name="clientId">The client id.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="loadingHtml">The loading HTML.</param>
-        /// <param name="errorHtml">The error HTML.</param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string HoverCardLoadJs(
-            [NotNull] string clientId,
-            [NotNull] string type,
-            [NotNull] string loadingHtml,
-            [NotNull] string errorHtml)
-        {
-            return
-                $@"{Config.JQueryAlias}('{clientId}').hovercard({{
-                                  {(type.IsSet() ? $"show{type}Card: true," : string.Empty)}
-                                  width: 350,
-                                  loadingHTML: '{loadingHtml}',
-                                  errorHTML: '{errorHtml}', 
-                                  delay: {YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay} }});";
-        }
-
-        /// <summary>
-        /// Renders the Hover card Load JS.
-        /// </summary>
-        /// <param name="clientId">The client id.</param>
-        /// <param name="type">The type.</param>
-        /// <param name="loadingHtml">The loading HTML.</param>
-        /// <param name="errorHtml">The error HTML.</param>
-        /// <param name="twitterUrl">The twitter URL.</param>
-        /// <returns>
-        /// Returns the JS String
-        /// </returns>
-        [NotNull]
-        public static string HoverCardLoadJs(
-            [NotNull] string clientId,
-            [NotNull] string type,
-            [NotNull] string loadingHtml,
-            [NotNull] string errorHtml,
-            [NotNull] string twitterUrl)
-        {
-            return
-                $@"{Config.JQueryAlias}('{clientId}').hovercard({{
-                              {(type.IsSet() ? $"show{type}Card: true," : string.Empty)}
-                              width: 350,
-                              loadingHTML: '{loadingHtml}',
-                              errorHTML: '{errorHtml}', 
-                              delay: {YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay}, 
-                              twitterURL: '{twitterUrl}' }});";
-        }
-
-        /// <summary>
         /// Gets the FileUpload Java Script.
         /// </summary>
         /// <param name="acceptedFileTypes">
