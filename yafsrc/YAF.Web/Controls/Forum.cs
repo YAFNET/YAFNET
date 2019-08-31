@@ -39,12 +39,15 @@ namespace YAF.Web.Controls
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
+#if DEBUG
+    using YAF.Types.Exceptions;
+#endif
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Web.EventsArgs;
 
-    #endregion
+#endregion
 
     /// <summary>
     /// EventArgs class for the YafBeforeForumPageLoad event
@@ -66,7 +69,7 @@ namespace YAF.Web.Controls
     [ToolboxData("<{0}:Forum runat=\"server\"></{0}:Forum>")]
     public class Forum : UserControl, IHaveServiceLocator
     {
-        #region Constants and Fields
+#region Constants and Fields
 
         /// <summary>
         ///   The _current forum page.
@@ -83,9 +86,9 @@ namespace YAF.Web.Controls
         /// </summary>
         private PlaceHolder topControl;
 
-        #endregion
+#endregion
 
-        #region Constructors and Destructors
+#region Constructors and Destructors
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="Forum" /> class.
@@ -106,9 +109,9 @@ namespace YAF.Web.Controls
                     });
         }
 
-        #endregion
+#endregion
 
-        #region Public Events
+#region Public Events
 
         /// <summary>
         ///   The after forum page load.
@@ -125,9 +128,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public event EventHandler<ForumPageTitleArgs> PageTitleSet;
 
-        #endregion
+#endregion
 
-        #region Public Properties
+#region Public Properties
 
         /// <summary>
         ///   Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
@@ -199,9 +202,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
-        #endregion
+#endregion
 
-        #region Public Methods and Operators
+#region Public Methods and Operators
 
         /// <summary>
         /// Called when the forum control sets it's Page Title
@@ -217,9 +220,9 @@ namespace YAF.Web.Controls
             this.PageTitleSet?.Invoke(this, e);
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// The on unload.
@@ -458,6 +461,6 @@ namespace YAF.Web.Controls
             return src[0];
         }
 
-        #endregion
+#endregion
     }
 }

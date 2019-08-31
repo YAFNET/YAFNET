@@ -48,6 +48,7 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
@@ -65,6 +66,9 @@
     </Compile>
     <Compile Update="BasePages\ForumPageRegistered.cs">
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Update="WebService\YafWebService.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
