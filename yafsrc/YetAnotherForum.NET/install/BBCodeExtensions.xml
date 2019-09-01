@@ -35,16 +35,16 @@
   <YafBBCode>
     <Name>YOUTUBE</Name>
     <Description>[YOUTUBE][localization=YOUTUBEMOD_DESCRIPTION]Put YouTube URL Here[/localization][/YOUTUBE]</Description>
-    <OnClickJS />
-    <DisplayJS />
-    <EditJS />
-    <DisplayCSS />
-    <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]</SearchRegex>
     <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;div&gt;&lt;iframe width="560" height="350" src="//youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>
-    <ModuleClass />
+    <ModuleClass></ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
