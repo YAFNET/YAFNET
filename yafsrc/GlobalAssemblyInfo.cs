@@ -24,6 +24,6 @@
 
 using System.Reflection;
 
-[assembly: AssemblyVersion("2.2.4.19")]
-[assembly: AssemblyFileVersion("2.2.4.19")]
+[assembly: AssemblyVersion("2.2.4.20")]
+[assembly: AssemblyFileVersion("2.2.4.20")]
 [assembly: AssemblyCopyright("Copyright © YetAnotherForum.NET")]

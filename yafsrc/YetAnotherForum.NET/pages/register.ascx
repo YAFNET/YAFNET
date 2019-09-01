@@ -209,7 +209,7 @@
 								<asp:TextBox ID="Location" runat="server"></asp:TextBox>
 							</td>
 						</tr>
-						<tr>
+						<tr runat="server" Visible="False">
 							<td align="right" class="postheader">
 								<asp:Label ID="HomepageLabel" runat="server" AssociatedControlID="Homepage">
 									<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="HOMEPAGE" />

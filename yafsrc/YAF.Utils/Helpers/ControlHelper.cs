@@ -462,7 +462,7 @@ namespace YAF.Utils.Helpers
         public static HtmlMeta MakeMetaNoIndexControl()
         {
 
-            var meta = new HtmlMeta { Name = "robots", Content = "noindex" };
+            var meta = new HtmlMeta { Name = "robots", Content = "noindex,follow" };
 
             return meta;
         }
