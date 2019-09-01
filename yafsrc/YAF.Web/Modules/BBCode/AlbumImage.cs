@@ -52,10 +52,9 @@ namespace YAF.Modules.BBCode
                 this.Parameters[key: "inner"]);
 
             sb.AppendFormat(
-                @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:{2}px;max-height:{3}px"" />",
+                @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{2}px"" />",
                 YafForumInfo.ForumClientFileRoot,
                 this.Parameters[key: "inner"],
-                this.Get<YafBoardSettings>().ImageThumbnailMaxWidth,
                 this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
 
             sb.Append(value: "</a>");
