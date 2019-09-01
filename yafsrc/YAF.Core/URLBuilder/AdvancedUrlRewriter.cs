@@ -68,7 +68,7 @@ namespace YAF.Core.URLBuilder
 
             const string gsr = "getsearchresults";
             scriptName = scriptName.Replace(gsr, scriptFile);
-            newUrl=newUrl.Replace(gsr, scriptFile);
+            newUrl = newUrl.Replace(gsr, scriptFile);
 
             if (scriptName.EndsWith(scriptFile))
             {
@@ -215,7 +215,7 @@ namespace YAF.Core.URLBuilder
                     newUrl += parser[useKey];
                 }
 
-                // handle pager linkse
+                // handle pager links
                 if (handlePage && parser["p"] != null && !isFeed)
                 {
                     var page = parser["p"].ToType<int>();

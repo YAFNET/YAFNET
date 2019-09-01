@@ -401,6 +401,9 @@
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
     <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
     <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
+    <Resource tag="BOARD_LOGO">Board Logo:</Resource>
+    <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
+    <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Mobile Theme:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">The mobile theme to use on this board.</Resource>
     <Resource tag="BOARD_NAME">Board Name:</Resource>

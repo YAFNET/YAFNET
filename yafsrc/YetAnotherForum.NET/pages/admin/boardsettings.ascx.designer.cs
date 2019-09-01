@@ -76,6 +76,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox ForumEmail;
         
         /// <summary>
+        /// HelpLabel14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel14;
+        
+        /// <summary>
+        /// BoardLogo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ImageListBox BoardLogo;
+        
+        /// <summary>
         /// HelpLabel5 control.
         /// </summary>
         /// <remarks>

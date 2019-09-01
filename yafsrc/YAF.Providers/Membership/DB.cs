@@ -551,8 +551,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("UniqueEmail", requiresUniqueEmail);
 
                 // Add Return Value
-                var p = new SqlParameter("ReturnValue", SqlDbType.Int);
-                p.Direction = ParameterDirection.ReturnValue;
+                var p = new SqlParameter("ReturnValue", SqlDbType.Int) { Direction = ParameterDirection.ReturnValue };
                 cmd.Parameters.Add(p);
 
                 this.DbAccess.ExecuteNonQuery(cmd); // Execute Non SQL Query

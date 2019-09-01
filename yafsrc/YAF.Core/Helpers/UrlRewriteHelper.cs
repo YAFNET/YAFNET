@@ -182,11 +182,11 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static string GetTopicName(int id)
         {
-            const string TSype = "Topic";
+            const string Topic = "Topic";
             const string PrimaryKey = "TopicID";
             const string NameField = "Topic";
 
-            var row = GetDataRowFromCache(TSype, id);
+            var row = GetDataRowFromCache(Topic, id);
 
             if (row != null)
             {
@@ -197,7 +197,7 @@ namespace YAF.Core.Helpers
             var list = YafContext.Current.GetRepository<Topic>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
-            row = SetupDataToCache(ref list, TSype, id, PrimaryKey);
+            row = SetupDataToCache(ref list, Topic, id, PrimaryKey);
 
             return row == null ? string.Empty : CleanStringForURL(row[NameField].ToString());
         }
@@ -241,13 +241,13 @@ namespace YAF.Core.Helpers
         {
             var sb = new StringBuilder();
 
+            // fix ampersand...
+            inputString = inputString.Replace(" & ", "and").Replace("ـ", string.Empty);
+
             // trim...
             inputString = Config.UrlRewritingMode == "Unicode"
                       ? HttpUtility.UrlDecode(inputString.Trim())
                       : HttpContext.Current.Server.HtmlDecode(inputString.Trim());
-
-            // fix ampersand...
-            inputString = inputString.Replace(" & ", "and").Replace("ـ", string.Empty);
 
             inputString = Regex.Replace(inputString, @"\p{Cs}", string.Empty);
 
@@ -258,19 +258,20 @@ namespace YAF.Core.Helpers
             {
                 case "Unicode":
                     {
-                        foreach (var currentChar in inputString)
-                        {
-                            if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                            {
-                                sb.Append('-');
-                            }
-                            else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                     && !char.IsSymbol(currentChar))
-                            {
-                                sb.Append(currentChar);
-                            }
-                        }
-
+                        inputString.ForEach(
+                            currentChar =>
+                                {
+                                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                                    {
+                                        sb.Append('-');
+                                    }
+                                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                                             && !char.IsSymbol(currentChar))
+                                    {
+                                        sb.Append(currentChar);
+                                    }
+                                });
+                        
                         var strNew = sb.ToString();
 
                         while (strNew.EndsWith("-"))
@@ -294,18 +295,19 @@ namespace YAF.Core.Helpers
                             strUnidecode = inputString;
                         }
 
-                        foreach (var currentChar in strUnidecode)
-                        {
-                            if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                            {
-                                sb.Append('-');
-                            }
-                            else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                     && !char.IsSymbol(currentChar))
-                            {
-                                sb.Append(currentChar);
-                            }
-                        }
+                        strUnidecode.ForEach(
+                            currentChar =>
+                                {
+                                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                                    {
+                                        sb.Append('-');
+                                    }
+                                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                                             && !char.IsSymbol(currentChar))
+                                    {
+                                        sb.Append(currentChar);
+                                    }
+                                });
 
                         var strNew = sb.ToString();
 
@@ -319,18 +321,19 @@ namespace YAF.Core.Helpers
 
                 default:
                     {
-                        foreach (var currentChar in inputString)
-                        {
-                            if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                            {
-                                sb.Append('-');
-                            }
-                            else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                     && !char.IsSymbol(currentChar) && currentChar < 128)
-                            {
-                                sb.Append(currentChar);
-                            }
-                        }
+                        inputString.ForEach(
+                            currentChar =>
+                                {
+                                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                                    {
+                                        sb.Append('-');
+                                    }
+                                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                                             && !char.IsSymbol(currentChar) && currentChar < 128)
+                                    {
+                                        sb.Append(currentChar);
+                                    }
+                                });
 
                         var strNew = sb.ToString();
 

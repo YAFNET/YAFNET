@@ -2224,6 +2224,16 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets Forum Logo.
+        /// </summary>
+        public string ForumLogo
+        {
+            get => this._reg.GetValue("ForumLogo", "YAFLogo.svg");
+
+            set => this._reg.SetValue("ForumLogo", value);
+        }
+
+        /// <summary>
         /// Gets or sets ForumEmail.
         /// </summary>
         public string ForumEmail

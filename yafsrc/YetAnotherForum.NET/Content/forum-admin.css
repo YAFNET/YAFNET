@@ -7414,6 +7414,9 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
 .standardSelectMenu-Icon {
   margin-left: 4px;
   padding-right: 5px; }
+  .standardSelectMenu-Icon img {
+    max-height: 20px;
+    max-width: 20px; }
 
 .dropdown-menu > li > a {
   color: #333; }

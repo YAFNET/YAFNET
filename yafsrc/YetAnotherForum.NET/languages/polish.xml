@@ -379,6 +379,9 @@
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Czy lista plików to lista dozwolonych plików, czy niedozwolonych (mniejsze bezpieczeństwo)?</Resource>
     <Resource tag="BOARD_JQ_THEME">Styl UI jQuery:</Resource>
     <Resource tag="BOARD_JQ_THEME_HELP">Styl UI jQuery używany na tym forum dla zakładek i harmonijek.</Resource>
+    <Resource tag="BOARD_LOGO">Board Logo:</Resource>
+    <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
+    <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Styl mobilny:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">Styl mobilny, używany na tym forum.</Resource>
     <Resource tag="BOARD_NAME">Nazwa forum:</Resource>

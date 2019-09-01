@@ -5329,6 +5329,7 @@ create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
     @Culture	varchar(10),
     @LanguageFile nvarchar(50),
     @ForumEmail	nvarchar(50),
+	@ForumLogo	nvarchar(255),
 	@ForumBaseUrlMask	nvarchar(255),
     @SmtpServer	nvarchar(50),
     @User		nvarchar(255),
@@ -5349,6 +5350,7 @@ begin
     EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language', @LanguageFile
     EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'smtpserver', @SmtpServer
     EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'forumemail', @ForumEmail
+    EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'forumlogo', @ForumLogo
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'baseurlmask', @ForumBaseUrlMask
 
     -- initalize new board

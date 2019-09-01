@@ -2,8 +2,4 @@
 
 @import "../../bootstrap/bootstrap.scss";
 
-.forum-logo {
-    background: url("../../images/YAFLogo.svg") no-repeat;
-    height: 125px;
-    display: block;
-}
+@import "../../forum/logo.scss";

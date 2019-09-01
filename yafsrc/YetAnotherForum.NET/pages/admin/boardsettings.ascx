@@ -32,9 +32,13 @@
                     <asp:TextBox ID="ForumEmail" runat="server" TextMode="Email" CssClass="form-control"></asp:TextBox>
                 </div>
             </div>
-            
-
             <div class="form-group">
+                <YAF:HelpLabel ID="HelpLabel14" runat="server"
+                               AssociatedControlID="BoardLogo"
+                               LocalizedTag="BOARD_LOGO" LocalizedPage="ADMIN_BOARDSETTINGS" />
+                <YAF:ImageListBox ID="BoardLogo" runat="server" CssClass="selectpicker custom-select" />
+            </div>
+        <div class="form-group">
                 <YAF:HelpLabel ID="HelpLabel5" runat="server"
                                AssociatedControlID="ForumBaseUrlMask"
                                LocalizedTag="FORUM_BASEURLMASK" LocalizedPage="ADMIN_HOSTSETTINGS"/>

@@ -37,7 +37,6 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -148,19 +147,39 @@ namespace YAF.Core.Services
         /// <summary>
         /// Initializes the forum.
         /// </summary>
-        /// <param name="forumName">The forum name.</param>
-        /// <param name="timeZone">The time zone.</param>
-        /// <param name="culture">The culture.</param>
-        /// <param name="forumEmail">The forum email.</param>
-        /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
-        /// <param name="adminUserName">The admin user name.</param>
-        /// <param name="adminEmail">The admin email.</param>
-        /// <param name="adminProviderUserKey">The admin provider user key.</param>
+        /// <param name="forumName">
+        /// The forum name.
+        /// </param>
+        /// <param name="timeZone">
+        /// The time zone.
+        /// </param>
+        /// <param name="culture">
+        /// The culture.
+        /// </param>
+        /// <param name="forumEmail">
+        /// The forum email.
+        /// </param>
+        /// <param name="forumLogo">
+        /// The forum Logo.
+        /// </param>
+        /// <param name="forumBaseUrlMask">
+        /// The forum base URL mask.
+        /// </param>
+        /// <param name="adminUserName">
+        /// The admin user name.
+        /// </param>
+        /// <param name="adminEmail">
+        /// The admin email.
+        /// </param>
+        /// <param name="adminProviderUserKey">
+        /// The admin provider user key.
+        /// </param>
         public void InitializeForum(
             string forumName,
             string timeZone,
             string culture,
             string forumEmail,
+            string forumLogo,
             string forumBaseUrlMask,
             string adminUserName,
             string adminEmail,
@@ -169,8 +188,8 @@ namespace YAF.Core.Services
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture)
-                .ForEach(drow => langFile = (string)drow["CultureFile"]);
+            cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == culture)
+                .ForEach(dataRow => langFile = (string)dataRow["CultureFile"]);
 
             this.GetRepository<Board>().SystemInitialize(
                 forumName,
@@ -178,6 +197,7 @@ namespace YAF.Core.Services
                 culture,
                 langFile,
                 forumEmail,
+                forumLogo,
                 forumBaseUrlMask,
                 string.Empty,
                 adminUserName,

@@ -76,5 +76,10 @@ namespace YAF.Configuration
         /// Gets Ranks.
         /// </summary>
         public string Ranks => string.Concat(this.BoardFolder, "Images/Ranks");
+
+        /// <summary>
+        /// Gets Logos.
+        /// </summary>
+        public string Logos => string.Concat(this.BoardFolder, "Images/Logos");
     }
 }

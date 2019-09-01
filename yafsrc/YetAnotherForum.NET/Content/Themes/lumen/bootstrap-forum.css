@@ -8403,6 +8403,5 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
     color: #000; }
 
 .forum-logo {
-  background: url("../../images/YAFLogo.svg") no-repeat;
   height: 125px;
   display: block; }

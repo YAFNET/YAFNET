@@ -1013,6 +1013,7 @@ namespace YAF.Install
                     this.TimeZones.SelectedValue,
                     this.Culture.SelectedValue,
                     this.ForumEmailAddress.Text,
+                    "YAFLogo.svg",
                     this.ForumBaseUrlMask.Text,
                     user.UserName,
                     user.Email,

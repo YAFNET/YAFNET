@@ -64,6 +64,9 @@ namespace YAF.Core.Model
         /// <param name="forumEmail">
         /// The forum email.
         /// </param>
+        /// <param name="forumLogo">
+        /// The forum Logo.
+        /// </param>
         /// <param name="forumBaseUrlMask">
         /// The forum base URL mask.
         /// </param>
@@ -89,6 +92,7 @@ namespace YAF.Core.Model
             [NotNull] string culture,
             [NotNull] string languageFile,
             [NotNull] string forumEmail,
+            [NotNull] string forumLogo,
             [NotNull] string forumBaseUrlMask,
             [NotNull] string smtpServer,
             [NotNull] string userName,
@@ -102,6 +106,7 @@ namespace YAF.Core.Model
                 Culture: culture,
                 LanguageFile: languageFile,
                 ForumEmail: forumEmail,
+                ForumLogo: forumLogo,
                 ForumBaseUrlMask: forumBaseUrlMask,
                 SmtpServer: string.Empty,
                 User: userName,

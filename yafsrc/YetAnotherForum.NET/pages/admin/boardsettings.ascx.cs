@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.IO;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -163,6 +164,13 @@ namespace YAF.Pages.Admin
             this.ForumEmail.Text = boardSettings.ForumEmail;
             this.ForumBaseUrlMask.Text = boardSettings.BaseUrlMask;
 
+            var item = this.BoardLogo.Items.FindByText(boardSettings.ForumLogo);
+
+            if (item != null)
+            {
+                item.Selected = true;
+            }
+
             this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
 
             this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
@@ -249,6 +257,12 @@ namespace YAF.Pages.Admin
                 this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
             boardSettings.ForumEmail = this.ForumEmail.Text;
+
+            if (this.BoardLogo.SelectedIndex > 1)
+            {
+                boardSettings.ForumLogo = this.BoardLogo.SelectedItem.Text;
+            }
+
             boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
 
@@ -325,6 +339,40 @@ namespace YAF.Pages.Admin
             using (var dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
             {
                 row = dt.Rows[0];
+            }
+
+            using (var dt = new DataTable("Files"))
+            {
+                dt.Columns.Add("FileID", typeof(long));
+                dt.Columns.Add("FileName", typeof(string));
+                dt.Columns.Add("Description", typeof(string));
+                var dr = dt.NewRow();
+                dr["FileID"] = 0;
+                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                dr["Description"] = this.GetText("ADMIN_EDITRANK", "SELECT_IMAGE");
+                dt.Rows.Add(dr);
+
+                var dir =
+                    new DirectoryInfo(
+                        this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Logos}"));
+                var files = dir.GetFiles("*.*");
+                long fileID = 1;
+
+                foreach (var file in from file in files
+                                     let extension = file.Extension.ToLower()
+                                     where extension == ".png" || extension == ".gif" || extension == ".jpg" || extension == ".svg"
+                                     select file)
+                {
+                    dr = dt.NewRow();
+                    dr["FileID"] = fileID++;
+                    dr["FileName"] = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{file.Name}";
+                    dr["Description"] = file.Name;
+                    dt.Rows.Add(dr);
+                }
+
+                this.BoardLogo.DataSource = dt;
+                this.BoardLogo.DataValueField = "FileName";
+                this.BoardLogo.DataTextField = "Description";
             }
 
             this.DataBind();
