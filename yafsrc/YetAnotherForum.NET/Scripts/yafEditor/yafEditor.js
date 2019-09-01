@@ -27,17 +27,27 @@ yafEditor.prototype.FormatText = function (command, option) {
                 wrapSelection(textObj, "[img]", "[/img]");
             }
             else {
-                var imgUrl = prompt("Enter Image Url:", "http://");
+                bootbox.prompt({
+                    title: "Enter Image Url:",
+                    placeholder: "https://",
+                    callback: function (url) {
+                        if (url !== null && url !== "") {
+                            // ask for the description text...
+                            bootbox.prompt({
+                                title: "Enter Image Description:",
+                                placeholder: "Description",
+                                callback: function (desc) {
+                                    if (desc !== "" && desc !== null) {
+                                        replaceSelection(textObj, "[img=" + url + "]" + desc + "[/img]");
+                                    } else {
+                                        replaceSelection(textObj, "[img]" + url + "[/img]");
+                                    }
+                                }
+                            });
 
-                // ask for the Image description text...
-                var imgDesc = prompt("Enter Image Description:", "");
-
-                if (imgDesc !== "" && imgDesc != null) {
-                    replaceSelection(textObj, "[img=" + imgUrl + "]" + imgDesc + "[/img]");
-                }
-                else if (imgUrl !== "" && imgUrl != null) {
-                    replaceSelection(textObj, "[img]" + imgUrl + "[/img]");
-                }
+                        }
+                    }
+                });
             }
             break;
         case "quote":
@@ -61,21 +71,32 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
             break;
         case "createlink":
-            var url = prompt("Enter URL:", "http://");
+            bootbox.prompt({
+                title: "Enter URL:",
+                placeholder: "https://",
+                callback: function(url) {
+                    if (url !== null && url !== "") {
+                        if (getCurrentSelection(textObj)) {
+                            wrapSelection(textObj, "[url=" + url + "]", "[/url]");
+                        } else {
+                            // ask for the description text...
+                            bootbox.prompt({
+                                title: "Enter URL Description:",
+                                placeholder: "Description",
+                                callback: function(desc) {
+                                    if (desc != "" && desc != null) {
+                                        replaceSelection(textObj, "[url=" + url + "]" + desc + "[/url]");
+                                    } else {
+                                        replaceSelection(textObj, "[url]" + url + "[/url]");
+                                    }
+                                }
+                            });
+                        }
 
-            if (url != "" && url != null) {
-                if (getCurrentSelection(textObj)) {
-                    wrapSelection(textObj, "[url=" + url + "]", "[/url]");
+                    }
                 }
-                else {
-                    // ask for the description text...
-                    var desc = prompt("Enter URL Description:", "");
-                    if (desc != "" && desc != null)
-                        replaceSelection(textObj, "[url=" + url + "]" + desc + "[/url]");
-                    else
-                        replaceSelection(textObj, "[url]" + url + "[/url]");
-                }
-            }
+            });
+
             break;
         case "unorderedlist":
             wrapSelection(textObj, "[list][*]", "[/list]");
@@ -100,26 +121,6 @@ yafEditor.prototype.FormatText = function (command, option) {
             wrapSelection(textObj, "[" + command + "]", "[/" + command + "]");
             break;
     }
-};
-yafEditor.prototype.AddImage = function () {
-
-    var textObj = document.getElementById(this.Name);
-
-    var imgUrl = prompt("Enter image URL:", "http://");
-
-    // ask for the Image description text...
-    var imgDesc = prompt("Enter Image Description:", "");
-
-    if (imgDesc != "" && imgDesc != null) {
-        replaceSelection(textObj, "[img=" + imgUrl + "]" + imgDesc + "[/img]");
-    }
-    else {
-        if (imgUrl != "" && imgUrl != null) {
-            replaceSelection(textObj, "[img]" + imgUrl + "[/img]");
-        }
-    }
-
-
 };
 yafEditor.prototype.InsertSmiley = function (code) {
     var textObj = document.getElementById(this.Name);
