@@ -2772,6 +2772,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">حذف</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">سبب الحذف</Resource>
     <Resource tag="ERASEMESSAGE">حذف الرسالة من قاعدة البيانات </Resource>
     <Resource tag="FROM">من :</Resource>

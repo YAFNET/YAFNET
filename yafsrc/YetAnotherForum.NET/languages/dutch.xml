@@ -2774,6 +2774,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Verwijderen</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">Reden voor verwijderen</Resource>
     <Resource tag="ERASEMESSAGE">Verwijder definitief uit de database (kan niet ongedaan worden gemaakt)</Resource>
     <Resource tag="FROM">Van:</Resource>

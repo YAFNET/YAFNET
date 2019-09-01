@@ -2778,6 +2778,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Slet</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">Grunden til sletningen</Resource>
     <Resource tag="ERASEMESSAGE">Slet besked fra databasen? (Kan ikke genskabes!)</Resource>
     <Resource tag="FROM">Fra:</Resource>

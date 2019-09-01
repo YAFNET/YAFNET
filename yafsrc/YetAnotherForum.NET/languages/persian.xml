@@ -2796,6 +2796,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">حذف</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">دلیل حذف</Resource>
     <Resource tag="ERASEMESSAGE">پاک سازی پیغام از داخل بانک اطلاعاتی (غیر قابل بازگشت)</Resource>
     <Resource tag="FROM">از طرف</Resource>

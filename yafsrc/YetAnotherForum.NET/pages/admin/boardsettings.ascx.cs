@@ -349,7 +349,7 @@ namespace YAF.Pages.Admin
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-                dr["Description"] = this.GetText("ADMIN_EDITRANK", "SELECT_IMAGE");
+                dr["Description"] = this.GetText("BOARD_LOGO_SELECT");
                 dt.Rows.Add(dr);
 
                 var dir =

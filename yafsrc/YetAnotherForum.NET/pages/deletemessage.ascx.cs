@@ -262,6 +262,7 @@ namespace YAF.Pages
             this.PageLinks.AddForum(this.PageContext.PageForumID);
 
             this.EraseMessage.Checked = false;
+            this.EraseMessage.Text = this.GetText("erasemessage");
             this.EraseRow.Visible = false;
             this.DeleteReasonRow.Visible = false;
             this.LinkedPosts.Visible = false;

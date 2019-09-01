@@ -2778,6 +2778,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Sil</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">Silme sebebi</Resource>
     <Resource tag="ERASEMESSAGE">Mesajı veritabanından temizle (geri döndürülemez)</Resource>
     <Resource tag="FROM">Kimden:</Resource>

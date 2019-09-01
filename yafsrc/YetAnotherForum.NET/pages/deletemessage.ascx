@@ -42,8 +42,10 @@
                     </asp:PlaceHolder>
                     <asp:PlaceHolder id="EraseRow" runat="server" visible="false">
                         <div class="form-group">
-                            <asp:CheckBox ID="EraseMessage" runat="server" Checked="false" />
-                            <YAF:LocalizedLabel runat="server" LocalizedTag="erasemessage" />
+                            
+                            <asp:CheckBox ID="EraseMessage" runat="server" 
+                                          Checked="false"
+                                          CssClass="custom-control custom-checkbox"/>
                         </div>
                     </asp:PlaceHolder>
                 </form>
@@ -73,8 +75,9 @@
                 <i class="fas fa-comment fa-stack-2x"></i>
                 <i class="fas fa-trash fa-stack-1x fa-inverse"></i>
             </span>&nbsp; 
-            <asp:CheckBox ID="DeleteAllPosts" runat="server" />
-            Delete All Posts?
+            <asp:CheckBox ID="DeleteAllPosts" runat="server" 
+                          CssClass="custom-control custom-checkbox" Text='<%# this.GetText("DELETE_ALL") %>' />
+            
         </div>
         <div class="card-body">
             <ul class="list-group">

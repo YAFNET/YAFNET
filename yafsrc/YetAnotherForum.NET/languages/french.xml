@@ -2775,6 +2775,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Supprimer</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">Raison pour suppression</Resource>
     <Resource tag="ERASEMESSAGE">Suppression de la base de données (irréversible)</Resource>
     <Resource tag="FROM">De:</Resource>

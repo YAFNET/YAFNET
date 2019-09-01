@@ -2778,6 +2778,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Xoá</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">Lý do xoá</Resource>
     <Resource tag="ERASEMESSAGE">Xoá khỏi Cơ sở dữ liệu (Không thể khôi phục)</Resource>
     <Resource tag="FROM">Người gửi:</Resource>

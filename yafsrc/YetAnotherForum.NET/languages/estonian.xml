@@ -2775,6 +2775,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Kustuta</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">Kustutamise põhjus</Resource>
     <Resource tag="ERASEMESSAGE">Kustuta sõnum andmebaasist (pöördumatu)</Resource>
     <Resource tag="FROM">Kellelt:</Resource>

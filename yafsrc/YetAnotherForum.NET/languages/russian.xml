@@ -2761,6 +2761,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">Удалить</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">Причина удаления</Resource>
     <Resource tag="ERASEMESSAGE">Удалить сообщение из базы данных(не восстанавливается)</Resource>
     <Resource tag="FROM">Автор:</Resource>

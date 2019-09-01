@@ -2801,6 +2801,7 @@
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">מחק</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">סיבת מחיקה</Resource>
     <Resource tag="ERASEMESSAGE">מחר הודעה ממסד הנתונים (בלתי הפיך)</Resource>
     <Resource tag="FROM">מאת:</Resource>
