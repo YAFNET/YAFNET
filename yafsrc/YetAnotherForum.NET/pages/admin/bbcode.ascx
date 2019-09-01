@@ -31,7 +31,9 @@
                             <li class="list-group-item list-group-item-action">
                                  <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">
-                                        <asp:CheckBox ID="chkSelected" runat="server" />
+                                        <asp:CheckBox ID="chkSelected" runat="server"
+                                                      Text="&nbsp;"
+                                                      CssClass="custom-control custom-checkbox d-inline-flex"/>
                                         <asp:HiddenField ID="hiddenBBCodeID" runat="server" Value='<%# this.Eval("ID") %>' />
                                         <%# this.Eval("Name") %>
                                     </h5>

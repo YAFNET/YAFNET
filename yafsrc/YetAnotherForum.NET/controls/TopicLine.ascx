@@ -8,7 +8,9 @@
     <div class="col-md-6">
         <h5>
             <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
-                <asp:CheckBox ID="chkSelected" runat="server" CssClass="form-check-inline" />
+                <asp:CheckBox ID="chkSelected" runat="server"
+                              Text="&nbsp;"
+                              CssClass="custom-control custom-checkbox d-inline-flex" />
             </asp:PlaceHolder>
             
             <asp:Label runat="server" ID="TopicIcon"></asp:Label>

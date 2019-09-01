@@ -20,7 +20,9 @@
 			<HeaderTemplate>
 				&nbsp;</HeaderTemplate>
 			<ItemTemplate>
-				<asp:CheckBox runat="server" ID="ItemCheck" /></ItemTemplate>
+				<asp:CheckBox runat="server" ID="ItemCheck" 
+                              Text="&nbsp;"
+                              CssClass="custom-control custom-checkbox"/></ItemTemplate>
 			<FooterTemplate>
                 <asp:UpdatePanel ID="upPanExport" runat="server">
                 <ContentTemplate>
@@ -124,14 +126,14 @@
 <hr />
 <asp:Label id="lblExportType" runat="server"></asp:Label>
 <div class="custom-control custom-radio custom-control-inline">
-<asp:RadioButtonList runat="server" id="ExportType" 
-                     RepeatLayout="UnorderedList"
-                     CssClass="list-unstyled">
-    <asp:ListItem Text="XML" Selected="True" Value="xml"></asp:ListItem>
-    <asp:ListItem Text="CSV" Value="csv"></asp:ListItem>
-    <asp:ListItem Text="Text" Value="txt"></asp:ListItem>
-</asp:RadioButtonList>
-    </div>
+    <asp:RadioButtonList runat="server" id="ExportType" 
+                         RepeatLayout="UnorderedList"
+                         CssClass="list-unstyled">
+        <asp:ListItem Text="XML" Selected="True" Value="xml"></asp:ListItem>
+        <asp:ListItem Text="CSV" Value="csv"></asp:ListItem>
+        <asp:ListItem Text="Text" Value="txt"></asp:ListItem>
+    </asp:RadioButtonList>
+</div>
 </div>
 
 <div class="card-footer">

@@ -32,6 +32,8 @@ namespace YAF.Controls
     using System.Text;
     using System.Web;
 
+    using ServiceStack;
+
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
@@ -356,7 +358,7 @@ namespace YAF.Controls
                         {
                             if (this.Get<YafBoardSettings>().UseStyledNicks)
                             {
-                                groupsText.AppendLine(string.Format(@", " + StyledNick, role, roleStyle));
+                                groupsText.AppendFormat(", " + StyledNick, role, roleStyle);
                             }
                             else
                             {
@@ -687,9 +689,10 @@ namespace YAF.Controls
             const string RemoveThankBoxHTML =
                 "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
-            var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine
-                                                                            + JavaScriptBlocks.RemoveThanksJs(
-                                                                                AddThankBoxHTML);
+            var thanksJs = "{0}{1}{2}".Fmt(
+                JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML),
+                Environment.NewLine,
+                JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
 
             YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
@@ -727,9 +730,9 @@ namespace YAF.Controls
                     : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
 
             var thanksLabelText = thanksNumber == 1
-                                      ? string.Format(this.Get<ILocalization>().GetText("THANKSINFOSINGLE"), username)
-                                      : string.Format(
-                                          this.Get<ILocalization>().GetText("THANKSINFO"),
+                                      ? this.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username)
+                                      : this.Get<ILocalization>().GetTextFormatted(
+                                          "THANKSINFO",
                                           thanksNumber,
                                           username);
 

@@ -31,7 +31,9 @@
                     <ItemTemplate>
                         <li class="list-group-item">
                             
-                                <asp:CheckBox ID="Selected" runat="server" />
+                                <asp:CheckBox ID="Selected" runat="server"
+                                              Text="&nbsp;"
+                                              CssClass="custom-control custom-checkbox d-inline-flex" />
                                 <%# this.GetPreviewImage(Container.DataItem) %>
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             
