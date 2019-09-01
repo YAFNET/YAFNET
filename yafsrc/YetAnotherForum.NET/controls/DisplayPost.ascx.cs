@@ -682,10 +682,10 @@ namespace YAF.Controls
 
             // Register Javascript
             const string AddThankBoxHTML =
-                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fa fa-thumbs-up fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fas fa-heart text-danger fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
             const string RemoveThankBoxHTML =
-                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fa fa-user-times fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
             var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine
                                                                             + JavaScriptBlocks.RemoveThanksJs(
@@ -701,14 +701,17 @@ namespace YAF.Controls
                 this.Thank.NavigateUrl = $"javascript:removeThanks({this.DataRow["MessageID"]});";
                 this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
-                this.Thank.Icon = "user-times";
+                this.Thank.Icon = "heart";
+                this.Thank.IconCssClass = "far";
             }
             else
             {
                 this.Thank.NavigateUrl = $"javascript:addThanks({this.DataRow["MessageID"]});";
                 this.Thank.TextLocalizedTag = "BUTTON_THANKS";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
-                this.Thank.Icon = "thumbs-up";
+                this.Thank.Icon = "heart";
+                this.Thank.IconCssClass = "fas";
+                this.Thank.IconColor = "text-danger";
             }
 
             var thanksNumber = this.DataRow["MessageThanksNumber"].ToType<int>();
