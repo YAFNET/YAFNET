@@ -83,12 +83,14 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (sender is DropDownList dropDownList)
+            if (!(sender is DropDownList dropDownList))
             {
-                dropDownList.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
-                dropDownList.DataValueField = "ID";
-                dropDownList.DataTextField = "Name";
+                return;
             }
+
+            dropDownList.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
+            dropDownList.DataValueField = "ID";
+            dropDownList.DataTextField = "Name";
         }
 
         /// <summary>
@@ -150,11 +152,9 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected int? GetQueryStringAsInt([NotNull] string name)
         {
-            int value;
-
             if (this.Request.QueryString.GetFirstOrDefault(name) != null && int.TryParse(
                     this.Request.QueryString.GetFirstOrDefault(name),
-                    out value))
+                    out var value))
             {
                 return value;
             }
@@ -214,7 +214,6 @@ namespace YAF.Pages.Admin
 
             if (!forumId.HasValue)
             {
-
                 this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_FORUM";
 
                 var sortOrder = 1;
@@ -222,7 +221,7 @@ namespace YAF.Pages.Admin
                 try
                 {
                     // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
-                    var forum = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, null)
+                    var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null)
                         .OrderByDescending(a => a.SortOrder).FirstOrDefault();
 
                     sortOrder = forum.SortOrder + sortOrder;
@@ -235,10 +234,9 @@ namespace YAF.Pages.Admin
                 this.SortOrder.Text = sortOrder.ToString();
 
                 return;
-
             }
 
-            var dt = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId);
+            var dt = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, forumId);
 
             var row = dt.FirstOrDefault();
             this.Name.Text = row.Name;
@@ -290,7 +288,6 @@ namespace YAF.Pages.Admin
             }
 
             this.remoteurl.Text = row.RemoteURL;
-
 
             this.NewGroupRow.Visible = false;
         }
@@ -399,7 +396,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ParentList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllFromCatAsDataTable(
+            this.ParentList.DataSource = this.GetRepository<Forum>().ListAllFromCatAsDataTable(
                 this.PageContext.PageBoardID,
                 this.CategoryList.SelectedValue.ToType<int>());
 
@@ -427,7 +424,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void ClearCaches()
         {
-            // clear moderatorss cache
+            // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // clear category cache...
@@ -465,8 +462,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            short sortOrder;
-
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(
@@ -475,7 +470,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+            if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_NUMBER"), MessageTypes.warning);
                 return;
@@ -522,7 +517,8 @@ namespace YAF.Pages.Admin
             // If we update a forum ForumID > 0 
             if (forumId.HasValue && parentId != null)
             {
-                var dependency = this.GetRepository<Types.Models.Forum>().SaveParentsChecker(forumId.Value, parentId.Value);
+                var dependency = this.GetRepository<Forum>()
+                    .SaveParentsChecker(forumId.Value, parentId.Value);
                 if (dependency > 0)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
@@ -530,7 +526,7 @@ namespace YAF.Pages.Admin
                 }
             }
 
-            // inital access mask
+            // initial access mask
             if (!forumId.HasValue && !forumCopyId.HasValue)
             {
                 if (this.AccessMaskID.SelectedValue.Length == 0)
@@ -545,10 +541,9 @@ namespace YAF.Pages.Admin
             // duplicate name checking...
             if (!forumId.HasValue)
             {
-                var forumList = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, null);
+                var forumList = this.GetRepository<Forum>().Get(f => f.Name == this.Name.Text.Trim());
 
-                if (forumList.Any() && !this.Get<YafBoardSettings>().AllowForumsWithSameName
-                                    && forumList.Any(dr => dr.Name == this.Name.Text.Trim()))
+                if (forumList.Any() && !this.Get<YafBoardSettings>().AllowForumsWithSameName)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
@@ -564,7 +559,7 @@ namespace YAF.Pages.Admin
                 themeUrl = this.ThemeList.SelectedValue;
             }
 
-            var newForumId = this.GetRepository<Types.Models.Forum>().Save(
+            var newForumId = this.GetRepository<Forum>().Save(
                 forumId,
                 this.CategoryList.SelectedValue,
                 parentId,
