@@ -658,6 +658,70 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// Returns the FileUpload Java Script.
         /// </returns>
         [NotNull]
+        public static string FileAutoUploadLoadJs(
+            [NotNull] string acceptedFileTypes,
+            [NotNull] int maxFileSize,
+            [NotNull] string fileUploaderUrl,
+            [NotNull] int forumId,
+            [NotNull] int boardId,
+            [NotNull] int imageMaxWidth,
+            [NotNull] int imageMaxHeight)
+        {
+            return $@"{Config.JQueryAlias}(function() {{
+
+            {Config.JQueryAlias}('.BBCodeEditor').yafFileUpload({{
+                url: '{fileUploaderUrl}',
+                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
+                imageMaxWidth: {imageMaxWidth},
+                imageMaxHeight: {imageMaxHeight},
+                autoUpload: true,
+                disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator && navigator.userAgent),
+                dataType: 'json',
+                {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
+                done: function (e, data) {{
+                    insertAttachment(data.result[0].fileID, data.result[0].fileID); 
+                }},
+                formData: {{
+                    forumID: '{forumId}',
+                    boardID: '{boardId}',
+                    userID: '{YafContext.Current.PageUserID}',
+                    uploadFolder: '{YafBoardFolders.Current.Uploads}',
+                    allowedUpload: true
+                }},
+                dropZone: {Config.JQueryAlias}('.BBCodeEditor')
+            }});
+        }});";
+        }
+
+        /// <summary>
+        /// Gets the FileUpload Java Script.
+        /// </summary>
+        /// <param name="acceptedFileTypes">
+        /// The accepted file types.
+        /// </param>
+        /// <param name="maxFileSize">
+        /// Maximum size of the file.
+        /// </param>
+        /// <param name="fileUploaderUrl">
+        /// The file uploader URL.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum identifier.
+        /// </param>
+        /// <param name="boardId">
+        /// The board identifier.
+        /// </param>
+        /// <param name="imageMaxWidth">
+        /// The image Max Width.
+        /// </param>
+        /// <param name="imageMaxHeight">
+        /// The image Max Height.
+        /// </param>
+        /// <returns>
+        /// Returns the FileUpload Java Script.
+        /// </returns>
+        [NotNull]
         public static string FileUploadLoadJs(
             [NotNull] string acceptedFileTypes,
             [NotNull] int maxFileSize,

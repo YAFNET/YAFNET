@@ -472,7 +472,6 @@ namespace YAF.Data.MsSql.Functions
                                 results.AppendFormat(@"""{0}""", rowIndex++);
 
                                 // dump all columns...
-
                                 columnNames.ForEach(
                                     col => results.AppendFormat(
                                         @",""{0}""",

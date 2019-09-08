@@ -35,10 +35,13 @@ namespace YAF.Web.Editors
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Controls;
 
@@ -102,8 +105,7 @@ namespace YAF.Web.Editors
         {
             base.Editor_PreRender(sender, e);
 
-            YafContext.Current.PageElements.AddScriptReference(
-                "YafEditor", "yafEditor/yafEditor.min.js");
+            YafContext.Current.PageElements.AddScriptReference("YafEditor", "yafEditor/yafEditor.min.js");
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
@@ -131,6 +133,22 @@ namespace YAF.Web.Editors
 }}
 }});
 ");
+            if (this.AllowsUploads)
+            {
+                var extensions = this.GetRepository<FileExtension>()
+                    .Get(ext => ext.BoardId == this.PageContext.PageBoardID);
+
+                YafContext.Current.PageElements.RegisterJsBlock(
+                    "autoUpload",
+                    JavaScriptBlocks.FileAutoUploadLoadJs(
+                        string.Join("|", extensions.Select(ext => ext.Extension)),
+                        this.Get<YafBoardSettings>().MaxFileSize,
+                        $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
+                        this.PageContext.PageForumID,
+                        this.PageContext.PageBoardID,
+                        this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
+                        this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
+            }
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use
@@ -190,7 +208,8 @@ namespace YAF.Web.Editors
                   <i class=""fa fa-smile fa-fw""></i></button>",
                     this.GetText("COMMON", "CUSTOM_BBCODE"));
 
-                writer.Write(@"<div class=""dropdown-menu"">
+                writer.Write(
+                    @"<div class=""dropdown-menu"">
                       <a class=""dropdown-item"" href=""#"" id=""emoji-area""></a>
                     </div>");
             }
@@ -244,7 +263,9 @@ namespace YAF.Web.Editors
 
             RenderButton(writer, "setStyle('img','')", this.GetText("COMMON", "TT_IMAGE"), "image");
 
-            if (this.Get<YafBoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0 && !this.PageContext.CurrentForumPage.IsAdminPage)
+            if (this.Get<YafBoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0
+                                                         && this.PageContext.NumAlbums > 0
+                                                         && !this.PageContext.CurrentForumPage.IsAdminPage)
             {
                 // add drop down for optional "extra" codes...
                 writer.WriteLine(
@@ -295,7 +316,11 @@ namespace YAF.Web.Editors
 
             RenderButton(writer, "setStyle('justifyleft','')", this.GetText("COMMON", "TT_ALIGNLEFT"), "align-left");
 
-            RenderButton(writer, "setStyle('justifycenter','')", this.GetText("COMMON", "TT_ALIGNCENTER"), "align-center");
+            RenderButton(
+                writer,
+                "setStyle('justifycenter','')",
+                this.GetText("COMMON", "TT_ALIGNCENTER"),
+                "align-center");
 
             RenderButton(writer, "setStyle('justifyright','')", this.GetText("COMMON", "TT_ALIGNRIGHT"), "align-right");
 
@@ -308,8 +333,9 @@ namespace YAF.Web.Editors
 
             var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode().ToList();
 
-            var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true);
-            var customBbCodesWithNoToolbar = customBbCode.Where(code => code.UseToolbar == false || code.UseToolbar.HasValue == false);
+            var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
+            var customBbCodesWithNoToolbar =
+                customBbCode.Where(code => code.UseToolbar == false || code.UseToolbar.HasValue == false);
 
             if (customBbCode.Any())
             {
@@ -318,20 +344,23 @@ namespace YAF.Web.Editors
 
                 if (customBbCodesWithToolbar.Any())
                 {
-                    foreach (var row in customBbCodesWithToolbar)
-                    {
-                        var name = row.Name;
+                    customBbCodesWithToolbar.ForEach(
+                        row =>
+                            {
+                                var name = row.Name;
 
-                        var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
+                                var onclickJs = row.OnClickJS.IsSet()
+                                                    ? row.OnClickJS
+                                                    : $"setStyle('{row.Name.Trim()}','')";
 
-                        writer.WriteLine(
-                            @"<button type=""button"" class=""btn btn-secondary btn-sm"" onclick=""{2}"" title=""{1}""{3}>
+                                writer.WriteLine(
+                                    @"<button type=""button"" class=""btn btn-secondary btn-sm"" onclick=""{2}"" title=""{1}""{3}>
                   <i class=""fab fa-{0} fa-fw""></i></button>",
-                            row.Name.ToLower(),
-                            this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim()),
-                            onclickJs,
-                            name);
-                    }
+                                    row.Name.ToLower(),
+                                    this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim()),
+                                    onclickJs,
+                                    name);
+                            });
                 }
 
                 // add drop down for optional "extra" codes...
@@ -343,20 +372,24 @@ namespace YAF.Web.Editors
 
                 writer.Write("<div class=\"dropdown-menu fill-width\">");
 
-                foreach (var row in customBbCodesWithNoToolbar)
-                {
-                    var name = row.Name;
+                customBbCodesWithNoToolbar.ForEach(
+                    row =>
+                        {
+                            var name = row.Name;
 
-                    if (row.Description.IsSet())
-                    {
-                        // use the description as the option "name"
-                        name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
-                    }
+                            if (row.Description.IsSet())
+                            {
+                                // use the description as the option "name"
+                                name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
+                            }
 
-                    var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
+                            var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
-                    writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>", onclickJs, name);
-                }
+                            writer.WriteLine(
+                                @"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>",
+                                onclickJs,
+                                name);
+                        });
 
                 writer.Write("</div>");
                 writer.Write("</div>");
@@ -374,9 +407,17 @@ namespace YAF.Web.Editors
 
             writer.Write("<div class=\"dropdown-menu editorColorMenu\">");
 
-            string[] colors = { "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo", "Violet", "White", "Black" };
+            string[] colors =
+                {
+                    "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue",
+                    "Indigo", "Violet", "White", "Black"
+                };
 
-            colors.ForEach(color => writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0}"">{1}</a>", color.Replace(" ", string.Empty).ToLower(), color));
+            colors.ForEach(
+                color => writer.WriteLine(
+                    @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0}"">{1}</a>",
+                    color.Replace(" ", string.Empty).ToLower(),
+                    color));
 
             writer.Write("</div>");
 
@@ -394,7 +435,10 @@ namespace YAF.Web.Editors
 
             for (var index = 1; index < 9; index++)
             {
-                writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('fontsize', {0});"">{1}</a>", index, index.Equals(5) ? "Default" : index.ToString());
+                writer.WriteLine(
+                    @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('fontsize', {0});"">{1}</a>",
+                    index,
+                    index.Equals(5) ? "Default" : index.ToString());
             }
 
             writer.Write("</div></div>");
@@ -425,7 +469,8 @@ namespace YAF.Web.Editors
             [NotNull] string icon,
             [CanBeNull] string id = null)
         {
-            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm"" onclick=""{2}"" title=""{1}""{3}>
+            writer.WriteLine(
+                @"<button type=""button"" class=""btn btn-secondary btn-sm"" onclick=""{2}"" title=""{1}""{3}>
                   <i class=""fa fa-{0} fa-fw""></i></button>",
                 icon,
                 title,
