@@ -47,7 +47,7 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="forumId">The forum identifier.</param>
-        /// <returns>Returns if deleting was successfull or not</returns>
+        /// <returns>Returns if deleting was successful or not</returns>
         public static bool Delete(this IRepository<UserForum> repository, int? userId, int? forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -67,6 +67,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The userforum_list.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -86,6 +89,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The userforum_save.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -95,7 +101,8 @@ namespace YAF.Core.Model
         /// <param name="accessMaskID">
         /// The access mask id.
         /// </param>
-        public static void Save(this IRepository<UserForum> repository,
+        public static void Save(
+            this IRepository<UserForum> repository,
             [NotNull] object userID,
             [NotNull] object forumID,
             [NotNull] object accessMaskID)

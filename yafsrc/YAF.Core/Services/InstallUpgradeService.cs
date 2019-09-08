@@ -25,13 +25,14 @@
 namespace YAF.Core.Services
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
+    using System.Data.SqlClient;
     using System.IO;
     using System.Linq;
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -65,15 +66,6 @@ namespace YAF.Core.Services
         ///     The Spam Words list import xml file.
         /// </summary>
         private const string SpamWordsImport = "SpamWords.xml";
-
-        #endregion
-
-        #region Fields
-
-        /// <summary>
-        ///     The messages.
-        /// </summary>
-        private readonly List<string> messages = new List<string>();
 
         #endregion
 
@@ -116,11 +108,6 @@ namespace YAF.Core.Services
                 return false;
             }
         }
-
-        /// <summary>
-        ///     Gets the messages.
-        /// </summary>
-        public string[] Messages => this.messages.ToArray();
 
         /// <summary>
         ///     Gets or sets the raise event.
@@ -191,7 +178,30 @@ namespace YAF.Core.Services
             cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == culture)
                 .ForEach(dataRow => langFile = (string)dataRow["CultureFile"]);
 
-            this.GetRepository<Board>().SystemInitialize(
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("system_initialize")))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Name", forumName);
+                cmd.Parameters.AddWithValue("TimeZone", timeZone);
+                cmd.Parameters.AddWithValue("Culture", culture);
+                cmd.Parameters.AddWithValue("LanguageFile", langFile);
+                cmd.Parameters.AddWithValue("ForumEmail", forumEmail);
+                cmd.Parameters.AddWithValue("ForumLogo", forumLogo);
+                cmd.Parameters.AddWithValue("ForumBaseUrlMask", forumBaseUrlMask);
+                cmd.Parameters.AddWithValue("SmtpServer", string.Empty);
+                cmd.Parameters.AddWithValue("User", adminUserName);
+                cmd.Parameters.AddWithValue("UserEmail", adminEmail);
+                cmd.Parameters.AddWithValue("UserKey", adminProviderUserKey);
+                cmd.Parameters.AddWithValue(
+                    "RolePrefix",
+                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+                cmd.Parameters.AddWithValue("UTCTIMESTAMP", DateTime.UtcNow);
+
+                this.DbAccess.ExecuteNonQuery(cmd);
+            }
+
+            /*this.GetRepository<Board>().SystemInitialize(
                 forumName,
                 timeZone,
                 culture,
@@ -203,10 +213,32 @@ namespace YAF.Core.Services
                 adminUserName,
                 adminEmail,
                 adminProviderUserKey,
-                Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+                Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);*/
 
-            this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
-            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("registry_save")))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Name", "version");
+                cmd.Parameters.AddWithValue("Value", YafForumInfo.AppVersion.ToString());
+                cmd.Parameters.AddWithValue("BoardID", null);
+
+                this.DbAccess.ExecuteNonQuery(cmd);
+            }
+
+            using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("registry_save")))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("Name", "versionname");
+                cmd.Parameters.AddWithValue("Value", YafForumInfo.AppVersionName);
+                cmd.Parameters.AddWithValue("BoardID", null);
+
+                this.DbAccess.ExecuteNonQuery(cmd);
+            }
+
+            /*this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
+            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);*/
 
             this.ImportStatics();
         }
@@ -236,60 +268,55 @@ namespace YAF.Core.Services
         /// </returns>
         public bool UpgradeDatabase(bool upgradeExtensions)
         {
-            this.messages.Clear();
+            var isForumInstalled = this.IsForumInstalled;
+
+            // try
+            this.FixAccess(false);
+
+            var isAzureEngine = this.Get<IDbFunction>().GetSQLEngine().Equals("Azure");
+
+            if (!isForumInstalled)
             {
-                var isForumInstalled = this.IsForumInstalled;
+                this.ExecuteInstallScripts(isAzureEngine);
+            }
+            else
+            {
+                this.ExecuteUpgradeScripts(isAzureEngine);
+            }
 
-                // try
-                this.FixAccess(false);
+            this.FixAccess(true);
 
-                var isAzureEngine = this.Get<IDbFunction>().GetSQLEngine().Equals("Azure");
+            var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
-                if (!isForumInstalled)
+            this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
+            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
+
+            // Ederon : 9/7/2007
+            // re-sync all boards - necessary for proper last post bubbling
+            this.GetRepository<Board>().ReSync();
+
+            this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion), null);
+
+            if (isForumInstalled)
+            {
+                if (prevVersion < 30 || upgradeExtensions)
                 {
-                    this.ExecuteInstallScripts(isAzureEngine);
+                    this.ImportStatics();
                 }
-                else
+
+                if (prevVersion < 42)
                 {
-                    this.ExecuteUpgradeScripts(isAzureEngine);
+                    // un-html encode all topic subject names...
+                    this.GetRepository<Topic>().UnencodeAllTopicsSubjects(HttpUtility.HtmlDecode);
                 }
 
-                this.FixAccess(true);
-
-                var prevVersion = this.GetRepository<Registry>().GetDbVersion();
-
-                this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
-                this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
-
-                // Ederon : 9/7/2007
-                // re-sync all boards - necessary for proper last post bubbling
-                this.GetRepository<Board>().ReSync();
-
-                this.RaiseEvent.RaiseIssolated(
-                    new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion),
-                    null);
-
-                if (isForumInstalled)
+                // Check if BaseUrlMask is set and if not automatically write it
+                if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
                 {
-                    if (prevVersion < 30 || upgradeExtensions)
-                    {
-                        this.ImportStatics();
-                    }
-
-                    if (prevVersion < 42)
-                    {
-                        // un-html encode all topic subject names...
-                        this.GetRepository<Topic>().UnencodeAllTopicsSubjects(HttpUtility.HtmlDecode);
-                    }
-
-                    // Check if BaseUrlMask is set and if not automatically write it
-                    if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
-                    {
-                        this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
-                    }
-
-                    this.GetRepository<Registry>().Save("cdvversion", this.Get<YafBoardSettings>().CdvVersion++);
+                    this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
                 }
+
+                this.GetRepository<Registry>().Save("cdvversion", this.Get<YafBoardSettings>().CdvVersion++);
             }
 
             if (this.IsForumInstalled)
