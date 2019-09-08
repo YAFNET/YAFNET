@@ -105,8 +105,8 @@ namespace YAF.Core.Services
             {
                 try
                 {
-                    var boards = this.GetRepository<Board>().List();
-                    return boards.HasRows();
+                    var boards = this.GetRepository<Board>().GetAll();
+                    return boards.Any();
                 }
                 catch
                 {

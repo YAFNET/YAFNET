@@ -1186,7 +1186,7 @@ namespace ServiceStack.Text
         {
             var str = value.SafeSubsegment(startIndex, length);
             return str.Length == length
-                ? str.Value + "..."
+                ? $"{str.Value}..."
                 : str.Value;
         }
 

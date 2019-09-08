@@ -42,11 +42,6 @@ namespace YAF.Core.Tasks
     public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask
     {
         /// <summary>
-        /// The Blocking Task Names.
-        /// </summary>
-        private static readonly string[] _blockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
-
-        /// <summary>
         /// The _task name.
         /// </summary>
         private const string _TaskName = "BoardCreateTask";
@@ -59,7 +54,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets Blocking Task Names.
         /// </summary>
-        public static string[] BlockingTaskNames => _blockingTaskNames;
+        public static string[] BlockingTaskNames { get; } = Constants.ForumRebuild.BlockingTaskNames;
 
         /// <summary>
         /// Gets or sets ForumOut.

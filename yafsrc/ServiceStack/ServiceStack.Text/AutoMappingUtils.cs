@@ -276,7 +276,7 @@ namespace ServiceStack
 
         internal static string CreateCacheKey(Type fromType, Type toType)
         {
-            var cacheKey = fromType.FullName + ">" + toType.FullName;
+            var cacheKey = $"{fromType.FullName}>{toType.FullName}";
             return cacheKey;
         }
 

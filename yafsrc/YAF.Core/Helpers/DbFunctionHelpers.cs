@@ -95,6 +95,20 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
+        /// Gets the current SQL Engine Edition.
+        /// </summary>
+        /// <param name="dbFunction">The database function.</param>
+        /// <returns>
+        /// Returns the current SQL Engine Edition.
+        /// </returns>
+        public static string GetSQLVersion([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            return dbFunction.ValidateAndExecute("GetSQLVersion", f => f.GetScalar<string>(s => s.GetSQLVersion()));
+        }
+
+        /// <summary>
         /// The shrink database.
         /// </summary>
         /// <param name="dbFunction">

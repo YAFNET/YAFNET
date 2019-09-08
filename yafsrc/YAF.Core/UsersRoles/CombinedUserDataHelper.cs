@@ -208,11 +208,7 @@ namespace YAF.Core
                         .Log(
                             this.UserID,
                             "CombinedUserDataHelper.get_Email",
-                            $"ATTENTION! The user with id {this.UserID} and name {this.UserName} is very possibly is not in your Membership \r\n "
-                            +
-                            "data but it's still in you YAF user table. The situation should not normally happen. \r\n "
-                            + "You should create a Membership data for the user first and " +
-                            "then delete him from YAF user table or leave him.");
+                            $"ATTENTION! The user with id {this.UserID} and name {this.UserName} is very possibly is not in your Membership \r\n data but it's still in you YAF user table. The situation should not normally happen. \r\n You should create a Membership data for the user first and then delete him from YAF user table or leave him.");
                 }
 
                 return this.IsGuest ? this.DBRow.Field<string>("Email") : this.Membership.Email;

@@ -97,7 +97,7 @@ namespace ServiceStack.Text.Common
 
         static Func<T, bool> GetShouldSerializeMethod(MemberInfo member)
         {
-            var method = member.DeclaringType.GetInstanceMethod("ShouldSerialize" + member.Name);
+            var method = member.DeclaringType.GetInstanceMethod($"ShouldSerialize{member.Name}");
             return method == null || method.ReturnType != typeof(bool)
                 ? null
                 : (Func<T, bool>)method.CreateDelegate(typeof(Func<T, bool>));
@@ -287,7 +287,7 @@ namespace ServiceStack.Text.Common
                 this.propertyOrder = propertyOrder;
                 this.propertySuppressDefaultConfig = propertySuppressDefaultConfig;
                 this.propertySuppressDefaultAttribute = propertySuppressDefaultAttribute;
-                this.propertyReferenceName = propertyDeclaredTypeName + "." + propertyName;
+                this.propertyReferenceName = $"{propertyDeclaredTypeName}.{propertyName}";
                 this.propertyNameCLSFriendly = propertyNameCLSFriendly;
                 this.propertyNameLowercaseUnderscore = propertyNameLowercaseUnderscore;
                 this.GetterFn = getterFn;

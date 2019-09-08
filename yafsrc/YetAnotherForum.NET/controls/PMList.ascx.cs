@@ -746,8 +746,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
             this.Response.AppendHeader(
                 "content-disposition",
-                "attachment; filename=" + HttpUtility.UrlEncode(
-                    $"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.csv"));
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.csv")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
@@ -804,8 +803,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                "attachment; filename=" + HttpUtility.UrlEncode(
-                    $"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.txt"));
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.txt")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 

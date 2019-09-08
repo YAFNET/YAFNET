@@ -44,7 +44,7 @@ namespace ServiceStack.Templates
         [HandleUnknownValue] public Exception lastError(TemplateScopeContext scope) => scope.PageResult.LastFilterError;
         [HandleUnknownValue] public string lastErrorMessage(TemplateScopeContext scope) => scope.PageResult.LastFilterError?.Message;
         [HandleUnknownValue] public string lastErrorStackTrace(TemplateScopeContext scope) => scope.PageResult.LastFilterStackTrace?.Length > 0
-            ? scope.PageResult.LastFilterStackTrace.Map(x => "   at " + x).Join("\n")
+            ? scope.PageResult.LastFilterStackTrace.Map(x => $"   at {x}").Join("\n")
             : null;
 
         public object ensureAllArgsNotNull(TemplateScopeContext scope, object args) => ensureAllArgsNotNull(scope, args, null);

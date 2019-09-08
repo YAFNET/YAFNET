@@ -358,7 +358,7 @@ namespace ServiceStack.Text.Json
             var offset = json.Offset;
 
             if (buffer[offset + index] != JsonUtils.QuoteChar)
-                throw new Exception("Invalid unquoted string starting with: " + json.Value.SafeSubstring(50));
+                throw new Exception($"Invalid unquoted string starting with: {json.Value.SafeSubstring(50)}");
 
             var startIndex = ++index;
             do
@@ -375,7 +375,8 @@ namespace ServiceStack.Text.Json
             }
  while (index++ < jsonLength);
             if (index == jsonLength)
-                throw new Exception("Invalid unquoted string ending with: " + json.Value.SafeSubstring(json.Length - 50, 50));
+                throw new Exception(
+                    $"Invalid unquoted string ending with: {json.Value.SafeSubstring(json.Length - 50, 50)}");
             index++;
             return new StringSegment(buffer, offset + startIndex, Math.Min(index, jsonLength) - startIndex - 1);
         }

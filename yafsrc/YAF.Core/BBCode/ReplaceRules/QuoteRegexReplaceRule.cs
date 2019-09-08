@@ -140,7 +140,7 @@ namespace YAF.Core.BBCode.ReplaceRules
                         value = this._variableDefaults[i];
                     }
 
-                    innerReplace.Replace("${" + varName + "}", this.ManageVariableValue(varName, value, handlingValue));
+                    innerReplace.Replace($"${{{varName}}}", this.ManageVariableValue(varName, value, handlingValue));
                     i++;
                 }
 

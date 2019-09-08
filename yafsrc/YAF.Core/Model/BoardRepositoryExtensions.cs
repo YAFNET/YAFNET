@@ -202,12 +202,12 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable List(this IRepository<Board> repository, int? boardID = null)
+        /*public static DataTable List(this IRepository<Board> repository, int? boardID = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.board_list(BoardID: boardID);
-        }
+        }*/
 
         /// <summary>
         /// The list typed.

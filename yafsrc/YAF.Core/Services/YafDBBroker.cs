@@ -334,10 +334,10 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            var favoriteTopicListDt = this.DbFunction.GetAsDataTable(o => o.topic_favorite_list(userID));
+            var favoriteTopics = this.GetRepository<FavoriteTopic>().Get(f => f.UserID == userID).Select(f => f.TopicID);
 
             // convert to list...
-            favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
+            favoriteTopicList = favoriteTopics.ToList();
 
             // store it in the user session...
             this.HttpSessionState.Add(key, favoriteTopicList);

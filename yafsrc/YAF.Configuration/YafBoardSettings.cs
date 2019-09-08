@@ -125,16 +125,6 @@ namespace YAF.Configuration
         public bool AllowThreaded => this._legacyBoardSettings.AllowThreaded;
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowThemedLogo.
-        /// </summary>
-        public bool AllowThemedLogo
-        {
-            get => this._reg.GetValue("AllowThemedLogo", false);
-
-            set => this._reg.SetValue("AllowThemedLogo", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether to enable Display Name.
         /// </summary>
         public bool EnableDisplayName
@@ -548,12 +538,6 @@ namespace YAF.Configuration
 
             set => this._reg.SetValue("StopForumSpamApiKey", value);
         }
-
-        /// <summary>
-        /// Gets SQLVersion.
-        /// NOTE : didn't know where else to put this :)
-        /// </summary>
-        public string SQLVersion => this._legacyBoardSettings.SqlVersion;
 
         #region int settings
 
@@ -2577,82 +2561,6 @@ namespace YAF.Configuration
         protected virtual string _rolesAppName { get; set; }
 
         #region Nested type: YafLegacyBoardSettings
-
-        /// <summary>
-        /// The YAF legacy board settings.
-        /// </summary>
-        public class YafLegacyBoardSettings
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="YafLegacyBoardSettings"/> class.
-            /// </summary>
-            public YafLegacyBoardSettings()
-            {
-            }
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="YafLegacyBoardSettings" /> class.
-            /// </summary>
-            /// <param name="boardName">The board name.</param>
-            /// <param name="sqlVersion">The SQL version.</param>
-            /// <param name="allowThreaded">The allow threaded.</param>
-            /// <param name="membershipAppName">The membership app name.</param>
-            /// <param name="rolesAppName">The roles app name.</param>
-            public YafLegacyBoardSettings(string boardName, string sqlVersion, bool allowThreaded, string membershipAppName, string rolesAppName)
-                : this()
-            {
-                this.BoardName = boardName;
-                this.SqlVersion = sqlVersion;
-                this.AllowThreaded = allowThreaded;
-                this.MembershipAppName = membershipAppName;
-                this.RolesAppName = rolesAppName;
-            }
-
-            /// <summary>
-            /// Gets or sets BoardName.
-            /// </summary>
-            public string BoardName
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Gets or sets SQL Version.
-            /// </summary>
-            public string SqlVersion
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Gets or sets a value indicating whether AllowThreaded.
-            /// </summary>
-            public bool AllowThreaded
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Gets or sets MembershipAppName.
-            /// </summary>
-            public string MembershipAppName
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Gets or sets RolesAppName.
-            /// </summary>
-            public string RolesAppName
-            {
-                get;
-                set;
-            }
-        }
 
         #endregion
     }

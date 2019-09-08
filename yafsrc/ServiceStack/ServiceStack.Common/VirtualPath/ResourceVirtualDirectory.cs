@@ -113,7 +113,7 @@ namespace ServiceStack.VirtualPath
                 var mrInfo = resourceNames.FirstOrDefault(x => backingAssembly.GetManifestResourceInfo(x) != null);
                 if (mrInfo == null)
                 {
-                    Log.Warn("Virtual file not found: " + fullResourceName);
+                    Log.Warn($"Virtual file not found: {fullResourceName}");
                     return null;
                 }
 

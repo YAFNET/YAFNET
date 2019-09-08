@@ -78,7 +78,7 @@ namespace ServiceStack.Text.Common
                 else if (key.CompareIgnoreCase("value"))
                     valueValue = (TValue)parseValueFn(keyElementValue);
                 else
-                    throw new SerializationException("Incorrect KeyValuePair property: " + key);
+                    throw new SerializationException($"Incorrect KeyValuePair property: {key}");
                 Serializer.EatItemSeperatorOrMapEndChar(value, ref index);
             }
 

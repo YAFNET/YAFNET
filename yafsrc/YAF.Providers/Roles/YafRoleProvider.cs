@@ -43,11 +43,6 @@ namespace YAF.Providers.Roles
         #region Constants and Fields
 
         /// <summary>
-        /// The conn str app key name.
-        /// </summary>
-        private static string _connStrAppKeyName = "YafRolesConnectionString";
-
-        /// <summary>
         /// The _app name.
         /// </summary>
         private string _appName;
@@ -64,7 +59,7 @@ namespace YAF.Providers.Roles
         /// <summary>
         /// Gets the Connection String App Key Name.
         /// </summary>
-        public static string ConnStrAppKeyName => _connStrAppKeyName;
+        public static string ConnStrAppKeyName { get; } = "YafRolesConnectionString";
 
         /// <summary>
         /// Gets or sets ApplicationName.

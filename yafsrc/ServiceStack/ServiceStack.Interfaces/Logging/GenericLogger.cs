@@ -49,7 +49,7 @@ namespace ServiceStack.Logging
             var msg = message == null ? string.Empty : message.ToString();
             if (exception != null)
             {
-                msg += ", Exception: " + exception.Message;
+                msg += $", Exception: {exception.Message}";
             }
             OnLog(msg);
         }

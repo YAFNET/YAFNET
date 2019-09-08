@@ -55,7 +55,8 @@ namespace YAF.Dialogs
             {
                 this.PageContext.AddLoadMessage(
                     message: string.Format(
-                        format: this.GetText(page: "ADMIN_EXTENSIONS_IMPORT", tag: "IMPORT_FAILED"), arg0: "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
+                        format: this.GetText(page: "ADMIN_EXTENSIONS_IMPORT", tag: "IMPORT_FAILED"), arg0:
+                        $"Invalid upload format specified: {this.importFile.PostedFile.ContentType}"));
             }
 
             try

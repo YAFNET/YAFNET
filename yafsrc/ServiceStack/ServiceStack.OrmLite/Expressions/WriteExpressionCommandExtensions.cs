@@ -32,7 +32,7 @@ namespace ServiceStack.OrmLite
             dbCmd.GetDialectProvider().PrepareUpdateRowStatement(dbCmd, model, fieldsToUpdate);
 
             if (!onlyFields.WhereExpression.IsNullOrEmpty())
-                dbCmd.CommandText += " " + onlyFields.WhereExpression;
+                dbCmd.CommandText += $" {onlyFields.WhereExpression}";
         }
 
         internal static int UpdateOnly<T>(this IDbCommand dbCmd, T obj,
@@ -166,8 +166,8 @@ namespace ServiceStack.OrmLite
                     .Append(dialectProvider.AddParam(dbCmd, value, fieldDef).ParameterName);
             }
 
-            dbCmd.CommandText = $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)} {whereSql}";
+            dbCmd.CommandText =
+                $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} SET {StringBuilderCache.ReturnAndFree(sql)} {whereSql}";
         }
 
         public static long InsertOnly<T>(this IDbCommand dbCmd, T obj, string[] onlyFields, bool selectIdentity)

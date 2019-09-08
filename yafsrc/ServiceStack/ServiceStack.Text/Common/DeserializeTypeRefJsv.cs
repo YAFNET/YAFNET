@@ -55,11 +55,11 @@ namespace ServiceStack.Text.Common
 
                     if (explicitType == null || explicitType.IsInterface || explicitType.IsAbstract)
                     {
-                        Tracer.Instance.WriteWarning("Could not find type: " + propertyValueStr);
+                        Tracer.Instance.WriteWarning($"Could not find type: {propertyValueStr}");
                     }
                     else if (!type.IsAssignableFrom(explicitType))
                     {
-                        Tracer.Instance.WriteWarning("Could not assign type: " + propertyValueStr);
+                        Tracer.Instance.WriteWarning($"Could not assign type: {propertyValueStr}");
                     }
                     else
                     {

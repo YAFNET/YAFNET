@@ -492,7 +492,7 @@ namespace YAF.Controls
                 // Should we add the "Add Buddy" item?
                 if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest
                                                                && !this.GetRepository<User>()
-                                                                   .GetSingle(u => u.ID == userId).Block
+                                                                   .GetById(userId).Block
                                                                    .BlockFriendRequests)
                 {
                     this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");

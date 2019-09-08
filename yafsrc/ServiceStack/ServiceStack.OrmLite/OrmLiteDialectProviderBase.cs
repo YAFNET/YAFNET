@@ -340,7 +340,7 @@ namespace ServiceStack.OrmLite
 
         public virtual string GetQuotedValue(string paramValue)
         {
-            return "'" + paramValue.Replace("'", "''") + "'";
+            return $"'{paramValue.Replace("'", "''")}'";
         }
 
         public virtual string GetSchemaName(string schema)
@@ -373,9 +373,8 @@ namespace ServiceStack.OrmLite
             var escapedSchema = NamingStrategy.GetSchemaName(schema)
                 .Replace(".", "\".\"");
 
-            return GetQuotedName(escapedSchema)
-                + "."
-                + GetQuotedName(NamingStrategy.GetTableName(tableName));
+            return
+                $"{this.GetQuotedName(escapedSchema)}.{this.GetQuotedName(this.NamingStrategy.GetTableName(tableName))}";
         }
 
         public virtual string GetQuotedColumnName(string columnName)
@@ -444,7 +443,7 @@ namespace ServiceStack.OrmLite
             if (SelectIdentitySql == null)
                 throw new NotImplementedException("Returning last inserted identity is not implemented on this DB Provider.");
 
-            return "; " + SelectIdentitySql;
+            return $"; {this.SelectIdentitySql}";
         }
 
         // Fmt
@@ -573,13 +572,13 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("ERROR in ToInsertRowStatement(): " + ex.Message, ex);
+                    Log.Error($"ERROR in ToInsertRowStatement(): {ex.Message}", ex);
                     throw;
                 }
             }
 
-            var sql = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                      $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            var sql =
+                $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
 
             return sql;
         }
@@ -643,13 +642,13 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("ERROR in PrepareParameterizedInsertStatement(): " + ex.Message, ex);
+                    Log.Error($"ERROR in PrepareParameterizedInsertStatement(): {ex.Message}", ex);
                     throw;
                 }
             }
 
-            cmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                              $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            cmd.CommandText =
+                $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
 
         public virtual void PrepareInsertRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args)
@@ -680,13 +679,13 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("ERROR in PrepareInsertRowStatement(): " + ex.Message, ex);
+                    Log.Error($"ERROR in PrepareInsertRowStatement(): {ex.Message}", ex);
                     throw;
                 }
             }
 
-            dbCmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                                $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            dbCmd.CommandText =
+                $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
 
         public virtual string ToUpdateStatement<T>(IDbCommand dbCmd, T item, ICollection<string> updateFields = null)
@@ -721,8 +720,8 @@ namespace ServiceStack.OrmLite
                     ? GetQuotedValue(dbParam.Value, dbParam.Value.GetType())
                     : "null";
 
-                var pattern = dbParam.ParameterName + @"(,|\s|\)|$)";
-                var replacement = quotedValue.Replace("$", "$$") + "$1";
+                var pattern = $@"{dbParam.ParameterName}(,|\s|\)|$)";
+                var replacement = $"{quotedValue.Replace("$", "$$")}$1";
                 sql = Regex.Replace(sql, pattern, replacement);
             }
             return sql;
@@ -773,15 +772,15 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    OrmLiteUtils.HandleException(ex, "ERROR in PrepareParameterizedUpdateStatement(): " + ex.Message);
+                    OrmLiteUtils.HandleException(ex, $"ERROR in PrepareParameterizedUpdateStatement(): {ex.Message}");
                 }
             }
 
             if (sql.Length > 0)
             {
                 var strFilter = StringBuilderCacheAlt.ReturnAndFree(sqlFilter);
-                cmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                  $"SET {StringBuilderCache.ReturnAndFree(sql)} {(strFilter.Length > 0 ? "WHERE " + strFilter : "")}";
+                cmd.CommandText =
+                    $"UPDATE {this.GetQuotedTableName(modelDef)} SET {StringBuilderCache.ReturnAndFree(sql)} {(strFilter.Length > 0 ? $"WHERE {strFilter}" : "")}";
             }
             else
             {
@@ -846,7 +845,7 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    OrmLiteUtils.HandleException(ex, "ERROR in PrepareParameterizedDeleteStatement(): " + ex.Message);
+                    OrmLiteUtils.HandleException(ex, $"ERROR in PrepareParameterizedDeleteStatement(): {ex.Message}");
                 }
             }
 
@@ -994,7 +993,7 @@ namespace ServiceStack.OrmLite
         protected virtual object GetAnonValue(FieldDefinition fieldDef, object obj)
         {
             var anonType = obj.GetType();
-            var key = anonType.Name + "." + fieldDef.Name;
+            var key = $"{anonType.Name}.{fieldDef.Name}";
 
             var factoryFn = (Func<string, GetMemberDelegate>)(_ =>
                 anonType.GetProperty(fieldDef.Name).CreateGetter());
@@ -1044,16 +1043,16 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    OrmLiteUtils.HandleException(ex, "ERROR in ToUpdateRowStatement(): " + ex.Message);
+                    OrmLiteUtils.HandleException(ex, $"ERROR in ToUpdateRowStatement(): {ex.Message}");
                 }
             }
 
             var strFilter = StringBuilderCacheAlt.ReturnAndFree(sqlFilter);
-            dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)}{(strFilter.Length > 0 ? " WHERE " + strFilter : "")}";
+            dbCmd.CommandText =
+                $"UPDATE {this.GetQuotedTableName(modelDef)} SET {StringBuilderCache.ReturnAndFree(sql)}{(strFilter.Length > 0 ? $" WHERE {strFilter}" : "")}";
 
             if (sql.Length == 0)
-                throw new Exception("No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText);
+                throw new Exception($"No valid update properties provided (e.g. p => p.FirstName): {dbCmd.CommandText}");
         }
 
         public virtual void PrepareUpdateRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args, string sqlFilter)
@@ -1081,15 +1080,16 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    OrmLiteUtils.HandleException(ex, "ERROR in PrepareUpdateRowStatement(cmd,args): " + ex.Message);
+                    OrmLiteUtils.HandleException(ex, $"ERROR in PrepareUpdateRowStatement(cmd,args): {ex.Message}");
                 }
             }
 
-            dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
+            dbCmd.CommandText =
+                $"UPDATE {this.GetQuotedTableName(modelDef)} SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
 
             if (sql.Length == 0)
-                throw new Exception("No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
+                throw new Exception(
+                    $"No valid update properties provided (e.g. () => new Person {{ Age = 27 }}): {dbCmd.CommandText}");
         }
 
         public virtual void PrepareUpdateRowAddStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args, string sqlFilter)
@@ -1132,15 +1132,16 @@ namespace ServiceStack.OrmLite
                 }
                 catch (Exception ex)
                 {
-                    OrmLiteUtils.HandleException(ex, "ERROR in PrepareUpdateRowAddStatement(): " + ex.Message);
+                    OrmLiteUtils.HandleException(ex, $"ERROR in PrepareUpdateRowAddStatement(): {ex.Message}");
                 }
             }
 
-            dbCmd.CommandText = $"UPDATE {GetQuotedTableName(modelDef)} " +
-                                $"SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
+            dbCmd.CommandText =
+                $"UPDATE {this.GetQuotedTableName(modelDef)} SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? "" : " ")}{sqlFilter}";
 
             if (sql.Length == 0)
-                throw new Exception("No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
+                throw new Exception(
+                    $"No valid update properties provided (e.g. () => new Person {{ Age = 27 }}): {dbCmd.CommandText}");
         }
 
         public virtual string ToDeleteStatement(Type tableType, string sqlFilter, params object[] filterParams)
@@ -1223,7 +1224,7 @@ namespace ServiceStack.OrmLite
                 var sqlConstraint = GetCheckConstraint(fieldDef);
                 if (sqlConstraint != null)
                 {
-                    sbConstraints.Append(",\n" + sqlConstraint);
+                    sbConstraints.Append($",\n{sqlConstraint}");
                 }
 
                 if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
@@ -1231,9 +1232,7 @@ namespace ServiceStack.OrmLite
 
                 var refModelDef = fieldDef.ForeignKey.ReferenceType.GetModelDefinition();
                 sbConstraints.Append(
-                    $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
-                    $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
-                    $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                    $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
                 sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
                 sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
@@ -1242,11 +1241,11 @@ namespace ServiceStack.OrmLite
             var uniqueConstraints = GetUniqueConstraints(modelDef);
             if (uniqueConstraints != null)
             {
-                sbConstraints.Append(",\n" + uniqueConstraints);
+                sbConstraints.Append($",\n{uniqueConstraints}");
             }
 
-            var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} " +
-                      $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
+            var sql =
+                $"CREATE TABLE {this.GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
 
             return sql;
         }
@@ -1284,12 +1283,12 @@ namespace ServiceStack.OrmLite
 
         public virtual string GetForeignKeyOnDeleteClause(ForeignKeyConstraint foreignKey)
         {
-            return !string.IsNullOrEmpty(foreignKey.OnDelete) ? " ON DELETE " + foreignKey.OnDelete : "";
+            return !string.IsNullOrEmpty(foreignKey.OnDelete) ? $" ON DELETE {foreignKey.OnDelete}" : "";
         }
 
         public virtual string GetForeignKeyOnUpdateClause(ForeignKeyConstraint foreignKey)
         {
-            return !string.IsNullOrEmpty(foreignKey.OnUpdate) ? " ON UPDATE " + foreignKey.OnUpdate : "";
+            return !string.IsNullOrEmpty(foreignKey.OnUpdate) ? $" ON UPDATE {foreignKey.OnUpdate}" : "";
         }
 
         public virtual List<string> ToCreateIndexStatements(Type tableType)
@@ -1374,7 +1373,7 @@ namespace ServiceStack.OrmLite
         {
             return compositeIndex.Name ?? GetIndexName(compositeIndex.Unique,
                     (modelDef.IsInSchema
-                        ? modelDef.Schema + "_" + GetQuotedTableName(modelDef)
+                        ? $"{modelDef.Schema}_{this.GetQuotedTableName(modelDef)}"
                         : GetQuotedTableName(modelDef)).SafeVarName(),
                     string.Join("_", compositeIndex.FieldNames.ToArray()));
         }
@@ -1382,11 +1381,8 @@ namespace ServiceStack.OrmLite
         protected virtual string ToCreateIndexStatement(bool isUnique, string indexName, ModelDefinition modelDef, string fieldName,
             bool isCombined = false, FieldDefinition fieldDef = null)
         {
-            return $"CREATE {(isUnique ? "UNIQUE" : "")}" +
-                   (fieldDef?.IsClustered == true ? " CLUSTERED" : "") +
-                   (fieldDef?.IsNonClustered == true ? " NONCLUSTERED" : "") +
-                   $" INDEX {indexName} ON {GetQuotedTableName(modelDef)} " +
-                   $"({(isCombined ? fieldName : GetQuotedColumnName(fieldName))}); \n";
+            return
+                $"CREATE {(isUnique ? "UNIQUE" : "")}{(fieldDef?.IsClustered == true ? " CLUSTERED" : "")}{(fieldDef?.IsNonClustered == true ? " NONCLUSTERED" : "")} INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} ({(isCombined ? fieldName : this.GetQuotedColumnName(fieldName))}); \n";
         }
 
         public virtual List<string> ToCreateSequenceStatements(Type tableType)
@@ -1479,16 +1475,12 @@ namespace ServiceStack.OrmLite
             var referenceMD = ModelDefinition<TForeign>.Definition;
             var referenceFieldName = referenceMD.GetFieldDefinition(foreignField).FieldName;
 
-            var name = GetQuotedName(foreignKeyName.IsNullOrEmpty() ?
-                "fk_" + sourceMD.ModelName + "_" + fieldName + "_" + referenceFieldName :
+            var name = GetQuotedName(foreignKeyName.IsNullOrEmpty() ? $"fk_{sourceMD.ModelName}_{fieldName}_{referenceFieldName}"
+                                         :
                 foreignKeyName);
 
-            return $"ALTER TABLE {GetQuotedTableName(sourceMD)} " +
-                   $"ADD CONSTRAINT {name} FOREIGN KEY ({GetQuotedColumnName(fieldName)}) " +
-                   $"REFERENCES {GetQuotedTableName(referenceMD)} " +
-                   $"({GetQuotedColumnName(referenceFieldName)})" +
-                   $"{GetForeignKeyOnDeleteClause(new ForeignKeyConstraint(typeof(T), onDelete: FkOptionToString(onDelete)))}" +
-                   $"{GetForeignKeyOnUpdateClause(new ForeignKeyConstraint(typeof(T), onUpdate: FkOptionToString(onUpdate)))};";
+            return
+                $"ALTER TABLE {this.GetQuotedTableName(sourceMD)} ADD CONSTRAINT {name} FOREIGN KEY ({this.GetQuotedColumnName(fieldName)}) REFERENCES {this.GetQuotedTableName(referenceMD)} ({this.GetQuotedColumnName(referenceFieldName)}){this.GetForeignKeyOnDeleteClause(new ForeignKeyConstraint(typeof(T), onDelete: this.FkOptionToString(onDelete)))}{this.GetForeignKeyOnUpdateClause(new ForeignKeyConstraint(typeof(T), onUpdate: this.FkOptionToString(onUpdate)))};";
         }
 
         public virtual string ToCreateIndexStatement<T>(Expression<Func<T, object>> field, string indexName = null, bool unique = false)
@@ -1496,13 +1488,12 @@ namespace ServiceStack.OrmLite
             var sourceDef = ModelDefinition<T>.Definition;
             var fieldName = sourceDef.GetFieldDefinition(field).FieldName;
 
-            var name = GetQuotedName(indexName.IsNullOrEmpty() ?
-                (unique ? "uidx" : "idx") + "_" + sourceDef.ModelName + "_" + fieldName :
+            var name = GetQuotedName(indexName.IsNullOrEmpty() ? $"{(unique ? "uidx" : "idx")}_{sourceDef.ModelName}_{fieldName}"
+                                         :
                 indexName);
 
-            var command = $"CREATE {(unique ? "UNIQUE" : "")} " +
-                             $"INDEX {name} ON {GetQuotedTableName(sourceDef)}" +
-                             $"({GetQuotedColumnName(fieldName)});";
+            var command =
+                $"CREATE {(unique ? "UNIQUE" : "")} INDEX {name} ON {this.GetQuotedTableName(sourceDef)}({this.GetQuotedColumnName(fieldName)});";
             return command;
         }
 
@@ -1576,8 +1567,8 @@ namespace ServiceStack.OrmLite
 
         protected virtual string ToDropColumnStatement(Type modelType, string columnName, IOrmLiteDialectProvider provider)
         {
-            return $"ALTER TABLE {provider.GetQuotedTableName(modelType.GetModelDefinition())} " +
-                   $"DROP COLUMN {provider.GetQuotedColumnName(columnName)};";
+            return
+                $"ALTER TABLE {provider.GetQuotedTableName(modelType.GetModelDefinition())} DROP COLUMN {provider.GetQuotedColumnName(columnName)};";
         }
 
         public virtual string SqlConflict(string sql, string conflictResolution) => sql; //NOOP
@@ -1593,8 +1584,8 @@ namespace ServiceStack.OrmLite
         public virtual string SqlLimit(int? offset = null, int? rows = null) => rows == null && offset == null
             ? "" 
             : offset == null
-                ? "LIMIT " + rows
-                : "LIMIT " + rows.GetValueOrDefault(int.MaxValue) + " OFFSET " + offset;
+                ? $"LIMIT {rows}"
+                : $"LIMIT {rows.GetValueOrDefault(int.MaxValue)} OFFSET {offset}";
         
         public virtual string SqlCast(object fieldOrValue, string castAs) => $"CAST({fieldOrValue} AS {castAs})";
 

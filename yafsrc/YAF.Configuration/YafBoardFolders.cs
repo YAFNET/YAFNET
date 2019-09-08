@@ -45,41 +45,41 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets Uploads.
         /// </summary>
-        public string Uploads => string.Concat(this.BoardFolder, "Uploads");
+        public string Uploads => $"{this.BoardFolder}Uploads";
 
         /// <summary>
         /// Gets Images.
         /// </summary>
-        public string Images => string.Concat(this.BoardFolder, "Images");
+        public string Images => $"{this.BoardFolder}Images";
 
         /// <summary>
         /// Gets Avatars.
         /// </summary>
-        public string Avatars => string.Concat(this.BoardFolder, "Images/Avatars");
+        public string Avatars => $"{this.BoardFolder}Images/Avatars";
 
         /// <summary>
         /// Gets Categories.
         /// </summary>
-        public string Categories => string.Concat(this.BoardFolder, "Images/Categories");
+        public string Categories => $"{this.BoardFolder}Images/Categories";
 
         /// <summary>
         /// Gets Categories.
         /// </summary>
-        public string Forums => string.Concat(this.BoardFolder, "Images/Forums");
+        public string Forums => $"{this.BoardFolder}Images/Forums";
 
         /// <summary>
         /// Gets Medals.
         /// </summary>
-        public string Medals => string.Concat(this.BoardFolder, "Images/Medals");
+        public string Medals => $"{this.BoardFolder}Images/Medals";
 
         /// <summary>
         /// Gets Ranks.
         /// </summary>
-        public string Ranks => string.Concat(this.BoardFolder, "Images/Ranks");
+        public string Ranks => $"{this.BoardFolder}Images/Ranks";
 
         /// <summary>
         /// Gets Logos.
         /// </summary>
-        public string Logos => string.Concat(this.BoardFolder, "Images/Logos");
+        public string Logos => $"{this.BoardFolder}Images/Logos";
     }
 }

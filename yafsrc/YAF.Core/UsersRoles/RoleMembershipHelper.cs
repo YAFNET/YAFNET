@@ -379,7 +379,7 @@ namespace YAF.Core
             if (Config.IsMojoPortal)
             {
                 var roles1 = userRoles.Where(t => t.IsSet())
-                    .Aggregate(string.Empty, (current, t) => current.Trim() + "," + t.Trim());
+                    .Aggregate(string.Empty, (current, t) => $"{current.Trim()},{t.Trim()}");
                 userRoles = roles1.Trim(',').Split(',');
             }
 

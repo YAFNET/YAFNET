@@ -102,9 +102,9 @@ namespace ServiceStack.Text
             var hours = Math.Abs(offset.Hours).ToString(CultureInfo.InvariantCulture);
             var minutes = Math.Abs(offset.Minutes).ToString(CultureInfo.InvariantCulture);
             return (offset < TimeSpan.Zero ? "-" : "+")
-                + (hours.Length == 1 ? "0" + hours : hours)
+                + (hours.Length == 1 ? $"0{hours}" : hours)
                 + seperator
-                + (minutes.Length == 1 ? "0" + minutes : minutes);
+                + (minutes.Length == 1 ? $"0{minutes}" : minutes);
         }
 
         public static TimeSpan FromTimeOffsetString(this string offsetString)

@@ -27,27 +27,12 @@ namespace YAF.Types.Attributes
   using System;
 
   /// <summary>
-  /// The yaf module.
+  /// The YAF module.
   /// </summary>
   [AttributeUsage(AttributeTargets.Class)]
   public class YafModule : Attribute
   {
-    /// <summary>
-    /// The _module author.
-    /// </summary>
-    private string _moduleAuthor;
-
-    /// <summary>
-    /// The _module name.
-    /// </summary>
-    private string _moduleName;
-
-    /// <summary>
-    /// The _module version.
-    /// </summary>
-    private int _moduleVersion;
-
-    /// <summary>
+      /// <summary>
     /// Initializes a new instance of the <see cref="YafModule"/> class.
     /// </summary>
     /// <param name="moduleName">
@@ -61,39 +46,24 @@ namespace YAF.Types.Attributes
     /// </param>
     public YafModule(string moduleName, string moduleAuthor, int moduleVersion)
     {
-      this._moduleName = moduleName;
-      this._moduleAuthor = moduleAuthor;
-      this._moduleVersion = moduleVersion;
+      this.ModuleName = moduleName;
+      this.ModuleAuthor = moduleAuthor;
+      this.ModuleVersion = moduleVersion;
     }
 
     /// <summary>
     /// Gets or sets ModuleName.
     /// </summary>
-    public string ModuleName
-    {
-      get => this._moduleName;
-
-      set => this._moduleName = value;
-    }
+    public string ModuleName { get; set; }
 
     /// <summary>
     /// Gets or sets ModuleAuthor.
     /// </summary>
-    public string ModuleAuthor
-    {
-      get => this._moduleAuthor;
-
-      set => this._moduleAuthor = value;
-    }
+    public string ModuleAuthor { get; set; }
 
     /// <summary>
     /// Gets or sets ModuleVersion.
     /// </summary>
-    public int ModuleVersion
-    {
-      get => this._moduleVersion;
-
-      set => this._moduleVersion = value;
-    }
+    public int ModuleVersion { get; set; }
   }
 }

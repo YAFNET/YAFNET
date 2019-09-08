@@ -61,7 +61,7 @@ namespace ServiceStack
                 throw new ArgumentNullException(fieldName);
 
             if (collection.Count == 0)
-                throw new ArgumentException(fieldName + " is empty");
+                throw new ArgumentException($"{fieldName} is empty");
 
             return collection;
         }
@@ -81,7 +81,7 @@ namespace ServiceStack
                 throw new ArgumentNullException(fieldName);
 
             if (collection.Count == 0)
-                throw new ArgumentException(fieldName + " is empty");
+                throw new ArgumentException($"{fieldName} is empty");
 
             return collection;
         }

@@ -150,7 +150,7 @@ namespace ServiceStack
 
         public Dictionary<string, string> Meta { get; set; }
 
-        public string GetFullName() => Namespace + "." + Name;
+        public string GetFullName() => $"{this.Namespace}.{this.Name}";
     }
 
     public class MetadataTypeName

@@ -45,9 +45,9 @@ namespace ServiceStack.Messaging
         public static string MqPrefix = "mq:";
         public static string QueuePrefix = "";
 
-        public static string TempMqPrefix = MqPrefix + "tmp:";
-        public static string TopicIn = MqPrefix + "topic:in";
-        public static string TopicOut = MqPrefix + "topic:out";
+        public static string TempMqPrefix = $"{MqPrefix}tmp:";
+        public static string TopicIn = $"{MqPrefix}topic:in";
+        public static string TopicOut = $"{MqPrefix}topic:out";
 
         public static Func<string, string, string> ResolveQueueNameFn = ResolveQueueName;
 
@@ -64,10 +64,10 @@ namespace ServiceStack.Messaging
 
         public static void SetQueuePrefix(string prefix)
         {
-            TopicIn = prefix + MqPrefix + "topic:in";
-            TopicOut = prefix + MqPrefix + "topic:out";
+            TopicIn = $"{prefix}{MqPrefix}topic:in";
+            TopicOut = $"{prefix}{MqPrefix}topic:out";
             QueuePrefix = prefix;
-            TempMqPrefix = prefix + MqPrefix + "tmp:";
+            TempMqPrefix = $"{prefix}{MqPrefix}tmp:";
         }
 
         private readonly Type messageType;

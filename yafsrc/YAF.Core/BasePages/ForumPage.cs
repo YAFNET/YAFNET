@@ -76,24 +76,9 @@ namespace YAF.Core
         private bool _noDataBase;
 
         /// <summary>
-        ///   The _show footer.
-        /// </summary>
-        private bool _showFooter = Config.ShowFooter;
-
-        /// <summary>
-        ///   The _show tool bar.
-        /// </summary>
-        private bool _showToolBar = Config.ShowToolBar;
-
-        /// <summary>
         ///   The _top page control.
         /// </summary>
         private Control _topPageControl;
-
-        /// <summary>
-        /// The is protected.
-        /// </summary>
-        private bool _isProtected = true;
 
         #endregion
 
@@ -144,11 +129,6 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether AllowAsPopup.
-        /// </summary>
-        public bool AllowAsPopup { get; protected set; }
-
-        /// <summary>
         ///   Gets a value indicating whether CanLogin.
         /// </summary>
         [Obsolete("Useless property that always returns true. Do not use anymore.")]
@@ -193,12 +173,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets or sets a value indicating whether Is Protected.
         /// </summary>
-        public virtual bool IsProtected
-        {
-            get => this._isProtected;
-
-            protected set => this._isProtected = value;
-        }
+        public virtual bool IsProtected { get; protected set; } = true;
 
         /// <summary>
         ///   Gets or sets a value indicating whether IsRegisteredPage.
@@ -255,24 +230,14 @@ namespace YAF.Core
         /// <summary>
         ///   Gets or sets a value indicating whether ShowFooter.
         /// </summary>
-        public bool ShowFooter
-        {
-            get => this._showFooter;
-
-            protected set => this._showFooter = value;
-        }
+        public bool ShowFooter { get; protected set; } = Config.ShowFooter;
 
         /// <summary>
         ///   Gets or sets a value indicating whether 
         ///   if you don't want the menus at top and bottom. 
         ///   Only admin pages will set this to false
         /// </summary>
-        public bool ShowToolBar
-        {
-            get => this._showToolBar;
-
-            protected set => this._showToolBar = value;
-        }
+        public bool ShowToolBar { get; protected set; } = Config.ShowToolBar;
 
         /// <summary>
         ///   Gets TopPageControl.
@@ -286,7 +251,7 @@ namespace YAF.Core
                     return this._topPageControl;
                 }
 
-                if (this.Page != null && this.Page.Header != null)
+                if (Page?.Header != null)
                 {
                     this._topPageControl = this.Page.Header;
                 }

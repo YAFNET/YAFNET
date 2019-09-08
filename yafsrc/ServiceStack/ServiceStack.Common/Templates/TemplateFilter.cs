@@ -78,7 +78,7 @@ namespace ServiceStack.Templates
         }
 
         private string CacheKey(InvokerType type, string methodName, int argsCount) =>
-            type + "::" + methodName.ToLower() + "`" + argsCount;
+            $"{type}::{methodName.ToLower()}`{argsCount}";
 
         private MethodInfo GetFilterMethod(string cacheKey) => lookupIndex.TryGetValue(cacheKey, out var method) ? method : null;
 

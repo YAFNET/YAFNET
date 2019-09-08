@@ -36,21 +36,6 @@ namespace YAF.Core.Services.CheckForSpam
     {
         #region Constants and Fields
 
-        /// <summary>
-        /// The ip address.
-        /// </summary>
-        private readonly IPAddress ipAddress;
-
-        /// <summary>
-        /// The server environment variables.
-        /// </summary>
-        private readonly NameValueCollection serverEnvironmentVariables = new NameValueCollection();
-
-        /// <summary>
-        /// The user agent.
-        /// </summary>
-        private readonly string userAgent;
-
         #endregion
 
         #region Constructors and Destructors
@@ -66,8 +51,8 @@ namespace YAF.Core.Services.CheckForSpam
         /// </param>
         public Comment([NotNull] IPAddress authorIpAddress, [NotNull] string authorUserAgent)
         {
-            this.ipAddress = authorIpAddress;
-            this.userAgent = authorUserAgent;
+            this.IPAddress = authorIpAddress;
+            this.UserAgent = authorUserAgent;
         }
 
         #endregion
@@ -103,7 +88,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// <summary>
         ///   IPAddress of the submitter
         /// </summary>
-        public IPAddress IPAddress => this.ipAddress;
+        public IPAddress IPAddress { get; }
 
         /// <summary>
         ///   Permanent location of the entry the comment was 
@@ -120,12 +105,12 @@ namespace YAF.Core.Services.CheckForSpam
         /// <summary>
         ///   Optional collection of various server environment variables.
         /// </summary>
-        public NameValueCollection ServerEnvironmentVariables => this.serverEnvironmentVariables;
+        public NameValueCollection ServerEnvironmentVariables { get; } = new NameValueCollection();
 
         /// <summary>
         ///   User agent of the requester. (Required)
         /// </summary>
-        public string UserAgent => this.userAgent;
+        public string UserAgent { get; }
 
         #endregion
     }

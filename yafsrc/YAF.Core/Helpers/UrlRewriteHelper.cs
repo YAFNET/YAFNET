@@ -104,6 +104,7 @@ namespace YAF.Core.Helpers
             return row == null ? string.Empty : CleanStringForURL(row[NameField].ToString());
         }
 
+
         /// <summary>
         /// Gets the name of the forum.
         /// </summary>
@@ -448,7 +449,7 @@ namespace YAF.Core.Helpers
 
             // store it for the future
             var randomValue = new Random();
-            
+
             HttpContext.Current.Cache.Insert(
                 GetCacheName(type, id),
                 list,

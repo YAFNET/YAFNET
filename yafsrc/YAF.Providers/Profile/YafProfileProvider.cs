@@ -49,11 +49,6 @@ namespace YAF.Providers.Profile
         #region Constants and Fields
 
         /// <summary>
-        /// The conn str app key name.
-        /// </summary>
-        private static string _connStrAppKeyName = "YafProfileConnectionString";
-
-        /// <summary>
         /// The _app name.
         /// </summary>
         private string _appName;
@@ -85,7 +80,7 @@ namespace YAF.Providers.Profile
         /// <summary>
         /// Gets the Connection String App Key Name.
         /// </summary>
-        public static string ConnStrAppKeyName => _connStrAppKeyName;
+        public static string ConnStrAppKeyName { get; } = "YafProfileConnectionString";
 
         /// <summary>
         /// Gets or sets ApplicationName.

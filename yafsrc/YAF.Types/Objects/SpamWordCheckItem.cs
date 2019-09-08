@@ -44,12 +44,6 @@ namespace YAF.Types.Objects
         /// </summary>
         private readonly string _spamWord;
 
-
-        /// <summary>
-        ///   Regular expression object associated with this item...
-        /// </summary>
-        private readonly Regex _regEx;
-
         /// <summary>
         ///   The _active.
         /// </summary>
@@ -71,11 +65,11 @@ namespace YAF.Types.Objects
 
             try
             {
-                this._regEx = new Regex(spamWord, options);
+                this.SpamWordRegEx = new Regex(spamWord, options);
             }
             catch (Exception)
             {
-                this._regEx = null;
+                this.SpamWordRegEx = null;
             }
         }
 
@@ -115,7 +109,7 @@ namespace YAF.Types.Objects
         /// <value>
         /// The spam word reg ex.
         /// </value>
-        public Regex SpamWordRegEx => this._regEx;
+        public Regex SpamWordRegEx { get; }
 
         /// <summary>
         /// Gets or sets Options.

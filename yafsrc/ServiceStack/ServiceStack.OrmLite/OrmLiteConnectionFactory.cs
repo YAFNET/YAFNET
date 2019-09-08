@@ -129,7 +129,7 @@ namespace ServiceStack.OrmLite
         {
             OrmLiteConnectionFactory factory;
             if (!NamedConnections.TryGetValue(namedConnection, out factory))
-                throw new KeyNotFoundException("No factory registered is named " + namedConnection);
+                throw new KeyNotFoundException($"No factory registered is named {namedConnection}");
 
             IDbConnection connection = factory.AutoDisposeConnection
                 ? new OrmLiteConnection(factory)

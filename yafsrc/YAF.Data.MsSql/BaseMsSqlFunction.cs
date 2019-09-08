@@ -57,7 +57,7 @@ namespace YAF.Data.MsSql
         /// <param name="dbAccess">
         /// The db access.
         /// </param>
-        public BaseMsSqlFunction([NotNull] IDbAccess dbAccess)
+        protected BaseMsSqlFunction([NotNull] IDbAccess dbAccess)
         {
             this.DbAccess = dbAccess;
         }

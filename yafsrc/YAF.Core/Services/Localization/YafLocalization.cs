@@ -59,7 +59,7 @@ namespace YAF.Core.Services.Localization
         private Localizer defaultLocale;
 
         /// <summary>
-        ///   The _localizer.
+        ///   The localizer.
         /// </summary>
         private Localizer localizer;
 
@@ -253,7 +253,7 @@ namespace YAF.Core.Services.Localization
         }
 
         /// <summary>
-        /// The get text.
+        /// Gets the Localized Text
         /// </summary>
         /// <param name="text">
         /// The text.
@@ -309,8 +309,8 @@ namespace YAF.Core.Services.Localization
 #if !DEBUG
                 string filename;
 
-                if (YafContext.Current.PageIsNull() || YafContext.Current.LanguageFile == string.Empty
-                    || YafContext.Current.LanguageFile == string.Empty
+                if (YafContext.Current.PageIsNull() || YafContext.Current.LanguageFile.IsNotSet()
+                    || YafContext.Current.LanguageFile.IsNotSet()
                     || !YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
                 {
                     filename = YafContext.Current.Get<YafBoardSettings>().Language;
@@ -320,7 +320,10 @@ namespace YAF.Core.Services.Localization
                     filename = YafContext.Current.LanguageFile;
                 }
 
-                if (filename == string.Empty) filename = "english.xml";
+                if (filename.IsNotSet())
+                {
+                    filename = "english.xml";
+                }
 
                 HttpContext.Current.Cache.Remove($"Localizer.{filename}");
 #endif
@@ -328,9 +331,9 @@ namespace YAF.Core.Services.Localization
                     .Log(
                         YafContext.Current.PageUserID,
                         $"{page.ToLower()}.ascx",
-                        string.Format("Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper()));
+                        $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
-                return string.Format("[{1}.{0}]", tag.ToUpper(), page.ToUpper());
+                return $"[{page.ToUpper()}.{tag.ToUpper()}]";
             }
 
             localizedText = _rgxBegin.Replace(localizedText, "<strong>");
@@ -411,7 +414,7 @@ namespace YAF.Core.Services.Localization
 
                 if (filename == string.Empty) filename = "english.xml";
 
-                HttpContext.Current.Cache.Remove("Localizer." + filename);
+                HttpContext.Current.Cache.Remove($"Localizer.{filename}");
 #endif
                 YafContext.Current.Get<ILogger>()
                     .Log(
@@ -419,7 +422,7 @@ namespace YAF.Core.Services.Localization
                         $"{page.ToLower()}.ascx",
                         $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
-                return string.Format("[{1}.{0}]", tag.ToUpper(), page.ToUpper());
+                return $"[{page.ToUpper()}.{tag.ToUpper()}]";
             }
 
             localizedText = localizedText.Replace("[b]", "<b>");
@@ -499,7 +502,8 @@ namespace YAF.Core.Services.Localization
             }
 
 #if !DEBUG
-            if (this.localizer == null && HttpContext.Current.Cache["Localizer." + fileName] != null) this.localizer = (Localizer)HttpContext.Current.Cache["Localizer." + fileName];
+            if (this.localizer == null && HttpContext.Current.Cache[$"Localizer.{fileName}"] != null) this.localizer = (Localizer)HttpContext.Current.Cache[
+                $"Localizer.{fileName}"];
 #endif
             if (this.localizer == null)
             {
@@ -508,7 +512,7 @@ namespace YAF.Core.Services.Localization
                         HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}languages/{fileName}"));
 
 #if !DEBUG
-                HttpContext.Current.Cache["Localizer." + fileName] = this.localizer;
+                HttpContext.Current.Cache[$"Localizer.{fileName}"] = this.localizer;
 #endif
             }
 
@@ -615,7 +619,7 @@ namespace YAF.Core.Services.Localization
             this.defaultLocale.GetText(tag, out localizedText);
             if (localizedText != null)
             {
-                localizedText = '[' + localizedText + ']';
+                localizedText = $"{'['}{localizedText}{']'}";
             }
 
             return localizedText;

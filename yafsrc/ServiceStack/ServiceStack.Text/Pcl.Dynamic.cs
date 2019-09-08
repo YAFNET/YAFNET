@@ -231,7 +231,7 @@ namespace ServiceStack
 
         static string ProxyName(Type targetType)
         {
-            return targetType.Name + "Proxy";
+            return $"{targetType.Name}Proxy";
         }
 
         static DynamicProxy()
@@ -249,7 +249,7 @@ namespace ServiceStack
 
         static Type GetConstructedType(Type targetType)
         {
-            var typeBuilder = ModuleBuilder.DefineType(targetType.Name + "Proxy", TypeAttributes.Public);
+            var typeBuilder = ModuleBuilder.DefineType($"{targetType.Name}Proxy", TypeAttributes.Public);
 
             var ctorBuilder = typeBuilder.DefineConstructor(
                 MethodAttributes.Public,
@@ -331,13 +331,13 @@ namespace ServiceStack
             var propertyName = methodInfo.Name.Replace("get_", string.Empty);
             var propertyType = methodInfo.ReturnType;
             var backingField = typeBuilder.DefineField(
-                "_" + propertyName,
+                $"_{propertyName}",
                 propertyType,
                 FieldAttributes.Private);
 
             // Getter
             var backingGet = typeBuilder.DefineMethod(
-                "get_" + propertyName,
+                $"get_{propertyName}",
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
                 | MethodAttributes.HideBySig,
                 propertyType,
@@ -350,7 +350,7 @@ namespace ServiceStack
 
             // Setter
             var backingSet = typeBuilder.DefineMethod(
-                "set_" + propertyName,
+                $"set_{propertyName}",
                 MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
                 | MethodAttributes.HideBySig,
                 null,

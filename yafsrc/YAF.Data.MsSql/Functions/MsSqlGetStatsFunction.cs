@@ -123,7 +123,7 @@ namespace YAF.Data.MsSql.Functions
                 // handle size...
                 if (!int.TryParse(chunk[2], out size))
                 {
-                    throw new ArgumentException("Unable to parse as integer: " + chunk[2]);
+                    throw new ArgumentException($"Unable to parse as integer: {chunk[2]}");
                 }
             }
 

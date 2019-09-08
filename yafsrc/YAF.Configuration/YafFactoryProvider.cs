@@ -39,14 +39,14 @@ namespace YAF.Configuration
         #region Constants and Fields
 
         /// <summary>
-        /// The _builder factory.
+        /// The builder factory.
         /// </summary>
-        private static ITypeFactoryInstance<IUrlBuilder> _builderFactory;
+        private static ITypeFactoryInstance<IUrlBuilder> builderFactory;
 
         /// <summary>
-        /// The _user display name factory.
+        /// The user display name factory.
         /// </summary>
-        private static ITypeFactoryInstance<IUserDisplayName> _userDisplayNameFactory;
+        private static ITypeFactoryInstance<IUserDisplayName> userDisplayNameFactory;
 
         #endregion
 
@@ -59,12 +59,12 @@ namespace YAF.Configuration
         {
             get
             {
-                if (_builderFactory == null)
+                if (builderFactory == null)
                 {
-                    _builderFactory = new TypeFactoryInstanceApplicationBoardScope<IUrlBuilder>(UrlBuilderType);
+                    builderFactory = new TypeFactoryInstanceApplicationBoardScope<IUrlBuilder>(UrlBuilderType);
                 }
 
-                return _builderFactory.Get();
+                return builderFactory.Get();
             }
         }
 
@@ -75,13 +75,13 @@ namespace YAF.Configuration
         {
             get
             {
-                if (_userDisplayNameFactory == null)
+                if (userDisplayNameFactory == null)
                 {
-                    _userDisplayNameFactory =
+                    userDisplayNameFactory =
                         new TypeFactoryInstanceApplicationBoardScope<IUserDisplayName>(UserDisplayNameType);
                 }
 
-                return _userDisplayNameFactory.Get();
+                return userDisplayNameFactory.Get();
             }
         }
 

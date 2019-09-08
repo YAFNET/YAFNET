@@ -336,24 +336,22 @@ namespace YAF.Pages.Admin
             {
                 this.CreateNewAdminHolder.Visible = false;
 
-                using (var dt = this.GetRepository<Board>().List(this.BoardId))
-                {
-                    var row = dt.Rows[0];
-                    this.Name.Text = (string)row["Name"];
-                    this.AllowThreaded.Checked = Convert.ToBoolean(row["AllowThreaded"]);
+                var board = this.GetRepository<Board>().GetById(this.BoardId.Value);
+                
+                    this.Name.Text = board.Name;
+                    this.AllowThreaded.Checked = board.AllowThreaded;
 
-                    var membershipAppName = row["MembershipAppName"].ToString();
+                    var membershipAppName = board.MembershipAppName;
 
                     if (membershipAppName.IsSet())
                     {
-                        this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
+                        this.BoardMembershipAppName.Text = membershipAppName;
                         this.BoardMembershipAppName.Enabled = false;
                     }
                     else
                     {
                         this.BoardMembershipAppNameHolder.Visible = false;
                     }
-                }
             }
             else
             {

@@ -157,10 +157,10 @@ namespace ServiceStack
 
             var resolvedPath = string.Join("/", combinedPaths);
             if (path[0] == '/' && prefix.Length == 0)
-                resolvedPath = '/' + resolvedPath;
+                resolvedPath = $"{'/'}{resolvedPath}";
 
             return path[path.Length - 1] == '/' && resolvedPath.Length > 0
-                ? prefix + resolvedPath + '/'
+                ? $"{prefix}{resolvedPath}{'/'}"
                 : prefix + resolvedPath;
         }
 

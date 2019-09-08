@@ -41,11 +41,6 @@ namespace YAF.Core.Services.CheckForSpam
     {
         #region Constants and Fields
 
-        /// <summary>
-        /// The status.
-        /// </summary>
-        private readonly HttpStatusCode status = 0;
-
         #endregion
 
         #region Constructors and Destructors
@@ -94,7 +89,7 @@ namespace YAF.Core.Services.CheckForSpam
         public InvalidResponseException([NotNull] string message, HttpStatusCode status)
             : base(message)
         {
-            this.status = status;
+            this.HttpStatus = status;
         }
 
         /// <summary>
@@ -108,7 +103,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// </param>
         private InvalidResponseException([NotNull] SerializationInfo info, StreamingContext context)
         {
-            this.status = (HttpStatusCode)info.GetValue("Status", typeof(HttpStatusCode));
+            this.HttpStatus = (HttpStatusCode)info.GetValue("Status", typeof(HttpStatusCode));
         }
 
         #endregion
@@ -119,7 +114,7 @@ namespace YAF.Core.Services.CheckForSpam
         ///   Gets the HTTP status returned by the service.
         /// </summary>
         /// <value>The HTTP status.</value>
-        public HttpStatusCode HttpStatus => this.status;
+        public HttpStatusCode HttpStatus { get; } = 0;
 
         #endregion
     }

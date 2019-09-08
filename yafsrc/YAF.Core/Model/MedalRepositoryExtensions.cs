@@ -76,69 +76,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Saves new or update existing group-medal allocation.
-        /// </summary>
-        /// <param name="groupID">
-        /// ID of user group.
-        /// </param>
-        /// <param name="medalID">
-        /// ID of medal.
-        /// </param>
-        /// <param name="message">
-        /// Medal message, to override medal's default one. Can be null.
-        /// </param>
-        /// <param name="hide">
-        /// Hide medal in user box.
-        /// </param>
-        /// <param name="onlyRibbon">
-        /// Show only ribbon bar in user box.
-        /// </param>
-        /// <param name="sortOrder">
-        /// Sort order in user box. Overrides medal's default sort order.
-        /// </param>
-        public static void GroupMedalSave(
-            this IRepository<Medal> repository,
-            [NotNull] object groupID,
-            [NotNull] object medalID,
-            [NotNull] object message,
-            [NotNull] object hide,
-            [NotNull] object onlyRibbon,
-            [NotNull] object sortOrder)
-        {
-            repository.DbFunction.Scalar.group_medal_save(GroupID: groupID,
-                MedalID: medalID,
-                Message: message,
-                Hide: hide,
-                OnlyRibbon: onlyRibbon,
-                SortOrder: sortOrder);
-        }
-
-        /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="medalID">
-        /// The medal id. 
-        /// </param>
-        /// <param name="category">
-        /// The category. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/> . 
-        /// </returns>
-        public static DataTable List(this IRepository<Medal> repository, int? medalID = null, string category = null, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.medal_list(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category);
-        }
-
-        /// <summary>
         /// The listusers.
         /// </summary>
         /// <param name="repository">

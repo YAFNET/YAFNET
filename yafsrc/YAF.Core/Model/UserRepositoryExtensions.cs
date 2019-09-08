@@ -67,28 +67,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Is User Thanked the current Message
-        /// </summary>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// If the User Thanked the the Current Message
-        /// </returns>
-        public static bool ThankedMessage(
-            this IRepository<User> repository,
-            [NotNull] int messageId,
-            [NotNull] int userId)
-        {
-            var thankCount = repository.DbFunction.Scalar.user_thankedmessage(MessageID: messageId, UserID: userId);
-
-            return thankCount > 0;
-        }
-
-        /// <summary>
         /// The user_activity_rank.
         /// </summary>
         /// <param name="boardId">
@@ -112,23 +90,6 @@ namespace YAF.Core.Model
                 BoardID: boardId,
                 StartDate: startDate,
                 DisplayNumber: displayNumber);
-        }
-
-        /// <summary>
-        /// The user_addignoreduser.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
-        public static void AddIgnoredUser(
-            this IRepository<User> repository,
-            [NotNull] int userId,
-            [NotNull] int ignoredUserId)
-        {
-            repository.DbFunction.Scalar.user_addignoreduser(UserId: userId, IgnoredUserId: ignoredUserId);
         }
 
         /// <summary>
@@ -172,13 +133,16 @@ namespace YAF.Core.Model
 
 
         /// <summary>
-        /// The user_adminsave.
+        /// Update the Admin User
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="name">
         /// The name.
@@ -198,21 +162,24 @@ namespace YAF.Core.Model
         public static void AdminSave(
             this IRepository<User> repository,
             [NotNull] int boardID,
-            [NotNull] int userID,
+            [NotNull] int userId,
             [NotNull] string name,
             [NotNull] string displayName,
             [NotNull] string email,
             [NotNull] int flags,
             [NotNull] int rankID)
         {
-            repository.DbFunction.Scalar.user_adminsave(
-                BoardID: boardID,
-                UserID: userID,
-                Name: name,
-                DisplayName: displayName,
-                Email: email,
-                Flags: flags,
-                RankID: rankID);
+            repository.UpdateOnly(
+                () => new User
+                          {
+                              BoardID = boardID,
+                              Name = name,
+                              DisplayName = displayName,
+                              Email = email,
+                              Flags = flags,
+                              RankID = rankID
+                          },
+                where: u => u.ID == userId);
         }
 
         /// <summary>
@@ -838,16 +805,25 @@ namespace YAF.Core.Model
                     stream.Read(data, 0, stream.Length.ToType<int>());
                 }
 
-                repository.DbFunction.Scalar.user_saveavatar(
-                    UserID: userID,
-                    Avatar: avatarUrl,
-                    AvatarImage: data,
-                    AvatarImageType: avatarImageType);
+                repository.UpdateOnly(
+                    () => new User
+                              {
+                                  Avatar = avatarUrl,
+                                  AvatarImage = data,
+                                  AvatarImageType = avatarImageType
+                              },
+                    u => u.ID == userID);
             }
             else
             {
-                repository.DbFunction.Scalar.user_saveavatar(UserID: userID,
-                    Avatar: avatarUrl);
+                repository.UpdateOnly(
+                    () => new User
+                              {
+                                  Avatar = avatarUrl,
+                                  AvatarImage = null,
+                                  AvatarImageType = null
+                              },
+                    u => u.ID == userID);
             }
         }
 

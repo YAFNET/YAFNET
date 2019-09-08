@@ -648,7 +648,7 @@ namespace ServiceStack.OrmLite
             if (propertyName != null)
                 return dialect.Column<Table>(propertyName, prefixTable);
 
-            throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
+            throw new ArgumentException($"Expected Lambda MemberExpression but received: {propertyExpression.Name}");
         }
 
         public static string Column<Table>(this ISqlExpression sqlExpression, string propertyName, bool prefixTable = false) =>

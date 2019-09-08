@@ -24,7 +24,7 @@ namespace ServiceStack.OrmLite
 
         public virtual string GetColumnName(string name) => name;
 
-        public virtual string GetSequenceName(string modelName, string fieldName) => "SEQ_" + modelName + "_" + fieldName;
+        public virtual string GetSequenceName(string modelName, string fieldName) => $"SEQ_{modelName}_{fieldName}";
 
         public virtual string ApplyNameRestrictions(string name) => name;
     }

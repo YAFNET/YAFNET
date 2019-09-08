@@ -1,13 +1,12 @@
-using System;
-using System.Data.Common;
-
-using YAF.Core.Data.Profiling;
-using YAF.Data.MsSql;
-using YAF.Types.Interfaces.Data;
-
 namespace YAF.Providers.Utils
 {
+    using System;
     using System.Collections.Concurrent;
+    using System.Data.Common;
+
+    using YAF.Core.Data.Profiling;
+    using YAF.Data.MsSql;
+    using YAF.Types.Interfaces.Data;
 
     public class BaseProviderDb
     {
@@ -24,7 +23,7 @@ namespace YAF.Providers.Utils
         {
             this._dbAccess = new Lazy<IDbAccess>(() =>
             {
-                var access = new MsSqlDbAccess((p) => DbProviderFactories.GetFactory(p), new QueryProfile());
+                var access = new MsSqlDbAccess(DbProviderFactories.GetFactory, new QueryProfile());
                 var old = access.Information.ConnectionString;
                 access.Information.ConnectionString = () =>
                 {

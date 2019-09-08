@@ -117,7 +117,7 @@ namespace YAF.Utils.Helpers
             {
                 if (path.StartsWith("~/"))
                 {
-                    path = "file://" + HttpRuntime.AppDomainAppPath + path.Substring(2, path.Length - 2);
+                    path = $"file://{HttpRuntime.AppDomainAppPath}{path.Substring(2, path.Length - 2)}";
                 }
 
                 var request = WebRequest.Create(new Uri(path));

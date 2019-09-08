@@ -95,7 +95,7 @@ namespace ServiceStack.Text.Common
             {
                 var pos = strType.IndexOf('"');
                 if (pos >= 0)
-                    strType = new StringSegment("{" + strType.Substring(pos, strType.Length - pos));
+                    strType = new StringSegment($"{{{strType.Substring(pos, strType.Length - pos)}");
             }
 
             var typeAttrInObject = Serializer.TypeAttrInObject;
@@ -111,7 +111,7 @@ namespace ServiceStack.Text.Common
 
                 if (type == null)
                 {
-                    Tracer.Instance.WriteWarning("Could not find type: " + typeName);
+                    Tracer.Instance.WriteWarning($"Could not find type: {typeName}");
                     return null;
                 }
 
@@ -135,7 +135,7 @@ namespace ServiceStack.Text.Common
                 }
 
                 Tracer.Instance.WriteWarning(
-                    "Could not deserialize Abstract Type with unknown concrete type: " + typeof(T).FullName);
+                    $"Could not deserialize Abstract Type with unknown concrete type: {typeof(T).FullName}");
             }
 
             return null;
@@ -233,7 +233,7 @@ namespace ServiceStack.Text.Common
             {
                 var pos = strType.IndexOf('"');
                 if (pos >= 0)
-                    strType = new StringSegment("{" + strType.Substring(pos));
+                    strType = new StringSegment($"{{{strType.Substring(pos)}");
             }
 
             var typeAttrInObject = Serializer.TypeAttrInObject;
@@ -245,7 +245,7 @@ namespace ServiceStack.Text.Common
                 var type = JsConfig.TypeFinder(typeName);
 
                 if (type == null)
-                    Tracer.Instance.WriteWarning("Could not find type: " + typeName);
+                    Tracer.Instance.WriteWarning($"Could not find type: {typeName}");
 
                 return type;
             }

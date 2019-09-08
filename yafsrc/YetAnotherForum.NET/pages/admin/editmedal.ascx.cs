@@ -79,7 +79,7 @@ namespace YAF.Pages.Admin
         /// </value>
         protected int? CurrentMedalId =>
             this.Request.QueryString.GetFirstOrDefault("medalid") != null
-                ? this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int?>()
+                ? this.Request.QueryString.GetFirstOrDefaultAs<int?>("medalid")
                 : null;
 
         #region Methods
@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
         /// </remarks>
         protected void AddGroupClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.GroupEditDialog.BindData(null, null);
+            this.GroupEditDialog.BindData(null, this.CurrentMedalId);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
@@ -111,7 +111,7 @@ namespace YAF.Pages.Admin
         /// </remarks>
         protected void AddUserClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.UserEditDialog.BindData(null, null);
+            this.UserEditDialog.BindData(null, this.CurrentMedalId);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
@@ -228,7 +228,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (!this.IsPostBack)
             {
                 // bind data
@@ -465,31 +465,24 @@ namespace YAF.Pages.Admin
                     this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
                 this.GroupList.DataBind();
 
-                using (var dt = this.GetRepository<Medal>().List(this.CurrentMedalId))
-                {
-                    // get data row
-                    var row = dt.Rows[0];
+                var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId);
 
-                    // load flags
-                    var flags = new MedalFlags(row["Flags"]);
+                // set controls
+                this.Name.Text = medal.Name;
+                this.Description.Text = medal.Description;
+                this.Message.Text = medal.Message;
+                this.Category.Text = medal.Category;
+                this.SortOrder.Text = medal.SortOrder.ToString();
+                this.ShowMessage.Checked = medal.MedalFlags.ShowMessage;
+                this.AllowRibbon.Checked = medal.MedalFlags.AllowRibbon;
+                this.AllowHiding.Checked = medal.MedalFlags.AllowHiding;
+                this.AllowReOrdering.Checked = medal.MedalFlags.AllowReOrdering;
 
-                    // set controls
-                    this.Name.Text = row["Name"].ToString();
-                    this.Description.Text = row["Description"].ToString();
-                    this.Message.Text = row["Message"].ToString();
-                    this.Category.Text = row["Category"].ToString();
-                    this.SortOrder.Text = row["SortOrder"].ToString();
-                    this.ShowMessage.Checked = flags.ShowMessage;
-                    this.AllowRibbon.Checked = flags.AllowRibbon;
-                    this.AllowHiding.Checked = flags.AllowHiding;
-                    this.AllowReOrdering.Checked = flags.AllowReOrdering;
-
-                    // select images
-                    this.SelectImage(this.MedalImage, this.MedalPreview, row["MedalURL"]);
-                    this.SelectImage(this.RibbonImage, this.RibbonPreview, row["RibbonURL"]);
-                    this.SelectImage(this.SmallMedalImage, this.SmallMedalPreview, row["SmallMedalURL"]);
-                    this.SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, row["SmallRibbonURL"]);
-                }
+                // select images
+                this.SelectImage(this.MedalImage, this.MedalPreview, medal.MedalURL);
+                this.SelectImage(this.RibbonImage, this.RibbonPreview, medal.RibbonURL);
+                this.SelectImage(this.SmallMedalImage, this.SmallMedalPreview, medal.SmallMedalURL);
+                this.SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, medal.SmallRibbonURL);
             }
             else
             {
@@ -520,23 +513,6 @@ namespace YAF.Pages.Admin
             {
                 return img.Size;
             }
-        }
-
-        /// <summary>
-        /// Select image in dropdown list and sets appropriate preview.
-        /// </summary>
-        /// <param name="list">
-        /// DropDownList where to search.
-        /// </param>
-        /// <param name="preview">
-        /// Preview image.
-        /// </param>
-        /// <param name="imageUrl">
-        /// URL to search for.
-        /// </param>
-        private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] object imageUrl)
-        {
-            this.SelectImage(list, preview, imageUrl.ToString());
         }
 
         /// <summary>

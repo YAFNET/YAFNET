@@ -161,9 +161,9 @@ namespace ServiceStack
         /// </summary>
         /// <param name="restrictToAny"></param>
         /// <returns></returns>
-        private static RequestAttributes[] ToAllowedFlagsSet(RequestAttributes[] restrictToAny)
+        private static RequestAttributes[] ToAllowedFlagsSet(IReadOnlyCollection<RequestAttributes> restrictToAny)
         {
-            if (restrictToAny.Length == 0)
+            if (restrictToAny.Count == 0)
                 return new[] { RequestAttributes.Any };
 
             var scenarios = new List<RequestAttributes>();

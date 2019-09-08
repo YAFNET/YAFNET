@@ -394,7 +394,7 @@ namespace YAF.Pages
             var feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(
                 toActText, string.Empty);
             feed = new YafSyndicationFeed(
-                this.GetText("MYTOPICS", "ACTIVETOPICS") + " - " + toActText,
+                $"{this.GetText("MYTOPICS", "ACTIVETOPICS")} - {toActText}",
                 feedType,
                 atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                 urlAlphaNum);

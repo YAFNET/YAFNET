@@ -9,7 +9,7 @@ namespace ServiceStack.OrmLite.SqlServer.Converters
 
         public override string ToQuotedString(Type fieldType, object value)
         {
-            return "0x" + BitConverter.ToString((byte[])value).Replace("-", "");
+            return $"0x{BitConverter.ToString((byte[])value).Replace("-", "")}";
         }
     }
 }

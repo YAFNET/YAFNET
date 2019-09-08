@@ -39,81 +39,6 @@ namespace YAF.Providers.Membership
   {
     #region Constants and Fields
 
-    /// <summary>
-    /// The _failed answer attempts.
-    /// </summary>
-    private int _failedAnswerAttempts;
-
-    /// <summary>
-    /// The _failed password attempts.
-    /// </summary>
-    private int _failedPasswordAttempts;
-
-    /// <summary>
-    /// The _hash case.
-    /// </summary>
-    private string _hashCase;
-
-    /// <summary>
-    /// The _hash hex.
-    /// </summary>
-    private bool _hashHex;
-
-    /// <summary>
-    /// The _hash remove chars.
-    /// </summary>
-    private string _hashRemoveChars;
-
-    /// <summary>
-    /// The _is approved.
-    /// </summary>
-    private bool _isApproved;
-
-    /// <summary>
-    /// The _last activity.
-    /// </summary>
-    private DateTime _lastActivity;
-
-    /// <summary>
-    /// The _last login.
-    /// </summary>
-    private DateTime _lastLogin;
-
-    /// <summary>
-    /// The _ms compliant.
-    /// </summary>
-    private bool _msCompliant;
-
-    /// <summary>
-    /// The _password.
-    /// </summary>
-    private string _password;
-
-    /// <summary>
-    /// The _password answer.
-    /// </summary>
-    private string _passwordAnswer;
-
-    /// <summary>
-    /// The _password format.
-    /// </summary>
-    private int _passwordFormat;
-
-    /// <summary>
-    /// The _password question.
-    /// </summary>
-    private string _passwordQuestion;
-
-    /// <summary>
-    /// The _password salt.
-    /// </summary>
-    private string _passwordSalt;
-
-    /// <summary>
-    /// The _use salt.
-    /// </summary>
-    private bool _useSalt;
-
     #endregion
 
     #region Constructors and Destructors
@@ -174,21 +99,21 @@ namespace YAF.Providers.Membership
       bool msCompliant)
     {
       // nothing to do except set the local variables...
-      this._password = password;
-      this._passwordSalt = passwordSalt;
-      this._passwordQuestion = passwordQuestion;
-      this._passwordAnswer = passwordAnswer;
-      this._passwordFormat = passwordFormat;
-      this._failedPasswordAttempts = failedPasswordAttempts;
-      this._failedAnswerAttempts = failedAnswerAttempts;
-      this._isApproved = isApproved;
-      this._lastLogin = lastLogin;
-      this._lastActivity = lastActivity;
-      this._useSalt = useSalt;
-      this._hashHex = hashHex;
-      this._hashCase = hashCase;
-      this._hashRemoveChars = hashRemoveChars;
-      this._msCompliant = msCompliant;
+      this.Password = password;
+      this.PasswordSalt = passwordSalt;
+      this.PasswordQuestion = passwordQuestion;
+      this.PasswordAnswer = passwordAnswer;
+      this.PasswordFormat = passwordFormat;
+      this.FailedPasswordAttempts = failedPasswordAttempts;
+      this.FailedAnswerAttempts = failedAnswerAttempts;
+      this.IsApproved = isApproved;
+      this.LastLogin = lastLogin;
+      this.LastActivity = lastActivity;
+      this.UseSalt = useSalt;
+      this.HashHex = hashHex;
+      this.hashCase = hashCase;
+      this.hashRemoveChars = hashRemoveChars;
+      this.msCompliant = msCompliant;
     }
 
     #endregion
@@ -199,77 +124,77 @@ namespace YAF.Providers.Membership
     /// <summary>
     /// Gets FailedAnswerAttempts.
     /// </summary>
-    public int FailedAnswerAttempts => this._failedAnswerAttempts;
+    public int FailedAnswerAttempts { get; }
 
     /// <summary>
     /// Gets FailedPasswordAttempts.
     /// </summary>
-    public int FailedPasswordAttempts => this._failedPasswordAttempts;
+    public int FailedPasswordAttempts { get; }
 
     /// <summary>
     /// Gets hashCase.
     /// </summary>
-    public string hashCase => this._hashCase;
+    public string hashCase { get; }
 
     /// <summary>
     /// Gets a value indicating whether HashHex.
     /// </summary>
-    public bool HashHex => this._hashHex;
+    public bool HashHex { get; }
 
     /// <summary>
     /// Gets hashRemoveChars.
     /// </summary>
-    public string hashRemoveChars => this._hashRemoveChars;
+    public string hashRemoveChars { get; }
 
     /// <summary>
     /// Gets a value indicating whether IsApproved.
     /// </summary>
-    public bool IsApproved => this._isApproved;
+    public bool IsApproved { get; }
 
     /// <summary>
     /// Gets LastActivity.
     /// </summary>
-    public DateTime LastActivity => this._lastActivity;
+    public DateTime LastActivity { get; }
 
     /// <summary>
     /// Gets LastLogin.
     /// </summary>
-    public DateTime LastLogin => this._lastLogin;
+    public DateTime LastLogin { get; }
 
     /// <summary>
     /// Gets a value indicating whether msCompliant.
     /// </summary>
-    public bool msCompliant => this._msCompliant;
+    public bool msCompliant { get; }
 
     /// <summary>
     /// Gets Password.
     /// </summary>
-    public string Password => this._password;
+    public string Password { get; }
 
     /// <summary>
     /// Gets PasswordAnswer.
     /// </summary>
-    public string PasswordAnswer => this._passwordAnswer;
+    public string PasswordAnswer { get; }
 
     /// <summary>
     /// Gets PasswordFormat.
     /// </summary>
-    public int PasswordFormat => this._passwordFormat;
+    public int PasswordFormat { get; }
 
     /// <summary>
     /// Gets PasswordQuestion.
     /// </summary>
-    public string PasswordQuestion => this._passwordQuestion;
+    public string PasswordQuestion { get; }
 
     /// <summary>
     /// Gets PasswordSalt.
     /// </summary>
-    public string PasswordSalt => this._passwordSalt;
+    public string PasswordSalt { get; }
 
     /// <summary>
     /// Gets a value indicating whether UseSalt.
     /// </summary>
-    public bool UseSalt => this._useSalt;
+    public bool UseSalt { get; }
 
     #endregion
 

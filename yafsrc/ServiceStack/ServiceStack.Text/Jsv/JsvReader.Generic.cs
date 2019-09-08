@@ -95,8 +95,7 @@ namespace ServiceStack.Text.Jsv
             {
                 if (typeof(T).IsInterface)
                 {
-                    throw new NotSupportedException("Can not deserialize interface type: "
-                        + typeof(T).Name);
+                    throw new NotSupportedException($"Can not deserialize interface type: {typeof(T).Name}");
                 }
 
                 Refresh();

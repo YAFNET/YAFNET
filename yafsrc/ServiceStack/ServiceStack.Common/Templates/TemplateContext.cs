@@ -107,7 +107,7 @@ namespace ServiceStack.Templates
 
         public void TryGetPage(string fromVirtualPath, string virtualPath, out TemplatePage page, out TemplateCodePage codePage)
         {
-            var pathMapKey = nameof(TryGetPage) + ">" + fromVirtualPath;
+            var pathMapKey = $"{nameof(this.TryGetPage)}>{fromVirtualPath}";
             var mappedPath = GetPathMapping(pathMapKey, virtualPath);
             if (mappedPath != null)
             {
@@ -200,7 +200,7 @@ namespace ServiceStack.Templates
         public string SetPathMapping(string prefix, string mapPath, string toPath) 
         {
             if (!DebugMode && toPath != null && mapPath != toPath)
-                PathMappings[prefix + ">" + mapPath] = toPath;
+                PathMappings[$"{prefix}>{mapPath}"] = toPath;
 
             return toPath;
         }
@@ -211,7 +211,7 @@ namespace ServiceStack.Templates
                 return;
 
             if (mapPath != null)
-                PathMappings.TryRemove(prefix + ">" + mapPath, out _);
+                PathMappings.TryRemove($"{prefix}>{mapPath}", out _);
         }
 
         public string GetPathMapping(string prefix, string key)
@@ -219,7 +219,7 @@ namespace ServiceStack.Templates
             if (DebugMode)
                 return null;
 
-            if (PathMappings.TryGetValue(prefix + ">" + key, out var mappedPath))
+            if (PathMappings.TryGetValue($"{prefix}>{key}", out var mappedPath))
                 return mappedPath;
 
             return null;
@@ -352,7 +352,7 @@ namespace ServiceStack.Templates
             if (expression.IsNullOrWhiteSpace())
                 throw new ArgumentNullException(nameof(expression));
 
-            var key = targetType.FullName + ':' + expression;
+            var key = $"{targetType.FullName}{':'}{expression}";
 
             if (BinderCache.TryGetValue(key, out var fn))
                 return fn;
@@ -369,7 +369,7 @@ namespace ServiceStack.Templates
             if (expression.IsNullOrWhiteSpace())
                 throw new ArgumentNullException(nameof(expression));
 
-            var key = targetType.FullName + ':' + expression;
+            var key = $"{targetType.FullName}{':'}{expression}";
 
             if (AssignExpressionCache.TryGetValue(key, out var fn))
                 return fn;

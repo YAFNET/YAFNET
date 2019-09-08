@@ -48,11 +48,6 @@ namespace YAF.Pages
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The _view.
-        /// </summary>
-        private PmView view;
-
         #endregion
 
         #region Constructors and Destructors
@@ -72,7 +67,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets View.
         /// </summary>
-        protected PmView View => this.view;
+        protected PmView View { get; private set; }
 
         #endregion
 
@@ -114,9 +109,9 @@ namespace YAF.Pages
 
             if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
             {
-                this.view = PmViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
+                this.View = PmViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
 
-                this.hidLastTab.Value = $"View{(int)this.view}";
+                this.hidLastTab.Value = $"View{(int)this.View}";
             }
 
             this.PageLinks.AddRoot();
@@ -127,9 +122,6 @@ namespace YAF.Pages
                 YafBuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"));
 
-            // InboxTab.HeaderText = GetText("INBOX");
-            // OutboxTab.HeaderText = GetText("SENTITEMS");
-            // ArchiveTab.HeaderText = GetText("ARCHIVE");
             this.NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage);
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
         }

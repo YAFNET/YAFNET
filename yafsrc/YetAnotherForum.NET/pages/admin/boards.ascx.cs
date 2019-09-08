@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -110,7 +111,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.List.DataSource = this.GetRepository<Board>().List();
+            this.List.DataSource = this.GetRepository<Board>().GetAll();
             this.DataBind();
         }
 

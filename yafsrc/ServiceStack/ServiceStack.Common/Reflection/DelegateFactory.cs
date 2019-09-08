@@ -35,7 +35,7 @@ namespace ServiceStack.Reflection
             return lambda.Compile();
         }
 
-        private static Expression[] CreateParameterExpressions(MethodInfo method, Expression argumentsParameter)
+        private static UnaryExpression[] CreateParameterExpressions(MethodInfo method, Expression argumentsParameter)
         {
             return method.GetParameters().Select((parameter, index) =>
                 Expression.Convert(

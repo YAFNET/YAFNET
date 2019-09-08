@@ -47,31 +47,11 @@ namespace YAF.Utils
     /// </summary>
     private readonly Random random;
 
-    /// <summary>
-    ///   The text.
-    /// </summary>
-    private readonly string text;
-
     // Public properties (all read-only).
     /// <summary>
     ///   The family name.
     /// </summary>
     private string familyName;
-
-    /// <summary>
-    ///   The height.
-    /// </summary>
-    private int height;
-
-    /// <summary>
-    ///   The image.
-    /// </summary>
-    private Bitmap image;
-
-    /// <summary>
-    ///   The width.
-    /// </summary>
-    private int width;
 
     #endregion
 
@@ -121,7 +101,7 @@ namespace YAF.Utils
     /// </param>
     public CaptchaImage([NotNull] string s, int width, int height, [NotNull] string familyName)
     {
-      this.text = s;
+      this.Text = s;
       this.random = new Random((int)DateTime.Now.Ticks);
       this.SetDimensions(width, height);
       this.SetFamilyName(familyName);
@@ -135,22 +115,22 @@ namespace YAF.Utils
     /// <summary>
     ///   Gets Height.
     /// </summary>
-    public int Height => this.height;
+    public int Height { get; private set; }
 
     /// <summary>
     ///   Gets Image.
     /// </summary>
-    public Bitmap Image => this.image;
+    public Bitmap Image { get; private set; }
 
     /// <summary>
     ///   Gets Text.
     /// </summary>
-    public string Text => this.text;
+    public string Text { get; }
 
     /// <summary>
     ///   Gets Width.
     /// </summary>
-    public int Width => this.width;
+    public int Width { get; private set; }
 
     #endregion
 
@@ -164,7 +144,7 @@ namespace YAF.Utils
     void IDisposable.Dispose()
     {
       GC.SuppressFinalize(this);
-      this.image.Dispose();
+      this.Image.Dispose();
     }
 
     #endregion
@@ -181,12 +161,12 @@ namespace YAF.Utils
       var r = new Random();
 
       // Create a new 32-bit bitmap image.
-      var bitmap = new Bitmap(this.width, this.height, PixelFormat.Format32bppArgb);
+      var bitmap = new Bitmap(this.Width, this.Height, PixelFormat.Format32bppArgb);
 
       // Create a graphics object for drawing.
       var g = Graphics.FromImage(bitmap);
       g.SmoothingMode = SmoothingMode.AntiAlias;
-      var rect = new Rectangle(0, 0, this.width, this.height);
+      var rect = new Rectangle(0, 0, this.Width, this.Height);
 
       var randomLineColor = this.random.Next(40) + 200;
 
@@ -205,18 +185,16 @@ namespace YAF.Utils
       {
         fontSize--;
         font = new Font(this.familyName, fontSize, FontStyle.Bold);
-        size = g.MeasureString(this.text, font);
+        size = g.MeasureString(this.Text, font);
       }
       while (size.Width > rect.Width);
 
       // Set up the text format.
-      var format = new StringFormat();
-      format.Alignment = StringAlignment.Center;
-      format.LineAlignment = StringAlignment.Center;
+      var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
       // Create a path using the text and warp it randomly.
       var path = new GraphicsPath();
-      path.AddString(this.text, font.FontFamily, (int)font.Style, font.Size, rect, format);
+      path.AddString(this.Text, font.FontFamily, (int)font.Style, font.Size, rect, format);
       var v = 4F;
       PointF[] points = {
                           new PointF(r.Next(rect.Width) / v, r.Next(rect.Height) / v), 
@@ -289,7 +267,7 @@ namespace YAF.Utils
       g.Dispose();
 
       // Set the image.
-      this.image = bitmap;
+      this.Image = bitmap;
     }
 
     // ====================================================================
@@ -319,8 +297,8 @@ namespace YAF.Utils
         throw new ArgumentOutOfRangeException("height", height, "Argument out of range, must be greater than zero.");
       }
 
-      this.width = width;
-      this.height = height;
+      this.Width = width;
+      this.Height = height;
     }
 
     // ====================================================================

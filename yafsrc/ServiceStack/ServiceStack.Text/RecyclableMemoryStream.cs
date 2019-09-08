@@ -112,7 +112,6 @@ namespace ServiceStack.Text
         public const int DefaultLargeBufferMultiple = 1024 * 1024;
         public const int DefaultMaximumBufferSize = 128 * 1024 * 1024;
 
-        private readonly int blockSize;
         private readonly long[] largeBufferFreeSize;
         private readonly long[] largeBufferInUseSize;
 
@@ -164,7 +163,7 @@ namespace ServiceStack.Text
                                                       "maximumBufferSize must be at least blockSize");
             }
 
-            this.blockSize = blockSize;
+            this.BlockSize = blockSize;
             this.largeBufferMultiple = largeBufferMultiple;
             this.MaximumBufferSize = maximumBufferSize;
 
@@ -194,7 +193,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The size of each block. It must be set at creation and cannot be changed.
         /// </summary>
-        public int BlockSize => this.blockSize;
+        public int BlockSize { get; }
 
         /// <summary>
         /// All buffers are multiples of this number. It must be set at creation and cannot be changed.
@@ -392,8 +391,7 @@ namespace ServiceStack.Text
             if (!this.IsLargeBufferMultiple(buffer.Length))
             {
                 throw new ArgumentException(
-                    "buffer did not originate from this memory manager. The size is not a multiple of " +
-                    this.LargeBufferMultiple);
+                    $"buffer did not originate from this memory manager. The size is not a multiple of {this.LargeBufferMultiple}");
             }
 
             var poolIndex = buffer.Length / this.largeBufferMultiple - 1;
@@ -714,7 +712,6 @@ namespace ServiceStack.Text
         private bool disposed;
 
         private readonly string allocationStack;
-        private string disposeStack;
 
         /// <summary>
         /// Callstack of the constructor. It is only set if MemoryManager.GenerateCallStacks is true,
@@ -726,7 +723,7 @@ namespace ServiceStack.Text
         /// Callstack of the Dispose call. It is only set if MemoryManager.GenerateCallStacks is true,
         /// which should only be in debugging situations.
         /// </summary>
-        internal string DisposeStack => this.disposeStack;
+        internal string DisposeStack { get; private set; }
 
         /// <summary>
         /// This buffer exists so that WriteByte can forward all of its calls to Write
@@ -834,7 +831,7 @@ namespace ServiceStack.Text
                     this.id,
                     this.tag,
                     this.allocationStack,
-                    this.disposeStack,
+                    this.DisposeStack,
                     doubleDisposeStack);
                 return;
             }
@@ -843,7 +840,7 @@ namespace ServiceStack.Text
 
             if (this.memoryManager.GenerateCallStacks)
             {
-                this.disposeStack = PclExport.Instance.GetStackTrace();
+                this.DisposeStack = PclExport.Instance.GetStackTrace();
             }
 
             if (disposing)
@@ -978,7 +975,7 @@ namespace ServiceStack.Text
 
                 if (value > MaxStreamLength)
                 {
-                    throw new ArgumentOutOfRangeException("value", "value cannot be more than " + MaxStreamLength);
+                    throw new ArgumentOutOfRangeException("value", $"value cannot be more than {MaxStreamLength}");
                 }
 
                 this.position = (int)value;
@@ -1253,7 +1250,8 @@ namespace ServiceStack.Text
             this.CheckDisposed();
             if (value < 0 || value > MaxStreamLength)
             {
-                throw new ArgumentOutOfRangeException("value", "value must be non-negative and at most " + MaxStreamLength);
+                throw new ArgumentOutOfRangeException("value",
+                    $"value must be non-negative and at most {MaxStreamLength}");
             }
 
             this.EnsureCapacity((int)value);
@@ -1280,7 +1278,7 @@ namespace ServiceStack.Text
             this.CheckDisposed();
             if (offset > MaxStreamLength)
             {
-                throw new ArgumentOutOfRangeException("offset", "offset cannot be larger than " + MaxStreamLength);
+                throw new ArgumentOutOfRangeException("offset", $"offset cannot be larger than {MaxStreamLength}");
             }
 
             int newPosition;
@@ -1410,7 +1408,8 @@ namespace ServiceStack.Text
             if (newCapacity > this.memoryManager.MaximumStreamCapacity && this.memoryManager.MaximumStreamCapacity > 0)
             {
                 Events.Write.MemoryStreamOverCapacity(newCapacity, this.memoryManager.MaximumStreamCapacity, this.tag, this.allocationStack);
-                throw new InvalidOperationException("Requested capacity is too large: " + newCapacity + ". Limit is " + this.memoryManager.MaximumStreamCapacity);
+                throw new InvalidOperationException(
+                    $"Requested capacity is too large: {newCapacity}. Limit is {this.memoryManager.MaximumStreamCapacity}");
             }
 
             if (this.largeBuffer != null)

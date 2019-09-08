@@ -379,8 +379,7 @@ namespace YAF.Pages.Admin
                         var resourceTagAttributeValue = resourceItem.GetAttribute("tag", string.Empty);
 
                         var iteratorSe = navDst.Select(
-                            "/Resources/page[@name=\"" + pageNameAttributeValue + "\"]/Resource[@tag=\""
-                            + resourceTagAttributeValue + "\"]");
+                            $"/Resources/page[@name=\"{pageNameAttributeValue}\"]/Resource[@tag=\"{resourceTagAttributeValue}\"]");
 
                         if (iteratorSe.Count <= 0)
                         {

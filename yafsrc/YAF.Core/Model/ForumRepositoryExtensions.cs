@@ -481,9 +481,12 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            if (forumId.Value == 0)
+            if (forumId.HasValue)
             {
-                forumId = null;
+                if (forumId.Value == 0)
+                {
+                    forumId = null;
+                }
             }
 
             if (forumId.HasValue)
@@ -546,7 +549,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumID)
         {
-            if (!(repository.DbFunction.GetData.forum_listSubForums(ForumID: forumID) is DBNull))
+            if (YafContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumID) > 0)
             {
                 return false;
             }
@@ -575,7 +578,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Move(this IRepository<Forum> repository, [NotNull] int forumOldID, [NotNull] int forumNewID)
         {
-            if (!(repository.DbFunction.GetData.forum_listSubForums(ForumID: forumOldID) is DBNull))
+            if (YafContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumOldID) > 0)
             {
                 return false;
             }
@@ -782,7 +785,7 @@ namespace YAF.Core.Model
             int parentID,
             int categoryID,
             int startingIndent,
-            [NotNull] int[] forumIdExclusions,
+            [NotNull] IReadOnlyCollection<int> forumIdExclusions,
             bool emptyFirstRow)
         {
             var listDestination = new DataTable { TableName = "forum_sort_list" };
@@ -801,7 +804,7 @@ namespace YAF.Core.Model
             // filter the forum list
             var dv = listSource.DefaultView;
 
-            if (forumIdExclusions != null && forumIdExclusions.Length > 0)
+            if (forumIdExclusions != null && forumIdExclusions.Count > 0)
             {
                 dv.RowFilter = $"ForumID NOT IN ({forumIdExclusions.ToDelimitedString(",")})";
                 dv.ApplyDefaultSort = true;

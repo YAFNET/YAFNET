@@ -156,7 +156,7 @@ namespace ServiceStack
         {
             var formatStr = format.ToString().ToLowerInvariant();
             if (format == Format.ProtoBuf || format == Format.MsgPack)
-                return "x-" + formatStr;
+                return $"x-{formatStr}";
             return formatStr;
         }
 

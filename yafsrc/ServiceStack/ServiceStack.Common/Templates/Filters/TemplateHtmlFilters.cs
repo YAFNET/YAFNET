@@ -423,17 +423,12 @@ namespace ServiceStack.Templates
         {
             var scopedParams = attrs ?? TypeConstants.EmptyObjectDictionary;
             
-            var innerHtml = scopedParams.TryGetValue("html", out var oInnerHtml)
-                ? oInnerHtml?.ToString()
-                : null;
+            var innerHtml = (scopedParams.TryGetValue("html", out var oInnerHtml)
+                                 ? oInnerHtml?.ToString()
+                                 : null) ?? (scopedParams.TryGetValue("text", out var text)
+                                                 ? text?.ToString().HtmlEncode()
+                                                 : null);
 
-            if (innerHtml == null)
-            {
-                innerHtml = scopedParams.TryGetValue("text", out var text)
-                    ? text?.ToString().HtmlEncode()
-                    : null;
-            }
-            
             var attrString = htmlAttrs(attrs);            
             return VoidElements.Contains(tag)
                 ? $"<{tag}{attrString}>".ToRawString()

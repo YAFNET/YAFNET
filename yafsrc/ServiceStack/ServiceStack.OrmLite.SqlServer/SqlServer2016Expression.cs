@@ -42,10 +42,10 @@ namespace ServiceStack.OrmLite.SqlServer
                     break;
                 case nameof(Sql.AllFields):
                     var argDef = m.Arguments[0].Type.GetModelMetadata();
-                    statement = DialectProvider.GetQuotedTableName(argDef) + ".*";
+                    statement = $"{this.DialectProvider.GetQuotedTableName(argDef)}.*";
                     break;
                 case nameof(Sql.JoinAlias):
-                    statement = args[0] + "." + quotedColName.ToString().LastRightPart('.');
+                    statement = $"{args[0]}.{quotedColName.ToString().LastRightPart('.')}";
                     break;
                 case nameof(Sql.Custom):
                     statement = quotedColName.ToString();

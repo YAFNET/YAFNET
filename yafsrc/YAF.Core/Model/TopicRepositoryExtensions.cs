@@ -95,7 +95,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var topic = repository.GetSingle(t => t.ID == topicId);
+            var topic = repository.GetById(topicId);
 
             return topic?.AnswerMessageId;
         }

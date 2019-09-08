@@ -59,7 +59,8 @@ namespace YAF.Dialogs
             {
                 this.PageContext.AddLoadMessage(
                     message: string.Format(
-                        format: this.GetText(page: "ADMIN_REPLACEWORDS_IMPORT", tag: "MSG_IMPORTED_FAILEDX"), arg0: "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
+                        format: this.GetText(page: "ADMIN_REPLACEWORDS_IMPORT", tag: "MSG_IMPORTED_FAILEDX"), arg0:
+                        $"Invalid upload format specified: {this.importFile.PostedFile.ContentType}"));
 
                 return;
             }

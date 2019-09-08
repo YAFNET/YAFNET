@@ -595,43 +595,40 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImg,
-                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:${width}px;max-height:${height}px;\" />",
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
                         new[]
                             {
-                                "http", "width", "height"
+                                "http", "height"
                             },
                         new[]
                             {
-                                "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxWidth.ToString(),
-                                this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
+                                "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
                             }) { RuleRank = 70 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgEmptyTitle,
-                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:${width}px;max-height:${height}px;\" />",
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
                         new[]
                             {
-                                "http", "width", "height"
+                                "http", "height"
                             },
                         new[]
                             {
-                                "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxWidth.ToString(),
-                                this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
+                                "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
                             }) { RuleRank = 71 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
-                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" style=\"max-width:${width}px;max-height:${height}px;\" />",
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
                         new[]
                             {
-                                "http", "description", "width", "height"
+                                "http", "description", "height"
                             },
                         new[]
                             {
-                                "http://", string.Empty, this.Get<YafBoardSettings>().ImageThumbnailMaxWidth.ToString(),
-                                this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
+                                "http://", string.Empty, this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
                             }) { RuleRank = 72 });
 
                 // basic hr and br rules

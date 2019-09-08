@@ -124,8 +124,8 @@ namespace ServiceStack.OrmLite
 
         public bool IsSelfRefField(string name)
         {
-            return this.Alias != null && this.Alias + "Id" == name
-                    || Name + "Id" == name;
+            return this.Alias != null && $"{this.Alias}Id" == name
+                    || $"{this.Name}Id" == name;
         }
 
         public FieldDefinition Clone(Action<FieldDefinition> modifier = null)
@@ -190,11 +190,11 @@ namespace ServiceStack.OrmLite
             if (ForeignKeyName.IsNullOrEmpty())
             {
                 var modelName = modelDef.IsInSchema
-                    ? modelDef.Schema + "_" + NamingStrategy.GetTableName(modelDef.ModelName)
+                    ? $"{modelDef.Schema}_{NamingStrategy.GetTableName(modelDef.ModelName)}"
                     : NamingStrategy.GetTableName(modelDef.ModelName);
 
                 var refModelName = refModelDef.IsInSchema
-                    ? refModelDef.Schema + "_" + NamingStrategy.GetTableName(refModelDef.ModelName)
+                    ? $"{refModelDef.Schema}_{NamingStrategy.GetTableName(refModelDef.ModelName)}"
                     : NamingStrategy.GetTableName(refModelDef.ModelName);
 
                 var fkName = $"FK_{modelName}_{refModelName}_{fieldDef.FieldName}";

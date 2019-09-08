@@ -139,12 +139,7 @@ namespace ServiceStack.ExpressionUtil
                     // model => model
 
                     // don't need to lock, as all identity funcs are identical
-                    if (_identityFunc == null)
-                    {
-                        _identityFunc = expr.Compile();
-                    }
-
-                    return _identityFunc;
+                    return _identityFunc ?? (_identityFunc = expr.Compile());
                 }
 
                 return null;
@@ -152,8 +147,7 @@ namespace ServiceStack.ExpressionUtil
 
             private static Func<TIn, TOut> CompileFromFingerprint(Expression<Func<TIn, TOut>> expr)
             {
-                List<object> capturedConstants;
-                var fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out capturedConstants);
+                var fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out var capturedConstants);
 
                 if (fingerprint != null)
                 {

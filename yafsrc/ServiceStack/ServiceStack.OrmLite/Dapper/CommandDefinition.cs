@@ -145,7 +145,7 @@ namespace ServiceStack.OrmLite.Dapper
             action = null;
             if (bindByName != null || initialLongFetchSize != null)
             {
-                var method = new DynamicMethod(commandType.Name + "_init", null, new Type[] { typeof(IDbCommand) });
+                var method = new DynamicMethod($"{commandType.Name}_init", null, new Type[] { typeof(IDbCommand) });
                 var il = method.GetILGenerator();
 
                 if (bindByName != null)

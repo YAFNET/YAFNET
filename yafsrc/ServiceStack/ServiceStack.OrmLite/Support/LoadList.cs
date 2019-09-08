@@ -46,10 +46,8 @@ namespace ServiceStack.OrmLite.Support
 
         protected string GetRefListSql(ModelDefinition refModelDef, FieldDefinition refField)
         {
-            var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
-                         $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
-                         $"WHERE {dialectProvider.GetQuotedColumnName(refField)} " +
-                         $"IN ({subSql})";
+            var sqlRef =
+                $"SELECT {this.dialectProvider.GetColumnNames(refModelDef)} FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} WHERE {this.dialectProvider.GetQuotedColumnName(refField)} IN ({this.subSql})";
 
             return sqlRef;
         }
@@ -89,20 +87,16 @@ namespace ServiceStack.OrmLite.Support
 
             var subSqlRef = refQ.ToMergedParamsSelectStatement();
 
-            var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
-                         $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
-                         $"WHERE {dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey)} " +
-                         $"IN ({subSqlRef})";
+            var sqlRef =
+                $"SELECT {this.dialectProvider.GetColumnNames(refModelDef)} FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} WHERE {this.dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey)} IN ({subSqlRef})";
 
             return sqlRef;
         }
 
         protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField)
         {
-            var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
-                         $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
-                         $"WHERE {dialectProvider.GetQuotedColumnName(refField)} " +
-                         $"IN ({subSql})";
+            var sqlRef =
+                $"SELECT {this.dialectProvider.GetColumnNames(refModelDef)} FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} WHERE {this.dialectProvider.GetQuotedColumnName(refField)} IN ({this.subSql})";
             return sqlRef;
         }
 

@@ -99,7 +99,7 @@
                                      Icon="eye" Type="Secondary" />
                         <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" 
                                      TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
-                                     CommandName="ViewHistory" CommandArgument='<%# this.PageContext.PageForumID + "," + this.Eval("MessageID") %>'
+                                     CommandName="ViewHistory" CommandArgument='<%# $"{this.PageContext.PageForumID},{this.Eval("MessageID")}" %>'
                                      Icon="history" Type="Secondary" />
                     </div>
                 </div>

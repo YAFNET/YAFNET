@@ -160,7 +160,7 @@ namespace ServiceStack.OrmLite
 
             for (var i = 0; i < reader.FieldCount; i++)
             {
-                var itemName = "Item" + (i + 1);
+                var itemName = $"Item{(i + 1)}";
                 var field = typeFields.GetAccessor(itemName);
                 if (field == null) break;
 
@@ -479,7 +479,7 @@ namespace ServiceStack.OrmLite
 
             var match = VerifyFragmentRegEx.Match(fragmentToVerify);
             if (match.Success)
-                throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+                throw new ArgumentException($"Potential illegal fragment detected: {sqlFragment}");
 
             return sqlFragment;
         }
@@ -505,7 +505,7 @@ namespace ServiceStack.OrmLite
             foreach (var illegalFragment in illegalFragments)
             {
                 if (fragmentToVerify.IndexOf(illegalFragment, StringComparison.Ordinal) >= 0)
-                    throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+                    throw new ArgumentException($"Potential illegal fragment detected: {sqlFragment}");
             }
 
             return sqlFragment;
@@ -578,7 +578,7 @@ namespace ServiceStack.OrmLite
             {
                 if (sb.Length > 0)
                     sb.Append(',');
-                var paramName = dialect.ParamString + "v" + i;
+                var paramName = $"{dialect.ParamString}v{i}";
                 sb.Append(paramName);
             }
 
@@ -801,11 +801,11 @@ namespace ServiceStack.OrmLite
                 var parts = token.SplitOnLast('.');
                 if (parts.Length > 1)
                 {
-                    sb.Append(" " + parts[parts.Length - 1]);
+                    sb.Append($" {parts[parts.Length - 1]}");
                 }
                 else
                 {
-                    sb.Append(" " + token);
+                    sb.Append($" {token}");
                 }
             }
 

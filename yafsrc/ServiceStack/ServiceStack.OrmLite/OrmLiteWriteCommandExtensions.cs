@@ -194,7 +194,7 @@ namespace ServiceStack.OrmLite
                     {
                         dbCmd.ExecuteSql(dropTableFks);
                     }
-                    dbCmd.ExecuteSql("DROP TABLE " + dialectProvider.GetQuotedTableName(modelDef));
+                    dbCmd.ExecuteSql($"DROP TABLE {dialectProvider.GetQuotedTableName(modelDef)}");
 
                     if (modelDef.PostDropTableSql != null)
                     {
@@ -534,8 +534,8 @@ namespace ServiceStack.OrmLite
             var dialectProvider = dbCmd.GetDialectProvider();
             var idParamString = dialectProvider.GetParam();
 
-            var sql = $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                      $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParamString}";
+            var sql =
+                $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParamString}";
 
             var idParam = dbCmd.CreateParameter();
             idParam.ParameterName = idParamString;
@@ -575,9 +575,8 @@ namespace ServiceStack.OrmLite
             rowVersionParam.Value = rowVersion;
             dbCmd.Parameters.Add(rowVersionParam);
 
-            var sql = $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                      $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParam.ParameterName} " +
-                      $"AND {dialectProvider.GetQuotedColumnName(rowVersionField.FieldName)} = {rowVersionParam.ParameterName}";
+            var sql =
+                $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParam.ParameterName} AND {dialectProvider.GetQuotedColumnName(rowVersionField.FieldName)} = {rowVersionParam.ParameterName}";
 
             return sql;
         }
@@ -597,8 +596,8 @@ namespace ServiceStack.OrmLite
         {
             var modelDef = ModelDefinition<T>.Definition;
 
-            var sql = $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                      $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} IN ({sqlIn})";
+            var sql =
+                $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} IN ({sqlIn})";
             return sql;
         }
 
@@ -978,9 +977,8 @@ namespace ServiceStack.OrmLite
             var dialectProvider = dbCmd.GetDialectProvider();
             var idParamString = dialectProvider.GetParam();
 
-            var sql = $"SELECT {dialectProvider.GetRowVersionColumnName(modelDef.RowVersion)} " +
-                      $"FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                      $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParamString}";
+            var sql =
+                $"SELECT {dialectProvider.GetRowVersionColumnName(modelDef.RowVersion)} FROM {dialectProvider.GetQuotedTableName(modelDef)} WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParamString}";
 
             dbCmd.Parameters.Clear();
             var idParam = dbCmd.CreateParameter();

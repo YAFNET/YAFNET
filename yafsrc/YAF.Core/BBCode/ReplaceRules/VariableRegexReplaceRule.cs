@@ -244,7 +244,7 @@ namespace YAF.Core.BBCode.ReplaceRules
             tValue = this._variableDefaults[i];
           }
 
-          innerReplace.Replace("${" + varName + "}", this.ManageVariableValue(varName, tValue, handlingValue));
+          innerReplace.Replace($"${{{varName}}}", this.ManageVariableValue(varName, tValue, handlingValue));
           i++;
         }
 

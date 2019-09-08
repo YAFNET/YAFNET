@@ -62,7 +62,6 @@ namespace YAF.Pages
         public profile()
             : base("PROFILE")
         {
-            this.AllowAsPopup = true;
         }
 
         #endregion
@@ -152,7 +151,7 @@ namespace YAF.Pages
                 var link = linkUrl.Replace("\"", string.Empty);
                 if (!link.ToLower().StartsWith("http"))
                 {
-                    link = "http://" + link;
+                    link = $"http://{link}";
                 }
 
                 thisButton.NavigateUrl = link;

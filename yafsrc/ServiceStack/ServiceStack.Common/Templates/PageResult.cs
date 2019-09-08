@@ -239,7 +239,7 @@ namespace ServiceStack.Templates
 
             if (!NoLayout && LayoutPage != null)
             {
-                stackTrace.Push("Layout: " + LayoutPage.VirtualPath);
+                stackTrace.Push($"Layout: {this.LayoutPage.VirtualPath}");
                 
                 foreach (var fragment in LayoutPage.PageFragments)
                 {
@@ -400,7 +400,7 @@ namespace ServiceStack.Templates
         {
             await page.Init(); //reload modified changes if needed
 
-            stackTrace.Push("Page: " + page.VirtualPath);
+            stackTrace.Push($"Page: {page.VirtualPath}");
             
             foreach (var fragment in page.PageFragments)
             {
@@ -467,7 +467,7 @@ namespace ServiceStack.Templates
                 if (instance is List<object> l)
                     return l.ToJsv();
                 if (instance is string s)
-                    return '"' + s.Replace("\"", "\\\"") + '"';
+                    return $"{'"'}{s.Replace("\"", "\\\"")}{'"'}";
                 return instance.ToJsv();
             }
         }
@@ -475,11 +475,12 @@ namespace ServiceStack.Templates
         private async Task WriteVarAsync(TemplateScopeContext scope, PageVariableFragment var, CancellationToken token)
         {
             if (var.BindingString != null)
-                stackTrace.Push("Expression (binding): " + var.BindingString);
+                stackTrace.Push($"Expression (binding): {var.BindingString}");
             else if (var.InitialExpression?.NameString != null)
-                stackTrace.Push("Expression (filter): " + var.InitialExpression.NameString);
+                stackTrace.Push($"Expression (filter): {var.InitialExpression.NameString}");
             else if (var.InitialValue != null)
-                stackTrace.Push($"Expression ({var.InitialValue.GetType().Name}): " + toDebugString(var.InitialValue).SubstringWithElipsis(0, 200));
+                stackTrace.Push(
+                    $"Expression ({var.InitialValue.GetType().Name}): {this.toDebugString(var.InitialValue).SubstringWithElipsis(0, 200)}");
             else 
                 stackTrace.Push("Expression");
             
@@ -932,10 +933,7 @@ namespace ServiceStack.Templates
             object outValue;
             JsBinding binding;
             
-            if (var == null)
-                arg = arg.ParseNextToken(out outValue, out binding);
-            else
-                arg = var.ParseNextToken(arg, out outValue, out binding);
+            arg = var == null ? arg.ParseNextToken(out outValue, out binding) : var.ParseNextToken(arg, out outValue, out binding);
 
             var unaryOp = JsUnaryOperator.GetUnaryOperator(binding);
             if (unaryOp != null)

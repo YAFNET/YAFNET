@@ -36,7 +36,7 @@ namespace ServiceStack.Text
             }
             catch (Exception ex)
             {
-                throw new SerializationException("DeserializeDataContract: Error converting type: " + ex.Message, ex);
+                throw new SerializationException($"DeserializeDataContract: Error converting type: {ex.Message}", ex);
             }
         }
 

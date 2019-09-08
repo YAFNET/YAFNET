@@ -133,7 +133,7 @@ namespace YAF.Controls
                                             "m={0}#post{0}",
                                             activity.MessageID.Value),
                                     Type = ButtonAction.OutlineSecondary,
-                                    Text = this.GetRepository<Topic>().GetSingle(t => t.ID == activity.TopicID.Value)
+                                    Text = this.GetRepository<Topic>().GetById(activity.TopicID.Value)
                                         .TopicName,
                                     Icon = "comment"
                                 };

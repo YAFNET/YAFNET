@@ -53,11 +53,8 @@ namespace ServiceStack
 
         public static string EncodeJson(this string value)
         {
-            return string.Concat
-            ("\"",
-                value.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\r", string.Empty).Replace("\n", "\\n"),
-                "\""
-            );
+            return
+                $"\"{value.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\r", string.Empty).Replace("\n", "\\n")}\"";
         }
 
         public static string EncodeJsv(this string value)
@@ -112,7 +109,7 @@ namespace ServiceStack
                 }
                 else
                 {
-                    sb.Append('%' + charCode.ToString(fmt));
+                    sb.Append($"{'%'}{charCode.ToString(fmt)}");
                 }
             }
 
@@ -212,7 +209,7 @@ namespace ServiceStack
 
             if (path[path.Length - 1] != '/')
             {
-                return path + "/";
+                return $"{path}/";
             }
 
             return path;
@@ -630,7 +627,7 @@ namespace ServiceStack
         {
             return text == null || text.IndexOf('"') >= 0
                 ? text
-                : '"' + text + '"';
+                : $"{'"'}{text}{'"'}";
         }
 
         public static string StripQuotes(this string text)
@@ -764,7 +761,7 @@ namespace ServiceStack
         {
             var str = value.SafeSubstring(startIndex, length);
             return str.Length == length
-                ? str + "..."
+                ? $"{str}..."
                 : str;
         }
 
@@ -1095,9 +1092,7 @@ namespace ServiceStack
             }
             else if (dirPattern.IndexOf('*') >= 0 || dirPattern.IndexOf('?') >= 0)
             {
-                var regex = new Regex(
-                    "^" + Regex.Escape(dirPattern).Replace(@"\*", "[^\\/]*").Replace(@"\?", ".") + "$"
-                );
+                var regex = new Regex($"^{Regex.Escape(dirPattern).Replace(@"\*", "[^\\/]*").Replace(@"\?", ".")}$");
                 if (!regex.IsMatch(dirPart))
                     return false;
             }
@@ -1194,7 +1189,7 @@ namespace ServiceStack
                 var c = text[i];
                 if (encodeCharMap.Contains(c))
                 {
-                    sb.Append('%' + ((int)c).ToString("x"));
+                    sb.Append($"{'%'}{((int)c):x}");
                 }
                 else
                 {

@@ -92,7 +92,7 @@ namespace YAF.Providers.Profile
 
             if (size > 0)
             {
-                type += "(" + size + ")";
+                type += $"({size})";
             }
 
             var sql = $"ALTER TABLE {CommandTextHelpers.GetObjectName("prov_Profile")} ADD [{name}] {type} NULL";
@@ -295,7 +295,7 @@ namespace YAF.Providers.Profile
                         columnStr.Append(", ");
                         valueStr.Append(", ");
                         columnStr.Append(column.Settings.Name);
-                        var valueParam = "@Value" + count;
+                        var valueParam = $"@Value{count}";
                         valueStr.Append(valueParam);
                         cmd.Parameters.AddWithValue(valueParam, values[column.Settings.Name].PropertyValue);
 

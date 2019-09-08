@@ -334,8 +334,8 @@ namespace YAF.Core.Services.CheckForSpam
         /// </exception>
         public bool VerifyApiKey()
         {
-            var parameters = "key=" + HttpUtility.UrlEncode(this.ApiKey) + "&blog="
-                                + HttpUtility.UrlEncode(this.RootUrl.ToString());
+            var parameters =
+                $"key={HttpUtility.UrlEncode(this.ApiKey)}&blog={HttpUtility.UrlEncode(this.RootUrl.ToString())}";
             var result = this.httpClient.PostRequest(
                 this.verifyUrl,
                 this.UserAgent,

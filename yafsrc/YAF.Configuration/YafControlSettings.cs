@@ -34,31 +34,15 @@ namespace YAF.Configuration
         /* Ederon : 6/16/2007 - conventions */
 
         /// <summary>
-        /// The _board id.
-        /// </summary>
-        private int _boardId;
-
-        /// <summary>
-        /// The _category id.
-        /// </summary>
-        private int _categoryId;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="YafControlSettings"/> class.
         /// </summary>
         public YafControlSettings()
         {
-            this.Popup = false;
             this.LockedForum = 0;
-            if (!int.TryParse(Config.CategoryID, out this._categoryId))
-            {
-                this._categoryId = 0; // Ederon : 6/16/2007 - changed from 1 to 0
-            }
 
-            if (!int.TryParse(Config.BoardID, out this._boardId))
-            {
-                this._boardId = 1;
-            }
+            this.CategoryID = !int.TryParse(Config.CategoryID, out var categoryId) ? 0 : categoryId;
+
+            this.BoardID = !int.TryParse(Config.BoardID, out var boardId) ? 1 : boardId;
         }
 
         /// <summary>
@@ -69,27 +53,12 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets BoardID.
         /// </summary>
-        public int BoardID
-        {
-            get => this._boardId;
-
-            set => this._boardId = value;
-        }
+        public int BoardID { get; set; }
 
         /// <summary>
         /// Gets or sets CategoryID.
         /// </summary>
-        public int CategoryID
-        {
-            get => this._categoryId;
-
-            set => this._categoryId = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Popup.
-        /// </summary>
-        public bool Popup { get; set; }
+        public int CategoryID { get; set; }
 
         /// <summary>
         /// Gets or sets LockedForum.

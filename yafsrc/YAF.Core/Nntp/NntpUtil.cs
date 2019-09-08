@@ -278,7 +278,7 @@ namespace YAF.Core.Nntp
       {
         case "MULTIPART":
           MIMEPart newPart = null;
-          while ((line = sr.ReadLine()) != null && line != seperator && line != seperator + "--")
+          while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
             m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
             if (!m.Success)
@@ -321,7 +321,7 @@ namespace YAF.Core.Nntp
               line = sr.ReadLine();
             }
 
-            part.EmbeddedPartList.Add(DispatchMIMEContent(sr, newPart, "--" + part.Boundary));
+            part.EmbeddedPartList.Add(DispatchMIMEContent(sr, newPart, $"--{part.Boundary}"));
           }
 
           break;
@@ -331,7 +331,7 @@ namespace YAF.Core.Nntp
           long pos;
           var msr = new StreamReader(ms, Encoding.GetEncoding(part.Charset));
           var sb = new StringBuilder();
-          while ((line = sr.ReadLine()) != null && line != seperator && line != seperator + "--")
+          while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
             pos = ms.Position;
             if (line != string.Empty)
@@ -384,7 +384,7 @@ namespace YAF.Core.Nntp
         default:
           ms = new MemoryStream();
           bytes = null;
-          while ((line = sr.ReadLine()) != null && line != seperator && line != seperator + "--")
+          while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
             if (line != string.Empty)
             {
@@ -523,7 +523,7 @@ namespace YAF.Core.Nntp
     {
       if (line.Length < 1)
       {
-        throw new InvalidOperationException("Invalid line: " + new string(line) + ".");
+        throw new InvalidOperationException($"Invalid line: {new string(line)}.");
       }
 
       if (line[0] == '`')
@@ -540,7 +540,7 @@ namespace YAF.Core.Nntp
       var length = (int)line2[0];
       if ((int)(length / 3.0 + 0.999999999) * 4 > line.Length - 1)
       {
-        throw new InvalidOperationException("Invalid length(" + length + ") with line: " + new string(line) + ".");
+        throw new InvalidOperationException($"Invalid length({length}) with line: {new string(line)}.");
       }
 
       var i = 1;

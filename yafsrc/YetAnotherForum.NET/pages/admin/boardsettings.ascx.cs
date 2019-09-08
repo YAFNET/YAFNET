@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
@@ -80,11 +81,8 @@ namespace YAF.Pages.Admin
                 this.Theme.DataSource = themeData;
             }
 
-            this.Culture.DataSource =
-                StaticDataHelper.Cultures()
-                    .AsEnumerable()
-                    .OrderBy(x => x.Field<string>("CultureNativeName"))
-                    .CopyToDataTable();
+            this.Culture.DataSource = StaticDataHelper.Cultures().AsEnumerable()
+                .OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
 
             this.Culture.DataTextField = "CultureNativeName";
             this.Culture.DataValueField = "CultureTag";
@@ -96,15 +94,15 @@ namespace YAF.Pages.Admin
             this.BindData();
 
             // bind poll group list
-            var pollGroup =
-                this.GetRepository<Poll>().PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID)
-                        .Distinct(new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID))
-                        .ToList();
+            var pollGroup = this.GetRepository<Poll>()
+                .PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+                    new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
 
             pollGroup.Insert(0, new TypedPollGroup(string.Empty, -1));
 
             // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
-            this.PollGroupListDropDown.Items.AddRange(pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+            this.PollGroupListDropDown.Items.AddRange(
+                pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
             // population default notification setting options...
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
@@ -115,14 +113,16 @@ namespace YAF.Pages.Admin
                 items.Remove(UserNotificationSetting.AllTopics.ToInt());
             }
 
-            var notificationItems =
-                items.Select(x => new ListItem(HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString())).ToArray();
+            var notificationItems = items.Select(
+                    x => new ListItem(
+                        HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)),
+                        x.Key.ToString()))
+                .ToArray();
 
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
             // Get first default full culture from a language file tag.
-            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
-                                     ?? "en-US";
+            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language) ?? "en-US";
 
             if (boardSettings.Theme.Contains(".xml"))
             {
@@ -144,7 +144,8 @@ namespace YAF.Pages.Admin
             {
                 // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
                 SetSelectedOnList(
-                    ref this.Culture, langFileCulture.Substring(0, 2) == boardSettings.Culture ? boardSettings.Culture : langFileCulture);
+                    ref this.Culture,
+                    langFileCulture.Substring(0, 2) == boardSettings.Culture ? boardSettings.Culture : langFileCulture);
             }
 
             SetSelectedOnList(ref this.ShowTopic, boardSettings.ShowTopicsDefault.ToString());
@@ -154,9 +155,7 @@ namespace YAF.Pages.Admin
 
             this.FileExtensionAllow.Checked = boardSettings.FileExtensionAreAllowed;
 
-            this.NotificationOnUserRegisterEmailList.Text =
-                boardSettings.NotificationOnUserRegisterEmailList;
-            this.AllowThemedLogo.Checked = boardSettings.AllowThemedLogo;
+            this.NotificationOnUserRegisterEmailList.Text = boardSettings.NotificationOnUserRegisterEmailList;
             this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
             this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
             this.AllowDigestEmail.Checked = boardSettings.AllowDigestEmail;
@@ -198,7 +197,8 @@ namespace YAF.Pages.Admin
         {
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -214,29 +214,27 @@ namespace YAF.Pages.Admin
         {
             var languageFile = "english.xml";
 
-            var cultures =
-                StaticDataHelper.Cultures().AsEnumerable().Where(
-                    c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
+            var cultures = StaticDataHelper.Cultures().AsEnumerable()
+                .Where(c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
 
             if (cultures.Any())
             {
                 languageFile = cultures.First().Field<string>("CultureFile");
             }
 
-            this.GetRepository<Board>()
-                .Save(
-                    this.PageContext.PageBoardID,
-                    this.Name.Text,
-                    languageFile,
-                    this.Culture.SelectedValue,
-                    this.AllowThreaded.Checked);
+            this.GetRepository<Board>().Save(
+                this.PageContext.PageBoardID,
+                this.Name.Text,
+                languageFile,
+                this.Culture.SelectedValue,
+                this.AllowThreaded.Checked);
 
             // save poll group
             var boardSettings = this.Get<YafBoardSettings>();
 
             boardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0
-                                                           ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
-                                                           : 0;
+                                            ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
+                                            : 0;
 
             boardSettings.Language = languageFile;
             boardSettings.Culture = this.Culture.SelectedValue;
@@ -244,10 +242,8 @@ namespace YAF.Pages.Admin
 
             // allow null/empty as a mobile theme many not be desired.
             boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
-            boardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
             boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.Checked;
-            boardSettings.NotificationOnUserRegisterEmailList =
-                this.NotificationOnUserRegisterEmailList.Text.Trim();
+            boardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
 
             boardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
             boardSettings.EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked;
@@ -266,9 +262,7 @@ namespace YAF.Pages.Admin
             boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
 
-            int hours;
-
-            if (!int.TryParse(this.DigestSendEveryXHours.Text, out hours))
+            if (!int.TryParse(this.DigestSendEveryXHours.Text, out var hours))
             {
                 hours = 24;
             }
@@ -284,6 +278,19 @@ namespace YAF.Pages.Admin
             // Clearing cache with old users permissions data to get new default styles...
             this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
             YafBuildLink.Redirect(ForumPages.admin_admin);
+        }
+
+        /// <summary>
+        /// Increases the CDV version on click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void IncreaseVersionOnClick(object sender, EventArgs e)
+        {
+            this.Get<YafBoardSettings>().CdvVersion++;
+            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+
+            this.CdvVersion.Text = this.Get<YafBoardSettings>().CdvVersion.ToString();
         }
 
         /// <summary>
@@ -309,37 +316,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The set selected on list.
-        /// </summary>
-        /// <param name="list">The list.</param>
-        /// <param name="value">The value.</param>
-        private static void SetSelectedOnList([NotNull] ref RadioButtonList list, [NotNull] string value)
-        {
-            var selItem = list.Items.FindByValue(value);
-
-            list.ClearSelection();
-
-            if (selItem != null)
-            {
-                selItem.Selected = true;
-            }
-            else if (list.Items.Count > 0)
-            {
-                // select the first...
-                list.SelectedIndex = 0;
-            }
-        }
-
-        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
         {
-            DataRow row;
-            using (var dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
-            {
-                row = dt.Rows[0];
-            }
+            var board = this.GetRepository<Board>().GetById(this.PageContext.PageBoardID);
 
             using (var dt = new DataTable("Files"))
             {
@@ -348,19 +329,20 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("Description", typeof(string));
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
-                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                dr["FileName"] =
+                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("BOARD_LOGO_SELECT");
                 dt.Rows.Add(dr);
 
-                var dir =
-                    new DirectoryInfo(
-                        this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Logos}"));
+                var dir = new DirectoryInfo(
+                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Logos}"));
                 var files = dir.GetFiles("*.*");
                 long fileID = 1;
 
                 foreach (var file in from file in files
                                      let extension = file.Extension.ToLower()
-                                     where extension == ".png" || extension == ".gif" || extension == ".jpg" || extension == ".svg"
+                                     where extension == ".png" || extension == ".gif" || extension == ".jpg"
+                                           || extension == ".svg"
                                      select file)
                 {
                     dr = dt.NewRow();
@@ -376,23 +358,10 @@ namespace YAF.Pages.Admin
             }
 
             this.DataBind();
-            this.Name.Text = row["Name"].ToString();
-            this.AllowThreaded.Checked = Convert.ToBoolean(row["AllowThreaded"]);
+            this.Name.Text = board.Name;
+            this.AllowThreaded.Checked = board.AllowThreaded;
         }
 
         #endregion
-
-        /// <summary>
-        /// Increases the CDV version on click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void IncreaseVersionOnClick(object sender, EventArgs e)
-        {
-            this.Get<YafBoardSettings>().CdvVersion++;
-            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
-
-            this.CdvVersion.Text = this.Get<YafBoardSettings>().CdvVersion.ToString();
-        }
     }
 }

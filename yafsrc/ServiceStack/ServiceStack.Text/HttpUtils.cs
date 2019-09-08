@@ -37,7 +37,7 @@ namespace ServiceStack
             {
                 prefix = url.IndexOf('?') == -1 ? "?" : "&";
             }
-            return url + prefix + key + "=" + (encode ? val.UrlEncode() : val);
+            return $"{url}{prefix}{key}={(encode ? val.UrlEncode() : val)}";
         }
 
         public static string SetQueryParam(this string url, string key, string val)
@@ -46,9 +46,9 @@ namespace ServiceStack
             var qsPos = url.IndexOf('?');
             if (qsPos != -1)
             {
-                var existingKeyPos = qsPos + 1 == url.IndexOf(key + "=", qsPos, PclExport.Instance.InvariantComparison)
+                var existingKeyPos = qsPos + 1 == url.IndexOf($"{key}=", qsPos, PclExport.Instance.InvariantComparison)
                     ? qsPos
-                    : url.IndexOf("&" + key, qsPos, PclExport.Instance.InvariantComparison);
+                    : url.IndexOf($"&{key}", qsPos, PclExport.Instance.InvariantComparison);
 
                 if (existingKeyPos != -1)
                 {
@@ -56,15 +56,13 @@ namespace ServiceStack
                     if (endPos == -1)
                         endPos = url.Length;
 
-                    var newUrl = url.Substring(0, existingKeyPos + key.Length + 1)
-                        + "="
-                        + val.UrlEncode()
-                        + url.Substring(endPos);
+                    var newUrl =
+                        $"{url.Substring(0, existingKeyPos + key.Length + 1)}={val.UrlEncode()}{url.Substring(endPos)}";
                     return newUrl;
                 }
             }
             var prefix = qsPos == -1 ? "?" : "&";
-            return url + prefix + key + "=" + val.UrlEncode();
+            return $"{url}{prefix}{key}={val.UrlEncode()}";
         }
 
         public static string AddHashParam(this string url, string key, object val)
@@ -76,7 +74,7 @@ namespace ServiceStack
         {
             if (string.IsNullOrEmpty(url)) return null;
             var prefix = url.IndexOf('#') == -1 ? "#" : "/";
-            return url + prefix + key + "=" + val.UrlEncode();
+            return $"{url}{prefix}{key}={val.UrlEncode()}";
         }
 
         public static string SetHashParam(this string url, string key, string val)
@@ -85,9 +83,9 @@ namespace ServiceStack
             var hPos = url.IndexOf('#');
             if (hPos != -1)
             {
-                var existingKeyPos = hPos + 1 == url.IndexOf(key + "=", hPos, PclExport.Instance.InvariantComparison)
+                var existingKeyPos = hPos + 1 == url.IndexOf($"{key}=", hPos, PclExport.Instance.InvariantComparison)
                     ? hPos
-                    : url.IndexOf("/" + key, hPos, PclExport.Instance.InvariantComparison);
+                    : url.IndexOf($"/{key}", hPos, PclExport.Instance.InvariantComparison);
 
                 if (existingKeyPos != -1)
                 {
@@ -95,15 +93,13 @@ namespace ServiceStack
                     if (endPos == -1)
                         endPos = url.Length;
 
-                    var newUrl = url.Substring(0, existingKeyPos + key.Length + 1)
-                        + "="
-                        + val.UrlEncode()
-                        + url.Substring(endPos);
+                    var newUrl =
+                        $"{url.Substring(0, existingKeyPos + key.Length + 1)}={val.UrlEncode()}{url.Substring(endPos)}";
                     return newUrl;
                 }
             }
             var prefix = url.IndexOf('#') == -1 ? "#" : "/";
-            return url + prefix + key + "=" + val.UrlEncode();
+            return $"{url}{prefix}{key}={val.UrlEncode()}";
         }
 
         public static bool HasRequestBody(string httpMethod)
@@ -980,12 +976,12 @@ namespace ServiceStack
 
             var boundary = Guid.NewGuid().ToString("N");
 
-            httpReq.ContentType = "multipart/form-data; boundary=\"" + boundary + "\"";
+            httpReq.ContentType = $"multipart/form-data; boundary=\"{boundary}\"";
 
             var boundarybytes = ("\r\n--" + boundary + "--\r\n").ToAsciiBytes();
 
-            var header = "\r\n--" + boundary +
-                         $"\r\nContent-Disposition: form-data; name=\"{field}\"; filename=\"{fileName}\"\r\nContent-Type: {mimeType}\r\n\r\n";
+            var header =
+                $"\r\n--{boundary}\r\nContent-Disposition: form-data; name=\"{field}\"; filename=\"{fileName}\"\r\nContent-Type: {mimeType}\r\n\r\n";
 
             var headerbytes = header.ToAsciiBytes();
 
@@ -1017,7 +1013,7 @@ namespace ServiceStack
                 throw new ArgumentNullException(nameof(fileName));
             var mimeType = MimeTypes.GetMimeType(fileName);
             if (mimeType == null)
-                throw new ArgumentException("Mime-type not found for file: " + fileName);
+                throw new ArgumentException($"Mime-type not found for file: {fileName}");
 
             UploadFile(webRequest, fileStream, fileName, mimeType);
         }
@@ -1163,10 +1159,10 @@ namespace ServiceStack
             }
 
             var parts = mimeType.Split('/');
-            if (parts.Length == 1) return "." + parts[0];
-            if (parts.Length == 2) return "." + parts[1];
+            if (parts.Length == 1) return $".{parts[0]}";
+            if (parts.Length == 2) return $".{parts[1]}";
 
-            throw new NotSupportedException("Unknown mimeType: " + mimeType);
+            throw new NotSupportedException($"Unknown mimeType: {mimeType}");
         }
 
         public static string GetMimeType(string fileNameOrExt)
@@ -1191,7 +1187,7 @@ namespace ServiceStack
                 case "tiff":
                 case "bmp":
                 case "webp":
-                    return "image/" + fileExt;
+                    return $"image/{fileExt}";
 
                 case "jpg":
                     return "image/jpeg";
@@ -1219,7 +1215,7 @@ namespace ServiceStack
                 case "csv":
                 case "css":
                 case "sgml":
-                    return "text/" + fileExt;
+                    return $"text/{fileExt}";
 
                 case "txt":
                     return "text/plain";
@@ -1244,13 +1240,13 @@ namespace ServiceStack
                 case "mp4":
                 case "ogg":
                 case "webm":
-                    return "video/" + fileExt;
+                    return $"video/{fileExt}";
 
                 case "ogv":
                     return "video/ogg";
 
                 case "rtf":
-                    return "application/" + fileExt;
+                    return $"application/{fileExt}";
 
                 case "xls":
                     return "application/x-excel";
@@ -1277,7 +1273,7 @@ namespace ServiceStack
                     return "application/font-woff2";
 
                 default:
-                    return "application/" + fileExt;
+                    return $"application/{fileExt}";
             }
         }
     }
@@ -1480,8 +1476,8 @@ namespace ServiceStack
         {
             if (!IsValid(compressionType))
             {
-                throw new NotSupportedException(compressionType
-                    + " is not a supported compression type. Valid types: gzip, deflate.");
+                throw new NotSupportedException(
+                    $"{compressionType} is not a supported compression type. Valid types: gzip, deflate.");
             }
         }
 
@@ -1491,10 +1487,9 @@ namespace ServiceStack
             {
                 case Deflate:
                 case GZip:
-                    return "." + compressionType;
+                    return $".{compressionType}";
                 default:
-                    throw new NotSupportedException(
-                        "Unknown compressionType: " + compressionType);
+                    throw new NotSupportedException($"Unknown compressionType: {compressionType}");
             }
         }
     }

@@ -30,7 +30,7 @@
                                                 LocalizedPage="ADMIN_ADMIN" />&nbsp;
                             <asp:DropDownList ID="BoardStatsSelect" runat="server" 
                                               DataTextField="Name" 
-                                              DataValueField="BoardID"
+                                              DataValueField="ID"
                                               OnSelectedIndexChanged="BoardStatsSelectChanged" 
                                               AutoPostBack="true" 
                                               CssClass="custom-select" 

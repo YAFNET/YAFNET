@@ -53,9 +53,8 @@ namespace YAF.Core.Model
 
             return repository.DbAccess.Execute(
                 cmd => cmd.Connection.Scalar<int>(
-                    "select MAX(SortOrder) from " + repository.DbAccess.GetTableName<Category>()));
+                    $"select MAX(SortOrder) from {repository.DbAccess.GetTableName<Category>()}"));
         }
-
 
         /// <summary>
         /// The list.
@@ -122,11 +121,28 @@ namespace YAF.Core.Model
                 });
         }
 
+        /// <summary>
+        /// Get All Categories by Limit 
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="startId">
+        /// The start id.
+        /// </param>
+        /// <param name="limit">
+        /// The limit.
+        /// </param>
+        /// <returns>
+        /// Returns the Categories list
+        /// </returns>
         public static DataTable SimpleListAsDataTable(this IRepository<Category> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.category_simplelist(StartID: startId, Limit: limit);
+
+            // return repository.Get(c => c.ID >= startId && c.ID < 0 + limit).Take(limit).OrderBy(c => c.ID).ToList();
         }
 
         #endregion

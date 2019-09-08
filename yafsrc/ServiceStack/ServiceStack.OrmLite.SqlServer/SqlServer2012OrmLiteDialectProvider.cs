@@ -86,7 +86,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         ? "1"
                         : this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey);
 
-                    sb.Append(" ORDER BY " + orderBy);
+                    sb.Append($" ORDER BY {orderBy}");
                 }
 
                 sb.Append(" ").Append(SqlLimit(offset, rows));
@@ -174,7 +174,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     var sqlConstraint = GetCheckConstraint(fieldDef);
                     if (sqlConstraint != null)
                     {
-                        sbConstraints.Append(",\n" + sqlConstraint);
+                        sbConstraints.Append($",\n{sqlConstraint}");
                     }
 
                     if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
@@ -182,9 +182,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                     var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
                     sbConstraints.Append(
-                        $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
-                        $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
-                        $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                        $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
                     sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
                     sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
@@ -215,7 +213,7 @@ namespace ServiceStack.OrmLite.SqlServer
             var uniqueConstraints = GetUniqueConstraints(modelDef);
             if (uniqueConstraints != null)
             {
-                sbConstraints.Append(",\n" + uniqueConstraints);
+                sbConstraints.Append($",\n{uniqueConstraints}");
             }
 
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";

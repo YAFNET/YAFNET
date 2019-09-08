@@ -114,7 +114,7 @@ namespace YAF.Core.Services
 
                         // redirect to DNN login...
                         YafContext.Current.Get<HttpResponseBase>().Redirect(
-                            appPath + "Login.aspx?ReturnUrl=" + HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
                         noAccess = false;
                     }
                     else if (Config.AllowLoginAndLogoff)

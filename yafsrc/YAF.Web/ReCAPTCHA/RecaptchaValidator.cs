@@ -86,7 +86,7 @@ namespace YAF.Web.ReCAPTCHA
                     address.AddressFamily != AddressFamily.InterNetwork &&
                     address.AddressFamily != AddressFamily.InterNetworkV6)
                 {
-                    throw new ArgumentException("Expecting an IP address, got " + address);
+                    throw new ArgumentException($"Expecting an IP address, got {address}");
                 }
 
                 this.remoteIp = address.ToString();

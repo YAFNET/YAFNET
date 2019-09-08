@@ -26,7 +26,7 @@ namespace ServiceStack.Templates
         {
             IVirtualFile file = null;
 
-            var pathMapKey = nameof(ResolveFile) + ">" + fromVirtualPath;
+            var pathMapKey = $"{nameof(ResolveFile)}>{fromVirtualPath}";
             var pathMapping = Context.GetPathMapping(pathMapKey, virtualPath);
             if (pathMapping != null)
             {
@@ -269,7 +269,7 @@ namespace ServiceStack.Templates
                 ? TimeSpan.FromSeconds(value.ConvertTo<int>())
                 : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultFileCacheExpiry];
             
-            var cacheKey = CreateCacheKey("file:" + scope.PageResult.VirtualPath + ">" + virtualPath, scopedParams);
+            var cacheKey = CreateCacheKey($"file:{scope.PageResult.VirtualPath}>{virtualPath}", scopedParams);
             if (Context.ExpiringCache.TryGetValue(cacheKey, out var cacheEntry))
             {
                 if (cacheEntry.Item1 > DateTime.UtcNow && cacheEntry.Item2 is byte[] bytes)
@@ -307,7 +307,7 @@ namespace ServiceStack.Templates
                 ? TimeSpan.FromSeconds(value.ConvertTo<int>())
                 : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultUrlCacheExpiry];
 
-            var cacheKey = CreateCacheKey("url:" + url, scopedParams);
+            var cacheKey = CreateCacheKey($"url:{url}", scopedParams);
             if (Context.ExpiringCache.TryGetValue(cacheKey, out var cacheEntry))
             {
                 if (cacheEntry.Item1 > DateTime.UtcNow && cacheEntry.Item2 is byte[] bytes)
@@ -372,15 +372,15 @@ namespace ServiceStack.Templates
             {
                 caches = new List<string>(nameList);
             }
-            else throw new NotSupportedException(nameof(cacheClear) + 
-                 " expects a cache name or list of cache names but received: " + (cacheNames.GetType()?.Name ?? "null"));
+            else throw new NotSupportedException(
+                $"{nameof(this.cacheClear)} expects a cache name or list of cache names but received: {(cacheNames.GetType()?.Name ?? "null")}");
 
             var entriesRemoved = 0;
             foreach (var cacheName in caches)
             {
                 var cache = GetCache(cacheName);
                 if (cache == null)
-                    throw new NotSupportedException(nameof(cacheClear) + $": Unknown cache '{cacheName}'");
+                    throw new NotSupportedException($"{nameof(this.cacheClear)}: Unknown cache '{cacheName}'");
 
                 entriesRemoved += cache.Count;
                 cache.Clear();

@@ -134,18 +134,7 @@ namespace YAF.Utils.Helpers
     /// <summary>
     ///   Gets Params.
     /// </summary>
-    public Dictionary<string, long> Params
-    {
-      get
-      {
-        if (this._idDictionary == null)
-        {
-          this._idDictionary = new Dictionary<string, long>();
-        }
-
-        return this._idDictionary;
-      }
-    }
+    public Dictionary<string, long> Params => this._idDictionary ?? (this._idDictionary = new Dictionary<string, long>());
 
     #endregion
 
@@ -220,9 +209,7 @@ namespace YAF.Utils.Helpers
           continue;
         }
 
-        long idConverted = -1;
-
-        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]).IsSet() && long.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]), out idConverted))
+        if (HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]).IsSet() && long.TryParse(HttpContext.Current.Request.QueryString.GetFirstOrDefault(idNames[i]), out var idConverted))
         {
           this.Params.Add(idNames[i], idConverted);
         }

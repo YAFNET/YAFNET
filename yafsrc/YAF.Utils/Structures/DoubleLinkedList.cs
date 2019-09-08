@@ -48,11 +48,6 @@ namespace YAF.Utils.Structures
     public LinkItem TailLink;
 
     /// <summary>
-    /// The m_sync root.
-    /// </summary>
-    private readonly object m_syncRoot = new object();
-
-    /// <summary>
     /// The m_count.
     /// </summary>
     private int m_count;
@@ -84,7 +79,7 @@ namespace YAF.Utils.Structures
     /// <summary>
     /// Gets SyncRoot.
     /// </summary>
-    public object SyncRoot => this.m_syncRoot;
+    public object SyncRoot { get; } = new object();
 
     #endregion
 

@@ -152,8 +152,7 @@ namespace YAF.Core.Services.Import
             var dsExtensions = new DataSet();
             dsExtensions.ReadXml(inputStream);
 
-            if (dsExtensions.Tables["YafExtension"] != null
-                && dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
+            if (dsExtensions.Tables["YafExtension"]?.Columns["Extension"] != null)
             {
                 var repository = YafContext.Current.Get<IRepository<FileExtension>>();
 
@@ -275,7 +274,6 @@ namespace YAF.Core.Services.Import
             return importedCount;
         }
 
-
         /// <summary>
         /// Import List of Banned User Names
         /// </summary>
@@ -335,8 +333,7 @@ namespace YAF.Core.Services.Import
             var spamWords = new DataSet();
             spamWords.ReadXml(inputStream);
 
-            if (spamWords.Tables["YafSpamWords"] == null
-                || spamWords.Tables["YafSpamWords"].Columns["spamword"] == null)
+            if (spamWords.Tables["YafSpamWords"]?.Columns["spamword"] == null)
             {
                 return importedCount;
             }

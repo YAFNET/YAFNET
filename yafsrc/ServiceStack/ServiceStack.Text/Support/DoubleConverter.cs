@@ -90,7 +90,7 @@
 
             // Finally, return the string with an appropriate sign
             if (negative)
-                return "-" + ad;
+                return $"-{ad}";
             else
                 return ad.ToString();
         }
@@ -207,20 +207,14 @@
 				// Nothing before the decimal point, eg 0.035
 				if (this.decimalPoint >= digitString.Length)
 				{
-					return "0." +
-						new string('0', this.decimalPoint - digitString.Length) +
-						new string(digitString);
+					return $"0.{new string('0', this.decimalPoint - digitString.Length)}{new string(digitString)}";
 				}
 
 				// Most complicated case - part of the string comes
 				// before the decimal point, part comes after it,
 				// eg 3.5
-				return new string(digitString, 0,
-								   digitString.Length - this.decimalPoint) +
-					"." +
-					new string(digitString,
-								digitString.Length - this.decimalPoint,
-                                this.decimalPoint);
+				return
+                    $"{new string(digitString, 0, digitString.Length - this.decimalPoint)}.{new string(digitString, digitString.Length - this.decimalPoint, this.decimalPoint)}";
 			}
 		}
 	}

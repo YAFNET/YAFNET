@@ -42,14 +42,14 @@ namespace YAF.Core.Services.Startup
     #endregion
 
     /// <summary>
-    ///     The yaf initialize db.
+    /// The startup initialize db.
     /// </summary>
     public class StartupInitializeDb : BaseStartupService, ICriticalStartupService
     {
         #region Properties
 
         /// <summary>
-        ///     Gets InitVarName.
+        ///     Gets the initialize var. Name.
         /// </summary>
         [NotNull]
         protected override string InitVarName => "YafInitializeDb_Init";
@@ -67,7 +67,6 @@ namespace YAF.Core.Services.Startup
         protected override bool RunService()
         {
             // init the db...
-            string errorString;
             var debugging = false;
 
 #if DEBUG
@@ -90,7 +89,7 @@ namespace YAF.Core.Services.Startup
             }
 
             // attempt to init the db...
-            if (!YafContext.Current.Get<IDbAccess>().TestConnection(out errorString))
+            if (!YafContext.Current.Get<IDbAccess>().TestConnection(out var errorString))
             {
                 // unable to connect to the DB...
                 YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;

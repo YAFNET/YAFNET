@@ -64,21 +64,11 @@
                 </div>
 
             </asp:PlaceHolder>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
-                                   AssociatedControlID="Theme"
-                                   LocalizedTag="BOARD_THEME" LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <asp:DropDownList ID="Theme" runat="server" CssClass="standardSelectMenu"></asp:DropDownList>
-                </div>
-                <div class="form-group col-md-6">
-                    <YAF:HelpLabel ID="LocalizedLabel7" runat="server"
-                                   AssociatedControlID="AllowThemedLogo"
-                                   LocalizedTag="BOARD_THEME_LOGO" LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <div class="custom-control custom-switch">
-                        <asp:CheckBox ID="AllowThemedLogo" runat="server" Text="&nbsp;"></asp:CheckBox>
-                    </div>
-                </div>
+            <div class="form-group">
+                <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
+                               AssociatedControlID="Theme"
+                               LocalizedTag="BOARD_THEME" LocalizedPage="ADMIN_BOARDSETTINGS"/>
+                <asp:DropDownList ID="Theme" runat="server" CssClass="standardSelectMenu"></asp:DropDownList>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">

@@ -106,7 +106,7 @@ namespace YAF.Dialogs
             // focus on save button
             this.AddGroupSave.Focus();
 
-            if (this.MedalId.HasValue)
+            if (this.GroupId.HasValue)
             {
                 // Edit
                 // load group-medal to the controls
@@ -152,14 +152,27 @@ namespace YAF.Dialogs
                 return;
             }
 
-            // save group, if there is no message specified, pass null
-            this.GetRepository<Medal>().GroupMedalSave(
-                groupID: this.AvailableGroupList.SelectedValue,
-                medalID: this.MedalId,
-                message: this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
-                hide: this.GroupHide.Checked,
-                onlyRibbon: this.GroupOnlyRibbon.Checked,
-                sortOrder: this.GroupSortOrder.Text);
+            if (this.GroupId.HasValue)
+            {
+                // save group, if there is no message specified, pass null
+                this.GetRepository<GroupMedal>().Save(
+                    this.GroupId.Value,
+                    this.MedalId.Value,
+                    this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
+                    this.GroupHide.Checked,
+                    this.GroupOnlyRibbon.Checked,
+                    this.GroupSortOrder.Text.ToType<byte>());
+            }
+            else
+            {
+                this.GetRepository<GroupMedal>().SaveNew(
+                    this.AvailableGroupList.SelectedValue.ToType<int>(),
+                    this.MedalId.Value,
+                    this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
+                    this.GroupHide.Checked,
+                    this.GroupOnlyRibbon.Checked,
+                    this.GroupSortOrder.Text.ToType<byte>());
+            }
 
             // re-bind data
             YafBuildLink.Redirect(page: ForumPages.admin_editmedal, format: "medalid={0}", this.MedalId.Value);

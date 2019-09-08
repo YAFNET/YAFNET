@@ -41,7 +41,7 @@ namespace ServiceStack.MiniProfiler.Data
             if (connection is IHasDbConnection hasConn) connection = hasConn.DbConnection;
 
             if (!(connection is DbConnection dbConn))
-				throw new ArgumentException(connection.GetType().FullName + " does not inherit DbConnection");
+				throw new ArgumentException($"{connection.GetType().FullName} does not inherit DbConnection");
 			
 			Init(dbConn, profiler, autoDisposeConnection);
         }

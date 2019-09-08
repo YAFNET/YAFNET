@@ -366,7 +366,7 @@ namespace ServiceStack.Text.Common
                 if (Env.IsMono)
                 {
                     // Without that Mono uses a Local timezone))
-                    dateTimeOffsetStr = dateTimeOffsetStr.Substring(0, dateTimeOffsetStr.Length - 1) + "+00:00";
+                    dateTimeOffsetStr = $"{dateTimeOffsetStr.Substring(0, dateTimeOffsetStr.Length - 1)}+00:00";
                 }
             }
 

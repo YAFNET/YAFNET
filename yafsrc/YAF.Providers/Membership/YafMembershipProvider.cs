@@ -83,21 +83,6 @@ namespace YAF.Providers.Membership
         private bool _enablePasswordRetrieval;
 
         /// <summary>
-        ///     The _hash case.
-        /// </summary>
-        private string _hashCase;
-
-        /// <summary>
-        ///     The _hash hex.
-        /// </summary>
-        private bool _hashHex;
-
-        /// <summary>
-        ///     The _hash remove chars.
-        /// </summary>
-        private string _hashRemoveChars;
-
-        /// <summary>
         ///     The _max invalid password attempts.
         /// </summary>
         private int _maxInvalidPasswordAttempts;
@@ -111,11 +96,6 @@ namespace YAF.Providers.Membership
         ///     The _minimum required password length.
         /// </summary>
         private int _minimumRequiredPasswordLength;
-
-        /// <summary>
-        ///     The _ms compliant.
-        /// </summary>
-        private bool _msCompliant;
 
         /// <summary>
         ///     The _password attempt window.
@@ -141,11 +121,6 @@ namespace YAF.Providers.Membership
         ///     The _requires unique email.
         /// </summary>
         private bool _requiresUniqueEmail;
-
-        /// <summary>
-        ///     The _use salt.
-        /// </summary>
-        private bool _useSalt;
 
         #endregion
 
@@ -223,27 +198,27 @@ namespace YAF.Providers.Membership
         /// <summary>
         ///     Gets HashCase.
         /// </summary>
-        internal string HashCase => this._hashCase;
+        internal string HashCase { get; private set; }
 
         /// <summary>
         ///     Gets a value indicating whether HashHex.
         /// </summary>
-        internal bool HashHex => this._hashHex;
+        internal bool HashHex { get; private set; }
 
         /// <summary>
         ///     Gets HashRemoveChars.
         /// </summary>
-        internal string HashRemoveChars => this._hashRemoveChars;
+        internal string HashRemoveChars { get; private set; }
 
         /// <summary>
         ///     Gets a value indicating whether MSCompliant.
         /// </summary>
-        internal bool MSCompliant => this._msCompliant;
+        internal bool MSCompliant { get; private set; }
 
         /// <summary>
         ///     Gets a value indicating whether UseSalt.
         /// </summary>
-        internal bool UseSalt => this._useSalt;
+        internal bool UseSalt { get; private set; }
 
         #endregion
 
@@ -609,7 +584,7 @@ namespace YAF.Providers.Membership
             }
 
             // Check for unique user name
-            if (!(this.GetUser(username, false) == null))
+            if (this.GetUser(username, false) != null)
             {
                 status = MembershipCreateStatus.DuplicateUserName; // Username exists
                 return null;
@@ -995,19 +970,19 @@ namespace YAF.Providers.Membership
             this._passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10");
 
             // Check whething Hashing methods should use Salt
-            this._useSalt = (config["useSalt"] ?? "false").ToBool();
+            this.UseSalt = (config["useSalt"] ?? "false").ToBool();
 
             // Check whether password hashing should output as Hex instead of Base64
-            this._hashHex = (config["hashHex"] ?? "false").ToBool();
+            this.HashHex = (config["hashHex"] ?? "false").ToBool();
 
             // Check to see if password hex case should be altered
-            this._hashCase = config["hashCase"].ToStringDBNull("None");
+            this.HashCase = config["hashCase"].ToStringDBNull("None");
 
             // Check to see if password should have characters removed
-            this._hashRemoveChars = config["hashRemoveChars"].ToStringDBNull();
+            this.HashRemoveChars = config["hashRemoveChars"].ToStringDBNull();
 
             // Check to see if password/salt combination needs to asp.net standard membership compliant
-            this._msCompliant = (config["msCompliant"] ?? "false").ToBool();
+            this.MSCompliant = (config["msCompliant"] ?? "false").ToBool();
 
             // Application Name
             this._appName = config["applicationName"].ToStringDBNull("YetAnotherForum");

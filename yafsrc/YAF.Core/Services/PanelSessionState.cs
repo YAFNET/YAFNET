@@ -85,7 +85,7 @@ namespace YAF.Core.Services
         // Ederon : 7/14/2007
         set
         {
-            var sessionPanelID = "panelstate_" + panelID;
+            var sessionPanelID = $"panelstate_{panelID}";
 
             YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
 

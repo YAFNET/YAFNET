@@ -108,7 +108,8 @@ namespace ServiceStack.Templates
         }
 
         public TemplateCodePage GetCodePage(string virtualPath) => Context.GetCodePage(virtualPath)
-            ?? (virtualPath?.Length > 0 && virtualPath[virtualPath.Length - 1] != '/' ? Context.GetCodePage(virtualPath + '/') : null);
+            ?? (virtualPath?.Length > 0 && virtualPath[virtualPath.Length - 1] != '/' ? Context.GetCodePage(
+                    $"{virtualPath}{'/'}") : null);
 
         public virtual TemplatePage AddPage(string virtualPath, IVirtualFile file)
         {
@@ -153,15 +154,15 @@ namespace ServiceStack.Templates
             }
 
             var filePath = santizePath.LastLeftPart('.');
-            page = TryGetPage(filePath) ?? (!isDirectory ? TryGetPage(filePath + '/') : null);
+            page = TryGetPage(filePath) ?? (!isDirectory ? TryGetPage($"{filePath}{'/'}") : null);
             if (page != null)
                 return page;
 
             foreach (var format in Context.PageFormats)
             {
                 var file = !isDirectory
-                    ? Context.VirtualFiles.GetFile(filePath + "." + format.Extension)
-                    : Context.VirtualFiles.GetFile(filePath + Context.IndexPage + "." + format.Extension);
+                    ? Context.VirtualFiles.GetFile($"{filePath}.{format.Extension}")
+                    : Context.VirtualFiles.GetFile($"{filePath}{this.Context.IndexPage}.{format.Extension}");
 
                 if (file != null)
                 {
@@ -173,10 +174,10 @@ namespace ServiceStack.Templates
 
             if (!isDirectory)
             {
-                var tryFilePath = filePath + '/';
+                var tryFilePath = $"{filePath}{'/'}";
                 foreach (var format in Context.PageFormats)
                 {
-                    var file = Context.VirtualFiles.GetFile(tryFilePath + Context.IndexPage + "." + format.Extension);
+                    var file = Context.VirtualFiles.GetFile($"{tryFilePath}{this.Context.IndexPage}.{format.Extension}");
                     if (file != null)
                     {
                         var pageVirtualPath = file.VirtualPath.WithoutExtension();
@@ -196,7 +197,7 @@ namespace ServiceStack.Templates
         {
             var memFile = new InMemoryVirtualFile(TempFiles, TempDir)
             {
-                FilePath = Guid.NewGuid().ToString("n") + "." + ext, 
+                FilePath = $"{Guid.NewGuid():n}.{ext}", 
                 TextContents = contents,
             };
             var page = new TemplatePage(Context, memFile);

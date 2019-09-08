@@ -237,12 +237,12 @@ namespace ServiceStack
         {
             var binPath = AssemblyUtils.GetAssemblyBinPath(Assembly.GetExecutingAssembly());
             Assembly assembly = null;
-            var assemblyDllPath = binPath + $"{assemblyName}.dll";
+            var assemblyDllPath = $"{binPath}{assemblyName}.dll";
             if (File.Exists(assemblyDllPath))
             {
                 assembly = AssemblyUtils.LoadAssembly(assemblyDllPath);
             }
-            var assemblyExePath = binPath + $"{assemblyName}.exe";
+            var assemblyExePath = $"{binPath}{assemblyName}.exe";
             if (File.Exists(assemblyExePath))
             {
                 assembly = AssemblyUtils.LoadAssembly(assemblyExePath);
@@ -594,7 +594,7 @@ namespace ServiceStack
 
         public Net45PclExport()
         {
-            this.PlatformName = "NET45 " + Environment.OSVersion.Platform;
+            this.PlatformName = $"NET45 {Environment.OSVersion.Platform}";
         }
 
         public new static void Configure()
@@ -1247,14 +1247,14 @@ namespace ServiceStack.Text.FastMember
             ILGenerator il;
             if (!IsFullyPublic(type))
             {
-                DynamicMethod dynGetter = new DynamicMethod(type.FullName + "_get", typeof(object), new Type[] { typeof(object), typeof(string) }, type, true),
-                              dynSetter = new DynamicMethod(type.FullName + "_set", null, new Type[] { typeof(object), typeof(string), typeof(object) }, type, true);
+                DynamicMethod dynGetter = new DynamicMethod($"{type.FullName}_get", typeof(object), new Type[] { typeof(object), typeof(string) }, type, true),
+                              dynSetter = new DynamicMethod($"{type.FullName}_set", null, new Type[] { typeof(object), typeof(string), typeof(object) }, type, true);
                 WriteGetter(dynGetter.GetILGenerator(), type, props, fields, true);
                 WriteSetter(dynSetter.GetILGenerator(), type, props, fields, true);
                 DynamicMethod dynCtor = null;
                 if (ctor != null)
                 {
-                    dynCtor = new DynamicMethod(type.FullName + "_ctor", typeof(object), Type.EmptyTypes, type, true);
+                    dynCtor = new DynamicMethod($"{type.FullName}_ctor", typeof(object), Type.EmptyTypes, type, true);
                     il = dynCtor.GetILGenerator();
                     il.Emit(OpCodes.Newobj, ctor);
                     il.Emit(OpCodes.Ret);
@@ -1272,7 +1272,8 @@ namespace ServiceStack.Text.FastMember
                 assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
                 module = assembly.DefineDynamicModule(name.Name);
             }
-            var tb = module.DefineType("FastMember_dynamic." + type.Name + "_" + Interlocked.Increment(ref counter),
+            var tb = module.DefineType(
+                $"FastMember_dynamic.{type.Name}_{Interlocked.Increment(ref counter)}",
                 (typeof(TypeAccessor).Attributes | TypeAttributes.Sealed) & ~TypeAttributes.Abstract, typeof(TypeAccessor));
 
             tb.DefineDefaultConstructor(MethodAttributes.Public);

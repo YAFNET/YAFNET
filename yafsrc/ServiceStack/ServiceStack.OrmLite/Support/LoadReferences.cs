@@ -33,7 +33,7 @@ namespace ServiceStack.OrmLite.Support
 
             var refField = modelDef.GetRefFieldDef(refModelDef, refType);
 
-            var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
+            var sqlFilter = $"{this.dialectProvider.GetQuotedColumnName(refField.FieldName)}={{0}}";
             var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
 
             return sql;
@@ -41,7 +41,7 @@ namespace ServiceStack.OrmLite.Support
 
         protected string GetRefFieldSql(Type refType, FieldDefinition refField)
         {
-            var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
+            var sqlFilter = $"{this.dialectProvider.GetQuotedColumnName(refField.FieldName)}={{0}}";
             var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
             return sql;
         }
@@ -53,7 +53,7 @@ namespace ServiceStack.OrmLite.Support
             if (refPkValue == null)
                 return null;
 
-            var sqlFilter = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName) + "={0}";
+            var sqlFilter = $"{this.dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)}={{0}}";
             var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, refPkValue);
             return sql;
         }

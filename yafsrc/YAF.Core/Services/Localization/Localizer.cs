@@ -46,11 +46,6 @@ namespace YAF.Core.Services.Localization
         #region Constants and Fields
 
         /// <summary>
-        /// The _current culture.
-        /// </summary>
-        private CultureInfo _currentCulture;
-
-        /// <summary>
         ///   The _current page.
         /// </summary>
         private string _currentPage = string.Empty;
@@ -96,7 +91,7 @@ namespace YAF.Core.Services.Localization
         /// <summary>
         ///   Gets LanguageCode.
         /// </summary>
-        public CultureInfo CurrentCulture => this._currentCulture;
+        public CultureInfo CurrentCulture { get; private set; }
 
         #endregion
 
@@ -271,12 +266,12 @@ namespace YAF.Core.Services.Localization
             {
                 if (langCode.Equals(YafContext.Current.BoardSettings.Culture.Substring(0, 2)))
                 {
-                    this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                    this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
                 }
             }
             catch (Exception)
             {
-                this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
             }
 
             var cultureUser = YafContext.Current.CultureUser;
@@ -293,13 +288,13 @@ namespace YAF.Core.Services.Localization
 
             try
             {
-                this._currentCulture =
+                this.CurrentCulture =
                     new CultureInfo(
                         cultureUser.Trim().Length > 5 ? cultureUser.Trim().Substring(0, 2) : cultureUser.Trim());
             }
             catch (Exception)
             {
-                this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
             }
         }
 
@@ -332,7 +327,7 @@ namespace YAF.Core.Services.Localization
                 userLanguageCode = this._localizationLanguageResources.code.Trim().Substring(0, 2);
             }
 
-            this._currentCulture = new CultureInfo(userLanguageCode);
+            this.CurrentCulture = new CultureInfo(userLanguageCode);
         }
 
         #endregion

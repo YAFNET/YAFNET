@@ -28,6 +28,7 @@ namespace YAF.Core.Extensions
     using System.Data;
     using System.Linq;
     using System.Linq.Expressions;
+
     using ServiceStack;
     using ServiceStack.OrmLite;
 
@@ -56,12 +57,13 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static bool DeleteAll<T>([NotNull] this IRepository<T> repository) where T : class, IEntity, new()
+        public static bool DeleteAll<T>([NotNull] this IRepository<T> repository)
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = repository.DbAccess.Execute(db => db.Connection.DeleteAll<T>()) == 1;
-            
+
             if (success)
             {
                 repository.FireDeleted();
@@ -80,11 +82,13 @@ namespace YAF.Core.Extensions
         /// The have id.
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool Delete<T>([NotNull] this IRepository<T> repository, [NotNull] IHaveID haveId) where T : class, IEntity, IHaveID, new()
+        public static bool Delete<T>([NotNull] this IRepository<T> repository, [NotNull] IHaveID haveId)
+            where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(haveId, "haveId");
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -102,17 +106,18 @@ namespace YAF.Core.Extensions
         /// The criteria.
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="int"/>.
         /// </returns>
-        public static int Delete<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : class, IEntity, new()
+        public static int Delete<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
         }
-
 
         /// <summary>
         /// The delete by id.
@@ -129,7 +134,8 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static bool DeleteById<T>([NotNull] this IRepository<T> repository, int id) where T : class, IEntity, IHaveID, new()
+        public static bool DeleteById<T>([NotNull] this IRepository<T> repository, int id)
+            where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -149,7 +155,8 @@ namespace YAF.Core.Extensions
         /// <param name="repository">The repository.</param>
         /// <param name="ids">The ids.</param>
         /// <returns>Returns if deleting was successful or not</returns>
-        public static bool DeleteByIds<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids) where T : class, IEntity, IHaveID, new()
+        public static bool DeleteByIds<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids)
+            where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -157,10 +164,8 @@ namespace YAF.Core.Extensions
 
             var enumerable = ids.ToList();
 
-            enumerable.ForEach(id =>
-            {
-                success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1;
-            });
+            enumerable.ForEach(
+                id => { success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1; });
 
             if (success)
             {
@@ -185,7 +190,8 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// Returns all entities by the board Id or current board id if none is specified
         /// </returns>
-        public static IList<T> GetByBoardId<T>([NotNull] this IRepository<T> repository, int? boardId = null) where T : IEntity, IHaveBoardID, new()
+        public static IList<T> GetByBoardId<T>([NotNull] this IRepository<T> repository, int? boardId = null)
+            where T : IEntity, IHaveBoardID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -212,7 +218,10 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static int Insert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
+        public static int Insert<T>(
+            [NotNull] this IRepository<T> repository,
+            [NotNull] T entity,
+            IDbTransaction transaction = null)
             where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(entity, "entity");
@@ -231,7 +240,10 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool" /> .
         /// </returns>
-        public static bool Upsert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
+        public static bool Upsert<T>(
+            [NotNull] this IRepository<T> repository,
+            [NotNull] T entity,
+            IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(entity, "entity");
@@ -258,7 +270,10 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static bool Update<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
+        public static bool Update<T>(
+            [NotNull] this IRepository<T> repository,
+            [NotNull] T entity,
+            IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(entity, "entity");
@@ -278,20 +293,23 @@ namespace YAF.Core.Extensions
         /// Numeric fields generates an increment sql which is useful to increment counters, etc...
         /// avoiding concurrency conflicts
         /// 
-        ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
+        ///   db.UpdateAdd(() =&gt; new Person { Age = 5 }, where: p =&gt; p.LastName == "Hendrix");
         ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
         /// 
-        ///   db.UpdateAdd(() => new Person { Age = 5 });
+        ///   db.UpdateAdd(() =&gt; new Person { Age = 5 });
         ///   UPDATE "Person" SET "Age" = "Age" + 5
         /// </summary>
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="entity">
-        /// The entity. 
+        /// <param name="updateFields">
+        /// The update Fields.
         /// </param>
-        /// <param name="transaction">
-        /// The transaction. 
+        /// <param name="where">
+        /// The where.
+        /// </param>
+        /// <param name="commandFilter">
+        /// The command Filter.
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
@@ -299,9 +317,11 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static int UpdateAdd<T>([NotNull] this IRepository<T> repository, Expression<Func<T>> updateFields,
-                                        Expression<Func<T, bool>> where = null,
-                                        Action<IDbCommand> commandFilter = null)
+        public static int UpdateAdd<T>(
+            [NotNull] this IRepository<T> repository,
+            Expression<Func<T>> updateFields,
+            Expression<Func<T, bool>> where = null,
+            Action<IDbCommand> commandFilter = null)
             where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -318,15 +338,19 @@ namespace YAF.Core.Extensions
         ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
         ///   UPDATE "Person" SET "FirstName" = 'JJ'
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
         /// <param name="repository">The repository.</param>
         /// <param name="updateFields">The update fields.</param>
         /// <param name="where">The where.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns></returns>
-        public static int UpdateOnly<T>([NotNull] this IRepository<T> repository, Expression<Func<T>> updateFields,
-                                         Expression<Func<T, bool>> where = null,
-                                         Action<IDbCommand> commandFilter = null)
+        public static int UpdateOnly<T>(
+            [NotNull] this IRepository<T> repository,
+            Expression<Func<T>> updateFields,
+            Expression<Func<T, bool>> where = null,
+            Action<IDbCommand> commandFilter = null)
             where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -365,7 +389,8 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="T"/> . 
         /// </returns>
-        public static T GetById<T>([NotNull] this IRepository<T> repository, int id) where T : IEntity, IHaveID, new()
+        public static T GetById<T>([NotNull] this IRepository<T> repository, int id)
+            where T : IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -381,11 +406,12 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="T" /> .
         /// </returns>
-        public static T GetSingle<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : IEntity, new()
+        public static T GetSingle<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
+            where T : IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbAccess.Execute(db => db.Connection.Single<T>(criteria));
+            return repository.DbAccess.Execute(db => db.Connection.Single(criteria));
         }
 
         /// <summary>
@@ -401,7 +427,27 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(repository, "repository");
             CodeContracts.VerifyNotNull(criteria, "criteria");
 
-            return repository.DbAccess.Execute(db => db.Connection.Select<T>(criteria));
+            return repository.DbAccess.Execute(db => db.Connection.Select(criteria));
+        }
+
+        /// <summary>
+        /// Gets the list of all entities
+        /// </summary>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <returns>
+        /// Returns the list of entities
+        /// </returns>
+        public static List<T> GetAll<T>([NotNull] this IRepository<T> repository)
+            where T : class, IEntity, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Execute(db => db.Connection.Select<T>());
         }
 
         /// <summary>
@@ -428,17 +474,26 @@ namespace YAF.Core.Extensions
 
         /// <summary>
         /// Returns results from an arbitrary parameterized raw sql query with a dbCmd filter. E.g:
-        /// <para>db.SqlList&lt;Person&gt;("EXEC GetRockstarsAged @age", dbCmd => ...)</para>
+        /// <para>
+        /// db.SqlList&lt;Person&gt;("EXEC GetRockstarsAged @age", dbCmd =&gt; ...)
+        /// </para>
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="sql">
+        /// The sql.
+        /// </param>
+        /// <param name="dbCmdFilter">
+        /// The db Cmd Filter.
+        /// </param>
         public static List<T> SqlList<T>(
             [NotNull] this IRepository<T> repository,
             string sql,
             Action<IDbCommand> dbCmdFilter)
         {
             return repository.DbAccess.Execute(
-                dbCmd => dbCmd.Connection.SqlList<T>(
-                    $"{Config.DatabaseObjectQualifier}{sql}",
-                    dbCmdFilter));
+                dbCmd => dbCmd.Connection.SqlList<T>($"{Config.DatabaseObjectQualifier}{sql}", dbCmdFilter));
         }
 
 
@@ -453,7 +508,11 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// Returns the list of entities
         /// </returns>
-        public static List<T> GetPaged<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria, int? pageIndex = 0, int? pageSize = 10000000)
+        public static List<T> GetPaged<T>(
+            [NotNull] this IRepository<T> repository,
+            Expression<Func<T, bool>> criteria,
+            int? pageIndex = 0,
+            int? pageSize = 10000000)
             where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");

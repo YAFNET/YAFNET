@@ -1950,8 +1950,8 @@ namespace ServiceStack.OrmLite.Dapper
         }
 
         private static string GetInListRegex(string name, bool byPosition) => byPosition
-            ? @"(\?)" + Regex.Escape(name) + @"\?(?!\w)(\s+(?i)unknown(?-i))?"
-            : "([?@:]" + Regex.Escape(name) + @")(?!\w)(\s+(?i)unknown(?-i))?";
+            ? $@"(\?){Regex.Escape(name)}\?(?!\w)(\s+(?i)unknown(?-i))?"
+            : $"([?@:]{Regex.Escape(name)})(?!\\w)(\\s+(?i)unknown(?-i))?";
 
         /// <summary>
         /// Internal use only.
@@ -2070,7 +2070,7 @@ namespace ServiceStack.OrmLite.Dapper
                             }
                             else
                             {
-                                return "(SELECT " + variableName + " WHERE 1 = 0)";
+                                return $"(SELECT {variableName} WHERE 1 = 0)";
                             }
                         }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
                         var dummyParam = command.CreateParameter();
@@ -2152,7 +2152,7 @@ namespace ServiceStack.OrmLite.Dapper
                 else
                 {
                     varName = variableName;
-                    return "(select cast([value] as " + colType + ") from string_split(" + variableName + ",','))";
+                    return $"(select cast([value] as {colType}) from string_split({variableName},','))";
                 }
             }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
             if (varName == null) return false; // couldn't resolve the var!
@@ -2224,7 +2224,7 @@ namespace ServiceStack.OrmLite.Dapper
             var list = new List<PropertyInfo>(16);
             foreach (var p in parameters)
             {
-                if (Regex.IsMatch(sql, @"[?@:]" + p.Name + @"([^\p{L}\p{N}_]+|$)", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant))
+                if (Regex.IsMatch(sql, $@"[?@:]{p.Name}([^\p{{L}}\p{{N}}_]+|$)", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant))
                     list.Add(p);
             }
             return list;
@@ -2375,7 +2375,7 @@ namespace ServiceStack.OrmLite.Dapper
             for (var i = 0; i < names.Length; i++)
             {
                 FieldInfo field = null;
-                var name = "Item" + (i + 1).ToString(CultureInfo.InvariantCulture);
+                var name = $"Item{(i + 1).ToString(CultureInfo.InvariantCulture)}";
                 foreach (var test in fields)
                 {
                     if (test.Name == name)
@@ -2403,7 +2403,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
             }
-            var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
+            var dm = new DynamicMethod($"ParamInfo{Guid.NewGuid()}", null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
 
             var il = dm.GetILGenerator();
 
@@ -3076,7 +3076,7 @@ namespace ServiceStack.OrmLite.Dapper
         )
         {
             var returnType = type.IsValueType() ? typeof(object) : type;
-            var dm = new DynamicMethod("Deserialize" + Guid.NewGuid(), returnType, new[] { typeof(IDataReader) }, type, true);
+            var dm = new DynamicMethod($"Deserialize{Guid.NewGuid()}", returnType, new[] { typeof(IDataReader) }, type, true);
             var il = dm.GetILGenerator();
             il.DeclareLocal(typeof(int));
             il.DeclareLocal(type);
@@ -3149,7 +3149,8 @@ namespace ServiceStack.OrmLite.Dapper
                     var ctor = typeMap.FindConstructor(names, types);
                     if (ctor == null)
                     {
-                        var proposedTypes = "(" + string.Join(", ", types.Select((t, i) => t.FullName + " " + names[i]).ToArray()) + ")";
+                        var proposedTypes =
+                            $"({string.Join(", ", types.Select((t, i) => $"{t.FullName} {names[i]}").ToArray())})";
                         throw new InvalidOperationException($"A parameterless default constructor or one matching signature {proposedTypes} is required for {type.FullName} materialization");
                     }
 
@@ -3588,7 +3589,8 @@ namespace ServiceStack.OrmLite.Dapper
                         }
                         else
                         {
-                            formattedValue = Convert.ToString(value) + " - " + TypeExtensions.GetTypeCode(value.GetType());
+                            formattedValue =
+                                $"{Convert.ToString(value)} - {TypeExtensions.GetTypeCode(value.GetType())}";
                         }
                     }
                     catch (Exception valEx)

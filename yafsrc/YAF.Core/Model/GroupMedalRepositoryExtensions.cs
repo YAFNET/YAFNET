@@ -21,54 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model
 {
-    using System;
-    using System.Data;
-
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
-    ///     The UserMedal repository extensions.
+    /// The group medal repository extensions.
     /// </summary>
-    public static class UserMedalRepositoryExtensions
+    public static class GroupMedalRepositoryExtensions
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// Lists medal(s) assigned to the group
+        /// Update existing group-medal allocation.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// ID of user who was given medal.
-        /// </param>
-        /// <param name="medalID">
-        /// ID of medal to list.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListAsDataTable(
-            this IRepository<UserMedal> repository,
-            [NotNull] int? userID,
-            [NotNull] int? medalID)
-        {
-            return repository.DbFunction.GetData.user_medal_list(UserID: userID, MedalID: medalID);
-        }
-
-        /// <summary>
-        /// Update existing user-medal allocation.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userID">
-        /// ID of user.
+        /// <param name="groupID">
+        /// The group ID.
         /// </param>
         /// <param name="medalID">
         /// ID of medal.
@@ -86,8 +61,8 @@ namespace YAF.Core.Model
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
         public static void Save(
-            this IRepository<UserMedal> repository,
-            [NotNull] int userID,
+            this IRepository<GroupMedal> repository,
+            [NotNull] int groupID,
             [NotNull] int medalID,
             [NotNull] string message,
             [NotNull] bool hide,
@@ -95,24 +70,24 @@ namespace YAF.Core.Model
             [NotNull] byte sortOrder)
         {
             repository.UpdateOnly(
-                () => new UserMedal
-                          {
-                              Message = message,
-                              Hide = hide,
-                              OnlyRibbon = onlyRibbon,
-                              SortOrder = sortOrder
-                          },
-                m => m.UserID == userID && m.MedalID == medalID);
+                () => new GroupMedal
+                {
+                    Message = message,
+                    Hide = hide,
+                    OnlyRibbon = onlyRibbon,
+                    SortOrder = sortOrder
+                },
+                m => m.GroupID == groupID && m.MedalID == medalID);
         }
 
         /// <summary>
-        /// Saves new user-medal allocation.
+        /// Saves new group-medal allocation.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// ID of user.
+        /// <param name="groupID">
+        /// The group ID.
         /// </param>
         /// <param name="medalID">
         /// ID of medal.
@@ -130,8 +105,8 @@ namespace YAF.Core.Model
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
         public static void SaveNew(
-            this IRepository<UserMedal> repository,
-            [NotNull] int userID,
+            this IRepository<GroupMedal> repository,
+            [NotNull] int groupID,
             [NotNull] int medalID,
             [NotNull] string message,
             [NotNull] bool hide,
@@ -139,16 +114,15 @@ namespace YAF.Core.Model
             [NotNull] byte sortOrder)
         {
             repository.Insert(
-                new UserMedal
-                    {
-                        UserID = userID,
-                        MedalID = medalID,
-                        Message = message,
-                        Hide = hide,
-                        OnlyRibbon = onlyRibbon,
-                        SortOrder = sortOrder,
-                        DateAwarded = DateTime.UtcNow
-                    });
+                new GroupMedal
+                {
+                    GroupID = groupID,
+                    MedalID = medalID,
+                    Message = message,
+                    Hide = hide,
+                    OnlyRibbon = onlyRibbon,
+                    SortOrder = sortOrder
+                });
         }
 
         #endregion

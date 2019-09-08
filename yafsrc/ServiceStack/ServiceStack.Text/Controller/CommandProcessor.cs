@@ -42,7 +42,7 @@ namespace ServiceStack.Text.Controller
 			var pathInfo = PathInfo.Parse(actionParts[1]);
 
 		    if (!this.contextMap.TryGetValue(controllerName, out var context))
-		        throw new Exception("UnknownContext: " + controllerName);
+		        throw new Exception($"UnknownContext: {controllerName}");
 
             var methodName = pathInfo.ActionName;
 

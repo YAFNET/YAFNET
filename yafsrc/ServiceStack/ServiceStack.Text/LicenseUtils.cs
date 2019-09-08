@@ -84,7 +84,7 @@ namespace ServiceStack
         public static void RegisterLicenseFromFile(string filePath)
         {
             if (!filePath.FileExists())
-                throw new LicenseException("License file does not exist: " + filePath).Trace();
+                throw new LicenseException($"License file does not exist: {filePath}").Trace();
 
             var licenseKeyText = filePath.ReadAllText();
             LicenseUtils.RegisterLicense(licenseKeyText);
@@ -180,7 +180,7 @@ namespace ServiceStack
                 subId = parts[0];
 
                 if (int.TryParse(subId, out var subIdInt) && revokedSubs.Contains(subIdInt))
-                    throw new LicenseException("This subscription has been revoked. " + ContactDetails);
+                    throw new LicenseException($"This subscription has been revoked. {ContactDetails}");
 
                 var key = PclExport.Instance.VerifyLicenseKeyText(licenseKeyText);
                 ValidateLicenseKey(key);
@@ -190,7 +190,7 @@ namespace ServiceStack
                 if (ex is LicenseException)
                     throw;
 
-                var msg = "This license is invalid." + ContactDetails;
+                var msg = $"This license is invalid.{ContactDetails}";
                 if (!string.IsNullOrEmpty(subId))
                     msg += $" The id for this license is '{subId}'";
 
@@ -219,11 +219,11 @@ namespace ServiceStack
         {
             var releaseDate = Env.GetReleaseDate();
             if (releaseDate > key.Expiry)
-                throw new LicenseException($"This license has expired on {key.Expiry:d} and is not valid for use with this release."
-                                           + ContactDetails).Trace();
+                throw new LicenseException(
+                    $"This license has expired on {key.Expiry:d} and is not valid for use with this release.{ContactDetails}").Trace();
 
             if (key.Type == LicenseType.Trial && DateTime.UtcNow > key.Expiry)
-                throw new LicenseException($"This trial license has expired on {key.Expiry:d}." + ContactDetails).Trace();
+                throw new LicenseException($"This trial license has expired on {key.Expiry:d}.{ContactDetails}").Trace();
 
             __activatedLicense = key;
         }
@@ -358,7 +358,7 @@ namespace ServiceStack
                 case LicenseType.RedisSite:
                     return LicenseFeature.RedisSku;
             }
-            throw new ArgumentException("Unknown License Type: " + key.Type).Trace();
+            throw new ArgumentException($"Unknown License Type: {key.Type}").Trace();
         }
 
         public static LicenseKey ToLicenseKey(this string licenseKeyText)

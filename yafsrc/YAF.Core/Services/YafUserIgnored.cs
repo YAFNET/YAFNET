@@ -23,124 +23,124 @@
  */
 namespace YAF.Core.Services
 {
-  #region Using
+    #region Using
 
-  using System.Collections.Generic;
-  using System.Web;
+    using System.Collections.Generic;
+    using System.Web;
 
-  using YAF.Core.Model;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Models;
-
-  #endregion
-
-  /// <summary>
-  /// User Ignored Service for the current user.
-  /// </summary>
-  public class YafUserIgnored : IUserIgnored
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _db broker.
-    /// </summary>
-    private readonly YafDbBroker _dbBroker;
-
-    /// <summary>
-    ///   The _user ignore list.
-    /// </summary>
-    private List<int> _userIgnoreList;
+    using YAF.Core.Model;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafUserIgnored"/> class.
+    /// User Ignored Service for the current user.
     /// </summary>
-    /// <param name="sessionStateBase">
-    /// The session state base.
-    /// </param>
-    /// <param name="dbBroker">
-    /// The db broker.
-    /// </param>
-    public YafUserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] YafDbBroker dbBroker)
+    public class YafUserIgnored : IUserIgnored
     {
-      this.SessionStateBase = sessionStateBase;
-      this._dbBroker = dbBroker;
+        #region Constants and Fields
+
+        /// <summary>
+        /// The _db broker.
+        /// </summary>
+        private readonly YafDbBroker _dbBroker;
+
+        /// <summary>
+        ///   The _user ignore list.
+        /// </summary>
+        private List<int> _userIgnoreList;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafUserIgnored"/> class.
+        /// </summary>
+        /// <param name="sessionStateBase">
+        /// The session state base.
+        /// </param>
+        /// <param name="dbBroker">
+        /// The db broker.
+        /// </param>
+        public YafUserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] YafDbBroker dbBroker)
+        {
+            this.SessionStateBase = sessionStateBase;
+            this._dbBroker = dbBroker;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets SessionStateBase.
+        /// </summary>
+        public HttpSessionStateBase SessionStateBase { get; set; }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IUserIgnored
+
+        /// <summary>
+        /// The add ignored.
+        /// </summary>
+        /// <param name="ignoredUserId">
+        /// The ignored user id.
+        /// </param>
+        public void AddIgnored(int ignoredUserId)
+        {
+            YafContext.Current.GetRepository<IgnoreUser>().AddIgnoredUser(YafContext.Current.PageUserID, ignoredUserId);
+            this.ClearIgnoreCache();
+        }
+
+        /// <summary>
+        /// The clear ignore cache.
+        /// </summary>
+        public void ClearIgnoreCache()
+        {
+            // clear for the session
+            this.SessionStateBase.Remove(string.Format(Constants.Cache.UserIgnoreList, YafContext.Current.PageUserID));
+        }
+
+        /// <summary>
+        /// The is ignored.
+        /// </summary>
+        /// <param name="ignoredUserId">
+        /// The ignored user id.
+        /// </param>
+        /// <returns>
+        /// The is ignored.
+        /// </returns>
+        public bool IsIgnored(int ignoredUserId)
+        {
+            if (this._userIgnoreList == null)
+            {
+                this._userIgnoreList = this._dbBroker.UserIgnoredList(YafContext.Current.PageUserID);
+            }
+
+            return this._userIgnoreList.Count > 0 && this._userIgnoreList.Contains(ignoredUserId);
+        }
+
+        /// <summary>
+        /// The remove ignored.
+        /// </summary>
+        /// <param name="ignoredUserId">
+        /// The ignored user id.
+        /// </param>
+        public void RemoveIgnored(int ignoredUserId)
+        {
+            YafContext.Current.GetRepository<IgnoreUser>().Delete(YafContext.Current.PageUserID, ignoredUserId);
+            this.ClearIgnoreCache();
+        }
+
+        #endregion
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets SessionStateBase.
-    /// </summary>
-    public HttpSessionStateBase SessionStateBase { get; set; }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IUserIgnored
-
-    /// <summary>
-    /// The add ignored.
-    /// </summary>
-    /// <param name="ignoredUserId">
-    /// The ignored user id.
-    /// </param>
-    public void AddIgnored(int ignoredUserId)
-    {
-        YafContext.Current.GetRepository<User>().AddIgnoredUser(YafContext.Current.PageUserID, ignoredUserId);
-      this.ClearIgnoreCache();
-    }
-
-    /// <summary>
-    /// The clear ignore cache.
-    /// </summary>
-    public void ClearIgnoreCache()
-    {
-      // clear for the session
-      this.SessionStateBase.Remove(string.Format(Constants.Cache.UserIgnoreList, YafContext.Current.PageUserID));
-    }
-
-    /// <summary>
-    /// The is ignored.
-    /// </summary>
-    /// <param name="ignoredUserId">
-    /// The ignored user id.
-    /// </param>
-    /// <returns>
-    /// The is ignored.
-    /// </returns>
-    public bool IsIgnored(int ignoredUserId)
-    {
-      if (this._userIgnoreList == null)
-      {
-        this._userIgnoreList = this._dbBroker.UserIgnoredList(YafContext.Current.PageUserID);
-      }
-
-      return this._userIgnoreList.Count > 0 && this._userIgnoreList.Contains(ignoredUserId);
-    }
-
-    /// <summary>
-    /// The remove ignored.
-    /// </summary>
-    /// <param name="ignoredUserId">
-    /// The ignored user id.
-    /// </param>
-    public void RemoveIgnored(int ignoredUserId)
-    {
-      YafContext.Current.GetRepository<IgnoreUser>().Delete(YafContext.Current.PageUserID, ignoredUserId);
-      this.ClearIgnoreCache();
-    }
-
-    #endregion
-
-    #endregion
-  }
 }

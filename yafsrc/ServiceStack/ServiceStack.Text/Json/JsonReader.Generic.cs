@@ -101,8 +101,7 @@ namespace ServiceStack.Text.Json
                         return JsonReader.GetParseStringSegmentFn(concreteType)(value);
                     }
 
-                    throw new NotSupportedException("Can not deserialize interface type: "
-                        + typeof(T).Name);
+                    throw new NotSupportedException($"Can not deserialize interface type: {typeof(T).Name}");
                 }
 
                 Refresh();

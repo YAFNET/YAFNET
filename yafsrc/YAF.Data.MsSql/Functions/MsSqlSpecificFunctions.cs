@@ -102,6 +102,30 @@ namespace YAF.Data.MsSql.Functions
         }
 
         /// <summary>
+        /// Gets the current SQL Engine Edition.
+        /// </summary>
+        /// <param name="dbAccess">The database access.</param>
+        /// <returns>
+        /// Returns the current SQL Engine Edition.
+        /// </returns>
+        public static string GetSQLVersion(this IDbAccess dbAccess)
+        {
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+
+            try
+            {
+                using (var cmd = dbAccess.GetCommand("select @@version", CommandType.Text))
+                {
+                    return dbAccess.ExecuteScalar(cmd).ToString();
+                }
+            }
+            catch
+            {
+                return "Unknown";
+            }
+        }
+
+        /// <summary>
         /// The shrink database.
         /// </summary>
         /// <param name="dbAccess">

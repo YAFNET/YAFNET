@@ -126,7 +126,7 @@ namespace YAF.Core.Services.Cache
 
       while (dictionaryEnumerator.MoveNext())
       {
-        if (!dictionaryEnumerator.Key.ToString().StartsWith(YafCacheKey + "$"))
+        if (!dictionaryEnumerator.Key.ToString().StartsWith($"{YafCacheKey}$"))
         {
           continue;
         }

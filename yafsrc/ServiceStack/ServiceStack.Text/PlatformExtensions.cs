@@ -200,7 +200,7 @@ namespace ServiceStack
             if (pi.DeclaringType == null)
                 throw new ArgumentException("Property '{0}' has no DeclaringType".Fmt(pi.Name));
 
-            return pi.DeclaringType.Namespace + "." + pi.DeclaringType.Name + "." + pi.Name;
+            return $"{pi.DeclaringType.Namespace}.{pi.DeclaringType.Name}.{pi.Name}";
         }
 
         public static Type AddAttributes(this Type type, params Attribute[] attrs)
@@ -544,7 +544,7 @@ namespace ServiceStack
         public static Type GetCachedGenericType(this Type type, params Type[] argTypes)
         {
             if (!type.IsGenericTypeDefinition)
-                throw new ArgumentException(type.FullName + " is not a Generic Type Definition");
+                throw new ArgumentException($"{type.FullName} is not a Generic Type Definition");
 
             if (argTypes == null)
                 argTypes = TypeConstants.EmptyTypeArray;

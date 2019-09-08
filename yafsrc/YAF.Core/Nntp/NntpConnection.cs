@@ -165,19 +165,18 @@ namespace YAF.Core.Nntp
       if (request != null)
       {
         this.sw.WriteLine(request);
-        this.onRequest?.Invoke("SEND: " + request);
+        this.onRequest?.Invoke($"SEND: {request}");
       }
 
-      string line = null;
-      var code = 0;
+      int code;
 
       // vzrus: Here can be an IO exception
       // No connecting newsserver or the connection was broken because of an invalid request.
-      line = this.sr.ReadLine();   
+      var line = this.sr.ReadLine();   
    
       if (this.onRequest != null && line != null)
       {
-        this.onRequest("RECEIVE: " + line);
+        this.onRequest($"RECEIVE: {line}");
       }
 
       try
@@ -229,7 +228,7 @@ namespace YAF.Core.Nntp
     /// </returns>
     private ArticleHeader GetHeader(string messageId, out MIMEPart part)
     {
-      string response = null;
+      string response;
       var header = new ArticleHeader();
       string name = null;
       header.ReferenceIds = new string[0];
@@ -237,7 +236,7 @@ namespace YAF.Core.Nntp
       while ((response = this.sr.ReadLine()) != null && response != string.Empty)
       {
         var m = Regex.Match(response, @"^\s+(\S+)$");
-        string value = null;
+        string value;
         if (m.Success)
         {
           value = m.Groups[1].ToString();
@@ -347,13 +346,11 @@ namespace YAF.Core.Nntp
     private ArticleBody GetNormalBody(string messageId)
     {
       var buff = new char[1];
-      string response = null;
+      string response;
       var list = new ArrayList();
       var sb = new StringBuilder();
-      MemoryStream ms = null;
       this.sr.Read(buff, 0, 1);
       var i = 0;
-      Match m = null;
 
       while ((response = this.sr.ReadLine()) != null)
       {
@@ -370,9 +367,10 @@ namespace YAF.Core.Nntp
         }
         else
         {
-          if ((buff[0] == 'B' || buff[0] == 'b') && (m = Regex.Match(response, @"^EGIN \d\d\d (.+)$", RegexOptions.IgnoreCase)).Success)
+            Match m;
+            if ((buff[0] == 'B' || buff[0] == 'b') && (m = Regex.Match(response, @"^EGIN \d\d\d (.+)$", RegexOptions.IgnoreCase)).Success)
           {
-            ms = new MemoryStream();
+            var ms = new MemoryStream();
             while ((response = this.sr.ReadLine()) != null && (response.Length != 3 || response.ToUpper() != "END"))
             {
               NntpUtil.UUDecode(response, ms);
@@ -380,8 +378,8 @@ namespace YAF.Core.Nntp
 
             ms.Seek(0, SeekOrigin.Begin);
             var bytes = new byte[ms.Length];
-            ms.Read(bytes, 0, (int) ms.Length);
-            var attach = new Attachment(messageId + " - " + m.Groups[1], m.Groups[1].ToString(), bytes);
+            ms.Read(bytes, 0, (int)ms.Length);
+            var attach = new Attachment($"{messageId} - {m.Groups[1]}", m.Groups[1].ToString(), bytes);
             list.Add(attach);
             ms.Close();
             i++;
@@ -417,9 +415,9 @@ namespace YAF.Core.Nntp
     /// </returns>
     private ArticleBody GetMIMEBody(string messageId, MIMEPart part)
     {
-      string line = null;
-      ArticleBody body = null;
-      StringBuilder sb = null;
+      string line;
+      ArticleBody body;
+      StringBuilder sb;
       var attachmentList = new ArrayList();
       try
       {
@@ -482,7 +480,7 @@ namespace YAF.Core.Nntp
         return;
       }
 
-      var attachment = new Attachment(messageId + " - " + part.Filename, part.Filename, part.BinaryData);
+      var attachment = new Attachment($"{messageId} - {part.Filename}", part.Filename, part.BinaryData);
       attachmentList.Add(attachment);
     }
 
@@ -582,10 +580,10 @@ namespace YAF.Core.Nntp
         return false;
       }
 
-      var res = this.MakeRequest("AUTHINFO USER " + this.username);
+      var res = this.MakeRequest($"AUTHINFO USER {this.username}");
       if (res.Code == 381)
       {
-        res = this.MakeRequest("AUTHINFO PASS " + this.password);
+        res = this.MakeRequest($"AUTHINFO PASS {this.password}");
       }
 
       if (res.Code != 281)
@@ -617,7 +615,7 @@ namespace YAF.Core.Nntp
 
       if (this.ConnectedGroup == null || this.ConnectedGroup.Group != group)
       {
-        var res = this.MakeRequest("GROUP " + group);
+        var res = this.MakeRequest($"GROUP {@group}");
         if (res.Code != 211)
         {
           this.ConnectedGroup = null;
@@ -688,7 +686,7 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsgroup.");
       }
 
-      var res = this.MakeRequest("STAT " + articleId);
+      var res = this.MakeRequest($"STAT {articleId}");
       if (res.Code != 223)
       {
         throw new NntpException(res.Code, res.Request);
@@ -723,7 +721,7 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsgroup.");
       }
 
-      var res = this.MakeRequest("STAT " + messageId);
+      var res = this.MakeRequest($"STAT {messageId}");
       if (res.Code != 223)
       {
         throw new NntpException(res.Code, res.Request);
@@ -761,7 +759,7 @@ namespace YAF.Core.Nntp
         throw new NntpException("No connecting newsgroup.");
       }
 
-      var res = this.MakeRequest("XOVER " + low + "-" + high);
+      var res = this.MakeRequest($"XOVER {low}-{high}");
       if (res.Code != 224)
       {
         throw new NntpException(res.Code, res.Request);
@@ -860,7 +858,7 @@ namespace YAF.Core.Nntp
       }
 
       var article = new Article();
-      var res = this.MakeRequest("Article " + messageId);
+      var res = this.MakeRequest($"Article {messageId}");
       if (res.Code != 220)
       {
         throw new NntpException(res.Code);
@@ -976,22 +974,7 @@ namespace YAF.Core.Nntp
     /// </summary>
     private class Response
     {
-      /// <summary>
-      /// The code.
-      /// </summary>
-      private int code;
-
-      /// <summary>
-      /// The message.
-      /// </summary>
-      private string message;
-
-      /// <summary>
-      /// The request.
-      /// </summary>
-      private string request;
-
-      /// <summary>
+        /// <summary>
       /// Initializes a new instance of the <see cref="Response"/> class.
       /// </summary>
       /// <param name="code">
@@ -1005,40 +988,25 @@ namespace YAF.Core.Nntp
       /// </param>
       public Response(int code, string message, string request)
       {
-        this.code = code;
-        this.message = message;
-        this.request = request;
+        this.Code = code;
+        this.Message = message;
+        this.Request = request;
       }
 
       /// <summary>
       /// Gets or sets Code.
       /// </summary>
-      public int Code
-      {
-        get => this.code;
-
-        set => this.code = value;
-      }
+      public int Code { get; }
 
       /// <summary>
       /// Gets or sets Message.
       /// </summary>
-      public string Message
-      {
-        get => this.message;
-
-        set => this.message = value;
-      }
+      public string Message { get; set; }
 
       /// <summary>
       /// Gets or sets Request.
       /// </summary>
-      public string Request
-      {
-        get => this.request;
-
-        set => this.request = value;
-      }
+      public string Request { get; set; }
     }
 
     #endregion

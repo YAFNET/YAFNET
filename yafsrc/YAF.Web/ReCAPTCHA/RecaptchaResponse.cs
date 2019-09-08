@@ -48,16 +48,6 @@ namespace YAF.Web.ReCAPTCHA
     /// </summary>
     public static readonly RecaptchaResponse Valid = new RecaptchaResponse(true, string.Empty);
 
-    /// <summary>
-    ///   The error code.
-    /// </summary>
-    private readonly string errorCode;
-
-    /// <summary>
-    ///   The is valid.
-    /// </summary>
-    private readonly bool isValid;
-
     #endregion
 
     #region Constructors and Destructors
@@ -73,8 +63,8 @@ namespace YAF.Web.ReCAPTCHA
     /// </param>
     internal RecaptchaResponse(bool isValid, [NotNull] string errorCode)
     {
-      this.isValid = isValid;
-      this.errorCode = errorCode;
+      this.IsValid = isValid;
+      this.ErrorCode = errorCode;
     }
 
     #endregion
@@ -84,12 +74,12 @@ namespace YAF.Web.ReCAPTCHA
     /// <summary>
     ///   Gets ErrorCode.
     /// </summary>
-    public string ErrorCode => this.errorCode;
+    public string ErrorCode { get; }
 
     /// <summary>
     ///   Gets a value indicating whether IsValid.
     /// </summary>
-    public bool IsValid => this.isValid;
+    public bool IsValid { get; }
 
     #endregion
 

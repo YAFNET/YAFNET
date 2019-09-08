@@ -378,7 +378,8 @@ namespace ServiceStack.Templates
                     }
                     scope.ScopedParams[argName] = to;
                 }
-                else throw new NotSupportedException(nameof(addToStart) + " can only add to an IEnumerable not a " + collection.GetType().Name);
+                else throw new NotSupportedException(
+                    $"{nameof(this.addToStart)} can only add to an IEnumerable not a {collection.GetType().Name}");
             }
             else
             {
@@ -454,7 +455,8 @@ namespace ServiceStack.Templates
                     }
                     scope.ScopedParams[argName] = to;
                 }
-                else throw new NotSupportedException(nameof(addTo) + " can only add to an IEnumerable not a " + collection.GetType().Name);
+                else throw new NotSupportedException(
+                    $"{nameof(this.addTo)} can only add to an IEnumerable not a {collection.GetType().Name}");
             }
             else
             {
@@ -588,7 +590,8 @@ namespace ServiceStack.Templates
                 }
                 return to;
             }
-            throw new NotSupportedException(nameof(toKeys) + " expects an IDictionary or List of KeyValuePairs but received: " + target.GetType().Name);
+            throw new NotSupportedException(
+                $"{nameof(this.toKeys)} expects an IDictionary or List of KeyValuePairs but received: {target.GetType().Name}");
         }
 
         public List<object> toValues(object target)
@@ -619,7 +622,8 @@ namespace ServiceStack.Templates
                 }
                 return to;
             }
-            throw new NotSupportedException(nameof(toValues) + " expects an IDictionary or List of KeyValuePairs but received: " + target.GetType().Name);
+            throw new NotSupportedException(
+                $"{nameof(this.toValues)} expects an IDictionary or List of KeyValuePairs but received: {target.GetType().Name}");
         }
 
         public Dictionary<string, object> toObjectDictionary(object target) => target.ToObjectDictionary();
@@ -816,7 +820,8 @@ namespace ServiceStack.Templates
                 return null;
             
             if (target is string || target.GetType().IsValueType)
-                throw new NotSupportedException(nameof(selectFields) + " requires an IEnumerable, IDictionary or POCO Target, received instead: " + target.GetType().Name);
+                throw new NotSupportedException(
+                    $"{nameof(this.selectFields)} requires an IEnumerable, IDictionary or POCO Target, received instead: {target.GetType().Name}");
 
             var namesList = names is IEnumerable eKeys
                 ? eKeys.Map(x => x)
@@ -828,7 +833,8 @@ namespace ServiceStack.Templates
                 stringKeys = null;
 
             if (stringKey == null && stringKeys == null)
-                throw new NotSupportedException(nameof(selectFields) + " requires a string or [string] or property names, received instead: " + names.GetType().Name);
+                throw new NotSupportedException(
+                    $"{nameof(this.selectFields)} requires a string or [string] or property names, received instead: {names.GetType().Name}");
 
             if (stringKey?.IndexOf(',') >= 0)
             {
@@ -989,7 +995,8 @@ namespace ServiceStack.Templates
                 var props = TypeProperties.Get(itemType);
                 
                 if (!(first is IDictionary))
-                    throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
+                    throw new NotSupportedException(
+                        $"{nameof(this.remove)} removes keys from a IDictionary or [IDictionary]");
                 
                 foreach (var item in e)
                 {
@@ -1002,7 +1009,8 @@ namespace ServiceStack.Templates
                     }
                 }
             }
-            else throw new NotSupportedException(nameof(remove) + " removes keys from a IDictionary or [IDictionary]");
+            else throw new NotSupportedException(
+                $"{nameof(this.remove)} removes keys from a IDictionary or [IDictionary]");
             
             return target;
         }

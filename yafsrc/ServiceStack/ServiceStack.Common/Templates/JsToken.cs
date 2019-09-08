@@ -97,7 +97,7 @@ namespace ServiceStack.Templates
         public JsBinding(){}
         public JsBinding(string binding) => Binding = binding.ToStringSegment();
         public JsBinding(StringSegment binding) => Binding = binding;
-        public override string ToRawString() => ":" + Binding;
+        public override string ToRawString() => $":{this.Binding}";
 
         protected bool Equals(JsBinding other) => string.Equals(Binding, other.Binding);
         public override int GetHashCode() => Binding.GetHashCode();
@@ -985,7 +985,8 @@ namespace ServiceStack.Templates
                         cmd.Name = commandsString.Subsegment(pos, i - pos).Trim();
                         
                         var originalArgs = commandsString.Substring(i + 1, endStringPos - i - 1);
-                        var rewrittenArgs = "′" + originalArgs.Trim().Replace("{", "{{").Replace("}", "}}").Replace("′", "\\′") + "′)";
+                        var rewrittenArgs =
+                            $"′{originalArgs.Trim().Replace("{", "{{").Replace("}", "}}").Replace("′", "\\′")}′)";
                         ParseArguments(rewrittenArgs.ToStringSegment(), out args);
                         cmd.Args = args;
                         
@@ -1250,7 +1251,8 @@ namespace ServiceStack.Templates
                     binding = new JsExpression(literal.Subsegment(0, i).Trim());
 
                     var originalArgs = literal.Substring(i + 1, endStringPos - i - 1);
-                    var rewrittenArgs = "′" + originalArgs.Trim().Replace("{","{{").Replace("}","}}").Replace("′", "\\′") + "′)";
+                    var rewrittenArgs =
+                        $"′{originalArgs.Trim().Replace("{", "{{").Replace("}", "}}").Replace("′", "\\′")}′)";
                     ParseArguments(rewrittenArgs.ToStringSegment(), out var args);
                     binding.Args = args;
                     return literal.Subsegment(endStringPos);

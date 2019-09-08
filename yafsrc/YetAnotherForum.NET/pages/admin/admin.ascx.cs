@@ -39,6 +39,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -307,7 +308,7 @@ namespace YAF.Pages.Admin
         {
             var latestInfo = new LatestInformationService().GetLatestVersionInformation();
 
-            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version,0) <= BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0))
+            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0) <= BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0))
             {
                 return;
             }
@@ -361,18 +362,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var table = this.GetRepository<Board>().List();
+            var boards = this.GetRepository<Board>().GetAll();
 
             // add row for "all boards" (null value)
-            var row = table.NewRow();
+            boards.Insert(0, new Board { ID = -1, Name = this.GetText("ADMIN_ADMIN", "ALL_BOARDS") });
 
-            row["BoardID"] = -1;
-            row["Name"] = this.GetText("ADMIN_ADMIN", "ALL_BOARDS");
-
-            table.Rows.InsertAt(row, 0);
-
-            // set datasource
-            this.BoardStatsSelect.DataSource = table;
+            // set data source
+            this.BoardStatsSelect.DataSource = boards;
             this.BoardStatsSelect.DataBind();
 
             // select current board as default

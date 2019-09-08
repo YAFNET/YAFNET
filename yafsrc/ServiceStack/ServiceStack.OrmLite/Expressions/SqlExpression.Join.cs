@@ -176,7 +176,7 @@ namespace ServiceStack.OrmLite
         public SqlExpression<T> CustomJoin(string joinString)
         {
             PrefixFieldWithTableName = true;
-            FromExpression += " " + joinString;
+            FromExpression += $" {joinString}";
             return this;
         }
 
@@ -266,7 +266,7 @@ namespace ServiceStack.OrmLite
                                 }
                                 else
                                 {
-                                    sbSelect.Append(fieldDef.CustomSelect + " AS " + fieldDef.FieldName);
+                                    sbSelect.Append($"{fieldDef.CustomSelect} AS {fieldDef.FieldName}");
                                 }
 
                                 continue;
@@ -340,7 +340,7 @@ namespace ServiceStack.OrmLite
             var select = StringBuilderCache.ReturnAndFree(sbSelect);
 
             var columns = select.Length > 0 ? select : "*";
-            SelectExpression = "SELECT " + (selectDistinct ? "DISTINCT " : "") + columns;
+            SelectExpression = $"SELECT {(this.selectDistinct ? "DISTINCT " : "")}{columns}";
 
             return ToSelectStatement();
         }

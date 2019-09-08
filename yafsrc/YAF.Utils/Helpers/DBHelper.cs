@@ -217,7 +217,7 @@ namespace YAF.Utils.Helpers
                             p =>
                                 $@"@{p.ParameterName} = {(p.Value == null ? "NULL" : $"'{p.Value.ToString().Replace("'", "''")}'")}");
 
-                    debugString += " " + sqlParams.ToDelimitedString(", ");
+                    debugString += $" {sqlParams.ToDelimitedString(", ")}";
                 }
             }
             catch (Exception ex)

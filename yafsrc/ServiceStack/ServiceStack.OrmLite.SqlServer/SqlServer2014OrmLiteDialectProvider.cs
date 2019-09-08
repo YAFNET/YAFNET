@@ -70,7 +70,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 if (isMemoryTable && bucketCount.HasValue)
                 {
-                    sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
+                    sql.Append($" NOT NULL INDEX {GetQuotedColumnName($"IDX_{fieldDef.FieldName}")}");
 
                     if (fieldDef.IsNonClustered)
                     {
@@ -131,9 +131,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                     var refModelDef = OrmLiteUtils.GetModelDefinition(fieldDef.ForeignKey.ReferenceType);
                     sbConstraints.Append(
-                        $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
-                        $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
-                        $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                        $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
                     sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
                     sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));

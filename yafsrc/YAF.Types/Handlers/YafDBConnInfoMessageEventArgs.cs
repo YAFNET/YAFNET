@@ -30,12 +30,7 @@ namespace YAF.Types.Handlers
   /// </summary>
   public class YafDBConnInfoMessageEventArgs : EventArgs
   {
-    /// <summary>
-    /// The _message.
-    /// </summary>
-    private string _message;
-
-    /// <summary>
+      /// <summary>
     /// Initializes a new instance of the <see cref="YafDBConnInfoMessageEventArgs"/> class.
     /// </summary>
     /// <param name="message">
@@ -49,11 +44,6 @@ namespace YAF.Types.Handlers
     /// <summary>
     /// Gets or sets Message.
     /// </summary>
-    public string Message
-    {
-      get => this._message;
-
-      set => this._message = value;
-    }
+    public string Message { get; set; }
   }
 }

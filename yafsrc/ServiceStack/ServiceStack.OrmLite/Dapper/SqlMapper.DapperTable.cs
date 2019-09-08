@@ -33,7 +33,8 @@ namespace ServiceStack.OrmLite.Dapper
             internal int AddField(string name)
             {
                 if (name == null) throw new ArgumentNullException(nameof(name));
-                if (fieldNameLookup.ContainsKey(name)) throw new InvalidOperationException("Field already exists: " + name);
+                if (fieldNameLookup.ContainsKey(name)) throw new InvalidOperationException(
+                    $"Field already exists: {name}");
                 var oldLen = fieldNames.Length;
                 Array.Resize(ref fieldNames, oldLen + 1); // yes, this is sub-optimal, but this is not the expected common case
                 fieldNames[oldLen] = name;

@@ -177,8 +177,8 @@ namespace ServiceStack.OrmLite
 
         private bool IsRefField(string name)
         {
-            return this.Alias != null && this.Alias + "Id" == name
-                    || Name + "Id" == name;
+            return this.Alias != null && $"{this.Alias}Id" == name
+                    || $"{this.Name}Id" == name;
         }
 
         public override string ToString()

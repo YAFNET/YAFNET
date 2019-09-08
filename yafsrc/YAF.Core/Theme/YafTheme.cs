@@ -111,9 +111,7 @@ namespace YAF.Core.Theme
             CodeContracts.VerifyNotNull(theme, "theme");
 
             return
-                HttpContext.Current.Server.MapPath(
-                    string.Concat(
-                        YafForumInfo.ForumServerFileRoot, "Content/Themes", "/", theme.Trim()));
+                HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
         }
     }
 }

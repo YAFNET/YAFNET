@@ -69,7 +69,7 @@ namespace YAF.Web.Controls
     [ToolboxData("<{0}:Forum runat=\"server\"></{0}:Forum>")]
     public class Forum : UserControl, IHaveServiceLocator
     {
-#region Constants and Fields
+        #region Constants and Fields
 
         /// <summary>
         ///   The _current forum page.
@@ -85,10 +85,10 @@ namespace YAF.Web.Controls
         ///   The _topControl.
         /// </summary>
         private PlaceHolder topControl;
-
-#endregion
-
-#region Constructors and Destructors
+        
+        #endregion
+        
+        #region Constructors and Destructors
 
         /// <summary>
         ///   Initializes a new instance of the <see cref="Forum" /> class.
@@ -108,10 +108,10 @@ namespace YAF.Web.Controls
                         module.Init();
                     });
         }
+        
+        #endregion
 
-#endregion
-
-#region Public Events
+        #region Public Events
 
         /// <summary>
         ///   The after forum page load.
@@ -130,7 +130,7 @@ namespace YAF.Web.Controls
 
 #endregion
 
-#region Public Properties
+        #region Public Properties
 
         /// <summary>
         ///   Gets or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
@@ -186,16 +186,6 @@ namespace YAF.Web.Controls
         ///   Gets UserName for the current User (Read Only)
         /// </summary>
         public string PageUserName => YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Popup.
-        /// </summary>
-        public bool Popup
-        {
-            get => YafControlSettings.Current.Popup;
-
-            set => YafControlSettings.Current.Popup = value;
-        }
 
         /// <summary>
         ///   Gets ServiceLocator.
@@ -333,17 +323,11 @@ namespace YAF.Web.Controls
             // only show header if show toolbar is enabled
             this.currentForumPage.ForumHeader.Visible = this.currentForumPage.ShowToolBar;
 
-            // don't allow as a popup if it's not allowed by the page...
-            if (!this.currentForumPage.AllowAsPopup && this.Popup)
-            {
-                this.Popup = false;
-            }
-
             // set the YafContext ForumPage...
             YafContext.Current.CurrentForumPage = this.currentForumPage;
 
             // add the header control before the page rendering...
-            if (!this.Popup && YafContext.Current.Settings.LockedForum == 0)
+            if (YafContext.Current.Settings.LockedForum == 0)
             {
                 this.Controls.AddAt(1, this.Header);
             }
@@ -365,7 +349,7 @@ namespace YAF.Web.Controls
             this.Controls.Add(this.currentForumPage);
 
             // add the footer control after the page...
-            if (!this.Popup && YafContext.Current.Settings.LockedForum == 0)
+            if (YafContext.Current.Settings.LockedForum == 0)
             {
                 this.Controls.Add(this.Footer);
             }

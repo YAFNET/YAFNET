@@ -64,10 +64,7 @@ namespace ServiceStack.Text
             SupportsExpressions = true;
             SupportsEmit = !IsIOS;
 
-            ServerUserAgent = "ServiceStack/" +
-                ServiceStackVersion + " "
-                + platformName
-                + (IsMono ? "/Mono" : "/.NET");
+            ServerUserAgent = $"ServiceStack/{ServiceStackVersion} {platformName}{(IsMono ? "/Mono" : "/.NET")}";
 
             VersionString = ServiceStackVersion.ToString(CultureInfo.InvariantCulture);
 
@@ -122,34 +119,34 @@ namespace ServiceStack.Text
                 if (!IsMono && referenceAssembyPath == null)
                 {
                     var programFilesPath = PclExport.Instance.GetEnvironmentVariable("ProgramFiles(x86)") ?? @"C:\Program Files (x86)";
-                    var netFxReferenceBasePath = programFilesPath + @"\Reference Assemblies\Microsoft\Framework\.NETFramework\";
+                    var netFxReferenceBasePath =
+                        $@"{programFilesPath}\Reference Assemblies\Microsoft\Framework\.NETFramework\";
                     if ((netFxReferenceBasePath + @"v4.5.2\").DirectoryExists())
-                        referenceAssembyPath = netFxReferenceBasePath + @"v4.5.2\";
+                        referenceAssembyPath = $@"{netFxReferenceBasePath}v4.5.2\";
                     else if ((netFxReferenceBasePath + @"v4.5.1\").DirectoryExists())
-                        referenceAssembyPath = netFxReferenceBasePath + @"v4.5.1\";
+                        referenceAssembyPath = $@"{netFxReferenceBasePath}v4.5.1\";
                     else if ((netFxReferenceBasePath + @"v4.5\").DirectoryExists())
-                        referenceAssembyPath = netFxReferenceBasePath + @"v4.5\";
+                        referenceAssembyPath = $@"{netFxReferenceBasePath}v4.5\";
                     else if ((netFxReferenceBasePath + @"v4.0\").DirectoryExists())
-                        referenceAssembyPath = netFxReferenceBasePath + @"v4.0\";
+                        referenceAssembyPath = $@"{netFxReferenceBasePath}v4.0\";
                     else
                     {
                         var v4Dirs = PclExport.Instance.GetDirectoryNames(netFxReferenceBasePath, "v4*");
                         if (v4Dirs.Length == 0)
                         {
                             var winPath = PclExport.Instance.GetEnvironmentVariable("SYSTEMROOT") ?? @"C:\Windows";
-                            var gacPath = winPath + @"\Microsoft.NET\Framework\";
+                            var gacPath = $@"{winPath}\Microsoft.NET\Framework\";
                             v4Dirs = PclExport.Instance.GetDirectoryNames(gacPath, "v4*");                            
                         }
 
                         if (v4Dirs.Length > 0)
                         {
-                            referenceAssembyPath = v4Dirs[v4Dirs.Length - 1] + @"\"; // latest v4
+                            referenceAssembyPath = $@"{v4Dirs[v4Dirs.Length - 1]}\"; // latest v4
                         }
                         else
                         {
                             throw new FileNotFoundException(
-                                "Could not infer .NET Reference Assemblies path, e.g '{0}'.\n".Fmt(netFxReferenceBasePath + @"v4.0\") +
-                                "Provide path manually 'Env.ReferenceAssembyPath'.");
+                                $"{"Could not infer .NET Reference Assemblies path, e.g '{0}'.\n".Fmt($@"{netFxReferenceBasePath}v4.0\")}Provide path manually 'Env.ReferenceAssembyPath'.");
                         }
                     }
                 }

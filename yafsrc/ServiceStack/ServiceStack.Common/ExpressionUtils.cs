@@ -97,7 +97,7 @@ namespace ServiceStack
                     return new[] { member.Member.Name };
             }
 
-            throw new ArgumentException("Invalid Fields List Expression: " + expr);
+            throw new ArgumentException($"Invalid Fields List Expression: {expr}");
         }
 
         public static object GetValue(this MemberBinding binding)

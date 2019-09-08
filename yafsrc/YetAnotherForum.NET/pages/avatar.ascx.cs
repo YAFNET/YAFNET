@@ -98,7 +98,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="DataListItemEventArgs"/> instance containing the event data.</param>
         public void Directories_Bind([NotNull] object sender, [NotNull] DataListItemEventArgs e)
         {
-            var directory = string.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/");
+            var directory = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Avatars}/";
 
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {

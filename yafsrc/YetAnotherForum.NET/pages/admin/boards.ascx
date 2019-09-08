@@ -27,7 +27,7 @@
 		    </HeaderTemplate>
 			<ItemTemplate>
                 <li 
-                    class='list-group-item list-group-item-action <%# this.Eval("BoardID").ToType<int>() != this.PageContext.PageBoardID ? "" : "active" %>'>
+                    class='list-group-item list-group-item-action <%# this.Eval("ID").ToType<int>() != this.PageContext.PageBoardID ? "" : "active" %>'>
 				<div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
                         <%# this.HtmlEncode(this.Eval( "Name")) %>
@@ -35,7 +35,7 @@
                     <small>
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                             LocalizedTag="ID" 
-                                            LocalizedPage="ADMIN_BOARDS" />: <%# this.Eval( "BoardID") %>
+                                            LocalizedPage="ADMIN_BOARDS" />: <%# this.Eval( "ID") %>
                     </small>
                 </div>
                 <small>
@@ -43,7 +43,7 @@
                                          Type="Info" 
                                          Size="Small"
                                          CommandName="edit" 
-                                         CommandArgument='<%# this.Eval( "BoardID") %>'
+                                         CommandArgument='<%# this.Eval( "ID") %>'
                                          TitleLocalizedTag="EDIT"
                                          TextLocalizedTag="EDIT"
                                          Icon="edit">
@@ -53,7 +53,7 @@
                                          Type="Danger" 
                                          Size="Small"
                                          CommandName="delete" 
-                                         CommandArgument='<%# this.Eval( "BoardID") %>'
+                                         CommandArgument='<%# this.Eval( "ID") %>'
                                          TitleLocalizedTag="DELETE"
                                          TextLocalizedTag="DELETE"
                                          Icon="trash"

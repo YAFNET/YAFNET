@@ -54,7 +54,7 @@
                                                  Type="Info" 
                                                  Size="Small"
                                                  CommandName='edit' 
-                                                 CommandArgument='<%# this.Eval( "MedalID") %>'
+                                                 CommandArgument='<%# this.Eval( "ID") %>'
                                                  TitleLocalizedTag="EDIT"
                                                  Icon="edit"
                                                  TextLocalizedTag="EDIT"
@@ -63,7 +63,7 @@
                                 <YAF:ThemeButton ID="ThemeButtonMoveUp" 
                                                  CssClass="btn btn-warning btn-sm"
                                                  CommandName='moveup' 
-                                                 CommandArgument='<%# this.Eval("MedalID") %>'
+                                                 CommandArgument='<%# this.Eval("ID") %>'
                                                  TitleLocalizedTag="MOVE_UP"
                                                  TitleLocalizedPage="ADMIN_SMILIES"
                                                  Icon="level-up-alt"
@@ -73,7 +73,7 @@
                                 <YAF:ThemeButton ID="ThemeButtonMoveDown" 
                                                  CssClass="btn btn-warning btn-sm"
                                                  CommandName='movedown' 
-                                                 CommandArgument='<%# this.Eval("MedalID") %>'
+                                                 CommandArgument='<%# this.Eval("ID") %>'
                                                  TitleLocalizedTag="MOVE_DOWN"
                                                  TitleLocalizedPage="ADMIN_SMILIES"
                                                  Icon="level-down-alt"
@@ -84,7 +84,7 @@
                                                  Type="Danger" 
                                                  Size="Small"
                                                  CommandName='delete' 
-                                                 CommandArgument='<%# this.Eval( "MedalID") %>'
+                                                 CommandArgument='<%# this.Eval( "ID") %>'
                                                  TitleLocalizedTag="DELETE"
                                                  Icon="trash"
                                                  TextLocalizedTag="DELETE"

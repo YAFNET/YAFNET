@@ -70,7 +70,7 @@ namespace ServiceStack.Logging
             var msg = message?.ToString() ?? string.Empty;
             if (exception != null)
             {
-                msg += ", Exception: " + exception.Message;
+                msg += $", Exception: {exception.Message}";
             }
             lock (logs)
                 logs.AppendLine(msg);

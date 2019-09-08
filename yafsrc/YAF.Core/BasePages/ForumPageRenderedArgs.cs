@@ -32,22 +32,17 @@ namespace YAF.Core
   public class ForumPageRenderedArgs : EventArgs
   {
       /// <summary>
-      /// The Html Text Writer
-      /// </summary>
-    private HtmlTextWriter _writer;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="ForumPageRenderedArgs"/> class.
     /// </summary>
     /// <param name="writer">The writer.</param>
     public ForumPageRenderedArgs(HtmlTextWriter writer)
     {
-      this._writer = writer;
+      this.Writer = writer;
     }
 
     /// <summary>
     /// Gets the writer.
     /// </summary>
-    public HtmlTextWriter Writer => this._writer;
+    public HtmlTextWriter Writer { get; }
   }
 }

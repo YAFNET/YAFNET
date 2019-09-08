@@ -53,7 +53,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override string GetQuotedValue(string paramValue)
         {
-            return (StringConverter.UseUnicode ? "N'" : "'") + paramValue.Replace("'", "''") + "'";
+            return $"{(this.StringConverter.UseUnicode ? "N'" : "'")}{paramValue.Replace("'", "''")}'";
         }
 
         public override IDbConnection CreateConnection(string connectionString, Dictionary<string, string> options)
@@ -66,7 +66,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 var filePathWithExt = filePath.EndsWithIgnoreCase(".mdf")
                     ? filePath
-                    : filePath + ".mdf";
+                    : $"{filePath}.mdf";
 
                 var fileName = Path.GetFileName(filePathWithExt);
                 var dbName = fileName.Substring(0, fileName.Length - ".mdf".Length);
@@ -86,7 +86,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         }
                         continue;
                     }
-                    connectionString += option.Key + "=" + option.Value + ";";
+                    connectionString += $"{option.Key}={option.Value};";
                 }
             }
 
@@ -265,7 +265,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 {
                     if (sbReturningColumns.Length > 0)
                         sbReturningColumns.Append(",");
-                    sbReturningColumns.Append("INSERTED." + GetQuotedColumnName(fieldDef.FieldName));
+                    sbReturningColumns.Append($"INSERTED.{this.GetQuotedColumnName(fieldDef.FieldName)}");
                 }
 
                 if (ShouldSkipInsert(fieldDef))
@@ -289,16 +289,15 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("ERROR in ToInsertRowStatement(): " + ex.Message, ex);
+                    Log.Error($"ERROR in ToInsertRowStatement(): {ex.Message}", ex);
                     throw;
                 }
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
-            strReturning = strReturning.Length > 0 ? "OUTPUT " + strReturning + " " : "";
-            var sql = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                      strReturning +
-                      $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : "";
+            var sql =
+                $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
 
             return sql;
         }
@@ -311,9 +310,7 @@ namespace ServiceStack.OrmLite.SqlServer
             var escapedSchema = NamingStrategy.GetSchemaName(schema)
                 .Replace(".", "\".\"");
 
-            return GetQuotedName(escapedSchema)
-                   + "."
-                   + GetQuotedName(sequence);
+            return $"{this.GetQuotedName(escapedSchema)}.{this.GetQuotedName(sequence)}";
         }
 
         protected override bool ShouldSkipInsert(FieldDefinition fieldDef) => 
@@ -342,7 +339,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 {
                     if (sbReturningColumns.Length > 0)
                         sbReturningColumns.Append(",");
-                    sbReturningColumns.Append("INSERTED." + GetQuotedColumnName(fieldDef.FieldName));
+                    sbReturningColumns.Append($"INSERTED.{this.GetQuotedColumnName(fieldDef.FieldName)}");
                 }
 
                 if (ShouldSkipInsert(fieldDef))
@@ -363,7 +360,8 @@ namespace ServiceStack.OrmLite.SqlServer
 
                     if (SupportsSequences(fieldDef))
                     {
-                        sbColumnValues.Append("NEXT VALUE FOR " + Sequence(NamingStrategy.GetSchemaName(modelDef), fieldDef.Sequence));
+                        sbColumnValues.Append(
+                            $"NEXT VALUE FOR {this.Sequence(this.NamingStrategy.GetSchemaName(modelDef), fieldDef.Sequence)}");
                     }
                     else
                     {
@@ -373,16 +371,15 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("ERROR in PrepareParameterizedInsertStatement(): " + ex.Message, ex);
+                    Log.Error($"ERROR in PrepareParameterizedInsertStatement(): {ex.Message}", ex);
                     throw;
                 }
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
-            strReturning = strReturning.Length > 0 ? "OUTPUT " + strReturning + " " : "";
-            cmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                              strReturning +
-                              $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : "";
+            cmd.CommandText =
+                $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
 
         public override void PrepareInsertRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args)
@@ -402,7 +399,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 {
                     if (sbReturningColumns.Length > 0)
                         sbReturningColumns.Append(",");
-                    sbReturningColumns.Append("INSERTED." + GetQuotedColumnName(fieldDef.FieldName));
+                    sbReturningColumns.Append($"INSERTED.{this.GetQuotedColumnName(fieldDef.FieldName)}");
                 }
 
                 if (ShouldSkipInsert(fieldDef))
@@ -422,16 +419,15 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("ERROR in PrepareInsertRowStatement(): " + ex.Message, ex);
+                    Log.Error($"ERROR in PrepareInsertRowStatement(): {ex.Message}", ex);
                     throw;
                 }
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
-            strReturning = strReturning.Length > 0 ? "OUTPUT " + strReturning + " " : "";
-            dbCmd.CommandText = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
-                                strReturning +
-                                $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : "";
+            dbCmd.CommandText =
+                $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
  
         public override string ToSelectStatement(ModelDefinition modelDef,
@@ -508,22 +504,22 @@ namespace ServiceStack.OrmLite.SqlServer
                 var aliasParts = field.SplitOnLast(' ');
                 if (aliasParts.Length > 1)
                 {
-                    sb.Append(" " + aliasParts[aliasParts.Length - 1]);
+                    sb.Append($" {aliasParts[aliasParts.Length - 1]}");
                     continue;
                 }
 
                 var parts = field.SplitOnLast('.');
                 if (parts.Length > 1)
                 {
-                    sb.Append(" " + parts[parts.Length - 1]);
+                    sb.Append($" {parts[parts.Length - 1]}");
                 }
                 else
                 {
-                    sb.Append(" " + field);
+                    sb.Append($" {field}");
                 }
             }
 
-            var sqlSelect = selectToken[0] + " " + StringBuilderCache.ReturnAndFree(sb).Trim();
+            var sqlSelect = $"{selectToken[0]} {StringBuilderCache.ReturnAndFree(sb).Trim()}";
             return sqlSelect;
         }
 
@@ -545,15 +541,15 @@ namespace ServiceStack.OrmLite.SqlServer
         }
 
         public override string SqlCurrency(string fieldOrValue, string currencySymbol) => 
-            SqlConcat(new[] { "'" + currencySymbol + "'", $"CONVERT(VARCHAR, CONVERT(MONEY, {fieldOrValue}), 1)" });
+            SqlConcat(new[] { $"'{currencySymbol}'", $"CONVERT(VARCHAR, CONVERT(MONEY, {fieldOrValue}), 1)" });
 
         public override string SqlBool(bool value) => value ? "1" : "0";
 
         public override string SqlLimit(int? offset = null, int? rows = null) => rows == null && offset == null
             ? ""
             : rows != null
-                ? "OFFSET " + offset.GetValueOrDefault() + " ROWS FETCH NEXT " + rows + " ROWS ONLY"
-                : "OFFSET " + offset.GetValueOrDefault(int.MaxValue) + " ROWS";
+                ? $"OFFSET {offset.GetValueOrDefault()} ROWS FETCH NEXT {rows} ROWS ONLY"
+                : $"OFFSET {offset.GetValueOrDefault(int.MaxValue)} ROWS";
 
         public override string SqlCast(object fieldOrValue, string castAs) => 
             castAs == Sql.VARCHAR

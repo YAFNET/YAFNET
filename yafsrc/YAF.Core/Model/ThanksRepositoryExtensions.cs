@@ -265,6 +265,31 @@ namespace YAF.Core.Model
             return parameterOutput.Value.ToString();
         }
 
+        /// <summary>
+        /// Has User Thanked the current Message
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// If the User Thanked the the Current Message
+        /// </returns>
+        public static bool ThankedMessage(
+            this IRepository<Thanks> repository,
+            [NotNull] int messageId,
+            [NotNull] int userId)
+        {
+            var thankCount = repository.Count(t => t.MessageID == messageId && t.ThanksFromUserID == userId);
+
+            return thankCount > 0;
+        }
+
         #endregion
     }
 }

@@ -46,7 +46,7 @@ namespace ServiceStack.Logging
         private static void Log(Levels level, object message, Exception exception) {
             var msg = message == null ? string.Empty : message.ToString();
             if(exception != null) {
-                msg += ", Exception: " + exception.Message;
+                msg += $", Exception: {exception.Message}";
             }
             _logs.Add(new KeyValuePair<Levels, string>(level, msg));
         }

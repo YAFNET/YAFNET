@@ -162,7 +162,7 @@ namespace YAF.Modules.BBCode
                 }
 
                 if (this.DisplayUserID == userId ||
-                    this.GetRepository<User>().ThankedMessage(messageId: messageId.ToType<int>(), userId: userId))
+                    this.GetRepository<Thanks>().ThankedMessage(messageId: messageId.ToType<int>(), userId: userId))
                 {
                     // Show hidden content if user is the poster or have thanked the poster.
                     shownContent = hiddenContent;

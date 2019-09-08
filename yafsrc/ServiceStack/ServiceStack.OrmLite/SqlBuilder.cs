@@ -89,7 +89,7 @@ namespace ServiceStack.OrmLite
                 foreach (var p in properties)
                 {
                     // Generate a private field
-                    var field = typeBuilder.DefineField("_" + p.Name, p.Type, FieldAttributes.Private);
+                    var field = typeBuilder.DefineField($"_{p.Name}", p.Type, FieldAttributes.Private);
 
                     //set default values with Emit for popular types
                     if (p.Type == typeof(int))
@@ -119,7 +119,7 @@ namespace ServiceStack.OrmLite
                     var property = typeBuilder.DefineProperty(p.Name, PropertyAttributes.None, p.Type, new[] { p.Type });
 
                     // Define the "get" accessor method for current private field.
-                    var currGetPropMthdBldr = typeBuilder.DefineMethod("get_" + p.Name, GetSetAttr, p.Type, Type.EmptyTypes);
+                    var currGetPropMthdBldr = typeBuilder.DefineMethod($"get_{p.Name}", GetSetAttr, p.Type, Type.EmptyTypes);
 
                     // Get Property impl
                     var currGetIL = currGetPropMthdBldr.GetILGenerator();
@@ -128,7 +128,7 @@ namespace ServiceStack.OrmLite
                     currGetIL.Emit(OpCodes.Ret);
 
                     // Define the "set" accessor method for current private field.
-                    var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + p.Name, GetSetAttr, null, new[] { p.Type });
+                    var currSetPropMthdBldr = typeBuilder.DefineMethod($"set_{p.Name}", GetSetAttr, null, new[] { p.Type });
 
                     // Set Property impl
                     var currSetIL = currSetPropMthdBldr.GetILGenerator();
@@ -210,7 +210,7 @@ namespace ServiceStack.OrmLite
 
                     foreach (var pair in builder.data)
                     {
-                        rawSql = rawSql.Replace("/**" + pair.Key + "**/", pair.Value.ResolveClauses(p));
+                        rawSql = rawSql.Replace($"/**{pair.Key}**/", pair.Value.ResolveClauses(p));
                     }
                     parameters = p.CreateDynamicType();
 

@@ -165,7 +165,7 @@ namespace ServiceStack.OrmLite
                     foreach (var item in inValues)
                     {
                         var p = dbCmd.CreateParameter();
-                        p.ParameterName = "v" + paramIndex++;
+                        p.ParameterName = $"v{paramIndex++}";
 
                         if (sb.Length > 0)
                             sb.Append(',');
@@ -184,7 +184,7 @@ namespace ServiceStack.OrmLite
                         sqlIn = "NULL";
                     sqlCopy = sqlCopy?.Replace(dialectProvider.ParamString + propName, sqlIn);
                     if (dialectProvider.ParamString != "@")
-                        sqlCopy = sqlCopy?.Replace("@" + propName, sqlIn);
+                        sqlCopy = sqlCopy?.Replace($"@{propName}", sqlIn);
                 }
                 else
                 {
@@ -230,7 +230,7 @@ namespace ServiceStack.OrmLite
                     foreach (var item in inValues)
                     {
                         var p = dbCmd.CreateParameter();
-                        p.ParameterName = "v" + paramIndex++;
+                        p.ParameterName = $"v{paramIndex++}";
 
                         if (sb.Length > 0)
                             sb.Append(',');
@@ -249,7 +249,7 @@ namespace ServiceStack.OrmLite
                         sqlIn = "NULL";
                     sqlCopy = sqlCopy?.Replace(dialectProvider.ParamString + propName, sqlIn);
                     if (dialectProvider.ParamString != "@")
-                        sqlCopy = sqlCopy?.Replace("@" + propName, sqlIn);
+                        sqlCopy = sqlCopy?.Replace($"@{propName}", sqlIn);
                 }
                 else
                 {
@@ -398,7 +398,8 @@ namespace ServiceStack.OrmLite
             var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
             return string.IsNullOrEmpty(sqlIn)
                 ? new List<T>()
-                : Select<T>(dbCmd, dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.PrimaryKeyName) + " IN (" + sqlIn + ")");
+                : Select<T>(dbCmd,
+                    $"{dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.PrimaryKeyName)} IN ({sqlIn})");
         }
 
         internal static T SingleById<T>(this IDbCommand dbCmd, object value)
@@ -505,8 +506,7 @@ namespace ServiceStack.OrmLite
             var sql = StringBuilderCache.Allocate();
             var modelDef = ModelDefinition<TModel>.Definition;
             sql.Append(
-                $"SELECT {dialectProvider.GetColumnNames(modelDef)} " +
-                $"FROM {dialectProvider.GetQuotedTableName(fromTableType.GetModelDefinition())}");
+                $"SELECT {dialectProvider.GetColumnNames(modelDef)} FROM {dialectProvider.GetQuotedTableName(fromTableType.GetModelDefinition())}");
 
             if (string.IsNullOrEmpty(sqlFilter))
                 return StringBuilderCache.ReturnAndFree(sql);
@@ -972,7 +972,7 @@ namespace ServiceStack.OrmLite
         {
             var refField = GetRefFieldDefIfExists(modelDef, refModelDef);
             if (refField == null)
-                throw new ArgumentException($"Cant find '{modelDef.ModelName + "Id"}' Property on Type '{refType.Name}'");
+                throw new ArgumentException($"Cant find '{$"{modelDef.ModelName}Id"}' Property on Type '{refType.Name}'");
             return refField;
         }
 

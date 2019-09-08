@@ -36,9 +36,9 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.6.0-preview8.19405.3" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.6.0-preview9.19421.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="4.6.0-preview8.19405.3" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.6.0-preview9.19421.4" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
   </ItemGroup>
   <ItemGroup>

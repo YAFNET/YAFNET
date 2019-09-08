@@ -210,7 +210,7 @@ namespace ServiceStack.Templates
         {
             var defaultJsConfig = Context.Args[TemplateConstants.DefaultJsConfig] as string;
             jsconfig = jsconfig != null && !string.IsNullOrEmpty(defaultJsConfig)
-                ? defaultJsConfig + "," + jsconfig
+                ? $"{defaultJsConfig},{jsconfig}"
                 : defaultJsConfig;
 
             if (jsconfig != null)
@@ -228,7 +228,7 @@ namespace ServiceStack.Templates
         {
             var defaultJsConfig = Context.Args[TemplateConstants.DefaultJsConfig] as string;
             jsconfig = jsconfig != null && !string.IsNullOrEmpty(defaultJsConfig)
-                ? defaultJsConfig + "," + jsconfig
+                ? $"{defaultJsConfig},{jsconfig}"
                 : defaultJsConfig;
 
             if (jsconfig == null)

@@ -31,6 +31,7 @@ namespace YAF.Core
     using System.Web.Security;
 
     using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Exceptions;
@@ -48,9 +49,9 @@ namespace YAF.Core
         #region Fields
 
         /// <summary>
-        /// The _current board row.
+        /// The current board.
         /// </summary>
-        private DataRow currentBoardRow;
+        private Board currentBoard;
 
         #endregion
 
@@ -75,27 +76,22 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
-        /// Gets the current board row.
+        /// Gets the current board.
         /// </summary>
-        protected DataRow CurrentBoardRow
+        protected Board CurrentBoard
         {
             get
             {
-                if (this.currentBoardRow != null)
+                if (this.currentBoard != null)
                 {
-                    return this.currentBoardRow;
+                    return this.currentBoard;
                 }
 
-                var dataTable = YafContext.Current.GetRepository<Board>().List(this._boardID);
+                var board = YafContext.Current.GetRepository<Board>().GetById(this._boardID);
 
-                if (!dataTable.HasRows())
-                {
-                    throw new EmptyBoardSettingException($"No data for board ID: {this._boardID}");
-                }
+                this.currentBoard = board ?? throw new EmptyBoardSettingException($"No data for board ID: {this._boardID}");
 
-                this.currentBoardRow = dataTable.Rows[0];
-
-                return this.currentBoardRow;
+                return this.currentBoard;
             }
         }
 
@@ -104,7 +100,7 @@ namespace YAF.Core
         /// </summary>
         protected override YafLegacyBoardSettings _legacyBoardSettings
         {
-            get => base._legacyBoardSettings ?? (base._legacyBoardSettings = SetupLegacyBoardSettings(this.CurrentBoardRow));
+            get => base._legacyBoardSettings ?? (base._legacyBoardSettings = SetupLegacyBoardSettings(this.CurrentBoard));
 
             set => base._legacyBoardSettings = value;
         }
@@ -197,22 +193,21 @@ namespace YAF.Core
         /// <returns>
         /// The <see cref="YafBoardSettings.YafLegacyBoardSettings"/>.
         /// </returns>
-        private static YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] DataRow board)
+        private static YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] Board board)
         {
             CodeContracts.VerifyNotNull(board, "board");
 
-            var membershipAppName = board["MembershipAppName"].ToString().IsNotSet()
+            var membershipAppName = board.MembershipAppName.IsNotSet()
                                         ? YafContext.Current.Get<MembershipProvider>().ApplicationName
-                                        : board["MembershipAppName"].ToString();
+                                        : board.MembershipAppName;
 
-            var rolesAppName = board["RolesAppName"].ToString().IsNotSet()
+            var rolesAppName = board.RolesAppName.IsNotSet()
                                    ? YafContext.Current.Get<RoleProvider>().ApplicationName
-                                   : board["RolesAppName"].ToString();
+                                   : board.RolesAppName;
 
             return new YafLegacyBoardSettings(
-                board["Name"].ToString(), 
-                Convert.ToString(board["SQLVersion"]), 
-                board["AllowThreaded"].ToType<bool>(), 
+                board.Name, 
+                board.AllowThreaded, 
                 membershipAppName, 
                 rolesAppName);
         }

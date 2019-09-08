@@ -38,36 +38,15 @@ namespace YAF.Core.Tasks
   /// </summary>
     public class CategorySaveTask : LongBackgroundTask, ICriticalBackgroundTask
   {
-
-      /// <summary>
-      /// The _board id.
-      /// </summary>
-      private object _boardIdToSave;
-
       /// <summary>
       /// Gets or sets BoardIdToSave.
       /// </summary>
-      public object BoardIdToSave
-      {
-          get => this._boardIdToSave;
-
-          set => this._boardIdToSave = value;
-      }
-
-      /// <summary>
-      /// The _category Id.
-      /// </summary>
-      private object _categoryId;
+      public object BoardIdToSave { get; set; }
 
       /// <summary>
       /// Gets or sets CategoryId.
       /// </summary>
-      public object CategoryId
-      {
-          get => this._categoryId;
-
-          set => this._categoryId = value;
-      }
+      public object CategoryId { get; set; }
 
       /// <summary>
       /// Gets or sets CategoryName.
