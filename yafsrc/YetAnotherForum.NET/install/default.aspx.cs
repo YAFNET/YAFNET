@@ -711,15 +711,6 @@ namespace YAF.Install
                         e.Cancel = false;
                     }
 
-                    var messages = this.InstallUpgradeService.Messages;
-
-                    if (messages.Any())
-                    {
-                        this.loadMessage += messages.ToDelimitedString("\r\n");
-                    }
-
-                    this.ShowErrorMessage(this.loadMessage);
-
                     break;
                 case "WizMigrateUsers":
 
