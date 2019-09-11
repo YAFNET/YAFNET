@@ -81,7 +81,7 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.RegisterJQuery();
+            RegisterJQuery();
 
             if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
@@ -123,7 +123,7 @@ namespace YAF.Modules
         /// <summary>
         /// Registers the jQuery script library.
         /// </summary>
-        private void RegisterJQuery()
+        private static void RegisterJQuery()
         {
             if (YafContext.Current.PageElements.PageElementExists("jquery"))
             {
