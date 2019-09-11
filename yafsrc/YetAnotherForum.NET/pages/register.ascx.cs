@@ -46,6 +46,7 @@ namespace YAF.Pages
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -199,7 +200,7 @@ namespace YAF.Pages
         {
             var user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
-            // setup inital roles (if any) for this user
+            // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, this.CreateUserWizard1.UserName);
 
             var displayName = user.UserName;
@@ -215,7 +216,7 @@ namespace YAF.Pages
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
 
-            // setup their inital profile information
+            // setup their initial profile information
             userProfile.Save();
 
             if (userID == null)
@@ -283,7 +284,7 @@ namespace YAF.Pages
 
             userName = userName.Trim();
 
-            // trim username on postback
+            // trim username on post-back
             this.CreateUserWizard1.UserName = userName;
 
             // username cannot contain semi-colon or to be a bad word
@@ -365,12 +366,10 @@ namespace YAF.Pages
             this.IsPossibleSpamBot = false;
 
             // Check user for bot
-            string result;
-
             var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (this.Get<ISpamCheck>().CheckUserForSpamBot(userName, this.CreateUserWizard1.Email, userIpAddress, out result))
+            if (this.Get<ISpamCheck>().CheckUserForSpamBot(userName, this.CreateUserWizard1.Email, userIpAddress, out var result))
             {
                 // Flag user as spam bot
                 this.IsPossibleSpamBot = true;
@@ -437,7 +436,6 @@ namespace YAF.Pages
                             // this.CreateUserWizard1.FindWizardControlRecursive("Recaptcha1").ToClass<RecaptchaControl>();
                             this.CreateUserStepContainer.FindControlAs<RecaptchaControl>("Recaptcha1");
 
-                        // Recupt;
                         if (!recaptcha.IsValid)
                         {
                             this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
@@ -721,35 +719,12 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Logins the click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="EventArgs"/> instance containing the event data.
-        /// </param>
-        protected void LoginClick(object sender, EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.login);
-        }
-
-        /// <summary>
         /// Gets the reCAPTCHA site key.
         /// </summary>
         /// <returns>Returns the eCAPTCHA site key.</returns>
         protected string GetSiteKey()
         {
             return this.PageContext.BoardSettings.RecaptchaPublicKey;
-        }
-
-        /// <summary>
-        /// Gets the reCAPTCHA secret key.
-        /// </summary>
-        /// <returns>Returns the reCAPTCHA secret key.</returns>
-        protected string GetSecretKey()
-        {
-            return this.PageContext.BoardSettings.RecaptchaPrivateKey;
         }
 
         /// <summary>
@@ -898,7 +873,7 @@ namespace YAF.Pages
         {
             // this is the "Profile Information" step. Save the data to their profile (+ defaults).
             var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
-            var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            var country = (CountryImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
             var locationTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Location");
             var homepageTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Homepage");
             var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
@@ -911,9 +886,7 @@ namespace YAF.Pages
                 userProfile.Country = country.SelectedValue;
             }
 
-            string result;
-
-            if (this.Get<ISpamWordCheck>().CheckForSpamWord(homepageTextBox.Text.Trim(), out result))
+            if (this.Get<ISpamWordCheck>().CheckForSpamWord(homepageTextBox.Text.Trim(), out var result))
             {
                 this.IsPossibleSpamBotInternalCheck = true;
 
