@@ -160,7 +160,6 @@ namespace YAF.Pages.Admin
                 categoryId = int.Parse(this.Request.QueryString.GetFirstOrDefault("c"));
             }
 
-            short sortOrder;
             var name = this.Name.Text.Trim();
             string categoryImage = null;
 
@@ -177,7 +176,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+            if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
             {
                 // error...
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.danger);

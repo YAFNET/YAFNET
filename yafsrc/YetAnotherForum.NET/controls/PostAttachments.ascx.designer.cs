@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class PostAttachments {
         
+
         /// <summary>
         /// AttachmentsHolder control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder AttachmentsHolder;
+        protected PlaceHolder AttachmentsHolder;
         
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
         
+
         /// <summary>
         /// LoadingText control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LoadingText;
+        protected LocalizedLabel LoadingText;
         
+
         /// <summary>
         /// ThemeButton1 control.
         /// </summary>
@@ -46,6 +52,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel ThemeButton1;
+        protected LocalizedLabel ThemeButton1;
     }
 }

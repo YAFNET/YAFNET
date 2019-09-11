@@ -42,6 +42,7 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
 
@@ -214,7 +215,6 @@ namespace YAF.Core.Services
                 adminEmail,
                 adminProviderUserKey,
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);*/
-
             using (var cmd = new SqlCommand(CommandTextHelpers.GetObjectName("registry_save")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -239,7 +239,6 @@ namespace YAF.Core.Services
 
             /*this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
             this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);*/
-
             this.ImportStatics();
         }
 

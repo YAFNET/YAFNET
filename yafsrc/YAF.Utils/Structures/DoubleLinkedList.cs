@@ -102,7 +102,6 @@ namespace YAF.Utils.Structures
         // Skip to the index
         for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
         {
-          ;
         }
 
         if (i == index && current != null)
@@ -611,7 +610,7 @@ namespace YAF.Utils.Structures
       /// </returns>
       public bool MoveNext()
       {
-        var result = false;
+        bool result;
 
         if (this.m_current == null)
         {

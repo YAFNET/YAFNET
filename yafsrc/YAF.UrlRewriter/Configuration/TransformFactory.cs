@@ -36,7 +36,7 @@ namespace YAF.UrlRewriter.Configuration
         {
             if (transform == null)
             {
-                throw new ArgumentNullException("transform");
+                throw new ArgumentNullException(nameof(transform));
             }
 
             this._transforms.Add(transform.Name, transform);

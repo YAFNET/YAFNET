@@ -32,10 +32,6 @@ namespace YAF.Core.Data
     /// </summary>
     public struct DbConnectionParam : IDbConnectionParam
     {
-        #region Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>

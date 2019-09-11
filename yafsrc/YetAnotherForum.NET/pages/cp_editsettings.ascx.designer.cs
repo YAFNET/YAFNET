@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI;
+
+    using YAF.Controls;
+    using YAF.Web.Controls;
+
     public partial class cp_editsettings {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// ProfileMenu1 control.
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
+        protected ProfileMenu ProfileMenu1;
         
+
         /// <summary>
         /// ProfileUpdatePanel control.
         /// </summary>
@@ -37,8 +43,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel ProfileUpdatePanel;
+        protected UpdatePanel ProfileUpdatePanel;
         
+
         /// <summary>
         /// ProfileSettings control.
         /// </summary>
@@ -46,6 +53,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.EditUsersSettings ProfileSettings;
+        protected EditUsersSettings ProfileSettings;
     }
 }

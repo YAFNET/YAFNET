@@ -93,8 +93,7 @@ namespace YAF.Core
         public void Clear(int userId)
         {
             // update collection...
-            string outValue;
-            this.UserDisplayNameCollection.TryRemove(userId, out outValue);
+            this.UserDisplayNameCollection.TryRemove(userId, out var outValue);
         }
 
         /// <summary>
@@ -189,9 +188,7 @@ namespace YAF.Core
         /// </returns>
         public string GetName(int userId)
         {
-            string displayName;
-
-            if (this.UserDisplayNameCollection.TryGetValue(userId, out displayName))
+            if (this.UserDisplayNameCollection.TryGetValue(userId, out var displayName))
             {
                 return displayName;
             }

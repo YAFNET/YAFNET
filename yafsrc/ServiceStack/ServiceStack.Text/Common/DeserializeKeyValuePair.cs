@@ -114,10 +114,8 @@ namespace ServiceStack.Text.Common
         public static object ParseKeyValuePairType(StringSegment value, Type createMapType, Type[] argTypes,
             ParseStringSegmentDelegate keyParseFn, ParseStringSegmentDelegate valueParseFn)
         {
-
-            ParseKeyValuePairDelegate parseDelegate;
             var key = GetTypesKey(argTypes);
-            if (ParseDelegateCache.TryGetValue(key, out parseDelegate))
+            if (ParseDelegateCache.TryGetValue(key, out var parseDelegate))
                 return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
 
             var mi = typeof(DeserializeKeyValuePair<TSerializer>).GetStaticMethod("ParseKeyValuePair", signature);

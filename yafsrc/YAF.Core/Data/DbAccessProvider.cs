@@ -34,6 +34,7 @@ namespace YAF.Core.Data
     using YAF.Types.Exceptions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 
@@ -50,7 +51,7 @@ namespace YAF.Core.Data
 
         private readonly IServiceLocator _serviceLocator;
 
-        private string _providerName = null;
+        private string _providerName;
 
         #endregion
 
@@ -73,10 +74,8 @@ namespace YAF.Core.Data
             this._dbAccessSafe = new SafeReadWriteProvider<IDbAccess>(
                 () =>
                     {
-                        IDbAccess dbAccess;
-
                         // attempt to get the provider...
-                        if (this._dbAccessProviders.TryGetValue(this.ProviderName, out dbAccess))
+                        if (this._dbAccessProviders.TryGetValue(this.ProviderName, out var dbAccess))
                         {
                             // first time...
                             this._serviceLocator.Get<IRaiseEvent>()

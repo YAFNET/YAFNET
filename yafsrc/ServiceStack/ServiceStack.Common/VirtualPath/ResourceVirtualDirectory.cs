@@ -143,7 +143,7 @@ namespace ServiceStack.VirtualPath
             if (file != null)
                 return file;
 
-            //ResourceDir reads /path/to/a.min.js as path.to.min.js and lays out as /path/to/a/min.js
+            // ResourceDir reads /path/to/a.min.js as path.to.min.js and lays out as /path/to/a/min.js
             var parts = fileName.SplitOnFirst('.');
             if (parts.Length > 1)
             {
@@ -164,7 +164,7 @@ namespace ServiceStack.VirtualPath
         protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
         {
             return Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(directoryName)) ??
-                Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase((directoryName ?? "").Replace('-', '_')));
+                Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase((directoryName ?? string.Empty).Replace('-', '_')));
         }
 
         protected override string GetRealPathToRoot()

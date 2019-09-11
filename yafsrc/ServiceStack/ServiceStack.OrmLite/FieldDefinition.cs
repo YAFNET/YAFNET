@@ -52,7 +52,7 @@ namespace ServiceStack.OrmLite
 
         public int? FieldLength { get; set; }  // Precision for Decimal Type
 
-        public int? Scale { get; set; }  //  for decimal type
+        public int? Scale { get; set; }  // for decimal type
 
         public string DefaultValue { get; set; }
 
@@ -180,10 +180,10 @@ namespace ServiceStack.OrmLite
             ForeignKeyName = foreignKeyName;
         }
 
-        public Type ReferenceType { get; private set; }
-        public string OnDelete { get; private set; }
-        public string OnUpdate { get; private set; }
-        public string ForeignKeyName { get; private set; }
+        public Type ReferenceType { get; }
+        public string OnDelete { get; }
+        public string OnUpdate { get; }
+        public string ForeignKeyName { get; }
 
         public string GetForeignKeyName(ModelDefinition modelDef, ModelDefinition refModelDef, INamingStrategy NamingStrategy, FieldDefinition fieldDef)
         {
@@ -200,6 +200,7 @@ namespace ServiceStack.OrmLite
                 var fkName = $"FK_{modelName}_{refModelName}_{fieldDef.FieldName}";
                 return NamingStrategy.ApplyNameRestrictions(fkName);
             }
+
             return ForeignKeyName;
         }
     }

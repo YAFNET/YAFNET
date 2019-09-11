@@ -166,12 +166,10 @@ namespace YAF.Controls
 
             object toUserId = null;
             object fromUserId = null;
-            var isoutbox = false;
 
             if (this.View == PmView.Outbox)
             {
                 fromUserId = this.PageContext.PageUserID;
-                isoutbox = true;
             }
             else
             {
@@ -602,7 +600,7 @@ namespace YAF.Controls
         /// <returns>
         /// Returns the filtered Messages
         /// </returns>
-        private DataView GetMessagesForExport([CanBeNull] List<int> exportPmIds)
+        private DataView GetMessagesForExport([CanBeNull] ICollection<int> exportPmIds)
         {
             var messageList = (DataView)this.MessagesView.DataSource;
 
@@ -746,7 +744,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
             this.Response.AppendHeader(
                 "content-disposition",
-                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.csv")}");
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
@@ -803,7 +801,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm")}.txt")}");
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.txt")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 

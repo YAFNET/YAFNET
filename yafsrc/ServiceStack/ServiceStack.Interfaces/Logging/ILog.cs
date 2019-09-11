@@ -15,6 +15,7 @@ namespace ServiceStack.Logging
 		/// </value>
     	bool IsDebugEnabled { get; }
         
+
 		/// <summary>
         /// Logs a Debug message.
         /// </summary>

@@ -70,8 +70,7 @@ namespace YAF.Pages.Admin
                     return null;
                 }
 
-                int boardId;
-                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out boardId))
+                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out var boardId))
                 {
                     return boardId;
                 }
@@ -171,7 +170,6 @@ namespace YAF.Pages.Admin
             if (createUserAndRoles)
             {
                 // Create new admin users
-                MembershipCreateStatus createStatus;
                 var newAdmin = this.Get<MembershipProvider>()
                     .CreateUser(
                         adminName,
@@ -181,7 +179,7 @@ namespace YAF.Pages.Admin
                         adminPasswordAnswer,
                         true,
                         null,
-                        out createStatus);
+                        out var createStatus);
 
                 if (createStatus != MembershipCreateStatus.Success)
                 {

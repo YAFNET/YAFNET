@@ -95,7 +95,7 @@ namespace YAF.Utils
         /// </param>
         public void DecodeStyleByTable(DataTable dt, bool colorOnly = false, string[] styleColumns = null)
         {
-            styleColumns = styleColumns ?? new string[] { "Style" };
+            styleColumns = styleColumns ?? new[] { "Style" };
 
             dt.Rows.Cast<DataRow>().ForEach(
                 row =>

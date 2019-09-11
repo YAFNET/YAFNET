@@ -49,6 +49,7 @@ namespace ServiceStack.OrmLite.Dapper
                             hashCode = this.hashCode * 23 + (t?.GetHashCode() ?? 0);
                         }
                     }
+
                     hashCode = this.hashCode * 23 + (connectionString == null ? 0 : connectionStringComparer.GetHashCode(connectionString));
                     hashCode = this.hashCode * 23 + (parametersType?.GetHashCode() ?? 0);
                 }

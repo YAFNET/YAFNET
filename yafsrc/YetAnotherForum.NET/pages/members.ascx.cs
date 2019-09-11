@@ -398,11 +398,9 @@ namespace YAF.Pages
 
             // get the user list...
             var selectedLetter = this.UserSearchName.Text.IsSet() ? this.UserSearchName.Text.Trim() : selectedCharLetter.ToString();
-            
-            int numpostsTb;
 
             if (this.NumPostsTB.Text.Trim().IsSet() &&
-                (!int.TryParse(this.NumPostsTB.Text.Trim(), out numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
+                (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
             {
                 this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"));
                 return;

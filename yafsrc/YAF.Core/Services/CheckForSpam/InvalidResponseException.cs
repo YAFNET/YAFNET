@@ -39,10 +39,6 @@ namespace YAF.Core.Services.CheckForSpam
     [Serializable]
     public sealed class InvalidResponseException : Exception
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>

@@ -124,7 +124,7 @@ namespace ServiceStack.Web
         /// </summary>
         bool HasStarted { get; }
 
-        //Add Metadata to Response
+        // Add Metadata to Response
         Dictionary<string, object> Items { get; }
     }
 }

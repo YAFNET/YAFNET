@@ -35,7 +35,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 case nameof(Sql.Min):
                 case nameof(Sql.Max):
                 case nameof(Sql.Avg):
-                    statement = $"{m.Method.Name}({quotedColName}{(args.Count == 1 ? $",{args[0]}" : "")})";
+                    statement = $"{m.Method.Name}({quotedColName}{(args.Count == 1 ? $",{args[0]}" : string.Empty)})";
                     break;
                 case nameof(Sql.CountDistinct):
                     statement = $"COUNT(DISTINCT {quotedColName})";
@@ -62,6 +62,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     {
                         statement += $", '{args[0]}'";
                     }
+
                     statement += ")";
                     break;
                 default:

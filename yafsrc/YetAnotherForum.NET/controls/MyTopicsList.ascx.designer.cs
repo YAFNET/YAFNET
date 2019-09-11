@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class MyTopicsList {
         
+
         /// <summary>
         /// Title control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel Title;
+        protected LocalizedLabel Title;
         
+
         /// <summary>
         /// PagerTop control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
+        protected Pager PagerTop;
         
+
         /// <summary>
         /// TopicList control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater TopicList;
+        protected Repeater TopicList;
         
+
         /// <summary>
         /// PagerBottom control.
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
+        protected Pager PagerBottom;
         
+
         /// <summary>
         /// SinceLabel control.
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel SinceLabel;
+        protected LocalizedLabel SinceLabel;
         
+
         /// <summary>
         /// Since control.
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Since;
+        protected DropDownList Since;
         
+
         /// <summary>
         /// MarkAll control.
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton MarkAll;
+        protected ThemeButton MarkAll;
         
+
         /// <summary>
         /// RssFeed control.
         /// </summary>
@@ -82,6 +92,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.RssFeedLink RssFeed;
+        protected RssFeedLink RssFeed;
     }
 }

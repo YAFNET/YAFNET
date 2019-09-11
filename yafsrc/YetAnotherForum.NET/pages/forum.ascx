@@ -1,4 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.forum" Codebehind="forum.ascx.cs" %>
+<%@ Import Namespace="YAF" %>
+<%@ Import Namespace="YAF.Classes" %>
+<%@ Import Namespace="YAF.Configuration" %>
+<%@ Import Namespace="YAF.Web.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="../controls/ForumWelcome.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumIconLegend" Src="../controls/ForumIconLegend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumStatistics" Src="../controls/ForumStatistics.ascx" %>

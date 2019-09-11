@@ -1,4 +1,15 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UsersImport.ascx.cs" Inherits="YAF.Dialogs.UsersImport" %>
+<%@ Import Namespace="System.Web.DynamicData" %>
+<%@ Import Namespace="System.Web.UI" %>
+<%@ Import Namespace="System.Web.UI.HtmlControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
+<%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
+<%@ Import Namespace="YAF" %>
+<%@ Import Namespace="YAF.Classes" %>
+<%@ Import Namespace="YAF.Configuration" %>
+<%@ Import Namespace="YAF.Web.Controls" %>
 
 
 <div class="modal fade" id="UsersImportDialog" tabindex="-1" role="dialog" aria-labelledby="UsersImportDialog" aria-hidden="true">

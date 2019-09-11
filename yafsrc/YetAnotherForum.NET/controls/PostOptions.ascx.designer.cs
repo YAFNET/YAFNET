@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class PostOptions {
         
+
         /// <summary>
         /// OptionsRow control.
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder OptionsRow;
+        protected PlaceHolder OptionsRow;
         
+
         /// <summary>
         /// NewPostOptionsLabel control.
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel NewPostOptionsLabel;
+        protected LocalizedLabel NewPostOptionsLabel;
         
+
         /// <summary>
         /// liAddPoll control.
         /// </summary>
@@ -37,8 +43,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAddPoll;
+        protected HtmlGenericControl liAddPoll;
         
+
         /// <summary>
         /// AddPollCheckBox control.
         /// </summary>
@@ -46,8 +53,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AddPollCheckBox;
+        protected CheckBox AddPollCheckBox;
         
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -55,8 +63,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
         
+
         /// <summary>
         /// liQuestion control.
         /// </summary>
@@ -64,8 +73,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liQuestion;
+        protected HtmlGenericControl liQuestion;
         
+
         /// <summary>
         /// chkIsQuestion control.
         /// </summary>
@@ -73,8 +83,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsQuestion;
+        protected CheckBox chkIsQuestion;
         
+
         /// <summary>
         /// IsQuestionLael control.
         /// </summary>
@@ -82,8 +93,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel IsQuestionLael;
+        protected LocalizedLabel IsQuestionLael;
         
+
         /// <summary>
         /// liPersistency control.
         /// </summary>
@@ -91,8 +103,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liPersistency;
+        protected HtmlGenericControl liPersistency;
         
+
         /// <summary>
         /// Persistency control.
         /// </summary>
@@ -100,8 +113,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox Persistency;
+        protected CheckBox Persistency;
         
+
         /// <summary>
         /// PersistencyLabel control.
         /// </summary>
@@ -109,8 +123,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel PersistencyLabel;
+        protected LocalizedLabel PersistencyLabel;
         
+
         /// <summary>
         /// PersistencyLabel2 control.
         /// </summary>
@@ -118,8 +133,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel PersistencyLabel2;
+        protected LocalizedLabel PersistencyLabel2;
         
+
         /// <summary>
         /// liTopicWatch control.
         /// </summary>
@@ -127,8 +143,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liTopicWatch;
+        protected HtmlGenericControl liTopicWatch;
         
+
         /// <summary>
         /// TopicWatch control.
         /// </summary>
@@ -136,8 +153,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox TopicWatch;
+        protected CheckBox TopicWatch;
         
+
         /// <summary>
         /// TopicWatchLabel control.
         /// </summary>
@@ -145,6 +163,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel TopicWatchLabel;
+        protected LocalizedLabel TopicWatchLabel;
     }
 }

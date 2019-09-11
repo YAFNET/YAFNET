@@ -203,10 +203,8 @@ namespace YAF.Core.Services.Localization
         /// </returns>
         public string GetText(string page, string tag)
         {
-            string text;
-
             this.SetPage(page);
-            this.GetText(tag, out text);
+            this.GetText(tag, out var text);
 
             return text;
         }

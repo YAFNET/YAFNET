@@ -184,7 +184,7 @@ namespace ServiceStack.OrmLite
         {
             PrefixFieldWithTableName = true;
 
-            //Changes how Sql Expressions are generated.
+            // Changes how Sql Expressions are generated.
             useFieldName = true;
             this.Sep = " ";
 
@@ -225,12 +225,13 @@ namespace ServiceStack.OrmLite
 
             if (typeof(TModel) != typeof(List<object>) && 
                 typeof(TModel) != typeof(Dictionary<string, object>) &&
-                typeof(TModel) != typeof(object)) //dynamic
+                typeof(TModel) != typeof(object))
             {
+                // dynamic
                 selectDef = typeof(TModel).GetModelDefinition();
                 if (selectDef != modelDef && tableDefs.Contains(selectDef))
                 {
-                    orderedDefs = tableDefs.ToList(); //clone
+                    orderedDefs = tableDefs.ToList(); // clone
                     orderedDefs.Remove(selectDef);
                     orderedDefs.Insert(0, selectDef);
                 }
@@ -340,7 +341,7 @@ namespace ServiceStack.OrmLite
             var select = StringBuilderCache.ReturnAndFree(sbSelect);
 
             var columns = select.Length > 0 ? select : "*";
-            SelectExpression = $"SELECT {(this.selectDistinct ? "DISTINCT " : "")}{columns}";
+            SelectExpression = $"SELECT {(this.selectDistinct ? "DISTINCT " : string.Empty)}{columns}";
 
             return ToSelectStatement();
         }
@@ -443,31 +444,38 @@ namespace ServiceStack.OrmLite
 
         public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate) => AppendToWhere("OR", predicate);
 
-        public Tuple<ModelDefinition,FieldDefinition> FirstMatchingField(string fieldName)
+        public Tuple<ModelDefinition, FieldDefinition> FirstMatchingField(string fieldName)
         {
             foreach (var tableDef in tableDefs)
             {
-                var firstField = tableDef.FieldDefinitions.FirstOrDefault(x => 
-                    string.Compare(x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0
-                 || string.Compare(x.FieldName, fieldName, StringComparison.OrdinalIgnoreCase) == 0);
+                var firstField = tableDef.FieldDefinitions.FirstOrDefault(
+                    x => string.Compare(x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(
+                             x.FieldName,
+                             fieldName,
+                             StringComparison.OrdinalIgnoreCase) == 0);
 
                 if (firstField != null)
                 {
                     return Tuple.Create(tableDef, firstField);
                 }
             }
-            //Fallback to fully qualified '{Table}{Field}' property convention
+
+            // Fallback to fully qualified '{Table}{Field}' property convention
             foreach (var tableDef in tableDefs)
             {
-                var firstField = tableDef.FieldDefinitions.FirstOrDefault(x =>
-                    string.Compare(tableDef.Name + x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0
-                 || string.Compare(tableDef.ModelName + x.FieldName, fieldName, StringComparison.OrdinalIgnoreCase) == 0);
+                var firstField = tableDef.FieldDefinitions.FirstOrDefault(
+                    x => string.Compare(tableDef.Name + x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0
+                         || string.Compare(
+                             tableDef.ModelName + x.FieldName,
+                             fieldName,
+                             StringComparison.OrdinalIgnoreCase) == 0);
 
                 if (firstField != null)
                 {
                     return Tuple.Create(tableDef, firstField);
                 }
             }
+
             return null;
         }
     }

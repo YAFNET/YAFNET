@@ -1,5 +1,6 @@
 ﻿#if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
+
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -57,7 +58,8 @@ namespace ServiceStack.OrmLite
         internal static Task<List<TModel>> SelectAsync<TModel>(this IDbCommand dbCmd, Type fromTableType, string sqlFilter, object anonType, CancellationToken token)
         {
             if (anonType != null) dbCmd.SetParameters(fromTableType, anonType, excludeDefaults: false, sql: ref sqlFilter);
-            var sql = OrmLiteReadCommandExtensions.ToSelect<TModel>(dbCmd.GetDialectProvider(), fromTableType, sqlFilter);
+            var sql =
+ OrmLiteReadCommandExtensions.ToSelect<TModel>(dbCmd.GetDialectProvider(), fromTableType, sqlFilter);
             return dbCmd.ConvertToListAsync<TModel>(sql, token);
         }
 
@@ -131,13 +133,15 @@ namespace ServiceStack.OrmLite
 
         internal static Task<List<T>> SelectAsync<T>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
-            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql).CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql).CommandText =
+ dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
             return dbCmd.ConvertToListAsync<T>(null, token);
         }
 
         internal static Task<List<T>> SelectAsync<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict, CancellationToken token)
         {
-            dbCmd.SetParameters(dict, excludeDefaults: false, sql:ref sql).CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
+            dbCmd.SetParameters(dict, excludeDefaults: false, sql:ref sql).CommandText =
+ dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
             return dbCmd.ConvertToListAsync<T>(null, token);
         }
 
@@ -354,7 +358,8 @@ namespace ServiceStack.OrmLite
             return dbCmd.ConvertToListAsync<TOutputModel>(sql, token);
         }
 
-        internal static async Task<T> LoadSingleByIdAsync<T>(this IDbCommand dbCmd, object value, string[] include = null, CancellationToken token = default(CancellationToken))
+        internal static async Task<T> LoadSingleByIdAsync<T>(this IDbCommand dbCmd, object value, string[] include =
+ null, CancellationToken token = default(CancellationToken))
         {
             var row = await dbCmd.SingleByIdAsync<T>(value, token);
             if (row == null)
@@ -365,7 +370,8 @@ namespace ServiceStack.OrmLite
             return row;
         }
 
-        public static async Task LoadReferencesAsync<T>(this IDbCommand dbCmd, T instance, string[] include = null, CancellationToken token = default(CancellationToken))
+        public static async Task LoadReferencesAsync<T>(this IDbCommand dbCmd, T instance, string[] include =
+ null, CancellationToken token = default(CancellationToken))
         {
             var loadRef = new LoadReferencesAsync<T>(dbCmd, instance);
             var fieldDefs = loadRef.FieldDefs;
@@ -396,7 +402,8 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        internal static async Task<List<Into>> LoadListWithReferences<Into, From>(this IDbCommand dbCmd, SqlExpression<From> expr = null, string[] include = null, CancellationToken token = default(CancellationToken))
+        internal static async Task<List<Into>> LoadListWithReferences<Into, From>(this IDbCommand dbCmd, SqlExpression<From> expr
+ = null, string[] include = null, CancellationToken token = default(CancellationToken))
         {
             var loadList = new LoadListAsync<Into, From>(dbCmd, expr);
 

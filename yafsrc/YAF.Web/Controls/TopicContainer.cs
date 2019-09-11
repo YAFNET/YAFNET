@@ -248,11 +248,11 @@ namespace YAF.Web.Controls
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
                 var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                    forumId: this.TopicRow["ForumID"].ToType<int>(),
-                    topicId: this.TopicRow["TopicID"].ToType<int>(),
-                    forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>()
+                    this.TopicRow["ForumID"].ToType<int>(),
+                    this.TopicRow["TopicID"].ToType<int>(),
+                    this.TopicRow["LastForumAccess"].ToType<DateTime?>()
                                        ?? DateTimeHelper.SqlDbMinTime(),
-                    topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>()
+                    this.TopicRow["LastTopicAccess"].ToType<DateTime?>()
                                        ?? DateTimeHelper.SqlDbMinTime());
 
                 if (this.AltLastPost.IsNotSet())
@@ -308,7 +308,6 @@ namespace YAF.Web.Controls
 
             if (pager != string.Empty)
             {
-                var altMultipages = string.Format(this.GetText("GOTO_POST_PAGER"), string.Empty);
                 writer.Write("<span> - <i class=\"fa fa-copy fa-fw\"></i>{0}</span>", pager);
             }
 
@@ -332,7 +331,7 @@ namespace YAF.Web.Controls
                 writer.Write(" <div class=\"col-md-4\">");
                 writer.Write(" <h6>");
 
-                var goToLastPost = new ThemeButton
+                var gotoLastPost = new ThemeButton
                                        {
                                            NavigateUrl = YafBuildLink.GetLink(
                                                ForumPages.posts,
@@ -345,7 +344,7 @@ namespace YAF.Web.Controls
                                            CssClass = "mr-1"
                                        };
 
-                var goToLastUnread = new ThemeButton
+                var gotoLastUnread = new ThemeButton
                                          {
                                              NavigateUrl =
                                                  YafBuildLink.GetLink(
@@ -359,8 +358,8 @@ namespace YAF.Web.Controls
                                              Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost
                                          };
 
-                writer.Write(goToLastPost.RenderToString());
-                writer.Write(goToLastUnread.RenderToString());
+                writer.Write(gotoLastPost.RenderToString());
+                writer.Write(gotoLastUnread.RenderToString());
                 writer.Write("</h6>");
                 writer.Write(" <hr/>");
                 writer.Write(" <h6>");

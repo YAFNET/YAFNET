@@ -36,7 +36,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// The _intermittent timer.
         /// </summary>
-        protected Timer _intermittentTimer = null;
+        protected Timer _intermittentTimer;
 
         /// <summary>
         /// The _primary thread identity
@@ -113,14 +113,6 @@ namespace YAF.Core.Tasks
 
                 impersonationContext?.Undo();
             }
-        }
-
-        /// <summary>
-        /// The dispose.
-        /// </summary>
-        public override void Dispose()
-        {
-            base.Dispose();
         }
     }
 }

@@ -46,10 +46,6 @@ namespace YAF.Pages
     /// </summary>
     public partial class cp_pm : ForumPageRegistered
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>

@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class EditUsersSuspend {
         
+
         /// <summary>
         /// trHeader control.
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl trHeader;
+        protected HtmlGenericControl trHeader;
         
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
         
+
         /// <summary>
         /// SuspendedHolder control.
         /// </summary>
@@ -37,8 +43,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder SuspendedHolder;
+        protected PlaceHolder SuspendedHolder;
         
+
         /// <summary>
         /// LocalizedLabel5 control.
         /// </summary>
@@ -46,8 +53,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
+        protected LocalizedLabel LocalizedLabel5;
         
+
         /// <summary>
         /// LocalizedLabel7 control.
         /// </summary>
@@ -55,8 +63,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
+        protected LocalizedLabel LocalizedLabel7;
         
+
         /// <summary>
         /// CurrentSuspendedReason control.
         /// </summary>
@@ -64,8 +73,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CurrentSuspendedReason;
+        protected Label CurrentSuspendedReason;
         
+
         /// <summary>
         /// LocalizedLabel8 control.
         /// </summary>
@@ -73,8 +83,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel8;
+        protected LocalizedLabel LocalizedLabel8;
         
+
         /// <summary>
         /// SuspendedBy control.
         /// </summary>
@@ -82,8 +93,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.UserLink SuspendedBy;
+        protected UserLink SuspendedBy;
         
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -91,8 +103,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+        protected LocalizedLabel LocalizedLabel2;
         
+
         /// <summary>
         /// RemoveSuspension control.
         /// </summary>
@@ -100,8 +113,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton RemoveSuspension;
+        protected ThemeButton RemoveSuspension;
         
+
         /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
@@ -109,8 +123,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+        protected LocalizedLabel LocalizedLabel6;
         
+
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -118,8 +133,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
+        protected LocalizedLabel LocalizedLabel4;
         
+
         /// <summary>
         /// SuspendedReason control.
         /// </summary>
@@ -127,8 +143,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SuspendedReason;
+        protected TextBox SuspendedReason;
         
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -136,8 +153,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
+        protected LocalizedLabel LocalizedLabel3;
         
+
         /// <summary>
         /// SuspendCount control.
         /// </summary>
@@ -145,8 +163,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SuspendCount;
+        protected TextBox SuspendCount;
         
+
         /// <summary>
         /// SuspendUnit control.
         /// </summary>
@@ -154,8 +173,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList SuspendUnit;
+        protected RadioButtonList SuspendUnit;
         
+
         /// <summary>
         /// SuspendInfo control.
         /// </summary>
@@ -163,8 +183,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SuspendInfo;
+        protected Label SuspendInfo;
         
+
         /// <summary>
         /// Suspend control.
         /// </summary>
@@ -172,6 +193,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Suspend;
+        protected ThemeButton Suspend;
     }
 }

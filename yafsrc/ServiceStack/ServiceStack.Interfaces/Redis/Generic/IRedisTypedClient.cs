@@ -83,7 +83,7 @@ namespace ServiceStack.Redis.Generic
         void StoreAsHash(T entity);
         T GetFromHash(object id);
 
-        //Set operations
+        // Set operations
         HashSet<T> GetAllItemsFromSet(IRedisSet<T> fromSet);
         void AddItemToSet(IRedisSet<T> toSet, T item);
         void RemoveItemFromSet(IRedisSet<T> fromSet, T item);
@@ -99,7 +99,7 @@ namespace ServiceStack.Redis.Generic
         void StoreDifferencesFromSet(IRedisSet<T> intoSet, IRedisSet<T> fromSet, params IRedisSet<T>[] withSets);
         T GetRandomItemFromSet(IRedisSet<T> fromSet);
 
-        //List operations
+        // List operations
         List<T> GetAllItemsFromList(IRedisList<T> fromList);
         List<T> GetRangeFromList(IRedisList<T> fromList, int startingFrom, int endingAt);
         List<T> SortList(IRedisList<T> fromList, int startingFrom, int endingAt);
@@ -118,19 +118,19 @@ namespace ServiceStack.Redis.Generic
         void InsertBeforeItemInList(IRedisList<T> toList, T pivot, T value);
         void InsertAfterItemInList(IRedisList<T> toList, T pivot, T value);
 
-        //Queue operations
+        // Queue operations
         void EnqueueItemOnList(IRedisList<T> fromList, T item);
         T DequeueItemFromList(IRedisList<T> fromList);
         T BlockingDequeueItemFromList(IRedisList<T> fromList, TimeSpan? timeOut);
 
-        //Stack operations
+        // Stack operations
         void PushItemToList(IRedisList<T> fromList, T item);
         T PopItemFromList(IRedisList<T> fromList);
         T BlockingPopItemFromList(IRedisList<T> fromList, TimeSpan? timeOut);
         T PopAndPushItemBetweenLists(IRedisList<T> fromList, IRedisList<T> toList);
         T BlockingPopAndPushItemBetweenLists(IRedisList<T> fromList, IRedisList<T> toList, TimeSpan? timeOut);
 
-        //Sorted Set operations
+        // Sorted Set operations
         void AddItemToSortedSet(IRedisSortedSet<T> toSet, T value);
         void AddItemToSortedSet(IRedisSortedSet<T> toSet, T value, double score);
         bool RemoveItemFromSortedSet(IRedisSortedSet<T> fromSet, T value);
@@ -172,7 +172,7 @@ namespace ServiceStack.Redis.Generic
         long StoreUnionFromSortedSets(IRedisSortedSet<T> intoSetId, params IRedisSortedSet<T>[] setIds);
         long StoreUnionFromSortedSets(IRedisSortedSet<T> intoSetId, IRedisSortedSet<T>[] setIds, string[] args);
 
-        //Hash operations
+        // Hash operations
         bool HashContainsEntry<TKey>(IRedisHash<TKey, T> hash, TKey key);
         bool SetEntryInHash<TKey>(IRedisHash<TKey, T> hash, TKey key, T value);
         bool SetEntryInHashIfNotExists<TKey>(IRedisHash<TKey, T> hash, TKey key, T value);
@@ -184,7 +184,7 @@ namespace ServiceStack.Redis.Generic
         List<T> GetHashValues<TKey>(IRedisHash<TKey, T> hash);
         Dictionary<TKey, T> GetAllEntriesFromHash<TKey>(IRedisHash<TKey, T> hash);
 
-        //Useful common app-logic 
+        // Useful common app-logic 
         void StoreRelatedEntities<TChild>(object parentId, List<TChild> children);
         void StoreRelatedEntities<TChild>(object parentId, params TChild[] children);
         void DeleteRelatedEntities<TChild>(object parentId);

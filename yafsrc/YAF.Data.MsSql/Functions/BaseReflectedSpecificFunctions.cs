@@ -63,7 +63,7 @@ namespace YAF.Data.MsSql.Functions
         /// <param name="dbAccess">
         /// The db Access.
         /// </param>
-        protected BaseReflectedSpecificFunctions(Type staticReflectedClass, IDbAccess dbAccess)
+        protected BaseReflectedSpecificFunctions(IReflect staticReflectedClass, IDbAccess dbAccess)
             :base(dbAccess)
         {
             this.Methods = staticReflectedClass

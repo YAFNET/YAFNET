@@ -34,6 +34,7 @@ namespace YAF.Core.WebService
     using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     using WebService = System.Web.Services.WebService;

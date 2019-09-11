@@ -45,45 +45,6 @@ namespace YAF.Utils.Helpers
         #region Public Methods
 
         /// <summary>
-        /// Converts <paramref name="columnName"/> in a <see cref="DataTable"/> to a generic List of type T.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of elements in the list.
-        /// </typeparam>
-        /// <param name="dataTable">
-        /// The data table.
-        /// </param>
-        /// <param name="columnName">
-        /// Name of the column.
-        /// </param>
-        /// <returns>
-        /// The get column as list.
-        /// </returns>
-        [NotNull]
-        public static List<T> GetColumnAsList<T>([NotNull] this DataTable dataTable, [NotNull] string columnName)
-        {
-            return (from x in dataTable.AsEnumerable() select x.Field<T>(columnName)).ToList();
-        }
-
-        /// <summary>
-        /// Converts the first column of a <see cref="DataTable"/> to a generic List of type T.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of elements in the list.
-        /// </typeparam>
-        /// <param name="dataTable">
-        /// The data table.
-        /// </param>
-        /// <returns>
-        /// The get first column as list.
-        /// </returns>
-        [NotNull]
-        public static List<T> GetFirstColumnAsList<T>([NotNull] this DataTable dataTable)
-        {
-            return (from x in dataTable.AsEnumerable() select x.Field<T>(0)).ToList();
-        }
-
-        /// <summary>
         /// Gets the first row (<see cref="DataRow"/>) of a <see cref="DataTable"/>.
         /// </summary>
         /// <param name="dt">

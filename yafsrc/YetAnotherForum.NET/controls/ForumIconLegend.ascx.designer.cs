@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using YAF.Web.Controls;
+
     public partial class ForumIconLegend {
         
+
         /// <summary>
         /// NewPostsLabel control.
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel NewPostsLabel;
+        protected LocalizedLabel NewPostsLabel;
         
+
         /// <summary>
         /// NoNewPostsLabel control.
         /// </summary>
@@ -28,8 +30,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel NoNewPostsLabel;
+        protected LocalizedLabel NoNewPostsLabel;
         
+
         /// <summary>
         /// ForumLockedLabel control.
         /// </summary>
@@ -37,6 +40,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel ForumLockedLabel;
+        protected LocalizedLabel ForumLockedLabel;
     }
 }

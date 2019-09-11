@@ -146,8 +146,7 @@ namespace YAF.Pages
 
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null)
                     {
-                        int topicId;
-                        if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"), out topicId))
+                        if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"), out var topicId))
                         {
                             this.GetPostsFeed(ref feed, feedType, atomFeedByVar, topicId);
                         }
@@ -166,9 +165,8 @@ namespace YAF.Pages
 
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c") != null)
                     {
-                        int icategoryId;
                         if (int.TryParse(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"), out icategoryId))
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"), out var icategoryId))
                         {
                             categoryId = icategoryId;
                         }
@@ -188,8 +186,7 @@ namespace YAF.Pages
 
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null)
                     {
-                        int forumId;
-                        if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out forumId))
+                        if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out var forumId))
                         {
                             this.GetTopicsFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName, forumId);
                         }
@@ -204,12 +201,11 @@ namespace YAF.Pages
                         YafBuildLink.AccessDenied();
                     }
 
-                    int categoryActiveIntId;
                     object categoryActiveId = null;
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null
                         &&
                         int.TryParse(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out categoryActiveIntId))
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out var categoryActiveIntId))
                     {
                         categoryActiveId = categoryActiveIntId;
                     }
@@ -223,12 +219,11 @@ namespace YAF.Pages
                         YafBuildLink.AccessDenied();
                     }
 
-                    int categoryFavIntId;
                     object categoryFavId = null;
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null
                         &&
                         int.TryParse(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out categoryFavIntId))
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out var categoryFavIntId))
                     {
                         categoryFavId = categoryFavIntId;
                     }

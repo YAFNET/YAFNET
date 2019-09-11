@@ -38,6 +38,7 @@ namespace ServiceStack
                 ThreadPool.QueueUserWorkItem(ExecuteCommandList, commandResultsHandler);
 #endif
             }
+
             WaitAll(waitHandles.ToArray(), timeout);
             return results;
         }
@@ -64,6 +65,7 @@ namespace ServiceStack
                         throw new TimeoutException();
                     }
                 }
+
 #else
                 if (!WaitHandle.WaitAll(waitHandles, timeout))
                 {
@@ -120,6 +122,7 @@ namespace ServiceStack
                 ThreadPool.QueueUserWorkItem(ExecuteCommandList, commandExecsHandler);
 #endif
             }
+
             return waitHandles;
         }
     }

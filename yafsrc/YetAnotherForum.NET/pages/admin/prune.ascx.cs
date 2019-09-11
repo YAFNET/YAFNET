@@ -37,6 +37,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -122,7 +123,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.forumlist.DataSource = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
+            this.forumlist.DataSource = this.GetRepository<Forum>().ListReadAsDataTable(
                 this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false, false);
 
             this.forumlist.DataValueField = "ForumID";

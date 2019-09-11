@@ -36,6 +36,7 @@ namespace ServiceStack
 
             return @enum.ToString();
         }
+
 #endif
 
         public static List<string> ToList(this Enum @enum)

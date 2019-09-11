@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Controls;
+    using YAF.Web.Controls;
+
     public partial class ViewThanks {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+        protected LocalizedLabel LocalizedLabel6;
         
+
         /// <summary>
         /// MenuHolder control.
         /// </summary>
@@ -37,8 +43,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MenuHolder;
+        protected PlaceHolder MenuHolder;
         
+
         /// <summary>
         /// ProfileMenu1 control.
         /// </summary>
@@ -46,8 +53,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
+        protected ProfileMenu ProfileMenu1;
         
+
         /// <summary>
         /// ThanksTabs control.
         /// </summary>
@@ -55,8 +63,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ThanksTabs;
+        protected Panel ThanksTabs;
         
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -64,8 +73,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+        protected LocalizedLabel LocalizedLabel2;
         
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -73,8 +83,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
         
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -82,8 +93,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
+        protected LocalizedLabel LocalizedLabel3;
         
+
         /// <summary>
         /// ThanksFromList control.
         /// </summary>
@@ -91,8 +103,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ViewThanksList ThanksFromList;
+        protected ViewThanksList ThanksFromList;
         
+
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -100,8 +113,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
+        protected LocalizedLabel LocalizedLabel4;
         
+
         /// <summary>
         /// ThanksToList control.
         /// </summary>
@@ -109,8 +123,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ViewThanksList ThanksToList;
+        protected ViewThanksList ThanksToList;
         
+
         /// <summary>
         /// hidLastTab control.
         /// </summary>
@@ -118,6 +133,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
+        protected HiddenField hidLastTab;
     }
 }

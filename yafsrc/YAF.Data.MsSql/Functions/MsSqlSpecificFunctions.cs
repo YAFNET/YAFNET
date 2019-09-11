@@ -181,9 +181,18 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         /// System initialize and execute script's.
         /// </summary>
-        /// <param name="script">The script.</param>
-        /// <param name="scriptFile">The script file.</param>
-        /// <param name="useTransactions">The use transactions.</param>
+        /// <param name="dbAccess">
+        /// The db Access.
+        /// </param>
+        /// <param name="script">
+        /// The script.
+        /// </param>
+        /// <param name="scriptFile">
+        /// The script file.
+        /// </param>
+        /// <param name="useTransactions">
+        /// The use transactions.
+        /// </param>
         public static void SystemInitializeExecutescripts(
             this IDbAccess dbAccess,
             [NotNull] string script,
@@ -203,7 +212,7 @@ namespace YAF.Data.MsSql.Functions
                     {
                         try
                         {
-                            if (sql.ToLower().IndexOf("setuser") >= 0)
+                            if (sql.ToLower().IndexOf("setuser", StringComparison.Ordinal) >= 0)
                             {
                                 continue;
                             }
@@ -240,7 +249,7 @@ namespace YAF.Data.MsSql.Functions
                 {
                     try
                     {
-                        if (sql.ToLower().IndexOf("setuser") >= 0)
+                        if (sql.ToLower().IndexOf("setuser", StringComparison.Ordinal) >= 0)
                         {
                             continue;
                         }
@@ -255,7 +264,6 @@ namespace YAF.Data.MsSql.Functions
                             dbAccess.ExecuteScalar(cmd).ToType<string>();
                         }
                     }
-
                     catch (Exception x)
                     {
                         throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
@@ -267,6 +275,9 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         /// The system_initialize_fixaccess.
         /// </summary>
+        /// <param name="dbAccess">
+        /// The db Access.
+        /// </param>
         /// <param name="grant">
         /// The grant.
         /// </param>
@@ -352,8 +363,8 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         /// The db_recovery_mode.
         /// </summary>
-        /// <param name="DBName">
-        /// The db name.
+        /// <param name="dbAccess">
+        /// The db Access.
         /// </param>
         /// <param name="recoveryMode">
         /// The recovery mode.
@@ -475,7 +486,7 @@ namespace YAF.Data.MsSql.Functions
                                 columnNames.ForEach(
                                     col => results.AppendFormat(
                                         @",""{0}""",
-                                        reader[(string)col].ToString().Replace("\"", "\"\"")));
+                                        reader[col].ToString().Replace("\"", "\"\"")));
 
                                 results.AppendLine();
                             }

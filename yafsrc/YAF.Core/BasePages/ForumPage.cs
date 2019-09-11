@@ -32,12 +32,16 @@ namespace YAF.Core
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
+
+#if DEBUG
     using YAF.Core.Data.Profiling;
+#endif
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Helpers.StringUtils;
@@ -63,7 +67,7 @@ namespace YAF.Core
         /// <summary>
         ///   The _trans page.
         /// </summary>
-        private readonly string _transPage = string.Empty;
+        private readonly string _transPage;
 
         /// <summary>
         /// The Unicode Encoder
@@ -87,7 +91,7 @@ namespace YAF.Core
         /// <summary>
         ///   Initializes a new instance of the <see cref = "ForumPage" /> class.
         /// </summary>
-        public ForumPage()
+        protected ForumPage()
             : this(string.Empty)
         {
             this.unicodeEncoder = new UnicodeEncoder();
@@ -99,7 +103,7 @@ namespace YAF.Core
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        public ForumPage([CanBeNull] string transPage)
+        protected ForumPage([CanBeNull] string transPage)
         {
             this.Get<IInjectServices>().Inject(this);
 

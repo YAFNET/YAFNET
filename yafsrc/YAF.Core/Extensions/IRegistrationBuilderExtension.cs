@@ -53,8 +53,7 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The instance per yaf context.
         /// </returns>
-        public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>
-            InstancePerYafContext<TLimit, TActivatorData, TRegistrationStyle>(
+        public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> InstancePerYafContext<TLimit, TActivatorData, TRegistrationStyle>(
                 [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
         {
             CodeContracts.VerifyNotNull(builder, "builder");

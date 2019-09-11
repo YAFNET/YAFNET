@@ -45,39 +45,25 @@ namespace YAF.Controls
     /// </summary>
     public partial class ViewThanksList : BaseUserControl
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _count.
-        /// </summary>
-        private int _count;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
-        ///   Determines what is th current mode of the control.
+        ///   Gets or sets the Thanks List Mode of the control.
         /// </summary>
         public ThanksListMode CurrentMode { get; set; }
 
         /// <summary>
-        ///   The Thanks Info.
+        ///   Gets or sets the Thanks Info.
         /// </summary>
         public DataTable ThanksInfo { get; set; }
 
         /// <summary>
-        ///   The User ID.
+        ///   Gets or sets the User ID.
         /// </summary>
         public int UserID { get; set; }
 
         #endregion
 
-        // keeps count
-
-        /* Event Handlers */
-
-        /* Methods */
         #region Public Methods
 
         /// <summary>
@@ -85,8 +71,6 @@ namespace YAF.Controls
         /// </summary>
         public void BindData()
         {
-            this._count = 0;
-
             if (!this.ThanksInfo.Columns.Contains("MessageThanksNumber"))
             {
                 this.ThanksInfo.Columns.Add("MessageThanksNumber", typeof(int));
@@ -111,8 +95,7 @@ namespace YAF.Controls
                         foreach (var dr in thanksData)
                         {
                             // update the message count
-                            int messageThanksNumber;
-                            dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out messageThanksNumber)
+                            dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out _)
                                                             ? dr["MessageThanksNumber"]
                                                             : thanksData.Count(x => x.Field<int>("ThanksToUserID") == this.UserID &&
                                                                                     x.Field<int>("MessageID") == (int)dr["MessageID"]);
@@ -121,12 +104,12 @@ namespace YAF.Controls
                         thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
 
                         // Remove duplicates.
-                        this.DistinctMessageID(thanksData);
+                        DistinctMessageID(thanksData);
 
-                        // Sort by the ThanksNumber (Descensing)
+                        // Sort by the ThanksNumber (Descending)
                         thanksData = thanksData.OrderByDescending(x => x.Field<int>("MessageThanksNumber"));
 
-                        // Update the datatable with changes
+                        // Update the data table with changes
                         this.ThanksInfo.AcceptChanges();
                         break;
                     }
@@ -135,7 +118,7 @@ namespace YAF.Controls
             // TODO : page size definable?
             this.PagerTop.PageSize = 15;
 
-            // set datasource of repeater
+            // set data source of repeater
             this.ThanksRes.DataSource = thanksData.ToList().GetPaged(this.PagerTop);
 
             // data bind controls
@@ -145,19 +128,6 @@ namespace YAF.Controls
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Returns <see langword="true"/> if the count is odd
-        /// </summary>
-        /// <returns>
-        /// The is odd.
-        /// </returns>
-        protected bool IsOdd()
-        {
-            return this._count++ % 2 == 0;
-        }
-
-        /* Methods */
 
         /// <summary>
         /// The page_ load.
@@ -232,14 +202,13 @@ namespace YAF.Controls
         /// <param name="thanksData">
         /// The thanks data.
         /// </param>
-        private void DistinctMessageID([NotNull] IEnumerable<DataRow> thanksData)
+        private static void DistinctMessageID([NotNull] IEnumerable<DataRow> thanksData)
         {
             var previousId = 0;
-            int tempId;
 
             foreach (var dr in thanksData.OrderBy(x => x.Field<int>("MessageID")))
             {
-                tempId = dr.Field<int>("MessageID");
+                var tempId = dr.Field<int>("MessageID");
                 if (dr.Field<int>("MessageID") == previousId)
                 {
                     dr.Delete();

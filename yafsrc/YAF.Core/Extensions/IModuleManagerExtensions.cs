@@ -31,6 +31,7 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -62,11 +63,9 @@ namespace YAF.Core
                 dataTable.Columns.Add("Value", typeof(int));
                 dataTable.Columns.Add("Name", typeof(string));
 
-                foreach (var module in moduleManager.GetAll().OrderBy(e => e.Description))
-                {
-                    dataTable.Rows.Add(new object[] { module.ModuleId, module.Description });
-                }
-
+                moduleManager.GetAll().OrderBy(e => e.Description).ForEach(
+                    module => { dataTable.Rows.Add(module.ModuleId, module.Description); });
+                
                 return dataTable;
             }
         }

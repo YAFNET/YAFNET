@@ -205,7 +205,7 @@ namespace ServiceStack
         public static string WithTrailingSlash(this string path)
         {
             if (string.IsNullOrEmpty(path))
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
 
             if (path[path.Length - 1] != '/')
             {
@@ -595,11 +595,11 @@ namespace ServiceStack
         public static string ExtractContents(this string fromText, string uniqueMarker, string startAfter, string endAt)
         {
             if (string.IsNullOrEmpty(uniqueMarker))
-                throw new ArgumentNullException("uniqueMarker");
+                throw new ArgumentNullException(nameof(uniqueMarker));
             if (string.IsNullOrEmpty(startAfter))
-                throw new ArgumentNullException("startAfter");
+                throw new ArgumentNullException(nameof(startAfter));
             if (string.IsNullOrEmpty(endAt))
-                throw new ArgumentNullException("endAt");
+                throw new ArgumentNullException(nameof(endAt));
 
             if (string.IsNullOrEmpty(fromText)) return null;
 
@@ -820,7 +820,7 @@ namespace ServiceStack
         {
             if (url == null)
             {
-                throw new ArgumentNullException("url");
+                throw new ArgumentNullException(nameof(url));
             }
 
             return HttpRegex.Replace(url.Trim(), "https://");
@@ -946,8 +946,7 @@ namespace ServiceStack
         public static bool IsInt(this string text)
         {
             if (string.IsNullOrEmpty(text)) return false;
-            int ret;
-            return int.TryParse(text, out ret);
+            return int.TryParse(text, out var ret);
         }
 
         public static int ToInt(this string text)
@@ -957,8 +956,7 @@ namespace ServiceStack
 
         public static int ToInt(this string text, int defaultValue)
         {
-            int ret;
-            return int.TryParse(text, out ret) ? ret : defaultValue;
+            return int.TryParse(text, out var ret) ? ret : defaultValue;
         }
 
         public static long ToInt64(this string text)
@@ -968,8 +966,7 @@ namespace ServiceStack
 
         public static long ToInt64(this string text, long defaultValue)
         {
-            long ret;
-            return long.TryParse(text, out ret) ? ret : defaultValue;
+            return long.TryParse(text, out var ret) ? ret : defaultValue;
         }
 
         public static float ToFloat(this string text)
@@ -984,8 +981,7 @@ namespace ServiceStack
 
         public static float ToFloat(this string text, float defaultValue)
         {
-            float ret;
-            return float.TryParse(text, out ret) ? ret : defaultValue;
+            return float.TryParse(text, out var ret) ? ret : defaultValue;
         }
 
         public static double ToDouble(this string text)
@@ -1000,8 +996,7 @@ namespace ServiceStack
 
         public static double ToDouble(this string text, double defaultValue)
         {
-            double ret;
-            return double.TryParse(text, out ret) ? ret : defaultValue;
+            return double.TryParse(text, out var ret) ? ret : defaultValue;
         }
 
         public static decimal ToDecimal(this string text)
@@ -1016,8 +1011,7 @@ namespace ServiceStack
 
         public static decimal ToDecimal(this string text, decimal defaultValue)
         {
-            decimal ret;
-            return decimal.TryParse(text, out ret) ? ret : defaultValue;
+            return decimal.TryParse(text, out var ret) ? ret : defaultValue;
         }
 
         public static bool Matches(this string value, string pattern)

@@ -118,7 +118,8 @@ namespace ServiceStack
                 snapshot = activatorCache;
                 newCache = new Dictionary<ConstructorInfo, ObjectActivator>(activatorCache) { [ctor] = fn };
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref activatorCache, newCache, snapshot), snapshot));
 
             return fn;
@@ -172,7 +173,8 @@ namespace ServiceStack
                 snapshot = invokerCache;
                 newCache = new Dictionary<MethodInfo, MethodInvoker>(invokerCache) { [method] = fn };
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref invokerCache, newCache, snapshot), snapshot));
 
             return fn;

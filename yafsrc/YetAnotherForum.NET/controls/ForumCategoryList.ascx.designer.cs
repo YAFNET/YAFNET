@@ -8,10 +8,12 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
     public partial class ForumCategoryList {
         
+
         /// <summary>
         /// UpdatePanelCategory control.
         /// </summary>
@@ -19,8 +21,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelCategory;
+        protected UpdatePanel UpdatePanelCategory;
         
+
         /// <summary>
         /// CategoryList control.
         /// </summary>
@@ -28,6 +31,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater CategoryList;
+        protected Repeater CategoryList;
     }
 }

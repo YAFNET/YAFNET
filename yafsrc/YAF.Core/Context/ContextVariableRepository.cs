@@ -36,11 +36,7 @@ namespace YAF.Core
   /// </summary>
   public class ContextVariableRepository
   {
-    #region Constants and Fields
-
-    #endregion
-
-    #region Constructors and Destructors
+      #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ContextVariableRepository"/> class.

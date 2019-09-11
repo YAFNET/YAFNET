@@ -36,8 +36,7 @@ public static class DictionaryExtensions
 
         foreach (var entry in thisMap)
         {
-            V otherValue;
-            if (!otherMap.TryGetValue(entry.Key, out otherValue)) return false;
+            if (!otherMap.TryGetValue(entry.Key, out var otherValue)) return false;
             if (!Equals(entry.Value, otherValue)) return false;
         }
 
@@ -53,11 +52,10 @@ public static class DictionaryExtensions
 
     public static V GetOrAdd<K, V>(this Dictionary<K, V> map, K key, Func<K, V> createFn)
     {
-        //simulate ConcurrentDictionary.GetOrAdd
+        // simulate ConcurrentDictionary.GetOrAdd
         lock (map)
         {
-            V val;
-            if (!map.TryGetValue(key, out val))
+            if (!map.TryGetValue(key, out var val))
                 map[key] = val = createFn(key);
 
             return val;
@@ -76,6 +74,7 @@ public static class DictionaryExtensions
         {
             to[entry.Key] = entry.Value;
         }
+
         return to;
     }
 

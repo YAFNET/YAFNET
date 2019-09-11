@@ -48,7 +48,7 @@ namespace ServiceStack.OrmLite.Support
 
         protected string GetRefSelfSql(Type refType, FieldDefinition refSelf, ModelDefinition refModelDef)
         {
-            //Load Self Table.RefTableId PK
+            // Load Self Table.RefTableId PK
             var refPkValue = refSelf.GetValue(instance);
             if (refPkValue == null)
                 return null;

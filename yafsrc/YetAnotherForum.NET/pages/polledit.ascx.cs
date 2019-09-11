@@ -203,9 +203,7 @@ namespace YAF.Pages
                 return false;
             }
 
-            int dateVerified;
-            
-            if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) && this.PollExpire.Text.Trim().IsSet())
+            if (!int.TryParse(this.PollExpire.Text.Trim(), out var dateVerified) && this.PollExpire.Text.Trim().IsSet())
             {
                 YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "EXPIRE_BAD"));
                 return false;
@@ -304,7 +302,7 @@ namespace YAF.Pages
                     this.PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", this._categoryId));
             }
 
-            var name = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, this._returnForum)
+            var name = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._returnForum)
                 .FirstOrDefault().Name;
 
             if (this._returnForum > 0)
@@ -387,8 +385,7 @@ namespace YAF.Pages
 
                 if (questionPath.IsSet())
                 {
-                    long length;
-                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
+                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out var length);
                     if (questionMime.IsNotSet())
                     {
                         YafContext.Current.AddLoadMessage(this.GetTextFormatted("POLLIMAGE_INVALID", questionPath));
@@ -431,8 +428,7 @@ namespace YAF.Pages
                     // update choice
                     if (choiceObjectPath.IsSet())
                     {
-                        long length;
-                        choiceImageMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
+                        choiceImageMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out var length);
                         if (choiceImageMime.IsNotSet())
                         {
                             YafContext.Current.AddLoadMessage(
@@ -500,8 +496,7 @@ namespace YAF.Pages
 
                 if (questionPath.IsSet())
                 {
-                    long length;
-                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
+                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out var length);
                     if (questionMime.IsNotSet())
                     {
                         YafContext.Current.AddLoadMessage(
@@ -533,8 +528,7 @@ namespace YAF.Pages
 
                     if (choiceObjectPath.IsSet())
                     {
-                        long length;
-                        choiceObjectMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
+                        choiceObjectMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out var length);
                         if (choiceObjectMime.IsNotSet())
                         {
                             YafContext.Current.AddLoadMessage(
@@ -673,7 +667,7 @@ namespace YAF.Pages
                 else if (this._forumId > 0 && (!(this._topicId > 0) || !(this._editTopicId > 0)))
                 {
                     // forum id should not be null here
-                    pgidt = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, this._forumId).FirstOrDefault().PollGroupID.Value;
+                    pgidt = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._forumId).FirstOrDefault().PollGroupID.Value;
                 }
                 else if (this._categoryId > 0)
                 {
@@ -905,10 +899,7 @@ namespace YAF.Pages
             }
 
             // YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      
-            string retliterals;
-            int? retvalue;
-
-            this.ParamsToSend(out retliterals, out retvalue);
+            this.ParamsToSend(out var retliterals, out var retvalue);
 
             switch (retliterals)
             {

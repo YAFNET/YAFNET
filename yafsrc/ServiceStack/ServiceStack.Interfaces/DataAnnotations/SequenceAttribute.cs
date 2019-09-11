@@ -5,6 +5,7 @@ namespace ServiceStack.DataAnnotations
     /// <summary>
     /// Sequence attribute.
     /// Use in FirebirdSql. indicates name of generator for columns of type AutoIncrement
+
     // </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class SequenceAttribute : AttributeBase

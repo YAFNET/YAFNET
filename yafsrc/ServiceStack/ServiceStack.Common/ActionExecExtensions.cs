@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using ServiceStack.Support;
 
@@ -43,6 +42,7 @@ namespace ServiceStack
                 ThreadPool.QueueUserWorkItem(x => ((ActionExecHandler)x).Execute(), commandExecsHandler);
 #endif
             }
+
             return waitHandles;
         }
 
@@ -94,12 +94,14 @@ namespace ServiceStack
                     successfullyComplete = successfullyComplete
                         && waitHandle.WaitOne(timeOutMs, false);
                 }
+
                 return successfullyComplete;
             }
 
             return WaitHandle.WaitAll(waitHandles, timeOutMs, false);
 #endif
         }
+
 #endif
 
     }

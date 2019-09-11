@@ -37,10 +37,6 @@ namespace YAF.Configuration.Pattern
     /// </typeparam>
     public class TypeFactoryInstanceApplicationScope<T> : ITypeFactoryInstance<T>
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -77,7 +73,7 @@ namespace YAF.Configuration.Pattern
         /// </summary>
         public string TypeName { get; protected set; }
 
-        private object _instance = null;
+        private object _instance;
 
         /// <summary>
         /// Gets or sets ApplicationInstance.

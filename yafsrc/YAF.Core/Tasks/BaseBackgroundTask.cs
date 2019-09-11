@@ -36,11 +36,6 @@ namespace YAF.Core.Tasks
   public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
   {
     /// <summary>
-    /// The _app context.
-    /// </summary>
-    protected HttpApplication _appContext = null;
-
-    /// <summary>
     /// The _board id.
     /// </summary>
     protected int _boardId = YafControlSettings.Current.BoardID;
@@ -48,7 +43,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// The _is running.
     /// </summary>
-    protected bool _isRunning = false;
+    protected bool _isRunning;
 
     /// <summary>
     /// The _lock object.

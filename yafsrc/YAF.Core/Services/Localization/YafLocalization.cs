@@ -448,6 +448,7 @@ namespace YAF.Core.Services.Localization
             return this.GetLocalizedTextInternal(page, tag).IsSet();
         }
         
+
         /// <summary>
         /// Formats a localized string -- but verifies the parameter count matches
         /// </summary>

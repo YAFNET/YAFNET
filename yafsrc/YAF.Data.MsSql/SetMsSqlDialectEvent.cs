@@ -27,7 +27,7 @@ namespace YAF.Data.MsSql
 
     using YAF.Core.Data;
     using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
     /// The set MS SQL dialect event.

@@ -148,18 +148,18 @@ namespace ServiceStack.Text
         {
             if (blockSize <= 0)
             {
-                throw new ArgumentOutOfRangeException("blockSize", blockSize, "blockSize must be a positive number");
+                throw new ArgumentOutOfRangeException(nameof(blockSize), blockSize, "blockSize must be a positive number");
             }
 
             if (largeBufferMultiple <= 0)
             {
-                throw new ArgumentOutOfRangeException("largeBufferMultiple",
+                throw new ArgumentOutOfRangeException(nameof(largeBufferMultiple),
                                                       "largeBufferMultiple must be a positive number");
             }
 
             if (maximumBufferSize < blockSize)
             {
-                throw new ArgumentOutOfRangeException("maximumBufferSize",
+                throw new ArgumentOutOfRangeException(nameof(maximumBufferSize),
                                                       "maximumBufferSize must be at least blockSize");
             }
 
@@ -170,7 +170,7 @@ namespace ServiceStack.Text
             if (!this.IsLargeBufferMultiple(maximumBufferSize))
             {
                 throw new ArgumentException("maximumBufferSize is not a multiple of largeBufferMultiple",
-                                            "maximumBufferSize");
+                                            nameof(maximumBufferSize));
             }
 
             this.smallPool = new ConcurrentStack<byte[]>();
@@ -290,8 +290,7 @@ namespace ServiceStack.Text
         /// <returns>A byte[] array</returns>
         internal byte[] GetBlock()
         {
-            byte[] block;
-            if (!this.smallPool.TryPop(out block))
+            if (!this.smallPool.TryPop(out var block))
             {
                 // We'll add this back to the pool when the stream is disposed
                 // (unless our free pool is too large)
@@ -385,7 +384,7 @@ namespace ServiceStack.Text
         {
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             if (!this.IsLargeBufferMultiple(buffer.Length))
@@ -440,7 +439,7 @@ namespace ServiceStack.Text
         {
             if (blocks == null)
             {
-                throw new ArgumentNullException("blocks");
+                throw new ArgumentNullException(nameof(blocks));
             }
 
             var bytesToReturn = blocks.Count * this.BlockSize;
@@ -970,12 +969,12 @@ namespace ServiceStack.Text
                 this.CheckDisposed();
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", "value must be non-negative");
+                    throw new ArgumentOutOfRangeException(nameof(value), "value must be non-negative");
                 }
 
                 if (value > MaxStreamLength)
                 {
-                    throw new ArgumentOutOfRangeException("value", $"value cannot be more than {MaxStreamLength}");
+                    throw new ArgumentOutOfRangeException(nameof(value), $"value cannot be more than {MaxStreamLength}");
                 }
 
                 this.position = (int)value;
@@ -1080,17 +1079,17 @@ namespace ServiceStack.Text
             this.CheckDisposed();
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", "offset cannot be negative");
+                throw new ArgumentOutOfRangeException(nameof(offset), "offset cannot be negative");
             }
 
             if (count < 0)
             {
-                throw new ArgumentOutOfRangeException("count", "count cannot be negative");
+                throw new ArgumentOutOfRangeException(nameof(count), "count cannot be negative");
             }
 
             if (offset + count > buffer.Length)
@@ -1118,20 +1117,20 @@ namespace ServiceStack.Text
             this.CheckDisposed();
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
             if (offset < 0)
             {
                 throw new ArgumentOutOfRangeException(
-                    "offset",
+                    nameof(offset),
                     offset,
                     "Offset must be in the range of 0 - buffer.Length-1");
             }
 
             if (count < 0)
             {
-                throw new ArgumentOutOfRangeException("count", count, "count must be non-negative");
+                throw new ArgumentOutOfRangeException(nameof(count), count, "count must be non-negative");
             }
 
             if (count + offset > buffer.Length)
@@ -1250,7 +1249,7 @@ namespace ServiceStack.Text
             this.CheckDisposed();
             if (value < 0 || value > MaxStreamLength)
             {
-                throw new ArgumentOutOfRangeException("value",
+                throw new ArgumentOutOfRangeException(nameof(value),
                     $"value must be non-negative and at most {MaxStreamLength}");
             }
 
@@ -1278,7 +1277,7 @@ namespace ServiceStack.Text
             this.CheckDisposed();
             if (offset > MaxStreamLength)
             {
-                throw new ArgumentOutOfRangeException("offset", $"offset cannot be larger than {MaxStreamLength}");
+                throw new ArgumentOutOfRangeException(nameof(offset), $"offset cannot be larger than {MaxStreamLength}");
             }
 
             int newPosition;
@@ -1294,7 +1293,7 @@ namespace ServiceStack.Text
                     newPosition = (int)offset + this.length;
                     break;
                 default:
-                    throw new ArgumentException("Invalid seek origin", "loc");
+                    throw new ArgumentException("Invalid seek origin", nameof(loc));
             }
             if (newPosition < 0)
             {
@@ -1315,7 +1314,7 @@ namespace ServiceStack.Text
             this.CheckDisposed();
             if (stream == null)
             {
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
             }
 
             if (this.largeBuffer == null)

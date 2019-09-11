@@ -108,16 +108,11 @@ namespace YAF.Core.Modules
                     typesToRegister = c.GetInterfaces().Where(i => !exclude.Contains(i)).ToArray();
                 }
 
-                if (exportAttribute.Named.IsSet())
-                {
-                    // register types as "Named"
-                    built = typesToRegister.Aggregate(built, (current, regType) => current.Named(exportAttribute.Named, regType));
-                }
-                else
-                {
-                    // register types "As"
-                    built = typesToRegister.Aggregate(built, (current, regType) => current.As(regType));
-                }
+                built = exportAttribute.Named.IsSet()
+                            ? typesToRegister.Aggregate(
+                                built,
+                                (current, regType) => current.Named(exportAttribute.Named, regType))
+                            : typesToRegister.Aggregate(built, (current, regType) => current.As(regType));
 
                 switch (exportAttribute.ServiceLifetimeScope)
                 {

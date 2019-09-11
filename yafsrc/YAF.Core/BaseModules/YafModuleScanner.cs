@@ -115,15 +115,15 @@ namespace YAF.Core.BaseModules
     /// The load and validate assemblies.
     /// </summary>
     /// <param name="filenames">
-    /// The filenames.
+    /// The fileNames.
     /// </param>
     /// <returns>
     /// </returns>
-    private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> filenames)
+    private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> fileNames)
     {
-      CodeContracts.VerifyNotNull(filenames, "filenames");
+      CodeContracts.VerifyNotNull(fileNames, "filenames");
 
-      foreach (var assemblyFile in filenames.Where(File.Exists))
+      foreach (var assemblyFile in fileNames.Where(File.Exists))
       {
         Assembly assembly;
 

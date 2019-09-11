@@ -1,5 +1,7 @@
 namespace ServiceStack.Web
 {
+    using System;
+
     /// <summary>
     /// Allow the registration of user-defined routes for services
     /// </summary>
@@ -52,7 +54,7 @@ namespace ServiceStack.Web
         /// </param>
         /// <returns>The same <see cref="IServiceRoutes"/> instance;
         ///		never <see langword="null"/>.</returns>
-        IServiceRoutes Add(System.Type requestType, string restPath, string verbs);
+        IServiceRoutes Add(Type requestType, string restPath, string verbs);
 
         /// <summary>
         ///		Maps the specified REST path to the specified request DTO, 
@@ -63,7 +65,7 @@ namespace ServiceStack.Web
         ///     Used to rank the precedences of route definitions in reverse routing. 
         ///     i.e. Priorities below 0 are auto-generated have less precedence.
         /// </param>
-        IServiceRoutes Add(System.Type requestType, string restPath, string verbs, int priority);
+        IServiceRoutes Add(Type requestType, string restPath, string verbs, int priority);
 
         /// <summary>
         ///		Maps the specified REST path to the specified request DTO, 
@@ -88,7 +90,7 @@ namespace ServiceStack.Web
         /// </param>
         /// <returns>The same <see cref="IServiceRoutes"/> instance;
         ///		never <see langword="null"/>.</returns>
-        IServiceRoutes Add(System.Type requestType, string restPath, string verbs, string summary, string notes);
+        IServiceRoutes Add(Type requestType, string restPath, string verbs, string summary, string notes);
 
         /// <summary>
         ///		Maps the specified REST path to the specified request DTO, 
@@ -117,6 +119,6 @@ namespace ServiceStack.Web
         /// </param>
         /// <returns>The same <see cref="IServiceRoutes"/> instance;
         ///		never <see langword="null"/>.</returns>
-        IServiceRoutes Add(System.Type requestType, string restPath, string verbs, string summary, string notes, string matches);
+        IServiceRoutes Add(Type requestType, string restPath, string verbs, string summary, string notes, string matches);
     }
 }

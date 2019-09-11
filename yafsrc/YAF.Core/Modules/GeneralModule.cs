@@ -37,6 +37,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Services.Cache;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
     /// The general module.

@@ -98,8 +98,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsValidInt(string intstr)
         {
-            int value;
-            return int.TryParse(intstr, out value);
+            return int.TryParse(intstr, out var value);
         }
 
         /// <summary>
@@ -111,9 +110,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsNumeric(string valueToCheck)
         {
-            double dummy;
-
-            return double.TryParse(valueToCheck, System.Globalization.NumberStyles.Any, null, out dummy);
+            return double.TryParse(valueToCheck, System.Globalization.NumberStyles.Any, null, out var dummy);
         }
 
         /// <summary>
@@ -133,9 +130,7 @@ namespace YAF.Utils.Helpers
         /// </returns> 
         public static bool IsValidInt(string intstr, int lowerBound, int upperBound)
         {
-            int value;
-
-            if (int.TryParse(intstr, out value))
+            if (int.TryParse(intstr, out var value))
             {
                 return value >= lowerBound && value <= upperBound;
             }
@@ -154,8 +149,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsValidPosShort(string intstr)
         {
-            short value;
-            return short.TryParse(intstr, out value) && value >= 0;
+            return short.TryParse(intstr, out var value) && value >= 0;
         }
     }
 }

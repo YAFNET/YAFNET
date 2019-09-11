@@ -33,10 +33,6 @@ namespace YAF.Web.EventsArgs
     /// </summary>
     public class PopEventArgs : EventArgs
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>

@@ -26,7 +26,7 @@ namespace ServiceStack
 
         public static string AddQueryParam(this string url, object key, string val, bool encode = true)
         {
-            return AddQueryParam(url, (key ?? "").ToString(), val, encode);
+            return AddQueryParam(url, (key ?? string.Empty).ToString(), val, encode);
         }
 
         public static string AddQueryParam(this string url, string key, string val, bool encode = true)
@@ -37,6 +37,7 @@ namespace ServiceStack
             {
                 prefix = url.IndexOf('?') == -1 ? "?" : "&";
             }
+
             return $"{url}{prefix}{key}={(encode ? val.UrlEncode() : val)}";
         }
 
@@ -61,6 +62,7 @@ namespace ServiceStack
                     return newUrl;
                 }
             }
+
             var prefix = qsPos == -1 ? "?" : "&";
             return $"{url}{prefix}{key}={val.UrlEncode()}";
         }
@@ -98,6 +100,7 @@ namespace ServiceStack
                     return newUrl;
                 }
             }
+
             var prefix = url.IndexOf('#') == -1 ? "#" : "/";
             return $"{url}{prefix}{key}={val.UrlEncode()}";
         }
@@ -587,6 +590,7 @@ namespace ServiceStack
                     tcs.SetException(task.Exception);
                     return;
                 }
+
                 if (task.IsCanceled)
                 {
                     tcs.SetCanceled();
@@ -731,6 +735,7 @@ namespace ServiceStack
                     tcs.SetException(task.Exception);
                     return;
                 }
+
                 if (task.IsCanceled)
                 {
                     tcs.SetCanceled();
@@ -1047,7 +1052,7 @@ namespace ServiceStack
         }
     }
 
-    //Allow Exceptions to Customize HTTP StatusCode and StatusDescription returned
+    // Allow Exceptions to Customize HTTP StatusCode and StatusDescription returned
     public interface IHasStatusCode
     {
         int StatusCode { get; }
@@ -1168,13 +1173,12 @@ namespace ServiceStack
         public static string GetMimeType(string fileNameOrExt)
         {
             if (string.IsNullOrEmpty(fileNameOrExt))
-                throw new ArgumentNullException("fileNameOrExt");
+                throw new ArgumentNullException(nameof(fileNameOrExt));
 
             var parts = fileNameOrExt.Split('.');
             var fileExt = parts[parts.Length - 1];
 
-            string mimeType;
-            if (ExtensionMimeTypes.TryGetValue(fileExt, out mimeType))
+            if (ExtensionMimeTypes.TryGetValue(fileExt, out var mimeType))
             {
                 return mimeType;
             }
@@ -1442,7 +1446,7 @@ namespace ServiceStack
             "PATCH",      // https://datatracker.ietf.org/doc/draft-dusseault-http-patch/
             "SEARCH",     // https://datatracker.ietf.org/doc/draft-reschke-webdav-search/
             "BCOPY", "BDELETE", "BMOVE", "BPROPFIND", "BPROPPATCH", "NOTIFY",
-            "POLL",  "SUBSCRIBE", "UNSUBSCRIBE" //MS Exchange WebDav: http://msdn.microsoft.com/en-us/library/aa142917.aspx
+            "POLL",  "SUBSCRIBE", "UNSUBSCRIBE" // MS Exchange WebDav: http://msdn.microsoft.com/en-us/library/aa142917.aspx
         };
 
         public static HashSet<string> AllVerbs = new HashSet<string>(allVerbs);
@@ -1510,76 +1514,123 @@ namespace ServiceStack
             return string.Empty;
         }
 
-        private static readonly string[][] Descriptions = new string[][]
-        {
+        private static readonly string[][] Descriptions = new[]
+                                                              {
             null,
             new[]
-            { 
-                /* 100 */ "Continue",
-                /* 101 */ "Switching Protocols",
-                /* 102 */ "Processing"
-            },
+                {
+                    /* 100 */ "Continue",
+
+                    /* 101 */ "Switching Protocols",
+
+                    /* 102 */ "Processing"
+                },
             new[]
-            { 
-                /* 200 */ "OK",
-                /* 201 */ "Created",
-                /* 202 */ "Accepted",
-                /* 203 */ "Non-Authoritative Information",
-                /* 204 */ "No Content",
-                /* 205 */ "Reset Content",
-                /* 206 */ "Partial Content",
-                /* 207 */ "Multi-Status"
-            },
+                {
+                    /* 200 */ "OK",
+
+                    /* 201 */ "Created",
+
+                    /* 202 */ "Accepted",
+
+                    /* 203 */ "Non-Authoritative Information",
+
+                    /* 204 */ "No Content",
+
+                    /* 205 */ "Reset Content",
+
+                    /* 206 */ "Partial Content",
+
+                    /* 207 */ "Multi-Status"
+                },
             new[]
-            { 
-                /* 300 */ "Multiple Choices",
-                /* 301 */ "Moved Permanently",
-                /* 302 */ "Found",
-                /* 303 */ "See Other",
-                /* 304 */ "Not Modified",
-                /* 305 */ "Use Proxy",
-                /* 306 */ string.Empty,
-                /* 307 */ "Temporary Redirect"
-            },
+                {
+                    /* 300 */ "Multiple Choices",
+
+                    /* 301 */ "Moved Permanently",
+
+                    /* 302 */ "Found",
+
+                    /* 303 */ "See Other",
+
+                    /* 304 */ "Not Modified",
+
+                    /* 305 */ "Use Proxy",
+
+                    /* 306 */ string.Empty,
+
+                    /* 307 */ "Temporary Redirect"
+                },
             new[]
-            { 
-                /* 400 */ "Bad Request",
-                /* 401 */ "Unauthorized",
-                /* 402 */ "Payment Required",
-                /* 403 */ "Forbidden",
-                /* 404 */ "Not Found",
-                /* 405 */ "Method Not Allowed",
-                /* 406 */ "Not Acceptable",
-                /* 407 */ "Proxy Authentication Required",
-                /* 408 */ "Request Timeout",
-                /* 409 */ "Conflict",
-                /* 410 */ "Gone",
-                /* 411 */ "Length Required",
-                /* 412 */ "Precondition Failed",
-                /* 413 */ "Request Entity Too Large",
-                /* 414 */ "Request-Uri Too Long",
-                /* 415 */ "Unsupported Media Type",
-                /* 416 */ "Requested Range Not Satisfiable",
-                /* 417 */ "Expectation Failed",
-                /* 418 */ string.Empty,
-                /* 419 */ string.Empty,
-                /* 420 */ string.Empty,
-                /* 421 */ string.Empty,
-                /* 422 */ "Unprocessable Entity",
-                /* 423 */ "Locked",
-                /* 424 */ "Failed Dependency"
-            },
+                {
+                    /* 400 */ "Bad Request",
+
+                    /* 401 */ "Unauthorized",
+
+                    /* 402 */ "Payment Required",
+
+                    /* 403 */ "Forbidden",
+
+                    /* 404 */ "Not Found",
+
+                    /* 405 */ "Method Not Allowed",
+
+                    /* 406 */ "Not Acceptable",
+
+                    /* 407 */ "Proxy Authentication Required",
+
+                    /* 408 */ "Request Timeout",
+
+                    /* 409 */ "Conflict",
+
+                    /* 410 */ "Gone",
+
+                    /* 411 */ "Length Required",
+
+                    /* 412 */ "Precondition Failed",
+
+                    /* 413 */ "Request Entity Too Large",
+
+                    /* 414 */ "Request-Uri Too Long",
+
+                    /* 415 */ "Unsupported Media Type",
+
+                    /* 416 */ "Requested Range Not Satisfiable",
+
+                    /* 417 */ "Expectation Failed",
+
+                    /* 418 */ string.Empty,
+
+                    /* 419 */ string.Empty,
+
+                    /* 420 */ string.Empty,
+
+                    /* 421 */ string.Empty,
+
+                    /* 422 */ "Unprocessable Entity",
+
+                    /* 423 */ "Locked",
+
+                    /* 424 */ "Failed Dependency"
+                },
             new[]
-            { 
-                /* 500 */ "Internal Server Error",
-                /* 501 */ "Not Implemented",
-                /* 502 */ "Bad Gateway",
-                /* 503 */ "Service Unavailable",
-                /* 504 */ "Gateway Timeout",
-                /* 505 */ "Http Version Not Supported",
-                /* 506 */ string.Empty,
-                /* 507 */ "Insufficient Storage"
-            }
-        };
+                {
+                    /* 500 */ "Internal Server Error",
+
+                    /* 501 */ "Not Implemented",
+
+                    /* 502 */ "Bad Gateway",
+
+                    /* 503 */ "Service Unavailable",
+
+                    /* 504 */ "Gateway Timeout",
+
+                    /* 505 */ "Http Version Not Supported",
+
+                    /* 506 */ string.Empty,
+
+                    /* 507 */ "Insufficient Storage"
+                }
+                                                              };
     }
 }

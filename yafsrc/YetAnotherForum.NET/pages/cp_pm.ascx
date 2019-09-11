@@ -1,4 +1,15 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.cp_pm" Codebehind="cp_pm.ascx.cs" %>
+<%@ Import Namespace="System.Web.DynamicData" %>
+<%@ Import Namespace="System.Web.UI" %>
+<%@ Import Namespace="System.Web.UI.HtmlControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls" %>
+<%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
+<%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
+<%@ Import Namespace="YAF" %>
+<%@ Import Namespace="YAF.Classes" %>
+<%@ Import Namespace="YAF.Configuration" %>
+<%@ Import Namespace="YAF.Web.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../controls/PMList.ascx" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />

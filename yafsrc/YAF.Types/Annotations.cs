@@ -49,9 +49,7 @@ namespace YAF.Types
     /// </example>
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate
-        | AttributeTargets.Field,
-        AllowMultiple = false,
-        Inherited = true)]
+        | AttributeTargets.Field)]
     public sealed class CanBeNullAttribute : Attribute
     {
     }
@@ -68,9 +66,7 @@ namespace YAF.Types
     /// </example>
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Delegate
-        | AttributeTargets.Field,
-        AllowMultiple = false,
-        Inherited = true)]
+        | AttributeTargets.Field)]
     public sealed class NotNullAttribute : Attribute
     {
     }
@@ -89,13 +85,17 @@ namespace YAF.Types
     /// }
     /// </code>
     /// </example>
-    [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Method)]
     public sealed class StringFormatMethodAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringFormatMethodAttribute"/> class. 
+        /// The string format method attribute.
+        /// </summary>
         /// <param name="formatParameterName">
-        ///     Specifies which parameter of an annotated method should be treated as format-string
+        /// Specifies which parameter of an annotated method should be treated as format-string
         /// </param>
         public StringFormatMethodAttribute(string formatParameterName)
         {
@@ -106,7 +106,10 @@ namespace YAF.Types
 
         #region Public Properties
 
-        public string FormatParameterName { get; private set; }
+        /// <summary>
+        /// Gets the format parameter name.
+        /// </summary>
+        public string FormatParameterName { get; }
 
         #endregion
     }
@@ -124,7 +127,7 @@ namespace YAF.Types
     /// }
     /// </code>
     /// </example>
-    [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InvokerParameterNameAttribute : Attribute
     {
     }
@@ -184,15 +187,24 @@ namespace YAF.Types
     ///         </item>
     ///     </list>
     /// </example>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute"/> class.
+        /// </summary>
         public NotifyPropertyChangedInvocatorAttribute()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute"/> class.
+        /// </summary>
+        /// <param name="parameterName">
+        /// The parameter name.
+        /// </param>
         public NotifyPropertyChangedInvocatorAttribute(string parameterName)
         {
             this.ParameterName = parameterName;
@@ -202,7 +214,10 @@ namespace YAF.Types
 
         #region Public Properties
 
-        public string ParameterName { get; private set; }
+        /// <summary>
+        /// Gets the parameter name.
+        /// </summary>
+        public string ParameterName { get; }
 
         #endregion
     }
@@ -261,16 +276,31 @@ namespace YAF.Types
     ///         </item>
     ///     </list>
     /// </examples>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ContractAnnotationAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContractAnnotationAttribute"/> class.
+        /// </summary>
+        /// <param name="contract">
+        /// The contract.
+        /// </param>
         public ContractAnnotationAttribute([NotNull] string contract)
             : this(contract, false)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContractAnnotationAttribute"/> class.
+        /// </summary>
+        /// <param name="contract">
+        /// The contract.
+        /// </param>
+        /// <param name="forceFullStates">
+        /// The force full states.
+        /// </param>
         public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
         {
             this.Contract = contract;
@@ -281,9 +311,15 @@ namespace YAF.Types
 
         #region Public Properties
 
-        public string Contract { get; private set; }
+        /// <summary>
+        /// Gets the contract.
+        /// </summary>
+        public string Contract { get; }
 
-        public bool ForceFullStates { get; private set; }
+        /// <summary>
+        /// Gets a value indicating whether force full states.
+        /// </summary>
+        public bool ForceFullStates { get; }
 
         #endregion
     }
@@ -299,16 +335,25 @@ namespace YAF.Types
     /// }
     /// </code>
     /// </example>
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.All)]
     public sealed class LocalizationRequiredAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationRequiredAttribute"/> class.
+        /// </summary>
         public LocalizationRequiredAttribute()
             : this(true)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocalizationRequiredAttribute"/> class.
+        /// </summary>
+        /// <param name="required">
+        /// The required.
+        /// </param>
         public LocalizationRequiredAttribute(bool required)
         {
             this.Required = required;
@@ -318,7 +363,10 @@ namespace YAF.Types
 
         #region Public Properties
 
-        public bool Required { get; private set; }
+        /// <summary>
+        /// Gets a value indicating whether required.
+        /// </summary>
+        public bool Required { get; }
 
         #endregion
     }
@@ -345,9 +393,7 @@ namespace YAF.Types
     /// </code>
     /// </example>
     [AttributeUsage(
-        AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct,
-        AllowMultiple = false,
-        Inherited = true)]
+        AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
     public sealed class CannotApplyEqualityOperatorAttribute : Attribute
     {
     }
@@ -364,12 +410,18 @@ namespace YAF.Types
     /// public class MyComponent : IComponent { }
     /// </code>
     /// </example>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     [BaseTypeRequired(typeof(Attribute))]
     public sealed class BaseTypeRequiredAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseTypeRequiredAttribute"/> class.
+        /// </summary>
+        /// <param name="baseType">
+        /// The base type.
+        /// </param>
         public BaseTypeRequiredAttribute([NotNull] Type baseType)
         {
             this.BaseType = baseType;
@@ -379,8 +431,11 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the base type.
+        /// </summary>
         [NotNull]
-        public Type BaseType { get; private set; }
+        public Type BaseType { get; }
 
         #endregion
     }
@@ -390,26 +445,50 @@ namespace YAF.Types
     ///     (e.g. via reflection, in external library), so this symbol
     ///     will not be marked as unused (as well as by other usage inspections)
     /// </summary>
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.All)]
     public sealed class UsedImplicitlyAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+        /// </summary>
         public UsedImplicitlyAttribute()
             : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+        /// </summary>
+        /// <param name="useKindFlags">
+        /// The use kind flags.
+        /// </param>
         public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags)
             : this(useKindFlags, ImplicitUseTargetFlags.Default)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+        /// </summary>
+        /// <param name="targetFlags">
+        /// The target flags.
+        /// </param>
         public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
             : this(ImplicitUseKindFlags.Default, targetFlags)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+        /// </summary>
+        /// <param name="useKindFlags">
+        /// The use kind flags.
+        /// </param>
+        /// <param name="targetFlags">
+        /// The target flags.
+        /// </param>
         public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
             this.UseKindFlags = useKindFlags;
@@ -420,9 +499,15 @@ namespace YAF.Types
 
         #region Public Properties
 
-        public ImplicitUseTargetFlags TargetFlags { get; private set; }
+        /// <summary>
+        /// Gets the target flags.
+        /// </summary>
+        public ImplicitUseTargetFlags TargetFlags { get; }
 
-        public ImplicitUseKindFlags UseKindFlags { get; private set; }
+        /// <summary>
+        /// Gets the use kind flags.
+        /// </summary>
+        public ImplicitUseKindFlags UseKindFlags { get; }
 
         #endregion
     }
@@ -432,26 +517,50 @@ namespace YAF.Types
     ///     to not mark symbols marked with such attributes as unused
     ///     (as well as by other usage inspections)
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class MeansImplicitUseAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+        /// </summary>
         public MeansImplicitUseAttribute()
             : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+        /// </summary>
+        /// <param name="useKindFlags">
+        /// The use kind flags.
+        /// </param>
         public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags)
             : this(useKindFlags, ImplicitUseTargetFlags.Default)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+        /// </summary>
+        /// <param name="targetFlags">
+        /// The target flags.
+        /// </param>
         public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
             : this(ImplicitUseKindFlags.Default, targetFlags)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+        /// </summary>
+        /// <param name="useKindFlags">
+        /// The use kind flags.
+        /// </param>
+        /// <param name="targetFlags">
+        /// The target flags.
+        /// </param>
         public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
             this.UseKindFlags = useKindFlags;
@@ -462,18 +571,30 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the target flags.
+        /// </summary>
         [UsedImplicitly]
-        public ImplicitUseTargetFlags TargetFlags { get; private set; }
+        public ImplicitUseTargetFlags TargetFlags { get; }
 
+        /// <summary>
+        /// Gets the use kind flags.
+        /// </summary>
         [UsedImplicitly]
-        public ImplicitUseKindFlags UseKindFlags { get; private set; }
+        public ImplicitUseKindFlags UseKindFlags { get; }
 
         #endregion
     }
 
+    /// <summary>
+    /// The implicit use kind flags.
+    /// </summary>
     [Flags]
     public enum ImplicitUseKindFlags
     {
+        /// <summary>
+        /// The default.
+        /// </summary>
         Default = Access | Assign | InstantiatedWithFixedConstructorSignature,
 
         /// <summary>Only entity marked with attribute considered used</summary>
@@ -500,8 +621,14 @@ namespace YAF.Types
     [Flags]
     public enum ImplicitUseTargetFlags
     {
+        /// <summary>
+        /// The default.
+        /// </summary>
         Default = Itself,
 
+        /// <summary>
+        /// The itself.
+        /// </summary>
         Itself = 1,
 
         /// <summary>Members of entity marked with attribute are considered used</summary>
@@ -520,10 +647,19 @@ namespace YAF.Types
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PublicAPIAttribute"/> class.
+        /// </summary>
         public PublicAPIAttribute()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PublicAPIAttribute"/> class.
+        /// </summary>
+        /// <param name="comment">
+        /// The comment.
+        /// </param>
         public PublicAPIAttribute([NotNull] string comment)
         {
             this.Comment = comment;
@@ -533,8 +669,11 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the comment.
+        /// </summary>
         [NotNull]
-        public string Comment { get; private set; }
+        public string Comment { get; }
 
         #endregion
     }
@@ -546,7 +685,7 @@ namespace YAF.Types
     ///     If the parameter is an enumerable, indicates that it is enumerated
     ///     while the method is executed
     /// </summary>
-    [AttributeUsage(AttributeTargets.Parameter, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class InstantHandleAttribute : Attribute
     {
     }
@@ -564,7 +703,7 @@ namespace YAF.Types
     /// }
     /// </code>
     /// </example>
-    [AttributeUsage(AttributeTargets.Method, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method)]
     public sealed class PureAttribute : Attribute
     {
     }
@@ -579,10 +718,19 @@ namespace YAF.Types
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathReferenceAttribute"/> class.
+        /// </summary>
         public PathReferenceAttribute()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathReferenceAttribute"/> class.
+        /// </summary>
+        /// <param name="basePath">
+        /// The base path.
+        /// </param>
         public PathReferenceAttribute([PathReference] string basePath)
         {
             this.BasePath = basePath;
@@ -592,8 +740,11 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the base path.
+        /// </summary>
         [NotNull]
-        public string BasePath { get; private set; }
+        public string BasePath { get; }
 
         #endregion
     }
@@ -611,10 +762,19 @@ namespace YAF.Types
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AspMvcActionAttribute"/> class.
+        /// </summary>
         public AspMvcActionAttribute()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AspMvcActionAttribute"/> class.
+        /// </summary>
+        /// <param name="anonymousProperty">
+        /// The anonymous property.
+        /// </param>
         public AspMvcActionAttribute([NotNull] string anonymousProperty)
         {
             this.AnonymousProperty = anonymousProperty;
@@ -624,8 +784,11 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the anonymous property.
+        /// </summary>
         [NotNull]
-        public string AnonymousProperty { get; private set; }
+        public string AnonymousProperty { get; }
 
         #endregion
     }
@@ -640,10 +803,19 @@ namespace YAF.Types
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AspMvcAreaAttribute"/> class.
+        /// </summary>
         public AspMvcAreaAttribute()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AspMvcAreaAttribute"/> class.
+        /// </summary>
+        /// <param name="anonymousProperty">
+        /// The anonymous property.
+        /// </param>
         public AspMvcAreaAttribute([NotNull] string anonymousProperty)
         {
             this.AnonymousProperty = anonymousProperty;
@@ -653,8 +825,11 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the anonymous property.
+        /// </summary>
         [NotNull]
-        public string AnonymousProperty { get; private set; }
+        public string AnonymousProperty { get; }
 
         #endregion
     }
@@ -671,10 +846,19 @@ namespace YAF.Types
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AspMvcControllerAttribute"/> class.
+        /// </summary>
         public AspMvcControllerAttribute()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AspMvcControllerAttribute"/> class.
+        /// </summary>
+        /// <param name="anonymousProperty">
+        /// The anonymous property.
+        /// </param>
         public AspMvcControllerAttribute([NotNull] string anonymousProperty)
         {
             this.AnonymousProperty = anonymousProperty;
@@ -684,8 +868,11 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the anonymous property.
+        /// </summary>
         [NotNull]
-        public string AnonymousProperty { get; private set; }
+        public string AnonymousProperty { get; }
 
         #endregion
     }
@@ -790,15 +977,27 @@ namespace YAF.Types
     {
     }
 
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field, Inherited = true)]
+    /// <summary>
+    /// The html element attributes attribute.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field)]
     public sealed class HtmlElementAttributesAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HtmlElementAttributesAttribute"/> class.
+        /// </summary>
         public HtmlElementAttributesAttribute()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HtmlElementAttributesAttribute"/> class.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
         public HtmlElementAttributesAttribute([NotNull] string name)
         {
             this.Name = name;
@@ -808,17 +1007,29 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
         [NotNull]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         #endregion
     }
 
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property, Inherited = true)]
+    /// <summary>
+    /// The html attribute value attribute.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
     public sealed class HtmlAttributeValueAttribute : Attribute
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HtmlAttributeValueAttribute"/> class.
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
         public HtmlAttributeValueAttribute([NotNull] string name)
         {
             this.Name = name;
@@ -828,8 +1039,11 @@ namespace YAF.Types
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
         [NotNull]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         #endregion
     }
@@ -841,7 +1055,7 @@ namespace YAF.Types
     ///     Use this attribute for custom wrappers similar to
     ///     <c>System.Web.WebPages.WebPageBase.RenderSection(String)</c>
     /// </summary>
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
     public sealed class RazorSectionAttribute : Attribute
     {
     }

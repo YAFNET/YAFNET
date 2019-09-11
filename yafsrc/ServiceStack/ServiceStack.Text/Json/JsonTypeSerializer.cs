@@ -600,7 +600,7 @@ namespace ServiceStack.Text.Json
         public static string ConvertFromUtf32(int utf32)
         {
             if (utf32 < 0 || utf32 > 0x10FFFF)
-                throw new ArgumentOutOfRangeException("utf32", "The argument must be from 0 to 0x10FFFF.");
+                throw new ArgumentOutOfRangeException(nameof(utf32), "The argument must be from 0 to 0x10FFFF.");
             if (utf32 < 0x10000)
                 return new string((char)utf32, 1);
             utf32 -= 0x10000;

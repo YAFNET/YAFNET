@@ -37,6 +37,7 @@ namespace YAF.Core.Services.Auth
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -113,7 +114,7 @@ namespace YAF.Core.Services.Auth
                     // Login user if exists
                     if (checkUser == null)
                     {
-                        return this.CreateTwitterUser(twitterUser, oAuth, out message);
+                        return CreateTwitterUser(twitterUser, oAuth, out message);
                     }
 
                     // LOGIN Existing User
@@ -251,7 +252,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// Returns if the login was successfully or not
         /// </returns>
-        private bool CreateTwitterUser(TwitterUser twitterUser, OAuthTwitter oAuth, out string message)
+        private static bool CreateTwitterUser(TwitterUser twitterUser, OAuthTwitter oAuth, out string message)
         {
             if (YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
             {
@@ -319,8 +320,6 @@ namespace YAF.Core.Services.Auth
             }*/
 
             // Create User if not exists?!
-            MembershipCreateStatus status;
-
             var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
 
             var pass = Membership.GeneratePassword(32, 16);
@@ -334,7 +333,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out status);
+                out var status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, twitterUser.UserName);

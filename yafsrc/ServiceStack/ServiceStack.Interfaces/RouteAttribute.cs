@@ -10,7 +10,7 @@ namespace ServiceStack
     ///		path mapping with a service.  Multiple attributes can be applied to 
     ///		each request DTO, to map multiple paths to the service.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class RouteAttribute : AttributeBase
     {
         /// <summary>
@@ -160,7 +160,7 @@ namespace ServiceStack
     /// <summary>
     /// Fallback routes have the lowest precedence, i.e. after normal Routes, static files or any matching Catch All Handlers.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class FallbackRouteAttribute : RouteAttribute
     {
         public FallbackRouteAttribute(string path) : base(path) { }

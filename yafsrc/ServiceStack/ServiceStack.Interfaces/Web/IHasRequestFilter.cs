@@ -18,6 +18,7 @@ namespace ServiceStack.Web
 		IRequestFilterBase Copy();
 	}
 	
+
     /// <summary>
     /// This interface can be implemented by an attribute
     /// which adds an request filter for the specific request DTO the attribute marked.

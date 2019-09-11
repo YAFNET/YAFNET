@@ -146,6 +146,7 @@ namespace ServiceStack.OrmLite.Dapper
                         return name.Substring(1);
                 }
             }
+
             return name;
         }
 
@@ -236,6 +237,7 @@ namespace ServiceStack.OrmLite.Dapper
                     dbType = SqlMapper.LookupDbType(val.GetType(), name, true, out handler);
 #pragma warning disable 618
                 }
+
                 if (isCustomQueryParameter)
                 {
                     ((SqlMapper.ICustomQueryParameter)val).AddParameter(command, name);
@@ -270,11 +272,13 @@ namespace ServiceStack.OrmLite.Dapper
                         {
                             p.DbType = dbType.Value;
                         }
+
                         var s = val as string;
                         if (s?.Length <= DbString.DefaultLength)
                         {
                             p.Size = DbString.DefaultLength;
                         }
+
                         if (param.Size != null) p.Size = param.Size.Value;
                         if (param.Precision != null) p.Precision = param.Precision.Value;
                         if (param.Scale != null) p.Scale = param.Scale.Value;
@@ -292,6 +296,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         command.Parameters.Add(p);
                     }
+
                     param.AttachedParam = p;
                 }
             }
@@ -322,8 +327,10 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     throw new ApplicationException("Attempting to cast a DBNull to a non nullable type! Note that out/return parameters will not have updated values until the data stream completes (after the 'foreach' for Query(..., buffered: false), or after the GridReader has been disposed for QueryMultiple)");
                 }
+
                 return default(T);
             }
+
             return (T)val;
         }
 
@@ -347,12 +354,11 @@ namespace ServiceStack.OrmLite.Dapper
             var lastMemberAccess = expression.Body as MemberExpression;
 
             if (lastMemberAccess == null
-                || !(lastMemberAccess.Member is PropertyInfo)
-                && !(lastMemberAccess.Member is FieldInfo))
+                || !(lastMemberAccess.Member is PropertyInfo) && !(lastMemberAccess.Member is FieldInfo))
             {
-                if (expression.Body.NodeType == ExpressionType.Convert
-                    && expression.Body.Type == typeof(object)
-                    && ((UnaryExpression)expression.Body).Operand is MemberExpression)
+                if (expression.Body.NodeType == ExpressionType.Convert && expression.Body.Type == typeof(object)
+                                                                       && ((UnaryExpression)expression.Body).Operand is
+                                                                       MemberExpression)
                 {
                     // It's got to be unboxed
                     lastMemberAccess = (MemberExpression)((UnaryExpression)expression.Body).Operand;
@@ -365,6 +371,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
             var diving = lastMemberAccess;
+
             // Retain a list of member names and the member expressions so we can rebuild the chain.
             var names = new List<string>();
             var chain = new List<MemberExpression>();
@@ -383,9 +390,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     break;
                 }
-                else if (diving == null
-                    || !(diving.Member is PropertyInfo)
-                    && !(diving.Member is FieldInfo))
+                else if (diving == null || !(diving.Member is PropertyInfo) && !(diving.Member is FieldInfo))
                 {
                     @throw();
                 }
@@ -402,11 +407,15 @@ namespace ServiceStack.OrmLite.Dapper
             if (setter != null) goto MAKECALLBACK;
 
             // Come on let's build a method, let's build it, let's build it now!
-            var dm = new DynamicMethod($"ExpressionParam{Guid.NewGuid()}", null, new[] { typeof(object), GetType() }, true);
+            var dm = new DynamicMethod(
+                $"ExpressionParam{Guid.NewGuid()}",
+                null,
+                new[] { typeof(object), GetType() },
+                true);
             var il = dm.GetILGenerator();
 
             il.Emit(OpCodes.Ldarg_0); // [object]
-            il.Emit(OpCodes.Castclass, typeof(T));    // [T]
+            il.Emit(OpCodes.Castclass, typeof(T)); // [T]
 
             // Count - 1 to skip the last member access
             var i = 0;
@@ -419,13 +428,15 @@ namespace ServiceStack.OrmLite.Dapper
                     var get = ((PropertyInfo)member).GetGetMethod(true);
                     il.Emit(OpCodes.Callvirt, get); // [Member{i}]
                 }
-                else // Else it must be a field!
+                else
                 {
+                    // Else it must be a field!
                     il.Emit(OpCodes.Ldfld, (FieldInfo)member); // [Member{i}]
                 }
             }
 
-            var paramGetter = GetType().GetMethod("Get", new Type[] { typeof(string) }).MakeGenericMethod(lastMemberAccess.Type);
+            var paramGetter = GetType().GetMethod("Get", new[] { typeof(string) })
+                .MakeGenericMethod(lastMemberAccess.Type);
 
             il.Emit(OpCodes.Ldarg_1); // [target] [DynamicParameters]
             il.Emit(OpCodes.Ldstr, dynamicParamName); // [target] [DynamicParameters] [ParamName]
@@ -453,34 +464,47 @@ namespace ServiceStack.OrmLite.Dapper
 
             // Queue the preparation to be fired off when adding parameters to the DbCommand
             MAKECALLBACK:
-            (outputCallbacks ?? (outputCallbacks = new List<Action>())).Add(() =>
-            {
-                // Finally, prep the parameter and attach the callback to it
-                var targetMemberType = lastMemberAccess?.Type;
-                var sizeToSet = !size.HasValue && targetMemberType == typeof(string) ? DbString.DefaultLength : size ?? 0;
-
-                if (parameters.TryGetValue(dynamicParamName, out var parameter))
-                {
-                    parameter.ParameterDirection = parameter.AttachedParam.Direction = ParameterDirection.InputOutput;
-
-                    if (parameter.AttachedParam.Size == 0)
+            (outputCallbacks ?? (outputCallbacks = new List<Action>())).Add(
+                () =>
                     {
-                        parameter.Size = parameter.AttachedParam.Size = sizeToSet;
-                    }
-                }
-                else
-                {
-                    dbType = dbType ?? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out var handler);
+                        // Finally, prep the parameter and attach the callback to it
+                        var targetMemberType = lastMemberAccess?.Type;
+                        var sizeToSet = !size.HasValue && targetMemberType == typeof(string)
+                                            ? DbString.DefaultLength
+                                            : size ?? 0;
 
-                    // CameFromTemplate property would not apply here because this new param
-                    // Still needs to be added to the command
-                    Add(dynamicParamName, expression.Compile().Invoke(target), null, ParameterDirection.InputOutput, sizeToSet);
-                }
+                        if (parameters.TryGetValue(dynamicParamName, out var parameter))
+                        {
+                            parameter.ParameterDirection =
+                                parameter.AttachedParam.Direction = ParameterDirection.InputOutput;
 
-                parameter = parameters[dynamicParamName];
-                parameter.OutputCallback = setter;
-                parameter.OutputTarget = target;
-            });
+                            if (parameter.AttachedParam.Size == 0)
+                            {
+                                parameter.Size = parameter.AttachedParam.Size = sizeToSet;
+                            }
+                        }
+                        else
+                        {
+                            dbType = dbType ?? SqlMapper.LookupDbType(
+                                         targetMemberType,
+                                         targetMemberType?.Name,
+                                         true,
+                                         out var handler);
+
+                            // CameFromTemplate property would not apply here because this new param
+                            // Still needs to be added to the command
+                            Add(
+                                dynamicParamName,
+                                expression.Compile().Invoke(target),
+                                null,
+                                ParameterDirection.InputOutput,
+                                sizeToSet);
+                        }
+
+                        parameter = parameters[dynamicParamName];
+                        parameter.OutputCallback = setter;
+                        parameter.OutputTarget = target;
+                    });
 
             return this;
         }

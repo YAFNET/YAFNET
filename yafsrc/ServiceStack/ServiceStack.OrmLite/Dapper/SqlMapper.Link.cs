@@ -22,8 +22,10 @@ namespace ServiceStack.OrmLite.Dapper
                         value = link.Value;
                         return true;
                     }
+
                     link = link.Tail;
                 }
+
                 value = default(TValue);
                 return false;
             }
@@ -35,14 +37,18 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     var snapshot = Interlocked.CompareExchange(ref head, null, null);
                     if (TryGet(snapshot, key, out var found))
-                    { // existing match; report the existing value instead
+                    {
+                        // existing match; report the existing value instead
                         value = found;
                         return false;
                     }
+
                     var newNode = new Link<TKey, TValue>(key, value, snapshot);
+
                     // did somebody move our cheese?
                     tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
-                } while (tryAgain);
+                }
+                while (tryAgain);
                 return true;
             }
 

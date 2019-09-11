@@ -35,6 +35,7 @@ namespace ServiceStack.OrmLite
                     var connStr = this.ConnectionString;
                     connection = connStr.OpenDbConnection();
                 }
+
                 return connection;
             }
         }

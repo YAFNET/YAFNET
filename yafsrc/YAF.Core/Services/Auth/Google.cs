@@ -38,6 +38,7 @@ namespace YAF.Core.Services.Auth
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -86,7 +87,7 @@ namespace YAF.Core.Services.Auth
                AuthUtilities.WebRequest(
                 AuthUtilities.Method.POST,
                 "https://www.googleapis.com/oauth2/v4/token",
-                $"{code}&client_id={Config.GoogleClientID}&client_secret={Config.GoogleClientSecret}&redirect_uri={HttpUtility.UrlEncode(GetRedirectURL(request))}&grant_type={"authorization_code"}").FromJson<GoogleTokens>();
+                $"{code}&client_id={Config.GoogleClientID}&client_secret={Config.GoogleClientSecret}&redirect_uri={HttpUtility.UrlEncode(GetRedirectURL(request))}&grant_type=authorization_code").FromJson<GoogleTokens>();
         }
 
         #region Get Current Google User Profile
@@ -189,7 +190,7 @@ namespace YAF.Core.Services.Auth
             if (userName.IsNotSet())
             {
                 // Create User if not exists?!
-                return this.CreateGoogleUser(googleUser, userGender, out message);
+                return CreateGoogleUser(googleUser, userGender, out message);
             }
 
             var yafUser = YafUserProfile.GetProfile(userName);
@@ -328,7 +329,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// Returns if the login was successfully or not
         /// </returns>
-        private bool CreateGoogleUser(GoogleUser googleUser, int userGender, out string message)
+        private static bool CreateGoogleUser(GoogleUser googleUser, int userGender, out string message)
         {
             if (YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
             {
@@ -337,13 +338,12 @@ namespace YAF.Core.Services.Auth
             }
 
             // Check user for bot
-            string result;
             var isPossibleSpamBot = false;
 
             var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(googleUser.UserName, googleUser.Email, userIpAddress, out result))
+            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(googleUser.UserName, googleUser.Email, userIpAddress, out var result))
             {
                 YafContext.Current.Get<ILogger>().Log(
                     null,
@@ -389,8 +389,6 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            MembershipCreateStatus status;
-
             var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
 
             var pass = Membership.GeneratePassword(32, 16);
@@ -404,7 +402,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out status);
+                out var status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, googleUser.UserName);

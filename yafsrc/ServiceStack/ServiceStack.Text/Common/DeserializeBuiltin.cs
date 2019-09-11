@@ -75,8 +75,7 @@ namespace ServiceStack.Text.Common
                     case TypeCode.Char:
                         return value =>
                         {
-                            char cValue;
-                            return char.TryParse(value.Value, out cValue) ? cValue : '\0';
+                            return char.TryParse(value.Value, out var cValue) ? cValue : '\0';
                         };
                 }
 
@@ -128,8 +127,7 @@ namespace ServiceStack.Text.Common
                     case TypeCode.Char:
                         return value =>
                         {
-                            char cValue;
-                            return value.IsNullOrEmpty() ? (char?)null : char.TryParse(value.Value, out cValue) ? cValue : '\0';
+                            return value.IsNullOrEmpty() ? (char?)null : char.TryParse(value.Value, out var cValue) ? cValue : '\0';
                         };
                 }
 

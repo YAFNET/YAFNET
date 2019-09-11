@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace ServiceStack.OrmLite.Dapper
@@ -47,6 +47,7 @@ namespace ServiceStack.OrmLite.Dapper
                         }
                     }
                 }
+
                 return found.GetReader(reader, startBound, length, returnNullIfFirstMissing);
             }
 
@@ -54,7 +55,10 @@ namespace ServiceStack.OrmLite.Dapper
 
             private struct DeserializerKey : IEquatable<DeserializerKey>
             {
-                private readonly int startBound, length;
+                private readonly int startBound;
+
+                private readonly int length;
+
                 private readonly bool returnNullIfFirstMissing;
                 private readonly IDataReader reader;
                 private readonly string[] names;
@@ -96,6 +100,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         return string.Join(", ", names);
                     }
+
                     if (reader != null)
                     {
                         var sb = new StringBuilder();
@@ -105,8 +110,10 @@ namespace ServiceStack.OrmLite.Dapper
                             if (i != 0) sb.Append(", ");
                             sb.Append(reader.GetName(index++));
                         }
+
                         return sb.ToString();
                     }
+
                     return base.ToString();
                 }
 
@@ -124,6 +131,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         return false; // clearly different
                     }
+
                     for (var i = 0; i < length; i++)
                     {
                         if ((names?[i] ?? reader?.GetName(startBound + i)) != (other.names?[i] ?? other.reader?.GetName(startBound + i))
@@ -134,6 +142,7 @@ namespace ServiceStack.OrmLite.Dapper
                             return false; // different column name or type
                         }
                     }
+
                     return true;
                 }
             }
@@ -143,6 +152,7 @@ namespace ServiceStack.OrmLite.Dapper
                 if (length < 0) length = reader.FieldCount - startBound;
                 var hash = GetColumnHash(reader, startBound, length);
                 if (returnNullIfFirstMissing) hash *= -27;
+
                 // get a cheap key first: false means don't copy the values down
                 var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
                 Func<IDataReader, object> deser;
@@ -150,7 +160,9 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     if (readers.TryGetValue(key, out deser)) return deser;
                 }
+
                 deser = GetTypeDeserializerImpl(type, reader, startBound, length, returnNullIfFirstMissing);
+
                 // get a more expensive key: true means copy the values down so it can be used as a key later
                 key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, true);
                 lock (readers)

@@ -1,4 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cp_profile" Codebehind="cp_profile.ascx.cs" %>
+<%@ Import Namespace="YAF" %>
+<%@ Import Namespace="YAF.Classes" %>
+<%@ Import Namespace="YAF.Configuration" %>
+<%@ Import Namespace="YAF.Web.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="ProfileYourAccount" Src="../controls/ProfileYourAccount.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ProfileTimeline" Src="../controls/ProfileTimeline.ascx" %>
 

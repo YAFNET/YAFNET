@@ -22,11 +22,11 @@ namespace YAF.UrlRewriter.Utilities
         /// <returns>The object</returns>
         public static object Activate(string fullTypeName, object[] args)
         {
-            var components = fullTypeName.Split(new char[] { ',' }, 2);
+            var components = fullTypeName.Split(new[] { ',' }, 2);
             if (components.Length != 2)
             {
                 throw new ArgumentOutOfRangeException(
-                    "fullTypeName",
+                    nameof(fullTypeName),
                     fullTypeName,
                     MessageProvider.FormatString(Message.FullTypeNameRequiresAssemblyName));
             }
@@ -46,7 +46,7 @@ namespace YAF.UrlRewriter.Utilities
             if (assemblyName.Length == 0)
             {
                 throw new ArgumentOutOfRangeException(
-                    "assemblyName",
+                    nameof(assemblyName),
                     assemblyName,
                     MessageProvider.FormatString(Message.AssemblyNameRequired));
             }
@@ -54,7 +54,7 @@ namespace YAF.UrlRewriter.Utilities
             if (typeName.Length == 0)
             {
                 throw new ArgumentOutOfRangeException(
-                    "typeName",
+                    nameof(typeName),
                     typeName,
                     MessageProvider.FormatString(Message.TypeNameRequired));
             }

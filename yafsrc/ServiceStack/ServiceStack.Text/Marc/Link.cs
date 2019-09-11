@@ -36,8 +36,7 @@ namespace ServiceStack.Text.Marc
 			do
             {
                 var snapshot = Interlocked.CompareExchange(ref head, null, null);
-                TValue found;
-                if (TryGet(snapshot, key, out found))
+                if (TryGet(snapshot, key, out var found))
                 {
                     // existing match; report the existing value instead
                     value = found;
@@ -60,8 +59,8 @@ namespace ServiceStack.Text.Marc
             this.Tail = tail;
 		}
 		
-		public TKey Key { get; private set; }
-		public TValue Value { get; private set; }
-		public Link<TKey, TValue> Tail { get; private set; }
+		public TKey Key { get; }
+		public TValue Value { get; }
+		public Link<TKey, TValue> Tail { get; }
 	}
 }

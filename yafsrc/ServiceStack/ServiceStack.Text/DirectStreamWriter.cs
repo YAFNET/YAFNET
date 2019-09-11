@@ -9,9 +9,9 @@ namespace ServiceStack.Text
         private const int maxBufferLength = 1024;
         
         private Stream stream;
-        private StreamWriter writer = null;
+        private StreamWriter writer;
         private byte[] curChar = new byte[1];
-        private bool needFlush = false;
+        private bool needFlush;
 
         public override Encoding Encoding { get; }
 

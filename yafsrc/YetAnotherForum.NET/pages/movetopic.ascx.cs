@@ -156,7 +156,7 @@ namespace YAF.Pages
                 this.LinkDays.Text = "1";
             }
 
-            this.ForumList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
+            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

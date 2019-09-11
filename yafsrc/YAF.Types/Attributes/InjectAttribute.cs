@@ -32,7 +32,7 @@ namespace YAF.Types.Attributes
   /// <summary>
   /// The inject attribute -- mark a property that needs injection. Must be public.
   /// </summary>
-  [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+  [AttributeUsage(AttributeTargets.Property)]
   public class Inject : Attribute
   {
   }

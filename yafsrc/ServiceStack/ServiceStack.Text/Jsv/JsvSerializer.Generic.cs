@@ -15,8 +15,7 @@ namespace ServiceStack.Text.Jsv
 
         public T DeserializeFromString(string value, Type type)
         {
-            ParseStringDelegate parseFn;
-            if (this.DeserializerCache.TryGetValue(type, out parseFn)) return (T)parseFn(value);
+            if (this.DeserializerCache.TryGetValue(type, out var parseFn)) return (T)parseFn(value);
 
             var genericType = typeof(T).MakeGenericType(type);
             var mi = genericType.GetMethodInfo("DeserializeFromString", new[] { typeof(string) });

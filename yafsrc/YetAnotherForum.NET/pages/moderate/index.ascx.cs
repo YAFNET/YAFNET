@@ -35,6 +35,7 @@ namespace YAF.Pages.moderate
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -121,7 +122,7 @@ namespace YAF.Pages.moderate
         private void BindData()
         {
             // get list of forums and their moderating data
-            using (var ds = this.GetRepository<Types.Models.Forum>().ModerateListADataSet(this.PageContext.PageUserID, this.PageContext.PageBoardID))
+            using (var ds = this.GetRepository<Forum>().ModerateListADataSet(this.PageContext.PageUserID, this.PageContext.PageBoardID))
             {
                 this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
             }

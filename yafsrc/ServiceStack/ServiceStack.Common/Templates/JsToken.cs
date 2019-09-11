@@ -46,7 +46,7 @@ namespace ServiceStack.Templates
                 return new JsNumber(d);
             if (value is List<object> list)
                 return new JsArray(list);
-            if (value is Dictionary<string,object> map)
+            if (value is Dictionary<string, object> map)
                 return new JsObject(map);
             if (value is null || value == JsNull.Value)
                 return JsNull.Value;
@@ -61,7 +61,7 @@ namespace ServiceStack.Templates
     {
         public const string String = "null";
         
-        private JsNull() {} //this is the only one
+        private JsNull() {} // this is the only one
         public static JsNull Value = new JsNull();
         public override string ToRawString() => String;
     }
@@ -275,6 +275,7 @@ namespace ServiceStack.Templates
             {
                 sb.Append(JsonValue(item));
             }
+
             sb.Append(']');
             return StringBuilderCache.ReturnAndFree(sb);
         }
@@ -292,6 +293,7 @@ namespace ServiceStack.Templates
                 if (!Equals(Array[i], other.Array[i]))
                     return false;
             }
+
             return true;
         }
 
@@ -325,6 +327,7 @@ namespace ServiceStack.Templates
                     .Append(":")
                     .Append(JsonValue(entry.Value));
             }
+
             sb.Append("}");
             return StringBuilderCache.ReturnAndFree(sb);
         }
@@ -408,6 +411,7 @@ namespace ServiceStack.Templates
                 if (i >= 'A' && i <= 'Z' || i >= 'a' && i <= 'z' || i >= '0' && i <= '9' || i == '_')
                     a[i] = True;
             }
+
             ValidVarNameChars = a;
         }
 
@@ -505,11 +509,13 @@ namespace ServiceStack.Templates
                         if (ch != '\\' || j + 1 >= str.Length || str[j + 1] != firstChar)
                             sb.Append(ch);
                     }
+
                     value = StringBuilderCache.ReturnAndFree(sb);
                 }
                 
                 return literal.Advance(i + 1);
             }
+
             if (firstChar >= '0' && firstChar <= '9' || literal.Length >= 2 && (firstChar == '-' || firstChar == '+') && literal.GetChar(1).IsNumericChar())
             {
                 i = 1;
@@ -537,7 +543,7 @@ namespace ServiceStack.Templates
 
                 var numLiteral = literal.Subsegment(0, i);
 
-                //don't convert into ternary to avoid Type coercion
+                // don't convert into ternary to avoid Type coercion
                 if (hasDecimal || hasExponent)
                     value = numLiteral.TryParseDouble(out var d) ? d : default(double);
                 else
@@ -545,6 +551,7 @@ namespace ServiceStack.Templates
 
                 return literal.Advance(i);
             }
+
             if (firstChar == '{')
             {
                 var map = new Dictionary<string, object>();
@@ -577,8 +584,9 @@ namespace ServiceStack.Templates
                             literal = literal.ParseNextToken(out object mapValue, out JsBinding mapValueBinding);
                             map[mapKey] = mapValue ?? mapValueBinding;
                         }
-                        else //shorthand notation
+                        else
                         {
+                            // shorthand notation
                             if (literal.Length == 0 || (c = literal.GetChar(0)) != ',' && c != '}')
                                 throw new ArgumentException($"Unterminated object literal near: {literal.SubstringWithElipsis(0, 50)}");
                             
@@ -603,6 +611,7 @@ namespace ServiceStack.Templates
                 value = map;
                 return literal;
             }
+
             if (firstChar == '[')
             {
                 var list = new List<object>();
@@ -650,21 +659,25 @@ namespace ServiceStack.Templates
                 value = list;
                 return literal;
             }
+
             if (literal.StartsWith("true") && (literal.Length == 4 || !IsValidVarNameChar(literal.GetChar(4))))
             {
                 value = true;
                 return literal.Advance(4);
             }
+
             if (literal.StartsWith("false") && (literal.Length == 5 || !IsValidVarNameChar(literal.GetChar(5))))
             {
                 value = false;
                 return literal.Advance(5);
             }
+
             if (literal.StartsWith("null") && (literal.Length == 4 || !IsValidVarNameChar(literal.GetChar(4))))
             {
                 value = JsNull.Value;
                 return literal.Advance(4);
             }
+
             if (firstChar.IsOperatorChar())
             {
                 if (literal.StartsWith(">="))
@@ -672,36 +685,43 @@ namespace ServiceStack.Templates
                     binding = JsGreaterThanEqual.Operand;
                     return literal.Advance(2);
                 }
+
                 if (literal.StartsWith("<="))
                 {
                     binding = JsLessThanEqual.Operand;
                     return literal.Advance(2);
                 }
+
                 if (literal.StartsWith("!=="))
                 {
                     binding = JsStrictNotEquals.Operand;
                     return literal.Advance(3);
                 }
+
                 if (literal.StartsWith("!="))
                 {
                     binding = JsNotEquals.Operand;
                     return literal.Advance(2);
                 }
+
                 if (literal.StartsWith("==="))
                 {
                     binding = JsStrictEquals.Operand;
                     return literal.Advance(3);
                 }
+
                 if (literal.StartsWith("=="))
                 {
                     binding = JsEquals.Operand;
                     return literal.Advance(2);
                 }
+
                 if (literal.StartsWith("||"))
                 {
                     binding = JsOr.Operator;
                     return literal.Advance(2);
                 }
+
                 if (literal.StartsWith("&&"))
                 {
                     binding = JsAnd.Operator;
@@ -761,8 +781,9 @@ namespace ServiceStack.Templates
                 
                 i++;
 
-                while (i < literal.Length && literal.GetChar(i).IsWhiteSpace()) // advance past whitespace
+                while (i < literal.Length && literal.GetChar(i).IsWhiteSpace())
                 {
+                    // advance past whitespace
                     i++;
                     hadWhitespace = true;
                 }
@@ -798,7 +819,7 @@ namespace ServiceStack.Templates
         private string originalString;
         public string OriginalString => originalString ?? (originalString = Original.HasValue ? Original.Value : null);
 
-        private bool? isBinding = null;
+        private bool? isBinding;
         public bool IsBinding => (bool)(isBinding ?? (isBinding = DetectBinding(this)));
 
         public virtual int IndexOfMethodEnd(StringSegment commandString, int pos) => pos;
@@ -815,10 +836,11 @@ namespace ServiceStack.Templates
                     return true;
                 i++;
             }
+
             return false;
         }
         
-        //Output different format for debugging to verify command was parsed correctly
+        // Output different format for debugging to verify command was parsed correctly
         public virtual string ToDebugString()
         {
             var sb = StringBuilderCacheAlt.Allocate();
@@ -828,6 +850,7 @@ namespace ServiceStack.Templates
                     sb.Append('|');
                 sb.Append(arg);
             }
+
             return $"[{Name}:{StringBuilderCacheAlt.ReturnAndFree(sb)}]";
         }
 
@@ -840,6 +863,7 @@ namespace ServiceStack.Templates
                     sb.Append(',');
                 sb.Append(JsonValue(arg));
             }
+
             return $"{Name}({StringBuilderCacheAlt.ReturnAndFree(sb)})";
         }
 
@@ -849,7 +873,7 @@ namespace ServiceStack.Templates
 
         public override string BindingString => OriginalString ?? ToString();
 
-        public string GetDisplayName() => (BindingString ?? NameString ?? "").Replace('′', '"');
+        public string GetDisplayName() => (BindingString ?? NameString ?? string.Empty).Replace('′', '"');
 
         protected bool Equals(JsExpression other)
         {
@@ -926,24 +950,28 @@ namespace ServiceStack.Templates
                             inDoubleQuotes = false;
                         continue;
                     }
+
                     if (inSingleQuotes)
                     {
                         if (c == '\'')
                             inSingleQuotes = false;
                         continue;
                     }
+
                     if (inBackTickQuotes)
                     {
                         if (c == '`')
                             inBackTickQuotes = false;
                         continue;
                     }
+
                     if (inPrimeQuotes)
                     {
                         if (c == '′')
                             inPrimeQuotes = false;
                         continue;
                     }
+
                     switch (c)
                     {
                         case '"':
@@ -980,7 +1008,7 @@ namespace ServiceStack.Templates
                             endStringPos = endStatementPos;
                         
                         if (endStringPos == -1)
-                            throw new NotSupportedException($"Whitespace sensitive syntax did not find a '\\n' new line to mark the end of the statement, near '{commandsString.SubstringWithElipsis(i,50)}'");
+                            throw new NotSupportedException($"Whitespace sensitive syntax did not find a '\\n' new line to mark the end of the statement, near '{commandsString.SubstringWithElipsis(i, 50)}'");
 
                         cmd.Name = commandsString.Subsegment(pos, i - pos).Trim();
                         
@@ -991,7 +1019,7 @@ namespace ServiceStack.Templates
                         cmd.Args = args;
                         
                         i = endStringPos == endStatementPos 
-                            ? endStatementPos - 2  //move cursor back before var block terminator 
+                            ? endStatementPos - 2  // move cursor back before var block terminator 
                             : endStringPos;
 
                         pos = i + 1;
@@ -1013,6 +1041,7 @@ namespace ServiceStack.Templates
                         pos = i + 1;
                         continue;
                     }
+
                     if (c == ')')
                     {
                         inBrackets = false;
@@ -1065,7 +1094,7 @@ namespace ServiceStack.Templates
         }
 
         // ( {args} , {args} )
-        //   ^
+        // ^
         public static StringSegment ParseArguments(StringSegment argsString, out List<StringSegment> args)
         {
             var to = new List<StringSegment>();
@@ -1088,24 +1117,28 @@ namespace ServiceStack.Templates
                         inDoubleQuotes = false;
                     continue;
                 }
+
                 if (inSingleQuotes)
                 {
                     if (c == '\'')
                         inSingleQuotes = false;
                     continue;
                 }
+
                 if (inBackTickQuotes)
                 {
                     if (c == '`')
                         inBackTickQuotes = false;
                     continue;
                 }
+
                 if (inPrimeQuotes)
                 {
                     if (c == '′')
                         inPrimeQuotes = false;
                     continue;
                 }
+
                 if (inBrackets > 0)
                 {
                     if (c == '[')
@@ -1114,6 +1147,7 @@ namespace ServiceStack.Templates
                         --inBrackets;
                     continue;
                 }
+
                 if (inBraces > 0)
                 {
                     if (c == '{')
@@ -1122,6 +1156,7 @@ namespace ServiceStack.Templates
                         --inBraces;
                     continue;
                 }
+
                 if (inParens > 0)
                 {
                     if (c == '(')
@@ -1161,6 +1196,7 @@ namespace ServiceStack.Templates
                         lastPos = i + 1;
                         continue;
                     }
+
                     case ')':
                     {
                         var arg = argsString.Subsegment(lastPos, i - lastPos).Trim();
@@ -1201,24 +1237,28 @@ namespace ServiceStack.Templates
                         inDoubleQuotes = false;
                     continue;
                 }
+
                 if (inSingleQuotes)
                 {
                     if (c == '\'')
                         inSingleQuotes = false;
                     continue;
                 }
+
                 if (inBackTickQuotes)
                 {
                     if (c == '`')
                         inBackTickQuotes = false;
                     continue;
                 }
+
                 if (inPrimeQuotes)
                 {
                     if (c == '′')
                         inPrimeQuotes = false;
                     continue;
                 }
+
                 if (inBrackets > 0)
                 {
                     if (c == '[')
@@ -1227,6 +1267,7 @@ namespace ServiceStack.Templates
                         --inBrackets;
                     continue;
                 }
+
                 if (inBraces > 0)
                 {
                     if (c == '{')
@@ -1236,8 +1277,9 @@ namespace ServiceStack.Templates
                     continue;
                 }
                 
-                if (c == ':') //whitespace sensitive syntax
+                if (c == ':')
                 {
+                    // whitespace sensitive syntax
                     // replace everything after ':' up till new line and rewrite as single string to method
                     var endStringPos = literal.IndexOf("\n", i);
                     var endStatementPos = literal.IndexOf("}}", i);
@@ -1246,7 +1288,7 @@ namespace ServiceStack.Templates
                         endStringPos = endStatementPos;
                         
                     if (endStringPos == -1)
-                        throw new NotSupportedException($"Whitespace sensitive syntax did not find a '\\n' new line to mark the end of the statement, near '{literal.SubstringWithElipsis(i,50)}'");
+                        throw new NotSupportedException($"Whitespace sensitive syntax did not find a '\\n' new line to mark the end of the statement, near '{literal.SubstringWithElipsis(i, 50)}'");
 
                     binding = new JsExpression(literal.Subsegment(0, i).Trim());
 

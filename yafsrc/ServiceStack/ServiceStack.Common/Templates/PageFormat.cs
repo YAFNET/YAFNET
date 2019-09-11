@@ -81,9 +81,10 @@ namespace ServiceStack.Templates
                     sb.AppendLine($"{innerEx.GetType().Name}: {innerEx.Message}");
                     if (pageResult.Context.DebugMode) 
                         sb.AppendLine(innerEx.StackTrace);
-                    innerEx = innerEx.InnerException;;
+                    innerEx = innerEx.InnerException;
                 }
             }
+
             if (ContentType == MimeTypes.Html)
                 sb.AppendLine("</pre>");
             var html = StringBuilderCache.ReturnAndFree(sb);

@@ -13,6 +13,6 @@ namespace ServiceStack
             this.typeId = Guid.NewGuid();
         }
 
-        protected readonly Guid typeId; //Hack required to give Attributes unique identity
+        protected readonly Guid typeId; // Hack required to give Attributes unique identity
     }
 }

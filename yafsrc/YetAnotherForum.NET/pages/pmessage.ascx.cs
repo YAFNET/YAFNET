@@ -394,11 +394,8 @@ namespace YAF.Pages
                 }
 
                 // PM is being sent to a predefined user
-                int toUser;
-                int reportMessage;
-
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out toUser)
-                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out reportMessage))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out var toUser)
+                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out var reportMessage))
                 {
                     return;
                 }
@@ -453,9 +450,7 @@ namespace YAF.Pages
                 // PM is being send as a reply to a reported post
 
                 // find user
-                int toUserId;
-
-                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUserId))
+                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out var toUserId))
                 {
                     return;
                 }
@@ -727,15 +722,13 @@ namespace YAF.Pages
             // Check if SPAM Message first...
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
             {
-                string spamResult;
-
                 // Check content for spam
                 if (this.Get<ISpamCheck>().CheckPostForSpam(
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                     YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.User.Email,
-                    out spamResult))
+                    out var spamResult))
                 {
                     switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                     {

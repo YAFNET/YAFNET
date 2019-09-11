@@ -19,7 +19,7 @@ namespace ServiceStack
         string Description { get; }
     }
 
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ApiResponseAttribute : AttributeBase, IApiResponseDescription
     {
         /// <summary>

@@ -28,6 +28,7 @@ namespace YAF.Core.Services.Cache
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     /// <summary>

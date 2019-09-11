@@ -94,9 +94,7 @@ namespace YAF.Pages
 
             var modForums = (DropDownList)gridItem.FindControl("ModForums");
 
-            int redirForum;
-
-            if (int.TryParse(modForums.SelectedValue, out redirForum))
+            if (int.TryParse(modForums.SelectedValue, out var redirForum))
             {
                 YafBuildLink.Redirect(ForumPages.topics, "f={0}", modForums.SelectedValue);
             }
@@ -172,7 +170,7 @@ namespace YAF.Pages
 
                 // Get All Items from that MOD
                 var modList = moderators.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
-                var forumsCount = modList.Count();
+                var forumsCount = modList.Count;
 
                 sortedMod.ForumIDs = new ModeratorsForums[forumsCount];
 

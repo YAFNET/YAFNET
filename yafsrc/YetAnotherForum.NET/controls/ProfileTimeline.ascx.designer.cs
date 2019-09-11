@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class ProfileTimeline {
         
+
         /// <summary>
         /// PagerTop control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
+        protected Pager PagerTop;
         
+
         /// <summary>
         /// ActivityStream control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater ActivityStream;
+        protected Repeater ActivityStream;
         
+
         /// <summary>
         /// PagerBottom control.
         /// </summary>
@@ -37,6 +42,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
+        protected Pager PagerBottom;
     }
 }

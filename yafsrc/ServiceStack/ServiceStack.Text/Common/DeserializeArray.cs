@@ -37,8 +37,7 @@ namespace ServiceStack.Text.Common
 
         public static Func<StringSegment, ParseStringSegmentDelegate, object> GetParseStringSegmentFn(Type type)
         {
-            ParseArrayOfElementsDelegate parseFn;
-            if (ParseDelegateCache.TryGetValue(type, out parseFn)) return parseFn.Invoke;
+            if (ParseDelegateCache.TryGetValue(type, out var parseFn)) return parseFn.Invoke;
 
             var genericType = typeof(DeserializeArrayWithElements<,>).MakeGenericType(type, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("ParseGenericArray", signature);
@@ -125,8 +124,7 @@ namespace ServiceStack.Text.Common
 
         public static ParseStringSegmentDelegate GetParseStringSegmentFn(Type type)
         {
-            ParseStringSegmentDelegate parseFn;
-            if (ParseDelegateCache.TryGetValue(type, out parseFn)) return parseFn;
+            if (ParseDelegateCache.TryGetValue(type, out var parseFn)) return parseFn;
 
             var genericType = typeof(DeserializeArray<,>).MakeGenericType(type, typeof(TSerializer));
 

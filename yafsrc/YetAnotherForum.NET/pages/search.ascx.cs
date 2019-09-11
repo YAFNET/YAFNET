@@ -36,6 +36,7 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Web.Extensions;
 
     #endregion
@@ -115,7 +116,7 @@ namespace YAF.Pages
             this.listSearchWhat.SelectedIndex = 2;
 
             // Load forum's combo
-            this.listForum.DataSource = this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
+            this.listForum.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

@@ -22,8 +22,8 @@ namespace YAF.UrlRewriter.Actions
         /// <param name="appSettingsKey">The name of the key in AppSettings.</param>
         public SetAppSettingPropertyAction(string name, string appSettingsKey)
         {
-            this.Name = name ?? throw new ArgumentNullException("name");
-            this.AppSettingKey = appSettingsKey ?? throw new ArgumentNullException("appSettingsKey");
+            this.Name = name ?? throw new ArgumentNullException(nameof(name));
+            this.AppSettingKey = appSettingsKey ?? throw new ArgumentNullException(nameof(appSettingsKey));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace YAF.UrlRewriter.Actions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             // If the value cannot be found in AppSettings, default to an empty string.

@@ -23,11 +23,11 @@ namespace ServiceStack.Text.Controller
 	{
 		public string ControllerName { get; private set; }
 
-		public string ActionName { get; private set; }
+		public string ActionName { get; }
 
-		public List<string> Arguments { get; private set; }
+		public List<string> Arguments { get; }
 
-		public Dictionary<string, string> Options { get; private set; }
+		public Dictionary<string, string> Options { get; }
 
 
 		public PathInfo(string actionName, params string[] arguments)

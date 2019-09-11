@@ -30,6 +30,7 @@ namespace YAF.Core
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -90,9 +91,6 @@ namespace YAF.Core
             var browser = $"{this.HttpRequestBase.Browser.Browser} {this.HttpRequestBase.Browser.Version}";
             var platform = this.HttpRequestBase.Browser.Platform;
 
-            bool isSearchEngine;
-            bool dontTrack;
-
             var userAgent = this.HttpRequestBase.UserAgent;
 
             var isMobileDevice = UserAgentHelper.IsMobileDevice(this.HttpRequestBase);
@@ -103,8 +101,8 @@ namespace YAF.Core
                 this.HttpRequestBase.Browser.Crawler,
                 ref platform,
                 ref browser,
-                out isSearchEngine,
-                out dontTrack);
+                out var isSearchEngine,
+                out var dontTrack);
 
             dontTrack = !this.Get<YafBoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 

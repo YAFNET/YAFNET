@@ -131,7 +131,7 @@ namespace YAF.Utils
     }
 
     /// <summary>
-    /// Hashes a clear string to the given hashtype
+    /// Hashes a clear string to the given hash type
     /// </summary>
     /// <param name="clearString">
     /// Clear string to hash
@@ -141,9 +141,6 @@ namespace YAF.Utils
     /// </param>
     /// <param name="salt">
     /// Salt to be applied to hashing algorithm
-    /// </param>
-    /// <param name="useSalt">
-    /// Should salt be applied to hashing algorithm
     /// </param>
     /// <param name="hashHex">
     /// The hash Hex.

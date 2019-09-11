@@ -23,7 +23,7 @@ namespace ServiceStack.Redis
     public interface IRedisClient
         : IEntityStore, ICacheClientExtended
     {
-        //Basic Redis Connection operations
+        // Basic Redis Connection operations
         long Db { get; set; }
         long DbSize { get; }
         Dictionary<string, string> Info { get; }
@@ -64,12 +64,12 @@ namespace ServiceStack.Redis
         List<Dictionary<string, string>> GetClientsInfo();
         void PauseAllClients(TimeSpan duration);
 
-        //Basic Redis Connection Info
+        // Basic Redis Connection Info
         string this[string key] { get; set; }
 
         List<string> GetAllKeys();
 
-        //Fetch fully qualified key for specific Type and Id
+        // Fetch fully qualified key for specific Type and Id
         string UrnKey<T>(T value);
         string UrnKey<T>(object id);
         string UrnKey(Type type, object id);
@@ -93,7 +93,7 @@ namespace ServiceStack.Redis
         long AppendToValue(string key, string value);
         void RenameKey(string fromName, string toName);
 
-        //store POCOs as hash
+        // store POCOs as hash
         T GetFromHash<T>(object id);
         void StoreAsHash<T>(T entity);
 
@@ -117,21 +117,21 @@ namespace ServiceStack.Redis
         bool ExpireEntryAt(string key, DateTime expireAt);
         List<string> GetSortedEntryValues(string key, int startingFrom, int endingAt);
 
-        //Store entities without registering entity ids
+        // Store entities without registering entity ids
         void WriteAll<TEntity>(IEnumerable<TEntity> entities);
 
-        //Scan APIs
+        // Scan APIs
         IEnumerable<string> ScanAllKeys(string pattern = null, int pageSize = 1000);
         IEnumerable<string> ScanAllSetItems(string setId, string pattern = null, int pageSize = 1000);
         IEnumerable<KeyValuePair<string, double>> ScanAllSortedSetItems(string setId, string pattern = null, int pageSize = 1000);
         IEnumerable<KeyValuePair<string, string>> ScanAllHashEntries(string hashId, string pattern = null, int pageSize = 1000);
 
-        //Hyperlog APIs
+        // Hyperlog APIs
         bool AddToHyperLog(string key, params string[] elements);
         long CountHyperLog(string key);
         void MergeHyperLogs(string toKey, params string[] fromKeys);
 
-        //GEO APIs
+        // GEO APIs
         long AddGeoMember(string key, double longitude, double latitude, string member);
         long AddGeoMembers(string key, params RedisGeo[] geoPoints);
         double CalculateDistanceBetweenGeoMembers(string key, string fromMember, string toMember, string unit = null);
@@ -214,13 +214,13 @@ namespace ServiceStack.Redis
         string GetItemFromList(string listId, int listIndex);
         void SetItemInList(string listId, int listIndex, string value);
 
-        //Queue operations
+        // Queue operations
         void EnqueueItemOnList(string listId, string value);
         string DequeueItemFromList(string listId);
         string BlockingDequeueItemFromList(string listId, TimeSpan? timeOut);
         ItemRef BlockingDequeueItemFromLists(string[] listIds, TimeSpan? timeOut);
 
-        //Stack operations
+        // Stack operations
         void PushItemToList(string listId, string value);
         string PopItemFromList(string listId);
         string BlockingPopItemFromList(string listId, TimeSpan? timeOut);

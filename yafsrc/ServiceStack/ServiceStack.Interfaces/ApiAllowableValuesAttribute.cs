@@ -5,13 +5,14 @@ using System;
 
 namespace ServiceStack
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class ApiAllowableValuesAttribute : AttributeBase
     {
         public ApiAllowableValuesAttribute(string name)
         {
             this.Name = name;
         }
+
         public ApiAllowableValuesAttribute(string name, int min, int max) : this(name)
         {
             Type = "RANGE";
@@ -49,6 +50,7 @@ namespace ServiceStack
                 Values = listAction();
             }
         }
+
         /// <summary>
         /// Gets or sets parameter name with which allowable values will be associated.
         /// </summary>
@@ -60,9 +62,9 @@ namespace ServiceStack
 
         public int? Max { get; set; }
 
-        public String[] Values { get; set; }
+        public string[] Values { get; set; }
 
-        //TODO: should be implemented according to:
-        //https://github.com/wordnik/swagger-core/wiki/datatypes
+        // TODO: should be implemented according to:
+        // https://github.com/wordnik/swagger-core/wiki/datatypes
     }
 }

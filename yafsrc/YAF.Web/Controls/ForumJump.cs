@@ -76,9 +76,7 @@ namespace YAF.Web.Controls
         /// </returns>
         public virtual bool LoadPostData([NotNull] string postDataKey, [NotNull] NameValueCollection postCollection)
         {
-            int forumId;
-
-            if (!int.TryParse(postCollection[postDataKey], out forumId) || forumId == this.ForumId)
+            if (!int.TryParse(postCollection[postDataKey], out var forumId) || forumId == this.ForumId)
             {
                 return false;
             }
@@ -132,7 +130,7 @@ namespace YAF.Web.Controls
                 this.Get<IDataCache>().GetOrSet(
                     string.Format(
                         Constants.Cache.ForumJump, this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
-                    () => this.GetRepository<YAF.Types.Models.Forum>().ListAllSortedAsDataTable(this.PageContext.PageBoardID, this.PageContext.PageUserID),
+                    () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(this.PageContext.PageBoardID, this.PageContext.PageUserID),
                     TimeSpan.FromMinutes(5));
 
             writer.WriteLine(

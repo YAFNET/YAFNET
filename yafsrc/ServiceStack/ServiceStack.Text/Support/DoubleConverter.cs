@@ -104,7 +104,7 @@
 			/// <summary> 
 			/// How many digits are *after* the decimal point
 			/// </summary>
-			int decimalPoint = 0;
+			int decimalPoint;
 
 			/// <summary> 
 			/// Constructs an arbitrary decimal expansion from the given long.

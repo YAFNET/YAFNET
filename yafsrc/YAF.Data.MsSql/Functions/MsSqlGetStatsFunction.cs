@@ -110,21 +110,20 @@ namespace YAF.Data.MsSql.Functions
             }
 
             // split the data
-            var chunk = providerData.Split(new[] { ';' });
+            var chunk = providerData.Split(';');
 
-            // first item is the column name...
-            var columnName = chunk[0];
-
-            // get the datatype and ignore case...
+            // get the data type and ignore case...
             dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
 
-            if (chunk.Length > 2)
+            if (chunk.Length <= 2)
             {
-                // handle size...
-                if (!int.TryParse(chunk[2], out size))
-                {
-                    throw new ArgumentException($"Unable to parse as integer: {chunk[2]}");
-                }
+                return true;
+            }
+
+            // handle size...
+            if (!int.TryParse(chunk[2], out size))
+            {
+                throw new ArgumentException($"Unable to parse as integer: {chunk[2]}");
             }
 
             return true;

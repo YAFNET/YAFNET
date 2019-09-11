@@ -19,7 +19,8 @@ namespace ServiceStack.OrmLite.Dapper
                 do
                 {
                     yield return (T)deser(reader);
-                } while (reader.Read());
+                }
+ while (reader.Read());
             }
         }
 
@@ -36,7 +37,8 @@ namespace ServiceStack.OrmLite.Dapper
                 do
                 {
                     yield return deser(reader);
-                } while (reader.Read());
+                }
+ while (reader.Read());
             }
         }
 
@@ -52,7 +54,8 @@ namespace ServiceStack.OrmLite.Dapper
                 do
                 {
                     yield return deser(reader);
-                } while (reader.Read());
+                }
+ while (reader.Read());
             }
         }
 

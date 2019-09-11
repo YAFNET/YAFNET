@@ -33,7 +33,7 @@ namespace YAF.UrlRewriter.Conditions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             return this.Pattern.IsMatch(context.HttpContext.HttpMethod);

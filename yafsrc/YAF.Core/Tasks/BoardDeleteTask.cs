@@ -99,10 +99,7 @@ namespace YAF.Core.Tasks
             }
             catch (Exception x)
             {
-                this.Logger.Error(
-                    x,
-                    string.Format("Error In Board (ID: {0}) Delete Task: {1}", this.BoardIdToDelete),
-                    TaskName);
+                this.Logger.Error(x, "Error In Board (ID: {0}) Delete Task: {1}", this.BoardIdToDelete, TaskName);
             }
         }
 

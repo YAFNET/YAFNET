@@ -180,7 +180,7 @@ namespace ServiceStack.OrmLite
 
         void InitDbParam(IDbDataParameter dbParam, Type columnType);
 
-        //DDL
+        // DDL
         string GetDropForeignKeyConstraints(ModelDefinition modelDef);
 
         string ToAddColumnStatement(Type modelType, FieldDefinition fieldDef);
@@ -194,7 +194,7 @@ namespace ServiceStack.OrmLite
         string ToCreateIndexStatement<T>(Expression<Func<T, object>> field,
                                          string indexName = null, bool unique = false);
 
-        //Async
+        // Async
         Task OpenAsync(IDbConnection db, CancellationToken token = default(CancellationToken));
         Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default(CancellationToken));
         Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default(CancellationToken));

@@ -1,5 +1,6 @@
 ﻿#if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
+
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -27,7 +28,8 @@ namespace ServiceStack.OrmLite.Legacy
 
         internal static Task<List<TModel>> SelectFmtAsync<TModel>(this IDbCommand dbCmd, CancellationToken token, Type fromTableType, string sqlFilter, params object[] filterParams)
         {
-            var sql = OrmLiteReadCommandExtensionsLegacy.ToSelectFmt<TModel>(dbCmd.GetDialectProvider(), fromTableType, sqlFilter, filterParams);
+            var sql =
+ OrmLiteReadCommandExtensionsLegacy.ToSelectFmt<TModel>(dbCmd.GetDialectProvider(), fromTableType, sqlFilter, filterParams);
             return dbCmd.ConvertToListAsync<TModel>(sql, token);
         }
 

@@ -51,6 +51,7 @@ namespace ServiceStack.Logging
             {
                 msg += $", Exception: {exception.Message}";
             }
+
             OnLog(msg);
         }
 

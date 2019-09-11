@@ -213,7 +213,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
         /// <returns>
         /// return true if the character is a letter, digit, underscore, dollar sign, or non-ASCII character. 
         /// </returns>
-        private bool IsAlphanum(int c)
+        private static bool IsAlphanum(int c)
         {
             return c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c == '_' || c == '$'
                    || c == '\\' || c > 126;
@@ -297,7 +297,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
                 {
                     case ' ':
                         {
-                            this.Action(this.IsAlphanum(this.theB) ? 1 : 2);
+                            this.Action(IsAlphanum(this.theB) ? 1 : 2);
                             break;
                         }
 
@@ -323,7 +323,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
 
                                 default:
                                     {
-                                        this.Action(this.IsAlphanum(this.theB) ? 1 : 2);
+                                        this.Action(IsAlphanum(this.theB) ? 1 : 2);
 
                                         break;
                                     }
@@ -338,7 +338,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
                             {
                                 case ' ':
                                     {
-                                        if (this.IsAlphanum(this.theA))
+                                        if (IsAlphanum(this.theA))
                                         {
                                             this.Action(1);
                                             break;
@@ -366,7 +366,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
 
                                             default:
                                                 {
-                                                    this.Action(this.IsAlphanum(this.theA) ? 1 : 3);
+                                                    this.Action(IsAlphanum(this.theA) ? 1 : 3);
                                                     break;
                                                 }
                                         }

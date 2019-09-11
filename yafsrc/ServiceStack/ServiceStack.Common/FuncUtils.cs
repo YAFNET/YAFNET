@@ -24,6 +24,7 @@ namespace ServiceStack
             {
                 Log.Error(ex.Message, ex);
             }
+
             return false;
         }
 
@@ -42,10 +43,11 @@ namespace ServiceStack
             {
                 Log.Error(ex.Message, ex);
             }
+
             return default(T);
         }
 
-#if !SL5 //SL5 - No Stopwatch, Net Standard 1.1 - no Thread 
+#if !SL5 // SL5 - No Stopwatch, Net Standard 1.1 - no Thread 
         public static void WaitWhile(Func<bool> condition, int millisecondTimeout, int millsecondPollPeriod = 10)
         {
             var timer = System.Diagnostics.Stopwatch.StartNew();
@@ -57,6 +59,7 @@ namespace ServiceStack
                     throw new TimeoutException("Timed out waiting for condition function.");
             }
         }
+
 #endif
 
     }

@@ -10,14 +10,14 @@ using ServiceStack.Text;
 namespace ServiceStack.Templates
 {
     // ReSharper disable InconsistentNaming
-    
     public class TemplateProtectedFilters : TemplateFilter
     {
         public IVirtualFile ResolveFile(string filterName, TemplateScopeContext scope, string virtualPath)
         {
             var file = ResolveFile(scope.Context.VirtualFiles, scope.PageResult.VirtualPath, virtualPath);
             if (file == null)
-                throw new FileNotFoundException($"{filterName} '{virtualPath}' in page '{scope.Page.VirtualPath}' was not found");
+                throw new FileNotFoundException(
+                    $"{filterName} '{virtualPath}' in page '{scope.Page.VirtualPath}' was not found");
 
             return file;
         }
@@ -32,11 +32,12 @@ namespace ServiceStack.Templates
             {
                 file = virtualFiles.GetFile(pathMapping);
                 if (file != null)
-                    return file;                    
+                    return file;
                 Context.RemovePathMapping(pathMapKey, pathMapping);
             }
 
-            var tryExactMatch = virtualPath.IndexOf('/') >= 0; //if nested path specified, look for an exact match first
+            var tryExactMatch =
+                virtualPath.IndexOf('/') >= 0; // if nested path specified, look for an exact match first
             if (tryExactMatch)
             {
                 file = virtualFiles.GetFile(virtualPath);
@@ -49,9 +50,7 @@ namespace ServiceStack.Templates
 
             if (file == null)
             {
-                var parentPath = fromVirtualPath.IndexOf('/') >= 0
-                    ? fromVirtualPath.LastLeftPart('/')
-                    : "";
+                var parentPath = fromVirtualPath.IndexOf('/') >= 0 ? fromVirtualPath.LastLeftPart('/') : string.Empty;
 
                 do
                 {
@@ -63,18 +62,18 @@ namespace ServiceStack.Templates
                         return file;
                     }
 
-                    if (parentPath == "")
+                    if (parentPath == string.Empty)
                         break;
 
-                    parentPath = parentPath.IndexOf('/') >= 0
-                        ? parentPath.LastLeftPart('/')
-                        : "";
-                } while (true);
+                    parentPath = parentPath.IndexOf('/') >= 0 ? parentPath.LastLeftPart('/') : string.Empty;
+                }
+                while (true);
             }
+
             return null;
         }
 
-        //alias
+        // alias
         public Task fileContents(TemplateScopeContext scope, string virtualPath) => includeFile(scope, virtualPath);
 
         public async Task includeFile(TemplateScopeContext scope, string virtualPath)
@@ -87,21 +86,40 @@ namespace ServiceStack.Templates
         }
 
         public IEnumerable<IVirtualFile> vfsAllFiles() => Context.VirtualFiles.GetAllFiles();
+
         public IEnumerable<IVirtualFile> vfsAllRootFiles() => Context.VirtualFiles.GetRootFiles();
+
         public IEnumerable<IVirtualDirectory> vfsAllRootDirectories() => Context.VirtualFiles.GetRootDirectories();
-        public string vfsCombinePath(string basePath, string relativePath) => Context.VirtualFiles.CombineVirtualPath(basePath, relativePath);
+
+        public string vfsCombinePath(string basePath, string relativePath) =>
+            Context.VirtualFiles.CombineVirtualPath(basePath, relativePath);
 
         public IVirtualDirectory dir(string virtualPath) => Context.VirtualFiles.GetDirectory(virtualPath);
-        public bool dirExists(string virtualPath) => Context.VirtualFiles.DirectoryExists(virtualPath);
-        public IVirtualFile dirFile(string dirPath, string fileName) => Context.VirtualFiles.GetDirectory(dirPath)?.GetFile(fileName);
-        public IEnumerable<IVirtualFile> dirFiles(string dirPath) => Context.VirtualFiles.GetDirectory(dirPath)?.GetFiles() ?? new List<IVirtualFile>();
-        public IVirtualDirectory dirDirectory(string dirPath, string dirName) => Context.VirtualFiles.GetDirectory(dirPath)?.GetDirectory(dirName);
-        public IEnumerable<IVirtualDirectory> dirDirectories(string dirPath) => Context.VirtualFiles.GetDirectory(dirPath)?.GetDirectories() ?? new List<IVirtualDirectory>();
-        public IEnumerable<IVirtualFile> dirFilesFind(string dirPath, string globPatern) => Context.VirtualFiles.GetDirectory(dirPath)?.GetAllMatchingFiles(globPatern);
 
-        public IEnumerable<IVirtualFile> filesFind(string globPatern) => Context.VirtualFiles.GetAllMatchingFiles(globPatern);
+        public bool dirExists(string virtualPath) => Context.VirtualFiles.DirectoryExists(virtualPath);
+
+        public IVirtualFile dirFile(string dirPath, string fileName) =>
+            Context.VirtualFiles.GetDirectory(dirPath)?.GetFile(fileName);
+
+        public IEnumerable<IVirtualFile> dirFiles(string dirPath) =>
+            Context.VirtualFiles.GetDirectory(dirPath)?.GetFiles() ?? new List<IVirtualFile>();
+
+        public IVirtualDirectory dirDirectory(string dirPath, string dirName) =>
+            Context.VirtualFiles.GetDirectory(dirPath)?.GetDirectory(dirName);
+
+        public IEnumerable<IVirtualDirectory> dirDirectories(string dirPath) =>
+            Context.VirtualFiles.GetDirectory(dirPath)?.GetDirectories() ?? new List<IVirtualDirectory>();
+
+        public IEnumerable<IVirtualFile> dirFilesFind(string dirPath, string globPatern) =>
+            Context.VirtualFiles.GetDirectory(dirPath)?.GetAllMatchingFiles(globPatern);
+
+        public IEnumerable<IVirtualFile> filesFind(string globPatern) =>
+            Context.VirtualFiles.GetAllMatchingFiles(globPatern);
+
         public bool fileExists(string virtualPath) => Context.VirtualFiles.FileExists(virtualPath);
+
         public IVirtualFile file(string virtualPath) => Context.VirtualFiles.GetFile(virtualPath);
+
         public string fileWrite(string virtualPath, object contents)
         {
             if (contents is string s)
@@ -143,29 +161,34 @@ namespace ServiceStack.Templates
         }
 
         public string fileReadAll(string virtualPath) => Context.VirtualFiles.GetFile(virtualPath)?.ReadAllText();
+
         public byte[] fileReadAllBytes(string virtualPath) => Context.VirtualFiles.GetFile(virtualPath)?.ReadAllBytes();
+
         public string fileHash(string virtualPath) => Context.VirtualFiles.GetFileHash(virtualPath);
 
-        //alias
+        // alias
         public Task urlContents(TemplateScopeContext scope, string url) => includeUrl(scope, url, null);
-        public Task urlContents(TemplateScopeContext scope, string url, object options) => includeUrl(scope, url, options);
+
+        public Task urlContents(TemplateScopeContext scope, string url, object options) =>
+            includeUrl(scope, url, options);
 
         public Task includeUrl(TemplateScopeContext scope, string url) => includeUrl(scope, url, null);
+
         public async Task includeUrl(TemplateScopeContext scope, string url, object options)
         {
             var scopedParams = scope.AssertOptions(nameof(includeUrl), options);
 
             var webReq = (HttpWebRequest)WebRequest.Create(url);
             var dataType = scopedParams.TryGetValue("dataType", out var value)
-                ? ConvertDataTypeToContentType((string)value)
-                : null;
+                               ? ConvertDataTypeToContentType((string)value)
+                               : null;
 
             if (scopedParams.TryGetValue("method", out value))
                 webReq.Method = (string)value;
             if (scopedParams.TryGetValue("contentType", out value) || dataType != null)
-                webReq.ContentType = (string)value ?? dataType;            
-            if (scopedParams.TryGetValue("accept", out value) || dataType != null) 
-                webReq.Accept = (string)value ?? dataType;            
+                webReq.ContentType = (string)value ?? dataType;
+            if (scopedParams.TryGetValue("accept", out value) || dataType != null)
+                webReq.Accept = (string)value ?? dataType;
             if (scopedParams.TryGetValue("userAgent", out value))
                 PclExport.Instance.SetUserAgent(webReq, (string)value);
 
@@ -173,7 +196,7 @@ namespace ServiceStack.Templates
             {
                 if (webReq.Method == null)
                     webReq.Method = HttpMethods.Post;
-                    
+
                 if (webReq.ContentType == null)
                     webReq.ContentType = MimeTypes.FormUrlEncoded;
 
@@ -208,7 +231,7 @@ namespace ServiceStack.Templates
                 case "form":
                     return MimeTypes.FormUrlEncoded;
             }
-            
+
             throw new NotSupportedException($"Unknown dataType '{dataType}'");
         }
 
@@ -239,36 +262,38 @@ namespace ServiceStack.Templates
             throw new NotSupportedException($"Can not serialize to unknown Content-Type '{contentType}'");
         }
 
-        public static string CreateCacheKey(string url, Dictionary<string,object> options=null)
+        public static string CreateCacheKey(string url, Dictionary<string, object> options = null)
         {
-            var sb = StringBuilderCache.Allocate()
-                .Append(url);
-            
+            var sb = StringBuilderCache.Allocate().Append(url);
+
             if (options != null)
             {
                 foreach (var entry in options)
                 {
-                    sb.Append(entry.Key)
-                      .Append('=')
-                      .Append(entry.Value);
+                    sb.Append(entry.Key).Append('=').Append(entry.Value);
                 }
             }
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
-        
-        //alias
-        public Task fileContentsWithCache(TemplateScopeContext scope, string virtualPath) => includeFileWithCache(scope, virtualPath, null);
-        public Task fileContentsWithCache(TemplateScopeContext scope, string virtualPath, object options) => includeFileWithCache(scope, virtualPath, options);
 
-        public Task includeFileWithCache(TemplateScopeContext scope, string virtualPath) => includeFileWithCache(scope, virtualPath, null);
+        // alias
+        public Task fileContentsWithCache(TemplateScopeContext scope, string virtualPath) =>
+            includeFileWithCache(scope, virtualPath, null);
+
+        public Task fileContentsWithCache(TemplateScopeContext scope, string virtualPath, object options) =>
+            includeFileWithCache(scope, virtualPath, options);
+
+        public Task includeFileWithCache(TemplateScopeContext scope, string virtualPath) =>
+            includeFileWithCache(scope, virtualPath, null);
+
         public async Task includeFileWithCache(TemplateScopeContext scope, string virtualPath, object options)
         {
             var scopedParams = scope.AssertOptions(nameof(includeUrl), options);
             var expireIn = scopedParams.TryGetValue("expireInSecs", out var value)
-                ? TimeSpan.FromSeconds(value.ConvertTo<int>())
-                : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultFileCacheExpiry];
-            
+                               ? TimeSpan.FromSeconds(value.ConvertTo<int>())
+                               : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultFileCacheExpiry];
+
             var cacheKey = CreateCacheKey($"file:{scope.PageResult.VirtualPath}>{virtualPath}", scopedParams);
             if (Context.ExpiringCache.TryGetValue(cacheKey, out var cacheEntry))
             {
@@ -290,22 +315,27 @@ namespace ServiceStack.Templates
 
                 ms.Position = 0;
                 var bytes = ms.ToArray();
-                Context.ExpiringCache[cacheKey] = Tuple.Create(DateTime.UtcNow.Add(expireIn),(object)bytes);
+                Context.ExpiringCache[cacheKey] = Tuple.Create(DateTime.UtcNow.Add(expireIn), (object)bytes);
                 await scope.OutputStream.WriteAsync(bytes);
             }
         }
 
-        //alias
-        public Task urlContentsWithCache(TemplateScopeContext scope, string url) => includeUrlWithCache(scope, url, null);
-        public Task urlContentsWithCache(TemplateScopeContext scope, string url, object options) => includeUrlWithCache(scope, url, options);
-        
-        public Task includeUrlWithCache(TemplateScopeContext scope, string url) => includeUrlWithCache(scope, url, null);
+        // alias
+        public Task urlContentsWithCache(TemplateScopeContext scope, string url) =>
+            includeUrlWithCache(scope, url, null);
+
+        public Task urlContentsWithCache(TemplateScopeContext scope, string url, object options) =>
+            includeUrlWithCache(scope, url, options);
+
+        public Task includeUrlWithCache(TemplateScopeContext scope, string url) =>
+            includeUrlWithCache(scope, url, null);
+
         public async Task includeUrlWithCache(TemplateScopeContext scope, string url, object options)
         {
             var scopedParams = scope.AssertOptions(nameof(includeUrl), options);
             var expireIn = scopedParams.TryGetValue("expireInSecs", out var value)
-                ? TimeSpan.FromSeconds(value.ConvertTo<int>())
-                : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultUrlCacheExpiry];
+                               ? TimeSpan.FromSeconds(value.ConvertTo<int>())
+                               : (TimeSpan)scope.Context.Args[TemplateConstants.DefaultUrlCacheExpiry];
 
             var cacheKey = CreateCacheKey($"url:{url}", scopedParams);
             if (Context.ExpiringCache.TryGetValue(cacheKey, out var cacheEntry))
@@ -318,13 +348,15 @@ namespace ServiceStack.Templates
             }
 
             var dataType = scopedParams.TryGetValue("dataType", out value)
-                ? ConvertDataTypeToContentType((string)value)
-                : null;
+                               ? ConvertDataTypeToContentType((string)value)
+                               : null;
 
             if (scopedParams.TryGetValue("method", out value) && !((string)value).EqualsIgnoreCase("GET"))
-                throw new NotSupportedException($"Only GET requests can be used in {nameof(includeUrlWithCache)} filters in page '{scope.Page.VirtualPath}'");
+                throw new NotSupportedException(
+                    $"Only GET requests can be used in {nameof(includeUrlWithCache)} filters in page '{scope.Page.VirtualPath}'");
             if (scopedParams.TryGetValue("data", out value))
-                throw new NotSupportedException($"'data' is not supported in {nameof(includeUrlWithCache)} filters in page '{scope.Page.VirtualPath}'");
+                throw new NotSupportedException(
+                    $"'data' is not supported in {nameof(includeUrlWithCache)} filters in page '{scope.Page.VirtualPath}'");
 
             var ms = MemoryStreamFactory.GetStream();
             using (ms)
@@ -336,7 +368,8 @@ namespace ServiceStack.Templates
                 var expireAt = DateTime.UtcNow.Add(expireIn);
 
                 var bytes = ms.ToArray();
-                Context.ExpiringCache[cacheKey] = cacheEntry = Tuple.Create(DateTime.UtcNow.Add(expireIn),(object)bytes);
+                Context.ExpiringCache[cacheKey] =
+                    cacheEntry = Tuple.Create(DateTime.UtcNow.Add(expireIn), (object)bytes);
                 await scope.OutputStream.WriteAsync(bytes);
             }
         }
@@ -356,6 +389,7 @@ namespace ServiceStack.Templates
                 case "PathMappings":
                     return Context.PathMappings;
             }
+
             return null;
         }
 
@@ -365,15 +399,23 @@ namespace ServiceStack.Templates
             if (cacheNames is string strName)
             {
                 caches = strName.EqualsIgnoreCase("all")
-                    ? new List<string> {"Cache", "ExpiringCache", "BinderCache", "AssignExpressionCache", "PathMappings"}
-                    : new List<string> {strName};
+                             ? new List<string>
+                                   {
+                                       "Cache",
+                                       "ExpiringCache",
+                                       "BinderCache",
+                                       "AssignExpressionCache",
+                                       "PathMappings"
+                                   }
+                             : new List<string> { strName };
             }
             else if (cacheNames is IEnumerable<string> nameList)
             {
                 caches = new List<string>(nameList);
             }
-            else throw new NotSupportedException(
-                $"{nameof(this.cacheClear)} expects a cache name or list of cache names but received: {(cacheNames.GetType()?.Name ?? "null")}");
+            else
+                throw new NotSupportedException(
+                    $"{nameof(this.cacheClear)} expects a cache name or list of cache names but received: {(cacheNames.GetType()?.Name ?? "null")}");
 
             var entriesRemoved = 0;
             foreach (var cacheName in caches)

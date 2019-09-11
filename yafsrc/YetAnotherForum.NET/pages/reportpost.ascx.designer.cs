@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class ReportPost {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+        protected LocalizedLabel LocalizedLabel2;
         
+
         /// <summary>
         /// MessageList control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater MessageList;
+        protected Repeater MessageList;
         
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
+        protected LocalizedLabel LocalizedLabel3;
         
+
         /// <summary>
         /// EnterReportTextLabel control.
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel EnterReportTextLabel;
+        protected LocalizedLabel EnterReportTextLabel;
         
+
         /// <summary>
         /// EditorLine control.
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
+        protected PlaceHolder EditorLine;
         
+
         /// <summary>
         /// IncorrectReportLabel control.
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label IncorrectReportLabel;
+        protected Label IncorrectReportLabel;
         
+
         /// <summary>
         /// btnReport control.
         /// </summary>
@@ -82,8 +92,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton btnReport;
+        protected ThemeButton btnReport;
         
+
         /// <summary>
         /// btnCancel control.
         /// </summary>
@@ -91,6 +102,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton btnCancel;
+        protected ThemeButton btnCancel;
     }
 }

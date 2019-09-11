@@ -1,7 +1,7 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Linq.Expressions;
 
 using ServiceStack.Text;
@@ -196,7 +196,7 @@ namespace ServiceStack.OrmLite
 
         internal static long RowCount<T>(this IDbCommand dbCmd, SqlExpression<T> expression)
         {
-            //ORDER BY throws when used in subselects in SQL Server. Removing OrderBy() clause since it doesn't impact results
+            // ORDER BY throws when used in subselects in SQL Server. Removing OrderBy() clause since it doesn't impact results
             var countExpr = expression.Clone().OrderBy(); 
             return dbCmd.Scalar<long>(dbCmd.GetDialectProvider().ToRowCountStatement(countExpr.ToSelectStatement()), expression.Params);
         }

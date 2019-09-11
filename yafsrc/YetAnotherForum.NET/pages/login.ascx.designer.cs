@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI;
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class login {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// UpdateLoginPanel control.
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdateLoginPanel;
+        protected UpdatePanel UpdateLoginPanel;
         
+
         /// <summary>
         /// Login1 control.
         /// </summary>
@@ -37,6 +43,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Login Login1;
+        protected Login Login1;
     }
 }

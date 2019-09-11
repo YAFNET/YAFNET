@@ -78,7 +78,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            MembershipCreateStatus status;
             var user = this.Get<MembershipProvider>().CreateUser(
                 newUsername,
                 this.Password.Text.Trim(),
@@ -87,7 +86,7 @@ namespace YAF.Pages.Admin
                 this.Answer.Text.Trim(),
                 !this.Get<YafBoardSettings>().EmailVerification,
                 null,
-                out status);
+                out var status);
 
             if (status != MembershipCreateStatus.Success)
             {

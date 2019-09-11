@@ -46,10 +46,6 @@ namespace YAF.Web.Controls
     /// </summary>
     public class MessageAttached : BaseControl
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Properties
 
         /// <summary>

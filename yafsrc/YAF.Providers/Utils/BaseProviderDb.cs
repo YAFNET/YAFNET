@@ -17,7 +17,7 @@ namespace YAF.Providers.Utils
         /// <summary>
         ///   The _db access.
         /// </summary>
-        private readonly Lazy<IDbAccess> _dbAccess = null;
+        private readonly Lazy<IDbAccess> _dbAccess;
 
         protected BaseProviderDb(string connectionStringAppKeyName)
         {
@@ -27,8 +27,7 @@ namespace YAF.Providers.Utils
                 var old = access.Information.ConnectionString;
                 access.Information.ConnectionString = () =>
                 {
-                    string connStr;
-                    return ProviderConnectionStrings.TryGetValue(connectionStringAppKeyName, out connStr) ? connStr : old();
+                    return ProviderConnectionStrings.TryGetValue(connectionStringAppKeyName, out var connStr) ? connStr : old();
                 };
 
                 return access;

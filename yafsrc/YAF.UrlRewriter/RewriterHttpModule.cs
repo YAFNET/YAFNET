@@ -10,10 +10,9 @@ namespace YAF.UrlRewriter
     using System;
     using System.Web;
 
+    using YAF.Configuration;
     using YAF.UrlRewriter.Configuration;
     using YAF.UrlRewriter.Utilities;
-
-    using YAF.Configuration;
 
     /// <summary>
     /// Main HTTP Module for the URL Rewriter.

@@ -85,7 +85,6 @@ namespace YAF.Pages.moderate
         {
             this.List.ItemCommand += this.List_ItemCommand;
 
-            this.InitializeComponent();
             base.OnInit(e);
         }
 
@@ -119,14 +118,6 @@ namespace YAF.Pages.moderate
 
             // bind data to controls
             this.DataBind();
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
 
         /// <summary>

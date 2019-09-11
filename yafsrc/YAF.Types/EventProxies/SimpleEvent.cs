@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.EventProxies
 {
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
   /// <summary>
   /// A basic event that includes a message.

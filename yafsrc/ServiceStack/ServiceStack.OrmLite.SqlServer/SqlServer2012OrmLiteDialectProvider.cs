@@ -61,6 +61,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     gens.AddIfNotExists(fieldDef.Sequence);
                 }
             }
+
             return gens;
         }
 
@@ -82,7 +83,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 if (orderByExpression.IsEmpty())
                 {
-                    var orderBy = offset == null && rows == 1 //Avoid for Single requests
+                    var orderBy = offset == null && rows == 1 // Avoid for Single requests
                         ? "1"
                         : this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey);
 
@@ -206,6 +207,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                         sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                     }
+
                     sbTableOptions.Append(")");
                 }
             }
@@ -230,7 +232,6 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 // Append condition statement to determine if SqlGeometry or SqlGeography type is Equal
                 // using the type's STEquals method
-                //
                 // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.stequals.aspx
                 // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.stequals.aspx
                 sqlFilter
@@ -253,7 +254,6 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 // Append condition statement to determine if SqlHierarchyId, SqlGeometry, or SqlGeography type is NULL
                 // using the type's IsNull property
-                //
                 // SqlHierarchyId: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlhierarchyid.isnull.aspx
                 // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.isnull.aspx
                 // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.isnull.aspx

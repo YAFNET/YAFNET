@@ -24,7 +24,7 @@ namespace ServiceStack.MiniProfiler.Data
 
         private void Init(DbConnection connection, IDbProfiler profiler, bool autoDisposeConnection)
     	{
-    		if (connection == null) throw new ArgumentNullException("connection");
+    		if (connection == null) throw new ArgumentNullException(nameof(connection));
 
     	    AutoDisposeConnection = autoDisposeConnection;
     		this.InnerConnection = connection;
@@ -97,10 +97,10 @@ namespace ServiceStack.MiniProfiler.Data
                 this.InnerConnection.Close();
         }
 
-		//public override void EnlistTransaction(System.Transactions.Transaction transaction)
-		//{
-		//    _conn.EnlistTransaction(transaction);
-		//}
+		// public override void EnlistTransaction(System.Transactions.Transaction transaction)
+		// {
+		// _conn.EnlistTransaction(transaction);
+		// }
 #if !NETSTANDARD2_0
         public override DataTable GetSchema()
         {
@@ -116,6 +116,7 @@ namespace ServiceStack.MiniProfiler.Data
         {
             return this.InnerConnection.GetSchema(collectionName, restrictionValues);
         }
+
 #endif
 
         public override void Open()
@@ -142,6 +143,7 @@ namespace ServiceStack.MiniProfiler.Data
                 if (AutoDisposeConnection)
                     this.InnerConnection.Dispose();
             }
+
             this.InnerConnection = null;
             this.Profiler = null;
             base.Dispose(disposing);

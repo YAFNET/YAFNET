@@ -106,6 +106,7 @@ namespace ServiceStack.OrmLite
                                     Log.DebugFormat("Ignoring existing generator '{0}': {1}", seq, ex.Message);
                                     continue;
                                 }
+
                                 throw;
                             }
                         }
@@ -138,9 +139,11 @@ namespace ServiceStack.OrmLite
                                 Log.DebugFormat("Ignoring existing index '{0}': {1}", sqlIndex, exIndex.Message);
                                 continue;
                             }
+
                             throw;
                         }
                     }
+
                     return true;
                 }
             }
@@ -151,8 +154,10 @@ namespace ServiceStack.OrmLite
                     Log.DebugFormat("Ignoring existing table '{0}': {1}", modelDef.ModelName, ex.Message);
                     return false;
                 }
+
                 throw;
             }
+
             return false;
         }
 
@@ -194,6 +199,7 @@ namespace ServiceStack.OrmLite
                     {
                         dbCmd.ExecuteSql(dropTableFks);
                     }
+
                     dbCmd.ExecuteSql($"DROP TABLE {dialectProvider.GetQuotedTableName(modelDef)}");
 
                     if (modelDef.PostDropTableSql != null)
@@ -251,7 +257,7 @@ namespace ServiceStack.OrmLite
 
         private static bool IgnoreAlreadyExistsError(Exception ex)
         {
-            //ignore Sqlite table already exists error
+            // ignore Sqlite table already exists error
             const string sqliteAlreadyExistsError = "already exists";
             const string sqlServerAlreadyExistsError = "There is already an object named";
             return ex.Message.Contains(sqliteAlreadyExistsError)
@@ -324,6 +330,7 @@ namespace ServiceStack.OrmLite
                                 if (useValue != null)
                                     value = useValue;
                             }
+
                             fieldDef.SetValueFn(objWithProperties, value);
                         }
                         else
@@ -361,10 +368,11 @@ namespace ServiceStack.OrmLite
             }
             else
             {
-                //Calling GetValues() on System.Data.SQLite.Core ADO.NET Provider changes behavior of reader.GetGuid()
-                //So allow providers to by-pass reader.GetValues() optimization.
+                // Calling GetValues() on System.Data.SQLite.Core ADO.NET Provider changes behavior of reader.GetGuid()
+                // So allow providers to by-pass reader.GetValues() optimization.
                 values = null;
             }
+
             return values;
         }
 
@@ -486,7 +494,7 @@ namespace ServiceStack.OrmLite
             return DeleteAll(dbCmd, filters, o => o.AllFieldsMap<T>().NonDefaultsOnly());
         }
 
-        private static int DeleteAll<T>(IDbCommand dbCmd, IEnumerable<T> objs, Func<object,Dictionary<string,object>> fieldValuesFn=null)
+        private static int DeleteAll<T>(IDbCommand dbCmd, IEnumerable<T> objs, Func<object, Dictionary<string, object>> fieldValuesFn=null)
         {
             IDbTransaction dbTrans = null;
 
@@ -639,7 +647,7 @@ namespace ServiceStack.OrmLite
 
             dialectProvider.SetParameterValues<T>(dbCmd, obj);
 
-            commandFilter?.Invoke(dbCmd); //dbCmd.OnConflictInsert() needs to be applied before last insert id
+            commandFilter?.Invoke(dbCmd); // dbCmd.OnConflictInsert() needs to be applied before last insert id
 
             var modelDef = typeof(T).GetModelDefinition();
             if (dialectProvider.HasInsertReturnValues(modelDef))
@@ -658,6 +666,7 @@ namespace ServiceStack.OrmLite
                             return Convert.ToInt64(id);
                         }
                     }
+
                     return 0;
                 }
             }
@@ -913,7 +922,7 @@ namespace ServiceStack.OrmLite
 
                         dbCmd.CreateTypedApi(refType).Save(result);
 
-                        //Save Self Table.RefTableId PK
+                        // Save Self Table.RefTableId PK
                         if (refSelf != null)
                         {
                             var refPkValue = refModelDef.PrimaryKey.GetValue(result);
@@ -948,7 +957,7 @@ namespace ServiceStack.OrmLite
 
             foreach (var oRef in refs)
             {
-                //Save Self Table.RefTableId PK
+                // Save Self Table.RefTableId PK
                 if (refSelf != null)
                 {
                     var refPkValue = refModelDef.PrimaryKey.GetValue(oRef);

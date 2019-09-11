@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class ForumSubForumList {
         
+
         /// <summary>
         /// SubforumList control.
         /// </summary>
@@ -19,6 +20,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater SubforumList;
+        protected Repeater SubforumList;
     }
 }

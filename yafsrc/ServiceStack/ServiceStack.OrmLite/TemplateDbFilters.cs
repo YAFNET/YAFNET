@@ -82,6 +82,6 @@ namespace ServiceStack.OrmLite
         public string sqlLimit(int? limit) => padCondition(OrmLiteConfig.DialectProvider.SqlLimit(null, limit));
         public string sqlSkip(int? offset) => padCondition(OrmLiteConfig.DialectProvider.SqlLimit(offset, null));
         public string sqlTake(int? limit) => padCondition(OrmLiteConfig.DialectProvider.SqlLimit(null, limit));
-        private string padCondition(string text) => string.IsNullOrEmpty(text) ? "" : $" {text}";
+        private string padCondition(string text) => string.IsNullOrEmpty(text) ? string.Empty : $" {text}";
     }
 }

@@ -39,6 +39,7 @@ namespace ServiceStack.Logging
             {
                 msg += $", Exception: {exception.Message}";
             }
+
             System.Diagnostics.Debug.WriteLine(msg);
         }
 

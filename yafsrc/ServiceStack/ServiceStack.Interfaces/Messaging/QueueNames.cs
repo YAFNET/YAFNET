@@ -16,13 +16,13 @@ namespace ServiceStack.Messaging
             Dlq = QueueNames.ResolveQueueNameFn(typeof(T).Name, ".dlq");
         }
 
-        public static string Priority { get; private set; }
+        public static string Priority { get; }
 
-        public static string In { get; private set; }
+        public static string In { get; }
 
-        public static string Out { get; private set; }
+        public static string Out { get; }
 
-        public static string Dlq { get; private set; }
+        public static string Dlq { get; }
 
         public static string[] AllQueueNames =>
             new[] {
@@ -43,7 +43,7 @@ namespace ServiceStack.Messaging
         public static string ExchangeTopic = "mx.servicestack.topic";
 
         public static string MqPrefix = "mq:";
-        public static string QueuePrefix = "";
+        public static string QueuePrefix = string.Empty;
 
         public static string TempMqPrefix = $"{MqPrefix}tmp:";
         public static string TopicIn = $"{MqPrefix}topic:in";

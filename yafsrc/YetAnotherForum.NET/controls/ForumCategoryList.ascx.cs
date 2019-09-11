@@ -42,6 +42,8 @@ namespace YAF.Controls
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
+    using Forum = YAF.Types.Models.Forum;
+
     #endregion
 
     /// <summary>
@@ -96,7 +98,7 @@ namespace YAF.Controls
                 categoryId = resultId;
             }
 
-            var dt = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
+            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
                 boardID: this.PageContext.PageBoardID,
                 userID: this.PageContext.PageUserID,
                 categoryID: categoryId,
@@ -112,6 +114,7 @@ namespace YAF.Controls
             this.BindData();
         }
         
+
         /// <summary>
          /// The mark all_ click.
          /// </summary>
@@ -132,7 +135,7 @@ namespace YAF.Controls
                 categoryId = resultId;
             }
 
-            var dt = this.GetRepository<Types.Models.Forum>().ListReadAsDataTable(
+            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
                 boardID: this.PageContext.PageBoardID,
                 userID: this.PageContext.PageUserID,
                 categoryID: categoryId,

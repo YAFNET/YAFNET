@@ -27,7 +27,7 @@ namespace YAF.Types.EventProxies
 
   using System.Web.Caching;
 
-  using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Events;
 
   #endregion
 

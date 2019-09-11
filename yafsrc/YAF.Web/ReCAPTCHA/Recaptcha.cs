@@ -82,14 +82,6 @@ namespace YAF.Web.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets CustomThemeWidget.
-        /// </summary>
-        [Category("Appearence")]
-        [Description("When using custom theming, this is a div element which contains the widget. ")]
-        [DefaultValue(null)]
-        public string CustomThemeWidget { get; set; }
-
-        /// <summary>
         ///   Gets or sets ErrorMessage.
         /// </summary>
         [NotNull]

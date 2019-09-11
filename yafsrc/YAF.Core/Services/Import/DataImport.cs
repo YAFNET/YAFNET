@@ -66,9 +66,7 @@ namespace YAF.Core.Services.Import
             var dsBBCode = new DataSet();
             dsBBCode.ReadXml(inputStream);
 
-            if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null
-                                                     && dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null
-                                                     && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
+            if (dsBBCode.Tables["YafBBCode"]?.Columns["Name"] != null && dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
             {
                 var bbcodeList = repository.GetByBoardId(boardId);
 
@@ -254,9 +252,8 @@ namespace YAF.Core.Services.Import
                 while (!streamReader.EndOfStream)
                 {
                     var line = streamReader.ReadLine();
-                    IPAddress importAddress;
 
-                    if (line.IsNotSet() || !IPAddress.TryParse(line, out importAddress))
+                    if (line.IsNotSet() || !IPAddress.TryParse(line, out var importAddress))
                     {
                         continue;
                     }

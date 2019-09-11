@@ -37,6 +37,7 @@ namespace YAF.Core.Services.Auth
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -186,7 +187,7 @@ namespace YAF.Core.Services.Auth
 
                 if (!facebookUser.Gender.IsSet())
                 {
-                    return this.CreateFacebookUser(facebookUser, userGender, out message);
+                    return CreateFacebookUser(facebookUser, userGender, out message);
                 }
 
                 switch (facebookUser.Gender)
@@ -200,7 +201,7 @@ namespace YAF.Core.Services.Auth
                 }
 
                 // Create User if not exists?!
-                return this.CreateFacebookUser(facebookUser, userGender, out message);
+                return CreateFacebookUser(facebookUser, userGender, out message);
             }
 
             var yafUser = YafUserProfile.GetProfile(userName);
@@ -293,9 +294,8 @@ namespace YAF.Core.Services.Auth
 
                 if (facebookUser.Birthday.IsSet())
                 {
-                    DateTime userBirthdate;
                     var ci = CultureInfo.CreateSpecificCulture("en-US");
-                    DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out userBirthdate);
+                    DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out var userBirthdate);
 
                     if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
                     {
@@ -379,7 +379,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// Returns if the login was successfully or not
         /// </returns>
-        private bool CreateFacebookUser(FacebookUser facebookUser, int userGender, out string message)
+        private static bool CreateFacebookUser(FacebookUser facebookUser, int userGender, out string message)
         {
             if (YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
             {
@@ -388,13 +388,12 @@ namespace YAF.Core.Services.Auth
             }
 
             // Check user for bot
-            string result;
             var isPossibleSpamBot = false;
 
             var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out result))
+            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out var result))
             {
                 YafContext.Current.Get<ILogger>().Log(
                     null,
@@ -440,8 +439,6 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            MembershipCreateStatus status;
-
             var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
 
             var pass = Membership.GeneratePassword(32, 16);
@@ -455,7 +452,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out status);
+                out var status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, facebookUser.UserName);
@@ -475,9 +472,8 @@ namespace YAF.Core.Services.Auth
 
             if (facebookUser.Birthday.IsSet())
             {
-                DateTime userBirthdate;
                 var ci = CultureInfo.CreateSpecificCulture("en-US");
-                DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out userBirthdate);
+                DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out var userBirthdate);
 
                 if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
                 {

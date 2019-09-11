@@ -86,20 +86,6 @@ namespace YAF.Web.Controls
         #region Public Methods
 
         /// <summary>
-        /// The add client script item.
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript)
-        {
-            this.items.Add(new InternalPopMenuItem(description, null, clientScript, null));
-        }
-
-        /// <summary>
         /// The attach.
         /// </summary>
         /// <param name="control">

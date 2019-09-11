@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
+
 namespace ServiceStack.OrmLite.Dapper
 {
     public static partial class SqlMapper
@@ -157,6 +158,7 @@ namespace ServiceStack.OrmLite.Dapper
                     deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                     cache.Deserializer = deserializer;
                 }
+
                 IsConsumed = true;
                 var result = ReadDeferred<T>(gridIndex, deserializer.Func, type);
                 return buffered ? result.ToList() : result;
@@ -181,6 +183,7 @@ namespace ServiceStack.OrmLite.Dapper
                         deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                         cache.Deserializer = deserializer;
                     }
+
                     var val = deserializer.Func(reader);
                     if (val == null || val is T)
                     {
@@ -191,20 +194,23 @@ namespace ServiceStack.OrmLite.Dapper
                         var convertToType = Nullable.GetUnderlyingType(type) ?? type;
                         result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                     }
+
                     if ((row & Row.Single) != 0 && reader.Read()) ThrowMultipleRows(row);
                     while (reader.Read()) { /* ignore subsequent rows */ }
                 }
-                else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
+                else if ((row & Row.FirstOrDefault) == 0)
                 {
+                    // demanding a row, and don't have one
                     ThrowZeroRows(row);
                 }
+
                 NextResult();
                 return result;
             }
 
             private IEnumerable<TReturn> MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Delegate func, string splitOn)
             {
-                var identity = this.identity.ForGrid(typeof(TReturn), new Type[] {
+                var identity = this.identity.ForGrid(typeof(TReturn), new[] {
                     typeof(TFirst),
                     typeof(TSecond),
                     typeof(TThird),
@@ -382,8 +388,9 @@ namespace ServiceStack.OrmLite.Dapper
                         }
                     }
                 }
-                finally // finally so that First etc progresses things even when multiple rows
+                finally
                 {
+                    // finally so that First etc progresses things even when multiple rows
                     if (index == gridIndex)
                     {
                         NextResult();
@@ -391,7 +398,10 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
 
-            private int gridIndex, readCount;
+            private int gridIndex;
+
+            private int readCount;
+
             private readonly IParameterCallbacks callbacks;
 
             /// <summary>
@@ -434,6 +444,7 @@ namespace ServiceStack.OrmLite.Dapper
                     reader.Dispose();
                     reader = null;
                 }
+
                 if (Command != null)
                 {
                     Command.Dispose();

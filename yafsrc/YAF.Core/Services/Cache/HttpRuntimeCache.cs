@@ -33,6 +33,7 @@ namespace YAF.Core.Services.Cache
     using YAF.Types;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 

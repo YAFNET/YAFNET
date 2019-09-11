@@ -21,7 +21,7 @@ namespace YAF.UrlRewriter.Conditions
         /// <param name="pattern"></param>
         public UrlMatchCondition(string pattern)
         {
-            this.Pattern = pattern ?? throw new ArgumentNullException("pattern");
+            this.Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace YAF.UrlRewriter.Conditions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             var regex = this.GetRegex(context);

@@ -256,8 +256,8 @@ namespace ServiceStack.Text
 
         private const string IgnoreResponseStatus = "ResponseStatus";
 
-        private static GetMemberDelegate valueGetter = null;
-        private static WriteObjectDelegate writeElementFn = null;
+        private static GetMemberDelegate valueGetter;
+        private static WriteObjectDelegate writeElementFn;
 
         private static WriteObjectDelegate GetWriteFn()
         {
@@ -418,8 +418,8 @@ namespace ServiceStack.Text
             return ReadCacheFn;
         }
 
-        private static SetMemberDelegate valueSetter = null;
-        private static ParseStringDelegate readElementFn = null;
+        private static SetMemberDelegate valueSetter;
+        private static ParseStringDelegate readElementFn;
 
         private static ParseStringDelegate GetReadFn()
         {

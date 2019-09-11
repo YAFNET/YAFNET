@@ -317,7 +317,7 @@ namespace YAF.Core.Services
                 var data = new MemoryStream();
                 if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
                 {
-                    fileName = context.Server.MapPath($"{YafForumInfo.ForumClientFileRoot}/images/{"noCover.png"}");
+                    fileName = context.Server.MapPath($"{YafForumInfo.ForumClientFileRoot}/images/noCover.png");
                 }
                 else
                 {
@@ -391,8 +391,6 @@ namespace YAF.Core.Services
         {
             try
             {
-                var eTag = $@"""{context.Request.QueryString.GetFirstOrDefault("image")}""";
-
                 // ImageID
                 var dt = this.GetRepository<UserAlbumImage>()
                     .ListImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));

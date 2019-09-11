@@ -47,7 +47,7 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var hiddenContent = this.Parameters[key: "inner"];
+            var hiddenContent = this.Parameters["inner"];
 
             var messageId = this.MessageID;
 
@@ -57,12 +57,12 @@ namespace YAF.Modules.BBCode
             }
 
             var description = this.LocalizedString(
-                     tag: "HIDEMOD_REPLYTHANKS",
-                     defaultString: "Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content)");
+                     "HIDEMOD_REPLYTHANKS",
+                     "Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content)");
 
             var descriptionGuest = this.LocalizedString(
-                tag: "HIDDENMOD_GUEST",
-                defaultString: "This board requires you to be registered and logged-in before you can view hidden messages.");
+                "HIDDENMOD_GUEST",
+                "This board requires you to be registered and logged-in before you can view hidden messages.");
 
             var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
 
@@ -70,7 +70,7 @@ namespace YAF.Modules.BBCode
 
             if (YafContext.Current.IsAdmin)
             {
-                writer.Write(s: hiddenContent);
+                writer.Write(hiddenContent);
                 return;
             }
 
@@ -79,25 +79,25 @@ namespace YAF.Modules.BBCode
             // Handle Hide Thanks
             if (!this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                writer.Write(s: hiddenContent);
+                writer.Write(hiddenContent);
                 return;
             }
 
             if (YafContext.Current.IsGuest)
             {
-                writer.Write(s: shownContentGuest);
+                writer.Write(shownContentGuest);
                 return;
             }
 
             if (this.DisplayUserID == userId ||
-                this.GetRepository<Thanks>().ThankedMessage(messageId: messageId.ToType<int>(), userId: userId) ||
-                this.GetRepository<User>().RepliedTopic(messageId: messageId.ToType<int>(), userId: userId))
+                this.GetRepository<Thanks>().ThankedMessage(messageId.ToType<int>(), userId) ||
+                this.GetRepository<User>().RepliedTopic(messageId.ToType<int>(), userId))
             {
                 // Show hidden content if user is the poster or have thanked the poster.
                 shownContent = hiddenContent;
             }
 
-            writer.Write(s: shownContent);
+            writer.Write(shownContent);
         }
     }
 }

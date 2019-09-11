@@ -34,10 +34,6 @@ namespace YAF.Configuration.Pattern
     /// </summary>
     public class RegistryDictionaryOverride : RegistryDictionary
     {
-        #region Fields
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -215,8 +211,7 @@ namespace YAF.Configuration.Pattern
             // special handling for boolean...
             if (objectType == typeof(bool))
             {
-                int i;
-                return int.TryParse(value.ToString(), out i)
+                return int.TryParse(value.ToString(), out var i)
                            ? (T)Convert.ChangeType(Convert.ToBoolean(i), typeof(T))
                            : (T)Convert.ChangeType(Convert.ToBoolean(value), typeof(T));
             }

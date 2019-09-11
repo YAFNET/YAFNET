@@ -312,7 +312,7 @@ namespace YAF.Core.Services
                 var emailSubject =
                     string
                         .Format(this.Get<ILocalization>()
-                            .GetText("COMMON", "PM_NOTIFICATION_SUBJECT", languageFile), displayName,this.BoardSettings.Name, subject);
+                            .GetText("COMMON", "PM_NOTIFICATION_SUBJECT", languageFile), displayName, this.BoardSettings.Name, subject);
 
                 // send email
                 notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, true);

@@ -39,9 +39,9 @@ namespace YAF.UrlRewriter
             IHttpContext httpContext,
             IConfigurationManager configurationManager)
         {
-            this._engine = engine ?? throw new ArgumentNullException("engine");
-            this.ConfigurationManager = configurationManager ?? throw new ArgumentNullException("configurationManager");
-            this.HttpContext = httpContext ?? throw new ArgumentNullException("httpContext");
+            this._engine = engine ?? throw new ArgumentNullException(nameof(engine));
+            this.ConfigurationManager = configurationManager ?? throw new ArgumentNullException(nameof(configurationManager));
+            this.HttpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
             this.Location = rawUrl;
 
             // Initialise the Properties collection from all the server variables, headers and cookies.

@@ -143,7 +143,7 @@ namespace YAF.Core.Data.Filters
             }
 
             var dataTable = (DataTable)data;
-            this.StyleTransform.DecodeStyleByTable(dataTable, false);
+            this.StyleTransform.DecodeStyleByTable(dataTable);
         }
 
         #endregion

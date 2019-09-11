@@ -118,6 +118,7 @@ namespace ServiceStack
                 if (node.VirtualPath.StartsWith(skipPath.TrimStart('/'), StringComparison.OrdinalIgnoreCase))
                     return true;
             }
+
             return false;
         }
     }

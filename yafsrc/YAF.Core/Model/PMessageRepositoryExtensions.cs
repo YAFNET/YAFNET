@@ -34,7 +34,7 @@ namespace YAF.Core.Model
 
             if (message.ID == orginalPMMessage.ID)
             {
-                messages.Rows.RemoveAt(0);;
+                messages.Rows.RemoveAt(0);
             }
 
             if (originalMessage["IsReply"].ToType<bool>())
@@ -89,7 +89,6 @@ namespace YAF.Core.Model
             [NotNull] string body,
             [NotNull] int flags,
             [CanBeNull] int? replyTo)
-
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 

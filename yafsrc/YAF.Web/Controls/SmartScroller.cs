@@ -58,16 +58,6 @@ namespace YAF.Web.Controls
     #region Public Methods
 
     /// <summary>
-    /// The register startup reset.
-    /// </summary>
-    public void RegisterStartupReset()
-    {
-      this.Reset();
-      const string Script = @"Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);";
-      YafContext.Current.PageElements.RegisterJsBlockStartup("SmartScrollerResetJs", Script);
-    }
-
-    /// <summary>
     /// The reset.
     /// </summary>
     public void Reset()

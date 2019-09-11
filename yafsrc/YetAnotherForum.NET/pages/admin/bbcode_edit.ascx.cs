@@ -75,9 +75,7 @@ namespace YAF.Pages.Admin
                     return null;
                 }
 
-                int id;
-
-                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out id))
+                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out var id))
                 {
                     return null;
                 }
@@ -98,15 +96,13 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            short sortOrder;
-
             if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE_EDIT", "MSG_POSITIVE_VALUE"));
                 return;
             }
 
-            if (!short.TryParse(this.txtExecOrder.Text.Trim(), out sortOrder))
+            if (!short.TryParse(this.txtExecOrder.Text.Trim(), out var sortOrder))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE_EDIT", "MSG_NUMBER"));
                 return;

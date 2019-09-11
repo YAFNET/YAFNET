@@ -64,6 +64,7 @@ namespace ServiceStack.Templates
         
         public HashSet<string> FileFilterNames { get; } = new HashSet<string> { "includeFile", "fileContents" };
         
+
         /// <summary>
         /// Available transformers that can transform context filter stream outputs
         /// </summary>
@@ -75,6 +76,7 @@ namespace ServiceStack.Templates
         ///How long in between checking for modified pages
         public TimeSpan? CheckForModifiedPagesAfter { get; set; }
         
+
         /// <summary>
         /// Render render filter exceptions in-line where filter is located
         /// </summary>
@@ -85,6 +87,7 @@ namespace ServiceStack.Templates
         /// </summary>
         public string AssignExceptionsTo { get; set; }
         
+
         /// <summary>
         /// Whether to 
         /// </summary>
@@ -118,10 +121,11 @@ namespace ServiceStack.Templates
                     codePage = null;
                     return;                        
                 }
+
                 RemovePathMapping(pathMapKey, mappedPath);
             }
 
-            var tryExactMatch = virtualPath.IndexOf('/') >= 0; //if nested path specified, look for an exact match first
+            var tryExactMatch = virtualPath.IndexOf('/') >= 0; // if nested path specified, look for an exact match first
             if (tryExactMatch)
             {
                 var cp = GetCodePage(virtualPath);
@@ -141,10 +145,10 @@ namespace ServiceStack.Templates
                 }
             }
             
-            //otherwise find closest match from page.VirtualPath
+            // otherwise find closest match from page.VirtualPath
             var parentPath = fromVirtualPath.IndexOf('/') >= 0
                 ? fromVirtualPath.LastLeftPart('/')
-                : "";
+                : string.Empty;
             do
             {
                 var seekPath = parentPath.CombineWith(virtualPath);
@@ -165,14 +169,15 @@ namespace ServiceStack.Templates
                     return;
                 }
 
-                if (parentPath == "")
+                if (parentPath == string.Empty)
                     break;
                     
                 parentPath = parentPath.IndexOf('/') >= 0
                     ? parentPath.LastLeftPart('/')
-                    : "";
+                    : string.Empty;
 
-            } while (true);
+            }
+ while (true);
             
             throw new FileNotFoundException($"Page at path was not found: '{virtualPath}'");
         }
@@ -182,7 +187,7 @@ namespace ServiceStack.Templates
 
         public TemplateCodePage GetCodePage(string virtualPath)
         {
-            var santizePath = virtualPath.Replace('\\','/').TrimPrefixes("/").LastLeftPart('.');
+            var santizePath = virtualPath.Replace('\\', '/').TrimPrefixes("/").LastLeftPart('.');
 
             var isIndexPage = santizePath == string.Empty || santizePath.EndsWith("/");
             var lookupPath = !isIndexPage
@@ -274,6 +279,7 @@ namespace ServiceStack.Templates
             {
                 plugin.BeforePluginsLoaded(this);
             }
+
             foreach (var plugin in Plugins)
             {
                 plugin.Register(this);
@@ -392,14 +398,14 @@ namespace ServiceStack.Templates
         public static string EvaluateTemplate(this TemplateContext context, string template, Dictionary<string, object> args=null)
         {
             var pageResult = new PageResult(context.OneTimePage(template));
-            args.Each((x,y) => pageResult.Args[x] = y);
+            args.Each((x, y) => pageResult.Args[x] = y);
             return pageResult.Result;
         }
         
         public static Task<string> EvaluateTemplateAsync(this TemplateContext context, string template, Dictionary<string, object> args=null)
         {
             var pageResult = new PageResult(context.OneTimePage(template));
-            args.Each((x,y) => pageResult.Args[x] = y);
+            args.Each((x, y) => pageResult.Args[x] = y);
             return pageResult.RenderToStringAsync();
         }
     }

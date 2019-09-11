@@ -21,14 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services
+namespace YAF.Types
 {
-  using System;
-  using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 
-  using YAF.Types;
-
-  /// <summary>
+    /// <summary>
   /// The message cleaned class (internal)
   /// </summary>
   [Serializable]

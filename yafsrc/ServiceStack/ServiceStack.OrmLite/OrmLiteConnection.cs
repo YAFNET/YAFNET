@@ -82,7 +82,8 @@ namespace ServiceStack.OrmLite
             if (DbConnection.State == ConnectionState.Closed)
             {
                 DbConnection.Open();
-                //so the internal connection is wrapped for example by miniprofiler
+
+                // so the internal connection is wrapped for example by miniprofiler
                 if (Factory.ConnectionFilter != null)
                     dbConnection = Factory.ConnectionFilter(dbConnection);
 
@@ -98,7 +99,8 @@ namespace ServiceStack.OrmLite
             if (DbConnection.State == ConnectionState.Closed)
             {
                 await DialectProvider.OpenAsync(DbConnection, token);
-                //so the internal connection is wrapped for example by miniprofiler
+
+                // so the internal connection is wrapped for example by miniprofiler
                 if (Factory.ConnectionFilter != null)
                     dbConnection = Factory.ConnectionFilter(dbConnection);
 

@@ -6,21 +6,32 @@ namespace ServiceStack.Auth
     public interface IUserAuth : IUserAuthDetailsExtended, IMeta
     {
         int Id { get; set; }
+
         string PrimaryEmail { get; set; }
+
         string Salt { get; set; }
+
         string PasswordHash { get; set; }
+
         string DigestHa1Hash { get; set; }
+
         List<string> Roles { get; set; }
+
         List<string> Permissions { get; set; }
-        //Custom reference data
+
+        // Custom reference data
         int? RefId { get; set; }
+
         string RefIdStr { get; set; }
 
         int InvalidLoginAttempts { get; set; }
+
         DateTime? LastLoginAttempt { get; set; }
+
         DateTime? LockedDate { get; set; }
 
         DateTime CreatedDate { get; set; }
+
         DateTime ModifiedDate { get; set; }
     }
 

@@ -400,16 +400,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///     The get latest topics.
-        /// </summary>
-        /// <param name="numberOfPosts"> The number of posts. </param>
-        /// <returns> Returns List with Latest Topics. </returns>
-        public DataTable GetLatestTopics(int numberOfPosts)
-        {
-            return this.GetLatestTopics(numberOfPosts, YafContext.Current.PageUserID);
-        }
-
-        /// <summary>
         ///     The get latest topics by User.
         /// </summary>
         /// <param name="numberOfPosts"> The number of posts. </param>

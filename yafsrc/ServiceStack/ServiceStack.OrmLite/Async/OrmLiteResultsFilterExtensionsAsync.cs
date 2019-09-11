@@ -1,5 +1,6 @@
 ﻿#if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
+
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -13,7 +14,8 @@ namespace ServiceStack.OrmLite
 {
     public static class OrmLiteResultsFilterExtensionsAsync
     {
-        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token = default(CancellationToken))
+        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token
+ = default(CancellationToken))
         {
             if (anonType != null)
                 dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql:ref sql);
@@ -26,7 +28,8 @@ namespace ServiceStack.OrmLite
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
 
-        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict, CancellationToken token = default(CancellationToken))
+        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict, CancellationToken token
+ = default(CancellationToken))
         {
             if (dict != null)
                 dbCmd.SetParameters(dict, (bool)false, sql:ref sql);
@@ -39,7 +42,8 @@ namespace ServiceStack.OrmLite
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
 
-        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, CancellationToken token = default(CancellationToken))
+        public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, CancellationToken token =
+ default(CancellationToken))
         {
             if (OrmLiteConfig.ResultsFilter != null)
                 return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();

@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types
+namespace YAF.Types.Interfaces.Events
 {
   #region Using
 
@@ -33,6 +33,7 @@ namespace YAF.Types
   /// The event converter args.
   /// </summary>
   /// <typeparam name="T">
+  /// The type parameter
   /// </typeparam>
   public class EventConverterArgs<T> : EventArgs
   {

@@ -56,7 +56,7 @@ namespace ServiceStack.IO
                 .FirstOrDefault(dir => dir != null);
         }
 
-        public override IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = Int32.MaxValue)
+        public override IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = int.MaxValue)
         {
             return ChildProviders.SelectMany(p => p.GetAllMatchingFiles(globPattern, maxDepth))
                 .Distinct();

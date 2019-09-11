@@ -43,6 +43,7 @@ namespace ServiceStack
             {
                 list.Add(actionFn());
             }
+
             return list;
         }
 
@@ -53,6 +54,7 @@ namespace ServiceStack
             {
                 list.Add(actionFn(i));
             }
+
             return list;
         }
 
@@ -67,6 +69,7 @@ namespace ServiceStack
                 asyncResults.Add(actionFn.BeginInvoke(i, null, null));
 #endif
             }
+
             return asyncResults;
         }
 
@@ -81,6 +84,7 @@ namespace ServiceStack
                 asyncResults.Add(actionFn.BeginInvoke(null, null));
 #endif
             }
+
             return asyncResults;
         }
     }

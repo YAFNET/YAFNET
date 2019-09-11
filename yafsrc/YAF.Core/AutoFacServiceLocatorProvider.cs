@@ -37,8 +37,8 @@ namespace YAF.Core
     using YAF.Types;
     using YAF.Types.Interfaces;
 
-    using NamedParameter = YAF.Types.NamedParameter;
-    using TypedParameter = YAF.Types.TypedParameter;
+    using NamedParameter = YAF.Types.Objects.NamedParameter;
+    using TypedParameter = YAF.Types.Objects.TypedParameter;
 
     #endregion
 
@@ -225,9 +225,7 @@ namespace YAF.Core
         [CanBeNull]
         public object GetService([NotNull] Type serviceType)
         {
-            object instance;
-
-            return this.TryGet(serviceType, out instance) ? instance : null;
+            return this.TryGet(serviceType, out var instance) ? instance : null;
         }
 
         /// <summary>
@@ -249,9 +247,7 @@ namespace YAF.Core
 
             var keyPair = new KeyValuePair<Type, Type>(type, attributeType);
 
-            IList<Tuple<Type, Type, Action<object, object>>> properties;
-
-            if (!InjectionCache.TryGetValue(keyPair, out properties))
+            if (!InjectionCache.TryGetValue(keyPair, out var properties))
             {
                 // find them...
                 properties =

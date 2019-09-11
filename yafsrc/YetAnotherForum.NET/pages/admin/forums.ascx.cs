@@ -152,7 +152,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (var ds = this.GetRepository<Types.Models.Forum>().ForumAdminAsDataSet(this.PageContext.PageBoardID))
+            using (var ds = this.GetRepository<Forum>().ForumAdminAsDataSet(this.PageContext.PageBoardID))
             {
                 this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
             }

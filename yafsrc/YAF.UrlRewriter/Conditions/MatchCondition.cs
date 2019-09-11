@@ -23,7 +23,7 @@ namespace YAF.UrlRewriter.Conditions
         {
             if (pattern == null)
             {
-                throw new ArgumentNullException("pattern");
+                throw new ArgumentNullException(nameof(pattern));
             }
 
             this.Pattern = new Regex(pattern, RegexOptions.IgnoreCase);

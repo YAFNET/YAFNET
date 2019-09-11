@@ -944,7 +944,7 @@ namespace ServiceStack.Text
         }
 
         internal static HashSet<Type> __uniqueTypes = new HashSet<Type>();
-        internal static int __uniqueTypesCount = 0;
+        internal static int __uniqueTypesCount;
 
         internal static void AddUniqueType(Type type)
         {
@@ -959,7 +959,6 @@ namespace ServiceStack.Text
                 __uniqueTypesCount = newTypes.Count;
 
             }
-
  while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref __uniqueTypes, newTypes, snapshot), snapshot));
         }
@@ -976,12 +975,12 @@ namespace ServiceStack.Text
         /// <summary>
         /// Always emit type info for this type.  Takes precedence over ExcludeTypeInfo
         /// </summary>
-        public static bool? IncludeTypeInfo = null;
+        public static bool? IncludeTypeInfo;
 
         /// <summary>
         /// Never emit type info for this type
         /// </summary>
-        public static bool? ExcludeTypeInfo = null;
+        public static bool? ExcludeTypeInfo;
 
         /// <summary>
         /// <see langword="true"/> if the <see cref="ITypeSerializer"/> is configured
@@ -989,9 +988,9 @@ namespace ServiceStack.Text
         /// to support user-friendly serialized formats, ie emitting camelCasing for JSON
         /// and parsing member names and enum values in a case-insensitive manner.
         /// </summary>
-        public static bool? EmitCamelCaseNames = null;
+        public static bool? EmitCamelCaseNames;
 
-        public static bool? EmitLowercaseUnderscoreNames = null;
+        public static bool? EmitLowercaseUnderscoreNames;
 
         public static bool IncludeDefaultValue
         {

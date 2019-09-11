@@ -53,6 +53,9 @@ namespace YAF.Data.MsSql
         /// <param name="dbProviderFactory">
         /// The db provider factory. 
         /// </param>
+        /// <param name="profiler">
+        /// The profiler.
+        /// </param>
         public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler)
             : base(dbProviderFactory, profiler, new MsSqlDbInformation())
         {
@@ -81,7 +84,7 @@ namespace YAF.Data.MsSql
             {
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText =
-                    $"EXEC {cmd.CommandText} {Enumerable.Range(0, paramList.Count()).Select(x => $"@{x}").ToDelimitedString(",")}";
+                    $"EXEC {cmd.CommandText} {Enumerable.Range(0, paramList.Count).Select(x => $"@{x}").ToDelimitedString(",")}";
 
                 // add params without "keys" as they need to be index (0, 1, 2, 3)...
                 base.MapParameters(cmd, paramList.Select(x => new KeyValuePair<string, object>(null, x.Value)));

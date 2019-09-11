@@ -21,11 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types
+namespace YAF.Types.Objects
 {
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
-  /// <summary>
+    /// <summary>
   /// The named parameter.
   /// </summary>
   public class NamedParameter : IServiceLocationParameter

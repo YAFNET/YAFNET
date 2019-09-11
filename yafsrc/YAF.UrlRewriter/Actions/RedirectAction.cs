@@ -29,7 +29,7 @@ namespace YAF.UrlRewriter.Actions
         {
             if (location == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException(nameof(location));
             }
 
             this._permanent = permanent;
@@ -43,7 +43,7 @@ namespace YAF.UrlRewriter.Actions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             base.Execute(context);

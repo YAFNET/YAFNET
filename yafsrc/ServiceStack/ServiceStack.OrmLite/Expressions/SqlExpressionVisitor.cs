@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace ServiceStack.OrmLite
 {
-    //http://blogs.msdn.com/b/mattwar/archive/2007/07/31/linq-building-an-iqueryable-provider-part-ii.aspx
+    // http://blogs.msdn.com/b/mattwar/archive/2007/07/31/linq-building-an-iqueryable-provider-part-ii.aspx
     public abstract class SqlExpressionVisitor
     {
         protected virtual Expression Visit(Expression exp)
@@ -99,6 +99,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.ElementInit(initializer.AddMethod, arguments);
             }
+
             return initializer;
         }
 
@@ -109,6 +110,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.MakeUnary(u.NodeType, operand, u.Type, u.Method);
             }
+
             return u;
         }
 
@@ -124,6 +126,7 @@ namespace ServiceStack.OrmLite
                 else
                     return Expression.MakeBinary(b.NodeType, left, right, b.IsLiftedToNull, b.Method);
             }
+
             return b;
         }
 
@@ -134,6 +137,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.TypeIs(expr, b.TypeOperand);
             }
+
             return b;
         }
 
@@ -151,6 +155,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.Condition(test, ifTrue, ifFalse);
             }
+
             return c;
         }
 
@@ -166,6 +171,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.MakeMemberAccess(exp, m.Member);
             }
+
             return m;
         }
 
@@ -177,6 +183,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.Call(obj, m.Method, args);
             }
+
             return m;
         }
 
@@ -197,13 +204,16 @@ namespace ServiceStack.OrmLite
                     {
                         list.Add(original[j]);
                     }
+
                     list.Add(p);
                 }
             }
+
             if (list != null)
             {
                 return list.AsReadOnly();
             }
+
             return original;
         }
 
@@ -214,6 +224,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.Bind(assignment.Member, e);
             }
+
             return assignment;
         }
 
@@ -224,6 +235,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.MemberBind(binding.Member, bindings);
             }
+
             return binding;
         }
 
@@ -234,6 +246,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.ListBind(binding.Member, initializers);
             }
+
             return binding;
         }
 
@@ -254,9 +267,11 @@ namespace ServiceStack.OrmLite
                     {
                         list.Add(original[j]);
                     }
+
                     list.Add(b);
                 }
             }
+
             if (list != null)
                 return list;
             return original;
@@ -279,9 +294,11 @@ namespace ServiceStack.OrmLite
                     {
                         list.Add(original[j]);
                     }
+
                     list.Add(init);
                 }
             }
+
             if (list != null)
                 return list;
             return original;
@@ -294,6 +311,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.Lambda(lambda.Type, body, lambda.Parameters);
             }
+
             return lambda;
         }
 
@@ -307,6 +325,7 @@ namespace ServiceStack.OrmLite
                 else
                     return Expression.New(nex.Constructor, args);
             }
+
             return nex;
         }
 
@@ -318,6 +337,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.MemberInit(n, bindings);
             }
+
             return init;
         }
 
@@ -329,6 +349,7 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.ListInit(n, initializers);
             }
+
             return init;
         }
 
@@ -346,6 +367,7 @@ namespace ServiceStack.OrmLite
                     return Expression.NewArrayBounds(na.Type.GetElementType(), exprs);
                 }
             }
+
             return na;
         }
 
@@ -357,9 +379,8 @@ namespace ServiceStack.OrmLite
             {
                 return Expression.Invoke(expr, args);
             }
+
             return iv;
         }
     }
-
-
 }

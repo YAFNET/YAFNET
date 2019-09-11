@@ -25,7 +25,7 @@
 		}
 	}
 
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+	[AttributeUsage(AttributeTargets.Class)]
     public class SqlJsonAttribute : Attribute
     {
     }

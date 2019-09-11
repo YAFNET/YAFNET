@@ -34,7 +34,7 @@ namespace YAF.UrlRewriter.Configuration
         {
             if (section == null)
             {
-                throw new ArgumentNullException("section");
+                throw new ArgumentNullException(nameof(section));
             }
 
             foreach (XmlNode node in section.ChildNodes)
@@ -67,6 +67,7 @@ namespace YAF.UrlRewriter.Configuration
 
                             break;
                         }
+
                     case Constants.ElementMapping:
                         ReadMapping(node, config);
                         break;
@@ -171,8 +172,7 @@ namespace YAF.UrlRewriter.Configuration
                 handler = new DefaultErrorHandler(urlNode.Value);
             }
 
-            int statusCode;
-            if (!int.TryParse(code, out statusCode))
+            if (!int.TryParse(code, out var statusCode))
             {
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.InvalidHttpStatusCode, code), node);
             }

@@ -170,6 +170,7 @@ namespace ServiceStack.OrmLite.Dapper
                     deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                     cache.Deserializer = deserializer;
                 }
+
                 IsConsumed = true;
                 if (buffered && reader is DbDataReader)
                 {
@@ -210,14 +211,17 @@ namespace ServiceStack.OrmLite.Dapper
                         deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                         cache.Deserializer = deserializer;
                     }
+
                     result = (T)deserializer.Func(reader);
                     if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
                     while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore subsequent rows */ }
                 }
-                else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
+                else if ((row & Row.FirstOrDefault) == 0)
                 {
+                    // demanding a row, and don't have one
                     ThrowZeroRows(row);
                 }
+
                 await NextResultAsync().ConfigureAwait(false);
                 return result;
             }
@@ -232,10 +236,12 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         buffer.Add((T)deserializer(reader));
                     }
+
                     return buffer;
                 }
-                finally // finally so that First etc progresses things even when multiple rows
+                finally
                 {
+                    // finally so that First etc progresses things even when multiple rows
                     if (index == gridIndex)
                     {
                         await NextResultAsync().ConfigureAwait(false);

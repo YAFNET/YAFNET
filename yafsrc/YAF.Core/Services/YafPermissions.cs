@@ -157,8 +157,6 @@ namespace YAF.Core.Services
                 $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
             var platform = HttpContext.Current.Request.Browser.Platform;
             var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
-            bool isSearchEngine;
-            bool dontTrack;
             var userAgent = HttpContext.Current.Request.UserAgent;
 
             // try and get more verbose platform name by ref and other parameters             
@@ -167,8 +165,8 @@ namespace YAF.Core.Services
                 HttpContext.Current.Request.Browser.Crawler,
                 ref platform,
                 ref browser,
-                out isSearchEngine,
-                out dontTrack);
+                out var isSearchEngine,
+                out var dontTrack);
 
             YafContext.Current.Get<StartupInitializeDb>().Run();
 

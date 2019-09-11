@@ -49,7 +49,6 @@ namespace YAF.Core.BBCode
     public class YafBBCode : IBBCode, IHaveServiceLocator
     {
         /* Ederon : 6/16/2007 - conventions */
-
         #region Constants and Fields
 
         /// <summary>
@@ -474,7 +473,9 @@ namespace YAF.Core.BBCode
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
-                            }) { RuleRank = 10 });
+                            }) {
+                                  RuleRank = 10 
+                               });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -486,7 +487,9 @@ namespace YAF.Core.BBCode
                             {
                                 string.Empty, string.Empty // "http://"
                             },
-                        50) { RuleRank = 11 });
+                        50) {
+                               RuleRank = 11 
+                            });
 
                  // urls
                  ruleEngine.AddRule(
@@ -496,7 +499,9 @@ namespace YAF.Core.BBCode
                              .Replace("{0}", target).Replace("{1}", nofollow),
                          new[] { "before" },
                          new[] { string.Empty },
-                         50) { RuleRank = 12 });
+                         50) {
+                                RuleRank = 12 
+                             });
 
                 ruleEngine.AddRule(
                      new VariableRegexReplaceRule(
@@ -505,7 +510,9 @@ namespace YAF.Core.BBCode
                              .Replace("{0}", target).Replace("{1}", nofollow),
                          new[] { "before" },
                          new[] { string.Empty },
-                         50) { RuleRank = 13 });
+                         50) {
+                                RuleRank = 13 
+                             });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -603,7 +610,9 @@ namespace YAF.Core.BBCode
                         new[]
                             {
                                 "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
-                            }) { RuleRank = 70 });
+                            }) {
+                                  RuleRank = 70 
+                               });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -616,7 +625,9 @@ namespace YAF.Core.BBCode
                         new[]
                             {
                                 "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
-                            }) { RuleRank = 71 });
+                            }) {
+                                  RuleRank = 71 
+                               });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -629,7 +640,9 @@ namespace YAF.Core.BBCode
                         new[]
                             {
                                 "http://", string.Empty, this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
-                            }) { RuleRank = 72 });
+                            }) {
+                                  RuleRank = 72 
+                               });
 
                 // basic hr and br rules
                 var hrRule = new SingleRegexReplaceRule(
@@ -643,7 +656,9 @@ namespace YAF.Core.BBCode
                 var brRule = new SingleRegexReplaceRule(
                                  _RgxBr,
                                  "<br />",
-                                 RegexOptions.IgnoreCase | RegexOptions.Multiline) { RuleRank = hrRule.RuleRank + 1 };
+                                 RegexOptions.IgnoreCase | RegexOptions.Multiline) {
+                                                                                      RuleRank = hrRule.RuleRank + 1 
+                                                                                   };
 
                 // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
                 ruleEngine.AddRule(hrRule);
@@ -905,7 +920,9 @@ namespace YAF.Core.BBCode
                     @"<a.*?href=""(?<inner>(.*?))"".*?>(?<description>(.*?))</a>",
                     "[url=${inner}]${description}[/url]",
                     Options,
-                    new[] { "description" }) { RuleRank = 2 });
+                    new[] { "description" }) {
+                                                RuleRank = 2 
+                                             });
 
             // e-mails
             ruleEngine.AddRule(
@@ -913,7 +930,9 @@ namespace YAF.Core.BBCode
                     @"<a.*?href=""mailto:(?<email>(.*?))"".*?>(?<inner>(.*?))</a>",
                     "[email=${email}]${inner}[/email]",
                     Options,
-                    new[] { "email" }) { RuleRank = 1 });
+                    new[] { "email" }) {
+                                          RuleRank = 1 
+                                       });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -934,13 +953,17 @@ namespace YAF.Core.BBCode
                     @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
                     "[code=${language}]${inner}[/code]",
                     Options,
-                    new[] { "language" }) { RuleRank = 97 });
+                    new[] { "language" }) {
+                                             RuleRank = 97 
+                                          });
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
                     "[code]${inner}[/code]",
-                    Options) { RuleRank = 98 });
+                    Options) {
+                                RuleRank = 98 
+                             });
 
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
@@ -1146,7 +1169,9 @@ namespace YAF.Core.BBCode
                                            codeRow.SearchRegex,
                                            codeRow.ReplaceRegex,
                                            Options,
-                                           variables) { RuleRank = 50 };
+                                           variables) {
+                                                         RuleRank = 50 
+                                                      };
 
                             rulesEngine.AddRule(rule);
                         }

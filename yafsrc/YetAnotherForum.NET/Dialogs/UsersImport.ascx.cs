@@ -214,8 +214,6 @@ namespace YAF.Dialogs
                 }
             }
 
-            MembershipCreateStatus status;
-
             var pass = Membership.GeneratePassword(length: 32, numberOfNonAlphanumericCharacters: 16);
             var securityAnswer = Membership.GeneratePassword(length: 64, numberOfNonAlphanumericCharacters: 30);
             var securityQuestion = "Answer is a generated Pass";
@@ -239,7 +237,7 @@ namespace YAF.Dialogs
                 passwordAnswer: this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
                 isApproved: true,
                 providerUserKey: null,
-                status: out status);
+                status: out var status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(pageBoardID: YafContext.Current.PageBoardID, userName: (string)row[columnName: "Name"]);
@@ -263,18 +261,14 @@ namespace YAF.Dialogs
 
             if (row.Table.Columns.Contains(name: "Gender") && ((string)row[columnName: "Gender"]).IsSet())
             {
-                int gender;
-
-                int.TryParse(s: (string)row[columnName: "Gender"], result: out gender);
+                int.TryParse(s: (string)row[columnName: "Gender"], result: out var gender);
 
                 userProfile.Gender = gender;
             }
 
             if (row.Table.Columns.Contains(name: "Birthday") && ((string)row[columnName: "Birthday"]).IsSet())
             {
-                DateTime userBirthdate;
-
-                DateTime.TryParse(s: (string)row[columnName: "Birthday"], result: out userBirthdate);
+                DateTime.TryParse(s: (string)row[columnName: "Birthday"], result: out var userBirthdate);
 
                 if (userBirthdate > DateTimeHelper.SqlDbMinTime())
                 {

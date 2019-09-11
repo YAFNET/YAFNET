@@ -189,9 +189,6 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string OAuthWebRequest(AuthUtilities.Method method, string url, string postData)
         {
-            string outUrl;
-            string querystring;
-
             // Setup postData for signing.
             // Add the postData to the querystring.
             if (method == AuthUtilities.Method.POST)
@@ -249,8 +246,8 @@ namespace YAF.Core.Services.Auth
                 timeStamp,
                 nonce,
                 this.PIN,
-                out outUrl,
-                out querystring);
+                out var outUrl,
+                out var querystring);
 
             querystring += $"&oauth_signature={HttpUtility.UrlEncode(sig)}";
 

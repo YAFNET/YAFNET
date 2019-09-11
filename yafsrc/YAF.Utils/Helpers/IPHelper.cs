@@ -282,7 +282,7 @@ namespace YAF.Utils.Helpers
             {
                 if (ip.Length != 8)
                 {
-                    throw new ArgumentOutOfRangeException("ip", "Invalid ip address.");
+                    throw new ArgumentOutOfRangeException(nameof(ip), "Invalid ip address.");
                 }
             }
 
@@ -291,8 +291,7 @@ namespace YAF.Utils.Helpers
             foreach (var section in ip)
             {
                 num <<= 8;
-                ulong result;
-                if (ulong.TryParse(section, out result))
+                if (ulong.TryParse(section, out var result))
                 {
                     num |= result;
                 }
@@ -349,7 +348,7 @@ namespace YAF.Utils.Helpers
         /// The <see cref="bool" />.
         /// </returns>
         /// <see cref="http://stackoverflow.com/questions/8230728/is-there-a-function-that-can-take-an-ipaddress-as-string-and-tell-me-if-its-a-no" />
-        private static bool IsIpAddressInRange(byte[] ipAddressBytes, string reservedIpAddress)
+        private static bool IsIpAddressInRange(IReadOnlyList<byte> ipAddressBytes, string reservedIpAddress)
         {
             if (reservedIpAddress.IsNotSet())
             {
@@ -369,16 +368,14 @@ namespace YAF.Utils.Helpers
             }
 
             var ipAddressRange = ipAddressSplit[0];
-            IPAddress ipAddress;
 
-            if (!IPAddress.TryParse(ipAddressRange, out ipAddress))
+            if (!IPAddress.TryParse(ipAddressRange, out var ipAddress))
             {
                 return false;
             }
 
             var ipBytes = ipAddress.GetAddressBytes();
-            int bits;
-            if (!int.TryParse(ipAddressSplit[1], out bits))
+            if (!int.TryParse(ipAddressSplit[1], out var bits))
             {
                 bits = 0;
             }

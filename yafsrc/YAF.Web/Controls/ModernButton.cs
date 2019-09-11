@@ -49,6 +49,7 @@ namespace YAF.Web.Controls
         [DefaultValue(false)]
         public bool EnableLoadingAnimation { get; set; }
         
+
         /// <summary>
         /// Gets or sets the text caption displayed in the <see cref="T:System.Web.UI.WebControls.Button" /> control.
         /// </summary>

@@ -4,9 +4,9 @@ namespace ServiceStack.DataAnnotations
 {
     public class RangeAttribute : AttributeBase
     {
-        public object Minimum { get; private set; }
-        public object Maximum { get; private set; }
-        public Type OperandType { get; private set; }
+        public object Minimum { get; }
+        public object Maximum { get; }
+        public Type OperandType { get; }
 
         public RangeAttribute(int minimum, int maximum)
         {

@@ -1,5 +1,9 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
 	Inherits="YAF.Controls.ForumIconLegend" Codebehind="ForumIconLegend.ascx.cs" %>
+<%@ Import Namespace="YAF" %>
+<%@ Import Namespace="YAF.Classes" %>
+<%@ Import Namespace="YAF.Configuration" %>
+<%@ Import Namespace="YAF.Web.Controls" %>
 
 
 <ul class="list-group list-group-horizontal-sm mb-3">

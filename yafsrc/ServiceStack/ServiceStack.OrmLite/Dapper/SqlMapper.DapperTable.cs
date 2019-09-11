@@ -17,6 +17,7 @@ namespace ServiceStack.OrmLite.Dapper
                 this.fieldNames = fieldNames ?? throw new ArgumentNullException(nameof(fieldNames));
 
                 fieldNameLookup = new Dictionary<string, int>(fieldNames.Length, StringComparer.Ordinal);
+
                 // if there are dups, we want the **first** key to be the "winner" - so iterate backwards
                 for (var i = fieldNames.Length - 1; i >= 0; i--)
                 {

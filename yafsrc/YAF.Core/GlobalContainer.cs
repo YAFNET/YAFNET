@@ -38,10 +38,6 @@ namespace YAF.Core
     /// </summary>
     public static class GlobalContainer
     {
-        #region Constants and Fields
-
-        #endregion
-
         /// <summary>
         /// Initializes static members of the <see cref="GlobalContainer"/> class.
         /// </summary>

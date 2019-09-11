@@ -1,5 +1,6 @@
 #if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
+
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -177,7 +178,8 @@ namespace ServiceStack.OrmLite
             return DeleteAllAsync(dbCmd, filters, o => o.AllFieldsMap<T>().NonDefaultsOnly(), token);
         }
 
-        private static Task<int> DeleteAllAsync<T>(IDbCommand dbCmd, IEnumerable<T> objs, Func<object, Dictionary<string, object>> fieldValuesFn = null, CancellationToken token=default(CancellationToken))
+        private static Task<int> DeleteAllAsync<T>(IDbCommand dbCmd, IEnumerable<T> objs, Func<object, Dictionary<string, object>> fieldValuesFn
+ = null, CancellationToken token = default(CancellationToken))
         {
             IDbTransaction dbTrans = null;
 
@@ -374,7 +376,8 @@ namespace ServiceStack.OrmLite
                 ? saveRows.Where(x => !defaultIdValue.Equals(modelDef.GetPrimaryKey(x))).ToSafeDictionary(x => modelDef.GetPrimaryKey(x))
                 : saveRows.Where(x => modelDef.GetPrimaryKey(x) != null).ToSafeDictionary(x => modelDef.GetPrimaryKey(x));
 
-            var existingRowsMap = (await dbCmd.SelectByIdsAsync<T>(idMap.Keys, token)).ToDictionary(x => modelDef.GetPrimaryKey(x));
+            var existingRowsMap =
+ (await dbCmd.SelectByIdsAsync<T>(idMap.Keys, token)).ToDictionary(x => modelDef.GetPrimaryKey(x));
 
             var rowsAdded = 0;
 
@@ -400,7 +403,8 @@ namespace ServiceStack.OrmLite
                     {
                         if (modelDef.HasAutoIncrementId)
                         {
-                            var newId = await dbCmd.InsertAsync(row, commandFilter:null, selectIdentity:true, token:token);
+                            var newId =
+ await dbCmd.InsertAsync(row, commandFilter:null, selectIdentity:true, token:token);
                             var safeId = dialectProvider.FromDbValue(newId, modelDef.PrimaryKey.FieldType);
                             modelDef.PrimaryKey.SetValueFn(row, safeId);
                             id = newId;
@@ -473,7 +477,7 @@ namespace ServiceStack.OrmLite
 
                         await dbCmd.CreateTypedApi(refType).SaveAsync(result, token);
 
-                        //Save Self Table.RefTableId PK
+                        // Save Self Table.RefTableId PK
                         if (refSelf != null)
                         {
                             var refPkValue = refModelDef.PrimaryKey.GetValue(result);
@@ -508,7 +512,7 @@ namespace ServiceStack.OrmLite
 
             foreach (var oRef in refs)
             {
-                //Save Self Table.RefTableId PK
+                // Save Self Table.RefTableId PK
                 if (refSelf != null)
                 {
                     var refPkValue = refModelDef.PrimaryKey.GetValue(oRef);

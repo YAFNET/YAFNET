@@ -13,7 +13,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 
 using ServiceStack.Text.Common;
@@ -27,8 +26,7 @@ namespace ServiceStack.Text
 
         public static object TranslateToGenericICollectionCache(object from, Type toInstanceOfType, Type elementType)
         {
-            ConvertInstanceDelegate translateToFn;
-            if (TranslateICollectionCache.TryGetValue(toInstanceOfType, out translateToFn))
+            if (TranslateICollectionCache.TryGetValue(toInstanceOfType, out var translateToFn))
                 return translateToFn(from, toInstanceOfType);
 
             var genericType = typeof(TranslateListWithElements<>).MakeGenericType(elementType);
@@ -56,8 +54,7 @@ namespace ServiceStack.Text
             object from, Type toInstanceOfType, Type fromElementType)
         {
             var typeKey = new ConvertibleTypeKey(toInstanceOfType, fromElementType);
-            ConvertInstanceDelegate translateToFn;
-            if (TranslateConvertibleICollectionCache.TryGetValue(typeKey, out translateToFn)) return translateToFn(from, toInstanceOfType);
+            if (TranslateConvertibleICollectionCache.TryGetValue(typeKey, out var translateToFn)) return translateToFn(from, toInstanceOfType);
 
             var toElementType = toInstanceOfType.FirstGenericType().GetGenericArguments()[0];
             var genericType = typeof(TranslateListWithConvertibleElements<,>).MakeGenericType(fromElementType, toElementType);

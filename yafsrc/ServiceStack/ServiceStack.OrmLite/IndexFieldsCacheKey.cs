@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Data;
+using System.Linq;
 
 namespace ServiceStack.OrmLite
 {
@@ -8,11 +8,11 @@ namespace ServiceStack.OrmLite
     {
         int hashCode;
 
-        public ModelDefinition ModelDefinition { get; private set; }
+        public ModelDefinition ModelDefinition { get; }
 
-        public IOrmLiteDialectProvider Dialect { get; private set; } 
+        public IOrmLiteDialectProvider Dialect { get; } 
 
-        public List<string> Fields { get; private set; }
+        public List<string> Fields { get; }
 
         public IndexFieldsCacheKey(IDataReader reader, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)
         {

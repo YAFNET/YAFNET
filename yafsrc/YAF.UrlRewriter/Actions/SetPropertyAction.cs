@@ -21,8 +21,8 @@ namespace YAF.UrlRewriter.Actions
         /// <param name="value">The name of the value.</param>
         public SetPropertyAction(string name, string value)
         {
-            this.Name = name ?? throw new ArgumentNullException("name");
-            this.Value = value ?? throw new ArgumentNullException("value");
+            this.Name = name ?? throw new ArgumentNullException(nameof(name));
+            this.Value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace YAF.UrlRewriter.Actions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             context.Properties.Set(this.Name, context.Expand(this.Value));

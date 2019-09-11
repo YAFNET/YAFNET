@@ -177,11 +177,10 @@ namespace YAF.Core.Nntp
 
             for (; currentMessage <= group.High; currentMessage++)
             {
-              Article article;
-
-              try
-              {
                 try
+              {
+                  Article article;
+                  try
                 {
                   article = nntpConnection.GetArticle(currentMessage);
                 }
@@ -234,7 +233,7 @@ namespace YAF.Core.Nntp
                   guestUserId = YafContext.Current.GetRepository<User>().Nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
-                var body = this.ReplaceBody(article.Body.Text.Trim());
+                var body = ReplaceBody(article.Body.Text.Trim());
 
                 YafContext.Current.GetRepository<NntpTopic>().SaveMessage(
                   nntpForumID.Value,
@@ -346,7 +345,7 @@ namespace YAF.Core.Nntp
     /// The replace body.
     /// </returns>
     [NotNull]
-    private string ReplaceBody([NotNull] string body)
+    private static string ReplaceBody([NotNull] string body)
     {
       // Incorrect tags fixes which are common in nntp messages and cause display problems.
       // These are spotted ones.

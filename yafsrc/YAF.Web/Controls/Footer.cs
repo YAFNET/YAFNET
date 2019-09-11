@@ -27,28 +27,29 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Text;
-    using System.Web;
-    using System.Web.UI;
-
-    using YAF.Configuration;
-    using YAF.Core.BaseControls;
-    using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
 
 #if DEBUG
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 #endif
+    using System.Text;
+    using System.Web;
+    using System.Web.UI;
+
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
 #if DEBUG
     using YAF.Core.Data.Profiling;
 #endif
 
-    #endregion
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+
+#endregion
 
     /// <summary>
     /// The forum footer.

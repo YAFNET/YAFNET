@@ -28,11 +28,13 @@ namespace ServiceStack.Templates
         /// </summary>
         public TemplatePage LayoutPage { get; set; }
         
+
         /// <summary>
         /// Use Layout with specified name
         /// </summary>
         public string Layout { get; set; }
         
+
         /// <summary>
         /// Render without any Layout
         /// </summary>
@@ -82,6 +84,7 @@ namespace ServiceStack.Templates
         /// </summary>
         public Dictionary<string, Func<Stream, Task<Stream>>> FilterTransformers { get; set; }
         
+
         /// <summary>
         /// Don't allow access to specified filters
         /// </summary>
@@ -92,11 +95,13 @@ namespace ServiceStack.Templates
         /// </summary>
         public Exception LastFilterError { get; set; }
         
+
         /// <summary>
         /// The StackTrace where the Last Error Occured 
         /// </summary>
         public string[] LastFilterStackTrace { get; set; }
         
+
         /// <summary>
         /// What argument errors should be binded to
         /// </summary>
@@ -112,6 +117,7 @@ namespace ServiceStack.Templates
         /// </summary>
         public bool? SkipExecutingFiltersIfError { get; set; }
         
+
         /// <summary>
         /// Whether to always rethrow Exceptions
         /// </summary>
@@ -159,7 +165,7 @@ namespace ServiceStack.Templates
                 return;
             }
 
-            //If PageResult has any OutputFilters Buffer and chain stream responses to each
+            // If PageResult has any OutputFilters Buffer and chain stream responses to each
             using (var ms = MemoryStreamFactory.GetStream())
             {
                 stackTrace.Push("OutputTransformer");
@@ -300,6 +306,7 @@ namespace ServiceStack.Templates
                     Args[entry.Key] = entry.Value ?? JsNull.Value;
                 }
             }
+
             Args[TemplateConstants.Model] = Model ?? JsNull.Value;
 
             foreach (var filter in TemplateFilters)
@@ -372,7 +379,7 @@ namespace ServiceStack.Templates
                 return;
             }
 
-            //If PageResult has any PageFilters Buffer and chain stream responses to each
+            // If PageResult has any PageFilters Buffer and chain stream responses to each
             using (var ms = MemoryStreamFactory.GetStream())
             {
                 stackTrace.Push("PageTransformer");
@@ -398,7 +405,7 @@ namespace ServiceStack.Templates
 
         internal async Task WritePageAsyncInternal(TemplatePage page, TemplateScopeContext scope, CancellationToken token = default(CancellationToken))
         {
-            await page.Init(); //reload modified changes if needed
+            await page.Init(); // reload modified changes if needed
 
             stackTrace.Push($"Page: {page.VirtualPath}");
             
@@ -428,7 +435,7 @@ namespace ServiceStack.Templates
                 return;
             }
 
-            //If PageResult has any PageFilters Buffer and chain stream responses to each
+            // If PageResult has any PageFilters Buffer and chain stream responses to each
             using (var ms = MemoryStreamFactory.GetStream())
             {
                 await WriteCodePageAsyncInternal(page, new TemplateScopeContext(this, ms, scope.ScopedParams), token);
@@ -523,6 +530,7 @@ namespace ServiceStack.Templates
                     scopedParams = argValue as Dictionary<string, object>;
                 }
             }
+
             return scopedParams;
         }
 
@@ -551,7 +559,7 @@ namespace ServiceStack.Templates
                         {
                             var target = expr.Substring(0, pos);
 
-                            //allow nested null bindings from an existing target to evaluate to an empty string 
+                            // allow nested null bindings from an existing target to evaluate to an empty string 
                             var targetValue = GetValue(target, scope);
                             if (targetValue != null)
                                 return string.Empty;
@@ -673,7 +681,7 @@ namespace ServiceStack.Templates
                                 {
                                     var stream = useScope.OutputStream;
 
-                                    //If Context Filter has any Filter Transformers Buffer and chain stream responses to each
+                                    // If Context Filter has any Filter Transformers Buffer and chain stream responses to each
                                     for (var exprIndex = i + 1; exprIndex < var.FilterExpressions.Length; exprIndex++)
                                     {
                                         stream.Position = 0;
@@ -764,7 +772,6 @@ namespace ServiceStack.Templates
                         return string.Empty;
                     
                     // rethrow exceptiosn which aren't handled
-
                     var exResult = Format.OnExpressionException(this, ex);
                     if (exResult != null)
                         await scope.OutputStream.WriteAsync(Format.EncodeValue(exResult).ToUtf8Bytes(), token);
@@ -794,6 +801,7 @@ namespace ServiceStack.Templates
                 return TemplateFilters.Any(x => x.HandlesUnknownValue(filterName, filterArgs)) 
                     || Context.TemplateFilters.Any(x => x.HandlesUnknownValue(filterName, filterArgs));
             }
+
             return false;
         }
 
@@ -881,8 +889,10 @@ namespace ServiceStack.Templates
                     var entryValue = map[key];
                     clone[key] = EvaluateAnyBindings(entryValue, scope);
                 }
+
                 return clone;
             }
+
             if (value is List<object> list)
             {
                 var clone = new List<object>();
@@ -890,8 +900,10 @@ namespace ServiceStack.Templates
                 {
                     clone.Add(EvaluateAnyBindings(item, scope));
                 }
+
                 return clone;
             }
+
             return value;
         }
 

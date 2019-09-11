@@ -24,6 +24,7 @@ namespace ServiceStack
                 {
                     yield return filePath;
                 }
+
                 paths = Directory.GetDirectories(rootDirPath);
                 foreach (var dirPath in paths)
                 {

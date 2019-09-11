@@ -1,4 +1,5 @@
 ﻿#if !NETSTANDARD2_0
+#if !__IOS__ && !NETSTANDARD2_0
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
@@ -15,11 +17,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
-#if !__IOS__ && !NETSTANDARD2_0
-using System.Reflection.Emit;
 
 #endif
 
@@ -32,6 +33,7 @@ using Preserve = MonoTouch.Foundation.PreserveAttribute;
 namespace ServiceStack
 {
     using System.Configuration;
+    using System.Diagnostics;
 
     public class Net40PclExport : PclExport
     {
@@ -128,7 +130,7 @@ namespace ServiceStack
             string licenceKeyText;
             try
             {
-                //Automatically register license key stored in <appSettings/>
+                // Automatically register license key stored in <appSettings/>
                 licenceKeyText = ConfigurationManager.AppSettings[AppSettingsKey];
                 if (!string.IsNullOrEmpty(licenceKeyText))
                 {
@@ -151,12 +153,13 @@ namespace ServiceStack
                 }
             }
 
-            //or SERVICESTACK_LICENSE Environment variable
+            // or SERVICESTACK_LICENSE Environment variable
             licenceKeyText = Environment.GetEnvironmentVariable(EnvironmentKey)?.Trim();
             if (!string.IsNullOrEmpty(licenceKeyText))
             {
                 LicenseUtils.RegisterLicense(licenceKeyText);
             }
+
 #endif
         }
 
@@ -196,10 +199,11 @@ namespace ServiceStack
         public override bool IsDebugBuild(Assembly assembly)
         {
             return assembly.AllAttributes()
-                           .OfType<System.Diagnostics.DebuggableAttribute>()
+                           .OfType<DebuggableAttribute>()
                            .Select(attr => attr.IsJITTrackingEnabled)
                            .FirstOrDefault();
         }
+
 #endif
 
         public override string MapAbsolutePath(string relativePath, string appendPartialPathModifier)
@@ -215,6 +219,7 @@ namespace ServiceStack
 
                 return Path.GetFullPath(relativePath.Replace("~", hostDirectoryPath));
             }
+
             return relativePath;
         }
 
@@ -242,11 +247,13 @@ namespace ServiceStack
             {
                 assembly = AssemblyUtils.LoadAssembly(assemblyDllPath);
             }
+
             var assemblyExePath = $"{binPath}{assemblyName}.exe";
             if (File.Exists(assemblyExePath))
             {
                 assembly = AssemblyUtils.LoadAssembly(assemblyExePath);
             }
+
             return assembly != null ? assembly.GetType(typeName) : null;
         }
 
@@ -395,6 +402,7 @@ namespace ServiceStack
         {
             return System.Xml.XmlConvert.ToDateTime(dateTimeStr, System.Xml.XmlDateTimeSerializationMode.Utc).Prepare(parsedAsUtc: true);
         }
+
 #endif
 
         public override DateTime ToStableUniversalTime(DateTime dateTime)
@@ -410,6 +418,7 @@ namespace ServiceStack
             {
                 return SerializerUtils<TSerializer>.ParseHashtable;
             }
+
             return null;
         }
 
@@ -419,6 +428,7 @@ namespace ServiceStack
             {
                 return SerializerUtils<TSerializer>.ParseHashtable;
             }
+
             return null;
         }
 
@@ -428,6 +438,7 @@ namespace ServiceStack
             {
                 return SerializerUtils<TSerializer>.ParseStringCollection<TSerializer>;
             }
+
             return null;
         }
 
@@ -437,6 +448,7 @@ namespace ServiceStack
             {
                 return SerializerUtils<TSerializer>.ParseStringCollection<TSerializer>;
             }
+
             return null;
         }
 
@@ -449,6 +461,7 @@ namespace ServiceStack
             {
                 return DeserializeDynamic<TSerializer>.Parse;
             }
+
 #endif
             return null;
         }
@@ -461,6 +474,7 @@ namespace ServiceStack
             {
                 return DeserializeDynamic<TSerializer>.ParseStringSegment;
             }
+
 #endif
             return null;
         }
@@ -485,8 +499,7 @@ namespace ServiceStack
 
         public override LicenseKey VerifyLicenseKeyText(string licenseKeyText)
         {
-            LicenseKey key;
-            if (!licenseKeyText.VerifyLicenseKeyText(out key))
+            if (!licenseKeyText.VerifyLicenseKeyText(out LicenseKey key))
                 throw new ArgumentException("licenseKeyText");
 
             return key;
@@ -509,7 +522,7 @@ namespace ServiceStack
             string userAgent = null,
             bool? preAuthenticate = null)
         {
-            req.MaximumResponseHeadersLength = int.MaxValue; //throws "The message length limit was exceeded" exception
+            req.MaximumResponseHeadersLength = int.MaxValue; // throws "The message length limit was exceeded" exception
             if (allowAutoRedirect.HasValue) req.AllowAutoRedirect = allowAutoRedirect.Value;
             if (readWriteTimeout.HasValue) req.ReadWriteTimeout = (int)readWriteTimeout.Value.TotalMilliseconds;
             if (timeout.HasValue) req.Timeout = (int)timeout.Value.TotalMilliseconds;
@@ -549,6 +562,7 @@ namespace ServiceStack
             {
                 return DynamicProxy.GetInstanceFor(type).GetType();
             }
+
             return type;
         }
 
@@ -566,6 +580,7 @@ namespace ServiceStack
         {
             return pi.GetWeakDataMember();
         }
+
 #endif
     }
 
@@ -637,10 +652,11 @@ namespace ServiceStack
             var index = 0;
             if (!Serializer.EatMapStartChar(value, ref index))
             {
-                //Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
+                // Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
                 Tracer.Instance.WriteDebug("WARN: Map definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
                     JsWriter.MapStartChar, createMapType != null ? createMapType.Name : "Dictionary<,>", value.Substring(0, value.Length < 50 ? value.Length : 50));
             }
+
             return index;
         }
 
@@ -694,15 +710,18 @@ namespace ServiceStack
             {
                 to.Add(item);
             }
+
             return to;
         }
     }
 
     public static class PclExportExt
     {
-        //HttpUtils
-        public static WebResponse PostFileToUrl(this string url,
-            FileInfo uploadFileInfo, string uploadFileMimeType,
+        // HttpUtils
+        public static WebResponse PostFileToUrl(
+            this string url,
+            FileInfo uploadFileInfo,
+            string uploadFileMimeType,
             string accept = null,
             Action<HttpWebRequest> requestFilter = null)
         {
@@ -711,7 +730,13 @@ namespace ServiceStack
             {
                 var fileName = uploadFileInfo.Name;
 
-                webReq.UploadFile(fileStream, fileName, uploadFileMimeType, accept: accept, requestFilter: requestFilter, method: "POST");
+                webReq.UploadFile(
+                    fileStream,
+                    fileName,
+                    uploadFileMimeType,
+                    accept: accept,
+                    requestFilter: requestFilter,
+                    method: "POST");
             }
 
             if (HttpUtils.ResultsFilter != null)
@@ -720,8 +745,10 @@ namespace ServiceStack
             return webReq.GetResponse();
         }
 
-        public static WebResponse PutFileToUrl(this string url,
-            FileInfo uploadFileInfo, string uploadFileMimeType,
+        public static WebResponse PutFileToUrl(
+            this string url,
+            FileInfo uploadFileInfo,
+            string uploadFileMimeType,
             string accept = null,
             Action<HttpWebRequest> requestFilter = null)
         {
@@ -730,7 +757,13 @@ namespace ServiceStack
             {
                 var fileName = uploadFileInfo.Name;
 
-                webReq.UploadFile(fileStream, fileName, uploadFileMimeType, accept: accept, requestFilter: requestFilter, method: "PUT");
+                webReq.UploadFile(
+                    fileStream,
+                    fileName,
+                    uploadFileMimeType,
+                    accept: accept,
+                    requestFilter: requestFilter,
+                    method: "PUT");
             }
 
             if (HttpUtils.ResultsFilter != null)
@@ -739,8 +772,10 @@ namespace ServiceStack
             return webReq.GetResponse();
         }
 
-        public static WebResponse UploadFile(this WebRequest webRequest,
-            FileInfo uploadFileInfo, string uploadFileMimeType)
+        public static WebResponse UploadFile(
+            this WebRequest webRequest,
+            FileInfo uploadFileInfo,
+            string uploadFileMimeType)
         {
             using (var fileStream = uploadFileInfo.OpenRead())
             {
@@ -755,19 +790,22 @@ namespace ServiceStack
             return webRequest.GetResponse();
         }
 
-        //XmlSerializer
+        // XmlSerializer
         public static void CompressToStream<TXmlDto>(TXmlDto from, Stream stream)
         {
 #if __IOS__ || ANDROID
             throw new NotImplementedException("Compression is not supported on this platform");
 #else
-            using (var deflateStream = new System.IO.Compression.DeflateStream(stream, System.IO.Compression.CompressionMode.Compress))
+            using (var deflateStream = new System.IO.Compression.DeflateStream(
+                stream,
+                System.IO.Compression.CompressionMode.Compress))
             using (var xw = new System.Xml.XmlTextWriter(deflateStream, Encoding.UTF8))
             {
                 var serializer = new DataContractSerializer(from.GetType());
                 serializer.WriteObject(xw, from);
                 xw.Flush();
             }
+
 #endif
         }
 
@@ -781,7 +819,7 @@ namespace ServiceStack
             }
         }
 
-        //License Utils
+        // License Utils
         public static bool VerifySignedHash(byte[] DataToVerify, byte[] SignedData, RSAParameters Key)
         {
             try
@@ -789,7 +827,6 @@ namespace ServiceStack
                 var RSAalg = new RSACryptoServiceProvider();
                 RSAalg.ImportParameters(Key);
                 return RSAalg.VerifySha1Data(DataToVerify, SignedData);
-
             }
             catch (CryptographicException ex)
             {
@@ -865,7 +902,10 @@ namespace ServiceStack
             }
         }
 
-        public static bool VerifySha1Data(this RSACryptoServiceProvider RSAalg, byte[] unsignedData, byte[] encryptedData)
+        public static bool VerifySha1Data(
+            this RSACryptoServiceProvider RSAalg,
+            byte[] unsignedData,
+            byte[] encryptedData)
         {
             using (var sha = new SHA1CryptoServiceProvider())
             {
@@ -874,7 +914,8 @@ namespace ServiceStack
         }
 
 #if !__IOS__
-        //ReflectionExtensions
+
+        // ReflectionExtensions
         const string DataContract = "DataContractAttribute";
 
         public static DataContractAttribute GetWeakDataContract(this Type type)
@@ -887,11 +928,12 @@ namespace ServiceStack
                 var accessor = TypeProperties.Get(attr.GetType());
 
                 return new DataContractAttribute
-                {
-                    Name = (string)accessor.GetPublicGetter("Name")(attr),
-                    Namespace = (string)accessor.GetPublicGetter("Namespace")(attr),
-                };
+                           {
+                               Name = (string)accessor.GetPublicGetter("Name")(attr),
+                               Namespace = (string)accessor.GetPublicGetter("Namespace")(attr),
+                           };
             }
+
             return null;
         }
 
@@ -905,18 +947,19 @@ namespace ServiceStack
                 var accessor = TypeProperties.Get(attr.GetType());
 
                 var newAttr = new DataMemberAttribute
-                {
-                    Name = (string)accessor.GetPublicGetter("Name")(attr),
-                    EmitDefaultValue = (bool)accessor.GetPublicGetter("EmitDefaultValue")(attr),
-                    IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr),
-                };
+                                  {
+                                      Name = (string)accessor.GetPublicGetter("Name")(attr),
+                                      EmitDefaultValue = (bool)accessor.GetPublicGetter("EmitDefaultValue")(attr),
+                                      IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr),
+                                  };
 
                 var order = (int)accessor.GetPublicGetter("Order")(attr);
                 if (order >= 0)
-                    newAttr.Order = order; //Throws Exception if set to -1
+                    newAttr.Order = order; // Throws Exception if set to -1
 
                 return newAttr;
             }
+
             return null;
         }
 
@@ -930,20 +973,22 @@ namespace ServiceStack
                 var accessor = TypeProperties.Get(attr.GetType());
 
                 var newAttr = new DataMemberAttribute
-                {
-                    Name = (string)accessor.GetPublicGetter("Name")(attr),
-                    EmitDefaultValue = (bool)accessor.GetPublicGetter("EmitDefaultValue")(attr),
-                    IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr),
-                };
+                                  {
+                                      Name = (string)accessor.GetPublicGetter("Name")(attr),
+                                      EmitDefaultValue = (bool)accessor.GetPublicGetter("EmitDefaultValue")(attr),
+                                      IsRequired = (bool)accessor.GetPublicGetter("IsRequired")(attr),
+                                  };
 
                 var order = (int)accessor.GetPublicGetter("Order")(attr);
                 if (order >= 0)
-                    newAttr.Order = order; //Throws Exception if set to -1
+                    newAttr.Order = order; // Throws Exception if set to -1
 
                 return newAttr;
             }
+
             return null;
         }
+
 #endif
     }
 }
@@ -963,10 +1008,12 @@ namespace ServiceStack.Text.FastMember
         /// Get or Set the value of a named member for the underlying object
         /// </summary>
         public abstract object this[string name] { get; set; }
+
         /// <summary>
         /// The object represented by this instance
         /// </summary>
         public abstract object Target { get; }
+
         /// <summary>
         /// Use the target types definition of equality
         /// </summary>
@@ -974,6 +1021,7 @@ namespace ServiceStack.Text.FastMember
         {
             return this.Target.Equals(obj);
         }
+
         /// <summary>
         /// Obtain the hash of the target object
         /// </summary>
@@ -981,6 +1029,7 @@ namespace ServiceStack.Text.FastMember
         {
             return this.Target.GetHashCode();
         }
+
         /// <summary>
         /// Use the target's definition of a string representation
         /// </summary>
@@ -994,9 +1043,10 @@ namespace ServiceStack.Text.FastMember
         /// </summary>
         public static ObjectAccessor Create(object target)
         {
-            if (target == null) throw new ArgumentNullException("target");
-            //IDynamicMetaObjectProvider dlr = target as IDynamicMetaObjectProvider;
-            //if (dlr != null) return new DynamicWrapper(dlr); // use the DLR
+            if (target == null) throw new ArgumentNullException(nameof(target));
+
+            // IDynamicMetaObjectProvider dlr = target as IDynamicMetaObjectProvider;
+            // if (dlr != null) return new DynamicWrapper(dlr); // use the DLR
             return new TypeAccessorWrapper(target, TypeAccessor.Create(target.GetType()));
         }
 
@@ -1008,6 +1058,7 @@ namespace ServiceStack.Text.FastMember
                 this.Target = target;
                 this.accessor = accessor;
             }
+
             public override object this[string name]
             {
                 get => this.accessor[this.Target, name.ToUpperInvariant()];
@@ -1016,23 +1067,23 @@ namespace ServiceStack.Text.FastMember
             public override object Target { get; }
         }
 
-        //sealed class DynamicWrapper : ObjectAccessor
-        //{
-        //    private readonly IDynamicMetaObjectProvider target;
-        //    public override object Target
-        //    {
-        //        get { return target; }
-        //    }
-        //    public DynamicWrapper(IDynamicMetaObjectProvider target)
-        //    {
-        //        this.target = target;
-        //    }
-        //    public override object this[string name]
-        //    {
-        //        get { return CallSiteCache.GetValue(name, target); }
-        //        set { CallSiteCache.SetValue(name, target, value); }
-        //    }
-        //}
+        // sealed class DynamicWrapper : ObjectAccessor
+        // {
+        // private readonly IDynamicMetaObjectProvider target;
+        // public override object Target
+        // {
+        // get { return target; }
+        // }
+        // public DynamicWrapper(IDynamicMetaObjectProvider target)
+        // {
+        // this.target = target;
+        // }
+        // public override object this[string name]
+        // {
+        // get { return CallSiteCache.GetValue(name, target); }
+        // set { CallSiteCache.SetValue(name, target, value); }
+        // }
+        // }
     }
 
     /// <summary>
@@ -1076,17 +1127,16 @@ namespace ServiceStack.Text.FastMember
             }
         }
 
-        //sealed class DynamicAccessor : TypeAccessor
-        //{
-        //    public static readonly DynamicAccessor Singleton = new DynamicAccessor();
-        //    private DynamicAccessor(){}
-        //    public override object this[object target, string name]
-        //    {
-        //        get { return CallSiteCache.GetValue(name, target); }
-        //        set { CallSiteCache.SetValue(name, target, value); }
-        //    }
-        //}
-
+        // sealed class DynamicAccessor : TypeAccessor
+        // {
+        // public static readonly DynamicAccessor Singleton = new DynamicAccessor();
+        // private DynamicAccessor(){}
+        // public override object this[object target, string name]
+        // {
+        // get { return CallSiteCache.GetValue(name, target); }
+        // set { CallSiteCache.SetValue(name, target, value); }
+        // }
+        // }
         private static AssemblyBuilder assembly;
         private static ModuleBuilder module;
         private static int counter;
@@ -1099,13 +1149,14 @@ namespace ServiceStack.Text.FastMember
             {
                 if (prop.GetIndexParameters().Length != 0 || !prop.CanRead) continue;
                 var getFn = prop.GetGetMethod();
-                if (getFn == null) continue; //Mono
+                if (getFn == null) continue; // Mono
 
                 var next = il.DefineLabel();
                 il.Emit(propName);
                 il.Emit(OpCodes.Ldstr, prop.Name);
                 il.EmitCall(OpCodes.Call, strinqEquals, null);
                 il.Emit(OpCodes.Brfalse_S, next);
+
                 // match:
                 il.Emit(target);
                 Cast(il, type, loc);
@@ -1114,10 +1165,13 @@ namespace ServiceStack.Text.FastMember
                 {
                     il.Emit(OpCodes.Box, prop.PropertyType);
                 }
+
                 il.Emit(OpCodes.Ret);
+
                 // not match:
                 il.MarkLabel(next);
             }
+
             foreach (var field in fields)
             {
                 var next = il.DefineLabel();
@@ -1125,6 +1179,7 @@ namespace ServiceStack.Text.FastMember
                 il.Emit(OpCodes.Ldstr, field.Name);
                 il.EmitCall(OpCodes.Call, strinqEquals, null);
                 il.Emit(OpCodes.Brfalse_S, next);
+
                 // match:
                 il.Emit(target);
                 Cast(il, type, loc);
@@ -1133,20 +1188,24 @@ namespace ServiceStack.Text.FastMember
                 {
                     il.Emit(OpCodes.Box, field.FieldType);
                 }
+
                 il.Emit(OpCodes.Ret);
+
                 // not match:
                 il.MarkLabel(next);
             }
+
             il.Emit(OpCodes.Ldstr, "name");
-            il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor(new Type[] { typeof(string) }));
+            il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor(new[] { typeof(string) }));
             il.Emit(OpCodes.Throw);
         }
+
         private static void WriteSetter(ILGenerator il, Type type, PropertyInfo[] props, FieldInfo[] fields, bool isStatic)
         {
             if (type.IsValueType)
             {
                 il.Emit(OpCodes.Ldstr, "Write is not supported for structs");
-                il.Emit(OpCodes.Newobj, typeof(NotSupportedException).GetConstructor(new Type[] { typeof(string) }));
+                il.Emit(OpCodes.Newobj, typeof(NotSupportedException).GetConstructor(new[] { typeof(string) }));
                 il.Emit(OpCodes.Throw);
             }
             else
@@ -1159,13 +1218,14 @@ namespace ServiceStack.Text.FastMember
                 {
                     if (prop.GetIndexParameters().Length != 0 || !prop.CanWrite) continue;
                     var setFn = prop.GetSetMethod();
-                    if (setFn == null) continue; //Mono
+                    if (setFn == null) continue; // Mono
 
                     var next = il.DefineLabel();
                     il.Emit(propName);
                     il.Emit(OpCodes.Ldstr, prop.Name);
                     il.EmitCall(OpCodes.Call, strinqEquals, null);
                     il.Emit(OpCodes.Brfalse_S, next);
+
                     // match:
                     il.Emit(target);
                     Cast(il, type, loc);
@@ -1173,9 +1233,11 @@ namespace ServiceStack.Text.FastMember
                     Cast(il, prop.PropertyType, null);
                     il.EmitCall(type.IsValueType ? OpCodes.Call : OpCodes.Callvirt, setFn, null);
                     il.Emit(OpCodes.Ret);
+
                     // not match:
                     il.MarkLabel(next);
                 }
+
                 foreach (var field in fields)
                 {
                     var next = il.DefineLabel();
@@ -1183,6 +1245,7 @@ namespace ServiceStack.Text.FastMember
                     il.Emit(OpCodes.Ldstr, field.Name);
                     il.EmitCall(OpCodes.Call, strinqEquals, null);
                     il.Emit(OpCodes.Brfalse_S, next);
+
                     // match:
                     il.Emit(target);
                     Cast(il, type, loc);
@@ -1190,15 +1253,18 @@ namespace ServiceStack.Text.FastMember
                     Cast(il, field.FieldType, null);
                     il.Emit(OpCodes.Stfld, field);
                     il.Emit(OpCodes.Ret);
+
                     // not match:
                     il.MarkLabel(next);
                 }
+
                 il.Emit(OpCodes.Ldstr, "name");
-                il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor(new Type[] { typeof(string) }));
+                il.Emit(OpCodes.Newobj, typeof(ArgumentOutOfRangeException).GetConstructor(new[] { typeof(string) }));
                 il.Emit(OpCodes.Throw);
             }
         }
-        private static readonly MethodInfo strinqEquals = typeof(string).GetMethod("op_Equality", new Type[] { typeof(string), typeof(string) });
+
+        private static readonly MethodInfo strinqEquals = typeof(string).GetMethod("op_Equality", new[] { typeof(string), typeof(string) });
 
         sealed class DelegateAccessor : TypeAccessor
         {
@@ -1211,12 +1277,14 @@ namespace ServiceStack.Text.FastMember
                 this.setter = setter;
                 this.ctor = ctor;
             }
+
             public override bool CreateNewSupported => this.ctor != null;
 
             public override object CreateNew()
             {
                 return this.ctor != null ? this.ctor() : base.CreateNew();
             }
+
             public override object this[object target, string name]
             {
                 get => this.getter(target, name);
@@ -1232,11 +1300,10 @@ namespace ServiceStack.Text.FastMember
 
         static TypeAccessor CreateNew(Type type)
         {
-            //if (typeof(IDynamicMetaObjectProvider).IsAssignableFrom(type))
-            //{
-            //    return DynamicAccessor.Singleton;
-            //}
-
+            // if (typeof(IDynamicMetaObjectProvider).IsAssignableFrom(type))
+            // {
+            // return DynamicAccessor.Singleton;
+            // }
             var props = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
             ConstructorInfo ctor = null;
@@ -1244,11 +1311,12 @@ namespace ServiceStack.Text.FastMember
             {
                 ctor = type.GetConstructor(Type.EmptyTypes);
             }
+
             ILGenerator il;
             if (!IsFullyPublic(type))
             {
-                DynamicMethod dynGetter = new DynamicMethod($"{type.FullName}_get", typeof(object), new Type[] { typeof(object), typeof(string) }, type, true),
-                              dynSetter = new DynamicMethod($"{type.FullName}_set", null, new Type[] { typeof(object), typeof(string), typeof(object) }, type, true);
+                DynamicMethod dynGetter = new DynamicMethod($"{type.FullName}_get", typeof(object), new[] { typeof(object), typeof(string) }, type, true),
+                              dynSetter = new DynamicMethod($"{type.FullName}_set", null, new[] { typeof(object), typeof(string), typeof(object) }, type, true);
                 WriteGetter(dynGetter.GetILGenerator(), type, props, fields, true);
                 WriteSetter(dynSetter.GetILGenerator(), type, props, fields, true);
                 DynamicMethod dynCtor = null;
@@ -1259,6 +1327,7 @@ namespace ServiceStack.Text.FastMember
                     il.Emit(OpCodes.Newobj, ctor);
                     il.Emit(OpCodes.Ret);
                 }
+
                 return new DelegateAccessor(
                     (Func<object, string, object>)dynGetter.CreateDelegate(typeof(Func<object, string, object>)),
                     (Action<object, string, object>)dynSetter.CreateDelegate(typeof(Action<object, string, object>)),
@@ -1272,6 +1341,7 @@ namespace ServiceStack.Text.FastMember
                 assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
                 module = assembly.DefineDynamicModule(name.Name);
             }
+
             var tb = module.DefineType(
                 $"FastMember_dynamic.{type.Name}_{Interlocked.Increment(ref counter)}",
                 (typeof(TypeAccessor).Attributes | TypeAttributes.Sealed) & ~TypeAttributes.Abstract, typeof(TypeAccessor));
@@ -1279,12 +1349,12 @@ namespace ServiceStack.Text.FastMember
             tb.DefineDefaultConstructor(MethodAttributes.Public);
             var indexer = typeof(TypeAccessor).GetProperty("Item");
             MethodInfo baseGetter = indexer.GetGetMethod(), baseSetter = indexer.GetSetMethod();
-            var body = tb.DefineMethod(baseGetter.Name, baseGetter.Attributes & ~MethodAttributes.Abstract, typeof(object), new Type[] { typeof(object), typeof(string) });
+            var body = tb.DefineMethod(baseGetter.Name, baseGetter.Attributes & ~MethodAttributes.Abstract, typeof(object), new[] { typeof(object), typeof(string) });
             il = body.GetILGenerator();
             WriteGetter(il, type, props, fields, false);
             tb.DefineMethodOverride(body, baseGetter);
 
-            body = tb.DefineMethod(baseSetter.Name, baseSetter.Attributes & ~MethodAttributes.Abstract, null, new Type[] { typeof(object), typeof(string), typeof(object) });
+            body = tb.DefineMethod(baseSetter.Name, baseSetter.Attributes & ~MethodAttributes.Abstract, null, new[] { typeof(object), typeof(string), typeof(object) });
             il = body.GetILGenerator();
             WriteSetter(il, type, props, fields, false);
             tb.DefineMethodOverride(body, baseSetter);

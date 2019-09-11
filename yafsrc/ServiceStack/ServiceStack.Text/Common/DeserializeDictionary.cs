@@ -297,10 +297,8 @@ namespace ServiceStack.Text.Common
         public static object ParseDictionaryType(StringSegment value, Type createMapType, Type[] argTypes,
             ParseStringSegmentDelegate keyParseFn, ParseStringSegmentDelegate valueParseFn)
         {
-
-            ParseDictionaryDelegate parseDelegate;
             var key = new TypesKey(argTypes[0], argTypes[1]);
-            if (ParseDelegateCache.TryGetValue(key, out parseDelegate))
+            if (ParseDelegateCache.TryGetValue(key, out var parseDelegate))
                 return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
 
             var mi = typeof(DeserializeDictionary<TSerializer>).GetStaticMethod("ParseDictionary", signature);

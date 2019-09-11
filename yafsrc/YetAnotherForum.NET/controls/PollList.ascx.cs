@@ -425,7 +425,7 @@ namespace YAF.Controls
 
             // check for voting cookie
             var httpCookie = this.Request.Cookies[this.VotingCookieName(pollId.ToType<int>())];
-            if (httpCookie != null && httpCookie.Value != null)
+            if (httpCookie?.Value != null)
             {
                 var pchcntr1 = 0;
                 var choicescount = 0;
@@ -438,9 +438,7 @@ namespace YAF.Controls
                     {
                         for (var j = 0; j < choiceArray.GetLength(0); j++)
                         {
-                            int pollChoicesFromCookie;
-
-                            if (!int.TryParse(choiceArray[j], out pollChoicesFromCookie))
+                            if (!int.TryParse(choiceArray[j], out var pollChoicesFromCookie))
                             {
                                 continue;
                             }
@@ -543,8 +541,7 @@ namespace YAF.Controls
         /// </returns>
         protected bool IsPollClosed([NotNull] object pollId)
         {
-            bool soon;
-            var dtr = this.DaysToRun(pollId, out soon);
+            var dtr = this.DaysToRun(pollId, out var soon);
             return dtr == 0;
         }
 
@@ -667,13 +664,11 @@ namespace YAF.Controls
                 var pollChoiceList = item.FindControlRecursiveAs<PollChoiceList>("PollChoiceList1");
 
                 var pollId = drowv.Row["PollID"].ToType<int>();
-                int?[] choicePId;
-                bool hasVote;
                 var isNotVoted = this.IsNotVoted(
                     pollId,
                     drowv.Row["AllowMultipleChoices"].ToType<bool>(),
-                    out choicePId,
-                    out hasVote);
+                    out var choicePId,
+                    out var hasVote);
                 var cvote = this.HasVoteAccess(pollId) && isNotVoted;
                 pollChoiceList.ChoiceId = choicePId;
 
@@ -730,8 +725,7 @@ namespace YAF.Controls
                 pollChoiceList.MaxImageAspect = this.MaxImageAspect;
 
                 // returns number of day to run - null if poll has no expiration date 
-                bool soon;
-                var daystorun = this.DaysToRun(pollId, out soon);
+                var daystorun = this.DaysToRun(pollId, out var soon);
                 var isPollClosed = this.IsPollClosed(pollId);
 
                 // *************************
@@ -746,13 +740,11 @@ namespace YAF.Controls
                 // compare a number of voted polls with number of polls
                 foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
                 {
-                    bool hasVoteEmpty;
-
                     var voted = !this.IsNotVoted(
                                     (int)dr["PollID"],
                                     dr["AllowMultipleChoices"].ToType<bool>(),
                                     out choicePId,
-                                    out hasVoteEmpty);
+                                    out var hasVoteEmpty);
                     if (hasVoteEmpty)
                     {
                         hasVoteEmptyCounter++;
@@ -972,7 +964,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The methods add poll manipulatation confirmation pop-ups to button actions.
+        /// The methods add poll manipulation confirmation pop-ups to button actions.
         /// </summary>
         /// <param name="ri">
         /// The RepeaterItem ri.
@@ -980,7 +972,7 @@ namespace YAF.Controls
         /// <param name="pollId">
         /// The poll Id.
         /// </param>
-        private void AddPollButtonConfirmations([NotNull] RepeaterItem ri, int pollId)
+        private void AddPollButtonConfirmations([NotNull] Control ri, int pollId)
         {
             // Add confirmations to delete buttons
             var removePollAll = ri.FindControlRecursiveAs<ThemeButton>("RemovePollAll");

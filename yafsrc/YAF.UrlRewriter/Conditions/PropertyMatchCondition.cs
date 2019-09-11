@@ -24,10 +24,10 @@ namespace YAF.UrlRewriter.Conditions
         {
             if (pattern == null)
             {
-                throw new ArgumentNullException("pattern");
+                throw new ArgumentNullException(nameof(pattern));
             }
 
-            this.PropertyName = propertyName ?? throw new ArgumentNullException("propertyName");
+            this.PropertyName = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace YAF.UrlRewriter.Conditions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             var property = context.Properties[this.PropertyName];

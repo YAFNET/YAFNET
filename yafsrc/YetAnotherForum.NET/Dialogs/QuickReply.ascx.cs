@@ -202,15 +202,13 @@ namespace YAF.Dialogs
                 if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
                                               && !this.Get<YafBoardSettings>().SpamServiceType.Equals(obj: 0))
                 {
-                    string spamResult;
-
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
                         userName: this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                         ipAddress: YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         postMessage: this.quickReplyEditor.Text,
                         emailAddress: this.PageContext.IsGuest ? null : this.PageContext.User.Email,
-                        result: out spamResult))
+                        result: out var spamResult))
                     {
                         switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                         {

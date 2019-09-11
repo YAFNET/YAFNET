@@ -62,16 +62,8 @@ namespace YAF.Core
                     () =>
                         {
                             // get the guest user for this board...
-                            guestUserID = YafContext.Current.GetRepository<User>().GetGuestUserId(YafContext.Current.PageBoardID);
-
-                            if (!guestUserID.HasValue)
-                            {
-                                //// attempt to fix the guest user by re-associating them with the guest group...
-                                // FixGuestUserForBoard(YafContext.Current.PageBoardID);
-
-                                // attempt to get the guestUser again...
-                                guestUserID = YafContext.Current.GetRepository<User>().GetGuestUserId(YafContext.Current.PageBoardID);
-                            }
+                            guestUserID = YafContext.Current.GetRepository<User>().GetGuestUserId(YafContext.Current.PageBoardID)
+                                          ?? YafContext.Current.GetRepository<User>().GetGuestUserId(YafContext.Current.PageBoardID);
 
                             if (!guestUserID.HasValue)
                             {
@@ -330,8 +322,7 @@ namespace YAF.Core
         /// </returns>
         public static MembershipUserCollection FindUsersByEmail(string email)
         {
-            int totalRecords;
-            return YafContext.Current.Get<MembershipProvider>().FindUsersByEmail(email, 0, 999999, out totalRecords);
+            return YafContext.Current.Get<MembershipProvider>().FindUsersByEmail(email, 0, 999999, out var totalRecords);
         }
 
         /// <summary>
@@ -345,8 +336,7 @@ namespace YAF.Core
         /// </returns>
         public static MembershipUserCollection FindUsersByName(string username)
         {
-            int totalRecords;
-            return YafContext.Current.Get<MembershipProvider>().FindUsersByName(username, 0, 999999, out totalRecords);
+            return YafContext.Current.Get<MembershipProvider>().FindUsersByName(username, 0, 999999, out var totalRecords);
         }
 
         /// <summary>
@@ -366,9 +356,8 @@ namespace YAF.Core
         /// </returns>
         public static MembershipUserCollection GetAllUsers(int pageCount, out int exitCount, int userNumber)
         {
-            int totalRecords;
             var muc = YafContext.Current.Get<MembershipProvider>()
-                .GetAllUsers(pageCount, 1000, out totalRecords);
+                .GetAllUsers(pageCount, 1000, out var totalRecords);
             exitCount = totalRecords;
             return muc;
         }
@@ -381,8 +370,7 @@ namespace YAF.Core
         /// </returns>
         public static MembershipUserCollection GetAllUsers()
         {
-            int userCount;
-            return GetAllUsers(0, out userCount, 9999);
+            return GetAllUsers(0, out var userCount, 9999);
         }
 
         /// <summary>

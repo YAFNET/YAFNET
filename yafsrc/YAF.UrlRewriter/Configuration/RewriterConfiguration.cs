@@ -40,7 +40,7 @@ namespace YAF.UrlRewriter.Configuration
         /// <param name="configurationManager">The configuration manager instance</param>
         public RewriterConfiguration(IConfigurationManager configurationManager)
         {
-            this.ConfigurationManager = configurationManager ?? throw new ArgumentNullException("configurationManager");
+            this.ConfigurationManager = configurationManager ?? throw new ArgumentNullException(nameof(configurationManager));
 
             this.XPoweredBy = MessageProvider.FormatString(Message.ProductName, Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
 

@@ -26,7 +26,7 @@ namespace YAF.UrlRewriter.Transforms
         {
             if (input == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException(nameof(input));
             }
 
             return input.ToLower(Thread.CurrentThread.CurrentCulture);

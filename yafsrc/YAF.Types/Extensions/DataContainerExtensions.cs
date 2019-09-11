@@ -47,6 +47,7 @@ namespace YAF.Types.Extensions
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
         public static T DataItemToField<T>(this IDataItemContainer container, string fieldName)
         {
@@ -76,6 +77,7 @@ namespace YAF.Types.Extensions
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
         public static T ToDataItemType<T>(this IDataItemContainer container)
         {
@@ -85,9 +87,13 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// Converts DataItem to a class.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="container"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="container">
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
         public static T ToDataItemClass<T>(this IDataItemContainer container) where T : class
         {
             return container?.DataItem.ToClass<T>();

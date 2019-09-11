@@ -31,6 +31,7 @@ namespace ServiceStack.OrmLite
                     .Append(parameter.Value.ToJsv())
                     .Append(" : ").AppendLine((parameter.Value ?? DBNull.Value).GetType().Name);
             }
+
             sb.AppendLine();
 
             return StringBuilderCache.ReturnAndFree(sb);
@@ -58,7 +59,7 @@ namespace ServiceStack.OrmLite
         /// Execute any arbitrary raw SQL with db params.
         /// </summary>
         /// <returns>number of rows affected</returns>
-        public static int ExecuteSql(this IDbConnection dbConn, string sql, Dictionary<string,object> dbParams)
+        public static int ExecuteSql(this IDbConnection dbConn, string sql, Dictionary<string, object> dbParams)
         {
             return dbConn.Exec(dbCmd => dbCmd.ExecuteSql(sql, dbParams));
         }
@@ -149,6 +150,7 @@ namespace ServiceStack.OrmLite
         {
             return dbConn.Exec(dbCmd => dbCmd.Update(objs, commandFilter:null));
         }
+
         public static int Update<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, params T[] objs)
         {
             return dbConn.Exec(dbCmd => dbCmd.Update(objs, commandFilter));

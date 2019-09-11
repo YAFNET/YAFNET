@@ -60,12 +60,12 @@ namespace YAF.UrlRewriter.Parsers
 
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             if (conditions == null)
             {
-                throw new ArgumentNullException("conditions");
+                throw new ArgumentNullException(nameof(conditions));
             }
 
             // Parse attribute-based conditions.

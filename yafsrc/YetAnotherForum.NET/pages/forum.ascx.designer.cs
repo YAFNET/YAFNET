@@ -8,10 +8,12 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using YAF.Controls;
+    using YAF.Web.Controls;
+
     public partial class forum {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +21,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// Welcome control.
         /// </summary>
@@ -28,8 +31,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumWelcome Welcome;
+        protected ForumWelcome Welcome;
         
+
         /// <summary>
         /// PollList control.
         /// </summary>
@@ -37,8 +41,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PollList PollList;
+        protected PollList PollList;
         
+
         /// <summary>
         /// ForumCategoryList control.
         /// </summary>
@@ -46,8 +51,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumCategoryList ForumCategoryList;
+        protected ForumCategoryList ForumCategoryList;
         
+
         /// <summary>
         /// IconLegend control.
         /// </summary>
@@ -55,8 +61,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumIconLegend IconLegend;
+        protected ForumIconLegend IconLegend;
         
+
         /// <summary>
         /// ActiveDiscussions control.
         /// </summary>
@@ -64,8 +71,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumActiveDiscussion ActiveDiscussions;
+        protected ForumActiveDiscussion ActiveDiscussions;
         
+
         /// <summary>
         /// ForumStats control.
         /// </summary>
@@ -73,6 +81,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumStatistics ForumStats;
+        protected ForumStatistics ForumStats;
     }
 }

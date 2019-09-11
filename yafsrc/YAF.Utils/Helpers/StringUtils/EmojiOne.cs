@@ -150,7 +150,7 @@ namespace YAF.Utils.Helpers.StringUtils
                     {
                         var hi = Math.Floor((decimal)(part - 0x10000) / 0x400) + 0xD800;
                         var lo = (part - 0x10000) % 0x400 + 0xDC00;
-                        hilos[i] = new string(new char[] { (char)hi, (char)lo });
+                        hilos[i] = new string(new[] { (char)hi, (char)lo });
                     }
                     else
                     {

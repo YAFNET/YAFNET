@@ -9,6 +9,8 @@ using ServiceStack.Configuration;
 
 namespace ServiceStack.Web
 {
+    using System.Net;
+
     /// <summary>
     /// A thin wrapper around each host's Request e.g: ASP.NET, HttpListener, MQ, etc
     /// </summary>
@@ -67,7 +69,7 @@ namespace ServiceStack.Web
         /// <summary>
         /// A Dictionary of HTTP Cookies sent with this Request
         /// </summary>
-        IDictionary<string, System.Net.Cookie> Cookies { get; }
+        IDictionary<string, Cookie> Cookies { get; }
 
         /// <summary>
         /// The expected Response ContentType for this request
@@ -98,6 +100,7 @@ namespace ServiceStack.Web
         /// The HTTP POST'ed Form Data in a NameValueCollection
         /// </summary>
         NameValueCollection FormData { get; }
+
         /// <summary>
         /// Buffer the Request InputStream so it can be re-read
         /// </summary>

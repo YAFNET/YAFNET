@@ -3,10 +3,13 @@
 namespace ServiceStack.DataAnnotations
 {
     // https://msdn.microsoft.com/en-us/library/ms184391.aspx
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class SqlServerCollateAttribute : AttributeBase
     {
-        public SqlServerCollateAttribute(string collation) { Collation = collation; }
+        public SqlServerCollateAttribute(string collation)
+        {
+            Collation = collation;
+        }
 
         public string Collation { get; set; }
     }

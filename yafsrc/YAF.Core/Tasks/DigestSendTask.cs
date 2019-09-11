@@ -123,7 +123,7 @@ namespace YAF.Core.Tasks
             }
 
 #if (DEBUG)
-       // haven't sent in X hours or more and it's 12 to 5 am.
+            // haven't sent in X hours or more and it's 12 to 5 am.
             var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
 #else
 

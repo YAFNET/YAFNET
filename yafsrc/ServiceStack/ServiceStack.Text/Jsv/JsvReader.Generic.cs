@@ -25,8 +25,7 @@ namespace ServiceStack.Text.Jsv
 
         public static ParseStringSegmentDelegate GetParseStringSegmentFn(Type type)
         {
-            ParseFactoryDelegate parseFactoryFn;
-            ParseFnCache.TryGetValue(type, out parseFactoryFn);
+            ParseFnCache.TryGetValue(type, out var parseFactoryFn);
 
             if (parseFactoryFn != null) return parseFactoryFn();
 

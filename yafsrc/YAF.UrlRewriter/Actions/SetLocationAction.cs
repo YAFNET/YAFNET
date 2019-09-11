@@ -20,7 +20,7 @@ namespace YAF.UrlRewriter.Actions
         /// <param name="location">The location (pattern) to set.</param>
         protected SetLocationAction(string location)
         {
-            this.Location = location ?? throw new ArgumentNullException("location");
+            this.Location = location ?? throw new ArgumentNullException(nameof(location));
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace YAF.UrlRewriter.Actions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             context.Location = context.ResolveLocation(context.Expand(this.Location));

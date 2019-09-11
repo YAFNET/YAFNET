@@ -44,7 +44,7 @@ namespace ServiceStack.Templates
             var dir = page.File.Directory;
             do
             {
-                var layoutPath = (dir.VirtualPath ?? "").CombineWith(layoutWithoutExt);
+                var layoutPath = (dir.VirtualPath ?? string.Empty).CombineWith(layoutWithoutExt);
 
                 if (pageMap.TryGetValue(layoutPath, out var layoutPage))
                     return layoutPage;
@@ -61,7 +61,8 @@ namespace ServiceStack.Templates
                 
                 dir = dir.ParentDirectory;
 
-            } while (dir != null);
+            }
+ while (dir != null);
             
             return null;
         }
@@ -85,7 +86,7 @@ namespace ServiceStack.Templates
                 : Context.VirtualFiles.RootDirectory;
             do
             {
-                var layoutPath = (dir.VirtualPath ?? "").CombineWith(layoutWithoutExt);
+                var layoutPath = (dir.VirtualPath ?? string.Empty).CombineWith(layoutWithoutExt);
 
                 if (pageMap.TryGetValue(layoutPath, out var layoutPage))
                     return layoutPage;
@@ -102,7 +103,8 @@ namespace ServiceStack.Templates
                 
                 dir = dir.ParentDirectory;
 
-            } while (dir != null);
+            }
+ while (dir != null);
             
             return null;
         }
@@ -118,7 +120,7 @@ namespace ServiceStack.Templates
 
         public virtual TemplatePage TryGetPage(string path)
         {
-            var santizePath = path.Replace('\\','/').TrimPrefixes("/").LastLeftPart('.');
+            var santizePath = path.Replace('\\', '/').TrimPrefixes("/").LastLeftPart('.');
 
             if (pageMap.TryGetValue(santizePath, out var page)) 
                 return page;
@@ -131,7 +133,7 @@ namespace ServiceStack.Templates
             if (string.IsNullOrEmpty(pathInfo))
                 return null;
 
-            var santizePath = pathInfo.Replace('\\','/').TrimPrefixes("/");
+            var santizePath = pathInfo.Replace('\\', '/').TrimPrefixes("/");
             var isDirectory = santizePath.Length == 0 || santizePath[santizePath.Length - 1] == '/';
 
             TemplatePage page = null;

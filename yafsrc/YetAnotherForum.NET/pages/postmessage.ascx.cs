@@ -740,7 +740,7 @@ namespace YAF.Pages
 
             // remove cache if it exists...
             this.Get<IDataCache>()
-                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID,this.TopicId));
+                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID, this.TopicId));
 
             return messageId;
         }
@@ -766,7 +766,7 @@ namespace YAF.Pages
             // Check if Forum is Moderated
             var isForumModerated = false;
 
-            var forumInfo = this.GetRepository<Types.Models.Forum>()
+            var forumInfo = this.GetRepository<Forum>()
                 .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
             
             if (forumInfo != null)
@@ -847,7 +847,7 @@ namespace YAF.Pages
             // Check if Forum is Moderated
             var isForumModerated = false;
 
-            var forumInfo = this.GetRepository<Types.Models.Forum>()
+            var forumInfo = this.GetRepository<Forum>()
                 .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
 
             if (forumInfo != null)
@@ -927,8 +927,6 @@ namespace YAF.Pages
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
                 && !this.PageContext.BoardSettings.SpamServiceType.Equals(0))
             {
-                string spamResult;
-
                 // Check content for spam
                 if (
                     this.Get<ISpamCheck>().CheckPostForSpam(
@@ -938,7 +936,7 @@ namespace YAF.Pages
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.ForumEditor.Text)))
                             .RemoveMultipleWhitespace(),
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
-                        out spamResult))
+                        out var spamResult))
                 {
                     switch (this.PageContext.BoardSettings.SpamMessageHandling)
                     {
@@ -1296,7 +1294,7 @@ namespace YAF.Pages
             }
 
             // get  forum information
-            var forumInfo = this.GetRepository<Types.Models.Forum>()
+            var forumInfo = this.GetRepository<Forum>()
                 .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
 
             // Ederon : 9/9/2007 - moderator can edit in locked topics
@@ -1318,7 +1316,7 @@ namespace YAF.Pages
         private bool CanQuotePostCheck(Topic topicInfo)
         {
             // get topic and forum information
-            var forumInfo = this.GetRepository<Types.Models.Forum>()
+            var forumInfo = this.GetRepository<Forum>()
                 .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
 
             if (topicInfo == null || forumInfo == null)
@@ -1525,7 +1523,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns if the forum needs to be moderated
         /// </returns>
-        private bool CheckForumModerateStatus(Types.Models.Forum forumInfo, bool isNewTopic)
+        private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
         {
             var forumModerated = forumInfo.ForumFlags.IsModerated;
 

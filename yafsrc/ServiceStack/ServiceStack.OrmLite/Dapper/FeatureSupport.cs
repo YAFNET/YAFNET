@@ -9,7 +9,9 @@ namespace ServiceStack.OrmLite.Dapper
     internal class FeatureSupport
     {
         private static readonly FeatureSupport
-            Default = new FeatureSupport(false),
+            Default = new FeatureSupport(false);
+
+        private static readonly FeatureSupport
             Postgres = new FeatureSupport(true);
 
         /// <summary>

@@ -32,6 +32,7 @@ namespace YAF.Core.Events
   using YAF.Types.Constants;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Events;
   using YAF.Utils.Structures;
 
   #endregion

@@ -47,6 +47,8 @@ namespace YAF.Pages
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
+    using Forum = YAF.Types.Models.Forum;
+
     #endregion
 
     /// <summary>
@@ -64,7 +66,7 @@ namespace YAF.Pages
         /// <summary>
         /// The forum.
         /// </summary>
-        private Types.Models.Forum forum;
+        private Forum forum;
 
         #endregion
 
@@ -256,7 +258,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            var dt = this.GetRepository<Types.Models.Forum>().List(
+            var dt = this.GetRepository<Forum>().List(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageForumID);
 

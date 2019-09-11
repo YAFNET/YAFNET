@@ -75,6 +75,7 @@ namespace YAF.Core
             {
                 System.Diagnostics.Debug.WriteLine("Extension Assembly: {0}", s);
             }
+
 #endif
         }
 

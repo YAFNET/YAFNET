@@ -72,6 +72,7 @@ namespace ServiceStack.Logging
             {
                 msg += $", Exception: {exception.Message}";
             }
+
             lock (logs)
                 logs.AppendLine(msg);
         }

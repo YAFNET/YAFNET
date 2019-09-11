@@ -29,7 +29,7 @@ namespace ServiceStack.OrmLite.Converters
                 return this.ConvertNumber(Enum.GetUnderlyingType(fieldType), value).ToString();
 
             var isEnumFlags = fieldType.IsEnumFlags() ||
-                !fieldType.IsEnum && fieldType.IsNumericType(); //i.e. is real int && not Enum
+                !fieldType.IsEnum && fieldType.IsNumericType(); // i.e. is real int && not Enum
 
             if (!isEnumFlags && long.TryParse(value.ToString(), out var enumValue))
                 value = Enum.ToObject(fieldType, enumValue);
@@ -68,7 +68,7 @@ namespace ServiceStack.OrmLite.Converters
         {
             var isIntEnum = fieldType.IsEnumFlags() ||
                             fieldType.HasAttribute<EnumAsIntAttribute>() ||
-                            !fieldType.IsEnum && fieldType.IsNumericType(); //i.e. is real int && not Enum
+                            !fieldType.IsEnum && fieldType.IsNumericType(); // i.e. is real int && not Enum
             return isIntEnum;
         }
 
@@ -122,7 +122,7 @@ namespace ServiceStack.OrmLite.Converters
 
         public override object ToDbValue(Type fieldType, object value)
         {
-            //Let ADO.NET providers handle byte[]
+            // Let ADO.NET providers handle byte[]
             return fieldType == typeof(byte[]) 
                 ? value 
                 : DialectProvider.StringSerializer.SerializeToString(value);

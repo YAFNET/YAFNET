@@ -72,10 +72,10 @@ namespace YAF.Types.Models
 
         public DateTime? LastPosted { get; set; }
 
-       // [References(typeof(Topic))]
+        // [References(typeof(Topic))]
         public int? LastTopicID { get; set; }
 
-//        [References(typeof(Message))]
+        // [References(typeof(Message))]
         public int? LastMessageID { get; set; }
 
         [References(typeof(User))]
@@ -126,8 +126,10 @@ namespace YAF.Types.Models
 
         [Compute]
         public bool? IsLocked { get; set; }
+
         [Compute]
         public bool? IsNoCount { get; set; }
+
         [Compute]
         public bool? IsModerated { get; set; }
 
@@ -137,7 +139,6 @@ namespace YAF.Types.Models
 
         [Default(0)]
         public bool IsModeratedNewTopicOnly { get; set; }
-
 
         #endregion
     }

@@ -83,7 +83,6 @@ namespace YAF.Core
 
             set
             {
-                ;
             }
         }
 

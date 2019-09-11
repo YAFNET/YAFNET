@@ -3,7 +3,7 @@ using ServiceStack.OrmLite.Converters;
 
 namespace ServiceStack.OrmLite.SqlServer.Converters
 {
-    //throws unknown type exceptions in parameterized queries, e.g: p.DbType = DbType.SByte
+    // throws unknown type exceptions in parameterized queries, e.g: p.DbType = DbType.SByte
     public class SqlServerSByteConverter : SByteConverter
     {
         public override DbType DbType => DbType.Byte;

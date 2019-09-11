@@ -86,6 +86,7 @@ namespace ServiceStack.OrmLite
         {
             throw new NotImplementedException(OrmLiteUtils.AsyncRequiresNet45Error);
         }
+
 #endif
 
         public void InsertAll(IEnumerable objs)

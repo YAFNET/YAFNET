@@ -50,7 +50,7 @@ namespace YAF.Types.Flags
     ///   Initializes a new instance of the <see cref = "FlagsBase" /> class. 
     ///   Creates new instance with all bits set to false (integer 0).
     /// </summary>
-    public FlagsBase()
+    protected FlagsBase()
       : this(0)
     {
     }
@@ -60,16 +60,14 @@ namespace YAF.Types.Flags
     ///   Creates new instance and initialize it with value of bitValue parameter.
     /// </summary>
     /// <param name="bitValue">
-    /// Initialize integer value.
+    ///     Initialize integer value.
+    ///     Initialize integer value.
     /// </param>
     /// <summary>
     /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
     ///   Creates new instance and initialize it with value of bitValue parameter.
     /// </summary>
-    /// <param name="bitValue">
-    /// Initialize integer value.
-    /// </param>
-    public FlagsBase(int bitValue)
+    protected FlagsBase(int bitValue)
     {
       this._bitValue = bitValue;
     }
@@ -81,7 +79,7 @@ namespace YAF.Types.Flags
     /// <param name="bits">
     /// Boolean values to initialize class with. If their number is lower than 32, remaining bits are set to false. If more than 32 values is specified, excess values are ignored.
     /// </param>
-    public FlagsBase([NotNull] params bool[] bits)
+    protected FlagsBase([NotNull] params bool[] bits)
       : this(0)
     {
       // process up to 32 parameters
@@ -145,16 +143,11 @@ namespace YAF.Types.Flags
         bitShift %= 63;
       }
 
-      if (((bitValue >> bitShift) & 0x00000001) == 1)
-      {
-        return true;
-      }
-
-      return false;
+      return ((bitValue >> bitShift) & 0x00000001) == 1;
     }
 
     /// <summary>
-    /// Sets or unsets bit of bitValue integer at position specified by bitShift, depending on value parameter.
+    /// Sets or un-sets bit of bitValue integer at position specified by bitShift, depending on value parameter.
     /// </summary>
     /// <param name="bitValue">
     /// Integer value.
@@ -175,12 +168,14 @@ namespace YAF.Types.Flags
         bitShift %= 63;
       }
 
-      if (GetBitAsBool(bitValue, bitShift) != value)
+      if (GetBitAsBool(bitValue, bitShift) == value)
       {
-        // toggle that value using XOR
-        var tV = 0x00000001 << bitShift;
-        bitValue ^= tV;
+          return bitValue;
       }
+
+      // toggle that value using XOR
+      var tV = 0x00000001 << bitShift;
+      bitValue ^= tV;
 
       return bitValue;
     }

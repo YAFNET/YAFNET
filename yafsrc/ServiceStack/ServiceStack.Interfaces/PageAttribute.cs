@@ -5,7 +5,7 @@ namespace ServiceStack
     /// <summary>
     /// Specify a VirtualPath or Layout for a Code Page
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class PageAttribute : AttributeBase
     {
         public string VirtualPath { get; set; }
@@ -18,6 +18,7 @@ namespace ServiceStack
         }
     }
     
+
     /// <summary>
     /// Specify static page arguments
     /// </summary>

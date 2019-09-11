@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class PollList {
         
+
         /// <summary>
         /// PollListHolder control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PollListHolder;
+        protected PlaceHolder PollListHolder;
         
+
         /// <summary>
         /// PollGroup control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater PollGroup;
+        protected Repeater PollGroup;
         
+
         /// <summary>
         /// NewPollRow control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder NewPollRow;
+        protected PlaceHolder NewPollRow;
         
+
         /// <summary>
         /// CreatePoll1 control.
         /// </summary>
@@ -46,6 +52,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton CreatePoll1;
+        protected ThemeButton CreatePoll1;
     }
 }

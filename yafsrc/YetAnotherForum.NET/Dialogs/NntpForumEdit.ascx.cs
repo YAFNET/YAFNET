@@ -132,9 +132,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            DateTime dateCutOff;
-
-            if (!DateTime.TryParse(s: this.DateCutOff.Text, result: out dateCutOff))
+            if (!DateTime.TryParse(s: this.DateCutOff.Text, result: out var dateCutOff))
             {
                 dateCutOff = DateTime.MinValue;
             }

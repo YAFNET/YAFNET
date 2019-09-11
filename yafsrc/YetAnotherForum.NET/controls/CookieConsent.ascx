@@ -2,7 +2,6 @@
     Inherits="YAF.Controls.CookieConsent" Codebehind="CookieConsent.ascx.cs" %>
 
 
-
 <div class="alert alert-dismissible text-center cookiealert" role="alert">
     <div class="cookiealert-container">
         <h4 class="alert-heading">

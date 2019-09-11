@@ -6,6 +6,8 @@ using System.Reflection;
 
 namespace ServiceStack
 {
+    using System.ComponentModel;
+
     public static class AttributeExtensions
     {
         public static string GetDescription(this Type type)
@@ -14,11 +16,11 @@ namespace ServiceStack
             if (apiAttr != null)
                 return apiAttr.Description;
 
-            var componentDescAttr = type.FirstAttribute<System.ComponentModel.DescriptionAttribute>();
+            var componentDescAttr = type.FirstAttribute<DescriptionAttribute>();
             if (componentDescAttr != null)
                 return componentDescAttr.Description;
 
-            var ssDescAttr = type.FirstAttribute<ServiceStack.DataAnnotations.DescriptionAttribute>();
+            var ssDescAttr = type.FirstAttribute<DataAnnotations.DescriptionAttribute>();
             return ssDescAttr?.Description;
         }
 
@@ -28,21 +30,21 @@ namespace ServiceStack
             if (apiAttr != null)
                 return apiAttr.Description;
 
-            var componentDescAttr = mi.FirstAttribute<System.ComponentModel.DescriptionAttribute>();
+            var componentDescAttr = mi.FirstAttribute<DescriptionAttribute>();
             if (componentDescAttr != null)
                 return componentDescAttr.Description;
 
-            var ssDescAttr = mi.FirstAttribute<ServiceStack.DataAnnotations.DescriptionAttribute>();
+            var ssDescAttr = mi.FirstAttribute<DataAnnotations.DescriptionAttribute>();
             return ssDescAttr?.Description;
         }
 
         public static string GetDescription(this ParameterInfo pi)
         {
-            var componentDescAttr = pi.FirstAttribute<System.ComponentModel.DescriptionAttribute>();
+            var componentDescAttr = pi.FirstAttribute<DescriptionAttribute>();
             if (componentDescAttr != null)
                 return componentDescAttr.Description;
 
-            var ssDescAttr = pi.FirstAttribute<ServiceStack.DataAnnotations.DescriptionAttribute>();
+            var ssDescAttr = pi.FirstAttribute<DataAnnotations.DescriptionAttribute>();
             return ssDescAttr?.Description;
         }
     }

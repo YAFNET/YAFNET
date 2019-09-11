@@ -18,6 +18,7 @@ namespace ServiceStack.OrmLite.Dapper
                 if (enabled) AllowedCommandBehaviors |= behavior;
                 else AllowedCommandBehaviors &= ~behavior;
             }
+
             /// <summary>
             /// Gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization
             /// </summary>
@@ -27,6 +28,7 @@ namespace ServiceStack.OrmLite.Dapper
                 get => (AllowedCommandBehaviors & CommandBehavior.SingleResult) != 0;
                 set => SetAllowedCommandBehaviors(CommandBehavior.SingleResult, value);
             }
+
             /// <summary>
             /// Gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization
             /// </summary>
@@ -49,6 +51,7 @@ namespace ServiceStack.OrmLite.Dapper
                         return true;
                     }
                 }
+
                 return false;
             }
 
@@ -88,6 +91,7 @@ namespace ServiceStack.OrmLite.Dapper
             /// default and must be enabled.
             /// </remarks>
             public static bool PadListExpansions { get; set; }
+
             /// <summary>
             /// If set (non-negative), when performing in-list expansions of integer types ("where id in @ids", etc), switch to a string_split based
             /// operation if there are more than this many elements. Note that this feautre requires SQL Server 2016 / compatibility level 130 (or above).

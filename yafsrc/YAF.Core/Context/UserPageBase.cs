@@ -484,7 +484,7 @@ namespace YAF.Core
         /// </returns>
         private bool PageValueAsBool(string field)
         {
-            if (this.Page != null && this.Page[field] != null)
+            if (this.Page?[field] != null)
             {
                 return this.Page[field].ToType<int>() != 0;
             }
@@ -503,7 +503,7 @@ namespace YAF.Core
         /// </returns>
         private int PageValueAsInt(string field)
         {
-            if (this.Page != null && this.Page[field] != null)
+            if (this.Page?[field] != null)
             {
                 return this.Page[field].ToType<int>();
             }

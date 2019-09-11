@@ -15,7 +15,7 @@ namespace ServiceStack.Templates
 {
     public class RawString : IRawString
     {
-        public static RawString Empty = new RawString("");
+        public static RawString Empty = new RawString(string.Empty);
         
         private readonly string value;
         public RawString(string value) => this.value = value;
@@ -72,6 +72,7 @@ namespace ServiceStack.Templates
                                     varEndPos = varEndPos + 1 + strPos + 1;
                                     return strPos;
                                 }
+
                                 return null;
                             },
                             allowWhitespaceSensitiveSyntax: true);
@@ -125,11 +126,11 @@ namespace ServiceStack.Templates
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IRawString ToRawString(this string value) => 
-            new RawString(value ?? "");
+            new RawString(value ?? string.Empty);
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IRawString ToRawString(this StringSegment value) => 
-            new RawString(value.HasValue ? value.Value : "");
+            new RawString(value.HasValue ? value.Value : string.Empty);
 
         public static Func<TemplateScopeContext, object, object> Compile(Type type, StringSegment expr)
         {
@@ -272,6 +273,7 @@ namespace ServiceStack.Templates
                         expr.Value, e);
                 }
             }
+
             return body;
         }
 
@@ -321,6 +323,7 @@ namespace ServiceStack.Templates
             {
                 body = Expression.ArrayIndex(body, valueExpr);
             }
+
             return body;
         }
 

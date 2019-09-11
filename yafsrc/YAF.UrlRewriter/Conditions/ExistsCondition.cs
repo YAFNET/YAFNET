@@ -21,7 +21,7 @@ namespace YAF.UrlRewriter.Conditions
         /// <param name="location">The file location</param>
         public ExistsCondition(string location)
         {
-            this._location = location ?? throw new ArgumentNullException("location");
+            this._location = location ?? throw new ArgumentNullException(nameof(location));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace YAF.UrlRewriter.Conditions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             try

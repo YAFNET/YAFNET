@@ -84,8 +84,10 @@ namespace ServiceStack.OrmLite.SqlServer
                         {
                             connectionString += "Mode = Read Only;";
                         }
+
                         continue;
                     }
+
                     connectionString += $"{option.Key}={option.Value};";
                 }
             }
@@ -125,22 +127,21 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override string GetForeignKeyOnDeleteClause(ForeignKeyConstraint foreignKey)
         {
-            return "RESTRICT" == (foreignKey.OnDelete ?? "").ToUpper()
-                ? ""
+            return "RESTRICT" == (foreignKey.OnDelete ?? string.Empty).ToUpper()
+                ? string.Empty
                 : base.GetForeignKeyOnDeleteClause(foreignKey);
         }
 
         public override string GetForeignKeyOnUpdateClause(ForeignKeyConstraint foreignKey)
         {
-            return "RESTRICT" == (foreignKey.OnUpdate ?? "").ToUpper()
-                ? ""
+            return "RESTRICT" == (foreignKey.OnUpdate ?? string.Empty).ToUpper()
+                ? string.Empty
                 : base.GetForeignKeyOnUpdateClause(foreignKey);
         }
 
         public override string GetDropForeignKeyConstraints(ModelDefinition modelDef)
         {
-            //TODO: find out if this should go in base class?
-
+            // TODO: find out if this should go in base class?
             var sb = StringBuilderCache.Allocate();
             foreach (var fieldDef in modelDef.FieldDefinitions)
             {
@@ -295,7 +296,7 @@ namespace ServiceStack.OrmLite.SqlServer
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
-            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : "";
+            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : string.Empty;
             var sql =
                 $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
 
@@ -345,7 +346,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (ShouldSkipInsert(fieldDef))
                     continue;
 
-                //insertFields contains Property "Name" of fields to insert ( that's how expressions work )
+                // insertFields contains Property "Name" of fields to insert ( that's how expressions work )
                 if (insertFields != null && !insertFields.Contains(fieldDef.Name, StringComparer.OrdinalIgnoreCase))
                     continue;
 
@@ -377,7 +378,7 @@ namespace ServiceStack.OrmLite.SqlServer
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
-            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : "";
+            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : string.Empty;
             cmd.CommandText =
                 $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
@@ -425,7 +426,7 @@ namespace ServiceStack.OrmLite.SqlServer
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
-            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : "";
+            strReturning = strReturning.Length > 0 ? $"OUTPUT {strReturning} " : string.Empty;
             dbCmd.CommandText =
                 $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
@@ -455,7 +456,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
             var selectType = selectExpression.StartsWithIgnoreCase("SELECT DISTINCT") ? "SELECT DISTINCT" : "SELECT";
 
-            //Temporary hack till we come up with a more robust paging sln for SqlServer
+            // Temporary hack till we come up with a more robust paging sln for SqlServer
             if (skip == 0)
             {
                 var sql = StringBuilderCache.ReturnAndFree(sb) + orderByExpression;
@@ -485,7 +486,7 @@ namespace ServiceStack.OrmLite.SqlServer
             return ret;
         }
 
-        //SELECT without RowNum and prefer aliases to be able to use in SELECT IN () Reference Queries
+        // SELECT without RowNum and prefer aliases to be able to use in SELECT IN () Reference Queries
         public static string UseAliasesOrStripTablePrefixes(string selectExpression)
         {
             if (selectExpression.IndexOf('.') < 0)
@@ -530,7 +531,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 var modelDef = expr.ModelDef;
                 expr.Select(this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey))
                     .ClearLimits()
-                    .OrderBy(""); //Invalid in Sub Selects
+                    .OrderBy(string.Empty); // Invalid in Sub Selects
 
                 var subSql = expr.ToSelectStatement();
 
@@ -546,7 +547,7 @@ namespace ServiceStack.OrmLite.SqlServer
         public override string SqlBool(bool value) => value ? "1" : "0";
 
         public override string SqlLimit(int? offset = null, int? rows = null) => rows == null && offset == null
-            ? ""
+            ? string.Empty
             : rows != null
                 ? $"OFFSET {offset.GetValueOrDefault()} ROWS FETCH NEXT {rows} ROWS ONLY"
                 : $"OFFSET {offset.GetValueOrDefault(int.MaxValue)} ROWS";

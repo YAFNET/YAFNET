@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class YafHeader {
         
+
         /// <summary>
         /// GuestUserMessage control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Alert GuestUserMessage;
+        protected Alert GuestUserMessage;
         
+
         /// <summary>
         /// GuestMessage control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label GuestMessage;
+        protected Label GuestMessage;
         
+
         /// <summary>
         /// menuListItems control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder menuListItems;
+        protected PlaceHolder menuListItems;
         
+
         /// <summary>
         /// AdminModHolder control.
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder AdminModHolder;
+        protected PlaceHolder AdminModHolder;
         
+
         /// <summary>
         /// menuAdminItems control.
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder menuAdminItems;
+        protected PlaceHolder menuAdminItems;
         
+
         /// <summary>
         /// AdminAdminHolder control.
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder AdminAdminHolder;
+        protected PlaceHolder AdminAdminHolder;
         
+
         /// <summary>
         /// HostMenuHolder control.
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder HostMenuHolder;
+        protected PlaceHolder HostMenuHolder;
         
+
         /// <summary>
         /// ModerateHolder control.
         /// </summary>
@@ -82,8 +92,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ModerateHolder;
+        protected PlaceHolder ModerateHolder;
         
+
         /// <summary>
         /// LoggedInUserPanel control.
         /// </summary>
@@ -91,8 +102,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder LoggedInUserPanel;
+        protected PlaceHolder LoggedInUserPanel;
         
+
         /// <summary>
         /// UnreadPlaceHolder control.
         /// </summary>
@@ -100,8 +112,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UnreadPlaceHolder;
+        protected PlaceHolder UnreadPlaceHolder;
         
+
         /// <summary>
         /// MyProfile control.
         /// </summary>
@@ -109,8 +122,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink MyProfile;
+        protected HyperLink MyProfile;
         
+
         /// <summary>
         /// MyInboxItem control.
         /// </summary>
@@ -118,8 +132,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MyInboxItem;
+        protected PlaceHolder MyInboxItem;
         
+
         /// <summary>
         /// MyBuddiesItem control.
         /// </summary>
@@ -127,8 +142,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MyBuddiesItem;
+        protected PlaceHolder MyBuddiesItem;
         
+
         /// <summary>
         /// MyAlbumsItem control.
         /// </summary>
@@ -136,8 +152,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MyAlbumsItem;
+        protected PlaceHolder MyAlbumsItem;
         
+
         /// <summary>
         /// MyTopicItem control.
         /// </summary>
@@ -145,8 +162,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MyTopicItem;
+        protected PlaceHolder MyTopicItem;
         
+
         /// <summary>
         /// LogutItem control.
         /// </summary>
@@ -154,8 +172,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder LogutItem;
+        protected PlaceHolder LogutItem;
         
+
         /// <summary>
         /// LogOutButton control.
         /// </summary>
@@ -163,8 +182,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LogOutButton;
+        protected LinkButton LogOutButton;
         
+
         /// <summary>
         /// quickSearch control.
         /// </summary>
@@ -172,8 +192,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel quickSearch;
+        protected Panel quickSearch;
         
+
         /// <summary>
         /// searchInput control.
         /// </summary>
@@ -181,8 +202,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchInput;
+        protected TextBox searchInput;
         
+
         /// <summary>
         /// doQuickSearch control.
         /// </summary>
@@ -190,6 +212,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton doQuickSearch;
+        protected ThemeButton doQuickSearch;
     }
 }

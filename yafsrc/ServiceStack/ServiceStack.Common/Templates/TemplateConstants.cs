@@ -32,7 +32,7 @@ namespace ServiceStack.Templates
         public const string DefaultFileCacheExpiry = nameof(DefaultFileCacheExpiry);
         public const string DefaultUrlCacheExpiry = nameof(DefaultUrlCacheExpiry);
 
-        public static IRawString EmptyRawString { get; } = new RawString("");
+        public static IRawString EmptyRawString { get; } = new RawString(string.Empty);
         public static IRawString TrueRawString { get; } = new RawString("true");
         public static IRawString FalseRawString { get; } = new RawString("false");
     }

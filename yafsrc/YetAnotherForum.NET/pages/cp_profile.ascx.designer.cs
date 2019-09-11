@@ -8,10 +8,12 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using YAF.Controls;
+    using YAF.Web.Controls;
+
     public partial class cp_profile {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +21,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// ProfileMenu1 control.
         /// </summary>
@@ -28,8 +31,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
+        protected ProfileMenu ProfileMenu1;
         
+
         /// <summary>
         /// ControlPanel control.
         /// </summary>
@@ -37,8 +41,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel ControlPanel;
+        protected LocalizedLabel ControlPanel;
         
+
         /// <summary>
         /// YourAccount control.
         /// </summary>
@@ -46,8 +51,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ProfileYourAccount YourAccount;
+        protected ProfileYourAccount YourAccount;
         
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -55,6 +61,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
     }
 }

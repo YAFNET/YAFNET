@@ -42,11 +42,6 @@ namespace YAF.Utils
         #region Constants and Fields
 
         /// <summary>
-        /// The inited.
-        /// </summary>
-        private static bool inited;
-
-        /// <summary>
         /// The is mono.
         /// </summary>
         private static bool isMono;
@@ -72,10 +67,7 @@ namespace YAF.Utils
         {
             get
             {
-                if (!inited)
-                {
-                    Init();
-                }
+                Init();
 
                 return isMono;
             }
@@ -95,10 +87,7 @@ namespace YAF.Utils
         {
             get
             {
-                if (!inited)
-                {
-                    Init();
-                }
+                Init();
 
                 return isMono ? "Mono" : ".NET";
             }

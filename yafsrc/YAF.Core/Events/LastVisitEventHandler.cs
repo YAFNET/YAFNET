@@ -26,6 +26,7 @@ namespace YAF.Core.Events
     #region Using
 
     using System;
+    using System.Globalization;
     using System.Web;
 
     using YAF.Core;
@@ -33,6 +34,7 @@ namespace YAF.Core.Events
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -123,9 +125,8 @@ namespace YAF.Core.Events
                 {
                     // have previous visit cookie...
                     var previousVisitInsecure = this._requestBase.Cookies.Get(name: previousVisitKey).Value;
-                    DateTime previousVisit;
 
-                    if (DateTime.TryParse(s: previousVisitInsecure, result: out previousVisit))
+                    if (DateTime.TryParse(s: previousVisitInsecure, result: out var previousVisit))
                     {
                         this.YafSession.LastVisit = previousVisit;
                     }
@@ -136,7 +137,7 @@ namespace YAF.Core.Events
                 }
 
                 // set the last visit cookie...
-                var httpCookie = new HttpCookie(name: previousVisitKey, value: DateTime.UtcNow.ToString())
+                var httpCookie = new HttpCookie(name: previousVisitKey, value: DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
                     {
                        Expires = DateTime.Now.AddMonths(months: 6) 
                     };

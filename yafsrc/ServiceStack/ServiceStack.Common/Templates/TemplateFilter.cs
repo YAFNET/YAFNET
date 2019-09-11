@@ -158,6 +158,7 @@ namespace ServiceStack.Templates
                     {
                         to.Add(item);
                     }
+
                     return to;
                 }
                 
@@ -219,6 +220,7 @@ namespace ServiceStack.Templates
                     scope.ScopedParams[entry.Key] = entry.Value;
                 }
             }
+
             return scope;
         }
 

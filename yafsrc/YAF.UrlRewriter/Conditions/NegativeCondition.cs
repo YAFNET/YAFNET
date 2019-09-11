@@ -20,7 +20,7 @@ namespace YAF.UrlRewriter.Conditions
         /// <param name="chainedCondition"></param>
         public NegativeCondition(IRewriteCondition chainedCondition)
         {
-            this._chainedCondition = chainedCondition ?? throw new ArgumentNullException("chainedCondition");
+            this._chainedCondition = chainedCondition ?? throw new ArgumentNullException(nameof(chainedCondition));
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace YAF.UrlRewriter.Conditions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             return !this._chainedCondition.IsMatch(context);

@@ -24,40 +24,46 @@
 namespace YAF.Core.Data.Profiling
 {
     using System;
+
+#if DEBUG
     using System.Diagnostics;
     using System.Web;
+#endif
 
+    /// <summary>
+    /// The query watcher.
+    /// </summary>
     public class QueryWatcher : IDisposable
     {
 #if DEBUG
 
         /// <summary>
-        ///     The _stop watch.
+        /// The stop watch.
         /// </summary>
-        private readonly Stopwatch _stopWatch = new Stopwatch();
+        private readonly Stopwatch stopWatch = new Stopwatch();
 
         /// <summary>
-        ///     The _cmd.
+        /// The current step text.
         /// </summary>
-        public string _currentStepText;
+        private string currentStepText;
 #endif
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="QueryCounter" /> class.
+        /// Initializes a new instance of the <see cref="QueryWatcher"/> class. 
         /// </summary>
-        /// <param name="currentStepText">
-        ///     The sql.
+        /// <param name="currentStep">
+        /// The current Step.
         /// </param>
-        public QueryWatcher(string currentStepText)
+        public QueryWatcher(string currentStep)
         {
 #if DEBUG
-            this._currentStepText = currentStepText;
+            this.currentStepText = currentStep;
 
             if (HttpContext.Current != null)
             {
                 if (HttpContext.Current.Items["NumQueries"] == null)
                 {
-                    HttpContext.Current.Items["NumQueries"] = (int)1;
+                    HttpContext.Current.Items["NumQueries"] = 1;
                 }
                 else
                 {
@@ -65,7 +71,7 @@ namespace YAF.Core.Data.Profiling
                 }
             }
 
-            this._stopWatch.Start();
+            this.stopWatch.Start();
 #endif
         }
 
@@ -75,31 +81,33 @@ namespace YAF.Core.Data.Profiling
         public void Dispose()
         {
 #if DEBUG
-            this._stopWatch.Stop();
+            this.stopWatch.Stop();
 
-            double duration = (double)this._stopWatch.ElapsedMilliseconds / 1000.0;
+            var duration = this.stopWatch.ElapsedMilliseconds / 1000.0;
 
-            this._currentStepText = string.Format("{0}: {1:N3}", this._currentStepText, duration);
+            this.currentStepText = $"{this.currentStepText}: {duration:N3}";
 
-            if (HttpContext.Current != null)
+            if (HttpContext.Current == null)
             {
-                if (HttpContext.Current.Items["TimeQueries"] == null)
-                {
-                    HttpContext.Current.Items["TimeQueries"] = duration;
-                }
-                else
-                {
-                    HttpContext.Current.Items["TimeQueries"] = duration + (double)HttpContext.Current.Items["TimeQueries"];
-                }
+                return;
+            }
 
-                if (HttpContext.Current.Items["CmdQueries"] == null)
-                {
-                    HttpContext.Current.Items["CmdQueries"] = this._currentStepText;
-                }
-                else
-                {
-                    HttpContext.Current.Items["CmdQueries"] += "<br />" + this._currentStepText;
-                }
+            if (HttpContext.Current.Items["TimeQueries"] == null)
+            {
+                HttpContext.Current.Items["TimeQueries"] = duration;
+            }
+            else
+            {
+                HttpContext.Current.Items["TimeQueries"] = duration + (double)HttpContext.Current.Items["TimeQueries"];
+            }
+
+            if (HttpContext.Current.Items["CmdQueries"] == null)
+            {
+                HttpContext.Current.Items["CmdQueries"] = this.currentStepText;
+            }
+            else
+            {
+                HttpContext.Current.Items["CmdQueries"] += $"<br />{this.currentStepText}";
             }
 
 #endif

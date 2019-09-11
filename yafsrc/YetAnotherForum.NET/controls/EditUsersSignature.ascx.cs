@@ -38,6 +38,7 @@ namespace YAF.Controls
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -322,8 +323,7 @@ namespace YAF.Controls
                     if (userData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
-                        string result;
-                        if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result))
+                        if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
                         {
                             var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
                             var userId = this.CurrentUserID;

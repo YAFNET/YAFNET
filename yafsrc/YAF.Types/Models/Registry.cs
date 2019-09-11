@@ -37,8 +37,9 @@ namespace YAF.Types.Models
     ///     A class which represents the YAF_Registry table in the YAF Database.
     /// </summary>
     [Serializable]
-    public partial class Registry : IEntity, IHaveID//, IHaveBoardID
+    public partial class Registry : IEntity, IHaveID
     {
+        // , IHaveBoardID
         #region Constructors and Destructors
 
         /// <summary>

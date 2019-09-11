@@ -65,7 +65,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </returns>
         protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
         {
-            return variableName == "size" ? this.GetFontSize(variableValue) : variableValue;
+            return variableName == "size" ? GetFontSize(variableValue) : variableValue;
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </summary>
         /// <param name="inputStr">The input string.</param>
         /// <returns>Returns the Font size</returns>
-        private string GetFontSize(string inputStr)
+        private static string GetFontSize(string inputStr)
         {
             int[] sizes = { 50, 70, 80, 90, 100, 120, 140, 160, 180 };
             var size = 5;

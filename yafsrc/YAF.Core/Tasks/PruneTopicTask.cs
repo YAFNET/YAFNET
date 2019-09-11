@@ -40,13 +40,6 @@ namespace YAF.Core.Tasks
         private const string _taskName = "PruneTopicTask";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PruneTopicTask"/> class.
-        /// </summary>
-        public PruneTopicTask()
-        {
-        }
-
-        /// <summary>
         /// Gets TaskName.
         /// </summary>
         public static string TaskName => _taskName;

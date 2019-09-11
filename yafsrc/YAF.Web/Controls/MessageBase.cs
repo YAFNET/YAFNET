@@ -108,7 +108,7 @@ namespace YAF.Web.Controls
                     {
                         var codeRow = keyPair.Key;
 
-                        Match match = null;
+                        Match match;
 
                         do
                         {
@@ -128,7 +128,7 @@ namespace YAF.Web.Controls
                                 var vars = codeRow.Variables.Split(';');
 
                                 vars.Where(v => match.Groups[v] != null).ForEach(
-                                    v => paramDic.Add(v, match.Groups[(string)v].Value));
+                                    v => paramDic.Add(v, match.Groups[v].Value));
                             }
 
                             sb.Append(workingMessage.Substring(0, match.Groups[0].Index));

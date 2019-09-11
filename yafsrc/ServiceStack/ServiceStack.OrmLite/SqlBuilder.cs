@@ -12,6 +12,7 @@ using PropertyAttributes = System.Reflection.PropertyAttributes;
 namespace ServiceStack.OrmLite
 {
 #if !NO_EXPRESSIONS
+
     /// <summary>
     /// Nice SqlBuilder class by @samsaffron from Dapper.Contrib:
     /// http://samsaffron.com/archive/2011/09/05/Digging+ourselves+out+of+the+mess+Linq-2-SQL+created
@@ -91,7 +92,7 @@ namespace ServiceStack.OrmLite
                     // Generate a private field
                     var field = typeBuilder.DefineField($"_{p.Name}", p.Type, FieldAttributes.Private);
 
-                    //set default values with Emit for popular types
+                    // set default values with Emit for popular types
                     if (p.Type == typeof(int))
                     {
                         ctorIL.Emit(OpCodes.Ldarg_0);
@@ -112,7 +113,7 @@ namespace ServiceStack.OrmLite
                     }
                     else
                     {
-                        unsetValues.Add(p); //otherwise use reflection
+                        unsetValues.Add(p); // otherwise use reflection
                     }
 
                     // Generate a public property
@@ -151,7 +152,7 @@ namespace ServiceStack.OrmLite
 #endif
                 var instance = Activator.CreateInstance(generetedType);
 
-                //Using reflection for less property types. Not caching since it's a generated type.
+                // Using reflection for less property types. Not caching since it's a generated type.
                 foreach (var p in unsetValues)
                 {
                     generetedType.GetProperty(p.Name).GetSetMethod().Invoke(instance, new[] { p.Value });
@@ -180,6 +181,7 @@ namespace ServiceStack.OrmLite
                 {
                     p.AddDynamicParams(item.Parameters);
                 }
+
                 return prefix + string.Join(joiner, this.Select(c => c.Sql).ToArray()) + postfix;
             }
         }
@@ -212,10 +214,11 @@ namespace ServiceStack.OrmLite
                     {
                         rawSql = rawSql.Replace($"/**{pair.Key}**/", pair.Value.ResolveClauses(p));
                     }
+
                     parameters = p.CreateDynamicType();
 
                     // replace all that is left with empty
-                    rawSql = regex.Replace(rawSql, "");
+                    rawSql = regex.Replace(rawSql, string.Empty);
 
                     dataSeq = builder.seq;
                 }
@@ -247,12 +250,12 @@ namespace ServiceStack.OrmLite
 
         void AddClause(string name, string sql, object parameters, string joiner, string prefix = "", string postfix = "")
         {
-            Clauses clauses;
-            if (!data.TryGetValue(name, out clauses))
+            if (!data.TryGetValue(name, out var clauses))
             {
                 clauses = new Clauses(joiner, prefix, postfix);
                 data[name] = clauses;
             }
+
             clauses.Add(new Clause { Sql = sql, Parameters = parameters });
             seq++;
         }
@@ -278,13 +281,13 @@ namespace ServiceStack.OrmLite
 
         public SqlBuilder Select(string sql, object parameters = null)
         {
-            AddClause("select", sql, parameters, " , ", prefix: "", postfix: "\n");
+            AddClause("select", sql, parameters, " , ", prefix: string.Empty, postfix: "\n");
             return this;
         }
 
         public SqlBuilder AddParameters(object parameters)
         {
-            AddClause("--parameters", "", parameters, "");
+            AddClause("--parameters", string.Empty, parameters, string.Empty);
             return this;
         }
 

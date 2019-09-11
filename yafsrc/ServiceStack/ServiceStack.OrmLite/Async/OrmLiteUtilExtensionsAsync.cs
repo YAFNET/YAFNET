@@ -1,5 +1,6 @@
 ﻿#if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
+
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -49,7 +50,7 @@ namespace ServiceStack.OrmLite
         {
             var values = new object[reader.FieldCount];
             var isObjectList = typeof(T) == typeof(List<object>);
-            var isObjectDict = typeof(T) == typeof(Dictionary<string,object>);
+            var isObjectDict = typeof(T) == typeof(Dictionary<string, object>);
             var isDynamic = typeof(T) == typeof(object);
             var isValueTuple = typeof(T).IsValueTuple();
             var isTuple = typeof(T).IsTuple();
@@ -58,10 +59,13 @@ namespace ServiceStack.OrmLite
                 : reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields);
 
             var genericArgs = isTuple ? typeof(T).GetGenericArguments() : null;
-            var modelIndexCaches = isTuple ? reader.GetMultiIndexCaches(dialectProvider, onlyFields, genericArgs) : null;
-            var genericTupleMi = isTuple ? typeof(T).GetGenericTypeDefinition().GetCachedGenericType(genericArgs) : null;
+            var modelIndexCaches =
+ isTuple ? reader.GetMultiIndexCaches(dialectProvider, onlyFields, genericArgs) : null;
+            var genericTupleMi =
+ isTuple ? typeof(T).GetGenericTypeDefinition().GetCachedGenericType(genericArgs) : null;
 #if NETSTANDARD2_0
-            var activator = isTuple ? System.Reflection.TypeExtensions.GetConstructor(genericTupleMi, genericArgs).GetActivator() : null;
+            var activator =
+ isTuple ? System.Reflection.TypeExtensions.GetConstructor(genericTupleMi, genericArgs).GetActivator() : null;
 #else
             var activator = isTuple ? genericTupleMi.GetConstructor(genericArgs).GetActivator() : null;
 #endif
@@ -78,7 +82,7 @@ namespace ServiceStack.OrmLite
                 }
                 if (isObjectDict)
                 {
-                    var row = new Dictionary<string,object>();
+                    var row = new Dictionary<string, object>();
                     for (var i = 0; i < reader.FieldCount; i++)
                     {
                         row[reader.GetName(i).Trim()] = reader.GetValue(i);
@@ -127,7 +131,7 @@ namespace ServiceStack.OrmLite
                 var row = type.CreateInstance();
                 row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                 return row;
-            }, token).Then<object,object>(t =>
+            }, token).Then<object, object>(t =>
             {
                 reader.Dispose();
                 return t;

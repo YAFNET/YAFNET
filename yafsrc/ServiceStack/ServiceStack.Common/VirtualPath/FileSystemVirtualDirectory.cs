@@ -57,7 +57,7 @@ namespace ServiceStack.VirtualPath
             }
             catch (Exception ex)
             {
-                //Possible exception from scanning symbolic links
+                // Possible exception from scanning symbolic links
                 Log.Warn($"Unable to GetFiles for {RealPath}", ex);
                 return TypeConstants<FileInfo>.EmptyArray;
             }
@@ -71,7 +71,7 @@ namespace ServiceStack.VirtualPath
             }
             catch (Exception ex)
             {
-                //Possible exception from scanning symbolic links
+                // Possible exception from scanning symbolic links
                 Log.Warn($"Unable to GetDirectories for {RealPath}", ex);
                 return TypeConstants<DirectoryInfo>.EmptyArray;
             }
@@ -97,7 +97,7 @@ namespace ServiceStack.VirtualPath
             }
             catch (Exception ex)
             {
-                //Possible exception from scanning symbolic links
+                // Possible exception from scanning symbolic links
                 Log.Warn($"Unable to scan for {globPattern} in {RealPath}", ex);
                 return TypeConstants<IVirtualFile>.EmptyArray;
             }

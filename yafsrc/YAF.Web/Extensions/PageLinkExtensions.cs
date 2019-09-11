@@ -37,6 +37,8 @@ namespace YAF.Web.Extensions
     using YAF.Utils;
     using YAF.Web.Controls;
 
+    using Forum = YAF.Types.Models.Forum;
+
     /// <summary>
     /// The PageLink Extensions
     /// </summary>
@@ -104,7 +106,7 @@ namespace YAF.Web.Extensions
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            using (var links = YafContext.Current.GetRepository<YAF.Types.Models.Forum>().ListPathAsDataTable(forumId))
+            using (var links = YafContext.Current.GetRepository<Forum>().ListPathAsDataTable(forumId))
             {
                 foreach (DataRow row in links.Rows)
                 {

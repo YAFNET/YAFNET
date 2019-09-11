@@ -150,8 +150,7 @@ namespace ServiceStack
         {
             lock (TypePropertyNamesMap)
             {
-                List<string> propertyNames;
-                if (!TypePropertyNamesMap.TryGetValue(type, out propertyNames))
+                if (!TypePropertyNamesMap.TryGetValue(type, out var propertyNames))
                 {
                     propertyNames = type.Properties().ToList().ConvertAll(x => x.Name);
                     TypePropertyNamesMap[type] = propertyNames;
@@ -263,8 +262,7 @@ namespace ServiceStack
 
                 foreach (var assignmentMember in readMap)
                 {
-                    AssignmentMember writeMember;
-                    if (writeMap.TryGetValue(assignmentMember.Key, out writeMember))
+                    if (writeMap.TryGetValue(assignmentMember.Key, out var writeMember))
                     {
                         definition.AddMatch(assignmentMember.Key, assignmentMember.Value, writeMember);
                     }

@@ -59,7 +59,6 @@ namespace YAF.Types.Extensions
             var fieldInfo = type.GetField(value.ToString());
 
             // Get the stringvalue attributes
-
             if (fieldInfo.GetCustomAttributes(typeof(AltStringValueAttribute), false) is AltStringValueAttribute[] altAttribs && altAttribs.Length > 0)
             {
                 strValue = altAttribs[0].AltStringValue;
@@ -67,7 +66,6 @@ namespace YAF.Types.Extensions
             else
             {
                 // Get the stringvalue attributes
-
                 if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs && attribs.Length > 0)
                 {
                     strValue = attribs[0].StringValue;
@@ -434,11 +432,6 @@ namespace YAF.Types.Extensions
             public readonly ulong? Unsigned;
 
             /// <summary>
-            /// The int.
-            /// </summary>
-            public long? Int;
-
-            /// <summary>
             /// The _ int 32.
             /// </summary>
             private static readonly Type _Int32 = typeof(int);
@@ -487,7 +480,6 @@ namespace YAF.Types.Extensions
                 }
                 else if (compare == _Int32)
                 {
-                    this.Int = Convert.ToInt32(value);
                 }
                 else
                 {// otherwise, a long should cover anything else

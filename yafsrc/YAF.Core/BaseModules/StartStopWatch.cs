@@ -29,6 +29,7 @@ namespace YAF.Core.BaseModules
   using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Events;
 
   #endregion
 

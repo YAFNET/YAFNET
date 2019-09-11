@@ -136,7 +136,7 @@ namespace YAF.Core.Services
         /// <param name="stringToMatch">
         /// String with delimiter
         /// </param>
-        /// <param name="delim">
+        /// <param name="delimiter">
         /// The delimiter.
         /// </param>
         /// <returns>
@@ -146,9 +146,9 @@ namespace YAF.Core.Services
         public string BBCodeForbiddenDetector(
             [NotNull] string stringToClear,
             [NotNull] string stringToMatch,
-            char delim)
+            char delimiter)
         {
-            var codes = stringToMatch.Split(delim);
+            var codes = stringToMatch.Split(delimiter);
 
             var forbiddenTagList = new List<string>();
 
@@ -188,15 +188,15 @@ namespace YAF.Core.Services
         /// <param name="acceptedTags">
         /// The list of accepted tags.
         /// </param>
-        /// <param name="delim">
+        /// <param name="delimiter">
         /// The delimiter in a tags list.
         /// </param>
         /// <returns>
         /// A message string.
         /// </returns>
-        public string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim)
+        public string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delimiter)
         {
-            var detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
+            var detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delimiter);
 
             if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
             {
@@ -275,7 +275,9 @@ namespace YAF.Core.Services
                 var email = new VariableRegexReplaceRule(
                                 RgxEmail,
                                 "${before}<a href=\"mailto:${inner}\">${inner}</a>",
-                                new[] { "before" }) { RuleRank = 31 };
+                                new[] { "before" }) {
+                                                       RuleRank = 31 
+                                                    };
 
                 ruleEngine.AddRule(email);
 
@@ -289,7 +291,9 @@ namespace YAF.Core.Services
                                         "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
                                         new[] { "before", "videoId" },
                                         new[] { string.Empty },
-                                        50) { RuleRank = 40 };
+                                        50) {
+                                               RuleRank = 40 
+                                            };
 
                 ruleEngine.AddRule(youtubeVideo1);
 
@@ -298,7 +302,9 @@ namespace YAF.Core.Services
                                         "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
                                         new[] { "before", "videoId" },
                                         new[] { string.Empty },
-                                        50) { RuleRank = 41 };
+                                        50) {
+                                               RuleRank = 41 
+                                            };
 
                 ruleEngine.AddRule(youtubeVideo2);
 
@@ -314,7 +320,9 @@ namespace YAF.Core.Services
                                   .Replace("{0}", target).Replace("{1}", nofollow),
                               new[] { "before" },
                               new[] { string.Empty },
-                              50) { RuleRank = 44 };
+                              50) {
+                                     RuleRank = 44 
+                                  };
 
                 ruleEngine.AddRule(url);
             }
@@ -460,7 +468,7 @@ namespace YAF.Core.Services
         /// <param name="stringToMatch">
         /// The string To Match.
         /// </param>
-        /// <param name="delim">
+        /// <param name="delimiter">
         /// The delimiter string.
         /// </param>
         /// <returns>
@@ -470,9 +478,9 @@ namespace YAF.Core.Services
         public string HtmlTagForbiddenDetector(
             [NotNull] string stringToClear,
             [NotNull] string stringToMatch,
-            char delim)
+            char delimiter)
         {
-            var codes = stringToMatch.Split(delim);
+            var codes = stringToMatch.Split(delimiter);
 
             var forbiddenTagList = new List<string>();
 

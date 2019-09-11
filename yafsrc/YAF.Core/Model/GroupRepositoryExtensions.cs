@@ -40,46 +40,68 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
-       public static IList<Group> List (this IRepository<Group> repository, int? groupId = null, int? boardId = null)
+        /// <summary>
+        /// The list.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="groupId">
+        /// The group id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        public static IList<Group> List(this IRepository<Group> repository, int? groupId = null, int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return groupId.HasValue
                        ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
-                       : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder)
-                           .ToList();
+                       : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
         }
 
-       /// <summary>
-       /// The group_member.
-       /// </summary>
-       /// <param name="boardID">
-       /// The board id.
-       /// </param>
-       /// <param name="userID">
-       /// The user id.
-       /// </param>
-       /// <returns>
-       /// </returns>
-       public static DataTable MemberAsDataTable(
-           this IRepository<Group> repository,
-           [NotNull] object boardID,
-           [NotNull] object userID)
-       {
-           return repository.DbFunction.GetData.group_member(BoardID: boardID, UserID: userID);
-
-       }
+        /// <summary>
+        /// The group_member.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardID">
+        /// The board id.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable MemberAsDataTable(
+            this IRepository<Group> repository,
+            [NotNull] object boardID,
+            [NotNull] object userID)
+        {
+            return repository.DbFunction.GetData.group_member(BoardID: boardID, UserID: userID);
+        }
 
         /// <summary>
         /// Returns info about all Groups and Rank styles.
         ///   Used in GroupRankStyles cache.
         ///   Usage: LegendID = 1 - Select Groups, LegendID = 2 - select Ranks by Name
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board ID.
         /// </param>
-        public static DataTable RankStyleAsDataTable(
-            this IRepository<Group> repository, [NotNull] object boardID)
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable RankStyleAsDataTable(this IRepository<Group> repository, [NotNull] object boardID)
         {
             return repository.DbFunction.GetData.group_rank_style(BoardID: boardID);
         }
@@ -87,6 +109,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The group_save.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="groupID">
         /// The group id.
         /// </param>
@@ -182,22 +207,20 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Returns a list of access entries for a group.
+        /// The member.
         /// </summary>
-        /// <param name="groupId">
-        /// The group Id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="eventTypeId">
-        /// The event Type Id.
+        /// <param name="userID">
+        /// The user id.
         /// </param>
-        /// <returns>Returns a list of access entries for a group.</returns>
-        public static DataTable ListEventLogAccessAsTable(
-            this IRepository<Group> repository,
-            [NotNull] int? boardId)
-        {
-            return repository.DbFunction.GetData.group_eventlogaccesslist(BoardID: boardId);
-        }
-
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable Member(this IRepository<Group> repository, int userID, int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -205,6 +228,18 @@ namespace YAF.Core.Model
             return repository.DbFunction.GetData.group_member(BoardID: boardId ?? repository.BoardID, UserID: userID);
         }
 
+        /// <summary>
+        /// The rank style.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable RankStyle(this IRepository<Group> repository, int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -212,6 +247,63 @@ namespace YAF.Core.Model
             return repository.DbFunction.GetData.group_rank_style(BoardID: boardId ?? repository.BoardID);
         }
 
+        /// <summary>
+        /// The save.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="groupID">
+        /// The group id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="isAdmin">
+        /// The is admin.
+        /// </param>
+        /// <param name="isStart">
+        /// The is start.
+        /// </param>
+        /// <param name="isModerator">
+        /// The is moderator.
+        /// </param>
+        /// <param name="isGuest">
+        /// The is guest.
+        /// </param>
+        /// <param name="accessMaskID">
+        /// The access mask id.
+        /// </param>
+        /// <param name="pMLimit">
+        /// The p m limit.
+        /// </param>
+        /// <param name="style">
+        /// The style.
+        /// </param>
+        /// <param name="sortOrder">
+        /// The sort order.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        /// <param name="usrSigChars">
+        /// The usr sig chars.
+        /// </param>
+        /// <param name="usrSigBBCodes">
+        /// The usr sig bb codes.
+        /// </param>
+        /// <param name="usrSigHTMLTags">
+        /// The usr sig html tags.
+        /// </param>
+        /// <param name="usrAlbums">
+        /// The usr albums.
+        /// </param>
+        /// <param name="usrAlbumImages">
+        /// The usr album images.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
         public static void Save(
             this IRepository<Group> repository,
             int groupID,

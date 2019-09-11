@@ -419,7 +419,7 @@ namespace YAF.Types.Extensions
         {
             if (objList == null)
             {
-                throw new ArgumentNullException("objList", "objList is null.");
+                throw new ArgumentNullException(nameof(objList), "objList is null.");
             }
 
             var sb = new StringBuilder();
@@ -523,7 +523,7 @@ namespace YAF.Types.Extensions
             // need to cut out the rest of it
             if (input.Substring(output.Length, 1) != " ")
             {
-                var lastSpace = output.LastIndexOf(" ");
+                var lastSpace = output.LastIndexOf(" ", StringComparison.Ordinal);
 
                 // if we found a space then, cut back to that space
                 if (lastSpace != -1)

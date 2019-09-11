@@ -37,6 +37,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -73,11 +74,9 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected int? GetQueryStringAsInt([NotNull] string name)
         {
-            int value;
-
             if (this.Request.QueryString.GetFirstOrDefault(name) != null && int.TryParse(
                     this.Request.QueryString.GetFirstOrDefault(name),
-                    out value))
+                    out var value))
             {
                 return value;
             }
@@ -114,7 +113,7 @@ namespace YAF.Pages.Admin
 
             var forumId = this.GetQueryStringAsInt("fa");
 
-            var forum = this.GetRepository<Types.Models.Forum>().List(this.PageContext.PageBoardID, forumId)
+            var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, forumId)
                 .FirstOrDefault();
 
             this.ForumNameTitle.Text = forum.Name;
@@ -147,10 +146,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UpdateStatusTimerTick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            IBackgroundTask task;
-
             // see if the migration is done....
-            if (this.Get<ITaskModuleManager>().TryGetTask(ForumDeleteTask.TaskName, out task) && task.IsRunning)
+            if (this.Get<ITaskModuleManager>().TryGetTask(ForumDeleteTask.TaskName, out var task) && task.IsRunning)
             {
                 // continue...
                 return;
@@ -181,7 +178,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ForumList.DataSource = this.GetRepository<Types.Models.Forum>().ListAllAsDataTable(
+            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 

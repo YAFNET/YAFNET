@@ -46,6 +46,7 @@ namespace YAF.Core.Helpers
     {
         #region Constants and Fields
         
+
         /// <summary>
         /// The cache size.
         /// </summary>

@@ -39,8 +39,10 @@ namespace ServiceStack.OrmLite
                     throw new ArgumentNullException("DialectProvider",
                         "You must set the singleton 'OrmLiteConfig.DialectProvider' to use the OrmLiteWriteExtensions");
                 }
+
                 return dialectProvider;
             }
+
             set => dialectProvider = value;
         }
 
@@ -91,7 +93,7 @@ namespace ServiceStack.OrmLite
         public static void SetCommandTimeout(this IDbConnection db, int? commandTimeout)
         {
             if (!(db is OrmLiteConnection ormLiteConn))
-                throw new NotImplementedException(string.Format(RequiresOrmLiteConnection,"CommandTimeout"));
+                throw new NotImplementedException(string.Format(RequiresOrmLiteConnection, "CommandTimeout"));
 
             ormLiteConn.CommandTimeout = commandTimeout;
         }
@@ -152,6 +154,7 @@ namespace ServiceStack.OrmLite
                 var state = OrmLiteContext.OrmLiteState;
                 return state?.ResultsFilter;
             }
+
             set => OrmLiteContext.GetOrCreateState().ResultsFilter = value;
         }
 
@@ -167,6 +170,7 @@ namespace ServiceStack.OrmLite
                     ? dialectProvider.ExecFilter ?? execFilter 
                     : execFilter; 
             }
+
             set => execFilter = value;
         }
 
@@ -186,7 +190,7 @@ namespace ServiceStack.OrmLite
         public static bool ThrowOnError { get; set; }
 
         public static Func<string, string> SanitizeFieldNameForParamNameFn = fieldName =>
-            (fieldName ?? "").Replace(" ", "");
+            (fieldName ?? string.Empty).Replace(" ", string.Empty);
 
         public static bool IsCaseInsensitive { get; set; }
 

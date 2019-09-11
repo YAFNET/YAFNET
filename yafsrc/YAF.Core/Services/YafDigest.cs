@@ -126,7 +126,7 @@ namespace YAF.Core.Services
             var yafBoardSettings = boardSettings as YafBoardSettings;
 
             return
-                $"{yafBoardSettings.BaseUrlMask}{BaseUrlBuilder.AppPath}{"digest.aspx"}?{$"token={yafBoardSettings.WebServiceToken}&userid={userId}&boardid={yafBoardSettings.BoardID}&showerror={showErrors.ToString().ToLower()}"}";
+                $"{yafBoardSettings.BaseUrlMask}{BaseUrlBuilder.AppPath}digest.aspx?token={yafBoardSettings.WebServiceToken}&userid={userId}&boardid={yafBoardSettings.BoardID}&showerror={showErrors.ToString().ToLower()}";
         }
 
         /// <summary>

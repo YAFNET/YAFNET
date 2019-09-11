@@ -108,7 +108,7 @@ namespace YAF.Core.BBCode
     /// </returns>
     public string Get(int index)
     {
-      return string.Format(this._replaceFormat, index,this._randomInstance);
+      return string.Format(this._replaceFormat, index, this._randomInstance);
     }
 
     /// <summary>

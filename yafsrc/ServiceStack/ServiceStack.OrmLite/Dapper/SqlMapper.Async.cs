@@ -220,6 +220,7 @@ namespace ServiceStack.OrmLite.Dapper
             if (type == null) throw new ArgumentNullException(nameof(type));
             return QueryRowAsync<object>(cnn, Row.First, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
+
         /// <summary>
         /// Execute a single-row query asynchronously using .NET 4.5 Task.
         /// </summary>
@@ -236,6 +237,7 @@ namespace ServiceStack.OrmLite.Dapper
             if (type == null) throw new ArgumentNullException(nameof(type));
             return QueryRowAsync<object>(cnn, Row.FirstOrDefault, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
+
         /// <summary>
         /// Execute a single-row query asynchronously using .NET 4.5 Task.
         /// </summary>
@@ -252,6 +254,7 @@ namespace ServiceStack.OrmLite.Dapper
             if (type == null) throw new ArgumentNullException(nameof(type));
             return QueryRowAsync<object>(cnn, Row.Single, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
+
         /// <summary>
         /// Execute a single-row query asynchronously using .NET 4.5 Task.
         /// </summary>
@@ -370,6 +373,7 @@ namespace ServiceStack.OrmLite.Dapper
             { // we can retry; this time it will have different flags
                 return cmd.ExecuteReaderAsync(GetBehavior(wasClosed, behavior), cancellationToken);
             }
+
             return task;
         }
 
@@ -416,6 +420,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 buffer.Add((T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture));
                             }
                         }
+
                         while (await reader.NextResultAsync(cancel).ConfigureAwait(false)) { /* ignore subsequent result sets */ }
                         command.OnCompleted();
                         return buffer;
@@ -477,13 +482,16 @@ namespace ServiceStack.OrmLite.Dapper
                             var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                             result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                         }
+
                         if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
                         while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore rows after the first */ }
                     }
-                    else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
+                    else if ((row & Row.FirstOrDefault) == 0)
                     {
+                        // demanding a row, and don't have one
                         ThrowZeroRows(row);
                     }
+
                     while (await reader.NextResultAsync(cancel).ConfigureAwait(false)) { /* ignore result sets after the first */ }
                     return result;
                 }
@@ -579,12 +587,14 @@ namespace ServiceStack.OrmLite.Dapper
                             {
                                 cmd = (DbCommand)command.SetupCommand(cnn, null);
                             }
+
                             info.ParamReader(cmd, obj);
 
                             var task = cmd.ExecuteNonQueryAsync(command.CancellationToken);
                             pending.Enqueue(new AsyncExecState(cmd, task));
                             cmd = null; // note the using in the finally: this avoids a double-dispose
                         }
+
                         while (pending.Count != 0)
                         {
                             var pair = pending.Dequeue();
@@ -620,6 +630,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 cmd.CommandText = masterSql; // because we do magic replaces on "in" etc
                                 cmd.Parameters.Clear(); // current code is Add-tastic
                             }
+
                             info.ParamReader(cmd, obj);
                             total += await cmd.ExecuteNonQueryAsync(command.CancellationToken).ConfigureAwait(false);
                         }
@@ -632,6 +643,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 if (wasClosed) cnn.Close();
             }
+
             return total;
         }
 
@@ -982,6 +994,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     yield return (T)func(reader);
                 }
+
                 while (reader.NextResult()) { /* ignore subsequent result sets */ }
                 (parameters as IParameterCallbacks)?.OnCompleted();
             }
@@ -1017,10 +1030,21 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 if (wasClosed) await ((DbConnection)cnn).OpenAsync(command.CancellationToken).ConfigureAwait(false);
                 cmd = (DbCommand)command.SetupCommand(cnn, info.ParamReader);
-                reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess, command.CancellationToken).ConfigureAwait(false);
+                reader = await ExecuteReaderWithFlagsFallbackAsync(
+                             cmd,
+                             wasClosed,
+                             CommandBehavior.SequentialAccess,
+                             command.CancellationToken).ConfigureAwait(false);
 
-                var result = new GridReader(cmd, reader, identity, command.Parameters as DynamicParameters, command.AddToCache, command.CancellationToken);
+                var result = new GridReader(
+                    cmd,
+                    reader,
+                    identity,
+                    command.Parameters as DynamicParameters,
+                    command.AddToCache,
+                    command.CancellationToken);
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
+
                 // with the CloseConnection flag, so the reader will deal with the connection; we
                 // still need something in the "finally" to ensure that broken SQL still results
                 // in the connection closing itself
@@ -1037,8 +1061,10 @@ namespace ServiceStack.OrmLite.Dapper
                         { /* don't spoil the existing exception */
                         }
                     }
+
                     reader.Dispose();
                 }
+
                 cmd?.Dispose();
                 if (wasClosed) cnn.Close();
                 throw;
@@ -1192,6 +1218,7 @@ namespace ServiceStack.OrmLite.Dapper
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
+
             return Parse<T>(result);
         }
     }

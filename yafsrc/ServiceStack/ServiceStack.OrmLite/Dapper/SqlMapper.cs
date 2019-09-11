@@ -25,6 +25,10 @@ using DataException = System.InvalidOperationException;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    using System.Collections.Concurrent;
+
+    using Microsoft.SqlServer.Server;
+
     /// <summary>
     /// Dapper, a light weight object mapper for ADO.NET
     /// </summary>
@@ -45,6 +49,7 @@ namespace ServiceStack.OrmLite.Dapper
                     object tmp = reader.GetName(i);
                     hash = -79 * (hash * 31 + (tmp?.GetHashCode() ?? 0)) + (reader.GetFieldType(i)?.GetHashCode() ?? 0);
                 }
+
                 return hash;
             }
         }
@@ -59,13 +64,14 @@ namespace ServiceStack.OrmLite.Dapper
             handler?.Invoke(null, EventArgs.Empty);
         }
 
-        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo> _queryCache = new System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo>();
+        private static readonly ConcurrentDictionary<Identity, CacheInfo> _queryCache = new System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo>();
         private static void SetQueryCache(Identity key, CacheInfo value)
         {
             if (Interlocked.Increment(ref collect) == COLLECT_PER_ITEMS)
             {
                 CollectCacheGarbage();
             }
+
             _queryCache[key] = value;
         }
 
@@ -81,14 +87,16 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                 }
             }
-
             finally
             {
                 Interlocked.Exchange(ref collect, 0);
             }
         }
 
-        private const int COLLECT_PER_ITEMS = 1000, COLLECT_HIT_COUNT_MIN = 0;
+        private const int COLLECT_PER_ITEMS = 1000;
+
+        private const int COLLECT_HIT_COUNT_MIN = 0;
+
         private static int collect;
         private static bool TryGetQueryCache(Identity key, out CacheInfo value)
         {
@@ -97,6 +105,7 @@ namespace ServiceStack.OrmLite.Dapper
                 value.RecordHit();
                 return true;
             }
+
             value = null;
             return false;
         }
@@ -118,6 +127,7 @@ namespace ServiceStack.OrmLite.Dapper
                 if (entry.Key.type == type)
                     _queryCache.TryRemove(entry.Key, out var cache);
             }
+
             TypeDeserializerCache.Purge(type);
         }
 
@@ -161,6 +171,7 @@ namespace ServiceStack.OrmLite.Dapper
                     counts[key.hashCode] = count + 1;
                 }
             }
+
             return from pair in counts
                    where pair.Value > 1
                    select Tuple.Create(pair.Key, pair.Value);
@@ -237,7 +248,7 @@ namespace ServiceStack.OrmLite.Dapper
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void AddSqlDataRecordsTypeHandler(bool clone)
         {
-            AddTypeHandlerImpl(typeof(IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord>), new SqlDataRecordHandler(), clone);
+            AddTypeHandlerImpl(typeof(IEnumerable<SqlDataRecord>), new SqlDataRecordHandler(), clone);
         }
 
         /// <summary>
@@ -298,6 +309,7 @@ namespace ServiceStack.OrmLite.Dapper
                 if (underlying == null)
                 {
                     secondary = typeof(Nullable<>).MakeGenericType(type); // the Nullable<T>
+
                     // type is already the T
                 }
                 else
@@ -318,6 +330,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 typeof(TypeHandlerCache<>).MakeGenericType(secondary).GetMethod(nameof(TypeHandlerCache<int>.SetHandler), BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { handler });
             }
+
 #pragma warning restore 618
             if (handler == null)
             {
@@ -329,6 +342,7 @@ namespace ServiceStack.OrmLite.Dapper
                 newCopy[type] = handler;
                 if (secondary != null) newCopy[secondary] = handler;
             }
+
             typeHandlers = newCopy;
         }
 
@@ -382,18 +396,22 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 type = Enum.GetUnderlyingType(type);
             }
+
             if (typeMap.TryGetValue(type, out var dbType))
             {
                 return dbType;
             }
+
             if (type.FullName == LinqBinary)
             {
                 return DbType.Binary;
             }
+
             if (typeHandlers.TryGetValue(type, out handler))
             {
                 return DbType.Object;
             }
+
             if (typeof(IEnumerable).IsAssignableFrom(type))
             {
                 return DynamicParameters.EnumerableMultiParameter;
@@ -524,6 +542,7 @@ namespace ServiceStack.OrmLite.Dapper
                     // this includes all the code for concurrent/overlapped query
                     return ExecuteMultiImplAsync(cnn, command, multiExec).Result;
                 }
+
                 var isFirst = true;
                 var total = 0;
                 var wasClosed = cnn.State == ConnectionState.Closed;
@@ -547,16 +566,19 @@ namespace ServiceStack.OrmLite.Dapper
                                 cmd.CommandText = masterSql; // because we do magic replaces on "in" etc
                                 cmd.Parameters.Clear(); // current code is Add-tastic
                             }
+
                             info.ParamReader(cmd, obj);
                             total += cmd.ExecuteNonQuery();
                         }
                     }
+
                     command.OnCompleted();
                 }
                 finally
                 {
                     if (wasClosed) cnn.Close();
                 }
+
                 return total;
             }
 
@@ -566,6 +588,7 @@ namespace ServiceStack.OrmLite.Dapper
                 identity = new Identity(command.CommandText, command.CommandType, cnn, null, param.GetType(), null);
                 info = GetCacheInfo(identity, param, command.AddToCache);
             }
+
             return ExecuteCommand(cnn, ref command, param == null ? null : info.ParamReader);
         }
 
@@ -1020,9 +1043,15 @@ namespace ServiceStack.OrmLite.Dapper
                 cmd = command.SetupCommand(cnn, info.ParamReader);
                 reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, CommandBehavior.SequentialAccess);
 
-                var result = new GridReader(cmd, reader, identity, command.Parameters as DynamicParameters, command.AddToCache);
+                var result = new GridReader(
+                    cmd,
+                    reader,
+                    identity,
+                    command.Parameters as DynamicParameters,
+                    command.AddToCache);
                 cmd = null; // now owned by result
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
+
                 // with the CloseConnection flag, so the reader will deal with the connection; we
                 // still need something in the "finally" to ensure that broken SQL still results
                 // in the connection closing itself
@@ -1037,8 +1066,10 @@ namespace ServiceStack.OrmLite.Dapper
                         try { cmd?.Cancel(); }
                         catch { /* don't spoil the existing exception */ }
                     }
+
                     reader.Dispose();
                 }
+
                 cmd?.Dispose();
                 if (wasClosed) cnn.Close();
                 throw;
@@ -1058,6 +1089,7 @@ namespace ServiceStack.OrmLite.Dapper
                     // we can retry; this time it will have different flags
                     return cmd.ExecuteReader(GetBehavior(wasClosed, behavior));
                 }
+
                 throw;
             }
         }
@@ -1077,8 +1109,12 @@ namespace ServiceStack.OrmLite.Dapper
                 cmd = command.SetupCommand(cnn, info.ParamReader);
 
                 if (wasClosed) cnn.Open();
-                reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult);
+                reader = ExecuteReaderWithFlagsFallback(
+                    cmd,
+                    wasClosed,
+                    CommandBehavior.SequentialAccess | CommandBehavior.SingleResult);
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
+
                 // with the CloseConnection flag, so the reader will deal with the connection; we
                 // still need something in the "finally" to ensure that broken SQL still results
                 // in the connection closing itself
@@ -1086,9 +1122,11 @@ namespace ServiceStack.OrmLite.Dapper
                 var hash = GetColumnHash(reader);
                 if (tuple.Func == null || tuple.Hash != hash)
                 {
-                    if (reader.FieldCount == 0) //https://code.google.com/p/dapper-dot-net/issues/detail?id=57
+                    if (reader.FieldCount == 0) // https://code.google.com/p/dapper-dot-net/issues/detail?id=57
                         yield break;
-                    tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
+                    tuple = info.Deserializer = new DeserializerState(
+                                hash,
+                                GetDeserializer(effectiveType, reader, 0, -1, false));
                     if (command.AddToCache) SetQueryCache(identity, info);
                 }
 
@@ -1106,7 +1144,12 @@ namespace ServiceStack.OrmLite.Dapper
                         yield return (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                     }
                 }
-                while (reader.NextResult()) { /* ignore subsequent result sets */ }
+
+                while (reader.NextResult())
+                {
+                    /* ignore subsequent result sets */
+                }
+
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
                 reader.Dispose();
@@ -1123,8 +1166,10 @@ namespace ServiceStack.OrmLite.Dapper
                         try { cmd.Cancel(); }
                         catch { /* don't spoil the existing exception */ }
                     }
+
                     reader.Dispose();
                 }
+
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
@@ -1134,12 +1179,15 @@ namespace ServiceStack.OrmLite.Dapper
         internal enum Row
         {
             First = 0,
-            FirstOrDefault = 1, //  & FirstOrDefault != 0: allow zero rows
+            FirstOrDefault = 1, // & FirstOrDefault != 0: allow zero rows
             Single = 2, // & Single != 0: demand at least one row
             SingleOrDefault = 3
         }
 
-        private static readonly int[] ErrTwoRows = new int[2], ErrZeroRows = new int[0];
+        private static readonly int[] ErrTwoRows = new int[2];
+
+        private static readonly int[] ErrZeroRows = new int[0];
+
         private static void ThrowMultipleRows(Row row)
         {
             switch (row)
@@ -1175,9 +1223,13 @@ namespace ServiceStack.OrmLite.Dapper
                 cmd = command.SetupCommand(cnn, info.ParamReader);
 
                 if (wasClosed) cnn.Open();
-                reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, (row & Row.Single) != 0
-                    ? CommandBehavior.SequentialAccess | CommandBehavior.SingleResult // need to allow multiple rows, to check fail condition
-                    : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow);
+                reader = ExecuteReaderWithFlagsFallback(
+                    cmd,
+                    wasClosed,
+                    (row & Row.Single) != 0
+                        ? CommandBehavior.SequentialAccess
+                          | CommandBehavior.SingleResult // need to allow multiple rows, to check fail condition
+                        : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow);
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
 
                 var result = default(T);
@@ -1190,7 +1242,9 @@ namespace ServiceStack.OrmLite.Dapper
                     var hash = GetColumnHash(reader);
                     if (tuple.Func == null || tuple.Hash != hash)
                     {
-                        tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
+                        tuple = info.Deserializer = new DeserializerState(
+                                    hash,
+                                    GetDeserializer(effectiveType, reader, 0, -1, false));
                         if (command.AddToCache) SetQueryCache(identity, info);
                     }
 
@@ -1205,14 +1259,24 @@ namespace ServiceStack.OrmLite.Dapper
                         var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                         result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                     }
+
                     if ((row & Row.Single) != 0 && reader.Read()) ThrowMultipleRows(row);
-                    while (reader.Read()) { /* ignore subsequent rows */ }
+                    while (reader.Read())
+                    {
+                        /* ignore subsequent rows */
+                    }
                 }
-                else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
+                else if ((row & Row.FirstOrDefault) == 0)
                 {
+                    // demanding a row, and don't have one
                     ThrowZeroRows(row);
                 }
-                while (reader.NextResult()) { /* ignore subsequent result sets */ }
+
+                while (reader.NextResult())
+                {
+                    /* ignore subsequent result sets */
+                }
+
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
                 reader.Dispose();
@@ -1230,8 +1294,10 @@ namespace ServiceStack.OrmLite.Dapper
                         try { cmd.Cancel(); }
                         catch { /* don't spoil the existing exception */ }
                     }
+
                     reader.Dispose();
                 }
+
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
@@ -1422,6 +1488,7 @@ namespace ServiceStack.OrmLite.Dapper
                     ownedReader = ExecuteReaderWithFlagsFallback(ownedCommand, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult);
                     reader = ownedReader;
                 }
+
                 var deserializer = default(DeserializerState);
                 Func<IDataReader, object>[] otherDeserializers;
 
@@ -1442,6 +1509,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         yield return mapIt(reader);
                     }
+
                     if (finalize)
                     {
                         while (reader.NextResult()) { /* ignore remaining result sets */ }
@@ -1492,6 +1560,7 @@ namespace ServiceStack.OrmLite.Dapper
                     ownedReader = ExecuteReaderWithFlagsFallback(ownedCommand, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult);
                     reader = ownedReader;
                 }
+
                 DeserializerState deserializer;
                 Func<IDataReader, object>[] otherDeserializers;
 
@@ -1512,6 +1581,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         yield return mapIt(reader);
                     }
+
                     if (finalize)
                     {
                         while (reader.NextResult()) { /* ignore subsequent result sets */ }
@@ -1595,6 +1665,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         currentSplit = splits[++splitIdx];
                     }
+
                     deserializers.Add(GetDeserializer(type, reader, currentPos, splitPoint - currentPos, !first));
                     currentPos = splitPoint;
                     first = false;
@@ -1684,6 +1755,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     throw new InvalidOperationException("An enumerable sequence of parameters (arrays, lists, etc) is not allowed in this context");
                 }
+
                 info = new CacheInfo();
                 if (identity.parametersType != null)
                 {
@@ -1705,6 +1777,7 @@ namespace ServiceStack.OrmLite.Dapper
                         var literals = GetLiteralTokens(identity.sql);
                         reader = CreateParamInfoGenerator(identity, false, true, literals);
                     }
+
                     if ((identity.commandType == null || identity.commandType == CommandType.Text) && ShouldPassByPosition(identity.sql))
                     {
                         var tail = reader;
@@ -1714,10 +1787,13 @@ namespace ServiceStack.OrmLite.Dapper
                             PassByPosition(cmd);
                         };
                     }
+
                     info.ParamReader = reader;
                 }
+
                 if (addToCache) SetQueryCache(identity, info);
             }
+
             return info;
         }
 
@@ -1736,6 +1812,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 if (!string.IsNullOrEmpty(param.ParameterName)) parameters[param.ParameterName] = param;
             }
+
             var consumed = new HashSet<string>(StringComparer.Ordinal);
             var firstMatch = true;
             cmd.CommandText = pseudoPositional.Replace(cmd.CommandText, match =>
@@ -1750,8 +1827,10 @@ namespace ServiceStack.OrmLite.Dapper
                     if (firstMatch)
                     {
                         firstMatch = false;
-                        cmd.Parameters.Clear(); // only clear if we are pretty positive that we've found this pattern successfully
+                        cmd.Parameters
+                            .Clear(); // only clear if we are pretty positive that we've found this pattern successfully
                     }
+
                     // if found, return the anonymous token "?"
                     cmd.Parameters.Add(param);
                     parameters.Remove(key);
@@ -1773,6 +1852,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 return GetDapperRowDeserializer(reader, startBound, length, returnNullIfFirstMissing);
             }
+
             Type underlyingType = null;
             if (!(typeMap.ContainsKey(type) || type.IsEnum() || type.FullName == LinqBinary
                 || type.IsValueType() && (underlyingType = Nullable.GetUnderlyingType(type)) != null && underlyingType.IsEnum()))
@@ -1781,8 +1861,10 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     return GetHandlerDeserializer(handler, type, startBound);
                 }
+
                 return GetTypeDeserializer(type, reader, startBound, length, returnNullIfFirstMissing);
             }
+
             return GetStructDeserializer(type, underlyingType ?? type, startBound);
         }
 
@@ -1829,6 +1911,7 @@ namespace ServiceStack.OrmLite.Dapper
                         {
                             names[i] = r.GetName(i + startBound);
                         }
+
                         table = new DapperTable(names);
                     }
 
@@ -1860,9 +1943,11 @@ namespace ServiceStack.OrmLite.Dapper
                             values[iter] = obj is DBNull ? null : obj;
                         }
                     }
+
                     return new DapperRow(table, values);
                 };
         }
+
         /// <summary>
         /// Internal use only.
         /// </summary>
@@ -1919,6 +2004,7 @@ namespace ServiceStack.OrmLite.Dapper
                 result.ParameterName = name;
                 parameters.Add(result);
             }
+
             return result;
         }
 
@@ -1968,7 +2054,6 @@ namespace ServiceStack.OrmLite.Dapper
         {
             // initially we tried TVP, however it performs quite poorly.
             // keep in mind SQL support up to 2000 params easily in sp_executesql, needing more is rare
-
             if (FeatureSupport.Get(command.Connection).Arrays)
             {
                 var arrayParm = command.CreateParameter();
@@ -1994,17 +2079,20 @@ namespace ServiceStack.OrmLite.Dapper
                     object lastValue = null;
                     foreach (var item in list)
                     {
-                        if (++count == 1) // first item: fetch some type info
+                        if (++count == 1)
                         {
+                            // first item: fetch some type info
                             if (item == null)
                             {
                                 throw new NotSupportedException("The first item in a list-expansion cannot be null");
                             }
+
                             if (!isDbString)
                             {
-                                dbType = LookupDbType(item.GetType(), "", true, out var handler);
+                                dbType = LookupDbType(item.GetType(), string.Empty, true, out var handler);
                             }
                         }
+
                         var nextName = namePrefix + count;
                         if (isDbString && item is DbString)
                         {
@@ -2032,9 +2120,11 @@ namespace ServiceStack.OrmLite.Dapper
                             {
                                 listParam.DbType = dbType;
                             }
+
                             command.Parameters.Add(listParam);
                         }
                     }
+
                     if (Settings.PadListExpansions && !isDbString && lastValue != null)
                     {
                         var padCount = GetListPaddingExtraCount(count);
@@ -2093,6 +2183,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 {
                                     sb.Append(',').Append(variableName).Append(i).Append(suffix);
                                 }
+
                                 return sb.__ToStringRecycle();
                             }
                             else
@@ -2104,6 +2195,7 @@ namespace ServiceStack.OrmLite.Dapper
                                     sb.Append(',').Append(variableName);
                                     if (!byPosition) sb.Append(i);
                                 }
+
                                 return sb.Append(')').__ToStringRecycle();
                             }
                         }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
@@ -2137,6 +2229,7 @@ namespace ServiceStack.OrmLite.Dapper
                 typed = list.ToList();
                 list = typed; // because we still need to be able to iterate it, even if we fail here
             }
+
             if (typed.Count < splitAt) return false;
 
             string varName = null;
@@ -2173,13 +2266,15 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         append(sb.Append(','), iter.Current);
                     }
+
                     val = sb.ToString();
                 }
                 else
                 {
-                    val = "";
+                    val = string.Empty;
                 }
             }
+
             concatenatedParam.Value = val;
             command.Parameters.Add(concatenatedParam);
             return true;
@@ -2204,6 +2299,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     typeCode = TypeExtensions.GetTypeCode(Enum.GetUnderlyingType(value.GetType()));
                 }
+
                 switch (typeCode)
                 {
                     case TypeCode.Byte: return (byte)value;
@@ -2216,6 +2312,7 @@ namespace ServiceStack.OrmLite.Dapper
                     case TypeCode.UInt64: return (ulong)value;
                 }
             }
+
             return value;
         }
 
@@ -2227,13 +2324,16 @@ namespace ServiceStack.OrmLite.Dapper
                 if (Regex.IsMatch(sql, $@"[?@:]{p.Name}([^\p{{L}}\p{{N}}_]+|$)", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant))
                     list.Add(p);
             }
+
             return list;
         }
 
         // look for ? / @ / : *by itself*
-        private static readonly Regex smellsLikeOleDb = new Regex(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled),
-            literalTokens = new Regex(@"(?<![\p{L}\p{N}_])\{=([\p{L}\p{N}_]+)\}", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled),
-            pseudoPositional = new Regex(@"\?([\p{L}_][\p{L}\p{N}_]*)\?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+        private static readonly Regex smellsLikeOleDb = new Regex(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        private static readonly Regex literalTokens = new Regex(@"(?<![\p{L}\p{N}_])\{=([\p{L}\p{N}_]+)\}", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        private static readonly Regex pseudoPositional = new Regex(@"\?([\p{L}_][\p{L}\p{N}_]*)\?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
         /// <summary>
         /// Replace all literal tokens with their text form.
@@ -2308,8 +2408,10 @@ namespace ServiceStack.OrmLite.Dapper
                                 {
                                     sb.Append(',');
                                 }
+
                                 sb.Append(Format(subval));
                             }
+
                             if (first)
                             {
                                 return "(select null where 1=0)";
@@ -2319,6 +2421,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 return sb.Append(')').__ToStringRecycle();
                             }
                         }
+
                         throw new NotSupportedException(value.GetType().Name);
                 }
             }
@@ -2335,6 +2438,7 @@ namespace ServiceStack.OrmLite.Dapper
 #pragma warning restore 0618
                 sql = sql.Replace(token.Token, text);
             }
+
             command.CommandText = sql;
         }
 
@@ -2354,6 +2458,7 @@ namespace ServiceStack.OrmLite.Dapper
                     list.Add(new LiteralToken(token, match.Groups[1].Value));
                 }
             }
+
             return list.Count == 0 ? LiteralToken.None : list;
         }
 
@@ -2384,8 +2489,10 @@ namespace ServiceStack.OrmLite.Dapper
                         break;
                     }
                 }
+
                 result.Add(field == null ? null : new SimpleMemberMap(string.IsNullOrWhiteSpace(names[i]) ? name : names[i], field));
             }
+
             return result;
         }
 
@@ -2395,7 +2502,8 @@ namespace ServiceStack.OrmLite.Dapper
 
             if (IsValueTuple(type))
             {
-                throw new NotSupportedException("ValueTuple should not be used for parameters - the language-level names are not available to use as parameter names, and it adds unnecessary boxing");
+                throw new NotSupportedException(
+                    "ValueTuple should not be used for parameters - the language-level names are not available to use as parameter names, and it adds unnecessary boxing");
             }
 
             var filterParams = false;
@@ -2403,7 +2511,13 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
             }
-            var dm = new DynamicMethod($"ParamInfo{Guid.NewGuid()}", null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
+
+            var dm = new DynamicMethod(
+                $"ParamInfo{Guid.NewGuid()}",
+                null,
+                new[] { typeof(IDbCommand), typeof(object) },
+                type,
+                true);
 
             var il = dm.GetILGenerator();
 
@@ -2420,10 +2534,14 @@ namespace ServiceStack.OrmLite.Dapper
                 il.DeclareLocal(type); // 0
                 il.Emit(OpCodes.Castclass, type); // stack is now [typed-param]
             }
-            il.Emit(OpCodes.Stloc_0);// stack is now empty
+
+            il.Emit(OpCodes.Stloc_0); // stack is now empty
 
             il.Emit(OpCodes.Ldarg_0); // stack is now [command]
-            il.EmitCall(OpCodes.Callvirt, typeof(IDbCommand).GetProperty(nameof(IDbCommand.Parameters)).GetGetMethod(), null); // stack is now [parameters]
+            il.EmitCall(
+                OpCodes.Callvirt,
+                typeof(IDbCommand).GetProperty(nameof(IDbCommand.Parameters)).GetGetMethod(),
+                null); // stack is now [parameters]
 
             var allTypeProps = type.GetProperties();
             var propsList = new List<PropertyInfo>(allTypeProps.Length);
@@ -2437,6 +2555,7 @@ namespace ServiceStack.OrmLite.Dapper
             var ctors = type.GetConstructors();
             ParameterInfo[] ctorParams;
             IEnumerable<PropertyInfo> props = null;
+
             // try to detect tuple patterns, e.g. anon-types, and use that to choose the order
             // otherwise: alphabetical
             if (ctors.Length == 1 && propsList.Count == (ctorParams = ctors[0].GetParameters()).Length)
@@ -2451,18 +2570,21 @@ namespace ServiceStack.OrmLite.Dapper
                         break;
                     }
                 }
+
                 if (ok)
                 {
                     // pre-sorted; the reflection gods have smiled upon us
                     props = propsList;
                 }
                 else
-                { // might still all be accounted for; check the hard way
+                {
+                    // might still all be accounted for; check the hard way
                     var positionByName = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
                     foreach (var param in ctorParams)
                     {
                         positionByName[param.Name] = param.Position;
                     }
+
                     if (positionByName.Count == propsList.Count)
                     {
                         var positions = new int[propsList.Count];
@@ -2474,8 +2596,10 @@ namespace ServiceStack.OrmLite.Dapper
                                 ok = false;
                                 break;
                             }
+
                             positions[i] = pos;
                         }
+
                         if (ok)
                         {
                             props = propsList.ToArray();
@@ -2484,11 +2608,13 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                 }
             }
+
             if (props == null)
             {
                 propsList.Sort(new PropertyInfoByNameComparer());
                 props = propsList;
             }
+
             if (filterParams)
             {
                 props = FilterParameters(props, identity.sql);
@@ -2503,9 +2629,13 @@ namespace ServiceStack.OrmLite.Dapper
                     il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [custom]
                     il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [custom] [command]
                     il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [custom] [command] [name]
-                    il.EmitCall(OpCodes.Callvirt, prop.PropertyType.GetMethod(nameof(ICustomQueryParameter.AddParameter)), null); // stack is now [parameters]
+                    il.EmitCall(
+                        OpCodes.Callvirt,
+                        prop.PropertyType.GetMethod(nameof(ICustomQueryParameter.AddParameter)),
+                        null); // stack is now [parameters]
                     continue;
                 }
+
 #pragma warning disable 618
                 var dbType = LookupDbType(prop.PropertyType, prop.Name, true, out var handler);
 #pragma warning restore 618
@@ -2520,9 +2650,14 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         il.Emit(OpCodes.Box, prop.PropertyType); // stack is [parameters] [command] [name] [boxed-value]
                     }
-                    il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.PackListParameters)), null); // stack is [parameters]
+
+                    il.EmitCall(
+                        OpCodes.Call,
+                        typeof(SqlMapper).GetMethod(nameof(SqlMapper.PackListParameters)),
+                        null); // stack is [parameters]
                     continue;
                 }
+
                 il.Emit(OpCodes.Dup); // stack is now [parameters] [parameters]
 
                 il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [parameters] [command]
@@ -2531,42 +2666,80 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     // need to be a little careful about adding; use a utility method
                     il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [parameters] [command] [name]
-                    il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.FindOrAddParameter)), null); // stack is [parameters] [parameter]
+                    il.EmitCall(
+                        OpCodes.Call,
+                        typeof(SqlMapper).GetMethod(nameof(SqlMapper.FindOrAddParameter)),
+                        null); // stack is [parameters] [parameter]
                 }
                 else
                 {
                     // no risk of duplicates; just blindly add
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDbCommand).GetMethod(nameof(IDbCommand.CreateParameter)), null);// stack is now [parameters] [parameters] [parameter]
+                    il.EmitCall(
+                        OpCodes.Callvirt,
+                        typeof(IDbCommand).GetMethod(nameof(IDbCommand.CreateParameter)),
+                        null); // stack is now [parameters] [parameters] [parameter]
 
-                    il.Emit(OpCodes.Dup);// stack is now [parameters] [parameters] [parameter] [parameter]
-                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [parameters] [parameter] [parameter] [name]
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.ParameterName)).GetSetMethod(), null);// stack is now [parameters] [parameters] [parameter]
+                    il.Emit(OpCodes.Dup); // stack is now [parameters] [parameters] [parameter] [parameter]
+                    il.Emit(
+                        OpCodes.Ldstr,
+                        prop.Name); // stack is now [parameters] [parameters] [parameter] [parameter] [name]
+                    il.EmitCall(
+                        OpCodes.Callvirt,
+                        typeof(IDataParameter).GetProperty(nameof(IDataParameter.ParameterName)).GetSetMethod(),
+                        null); // stack is now [parameters] [parameters] [parameter]
                 }
-                if (dbType != DbType.Time && handler == null) // https://connect.microsoft.com/VisualStudio/feedback/details/381934/sqlparameter-dbtype-dbtype-time-sets-the-parameter-to-sqldbtype-datetime-instead-of-sqldbtype-time
+
+                if (dbType != DbType.Time && handler == null)
                 {
-                    il.Emit(OpCodes.Dup);// stack is now [parameters] [[parameters]] [parameter] [parameter]
-                    if (dbType == DbType.Object && prop.PropertyType == typeof(object)) // includes dynamic
+                    // https://connect.microsoft.com/VisualStudio/feedback/details/381934/sqlparameter-dbtype-dbtype-time-sets-the-parameter-to-sqldbtype-datetime-instead-of-sqldbtype-time
+                    il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
+                    if (dbType == DbType.Object && prop.PropertyType == typeof(object))
                     {
+                        // includes dynamic
                         // look it up from the param value
-                        il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
-                        il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [object-value]
-                        il.Emit(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.GetDbType), BindingFlags.Static | BindingFlags.Public)); // stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
+                        il.Emit(
+                            OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
+                        il.Emit(
+                            callOpCode,
+                            prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [object-value]
+                        il.Emit(
+                            OpCodes.Call,
+                            typeof(SqlMapper).GetMethod(
+                                nameof(SqlMapper.GetDbType),
+                                BindingFlags.Static
+                                | BindingFlags
+                                    .Public)); // stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
                     }
                     else
                     {
                         // constant value; nice and simple
-                        EmitInt32(il, (int)dbType);// stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
+                        EmitInt32(
+                            il,
+                            (int)dbType); // stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
                     }
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.DbType)).GetSetMethod(), null);// stack is now [parameters] [[parameters]] [parameter]
+
+                    il.EmitCall(
+                        OpCodes.Callvirt,
+                        typeof(IDataParameter).GetProperty(nameof(IDataParameter.DbType)).GetSetMethod(),
+                        null); // stack is now [parameters] [[parameters]] [parameter]
                 }
 
-                il.Emit(OpCodes.Dup);// stack is now [parameters] [[parameters]] [parameter] [parameter]
-                EmitInt32(il, (int)ParameterDirection.Input);// stack is now [parameters] [[parameters]] [parameter] [parameter] [dir]
-                il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.Direction)).GetSetMethod(), null);// stack is now [parameters] [[parameters]] [parameter]
+                il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
+                EmitInt32(
+                    il,
+                    (int)ParameterDirection
+                        .Input); // stack is now [parameters] [[parameters]] [parameter] [parameter] [dir]
+                il.EmitCall(
+                    OpCodes.Callvirt,
+                    typeof(IDataParameter).GetProperty(nameof(IDataParameter.Direction)).GetSetMethod(),
+                    null); // stack is now [parameters] [[parameters]] [parameter]
 
-                il.Emit(OpCodes.Dup);// stack is now [parameters] [[parameters]] [parameter] [parameter]
-                il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
-                il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [typed-value]
+                il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
+                il.Emit(
+                    OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
+                il.Emit(
+                    callOpCode,
+                    prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [typed-value]
                 bool checkForNull;
                 if (prop.PropertyType.IsValueType())
                 {
@@ -2585,17 +2758,34 @@ namespace ServiceStack.OrmLite.Dapper
                         else
                         {
                             checkForNull = false;
+
                             // non-nullable enum; we can do that! just box to the wrong type! (no, really)
                             switch (TypeExtensions.GetTypeCode(Enum.GetUnderlyingType(propType)))
                             {
-                                case TypeCode.Byte: propType = typeof(byte); break;
-                                case TypeCode.SByte: propType = typeof(sbyte); break;
-                                case TypeCode.Int16: propType = typeof(short); break;
-                                case TypeCode.Int32: propType = typeof(int); break;
-                                case TypeCode.Int64: propType = typeof(long); break;
-                                case TypeCode.UInt16: propType = typeof(ushort); break;
-                                case TypeCode.UInt32: propType = typeof(uint); break;
-                                case TypeCode.UInt64: propType = typeof(ulong); break;
+                                case TypeCode.Byte:
+                                    propType = typeof(byte);
+                                    break;
+                                case TypeCode.SByte:
+                                    propType = typeof(sbyte);
+                                    break;
+                                case TypeCode.Int16:
+                                    propType = typeof(short);
+                                    break;
+                                case TypeCode.Int32:
+                                    propType = typeof(int);
+                                    break;
+                                case TypeCode.Int64:
+                                    propType = typeof(long);
+                                    break;
+                                case TypeCode.UInt16:
+                                    propType = typeof(ushort);
+                                    break;
+                                case TypeCode.UInt32:
+                                    propType = typeof(uint);
+                                    break;
+                                case TypeCode.UInt64:
+                                    propType = typeof(ulong);
+                                    break;
                             }
                         }
                     }
@@ -2603,11 +2793,15 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         checkForNull = nullType != null;
                     }
-                    il.Emit(OpCodes.Box, propType); // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
+
+                    il.Emit(
+                        OpCodes.Box,
+                        propType); // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
                     if (callSanitize)
                     {
                         checkForNull = false; // handled by sanitize
                         il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SanitizeParameterValue)), null);
+
                         // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
                     }
                 }
@@ -2615,6 +2809,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     checkForNull = true; // if not a value-type, need to check
                 }
+
                 if (checkForNull)
                 {
                     if ((dbType == DbType.String || dbType == DbType.AnsiString) && !haveInt32Arg1)
@@ -2622,11 +2817,15 @@ namespace ServiceStack.OrmLite.Dapper
                         il.DeclareLocal(typeof(int));
                         haveInt32Arg1 = true;
                     }
+
                     // relative stack: [boxed value]
-                    il.Emit(OpCodes.Dup);// relative stack: [boxed value] [boxed value]
+                    il.Emit(OpCodes.Dup); // relative stack: [boxed value] [boxed value]
                     var notNull = il.DefineLabel();
-                    var allDone = dbType == DbType.String || dbType == DbType.AnsiString ? il.DefineLabel() : (Label?)null;
+                    var allDone = dbType == DbType.String || dbType == DbType.AnsiString
+                                      ? il.DefineLabel()
+                                      : (Label?)null;
                     il.Emit(OpCodes.Brtrue_S, notNull);
+
                     // relative stack [boxed value = null]
                     il.Emit(OpCodes.Pop); // relative stack empty
                     il.Emit(OpCodes.Ldsfld, typeof(DBNull).GetField(nameof(DBNull.Value))); // relative stack [DBNull]
@@ -2635,12 +2834,16 @@ namespace ServiceStack.OrmLite.Dapper
                         EmitInt32(il, 0);
                         il.Emit(OpCodes.Stloc_1);
                     }
+
                     if (allDone != null) il.Emit(OpCodes.Br_S, allDone.Value);
                     il.MarkLabel(notNull);
                     if (prop.PropertyType == typeof(string))
                     {
                         il.Emit(OpCodes.Dup); // [string] [string]
-                        il.EmitCall(OpCodes.Callvirt, typeof(string).GetProperty(nameof(string.Length)).GetGetMethod(), null); // [string] [length]
+                        il.EmitCall(
+                            OpCodes.Callvirt,
+                            typeof(string).GetProperty(nameof(string.Length)).GetGetMethod(),
+                            null); // [string] [length]
                         EmitInt32(il, DbString.DefaultLength); // [string] [length] [4000]
                         il.Emit(OpCodes.Cgt); // [string] [0 or 1]
                         Label isLong = il.DefineLabel(), lenDone = il.DefineLabel();
@@ -2652,38 +2855,57 @@ namespace ServiceStack.OrmLite.Dapper
                         il.MarkLabel(lenDone);
                         il.Emit(OpCodes.Stloc_1); // [string]
                     }
+
                     if (prop.PropertyType.FullName == LinqBinary)
                     {
-                        il.EmitCall(OpCodes.Callvirt, prop.PropertyType.GetMethod("ToArray", BindingFlags.Public | BindingFlags.Instance), null);
+                        il.EmitCall(
+                            OpCodes.Callvirt,
+                            prop.PropertyType.GetMethod("ToArray", BindingFlags.Public | BindingFlags.Instance),
+                            null);
                     }
+
                     if (allDone != null) il.MarkLabel(allDone.Value);
+
                     // relative stack [boxed value or DBNull]
                 }
 
                 if (handler != null)
                 {
 #pragma warning disable 618
-                    il.Emit(OpCodes.Call, typeof(TypeHandlerCache<>).MakeGenericType(prop.PropertyType).GetMethod(nameof(TypeHandlerCache<int>.SetValue))); // stack is now [parameters] [[parameters]] [parameter]
+                    il.Emit(
+                        OpCodes.Call,
+                        typeof(TypeHandlerCache<>).MakeGenericType(prop.PropertyType)
+                            .GetMethod(
+                                nameof(TypeHandlerCache<int>
+                                    .SetValue))); // stack is now [parameters] [[parameters]] [parameter]
 #pragma warning restore 618
                 }
                 else
                 {
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.Value)).GetSetMethod(), null);// stack is now [parameters] [[parameters]] [parameter]
+                    il.EmitCall(
+                        OpCodes.Callvirt,
+                        typeof(IDataParameter).GetProperty(nameof(IDataParameter.Value)).GetSetMethod(),
+                        null); // stack is now [parameters] [[parameters]] [parameter]
                 }
 
                 if (prop.PropertyType == typeof(string))
                 {
                     var endOfSize = il.DefineLabel();
+
                     // don't set if 0
                     il.Emit(OpCodes.Ldloc_1); // [parameters] [[parameters]] [parameter] [size]
                     il.Emit(OpCodes.Brfalse_S, endOfSize); // [parameters] [[parameters]] [parameter]
 
-                    il.Emit(OpCodes.Dup);// stack is now [parameters] [[parameters]] [parameter] [parameter]
+                    il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
                     il.Emit(OpCodes.Ldloc_1); // stack is now [parameters] [[parameters]] [parameter] [parameter] [size]
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDbDataParameter).GetProperty(nameof(IDbDataParameter.Size)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
+                    il.EmitCall(
+                        OpCodes.Callvirt,
+                        typeof(IDbDataParameter).GetProperty(nameof(IDbDataParameter.Size)).GetSetMethod(),
+                        null); // stack is now [parameters] [[parameters]] [parameter]
 
                     il.MarkLabel(endOfSize);
                 }
+
                 if (checkForDuplicates)
                 {
                     // stack is now [parameters] [parameter]
@@ -2693,7 +2915,10 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     // stack is now [parameters] [parameters] [parameter]
                     // blindly add
-                    il.EmitCall(OpCodes.Callvirt, typeof(IList).GetMethod(nameof(IList.Add)), null); // stack is now [parameters]
+                    il.EmitCall(
+                        OpCodes.Callvirt,
+                        typeof(IList).GetMethod(nameof(IList.Add)),
+                        null); // stack is now [parameters]
                     il.Emit(OpCodes.Pop); // IList.Add returns the new index (int); we don't care
                 }
             }
@@ -2727,6 +2952,7 @@ namespace ServiceStack.OrmLite.Dapper
                             }
                         }
                     }
+
                     var prop = exact ?? fallback;
 
                     if (prop != null)
@@ -2772,25 +2998,33 @@ namespace ServiceStack.OrmLite.Dapper
                                     {
                                         if (!locals.TryGetValue(propType, out local)) local = null;
                                     }
+
                                     if (local == null)
                                     {
                                         local = il.DeclareLocal(propType);
                                         locals.Add(propType, local);
                                     }
                                 }
+
                                 il.Emit(OpCodes.Stloc, local); // command, sql
                                 il.Emit(OpCodes.Ldloca, local); // command, sql, ref-to-value
-                                il.EmitCall(OpCodes.Call, InvariantCulture, null); // command, sql, ref-to-value, culture
+                                il.EmitCall(
+                                    OpCodes.Call,
+                                    InvariantCulture,
+                                    null); // command, sql, ref-to-value, culture
                                 il.EmitCall(OpCodes.Call, convert, null); // command, sql, string value
                                 break;
                             default:
-                                if (propType.IsValueType()) il.Emit(OpCodes.Box, propType); // command, sql, object value
+                                if (propType.IsValueType())
+                                    il.Emit(OpCodes.Box, propType); // command, sql, object value
                                 il.EmitCall(OpCodes.Call, format, null); // command, sql, string value
                                 break;
                         }
+
                         il.EmitCall(OpCodes.Callvirt, StringReplace, null);
                     }
                 }
+
                 il.EmitCall(OpCodes.Callvirt, cmdText.GetSetMethod(), null); // empty
             }
 
@@ -2809,8 +3043,9 @@ namespace ServiceStack.OrmLite.Dapper
             return toStrings.TryGetValue(typeCode, out var method) ? method : null;
         }
 
-        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new Type[] { typeof(string), typeof(string) }),
-            InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
+        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new[] { typeof(string), typeof(string) });
+
+        private static readonly MethodInfo InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
 
         private static int ExecuteCommand(IDbConnection cnn, ref CommandDefinition command, Action<IDbCommand, object> paramReader)
         {
@@ -2856,6 +3091,7 @@ namespace ServiceStack.OrmLite.Dapper
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
+
             return Parse<T>(result);
         }
 
@@ -2871,6 +3107,7 @@ namespace ServiceStack.OrmLite.Dapper
                 var reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, commandBehavior);
                 wasClosed = false; // don't dispose before giving it to them!
                 disposeCommand = false;
+
                 // note: command.FireOutputCallbacks(); would be useless here; parameters come at the **end** of the TDS stream
                 return reader;
             }
@@ -2897,6 +3134,7 @@ namespace ServiceStack.OrmLite.Dapper
                 var identity = new Identity(command.CommandText, command.CommandType, cnn, null, param.GetType(), null);
                 info = GetCacheInfo(identity, param, command.AddToCache);
             }
+
             var paramReader = info?.ParamReader;
             return paramReader;
         }
@@ -2909,14 +3147,17 @@ namespace ServiceStack.OrmLite.Dapper
             { // this *does* need special handling, though
                 return r => ReadChar(r.GetValue(index));
             }
+
             if (type == typeof(char?))
             {
                 return r => ReadNullableChar(r.GetValue(index));
             }
+
             if (type.FullName == LinqBinary)
             {
                 return r => Activator.CreateInstance(type, r.GetValue(index));
             }
+
 #pragma warning restore 618
 
             if (effectiveType.IsEnum())
@@ -2928,9 +3169,11 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         val = Convert.ChangeType(val, Enum.GetUnderlyingType(effectiveType), CultureInfo.InvariantCulture);
                     }
+
                     return val is DBNull ? null : Enum.ToObject(effectiveType, val);
                 };
             }
+
             if (typeHandlers.TryGetValue(type, out var handler))
             {
                 return r =>
@@ -2939,6 +3182,7 @@ namespace ServiceStack.OrmLite.Dapper
                     return val is DBNull ? null : handler.Parse(type, val);
                 };
             }
+
             return r =>
             {
                 var val = r.GetValue(index);
@@ -2958,18 +3202,23 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     value = Convert.ChangeType(value, Enum.GetUnderlyingType(type), CultureInfo.InvariantCulture);
                 }
+
                 return (T)Enum.ToObject(type, value);
             }
+
             if (typeHandlers.TryGetValue(type, out var handler))
             {
                 return (T)handler.Parse(type, value);
             }
+
             return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
 
         private static readonly MethodInfo
-                    enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new Type[] { typeof(Type), typeof(string), typeof(bool) }),
-                    getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                    enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) });
+
+        private static readonly MethodInfo
+            getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                         .Where(p => p.GetIndexParameters().Length > 0 && p.GetIndexParameters()[0].ParameterType == typeof(int))
                         .Select(p => p.GetGetMethod()).First();
 
@@ -3002,6 +3251,7 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                 }
             }
+
             return map;
         }
 
@@ -3061,6 +3311,7 @@ namespace ServiceStack.OrmLite.Dapper
                 found = il.DeclareLocal(type);
                 locals.Add(type, found);
             }
+
             if (initAndLoad)
             {
                 il.Emit(OpCodes.Ldloca, (short)found.LocalIndex);
@@ -3068,6 +3319,7 @@ namespace ServiceStack.OrmLite.Dapper
                 il.Emit(OpCodes.Ldloca, (short)found.LocalIndex);
                 il.Emit(OpCodes.Ldobj, type);
             }
+
             return found;
         }
 
@@ -3142,6 +3394,7 @@ namespace ServiceStack.OrmLite.Dapper
                         il.Emit(OpCodes.Ldloc_1);
                         il.EmitCall(OpCodes.Callvirt, typeof(ISupportInitialize).GetMethod(nameof(ISupportInitialize.BeginInit)), null);
                     }
+
 #endif
                 }
                 else
@@ -3165,6 +3418,7 @@ namespace ServiceStack.OrmLite.Dapper
                             il.Emit(OpCodes.Ldloc_1);
                             il.EmitCall(OpCodes.Callvirt, typeof(ISupportInitialize).GetMethod(nameof(ISupportInitialize.BeginInit)), null);
                         }
+
 #endif
                     }
                     else
@@ -3189,7 +3443,6 @@ namespace ServiceStack.OrmLite.Dapper
                                                                                         : names.Select(n => typeMap.GetMember(n))).ToList();
 
             // stack is now [target]
-
             var first = true;
             var allDone = il.DefineLabel();
             int enumDeclareLocal = -1, valueCopyLocal = il.DeclareLocal(typeof(object)).LocalIndex;
@@ -3225,7 +3478,6 @@ namespace ServiceStack.OrmLite.Dapper
                         il.Emit(OpCodes.Brtrue_S, isDbNullLabel); // stack is now [target][target][value-as-object]
 
                         // unbox nullable enums as the primitive, i.e. byte etc
-
                         var nullUnderlyingType = Nullable.GetUnderlyingType(memberType);
                         var unboxType = nullUnderlyingType?.IsEnum() == true ? nullUnderlyingType : memberType;
 
@@ -3238,6 +3490,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 {
                                     enumDeclareLocal = il.DeclareLocal(typeof(string)).LocalIndex;
                                 }
+
                                 il.Emit(OpCodes.Castclass, typeof(string)); // stack is now [target][target][string]
                                 StoreLocal(il, enumDeclareLocal); // stack is now [target][target]
                                 il.Emit(OpCodes.Ldtoken, unboxType); // stack is now [target][target][enum-type-token]
@@ -3260,7 +3513,7 @@ namespace ServiceStack.OrmLite.Dapper
                         else if (memberType.FullName == LinqBinary)
                         {
                             il.Emit(OpCodes.Unbox_Any, typeof(byte[])); // stack is now [target][target][byte-array]
-                            il.Emit(OpCodes.Newobj, memberType.GetConstructor(new Type[] { typeof(byte[]) }));// stack is now [target][target][binary]
+                            il.Emit(OpCodes.Newobj, memberType.GetConstructor(new[] { typeof(byte[]) }));// stack is now [target][target][binary]
                         }
                         else
                         {
@@ -3290,6 +3543,7 @@ namespace ServiceStack.OrmLite.Dapper
                             }
                         }
                     }
+
                     if (specializedConstructor == null)
                     {
                         // Store the value in the property/field
@@ -3324,20 +3578,26 @@ namespace ServiceStack.OrmLite.Dapper
                     else if (applyNullSetting && (!memberType.IsValueType() || Nullable.GetUnderlyingType(memberType) != null))
                     {
                         il.Emit(OpCodes.Pop); // stack is now [target][target]
+
                         // can load a null with this value
                         if (memberType.IsValueType())
-                        { // must be Nullable<T> for some T
+                        {
+                            // must be Nullable<T> for some T
                             GetTempLocal(il, ref structLocals, memberType, true); // stack is now [target][target][null]
                         }
                         else
-                        { // regular reference-type
+                        {
+                            // regular reference-type
                             il.Emit(OpCodes.Ldnull); // stack is now [target][target][null]
                         }
 
                         // Store the value in the property/field
                         if (item.Property != null)
                         {
-                            il.Emit(type.IsValueType() ? OpCodes.Call : OpCodes.Callvirt, DefaultTypeMap.GetPropertySetter(item.Property, type));
+                            il.Emit(
+                                type.IsValueType() ? OpCodes.Call : OpCodes.Callvirt,
+                                DefaultTypeMap.GetPropertySetter(item.Property, type));
+
                             // stack is now [target]
                         }
                         else
@@ -3361,9 +3621,11 @@ namespace ServiceStack.OrmLite.Dapper
 
                     il.MarkLabel(finishLabel);
                 }
+
                 first = false;
                 index++;
             }
+
             if (type.IsValueType())
             {
                 il.Emit(OpCodes.Pop);
@@ -3374,6 +3636,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     il.Emit(OpCodes.Newobj, specializedConstructor);
                 }
+
                 il.Emit(OpCodes.Stloc_1); // stack is empty
 #if !NETSTANDARD1_3
                 if (supportInitialize)
@@ -3381,8 +3644,10 @@ namespace ServiceStack.OrmLite.Dapper
                     il.Emit(OpCodes.Ldloc_1);
                     il.EmitCall(OpCodes.Callvirt, typeof(ISupportInitialize).GetMethod(nameof(ISupportInitialize.EndInit)), null);
                 }
+
 #endif
             }
+
             il.MarkLabel(allDone);
             il.BeginCatchBlock(typeof(Exception)); // stack is Exception
             il.Emit(OpCodes.Ldloc_0); // stack is Exception, index
@@ -3396,6 +3661,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 il.Emit(OpCodes.Box, type);
             }
+
             il.Emit(OpCodes.Ret);
 
             var funcType = System.Linq.Expressions.Expression.GetFuncType(typeof(IDataReader), returnType);
@@ -3478,7 +3744,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     il.Emit(OpCodes.Ldtoken, via ?? to); // stack is now [target][target][value][member-type-token]
                     il.EmitCall(OpCodes.Call, typeof(Type).GetMethod(nameof(Type.GetTypeFromHandle)), null); // stack is now [target][target][value][member-type]
-                    il.EmitCall(OpCodes.Call, typeof(Convert).GetMethod(nameof(Convert.ChangeType), new Type[] { typeof(object), typeof(Type) }), null); // stack is now [target][target][boxed-member-type-value]
+                    il.EmitCall(OpCodes.Call, typeof(Convert).GetMethod(nameof(Convert.ChangeType), new[] { typeof(object), typeof(Type) }), null); // stack is now [target][target][boxed-member-type-value]
                     il.Emit(OpCodes.Unbox_Any, to); // stack is now [target][target][typed-value]
                 }
             }
@@ -3503,6 +3769,7 @@ namespace ServiceStack.OrmLite.Dapper
                 if (args.Length != 1 || args[0].ParameterType != from) continue;
                 return methods[i];
             }
+
             return null;
         }
 
@@ -3524,6 +3791,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         il.Emit(OpCodes.Ldloc, (short)index);
                     }
+
                     break;
             }
         }
@@ -3546,6 +3814,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         il.Emit(OpCodes.Stloc, (short)index);
                     }
+
                     break;
             }
         }
@@ -3598,12 +3867,14 @@ namespace ServiceStack.OrmLite.Dapper
                         formattedValue = valEx.Message;
                     }
                 }
+
                 toThrow = new DataException($"Error parsing column {index} ({name}={formattedValue})", ex);
             }
             catch
             { // throw the **original** exception, wrapped as DataException
                 toThrow = new DataException(ex.Message, ex);
             }
+
             throw toThrow;
         }
 
@@ -3630,6 +3901,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         il.Emit(OpCodes.Ldc_I4, value);
                     }
+
                     break;
             }
         }
@@ -3649,6 +3921,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static IEqualityComparer<string> connectionStringComparer = StringComparer.Ordinal;
 
 #if !NETSTANDARD1_3
+
         /// <summary>
         /// Key used to indicate the type name associated with a DataTable.
         /// </summary>
@@ -3691,7 +3964,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="list">The list of records to convert to TVPs.</param>
         /// <param name="typeName">The sql parameter type name.</param>
-        public static ICustomQueryParameter AsTableValuedParameter(this IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord> list, string typeName = null) =>
+        public static ICustomQueryParameter AsTableValuedParameter(this IEnumerable<SqlDataRecord> list, string typeName = null) =>
             new SqlDataRecordListTVPParameter(list, typeName);
 
         // one per thread
@@ -3706,12 +3979,13 @@ namespace ServiceStack.OrmLite.Dapper
                 tmp.Length = 0;
                 return tmp;
             }
+
             return new StringBuilder();
         }
 
         private static string __ToStringRecycle(this StringBuilder obj)
         {
-            if (obj == null) return "";
+            if (obj == null) return string.Empty;
             var s = obj.ToString();
             perThreadStringBuilderCache = perThreadStringBuilderCache ?? obj;
             return s;

@@ -12,8 +12,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ServiceStack.DataAnnotations;
 using System.Linq.Expressions;
+
+using ServiceStack.DataAnnotations;
 
 namespace ServiceStack.OrmLite
 {
@@ -97,6 +98,7 @@ namespace ServiceStack.OrmLite
                 {
                     fieldDefinitionMap[sanitizeFieldName(fieldDef.FieldName)] = fieldDef;
                 }
+
                 return fieldDefinitionMap;
             }
         }
@@ -119,22 +121,26 @@ namespace ServiceStack.OrmLite
                     if (f.Alias == fieldName)
                         return f;
                 }
+
                 foreach (var f in FieldDefinitionsArray)
                 {
                     if (f.Name == fieldName)
                         return f;
                 }
+
                 foreach (var f in FieldDefinitionsWithAliases)
                 {
                     if (string.Equals(f.Alias, fieldName, StringComparison.OrdinalIgnoreCase))
                         return f;
                 }
+
                 foreach (var f in FieldDefinitionsArray)
                 {
                     if (string.Equals(f.Name, fieldName, StringComparison.OrdinalIgnoreCase))
                         return f;
                 }
             }
+
             return null;
         }
 
@@ -148,6 +154,7 @@ namespace ServiceStack.OrmLite
                 if (predicate(f.Alias))
                     return f;
             }
+
             foreach (var f in FieldDefinitionsArray)
             {
                 if (predicate(f.Name))

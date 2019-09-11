@@ -55,12 +55,12 @@ namespace YAF.Core.Extensions
 
             if (page <= 0)
             {
-                throw new ArgumentOutOfRangeException("page", "Page must be a number greater than 0.");
+                throw new ArgumentOutOfRangeException(nameof(page), "Page must be a number greater than 0.");
             }
 
             if (pageSize <= 0)
             {
-                throw new ArgumentOutOfRangeException("pageSize", "PageSize must be a number greater than 0.");
+                throw new ArgumentOutOfRangeException(nameof(pageSize), "PageSize must be a number greater than 0.");
             }
 
             var skip = (page.Value - 1) * pageSize.Value;

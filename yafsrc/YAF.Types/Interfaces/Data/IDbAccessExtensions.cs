@@ -312,7 +312,7 @@ namespace YAF.Types.Interfaces.Data
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
-            if (transaction != null && transaction.Connection != null)
+            if (transaction?.Connection != null)
             {
                 using (var command = transaction.Connection.CreateCommand())
                 {

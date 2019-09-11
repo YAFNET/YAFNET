@@ -37,7 +37,7 @@ namespace ServiceStack.Web
         /// <summary>
         /// Additional HTTP Cookies
         /// </summary>
-        List<System.Net.Cookie> Cookies { get; }
+        List<Cookie> Cookies { get; }
 
         /// <summary>
         /// Response DTO

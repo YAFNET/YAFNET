@@ -8,7 +8,7 @@ namespace ServiceStack.OrmLite.Converters
         public override string ColumnDefinition => "BOOL";
         public override DbType DbType => DbType.Boolean;
 
-        //Also support coercing 0 != int as Bool
+        // Also support coercing 0 != int as Bool
         public override object FromDbValue(Type fieldType, object value)
         {
             if (value is bool)

@@ -48,6 +48,7 @@ namespace ServiceStack.Logging
             if(exception != null) {
                 msg += $", Exception: {exception.Message}";
             }
+
             _logs.Add(new KeyValuePair<Levels, string>(level, msg));
         }
 

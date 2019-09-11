@@ -21,7 +21,7 @@ namespace YAF.UrlRewriter.Errors
         /// <param name="url">URL of the error page.</param>
         public DefaultErrorHandler(string url)
         {
-            this._url = url ?? throw new ArgumentNullException("url");
+            this._url = url ?? throw new ArgumentNullException(nameof(url));
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace YAF.UrlRewriter.Errors
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             context.Server.Execute(this._url);

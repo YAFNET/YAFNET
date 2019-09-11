@@ -119,8 +119,7 @@ namespace YAF.Dialogs
             foreach (var ip in ipParts)
             {
                 // see if they are numbers...
-                ulong number;
-                if (!ulong.TryParse(s: ip, result: out number))
+                if (!ulong.TryParse(s: ip, result: out var number))
                 {
                     if (ip.Trim() == "*")
                     {

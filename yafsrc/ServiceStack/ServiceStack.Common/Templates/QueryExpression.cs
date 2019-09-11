@@ -46,6 +46,7 @@ namespace ServiceStack.Templates
                 
                 sb.Append(JsonValue(expr));
             }
+
             sb.Append(')');
             return StringBuilderCache.ReturnAndFree(sb);
         }
@@ -62,6 +63,7 @@ namespace ServiceStack.Templates
             if (obj.GetType() != this.GetType()) return false;
             return Equals((BooleanExpression) obj);
         }
+
         public override int GetHashCode()
         {
             unchecked
@@ -85,6 +87,7 @@ namespace ServiceStack.Templates
                 if (result)
                     return true;
             }
+
             return false;
         }
     }
@@ -100,6 +103,7 @@ namespace ServiceStack.Templates
                 if (!result)
                     return false;
             }
+
             return true;
         }
     }
@@ -115,6 +119,7 @@ namespace ServiceStack.Templates
             Op = op;
             Target = target;
         }
+
         protected bool Equals(UnaryExpression other) => Equals(Op, other.Op) && Equals(Target, other.Target);
         public override bool Equals(object obj)
         {
@@ -123,6 +128,7 @@ namespace ServiceStack.Templates
             if (obj.GetType() != this.GetType()) return false;
             return Equals((UnaryExpression) obj);
         }
+
         public override int GetHashCode()
         {
             unchecked
@@ -161,6 +167,7 @@ namespace ServiceStack.Templates
             if (obj.GetType() != this.GetType()) return false;
             return Equals((BinaryExpression) obj);
         }
+
         public override int GetHashCode()
         {
             unchecked
@@ -215,7 +222,7 @@ namespace ServiceStack.Templates
                 literal = literal.ParseNextToken(out var value, out var andOrToken);
 
                 if (andOrToken == null || !andOrToken.Binding.Equals(BooleanExpression.OrKeyword) && !andOrToken.Binding.Equals(BooleanExpression.AndKeyword))
-                    throw new NotSupportedException($"Invalid sytnax: Expected 'and', 'or' keywords but found instead '{value ?? andOrToken}', near '{literal.SubstringWithElipsis(0,50)}'");
+                    throw new NotSupportedException($"Invalid sytnax: Expected 'and', 'or' keywords but found instead '{value ?? andOrToken}', near '{literal.SubstringWithElipsis(0, 50)}'");
                 
                 var isOr = andOrToken.Binding.Equals(BooleanExpression.OrKeyword);
 
@@ -252,14 +259,13 @@ namespace ServiceStack.Templates
 
             if (!literal.IsNullOrEmpty())
             {
-                object value;
-                literal = literal.ParseNextToken(out value, out var binding);
+                literal = literal.ParseNextToken(out var value, out var binding);
 
                 if (binding is JsAssignment)
                     binding = JsEquals.Operand;
 
                 if (!(binding is JsBooleanOperand operand))
-                    throw new ArgumentException($"Invalid syntax: Expected boolean operand but instead found '{value ?? binding}' near: {literal.SubstringWithElipsis(0,50)}");
+                    throw new ArgumentException($"Invalid syntax: Expected boolean operand but instead found '{value ?? binding}' near: {literal.SubstringWithElipsis(0, 50)}");
                 
                 literal = literal.ParseNextExpression(out JsToken rhsExpr);
 
@@ -278,18 +284,15 @@ namespace ServiceStack.Templates
 
         public static StringSegment ParseNextExpression(this StringSegment literal, out JsToken token)
         {
-            object value1, value2;
-            JsBinding binding1, binding2;
-
             literal = literal.AdvancePastWhitespace();
             
-            literal = literal.ParseNextToken(out value1, out binding1);
+            literal = literal.ParseNextToken(out var value1, out var binding1);
 
             literal = literal.AdvancePastWhitespace();
 
             if (binding1 is JsUnaryOperator u)
             {
-                literal = literal.ParseNextToken(out value2, out binding2);
+                literal = literal.ParseNextToken(out var value2, out var binding2);
                 token = new UnaryExpression(u, value2.ToToken(binding2));
             }
             else

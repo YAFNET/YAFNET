@@ -68,7 +68,7 @@ namespace YAF.Types.Attributes
     /// <summary>
     /// The export service attribute.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class ExportServiceAttribute : Attribute
     {
         #region Constructors and Destructors

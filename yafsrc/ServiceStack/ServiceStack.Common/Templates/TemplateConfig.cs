@@ -46,6 +46,7 @@ namespace ServiceStack.Templates
             "htmlErrorDebug",
         };
         
+
         /// <summary>
         /// Rethrow fatal exceptions thrown on incorrect API usage    
         /// </summary>

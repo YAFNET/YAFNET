@@ -89,7 +89,9 @@ namespace YAF.Core.Syndication
                          // Alternate Link
                          new Uri(link),
                          id,
-                         new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
+                         new DateTimeOffset(posted)) {
+                                                        PublishDate = new DateTimeOffset(posted) 
+                                                     };
             links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
 
             si.Authors.Add(

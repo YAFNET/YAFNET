@@ -141,7 +141,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName { get; private set; }
+        public static string TaskName { get; }
 
         /// <summary>
         /// The Blocking Task Names.

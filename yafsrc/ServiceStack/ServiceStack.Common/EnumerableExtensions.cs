@@ -64,10 +64,11 @@ namespace ServiceStack
             {
                 list.Add(converter(item));
             }
+
             return list;
         }
 
-        public static List<To> Map<To>(this System.Collections.IEnumerable items, Func<object, To> converter)
+        public static List<To> Map<To>(this IEnumerable items, Func<object, To> converter)
         {
             if (items == null)
                 return new List<To>();
@@ -77,6 +78,7 @@ namespace ServiceStack
             {
                 list.Add(converter(item));
             }
+
             return list;
         }
 
@@ -87,6 +89,7 @@ namespace ServiceStack
             {
                 to.Add(item);
             }
+
             return to;
         }
 
@@ -96,6 +99,7 @@ namespace ServiceStack
             {
                 if (!string.IsNullOrEmpty(value)) return value;
             }
+
             return null;
         }
 
@@ -105,6 +109,7 @@ namespace ServiceStack
             {
                 if (!Equals(value, default(T))) return value;
             }
+
             return default(T);
         }
 
@@ -159,11 +164,12 @@ namespace ServiceStack
 
                 if (!comparer(item, otherEnum.Current)) return false;
             }
+
             var hasNoMoreLeftAsWell = !otherEnum.MoveNext();
             return hasNoMoreLeftAsWell;
         }
 
-        public static bool EquivalentTo<K, V>(this IDictionary<K, V> a, IDictionary<K, V> b, Func<V,V,bool> comparer = null)
+        public static bool EquivalentTo<K, V>(this IDictionary<K, V> a, IDictionary<K, V> b, Func<V, V, bool> comparer = null)
         {
             if (comparer == null)
                 comparer = (v1, v2) => v1.Equals(v2);
@@ -176,8 +182,7 @@ namespace ServiceStack
 
             foreach (var entry in a)
             {
-                V value;
-                if (!b.TryGetValue(entry.Key, out value))
+                if (!b.TryGetValue(entry.Key, out var value))
                     return false;
                 if (entry.Value == null || value == null)
                 {
@@ -186,9 +191,11 @@ namespace ServiceStack
 
                     return false;
                 }
+
                 if (!comparer(entry.Value, value))
                     return false;
             }
+
             return true;
         }
 
@@ -222,6 +229,7 @@ namespace ServiceStack
                     map[expr(item)] = item;
                 }
             }
+
             return map;
         }
 
@@ -233,6 +241,7 @@ namespace ServiceStack
                 var entry = map(item);
                 to[entry.Key] = entry.Value;
             }
+
             return to;
         }
 

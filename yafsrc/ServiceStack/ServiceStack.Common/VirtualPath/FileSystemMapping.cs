@@ -9,7 +9,7 @@ namespace ServiceStack.VirtualPath
     {
         protected DirectoryInfo RootDirInfo;
         protected FileSystemVirtualDirectory RootDir;
-        public string Alias { get; private set; }
+        public string Alias { get; }
 
         public override IVirtualDirectory RootDirectory => RootDir;
         public override string VirtualPathSeparator => "/";

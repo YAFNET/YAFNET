@@ -127,16 +127,15 @@ namespace ServiceStack.OrmLite
 
         public virtual IDbConnection OpenDbConnection(string namedConnection)
         {
-            OrmLiteConnectionFactory factory;
-            if (!NamedConnections.TryGetValue(namedConnection, out factory))
+            if (!NamedConnections.TryGetValue(namedConnection, out var factory))
                 throw new KeyNotFoundException($"No factory registered is named {namedConnection}");
 
             IDbConnection connection = factory.AutoDisposeConnection
                 ? new OrmLiteConnection(factory)
                 : factory.OrmLiteConnection;
 
-            //moved setting up the ConnectionFilter to OrmLiteConnection.Open
-            //connection = factory.ConnectionFilter(connection);
+            // moved setting up the ConnectionFilter to OrmLiteConnection.Open
+            // connection = factory.ConnectionFilter(connection);
             connection.Open();
 
             return connection;

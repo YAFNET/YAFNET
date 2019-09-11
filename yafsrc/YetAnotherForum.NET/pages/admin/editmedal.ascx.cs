@@ -278,8 +278,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            byte sortOrder;
-
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(
@@ -288,7 +286,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (!byte.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+            if (!byte.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
                 return;

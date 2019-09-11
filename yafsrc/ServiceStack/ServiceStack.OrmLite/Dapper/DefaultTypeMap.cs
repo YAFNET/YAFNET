@@ -26,6 +26,7 @@ namespace ServiceStack.OrmLite.Dapper
             Properties = GetSettableProps(type);
             _type = type;
         }
+
 #if NETSTANDARD1_3
         private static bool IsParameterMatch(ParameterInfo[] x, ParameterInfo[] y)
         {
@@ -157,8 +158,8 @@ namespace ServiceStack.OrmLite.Dapper
 
             if (property == null && MatchNamesWithUnderscores)
             {
-                property = Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.Ordinal))
-                    ?? Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.OrdinalIgnoreCase));
+                property = Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", string.Empty), StringComparison.Ordinal))
+                    ?? Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", string.Empty), StringComparison.OrdinalIgnoreCase));
             }
 
             if (property != null)
@@ -176,7 +177,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             if (field == null && MatchNamesWithUnderscores)
             {
-                var effectiveColumnName = columnName.Replace("_", "");
+                var effectiveColumnName = columnName.Replace("_", string.Empty);
                 backingFieldName = $"<{effectiveColumnName}>k__BackingField";
 
                 field = _fields.Find(p => string.Equals(p.Name, effectiveColumnName, StringComparison.Ordinal))
@@ -190,6 +191,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             return null;
         }
+
         /// <summary>
         /// Should column names like User_Id be allowed to match properties/fields like UserId ?
         /// </summary>

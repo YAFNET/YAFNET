@@ -61,7 +61,7 @@ namespace YAF.Providers.Profile
         /// <summary>
         /// The _properties setup.
         /// </summary>
-        private bool _propertiesSetup = false;
+        private bool _propertiesSetup;
 
         /// <summary>
         /// The _property lock.
@@ -92,7 +92,7 @@ namespace YAF.Providers.Profile
             set => this._appName = value;
         }
 
-        private ConcurrentDictionary<string, SettingsPropertyValueCollection> _userProfileCache = null;
+        private ConcurrentDictionary<string, SettingsPropertyValueCollection> _userProfileCache;
 
         /// <summary>
         /// Gets UserProfileCache.
@@ -443,7 +443,7 @@ namespace YAF.Providers.Profile
             // verify that the configuration section was properly passed
             if (config == null)
             {
-                throw new ArgumentNullException("config");
+                throw new ArgumentNullException(nameof(config));
             }
 
             // Connection String Name
@@ -531,11 +531,8 @@ namespace YAF.Providers.Profile
                 // validiate all the properties and populate the internal settings collection
                 foreach (SettingsProperty property in collection)
                 {
-                    SqlDbType dbType;
-                    int size;
-
                     // parse custom provider data...
-                    DB.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+                    DB.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out var dbType, out var size);
 
                     // default the size to 256 if no size is specified
                     if (dbType == SqlDbType.NVarChar && size == -1)
@@ -581,12 +578,9 @@ namespace YAF.Providers.Profile
                 // validiate all the properties and populate the internal settings collection
                 foreach (SettingsPropertyValue value in collection)
                 {
-                    SqlDbType dbType;
-                    int size;
-
                     // parse custom provider data...
                     DB.GetDbTypeAndSizeFromString(
-                      value.Property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+                      value.Property.Attributes["CustomProviderData"].ToString(), out var dbType, out var size);
 
                     // default the size to 256 if no size is specified
                     if (dbType == SqlDbType.NVarChar && size == -1)
@@ -633,9 +627,7 @@ namespace YAF.Providers.Profile
         /// </param>
         private void DeleteFromProfileCacheIfExists(string key)
         {
-            SettingsPropertyValueCollection collection;
-
-            this.UserProfileCache.TryRemove(key, out collection);
+            this.UserProfileCache.TryRemove(key, out var collection);
         }
 
         /// <summary>

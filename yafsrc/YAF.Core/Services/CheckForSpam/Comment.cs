@@ -34,10 +34,6 @@ namespace YAF.Core.Services.CheckForSpam
     /// </summary>
     public class Comment : IComment
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>

@@ -25,6 +25,7 @@ namespace ServiceStack
                 CanGetId = HasId<T>.GetId;
                 return;
             }
+
 #endif
 
             if (typeof(T).IsClass || typeof(T).IsInterface)
@@ -190,6 +191,7 @@ namespace ServiceStack
             {
                 idValue = idValue.PadLeft(4, '0');
             }
+
             idValue = idValue.Replace(" ", "-");
 
             var rootDir = typeof(T).Name;
@@ -210,6 +212,7 @@ namespace ServiceStack
                     return pi;
                 }
             }
+
             return null;
         }
 

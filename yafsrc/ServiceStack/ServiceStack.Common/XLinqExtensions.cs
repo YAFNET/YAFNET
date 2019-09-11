@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
-using static System.String;
 
 namespace ServiceStack
 {
@@ -36,7 +35,7 @@ namespace ServiceStack
             if (converter == null)
                 throw new ArgumentNullException(nameof(converter));
 
-            return IsNullOrEmpty(attr?.Value) ? default(T) : converter(attr);
+            return string.IsNullOrEmpty(attr?.Value) ? default(T) : converter(attr);
         }
 
         public static bool GetBool(this XElement el, string name)
@@ -53,7 +52,7 @@ namespace ServiceStack
         public static bool? GetNullableBool(this XElement el, string name)
         {
             var childEl = GetElement(el, name);
-            return IsNullOrEmpty(childEl?.Value) ? null : (bool?)childEl;
+            return string.IsNullOrEmpty(childEl?.Value) ? null : (bool?)childEl;
         }
 
         public static int GetInt(this XElement el, string name)
@@ -70,7 +69,7 @@ namespace ServiceStack
         public static int? GetNullableInt(this XElement el, string name)
         {
             var childEl = GetElement(el, name);
-            return IsNullOrEmpty(childEl?.Value) ? null : (int?)childEl;
+            return string.IsNullOrEmpty(childEl?.Value) ? null : (int?)childEl;
         }
 
         public static long GetLong(this XElement el, string name)
@@ -87,7 +86,7 @@ namespace ServiceStack
         public static long? GetNullableLong(this XElement el, string name)
         {
             var childEl = GetElement(el, name);
-            return IsNullOrEmpty(childEl?.Value) ? null : (long?)childEl;
+            return string.IsNullOrEmpty(childEl?.Value) ? null : (long?)childEl;
         }
 
         public static decimal GetDecimal(this XElement el, string name)
@@ -104,7 +103,7 @@ namespace ServiceStack
         public static decimal? GetNullableDecimal(this XElement el, string name)
         {
             var childEl = GetElement(el, name);
-            return IsNullOrEmpty(childEl?.Value) ? null : (decimal?)childEl;
+            return string.IsNullOrEmpty(childEl?.Value) ? null : (decimal?)childEl;
         }
 
         public static DateTime GetDateTime(this XElement el, string name)
@@ -121,7 +120,7 @@ namespace ServiceStack
         public static DateTime? GetNullableDateTime(this XElement el, string name)
         {
             var childEl = GetElement(el, name);
-            return IsNullOrEmpty(childEl?.Value) ? null : (DateTime?)childEl;
+            return string.IsNullOrEmpty(childEl?.Value) ? null : (DateTime?)childEl;
         }
 
         public static TimeSpan GetTimeSpan(this XElement el, string name)
@@ -138,7 +137,7 @@ namespace ServiceStack
         public static TimeSpan? GetNullableTimeSpan(this XElement el, string name)
         {
             var childEl = GetElement(el, name);
-            return IsNullOrEmpty(childEl?.Value) ? null : (TimeSpan?)childEl;
+            return string.IsNullOrEmpty(childEl?.Value) ? null : (TimeSpan?)childEl;
         }
 
         public static Guid GetGuid(this XElement el, string name)
@@ -155,7 +154,7 @@ namespace ServiceStack
         public static Guid? GetNullableGuid(this XElement el, string name)
         {
             var childEl = GetElement(el, name);
-            return IsNullOrEmpty(childEl?.Value) ? null : (Guid?)childEl;
+            return string.IsNullOrEmpty(childEl?.Value) ? null : (Guid?)childEl;
         }
 
         public static T GetElementValueOrDefault<T>(this XElement element, string name, Func<XElement, T> converter)
@@ -164,7 +163,7 @@ namespace ServiceStack
                 throw new ArgumentNullException(nameof(converter));
 
             var el = GetElement(element, name);
-            return IsNullOrEmpty(el?.Value) ? default(T) : converter(el);
+            return string.IsNullOrEmpty(el?.Value) ? default(T) : converter(el);
         }
 
         public static XElement GetElement(this XElement element, string name)
@@ -187,7 +186,7 @@ namespace ServiceStack
                 throw new ArgumentNullException(nameof(name));
 
             var childEl = element.AnyElement(name);
-            if (childEl == null || IsNullOrEmpty(childEl.Value))
+            if (childEl == null || string.IsNullOrEmpty(childEl.Value))
             {
                 throw new ArgumentNullException(name, $"{name} is required");
             }
@@ -200,6 +199,7 @@ namespace ServiceStack
             {
                 values.Add(el.Value);
             }
+
             return values;
         }
 
@@ -213,6 +213,7 @@ namespace ServiceStack
                     return attribute;
                 }
             }
+
             return null;
         }
 
@@ -229,6 +230,7 @@ namespace ServiceStack
                     els.Add(childEl);
                 }
             }
+
             return els;
         }
 
@@ -244,6 +246,7 @@ namespace ServiceStack
                     return childEl;
                 }
             }
+
             return null;
         }
 
@@ -256,6 +259,7 @@ namespace ServiceStack
                     return element;
                 }
             }
+
             return null;
         }
 
@@ -266,6 +270,7 @@ namespace ServiceStack
             {
                 els.AddRange(AllElements(element, name));
             }
+
             return els;
         }
 
@@ -275,6 +280,7 @@ namespace ServiceStack
             {
                 return (XElement)element.FirstNode;
             }
+
             return null;
         }
 

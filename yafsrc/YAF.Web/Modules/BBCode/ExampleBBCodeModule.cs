@@ -32,15 +32,7 @@ namespace YAF.Modules
   /// </summary>
   public class ExampleBBCodeModule : YafBBCodeControl
   {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExampleBBCodeModule"/> class.
-    /// </summary>
-    public ExampleBBCodeModule()
-      : base()
-    {
-    }
-
-    /// <summary>
+      /// <summary>
     /// The render.
     /// </summary>
     /// <param name="writer">
@@ -48,7 +40,7 @@ namespace YAF.Modules
     /// </param>
     protected override void Render(HtmlTextWriter writer)
     {
-      writer.Write(s: $"Hello, you wrote this: {this.Parameters[key: "inner"]}");
+      writer.Write($"Hello, you wrote this: {this.Parameters["inner"]}");
     }
   }
 }

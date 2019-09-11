@@ -28,6 +28,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -305,7 +306,7 @@ namespace YAF.Controls
         {
             var lastVisit = this.Get<IYafSession>().LastVisit;
 
-            // value 0, for since last visted
+            // value 0, for since last visit
             this.Since.Items.Add(
                 new ListItem(
                     this.GetTextFormatted(
@@ -446,12 +447,7 @@ namespace YAF.Controls
             }
 
             html =
-                string
-                    .Format(
-                        @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" title=""{2}"" >{0}</a></td></tr>",
-                        forumName,
-                            YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName),
-                            this.GetText("COMMON", "VIEW_FORUM"));
+                $@"<tr><td class=""header2"" colspan=""6""><a href=""{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName)}"" title=""{this.GetText("COMMON", "VIEW_FORUM")}"" >{forumName}</a></td></tr>";
             this.lastForumName = forumName;
 
             return html;
@@ -467,7 +463,7 @@ namespace YAF.Controls
             // Set the controls' pager index to 0.
             this.PagerTop.CurrentPageIndex = 0;
 
-            // save since option to rememver it next time
+            // save since option to remember it next time
             switch (this.CurrentMode)
             {
                 case TopicListMode.User:
@@ -500,33 +496,35 @@ namespace YAF.Controls
             var accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
 
             // RSS link setup 
-            if (this.Get<YafBoardSettings>().ShowRSSLink)
+            if (!this.Get<YafBoardSettings>().ShowRSSLink)
             {
-                switch (this.CurrentMode)
-                {
-                    case TopicListMode.User:
-                        this.RssFeed.Visible = false;
-                        break;
-                    case TopicListMode.Unread:
-                        this.RssFeed.Visible = false;
-                        break;
-                    case TopicListMode.Unanswered:
-                        this.RssFeed.Visible = false;
-                        break;
-                    case TopicListMode.Active:
-                        this.RssFeed.FeedType = YafRssFeeds.Active;
-                        this.RssFeed.AdditionalParameters =
-                            $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString()))}";
+                return;
+            }
 
-                        this.RssFeed.Visible = accessActive;
-                        break;
-                    case TopicListMode.Favorite:
-                        this.RssFeed.FeedType = YafRssFeeds.Favorite;
-                        this.RssFeed.AdditionalParameters =
-                            $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString()))}";
-                        this.RssFeed.Visible = accessFavorite;
-                        break;
-                }
+            switch (this.CurrentMode)
+            {
+                case TopicListMode.User:
+                    this.RssFeed.Visible = false;
+                    break;
+                case TopicListMode.Unread:
+                    this.RssFeed.Visible = false;
+                    break;
+                case TopicListMode.Unanswered:
+                    this.RssFeed.Visible = false;
+                    break;
+                case TopicListMode.Active:
+                    this.RssFeed.FeedType = YafRssFeeds.Active;
+                    this.RssFeed.AdditionalParameters =
+                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
+
+                    this.RssFeed.Visible = accessActive;
+                    break;
+                case TopicListMode.Favorite:
+                    this.RssFeed.FeedType = YafRssFeeds.Favorite;
+                    this.RssFeed.AdditionalParameters =
+                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
+                    this.RssFeed.Visible = accessFavorite;
+                    break;
             }
         }
 

@@ -57,6 +57,8 @@ namespace YAF.Pages
     using YAF.Web.EventsArgs;
     using YAF.Web.Extensions;
 
+    using Forum = YAF.Types.Models.Forum;
+
     #endregion
 
     /// <summary>
@@ -74,7 +76,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _forum.
         /// </summary>
-        private Types.Models.Forum forum;
+        private Forum forum;
 
         /// <summary>
         ///   The _forum flags.
@@ -488,7 +490,7 @@ namespace YAF.Pages
                 YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
-            var dt = this.GetRepository<Types.Models.Forum>().List(
+            var dt = this.GetRepository<Forum>().List(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageForumID);
 
@@ -1103,10 +1105,9 @@ namespace YAF.Pages
                 // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
                 if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") == null)
                 {
-                    int messageId;
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null && int.TryParse(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
-                            out messageId))
+                            out var messageId))
                     {
                         // we find message position always by time.
                         using (var lastPost = this.GetRepository<Message>().FindUnreadAsDataTable(

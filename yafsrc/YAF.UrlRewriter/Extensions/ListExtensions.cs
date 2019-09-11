@@ -21,7 +21,7 @@
         {
             if (conditions == null)
             {
-                throw new ArgumentNullException("conditions");
+                throw new ArgumentNullException(nameof(conditions));
             }
 
             // Ensure all the conditions are met, i.e. return false if any are not met.

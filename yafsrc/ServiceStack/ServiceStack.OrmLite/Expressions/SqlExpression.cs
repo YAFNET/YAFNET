@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Reflection;
-using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 using ServiceStack.Text;
@@ -17,13 +17,13 @@ namespace ServiceStack.OrmLite
         public const string TrueLiteral = "(1=1)";
         public const string FalseLiteral = "(1=0)";
 
-        protected bool visitedExpressionIsTableColumn = false;
-        protected bool skipParameterizationForThisExpression = false;
+        protected bool visitedExpressionIsTableColumn;
+        protected bool skipParameterizationForThisExpression;
 
         private Expression<Func<T, bool>> underlyingExpression;
         private List<string> orderByProperties = new List<string>();
         private string selectExpression = string.Empty;
-        private string fromExpression = null;
+        private string fromExpression;
 
         private string orderBy = string.Empty;
         public HashSet<string> OnlyFields { get; protected set; }
@@ -31,15 +31,15 @@ namespace ServiceStack.OrmLite
         public List<string> UpdateFields { get; set; }
         public List<string> InsertFields { get; set; }
 
-        protected bool useFieldName = false;
-        protected bool selectDistinct = false;
+        protected bool useFieldName;
+        protected bool selectDistinct;
         protected bool CustomSelect { get; set; }
         protected ModelDefinition modelDef;
         public bool PrefixFieldWithTableName { get; set; }
         public bool WhereStatementWithoutWhereString { get; set; }
         public IOrmLiteDialectProvider DialectProvider { get; set; }
         public List<IDbDataParameter> Params { get; set; }
-        public Func<string,string> SqlFilter { get; set; }
+        public Func<string, string> SqlFilter { get; set; }
         public static Action<SqlExpression<T>> SelectFilter { get; set; }
         public int? Rows { get; set; }
         public int? Offset { get; set; }
@@ -138,10 +138,11 @@ namespace ServiceStack.OrmLite
             }
             else
             {
-                this.selectExpression = $"SELECT {(distinct ? "DISTINCT " : "")}{rawSelect}";
+                this.selectExpression = $"SELECT {(distinct ? "DISTINCT " : string.Empty)}{rawSelect}";
                 this.CustomSelect = true;
                 OnlyFields = null;
             }
+
             return this;
         }
 
@@ -200,7 +201,7 @@ namespace ServiceStack.OrmLite
                 }
                 else
                 {
-                    fieldsList.Add(field); //Could be non-matching referenced property
+                    fieldsList.Add(field); // Could be non-matching referenced property
     
                     var match = FirstMatchingField(field);
                     if (match == null)
@@ -234,6 +235,7 @@ namespace ServiceStack.OrmLite
             {
                 selectSql = ConvertToParam(selectSql);
             }
+
             BuildSelectExpression(selectSql.ToString(), distinct: distinct);
             return this;
         }
@@ -352,7 +354,7 @@ namespace ServiceStack.OrmLite
 
         public virtual SqlExpression<T> Where()
         {
-            underlyingExpression = null; //Where() clears the expression
+            underlyingExpression = null; // Where() clears the expression
 
             this.WhereExpression = null;
             return this;
@@ -379,6 +381,7 @@ namespace ServiceStack.OrmLite
                     sqlFilter = sqlFilter.Replace(pLiteral, p.ParameterName);
                 }
             }
+
             return sqlFilter;
         }
 
@@ -394,6 +397,7 @@ namespace ServiceStack.OrmLite
 
                 sbParams.Append(p.ParameterName);
             }
+
             var sqlIn = StringBuilderCache.ReturnAndFree(sbParams);
             return sqlIn;
         }
@@ -469,7 +473,7 @@ namespace ServiceStack.OrmLite
         protected SqlExpression<T> AppendToWhere(string condition, string sqlExpression)
         {
             this.WhereExpression = string.IsNullOrEmpty(this.WhereExpression)
-                ? this.WhereStatementWithoutWhereString ? "" : "WHERE "
+                ? this.WhereStatementWithoutWhereString ? string.Empty : "WHERE "
                 : $"{this.WhereExpression} {condition} ";
 
             this.WhereExpression += sqlExpression;
@@ -693,7 +697,7 @@ namespace ServiceStack.OrmLite
 
         public virtual SqlExpression<T> OrderByFields(params string[] fieldNames)
         {
-            return OrderByFields("", fieldNames);
+            return OrderByFields(string.Empty, fieldNames);
         }
 
         public virtual SqlExpression<T> OrderByFieldsDescending(params string[] fieldNames)
@@ -723,6 +727,7 @@ namespace ServiceStack.OrmLite
                 orderByProperties.Add(fields);
                 BuildOrderByClauseInternal();
             }
+
             return this;
         }
 
@@ -762,6 +767,7 @@ namespace ServiceStack.OrmLite
                 orderByProperties.Add(fields);
                 BuildOrderByClauseInternal();
             }
+
             return this;
         }
 
@@ -788,6 +794,7 @@ namespace ServiceStack.OrmLite
                     .Each(x => orderByProperties.Add($"{x} DESC"));
                 BuildOrderByClauseInternal();
             }
+
             return this;
         }
 
@@ -839,6 +846,7 @@ namespace ServiceStack.OrmLite
                     .Each(x => orderByProperties.Add($"{x} DESC"));
                 BuildOrderByClauseInternal();
             }
+
             return this;
         }
 
@@ -854,6 +862,7 @@ namespace ServiceStack.OrmLite
 
                     sb.Append(prop);
                 }
+
                 orderBy = $"ORDER BY {StringBuilderCache.ReturnAndFree(sb)}";
             }
             else
@@ -1030,7 +1039,7 @@ namespace ServiceStack.OrmLite
             return this;
         }
 
-        public virtual SqlExpression<T> WithSqlFilter(Func<string,string> sqlFilter)
+        public virtual SqlExpression<T> WithSqlFilter(Func<string, string> sqlFilter)
         {
             this.SqlFilter = sqlFilter;
             return this;
@@ -1073,7 +1082,7 @@ namespace ServiceStack.OrmLite
             }
             catch (Exception)
             {
-                //SQL Server + PostgreSql doesn't allow re-using db params in multiple queries
+                // SQL Server + PostgreSql doesn't allow re-using db params in multiple queries
                 foreach (var sqlParam in Params)
                 {
                     var p = dbCmd.CreateParameter();
@@ -1187,6 +1196,7 @@ namespace ServiceStack.OrmLite
                     BuildSelectExpression(string.Empty, false);
                 return selectExpression;
             }
+
             set => selectExpression = value;
         }
 
@@ -1200,9 +1210,9 @@ namespace ServiceStack.OrmLite
         }
 
         public string BodyExpression => FromExpression
-            + (string.IsNullOrEmpty(WhereExpression) ? "" : $"\n{this.WhereExpression}")
-            + (string.IsNullOrEmpty(GroupByExpression) ? "" : $"\n{this.GroupByExpression}")
-            + (string.IsNullOrEmpty(HavingExpression) ? "" : $"\n{this.HavingExpression}");
+            + (string.IsNullOrEmpty(WhereExpression) ? string.Empty : $"\n{this.WhereExpression}")
+            + (string.IsNullOrEmpty(GroupByExpression) ? string.Empty : $"\n{this.GroupByExpression}")
+            + (string.IsNullOrEmpty(HavingExpression) ? string.Empty : $"\n{this.HavingExpression}");
 
         public string WhereExpression { get; set; }
 
@@ -1212,7 +1222,7 @@ namespace ServiceStack.OrmLite
 
         public string OrderByExpression
         {
-            get => string.IsNullOrEmpty(orderBy) ? "" : $"\n{this.orderBy}";
+            get => string.IsNullOrEmpty(orderBy) ? string.Empty : $"\n{this.orderBy}";
             set => orderBy = value;
         }
 
@@ -1266,7 +1276,7 @@ namespace ServiceStack.OrmLite
                 case ExpressionType.RightShift:
                 case ExpressionType.LeftShift:
                 case ExpressionType.ExclusiveOr:
-                    //return "(" + VisitBinary(exp as BinaryExpression) + ")";
+                    // return "(" + VisitBinary(exp as BinaryExpression) + ")";
                     return VisitBinary(exp as BinaryExpression);
                 case ExpressionType.Negate:
                 case ExpressionType.NegateChecked:
@@ -1350,7 +1360,7 @@ namespace ServiceStack.OrmLite
         protected virtual object VisitBinary(BinaryExpression b)
         {
             object originalLeft = null, originalRight = null, left, right;
-            var operand = BindOperant(b.NodeType);   //sep= " " ??
+            var operand = BindOperant(b.NodeType);   // sep= " " ??
             if (operand == "AND" || operand == "OR")
             {
                 if (IsBooleanComparison(b.Left))
@@ -1394,7 +1404,7 @@ namespace ServiceStack.OrmLite
             }
             else if ((operand == "=" || operand == "<>") && b.Left is MethodCallExpression && ((MethodCallExpression)b.Left).Method.Name == "CompareString")
             {
-                //Handle VB.NET converting (x => x.Name == "Foo") into (x => CompareString(x.Name, "Foo", False)
+                // Handle VB.NET converting (x => x.Name == "Foo") into (x => CompareString(x.Name, "Foo", False)
                 var methodExpr = (MethodCallExpression)b.Left;
                 var args = this.VisitExpressionList(methodExpr.Arguments);
                 right = GetValue(args[1], typeof(string));
@@ -1407,7 +1417,6 @@ namespace ServiceStack.OrmLite
                 originalRight = right = Visit(b.Right);
 
                 // Handle "expr = true/false", including with the constant on the left
-
                 if (operand == "=" || operand == "<>")
                 {
                     if (left is bool)
@@ -1415,8 +1424,9 @@ namespace ServiceStack.OrmLite
                         Swap(ref left, ref right); // Should be safe to swap for equality/inequality checks
                     }
 
-                    if (right is bool && !IsFieldName(left) && !(b.Left is ConditionalExpression)) // Don't change anything when "expr" is a column name or ConditionalExpression - then we really want "ColName = 1" or (Case When 1=0 Then 1 Else 0 End = 1)
+                    if (right is bool && !IsFieldName(left) && !(b.Left is ConditionalExpression))
                     {
+                        // Don't change anything when "expr" is a column name or ConditionalExpression - then we really want "ColName = 1" or (Case When 1=0 Then 1 Else 0 End = 1)
                         if (operand == "=")
                             return (bool)right ? left : GetNotValue(left); // "expr == true" becomes "expr", "expr == false" becomes "not (expr)"
                         if (operand == "<>")
@@ -1520,7 +1530,7 @@ namespace ServiceStack.OrmLite
             var m = (MemberExpression)e;
 
             if (m.Member.DeclaringType.IsNullableType() &&
-                m.Member.Name == "HasValue") //nameof(Nullable<bool>.HasValue)
+                m.Member.Name == "HasValue") // nameof(Nullable<bool>.HasValue)
                 return false;
 
             return IsParameterAccess(m);
@@ -1716,14 +1726,12 @@ namespace ServiceStack.OrmLite
         private object SetAnonTypePropertyNamesForSelectExpression(object expr, Expression arg, MemberInfo member)
         {
             // When selecting a column use the anon type property name, rather than the table property name, as the returned column name
-
             MemberExpression propertyExpr;
             if ((propertyExpr = arg as MemberExpression) != null && propertyExpr.Member.Name != member.Name)
                 return new SelectItemExpression(DialectProvider, expr.ToString(), member.Name);
 
             // When selecting an entire table use the anon type property name as a prefix for the returned column name
             // to allow the caller to distinguish properties with the same names from different tables
-
             var selectList = arg is ParameterExpression paramExpr && paramExpr.Name != member.Name
                 ? expr as SelectList
                 : null;
@@ -1819,6 +1827,7 @@ namespace ServiceStack.OrmLite
 
                         return CachedExpressionCompiler.Evaluate(u);
                     }
+
                     break;
             }
             return Visit(u.Operand);
@@ -1987,6 +1996,7 @@ namespace ServiceStack.OrmLite
                     list.Add(Visit(e));
                 }
             }
+
             return list;
         }
 
@@ -2010,6 +2020,7 @@ namespace ServiceStack.OrmLite
                     list.Add(Visit(e));
                 }
             }
+
             return list;
         }
 
@@ -2021,6 +2032,7 @@ namespace ServiceStack.OrmLite
             {
                 sb.Append(sb.Length > 0 ? $",{e}" : e);
             }
+
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
@@ -2089,6 +2101,7 @@ namespace ServiceStack.OrmLite
                     ? DialectProvider.GetQuotedColumnName(tableDef, fieldName)
                     : DialectProvider.GetQuotedColumnName(fieldName);
             }
+
             return memberName;
         }
 
@@ -2101,6 +2114,7 @@ namespace ServiceStack.OrmLite
                 exp = exp.Remove(0, 1);
                 exp = exp.Remove(exp.Length - 1, 1);
             }
+
             return exp;
         }
 
@@ -2151,7 +2165,7 @@ namespace ServiceStack.OrmLite
             selectDistinct = distinct;
 
             selectExpression =
-                $"SELECT {(this.selectDistinct ? "DISTINCT " : "")}{(string.IsNullOrEmpty(fields) ? this.DialectProvider.GetColumnNames(this.modelDef) : fields)}";
+                $"SELECT {(this.selectDistinct ? "DISTINCT " : string.Empty)}{(string.IsNullOrEmpty(fields) ? this.DialectProvider.GetColumnNames(this.modelDef) : fields)}";
         }
 
         public IList<string> GetAllFields()
@@ -2225,16 +2239,16 @@ namespace ServiceStack.OrmLite
         protected virtual bool IsStaticStringMethod(MethodCallExpression m)
         {
             return m.Object == null
-                   && (m.Method.Name == nameof(String.Concat) || m.Method.Name == nameof(String.Compare));
+                   && (m.Method.Name == nameof(string.Concat) || m.Method.Name == nameof(string.Compare));
         }
 
         protected virtual object VisitStaticStringMethodCall(MethodCallExpression m)
         {
             switch (m.Method.Name)
             {
-                case nameof(String.Concat):
+                case nameof(string.Concat):
                     return BuildConcatExpression(VisitExpressionList(m.Arguments));
-                case nameof(String.Compare):
+                case nameof(string.Compare):
                     return BuildCompareExpression(VisitExpressionList(m.Arguments));
 
                 default:
@@ -2249,6 +2263,7 @@ namespace ServiceStack.OrmLite
                 if (!(args[i] is PartialSqlString))
                     args[i] = ConvertToParam(args[i]);
             }
+
             return ToConcatPartialString(args);
         }
 
@@ -2259,6 +2274,7 @@ namespace ServiceStack.OrmLite
                 if (!(args[i] is PartialSqlString))
                     args[i] = ConvertToParam(args[i]);
             }
+
             return ToComparePartialString(args);
         }
 
@@ -2299,7 +2315,7 @@ namespace ServiceStack.OrmLite
                 case nameof(Sql.Min):
                 case nameof(Sql.Max):
                 case nameof(Sql.Avg):
-                    statement = $"{m.Method.Name}({quotedColName}{(args.Count == 1 ? $",{args[0]}" : "")})";
+                    statement = $"{m.Method.Name}({quotedColName}{(args.Count == 1 ? $",{args[0]}" : string.Empty)})";
                     break;
                 case nameof(Sql.CountDistinct):
                     statement = $"COUNT(DISTINCT {quotedColName})";
@@ -2341,7 +2357,7 @@ namespace ServiceStack.OrmLite
             if (argValue is ISqlExpression exprArg)
             {
                 var subSelect = exprArg.ToSelectStatement();
-                var renameParams = new List<Tuple<string,string>>();
+                var renameParams = new List<Tuple<string, string>>();
                 foreach (var p in exprArg.Params)
                 {
                     var oldName = p.ParameterName;
@@ -2361,7 +2377,7 @@ namespace ServiceStack.OrmLite
 
                 for (var i = renameParams.Count - 1; i >= 0; i--)
                 {
-                    //Replace complete db params [@1] and not partial tokens [@1]0
+                    // Replace complete db params [@1] and not partial tokens [@1]0
                     var paramsRegex = new Regex($"{renameParams[i].Item1}([^\\d])");
                     subSelect = paramsRegex.Replace(subSelect, $"{renameParams[i].Item2}$1");
                 }
@@ -2372,7 +2388,7 @@ namespace ServiceStack.OrmLite
             throw new NotSupportedException($"In({argValue.GetType()})");
         }
 
-        protected virtual string CreateInSubQuerySql(object quotedColName,string subSelect)
+        protected virtual string CreateInSubQuerySql(object quotedColName, string subSelect)
         {
             return $"{quotedColName} IN ({subSelect})";
         }
@@ -2384,10 +2400,10 @@ namespace ServiceStack.OrmLite
             if (!IsSqlClass(quotedColName))
                 quotedColName = ConvertToParam(quotedColName);
 
-            var statement = "";
+            var statement = string.Empty;
 
-            var wildcardArg = args.Count > 0 ? DialectProvider.EscapeWildcards(args[0].ToString()) : "";
-            var escapeSuffix = wildcardArg.IndexOf('^') >= 0 ? " escape '^'" : "";
+            var wildcardArg = args.Count > 0 ? DialectProvider.EscapeWildcards(args[0].ToString()) : string.Empty;
+            var escapeSuffix = wildcardArg.IndexOf('^') >= 0 ? " escape '^'" : string.Empty;
             switch (m.Method.Name)
             {
                 case "Trim":
@@ -2459,8 +2475,9 @@ namespace ServiceStack.OrmLite
             p.ParameterName = DialectProvider.GetParam(name);
             p.Direction = direction;
 
-            if (!DialectProvider.IsMySqlConnector()) //throws NotSupportedException
+            if (!DialectProvider.IsMySqlConnector())
             {
+                // throws NotSupportedException
                 p.SourceVersion = sourceVersion;
             }
 
@@ -2512,6 +2529,7 @@ namespace ServiceStack.OrmLite
         {
             Text = text;
         }
+
         public string Text { get; set; }
         public override string ToString()
         {
@@ -2529,7 +2547,7 @@ namespace ServiceStack.OrmLite
             EnumType = enumType;
         }
 
-        public Type EnumType { get; private set; }
+        public Type EnumType { get; }
     }
 
     public abstract class SelectItem
@@ -2595,6 +2613,7 @@ namespace ServiceStack.OrmLite
         /// Unquoted column name being selected.
         /// </summary>
         public string ColumnName { get; set; }
+
         /// <summary>
         /// Table name or alias used to prefix the column name, if any. Already quoted.
         /// </summary>

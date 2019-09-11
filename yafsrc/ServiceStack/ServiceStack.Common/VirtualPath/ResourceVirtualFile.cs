@@ -30,6 +30,7 @@ namespace ServiceStack.VirtualPath
                         length = s.Length;
                     }
                 }
+
                 return length.Value;
             }
         }

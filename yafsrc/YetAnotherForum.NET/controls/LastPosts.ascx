@@ -3,6 +3,7 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="System.Data" %>
 <asp:Timer ID="LastPostUpdateTimer" runat="server" Interval="30000" OnTick="LastPostUpdateTimer_Tick">
 </asp:Timer>
 <div>
@@ -40,7 +41,7 @@
                                         </footer>
                                     </div>
                                     <div class="card-text">
-                                        <YAF:MessagePostData ID="MessagePostPrimary" runat="server" DataRow='<%# Container.DataItem %>'
+                                        <YAF:MessagePostData ID="MessagePostPrimary" runat="server" DataRow='<%# (DataRow)Container.DataItem %>'
                                             ShowAttachments="false">
                                         </YAF:MessagePostData>
                                     </div>

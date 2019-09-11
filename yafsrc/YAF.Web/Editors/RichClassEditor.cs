@@ -26,12 +26,12 @@ namespace YAF.Web.Editors
     #region Using
 
     using System;
-    using System.Linq;
-    using System.Reflection;
     using System.Web.UI;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -95,13 +95,11 @@ namespace YAF.Web.Editors
             }
             catch (Exception x)
             {
-                /*
 #if DEBUG
-				throw new Exception( "Unable to load editor class/dll: " + classBinStr + " Exception: " + x.Message );
+                throw new Exception($"Unable to load editor class/dll: {classBinStr} Exception: {x.Message}");
 #else
-				//YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Error);
+				this.Get<ILogger>().Log(null, this.GetType().ToString(), x);
 #endif
-*/
             }
         }
 
@@ -148,25 +146,6 @@ namespace YAF.Web.Editors
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// The get interface in assembly.
-        /// </summary>
-        /// <param name="assembly">
-        /// The c assembly.
-        /// </param>
-        /// <param name="className">
-        /// The class name.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        protected Type GetInterfaceInAssembly([NotNull] Assembly assembly, [NotNull] string className)
-        {
-            CodeContracts.VerifyNotNull(assembly, "assembly");
-            CodeContracts.VerifyNotNull(className, "className");
-
-            return assembly.GetExportedTypes().FirstOrDefault(typ => typ.FullName == className);
-        }
 
         /// <summary>
         /// The init editor object.

@@ -122,15 +122,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            short sortOrder;
-
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_POSITIVE_SORT"));
                 return;
             }
 
-            if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
+            if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_NUMBER_SORT"));
                 return;

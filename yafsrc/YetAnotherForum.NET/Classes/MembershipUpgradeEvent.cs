@@ -26,7 +26,7 @@ namespace YAF.Core.Events
     using YAF.Providers.Membership;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
     ///     The membership upgrade event.

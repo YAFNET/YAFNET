@@ -269,18 +269,16 @@ namespace YAF.Types.Interfaces
         {
             CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
-            object tempInstance;
-
             instance = default(TService);
 
-            if (serviceLocator.TryGet(typeof(TService), out tempInstance))
+            if (!serviceLocator.TryGet(typeof(TService), out var tempInstance))
             {
-                instance = (TService)tempInstance;
-
-                return true;
+                return false;
             }
 
-            return false;
+            instance = (TService)tempInstance;
+
+            return true;
         }
 
         /// <summary>
@@ -305,18 +303,16 @@ namespace YAF.Types.Interfaces
             CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
             CodeContracts.VerifyNotNull(named, "named");
 
-            object tempInstance;
-
             instance = default(TService);
 
-            if (serviceLocator.TryGet(typeof(TService), named, out tempInstance))
+            if (!serviceLocator.TryGet(typeof(TService), named, out var tempInstance))
             {
-                instance = (TService)tempInstance;
-
-                return true;
+                return false;
             }
 
-            return false;
+            instance = (TService)tempInstance;
+
+            return true;
         }
 
         /// <summary>

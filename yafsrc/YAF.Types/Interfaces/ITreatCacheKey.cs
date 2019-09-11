@@ -23,11 +23,7 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
-
-  #endregion
-
-  /// <summary>
+    /// <summary>
   /// The i treat cache key.
   /// </summary>
   public interface ITreatCacheKey

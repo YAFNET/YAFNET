@@ -311,7 +311,7 @@ namespace ServiceStack.IO
 
         public override Stream OpenRead()
         {
-            return MemoryStreamFactory.GetStream(ByteContents ?? (TextContents ?? "").ToUtf8Bytes());
+            return MemoryStreamFactory.GetStream(ByteContents ?? (TextContents ?? string.Empty).ToUtf8Bytes());
         }
 
         public override void Refresh()

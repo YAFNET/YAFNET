@@ -31,6 +31,7 @@ namespace YAF.Core
 
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 

@@ -28,22 +28,27 @@ namespace ServiceStack.OrmLite.Dapper
             Length = -1;
             IsAnsi = IsAnsiDefault;
         }
+
         /// <summary>
         /// Ansi vs Unicode 
         /// </summary>
         public bool IsAnsi { get; set; }
+
         /// <summary>
         /// Fixed length 
         /// </summary>
         public bool IsFixedLength { get; set; }
+
         /// <summary>
         /// Length of the string -1 for max
         /// </summary>
         public int Length { get; set; }
+
         /// <summary>
         /// The value of the string
         /// </summary>
         public string Value { get; set; }
+
         /// <summary>
         /// Add the parameter to the command... internal use only
         /// </summary>
@@ -55,6 +60,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 throw new InvalidOperationException("If specifying IsFixedLength,  a Length must also be specified");
             }
+
             var add = !command.Parameters.Contains(name);
             IDbDataParameter param;
             if (add)
@@ -66,6 +72,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 param = (IDbDataParameter)command.Parameters[name];
             }
+
 #pragma warning disable 0618
             param.Value = SqlMapper.SanitizeParameterValue(Value);
 #pragma warning restore 0618
@@ -77,6 +84,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 param.Size = Length;
             }
+
             param.DbType = IsAnsi ? this.IsFixedLength ? DbType.AnsiStringFixedLength : DbType.AnsiString : this.IsFixedLength ? DbType.StringFixedLength : DbType.String;
             if (add)
             {

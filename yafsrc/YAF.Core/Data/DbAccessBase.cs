@@ -47,14 +47,14 @@ namespace YAF.Core.Data
         #region Fields
 
         /// <summary>
-        /// The _profiler.
+        ///     The provider name.
         /// </summary>
-        private readonly IProfileQuery _profiler;
+        protected readonly string ProviderName;
 
         /// <summary>
-        ///     The _provider name.
+        /// The profiler.
         /// </summary>
-        protected readonly string _providerName;
+        private readonly IProfileQuery profiler;
 
         #endregion
 
@@ -76,7 +76,7 @@ namespace YAF.Core.Data
             [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler, IDbInformation information)
         {
             this.Information = information;
-            this._profiler = profiler;
+            this.profiler = profiler;
             this.DbProviderFactory = dbProviderFactory(information.ProviderName);
         }
 
@@ -121,39 +121,38 @@ namespace YAF.Core.Data
             var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
 
            // OrmLiteConfig.ClearCache();
+           using (this.profiler.Start(command.CommandText))
+           {
+               var result = default(T);
 
-            using (var p = this._profiler.Start(command.CommandText))
-            {
-                var result = default(T);
+               if (dbTransaction == null)
+               {
+                   if (command.Connection != null && command.Connection.State == ConnectionState.Open)
+                   {
+                       result = execFunc(command);
+                   }
+                   else
+                   {
+                       using (var connection = this.CreateConnectionOpen())
+                       {
+                           // get an open connection
+                           command.Connection = connection;
 
-                if (dbTransaction == null)
-                {
-                    if (command.Connection != null && command.Connection.State == ConnectionState.Open)
-                    {
-                        result = execFunc(command);
-                    }
-                    else
-                    {
-                        using (var connection = this.CreateConnectionOpen())
-                        {
-                            // get an open connection
-                            command.Connection = connection;
+                           result = execFunc(command);
 
-                            result = execFunc(command);
+                           connection.Close();
+                       }
+                   }
+               }
+               else
+               {
+                   command.Populate(dbTransaction);
 
-                            connection.Close();
-                        }
-                    }
-                }
-                else
-                {
-                    command.Populate(dbTransaction);
+                   result = execFunc(command);
+               }
 
-                    result = execFunc(command);
-                }
-
-                return result;
-            }
+               return result;
+           }
         }
 
         /// <summary>

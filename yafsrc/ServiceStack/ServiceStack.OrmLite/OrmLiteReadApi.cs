@@ -371,6 +371,7 @@ namespace ServiceStack.OrmLite
         {
             return dbConn.Exec(dbCmd => dbCmd.Scalar(expression.Limit(1).Select("'exists'"))) != null;
         }
+
         /// <summary>
         /// Returns true if the Query returns any records, using an SqlFormat query. E.g:
         /// <para>db.Exists&lt;Person&gt;(new { Age = 42 })</para>

@@ -289,12 +289,12 @@ namespace YAF.Utils
       // Check the width and height.
       if (width <= 0)
       {
-        throw new ArgumentOutOfRangeException("width", width, "Argument out of range, must be greater than zero.");
+        throw new ArgumentOutOfRangeException(nameof(width), width, "Argument out of range, must be greater than zero.");
       }
 
       if (height <= 0)
       {
-        throw new ArgumentOutOfRangeException("height", height, "Argument out of range, must be greater than zero.");
+        throw new ArgumentOutOfRangeException(nameof(height), height, "Argument out of range, must be greater than zero.");
       }
 
       this.Width = width;
@@ -307,16 +307,16 @@ namespace YAF.Utils
     /// <summary>
     /// The set family name.
     /// </summary>
-    /// <param name="familyName">
+    /// <param name="name">
     /// The family name.
     /// </param>
-    private void SetFamilyName([NotNull] string familyName)
+    private void SetFamilyName([NotNull] string name)
     {
       // If the named font is not installed, default to a system font.
       try
       {
         var font = new Font(this.familyName, 14F);
-        this.familyName = familyName;
+        this.familyName = name;
         font.Dispose();
       }
       catch

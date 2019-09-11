@@ -91,8 +91,7 @@ namespace YAF.Core
             var isRunning = false;
             foreach (var s in instanceNames)
             {
-                IBackgroundTask task;
-                isRunning = this.TryGetTask(s, out task) && task.IsRunning;
+                isRunning = this.TryGetTask(s, out var task) && task.IsRunning;
                 if (isRunning)
                 {
                     break;
@@ -112,9 +111,7 @@ namespace YAF.Core
         /// </returns>
         public virtual bool IsTaskRunning([NotNull] string instanceName)
         {
-            IBackgroundTask task;
-
-            return this.TryGetTask(instanceName, out task) && task.IsRunning;
+            return this.TryGetTask(instanceName, out var task) && task.IsRunning;
         }
 
         /// <summary>
@@ -135,9 +132,7 @@ namespace YAF.Core
         /// </param>
         public virtual void StopTask([NotNull] string instanceName)
         {
-            IBackgroundTask task;
-
-            if (this.TryGetTask(instanceName, out task))
+            if (this.TryGetTask(instanceName, out var task))
             {
                 if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
                 {
@@ -185,9 +180,7 @@ namespace YAF.Core
         /// </returns>
         public virtual bool TryRemoveTask([NotNull] string instanceName)
         {
-            IBackgroundTask task;
-
-            return _taskManager.TryRemove(instanceName, out task);
+            return _taskManager.TryRemove(instanceName, out var task);
         }
 
         #endregion

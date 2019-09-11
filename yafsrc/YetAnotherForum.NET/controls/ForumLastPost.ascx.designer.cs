@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class ForumLastPost {
         
+
         /// <summary>
         /// LastPostedHolder control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder LastPostedHolder;
+        protected PlaceHolder LastPostedHolder;
         
+
         /// <summary>
         /// TopicInPlaceHolder control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder TopicInPlaceHolder;
+        protected PlaceHolder TopicInPlaceHolder;
         
+
         /// <summary>
         /// topicLink control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink topicLink;
+        protected HyperLink topicLink;
         
+
         /// <summary>
         /// NewMessage control.
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewMessage;
+        protected Label NewMessage;
         
+
         /// <summary>
         /// LastTopicImgLink control.
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton LastTopicImgLink;
+        protected ThemeButton LastTopicImgLink;
         
+
         /// <summary>
         /// ImageLastUnreadMessageLink control.
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton ImageLastUnreadMessageLink;
+        protected ThemeButton ImageLastUnreadMessageLink;
         
+
         /// <summary>
         /// ProfileUserLink control.
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.UserLink ProfileUserLink;
+        protected UserLink ProfileUserLink;
         
+
         /// <summary>
         /// LastPostDate control.
         /// </summary>
@@ -82,8 +92,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.DisplayDateTime LastPostDate;
+        protected DisplayDateTime LastPostDate;
         
+
         /// <summary>
         /// NoPostsPlaceHolder control.
         /// </summary>
@@ -91,8 +102,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder NoPostsPlaceHolder;
+        protected PlaceHolder NoPostsPlaceHolder;
         
+
         /// <summary>
         /// NoPostsLabel control.
         /// </summary>
@@ -100,6 +112,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel NoPostsLabel;
+        protected LocalizedLabel NoPostsLabel;
     }
 }

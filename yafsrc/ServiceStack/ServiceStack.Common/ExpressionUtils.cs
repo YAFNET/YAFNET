@@ -56,6 +56,7 @@ namespace ServiceStack
             {
                 to[binding.Member.Name] = binding.GetValue();
             }
+
             return to;
         }
 
@@ -117,7 +118,7 @@ namespace ServiceStack
                     {
                         Log.Error("Error compiling expression in MemberBinding.GetValue()", ex);
 
-                        //Fallback to compile and execute
+                        // Fallback to compile and execute
                         var member = Expression.Convert(assign.Expression, typeof(object));
                         var lambda = Expression.Lambda<Func<object>>(member);
                         var getter = lambda.Compile();

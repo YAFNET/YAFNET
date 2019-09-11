@@ -45,14 +45,14 @@ namespace YAF.Modules
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var userName = this.Parameters[key: "inner"];
+            var userName = this.Parameters["inner"];
 
             if (userName.IsNotSet() || userName.Length > 50)
             {
                 return;
             }
 
-            var userId = this.Get<IUserDisplayName>().GetId(name: userName.Trim());
+            var userId = this.Get<IUserDisplayName>().GetId(userName.Trim());
 
             if (userId.HasValue)
             {
@@ -66,18 +66,18 @@ namespace YAF.Modules
                                        ID = $"UserLinkBBCodeFor{userId}"
                                    };
 
-                stringBuilder.AppendLine(value: "<!-- BEGIN userlink -->");
-                stringBuilder.AppendLine(value: @"<span>");
-                stringBuilder.AppendLine(value: userLink.RenderToString());
+                stringBuilder.AppendLine("<!-- BEGIN userlink -->");
+                stringBuilder.AppendLine(@"<span>");
+                stringBuilder.AppendLine(userLink.RenderToString());
 
-                stringBuilder.AppendLine(value: "</span>");
-                stringBuilder.AppendLine(value: "<!-- END userlink -->");
+                stringBuilder.AppendLine("</span>");
+                stringBuilder.AppendLine("<!-- END userlink -->");
 
-                writer.Write(s: stringBuilder.ToString());
+                writer.Write(stringBuilder.ToString());
             }
             else
             {
-                writer.Write(s: this.HtmlEncode(data: userName));
+                writer.Write(this.HtmlEncode(userName));
             }
         }
     }

@@ -42,11 +42,6 @@ namespace YAF.Data.MsSql
         /// </summary>
         protected List<SqlInfoMessageEventArgs> _sqlMessages = new List<SqlInfoMessageEventArgs>();
 
-        /// <summary>
-        ///   The _message.
-        /// </summary>
-        private IList<string> _message;
-
         #endregion
 
         #region Constructors and Destructors
@@ -128,7 +123,7 @@ namespace YAF.Data.MsSql
                     if (transaction.Connection is SqlConnection sqlConnection)
                     {
                         sqlConnection.FireInfoMessageEventOnUserErrors = true;
-                        sqlConnection.InfoMessage += new SqlInfoMessageEventHandler(this.sqlConnection_InfoMessage);
+                        sqlConnection.InfoMessage += this.sqlConnection_InfoMessage;
 
                         var operationSuccessful = this.RunOperation(
                             sqlConnection,

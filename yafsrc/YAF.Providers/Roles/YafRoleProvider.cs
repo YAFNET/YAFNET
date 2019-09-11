@@ -80,7 +80,7 @@ namespace YAF.Providers.Roles
             }
         }
 
-        private ConcurrentDictionary<string, StringCollection> _userRoleCache = null;
+        private ConcurrentDictionary<string, StringCollection> _userRoleCache;
 
         /// <summary>
         /// Gets UserRoleCache.
@@ -115,12 +115,12 @@ namespace YAF.Providers.Roles
         {
             if (usernames == null || usernames.Length == 0)
             {
-                throw new ArgumentException("usernames is null or empty.", "usernames");
+                throw new ArgumentException("usernames is null or empty.", nameof(usernames));
             }
 
             if (roleNames == null || roleNames.Length == 0)
             {
-                throw new ArgumentException("roleNames is null or empty.", "roleNames");
+                throw new ArgumentException("roleNames is null or empty.", nameof(roleNames));
             }
 
             // Loop through username
@@ -417,8 +417,7 @@ namespace YAF.Providers.Roles
         /// </param>
         private void DeleteFromRoleCacheIfExists(string key)
         {
-            StringCollection collection;
-            this.UserRoleCache.TryRemove(key, out collection);
+            this.UserRoleCache.TryRemove(key, out var collection);
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 
 namespace ServiceStack.DataAnnotations
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class SqlServerFileTableAttribute : AttributeBase
     {
         public SqlServerFileTableAttribute() { }

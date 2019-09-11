@@ -22,8 +22,8 @@ namespace YAF.UrlRewriter.Actions
         /// <param name="cookieValue">The cookie value.</param>
         public SetCookieAction(string cookieName, string cookieValue)
         {
-            this.Name = cookieName ?? throw new ArgumentNullException("cookieName");
-            this.Value = cookieValue ?? throw new ArgumentNullException("cookieValue");
+            this.Name = cookieName ?? throw new ArgumentNullException(nameof(cookieName));
+            this.Value = cookieValue ?? throw new ArgumentNullException(nameof(cookieValue));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace YAF.UrlRewriter.Actions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             var cookie = new HttpCookie(this.Name, this.Value);

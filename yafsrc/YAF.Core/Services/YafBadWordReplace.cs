@@ -156,7 +156,7 @@ namespace YAF.Core.Services
 #if DEBUG
         catch (Exception e)
         {
-          throw new Exception("Bad Word Regular Expression Failed: " + e.Message, e);
+          throw new Exception($"Bad Word Regular Expression Failed: {e.Message}", e);
         }
 
 #else

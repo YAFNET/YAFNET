@@ -59,7 +59,7 @@ namespace ServiceStack
         protected virtual ConstructorInfo ResolveBestConstructor(Type type)
         {
             return type.GetConstructors()
-                .OrderByDescending(x => x.GetParameters().Length) //choose constructor with most params
+                .OrderByDescending(x => x.GetParameters().Length) // choose constructor with most params
                 .FirstOrDefault(ctor => !ctor.IsStatic);
         }
 

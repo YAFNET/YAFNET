@@ -96,7 +96,6 @@ namespace YAF
             }
         }
 
-
         #endregion
     }
 }

@@ -154,13 +154,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                readTime = this.GetSessionForumRead(forumId);
-
-                if (!readTime.HasValue)
-                {
-                    // use the last visit...
-                    readTime = this.LastRead;
-                }
+                readTime = this.GetSessionForumRead(forumId) ?? this.LastRead;
             }
 
             return readTime ?? DateTimeHelper.SqlDbMinTime();
@@ -195,13 +189,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                readTime = this.GetSessionTopicRead(topicId);
-
-                if (!readTime.HasValue)
-                {
-                    // use the last visit...
-                    readTime = this.LastRead;
-                }
+                readTime = this.GetSessionTopicRead(topicId) ?? this.LastRead;
             }
 
             return readTime ?? DateTimeHelper.SqlDbMinTime();

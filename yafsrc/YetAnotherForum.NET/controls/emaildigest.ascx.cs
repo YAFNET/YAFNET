@@ -364,7 +364,7 @@ namespace YAF.Controls
                 @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
                 QueryCounter.Count,
                 QueryCounter.Duration,
-                (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
+                100 * QueryCounter.Duration / this.Get<IStopWatch>().Duration,
                 QueryCounter.Commands);
 
             debugInfo.Append(@"</div>");

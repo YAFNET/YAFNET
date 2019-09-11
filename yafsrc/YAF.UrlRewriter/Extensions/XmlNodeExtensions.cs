@@ -43,7 +43,7 @@ namespace YAF.UrlRewriter.Extensions
         {
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             var attribute = node.Attributes.GetNamedItem(attributeName);
@@ -85,7 +85,7 @@ namespace YAF.UrlRewriter.Extensions
         {
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             var attribute = node.Attributes.GetNamedItem(attributeName);
@@ -108,8 +108,7 @@ namespace YAF.UrlRewriter.Extensions
                 return null;
             }
 
-            bool returnValue;
-            if (!bool.TryParse(attributeValue, out returnValue))
+            if (!bool.TryParse(attributeValue, out var returnValue))
             {
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.InvalidBooleanAttribute, attributeName), node);
             }
@@ -132,8 +131,7 @@ namespace YAF.UrlRewriter.Extensions
                 return null;
             }
 
-            int returnValue;
-            if (!int.TryParse(attributeValue, out returnValue))
+            if (!int.TryParse(attributeValue, out var returnValue))
             {
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.InvalidIntegerAttribute, attributeName), node);
             }

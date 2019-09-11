@@ -6,6 +6,7 @@ namespace ServiceStack.OrmLite.Dapper
     public static partial class SqlMapper
     {
 #if !NETSTANDARD1_3 && !NETSTANDARD2_0
+
         /// <summary>
         /// A type handler for data-types that are supported by the underlying provider, but which need
         /// a well-known UdtTypeName to be specified
@@ -13,6 +14,7 @@ namespace ServiceStack.OrmLite.Dapper
         public class UdtTypeHandler : ITypeHandler
         {
             private readonly string udtTypeName;
+
             /// <summary>
             /// Creates a new instance of UdtTypeHandler with the specified <see cref="UdtTypeHandler"/>.
             /// </summary>

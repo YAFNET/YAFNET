@@ -40,6 +40,7 @@ namespace ServiceStack
             {
                 return left == right;
             }
+
             return left.SequenceEqual(right);
         }
 

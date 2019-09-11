@@ -47,12 +47,12 @@ namespace YAF.Modules.BBCode
         /// <param name="writer">The writer.</param>
         protected override void Render(HtmlTextWriter writer)
         {
-            if (!ValidationHelper.IsNumeric(valueToCheck: this.Parameters[key: "inner"]))
+            if (!ValidationHelper.IsNumeric(this.Parameters["inner"]))
             {
                 return;
             }
 
-            var attachment = this.GetRepository<Attachment>().GetById(id: this.Parameters[key: "inner"].ToType<int>());
+            var attachment = this.GetRepository<Attachment>().GetById(this.Parameters["inner"].ToType<int>());
 
             if (attachment == null)
             {
@@ -84,21 +84,21 @@ namespace YAF.Modules.BBCode
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
                     attachment.FileName,
-                    this.GetText(tag: "ATTACH_NO"));
+                    this.GetText("ATTACH_NO"));
             }
 
             if (showImage)
             {
                 // user has rights to download, show him image
                 writer.Write(
-                    format: !this.Get<YafBoardSettings>().EnableImageAttachmentResize
+                    !this.Get<YafBoardSettings>().EnableImageAttachmentResize
                                 ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{4}px"" />"
                                 : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" title=""{2}""  data-gallery>
                                             <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{4}px"" />
                                         </a>",
                     YafForumInfo.ForumClientFileRoot,
                     attachment.ID,
-                    this.HtmlEncode(data: attachment.FileName),
+                    this.HtmlEncode(attachment.FileName),
                     this.PageContext.PageBoardID,
                     this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
             }

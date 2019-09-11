@@ -164,11 +164,9 @@ namespace YAF.Utils.Structures
         CodeContracts.VerifyNotNull(key, "key");
         CodeContracts.VerifyNotNull(value, "value");
 
-        DoubleLinkedList.LinkItem link = null;
-
         if (this.Dictionary.Contains(key))
         {
-          link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
+          var link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
           link.Item = value;
 
           this.m_list.MoveToHead(link);

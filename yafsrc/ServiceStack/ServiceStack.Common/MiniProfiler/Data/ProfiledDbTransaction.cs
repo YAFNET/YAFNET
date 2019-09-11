@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Data.Common;
 using System.Data;
+using System.Data.Common;
+
 using ServiceStack.Data;
 
 #pragma warning disable 1591 // xml doc comments warnings
@@ -45,6 +46,7 @@ namespace ServiceStack.MiniProfiler.Data
             {
                 trans?.Dispose();
             }
+
             trans = null;
             db = null;
             base.Dispose(disposing);

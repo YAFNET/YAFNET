@@ -28,7 +28,6 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
-    using System.Globalization;
     using System.Linq;
     using System.Net.Mail;
     using System.Web.Security;
@@ -45,6 +44,7 @@ namespace YAF.Controls
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -67,11 +67,6 @@ namespace YAF.Controls
         /// The _user data.
         /// </summary>
         private CombinedUserDataHelper userData;
-
-        /// <summary>
-        /// The current culture information
-        /// </summary>
-        private CultureInfo currentCultureInfo;
 
         #endregion
 

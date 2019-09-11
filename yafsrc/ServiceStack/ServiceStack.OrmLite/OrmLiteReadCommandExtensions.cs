@@ -13,9 +13,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 using ServiceStack.Logging;
-using System.Linq;
 using ServiceStack.OrmLite.Support;
 using ServiceStack.Text;
 
@@ -83,14 +83,14 @@ namespace ServiceStack.OrmLite
         internal static IDbCommand SetFilters<T>(this IDbCommand dbCmd, object anonType, bool excludeDefaults)
         {
             string ignore = null;
-            dbCmd.SetParameters<T>(anonType, excludeDefaults, ref ignore); //needs to be called first
+            dbCmd.SetParameters<T>(anonType, excludeDefaults, ref ignore); // needs to be called first
             dbCmd.CommandText = dbCmd.GetFilterSql<T>();
             return dbCmd;
         }
 
         internal static void PopulateWith(this IDbCommand dbCmd, ISqlExpression expression)
         {
-            dbCmd.CommandText = expression.ToSelectStatement(); //needs to evaluate SQL before setting params
+            dbCmd.CommandText = expression.ToSelectStatement(); // needs to evaluate SQL before setting params
             dbCmd.SetParameters(expression.Params);
         }
 
@@ -112,7 +112,7 @@ namespace ServiceStack.OrmLite
             }
             catch (Exception ex)
             {
-                //SQL Server + PostgreSql doesn't allow re-using db params in multiple queries
+                // SQL Server + PostgreSql doesn't allow re-using db params in multiple queries
                 if (Log.IsDebugEnabled)
                     Log.Debug("Exception trying to reuse db params, executing with cloned params instead", ex);
 
@@ -149,7 +149,7 @@ namespace ServiceStack.OrmLite
             var dialectProvider = dbCmd.GetDialectProvider();
 
             var paramIndex = 0;
-            var sqlCopy = sql; //C# doesn't allow changing ref params in lambda's
+            var sqlCopy = sql; // C# doesn't allow changing ref params in lambda's
 
             foreach (var kvp in dict)
             {
@@ -213,11 +213,11 @@ namespace ServiceStack.OrmLite
 
             var modelDef = type.GetModelDefinition();
             var dialectProvider = dbCmd.GetDialectProvider();
-            var fieldMap = type.IsUserType() //Ensure T != Scalar<int>()
+            var fieldMap = type.IsUserType() // Ensure T != Scalar<int>()
                 ? dialectProvider.GetFieldDefinitionMap(modelDef)
                 : null;
 
-            var sqlCopy = sql; //C# doesn't allow changing ref params in lambda's
+            var sqlCopy = sql; // C# doesn't allow changing ref params in lambda's
 
             var paramIndex = 0;
             anonType.ToObjectDictionary().ForEachParam(modelDef, excludeDefaults, (propName, columnName, value) =>
@@ -297,7 +297,7 @@ namespace ServiceStack.OrmLite
 
         internal delegate void ParamIterDelegate(string propName, string columnName, object value);
 
-        internal static void ForEachParam(this Dictionary<string,object> values, ModelDefinition modelDef, bool excludeDefaults, ParamIterDelegate fn)
+        internal static void ForEachParam(this Dictionary<string, object> values, ModelDefinition modelDef, bool excludeDefaults, ParamIterDelegate fn)
         {
             if (values == null)
                 return;
@@ -346,6 +346,7 @@ namespace ServiceStack.OrmLite
                     }
                 }
             }
+
             return map;
         }
 
@@ -618,6 +619,7 @@ namespace ServiceStack.OrmLite
                 {
                     yield return item;
                 }
+
                 yield break;
             }
 
@@ -655,6 +657,7 @@ namespace ServiceStack.OrmLite
                 {
                     yield return item;
                 }
+
                 yield break;
             }
 
@@ -681,6 +684,7 @@ namespace ServiceStack.OrmLite
                 {
                     yield return item;
                 }
+
                 yield break;
             }
 
@@ -775,6 +779,7 @@ namespace ServiceStack.OrmLite
 
                 columValues.Add((T)value);
             }
+
             return columValues;
         }
 
@@ -799,6 +804,7 @@ namespace ServiceStack.OrmLite
 
                 columValues.Add((T)value);
             }
+
             return columValues;
         }
 
@@ -821,6 +827,7 @@ namespace ServiceStack.OrmLite
                     values = new List<V>();
                     lookup[key] = values;
                 }
+
                 values.Add(value);
             }
 
@@ -871,7 +878,7 @@ namespace ServiceStack.OrmLite
         // procedures ...		
         internal static List<TOutputModel> SqlProcedure<TOutputModel>(this IDbCommand dbCommand, object fromObjWithProperties)
         {
-            return SqlProcedureFmt<TOutputModel>(dbCommand, fromObjWithProperties, String.Empty);
+            return SqlProcedureFmt<TOutputModel>(dbCommand, fromObjWithProperties, string.Empty);
         }
 
         internal static List<TOutputModel> SqlProcedureFmt<TOutputModel>(this IDbCommand dbCmd,

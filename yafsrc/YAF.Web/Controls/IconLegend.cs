@@ -65,6 +65,57 @@ namespace YAF.Web.Controls
             base.Render(writer);
         }
 
+        /// <summary>Gets the topic icon.</summary>
+        /// <param name="themeImageTag">The theme image tag.</param>
+        /// <returns>Returns the topic icon.</returns>
+        private static string GetTopicIcon(string themeImageTag)
+        {
+            switch (themeImageTag)
+            {
+                case "POLL_NEW":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-poll-h fa-stack-1x fa-inverse\"></i>";
+                case "STICKY_NEW":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-sticky-note fa-stack-1x fa-inverse\"></i>";
+                case "ANNOUNCEMENT_NEW":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-bullhorn fa-stack-1x fa-inverse\"></i>";
+                case "NEW_POSTS_LOCKED":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-lock fa-stack-1x fa-inverse\"></i>";
+                case "HOT_NEW_POSTS":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-fire fa-stack-1x fa-inverse\"></i>";
+                case "NEW_POSTS":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
+                case "POLL":
+                    return "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-poll-h fa-stack-1x fa-inverse\"></i>";
+                case "STICKY":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-sticky-note fa-stack-1x fa-inverse\"></i>";
+                case "ANNOUNCEMENT":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-bullhorn fa-stack-1x fa-inverse\"></i>";
+                case "NO_NEW_POSTS_LOCKED":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-lock fa-stack-1x fa-inverse\"></i>";
+                case "HOT_NO_NEW_POSTS":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-fire fa-stack-1x fa-inverse\"></i>";
+                case "NO_NEW_POSTS":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
+                case "MOVED":
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
+                default:
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
+            }
+        }
+
         /// <summary>
         /// Icons the legend load.
         /// </summary>
@@ -112,7 +163,7 @@ namespace YAF.Web.Controls
                 // add the themed icons
                 var icon = new Literal
                                {
-                                   Text = $"<span class=\"fa-stack\">{this.GetTopicIcon(localizedTags[i])}</span>"
+                                   Text = $"<span class=\"fa-stack\">{GetTopicIcon(localizedTags[i])}</span>"
                                };
                 td.Controls.Add(icon);
 
@@ -123,57 +174,6 @@ namespace YAF.Web.Controls
                 // localized text describing the image
                 var localLabel = new LocalizedLabel { LocalizedTag = localizedTags[i] };
                 td.Controls.Add(localLabel);
-            }
-        }
-
-        /// <summary>Gets the topic icon.</summary>
-        /// <param name="themeImageTag">The theme image tag.</param>
-        /// <returns>Returns the topic icon.</returns>
-        private string GetTopicIcon(string themeImageTag)
-        {
-            switch (themeImageTag)
-            {
-                case "POLL_NEW":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-poll-h fa-stack-1x fa-inverse\"></i>";
-                case "STICKY_NEW":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-sticky-note fa-stack-1x fa-inverse\"></i>";
-                case "ANNOUNCEMENT_NEW":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-bullhorn fa-stack-1x fa-inverse\"></i>";
-                case "NEW_POSTS_LOCKED":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-lock fa-stack-1x fa-inverse\"></i>";
-                case "HOT_NEW_POSTS":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-fire fa-stack-1x fa-inverse\"></i>";
-                case "NEW_POSTS":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
-                case "POLL":
-                    return "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-poll-h fa-stack-1x fa-inverse\"></i>";
-                case "STICKY":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-sticky-note fa-stack-1x fa-inverse\"></i>";
-                case "ANNOUNCEMENT":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-bullhorn fa-stack-1x fa-inverse\"></i>";
-                case "NO_NEW_POSTS_LOCKED":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-lock fa-stack-1x fa-inverse\"></i>";
-                case "HOT_NO_NEW_POSTS":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-fire fa-stack-1x fa-inverse\"></i>";
-                case "NO_NEW_POSTS":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
-                case "MOVED":
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
-                default:
-                    return
-                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
             }
         }
 

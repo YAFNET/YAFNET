@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    
-    
+    using System.Web.UI.WebControls;
+
     public partial class SimilarTopics {
         
+
         /// <summary>
         /// SimilarTopicsHolder control.
         /// </summary>
@@ -19,8 +20,9 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder SimilarTopicsHolder;
+        protected PlaceHolder SimilarTopicsHolder;
         
+
         /// <summary>
         /// Topics control.
         /// </summary>
@@ -28,6 +30,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater Topics;
+        protected Repeater Topics;
     }
 }

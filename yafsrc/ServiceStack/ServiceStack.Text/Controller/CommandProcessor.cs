@@ -18,7 +18,7 @@ namespace ServiceStack.Text.Controller
 {
 	public class CommandProcessor 
 	{
-		private object[] Controllers { get; set; }
+		private object[] Controllers { get; }
 
 		private readonly Dictionary<string, object> contextMap;
 

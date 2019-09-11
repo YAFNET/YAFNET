@@ -21,8 +21,8 @@ namespace YAF.UrlRewriter.Actions
         /// <param name="value">The header value.</param>
         public AddHeaderAction(string header, string value)
         {
-            this.Header = header ?? throw new ArgumentNullException("header");
-            this.Value = value ?? throw new ArgumentNullException("value");
+            this.Header = header ?? throw new ArgumentNullException(nameof(header));
+            this.Value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace YAF.UrlRewriter.Actions
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             context.ResponseHeaders.Add(this.Header, this.Value);

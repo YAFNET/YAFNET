@@ -28,7 +28,7 @@ namespace YAF.UrlRewriter.Parsers
         {
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             var address = node.GetOptionalAttribute(Constants.AttrAddress);

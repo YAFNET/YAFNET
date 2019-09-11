@@ -2,6 +2,9 @@
 
 namespace ServiceStack.MiniProfiler.Data
 {
+    using System.Security;
+    using System.Security.Permissions;
+
     /// <summary>
     /// Wrapper for a db provider factory to enable profiling
     /// </summary>
@@ -40,6 +43,7 @@ namespace ServiceStack.MiniProfiler.Data
         }
 
 #if !NETSTANDARD2_0
+
         /// <summary>
         /// proxy
         /// </summary>
@@ -77,6 +81,7 @@ namespace ServiceStack.MiniProfiler.Data
             WrappedFactory.CreateConnectionStringBuilder();
 
 #if !NETSTANDARD2_0
+
         /// <summary>
         /// proxy
         /// </summary>
@@ -92,7 +97,7 @@ namespace ServiceStack.MiniProfiler.Data
         /// <summary>
         /// proxy
         /// </summary>
-        public override System.Security.CodeAccessPermission CreatePermission(System.Security.Permissions.PermissionState state) => 
+        public override CodeAccessPermission CreatePermission(PermissionState state) => 
             WrappedFactory.CreatePermission(state);
 #endif
     }

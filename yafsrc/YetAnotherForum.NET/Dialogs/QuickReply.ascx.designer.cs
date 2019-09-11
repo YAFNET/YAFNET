@@ -8,10 +8,14 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    
-    
+    using System.Web.UI.HtmlControls;
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class QuickReply {
         
+
         /// <summary>
         /// QuickReplyLine control.
         /// </summary>
@@ -19,8 +23,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl QuickReplyLine;
+        protected HtmlGenericControl QuickReplyLine;
         
+
         /// <summary>
         /// CaptchaDiv control.
         /// </summary>
@@ -28,8 +33,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CaptchaDiv;
+        protected HtmlGenericControl CaptchaDiv;
         
+
         /// <summary>
         /// LocalizedLabel13 control.
         /// </summary>
@@ -37,8 +43,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel13;
+        protected LocalizedLabel LocalizedLabel13;
         
+
         /// <summary>
         /// imgCaptcha control.
         /// </summary>
@@ -46,8 +53,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgCaptcha;
+        protected Image imgCaptcha;
         
+
         /// <summary>
         /// LocalizedLabel14 control.
         /// </summary>
@@ -55,8 +63,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel14;
+        protected LocalizedLabel LocalizedLabel14;
         
+
         /// <summary>
         /// tbCaptcha control.
         /// </summary>
@@ -64,8 +73,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCaptcha;
+        protected TextBox tbCaptcha;
         
+
         /// <summary>
         /// QuickReplyWatchTopic control.
         /// </summary>
@@ -73,8 +83,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder QuickReplyWatchTopic;
+        protected PlaceHolder QuickReplyWatchTopic;
         
+
         /// <summary>
         /// TopicWatch control.
         /// </summary>
@@ -82,8 +93,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox TopicWatch;
+        protected CheckBox TopicWatch;
         
+
         /// <summary>
         /// TopicWatchLabel control.
         /// </summary>
@@ -91,8 +103,9 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel TopicWatchLabel;
+        protected LocalizedLabel TopicWatchLabel;
         
+
         /// <summary>
         /// Reply control.
         /// </summary>
@@ -100,6 +113,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Reply;
+        protected ThemeButton Reply;
     }
 }

@@ -24,8 +24,7 @@ namespace ServiceStack.Text.Common
             StringSegment propertyName,
             Dictionary<HashedStringSegment, TypeAccessor> typeAccessorMap)
         {
-            TypeAccessor typeAccessor;
-            typeAccessorMap.TryGetValue(new HashedStringSegment(propertyName), out typeAccessor);
+            typeAccessorMap.TryGetValue(new HashedStringSegment(propertyName), out var typeAccessor);
             return typeAccessor;
         }
     }
@@ -37,12 +36,10 @@ namespace ServiceStack.Text.Common
             StringSegment propertyName,
             Dictionary<HashedStringSegment, TypeAccessor> typeAccessorMap)
         {
-            TypeAccessor typeAccessor;
-
             // map is case-insensitive by default, so simply remove hyphens and underscores
             return typeAccessorMap.TryGetValue(
                        new HashedStringSegment(RemoveSeparators(propertyName)),
-                       out typeAccessor)
+                       out var typeAccessor)
                        ? typeAccessor
                        : base.GetTypeAccessorForProperty(propertyName, typeAccessorMap);
         }
@@ -89,8 +86,8 @@ namespace ServiceStack.Text.Common
             {
                 if (!JsonUtils.IsWhiteSpace(buffer[offset + index])) break;
             }
- // Whitespace inline
 
+            // Whitespace inline
             if (buffer[offset + index] != JsWriter.MapStartChar)
                 throw DeserializeTypeRef.CreateSerializationError(type, strType.Value);
 
@@ -112,8 +109,8 @@ namespace ServiceStack.Text.Common
                 {
                     if (!JsonUtils.IsWhiteSpace(buffer[offset + index])) break;
                 }
- // Whitespace inline
 
+                // Whitespace inline
                 if (strTypeLength != index) index++;
 
                 var propertyValueStr = Serializer.EatValue(strType, ref index);
@@ -193,8 +190,8 @@ namespace ServiceStack.Text.Common
                         {
                             if (!JsonUtils.IsWhiteSpace(buffer[offset + index])) break;
                         }
- // Whitespace inline
 
+                        // Whitespace inline
                         if (index != strTypeLength)
                         {
                             var success = buffer[offset + index] == JsWriter.ItemSeperator
@@ -205,7 +202,8 @@ namespace ServiceStack.Text.Common
                                 {
                                     if (!JsonUtils.IsWhiteSpace(buffer[offset + index])) break;
                                 }
- // Whitespace inline
+
+                            // Whitespace inline
                         }
 
                         continue;
@@ -279,8 +277,8 @@ namespace ServiceStack.Text.Common
                 {
                     if (!JsonUtils.IsWhiteSpace(buffer[offset + index])) break;
                 }
- // Whitespace inline
 
+                // Whitespace inline
                 if (index != strType.Length)
                 {
                     var success = buffer[offset + index] == JsWriter.ItemSeperator
@@ -291,7 +289,8 @@ namespace ServiceStack.Text.Common
                         {
                             if (!JsonUtils.IsWhiteSpace(buffer[offset + index])) break;
                         }
- // Whitespace inline
+
+                    // Whitespace inline
                 }
             }
 

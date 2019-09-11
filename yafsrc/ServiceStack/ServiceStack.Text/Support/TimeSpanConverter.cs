@@ -69,8 +69,7 @@ namespace ServiceStack.Text.Support
             var d = t[0].SplitOnFirst('D');
             if (d.Length == 2)
             {
-                int day;
-                if (int.TryParse(d[0], out day))
+                if (int.TryParse(d[0], out var day))
                     days = day;
             }
 
@@ -79,24 +78,21 @@ namespace ServiceStack.Text.Support
                 var h = t[1].SplitOnFirst('H');
                 if (h.Length == 2)
                 {
-                    int hour;
-                    if (int.TryParse(h[0], out hour))
+                    if (int.TryParse(h[0], out var hour))
                         hours = hour;
                 }
 
                 var m = h[h.Length - 1].SplitOnFirst('M');
                 if (m.Length == 2)
                 {
-                    int min;
-                    if (int.TryParse(m[0], out min))
+                    if (int.TryParse(m[0], out var min))
                         minutes = min;
                 }
 
                 var s = m[m.Length - 1].SplitOnFirst('S');
                 if (s.Length == 2)
                 {
-                    decimal millis;
-                    if (decimal.TryParse(s[0], out millis))
+                    if (decimal.TryParse(s[0], out var millis))
                         seconds = millis;
                 }
             }

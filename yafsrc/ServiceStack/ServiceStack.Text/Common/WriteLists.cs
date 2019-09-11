@@ -27,8 +27,7 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetListWriteFn(Type elementType)
         {
-            WriteObjectDelegate writeFn;
-            if (ListCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+            if (ListCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteList");
@@ -53,8 +52,7 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetIListWriteFn(Type elementType)
         {
-            WriteObjectDelegate writeFn;
-            if (IListCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+            if (IListCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteIList");
@@ -78,8 +76,7 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetGenericWriteArray(Type elementType)
         {
-            WriteObjectDelegate writeFn;
-            if (CacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+            if (CacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteArray");
@@ -103,8 +100,7 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetGenericWriteEnumerable(Type elementType)
         {
-            WriteObjectDelegate writeFn;
-            if (EnumerableCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+            if (EnumerableCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteEnumerable");
@@ -128,8 +124,7 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetWriteListValueType(Type elementType)
         {
-            WriteObjectDelegate writeFn;
-            if (ListValueTypeCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+            if (ListValueTypeCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteListValueType");
@@ -153,9 +148,7 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetWriteIListValueType(Type elementType)
         {
-            WriteObjectDelegate writeFn;
-
-            if (IListValueTypeCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
+            if (IListValueTypeCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteIListValueType");

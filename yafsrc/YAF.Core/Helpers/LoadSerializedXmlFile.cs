@@ -77,7 +77,7 @@ namespace YAF.Core
             lock (this)
             {
                 var serializer = new XmlSerializer(typeof(T));
-                var sourceEncoding = this.GetEncodingForXmlFile(xmlFileName);
+                var sourceEncoding = GetEncodingForXmlFile(xmlFileName);
 
                 using (var sourceReader = new StreamReader(xmlFileName, sourceEncoding))
                 {
@@ -116,7 +116,7 @@ namespace YAF.Core
         /// </param>
         /// <returns>
         /// </returns>
-        private Encoding GetEncodingForXmlFile(string xmlFileName)
+        private static Encoding GetEncodingForXmlFile(string xmlFileName)
         {
             var doc = new XmlDocument();
 

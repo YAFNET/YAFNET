@@ -71,9 +71,7 @@ namespace YAF.Dialogs
                 var replaceWords = new DataSet();
                 replaceWords.ReadXml(stream: this.importFile.PostedFile.InputStream);
 
-                if (replaceWords.Tables[name: "YafReplaceWords"] != null
-                    && replaceWords.Tables[name: "YafReplaceWords"].Columns[name: "badword"] != null
-                    && replaceWords.Tables[name: "YafReplaceWords"].Columns[name: "goodword"] != null)
+                if (replaceWords.Tables[name: "YafReplaceWords"]?.Columns[name: "badword"] != null && replaceWords.Tables[name: "YafReplaceWords"].Columns[name: "goodword"] != null)
                 {
                     var importedCount = 0;
 

@@ -23,10 +23,6 @@
  */
 namespace YAF.Configuration
 {
-    #region Using
-
-    #endregion
-
     /// <summary>
     /// Implements URL Builder.
     /// </summary>

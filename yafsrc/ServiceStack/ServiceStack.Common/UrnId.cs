@@ -39,10 +39,10 @@ namespace ServiceStack
         public static string Create(string objectTypeName, string idFieldValue)
         {
             if (objectTypeName.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("objectTypeName cannot have the illegal characters: ':'", "objectTypeName");
+                throw new ArgumentException("objectTypeName cannot have the illegal characters: ':'", nameof(objectTypeName));
 
             if (idFieldValue.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", "idFieldValue");
+                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", nameof(idFieldValue));
 
             return $"urn:{objectTypeName}:{idFieldValue}";
         }
@@ -50,7 +50,7 @@ namespace ServiceStack
         public static string CreateWithParts(string objectTypeName, params string[] keyParts)
         {
             if (objectTypeName.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("objectTypeName cannot have the illegal characters: ':'", "objectTypeName");
+                throw new ArgumentException("objectTypeName cannot have the illegal characters: ':'", nameof(objectTypeName));
 
             var sb = StringBuilderCache.Allocate();
             foreach (var keyPart in keyParts)
@@ -81,7 +81,7 @@ namespace ServiceStack
         public static string Create(Type objectType, string idFieldValue)
         {
             if (idFieldValue.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", "idFieldValue");
+                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", nameof(idFieldValue));
 
             return $"urn:{objectType.Name}:{idFieldValue}";
         }
@@ -94,10 +94,10 @@ namespace ServiceStack
         public static string Create(Type objectType, string idFieldName, string idFieldValue)
         {
             if (idFieldValue.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", "idFieldValue");
+                throw new ArgumentException("idFieldValue cannot have the illegal characters: ':'", nameof(idFieldValue));
 
             if (idFieldName.Contains(FieldSeperator.ToString()))
-                throw new ArgumentException("idFieldName cannot have the illegal characters: ':'", "idFieldName");
+                throw new ArgumentException("idFieldName cannot have the illegal characters: ':'", nameof(idFieldName));
 
             return $"urn:{objectType.Name}:{idFieldName}:{idFieldValue}";
         }

@@ -39,9 +39,9 @@ namespace YAF.UrlRewriter
             IConfigurationManager configurationManager,
             IRewriterConfiguration configuration)
         {
-            this._httpContext = httpContext ?? throw new ArgumentNullException("httpContext");
-            this._configurationManager = configurationManager ?? throw new ArgumentNullException("configurationManager");
-            this._configuration = configuration ?? throw new ArgumentNullException("configuration");
+            this._httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
+            this._configurationManager = configurationManager ?? throw new ArgumentNullException(nameof(configurationManager));
+            this._configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace YAF.UrlRewriter
         {
             if (location == null)
             {
-                throw new ArgumentNullException("location");
+                throw new ArgumentNullException(nameof(location));
             }
 
             var appPath = this._httpContext.ApplicationPath;
@@ -148,12 +148,12 @@ namespace YAF.UrlRewriter
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             if (input == null)
             {
-                throw new ArgumentNullException("input");
+                throw new ArgumentNullException(nameof(input));
             }
 
             /* replacement :- $n

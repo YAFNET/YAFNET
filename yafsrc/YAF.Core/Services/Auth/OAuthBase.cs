@@ -339,7 +339,7 @@ namespace YAF.Core.Services.Auth
 
                     return this.GenerateSignatureUsingHash(signatureBase, hmacsha1);
                 default:
-                    throw new ArgumentException("Unknown signature type", "signatureType");
+                    throw new ArgumentException("Unknown signature type", nameof(signatureType));
             }
         }
 
@@ -407,20 +407,20 @@ namespace YAF.Core.Services.Auth
 
             if (consumerKey.IsNotSet())
             {
-                throw new ArgumentNullException("consumerKey");
+                throw new ArgumentNullException(nameof(consumerKey));
             }
 
             if (httpMethod.IsNotSet())
             {
-                throw new ArgumentNullException("httpMethod");
+                throw new ArgumentNullException(nameof(httpMethod));
             }
 
             if (signatureType.IsNotSet())
             {
-                throw new ArgumentNullException("signatureType");
+                throw new ArgumentNullException(nameof(signatureType));
             }
 
-            var parameters = this.GetQueryParameters(url.Query);
+            var parameters = GetQueryParameters(url.Query);
             parameters.Add(new QueryParameter(OAuthVersionKey, OAuthVersion));
             parameters.Add(new QueryParameter(OAuthNonceKey, nonce));
             parameters.Add(new QueryParameter(OAuthTimestampKey, timeStamp));
@@ -567,12 +567,12 @@ namespace YAF.Core.Services.Auth
         {
             if (hashAlgorithm == null)
             {
-                throw new ArgumentNullException("hashAlgorithm");
+                throw new ArgumentNullException(nameof(hashAlgorithm));
             }
 
             if (data.IsNotSet())
             {
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             }
 
             var dataBuffer = Encoding.ASCII.GetBytes(data);
@@ -590,7 +590,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// A list of QueryParameter each containing the parameter name and value
         /// </returns>
-        private List<QueryParameter> GetQueryParameters(string parameters)
+        private static List<QueryParameter> GetQueryParameters(string parameters)
         {
             if (parameters.StartsWith("?"))
             {
@@ -628,10 +628,6 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         protected class QueryParameter
         {
-            #region Constants and Fields
-
-            #endregion
-
             #region Constructors and Destructors
 
             /// <summary>

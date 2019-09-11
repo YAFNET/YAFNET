@@ -212,6 +212,7 @@ namespace ServiceStack
         {
             var httpReq = (HttpWebRequest)webReq;
             
+
 // TODO: Restore when AutomaticDecompression added to WebRequest
             // httpReq.Headers[HttpRequestHeader.AcceptEncoding] = "gzip,deflate";
             // httpReq.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
@@ -477,10 +478,12 @@ namespace ServiceStack
             // req.MaximumResponseHeadersLength = int.MaxValue; //throws "The message length limit was exceeded" exception
             if (allowAutoRedirect.HasValue) SetAllowAutoRedirect(req, allowAutoRedirect.Value);
             
+
 // if (readWriteTimeout.HasValue) req.ReadWriteTimeout = (int)readWriteTimeout.Value.TotalMilliseconds;
             // if (timeout.HasValue) req.Timeout = (int)timeout.Value.TotalMilliseconds;
             if (userAgent != null) SetUserAgent(req, userAgent);
             
+
 // if (preAuthenticate.HasValue) req.PreAuthenticate = preAuthenticate.Value;
         }
         
@@ -642,6 +645,7 @@ namespace ServiceStack
                 if (JsonReader<T>.Parse(null) != null) i++;
                 if (JsonReader<T>.GetParseFn() != null) i++;
                 
+
 // if (JsWriter.GetTypeSerializer<JsonTypeSerializer>().GetWriteFn<T>() != null) i++;
                 if (new List<T>() != null) i++;
                 if (new T[0] != null) i++;
@@ -653,6 +657,7 @@ namespace ServiceStack
                 if (JsConfig<T>.SerializeFn != null) i++;
                 if (JsConfig<T>.DeSerializeFn != null) i++;
                 
+
 // JsConfig<T>.SerializeFn = arg => "";
                 // JsConfig<T>.DeSerializeFn = arg => default(T);
                 if (TypeConfig<T>.Properties != null) i++;

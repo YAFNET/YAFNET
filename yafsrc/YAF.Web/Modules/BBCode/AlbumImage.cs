@@ -49,17 +49,17 @@ namespace YAF.Modules.BBCode
             sb.AppendFormat(
                 @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery title=""{1}"">",
                 YafForumInfo.ForumClientFileRoot,
-                this.Parameters[key: "inner"]);
+                this.Parameters["inner"]);
 
             sb.AppendFormat(
                 @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{2}px"" />",
                 YafForumInfo.ForumClientFileRoot,
-                this.Parameters[key: "inner"],
+                this.Parameters["inner"],
                 this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
 
-            sb.Append(value: "</a>");
+            sb.Append("</a>");
 
-            writer.Write(s: sb.ToString());
+            writer.Write(sb.ToString());
         }
     }
 }

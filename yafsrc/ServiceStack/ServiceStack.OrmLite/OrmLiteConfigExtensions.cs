@@ -30,6 +30,7 @@ namespace ServiceStack.OrmLite
                 if (objProperty.Name != OrmLiteConfig.IdField) continue;
                 return true;
             }
+
             return false;
         }
 
@@ -83,7 +84,7 @@ namespace ServiceStack.OrmLite
             foreach (var propertyInfo in objProperties)
             {
                 if (propertyInfo.GetIndexParameters().Length > 0)
-                    continue; //Is Indexer
+                    continue; // Is Indexer
 
                 var sequenceAttr = propertyInfo.FirstAttribute<SequenceAttribute>();
                 var computeAttr = propertyInfo.FirstAttribute<ComputeAttribute>();
@@ -193,7 +194,8 @@ namespace ServiceStack.OrmLite
                 snapshot = typeModelDefinitionMap;
                 newCache = new Dictionary<Type, ModelDefinition>(typeModelDefinitionMap) { [modelType] = modelDef };
 
-            } while (!ReferenceEquals(
+            }
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref typeModelDefinitionMap, newCache, snapshot), snapshot));
 
             return modelDef;

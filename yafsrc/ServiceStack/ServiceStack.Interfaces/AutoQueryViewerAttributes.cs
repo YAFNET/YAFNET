@@ -2,7 +2,7 @@
 
 namespace ServiceStack
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class AutoQueryViewerAttribute : AttributeBase
     {
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace ServiceStack
         public string DefaultFields { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class AutoQueryViewerFieldAttribute : AttributeBase
     {
         public string Title { get; set; }

@@ -90,10 +90,10 @@ namespace ServiceStack.Templates
                         break;
 
                     var kvp = line.SplitOnFirst(':');
-                    pageVars[kvp[0].Trim().ToString()] = kvp.Length > 1 ? kvp[1].Trim().ToString() : "";
+                    pageVars[kvp[0].Trim().ToString()] = kvp.Length > 1 ? kvp[1].Trim().ToString() : string.Empty;
                 }
                 
-                //When page has variables body starts from first non whitespace after variable's end  
+                // When page has variables body starts from first non whitespace after variable's end  
                 bodyContents = fileContents.SafeSubsegment(pos).AdvancePastWhitespace();
             }
 

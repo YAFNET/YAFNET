@@ -83,6 +83,7 @@ namespace ServiceStack.OrmLite
             {
                 dbConn.SetLastCommandText(dbCmd.CommandText);
             }
+
             return ret;
         }
 

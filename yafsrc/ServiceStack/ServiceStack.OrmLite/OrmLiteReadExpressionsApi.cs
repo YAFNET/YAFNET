@@ -56,7 +56,7 @@ namespace ServiceStack.OrmLite
         public static SqlExpression<T> From<T, JoinWith>(this IDbConnection dbConn, Expression<Func<T, JoinWith, bool>> joinExpr=null)
         {
             var sql = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
-            sql.Join<T,JoinWith>(joinExpr);
+            sql.Join<T, JoinWith>(joinExpr);
             return sql;
         }
 

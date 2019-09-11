@@ -163,6 +163,7 @@ namespace ServiceStack.OrmLite
             {
                 list.Add(result);
             }
+
             return list;
         }
 
@@ -176,6 +177,7 @@ namespace ServiceStack.OrmLite
             {
                 return (T)result;
             }
+
             return default(T);
         }
 
@@ -189,6 +191,7 @@ namespace ServiceStack.OrmLite
             {
                 return result;
             }
+
             return null;
         }
 
@@ -284,8 +287,7 @@ namespace ServiceStack.OrmLite
             {
                 var key = (K)entry.Key;
 
-                List<V> list;
-                if (!to.TryGetValue(key, out list))
+                if (!to.TryGetValue(key, out var list))
                 {
                     to[key] = list = new List<V>();
                 }

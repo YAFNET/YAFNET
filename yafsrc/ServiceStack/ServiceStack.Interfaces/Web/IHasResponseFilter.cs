@@ -18,6 +18,7 @@ namespace ServiceStack.Web
         IResponseFilterBase Copy();
     }
     
+
     /// <summary>
     /// This interface can be implemented by an attribute
     /// which adds an response filter for the specific response DTO the attribute marked.
@@ -32,6 +33,7 @@ namespace ServiceStack.Web
         void ResponseFilter(IRequest req, IResponse res, object response);
     }
     
+
     /// <summary>
     /// This interface can be implemented by an attribute
     /// which adds an response filter for the specific response DTO the attribute marked.

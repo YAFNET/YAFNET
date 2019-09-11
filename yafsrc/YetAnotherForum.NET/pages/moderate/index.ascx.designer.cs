@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages.moderate {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class index {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// CategoryList control.
         /// </summary>
@@ -28,8 +32,9 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater CategoryList;
+        protected Repeater CategoryList;
         
+
         /// <summary>
         /// InfoPlaceHolder control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder InfoPlaceHolder;
+        protected PlaceHolder InfoPlaceHolder;
         
+
         /// <summary>
         /// NoCountInfo control.
         /// </summary>
@@ -46,6 +52,6 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel NoCountInfo;
+        protected LocalizedLabel NoCountInfo;
     }
 }

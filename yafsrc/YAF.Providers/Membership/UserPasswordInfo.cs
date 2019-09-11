@@ -37,11 +37,7 @@ namespace YAF.Providers.Membership
   /// </summary>
   internal class UserPasswordInfo
   {
-    #region Constants and Fields
-
-    #endregion
-
-    #region Constructors and Destructors
+      #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UserPasswordInfo"/> class. 

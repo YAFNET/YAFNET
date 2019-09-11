@@ -66,7 +66,7 @@ namespace ServiceStack.Templates
             }
 
             var newScopeParams = new Dictionary<string, object>(scope.ScopedParams);
-            scopeParams.Each((key,val) => newScopeParams[key] = val);
+            scopeParams.Each((key, val) => newScopeParams[key] = val);
 
             var pageResult = scope.PageResult.Clone(dynamicPage).Init().Result;
             var itemScope = new TemplateScopeContext(pageResult, scope.OutputStream, newScopeParams);
@@ -89,10 +89,12 @@ namespace ServiceStack.Templates
             {
                 to[entry.Key] = entry.Value;
             }
+
             foreach (var entry in scopedParams)
             {
                 to[entry.Key] = entry.Value;
             }
+
             return new TemplateScopeContext(parentContext.PageResult, parentContext.OutputStream, to);
         }
         

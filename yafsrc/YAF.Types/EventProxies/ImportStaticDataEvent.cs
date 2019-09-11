@@ -25,6 +25,7 @@
 namespace YAF.Types.EventProxies
 {
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     public class ImportStaticDataEvent : IAmEvent, IHaveBoardID
     {
@@ -39,7 +40,7 @@ namespace YAF.Types.EventProxies
 
         #region Public Properties
 
-        public int BoardID { get; private set; }
+        public int BoardID { get; }
 
         #endregion
     }

@@ -1,6 +1,7 @@
 ﻿using System;
-using ServiceStack.Text;
+
 using ServiceStack.DataAnnotations;
+using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite.SqlServer
 {
@@ -167,6 +168,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         if (hasFileTableDir) sbTableOptions.Append(" ,");
                         sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                     }
+
                     sbTableOptions.Append(")");
                 }
             }

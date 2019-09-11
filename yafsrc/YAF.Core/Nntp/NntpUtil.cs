@@ -185,7 +185,7 @@ namespace YAF.Core.Nntp
       try
       {
         nntpDateTime = nntpDateTime.Substring(nntpDateTime.IndexOf(',') + 1);
-        if (nntpDateTime.IndexOf("(") > 0)
+        if (nntpDateTime.IndexOf("(", StringComparison.Ordinal) > 0)
         {
           nntpDateTime = nntpDateTime.Substring(0, nntpDateTime.IndexOf('(') - 1).Trim();
         }
@@ -204,16 +204,14 @@ namespace YAF.Core.Nntp
           nntpDateTime = nntpDateTime.Substring(0, ineg - 1).Trim();
         }
 
-        var indGMT = nntpDateTime.IndexOf("GMT");
+        var indGMT = nntpDateTime.IndexOf("GMT", StringComparison.Ordinal);
 
         if (indGMT > 0 && ineg < 0 && ipos < 0)
         {
           nntpDateTime = nntpDateTime.Substring(0, indGMT - 1).Trim();
         }
 
-        DateTime dtc;
-
-        if (DateTime.TryParse(nntpDateTime, out dtc))
+        if (DateTime.TryParse(nntpDateTime, out var dtc))
         {
           if (ipos > 0)
           {
@@ -270,26 +268,27 @@ namespace YAF.Core.Nntp
     /// </returns>
     public static MIMEPart DispatchMIMEContent(StreamReader sr, MIMEPart part, string seperator)
     {
-      string line = null;
-      Match m = null;
+      string line;
       MemoryStream ms;
       byte[] bytes;
       switch (part.ContentType.Substring(0, part.ContentType.IndexOf('/')).ToUpper())
       {
         case "MULTIPART":
-          MIMEPart newPart = null;
+          MIMEPart newPart;
           while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
-            m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
+            var m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
             if (!m.Success)
             {
               continue;
             }
 
-            newPart = new MIMEPart();
-            newPart.ContentType = m.Groups[1].ToString();
-            newPart.Charset = "US-ASCII";
-            newPart.ContentTransferEncoding = "7BIT";
+            newPart = new MIMEPart
+                          {
+                              ContentType = m.Groups[1].ToString(),
+                              Charset = "US-ASCII",
+                              ContentTransferEncoding = "7BIT"
+                          };
             while (line != string.Empty)
             {
               m = Regex.Match(line, @"BOUNDARY=""?([^""\s;]+)", RegexOptions.IgnoreCase);
@@ -327,7 +326,6 @@ namespace YAF.Core.Nntp
           break;
         case "TEXT":
           ms = new MemoryStream();
-          bytes = null;
           long pos;
           var msr = new StreamReader(ms, Encoding.GetEncoding(part.Charset));
           var sb = new StringBuilder();
@@ -369,14 +367,10 @@ namespace YAF.Core.Nntp
             }
 
             ms.Position = pos;
-            if (part.ContentType.ToUpper() == "TEXT/HTML")
-            {
-              sb.Append(msr.ReadToEnd());
-            }
-            else
-            {
-              sb.Append(HttpUtility.HtmlEncode(msr.ReadToEnd()).Replace("\n", "<br>\n"));
-            }
+            sb.Append(
+                part.ContentType.ToUpper() == "TEXT/HTML"
+                    ? msr.ReadToEnd()
+                    : HttpUtility.HtmlEncode(msr.ReadToEnd()).Replace("\n", "<br>\n"));
           }
 
           part.Text = sb.ToString();

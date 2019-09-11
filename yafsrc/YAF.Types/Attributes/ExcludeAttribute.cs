@@ -32,7 +32,7 @@ namespace YAF.Types.Attributes
   /// <summary>
   /// Exclude a field from the dynamic object conversion.
   /// </summary>
-  [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+  [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
   public class ExcludeAttribute : Attribute
   {
   }

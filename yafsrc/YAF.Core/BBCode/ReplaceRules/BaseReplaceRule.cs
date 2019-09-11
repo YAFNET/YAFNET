@@ -86,25 +86,22 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// </exception>
     public int CompareTo(object obj)
     {
-      if (obj is BaseReplaceRule)
-      {
-        var otherRule = obj as BaseReplaceRule;
+        if (!(obj is BaseReplaceRule otherRule))
+        {
+            throw new ArgumentException("Object is not of type BaseReplaceRule.");
+        }
 
         if (this.RuleRank > otherRule.RuleRank)
         {
-          return 1;
+            return 1;
         }
-        else if (this.RuleRank < otherRule.RuleRank)
+
+        if (this.RuleRank < otherRule.RuleRank)
         {
-          return -1;
+            return -1;
         }
 
         return 0;
-      }
-      else
-      {
-        throw new ArgumentException("Object is not of type BaseReplaceRule.");
-      }
     }
 
     #endregion

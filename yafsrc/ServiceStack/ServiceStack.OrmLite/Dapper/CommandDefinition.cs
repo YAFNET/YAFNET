@@ -123,6 +123,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 cmd.CommandTimeout = SqlMapper.Settings.CommandTimeout.Value;
             }
+
             if (CommandType.HasValue)
                 cmd.CommandType = CommandType.Value;
             paramReader?.Invoke(cmd, Parameters);
@@ -139,13 +140,14 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 return action;
             }
+
             var bindByName = GetBasicPropertySetter(commandType, "BindByName", typeof(bool));
             var initialLongFetchSize = GetBasicPropertySetter(commandType, "InitialLONGFetchSize", typeof(int));
 
             action = null;
             if (bindByName != null || initialLongFetchSize != null)
             {
-                var method = new DynamicMethod($"{commandType.Name}_init", null, new Type[] { typeof(IDbCommand) });
+                var method = new DynamicMethod($"{commandType.Name}_init", null, new[] { typeof(IDbCommand) });
                 var il = method.GetILGenerator();
 
                 if (bindByName != null)
@@ -156,6 +158,7 @@ namespace ServiceStack.OrmLite.Dapper
                     il.Emit(OpCodes.Ldc_I4_1);
                     il.EmitCall(OpCodes.Callvirt, bindByName, null);
                 }
+
                 if (initialLongFetchSize != null)
                 {
                     // .InitialLONGFetchSize = -1
@@ -164,9 +167,11 @@ namespace ServiceStack.OrmLite.Dapper
                     il.Emit(OpCodes.Ldc_I4_M1);
                     il.EmitCall(OpCodes.Callvirt, initialLongFetchSize, null);
                 }
+
                 il.Emit(OpCodes.Ret);
                 action = (Action<IDbCommand>)method.CreateDelegate(typeof(Action<IDbCommand>));
             }
+
             // cache it
             SqlMapper.Link<Type, Action<IDbCommand>>.TryAdd(ref commandInitCache, commandType, ref action);
             return action;
@@ -179,6 +184,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 return prop.GetSetMethod();
             }
+
             return null;
         }
     }

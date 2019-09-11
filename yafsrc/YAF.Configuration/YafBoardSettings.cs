@@ -2559,9 +2559,5 @@ namespace YAF.Configuration
         ///  Gets or sets the roles app name.
         /// </summary>
         protected virtual string _rolesAppName { get; set; }
-
-        #region Nested type: YafLegacyBoardSettings
-
-        #endregion
     }
 }

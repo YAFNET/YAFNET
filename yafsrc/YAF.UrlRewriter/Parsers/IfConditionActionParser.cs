@@ -46,12 +46,12 @@ namespace YAF.UrlRewriter.Parsers
         {
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             if (config == null)
             {
-                throw new ArgumentNullException("config");
+                throw new ArgumentNullException(nameof(config));
             }
 
             var rule = new ConditionalAction();

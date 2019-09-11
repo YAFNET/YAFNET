@@ -114,6 +114,7 @@ namespace ServiceStack.OrmLite
                     row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                     return row;
                 }
+
                 return default(T);
             }
         }
@@ -126,6 +127,7 @@ namespace ServiceStack.OrmLite
                 var dbValue = dataReader.GetValue(i);
                 row.Add(dbValue is DBNull ? null : dbValue);
             }
+
             return row;
         }
 
@@ -137,17 +139,19 @@ namespace ServiceStack.OrmLite
                 var dbValue = dataReader.GetValue(i);
                 row[dataReader.GetName(i).Trim()] = dbValue is DBNull ? null : dbValue;
             }
+
             return row;
         }
 
         public static IDictionary<string, object> ConvertToExpandoObject(this IDataReader dataReader)
         {
-            var row = (IDictionary<string,object>)new ExpandoObject();
+            var row = (IDictionary<string, object>)new ExpandoObject();
             for (var i = 0; i < dataReader.FieldCount; i++)
             {
                 var dbValue = dataReader.GetValue(i);
                 row[dataReader.GetName(i).Trim()] = dbValue is DBNull ? null : dbValue;
             }
+
             return row;
         }
 
@@ -183,6 +187,7 @@ namespace ServiceStack.OrmLite
                     field.PublicSetterRef(ref row, fieldValue);
                 }
             }
+
             return (T)row;
         }
 
@@ -199,11 +204,13 @@ namespace ServiceStack.OrmLite
                         to.Add(row);
                     }
                 }
+
                 return (List<T>)(object)to;
             }
+
             if (typeof(T) == typeof(Dictionary<string, object>))
             {
-                var to = new List<Dictionary<string,object>>();
+                var to = new List<Dictionary<string, object>>();
                 using (reader)
                 {
                     while (reader.Read())
@@ -212,8 +219,10 @@ namespace ServiceStack.OrmLite
                         to.Add(row);
                     }
                 }
+
                 return (List<T>)(object)to;
             }
+
             if (typeof(T) == typeof(object))
             {
                 var to = new List<object>();
@@ -225,8 +234,10 @@ namespace ServiceStack.OrmLite
                         to.Add(row);
                     }
                 }
+
                 return (List<T>)(object)to.ToList();
             }
+
             if (typeof(T).IsValueTuple())
             {
                 var to = new List<T>();
@@ -239,8 +250,10 @@ namespace ServiceStack.OrmLite
                         to.Add(row);
                     }
                 }
+
                 return to;
             }
+
             if (typeof(T).IsTuple())
             {
                 var to = new List<T>();
@@ -260,6 +273,7 @@ namespace ServiceStack.OrmLite
                         to.Add((T)tuple);
                     }
                 }
+
                 return to;
             }
             else
@@ -276,6 +290,7 @@ namespace ServiceStack.OrmLite
                         to.Add(row);
                     }
                 }
+
                 return to;
             }
         }
@@ -294,6 +309,7 @@ namespace ServiceStack.OrmLite
                 partialRow.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                 tupleArgs.Add(partialRow);
             }
+
             return tupleArgs;
         }
 
@@ -323,6 +339,7 @@ namespace ServiceStack.OrmLite
 
                 startPos = endPos + 1;
             }
+
             return modelIndexCaches;
         }
 
@@ -339,6 +356,7 @@ namespace ServiceStack.OrmLite
                     row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                     return row;
                 }
+
                 return type.GetDefaultValue();
             }
         }
@@ -359,6 +377,7 @@ namespace ServiceStack.OrmLite
                     to.Add(row);
                 }
             }
+
             return to;
         }
 
@@ -397,6 +416,7 @@ namespace ServiceStack.OrmLite
 
                 sbParams.Append(dbCmd.AddParam(dbCmd.Parameters.Count.ToString(), item).ParameterName);
             }
+
             var sqlIn = StringBuilderCache.ReturnAndFree(sbParams);
             return sqlIn;
         }
@@ -430,6 +450,7 @@ namespace ServiceStack.OrmLite
                     }
                 }
             }
+
             return string.Format(sqlText, escapedParams.ToArray());
         }
 
@@ -461,7 +482,7 @@ namespace ServiceStack.OrmLite
         public static Regex VerifyFragmentRegEx = new Regex("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)([^\\w]|$)+",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static Func<string,string> SqlVerifyFragmentFn { get; set; }
+        public static Func<string, string> SqlVerifyFragmentFn { get; set; }
 
         public static string SqlVerifyFragment(this string sqlFragment)
         {
@@ -721,7 +742,7 @@ namespace ServiceStack.OrmLite
 
                 // First guess: Maybe the DB field has underscores? (most common)
                 // e.g. CustomerId (C#) vs customer_id (DB)
-                var dbFieldNameWithNoUnderscores = dbFieldName.Replace("_", "");
+                var dbFieldNameWithNoUnderscores = dbFieldName.Replace("_", string.Empty);
                 if (string.Compare(fieldName, dbFieldNameWithNoUnderscores, StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     return i;
@@ -765,13 +786,13 @@ namespace ServiceStack.OrmLite
 
                 // Next guess: Maybe the DB field has some prefix that we don't have in our C# field *and* has underscores *and* has special characters?
                 // e.g. CustomerId (C#) vs t130#Customer_I#d (DB)
-                if (dbFieldNameSanitized.Replace("_", "").EndsWith(fieldName, StringComparison.OrdinalIgnoreCase))
+                if (dbFieldNameSanitized.Replace("_", string.Empty).EndsWith(fieldName, StringComparison.OrdinalIgnoreCase))
                 {
                     return i;
                 }
 
                 // Cater for Naming Strategies like PostgreSQL that has lower_underscore names
-                if (dbFieldNameSanitized.Replace("_", "").EndsWith(fieldName.Replace("_", ""), StringComparison.OrdinalIgnoreCase))
+                if (dbFieldNameSanitized.Replace("_", string.Empty).EndsWith(fieldName.Replace("_", string.Empty), StringComparison.OrdinalIgnoreCase))
                 {
                     return i;
                 }
@@ -827,7 +848,7 @@ namespace ServiceStack.OrmLite
 
         public static ulong ConvertToULong(byte[] bytes)
         {
-            Array.Reverse(bytes); //Correct Endianness
+            Array.Reverse(bytes); // Correct Endianness
             var ulongValue = BitConverter.ToUInt64(bytes, 0);
             return ulongValue;
         }
@@ -900,6 +921,7 @@ namespace ServiceStack.OrmLite
                 {
                     map[refValue] = refValues = new List<object>();
                 }
+
                 refValues.Add(result);
             }
 
@@ -976,6 +998,7 @@ namespace ServiceStack.OrmLite
                     if (value == null || value.Equals(fieldDef.FieldTypeDefaultValue))
                         continue;
                 }
+
                 insertFields.Add(fieldDef.Name);
             }
 
@@ -1006,27 +1029,32 @@ namespace ServiceStack.OrmLite
                         inDoubleQuotes = false;
                     continue;
                 }
+
                 if (inSingleQuotes)
                 {
                     if (c == '\'')
                         inSingleQuotes = false;
                     continue;
                 }
+
                 if (c == '"')
                 {
                     inDoubleQuotes = true;
                     continue;
                 }
+
                 if (c == '\'')
                 {
                     inSingleQuotes = true;
                     continue;
                 }
+
                 if (c == '(')
                 {
                     inBracesCount++;
                     continue;
                 }
+
                 if (c == ')')
                 {
                     inBracesCount--;

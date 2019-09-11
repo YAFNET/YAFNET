@@ -39,7 +39,7 @@ namespace ServiceStack
                 context.TemplateFilters.Add(functions);
 
             context.Init();
-            return new TemplateScopeContext(new PageResult(context.OneTimePage("")), null, args);
+            return new TemplateScopeContext(new PageResult(context.OneTimePage(string.Empty)), null, args);
         }
 
         public static object eval(string js) => eval(js, CreateScope());

@@ -99,7 +99,7 @@ namespace YAF.Core.Services
                 case 2:
                     {
                         return YafContext.Current.Get<YafBoardSettings>().AkismetApiKey.IsSet()
-                               && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
+                               && CheckWithAkismet(userName, postMessage, ipAddress, out result);
                     }
 
                 case 1:
@@ -209,7 +209,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns if the Content or the User was flagged as Spam, or not
         /// </returns>
-        private bool CheckWithAkismet(
+        private static bool CheckWithAkismet(
             [NotNull] string userName,
             [NotNull] string postMessage,
             [NotNull] string ipAddress,

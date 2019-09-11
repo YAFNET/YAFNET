@@ -38,7 +38,7 @@ using System.Runtime.CompilerServices;
     public class ObjectPool<T> where T : class
     {
 #if !PCL
-        [DebuggerDisplay("{Value,nq}")]
+        [DebuggerDisplay("{" + nameof(Value) + ",nq}")]
 #endif
         private struct Element
         {

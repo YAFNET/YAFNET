@@ -71,9 +71,7 @@ namespace YAF.Core.Tasks
 
 			foreach (var instanceName in taskListKeys)
 			{
-				IBackgroundTask task;
-
-				if (this.TaskManager.TryGetTask(instanceName, out task))
+                if (this.TaskManager.TryGetTask(instanceName, out var task))
 				{
 					if (!task.IsRunning)
 					{

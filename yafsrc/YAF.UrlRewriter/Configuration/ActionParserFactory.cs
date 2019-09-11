@@ -36,7 +36,7 @@ namespace YAF.UrlRewriter.Configuration
         {
             if (parser == null)
             {
-                throw new ArgumentNullException("parser");
+                throw new ArgumentNullException(nameof(parser));
             }
 
             IList<IRewriteActionParser> list;

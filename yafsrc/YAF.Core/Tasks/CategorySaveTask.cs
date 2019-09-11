@@ -82,54 +82,53 @@ namespace YAF.Core.Tasks
     /// The Blocking Task Names.
     /// </summary>
     private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
-    
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CategorySaveTask"/> class.
-    /// </summary>
-    public CategorySaveTask()
+    ///  The start.
+    ///  </summary>
+    /// <param name="boardId"> The board Id.</param>
+    /// <param name="categoryId"> The category Id.</param>
+    /// <param name="categoryName"> The category Name.</param>
+    /// <param name="categoryImage"> The category Image.</param>
+    /// <param name="sortOrder"> The category sort order.</param>
+    /// <param name="failureMessage"> The failure message to return.</param>
+    /// <returns>
+    ///  The start.
+    ///  </returns>
+    public static void Start(
+        object boardId,
+        object categoryId,
+        object categoryName,
+        object categoryImage,
+        object sortOrder,
+        out string failureMessage)
     {
-    }
 
-      /// <summary>
-      ///  The start.
-      ///  </summary>
-      /// <param name="boardId"> The board Id.</param>
-      /// <param name="categoryId"> The category Id.</param>
-      /// <param name="categoryName"> The category Name.</param>
-      /// <param name="categoryImage"> The category Image.</param>
-      /// <param name="sortOrder"> The category sort order.</param>
-      /// <param name="failureMessage"> The failure message to return.</param>
-      /// <returns>
-      ///  The start.
-      ///  </returns>
-      public static void Start(object boardId, object categoryId, object categoryName, object categoryImage, object sortOrder, out string failureMessage)
-      {
+        failureMessage = string.Empty;
+        if (YafContext.Current.Get<ITaskModuleManager>() == null)
+        {
+            return;
+        }
 
-      failureMessage = string.Empty;
-      if (YafContext.Current.Get<ITaskModuleManager>() == null)
-      {
-        return;
-      }
-     
-      if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
-      {
-          YafContext.Current.Get<ITaskModuleManager>().StartTask(
-              TaskName, () => new CategorySaveTask
-                                  {
-                                      BoardIdToSave = boardId,
-                                      CategoryId = categoryId,
-                                      CategoryName = categoryName,
-                                      CategoryImage = categoryImage,
-                                      SortOrder = sortOrder
-                                  });
-      }
-      else
-      {
-          failureMessage =
-              $"You can't save the category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
-         
-      }
+        if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+        {
+            YafContext.Current.Get<ITaskModuleManager>().StartTask(
+                TaskName,
+                () => new CategorySaveTask
+                          {
+                              BoardIdToSave = boardId,
+                              CategoryId = categoryId,
+                              CategoryName = categoryName,
+                              CategoryImage = categoryImage,
+                              SortOrder = sortOrder
+                          });
+        }
+        else
+        {
+            failureMessage =
+                $"You can't save the category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
+
+        }
     }
 
     /// <summary>

@@ -115,9 +115,9 @@ namespace YAF.Web.ReCAPTCHA
         public RecaptchaResponse Validate()
         {
             RecaptchaJson responseJson;
-            this.CheckNotNull(this.SecretKey, "SecretKey");
-            this.CheckNotNull(this.RemoteIP, "RemoteIp");
-            this.CheckNotNull(this.Response, "Response");
+            CheckNotNull(this.SecretKey, "SecretKey");
+            CheckNotNull(this.RemoteIP, "RemoteIp");
+            CheckNotNull(this.Response, "Response");
             
             if (this.response.IsNotSet())
             {
@@ -171,14 +171,12 @@ namespace YAF.Web.ReCAPTCHA
         /// The check not null.
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        /// The object.
         /// </param>
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// </exception>
-        private void CheckNotNull([NotNull] object obj, [NotNull] string name)
+        private static void CheckNotNull([NotNull] object obj, [NotNull] string name)
         {
             if (obj == null)
             {

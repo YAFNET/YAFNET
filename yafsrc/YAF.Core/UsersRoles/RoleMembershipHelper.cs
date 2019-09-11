@@ -269,12 +269,10 @@ namespace YAF.Core
         /// </param>
         public static void SyncAllMembershipUsers(int pageBoardId)
         {
-            int totalRecords;
-
             // get all users in membership...
             var users =
                 YafContext.Current.Get<MembershipProvider>()
-                    .GetAllUsers(0, 999999, out totalRecords)
+                    .GetAllUsers(0, 999999, out var totalRecords)
                     .Cast<MembershipUser>()
                     .Where(u => u != null && u.Email.IsSet());
 

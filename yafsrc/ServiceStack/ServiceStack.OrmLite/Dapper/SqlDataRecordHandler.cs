@@ -4,6 +4,8 @@ using System.Data;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    using Microsoft.SqlServer.Server;
+
     internal sealed class SqlDataRecordHandler : SqlMapper.ITypeHandler
     {
         public object Parse(Type destinationType, object value)
@@ -13,7 +15,7 @@ namespace ServiceStack.OrmLite.Dapper
 
         public void SetValue(IDbDataParameter parameter, object value)
         {
-            SqlDataRecordListTVPParameter.Set(parameter, value as IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord>, null);
+            SqlDataRecordListTVPParameter.Set(parameter, value as IEnumerable<SqlDataRecord>, null);
         }
     }
 }

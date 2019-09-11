@@ -123,9 +123,7 @@ namespace YAF.Providers.Utils
       /// </returns>
       public static bool ToBool(this object obj, bool defaultValue)
     {
-      bool value;
-
-      if (obj != DBNull.Value && obj != null && bool.TryParse(obj.ToString(), out value))
+        if (obj != DBNull.Value && obj != null && bool.TryParse(obj.ToString(), out var value))
       {
         return value;  
       }
@@ -160,7 +158,7 @@ namespace YAF.Providers.Utils
     {
       if (hashedBytes == null || hashedBytes.Length == 0)
       {
-        throw new ArgumentException("hashedBytes is null or empty.", "hashedBytes");
+        throw new ArgumentException("hashedBytes is null or empty.", nameof(hashedBytes));
       }
 
       var hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);

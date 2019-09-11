@@ -34,7 +34,7 @@ namespace ServiceStack.Messaging
             LastMessageProcessed = lastMessageProcessed;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
         public DateTime? LastMessageProcessed { get; private set; }
         public int TotalMessagesProcessed { get; private set; }
         public int TotalMessagesFailed { get; private set; }
@@ -62,7 +62,7 @@ namespace ServiceStack.Messaging
             sb.AppendLine($"  TotalProcessed:                 {TotalMessagesProcessed}");
             sb.AppendLine($"  TotalRetries:                   {TotalRetries}");
             sb.AppendLine($"  TotalFailed:                    {TotalMessagesFailed}");
-            sb.AppendLine($"  LastMessageProcessed:           {LastMessageProcessed?.ToString() ?? ""}");
+            sb.AppendLine($"  LastMessageProcessed:           {LastMessageProcessed?.ToString() ?? string.Empty}");
             return sb.ToString();
         }
     }

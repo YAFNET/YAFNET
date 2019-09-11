@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Data.Common;
 using System.Data;
+using System.Data.Common;
+
 using ServiceStack.Data;
 
 #pragma warning disable 1591 // xml doc comments warnings
@@ -14,7 +15,7 @@ namespace ServiceStack.MiniProfiler.Data
 
         public ProfiledCommand(DbCommand cmd, DbConnection conn, IDbProfiler profiler)
         {
-            if (cmd == null) throw new ArgumentNullException("cmd");
+            if (cmd == null) throw new ArgumentNullException(nameof(cmd));
 
             this.DbCommand = cmd;
             _conn = conn;
@@ -108,6 +109,7 @@ namespace ServiceStack.MiniProfiler.Data
             {
                 this.DbProfiler.ExecuteFinish(this, ExecuteType.Reader, result);
             }
+
             return result;
         }
 
@@ -134,6 +136,7 @@ namespace ServiceStack.MiniProfiler.Data
             {
                 this.DbProfiler.ExecuteFinish(this, ExecuteType.NonQuery, null);
             }
+
             return result;
         }
 
@@ -159,6 +162,7 @@ namespace ServiceStack.MiniProfiler.Data
             {
                 this.DbProfiler.ExecuteFinish(this, ExecuteType.Scalar, null);
             }
+
             return result;
         }
 
@@ -183,6 +187,7 @@ namespace ServiceStack.MiniProfiler.Data
             {
                 this.DbCommand?.Dispose();
             }
+
             this.DbCommand = null;
             base.Dispose(disposing);
         }

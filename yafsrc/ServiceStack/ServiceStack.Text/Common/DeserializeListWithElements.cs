@@ -42,8 +42,7 @@ namespace ServiceStack.Text.Common
         public static Func<StringSegment, Type, ParseStringSegmentDelegate, object> GetListTypeParseStringSegmentFn(
             Type createListType, Type elementType, ParseStringSegmentDelegate parseFn)
         {
-            ParseListDelegate parseDelegate;
-            if (ParseDelegateCache.TryGetValue(elementType, out parseDelegate))
+            if (ParseDelegateCache.TryGetValue(elementType, out var parseDelegate))
                 return parseDelegate.Invoke;
 
             var genericType = typeof(DeserializeListWithElements<,>).MakeGenericType(elementType, typeof(TSerializer));

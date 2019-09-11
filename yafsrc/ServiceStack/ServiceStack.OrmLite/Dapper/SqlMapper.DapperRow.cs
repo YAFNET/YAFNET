@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    using System.Dynamic;
+    using System.Linq.Expressions;
+
     public static partial class SqlMapper
     {
         private sealed class DapperRow
@@ -36,6 +39,7 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         if (!(values[i] is DeadValue)) count++;
                     }
+
                     return count;
                 }
             }
@@ -44,17 +48,21 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 var index = table.IndexOfName(key);
                 if (index < 0)
-                { // doesn't exist
+                {
+                    // doesn't exist
                     value = null;
                     return false;
                 }
+
                 // exists, **even if** we don't have a value; consider table rows heterogeneous
                 value = index < values.Length ? values[index] : null;
                 if (value is DeadValue)
-                { // pretend it isn't here
+                {
+                    // pretend it isn't here
                     value = null;
                     return false;
                 }
+
                 return true;
             }
 
@@ -78,8 +86,8 @@ namespace ServiceStack.OrmLite.Dapper
                 return sb.Append('}').__ToStringRecycle();
             }
 
-            System.Dynamic.DynamicMetaObject System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject(
-                System.Linq.Expressions.Expression parameter)
+            DynamicMetaObject System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject(
+                Expression parameter)
             {
                 return new DapperRowMetaObject(parameter, System.Dynamic.BindingRestrictions.Empty, this);
             }
@@ -184,6 +192,7 @@ namespace ServiceStack.OrmLite.Dapper
                     // then semantically, this value already exists
                     throw new ArgumentException("An item with the same key has already been added", nameof(key));
                 }
+
                 var oldLength = values.Length;
                 if (oldLength <= index)
                 {
@@ -195,6 +204,7 @@ namespace ServiceStack.OrmLite.Dapper
                         values[i] = DeadValue.Default;
                     }
                 }
+
                 return values[index] = value;
             }
 

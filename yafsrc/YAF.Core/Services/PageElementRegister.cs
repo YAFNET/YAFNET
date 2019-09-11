@@ -199,8 +199,6 @@ namespace YAF.Core.Services
         {
             if (!this.PageElementExists(name))
             {
-                var scriptManager = ScriptManager.GetCurrent(GetCurrentPage().Page);
-
                 ScriptManager.RegisterStartupScript(
                     thisControl,
                     thisControl.GetType(),
