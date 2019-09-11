@@ -2,6 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.reportedposts"CodeBehind="reportedposts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -99,7 +100,7 @@
                                      Icon="eye" Type="Secondary" />
                         <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" 
                                      TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
-                                     CommandName="ViewHistory" CommandArgument='<%# $"{this.PageContext.PageForumID},{this.Eval("MessageID")}" %>'
+                                     CommandName="ViewHistory" CommandArgument='<%# "{0},{1}".Fmt(this.PageContext.PageForumID, this.Eval("MessageID")) %>'
                                      Icon="history" Type="Secondary" />
                     </div>
                 </div>
