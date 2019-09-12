@@ -79,9 +79,6 @@ namespace YAF.Core
         /// </param>
         /// <param name="treatCacheKey">
         /// </param>
-        /// <param name="boardRepository">
-        /// The board Repository.
-        /// </param>
         public CurrentBoardSettings(
             [NotNull] HttpApplicationStateBase applicationStateBase, 
             [NotNull] IInjectServices injectServices, 
@@ -114,7 +111,7 @@ namespace YAF.Core
                     this._treatCacheKey.Treat(Constants.Cache.BoardSettings), 
                     () =>
                         {
-                            var boardSettings = new YafLoadBoardSettings(this._haveBoardId.BoardID);
+                            var boardSettings = (YafBoardSettings)new YafLoadBoardSettings(this._haveBoardId.BoardID);
 
                             // inject
                             this._injectServices.Inject(boardSettings);
