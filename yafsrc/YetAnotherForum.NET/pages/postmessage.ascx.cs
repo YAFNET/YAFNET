@@ -574,20 +574,14 @@ namespace YAF.Pages
                                 0);
 
                             // quoting a reply to a topic...
-                            foreach (
-                                var msg in
-                                    this.Get<IYafSession>()
-                                        .MultiQuoteIds.Select(
-                                            item =>
-                                            messages.AsEnumerable()
-                                                .Select(t => new TypedMessageList(t))
-                                                .Where(m => m.MessageID == item.MessageID))
-                                        .SelectMany(quotedMessage => quotedMessage))
-                            {
-                                this.InitQuotedReply(msg);
-                            }
-
-                            // Clear Multiquotes
+                            this.Get<IYafSession>().MultiQuoteIds
+                                .Select(
+                                    item => messages.AsEnumerable().Select(t => new TypedMessageList(t))
+                                        .Where(m => m.MessageID == item.MessageID))
+                                .SelectMany(quotedMessage => quotedMessage).ForEach(
+                                    this.InitQuotedReply);
+                            
+                            // Clear Multi-quotes
                             this.Get<IYafSession>().MultiQuoteIds = null;
                         }
                         else
@@ -689,7 +683,6 @@ namespace YAF.Pages
 
                                 File.Move(oldFilePath, newFilePath);
                             }
-
 
                             attach.MessageID = 0;
                             this.GetRepository<Attachment>().Update(attach);
@@ -944,8 +937,7 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                string.Format(
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}", this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName),
+                                $"Spam Check detected possible SPAM posted by User: {(this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName)}",
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 1:

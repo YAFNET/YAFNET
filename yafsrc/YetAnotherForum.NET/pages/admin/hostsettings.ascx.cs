@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     using System;
     using System.Linq;
     using System.Web.UI.WebControls;
+
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Helpers;
@@ -98,8 +99,8 @@ namespace YAF.Pages.Admin
         protected void UserLazyDataCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // vzrus: remove all users lazy data
-            this.Get<IDataCache>()
-                .RemoveOf<object>(k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
+            this.Get<IDataCache>().RemoveOf<object>(
+                k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
             this.CheckCache();
         }
 
@@ -147,9 +148,7 @@ namespace YAF.Pages.Admin
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
-                JavaScriptBlocks.BootstrapNavsLoadJs(
-                    "v-pills-tab",
-                    this.hidLastTab.ClientID));
+                JavaScriptBlocks.BootstrapNavsLoadJs("v-pills-tab", this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
@@ -219,99 +218,115 @@ namespace YAF.Pages.Admin
             var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
 
             // handle checked fields...
-            foreach (var name in settingCollection.SettingsBool.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+            settingCollection.SettingsBool.Keys.ForEach(
+                name =>
+                    {
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
-                {
-                    settingCollection.SettingsBool[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        ((CheckBox)control).Checked,
-                        null);
-                }
-            }
+                        if (control is CheckBox box && settingCollection.SettingsBool[name].CanWrite)
+                        {
+                            settingCollection.SettingsBool[name].SetValue(
+                                this.Get<YafBoardSettings>(),
+                                box.Checked,
+                                null);
+                        }
+                    });
 
             // handle string fields...
-            foreach (var name in settingCollection.SettingsString.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+            settingCollection.SettingsString.Keys.ForEach(
+                name =>
+                    {
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is TextBox && settingCollection.SettingsString[name].CanWrite)
-                {
-                    settingCollection.SettingsString[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        ((TextBox)control).Text.Trim(),
-                        null);
-                }
-                else if (control is DropDownList && settingCollection.SettingsString[name].CanWrite)
-                {
-                    settingCollection.SettingsString[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        Convert.ToString(((DropDownList)control).SelectedItem.Value),
-                        null);
-                }
-            }
+                        switch (control)
+                        {
+                            case TextBox box when settingCollection.SettingsString[name].CanWrite:
+                                settingCollection.SettingsString[name].SetValue(
+                                    this.Get<YafBoardSettings>(),
+                                    box.Text.Trim(),
+                                    null);
+                                break;
+                            case DropDownList list when settingCollection.SettingsString[name].CanWrite:
+                                settingCollection.SettingsString[name].SetValue(
+                                    this.Get<YafBoardSettings>(),
+                                    Convert.ToString(list.SelectedItem.Value),
+                                    null);
+                                break;
+                        }
+                    });
 
             // handle int fields...
-            foreach (var name in settingCollection.SettingsInt.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
-
-                if (control is TextBox && settingCollection.SettingsInt[name].CanWrite)
-                {
-                    var value = ((TextBox)control).Text.Trim();
-                    int i;
-
-                    if (value.IsNotSet())
+            settingCollection.SettingsInt.Keys.ForEach(
+                name =>
                     {
-                        i = 0;
-                    }
-                    else
-                    {
-                        int.TryParse(value, out i);
-                    }
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                    settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
-                }
-                else if (control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
-                {
-                    settingCollection.SettingsInt[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        ((DropDownList)control).SelectedItem.Value.ToType<int>(),
-                        null);
-                }
-            }
+                        switch (control)
+                        {
+                            case TextBox box when settingCollection.SettingsInt[name].CanWrite:
+                                {
+                                    var value = box.Text.Trim();
+                                    int i;
+
+                                    if (value.IsNotSet())
+                                    {
+                                        i = 0;
+                                    }
+                                    else
+                                    {
+                                        int.TryParse(value, out i);
+                                    }
+
+                                    settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
+                                    break;
+                                }
+
+                            case DropDownList list when settingCollection.SettingsInt[name].CanWrite:
+                                settingCollection.SettingsInt[name].SetValue(
+                                    this.Get<YafBoardSettings>(),
+                                    list.SelectedItem.Value.ToType<int>(),
+                                    null);
+                                break;
+                        }
+                    });
 
             // handle double fields...
-            foreach (var name in settingCollection.SettingsDouble.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
-
-                if (control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
-                {
-                    var value = ((TextBox)control).Text.Trim();
-                    double i;
-
-                    if (value.IsNotSet())
+            settingCollection.SettingsDouble.Keys.ForEach(
+                name =>
                     {
-                        i = 0;
-                    }
-                    else
-                    {
-                        double.TryParse(value, out i);
-                    }
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                    settingCollection.SettingsDouble[name].SetValue(this.Get<YafBoardSettings>(), i, null);
-                }
-                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanWrite)
-                {
-                    settingCollection.SettingsDouble[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        Convert.ToDouble(((DropDownList)control).SelectedItem.Value),
-                        null);
-                }
-            }
+                        switch (control)
+                        {
+                            case TextBox box when settingCollection.SettingsDouble[name].CanWrite:
+                                {
+                                    var value = box.Text.Trim();
+                                    double i;
+
+                                    if (value.IsNotSet())
+                                    {
+                                        i = 0;
+                                    }
+                                    else
+                                    {
+                                        double.TryParse(value, out i);
+                                    }
+
+                                    settingCollection.SettingsDouble[name].SetValue(
+                                        this.Get<YafBoardSettings>(),
+                                        i,
+                                        null);
+                                    break;
+                                }
+
+                            case DropDownList list when settingCollection.SettingsDouble[name].CanWrite:
+                                settingCollection.SettingsDouble[name].SetValue(
+                                    this.Get<YafBoardSettings>(),
+                                    Convert.ToDouble(list.SelectedItem.Value),
+                                    null);
+                                break;
+                        }
+                    });
 
             // save the settings to the database
             ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
@@ -329,7 +344,15 @@ namespace YAF.Pages.Admin
         {
             var localizations = new[] { "FORBIDDEN", "REG_USERS", "ALL_USERS" };
 
-            var dropDownLists = new[] { this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess, this.ForumFeedAccess, this.TopicsFeedAccess, this.ActiveTopicFeedAccess, this.FavoriteTopicFeedAccess, this.ReportPostPermissions, this.ProfileViewPermissions, this.MembersListViewPermissions, this.ActiveUsersViewPermissions, this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo, this.ShowShareTopicTo };
+            var dropDownLists = new[]
+                                    {
+                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
+                                        this.ForumFeedAccess, this.TopicsFeedAccess, this.ActiveTopicFeedAccess,
+                                        this.FavoriteTopicFeedAccess, this.ReportPostPermissions,
+                                        this.ProfileViewPermissions, this.MembersListViewPermissions,
+                                        this.ActiveUsersViewPermissions, this.SearchPermissions, this.ShowHelpTo,
+                                        this.ShowTeamTo, this.ShowShareTopicTo
+                                    };
 
             dropDownLists.ForEach(
                 ddl => ddl.Items.AddRange(
@@ -355,13 +378,19 @@ namespace YAF.Pages.Admin
             this.SpamMessageHandling.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_MESSAGE_2"), "2"));
             this.SpamMessageHandling.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_MESSAGE_3"), "3"));
 
-            this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_0"), "0"));
-            this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
-            this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
+            this.BotHandlingOnRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_0"), "0"));
+            this.BotHandlingOnRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
+            this.BotHandlingOnRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
 
-            this.SendWelcomeNotificationAfterRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_0"), "0"));
-            this.SendWelcomeNotificationAfterRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_1"), "1"));
-            this.SendWelcomeNotificationAfterRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_2"), "2"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_0"), "0"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_1"), "1"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_2"), "2"));
         }
 
         /// <summary>
@@ -377,104 +406,120 @@ namespace YAF.Pages.Admin
             var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
 
             // handle checked fields...
-            foreach (var name in settingCollection.SettingsBool.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+            settingCollection.SettingsBool.Keys.ForEach(
+                name =>
+                    {
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is CheckBox && settingCollection.SettingsBool[name].CanRead)
-                {
-                    // get the value from the property...
-                    ((CheckBox)control).Checked =
-                        (bool)
-                        Convert.ChangeType(
-                            settingCollection.SettingsBool[name].GetValue(this.Get<YafBoardSettings>(), null),
-                            typeof(bool));
-                }
-            }
+                        if (control is CheckBox box && settingCollection.SettingsBool[name].CanRead)
+                        {
+                            // get the value from the property...
+                            box.Checked = (bool)Convert.ChangeType(
+                                settingCollection.SettingsBool[name].GetValue(this.Get<YafBoardSettings>(), null),
+                                typeof(bool));
+                        }
+                    });
 
             // handle string fields...
-            foreach (var name in settingCollection.SettingsString.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
-
-                if (control is TextBox && settingCollection.SettingsString[name].CanRead)
-                {
-                    // get the value from the property...
-                    ((TextBox)control).Text =
-                        (string)
-                        Convert.ChangeType(
-                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
-                            typeof(string));
-                }
-                else if (control is DropDownList && settingCollection.SettingsString[name].CanRead)
-                {
-                    var listItem =
-                        ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
-                                .ToString());
-
-                    if (listItem != null)
+            settingCollection.SettingsString.Keys.ForEach(
+                name =>
                     {
-                        listItem.Selected = true;
-                    }
-                }
-            }
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                        switch (control)
+                        {
+                            case TextBox box when settingCollection.SettingsString[name].CanRead:
+                                // get the value from the property...
+                                box.Text = (string)Convert.ChangeType(
+                                    settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
+                                    typeof(string));
+                                break;
+                            case DropDownList list when settingCollection.SettingsString[name].CanRead:
+                                {
+                                    var listItem = list.Items.FindByValue(
+                                        settingCollection.SettingsString[name].GetValue(
+                                            this.Get<YafBoardSettings>(),
+                                            null).ToString());
+
+                                    if (listItem != null)
+                                    {
+                                        listItem.Selected = true;
+                                    }
+
+                                    break;
+                                }
+                        }
+                    });
 
             // handle int fields...
-            foreach (var name in settingCollection.SettingsInt.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
-
-                if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
-                {
-                    if (!name.Equals("ServerTimeCorrection"))
+            settingCollection.SettingsInt.Keys.ForEach(
+                name =>
                     {
-                        ((TextBox)control).TextMode = TextBoxMode.Number;
-                    }
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                    // get the value from the property...
-                    ((TextBox)control).Text =
-                        settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
-                }
-                else if (control is DropDownList && settingCollection.SettingsInt[name].CanRead)
-                {
-                    var listItem =
-                        ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
+                        switch (control)
+                        {
+                            case TextBox box when settingCollection.SettingsInt[name].CanRead:
+                                {
+                                    if (!name.Equals("ServerTimeCorrection"))
+                                    {
+                                        box.TextMode = TextBoxMode.Number;
+                                    }
 
-                    if (listItem != null)
-                    {
-                        listItem.Selected = true;
-                    }
-                }
-            }
+                                    // get the value from the property...
+                                    box.Text = settingCollection.SettingsInt[name]
+                                        .GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                                    break;
+                                }
+
+                            case DropDownList list when settingCollection.SettingsInt[name].CanRead:
+                                {
+                                    var listItem = list.Items.FindByValue(
+                                        settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                            .ToString());
+
+                                    if (listItem != null)
+                                    {
+                                        listItem.Selected = true;
+                                    }
+
+                                    break;
+                                }
+                        }
+                    });
 
             // handle double fields...
-            foreach (var name in settingCollection.SettingsDouble.Keys)
-            {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
-
-                if (control is TextBox && settingCollection.SettingsDouble[name].CanRead)
-                {
-                    ((TextBox)control).CssClass = "form-control";
-
-                    // get the value from the property...
-                    ((TextBox)control).Text =
-                        settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
-                }
-                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
-                {
-                    var listItem =
-                        ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
-                                .ToString());
-
-                    if (listItem != null)
+            settingCollection.SettingsDouble.Keys.ForEach(
+                name =>
                     {
-                        listItem.Selected = true;
-                    }
-                }
-            }
+                        var control = this.HostSettingsTabs.FindControlRecursive(name);
+
+                        switch (control)
+                        {
+                            case TextBox box when settingCollection.SettingsDouble[name].CanRead:
+                                box.CssClass = "form-control";
+
+                                // get the value from the property...
+                                box.Text = settingCollection.SettingsDouble[name]
+                                    .GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                                break;
+
+                            case DropDownList list when settingCollection.SettingsDouble[name].CanRead:
+                                {
+                                    var listItem = list.Items.FindByValue(
+                                        settingCollection.SettingsDouble[name].GetValue(
+                                            this.Get<YafBoardSettings>(),
+                                            null).ToString());
+
+                                    if (listItem != null)
+                                    {
+                                        listItem.Selected = true;
+                                    }
+
+                                    break;
+                                }
+                        }
+                    });
 
             // special field handling...
             this.AvatarSize.Text = this.Get<YafBoardSettings>().AvatarSize != 0
@@ -486,11 +531,11 @@ namespace YAF.Pages.Admin
 
             this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbFunction>().GetSQLVersion());
 
-            this.AppCores.Text = Platform.Processors;
+            this.AppCores.Text = YafSystemInfo.Processors;
             this.AppMemory.Text =
-                $"{Platform.AllocatedMemory.ToType<long>() / 1000000} MB of {Platform.MappedMemory.ToType<long>() / 1000000} MB";
-            this.AppOSName.Text = Platform.VersionString;
-            this.AppRuntime.Text = $"{Platform.RuntimeName} {Platform.RuntimeString}";
+                $"{YafSystemInfo.AllocatedMemory.ToType<long>() / 1000000} MB of {YafSystemInfo.MappedMemory.ToType<long>() / 1000000} MB";
+            this.AppOSName.Text = YafSystemInfo.VersionString;
+            this.AppRuntime.Text = $"{YafSystemInfo.RuntimeName} {YafSystemInfo.RuntimeString}";
         }
 
         /// <summary>
