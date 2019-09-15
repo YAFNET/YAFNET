@@ -26850,7 +26850,7 @@
 
 }));
 /*!
- * Select2 4.0.7
+ * Select2 4.0.10
  * https://select2.github.io
  *
  * Released under the MIT license
@@ -27683,6 +27683,8 @@ S2.define('select2/utils',[
     if (Utils.__cache[id] != null) {
       delete Utils.__cache[id];
     }
+
+    element.removeAttribute('data-select2-id');
   };
 
   return Utils;
@@ -27704,7 +27706,7 @@ S2.define('select2/results',[
 
   Results.prototype.render = function () {
     var $results = $(
-      '<ul class="select2-results__options" role="tree"></ul>'
+      '<ul class="select2-results__options" role="listbox"></ul>'
     );
 
     if (this.options.get('multiple')) {
@@ -27727,7 +27729,7 @@ S2.define('select2/results',[
     this.hideLoading();
 
     var $message = $(
-      '<li role="treeitem" aria-live="assertive"' +
+      '<li role="alert" aria-live="assertive"' +
       ' class="select2-results__option"></li>'
     );
 
@@ -27861,11 +27863,16 @@ S2.define('select2/results',[
     option.className = 'select2-results__option';
 
     var attrs = {
-      'role': 'treeitem',
+      'role': 'option',
       'aria-selected': 'false'
     };
 
-    if (data.disabled) {
+    var matches = window.Element.prototype.matches ||
+      window.Element.prototype.msMatchesSelector ||
+      window.Element.prototype.webkitMatchesSelector;
+
+    if ((data.element != null && matches.call(data.element, ':disabled')) ||
+        (data.element == null && data.disabled)) {
       delete attrs['aria-selected'];
       attrs['aria-disabled'] = 'true';
     }
@@ -28276,6 +28283,7 @@ S2.define('select2/selection/base',[
 
     $selection.attr('title', this.$element.attr('title'));
     $selection.attr('tabindex', this._tabindex);
+    $selection.attr('aria-disabled', 'false');
 
     this.$selection = $selection;
 
@@ -28285,7 +28293,6 @@ S2.define('select2/selection/base',[
   BaseSelection.prototype.bind = function (container, $container) {
     var self = this;
 
-    var id = container.id + '-container';
     var resultsId = container.id + '-results';
 
     this.container = container;
@@ -28328,19 +28335,19 @@ S2.define('select2/selection/base',[
       self.$selection.removeAttr('aria-activedescendant');
       self.$selection.removeAttr('aria-owns');
 
-      window.setTimeout(function () {
-        self.$selection.focus();
-      }, 0);
-    
+      self.$selection.trigger('focus');
+
       self._detachCloseHandler(container);
     });
 
     container.on('enable', function () {
       self.$selection.attr('tabindex', self._tabindex);
+      self.$selection.attr('aria-disabled', 'false');
     });
 
     container.on('disable', function () {
       self.$selection.attr('tabindex', '-1');
+      self.$selection.attr('aria-disabled', 'true');
     });
   };
 
@@ -28363,7 +28370,6 @@ S2.define('select2/selection/base',[
   };
 
   BaseSelection.prototype._attachCloseHandler = function (container) {
-    var self = this;
 
     $(document.body).on('mousedown.select2.' + container.id, function (e) {
       var $target = $(e.target);
@@ -28373,8 +28379,6 @@ S2.define('select2/selection/base',[
       var $all = $('.select2.select2-container--open');
 
       $all.each(function () {
-        var $this = $(this);
-
         if (this == $select[0]) {
           return;
         }
@@ -28467,7 +28471,7 @@ S2.define('select2/selection/single',[
 
     container.on('focus', function (evt) {
       if (!container.isOpen()) {
-        self.$selection.focus();
+        self.$selection.trigger('focus');
       }
     });
   };
@@ -28501,7 +28505,14 @@ S2.define('select2/selection/single',[
     var formatted = this.display(selection, $rendered);
 
     $rendered.empty().append(formatted);
-    $rendered.attr('title', selection.title || selection.text);
+
+    var title = selection.title || selection.text;
+
+    if (title) {
+      $rendered.attr('title', title);
+    } else {
+      $rendered.removeAttr('title');
+    }
   };
 
   return SingleSelection;
@@ -28604,7 +28615,12 @@ S2.define('select2/selection/multiple',[
       var formatted = this.display(selection, $selection);
 
       $selection.append(formatted);
-      $selection.attr('title', selection.title || selection.text);
+
+      var title = selection.title || selection.text;
+
+      if (title) {
+        $selection.attr('title', title);
+      }
 
       Utils.StoreData($selection[0], 'data', selection);
 
@@ -28797,7 +28813,7 @@ S2.define('select2/selection/search',[
       '<li class="select2-search select2-search--inline">' +
         '<input class="select2-search__field" type="search" tabindex="-1"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
-        ' spellcheck="false" role="textbox" aria-autocomplete="list" />' +
+        ' spellcheck="false" role="searchbox" aria-autocomplete="list" />' +
       '</li>'
     );
 
@@ -28814,14 +28830,18 @@ S2.define('select2/selection/search',[
   Search.prototype.bind = function (decorated, container, $container) {
     var self = this;
 
+    var resultsId = container.id + '-results';
+
     decorated.call(this, container, $container);
 
     container.on('open', function () {
+      self.$search.attr('aria-controls', resultsId);
       self.$search.trigger('focus');
     });
 
     container.on('close', function () {
       self.$search.val('');
+      self.$search.removeAttr('aria-controls');
       self.$search.removeAttr('aria-activedescendant');
       self.$search.trigger('focus');
     });
@@ -28841,7 +28861,11 @@ S2.define('select2/selection/search',[
     });
 
     container.on('results:focus', function (params) {
-      self.$search.attr('aria-activedescendant', params.id);
+      if (params.data._resultId) {
+        self.$search.attr('aria-activedescendant', params.data._resultId);
+      } else {
+        self.$search.removeAttr('aria-activedescendant');
+      }
     });
 
     this.$selection.on('focusin', '.select2-search--inline', function (evt) {
@@ -28872,6 +28896,12 @@ S2.define('select2/selection/search',[
 
           evt.preventDefault();
         }
+      }
+    });
+
+    this.$selection.on('click', '.select2-search--inline', function (evt) {
+      if (self.$search.val()) {
+        evt.stopPropagation();
       }
     });
 
@@ -28960,13 +28990,7 @@ S2.define('select2/selection/search',[
 
     this.resizeSearch();
     if (searchHadFocus) {
-      var isTagInput = this.$element.find('[data-select2-tag]').length;
-      if (isTagInput) {
-        // fix IE11 bug where tag input lost focus
-        this.$element.focus();
-      } else {
-        this.$search.focus();
-      }
+      this.$search.trigger('focus');
     }
   };
 
@@ -28999,7 +29023,7 @@ S2.define('select2/selection/search',[
     var width = '';
 
     if (this.$search.attr('placeholder') !== '') {
-      width = this.$selection.find('.select2-selection__rendered').innerWidth();
+      width = this.$selection.find('.select2-selection__rendered').width();
     } else {
       var minimumWidth = this.$search.val().length + 1;
 
@@ -30282,14 +30306,18 @@ S2.define('select2/data/array',[
   'jquery'
 ], function (SelectAdapter, Utils, $) {
   function ArrayAdapter ($element, options) {
-    var data = options.get('data') || [];
+    this._dataToConvert = options.get('data') || [];
 
     ArrayAdapter.__super__.constructor.call(this, $element, options);
-
-    this.addOptions(this.convertToOptions(data));
   }
 
   Utils.Extend(ArrayAdapter, SelectAdapter);
+
+  ArrayAdapter.prototype.bind = function (container, $container) {
+    ArrayAdapter.__super__.bind.call(this, container, $container);
+
+    this.addOptions(this.convertToOptions(this._dataToConvert));
+  };
 
   ArrayAdapter.prototype.select = function (data) {
     var $option = this.$element.find('option').filter(function (i, elm) {
@@ -30580,8 +30608,6 @@ S2.define('select2/data/tags',[
   };
 
   Tags.prototype._removeOldTags = function (_) {
-    var tag = this._lastTag;
-
     var $options = this.$element.find('option[data-select2-tag]');
 
     $options.each(function () {
@@ -30656,7 +30682,7 @@ S2.define('select2/data/tokenizer',[
       // Replace the search term if we have the search box
       if (this.$search.length) {
         this.$search.val(tokenData.term);
-        this.$search.focus();
+        this.$search.trigger('focus');
       }
 
       params.term = tokenData.term;
@@ -30785,8 +30811,28 @@ S2.define('select2/data/maximumSelectionLength',[
     decorated.call(this, $e, options);
   }
 
+  MaximumSelectionLength.prototype.bind =
+    function (decorated, container, $container) {
+      var self = this;
+
+      decorated.call(this, container, $container);
+
+      container.on('select', function () {
+        self._checkIfMaximumSelected();
+      });
+  };
+
   MaximumSelectionLength.prototype.query =
     function (decorated, params, callback) {
+      var self = this;
+
+      this._checkIfMaximumSelected(function () {
+        decorated.call(self, params, callback);
+      });
+  };
+
+  MaximumSelectionLength.prototype._checkIfMaximumSelected =
+    function (_, successCallback) {
       var self = this;
 
       this.current(function (currentData) {
@@ -30801,7 +30847,10 @@ S2.define('select2/data/maximumSelectionLength',[
           });
           return;
         }
-        decorated.call(self, params, callback);
+
+        if (successCallback) {
+          successCallback();
+        }
       });
   };
 
@@ -30864,7 +30913,7 @@ S2.define('select2/dropdown/search',[
       '<span class="select2-search select2-search--dropdown">' +
         '<input class="select2-search__field" type="search" tabindex="-1"' +
         ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
-        ' spellcheck="false" role="textbox" />' +
+        ' spellcheck="false" role="searchbox" aria-autocomplete="list" />' +
       '</span>'
     );
 
@@ -30878,6 +30927,8 @@ S2.define('select2/dropdown/search',[
 
   Search.prototype.bind = function (decorated, container, $container) {
     var self = this;
+
+    var resultsId = container.id + '-results';
 
     decorated.call(this, container, $container);
 
@@ -30901,24 +30952,27 @@ S2.define('select2/dropdown/search',[
 
     container.on('open', function () {
       self.$search.attr('tabindex', 0);
+      self.$search.attr('aria-controls', resultsId);
 
-      self.$search.focus();
+      self.$search.trigger('focus');
 
       window.setTimeout(function () {
-        self.$search.focus();
+        self.$search.trigger('focus');
       }, 0);
     });
 
     container.on('close', function () {
       self.$search.attr('tabindex', -1);
+      self.$search.removeAttr('aria-controls');
+      self.$search.removeAttr('aria-activedescendant');
 
       self.$search.val('');
-      self.$search.blur();
+      self.$search.trigger('blur');
     });
 
     container.on('focus', function () {
       if (!container.isOpen()) {
-        self.$search.focus();
+        self.$search.trigger('focus');
       }
     });
 
@@ -30931,6 +30985,14 @@ S2.define('select2/dropdown/search',[
         } else {
           self.$searchContainer.addClass('select2-search--hide');
         }
+      }
+    });
+
+    container.on('results:focus', function (params) {
+      if (params.data._resultId) {
+        self.$search.attr('aria-activedescendant', params.data._resultId);
+      } else {
+        self.$search.removeAttr('aria-activedescendant');
       }
     });
   };
@@ -31017,6 +31079,7 @@ S2.define('select2/dropdown/infiniteScroll',[
 
     if (this.showLoadingMore(data)) {
       this.$results.append(this.$loadingMore);
+      this.loadMoreIfNeeded();
     }
   };
 
@@ -31035,25 +31098,27 @@ S2.define('select2/dropdown/infiniteScroll',[
       self.loading = true;
     });
 
-    this.$results.on('scroll', function () {
-      var isLoadMoreVisible = $.contains(
-        document.documentElement,
-        self.$loadingMore[0]
-      );
+    this.$results.on('scroll', this.loadMoreIfNeeded.bind(this));
+  };
 
-      if (self.loading || !isLoadMoreVisible) {
-        return;
-      }
+  InfiniteScroll.prototype.loadMoreIfNeeded = function () {
+    var isLoadMoreVisible = $.contains(
+      document.documentElement,
+      this.$loadingMore[0]
+    );
 
-      var currentOffset = self.$results.offset().top +
-        self.$results.outerHeight(false);
-      var loadingMoreOffset = self.$loadingMore.offset().top +
-        self.$loadingMore.outerHeight(false);
+    if (this.loading || !isLoadMoreVisible) {
+      return;
+    }
 
-      if (currentOffset + 50 >= loadingMoreOffset) {
-        self.loadMore();
-      }
-    });
+    var currentOffset = this.$results.offset().top +
+      this.$results.outerHeight(false);
+    var loadingMoreOffset = this.$loadingMore.offset().top +
+      this.$loadingMore.outerHeight(false);
+
+    if (currentOffset + 50 >= loadingMoreOffset) {
+      this.loadMore();
+    }
   };
 
   InfiniteScroll.prototype.loadMore = function () {
@@ -31074,7 +31139,7 @@ S2.define('select2/dropdown/infiniteScroll',[
     var $option = $(
       '<li ' +
       'class="select2-results__option select2-results__option--load-more"' +
-      'role="treeitem" aria-disabled="true"></li>'
+      'role="option" aria-disabled="true"></li>'
     );
 
     var message = this.options.get('translations').get('loadingMore');
@@ -31092,7 +31157,7 @@ S2.define('select2/dropdown/attachBody',[
   '../utils'
 ], function ($, Utils) {
   function AttachBody (decorated, $element, options) {
-    this.$dropdownParent = options.get('dropdownParent') || $(document.body);
+    this.$dropdownParent = $(options.get('dropdownParent') || document.body);
 
     decorated.call(this, $element, options);
   }
@@ -31100,27 +31165,14 @@ S2.define('select2/dropdown/attachBody',[
   AttachBody.prototype.bind = function (decorated, container, $container) {
     var self = this;
 
-    var setupResultsEvents = false;
-
     decorated.call(this, container, $container);
 
     container.on('open', function () {
       self._showDropdown();
       self._attachPositioningHandler(container);
 
-      if (!setupResultsEvents) {
-        setupResultsEvents = true;
-
-        container.on('results:all', function () {
-          self._positionDropdown();
-          self._resizeDropdown();
-        });
-
-        container.on('results:append', function () {
-          self._positionDropdown();
-          self._resizeDropdown();
-        });
-      }
+      // Must bind after the results handlers to ensure correct sizing
+      self._bindContainerResultHandlers(container);
     });
 
     container.on('close', function () {
@@ -31167,6 +31219,44 @@ S2.define('select2/dropdown/attachBody',[
 
   AttachBody.prototype._hideDropdown = function (decorated) {
     this.$dropdownContainer.detach();
+  };
+
+  AttachBody.prototype._bindContainerResultHandlers =
+      function (decorated, container) {
+
+    // These should only be bound once
+    if (this._containerResultsHandlersBound) {
+      return;
+    }
+
+    var self = this;
+
+    container.on('results:all', function () {
+      self._positionDropdown();
+      self._resizeDropdown();
+    });
+
+    container.on('results:append', function () {
+      self._positionDropdown();
+      self._resizeDropdown();
+    });
+
+    container.on('results:message', function () {
+      self._positionDropdown();
+      self._resizeDropdown();
+    });
+
+    container.on('select', function () {
+      self._positionDropdown();
+      self._resizeDropdown();
+    });
+
+    container.on('unselect', function () {
+      self._positionDropdown();
+      self._resizeDropdown();
+    });
+
+    this._containerResultsHandlersBound = true;
   };
 
   AttachBody.prototype._attachPositioningHandler =
@@ -31719,66 +31809,29 @@ S2.define('select2/defaults',[
       );
     }
 
-    if (typeof options.language === 'string') {
-      // Check if the language is specified with a region
-      if (options.language.indexOf('-') > 0) {
-        // Extract the region information if it is included
-        var languageParts = options.language.split('-');
-        var baseLanguage = languageParts[0];
+    // If the defaults were not previously applied from an element, it is
+    // possible for the language option to have not been resolved
+    options.language = this._resolveLanguage(options.language);
 
-        options.language = [options.language, baseLanguage];
-      } else {
-        options.language = [options.language];
+    // Always fall back to English since it will always be complete
+    options.language.push('en');
+
+    var uniqueLanguages = [];
+
+    for (var l = 0; l < options.language.length; l++) {
+      var language = options.language[l];
+
+      if (uniqueLanguages.indexOf(language) === -1) {
+        uniqueLanguages.push(language);
       }
     }
 
-    if ($.isArray(options.language)) {
-      var languages = new Translation();
-      options.language.push('en');
+    options.language = uniqueLanguages;
 
-      var languageNames = options.language;
-
-      for (var l = 0; l < languageNames.length; l++) {
-        var name = languageNames[l];
-        var language = {};
-
-        try {
-          // Try to load it with the original name
-          language = Translation.loadPath(name);
-        } catch (e) {
-          try {
-            // If we couldn't load it, check if it wasn't the full path
-            name = this.defaults.amdLanguageBase + name;
-            language = Translation.loadPath(name);
-          } catch (ex) {
-            // The translation could not be loaded at all. Sometimes this is
-            // because of a configuration problem, other times this can be
-            // because of how Select2 helps load all possible translation files.
-            if (options.debug && window.console && console.warn) {
-              console.warn(
-                'Select2: The language file for "' + name + '" could not be ' +
-                'automatically loaded. A fallback will be used instead.'
-              );
-            }
-
-            continue;
-          }
-        }
-
-        languages.extend(language);
-      }
-
-      options.translations = languages;
-    } else {
-      var baseTranslation = Translation.loadPath(
-        this.defaults.amdLanguageBase + 'en'
-      );
-      var customTranslation = new Translation(options.language);
-
-      customTranslation.extend(baseTranslation);
-
-      options.translations = customTranslation;
-    }
+    options.translations = this._processTranslations(
+      options.language,
+      options.debug
+    );
 
     return options;
   };
@@ -31845,7 +31898,7 @@ S2.define('select2/defaults',[
       debug: false,
       dropdownAutoWidth: false,
       escapeMarkup: Utils.escapeMarkup,
-      language: EnglishTranslation,
+      language: {},
       matcher: matcher,
       minimumInputLength: 0,
       maximumInputLength: 0,
@@ -31865,6 +31918,103 @@ S2.define('select2/defaults',[
       theme: 'default',
       width: 'resolve'
     };
+  };
+
+  Defaults.prototype.applyFromElement = function (options, $element) {
+    var optionLanguage = options.language;
+    var defaultLanguage = this.defaults.language;
+    var elementLanguage = $element.prop('lang');
+    var parentLanguage = $element.closest('[lang]').prop('lang');
+
+    var languages = Array.prototype.concat.call(
+      this._resolveLanguage(elementLanguage),
+      this._resolveLanguage(optionLanguage),
+      this._resolveLanguage(defaultLanguage),
+      this._resolveLanguage(parentLanguage)
+    );
+
+    options.language = languages;
+
+    return options;
+  };
+
+  Defaults.prototype._resolveLanguage = function (language) {
+    if (!language) {
+      return [];
+    }
+
+    if ($.isEmptyObject(language)) {
+      return [];
+    }
+
+    if ($.isPlainObject(language)) {
+      return [language];
+    }
+
+    var languages;
+
+    if (!$.isArray(language)) {
+      languages = [language];
+    } else {
+      languages = language;
+    }
+
+    var resolvedLanguages = [];
+
+    for (var l = 0; l < languages.length; l++) {
+      resolvedLanguages.push(languages[l]);
+
+      if (typeof languages[l] === 'string' && languages[l].indexOf('-') > 0) {
+        // Extract the region information if it is included
+        var languageParts = languages[l].split('-');
+        var baseLanguage = languageParts[0];
+
+        resolvedLanguages.push(baseLanguage);
+      }
+    }
+
+    return resolvedLanguages;
+  };
+
+  Defaults.prototype._processTranslations = function (languages, debug) {
+    var translations = new Translation();
+
+    for (var l = 0; l < languages.length; l++) {
+      var languageData = new Translation();
+
+      var language = languages[l];
+
+      if (typeof language === 'string') {
+        try {
+          // Try to load it with the original name
+          languageData = Translation.loadPath(language);
+        } catch (e) {
+          try {
+            // If we couldn't load it, check if it wasn't the full path
+            language = this.defaults.amdLanguageBase + language;
+            languageData = Translation.loadPath(language);
+          } catch (ex) {
+            // The translation could not be loaded at all. Sometimes this is
+            // because of a configuration problem, other times this can be
+            // because of how Select2 helps load all possible translation files
+            if (debug && window.console && console.warn) {
+              console.warn(
+                'Select2: The language file for "' + language + '" could ' +
+                'not be automatically loaded. A fallback will be used instead.'
+              );
+            }
+          }
+        }
+      } else if ($.isPlainObject(language)) {
+        languageData = new Translation(language);
+      } else {
+        languageData = language;
+      }
+
+      translations.extend(languageData);
+    }
+
+    return translations;
   };
 
   Defaults.prototype.set = function (key, value) {
@@ -31896,6 +32046,10 @@ S2.define('select2/options',[
       this.fromElement($element);
     }
 
+    if ($element != null) {
+      this.options = Defaults.applyFromElement(this.options, $element);
+    }
+
     this.options = Defaults.apply(this.options);
 
     if ($element && $element.is('input')) {
@@ -31917,14 +32071,6 @@ S2.define('select2/options',[
 
     if (this.options.disabled == null) {
       this.options.disabled = $e.prop('disabled');
-    }
-
-    if (this.options.language == null) {
-      if ($e.prop('lang')) {
-        this.options.language = $e.prop('lang').toLowerCase();
-      } else if ($e.closest('[lang]').prop('lang')) {
-        this.options.language = $e.closest('[lang]').prop('lang');
-      }
     }
 
     if (this.options.dir == null) {
@@ -32192,6 +32338,12 @@ S2.define('select2/core',[
       }
 
       return null;
+    }
+
+    if (method == 'computedstyle') {
+      var computedStyle = window.getComputedStyle($element[0]);
+
+      return computedStyle.width;
     }
 
     return method;
@@ -32649,12 +32801,724 @@ S2.define('select2/core',[
   return Select2;
 });
 
-S2.define('jquery-mousewheel',[
+S2.define('select2/compat/utils',[
   'jquery'
 ], function ($) {
-  // Used to shim jQuery.mousewheel for non-full builds.
-  return $;
+  function syncCssClasses ($dest, $src, adapter) {
+    var classes, replacements = [], adapted;
+
+    classes = $.trim($dest.attr('class'));
+
+    if (classes) {
+      classes = '' + classes; // for IE which returns object
+
+      $(classes.split(/\s+/)).each(function () {
+        // Save all Select2 classes
+        if (this.indexOf('select2-') === 0) {
+          replacements.push(this);
+        }
+      });
+    }
+
+    classes = $.trim($src.attr('class'));
+
+    if (classes) {
+      classes = '' + classes; // for IE which returns object
+
+      $(classes.split(/\s+/)).each(function () {
+        // Only adapt non-Select2 classes
+        if (this.indexOf('select2-') !== 0) {
+          adapted = adapter(this);
+
+          if (adapted != null) {
+            replacements.push(adapted);
+          }
+        }
+      });
+    }
+
+    $dest.attr('class', replacements.join(' '));
+  }
+
+  return {
+    syncCssClasses: syncCssClasses
+  };
 });
+
+S2.define('select2/compat/containerCss',[
+  'jquery',
+  './utils'
+], function ($, CompatUtils) {
+  // No-op CSS adapter that discards all classes by default
+  function _containerAdapter (clazz) {
+    return null;
+  }
+
+  function ContainerCSS () { }
+
+  ContainerCSS.prototype.render = function (decorated) {
+    var $container = decorated.call(this);
+
+    var containerCssClass = this.options.get('containerCssClass') || '';
+
+    if ($.isFunction(containerCssClass)) {
+      containerCssClass = containerCssClass(this.$element);
+    }
+
+    var containerCssAdapter = this.options.get('adaptContainerCssClass');
+    containerCssAdapter = containerCssAdapter || _containerAdapter;
+
+    if (containerCssClass.indexOf(':all:') !== -1) {
+      containerCssClass = containerCssClass.replace(':all:', '');
+
+      var _cssAdapter = containerCssAdapter;
+
+      containerCssAdapter = function (clazz) {
+        var adapted = _cssAdapter(clazz);
+
+        if (adapted != null) {
+          // Append the old one along with the adapted one
+          return adapted + ' ' + clazz;
+        }
+
+        return clazz;
+      };
+    }
+
+    var containerCss = this.options.get('containerCss') || {};
+
+    if ($.isFunction(containerCss)) {
+      containerCss = containerCss(this.$element);
+    }
+
+    CompatUtils.syncCssClasses($container, this.$element, containerCssAdapter);
+
+    $container.css(containerCss);
+    $container.addClass(containerCssClass);
+
+    return $container;
+  };
+
+  return ContainerCSS;
+});
+
+S2.define('select2/compat/dropdownCss',[
+  'jquery',
+  './utils'
+], function ($, CompatUtils) {
+  // No-op CSS adapter that discards all classes by default
+  function _dropdownAdapter (clazz) {
+    return null;
+  }
+
+  function DropdownCSS () { }
+
+  DropdownCSS.prototype.render = function (decorated) {
+    var $dropdown = decorated.call(this);
+
+    var dropdownCssClass = this.options.get('dropdownCssClass') || '';
+
+    if ($.isFunction(dropdownCssClass)) {
+      dropdownCssClass = dropdownCssClass(this.$element);
+    }
+
+    var dropdownCssAdapter = this.options.get('adaptDropdownCssClass');
+    dropdownCssAdapter = dropdownCssAdapter || _dropdownAdapter;
+
+    if (dropdownCssClass.indexOf(':all:') !== -1) {
+      dropdownCssClass = dropdownCssClass.replace(':all:', '');
+
+      var _cssAdapter = dropdownCssAdapter;
+
+      dropdownCssAdapter = function (clazz) {
+        var adapted = _cssAdapter(clazz);
+
+        if (adapted != null) {
+          // Append the old one along with the adapted one
+          return adapted + ' ' + clazz;
+        }
+
+        return clazz;
+      };
+    }
+
+    var dropdownCss = this.options.get('dropdownCss') || {};
+
+    if ($.isFunction(dropdownCss)) {
+      dropdownCss = dropdownCss(this.$element);
+    }
+
+    CompatUtils.syncCssClasses($dropdown, this.$element, dropdownCssAdapter);
+
+    $dropdown.css(dropdownCss);
+    $dropdown.addClass(dropdownCssClass);
+
+    return $dropdown;
+  };
+
+  return DropdownCSS;
+});
+
+S2.define('select2/compat/initSelection',[
+  'jquery'
+], function ($) {
+  function InitSelection (decorated, $element, options) {
+    if (options.get('debug') && window.console && console.warn) {
+      console.warn(
+        'Select2: The `initSelection` option has been deprecated in favor' +
+        ' of a custom data adapter that overrides the `current` method. ' +
+        'This method is now called multiple times instead of a single ' +
+        'time when the instance is initialized. Support will be removed ' +
+        'for the `initSelection` option in future versions of Select2'
+      );
+    }
+
+    this.initSelection = options.get('initSelection');
+    this._isInitialized = false;
+
+    decorated.call(this, $element, options);
+  }
+
+  InitSelection.prototype.current = function (decorated, callback) {
+    var self = this;
+
+    if (this._isInitialized) {
+      decorated.call(this, callback);
+
+      return;
+    }
+
+    this.initSelection.call(null, this.$element, function (data) {
+      self._isInitialized = true;
+
+      if (!$.isArray(data)) {
+        data = [data];
+      }
+
+      callback(data);
+    });
+  };
+
+  return InitSelection;
+});
+
+S2.define('select2/compat/inputData',[
+  'jquery',
+  '../utils'
+], function ($, Utils) {
+  function InputData (decorated, $element, options) {
+    this._currentData = [];
+    this._valueSeparator = options.get('valueSeparator') || ',';
+
+    if ($element.prop('type') === 'hidden') {
+      if (options.get('debug') && console && console.warn) {
+        console.warn(
+          'Select2: Using a hidden input with Select2 is no longer ' +
+          'supported and may stop working in the future. It is recommended ' +
+          'to use a `<select>` element instead.'
+        );
+      }
+    }
+
+    decorated.call(this, $element, options);
+  }
+
+  InputData.prototype.current = function (_, callback) {
+    function getSelected (data, selectedIds) {
+      var selected = [];
+
+      if (data.selected || $.inArray(data.id, selectedIds) !== -1) {
+        data.selected = true;
+        selected.push(data);
+      } else {
+        data.selected = false;
+      }
+
+      if (data.children) {
+        selected.push.apply(selected, getSelected(data.children, selectedIds));
+      }
+
+      return selected;
+    }
+
+    var selected = [];
+
+    for (var d = 0; d < this._currentData.length; d++) {
+      var data = this._currentData[d];
+
+      selected.push.apply(
+        selected,
+        getSelected(
+          data,
+          this.$element.val().split(
+            this._valueSeparator
+          )
+        )
+      );
+    }
+
+    callback(selected);
+  };
+
+  InputData.prototype.select = function (_, data) {
+    if (!this.options.get('multiple')) {
+      this.current(function (allData) {
+        $.map(allData, function (data) {
+          data.selected = false;
+        });
+      });
+
+      this.$element.val(data.id);
+      this.$element.trigger('change');
+    } else {
+      var value = this.$element.val();
+      value += this._valueSeparator + data.id;
+
+      this.$element.val(value);
+      this.$element.trigger('change');
+    }
+  };
+
+  InputData.prototype.unselect = function (_, data) {
+    var self = this;
+
+    data.selected = false;
+
+    this.current(function (allData) {
+      var values = [];
+
+      for (var d = 0; d < allData.length; d++) {
+        var item = allData[d];
+
+        if (data.id == item.id) {
+          continue;
+        }
+
+        values.push(item.id);
+      }
+
+      self.$element.val(values.join(self._valueSeparator));
+      self.$element.trigger('change');
+    });
+  };
+
+  InputData.prototype.query = function (_, params, callback) {
+    var results = [];
+
+    for (var d = 0; d < this._currentData.length; d++) {
+      var data = this._currentData[d];
+
+      var matches = this.matches(params, data);
+
+      if (matches !== null) {
+        results.push(matches);
+      }
+    }
+
+    callback({
+      results: results
+    });
+  };
+
+  InputData.prototype.addOptions = function (_, $options) {
+    var options = $.map($options, function ($option) {
+      return Utils.GetData($option[0], 'data');
+    });
+
+    this._currentData.push.apply(this._currentData, options);
+  };
+
+  return InputData;
+});
+
+S2.define('select2/compat/matcher',[
+  'jquery'
+], function ($) {
+  function oldMatcher (matcher) {
+    function wrappedMatcher (params, data) {
+      var match = $.extend(true, {}, data);
+
+      if (params.term == null || $.trim(params.term) === '') {
+        return match;
+      }
+
+      if (data.children) {
+        for (var c = data.children.length - 1; c >= 0; c--) {
+          var child = data.children[c];
+
+          // Check if the child object matches
+          // The old matcher returned a boolean true or false
+          var doesMatch = matcher(params.term, child.text, child);
+
+          // If the child didn't match, pop it off
+          if (!doesMatch) {
+            match.children.splice(c, 1);
+          }
+        }
+
+        if (match.children.length > 0) {
+          return match;
+        }
+      }
+
+      if (matcher(params.term, data.text, data)) {
+        return match;
+      }
+
+      return null;
+    }
+
+    return wrappedMatcher;
+  }
+
+  return oldMatcher;
+});
+
+S2.define('select2/compat/query',[
+
+], function () {
+  function Query (decorated, $element, options) {
+    if (options.get('debug') && window.console && console.warn) {
+      console.warn(
+        'Select2: The `query` option has been deprecated in favor of a ' +
+        'custom data adapter that overrides the `query` method. Support ' +
+        'will be removed for the `query` option in future versions of ' +
+        'Select2.'
+      );
+    }
+
+    decorated.call(this, $element, options);
+  }
+
+  Query.prototype.query = function (_, params, callback) {
+    params.callback = callback;
+
+    var query = this.options.get('query');
+
+    query.call(null, params);
+  };
+
+  return Query;
+});
+
+S2.define('select2/dropdown/attachContainer',[
+
+], function () {
+  function AttachContainer (decorated, $element, options) {
+    decorated.call(this, $element, options);
+  }
+
+  AttachContainer.prototype.position =
+    function (decorated, $dropdown, $container) {
+    var $dropdownContainer = $container.find('.dropdown-wrapper');
+    $dropdownContainer.append($dropdown);
+
+    $dropdown.addClass('select2-dropdown--below');
+    $container.addClass('select2-container--below');
+  };
+
+  return AttachContainer;
+});
+
+S2.define('select2/dropdown/stopPropagation',[
+
+], function () {
+  function StopPropagation () { }
+
+  StopPropagation.prototype.bind = function (decorated, container, $container) {
+    decorated.call(this, container, $container);
+
+    var stoppedEvents = [
+    'blur',
+    'change',
+    'click',
+    'dblclick',
+    'focus',
+    'focusin',
+    'focusout',
+    'input',
+    'keydown',
+    'keyup',
+    'keypress',
+    'mousedown',
+    'mouseenter',
+    'mouseleave',
+    'mousemove',
+    'mouseover',
+    'mouseup',
+    'search',
+    'touchend',
+    'touchstart'
+    ];
+
+    this.$dropdown.on(stoppedEvents.join(' '), function (evt) {
+      evt.stopPropagation();
+    });
+  };
+
+  return StopPropagation;
+});
+
+S2.define('select2/selection/stopPropagation',[
+
+], function () {
+  function StopPropagation () { }
+
+  StopPropagation.prototype.bind = function (decorated, container, $container) {
+    decorated.call(this, container, $container);
+
+    var stoppedEvents = [
+      'blur',
+      'change',
+      'click',
+      'dblclick',
+      'focus',
+      'focusin',
+      'focusout',
+      'input',
+      'keydown',
+      'keyup',
+      'keypress',
+      'mousedown',
+      'mouseenter',
+      'mouseleave',
+      'mousemove',
+      'mouseover',
+      'mouseup',
+      'search',
+      'touchend',
+      'touchstart'
+    ];
+
+    this.$selection.on(stoppedEvents.join(' '), function (evt) {
+      evt.stopPropagation();
+    });
+  };
+
+  return StopPropagation;
+});
+
+/*!
+ * jQuery Mousewheel 3.1.13
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ */
+
+(function (factory) {
+    if ( typeof S2.define === 'function' && S2.define.amd ) {
+        // AMD. Register as an anonymous module.
+        S2.define('jquery-mousewheel',['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS style for Browserify
+        module.exports = factory;
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+
+    var toFix  = ['wheel', 'mousewheel', 'DOMMouseScroll', 'MozMousePixelScroll'],
+        toBind = ( 'onwheel' in document || document.documentMode >= 9 ) ?
+                    ['wheel'] : ['mousewheel', 'DomMouseScroll', 'MozMousePixelScroll'],
+        slice  = Array.prototype.slice,
+        nullLowestDeltaTimeout, lowestDelta;
+
+    if ( $.event.fixHooks ) {
+        for ( var i = toFix.length; i; ) {
+            $.event.fixHooks[ toFix[--i] ] = $.event.mouseHooks;
+        }
+    }
+
+    var special = $.event.special.mousewheel = {
+        version: '3.1.12',
+
+        setup: function() {
+            if ( this.addEventListener ) {
+                for ( var i = toBind.length; i; ) {
+                    this.addEventListener( toBind[--i], handler, false );
+                }
+            } else {
+                this.onmousewheel = handler;
+            }
+            // Store the line height and page height for this particular element
+            $.data(this, 'mousewheel-line-height', special.getLineHeight(this));
+            $.data(this, 'mousewheel-page-height', special.getPageHeight(this));
+        },
+
+        teardown: function() {
+            if ( this.removeEventListener ) {
+                for ( var i = toBind.length; i; ) {
+                    this.removeEventListener( toBind[--i], handler, false );
+                }
+            } else {
+                this.onmousewheel = null;
+            }
+            // Clean up the data we added to the element
+            $.removeData(this, 'mousewheel-line-height');
+            $.removeData(this, 'mousewheel-page-height');
+        },
+
+        getLineHeight: function(elem) {
+            var $elem = $(elem),
+                $parent = $elem['offsetParent' in $.fn ? 'offsetParent' : 'parent']();
+            if (!$parent.length) {
+                $parent = $('body');
+            }
+            return parseInt($parent.css('fontSize'), 10) || parseInt($elem.css('fontSize'), 10) || 16;
+        },
+
+        getPageHeight: function(elem) {
+            return $(elem).height();
+        },
+
+        settings: {
+            adjustOldDeltas: true, // see shouldAdjustOldDeltas() below
+            normalizeOffset: true  // calls getBoundingClientRect for each event
+        }
+    };
+
+    $.fn.extend({
+        mousewheel: function(fn) {
+            return fn ? this.bind('mousewheel', fn) : this.trigger('mousewheel');
+        },
+
+        unmousewheel: function(fn) {
+            return this.unbind('mousewheel', fn);
+        }
+    });
+
+
+    function handler(event) {
+        var orgEvent   = event || window.event,
+            args       = slice.call(arguments, 1),
+            delta      = 0,
+            deltaX     = 0,
+            deltaY     = 0,
+            absDelta   = 0,
+            offsetX    = 0,
+            offsetY    = 0;
+        event = $.event.fix(orgEvent);
+        event.type = 'mousewheel';
+
+        // Old school scrollwheel delta
+        if ( 'detail'      in orgEvent ) { deltaY = orgEvent.detail * -1;      }
+        if ( 'wheelDelta'  in orgEvent ) { deltaY = orgEvent.wheelDelta;       }
+        if ( 'wheelDeltaY' in orgEvent ) { deltaY = orgEvent.wheelDeltaY;      }
+        if ( 'wheelDeltaX' in orgEvent ) { deltaX = orgEvent.wheelDeltaX * -1; }
+
+        // Firefox < 17 horizontal scrolling related to DOMMouseScroll event
+        if ( 'axis' in orgEvent && orgEvent.axis === orgEvent.HORIZONTAL_AXIS ) {
+            deltaX = deltaY * -1;
+            deltaY = 0;
+        }
+
+        // Set delta to be deltaY or deltaX if deltaY is 0 for backwards compatabilitiy
+        delta = deltaY === 0 ? deltaX : deltaY;
+
+        // New school wheel delta (wheel event)
+        if ( 'deltaY' in orgEvent ) {
+            deltaY = orgEvent.deltaY * -1;
+            delta  = deltaY;
+        }
+        if ( 'deltaX' in orgEvent ) {
+            deltaX = orgEvent.deltaX;
+            if ( deltaY === 0 ) { delta  = deltaX * -1; }
+        }
+
+        // No change actually happened, no reason to go any further
+        if ( deltaY === 0 && deltaX === 0 ) { return; }
+
+        // Need to convert lines and pages to pixels if we aren't already in pixels
+        // There are three delta modes:
+        //   * deltaMode 0 is by pixels, nothing to do
+        //   * deltaMode 1 is by lines
+        //   * deltaMode 2 is by pages
+        if ( orgEvent.deltaMode === 1 ) {
+            var lineHeight = $.data(this, 'mousewheel-line-height');
+            delta  *= lineHeight;
+            deltaY *= lineHeight;
+            deltaX *= lineHeight;
+        } else if ( orgEvent.deltaMode === 2 ) {
+            var pageHeight = $.data(this, 'mousewheel-page-height');
+            delta  *= pageHeight;
+            deltaY *= pageHeight;
+            deltaX *= pageHeight;
+        }
+
+        // Store lowest absolute delta to normalize the delta values
+        absDelta = Math.max( Math.abs(deltaY), Math.abs(deltaX) );
+
+        if ( !lowestDelta || absDelta < lowestDelta ) {
+            lowestDelta = absDelta;
+
+            // Adjust older deltas if necessary
+            if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+                lowestDelta /= 40;
+            }
+        }
+
+        // Adjust older deltas if necessary
+        if ( shouldAdjustOldDeltas(orgEvent, absDelta) ) {
+            // Divide all the things by 40!
+            delta  /= 40;
+            deltaX /= 40;
+            deltaY /= 40;
+        }
+
+        // Get a whole, normalized value for the deltas
+        delta  = Math[ delta  >= 1 ? 'floor' : 'ceil' ](delta  / lowestDelta);
+        deltaX = Math[ deltaX >= 1 ? 'floor' : 'ceil' ](deltaX / lowestDelta);
+        deltaY = Math[ deltaY >= 1 ? 'floor' : 'ceil' ](deltaY / lowestDelta);
+
+        // Normalise offsetX and offsetY properties
+        if ( special.settings.normalizeOffset && this.getBoundingClientRect ) {
+            var boundingRect = this.getBoundingClientRect();
+            offsetX = event.clientX - boundingRect.left;
+            offsetY = event.clientY - boundingRect.top;
+        }
+
+        // Add information to the event object
+        event.deltaX = deltaX;
+        event.deltaY = deltaY;
+        event.deltaFactor = lowestDelta;
+        event.offsetX = offsetX;
+        event.offsetY = offsetY;
+        // Go ahead and set deltaMode to 0 since we converted to pixels
+        // Although this is a little odd since we overwrite the deltaX/Y
+        // properties with normalized deltas.
+        event.deltaMode = 0;
+
+        // Add event and delta to the front of the arguments
+        args.unshift(event, delta, deltaX, deltaY);
+
+        // Clearout lowestDelta after sometime to better
+        // handle multiple device types that give different
+        // a different lowestDelta
+        // Ex: trackpad = 3 and mouse wheel = 120
+        if (nullLowestDeltaTimeout) { clearTimeout(nullLowestDeltaTimeout); }
+        nullLowestDeltaTimeout = setTimeout(nullLowestDelta, 200);
+
+        return ($.event.dispatch || $.event.handle).apply(this, args);
+    }
+
+    function nullLowestDelta() {
+        lowestDelta = null;
+    }
+
+    function shouldAdjustOldDeltas(orgEvent, absDelta) {
+        // If this is an older event and the delta is divisable by 120,
+        // then we are assuming that the browser is treating this as an
+        // older mouse wheel event and that we should divide the deltas
+        // by 40 to try and get a more usable deltaFactor.
+        // Side note, this actually impacts the reported scroll distance
+        // in older browsers and can cause scrolling to be slower than native.
+        // Turn this off by setting $.event.special.mousewheel.settings.adjustOldDeltas to false.
+        return special.settings.adjustOldDeltas && orgEvent.type === 'mousewheel' && absDelta % 120 === 0;
+    }
+
+}));
 
 S2.define('jquery.select2',[
   'jquery',
@@ -34127,46 +34991,46 @@ S2.define('jquery.select2',[
 /* global define */
 
 ; (function (factory) {
-    'use strict'
-    if (typeof define === 'function' && define.amd) {
-        define(['jquery', './blueimp-gallery'], factory)
+    "use strict";
+    if (typeof define === "function" && define.amd) {
+        define(["jquery", "./blueimp-gallery"], factory);
     } else {
-        factory(window.jQuery, window.blueimp.Gallery)
+        factory(window.jQuery, window.blueimp.Gallery);
     }
 })(function ($, Gallery) {
-    'use strict'
+    "use strict";
 
     // Global click handler to open links with data-gallery attribute
     // in the Gallery lightbox:
-    $(document).on('click', '[data-gallery]', function (event) {
+    $(document).on("click", "[data-gallery]", function (event) {
         // Get the container id from the data-gallery attribute:
-        var id = $(this).data('gallery')
-        var widget = $(id)
+        var id = $(this).data("gallery");
+        var widget = $(id);
         var container =
-            (widget.length && widget) || $(Gallery.prototype.options.container)
+            (widget.length && widget) || $(Gallery.prototype.options.container);
         var callbacks = {
             onopen: function () {
-                container.data('gallery', this).trigger('open')
+                container.data("gallery", this).trigger("open");
             },
             onopened: function () {
-                container.trigger('opened')
+                container.trigger("opened");
             },
             onslide: function () {
-                container.trigger('slide', arguments)
+                container.trigger("slide", arguments);
             },
             onslideend: function () {
-                container.trigger('slideend', arguments)
+                container.trigger("slideend", arguments);
             },
             onslidecomplete: function () {
-                container.trigger('slidecomplete', arguments)
+                container.trigger("slidecomplete", arguments);
             },
             onclose: function () {
-                container.trigger('close')
+                container.trigger("close");
             },
             onclosed: function () {
-                container.trigger('closed').removeData('gallery')
+                container.trigger("closed").removeData("gallery");
             }
-        }
+        };
         var options = $.extend(
             // Retrieve custom options from data-attributes
             // on the Gallery widget:
@@ -34177,17 +35041,17 @@ S2.define('jquery.select2',[
                 event: event
             },
             callbacks
-        )
+        );
         // Select all links with the same data-gallery attribute:
         var links = $(this)
-            .closest('[data-gallery-group], body')
-            .find('[data-gallery="' + id + '"]')
+            .closest("[data-gallery-group], body")
+            .find('[data-gallery="' + id + '"]');
         if (options.filter) {
-            links = links.filter(options.filter)
+            links = links.filter(options.filter);
         }
-        return new Gallery(links, options)
-    })
-})
+        return new Gallery(links, options);
+    });
+});
 
 /*
  * Bootstrap Image Gallery
