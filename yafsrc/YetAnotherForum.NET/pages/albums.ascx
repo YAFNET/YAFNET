@@ -1,8 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Albums" Codebehind="albums.ascx.cs" %>
-<%@ Import Namespace="YAF" %>
-<%@ Import Namespace="YAF.Classes" %>
-<%@ Import Namespace="YAF.Configuration" %>
-<%@ Import Namespace="YAF.Web.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="AlbumList" Src="../controls/AlbumList.ascx" %>
 
 

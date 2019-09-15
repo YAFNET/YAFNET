@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class ExtensionsEdit {
         
-
         /// <summary>
         /// Title control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel Title;
+        protected global::YAF.Web.Controls.LocalizedLabel Title;
         
-
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel2;
         
-
         /// <summary>
         /// extension control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox extension;
+        protected global::System.Web.UI.WebControls.TextBox extension;
         
-
         /// <summary>
         /// Save control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
         
-
         /// <summary>
         /// Cancel control.
         /// </summary>
@@ -62,6 +55,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

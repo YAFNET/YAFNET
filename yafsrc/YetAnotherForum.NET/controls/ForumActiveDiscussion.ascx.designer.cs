@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class ForumActiveDiscussion {
         
-
         /// <summary>
         /// UpdateStatsPanel control.
         /// </summary>
@@ -23,9 +19,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected UpdatePanel UpdateStatsPanel;
+        protected global::System.Web.UI.UpdatePanel UpdateStatsPanel;
         
-
         /// <summary>
         /// ActiveDiscussionPlaceHolder control.
         /// </summary>
@@ -33,9 +28,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder ActiveDiscussionPlaceHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder ActiveDiscussionPlaceHolder;
         
-
         /// <summary>
         /// ActiveDiscussionHeader control.
         /// </summary>
@@ -43,9 +37,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel ActiveDiscussionHeader;
+        protected global::YAF.Web.Controls.LocalizedLabel ActiveDiscussionHeader;
         
-
         /// <summary>
         /// LatestPosts control.
         /// </summary>
@@ -53,9 +46,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater LatestPosts;
+        protected global::System.Web.UI.WebControls.Repeater LatestPosts;
         
-
         /// <summary>
         /// Footer control.
         /// </summary>
@@ -63,9 +55,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Panel Footer;
+        protected global::System.Web.UI.WebControls.Panel Footer;
         
-
         /// <summary>
         /// RssFeed control.
         /// </summary>
@@ -73,6 +64,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RssFeedLink RssFeed;
+        protected global::YAF.Web.Controls.RssFeedLink RssFeed;
     }
 }

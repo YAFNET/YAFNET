@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.HtmlControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class SpamWordsImport {
         
-
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel2;
         
-
         /// <summary>
         /// importFile control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HtmlInputFile importFile;
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile importFile;
         
-
         /// <summary>
         /// Import control.
         /// </summary>
@@ -52,6 +46,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Import;
+        protected global::YAF.Web.Controls.ThemeButton Import;
     }
 }

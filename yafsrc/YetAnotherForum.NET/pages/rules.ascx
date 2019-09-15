@@ -1,8 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.rules" Codebehind="rules.ascx.cs" %>
-<%@ Import Namespace="YAF" %>
-<%@ Import Namespace="YAF.Classes" %>
-<%@ Import Namespace="YAF.Configuration" %>
-<%@ Import Namespace="YAF.Web.Controls" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="row">

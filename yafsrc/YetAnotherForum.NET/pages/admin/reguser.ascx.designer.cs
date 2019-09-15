@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class reguser {
         
-
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// LocalizedLabel14 control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel14;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel14;
         
-
         /// <summary>
         /// LocalizedLabel5 control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
         
-
         /// <summary>
         /// UserName control.
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox UserName;
+        protected global::System.Web.UI.WebControls.TextBox UserName;
         
-
         /// <summary>
         /// Requiredfieldvalidator1 control.
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RequiredFieldValidator Requiredfieldvalidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator1;
         
-
         /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
         
-
         /// <summary>
         /// Email control.
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Email;
+        protected global::System.Web.UI.WebControls.TextBox Email;
         
-
         /// <summary>
         /// Requiredfieldvalidator5 control.
         /// </summary>
@@ -102,9 +91,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RequiredFieldValidator Requiredfieldvalidator5;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator5;
         
-
         /// <summary>
         /// LocalizedLabel7 control.
         /// </summary>
@@ -112,9 +100,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel7;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
         
-
         /// <summary>
         /// Password control.
         /// </summary>
@@ -122,9 +109,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Password;
+        protected global::System.Web.UI.WebControls.TextBox Password;
         
-
         /// <summary>
         /// Requiredfieldvalidator2 control.
         /// </summary>
@@ -132,9 +118,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RequiredFieldValidator Requiredfieldvalidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator2;
         
-
         /// <summary>
         /// LocalizedLabel8 control.
         /// </summary>
@@ -142,9 +127,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel8;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel8;
         
-
         /// <summary>
         /// Password2 control.
         /// </summary>
@@ -152,9 +136,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Password2;
+        protected global::System.Web.UI.WebControls.TextBox Password2;
         
-
         /// <summary>
         /// Comparevalidator1 control.
         /// </summary>
@@ -162,9 +145,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CompareValidator Comparevalidator1;
+        protected global::System.Web.UI.WebControls.CompareValidator Comparevalidator1;
         
-
         /// <summary>
         /// LocalizedLabel9 control.
         /// </summary>
@@ -172,9 +154,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel9;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel9;
         
-
         /// <summary>
         /// Question control.
         /// </summary>
@@ -182,9 +163,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Question;
+        protected global::System.Web.UI.WebControls.TextBox Question;
         
-
         /// <summary>
         /// Requiredfieldvalidator3 control.
         /// </summary>
@@ -192,9 +172,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RequiredFieldValidator Requiredfieldvalidator3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator3;
         
-
         /// <summary>
         /// LocalizedLabel10 control.
         /// </summary>
@@ -202,9 +181,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel10;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel10;
         
-
         /// <summary>
         /// Answer control.
         /// </summary>
@@ -212,9 +190,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Answer;
+        protected global::System.Web.UI.WebControls.TextBox Answer;
         
-
         /// <summary>
         /// Requiredfieldvalidator4 control.
         /// </summary>
@@ -222,9 +199,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RequiredFieldValidator Requiredfieldvalidator4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator4;
         
-
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -232,9 +208,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// LocalizedLabel11 control.
         /// </summary>
@@ -242,9 +217,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel11;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel11;
         
-
         /// <summary>
         /// Location control.
         /// </summary>
@@ -252,9 +226,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Location;
+        protected global::System.Web.UI.WebControls.TextBox Location;
         
-
         /// <summary>
         /// LocalizedLabel12 control.
         /// </summary>
@@ -262,9 +235,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel12;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
         
-
         /// <summary>
         /// HomePage control.
         /// </summary>
@@ -272,9 +244,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox HomePage;
+        protected global::System.Web.UI.WebControls.TextBox HomePage;
         
-
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -282,9 +253,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
         
-
         /// <summary>
         /// LocalizedLabel13 control.
         /// </summary>
@@ -292,9 +262,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel13;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel13;
         
-
         /// <summary>
         /// TimeZones control.
         /// </summary>
@@ -302,9 +271,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList TimeZones;
+        protected global::System.Web.UI.WebControls.DropDownList TimeZones;
         
-
         /// <summary>
         /// ForumRegister control.
         /// </summary>
@@ -312,9 +280,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton ForumRegister;
+        protected global::YAF.Web.Controls.ThemeButton ForumRegister;
         
-
         /// <summary>
         /// cancel control.
         /// </summary>
@@ -322,6 +289,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton cancel;
+        protected global::YAF.Web.Controls.ThemeButton cancel;
     }
 }

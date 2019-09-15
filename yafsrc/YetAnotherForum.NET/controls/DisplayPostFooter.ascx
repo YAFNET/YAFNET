@@ -1,9 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.DisplayPostFooter" Codebehind="DisplayPostFooter.ascx.cs" %>
-<%@ Import Namespace="YAF" %>
-<%@ Import Namespace="YAF.Classes" %>
-<%@ Import Namespace="YAF.Configuration" %>
-<%@ Import Namespace="YAF.Web.Controls" %>
 
 <YAF:ThemeButton ID="ReportPost" runat="server"
                  Visible="false"

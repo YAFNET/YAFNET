@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class BannedIpEdit {
         
-
         /// <summary>
         /// Title control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel Title;
+        protected global::YAF.Web.Controls.LocalizedLabel Title;
         
-
         /// <summary>
         /// HelpLabel1 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel1;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
         
-
         /// <summary>
         /// mask control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox mask;
+        protected global::System.Web.UI.WebControls.TextBox mask;
         
-
         /// <summary>
         /// HelpLabel2 control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel2;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
         
-
         /// <summary>
         /// BanReason control.
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox BanReason;
+        protected global::System.Web.UI.WebControls.TextBox BanReason;
         
-
         /// <summary>
         /// Save control.
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
         
-
         /// <summary>
         /// Cancel control.
         /// </summary>
@@ -82,6 +73,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

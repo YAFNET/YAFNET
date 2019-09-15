@@ -1,16 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumActiveDiscussion"
     CodeBehind="ForumActiveDiscussion.ascx.cs" %>
-<%@ Import Namespace="System.Web.DynamicData" %>
-<%@ Import Namespace="System.Web.UI" %>
-<%@ Import Namespace="System.Web.UI.HtmlControls" %>
-<%@ Import Namespace="System.Web.UI.WebControls" %>
-<%@ Import Namespace="System.Web.UI.WebControls" %>
-<%@ Import Namespace="System.Web.UI.WebControls.Expressions" %>
-<%@ Import Namespace="System.Web.UI.WebControls.WebParts" %>
-<%@ Import Namespace="YAF" %>
-<%@ Import Namespace="YAF.Classes" %>
-<%@ Import Namespace="YAF.Configuration" %>
-<%@ Import Namespace="YAF.Web.Controls" %>
 
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>

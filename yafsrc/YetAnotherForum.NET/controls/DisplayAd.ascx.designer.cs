@@ -8,11 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using YAF.Web.Controls;
-
+    
+    
     public partial class DisplayAd {
         
-
         /// <summary>
         /// SponserName control.
         /// </summary>
@@ -20,9 +19,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel SponserName;
+        protected global::YAF.Web.Controls.LocalizedLabel SponserName;
         
-
         /// <summary>
         /// AdMessage control.
         /// </summary>
@@ -30,6 +28,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected MessagePost AdMessage;
+        protected global::YAF.Web.Controls.MessagePost AdMessage;
     }
 }

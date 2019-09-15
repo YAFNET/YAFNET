@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class NntpForumEdit {
         
-
         /// <summary>
         /// Title control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel Title;
+        protected global::YAF.Web.Controls.LocalizedLabel Title;
         
-
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel2;
         
-
         /// <summary>
         /// NntpServerID control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList NntpServerID;
+        protected global::System.Web.UI.WebControls.DropDownList NntpServerID;
         
-
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel3;
         
-
         /// <summary>
         /// GroupName control.
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox GroupName;
+        protected global::System.Web.UI.WebControls.TextBox GroupName;
         
-
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel4;
         
-
         /// <summary>
         /// ForumID control.
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList ForumID;
+        protected global::System.Web.UI.WebControls.DropDownList ForumID;
         
-
         /// <summary>
         /// HelpLabel10 control.
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel10;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel10;
         
-
         /// <summary>
         /// DateCutOff control.
         /// </summary>
@@ -102,9 +91,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox DateCutOff;
+        protected global::System.Web.UI.WebControls.TextBox DateCutOff;
         
-
         /// <summary>
         /// LocalizedLabel5 control.
         /// </summary>
@@ -112,9 +100,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel5;
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel5;
         
-
         /// <summary>
         /// Active control.
         /// </summary>
@@ -122,9 +109,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox Active;
+        protected global::System.Web.UI.WebControls.CheckBox Active;
         
-
         /// <summary>
         /// Save control.
         /// </summary>
@@ -132,9 +118,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
         
-
         /// <summary>
         /// Cancel control.
         /// </summary>
@@ -142,6 +127,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

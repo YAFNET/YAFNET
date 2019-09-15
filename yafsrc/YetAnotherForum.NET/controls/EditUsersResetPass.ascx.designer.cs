@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class EditUsersResetPass {
         
-
         /// <summary>
         /// PasswordUpdatePanel control.
         /// </summary>
@@ -23,9 +19,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected UpdatePanel PasswordUpdatePanel;
+        protected global::System.Web.UI.UpdatePanel PasswordUpdatePanel;
         
-
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -33,9 +28,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// PasswordResetErrorHolder control.
         /// </summary>
@@ -43,9 +37,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder PasswordResetErrorHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder PasswordResetErrorHolder;
         
-
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -53,9 +46,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
         
-
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -63,9 +55,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// rblPasswordResetFunction control.
         /// </summary>
@@ -73,9 +64,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RadioButtonList rblPasswordResetFunction;
+        protected global::System.Web.UI.WebControls.RadioButtonList rblPasswordResetFunction;
         
-
         /// <summary>
         /// ChangePasswordHolder control.
         /// </summary>
@@ -83,9 +73,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder ChangePasswordHolder;
+        protected global::System.Web.UI.WebControls.PlaceHolder ChangePasswordHolder;
         
-
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -93,9 +82,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
         
-
         /// <summary>
         /// LocalizedLabel5 control.
         /// </summary>
@@ -103,9 +91,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
         
-
         /// <summary>
         /// lblPassRequirements control.
         /// </summary>
@@ -113,9 +100,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label lblPassRequirements;
+        protected global::System.Web.UI.WebControls.Label lblPassRequirements;
         
-
         /// <summary>
         /// HelpLabel1 control.
         /// </summary>
@@ -123,9 +109,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel1;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
         
-
         /// <summary>
         /// Summary1 control.
         /// </summary>
@@ -133,9 +118,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ValidationSummary Summary1;
+        protected global::System.Web.UI.WebControls.ValidationSummary Summary1;
         
-
         /// <summary>
         /// txtNewPassword control.
         /// </summary>
@@ -143,9 +127,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox txtNewPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
         
-
         /// <summary>
         /// PasswordValidator control.
         /// </summary>
@@ -153,9 +136,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RequiredFieldValidator PasswordValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator PasswordValidator;
         
-
         /// <summary>
         /// HelpLabel2 control.
         /// </summary>
@@ -163,9 +145,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel2;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
         
-
         /// <summary>
         /// txtConfirmPassword control.
         /// </summary>
@@ -173,9 +154,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox txtConfirmPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
         
-
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
@@ -183,9 +163,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
-
         /// <summary>
         /// CompareValidator1 control.
         /// </summary>
@@ -193,9 +172,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CompareValidator CompareValidator1;
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
-
         /// <summary>
         /// HelpLabel3 control.
         /// </summary>
@@ -203,9 +181,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel3;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel3;
         
-
         /// <summary>
         /// chkEmailNotify control.
         /// </summary>
@@ -213,9 +190,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox chkEmailNotify;
+        protected global::System.Web.UI.WebControls.CheckBox chkEmailNotify;
         
-
         /// <summary>
         /// btnChangePassword control.
         /// </summary>
@@ -223,9 +199,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LinkButton btnChangePassword;
+        protected global::System.Web.UI.WebControls.LinkButton btnChangePassword;
         
-
         /// <summary>
         /// btnResetPassword control.
         /// </summary>
@@ -233,6 +208,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LinkButton btnResetPassword;
+        protected global::System.Web.UI.WebControls.LinkButton btnResetPassword;
     }
 }

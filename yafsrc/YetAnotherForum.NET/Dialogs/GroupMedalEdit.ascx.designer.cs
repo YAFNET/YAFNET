@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class GroupMedalEdit {
         
-
         /// <summary>
         /// GroupMedalEditTitle control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label GroupMedalEditTitle;
+        protected global::System.Web.UI.WebControls.Label GroupMedalEditTitle;
         
-
         /// <summary>
         /// HelpLabel14 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel14;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel14;
         
-
         /// <summary>
         /// AvailableGroupList control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList AvailableGroupList;
+        protected global::System.Web.UI.WebControls.DropDownList AvailableGroupList;
         
-
         /// <summary>
         /// HelpLabel15 control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel15;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel15;
         
-
         /// <summary>
         /// GroupMessage control.
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox GroupMessage;
+        protected global::System.Web.UI.WebControls.TextBox GroupMessage;
         
-
         /// <summary>
         /// HelpLabel16 control.
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel16;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel16;
         
-
         /// <summary>
         /// GroupSortOrder control.
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox GroupSortOrder;
+        protected global::System.Web.UI.WebControls.TextBox GroupSortOrder;
         
-
         /// <summary>
         /// HelpLabel17 control.
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel17;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel17;
         
-
         /// <summary>
         /// GroupOnlyRibbon control.
         /// </summary>
@@ -102,9 +91,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox GroupOnlyRibbon;
+        protected global::System.Web.UI.WebControls.CheckBox GroupOnlyRibbon;
         
-
         /// <summary>
         /// HelpLabel18 control.
         /// </summary>
@@ -112,9 +100,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel18;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel18;
         
-
         /// <summary>
         /// GroupHide control.
         /// </summary>
@@ -122,9 +109,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox GroupHide;
+        protected global::System.Web.UI.WebControls.CheckBox GroupHide;
         
-
         /// <summary>
         /// AddGroupSave control.
         /// </summary>
@@ -132,9 +118,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton AddGroupSave;
+        protected global::YAF.Web.Controls.ThemeButton AddGroupSave;
         
-
         /// <summary>
         /// Cancel control.
         /// </summary>
@@ -142,6 +127,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }

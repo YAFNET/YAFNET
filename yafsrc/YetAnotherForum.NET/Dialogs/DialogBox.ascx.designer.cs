@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Dialogs {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class DialogBox {
         
-
         /// <summary>
         /// YafForumPageErrorPopup control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Panel YafForumPageErrorPopup;
+        protected global::System.Web.UI.WebControls.Panel YafForumPageErrorPopup;
         
-
         /// <summary>
         /// Header control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label Header;
+        protected global::System.Web.UI.WebControls.Label Header;
         
-
         /// <summary>
         /// MessageText control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Literal MessageText;
+        protected global::System.Web.UI.WebControls.Literal MessageText;
         
-
         /// <summary>
         /// OkButton control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton OkButton;
+        protected global::YAF.Web.Controls.ThemeButton OkButton;
         
-
         /// <summary>
         /// CancelButton control.
         /// </summary>
@@ -62,6 +55,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton CancelButton;
+        protected global::YAF.Web.Controls.ThemeButton CancelButton;
     }
 }

@@ -1,9 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd"
     EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
-<%@ Import Namespace="YAF" %>
-<%@ Import Namespace="YAF.Classes" %>
-<%@ Import Namespace="YAF.Configuration" %>
-<%@ Import Namespace="YAF.Web.Controls" %>
 
 <div class="row">
     <div class="col-xl-12">

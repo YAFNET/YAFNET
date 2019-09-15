@@ -8,14 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class EditUsersSignature {
         
-
         /// <summary>
         /// trHeader control.
         /// </summary>
@@ -23,9 +19,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HtmlGenericControl trHeader;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl trHeader;
         
-
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -33,9 +28,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// PreviewLine control.
         /// </summary>
@@ -43,9 +37,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder PreviewLine;
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewLine;
         
-
         /// <summary>
         /// EditorLine control.
         /// </summary>
@@ -53,9 +46,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder EditorLine;
+        protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
         
-
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -63,9 +55,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
         
-
         /// <summary>
         /// TagsAllowedWarning control.
         /// </summary>
@@ -73,9 +64,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label TagsAllowedWarning;
+        protected global::System.Web.UI.WebControls.Label TagsAllowedWarning;
         
-
         /// <summary>
         /// preview control.
         /// </summary>
@@ -83,9 +73,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton preview;
+        protected global::YAF.Web.Controls.ThemeButton preview;
         
-
         /// <summary>
         /// save control.
         /// </summary>
@@ -93,9 +82,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton save;
+        protected global::YAF.Web.Controls.ThemeButton save;
         
-
         /// <summary>
         /// cancel control.
         /// </summary>
@@ -103,6 +91,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton cancel;
+        protected global::YAF.Web.Controls.ThemeButton cancel;
     }
 }

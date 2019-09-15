@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class EditUsersPoints {
         
-
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
         
-
         /// <summary>
         /// ltrCurrentPoints control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Literal ltrCurrentPoints;
+        protected global::System.Web.UI.WebControls.Literal ltrCurrentPoints;
         
-
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
         
-
         /// <summary>
         /// txtUserPoints control.
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox txtUserPoints;
+        protected global::System.Web.UI.WebControls.TextBox txtUserPoints;
         
-
         /// <summary>
         /// RangeValidator4 control.
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RangeValidator RangeValidator4;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator4;
         
-
         /// <summary>
         /// btnUserPoints control.
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton btnUserPoints;
+        protected global::YAF.Web.Controls.ThemeButton btnUserPoints;
         
-
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -92,9 +82,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
         
-
         /// <summary>
         /// txtAddPoints control.
         /// </summary>
@@ -102,9 +91,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox txtAddPoints;
+        protected global::System.Web.UI.WebControls.TextBox txtAddPoints;
         
-
         /// <summary>
         /// RangeValidator1 control.
         /// </summary>
@@ -112,9 +100,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RangeValidator RangeValidator1;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
         
-
         /// <summary>
         /// btnAddPoints control.
         /// </summary>
@@ -122,9 +109,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton btnAddPoints;
+        protected global::YAF.Web.Controls.ThemeButton btnAddPoints;
         
-
         /// <summary>
         /// LocalizedLabel5 control.
         /// </summary>
@@ -132,9 +118,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
         
-
         /// <summary>
         /// txtRemovePoints control.
         /// </summary>
@@ -142,9 +127,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox txtRemovePoints;
+        protected global::System.Web.UI.WebControls.TextBox txtRemovePoints;
         
-
         /// <summary>
         /// RangeValidator2 control.
         /// </summary>
@@ -152,9 +136,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RangeValidator RangeValidator2;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
         
-
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -162,6 +145,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Button1;
+        protected global::YAF.Web.Controls.ThemeButton Button1;
     }
 }

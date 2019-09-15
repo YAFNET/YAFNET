@@ -8,11 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Controls {
-    using YAF.Web.Controls;
-
+    
+    
     public partial class DisplayPostFooter {
         
-
         /// <summary>
         /// ReportPost control.
         /// </summary>
@@ -20,9 +19,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton ReportPost;
+        protected global::YAF.Web.Controls.ThemeButton ReportPost;
         
-
         /// <summary>
         /// MarkAsAnswer control.
         /// </summary>
@@ -30,6 +28,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton MarkAsAnswer;
+        protected global::YAF.Web.Controls.ThemeButton MarkAsAnswer;
     }
 }

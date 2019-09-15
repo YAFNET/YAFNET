@@ -8,12 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using YAF.Controls;
-    using YAF.Web.Controls;
-
+    
+    
     public partial class Album {
         
-
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -21,9 +19,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -31,9 +28,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
         
-
         /// <summary>
         /// AlbumImageList1 control.
         /// </summary>
@@ -41,9 +37,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected AlbumImageList AlbumImageList1;
+        protected global::YAF.Controls.AlbumImageList AlbumImageList1;
         
-
         /// <summary>
         /// Back control.
         /// </summary>
@@ -51,6 +46,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Back;
+        protected global::YAF.Web.Controls.ThemeButton Back;
     }
 }
