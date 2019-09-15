@@ -62,7 +62,7 @@ namespace YAF.Web.Editors
         #region Methods
 
         /// <summary>
-        /// The register tiny mce custom js.
+        /// Adds the TinyMCE java script
         /// </summary>
         protected override void RegisterTinyMceCustomJS()
         {

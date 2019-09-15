@@ -75,8 +75,13 @@ namespace YAF.Web.Editors
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
-                string
-                    .Format("var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\nfunction insertAttachment(id,url) {{\n{0}.FormatText('attach', id);\n}}\n", this.SafeID));
+                $@"var {this.SafeID}=new yafEditor('{this.SafeID}');
+                         function setStyle(style,option) {{
+                                  {this.SafeID}.FormatText(style,option);
+                         }}
+                         function insertAttachment(id,url) {{
+                                  {this.SafeID}.FormatText('attach', id);
+                         }}");
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use
@@ -91,7 +96,7 @@ namespace YAF.Web.Editors
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
-            this._textCtl.Attributes.Add("class", "basicBBCodeEditor form-control");
+            this.TextAreaControl.Attributes.Add("class", "basicBBCodeEditor form-control");
         }
 
         #endregion

@@ -45,16 +45,16 @@ namespace YAF.Web.Editors
         /// </summary>
         public override string Text
         {
-            get => this._textCtl.InnerText;
+            get => this.TextAreaControl.InnerText;
 
-            set => this._textCtl.InnerText = value;
+            set => this.TextAreaControl.InnerText = value;
         }
 
         /// <summary>
         ///   Gets SafeID.
         /// </summary>
         [NotNull]
-        protected new string SafeID => this._textCtl.ClientID.Replace("$", "_");
+        protected new string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
 
         #endregion
 
@@ -79,7 +79,6 @@ namespace YAF.Web.Editors
         }
 
         /// <summary>
-        /// // TODO : Move to CSS
         /// Adds Width and Height to the Editor
         /// </summary>
         /// <param name="e">The e.</param>
@@ -87,8 +86,8 @@ namespace YAF.Web.Editors
         {
             base.OnInit(e);
 
-            this._textCtl.Attributes.CssStyle.Add("width", "100%");
-            this._textCtl.Attributes.CssStyle.Add("height", "350px");
+            this.TextAreaControl.Attributes.CssStyle.Add("width", "100%");
+            this.TextAreaControl.Attributes.CssStyle.Add("height", "350px");
         }
 
         /// <summary>

@@ -38,16 +38,12 @@ namespace YAF.Web.Editors
     /// </summary>
     public class TextEditor : ForumEditor
     {
-        #region Constants and Fields
+        #region Properties
 
         /// <summary>
-        ///   The Html Text Area
+        ///   Gets or sets the Html Text Area
         /// </summary>
-        protected HtmlTextArea _textCtl;
-
-        #endregion
-
-        #region Properties
+        public HtmlTextArea TextAreaControl { get; set; }
 
         /// <summary>
         ///   Gets a value indicating whether Active.
@@ -70,9 +66,9 @@ namespace YAF.Web.Editors
         /// </summary>
         public override string Text
         {
-            get => this._textCtl.InnerText;
+            get => this.TextAreaControl.InnerText;
 
-            set => this._textCtl.InnerText = value;
+            set => this.TextAreaControl.InnerText = value;
         }
 
         /// <summary>
@@ -97,7 +93,7 @@ namespace YAF.Web.Editors
         ///   Gets the Safe ID.
         /// </summary>
         [NotNull]
-        protected string SafeID => this._textCtl.ClientID.Replace("$", "_");
+        protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
 
         #endregion
 
@@ -110,22 +106,20 @@ namespace YAF.Web.Editors
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            
         }
-        
 
         /// <summary>
-         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-         /// </summary>
-         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.PreRender += this.Editor_PreRender;
 
-            this._textCtl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
-            this._textCtl.Attributes.Add("class", "YafTextEditor form-control");
+            this.TextAreaControl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
+            this.TextAreaControl.Attributes.Add("class", "YafTextEditor form-control");
 
-            this.AddEditorControl(this._textCtl);
+            this.AddEditorControl(this.TextAreaControl);
 
             base.OnInit(e);
         }

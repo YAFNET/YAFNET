@@ -45,16 +45,16 @@ namespace YAF.Web.Editors
         /// </summary>
         public override string Text
         {
-            get => this._textCtl.InnerText;
+            get => this.TextAreaControl.InnerText;
 
-            set => this._textCtl.InnerText = value;
+            set => this.TextAreaControl.InnerText = value;
         }
 
         /// <summary>
         ///   Gets SafeID.
         /// </summary>
         [NotNull]
-        protected new string SafeID => this._textCtl.ClientID.Replace("$", "_");
+        protected new string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
 
         #endregion
 
@@ -73,7 +73,7 @@ namespace YAF.Web.Editors
                 "ckeditor-jQuery-Adapter",
                 "ckeditor/adapters/jquery.js");
 
-            this.RegisterSmilieyScript();
+            this.RegisterAttachScript();
 
             this.RegisterCKEditorCustomJS();
 
@@ -91,22 +91,24 @@ namespace YAF.Web.Editors
         {
             base.OnInit(e);
 
-            this._textCtl.Attributes.CssStyle.Add("width", "100%");
-            this._textCtl.Attributes.CssStyle.Add("height", "350px");
+            this.TextAreaControl.Attributes.CssStyle.Add("width", "100%");
+            this.TextAreaControl.Attributes.CssStyle.Add("height", "350px");
         }
 
         /// <summary>
-        /// The register smiley script.
+        /// Inserts the Attachment Script
         /// </summary>
-        protected virtual void RegisterSmilieyScript()
+        protected virtual void RegisterAttachScript()
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "insertsmiley",
-                $@"function insertAttachment(id,url) {{var ckEditor = CKEDITOR.instances.{this._textCtl.ClientID}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );}}");
+                $@"function insertAttachment(id,url) {{
+                                   var ckEditor = CKEDITOR.instances.{this.TextAreaControl.ClientID}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );
+                         }}");
         }
 
         /// <summary>
-        /// The register ckeditor custom js.
+        /// Register the custom CKEditor java script.
         /// </summary>
         protected abstract void RegisterCKEditorCustomJS();
 

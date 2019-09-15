@@ -163,7 +163,7 @@ namespace YAF.Web.Editors
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
-            this._textCtl.Attributes.Add("class", "BBCodeEditor form-control");
+            this.TextAreaControl.Attributes.Add("class", "BBCodeEditor form-control");
 
             // add PopMenu Albums to this mix...
             this.popMenuAlbums = new AlbumListPopMenu();
@@ -451,7 +451,7 @@ namespace YAF.Web.Editors
 
             writer.Write("</div>");
 
-            this._textCtl.RenderControl(writer);
+            this.TextAreaControl.RenderControl(writer);
         }
 
         /// <summary>

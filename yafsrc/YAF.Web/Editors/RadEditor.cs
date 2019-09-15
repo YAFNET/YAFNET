@@ -75,24 +75,24 @@ namespace YAF.Web.Editors
         {
             get
             {
-                if (!this._init)
+                if (!this.IsInitialized)
                 {
                     return string.Empty;
                 }
 
-                var propertyInfo = this._typEditor.GetProperty("Html");
-                return Convert.ToString(propertyInfo.GetValue(this._editor, null));
+                var propertyInfo = this.TypeEditor.GetProperty("Html");
+                return Convert.ToString(propertyInfo.GetValue(this.Editor, null));
             }
 
             set
             {
-                if (!this._init)
+                if (!this.IsInitialized)
                 {
                     return;
                 }
 
-                var propertyInfo = this._typEditor.GetProperty("Html");
-                propertyInfo.SetValue(this._editor, value, null);
+                var propertyInfo = this.TypeEditor.GetProperty("Html");
+                propertyInfo.SetValue(this.Editor, value, null);
             }
         }
 
@@ -111,42 +111,42 @@ namespace YAF.Web.Editors
         /// </param>
         protected virtual void Editor_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this._init || !this._editor.Visible)
+            if (!this.IsInitialized || !this.Editor.Visible)
             {
                 return;
             }
 
-            var pInfo = this._typEditor.GetProperty("ID");
-            pInfo.SetValue(this._editor, "edit", null);
-            pInfo = this._typEditor.GetProperty("Skin");
+            var propertyInfo = this.TypeEditor.GetProperty("ID");
+            propertyInfo.SetValue(this.Editor, "edit", null);
+            propertyInfo = this.TypeEditor.GetProperty("Skin");
 
-            pInfo.SetValue(this._editor, Config.RadEditorSkin, null);
-            pInfo = this._typEditor.GetProperty("Height");
+            propertyInfo.SetValue(this.Editor, Config.RadEditorSkin, null);
+            propertyInfo = this.TypeEditor.GetProperty("Height");
 
-            pInfo.SetValue(this._editor, Unit.Pixel(400), null);
-            pInfo = this._typEditor.GetProperty("Width");
+            propertyInfo.SetValue(this.Editor, Unit.Pixel(400), null);
+            propertyInfo = this.TypeEditor.GetProperty("Width");
 
-            pInfo.SetValue(this._editor, Unit.Percentage(100), null);
+            propertyInfo.SetValue(this.Editor, Unit.Percentage(100), null);
 
             if (Config.UseRadEditorToolsFile)
             {
-                pInfo = this._typEditor.GetProperty("ToolsFile");
-                pInfo.SetValue(this._editor, Config.RadEditorToolsFile, null);
+                propertyInfo = this.TypeEditor.GetProperty("ToolsFile");
+                propertyInfo.SetValue(this.Editor, Config.RadEditorToolsFile, null);
             }
 
             // Add Editor
-            this.AddEditorControl(this._editor);
+            this.AddEditorControl(this.Editor);
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
         /// <param name="e">
-        /// The e.
+        /// An <see cref="T:System.EventArgs"/> object that contains the event data.
         /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            if (!this._init)
+            if (!this.IsInitialized)
             {
                 return;
             }

@@ -29,9 +29,7 @@ namespace YAF.Web.Editors
     using System.Web.UI;
 
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -43,24 +41,9 @@ namespace YAF.Web.Editors
         #region Constants and Fields
 
         /// <summary>
-        ///   The _editor.
+        ///   The style sheet.
         /// </summary>
-        protected Control _editor;
-
-        /// <summary>
-        ///   The _init.
-        /// </summary>
-        protected bool _init;
-
-        /// <summary>
-        ///   The _style sheet.
-        /// </summary>
-        protected string _styleSheet;
-
-        /// <summary>
-        ///   The _typ editor.
-        /// </summary>
-        protected Type _typEditor;
+        private string styleSheet;
 
         #endregion
 
@@ -71,35 +54,37 @@ namespace YAF.Web.Editors
         /// </summary>
         protected RichClassEditor()
         {
-            this._init = false;
-            this._styleSheet = string.Empty;
-            this._editor = null;
-            this._typEditor = null;
+            this.IsInitialized = false;
+            this.styleSheet = string.Empty;
+            this.Editor = null;
+            this.TypeEditor = null;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RichClassEditor"/> class.
         /// </summary>
-        /// <param name="classBinStr">
-        /// The class bin str.
+        /// <param name="editorAssemblyName">
+        /// The editor Assembly Name.
         /// </param>
-        protected RichClassEditor([NotNull] string classBinStr)
+        protected RichClassEditor([NotNull] string editorAssemblyName)
         {
-            this._init = false;
-            this._styleSheet = string.Empty;
-            this._editor = null;
+            this.IsInitialized = false;
+            this.styleSheet = string.Empty;
+            this.Editor = null;
 
             try
             {
-                this._typEditor = Type.GetType(classBinStr, true);
+                this.TypeEditor = Type.GetType(editorAssemblyName, true);
             }
+#if DEBUG
             catch (Exception x)
             {
-#if DEBUG
-                throw new Exception($"Unable to load editor class/dll: {classBinStr} Exception: {x.Message}");
-#else
-				this.Get<ILogger>().Log(null, this.GetType().ToString(), x);
+             throw new Exception($"Unable to load editor class/dll: {classBinStr} Exception: {x.Message}");
+            }
 #endif
+            catch (Exception)
+            {
+                //
             }
         }
 
@@ -108,23 +93,33 @@ namespace YAF.Web.Editors
         #region Properties
 
         /// <summary>
+        /// Gets the editor.
+        /// </summary>
+        public Control Editor { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the type editor.
+        /// </summary>
+        public Type TypeEditor { get; set; }
+
+        /// <summary>
         ///   Gets a value indicating whether Active.
         /// </summary>
-        public override bool Active => this._typEditor != null;
+        public override bool Active => this.TypeEditor != null;
 
         /// <summary>
         ///   Gets a value indicating whether IsInitialized.
         /// </summary>
-        public bool IsInitialized => this._init;
+        public bool IsInitialized { get; private set; }
 
         /// <summary>
         ///   Gets or sets StyleSheet.
         /// </summary>
         public override string StyleSheet
         {
-            get => this._styleSheet;
+            get => this.styleSheet;
 
-            set => this._styleSheet = value;
+            set => this.styleSheet = value;
         }
 
         /// <summary>
@@ -137,31 +132,25 @@ namespace YAF.Web.Editors
         /// </summary>
         public override bool UsesHTML => true;
 
-        /// <summary>
-        ///   Gets SafeID.
-        /// </summary>
-        [NotNull]
-        protected virtual string SafeID => this._init ? this._editor.ClientID.Replace("$", "_") : string.Empty;
-
         #endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
-        /// The init editor object.
+        /// Initializes the Editor Control
         /// </summary>
         /// <returns>
-        /// The init editor object.
+        /// The <see cref="bool"/>.
         /// </returns>
         protected bool InitEditorObject()
         {
             try
             {
-                if (!this._init && this._typEditor != null)
+                if (!this.IsInitialized && this.TypeEditor != null)
                 {
                     // create instance of main class
-                    this._editor = (Control)Activator.CreateInstance(this._typEditor);
-                    this._init = true;
+                    this.Editor = (Control)Activator.CreateInstance(this.TypeEditor);
+                    this.IsInitialized = true;
                 }
             }
             catch (Exception)
@@ -173,6 +162,6 @@ namespace YAF.Web.Editors
             return true;
         }
 
-        #endregion
+#endregion
     }
 }
