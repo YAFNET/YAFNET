@@ -9,7 +9,6 @@ YetAnotherForum.NET Changelog
 * [NEW] Added Dropdown on the moderate page to move multiple topics
 * [NEW #375] indication in the menu if post needs moderation
 * [NEW #365] now you can archive pm's from the outbox
-* [NEW #323] allow attachments in private messages
 * [NEW #367] Added Badge Topic Starter Badge
 * [NEW #379] Mark Message as Answer
 * [NEW] Old GIF Emoticons have been replaced by Unicode Emoji
@@ -21,10 +20,20 @@ YetAnotherForum.NET Changelog
 * [NEW #256] automatically save message draft and also added save button
 * [NEW #286] Mentions of users via @Username
 * [NEW #287] Onsite Notification for Quoted Posts, Mentions and received Thanks
+* [NEW #457] Board Logo can be set in the Board Settings
 
 ## Fixed Issues:
 * Fixed Unicode Urls
 
+
+# YetAnotherForum.NET v2.2.4.20
+## Fixed Issues:
+* [FIXED] Exclude topics and forum page from noindex
+
+
+# YetAnotherForum.NET v2.2.4.19
+## Fixed Issues:
+* [FIXED] Attachments Upload on Private Message
 
 # YetAnotherForum.NET v2.2.4.18
 ## New Features:
