@@ -45,8 +45,11 @@ namespace YAF.Core.Model
     public static class UserRepositoryExtensions
     {
         /// <summary>
-        /// Checks if the User has replied tho the specifc topic.
+        /// Checks if the User has replied to the specific topic.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="messageId">
         /// The message id.
         /// </param>
@@ -69,6 +72,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The user_activity_rank.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -79,6 +85,7 @@ namespace YAF.Core.Model
         /// The display number.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ActivityRankAsDataTable(
             this IRepository<User> repository,
@@ -95,9 +102,18 @@ namespace YAF.Core.Model
         /// <summary>
         /// Add Reputation Points to the specified user id.
         /// </summary>
-        /// <param name="userID">The user ID.</param>
-        /// <param name="fromUserID">From user ID.</param>
-        /// <param name="points">The points.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userID">
+        /// The user ID.
+        /// </param>
+        /// <param name="fromUserID">
+        /// From user ID.
+        /// </param>
+        /// <param name="points">
+        /// The points.
+        /// </param>
         public static void AddPoints(
             this IRepository<User> repository,
             [NotNull] int userID,
@@ -112,11 +128,20 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Remove Repuatation Points from the specified user id.
+        /// Remove Reputation Points from the specified user id.
         /// </summary>
-        /// <param name="userID">The user ID.</param>
-        /// <param name="fromUserID">From user ID.</param>
-        /// <param name="points">The points.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userID">
+        /// The user ID.
+        /// </param>
+        /// <param name="fromUserID">
+        /// From user ID.
+        /// </param>
+        /// <param name="points">
+        /// The points.
+        /// </param>
         public static void RemovePoints(
             this IRepository<User> repository,
             [NotNull] int userID,
@@ -129,8 +154,6 @@ namespace YAF.Core.Model
                 UTCTIMESTAMP: DateTime.UtcNow,
                 Points: points);
         }
-
-
 
         /// <summary>
         /// Update the Admin User
@@ -183,8 +206,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_approve.
+        /// Approves the User
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -194,8 +220,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_approveall.
+        /// Approves all unapproved users
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -207,6 +236,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The user_aspnet.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -226,7 +258,7 @@ namespace YAF.Core.Model
         /// The is approved.
         /// </param>
         /// <returns>
-        /// The user_aspnet.
+        /// The <see cref="int"/>.
         /// </returns>
         public static int Aspnet(
             this IRepository<User> repository,
@@ -255,8 +287,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_delete.
+        /// Delete the User
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -266,8 +301,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_deleteavatar.
+        /// Remove User Avatar
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userId">
         /// The user id.
         /// </param>
@@ -279,8 +317,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_deleteold.
+        /// Deletes all unapproved users older than x days
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -295,6 +336,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The user_emails.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -302,6 +346,7 @@ namespace YAF.Core.Model
         /// The group id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable EmailsAsDataTable(
             this IRepository<User> repository,
@@ -312,8 +357,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_get.
+        /// Gets the user id from the Provider User Key
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -321,7 +369,7 @@ namespace YAF.Core.Model
         /// The provider user key.
         /// </param>
         /// <returns>
-        /// The user_get.
+        /// Returns the User Id
         /// </returns>
         public static int GetUserId(this IRepository<User> repository, int boardID, [NotNull] string providerUserKey)
         {
@@ -333,24 +381,32 @@ namespace YAF.Core.Model
         /// <summary>
         /// Returns data about albums: allowed number of images and albums
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The userID
         /// </param>
         /// <param name="boardID">
         /// The boardID
         /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable AlbumsDataAsDataTable(
             this IRepository<User> repository,
             [NotNull] int userID,
             [NotNull] int boardID)
         {
-            return repository.DbFunction.GetData.user_getalbumsdata(BoardID: boardID,
-                UserID: userID);
+            return repository.DbFunction.GetData.user_getalbumsdata(BoardID: boardID, UserID: userID);
         }
 
         /// <summary>
         /// Returns data about allowed signature tags and character limits
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The userID
         /// </param>
@@ -369,13 +425,16 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_guest.
+        /// Gets the Guest User Id
         /// </summary>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <returns>
-        /// The user_guest.
+        /// Returns the Guest User Id
         /// </returns>
         public static int? GetGuestUserId(this IRepository<User> repository, [NotNull] int boardId)
         {
@@ -385,20 +444,20 @@ namespace YAF.Core.Model
         /// <summary>
         /// To return a rather rarely updated active user data
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The UserID. It is always should have a positive &gt; 0 value.
         /// </param>
         /// <param name="boardID">
         /// The board ID.
         /// </param>
-        /// <param name="showPendingMails">
-        /// The show Pending Mails.
-        /// </param>
         /// <param name="showPendingBuddies">
         /// The show Pending Buddies.
         /// </param>
         /// <param name="showUnreadPMs">
-        /// The show Unread P Ms.
+        /// The show Unread PMs.
         /// </param>
         /// <param name="showUserAlbums">
         /// The show User Albums.
@@ -406,7 +465,6 @@ namespace YAF.Core.Model
         /// <param name="styledNicks">
         /// If styles should be returned.
         /// </param>
-        /// <exception cref="ApplicationException"></exception>
         /// <returns>
         /// A DataRow, it should never return a null value.
         /// </returns>
@@ -441,9 +499,7 @@ namespace YAF.Core.Model
                     }
                     else
                     {
-                        throw new ApplicationException(
-                            $"Sql Exception with error number {x.Number} (Tries={tries}",
-                            x);
+                        throw new ApplicationException($"Sql Exception with error number {x.Number} (Tries={tries}", x);
                     }
                 }
 
@@ -452,8 +508,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_list.
+        /// Gets the User List
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -464,6 +523,7 @@ namespace YAF.Core.Model
         /// The approved.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListAsDataTable(
             this IRepository<User> repository,
@@ -477,6 +537,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The user_list.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -496,6 +559,7 @@ namespace YAF.Core.Model
         /// Return style info.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListAsDataTable(
             this IRepository<User> repository,
@@ -519,6 +583,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// The user_list20members.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -577,6 +644,7 @@ namespace YAF.Core.Model
         /// The num Post Compare.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable ListMembersAsDataTable(
             this IRepository<User> repository,
@@ -600,7 +668,8 @@ namespace YAF.Core.Model
             [NotNull] int numPosts,
             [NotNull] int numPostCompare)
         {
-            return repository.DbFunction.GetData.user_listmembers(BoardID: boardId,
+            return repository.DbFunction.GetData.user_listmembers(
+                BoardID: boardId,
                 UserID: userId,
                 Approved: approved,
                 GroupID: groupId,
@@ -621,8 +690,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_migrate.
+        /// Migrate Users
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -773,8 +845,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_saveavatar.
+        /// Save the User Avatar
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -806,23 +881,13 @@ namespace YAF.Core.Model
                 }
 
                 repository.UpdateOnly(
-                    () => new User
-                              {
-                                  Avatar = avatarUrl,
-                                  AvatarImage = data,
-                                  AvatarImageType = avatarImageType
-                              },
+                    () => new User { Avatar = avatarUrl, AvatarImage = data, AvatarImageType = avatarImageType },
                     u => u.ID == userID);
             }
             else
             {
                 repository.UpdateOnly(
-                    () => new User
-                              {
-                                  Avatar = avatarUrl,
-                                  AvatarImage = null,
-                                  AvatarImageType = null
-                              },
+                    () => new User { Avatar = avatarUrl, AvatarImage = null, AvatarImageType = null },
                     u => u.ID == userID);
             }
         }
@@ -830,6 +895,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// Saves the notification type for a user
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>
@@ -862,8 +930,11 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The user_setrole.
+        /// Sets the user roles
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -882,6 +953,21 @@ namespace YAF.Core.Model
             repository.DbFunction.Scalar.user_setrole(BoardID: boardID, ProviderUserKey: providerUserKey, Role: role);
         }
 
+        /// <summary>
+        /// The simple list as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="startId">
+        /// The start id.
+        /// </param>
+        /// <param name="limit">
+        /// The limit.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable SimpleListAsDataTable(
             this IRepository<User> repository,
             [CanBeNull] int startId = 0,
@@ -895,6 +981,9 @@ namespace YAF.Core.Model
         /// <summary>
         /// Get the user list as a typed list.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="boardID">
         /// The board id.
         /// </param>
@@ -914,6 +1003,7 @@ namespace YAF.Core.Model
         /// The use styled nicks.
         /// </param>
         /// <returns>
+        /// The <see cref="IEnumerable"/>.
         /// </returns>
         [NotNull]
         public static IEnumerable<TypedUserList> UserList(
@@ -1126,9 +1216,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateOnly(
-                () => new User { BlockFlags = flags },
-                u => u.ID == userId);
+            repository.UpdateOnly(() => new User { BlockFlags = flags }, u => u.ID == userId);
         }
     }
 }

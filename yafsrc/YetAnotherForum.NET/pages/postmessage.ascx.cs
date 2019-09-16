@@ -580,7 +580,7 @@ namespace YAF.Pages
                                         .Where(m => m.MessageID == item.MessageID))
                                 .SelectMany(quotedMessage => quotedMessage).ForEach(
                                     this.InitQuotedReply);
-                            
+
                             // Clear Multi-quotes
                             this.Get<IYafSession>().MultiQuoteIds = null;
                         }
@@ -1090,18 +1090,19 @@ namespace YAF.Pages
             }
 
             // Check if message is approved
-            var isApproved = false;
-            using (var dt = this.GetRepository<Message>().ListAsDataTable(messageId.ToType<int>()))
+            var isApproved = this.GetRepository<Message>().GetById(messageId.ToType<int>()).MessageFlags.IsApproved;
+
+            /*using (var dt = this.GetRepository<Message>().ListAsDataTable(messageId.ToType<int>()))
             {
                 foreach (DataRow row in dt.Rows)
                 {
                     isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
                 }
-            }
+            }*/
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
-            var retforum = string.Empty;
+            var returnForum = string.Empty;
 
             if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && newTopic > 0)
             {
@@ -1109,7 +1110,7 @@ namespace YAF.Pages
                 attachPollParameter = $"&t={newTopic}";
 
                 // new return forum poll token
-                retforum = $"&f={this.PageContext.PageForumID}";
+                returnForum = $"&f={this.PageContext.PageForumID}";
             }
 
             // Create notification emails
@@ -1215,7 +1216,7 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    YafBuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachPollParameter, retforum);
+                    YafBuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachPollParameter, returnForum);
                 }
 
                 if (Config.IsRainbow)
