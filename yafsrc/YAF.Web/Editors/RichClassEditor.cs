@@ -29,7 +29,9 @@ namespace YAF.Web.Editors
     using System.Web.UI;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -76,21 +78,21 @@ namespace YAF.Web.Editors
             {
                 this.TypeEditor = Type.GetType(editorAssemblyName, true);
             }
-#if DEBUG
             catch (Exception x)
             {
-             throw new Exception($"Unable to load editor class/dll: {classBinStr} Exception: {x.Message}");
-            }
+                // Ignore if RadEditor or FTB is not present
+                /*
+#if DEBUG
+                throw new Exception($"Unable to load editor class/dll: {classBinStr} Exception: {x.Message}");
 #endif
-            catch (Exception)
-            {
-                //
+                this.Get<ILogger>().Log(null, this.GetType().ToString(), x);
+                */
             }
         }
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Gets the editor.
@@ -132,7 +134,7 @@ namespace YAF.Web.Editors
         /// </summary>
         public override bool UsesHTML => true;
 
-        #endregion
+#endregion
 
 #region Methods
 
