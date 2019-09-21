@@ -66,13 +66,13 @@ namespace YAF.Controls
 
             if (lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime())
             {
-                this.TimeLastVisit.Visible = true;
+                this.LastVisitHolder.Visible = true;
                 this.TimeLastVisit.Text = this.GetTextFormatted(
                     "last_visit", this.Get<IDateTime>().FormatDateTime(lastVisit.Value));
             }
             else
             {
-                this.TimeLastVisit.Visible = false;
+                this.LastVisitHolder.Visible = false;
             }
         }
 

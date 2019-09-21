@@ -2,6 +2,8 @@
     Inherits="YAF.Controls.ForumWelcome" Codebehind="ForumWelcome.ascx.cs" %>
 <div class="alert alert-light float-right d-none d-md-block" role="alert">
     <i class="fa fa-clock"></i>&nbsp;<asp:Label ID="TimeNow" runat="server" />
-    <span class="mx-1"></span>
-    <i class="fa fa-calendar-alt"></i>&nbsp;<asp:Label ID="TimeLastVisit" runat="server" />
+    <asp:PlaceHolder runat="server" ID="LastVisitHolder">
+        <span class="mx-1"></span>
+        <i class="fa fa-calendar-alt"></i>&nbsp;<asp:Label ID="TimeLastVisit" runat="server" />
+    </asp:PlaceHolder>
 </div>
