@@ -27,6 +27,8 @@ namespace YAF.Providers.Utils
   using System.Collections.Specialized;
   using System.Text;
 
+  using YAF.Types.Extensions;
+
   /// <summary>
   /// The transform.
   /// </summary>
@@ -122,14 +124,11 @@ namespace YAF.Providers.Utils
       /// The boolean.
       /// </returns>
       public static bool ToBool(this object obj, bool defaultValue)
-    {
-        if (obj != DBNull.Value && obj != null && bool.TryParse(obj.ToString(), out var value))
       {
-        return value;  
+          return obj != DBNull.Value && obj != null && bool.TryParse(obj.ToString(), out var value)
+                     ? value
+                     : defaultValue;
       }
-
-      return defaultValue;
-    }
 
     /// <summary>
     /// The to int.
@@ -142,7 +141,7 @@ namespace YAF.Providers.Utils
     /// </returns>
     public static int ToInt(this object obj)
     {
-      return obj != DBNull.Value && obj != null ? Convert.ToInt32(obj) : 0;
+      return obj != DBNull.Value && obj != null ? obj.ToType<int>() : 0;
     }
 
     /// <summary>

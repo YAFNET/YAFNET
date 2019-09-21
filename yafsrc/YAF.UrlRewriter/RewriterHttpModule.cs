@@ -1,9 +1,15 @@
-// UrlRewriter - A .NET URL Rewriter module
-// Version 2.0
-//
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
-// 
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Intelligencia" file="RewriterHttpModule.cs">
+//   Copyright (c)2011 Seth Yates
+//   //   Author Seth Yates
+//   //   Author Stewart Rae
+// </copyright>
+// <summary>
+//   Forked Version for YAF.NET
+//   Original can be found at https://github.com/sethyates/urlrewriter
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 
 namespace YAF.UrlRewriter
 {
@@ -22,7 +28,7 @@ namespace YAF.UrlRewriter
     public sealed class RewriterHttpModule : IHttpModule
     {
         /// <summary>
-        /// Initialises the module.
+        /// Initializes the module.
         /// </summary>
         /// <param name="context">The application context.</param>
         void IHttpModule.Init(HttpApplication context)

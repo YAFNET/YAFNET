@@ -139,10 +139,26 @@ namespace YAF.Core.Services
                         }
                     }
 
-                    var writer = new IndexWriter(
-                        FSDirectory.Open(SearchIndexFolder),
-                        this.standardAnalyzer,
-                        IndexWriter.MaxFieldLength.UNLIMITED);
+                    IndexWriter writer;
+
+                    try
+                    {
+                        writer = new IndexWriter(
+                            FSDirectory.Open(SearchIndexFolder),
+                            this.standardAnalyzer,
+                            IndexWriter.MaxFieldLength.UNLIMITED);
+                    }
+                    catch (LockObtainFailedException)
+                    {
+                        var directoryInfo = new DirectoryInfo(SearchIndexFolder);
+                        var directory = FSDirectory.Open(directoryInfo, new SimpleFSLockFactory(directoryInfo));
+                        IndexWriter.Unlock(directory);
+
+                        writer = new IndexWriter(
+                            FSDirectory.Open(SearchIndexFolder),
+                            this.standardAnalyzer,
+                            IndexWriter.MaxFieldLength.UNLIMITED);
+                    }
 
                     this.indexReader = writer.GetReader();
                     Thread.MemoryBarrier();
@@ -183,6 +199,7 @@ namespace YAF.Core.Services
             lock (this.indexWriterLock)
             {
                 this.indexWriter?.Commit();
+                this.indexWriter.Close();
             }
         }
 
@@ -234,10 +251,10 @@ namespace YAF.Core.Services
 
                 messageList.ForEach(this.AddToSearchIndex);
             }
-            catch (LockObtainFailedException ex)
+            /*catch (LockObtainFailedException ex)
             {
                 this.Get<ILogger>().Log(null, this, ex);
-            }
+            }*/
             catch (ThreadAbortException ex)
             {
                 this.Get<ILogger>().Log(null, this, ex);

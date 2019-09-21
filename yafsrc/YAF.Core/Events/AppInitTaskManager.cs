@@ -33,6 +33,7 @@ namespace YAF.Core
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
 
@@ -113,22 +114,25 @@ namespace YAF.Core
             }
 
             // add and start this module...
-            if (!this.TaskExists(instanceName))
+            if (this.TaskExists(instanceName))
             {
-                this.Logger.Debug($"Starting Task {instanceName}...");
+                return false;
+            }
 
-                var injectServices = this.Get<IInjectServices>();
+            this.Logger.Debug($"Starting Task {instanceName}...");
 
-                _taskManager.AddOrUpdate(
-                    instanceName,
-                    s =>
+            var injectServices = this.Get<IInjectServices>();
+
+            _taskManager.AddOrUpdate(
+                instanceName,
+                s =>
                     {
                         var task = start();
                         injectServices.Inject(task);
                         task.Run();
                         return task;
                     },
-                    (s, task) =>
+                (s, task) =>
                     {
                         task?.Dispose();
 
@@ -138,10 +142,8 @@ namespace YAF.Core
                         return task;
                     });
 
-                return true;
-            }
+            return true;
 
-            return false;
         }
 
         #endregion
@@ -166,17 +168,18 @@ namespace YAF.Core
             // create intermittent cleanup task...
             this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });
 
-            foreach (var instance in this.Get<IEnumerable<IStartTasks>>())
-            {
-                try
+            this.Get<IEnumerable<IStartTasks>>().ForEach(
+                instance =>
                 {
-                    instance.Start(this);
-                }
-                catch (Exception ex)
-                {
-                    this.Logger.Fatal(ex, $"Failed to start: {instance.GetType().Name}");
-                }
-            }
+                    try
+                    {
+                        instance.Start(this);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Logger.Fatal(ex, $"Failed to start: {instance.GetType().Name}");
+                    }
+                });
         }
 
         #endregion

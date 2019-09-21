@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
@@ -141,12 +142,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     var serverId = e.CommandArgument.ToType<int>();
-                    var forums = new List<int>();
-
-                    foreach (var forum in this.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId))
-                    {
-                        forums.Add(forum.ForumID);
-                    }
+                    var forums = this.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId).Select(forum => forum.ForumID).ToList();
 
                     this.GetRepository<NntpTopic>().DeleteByIds(forums);
                     this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);

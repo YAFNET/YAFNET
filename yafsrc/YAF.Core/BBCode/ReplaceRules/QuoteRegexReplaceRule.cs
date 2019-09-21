@@ -119,30 +119,33 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 innerReplace.Replace("${quote}", quote);
 
-                foreach (var variable in this._variables)
-                {
-                    var varName = variable;
-                    var handlingValue = string.Empty;
+                this._variables.ForEach(
+                    variable =>
+                        {
+                            var varName = variable;
+                            var handlingValue = string.Empty;
 
-                    if (varName.Contains(":"))
-                    {
-                        // has handling section
-                        var tmpSplit = varName.Split(':');
-                        varName = tmpSplit[0];
-                        handlingValue = tmpSplit[1];
-                    }
+                            if (varName.Contains(":"))
+                            {
+                                // has handling section
+                                var tmpSplit = varName.Split(':');
+                                varName = tmpSplit[0];
+                                handlingValue = tmpSplit[1];
+                            }
 
-                    var value = match.Groups[varName].Value;
+                            var value = match.Groups[varName].Value;
 
-                    if (this._variableDefaults != null && value.Length == 0)
-                    {
-                        // use default instead
-                        value = this._variableDefaults[i];
-                    }
+                            if (this._variableDefaults != null && value.Length == 0)
+                            {
+                                // use default instead
+                                value = this._variableDefaults[i];
+                            }
 
-                    innerReplace.Replace($"${{{varName}}}", this.ManageVariableValue(varName, value, handlingValue));
-                    i++;
-                }
+                            innerReplace.Replace(
+                                $"${{{varName}}}",
+                                this.ManageVariableValue(varName, value, handlingValue));
+                            i++;
+                        });
 
                 innerReplace.Replace("${inner}", match.Groups["inner"].Value);
 

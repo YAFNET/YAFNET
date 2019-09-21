@@ -90,14 +90,13 @@ namespace YAF.Core.Helpers
         public static DataTable GetFilteredEditorList()
         {
             var editorList = YafContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
-            
+
             // Check if TinyMCE exists
             var tinyMceExists = false;
 
             try
             {
-                if (
-                    File.Exists(HttpContext.Current.Server.MapPath("~/Scripts/tinymce/tinymce.min.js")))
+                if (File.Exists(HttpContext.Current.Server.MapPath("~/Scripts/tinymce/tinymce.min.js")))
                 {
                     tinyMceExists = true;
                 }
@@ -114,10 +113,8 @@ namespace YAF.Core.Helpers
 
             var filterList = new ArrayList();
 
-            foreach (var drow in editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE")))
-            {
-                filterList.Add(drow);
-            }
+            editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE"))
+                .ForEach(row => filterList.Add(row));
 
             foreach (DataRow row in filterList)
             {

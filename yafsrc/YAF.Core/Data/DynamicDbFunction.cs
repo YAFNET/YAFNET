@@ -429,14 +429,15 @@ namespace YAF.Core.Data
 
             var entities = argsPairs.Where(x => x.Value is IEntity).ToList();
 
-            foreach (var pair in entities)
-            {
-                // remove the individual entity
-                argsPairs.Remove(pair);
+            entities.ForEach(
+                pair =>
+                    {
+                        // remove the individual entity
+                        argsPairs.Remove(pair);
 
-                // Add all items in this object...
-                argsPairs.AddRange(pair.AnyToDictionary());
-            }
+                        // Add all items in this object...
+                        argsPairs.AddRange(pair.AnyToDictionary());
+                    });
 
             return argsPairs;
         }

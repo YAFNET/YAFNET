@@ -223,30 +223,31 @@ namespace YAF.Core.BBCode.ReplaceRules
         var innerReplace = new StringBuilder(this._regExReplace);
         var i = 0;
 
-        foreach (var tVar in this._variables)
-        {
-          var varName = tVar;
-          var handlingValue = string.Empty;
+        this._variables.ForEach(
+            tVar =>
+                {
+                    var varName = tVar;
+                    var handlingValue = string.Empty;
 
-          if (varName.Contains(":"))
-          {
-            // has handling section
-            var tmpSplit = varName.Split(':');
-            varName = tmpSplit[0];
-            handlingValue = tmpSplit[1];
-          }
+                    if (varName.Contains(":"))
+                    {
+                        // has handling section
+                        var tmpSplit = varName.Split(':');
+                        varName = tmpSplit[0];
+                        handlingValue = tmpSplit[1];
+                    }
 
-          var tValue = m.Groups[varName].Value;
+                    var tValue = m.Groups[varName].Value;
 
-          if (this._variableDefaults != null && tValue.Length == 0)
-          {
-            // use default instead
-            tValue = this._variableDefaults[i];
-          }
+                    if (this._variableDefaults != null && tValue.Length == 0)
+                    {
+                        // use default instead
+                        tValue = this._variableDefaults[i];
+                    }
 
-          innerReplace.Replace($"${{{varName}}}", this.ManageVariableValue(varName, tValue, handlingValue));
-          i++;
-        }
+                    innerReplace.Replace($"${{{varName}}}", this.ManageVariableValue(varName, tValue, handlingValue));
+                    i++;
+                });
 
         innerReplace.Replace("${inner}", m.Groups["inner"].Value);
 
@@ -257,7 +258,7 @@ namespace YAF.Core.BBCode.ReplaceRules
             "${innertrunc}", m.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
         }
 
-        // pulls the htmls into the replacement collection before it's inserted back into the main text
+        // pulls the html's into the replacement collection before it's inserted back into the main text
         replacement.ReplaceHtmlFromText(ref innerReplace);
 
         // remove old bbcode...
@@ -285,27 +286,29 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// <param name="variableValue">
     /// </param>
     /// <param name="handlingValue">
-    /// variable transfermation desired
+    /// variable transformation desired
     /// </param>
     /// <returns>
     /// The manage variable value.
     /// </returns>
     protected virtual string ManageVariableValue(string variableName, string variableValue, string handlingValue)
     {
-      if (handlingValue.IsSet())
-      {
+        if (!handlingValue.IsSet())
+        {
+            return variableValue;
+        }
+
         switch (handlingValue.ToLower())
         {
-          case "decode":
-            variableValue = HttpUtility.HtmlDecode(variableValue);
-            break;
-          case "encode":
-            variableValue = HttpUtility.HtmlEncode(variableValue);
-            break;
+            case "decode":
+                variableValue = HttpUtility.HtmlDecode(variableValue);
+                break;
+            case "encode":
+                variableValue = HttpUtility.HtmlEncode(variableValue);
+                break;
         }
-      }
 
-      return variableValue;
+        return variableValue;
     }
 
     #endregion

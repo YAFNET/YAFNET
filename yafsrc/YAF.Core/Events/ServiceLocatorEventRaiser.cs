@@ -30,6 +30,7 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
 
@@ -89,10 +90,7 @@ namespace YAF.Core
         /// </typeparam>
         public void Raise<T>(T eventObject) where T : IAmEvent
         {
-            foreach (var x in this.GetAggregatedAndOrderedEventHandlers<T>())
-            {
-                x.Handle(eventObject);
-            }
+            this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(x => x.Handle(eventObject));
         }
 
         /// <summary>
@@ -107,24 +105,25 @@ namespace YAF.Core
         public void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction)
             where T : IAmEvent
         {
-            foreach (var theHandler in this.GetAggregatedAndOrderedEventHandlers<T>())
-            {
-                try
+            this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(
+                theHandler =>
                 {
-                    theHandler.Handle(eventObject);
-                }
-                catch (Exception ex)
-                {
-                    if (logExceptionAction != null)
+                    try
                     {
-                        logExceptionAction(theHandler.GetType().Name, ex);
+                        theHandler.Handle(eventObject);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        this.Logger.Error(ex, "Exception Raising Event to Handler: {0}", theHandler.GetType().Name);
+                        if (logExceptionAction != null)
+                        {
+                            logExceptionAction(theHandler.GetType().Name, ex);
+                        }
+                        else
+                        {
+                            this.Logger.Error(ex, "Exception Raising Event to Handler: {0}", theHandler.GetType().Name);
+                        }
                     }
-                }
-            }
+                });
         }
 
         #endregion

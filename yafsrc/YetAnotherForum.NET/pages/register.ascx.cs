@@ -719,12 +719,41 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// Redirect to the Login Page
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void LoginClick(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.login);
+        }
+
+        /// <summary>
         /// Gets the reCAPTCHA site key.
         /// </summary>
         /// <returns>Returns the eCAPTCHA site key.</returns>
         protected string GetSiteKey()
         {
             return this.PageContext.BoardSettings.RecaptchaPublicKey;
+        }
+
+        /// <summary>
+        /// The setup display name UI.
+        /// </summary>
+        /// <param name="startControl">
+        /// The start control.
+        /// </param>
+        /// <param name="enabled">
+        /// The enabled.
+        /// </param>
+        private static void SetupDisplayNameUI([NotNull] Control startControl, bool enabled)
+        {
+            startControl.FindControlAs<PlaceHolder>("DisplayNamePlaceHolder").Visible = enabled;
+            startControl.FindControlAs<LocalizedRequiredFieldValidator>("DisplayNameRequired").Enabled = enabled;
         }
 
         /// <summary>
@@ -785,26 +814,11 @@ namespace YAF.Pages
 
             recaptchaPlaceHolder.Visible = this.Get<YafBoardSettings>().CaptchaTypeRegister == 2;
 
-            this.SetupDisplayNameUI(this.CreateUserStepContainer, this.Get<YafBoardSettings>().EnableDisplayName);
+            SetupDisplayNameUI(this.CreateUserStepContainer, this.Get<YafBoardSettings>().EnableDisplayName);
 
             var questionAnswerPlaceHolder =
                 (PlaceHolder)this.CreateUserStepContainer.FindControl("QuestionAnswerPlaceHolder");
             questionAnswerPlaceHolder.Visible = this.Get<MembershipProvider>().RequiresQuestionAndAnswer;
-        }
-
-        /// <summary>
-        /// The setup display name UI.
-        /// </summary>
-        /// <param name="startControl">
-        /// The start control.
-        /// </param>
-        /// <param name="enabled">
-        /// The enabled.
-        /// </param>
-        private void SetupDisplayNameUI([NotNull] Control startControl, bool enabled)
-        {
-            startControl.FindControlAs<PlaceHolder>("DisplayNamePlaceHolder").Visible = enabled;
-            startControl.FindControlAs<LocalizedRequiredFieldValidator>("DisplayNameRequired").Enabled = enabled;
         }
 
         /// <summary>
@@ -886,7 +900,7 @@ namespace YAF.Pages
                 userProfile.Country = country.SelectedValue;
             }
 
-            if (this.Get<ISpamWordCheck>().CheckForSpamWord(homepageTextBox.Text.Trim(), out var result))
+            if (this.Get<ISpamWordCheck>().CheckForSpamWord(homepageTextBox.Text.Trim(), out _))
             {
                 this.IsPossibleSpamBotInternalCheck = true;
 

@@ -101,8 +101,8 @@ namespace YAF.Utils
                 const byte Build = 0;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.BETA;
-                const byte ReleaseNumber = 4;
+                const ReleaseType ReleaseType = ReleaseType.RC;
+                const byte ReleaseNumber = 1;
 
                 var list = new List<int>
                                       {
@@ -121,7 +121,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2019, 09, 15);
+        public static DateTime AppVersionDate => new DateTime(2019, 09, 17);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value

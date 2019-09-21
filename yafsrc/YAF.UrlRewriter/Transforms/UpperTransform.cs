@@ -1,9 +1,14 @@
-// UrlRewriter - A .NET URL Rewriter module
-// Version 2.0
-//
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
-// 
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Intelligencia" file="UpperTransform.cs">
+//   Copyright (c)2011 Seth Yates
+//   //   Author Seth Yates
+//   //   Author Stewart Rae
+// </copyright>
+// <summary>
+//   Forked Version for YAF.NET
+//   Original can be found at https://github.com/sethyates/urlrewriter
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace YAF.UrlRewriter.Transforms
 {
@@ -18,6 +23,11 @@ namespace YAF.UrlRewriter.Transforms
     public sealed class UpperTransform : IRewriteTransform
     {
         /// <summary>
+        /// The name of the action.
+        /// </summary>
+        public string Name => Constants.TransformUpper;
+
+        /// <summary>
         /// Applies a transformation to the input string.
         /// </summary>
         /// <param name="input">The input string.</param>
@@ -31,10 +41,5 @@ namespace YAF.UrlRewriter.Transforms
 
             return input.ToUpper(Thread.CurrentThread.CurrentCulture);
         }
-
-        /// <summary>
-        /// The name of the action.
-        /// </summary>
-        public string Name => Constants.TransformUpper;
     }
 }

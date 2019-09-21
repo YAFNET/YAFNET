@@ -133,7 +133,7 @@ namespace YAF.Web.Editors
 }}
 }});
 ");
-            if (this.AllowsUploads)
+            if (this.UserCanUpload)
             {
                 var extensions = this.GetRepository<FileExtension>()
                     .Get(ext => ext.BoardId == this.PageContext.PageBoardID);

@@ -689,7 +689,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     uploadFolder: '{YafBoardFolders.Current.Uploads}',
                     allowedUpload: true
                 }},
-                dropZone: {Config.JQueryAlias}('.BBCodeEditor')
+                dropZone: {Config.JQueryAlias}('.BBCodeEditor'),
+                pasteZone: {Config.JQueryAlias}('.BBCodeEditor')
             }});
         }});";
         }

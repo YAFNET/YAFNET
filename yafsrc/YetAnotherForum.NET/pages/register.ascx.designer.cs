@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class register {
         
-
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// CreateUserWizard1 control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CreateUserWizard CreateUserWizard1;
+        protected global::System.Web.UI.WebControls.CreateUserWizard CreateUserWizard1;
         
-
         /// <summary>
         /// profile control.
         /// </summary>
@@ -42,6 +37,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TemplatedWizardStep profile;
+        protected global::System.Web.UI.WebControls.TemplatedWizardStep profile;
     }
 }

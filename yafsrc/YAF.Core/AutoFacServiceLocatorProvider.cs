@@ -35,6 +35,7 @@ namespace YAF.Core
     using Autofac.Core;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     using NamedParameter = YAF.Types.Objects.NamedParameter;
@@ -259,15 +260,16 @@ namespace YAF.Core
                 InjectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
             }
 
-            foreach (var injectProp in properties)
-            {
-                var serviceInstance = injectProp.Item1 == typeof(ILogger)
-                                             ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
-                                             : this.Container.Resolve(injectProp.Item1);
+            properties.ForEach(
+                injectProp =>
+                {
+                    var serviceInstance = injectProp.Item1 == typeof(ILogger)
+                                              ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
+                                              : this.Container.Resolve(injectProp.Item1);
 
-                // set value is super slow... best not to use it very much.
-                injectProp.Item3(instance, serviceInstance);
-            }
+                    // set value is super slow... best not to use it very much.
+                    injectProp.Item3(instance, serviceInstance);
+                });
         }
 
         /// <summary>
@@ -339,21 +341,22 @@ namespace YAF.Core
 
             var autoParams = new List<Parameter>();
 
-            foreach (var parameter in parameters)
-            {
-                switch (parameter)
+            parameters.ForEach(
+                parameter =>
                 {
-                    case NamedParameter param1:
-                        autoParams.Add(new Autofac.NamedParameter(param1.Name, param1.Value));
-                        break;
-                    case TypedParameter param:
-                        autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
-                        break;
-                    default:
-                        throw new NotSupportedException($"Parameter Type of {parameter.GetType()} is not supported.");
-                }
-            }
-
+                    switch (parameter)
+                    {
+                        case NamedParameter param1:
+                            autoParams.Add(new Autofac.NamedParameter(param1.Name, param1.Value));
+                            break;
+                        case TypedParameter param:
+                            autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
+                            break;
+                        default:
+                            throw new NotSupportedException($"Parameter Type of {parameter.GetType()} is not supported.");
+                    }
+                });
+            
             return autoParams;
         }
 

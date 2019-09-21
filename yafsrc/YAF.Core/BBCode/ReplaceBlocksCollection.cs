@@ -27,6 +27,7 @@ namespace YAF.Core.BBCode
     using System.Collections.Generic;
     using System.Text;
 
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -128,14 +129,12 @@ namespace YAF.Core.BBCode
     /// </param>
     public void Reconstruct(ref string text)
     {
-      var sb = new StringBuilder(text);
+        var sb = new StringBuilder(text);
 
-      foreach (var index in this._replacementDictionary.Keys)
-      {
-        sb.Replace(this.Get(index), this._replacementDictionary[index]);
-      }
+        this._replacementDictionary.Keys.ForEach(
+            index => sb.Replace(this.Get(index), this._replacementDictionary[index]));
 
-      text = sb.ToString();
+        text = sb.ToString();
     }
 
     #endregion

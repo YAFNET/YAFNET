@@ -273,14 +273,14 @@ namespace YAF.Configuration
                     return "jQuery";
                 }
 
-                var jQueryAlias = GetConfigValueAsString("YAF.JQueryAlias") ?? "jQuery";
+                var jqueryAlias = GetConfigValueAsString("YAF.JQueryAlias") ?? "jQuery";
 
-                if (!jQueryAlias.Equals("jQuery") || !jQueryAlias.Equals("$"))
+                if (!jqueryAlias.Equals("jQuery") || !jqueryAlias.Equals("$"))
                 {
                     return "jQuery";
                 }
 
-                return jQueryAlias;
+                return jqueryAlias;
             }
         }
 

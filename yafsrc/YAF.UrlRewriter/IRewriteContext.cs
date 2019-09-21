@@ -1,3 +1,15 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Intelligencia" file="IRewriteContext.cs">
+//   Copyright (c)2011 Seth Yates
+//   Author Seth Yates
+//   Author Stewart Rae
+// </copyright>
+// <summary>
+//   Forked Version for YAF.NET
+// Original can be found at https://github.com/sethyates/urlrewriter
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace YAF.UrlRewriter
 {
     using System.Collections.Specialized;
@@ -8,6 +20,9 @@ namespace YAF.UrlRewriter
     using YAF.UrlRewriter.Configuration;
     using YAF.UrlRewriter.Utilities;
 
+    /// <summary>
+    /// The RewriteContext interface.
+    /// </summary>
     public interface IRewriteContext
     {
         /// <summary>
