@@ -64,10 +64,75 @@ namespace YAF.Modules
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the ForumPage control.
+        /// Registers the jQuery script library.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private static void RegisterJQuery()
+        {
+            if (YafContext.Current.PageElements.PageElementExists("jquery"))
+            {
+                return;
+            }
+
+            var registerJQuery = true;
+
+            const string Key = "JQuery-Javascripts";
+
+            // check to see if DotNetAge is around and has registered jQuery for us...
+            if (HttpContext.Current.Items[Key] != null)
+            {
+                if (HttpContext.Current.Items[Key] is StringCollection collection && collection.Contains("jquery"))
+                {
+                    registerJQuery = false;
+                }
+            }
+            else if (Config.IsDotNetNuke)
+            {
+                // latest version of DNN should register jQuery for us...
+                registerJQuery = false;
+            }
+
+            if (registerJQuery)
+            {
+                string jqueryUrl;
+
+                // Check if override file is set ?
+                if (Config.JQueryOverrideFile.IsSet())
+                {
+                    jqueryUrl = !Config.JQueryOverrideFile.StartsWith("http")
+                                && !Config.JQueryOverrideFile.StartsWith("//")
+                                    ? YafForumInfo.GetURLToScripts(Config.JQueryOverrideFile)
+                                    : Config.JQueryOverrideFile;
+                }
+                else
+                {
+                    jqueryUrl = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
+                }
+
+                // load jQuery
+                // element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
+                ScriptManager.ScriptResourceMapping.AddDefinition(
+                    "jquery",
+                    new ScriptResourceDefinition
+                    {
+                        Path = jqueryUrl,
+                        DebugPath = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
+                        CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
+                        CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
+                        CdnSupportsSecureConnection = true/*,
+                            LoadSuccessExpression = "window.jQuery"*/
+                    });
+
+                YafContext.Current.PageElements.AddScriptReference("jquery");
+            }
+
+            YafContext.Current.PageElements.AddPageElement("jquery");
+        }
+        
+        /// <summary>
+         /// Handles the Load event of the ForumPage control.
+         /// </summary>
+         /// <param name="sender">The source of the event.</param>
+         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
@@ -118,71 +183,6 @@ namespace YAF.Modules
                 this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
 
             this.PageContext.Vars["yafForumExtensions"] = true;
-        }
-
-        /// <summary>
-        /// Registers the jQuery script library.
-        /// </summary>
-        private static void RegisterJQuery()
-        {
-            if (YafContext.Current.PageElements.PageElementExists("jquery"))
-            {
-                return;
-            }
-
-            var registerJQuery = true;
-
-            const string Key = "JQuery-Javascripts";
-
-            // check to see if DotNetAge is around and has registered jQuery for us...
-            if (HttpContext.Current.Items[Key] != null)
-            {
-                if (HttpContext.Current.Items[Key] is StringCollection collection && collection.Contains("jquery"))
-                {
-                    registerJQuery = false;
-                }
-            }
-            else if (Config.IsDotNetNuke)
-            {
-                // latest version of DNN (v5) should register jQuery for us...
-                registerJQuery = false;
-            }
-
-            if (registerJQuery)
-            {
-                string jqueryUrl;
-
-                // Check if override file is set ?
-                if (Config.JQueryOverrideFile.IsSet())
-                {
-                    jqueryUrl = !Config.JQueryOverrideFile.StartsWith("http")
-                                && !Config.JQueryOverrideFile.StartsWith("//")
-                                    ? YafForumInfo.GetURLToScripts(Config.JQueryOverrideFile)
-                                    : Config.JQueryOverrideFile;
-                }
-                else
-                {
-                    jqueryUrl = $"~/forum/Scripts/jquery-{Config.JQueryVersion}.min.js";
-                }
-
-                // load jQuery
-                // element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
-                ScriptManager.ScriptResourceMapping.AddDefinition(
-                    "jquery",
-                    new ScriptResourceDefinition
-                        {
-                            Path = jqueryUrl,
-                            DebugPath = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
-                            CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
-                            CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
-                            CdnSupportsSecureConnection = true/*,
-                            LoadSuccessExpression = "window.jQuery"*/
-                        });
-
-                YafContext.Current.PageElements.AddScriptReference("jquery");
-            }
-
-            YafContext.Current.PageElements.AddPageElement("jquery");
         }
 
         /// <summary>
