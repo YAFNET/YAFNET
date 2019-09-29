@@ -29,6 +29,7 @@ namespace YAF.Web.Controls
     using System.Globalization;
     using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Types;
@@ -47,9 +48,9 @@ namespace YAF.Web.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The _controlHtml.
+        ///   The ControlHtml.
         /// </summary>
-        private readonly string controlHtml = @"<abbr class=""timeago"" title=""{1}"">{0}</abbr>";
+        private const string ControlHtml = @"<abbr class=""timeago"" title=""{1}"">{0}</abbr>";
 
         #endregion
 
@@ -117,7 +118,14 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            writer.Write(this.controlHtml, this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture), this.Get<IDateTime>().Format(this.Format, this.DateTime));
+            var formattedDatetime = this.Get<IDateTime>().Format(this.Format, this.DateTime);
+
+            writer.Write(
+                ControlHtml,
+                this.Get<YafBoardSettings>().ShowRelativeTime
+                    ? this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
+                    : formattedDatetime,
+                formattedDatetime);
             writer.WriteLine();
         }
 
