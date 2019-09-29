@@ -25,7 +25,7 @@ namespace YAF.Modules
 {
   using System.Web.UI;
 
-  using YAF.Web.Controls;
+  using YAF.Core.BBCode;
 
   /// <summary>
   /// The example bb code module.

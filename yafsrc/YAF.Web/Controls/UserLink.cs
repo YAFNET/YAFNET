@@ -110,7 +110,9 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Gets a value indicating whether is hover card enabled.
         /// </summary>
-        private bool IsHoverCardEnabled => this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard;
+        private bool IsHoverCardEnabled =>
+            this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
+                                                                  && YafContext.Current.CurrentForumPage != null;
 
         #endregion
 

@@ -27,9 +27,9 @@ namespace YAF.Modules.BBCode
     using System.Web.UI;
 
     using YAF.Configuration;
+    using YAF.Core.BBCode;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Web.Controls;
 
     /// <summary>
     /// The Album Image BB Code Module.

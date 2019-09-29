@@ -28,11 +28,11 @@ namespace YAF.Modules.BBCode
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BBCode;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Web.Controls;
 
     /// <summary>
     /// Hide Reply Thanks BBCode Module

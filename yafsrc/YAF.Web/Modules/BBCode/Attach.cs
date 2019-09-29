@@ -27,6 +27,7 @@ namespace YAF.Modules.BBCode
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -34,7 +35,6 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
 
     /// <summary>
     /// The Attachment BB Code Module.
@@ -60,7 +60,7 @@ namespace YAF.Modules.BBCode
             }
 
             if (this.PageContext.ForumPageType == ForumPages.profile
-                || this.PageContext.ForumPageType == ForumPages.search)
+                || this.PageContext.ForumPageType == ForumPages.forum)
             {
                 writer.Write(@"<i class=""fa fa-file fa-fw""></i>&nbsp;{0}", attachment.FileName);
 

@@ -34,6 +34,7 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.BBCode;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -85,8 +86,8 @@ namespace YAF.Web.Controls
         /// <param name="writer">
         /// The writer.
         /// </param>
-        /// <param name="messageStr">
-        /// The message Str.
+        /// <param name="message">
+        /// The message
         /// </param>
         /// <param name="theseFlags">
         /// The these flags.
@@ -98,9 +99,9 @@ namespace YAF.Web.Controls
         /// The Message Id.
         /// </param>
         protected virtual void RenderModulesInBBCode(
-        [NotNull] HtmlTextWriter writer, [NotNull] string messageStr, [NotNull] MessageFlags theseFlags, int? displayUserId, int? messageId)
+        [NotNull] HtmlTextWriter writer, [NotNull] string message, [NotNull] MessageFlags theseFlags, int? displayUserId, int? messageId)
         {
-            var workingMessage = messageStr;
+            var workingMessage = message;
 
             // handle custom bbcodes row by row...
             this.CustomBBCode.ForEach(

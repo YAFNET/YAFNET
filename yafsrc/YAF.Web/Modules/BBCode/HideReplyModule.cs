@@ -27,11 +27,11 @@ namespace YAF.Modules.BBCode
     using System.Web.UI;
 
     using YAF.Core;
+    using YAF.Core.BBCode;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Web.Controls;
 
     /// <summary>
     /// Hide Reply BBCode Module

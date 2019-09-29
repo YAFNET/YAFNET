@@ -52,16 +52,14 @@ namespace YAF.Types.Interfaces
         void ClearSearchIndexRecord(int messageId);
 
         /// <summary>
-        /// Adds or updates the search index
+        /// Adds the search index
         /// </summary>
         /// <param name="messageList">The message list.</param>
-        void AddUpdateSearchIndex(IEnumerable<SearchMessage> messageList);
+        void AddSearchIndex(IEnumerable<SearchMessage> messageList);
 
-        /// <summary>
-        /// Adds or updates the search index
-        /// </summary>
-        /// <param name="message">The message.</param>
-        void AddUpdateSearchIndex(SearchMessage message);
+        void AddSearchIndexItem(SearchMessage message);
+
+        void UpdateSearchIndexItem(SearchMessage message);
 
         /// <summary>
         /// Searches the specified user identifier.
