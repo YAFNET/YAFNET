@@ -24,33 +24,39 @@
                            <div class="list-group list-group-flush small">
                                <div class="list-group-item list-group-item-action">
                                    <h5 class="font-weight-bold"><%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></h5>
-                                   <asp:LinkButton ID="ViewUnapprovedPostsBtn" runat='server' 
+                                   <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat='server' 
                                                    CommandName='viewunapprovedposts' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
                                                    Visible='<%# this.Eval( "[\"MessageCount\"]").ToType<int>() > 0 %>' 
-                                                   CssClass="btn btn-secondary btn-sm">
+                                                    Type="Secondary"
+                                                    Size="Small">
                                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                            LocalizedTag="UNAPPROVED" /> 
                                        <span class="badge badge-light"><%# this.Eval( "[\"MessageCount\"]") %></span>
-                                   </asp:LinkButton>
+                                   </YAF:ThemeButton>
                                    <YAF:ThemeButton ID="NoUnapprovedInfo" 
                                                     TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE" 
                                                     runat="server"
                                                     Visible='<%# this.Eval( "[\"MessageCount\"]").ToType<int>() == 0 %>' 
-                                                    Type="Secondary" CssClass="btn-sm disabled">
+                                                    Type="Secondary"
+                                                    Enabled="False"
+                                                    Size="Small">
                                    </YAF:ThemeButton>
-                                   <asp:LinkButton ID="ViewReportedBtn" runat='server' 
+                                   <YAF:ThemeButton ID="ViewReportedBtn" runat='server' 
                                                    CommandName='viewreportedposts' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
                                                    Visible='<%# this.Eval( "[\"ReportedCount\"]").ToType<int>() > 0 %>' 
-                                                   CssClass="btn btn-secondary btn-sm">
+                                                    Type="Secondary"
+                                                    Size="Small">
                                        <YAF:LocalizedLabel ID="ReportedCountLabel" runat="server" 
                                                            LocalizedTag="REPORTED" /> 
                                        <span class="badge badge-light"><%# this.Eval( "[\"ReportedCount\"]") %></span>
-                                   </asp:LinkButton>
+                                   </YAF:ThemeButton>
                                    <YAF:ThemeButton ID="NoReportedInfo" 
                                                     TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE"
                                                     runat="server"
                                                     Visible='<%# this.Eval( "[\"ReportedCount\"]").ToType<int>() == 0 %>' 
-                                                    Type="Secondary" CssClass="btn-sm disabled">
+                                                    Type="Secondary"
+                                                    Enabled="False"
+                                                    Size="Small">
                                    </YAF:ThemeButton>
                                </div>
 

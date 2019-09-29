@@ -103,7 +103,7 @@ namespace YAF.Pages.moderate
             }
             else
             {
-                // fully format message (YafBBCode, smilies)
+                // fully format message (YafBBCode)
                 msg = this.Get<IFormatMessage>().FormatMessage(
                   row["Message"].ToString(), messageFlags, row["IsModeratorChanged"].ToType<bool>());
             }
