@@ -2438,6 +2438,7 @@
     <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor.svg" />
     <Content Include="Scripts\ckeditor\plugins\copyformatting\styles\copyformatting.css" />
     <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\styles\dialog.css" />
     <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
     <Content Include="Scripts\ckeditor\plugins\emojione\.bower.json" />
     <Content Include="Scripts\ckeditor\plugins\emojione\.gitignore" />
@@ -2475,7 +2476,9 @@
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon-rtl.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\pagebreak\images\pagebreak.gif" />
+    <Content Include="Scripts\ckeditor\plugins\pastefromgdocs\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\pastetools\filter\common.js" />
     <Content Include="Scripts\ckeditor\plugins\preview\preview.html" />
     <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\dialog.css" />
@@ -3469,8 +3472,11 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>del YAF.dll.config
-del Lucene.Net.Contrib.Memory.dll
-del Lucene.Net.Contrib.Memory.pdb</PostBuildEvent>
+del Lucene.Net.Memory.dll
+del Lucene.Net.Memory.pdb
+del Lucene.Net.Sandbox.dll
+del Lucene.Net.Sandbox.pdb
+</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
