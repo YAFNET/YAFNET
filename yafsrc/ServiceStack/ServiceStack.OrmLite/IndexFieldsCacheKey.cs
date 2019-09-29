@@ -33,8 +33,10 @@ namespace ServiceStack.OrmLite
                 hashCode = hashCode * 23 + ModelDefinition.GetHashCode();
                 hashCode = hashCode * 23 + Dialect.GetHashCode();
                 hashCode = hashCode * 23 + Fields.Count;
-                for (var i = 0; i < Fields.Count; i++)
-                    hashCode = hashCode * 23 + Fields[i].Length;
+                foreach (var t in this.Fields)
+                {
+                    this.hashCode = this.hashCode * 23 + t.Length;
+                }
             }
         }
 

@@ -235,9 +235,8 @@ namespace ServiceStack
 
             var sb = StringBuilderThreadStatic.Allocate();
             var lastChar = (char)0;
-            for (var i = 0; i < str.Length; i++)
+            foreach (var c in str)
             {
-                var c = str[i];
                 if (c < 32) continue; // Skip all these
                 if (c == 32)
                 {

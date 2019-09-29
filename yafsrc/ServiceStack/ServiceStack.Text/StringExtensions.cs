@@ -905,9 +905,8 @@ namespace ServiceStack
             var copy = text.ToCharArray();
             var nonWsPos = 0;
 
-            for (var i = 0; i < text.Length; i++)
+            foreach (var @char in text)
             {
-                var @char = text[i];
                 if (@char < charFlags.Length && charFlags[@char]) continue;
                 copy[nonWsPos++] = @char;
             }
