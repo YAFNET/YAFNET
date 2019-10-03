@@ -254,7 +254,6 @@ namespace YAF.Core.Tasks
         /// </summary>
         public override void RunOnce()
         {
-
             try
             {
                 this.Logger.Info(

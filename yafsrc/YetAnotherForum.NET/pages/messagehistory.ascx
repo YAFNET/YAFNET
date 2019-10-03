@@ -17,45 +17,46 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-history fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="TITLE" />
+                <i class="fa fa-history fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
+                                                                                            LocalizedTag="TITLE" />
             </div>
             <div class="card-body">
                 <asp:Repeater ID="RevisionsList" runat="server"  OnItemCommand="RevisionsList_ItemCommand">
-        <HeaderTemplate>
-            <div class="table-responsive">
-            <table class="table">
-            <thead>
-            <tr>
-                <th>
-                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="OLD" />
-                </th>
-                <th>
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="NEW" />
-                </th>
-                <th>
-                    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITEREASON" />
-                </th>
-                <th>
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITEDBY" />
-                </th>
-                 <th>
-                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITEDBY_MOD" />
-                </th>
-                <th>
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITED" />
-                </th>
-                <th>
-                </th>
-            </tr>
-            </thead>
-        </HeaderTemplate>
-        <ItemTemplate>
+                    <HeaderTemplate>
+                        <div class="table-responsive">
+                        <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE"
+                                                    LocalizedTag="OLD" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="POSTMESSAGE"
+                                                    LocalizedTag="NEW" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedPage="POSTMESSAGE"
+                                                    LocalizedTag="EDITEREASON" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="POSTMESSAGE"
+                                                    LocalizedTag="EDITEDBY" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
+                                                    LocalizedTag="EDITEDBY_MOD" />
+                            </th>
+                            <th>
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"
+                                                    LocalizedTag="EDITED" />
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        </thead>
+                    </HeaderTemplate>
+                    <ItemTemplate>
             <tr>
                 <td>
                     <asp:RadioButton runat="server" ID="Old" onclick="toggleOldSelection(this);" />
@@ -64,8 +65,7 @@
                     <asp:RadioButton runat="server" ID="New" onclick="toggleNewSelection(this);" />
                 </td>
                 <td>
-                    <asp:HiddenField runat="server" Value='<%#
-    this.FormatMessage((System.Data.DataRow)Container.DataItem)%>' ID="MessageField" />
+                    <asp:HiddenField runat="server" Value='<%#Container.DataItemToField<string>("Message")%>' ID="MessageField" />
                     <%# Container.DataItemToField<DateTime>("Edited") != Container.DataItemToField<DateTime>("Posted") ? Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason"): this.GetText("ORIGINALMESSAGE") %>
                     <%# Container.ItemIndex.Equals(this.RevisionsCount-1) ? "({0})".Fmt(this.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")) : string.Empty %>
                 </td>
@@ -107,13 +107,10 @@
             </div>
             <div class="card-footer text-center">
                         <a onclick="RenderMessageDiff('<%# this.GetText("MESSAGEHISTORY","MESSAGE_EDITEDAT") %>','<%# this.GetText("MESSAGEHISTORY","NOTHING_SELECTED") %>','<%# this.GetText("MESSAGEHISTORY","SELECT_BOTH") %>','<%# this.GetText("MESSAGEHISTORY","SELECT_DIFFERENT") %>');" 
-                           class="btn btn-primary mt-1">
-                            <span style="color: white">
-                                <%# this.GetText("MESSAGEHISTORY","COMPARE_VERSIONS") %>
-                            </span>
+                           class="btn btn-primary mb-1" role="button" href="#">
+                            <%# this.GetText("MESSAGEHISTORY","COMPARE_VERSIONS") %>
                         </a>            
                         <YAF:ThemeButton ID="ReturnBtn" 
-                                         CssClass="mt-1"
                                          OnClick="ReturnBtn_OnClick"
                                          TextLocalizedTag="TOMESSAGE" 
                                          Visible="false" 
@@ -122,7 +119,6 @@
                                          runat="server">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton ID="ReturnModBtn"  
-                                         CssClass="mt-1"
                                          OnClick="ReturnModBtn_OnClick"
                                          TextLocalizedTag="GOMODERATE" 
                                          Visible="false" 

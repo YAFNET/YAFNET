@@ -31,6 +31,7 @@ namespace YAF.Core.BBCode
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Web.Compilation;
     using System.Web.UI;
 
     using YAF.Configuration;
@@ -39,7 +40,10 @@ namespace YAF.Core.BBCode
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -49,6 +53,7 @@ namespace YAF.Core.BBCode
     public class YafBBCode : IBBCode, IHaveServiceLocator
     {
         /* Ederon : 6/16/2007 - conventions */
+
         #region Constants and Fields
 
         /// <summary>
@@ -120,9 +125,7 @@ namespace YAF.Core.BBCode
         /// <summary>
         ///   The _rgx code 1.
         /// </summary>
-        private static readonly Regex _rgxCode1 = new Regex(
-            @"\[code\](?<inner>(.*?))\[/code\]",
-            Options);
+        private static readonly Regex _rgxCode1 = new Regex(@"\[code\](?<inner>(.*?))\[/code\]", Options);
 
         /// <summary>
         ///   The regex code with language string.
@@ -337,9 +340,104 @@ namespace YAF.Core.BBCode
 
         #endregion
 
+        /// <summary>
+        /// Gets CustomBBCode.
+        /// </summary>
+        protected IDictionary<BBCode, Regex> CustomBBCode
+        {
+            get
+            {
+                return this.Get<IObjectStore>().GetOrSet(
+                    "CustomBBCodeRegExDictionary",
+                    () =>
+                        {
+                            var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
+                            return bbcodeTable
+                                .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
+                                .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
+                        });
+            }
+        }
+
         #region Implemented Interfaces
 
         #region IBBCode
+
+        /// <summary>
+        /// Formats the message with Custom BBCodes
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="flags">
+        /// The Message flags.
+        /// </param>
+        /// <param name="displayUserId">
+        /// The display user id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// Returns the formatted Message.
+        /// </returns>
+        public string FormatMessageWithCustomBBCode(string message, [NotNull] MessageFlags flags, int? displayUserId, int? messageId)
+        {
+            var workingMessage = message;
+
+            // handle custom bbcodes row by row...
+            this.CustomBBCode.ForEach(
+                keyPair =>
+                {
+                    var codeRow = keyPair.Key;
+
+                    Match match;
+
+                    do
+                    {
+                        match = keyPair.Value.Match(workingMessage);
+
+                        if (!match.Success)
+                        {
+                            continue;
+                        }
+
+                        var sb = new StringBuilder();
+
+                        var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
+
+                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
+                        {
+                            var vars = codeRow.Variables.Split(';');
+
+                            vars.Where(v => match.Groups[v] != null).ForEach(
+                                v => paramDic.Add(v, match.Groups[v].Value));
+                        }
+
+                        sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
+
+                        // create/render the control...
+                        var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
+                        var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
+
+                        // assign parameters...
+                        customModule.CurrentMessageFlags = flags;
+                        customModule.DisplayUserID = displayUserId;
+                        customModule.MessageID = messageId;
+                        customModule.Parameters = paramDic;
+
+                        // render this control...
+                        sb.Append(customModule.RenderToString());
+
+                        sb.Append(workingMessage.Substring(match.Groups[0].Index + match.Groups[0].Length));
+
+                        workingMessage = sb.ToString();
+                    }
+                    while (match.Success);
+                });
+
+            return workingMessage;
+        }
 
         /// <summary>
         /// Converts a message containing YafBBCode to HTML appropriate for editing in a rich text editor.
@@ -473,9 +571,7 @@ namespace YAF.Core.BBCode
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
-                            }) {
-                                  RuleRank = 10 
-                               });
+                            }) { RuleRank = 10 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -487,32 +583,26 @@ namespace YAF.Core.BBCode
                             {
                                 string.Empty, string.Empty // "http://"
                             },
-                        50) {
-                               RuleRank = 11 
-                            });
+                        50) { RuleRank = 11 });
 
-                 // urls
-                 ruleEngine.AddRule(
-                     new VariableRegexReplaceRule(
-                         _RgxUrl3,
-                         "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
-                             .Replace("{0}", target).Replace("{1}", nofollow),
-                         new[] { "before" },
-                         new[] { string.Empty },
-                         50) {
-                                RuleRank = 12 
-                             });
+                // urls
+                ruleEngine.AddRule(
+                    new VariableRegexReplaceRule(
+                        _RgxUrl3,
+                        "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                            .Replace("{0}", target).Replace("{1}", nofollow),
+                        new[] { "before" },
+                        new[] { string.Empty },
+                        50) { RuleRank = 12 });
 
                 ruleEngine.AddRule(
-                     new VariableRegexReplaceRule(
-                         _RgxUrl4,
-                         "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
-                             .Replace("{0}", target).Replace("{1}", nofollow),
-                         new[] { "before" },
-                         new[] { string.Empty },
-                         50) {
-                                RuleRank = 13 
-                             });
+                    new VariableRegexReplaceRule(
+                        _RgxUrl4,
+                        "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
+                            .Replace("{0}", target).Replace("{1}", nofollow),
+                        new[] { "before" },
+                        new[] { string.Empty },
+                        50) { RuleRank = 13 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -603,46 +693,31 @@ namespace YAF.Core.BBCode
                     new VariableRegexReplaceRule(
                         _rgxImg,
                         "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
-                        new[]
-                            {
-                                "http", "height"
-                            },
-                        new[]
-                            {
-                                "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
-                            }) {
-                                  RuleRank = 70 
-                               });
+                        new[] { "http", "height" },
+                        new[] { "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                        {
+                            RuleRank = 70
+                        });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgEmptyTitle,
                         "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
-                        new[]
-                            {
-                                "http", "height"
-                            },
-                        new[]
-                            {
-                                "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
-                            }) {
-                                  RuleRank = 71 
-                               });
+                        new[] { "http", "height" },
+                        new[] { "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                        {
+                            RuleRank = 71
+                        });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
                         "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
-                        new[]
-                            {
-                                "http", "description", "height"
-                            },
+                        new[] { "http", "description", "height" },
                         new[]
                             {
                                 "http://", string.Empty, this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
-                            }) {
-                                  RuleRank = 72 
-                               });
+                            }) { RuleRank = 72 });
 
                 // basic hr and br rules
                 var hrRule = new SingleRegexReplaceRule(
@@ -656,9 +731,7 @@ namespace YAF.Core.BBCode
                 var brRule = new SingleRegexReplaceRule(
                                  _RgxBr,
                                  "<br />",
-                                 RegexOptions.IgnoreCase | RegexOptions.Multiline) {
-                                                                                      RuleRank = hrRule.RuleRank + 1 
-                                                                                   };
+                                 RegexOptions.IgnoreCase | RegexOptions.Multiline) { RuleRank = hrRule.RuleRank + 1 };
 
                 // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
                 ruleEngine.AddRule(hrRule);
@@ -672,10 +745,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SyntaxHighlightedCodeRegexReplaceRule(
                         _regexCodeWithLanguage,
-                        @"<div class=""code"">${inner}</div>")
-                        {
-                            RuleRank = 2
-                        });
+                        @"<div class=""code"">${inner}</div>") { RuleRank = 2 });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);
@@ -764,13 +834,7 @@ namespace YAF.Core.BBCode
                     @"<span style=""font-size:(?<size>(.*?))px;"">(?<inner>(.*?))</span>",
                     "[size=${size}]${inner}[/size]",
                     Options,
-                    new[]
-                        {
-                            "size"
-                        })
-                    {
-                        RuleRank = 10
-                    });
+                    new[] { "size" }) { RuleRank = 10 });
 
             // font
             ruleEngine.AddRule(
@@ -920,9 +984,7 @@ namespace YAF.Core.BBCode
                     @"<a.*?href=""(?<inner>(.*?))"".*?>(?<description>(.*?))</a>",
                     "[url=${inner}]${description}[/url]",
                     Options,
-                    new[] { "description" }) {
-                                                RuleRank = 2 
-                                             });
+                    new[] { "description" }) { RuleRank = 2 });
 
             // e-mails
             ruleEngine.AddRule(
@@ -930,9 +992,7 @@ namespace YAF.Core.BBCode
                     @"<a.*?href=""mailto:(?<email>(.*?))"".*?>(?<inner>(.*?))</a>",
                     "[email=${email}]${inner}[/email]",
                     Options,
-                    new[] { "email" }) {
-                                          RuleRank = 1 
-                                       });
+                    new[] { "email" }) { RuleRank = 1 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -953,17 +1013,13 @@ namespace YAF.Core.BBCode
                     @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
                     "[code=${language}]${inner}[/code]",
                     Options,
-                    new[] { "language" }) {
-                                             RuleRank = 97 
-                                          });
+                    new[] { "language" }) { RuleRank = 97 });
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
                     "[code]${inner}[/code]",
-                    Options) {
-                                RuleRank = 98 
-                             });
+                    Options) { RuleRank = 98 });
 
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
@@ -1147,7 +1203,7 @@ namespace YAF.Core.BBCode
         #region Methods
 
         /// <summary>
-        /// Applies Custom YafBBCode Rules from the YafBBCode table
+        /// Applies Custom BBCode Rules from the BBCode table
         /// </summary>
         /// <param name="rulesEngine">
         /// The rules Engine.
@@ -1169,9 +1225,7 @@ namespace YAF.Core.BBCode
                                            codeRow.SearchRegex,
                                            codeRow.ReplaceRegex,
                                            Options,
-                                           variables) {
-                                                         RuleRank = 50 
-                                                      };
+                                           variables) { RuleRank = 50 };
 
                             rulesEngine.AddRule(rule);
                         }

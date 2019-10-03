@@ -58,7 +58,6 @@ namespace YAF.Core.Tasks
         /// </summary>
         public override void RunOnce()
         {
-
         }
 
         /// <summary>

@@ -60,17 +60,12 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   The _forum editor.
+        ///   The forum editor.
         /// </summary>
         protected ForumEditor ForumEditor;
 
         /// <summary>
-        ///   The original message.
-        /// </summary>
-        protected string _originalMessage;
-
-        /// <summary>
-        ///   The _owner user id.
+        ///   The owner user id.
         /// </summary>
         protected int OwnerUserId;
 
@@ -108,12 +103,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets or sets OriginalMessage.
         /// </summary>
-        protected string OriginalMessage
-        {
-            get => this._originalMessage;
-
-            set => this._originalMessage = value;
-        }
+        protected TypedMessageList OriginalMessage;
 
         /// <summary>
         ///   Gets or sets the PollGroupId if the topic has a poll attached
@@ -400,7 +390,7 @@ namespace YAF.Pages
 
                 if (currentMessage != null)
                 {
-                    this.OriginalMessage = currentMessage.Message;
+                    this.OriginalMessage = currentMessage;
 
                     this.OwnerUserId = currentMessage.UserID.ToType<int>();
 
@@ -535,7 +525,7 @@ namespace YAF.Pages
                 // If currentRow != null, we are quoting a post in a new reply, or editing an existing post
                 if (currentMessage != null)
                 {
-                    this.OriginalMessage = currentMessage.Message;
+                    this.OriginalMessage = currentMessage;
 
                     if (this.QuotedMessageId != null)
                     {
@@ -871,7 +861,7 @@ namespace YAF.Pages
                                    IsApproved = isSpamApproved
                                };
 
-            this.GetRepository<Message>().Save(
+            messageId = this.GetRepository<Message>().SaveNew(
                this.TopicId.Value,
                 this.PageContext.PageUserID,
                 this.ForumEditor.Text,
@@ -879,8 +869,7 @@ namespace YAF.Pages
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
                 replyTo.ToType<int>(),
-                messageFlags.BitValue,
-                ref messageId);
+                messageFlags);
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 

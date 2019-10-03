@@ -23,125 +23,124 @@
  */
 namespace YAF.Core.Tasks
 {
-  using System;
-  using System.Web;
+    using System;
 
-  using YAF.Configuration;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces;
+    using YAF.Configuration;
+    using YAF.Types.Attributes;
+    using YAF.Types.Interfaces;
 
     /// <summary>
-  /// The base background task.
-  /// </summary>
-  public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
-  {
-    /// <summary>
-    /// The _board id.
+    /// The base background task.
     /// </summary>
-    protected int _boardId = YafControlSettings.Current.BoardID;
-
-    /// <summary>
-    /// The _is running.
-    /// </summary>
-    protected bool _isRunning;
-
-    /// <summary>
-    /// The _lock object.
-    /// </summary>
-    protected object _lockObject = new object();
-
-    /// <summary>
-    /// The _started.
-    /// </summary>
-    protected DateTime _started;
-
-    #region IBackgroundTask Members
-
-    /// <summary>
-    /// Gets or sets BoardID.
-    /// </summary>
-    public virtual object Data
+    public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     {
-      protected get
-      {
-        return this._boardId;
-      }
+        /// <summary>
+        /// The _board id.
+        /// </summary>
+        protected int _boardId = YafControlSettings.Current.BoardID;
 
-      set
-      {
-        this._boardId = (int)value;
-      }
-    }
+        /// <summary>
+        /// The _is running.
+        /// </summary>
+        protected bool _isRunning;
 
-    /// <summary>
-    /// Gets or sets a value indicating whether IsRunning.
-    /// </summary>
-    public virtual bool IsRunning
-    {
-      get
-      {
-        lock (this._lockObject)
+        /// <summary>
+        /// The _lock object.
+        /// </summary>
+        protected object _lockObject = new object();
+
+        /// <summary>
+        /// The _started.
+        /// </summary>
+        protected DateTime _started;
+
+        #region IBackgroundTask Members
+
+        /// <summary>
+        /// Gets or sets BoardID.
+        /// </summary>
+        public virtual object Data
         {
-          return this._isRunning;
-        }
-      }
+            protected get
+            {
+                return this._boardId;
+            }
 
-      protected set
-      {
-        lock (this._lockObject)
+            set
+            {
+                this._boardId = (int)value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether IsRunning.
+        /// </summary>
+        public virtual bool IsRunning
         {
-          if (!this._isRunning && value)
-          {
-            this._started = DateTime.UtcNow;
-          }
+            get
+            {
+                lock (this._lockObject)
+                {
+                    return this._isRunning;
+                }
+            }
 
-          this._isRunning = value;
+            protected set
+            {
+                lock (this._lockObject)
+                {
+                    if (!this._isRunning && value)
+                    {
+                        this._started = DateTime.UtcNow;
+                    }
+
+                    this._isRunning = value;
+                }
+            }
         }
-      }
-    }
 
-    /// <summary>
-    /// Gets Started.
-    /// </summary>
-    public virtual DateTime Started => this._started;
+        /// <summary>
+        /// Gets Started.
+        /// </summary>
+        public virtual DateTime Started => this._started;
 
-    /// <summary>
-    /// The run.
-    /// </summary>
-    public virtual void Run()
-    {
-      this.IsRunning = true;
+        /// <summary>
+        /// The run.
+        /// </summary>
+        public virtual void Run()
+        {
+            this.IsRunning = true;
 
-      this.RunOnce();
+            this.RunOnce();
 
-      this.IsRunning = false;
-    }
+            this.IsRunning = false;
+        }
 
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public virtual void Dispose()
-    {
-      this.IsRunning = false;
-    }
+        /// <summary>
+        /// The dispose.
+        /// </summary>
+        public virtual void Dispose()
+        {
+            this.IsRunning = false;
+        }
 
-    #endregion
+        #endregion
 
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public abstract void RunOnce();
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public abstract void RunOnce();
 
-    #region Implementation of IHaveServiceLocator
+        #region Implementation of IHaveServiceLocator
 
-    /// <summary>
-    /// Gets ServiceLocator.
-    /// </summary>
-    [Inject]
-    public IServiceLocator ServiceLocator { get; set; }
+        /// <summary>
+        /// Gets ServiceLocator.
+        /// </summary>
+        [Inject]
+        public IServiceLocator ServiceLocator { get; set; }
 
-    [Inject]
-    public ILogger Logger { get; set; }
+        [Inject]
+        public ILogger Logger { get; set; }
 
         #endregion
     }

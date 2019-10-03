@@ -26,6 +26,7 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
 
     using ServiceStack.OrmLite;
@@ -34,6 +35,7 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -234,7 +236,7 @@ namespace YAF.Core.Model
         /// The message Id.
         /// </param>
         /// <returns>
-        /// The <see cref="IEnumerable"/>.
+        /// Returns the TypedMessage List
         /// </returns>
         [NotNull]
         public static IEnumerable<TypedMessageList> MessageList(this IRepository<Message> repository, int messageId)
@@ -424,7 +426,6 @@ namespace YAF.Core.Model
                 deleteReason,
                 isDeleteAction,
                 deleteLinked,
-                false,
                 eraseMessage);
         }
 
@@ -678,7 +679,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_save.
+        /// Saves the new Message
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -695,8 +696,8 @@ namespace YAF.Core.Model
         /// <param name="guestUserName">
         /// The guest user name.
         /// </param>
-        /// <param name="ip">
-        /// The ip.
+        /// <param name="ipAddress">
+        /// The IP Address.
         /// </param>
         /// <param name="posted">
         /// The posted.
@@ -705,25 +706,21 @@ namespace YAF.Core.Model
         /// The reply to.
         /// </param>
         /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <param name="messageID">
-        /// The message id.
+        /// The Message flags.
         /// </param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// Returns the Message ID
         /// </returns>
-        public static bool Save(
+        public static long SaveNew(
             this IRepository<Message> repository,
             [NotNull] long topicId,
             [NotNull] int userId,
             [NotNull] string message,
             [NotNull] string guestUserName,
-            [NotNull] string ip,
+            [NotNull] string ipAddress,
             [NotNull] DateTime posted,
             [NotNull] int replyTo,
-            [NotNull] int flags,
-            ref long messageID)
+            [NotNull] MessageFlags flags)
         {
             IDbDataParameter parameterMessage = null;
 
@@ -737,19 +734,39 @@ namespace YAF.Core.Model
                         cmd.AddParam("UserID", userId);
                         cmd.AddParam("Message", message);
                         cmd.AddParam("UserName", guestUserName);
-                        cmd.AddParam("IP", ip);
+                        cmd.AddParam("IP", ipAddress);
                         cmd.AddParam("Posted", posted);
                         cmd.AddParam("ReplyTo", replyTo);
                         cmd.AddParam("BlogPostID", null);
-                        cmd.AddParam("Flags", flags);
+                        cmd.AddParam("Flags", flags.BitValue);
                         cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
                         parameterMessage = cmd.AddParam("MessageID", direction: ParameterDirection.Output);
                     });
 
-            messageID = parameterMessage.Value.ToType<long>();
+            var messageId = parameterMessage.Value.ToType<long>();
 
-            return true;
+            // Add to search index
+            var newMessage = new SearchMessage
+                                    {
+                                        MessageId = messageId.ToType<int>(),
+                                        Message = message,
+                                        Flags = flags.BitValue,
+                                        Posted = posted.ToString(CultureInfo.InvariantCulture),
+                                        UserName = YafContext.Current.User.UserName,
+                                        UserDisplayName = YafContext.Current.CurrentUserData.DisplayName,
+                                        UserStyle = YafContext.Current.UserStyle,
+                                        UserId = YafContext.Current.PageUserID,
+                                        TopicId = YafContext.Current.PageTopicID,
+                                        Topic = YafContext.Current.PageTopicName,
+                                        ForumId = YafContext.Current.PageForumID,
+                                        ForumName = YafContext.Current.PageForumName,
+                                        Description = string.Empty
+                                    };
+
+            YafContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
+
+            return messageId;
         }
 
         /// <summary>
@@ -850,7 +867,7 @@ namespace YAF.Core.Model
             [NotNull] string reasonOfEdit,
             [NotNull] bool isModeratorChanged,
             [NotNull] bool? overrideApproval,
-            [NotNull] string originalMessage,
+            [NotNull] TypedMessageList originalMessage,
             [NotNull] int editedBy)
         {
             repository.DbFunction.Scalar.message_update(
@@ -866,8 +883,28 @@ namespace YAF.Core.Model
                 EditedBy: editedBy,
                 IsModeratorChanged: isModeratorChanged,
                 OverrideApproval: overrideApproval,
-                OriginalMessage: originalMessage,
+                OriginalMessage: originalMessage.Message,
                 CurrentUtcTimestamp: DateTime.UtcNow);
+
+            // Update Search index Item
+            var updateMessage = new SearchMessage
+                                    {
+                                        MessageId = messageId,
+                                        Message = message,
+                                        Flags = flags,
+                                        Posted = originalMessage.Posted.ToString(CultureInfo.InvariantCulture),
+                                        UserName = originalMessage.UserName,
+                                        UserDisplayName = originalMessage.UserDisplayName,
+                                        UserStyle = originalMessage.UserStyle,
+                                        UserId = originalMessage.UserID,
+                                        TopicId = originalMessage.TopicID,
+                                        Topic = originalMessage.Topic,
+                                        ForumId = originalMessage.ForumID,
+                                        ForumName = originalMessage.ForumName,
+                                        Description = description
+                                    };
+
+            YafContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
         }
 
         /// <summary>
@@ -919,9 +956,6 @@ namespace YAF.Core.Model
         /// <param name="deleteLinked">
         /// The delete linked.
         /// </param>
-        /// <param name="isLinked">
-        /// The is linked.
-        /// </param>
         /// <param name="eraseMessages">
         /// The erase messages.
         /// </param>
@@ -932,7 +966,6 @@ namespace YAF.Core.Model
             [NotNull] string deleteReason,
             int isDeleteAction,
             bool deleteLinked,
-            bool isLinked,
             bool eraseMessages)
         {
             var useFileTable = YafContext.Current.Get<YafBoardSettings>().UseFileTable;
@@ -949,7 +982,6 @@ namespace YAF.Core.Model
                         deleteReason,
                         isDeleteAction,
                         true,
-                        isLinked,
                         eraseMessages));
             }
 

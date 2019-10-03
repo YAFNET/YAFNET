@@ -150,16 +150,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Compares the selected Versions
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CompareVersions_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // TODO:
-        }
-
-        /// <summary>
         /// Redirect to the changed post
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -198,14 +188,13 @@ namespace YAF.Pages
                         this.messageID,
                         this.PageContext.BoardSettings.MessageHistoryDaysToLog).AsEnumerable();
 
-                    foreach (var row in Enumerable.Where(revisionsTable, row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>())))
-                    {
-                        restoreMessage = row;
-                    }
+                    Enumerable.Where(
+                            revisionsTable,
+                            row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>()))
+                        .ForEach(row => restoreMessage = row);
 
                     if (restoreMessage != null)
                     {
-
                         this.GetRepository<Message>().Update(
                             this.messageID,
                             currentMessage.Priority.Value,
@@ -218,7 +207,7 @@ namespace YAF.Pages
                             restoreMessage["EditReason"].ToString(),
                             this.PageContext.PageUserID != currentMessage.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
-                            currentMessage.Message,
+                            currentMessage,
                             this.PageContext.PageUserID);
 
                         this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
@@ -227,41 +216,6 @@ namespace YAF.Pages
                     break;
             }
         }
-
-        /// <summary>
-        /// Format message.
-        /// </summary>
-        /// <param name="row">
-        /// Message data row.
-        /// </param>
-        /// <returns>
-        /// Formatted string with escaped HTML markup and formatted.
-        /// </returns>
-        protected string FormatMessage([NotNull] DataRow row)
-        {
-            // get message flags
-            var messageFlags = new MessageFlags(row["Flags"]);
-
-            // message
-            string msg;
-
-            // format message?
-            if (messageFlags.NotFormatted)
-            {
-                // just encode it for HTML output
-                msg = this.HtmlEncode(row["Message"].ToString());
-            }
-            else
-            {
-                // fully format message (YafBBCode, smilies)
-                msg = this.Get<IFormatMessage>().FormatMessage(
-                  row["Message"].ToString(), messageFlags, row["IsModeratorChanged"].ToType<bool>());
-            }
-
-            // return formatted message
-            return msg;
-        }
-        
 
         /// <summary>
         /// Binds data to data source

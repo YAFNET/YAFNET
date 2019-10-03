@@ -35,10 +35,11 @@ namespace YAF.Core.Services
     using Lucene.Net.Analysis.Standard;
     using Lucene.Net.Documents;
     using Lucene.Net.Index;
-    using Lucene.Net.QueryParsers;
+    using Lucene.Net.QueryParsers.Classic;
     using Lucene.Net.Search;
     using Lucene.Net.Search.Highlight;
     using Lucene.Net.Store;
+    using Lucene.Net.Util;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -64,6 +65,11 @@ namespace YAF.Core.Services
         private const string WriteLockFile = "write.lock";
 
         /// <summary>
+        /// the Search Version
+        /// </summary>
+        private const LuceneVersion MatchVersion = LuceneVersion.LUCENE_48;
+
+        /// <summary>
         /// The search index folder.
         /// </summary>
         private static readonly string SearchIndexFolder = Path.Combine(
@@ -76,19 +82,14 @@ namespace YAF.Core.Services
         private readonly StandardAnalyzer standardAnalyzer;
 
         /// <summary>
-        /// The indexWriter lock.
-        /// </summary>
-        private readonly object indexWriterLock = new object();
-
-        /// <summary>
         /// The indexWriter.
         /// </summary>
         private IndexWriter indexWriter;
 
         /// <summary>
-        /// The index reader.
+        /// The searcher manager.
         /// </summary>
-        private IndexReader indexReader;
+        private SearcherManager searcherManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YafSearch" /> class.
@@ -98,7 +99,7 @@ namespace YAF.Core.Services
         {
             this.ServiceLocator = serviceLocator;
 
-            this.standardAnalyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            this.standardAnalyzer = new StandardAnalyzer(MatchVersion);
         }
 
         /// <summary>
@@ -113,57 +114,44 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (this.indexWriter != null)
+                if (this.indexWriter != null && !this.indexWriter.IsClosed)
                 {
                     return this.indexWriter;
                 }
 
-                lock (this.indexWriterLock)
+                var lockFile = Path.Combine(SearchIndexFolder, WriteLockFile);
+
+                if (File.Exists(lockFile))
                 {
-                    if (this.indexWriter != null)
-                    {
-                        return this.indexWriter;
-                    }
-
-                    var lockFile = Path.Combine(SearchIndexFolder, WriteLockFile);
-
-                    if (File.Exists(lockFile))
-                    {
-                        try
-                        {
-                            File.Delete(lockFile);
-                        }
-                        catch (IOException ex)
-                        {
-                            this.Get<ILogger>().Log(null, this, ex);
-                        }
-                    }
-
-                    IndexWriter writer;
-
                     try
                     {
-                        writer = new IndexWriter(
-                            FSDirectory.Open(SearchIndexFolder),
-                            this.standardAnalyzer,
-                            IndexWriter.MaxFieldLength.UNLIMITED);
+                        File.Delete(lockFile);
                     }
-                    catch (LockObtainFailedException)
+                    catch (Exception)
                     {
-                        var directoryInfo = new DirectoryInfo(SearchIndexFolder);
-                        var directory = FSDirectory.Open(directoryInfo, new SimpleFSLockFactory(directoryInfo));
-                        IndexWriter.Unlock(directory);
-
-                        writer = new IndexWriter(
-                            FSDirectory.Open(SearchIndexFolder),
-                            this.standardAnalyzer,
-                            IndexWriter.MaxFieldLength.UNLIMITED);
+                        //this.Get<ILogger>().Log(null, this, ex);
                     }
-
-                    this.indexReader = writer.GetReader();
-                    Thread.MemoryBarrier();
-                    this.indexWriter = writer;
                 }
+
+                IndexWriter writer;
+
+                var indexConfig = new IndexWriterConfig(MatchVersion, this.standardAnalyzer);
+
+                try
+                {
+                    writer = new IndexWriter(FSDirectory.Open(SearchIndexFolder), indexConfig);
+                }
+                catch (LockObtainFailedException)
+                {
+                    var directoryInfo = new DirectoryInfo(SearchIndexFolder);
+                    var directory = FSDirectory.Open(directoryInfo, new SimpleFSLockFactory(directoryInfo));
+                    IndexWriter.Unlock(directory);
+
+                    writer = new IndexWriter(FSDirectory.Open(SearchIndexFolder), indexConfig);
+                }
+
+                Thread.MemoryBarrier();
+                this.indexWriter = writer;
 
                 return this.indexWriter;
             }
@@ -174,32 +162,22 @@ namespace YAF.Core.Services
         /// </summary>
         public void Optimize()
         {
-            var writer = this.indexWriter;
-
-            if (writer == null || !writer.HasDeletions())
+            try
             {
-                return;
+                var writer = this.indexWriter;
+
+                if (writer == null || writer.IsClosed)
+                {
+                    return;
+                }
+
+                writer.Flush(true, true);
+                writer.Commit();
+                this.Dispose();
             }
-
-            this.indexWriter.Optimize();
-
-            this.Commit();
-        }
-
-        /// <summary>
-        /// The commit.
-        /// </summary>
-        public void Commit()
-        {
-            if (this.indexWriter == null)
+            catch (Exception)
             {
-                return;
-            }
-
-            lock (this.indexWriterLock)
-            {
-                this.indexWriter?.Commit();
-                this.indexWriter.Close();
+                this.Dispose();
             }
         }
 
@@ -232,32 +210,22 @@ namespace YAF.Core.Services
             // remove older index entry
             var searchQuery = new TermQuery(new Term("MessageId", messageId.ToString()));
 
-            this.Writer.SetMergeScheduler(new ConcurrentMergeScheduler());
-            this.Writer.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
-
             this.Writer.DeleteDocuments(searchQuery);
+
+            this.Optimize();
         }
 
         /// <summary>
-        /// Adds or updates the search index
+        /// Adds the search index
         /// </summary>
-        /// <param name="messageList">The message list.</param>
-        public void AddUpdateSearchIndex(IEnumerable<SearchMessage> messageList)
+        /// <param name="messageList">
+        /// The message list.
+        /// </param>
+        public void AddSearchIndex(IEnumerable<SearchMessage> messageList)
         {
             try
             {
-                this.Writer.SetMergeScheduler(new ConcurrentMergeScheduler());
-                this.Writer.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
-
-                messageList.ForEach(this.AddToSearchIndex);
-            }
-            /*catch (LockObtainFailedException ex)
-            {
-                this.Get<ILogger>().Log(null, this, ex);
-            }*/
-            catch (ThreadAbortException ex)
-            {
-                this.Get<ILogger>().Log(null, this, ex);
+                messageList.ForEach(message => this.UpdateSearchIndexItem(message));
             }
             finally
             {
@@ -266,12 +234,110 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Adds or updates the search index
+        /// The add search index item.
         /// </summary>
-        /// <param name="message">The message.</param>
-        public void AddUpdateSearchIndex(SearchMessage message)
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void AddSearchIndexItem(SearchMessage message)
         {
-            this.AddUpdateSearchIndex(new List<SearchMessage> { message });
+            try
+            {
+                var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+                var userDisplayName = message.UserDisplayName ?? string.Empty;
+                var userStyle = message.UserStyle ?? string.Empty;
+                var description = message.Description ?? (message.Topic ?? string.Empty);
+
+                var doc = new Document
+                              {
+                                  new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+                                  new TextField("Message", message.Message, Field.Store.YES),
+                                  new StoredField("Flags", message.Flags.ToString()),
+                                  new StoredField("Posted", message.Posted),
+                                  new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+                                  new StoredField("TopicId", message.TopicId.ToString()),
+                                  new TextField("Topic", message.Topic, Field.Store.YES),
+                                  new StringField("ForumName", message.ForumName, Field.Store.YES),
+                                  new StoredField("ForumId", message.ForumId.ToString()),
+                                  new StringField("Author", name, Field.Store.YES),
+                                  new StringField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                                  new StoredField("AuthorStyle", userStyle),
+                                  new TextField("Description", description, Field.Store.YES)
+                              };
+                try
+                {
+                    this.Writer.AddDocument(doc);
+                }
+                catch (OutOfMemoryException)
+                {
+                    this.DisposeWriter();
+                    this.Writer.AddDocument(doc);
+                }
+            }
+            finally
+            {
+                this.Optimize();
+            }
+        }
+
+        /// <summary>
+        /// Updates the Search Index Item or if not found adds it.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="dispose">
+        /// Dispose IndexWriter after updating?
+        /// </param>
+        public void UpdateSearchIndexItem(SearchMessage message, bool dispose = false)
+        {
+            try
+            {
+                var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+                var userDisplayName = message.UserDisplayName ?? string.Empty;
+                var userStyle = message.UserStyle ?? string.Empty;
+                var description = message.Description ?? (message.Topic ?? string.Empty);
+
+                var doc = new Document
+                              {
+                                  new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+                                  new TextField("Message", message.Message, Field.Store.YES),
+                                  new StoredField("Flags", message.Flags.ToString()),
+                                  new StoredField("Posted", message.Posted),
+                                  new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+                                  new StoredField("TopicId", message.TopicId.ToString()),
+                                  new TextField("Topic", message.Topic, Field.Store.YES),
+                                  new StringField("ForumName", message.ForumName, Field.Store.YES),
+                                  new StoredField("ForumId", message.ForumId.ToString()),
+                                  new StringField("Author", name, Field.Store.YES),
+                                  new StringField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                                  new StoredField("AuthorStyle", userStyle),
+                                  new TextField("Description", description, Field.Store.YES)
+                              };
+
+                try
+                {
+                    this.Writer.UpdateDocument(
+                        new Term("MessageId", message.MessageId.Value.ToString()),
+                        doc,
+                        this.standardAnalyzer);
+                }
+                catch (Exception)
+                {
+                    this.DisposeWriter();
+                    this.Writer.UpdateDocument(
+                        new Term("MessageId", message.MessageId.Value.ToString()),
+                        doc,
+                        this.standardAnalyzer);
+                }
+            }
+            finally
+            {
+                if (dispose)
+                {
+                    this.Optimize();
+                }
+            }
         }
 
         /// <summary>
@@ -289,10 +355,6 @@ namespace YAF.Core.Services
             return input.IsNotSet()
                        ? new List<SearchMessage>()
                        : this.SearchIndex(out _, forumId, userId, input, fieldName);
-
-            /*    var terms = input.Trim().Replace("-", " ").Split(' ').Where(x => !string.IsNullOrEmpty(x))
-                    .Select(x => x.Trim() + "*");
-                input = string.Join(" ", terms);*/
         }
 
         /// <summary>
@@ -338,10 +400,6 @@ namespace YAF.Core.Services
 
             totalHits = 0;
             return new List<SearchMessage>();
-
-            /*var terms = input.Trim().Replace("-", " ").Split(' ').Where(x => !string.IsNullOrEmpty(x))
-                .Select(x => x.Trim() + "*");
-            input = string.Join(" ", terms);*/
         }
 
         /// <summary>
@@ -367,7 +425,8 @@ namespace YAF.Core.Services
         public void Dispose()
         {
             this.DisposeWriter();
-            this.DisposeReaders();
+
+            this.searcherManager?.Dispose();
         }
 
         /// <summary>
@@ -378,25 +437,13 @@ namespace YAF.Core.Services
         /// </returns>
         public IndexSearcher GetSearcher()
         {
-            IndexSearcher searcher;
+            this.searcherManager = this.indexWriter != null
+                                       ? new SearcherManager(this.indexWriter, false, null)
+                                       : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
 
-            if (this.indexReader != null)
-            {
-                var newReader = this.indexReader.Reopen();
+            this.searcherManager.MaybeRefreshBlocking();
 
-                if (this.indexReader != newReader)
-                {
-                    Interlocked.Exchange(ref this.indexReader, newReader);
-                }
-
-                searcher = new IndexSearcher(this.indexReader);
-            }
-            else
-            {
-                searcher = new IndexSearcher(FSDirectory.Open(SearchIndexFolder), true);
-            }
-
-            return searcher;
+            return this.searcherManager.Acquire();
         }
 
         /// <summary>
@@ -405,7 +452,7 @@ namespace YAF.Core.Services
         /// <param name="searchQuery">The search query.</param>
         /// <param name="parser">The parser.</param>
         /// <returns>Returns the query</returns>
-        private static Query ParseQuery(string searchQuery, QueryParser parser)
+        private static Query ParseQuery(string searchQuery, QueryParserBase parser)
         {
             Query query;
 
@@ -415,7 +462,7 @@ namespace YAF.Core.Services
             }
             catch (ParseException)
             {
-                query = parser.Parse(QueryParser.Escape(searchQuery.Trim()));
+                query = parser.Parse(QueryParserBase.Escape(searchQuery.Trim()));
             }
 
             return query;
@@ -437,7 +484,7 @@ namespace YAF.Core.Services
             string field,
             string fieldContent)
         {
-            var stream = analyzer.TokenStream(field, new StringReader(fieldContent));
+            var stream = analyzer.GetTokenStream(field, new StringReader(fieldContent));
             return highlighter.GetBestFragments(stream, fieldContent, 20, ".");
         }
 
@@ -451,7 +498,7 @@ namespace YAF.Core.Services
         /// Returns the search list
         /// </returns>
         private static List<SearchMessage> MapSearchToDataList(
-            Searchable searcher,
+            IndexSearcher searcher,
             IEnumerable<ScoreDoc> hits,
             List<vaccess> userAccessList)
         {
@@ -494,68 +541,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Adds the index of to search.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        private void AddToSearchIndex(SearchMessage message)
-        {
-            try
-            {
-                var searchQuery = new TermQuery(new Term("MessageId", message.MessageId.Value.ToString()));
-
-                this.Writer.SetMergeScheduler(new ConcurrentMergeScheduler());
-                this.Writer.SetMaxBufferedDocs(YafContext.Current.Get<YafBoardSettings>().ReturnSearchMax);
-
-                this.Writer.DeleteDocuments(searchQuery);
-
-                var doc = new Document();
-
-                doc.Add(
-                    new Field("MessageId", message.MessageId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("Message", message.Message, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field("Flags", message.Flags.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("Posted", message.Posted, Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-                var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
-                doc.Add(new Field("Author", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                name = message.UserDisplayName ?? string.Empty;
-                doc.Add(new Field("AuthorDisplay", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                name = message.UserStyle ?? string.Empty;
-                doc.Add(new Field("AuthorStyle", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                doc.Add(new Field("UserId", message.UserId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("TopicId", message.TopicId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-                doc.Add(new Field("Topic", message.Topic, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field("ForumName", message.ForumName, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field("ForumId", message.ForumId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-                name = message.Description ?? (message.Topic ?? string.Empty);
-                doc.Add(new Field("Description", name, Field.Store.YES, Field.Index.ANALYZED));
-
-                try
-                {
-                    this.Writer.AddDocument(doc);
-                }
-                catch (OutOfMemoryException)
-                {
-                    lock (this.indexWriterLock)
-                    {
-                        this.DisposeWriter();
-                        this.Writer.AddDocument(doc);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Get<ILogger>().Log(null, this, ex);
-            }
-        }
-
-        /// <summary>
         /// Maps the search document to data.
         /// </summary>
         /// <param name="highlighter">The highlighter.</param>
@@ -579,10 +564,15 @@ namespace YAF.Core.Services
             }
 
             var flags = doc.Get("Flags").ToType<int>();
+            var messageFlags = new MessageFlags(flags);
 
-            var formattedMessage = this.Get<IFormatMessage>().FormatMessage(
-                doc.Get("Message"),
-                new MessageFlags(flags));
+            var formattedMessage = this.Get<IFormatMessage>().FormatMessage(doc.Get("Message"), messageFlags);
+
+            formattedMessage = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
+                formattedMessage,
+                new MessageFlags(flags),
+                doc.Get("UserId").ToType<int>(),
+                doc.Get("MessageId").ToType<int>());
 
             var message = formattedMessage;
 
@@ -658,7 +648,7 @@ namespace YAF.Core.Services
         private List<SearchMessage> MapSearchToDataList(
             Highlighter highlighter,
             Analyzer analyzer,
-            Searchable searcher,
+            IndexSearcher searcher,
             IEnumerable<ScoreDoc> hits,
             int pageIndex,
             int pageSize,
@@ -718,7 +708,7 @@ namespace YAF.Core.Services
                 hitsLimit = pageSize;
             }
 
-            var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            var analyzer = new StandardAnalyzer(MatchVersion);
 
             var formatter = new SimpleHTMLFormatter("<mark>", "</mark>");
             var fragmenter = new SimpleFragmenter(hitsLimit);
@@ -727,7 +717,7 @@ namespace YAF.Core.Services
             // search by single field
             if (searchField.IsSet())
             {
-                var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, analyzer);
+                var parser = new QueryParser(MatchVersion, searchField, analyzer);
                 var query = ParseQuery(searchQuery, parser);
                 scorer = new QueryScorer(query);
 
@@ -745,23 +735,19 @@ namespace YAF.Core.Services
                     pageSize,
                     userAccessList);
 
-                analyzer.Close();
-                searcher.Dispose();
+                analyzer.Dispose();
 
                 return results;
             }
             else
             {
-                var parser = new MultiFieldQueryParser(
-                    Lucene.Net.Util.Version.LUCENE_30,
-                    new[] { "Message", "Topic", "Author" },
-                    analyzer);
+                var parser = new MultiFieldQueryParser(MatchVersion, new[] { "Message", "Topic", "Author" }, analyzer);
 
                 var query = ParseQuery(searchQuery, parser);
                 scorer = new QueryScorer(query);
 
                 // sort by date
-                var sort = new Sort(new SortField("Posted", SortField.STRING, true));
+                var sort = new Sort(new SortField("Posted", SortFieldType.STRING, true));
                 var hits = searcher.Search(query, null, hitsLimit, sort).ScoreDocs;
 
                 totalHits = hits.Length;
@@ -776,8 +762,8 @@ namespace YAF.Core.Services
                     pageSize,
                     userAccessList);
 
-                analyzer.Close();
-                searcher.Dispose();
+                this.searcherManager.Release(searcher);
+
                 return results;
             }
         }
@@ -805,14 +791,14 @@ namespace YAF.Core.Services
 
             var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
 
-            var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, this.standardAnalyzer);
+            var parser = new QueryParser(MatchVersion, searchField, this.standardAnalyzer);
             var query = ParseQuery(searchQuery, parser);
 
             var hits = searcher.Search(query, hitsLimit).ScoreDocs;
 
             var results = MapSearchToDataList(searcher, hits, userAccessList);
 
-            searcher.Dispose();
+            this.searcherManager.Release(searcher);
 
             return results;
         }
@@ -820,42 +806,9 @@ namespace YAF.Core.Services
         /// <summary>
         /// The dispose writer.
         /// </summary>
-        /// <param name="commit">
-        /// The commit.
-        /// </param>
-        private void DisposeWriter(bool commit = true)
+        private void DisposeWriter()
         {
-            if (this.indexWriter == null)
-            {
-                return;
-            }
-
-            lock (this.indexWriterLock)
-            {
-                if (this.indexWriter == null)
-                {
-                    return;
-                }
-
-                this.indexReader.Dispose();
-                this.indexReader = null;
-
-                if (commit)
-                {
-                    this.indexWriter.Commit();
-                }
-
-                this.indexWriter.Dispose();
-                this.indexWriter = null;
-            }
-        }
-
-        /// <summary>
-        /// The dispose readers.
-        /// </summary>
-        private void DisposeReaders()
-        {
-            this.indexReader = null;
+            this.indexWriter?.Dispose(true);
         }
     }
 }

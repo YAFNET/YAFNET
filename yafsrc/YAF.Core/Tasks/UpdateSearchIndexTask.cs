@@ -26,10 +26,12 @@ namespace YAF.Core.Tasks
     #region Using
 
     using System;
-    using System.Linq;
+    using System.Globalization;
     using System.Threading;
 
+    using YAF.Configuration;
     using YAF.Core.Model;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
 
@@ -38,7 +40,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// The Update Search Index task.
     /// </summary>
-    public class UpdateSearchIndexTask : IntermittentBackgroundTask
+    public class UpdateSearchIndexTask : LongBackgroundTask
     {
         #region Constants and Fields
 
@@ -83,32 +85,72 @@ namespace YAF.Core.Tasks
             {
                 Thread.BeginCriticalRegion();
 
-                // get all boards...
-                var boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
+                if (YafContext.Current == null)
+                {
+                    return;
+                }
 
-                // go through each board...
-                boardIds.ForEach(
-                    boardId =>
-                        {
-                            var messages = this.GetRepository<Message>().GetAllMessagesByBoard(boardId);
+                if (!this.IsTimeToUpdateSearchIndex())
+                {
+                    return;
+                }
 
-                            this.Get<ISearch>().AddUpdateSearchIndex(messages);
+                var messages = this.GetRepository<Message>().GetAllMessagesByBoard(YafContext.Current.PageBoardID);
 
-                            // sleep for a second...
-                            Thread.Sleep(1000);
-                        });
+                this.Get<ISearch>().AddSearchIndex(messages);
             }
             catch (Exception x)
             {
                 if (!(x is ThreadAbortException))
                 {
-                    this.Logger.Error(x, $"Error In {TaskName} Task");
+                    //this.Logger.Error(x, $"Error In {TaskName} Task");
                 }
             }
             finally
             {
+                this.Logger.Info($"search index updated");
                 Thread.EndCriticalRegion();
             }
+        }
+
+        /// <summary>
+        /// The is time to update search index.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool IsTimeToUpdateSearchIndex()
+        {
+            var boardSettings = YafContext.Current.Get<YafBoardSettings>();
+            var lastSend = DateTime.MinValue;
+            var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
+
+            if (boardSettings.LastSearchIndexUpdated.IsSet())
+            {
+                try
+                {
+                    lastSend = Convert.ToDateTime(
+                        boardSettings.LastSearchIndexUpdated,
+                        CultureInfo.InvariantCulture);
+                }
+                catch (Exception)
+                {
+                    lastSend = DateTime.MinValue;
+                }
+            }
+
+            var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
+
+            if (!updateIndex)
+            {
+                return false;
+            }
+
+            this.GetRepository<Registry>().Save(
+                "lastsearchindexupdated",
+                DateTime.Now.ToString(CultureInfo.InvariantCulture));
+
+            return true;
         }
 
         #endregion

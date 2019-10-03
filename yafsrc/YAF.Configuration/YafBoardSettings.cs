@@ -654,6 +654,13 @@ namespace YAF.Configuration
             set => this._reg.SetValue("DigestSendEveryXHours", value);
         }
 
+        public int UpdateSearchIndexEveryXHours
+        {
+            get => this._reg.GetValue("UpdateSearchIndex", 24);
+
+            set => this._reg.SetValue("UpdateSearchIndex", value);
+        }
+
         /// <summary>
         /// Gets or sets TopicsFeedAccess.
         /// </summary>
@@ -2506,6 +2513,13 @@ namespace YAF.Configuration
             get => this._regBoard.GetValue<string>("LastDigestSend", null);
 
             set => this._regBoard.SetValue("LastDigestSend", value);
+        }
+
+        public string LastSearchIndexUpdated
+        {
+            get => this._regBoard.GetValue<string>("LastSearchIndexUpdated", null);
+
+            set => this._regBoard.SetValue("LastSearchIndexUpdated", value);
         }
 
         /// <summary>

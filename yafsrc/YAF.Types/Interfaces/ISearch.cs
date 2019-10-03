@@ -54,12 +54,29 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Adds the search index
         /// </summary>
-        /// <param name="messageList">The message list.</param>
+        /// <param name="messageList">
+        /// The message list.
+        /// </param>
         void AddSearchIndex(IEnumerable<SearchMessage> messageList);
 
+        /// <summary>
+        /// The add search index item.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         void AddSearchIndexItem(SearchMessage message);
 
-        void UpdateSearchIndexItem(SearchMessage message);
+        /// <summary>
+        /// Updates the Search Index Item or if not found adds it.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="dispose">
+        /// Dispose IndexWriter after updating?
+        /// </param>
+        void UpdateSearchIndexItem(SearchMessage message, bool dispose = false);
 
         /// <summary>
         /// Searches the specified user identifier.

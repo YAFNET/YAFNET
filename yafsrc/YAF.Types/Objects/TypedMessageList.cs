@@ -51,6 +51,8 @@ namespace YAF.Types.Objects
             this.MessageID = row.Field<int?>("MessageID");
             this.UserID = row.Field<int?>("UserID");
             this.UserName = row.Field<string>("UserName");
+            this.UserDisplayName = row.Field<string>("UserDisplayName");
+            this.UserStyle = row.Field<string>("UserStyle");
             this.Message = row.Field<string>("Message");
             this.TopicID = row.Field<int?>("TopicID");
             this.ForumID = row.Field<int?>("ForumID");
@@ -59,8 +61,11 @@ namespace YAF.Types.Objects
             this.Flags = new MessageFlags(row.Field<int?>("Flags") ?? 0);
             this.TopicOwnerID = row.Field<int?>("TopicOwnerID");
             this.Edited = row.Field<DateTime?>("Edited");
+            this.Posted = row.Field<DateTime>("Posted");
             this.TopicFlags = new TopicFlags(row.Field<int?>("TopicFlags") ?? 0);
             this.ForumFlags = new ForumFlags(row.Field<int?>("ForumFlags") ?? 0);
+            this.ForumName = row.Field<string>("ForumName");
+            this.DeleteReason = row.Field<string>("DeleteReason");
             this.EditReason = row.Field<string>("EditReason");
             this.Position = row.Field<int?>("Position");
             this.IsModeratorChanged = row.Field<bool?>("IsModeratorChanged");
@@ -181,6 +186,11 @@ namespace YAF.Types.Objects
         public string EditReason { get; set; }
 
         /// <summary>
+        /// Gets or sets the posted.
+        /// </summary>
+        public DateTime Posted { get; set; }
+
+        /// <summary>
         ///   Gets or sets Edited.
         /// </summary>
         public DateTime? Edited { get; set; }
@@ -204,6 +214,8 @@ namespace YAF.Types.Objects
         ///   Gets or sets ForumID.
         /// </summary>
         public int? ForumID { get; set; }
+
+        public string ForumName { get; set; }
 
         /// <summary>
         /// Gets or sets the reply to.
@@ -290,6 +302,16 @@ namespace YAF.Types.Objects
         ///   Gets or sets UserName.
         /// </summary>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user display name.
+        /// </summary>
+        public string UserDisplayName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user style.
+        /// </summary>
+        public string UserStyle { get; set; }
 
         /// <summary>
         /// Gets or sets the description.

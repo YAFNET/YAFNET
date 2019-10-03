@@ -26,127 +26,131 @@ using YAF.Types.Constants;
 
 namespace YAF.Core.Tasks
 {
-  using System;
+    using System;
 
-  using YAF.Core.Model;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Models;
+    using YAF.Core.Model;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
-  /// <summary>
-  /// Run when we want to do migration of users in the background...
-  /// </summary>
+    /// <summary>
+    /// Run when we want to do migration of users in the background...
+    /// </summary>
     public class CategorySaveTask : LongBackgroundTask, ICriticalBackgroundTask
-  {
-      /// <summary>
-      /// Gets or sets BoardIdToSave.
-      /// </summary>
-      public object BoardIdToSave { get; set; }
-
-      /// <summary>
-      /// Gets or sets CategoryId.
-      /// </summary>
-      public object CategoryId { get; set; }
-
-      /// <summary>
-      /// Gets or sets CategoryName.
-      /// </summary>
-      public object CategoryName { get; set; }
-
-      /// <summary>
-      /// Gets or sets CategoryImage.
-      /// </summary>
-      public object CategoryImage { get; set; }
-
-      /// <summary>
-      /// Gets or sets SortOrder.
-      /// </summary>
-      public object SortOrder { get; set; }
-
-      /// <summary>
-      /// Gets or sets CategoryOut.
-      /// </summary>
-      public static long CategoryOut { get; set; }
-
-      /// <summary>
-    /// The _task name.
-    /// </summary>
-    private const string _taskName = "CategorySaveTask";
-
-    /// <summary>
-    /// Gets TaskName.
-    /// </summary>
-    public static string TaskName => _taskName;
-
-    /// <summary>
-    /// The Blocking Task Names.
-    /// </summary>
-    private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
-
-    /// <summary>
-    ///  The start.
-    ///  </summary>
-    /// <param name="boardId"> The board Id.</param>
-    /// <param name="categoryId"> The category Id.</param>
-    /// <param name="categoryName"> The category Name.</param>
-    /// <param name="categoryImage"> The category Image.</param>
-    /// <param name="sortOrder"> The category sort order.</param>
-    /// <param name="failureMessage"> The failure message to return.</param>
-    /// <returns>
-    ///  The start.
-    ///  </returns>
-    public static void Start(
-        object boardId,
-        object categoryId,
-        object categoryName,
-        object categoryImage,
-        object sortOrder,
-        out string failureMessage)
     {
+        /// <summary>
+        /// Gets or sets BoardIdToSave.
+        /// </summary>
+        public object BoardIdToSave { get; set; }
 
-        failureMessage = string.Empty;
-        if (YafContext.Current.Get<ITaskModuleManager>() == null)
+        /// <summary>
+        /// Gets or sets CategoryId.
+        /// </summary>
+        public object CategoryId { get; set; }
+
+        /// <summary>
+        /// Gets or sets CategoryName.
+        /// </summary>
+        public object CategoryName { get; set; }
+
+        /// <summary>
+        /// Gets or sets CategoryImage.
+        /// </summary>
+        public object CategoryImage { get; set; }
+
+        /// <summary>
+        /// Gets or sets SortOrder.
+        /// </summary>
+        public object SortOrder { get; set; }
+
+        /// <summary>
+        /// Gets or sets CategoryOut.
+        /// </summary>
+        public static long CategoryOut { get; set; }
+
+        /// <summary>
+        /// The _task name.
+        /// </summary>
+        private const string _taskName = "CategorySaveTask";
+
+        /// <summary>
+        /// Gets TaskName.
+        /// </summary>
+        public static string TaskName => _taskName;
+
+        /// <summary>
+        /// The Blocking Task Names.
+        /// </summary>
+        private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
+
+        /// <summary>
+        ///  The start.
+        ///  </summary>
+        /// <param name="boardId"> The board Id.</param>
+        /// <param name="categoryId"> The category Id.</param>
+        /// <param name="categoryName"> The category Name.</param>
+        /// <param name="categoryImage"> The category Image.</param>
+        /// <param name="sortOrder"> The category sort order.</param>
+        /// <param name="failureMessage"> The failure message to return.</param>
+        /// <returns>
+        ///  The start.
+        ///  </returns>
+        public static void Start(
+            object boardId,
+            object categoryId,
+            object categoryName,
+            object categoryImage,
+            object sortOrder,
+            out string failureMessage)
         {
-            return;
+
+            failureMessage = string.Empty;
+            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            {
+                return;
+            }
+
+            if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+            {
+                YafContext.Current.Get<ITaskModuleManager>().StartTask(
+                    TaskName,
+                    () => new CategorySaveTask
+                              {
+                                  BoardIdToSave = boardId,
+                                  CategoryId = categoryId,
+                                  CategoryName = categoryName,
+                                  CategoryImage = categoryImage,
+                                  SortOrder = sortOrder
+                              });
+            }
+            else
+            {
+                failureMessage =
+                    $"You can't save the category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
+
+            }
         }
 
-        if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
         {
-            YafContext.Current.Get<ITaskModuleManager>().StartTask(
-                TaskName,
-                () => new CategorySaveTask
-                          {
-                              BoardIdToSave = boardId,
-                              CategoryId = categoryId,
-                              CategoryName = categoryName,
-                              CategoryImage = categoryImage,
-                              SortOrder = sortOrder
-                          });
-        }
-        else
-        {
-            failureMessage =
-                $"You can't save the category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
-
+            try
+            {
+                this.Logger.Info("Starting Category Save Task for CategoryID {0}.", this.CategoryId);
+                this.GetRepository<Category>().Save(
+                    (int?)this.CategoryId,
+                    (string)this.CategoryName,
+                    (string)this.CategoryImage,
+                    (short)this.SortOrder,
+                    (int)this.BoardIdToSave);
+                this.Logger.Info("Category Save Task for CategoryID {0} is completed.", this.CategoryId);
+            }
+            catch (Exception x)
+            {
+                this.Logger.Error(x, "Error In Category Save Task: {0}", x);
+            }
         }
     }
-
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-        try
-        {
-            this.Logger.Info("Starting Category Save Task for CategoryID {0}.", this.CategoryId);
-            this.GetRepository<Category>()
-                .Save((int?)this.CategoryId, (string)this.CategoryName, (string)this.CategoryImage, (short)this.SortOrder, (int)this.BoardIdToSave);
-            this.Logger.Info("Category Save Task for CategoryID {0} is completed.", this.CategoryId);
-        }
-        catch (Exception x)
-        {
-            this.Logger.Error(x, "Error In Category Save Task: {0}", x);
-        }
-    }
-  }
 }

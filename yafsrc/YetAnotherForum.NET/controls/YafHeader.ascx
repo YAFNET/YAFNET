@@ -5,7 +5,9 @@
 <%@ Register TagPrefix="YAF" TagName="AdminMenu" Src="AdminMenu.ascx" %>
 
 
-<YAF:Alert runat="server" Visible="False" ID="GuestUserMessage" Type="info" Dismissing="True">
+<YAF:Alert runat="server" Visible="False" ID="GuestUserMessage" 
+           Type="info" 
+           Dismissing="True">
     <asp:Label id="GuestMessage" runat="server"></asp:Label>
 </YAF:Alert>
     

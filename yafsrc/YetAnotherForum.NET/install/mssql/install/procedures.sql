@@ -2115,6 +2115,7 @@ BEGIN
         a.UserID,
         UserName = b.Name,
         UserDisplayName = b.DisplayName,
+		b.UserStyle,
         a.[Message],
         c.TopicID,
         c.ForumID,
@@ -2128,6 +2129,7 @@ BEGIN
         Edited = IsNull(a.Edited,a.Posted),
         TopicFlags = c.Flags,
         ForumFlags = d.Flags,
+		a.Posted,
         a.EditReason,
         a.Position,
         a.IsModeratorChanged,
@@ -2138,6 +2140,7 @@ BEGIN
         a.ReplyTo,
         a.ExternalMessageId,
         a.ReferenceMessageId,
+		ForumName = d.Name,
         HasAttachments	= convert(bit,ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),0))
     FROM
         [{databaseOwner}].[{objectQualifier}Message] a
