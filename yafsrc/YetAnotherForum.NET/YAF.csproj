@@ -191,7 +191,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Install.de.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Install.Designer.cs">
+    <Compile Include="App_GlobalResources\Install.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Install.resx</DependentUpon>
@@ -1073,10 +1073,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
-    <Content Include="App_GlobalResources\Install.de.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.de.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
     <Content Include="auth.aspx" />
     <Content Include="Content\blueimp-gallery.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -3401,6 +3401,7 @@
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
@@ -3480,6 +3481,9 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <PropertyGroup>
@@ -3510,149 +3514,149 @@ del Lucene.Net.Sandbox.pdb
     <BrowsersListNodeJsFiles Include="$(TempFolder)\WebCompiler*\node_modules\browserslist\node.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Install.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="App_GlobalResources\Install.resx">
       <SubType>Designer</SubType>
-    </Content>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Install.designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.ar.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.ar.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.ar.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.cs.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.cs.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.cs.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.fr.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.fr.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.nl.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.nl.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.nl.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.it.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.it.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.it.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.no.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.no.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.no.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.zh-CN.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.zh-CN.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.zh-CN.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.zh-TW.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.zh-TW.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.zh-TW.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.da.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.da.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.da.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.hr.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.hr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.hr.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.es.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.es.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.et.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.et.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.et.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.fa.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.fa.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.fa.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.fi.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.fi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.fi.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.iw.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.iw.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.iw.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.lt.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.lt.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.lt.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.pl.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.pl.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.pl.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.pt.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.pt.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.pt.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.ro.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.ro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.ro.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Install.ru.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\Install.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.ru.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.sk.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.sk.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.sk.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Install.sv.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\Install.sv.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.sv.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\Install.tr.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\Install.tr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.tr.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\Install.vi.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
+    <EmbeddedResource Include="App_GlobalResources\Install.vi.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.vi.designer.cs</LastGenOutput>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="BrowsersListWarningsAsInfo" BeforeTargets="WebCompile">
     <FileUpdate Files="@(BrowsersListNodeJsFiles)" Regex="console.warn" ReplacementText="console.log" />

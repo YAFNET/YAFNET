@@ -35,6 +35,7 @@ namespace YAF.Install
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
+    using YAF.App_GlobalResources;
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BasePages;
@@ -220,35 +221,35 @@ namespace YAF.Install
             switch (status)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return Resources.Install.DuplicateUserName;
+                    return Install.DuplicateUserName;
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return Resources.Install.DuplicateEmail;
+                    return Install.DuplicateEmail;
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return Resources.Install.InvalidPassword;
+                    return Install.InvalidPassword;
 
                 case MembershipCreateStatus.InvalidEmail:
-                    return Resources.Install.InvalidEmail;
+                    return Install.InvalidEmail;
 
                 case MembershipCreateStatus.InvalidAnswer:
-                    return Resources.Install.InvalidAnswer;
+                    return Install.InvalidAnswer;
 
                 case MembershipCreateStatus.InvalidQuestion:
-                    return Resources.Install.InvalidQuestion;
+                    return Install.InvalidQuestion;
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return Resources.Install.InvalidUserName;
+                    return Install.InvalidUserName;
 
                 case MembershipCreateStatus.ProviderError:
-                    return Resources.Install.ProviderError;
+                    return Install.ProviderError;
 
                 case MembershipCreateStatus.UserRejected:
-                    return Resources.Install.UserRejected;
+                    return Install.UserRejected;
 
                 default:
                     return
-                        Resources.Install.UnknownError;
+                        Install.UnknownError;
             }
         }
 
@@ -315,8 +316,8 @@ namespace YAF.Install
                 UpdateInfoPanel(
                     this.ManualConnectionInfoHolder,
                     this.lblConnectionDetailsManual,
-                    Resources.Install.ConnectionDetails,
-                    $"{Resources.Install.ConnectionFailed} {message}",
+                    Install.ConnectionDetails,
+                    $"{Install.ConnectionFailed} {message}",
                     "error");
             }
             else
@@ -324,8 +325,8 @@ namespace YAF.Install
                 UpdateInfoPanel(
                     this.ManualConnectionInfoHolder,
                     this.lblConnectionDetailsManual,
-                    Resources.Install.ConnectionDetails,
-                    Resources.Install.ConnectionSuccess,
+                    Install.ConnectionDetails,
+                    Install.ConnectionSuccess,
                     "success");
             }
         }
@@ -349,8 +350,8 @@ namespace YAF.Install
                 UpdateInfoPanel(
                     this.ConnectionInfoHolder,
                     this.lblConnectionDetails,
-                    Resources.Install.ConnectionDetails,
-                    $"{Resources.Install.ConnectionFailed} {message}",
+                    Install.ConnectionDetails,
+                    $"{Install.ConnectionFailed} {message}",
                     "error");
             }
             else
@@ -358,8 +359,8 @@ namespace YAF.Install
                 UpdateInfoPanel(
                     this.ConnectionInfoHolder,
                     this.lblConnectionDetails,
-                    Resources.Install.ConnectionDetails,
-                    Resources.Install.ConnectionSuccess,
+                    Install.ConnectionDetails,
+                    Install.ConnectionSuccess,
                     "success");
             }
 
@@ -404,15 +405,15 @@ namespace YAF.Install
                     this.txtTestFromEmail.Text.Trim(),
                     this.txtTestToEmail.Text.Trim(),
                     this.txtTestFromEmail.Text.Trim(),
-                    Resources.Install.SmtpTestSubject,
-                    Resources.Install.SmtpTestBody);
+                    Install.SmtpTestSubject,
+                    Install.SmtpTestBody);
 
                 // success
                 UpdateInfoPanel(
                     this.SmtpInfoHolder,
                     this.lblSmtpTestDetails,
-                    Resources.Install.SmtpTestDetails,
-                    Resources.Install.SmtpTestSuccess,
+                    Install.SmtpTestDetails,
+                    Install.SmtpTestSuccess,
                     "success");
             }
             catch (Exception x)
@@ -420,8 +421,8 @@ namespace YAF.Install
                 UpdateInfoPanel(
                     this.SmtpInfoHolder,
                     this.lblSmtpTestDetails,
-                    Resources.Install.SmtpTestDetails,
-                    $"{Resources.Install.ConnectionFailed} {x.Message}",
+                    Install.SmtpTestDetails,
+                    $"{Install.ConnectionFailed} {x.Message}",
                     "error");
             }
         }
@@ -640,13 +641,13 @@ namespace YAF.Install
                 case "WizCreatePassword":
                     if (this.txtCreatePassword1.Text.IsNotSet())
                     {
-                        this.ShowErrorMessage(Resources.Install.EnterConfigPassword);
+                        this.ShowErrorMessage(Install.EnterConfigPassword);
                         break;
                     }
 
                     if (this.txtCreatePassword2.Text != this.txtCreatePassword1.Text)
                     {
-                        this.ShowErrorMessage(Resources.Install.PasswordNoMatch);
+                        this.ShowErrorMessage(Install.PasswordNoMatch);
                         break;
                     }
 
@@ -666,7 +667,7 @@ namespace YAF.Install
                     else
                     {
                         this.ShowErrorMessage(
-                            Resources.Install.ErrorConfigPassword);
+                            Install.ErrorConfigPassword);
                     }
 
                     break;
@@ -693,7 +694,7 @@ namespace YAF.Install
                     }
                     else
                     {
-                        this.ShowErrorMessage(Resources.Install.ErrorWrongPassword);
+                        this.ShowErrorMessage(Install.ErrorWrongPassword);
                     }
 
                     break;
@@ -850,15 +851,15 @@ namespace YAF.Install
             switch (status)
             {
                 case 0:
-                    theLabel.Text = Resources.Install.No;
+                    theLabel.Text = Install.No;
                     theLabel.CssClass = "errorLabel float-right";
                     break;
                 case 1:
-                    theLabel.Text = Resources.Install.Unchecked;
+                    theLabel.Text = Install.Unchecked;
                     theLabel.CssClass = "infoLabel float-right";
                     break;
                 case 2:
-                    theLabel.Text = Resources.Install.Yes;
+                    theLabel.Text = Install.Yes;
                     theLabel.CssClass = "successLabel float-right";
                     break;
             }
@@ -901,19 +902,19 @@ namespace YAF.Install
         {
             if (this.InstallUpgradeService.IsForumInstalled)
             {
-                this.ShowErrorMessage(Resources.Install.ErrorBoardInstalled);
+                this.ShowErrorMessage(Install.ErrorBoardInstalled);
                 return false;
             }
 
             if (this.TheForumName.Text.Length == 0)
             {
-                this.ShowErrorMessage(Resources.Install.ErrorBoardName);
+                this.ShowErrorMessage(Install.ErrorBoardName);
                 return false;
             }
 
             if (this.ForumEmailAddress.Text.Length == 0)
             {
-                this.ShowErrorMessage(Resources.Install.ErrorForumEmail);
+                this.ShowErrorMessage(Install.ErrorForumEmail);
                 return false;
             }
 
@@ -923,25 +924,25 @@ namespace YAF.Install
             {
                 if (this.UserName.Text.Length == 0)
                 {
-                    this.ShowErrorMessage(Resources.Install.ErrorUserName);
+                    this.ShowErrorMessage(Install.ErrorUserName);
                     return false;
                 }
 
                 if (this.AdminEmail.Text.Length == 0)
                 {
-                    this.ShowErrorMessage(Resources.Install.ErrorUserEmail);
+                    this.ShowErrorMessage(Install.ErrorUserEmail);
                     return false;
                 }
 
                 if (this.Password1.Text.Length == 0)
                 {
-                    this.ShowErrorMessage(Resources.Install.ErrorPassword);
+                    this.ShowErrorMessage(Install.ErrorPassword);
                     return false;
                 }
 
                 if (this.Password1.Text != this.Password2.Text)
                 {
-                    this.ShowErrorMessage(Resources.Install.PasswordNoMatch);
+                    this.ShowErrorMessage(Install.PasswordNoMatch);
                     return false;
                 }
 
@@ -959,7 +960,7 @@ namespace YAF.Install
 
                 if (status != MembershipCreateStatus.Success)
                 {
-                    this.ShowErrorMessage($"{Resources.Install.ErrorUserCreate} {this.GetMembershipErrorMessage(status)}");
+                    this.ShowErrorMessage($"{Install.ErrorUserCreate} {this.GetMembershipErrorMessage(status)}");
                     return false;
                 }
             }
@@ -970,7 +971,7 @@ namespace YAF.Install
 
                 if (user == null)
                 {
-                    this.ShowErrorMessage(Resources.Install.ErrorUserNotFound);
+                    this.ShowErrorMessage(Install.ErrorUserNotFound);
                     return false;
                 }
             }
@@ -1112,11 +1113,11 @@ namespace YAF.Install
                 this.Culture.DataValueField = "CultureTag";
                 this.Culture.DataTextField = "CultureNativeName";
 
-                this.rblYAFDatabase.Items[0].Text = Resources.Install.ExistConnection;
-                this.rblYAFDatabase.Items[1].Text = Resources.Install.NewConnection;
+                this.rblYAFDatabase.Items[0].Text = Install.ExistConnection;
+                this.rblYAFDatabase.Items[1].Text = Install.NewConnection;
 
-                this.UserChoice.Items[0].Text = Resources.Install.CreateUser;
-                this.UserChoice.Items[1].Text = Resources.Install.ExistingUser;
+                this.UserChoice.Items[0].Text = Install.CreateUser;
+                this.UserChoice.Items[1].Text = Install.ExistingUser;
 
                 this.DataBind();
 
