@@ -33610,47 +33610,55 @@ S2.define('jquery.select2',[
  * https://github.com/bradbirdsall/Swipe
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
-/* global define, window, document, DocumentTouch */
+/* global define, DocumentTouch */
 
-;(function (factory) {
-  'use strict'
+/* eslint-disable no-param-reassign */
+
+;(function(factory) {
+  'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define(['./blueimp-helper'], factory)
+    define(['./blueimp-helper'], factory);
   } else {
     // Browser globals:
-    window.blueimp = window.blueimp || {}
-    window.blueimp.Gallery = factory(
-      window.blueimp.helper || window.jQuery
-    )
+    window.blueimp = window.blueimp || {};
+    window.blueimp.Gallery = factory(window.blueimp.helper || window.jQuery);
   }
-}(function ($) {
-  'use strict'
+})(function($) {
+  'use strict';
 
-  function Gallery (list, options) {
+  /**
+   * Gallery constructor
+   *
+   * @class
+   * @param {Array|NodeList} list Gallery content
+   * @param {object} [options] Gallery options
+   * @returns {object} Gallery object
+   */
+  function Gallery(list, options) {
     if (document.body.style.maxHeight === undefined) {
       // document.body.style.maxHeight is undefined on IE6 and lower
-      return null
+      return null;
     }
     if (!this || this.options !== Gallery.prototype.options) {
       // Called as function instead of as constructor,
       // so we simply return a new instance:
-      return new Gallery(list, options)
+      return new Gallery(list, options);
     }
     if (!list || !list.length) {
       this.console.log(
         'blueimp Gallery: No or empty list provided as first argument.',
         list
-      )
-      return
+      );
+      return;
     }
-    this.list = list
-    this.num = list.length
-    this.initOptions(options)
-    this.initialize()
+    this.list = list;
+    this.num = list.length;
+    this.initOptions(options);
+    this.initialize();
   }
 
   $.extend(Gallery.prototype, {
@@ -33676,7 +33684,7 @@ S2.define('jquery.select2',[
       // The class for all slides:
       slideClass: 'slide',
       // The slide class for loading elements:
-          slideLoadingClass: 'slide-loading fa-3x',
+      slideLoadingClass: 'slide-loading',
       // The slide class for elements that failed to load:
       slideErrorClass: 'slide-error',
       // The class for the content element loaded into each slide:
@@ -33695,6 +33703,8 @@ S2.define('jquery.select2',[
       typeProperty: 'type',
       // The list object property (or data attribute) with the object title:
       titleProperty: 'title',
+      // The list object property (or data attribute) with the object alt text:
+      altTextProperty: 'alt',
       // The list object property (or data attribute) with the object URL:
       urlProperty: 'href',
       // The list object property (or data attribute) with the object srcset URL(s):
@@ -33798,16 +33808,18 @@ S2.define('jquery.select2',[
       startSlideshow: true
     },
 
-    console: window.console && typeof window.console.log === 'function'
-      ? window.console
-      : {log: function () {}},
+    console:
+      window.console && typeof window.console.log === 'function'
+        ? window.console
+        : { log: function() {} },
 
     // Detect touch, transition, transform and background-size support:
-    support: (function (element) {
+    support: (function(element) {
       var support = {
-        touch: window.ontouchstart !== undefined ||
+        touch:
+          window.ontouchstart !== undefined ||
           (window.DocumentTouch && document instanceof DocumentTouch)
-      }
+      };
       var transitions = {
         webkitTransition: {
           end: 'webkitTransitionEnd',
@@ -33825,1157 +33837,1237 @@ S2.define('jquery.select2',[
           end: 'transitionend',
           prefix: ''
         }
-      }
-      var prop
+      };
+      var prop;
       for (prop in transitions) {
-        if (transitions.hasOwnProperty(prop) &&
-          element.style[prop] !== undefined) {
-          support.transition = transitions[prop]
-          support.transition.name = prop
-          break
+        if (
+          Object.prototype.hasOwnProperty.call(transitions, prop) &&
+          element.style[prop] !== undefined
+        ) {
+          support.transition = transitions[prop];
+          support.transition.name = prop;
+          break;
         }
       }
-      function elementTests () {
-        var transition = support.transition
-        var prop
-        var translateZ
-        document.body.appendChild(element)
+      /**
+       * Tests browser support
+       */
+      function elementTests() {
+        var transition = support.transition;
+        var prop;
+        var translateZ;
+        document.body.appendChild(element);
         if (transition) {
-          prop = transition.name.slice(0, -9) + 'ransform'
+          prop = transition.name.slice(0, -9) + 'ransform';
           if (element.style[prop] !== undefined) {
-            element.style[prop] = 'translateZ(0)'
-            translateZ = window.getComputedStyle(element)
-              .getPropertyValue(transition.prefix + 'transform')
+            element.style[prop] = 'translateZ(0)';
+            translateZ = window
+              .getComputedStyle(element)
+              .getPropertyValue(transition.prefix + 'transform');
             support.transform = {
               prefix: transition.prefix,
               name: prop,
               translate: true,
               translateZ: !!translateZ && translateZ !== 'none'
-            }
+            };
           }
         }
         if (element.style.backgroundSize !== undefined) {
-          support.backgroundSize = {}
-          element.style.backgroundSize = 'contain'
-          support.backgroundSize.contain = window
-            .getComputedStyle(element)
-            .getPropertyValue('background-size') === 'contain'
-          element.style.backgroundSize = 'cover'
-          support.backgroundSize.cover = window
-            .getComputedStyle(element)
-            .getPropertyValue('background-size') === 'cover'
+          support.backgroundSize = {};
+          element.style.backgroundSize = 'contain';
+          support.backgroundSize.contain =
+            window
+              .getComputedStyle(element)
+              .getPropertyValue('background-size') === 'contain';
+          element.style.backgroundSize = 'cover';
+          support.backgroundSize.cover =
+            window
+              .getComputedStyle(element)
+              .getPropertyValue('background-size') === 'cover';
         }
-        document.body.removeChild(element)
+        document.body.removeChild(element);
       }
       if (document.body) {
-        elementTests()
+        elementTests();
       } else {
-        $(document).on('DOMContentLoaded', elementTests)
+        $(document).on('DOMContentLoaded', elementTests);
       }
-      return support
-    // Test element, has to be standard HTML and must not be hidden
-    // for the CSS3 tests using window.getComputedStyle to be applicable:
-    }(document.createElement('div'))),
+      return support;
+      // Test element, has to be standard HTML and must not be hidden
+      // for the CSS3 tests using window.getComputedStyle to be applicable:
+    })(document.createElement('div')),
 
-    requestAnimationFrame: window.requestAnimationFrame ||
+    requestAnimationFrame:
+      window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame,
 
-    initialize: function () {
-      this.initStartIndex()
+    cancelAnimationFrame:
+      window.cancelAnimationFrame ||
+      window.webkitCancelRequestAnimationFrame ||
+      window.webkitCancelAnimationFrame ||
+      window.mozCancelAnimationFrame,
+
+    initialize: function() {
+      this.initStartIndex();
       if (this.initWidget() === false) {
-        return false
+        return false;
       }
-      this.initEventListeners()
+      this.initEventListeners();
       // Load the slide at the given index:
-      this.onslide(this.index)
+      this.onslide(this.index);
       // Manually trigger the slideend event for the initial slide:
-      this.ontransitionend()
+      this.ontransitionend();
       // Start the automatic slideshow if applicable:
       if (this.options.startSlideshow) {
-        this.play()
+        this.play();
       }
     },
 
-    slide: function (to, speed) {
-      window.clearTimeout(this.timeout)
-      var index = this.index
-      var direction
-      var naturalDirection
-      var diff
+    slide: function(to, speed) {
+      window.clearTimeout(this.timeout);
+      var index = this.index;
+      var direction;
+      var naturalDirection;
+      var diff;
       if (index === to || this.num === 1) {
-        return
+        return;
       }
       if (!speed) {
-        speed = this.options.transitionSpeed
+        speed = this.options.transitionSpeed;
       }
       if (this.support.transform) {
         if (!this.options.continuous) {
-          to = this.circle(to)
+          to = this.circle(to);
         }
         // 1: backward, -1: forward:
-        direction = Math.abs(index - to) / (index - to)
+        direction = Math.abs(index - to) / (index - to);
         // Get the actual position of the slide:
         if (this.options.continuous) {
-          naturalDirection = direction
-          direction = -this.positions[this.circle(to)] / this.slideWidth
+          naturalDirection = direction;
+          direction = -this.positions[this.circle(to)] / this.slideWidth;
           // If going forward but to < index, use to = slides.length + to
           // If going backward but to > index, use to = -slides.length + to
           if (direction !== naturalDirection) {
-            to = -direction * this.num + to
+            to = -direction * this.num + to;
           }
         }
-        diff = Math.abs(index - to) - 1
+        diff = Math.abs(index - to) - 1;
         // Move all the slides between index and to in the right direction:
         while (diff) {
-          diff -= 1
+          diff -= 1;
           this.move(
             this.circle((to > index ? to : index) - diff - 1),
             this.slideWidth * direction,
             0
-          )
+          );
         }
-        to = this.circle(to)
-        this.move(index, this.slideWidth * direction, speed)
-        this.move(to, 0, speed)
+        to = this.circle(to);
+        this.move(index, this.slideWidth * direction, speed);
+        this.move(to, 0, speed);
         if (this.options.continuous) {
           this.move(
             this.circle(to - direction),
             -(this.slideWidth * direction),
             0
-          )
+          );
         }
       } else {
-        to = this.circle(to)
-        this.animate(index * -this.slideWidth, to * -this.slideWidth, speed)
+        to = this.circle(to);
+        this.animate(index * -this.slideWidth, to * -this.slideWidth, speed);
       }
-      this.onslide(to)
+      this.onslide(to);
     },
 
-    getIndex: function () {
-      return this.index
+    getIndex: function() {
+      return this.index;
     },
 
-    getNumber: function () {
-      return this.num
+    getNumber: function() {
+      return this.num;
     },
 
-    prev: function () {
+    prev: function() {
       if (this.options.continuous || this.index) {
-        this.slide(this.index - 1)
+        this.slide(this.index - 1);
       }
     },
 
-    next: function () {
+    next: function() {
       if (this.options.continuous || this.index < this.num - 1) {
-        this.slide(this.index + 1)
+        this.slide(this.index + 1);
       }
     },
 
-    play: function (time) {
-      var that = this
-      window.clearTimeout(this.timeout)
-      this.interval = time || this.options.slideshowInterval
+    play: function(time) {
+      var that = this;
+      window.clearTimeout(this.timeout);
+      this.interval = time || this.options.slideshowInterval;
       if (this.elements[this.index] > 1) {
         this.timeout = this.setTimeout(
-          (!this.requestAnimationFrame && this.slide) || function (to, speed) {
-            that.animationFrameId = that.requestAnimationFrame.call(
-              window,
-              function () {
-                that.slide(to, speed)
-              }
-            )
-          },
+          (!this.requestAnimationFrame && this.slide) ||
+            function(to, speed) {
+              that.animationFrameId = that.requestAnimationFrame.call(
+                window,
+                function() {
+                  that.slide(to, speed);
+                }
+              );
+            },
           [this.index + 1, this.options.slideshowTransitionSpeed],
           this.interval
-        )
+        );
       }
-      this.container.addClass(this.options.playingClass)
+      this.container.addClass(this.options.playingClass);
     },
 
-    pause: function () {
-      window.clearTimeout(this.timeout)
-      this.interval = null
-      this.container.removeClass(this.options.playingClass)
+    pause: function() {
+      window.clearTimeout(this.timeout);
+      this.interval = null;
+      if (this.cancelAnimationFrame) {
+        this.cancelAnimationFrame.call(window, this.animationFrameId);
+        this.animationFrameId = null;
+      }
+      this.container.removeClass(this.options.playingClass);
     },
 
-    add: function (list) {
-      var i
+    add: function(list) {
+      var i;
       if (!list.concat) {
         // Make a real array out of the list to add:
-        list = Array.prototype.slice.call(list)
+        list = Array.prototype.slice.call(list);
       }
       if (!this.list.concat) {
         // Make a real array out of the Gallery list:
-        this.list = Array.prototype.slice.call(this.list)
+        this.list = Array.prototype.slice.call(this.list);
       }
-      this.list = this.list.concat(list)
-      this.num = this.list.length
+      this.list = this.list.concat(list);
+      this.num = this.list.length;
       if (this.num > 2 && this.options.continuous === null) {
-        this.options.continuous = true
-        this.container.removeClass(this.options.leftEdgeClass)
+        this.options.continuous = true;
+        this.container.removeClass(this.options.leftEdgeClass);
       }
       this.container
         .removeClass(this.options.rightEdgeClass)
-        .removeClass(this.options.singleClass)
+        .removeClass(this.options.singleClass);
       for (i = this.num - list.length; i < this.num; i += 1) {
-        this.addSlide(i)
-        this.positionSlide(i)
+        this.addSlide(i);
+        this.positionSlide(i);
       }
-      this.positions.length = this.num
-      this.initSlides(true)
+      this.positions.length = this.num;
+      this.initSlides(true);
     },
 
-    resetSlides: function () {
-      this.slidesContainer.empty()
-      this.unloadAllSlides()
-      this.slides = []
+    resetSlides: function() {
+      this.slidesContainer.empty();
+      this.unloadAllSlides();
+      this.slides = [];
     },
 
-    handleClose: function () {
-      var options = this.options
-      this.destroyEventListeners()
+    handleClose: function() {
+      var options = this.options;
+      this.destroyEventListeners();
       // Cancel the slideshow:
-      this.pause()
-      this.container[0].style.display = 'none'
+      this.pause();
+      this.container[0].style.display = 'none';
       this.container
         .removeClass(options.displayClass)
         .removeClass(options.singleClass)
         .removeClass(options.leftEdgeClass)
-        .removeClass(options.rightEdgeClass)
+        .removeClass(options.rightEdgeClass);
       if (options.hidePageScrollbars) {
-        document.body.style.overflow = this.bodyOverflowStyle
+        document.body.style.overflow = this.bodyOverflowStyle;
       }
       if (this.options.clearSlides) {
-        this.resetSlides()
+        this.resetSlides();
       }
       if (this.options.onclosed) {
-        this.options.onclosed.call(this)
+        this.options.onclosed.call(this);
       }
     },
 
-    close: function () {
-      var that = this
-      function closeHandler (event) {
+    close: function() {
+      var that = this;
+
+      /**
+       * Close handler
+       *
+       * @param {event} event Close event
+       */
+      function closeHandler(event) {
         if (event.target === that.container[0]) {
-          that.container.off(
-            that.support.transition.end,
-            closeHandler
-          )
-          that.handleClose()
+          that.container.off(that.support.transition.end, closeHandler);
+          that.handleClose();
         }
       }
       if (this.options.onclose) {
-        this.options.onclose.call(this)
+        this.options.onclose.call(this);
       }
       if (this.support.transition && this.options.displayTransition) {
-        this.container.on(
-          this.support.transition.end,
-          closeHandler
-        )
-        this.container.removeClass(this.options.displayClass)
+        this.container.on(this.support.transition.end, closeHandler);
+        this.container.removeClass(this.options.displayClass);
       } else {
-        this.handleClose()
+        this.handleClose();
       }
     },
 
-    circle: function (index) {
+    circle: function(index) {
       // Always return a number inside of the slides index range:
-      return (this.num + (index % this.num)) % this.num
+      return (this.num + (index % this.num)) % this.num;
     },
 
-    move: function (index, dist, speed) {
-      this.translateX(index, dist, speed)
-      this.positions[index] = dist
+    move: function(index, dist, speed) {
+      this.translateX(index, dist, speed);
+      this.positions[index] = dist;
     },
 
-    translate: function (index, x, y, speed) {
-      var style = this.slides[index].style
-      var transition = this.support.transition
-      var transform = this.support.transform
-      style[transition.name + 'Duration'] = speed + 'ms'
-      style[transform.name] = 'translate(' + x + 'px, ' + y + 'px)' +
-      (transform.translateZ ? ' translateZ(0)' : '')
+    translate: function(index, x, y, speed) {
+      if (!this.slides[index]) return;
+      var style = this.slides[index].style;
+      var transition = this.support.transition;
+      var transform = this.support.transform;
+      style[transition.name + 'Duration'] = speed + 'ms';
+      style[transform.name] =
+        'translate(' +
+        x +
+        'px, ' +
+        y +
+        'px)' +
+        (transform.translateZ ? ' translateZ(0)' : '');
     },
 
-    translateX: function (index, x, speed) {
-      this.translate(index, x, 0, speed)
+    translateX: function(index, x, speed) {
+      this.translate(index, x, 0, speed);
     },
 
-    translateY: function (index, y, speed) {
-      this.translate(index, 0, y, speed)
+    translateY: function(index, y, speed) {
+      this.translate(index, 0, y, speed);
     },
 
-    animate: function (from, to, speed) {
+    animate: function(from, to, speed) {
       if (!speed) {
-        this.slidesContainer[0].style.left = to + 'px'
-        return
+        this.slidesContainer[0].style.left = to + 'px';
+        return;
       }
-      var that = this
-      var start = new Date().getTime()
-      var timer = window.setInterval(function () {
-        var timeElap = new Date().getTime() - start
+      var that = this;
+      var start = new Date().getTime();
+      var timer = window.setInterval(function() {
+        var timeElap = new Date().getTime() - start;
         if (timeElap > speed) {
-          that.slidesContainer[0].style.left = to + 'px'
-          that.ontransitionend()
-          window.clearInterval(timer)
-          return
+          that.slidesContainer[0].style.left = to + 'px';
+          that.ontransitionend();
+          window.clearInterval(timer);
+          return;
         }
-        that.slidesContainer[0].style.left = (((to - from) *
-          (Math.floor((timeElap / speed) * 100) / 100)) +
-          from) + 'px'
-      }, 4)
+        that.slidesContainer[0].style.left =
+          (to - from) * (Math.floor((timeElap / speed) * 100) / 100) +
+          from +
+          'px';
+      }, 4);
     },
 
-    preventDefault: function (event) {
+    preventDefault: function(event) {
       if (event.preventDefault) {
-        event.preventDefault()
+        event.preventDefault();
       } else {
-        event.returnValue = false
+        event.returnValue = false;
       }
     },
 
-    stopPropagation: function (event) {
+    stopPropagation: function(event) {
       if (event.stopPropagation) {
-        event.stopPropagation()
+        event.stopPropagation();
       } else {
-        event.cancelBubble = true
+        event.cancelBubble = true;
       }
     },
 
-    onresize: function () {
-      this.initSlides(true)
+    onresize: function() {
+      this.initSlides(true);
     },
 
-    onmousedown: function (event) {
+    onmousedown: function(event) {
       // Trigger on clicks of the left mouse button only
-      // and exclude video elements:
-      if (event.which && event.which === 1 &&
-        event.target.nodeName !== 'VIDEO') {
+      // and exclude video & audio elements:
+      if (
+        event.which &&
+        event.which === 1 &&
+        event.target.nodeName !== 'VIDEO' &&
+        event.target.nodeName !== 'AUDIO'
+      ) {
         // Preventing the default mousedown action is required
         // to make touch emulation work with Firefox:
         event.preventDefault()
-        ;(event.originalEvent || event).touches = [{
-          pageX: event.pageX,
-          pageY: event.pageY
-        }]
-        this.ontouchstart(event)
+        ;(event.originalEvent || event).touches = [
+          {
+            pageX: event.pageX,
+            pageY: event.pageY
+          }
+        ];
+        this.ontouchstart(event);
       }
     },
 
-    onmousemove: function (event) {
+    onmousemove: function(event) {
       if (this.touchStart) {
-        (event.originalEvent || event).touches = [{
-          pageX: event.pageX,
-          pageY: event.pageY
-        }]
-        this.ontouchmove(event)
+        ;(event.originalEvent || event).touches = [
+          {
+            pageX: event.pageX,
+            pageY: event.pageY
+          }
+        ];
+        this.ontouchmove(event);
       }
     },
 
-    onmouseup: function (event) {
+    onmouseup: function(event) {
       if (this.touchStart) {
-        this.ontouchend(event)
-        delete this.touchStart
+        this.ontouchend(event);
+        delete this.touchStart;
       }
     },
 
-    onmouseout: function (event) {
+    onmouseout: function(event) {
       if (this.touchStart) {
-        var target = event.target
-        var related = event.relatedTarget
-        if (!related || (related !== target &&
-          !$.contains(target, related))) {
-          this.onmouseup(event)
+        var target = event.target;
+        var related = event.relatedTarget;
+        if (!related || (related !== target && !$.contains(target, related))) {
+          this.onmouseup(event);
         }
       }
     },
 
-    ontouchstart: function (event) {
+    ontouchstart: function(event) {
       if (this.options.stopTouchEventsPropagation) {
-        this.stopPropagation(event)
+        this.stopPropagation(event);
       }
       // jQuery doesn't copy touch event properties by default,
       // so we have to access the originalEvent object:
-      var touches = (event.originalEvent || event).touches[0]
+      var touches = (event.originalEvent || event).touches[0];
       this.touchStart = {
         // Remember the initial touch coordinates:
         x: touches.pageX,
         y: touches.pageY,
         // Store the time to determine touch duration:
         time: Date.now()
-      }
+      };
       // Helper variable to detect scroll movement:
-      this.isScrolling = undefined
+      this.isScrolling = undefined;
       // Reset delta values:
-      this.touchDelta = {}
+      this.touchDelta = {};
     },
 
-    ontouchmove: function (event) {
+    ontouchmove: function(event) {
       if (this.options.stopTouchEventsPropagation) {
-        this.stopPropagation(event)
+        this.stopPropagation(event);
       }
       // jQuery doesn't copy touch event properties by default,
       // so we have to access the originalEvent object:
-      var touches = (event.originalEvent || event).touches[0]
-      var scale = (event.originalEvent || event).scale
-      var index = this.index
-      var touchDeltaX
-      var indices
+      var touches = (event.originalEvent || event).touches[0];
+      var scale = (event.originalEvent || event).scale;
+      var index = this.index;
+      var touchDeltaX;
+      var indices;
       // Ensure this is a one touch swipe and not, e.g. a pinch:
       if (touches.length > 1 || (scale && scale !== 1)) {
-        return
+        return;
       }
       if (this.options.disableScroll) {
-        event.preventDefault()
+        event.preventDefault();
       }
       // Measure change in x and y coordinates:
       this.touchDelta = {
         x: touches.pageX - this.touchStart.x,
         y: touches.pageY - this.touchStart.y
-      }
-      touchDeltaX = this.touchDelta.x
+      };
+      touchDeltaX = this.touchDelta.x;
       // Detect if this is a vertical scroll movement (run only once per touch):
       if (this.isScrolling === undefined) {
-        this.isScrolling = this.isScrolling ||
-        Math.abs(touchDeltaX) < Math.abs(this.touchDelta.y)
+        this.isScrolling =
+          this.isScrolling ||
+          Math.abs(touchDeltaX) < Math.abs(this.touchDelta.y);
       }
       if (!this.isScrolling) {
         // Always prevent horizontal scroll:
-        event.preventDefault()
+        event.preventDefault();
         // Stop the slideshow:
-        window.clearTimeout(this.timeout)
+        window.clearTimeout(this.timeout);
         if (this.options.continuous) {
-          indices = [
-            this.circle(index + 1),
-            index,
-            this.circle(index - 1)
-          ]
+          indices = [this.circle(index + 1), index, this.circle(index - 1)];
         } else {
           // Increase resistance if first slide and sliding left
           // or last slide and sliding right:
           this.touchDelta.x = touchDeltaX =
             touchDeltaX /
-            (
             ((!index && touchDeltaX > 0) ||
-            (index === this.num - 1 && touchDeltaX < 0))
-              ? (Math.abs(touchDeltaX) / this.slideWidth + 1)
-              : 1
-          )
-          indices = [index]
+            (index === this.num - 1 && touchDeltaX < 0)
+              ? Math.abs(touchDeltaX) / this.slideWidth + 1
+              : 1);
+          indices = [index];
           if (index) {
-            indices.push(index - 1)
+            indices.push(index - 1);
           }
           if (index < this.num - 1) {
-            indices.unshift(index + 1)
+            indices.unshift(index + 1);
           }
         }
         while (indices.length) {
-          index = indices.pop()
-          this.translateX(index, touchDeltaX + this.positions[index], 0)
+          index = indices.pop();
+          this.translateX(index, touchDeltaX + this.positions[index], 0);
         }
-      } else if (this.options.closeOnSwipeUpOrDown) {
-        this.translateY(index, this.touchDelta.y + this.positions[index], 0)
+      } else {
+        this.translateY(index, this.touchDelta.y + this.positions[index], 0);
       }
     },
 
-    ontouchend: function (event) {
+    ontouchend: function(event) {
       if (this.options.stopTouchEventsPropagation) {
-        this.stopPropagation(event)
+        this.stopPropagation(event);
       }
-      var index = this.index
-      var speed = this.options.transitionSpeed
-      var slideWidth = this.slideWidth
-      var isShortDuration = Number(Date.now() - this.touchStart.time) < 250
+      var index = this.index;
+      var speed = this.options.transitionSpeed;
+      var slideWidth = this.slideWidth;
+      var isShortDuration = Number(Date.now() - this.touchStart.time) < 250;
       // Determine if slide attempt triggers next/prev slide:
       var isValidSlide =
-      (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
-        Math.abs(this.touchDelta.x) > slideWidth / 2
+        (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
+        Math.abs(this.touchDelta.x) > slideWidth / 2;
       // Determine if slide attempt is past start or end:
-      var isPastBounds = (!index && this.touchDelta.x > 0) ||
-        (index === this.num - 1 && this.touchDelta.x < 0)
-      var isValidClose = !isValidSlide && this.options.closeOnSwipeUpOrDown &&
+      var isPastBounds =
+        (!index && this.touchDelta.x > 0) ||
+        (index === this.num - 1 && this.touchDelta.x < 0);
+      var isValidClose =
+        !isValidSlide &&
+        this.options.closeOnSwipeUpOrDown &&
         ((isShortDuration && Math.abs(this.touchDelta.y) > 20) ||
-        Math.abs(this.touchDelta.y) > this.slideHeight / 2)
-      var direction
-      var indexForward
-      var indexBackward
-      var distanceForward
-      var distanceBackward
+          Math.abs(this.touchDelta.y) > this.slideHeight / 2);
+      var direction;
+      var indexForward;
+      var indexBackward;
+      var distanceForward;
+      var distanceBackward;
       if (this.options.continuous) {
-        isPastBounds = false
+        isPastBounds = false;
       }
       // Determine direction of swipe (true: right, false: left):
-      direction = this.touchDelta.x < 0 ? -1 : 1
+      direction = this.touchDelta.x < 0 ? -1 : 1;
       if (!this.isScrolling) {
         if (isValidSlide && !isPastBounds) {
-          indexForward = index + direction
-          indexBackward = index - direction
-          distanceForward = slideWidth * direction
-          distanceBackward = -slideWidth * direction
+          indexForward = index + direction;
+          indexBackward = index - direction;
+          distanceForward = slideWidth * direction;
+          distanceBackward = -slideWidth * direction;
           if (this.options.continuous) {
-            this.move(this.circle(indexForward), distanceForward, 0)
-            this.move(this.circle(index - 2 * direction), distanceBackward, 0)
-          } else if (indexForward >= 0 &&
-            indexForward < this.num) {
-            this.move(indexForward, distanceForward, 0)
+            this.move(this.circle(indexForward), distanceForward, 0);
+            this.move(this.circle(index - 2 * direction), distanceBackward, 0);
+          } else if (indexForward >= 0 && indexForward < this.num) {
+            this.move(indexForward, distanceForward, 0);
           }
-          this.move(index, this.positions[index] + distanceForward, speed)
+          this.move(index, this.positions[index] + distanceForward, speed);
           this.move(
             this.circle(indexBackward),
             this.positions[this.circle(indexBackward)] + distanceForward,
             speed
-          )
-          index = this.circle(indexBackward)
-          this.onslide(index)
+          );
+          index = this.circle(indexBackward);
+          this.onslide(index);
         } else {
           // Move back into position
           if (this.options.continuous) {
-            this.move(this.circle(index - 1), -slideWidth, speed)
-            this.move(index, 0, speed)
-            this.move(this.circle(index + 1), slideWidth, speed)
+            this.move(this.circle(index - 1), -slideWidth, speed);
+            this.move(index, 0, speed);
+            this.move(this.circle(index + 1), slideWidth, speed);
           } else {
             if (index) {
-              this.move(index - 1, -slideWidth, speed)
+              this.move(index - 1, -slideWidth, speed);
             }
-            this.move(index, 0, speed)
+            this.move(index, 0, speed);
             if (index < this.num - 1) {
-              this.move(index + 1, slideWidth, speed)
+              this.move(index + 1, slideWidth, speed);
             }
           }
         }
       } else {
         if (isValidClose) {
-          this.close()
+          this.close();
         } else {
           // Move back into position
-          this.translateY(index, 0, speed)
+          this.translateY(index, 0, speed);
         }
       }
     },
 
-    ontouchcancel: function (event) {
+    ontouchcancel: function(event) {
       if (this.touchStart) {
-        this.ontouchend(event)
-        delete this.touchStart
+        this.ontouchend(event);
+        delete this.touchStart;
       }
     },
 
-    ontransitionend: function (event) {
-      var slide = this.slides[this.index]
+    ontransitionend: function(event) {
+      var slide = this.slides[this.index];
       if (!event || slide === event.target) {
         if (this.interval) {
-          this.play()
+          this.play();
         }
-        this.setTimeout(
-          this.options.onslideend,
-          [this.index, slide]
-        )
+        this.setTimeout(this.options.onslideend, [this.index, slide]);
       }
     },
 
-    oncomplete: function (event) {
-      var target = event.target || event.srcElement
-      var parent = target && target.parentNode
-      var index
+    oncomplete: function(event) {
+      var target = event.target || event.srcElement;
+      var parent = target && target.parentNode;
+      var index;
       if (!target || !parent) {
-        return
+        return;
       }
-      index = this.getNodeIndex(parent)
-      $(parent).removeClass(this.options.slideLoadingClass)
+      index = this.getNodeIndex(parent);
+      $(parent).removeClass(this.options.slideLoadingClass);
       if (event.type === 'error') {
-        $(parent).addClass(this.options.slideErrorClass)
-        this.elements[index] = 3 // Fail
+        $(parent).addClass(this.options.slideErrorClass);
+        this.elements[index] = 3; // Fail
       } else {
-        this.elements[index] = 2 // Done
+        this.elements[index] = 2; // Done
       }
       // Fix for IE7's lack of support for percentage max-height:
       if (target.clientHeight > this.container[0].clientHeight) {
-        target.style.maxHeight = this.container[0].clientHeight
+        target.style.maxHeight = this.container[0].clientHeight;
       }
       if (this.interval && this.slides[this.index] === parent) {
-        this.play()
+        this.play();
       }
-      this.setTimeout(
-        this.options.onslidecomplete,
-        [index, parent]
-      )
+      this.setTimeout(this.options.onslidecomplete, [index, parent]);
     },
 
-    onload: function (event) {
-      this.oncomplete(event)
+    onload: function(event) {
+      this.oncomplete(event);
     },
 
-    onerror: function (event) {
-      this.oncomplete(event)
+    onerror: function(event) {
+      this.oncomplete(event);
     },
 
-    onkeydown: function (event) {
+    onkeydown: function(event) {
       switch (event.which || event.keyCode) {
         case 13: // Return
           if (this.options.toggleControlsOnReturn) {
-            this.preventDefault(event)
-            this.toggleControls()
+            this.preventDefault(event);
+            this.toggleControls();
           }
-          break
+          break;
         case 27: // Esc
           if (this.options.closeOnEscape) {
-            this.close()
+            this.close();
             // prevent Esc from closing other things
-            event.stopImmediatePropagation()
+            event.stopImmediatePropagation();
           }
-          break
+          break;
         case 32: // Space
           if (this.options.toggleSlideshowOnSpace) {
-            this.preventDefault(event)
-            this.toggleSlideshow()
+            this.preventDefault(event);
+            this.toggleSlideshow();
           }
-          break
+          break;
         case 37: // Left
           if (this.options.enableKeyboardNavigation) {
-            this.preventDefault(event)
-            this.prev()
+            this.preventDefault(event);
+            this.prev();
           }
-          break
+          break;
         case 39: // Right
           if (this.options.enableKeyboardNavigation) {
-            this.preventDefault(event)
-            this.next()
+            this.preventDefault(event);
+            this.next();
           }
-          break
+          break;
       }
     },
 
-    handleClick: function (event) {
-      var options = this.options
-      var target = event.target || event.srcElement
-      var parent = target.parentNode
-      function isTarget (className) {
-        return $(target).hasClass(className) ||
-        $(parent).hasClass(className)
+    handleClick: function(event) {
+      var options = this.options;
+      var target = event.target || event.srcElement;
+      var parent = target.parentNode;
+
+      /**
+       * Checks if the target from the close has the given class
+       *
+       * @param {string} className Class name
+       * @returns {boolean} Returns true if the target has the class name
+       */
+      function isTarget(className) {
+        return $(target).hasClass(className) || $(parent).hasClass(className);
       }
       if (isTarget(options.toggleClass)) {
         // Click on "toggle" control
-        this.preventDefault(event)
-        this.toggleControls()
+        this.preventDefault(event);
+        this.toggleControls();
       } else if (isTarget(options.prevClass)) {
         // Click on "prev" control
-        this.preventDefault(event)
-        this.prev()
+        this.preventDefault(event);
+        this.prev();
       } else if (isTarget(options.nextClass)) {
         // Click on "next" control
-        this.preventDefault(event)
-        this.next()
+        this.preventDefault(event);
+        this.next();
       } else if (isTarget(options.closeClass)) {
         // Click on "close" control
-        this.preventDefault(event)
-        this.close()
+        this.preventDefault(event);
+        this.close();
       } else if (isTarget(options.playPauseClass)) {
         // Click on "play-pause" control
-        this.preventDefault(event)
-        this.toggleSlideshow()
+        this.preventDefault(event);
+        this.toggleSlideshow();
       } else if (parent === this.slidesContainer[0]) {
         // Click on slide background
         if (options.closeOnSlideClick) {
-          this.preventDefault(event)
-          this.close()
+          this.preventDefault(event);
+          this.close();
         } else if (options.toggleControlsOnSlideClick) {
-          this.preventDefault(event)
-          this.toggleControls()
+          this.preventDefault(event);
+          this.toggleControls();
         }
-      } else if (parent.parentNode &&
-        parent.parentNode === this.slidesContainer[0]) {
+      } else if (
+        parent.parentNode &&
+        parent.parentNode === this.slidesContainer[0]
+      ) {
         // Click on displayed element
         if (options.toggleControlsOnSlideClick) {
-          this.preventDefault(event)
-          this.toggleControls()
+          this.preventDefault(event);
+          this.toggleControls();
         }
       }
     },
 
-    onclick: function (event) {
-      if (this.options.emulateTouchEvents &&
-        this.touchDelta && (Math.abs(this.touchDelta.x) > 20 ||
-        Math.abs(this.touchDelta.y) > 20)) {
-        delete this.touchDelta
-        return
+    onclick: function(event) {
+      if (
+        this.options.emulateTouchEvents &&
+        this.touchDelta &&
+        (Math.abs(this.touchDelta.x) > 20 || Math.abs(this.touchDelta.y) > 20)
+      ) {
+        delete this.touchDelta;
+        return;
       }
-      return this.handleClick(event)
+      return this.handleClick(event);
     },
 
-    updateEdgeClasses: function (index) {
+    updateEdgeClasses: function(index) {
       if (!index) {
-        this.container.addClass(this.options.leftEdgeClass)
+        this.container.addClass(this.options.leftEdgeClass);
       } else {
-        this.container.removeClass(this.options.leftEdgeClass)
+        this.container.removeClass(this.options.leftEdgeClass);
       }
       if (index === this.num - 1) {
-        this.container.addClass(this.options.rightEdgeClass)
+        this.container.addClass(this.options.rightEdgeClass);
       } else {
-        this.container.removeClass(this.options.rightEdgeClass)
+        this.container.removeClass(this.options.rightEdgeClass);
       }
     },
 
-    handleSlide: function (index) {
+    handleSlide: function(index) {
       if (!this.options.continuous) {
-        this.updateEdgeClasses(index)
+        this.updateEdgeClasses(index);
       }
-      this.loadElements(index)
+      this.loadElements(index);
       if (this.options.unloadElements) {
-        this.unloadElements(index)
+        this.unloadElements(index);
       }
-      this.setTitle(index)
+      this.setTitle(index);
     },
 
-    onslide: function (index) {
-      this.index = index
-      this.handleSlide(index)
-      this.setTimeout(this.options.onslide, [index, this.slides[index]])
+    onslide: function(index) {
+      this.index = index;
+      this.handleSlide(index);
+      this.setTimeout(this.options.onslide, [index, this.slides[index]]);
     },
 
-    setTitle: function (index) {
-      var text = this.slides[index].firstChild.title
-      var titleElement = this.titleElement
+    setTitle: function(index) {
+      var firstChild = this.slides[index].firstChild;
+      var text = firstChild.title || firstChild.alt;
+      var titleElement = this.titleElement;
       if (titleElement.length) {
-        this.titleElement.empty()
+        this.titleElement.empty();
         if (text) {
-          titleElement[0].appendChild(document.createTextNode(text))
+          titleElement[0].appendChild(document.createTextNode(text));
         }
       }
     },
 
-    setTimeout: function (func, args, wait) {
-      var that = this
-      return func && window.setTimeout(function () {
-        func.apply(that, args || [])
-      }, wait || 0)
+    setTimeout: function(func, args, wait) {
+      var that = this;
+      return (
+        func &&
+        window.setTimeout(function() {
+          func.apply(that, args || []);
+        }, wait || 0)
+      );
     },
 
-    imageFactory: function (obj, callback) {
-      var that = this
-      var img = this.imagePrototype.cloneNode(false)
-      var url = obj
-      var backgroundSize = this.options.stretchImages
-      var called
-      var element
-      var title
-      function callbackWrapper (event) {
+    imageFactory: function(obj, callback) {
+      var that = this;
+      var img = this.imagePrototype.cloneNode(false);
+      var url = obj;
+      var backgroundSize = this.options.stretchImages;
+      var called;
+      var element;
+      var title;
+      var altText;
+
+      /**
+       * Wraps the callback function for the load/error event
+       *
+       * @param {event} event load/error event
+       * @returns {number} timeout ID
+       */
+      function callbackWrapper(event) {
         if (!called) {
           event = {
             type: event.type,
             target: element
-          }
+          };
           if (!element.parentNode) {
             // Fix for IE7 firing the load event for
             // cached images before the element could
             // be added to the DOM:
-            return that.setTimeout(callbackWrapper, [event])
+            return that.setTimeout(callbackWrapper, [event]);
           }
-          called = true
-          $(img).off('load error', callbackWrapper)
+          called = true;
+          $(img).off('load error', callbackWrapper);
           if (backgroundSize) {
             if (event.type === 'load') {
-              element.style.background = 'url("' + url +
-                '") center no-repeat'
-              element.style.backgroundSize = backgroundSize
+              element.style.background = 'url("' + url + '") center no-repeat';
+              element.style.backgroundSize = backgroundSize;
             }
           }
-          callback(event)
+          callback(event);
         }
       }
       if (typeof url !== 'string') {
-        url = this.getItemProperty(obj, this.options.urlProperty)
-        title = this.getItemProperty(obj, this.options.titleProperty)
+        url = this.getItemProperty(obj, this.options.urlProperty);
+        title = this.getItemProperty(obj, this.options.titleProperty);
+        altText =
+          this.getItemProperty(obj, this.options.altTextProperty) || title;
       }
       if (backgroundSize === true) {
-        backgroundSize = 'contain'
+        backgroundSize = 'contain';
       }
-      backgroundSize = this.support.backgroundSize &&
-        this.support.backgroundSize[backgroundSize] && backgroundSize
+      backgroundSize =
+        this.support.backgroundSize &&
+        this.support.backgroundSize[backgroundSize] &&
+        backgroundSize;
       if (backgroundSize) {
-        element = this.elementPrototype.cloneNode(false)
+        element = this.elementPrototype.cloneNode(false);
       } else {
-        element = img
-        img.draggable = false
+        element = img;
+        img.draggable = false;
       }
       if (title) {
-        element.title = title
+        element.title = title;
       }
-      $(img).on('load error', callbackWrapper)
-      img.src = url
-      return element
+      if (altText) {
+        element.alt = altText;
+      }
+      $(img).on('load error', callbackWrapper);
+      img.src = url;
+      return element;
     },
 
-    createElement: function (obj, callback) {
-      var type = obj && this.getItemProperty(obj, this.options.typeProperty)
-      var factory = (type && this[type.split('/')[0] + 'Factory']) ||
-        this.imageFactory
-      var element = obj && factory.call(this, obj, callback)
-      var srcset = this.getItemProperty(obj, this.options.srcsetProperty)
+    createElement: function(obj, callback) {
+      var type = obj && this.getItemProperty(obj, this.options.typeProperty);
+      var factory =
+        (type && this[type.split('/')[0] + 'Factory']) || this.imageFactory;
+      var element = obj && factory.call(this, obj, callback);
+      var srcset = this.getItemProperty(obj, this.options.srcsetProperty);
       if (!element) {
-        element = this.elementPrototype.cloneNode(false)
-        this.setTimeout(callback, [{
-          type: 'error',
-          target: element
-        }])
+        element = this.elementPrototype.cloneNode(false);
+        this.setTimeout(callback, [
+          {
+            type: 'error',
+            target: element
+          }
+        ]);
       }
       if (srcset) {
-        element.setAttribute('srcset', srcset)
+        element.setAttribute('srcset', srcset);
       }
-      $(element).addClass(this.options.slideContentClass)
-      return element
+      $(element).addClass(this.options.slideContentClass);
+      return element;
     },
 
-    loadElement: function (index) {
+    loadElement: function(index) {
       if (!this.elements[index]) {
         if (this.slides[index].firstChild) {
-          this.elements[index] = $(this.slides[index])
-            .hasClass(this.options.slideErrorClass) ? 3 : 2
+          this.elements[index] = $(this.slides[index]).hasClass(
+            this.options.slideErrorClass
+          )
+            ? 3
+            : 2;
         } else {
-          this.elements[index] = 1 // Loading
-          $(this.slides[index]).addClass(this.options.slideLoadingClass)
-          this.slides[index].appendChild(this.createElement(
-            this.list[index],
-            this.proxyListener
-          ))
+          this.elements[index] = 1; // Loading
+          $(this.slides[index]).addClass(this.options.slideLoadingClass);
+          this.slides[index].appendChild(
+            this.createElement(this.list[index], this.proxyListener)
+          );
         }
       }
     },
 
-    loadElements: function (index) {
-      var limit = Math.min(this.num, this.options.preloadRange * 2 + 1)
-      var j = index
-      var i
+    loadElements: function(index) {
+      var limit = Math.min(this.num, this.options.preloadRange * 2 + 1);
+      var j = index;
+      var i;
       for (i = 0; i < limit; i += 1) {
         // First load the current slide element (0),
         // then the next one (+1),
         // then the previous one (-2),
         // then the next after next (+2), etc.:
-        j += i * (i % 2 === 0 ? -1 : 1)
+        j += i * (i % 2 === 0 ? -1 : 1);
         // Connect the ends of the list to load slide elements for
         // continuous navigation:
-        j = this.circle(j)
-        this.loadElement(j)
+        j = this.circle(j);
+        this.loadElement(j);
       }
     },
 
-    unloadElements: function (index) {
-      var i,
-        diff
+    unloadElements: function(index) {
+      var i, diff;
       for (i in this.elements) {
-        if (this.elements.hasOwnProperty(i)) {
-          diff = Math.abs(index - i)
-          if (diff > this.options.preloadRange &&
-            diff + this.options.preloadRange < this.num) {
-            this.unloadSlide(i)
-            delete this.elements[i]
+        if (Object.prototype.hasOwnProperty.call(this.elements, i)) {
+          diff = Math.abs(index - i);
+          if (
+            diff > this.options.preloadRange &&
+            diff + this.options.preloadRange < this.num
+          ) {
+            this.unloadSlide(i);
+            delete this.elements[i];
           }
         }
       }
     },
 
-    addSlide: function (index) {
-      var slide = this.slidePrototype.cloneNode(false)
-      slide.setAttribute('data-index', index)
-      this.slidesContainer[0].appendChild(slide)
-      this.slides.push(slide)
+    addSlide: function(index) {
+      var slide = this.slidePrototype.cloneNode(false);
+      slide.setAttribute('data-index', index);
+      this.slidesContainer[0].appendChild(slide);
+      this.slides.push(slide);
     },
 
-    positionSlide: function (index) {
-      var slide = this.slides[index]
-      slide.style.width = this.slideWidth + 'px'
+    positionSlide: function(index) {
+      var slide = this.slides[index];
+      slide.style.width = this.slideWidth + 'px';
       if (this.support.transform) {
-        slide.style.left = (index * -this.slideWidth) + 'px'
+        slide.style.left = index * -this.slideWidth + 'px';
         this.move(
-          index, this.index > index
+          index,
+          this.index > index
             ? -this.slideWidth
-            : (this.index < index ? this.slideWidth : 0),
+            : this.index < index
+            ? this.slideWidth
+            : 0,
           0
-        )
+        );
       }
     },
 
-    initSlides: function (reload) {
-      var clearSlides,
-        i
+    initSlides: function(reload) {
+      var clearSlides, i;
       if (!reload) {
-        this.positions = []
-        this.positions.length = this.num
-        this.elements = {}
-        this.imagePrototype = document.createElement('img')
-        this.elementPrototype = document.createElement('div')
-        this.slidePrototype = document.createElement('div')
-        $(this.slidePrototype).addClass(this.options.slideClass)
-        this.slides = this.slidesContainer[0].children
-        clearSlides = this.options.clearSlides ||
-        this.slides.length !== this.num
+        this.positions = [];
+        this.positions.length = this.num;
+        this.elements = {};
+        this.imagePrototype = document.createElement('img');
+        this.elementPrototype = document.createElement('div');
+        this.slidePrototype = document.createElement('div');
+        $(this.slidePrototype).addClass(this.options.slideClass);
+        this.slides = this.slidesContainer[0].children;
+        clearSlides =
+          this.options.clearSlides || this.slides.length !== this.num;
       }
-      this.slideWidth = this.container[0].offsetWidth
-      this.slideHeight = this.container[0].offsetHeight
-      this.slidesContainer[0].style.width =
-        (this.num * this.slideWidth) + 'px'
+      this.slideWidth = this.container[0].clientWidth;
+      this.slideHeight = this.container[0].clientHeight;
+      this.slidesContainer[0].style.width = this.num * this.slideWidth + 'px';
       if (clearSlides) {
-        this.resetSlides()
+        this.resetSlides();
       }
       for (i = 0; i < this.num; i += 1) {
         if (clearSlides) {
-          this.addSlide(i)
+          this.addSlide(i);
         }
-        this.positionSlide(i)
+        this.positionSlide(i);
       }
       // Reposition the slides before and after the given index:
       if (this.options.continuous && this.support.transform) {
-        this.move(this.circle(this.index - 1), -this.slideWidth, 0)
-        this.move(this.circle(this.index + 1), this.slideWidth, 0)
+        this.move(this.circle(this.index - 1), -this.slideWidth, 0);
+        this.move(this.circle(this.index + 1), this.slideWidth, 0);
       }
       if (!this.support.transform) {
         this.slidesContainer[0].style.left =
-          (this.index * -this.slideWidth) + 'px'
+          this.index * -this.slideWidth + 'px';
       }
     },
 
-    unloadSlide: function (index) {
-      var slide,
-        firstChild
-      slide = this.slides[index]
-      firstChild = slide.firstChild
+    unloadSlide: function(index) {
+      var slide, firstChild;
+      slide = this.slides[index];
+      firstChild = slide.firstChild;
       if (firstChild !== null) {
-        slide.removeChild(firstChild)
+        slide.removeChild(firstChild);
       }
     },
 
-    unloadAllSlides: function () {
-      var i,
-        len
+    unloadAllSlides: function() {
+      var i, len;
       for (i = 0, len = this.slides.length; i < len; i++) {
-        this.unloadSlide(i)
+        this.unloadSlide(i);
       }
     },
 
-    toggleControls: function () {
-      var controlsClass = this.options.controlsClass
+    toggleControls: function() {
+      var controlsClass = this.options.controlsClass;
       if (this.container.hasClass(controlsClass)) {
-        this.container.removeClass(controlsClass)
+        this.container.removeClass(controlsClass);
       } else {
-        this.container.addClass(controlsClass)
+        this.container.addClass(controlsClass);
       }
     },
 
-    toggleSlideshow: function () {
+    toggleSlideshow: function() {
       if (!this.interval) {
-        this.play()
+        this.play();
       } else {
-        this.pause()
+        this.pause();
       }
     },
 
-    getNodeIndex: function (element) {
-      return parseInt(element.getAttribute('data-index'), 10)
+    getNodeIndex: function(element) {
+      return parseInt(element.getAttribute('data-index'), 10);
     },
 
-    getNestedProperty: function (obj, property) {
+    getNestedProperty: function(obj, property) {
       property.replace(
         // Matches native JavaScript notation in a String,
         // e.g. '["doubleQuoteProp"].dotProp[2]'
+        // eslint-disable-next-line no-useless-escape
         /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
-        function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
-          var prop = dotProp || singleQuoteProp || doubleQuoteProp ||
-            (arrayIndex && parseInt(arrayIndex, 10))
+        function(str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
+          var prop =
+            dotProp ||
+            singleQuoteProp ||
+            doubleQuoteProp ||
+            (arrayIndex && parseInt(arrayIndex, 10));
           if (str && obj) {
-            obj = obj[prop]
+            obj = obj[prop];
           }
         }
-      )
-      return obj
+      );
+      return obj;
     },
 
-    getDataProperty: function (obj, property) {
-      if (obj.getAttribute) {
-        var prop = obj.getAttribute('data-' +
-          property.replace(/([A-Z])/g, '-$1').toLowerCase())
-        if (typeof prop === 'string') {
-          if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
-              .test(prop)) {
-            try {
-              return $.parseJSON(prop)
-            } catch (ignore) {}
+    getDataProperty: function(obj, property) {
+      var key;
+      var prop;
+      if (obj.dataset) {
+        key = property.replace(/-([a-z])/g, function(_, b) {
+          return b.toUpperCase();
+        });
+        prop = obj.dataset[key];
+      } else if (obj.getAttribute) {
+        prop = obj.getAttribute(
+          'data-' + property.replace(/([A-Z])/g, '-$1').toLowerCase()
+        );
+      }
+      if (typeof prop === 'string') {
+        // eslint-disable-next-line no-useless-escape
+        if (
+          /^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/.test(prop)
+        ) {
+          try {
+            return $.parseJSON(prop);
+          } catch (ignore) {
+            // ignore JSON parsing errors
           }
-          return prop
         }
+        return prop;
       }
     },
 
-    getItemProperty: function (obj, property) {
-      var prop = obj[property]
+    getItemProperty: function(obj, property) {
+      var prop = this.getDataProperty(obj, property);
       if (prop === undefined) {
-        prop = this.getDataProperty(obj, property)
-        if (prop === undefined) {
-          prop = this.getNestedProperty(obj, property)
-        }
+        prop = obj[property];
       }
-      return prop
+      if (prop === undefined) {
+        prop = this.getNestedProperty(obj, property);
+      }
+      return prop;
     },
 
-    initStartIndex: function () {
-      var index = this.options.index
-      var urlProperty = this.options.urlProperty
-      var i
+    initStartIndex: function() {
+      var index = this.options.index;
+      var urlProperty = this.options.urlProperty;
+      var i;
       // Check if the index is given as a list object:
       if (index && typeof index !== 'number') {
         for (i = 0; i < this.num; i += 1) {
-          if (this.list[i] === index ||
+          if (
+            this.list[i] === index ||
             this.getItemProperty(this.list[i], urlProperty) ===
-            this.getItemProperty(index, urlProperty)) {
-            index = i
-            break
+              this.getItemProperty(index, urlProperty)
+          ) {
+            index = i;
+            break;
           }
         }
       }
       // Make sure the index is in the list range:
-      this.index = this.circle(parseInt(index, 10) || 0)
+      this.index = this.circle(parseInt(index, 10) || 0);
     },
 
-    initEventListeners: function () {
-      var that = this
-      var slidesContainer = this.slidesContainer
-      function proxyListener (event) {
-        var type = that.support.transition &&
-        that.support.transition.end === event.type
-          ? 'transitionend'
-          : event.type
-        that['on' + type](event)
+    initEventListeners: function() {
+      var that = this;
+      var slidesContainer = this.slidesContainer;
+
+      /**
+       * Proxy listener
+       *
+       * @param {event} event original event
+       */
+      function proxyListener(event) {
+        var type =
+          that.support.transition && that.support.transition.end === event.type
+            ? 'transitionend'
+            : event.type;
+        that['on' + type](event);
       }
-      $(window).on('resize', proxyListener)
-      $(document.body).on('keydown', proxyListener)
-      this.container.on('click', proxyListener)
+      $(window).on('resize', proxyListener);
+      $(document.body).on('keydown', proxyListener);
+      this.container.on('click', proxyListener);
       if (this.support.touch) {
-        slidesContainer
-          .on('touchstart touchmove touchend touchcancel', proxyListener)
-      } else if (this.options.emulateTouchEvents &&
-        this.support.transition) {
-        slidesContainer
-          .on('mousedown mousemove mouseup mouseout', proxyListener)
-      }
-      if (this.support.transition) {
         slidesContainer.on(
-          this.support.transition.end,
+          'touchstart touchmove touchend touchcancel',
           proxyListener
-        )
-      }
-      this.proxyListener = proxyListener
-    },
-
-    destroyEventListeners: function () {
-      var slidesContainer = this.slidesContainer
-      var proxyListener = this.proxyListener
-      $(window).off('resize', proxyListener)
-      $(document.body).off('keydown', proxyListener)
-      this.container.off('click', proxyListener)
-      if (this.support.touch) {
-        slidesContainer
-          .off('touchstart touchmove touchend touchcancel', proxyListener)
-      } else if (this.options.emulateTouchEvents &&
-        this.support.transition) {
-        slidesContainer
-          .off('mousedown mousemove mouseup mouseout', proxyListener)
+        );
+      } else if (this.options.emulateTouchEvents && this.support.transition) {
+        slidesContainer.on(
+          'mousedown mousemove mouseup mouseout',
+          proxyListener
+        );
       }
       if (this.support.transition) {
+        slidesContainer.on(this.support.transition.end, proxyListener);
+      }
+      this.proxyListener = proxyListener;
+    },
+
+    destroyEventListeners: function() {
+      var slidesContainer = this.slidesContainer;
+      var proxyListener = this.proxyListener;
+      $(window).off('resize', proxyListener);
+      $(document.body).off('keydown', proxyListener);
+      this.container.off('click', proxyListener);
+      if (this.support.touch) {
         slidesContainer.off(
-          this.support.transition.end,
+          'touchstart touchmove touchend touchcancel',
           proxyListener
-        )
+        );
+      } else if (this.options.emulateTouchEvents && this.support.transition) {
+        slidesContainer.off(
+          'mousedown mousemove mouseup mouseout',
+          proxyListener
+        );
+      }
+      if (this.support.transition) {
+        slidesContainer.off(this.support.transition.end, proxyListener);
       }
     },
 
-    handleOpen: function () {
+    handleOpen: function() {
       if (this.options.onopened) {
-        this.options.onopened.call(this)
+        this.options.onopened.call(this);
       }
     },
 
-    initWidget: function () {
-      var that = this
-      function openHandler (event) {
+    initWidget: function() {
+      var that = this;
+
+      /**
+       * Open handler
+       *
+       * @param {event} event Gallery open event
+       */
+      function openHandler(event) {
         if (event.target === that.container[0]) {
-          that.container.off(
-            that.support.transition.end,
-            openHandler
-          )
-          that.handleOpen()
+          that.container.off(that.support.transition.end, openHandler);
+          that.handleOpen();
         }
       }
-      this.container = $(this.options.container)
+      this.container = $(this.options.container);
       if (!this.container.length) {
         this.console.log(
           'blueimp Gallery: Widget container not found.',
           this.options.container
-        )
-        return false
+        );
+        return false;
       }
-      this.slidesContainer = this.container.find(
-        this.options.slidesContainer
-      ).first()
+      this.slidesContainer = this.container
+        .find(this.options.slidesContainer)
+        .first();
       if (!this.slidesContainer.length) {
         this.console.log(
           'blueimp Gallery: Slides container not found.',
           this.options.slidesContainer
-        )
-        return false
+        );
+        return false;
       }
-      this.titleElement = this.container.find(
-        this.options.titleElement
-      ).first()
+      this.titleElement = this.container.find(this.options.titleElement).first();
       if (this.num === 1) {
-        this.container.addClass(this.options.singleClass)
+        this.container.addClass(this.options.singleClass);
       }
       if (this.options.onopen) {
-        this.options.onopen.call(this)
+        this.options.onopen.call(this);
       }
       if (this.support.transition && this.options.displayTransition) {
-        this.container.on(
-          this.support.transition.end,
-          openHandler
-        )
+        this.container.on(this.support.transition.end, openHandler);
       } else {
-        this.handleOpen()
+        this.handleOpen();
       }
       if (this.options.hidePageScrollbars) {
         // Hide the page scrollbars:
-        this.bodyOverflowStyle = document.body.style.overflow
-        document.body.style.overflow = 'hidden'
+        this.bodyOverflowStyle = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
       }
-      this.container[0].style.display = 'block'
-      this.initSlides()
-      this.container.addClass(this.options.displayClass)
+      this.container[0].style.display = 'block';
+      this.initSlides();
+      this.container.addClass(this.options.displayClass);
     },
 
-    initOptions: function (options) {
+    initOptions: function(options) {
       // Create a copy of the prototype options:
-      this.options = $.extend({}, this.options)
+      this.options = $.extend({}, this.options);
       // Check if carousel mode is enabled:
-      if ((options && options.carousel) ||
-        (this.options.carousel && (!options || options.carousel !== false))) {
-        $.extend(this.options, this.carouselOptions)
+      if (
+        (options && options.carousel) ||
+        (this.options.carousel && (!options || options.carousel !== false))
+      ) {
+        $.extend(this.options, this.carouselOptions);
       }
       // Override any given options:
-      $.extend(this.options, options)
+      $.extend(this.options, options);
       if (this.num < 3) {
         // 1 or 2 slides cannot be displayed continuous,
         // remember the original option by setting to null instead of false:
-        this.options.continuous = this.options.continuous ? null : false
+        this.options.continuous = this.options.continuous ? null : false;
       }
       if (!this.support.transition) {
-        this.options.emulateTouchEvents = false
+        this.options.emulateTouchEvents = false;
       }
       if (this.options.event) {
-        this.preventDefault(this.options.event)
+        this.preventDefault(this.options.event);
       }
     }
+  });
 
-  })
-
-  return Gallery
-}))
+  return Gallery;
+});
 
 /*
  * blueimp Gallery jQuery plugin
@@ -34990,156 +35082,68 @@ S2.define('jquery.select2',[
 
 /* global define */
 
-; (function (factory) {
-    "use strict";
-    if (typeof define === "function" && define.amd) {
-        define(["jquery", "./blueimp-gallery"], factory);
-    } else {
-        factory(window.jQuery, window.blueimp.Gallery);
-    }
-})(function ($, Gallery) {
-    "use strict";
-
-    // Global click handler to open links with data-gallery attribute
-    // in the Gallery lightbox:
-    $(document).on("click", "[data-gallery]", function (event) {
-        // Get the container id from the data-gallery attribute:
-        var id = $(this).data("gallery");
-        var widget = $(id);
-        var container =
-            (widget.length && widget) || $(Gallery.prototype.options.container);
-        var callbacks = {
-            onopen: function () {
-                container.data("gallery", this).trigger("open");
-            },
-            onopened: function () {
-                container.trigger("opened");
-            },
-            onslide: function () {
-                container.trigger("slide", arguments);
-            },
-            onslideend: function () {
-                container.trigger("slideend", arguments);
-            },
-            onslidecomplete: function () {
-                container.trigger("slidecomplete", arguments);
-            },
-            onclose: function () {
-                container.trigger("close");
-            },
-            onclosed: function () {
-                container.trigger("closed").removeData("gallery");
-            }
-        };
-        var options = $.extend(
-            // Retrieve custom options from data-attributes
-            // on the Gallery widget:
-            container.data(),
-            {
-                container: container[0],
-                index: this,
-                event: event
-            },
-            callbacks
-        );
-        // Select all links with the same data-gallery attribute:
-        var links = $(this)
-            .closest("[data-gallery-group], body")
-            .find('[data-gallery="' + id + '"]');
-        if (options.filter) {
-            links = links.filter(options.filter);
-        }
-        return new Gallery(links, options);
-    });
-});
-
-/*
- * Bootstrap Image Gallery
- * https://github.com/blueimp/Bootstrap-Image-Gallery
- *
- * Copyright 2013, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
- */
-
-/*global define, window */
-
-;(function (factory) {
+;(function(factory) {
   'use strict';
-    if (typeof define === 'function' && define.amd) {
-    define([
-      'jquery',
-      './blueimp-gallery'
-    ], factory);
-    } else {
-    factory(
-      window.jQuery,
-      window.blueimp.Gallery
-    );
-    }
-}(function ($, Gallery) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery', './blueimp-gallery'], factory);
+  } else {
+    factory(window.jQuery, window.blueimp.Gallery);
+  }
+})(function($, Gallery) {
   'use strict';
-    $.extend(Gallery.prototype.options, {
-    useBootstrapModal: true
-  });
-    var close = Gallery.prototype.close;
-    var imageFactory = Gallery.prototype.imageFactory;
-    var videoFactory = Gallery.prototype.videoFactory;
-    var textFactory = Gallery.prototype.textFactory;
-    $.extend(Gallery.prototype, {
-    modalFactory: function (obj, callback, factoryInterface, factory) {
-      if (!this.options.useBootstrapModal || factoryInterface) {
-        return factory.call(this, obj, callback, factoryInterface);
+
+  // Global click handler to open links with data-gallery attribute
+  // in the Gallery lightbox:
+  $(document).on('click', '[data-gallery]', function(event) {
+    // Get the container id from the data-gallery attribute:
+    var id = $(this).data('gallery');
+    var widget = $(id);
+    var container =
+      (widget.length && widget) || $(Gallery.prototype.options.container);
+    var callbacks = {
+      onopen: function() {
+        container.data('gallery', this).trigger('open');
+      },
+      onopened: function() {
+        container.trigger('opened');
+      },
+      onslide: function() {
+        container.trigger('slide', arguments);
+      },
+      onslideend: function() {
+        container.trigger('slideend', arguments);
+      },
+      onslidecomplete: function() {
+        container.trigger('slidecomplete', arguments);
+      },
+      onclose: function() {
+        container.trigger('close');
+      },
+      onclosed: function() {
+        container.trigger('closed').removeData('gallery');
       }
-      var that = this;
-      var modalTemplate = this.container.children('.modal');
-        var modal = modalTemplate.clone().modal('show').on('click', function (event) {
-        // Close modal if click is outside of modal-content:
-        if (event.target === modal[0] ||
-          event.target === modal.children()[0]) {
-          event.preventDefault();
-            event.stopPropagation();
-            that.close();
-        }
-      });
-        var element = factory.call(this, obj, function (event) {
-        callback({
-          type: event.type,
-          target: modal[0]
-        });
-            modal.addClass('in');
-        }, factoryInterface);
-        modal.find('.modal-title').text(element.title || String.fromCharCode(160));
-        modal.find('.modal-body').append(element);
-        return modal[0];
-    },
-
-    imageFactory: function (obj, callback, factoryInterface) {
-      return this.modalFactory(obj, callback, factoryInterface, imageFactory);
-    },
-
-    videoFactory: function (obj, callback, factoryInterface) {
-      return this.modalFactory(obj, callback, factoryInterface, videoFactory);
-    },
-
-    textFactory: function (obj, callback, factoryInterface) {
-      return this.modalFactory(obj, callback, factoryInterface, textFactory);
-    },
-
-    close: function () {
-        this.container.find('.modal').modal('hide').removeClass('in');
-
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-
-      close.call(this);
-
+    };
+    var options = $.extend(
+      // Retrieve custom options from data-attributes
+      // on the Gallery widget:
+      container.data(),
+      {
+        container: container[0],
+        index: this,
+        event: event
+      },
+      callbacks
+    );
+    // Select all links with the same data-gallery attribute:
+    var links = $(this)
+      .closest('[data-gallery-group], body')
+      .find('[data-gallery="' + id + '"]');
+    if (options.filter) {
+      links = links.filter(options.filter);
     }
-
+    return new Gallery(links, options);
   });
-}));
+});
 
 /*!
  * jQuery blockUI plugin

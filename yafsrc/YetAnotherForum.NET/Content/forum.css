@@ -7872,7 +7872,7 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 .blueimp-gallery,
 .blueimp-gallery > .slides > .slide > .slide-content {
@@ -7881,7 +7881,11 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   right: 0;
   bottom: 0;
   left: 0;
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
   /* Prevent artifacts in Mozilla Firefox: */
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
   -moz-backface-visibility: hidden; }
 
 .blueimp-gallery > .slides > .slide > .slide-content {
@@ -7935,19 +7939,15 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
   transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1); }
 
-.blueimp-gallery,
-.blueimp-gallery > .slides > .slide > .slide-content {
-  -webkit-transition: opacity 0.2s linear;
-  transition: opacity 0.2s linear; }
-
 .blueimp-gallery > .slides > .slide-loading {
-  content: "<i class=\"fas fa-spinner fa-pulse\"></i>"; }
+  background: url(../img/loading.gif) center no-repeat;
+  background-size: 64px 64px; }
 
 .blueimp-gallery > .slides > .slide-loading > .slide-content {
   opacity: 0; }
 
 .blueimp-gallery > .slides > .slide-error {
-  background: url(images/error.png) center no-repeat; }
+  background: url(../img/error.png) center no-repeat; }
 
 .blueimp-gallery > .slides > .slide-error > .slide-content {
   display: none; }
@@ -7960,7 +7960,7 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   width: 40px;
   height: 40px;
   margin-top: -23px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 60px;
   font-weight: 100;
   line-height: 30px;
@@ -8010,21 +8010,13 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   bottom: 15px;
   width: 15px;
   height: 15px;
-  background: url(images/play-pause.png) 0 0 no-repeat;
+  background: url(../img/play-pause.png) 0 0 no-repeat;
   cursor: pointer;
   opacity: 0.5;
   display: none; }
 
 .blueimp-gallery-playing > .play-pause {
   background-position: -15px 0; }
-
-.blueimp-gallery > .prev:hover,
-.blueimp-gallery > .next:hover,
-.blueimp-gallery > .close:hover,
-.blueimp-gallery > .title:hover,
-.blueimp-gallery > .play-pause:hover {
-  color: #fff;
-  opacity: 1; }
 
 .blueimp-gallery-controls > .prev,
 .blueimp-gallery-controls > .next,
@@ -8053,15 +8045,23 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   -ms-user-select: none;
   user-select: none; }
 
+.blueimp-gallery > .prev:hover,
+.blueimp-gallery > .next:hover,
+.blueimp-gallery > .close:hover,
+.blueimp-gallery > .title:hover,
+.blueimp-gallery > .play-pause:hover {
+  color: #fff;
+  opacity: 1; }
+
 /* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
 body:last-child .blueimp-gallery > .slides > .slide-error {
-  background-image: url(images/error.svg); }
+  background-image: url(../img/error.svg); }
 
 body:last-child .blueimp-gallery > .play-pause {
   width: 20px;
   height: 20px;
   background-size: 40px 20px;
-  background-image: url(images/play-pause.svg); }
+  background-image: url(../img/play-pause.svg); }
 
 body:last-child .blueimp-gallery-playing > .play-pause {
   background-position: -20px 0; }
@@ -8072,39 +8072,6 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 
 * + html .blueimp-gallery > .slides > .slide > .slide-content {
   position: relative; }
-
-/*
- * Bootstrap Image Gallery CSS
- * https://github.com/blueimp/Bootstrap-Image-Gallery
- *
- * Copyright 2013, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
- */
-.blueimp-gallery .modal-body {
-  position: relative;
-  text-align: center;
-  padding: 0 0 56.25% 0;
-  overflow: hidden;
-  cursor: pointer; }
-
-.blueimp-gallery .modal-footer {
-  margin: 0; }
-
-.blueimp-gallery .modal-body img,
-.blueimp-gallery .modal-body .video-content video,
-.blueimp-gallery .modal-body .video-content iframe,
-.blueimp-gallery .modal-body .video-content a {
-  max-width: 100%;
-  max-height: 100%;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0; }
 
 .suggest {
   /* position: relative; */

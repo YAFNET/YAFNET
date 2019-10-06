@@ -1211,7 +1211,6 @@
     <Content Include="Content\Themes\united\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-notify.css" />
     <Content Include="Content\flags\1x1\ad.svg" />
     <Content Include="Content\flags\1x1\ae.svg" />
@@ -2189,7 +2188,6 @@
     <Content Include="Scripts\blueimp-gallery.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
-    <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap-suggest.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
