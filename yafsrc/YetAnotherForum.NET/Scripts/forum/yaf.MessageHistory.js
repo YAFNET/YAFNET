@@ -5,7 +5,7 @@
     }
 }
 
-function RenderMessageDiff(messageEditedAtText, nothingSelectedText, selectBothText, selectDifferentText) {
+function RenderMessageDiff(nothingSelectedText, selectBothText) {
     var oldElement = $("input[id*='Compare']:checked").first();
     var newElement = $("input[id*='Compare']:checked").eq(1);
 
@@ -15,7 +15,7 @@ function RenderMessageDiff(messageEditedAtText, nothingSelectedText, selectBothT
         var sm = new difflib.SequenceMatcher(oldText, newText);
         var opCodes = sm.get_opcodes();
 
-        $("#diffContent").html('<div class="diffContent">' + diffview.buildView({
+        $("#diffContent").html('<div class="diffContent table-responsive">' + diffview.buildView({
             baseTextLines: oldText,
             newTextLines: newText,
             opcodes: opCodes,

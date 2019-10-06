@@ -65,11 +65,11 @@ jQuery(document).ready(function () {
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
-        if (image.parents(".selectionQuoteable").length) {
+        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") != "yafsignature") {
             var messageId = image.parents(".selectionQuoteable")[0].id;
 
             if (!image.parents("a").length) {
-                image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
+                image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#blueimp-gallery-' + messageId + '" />');
             }
         }
     });
@@ -79,7 +79,7 @@ jQuery(document).ready(function () {
 
         var messageId = imageLink.parents(".selectionQuoteable")[0].id;
 
-        imageLink.attr("data-gallery", "#MessageID" + messageId);
+        imageLink.attr("data-gallery", "#blueimp-gallery-" + messageId);
     });
 
     // Show caps lock info on password fields

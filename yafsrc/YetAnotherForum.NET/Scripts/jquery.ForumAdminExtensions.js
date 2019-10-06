@@ -35096,8 +35096,8 @@ S2.define('jquery.select2',[
   // in the Gallery lightbox:
   $(document).on('click', '[data-gallery]', function(event) {
     // Get the container id from the data-gallery attribute:
-    var id = $(this).data('gallery');
-    var widget = $(id);
+      var id = $(this).data('gallery');
+      var widget = $(id);
     var container =
       (widget.length && widget) || $(Gallery.prototype.options.container);
     var callbacks = {
@@ -35138,9 +35138,10 @@ S2.define('jquery.select2',[
     var links = $(this)
       .closest('[data-gallery-group], body')
       .find('[data-gallery="' + id + '"]');
-    if (options.filter) {
+     if (options.filter) {
       links = links.filter(options.filter);
-    }
+      }
+
     return new Gallery(links, options);
   });
 });
@@ -52605,11 +52606,11 @@ jQuery(document).ready(function () {
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
-        if (image.parents(".selectionQuoteable").length) {
+        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") != "yafsignature") {
             var messageId = image.parents(".selectionQuoteable")[0].id;
 
             if (!image.parents("a").length) {
-                image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#MessageID' + messageId + '" />');
+                image.wrap('<a href="' + image.attr("src") + '" title="' + image.attr("alt") + '" data-gallery="#blueimp-gallery-' + messageId + '" />');
             }
         }
     });
@@ -52619,7 +52620,7 @@ jQuery(document).ready(function () {
 
         var messageId = imageLink.parents(".selectionQuoteable")[0].id;
 
-        imageLink.attr("data-gallery", "#MessageID" + messageId);
+        imageLink.attr("data-gallery", "#blueimp-gallery-" + messageId);
     });
 
     // Show caps lock info on password fields

@@ -7940,14 +7940,13 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1); }
 
 .blueimp-gallery > .slides > .slide-loading {
-  background: url(../img/loading.gif) center no-repeat;
   background-size: 64px 64px; }
 
 .blueimp-gallery > .slides > .slide-loading > .slide-content {
   opacity: 0; }
 
 .blueimp-gallery > .slides > .slide-error {
-  background: url(../img/error.png) center no-repeat; }
+  background: url(images/error.svg) center no-repeat; }
 
 .blueimp-gallery > .slides > .slide-error > .slide-content {
   display: none; }
@@ -8010,7 +8009,7 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   bottom: 15px;
   width: 15px;
   height: 15px;
-  background: url(../img/play-pause.png) 0 0 no-repeat;
+  background: url(images/play-pause.png) 0 0 no-repeat;
   cursor: pointer;
   opacity: 0.5;
   display: none; }
@@ -8055,13 +8054,13 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
 
 /* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
 body:last-child .blueimp-gallery > .slides > .slide-error {
-  background-image: url(../img/error.svg); }
+  background-image: url(images/error.svg); }
 
 body:last-child .blueimp-gallery > .play-pause {
   width: 20px;
   height: 20px;
   background-size: 40px 20px;
-  background-image: url(../img/play-pause.svg); }
+  background-image: url(images/play-pause.svg); }
 
 body:last-child .blueimp-gallery-playing > .play-pause {
   background-position: -20px 0; }

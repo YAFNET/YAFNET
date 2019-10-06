@@ -35733,7 +35733,7 @@ S2.define('jquery.select2',[
     var links = $(this)
       .closest('[data-gallery-group], body')
       .find('[data-gallery="' + id + '"]');
-    if (options.filter) {
+     if (options.filter) {
       links = links.filter(options.filter);
       }
 
