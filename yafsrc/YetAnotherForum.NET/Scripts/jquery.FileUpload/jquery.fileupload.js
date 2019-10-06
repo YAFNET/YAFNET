@@ -1257,7 +1257,7 @@
         _onPaste: function (e) {
             var items = e.originalEvent && e.originalEvent.clipboardData &&
                     e.originalEvent.clipboardData.items,
-                data = {files: []};
+                data = { files: [] };
             if (items && items.length) {
                 $.each(items, function (index, item) {
                     var file = item.getAsFile && item.getAsFile();

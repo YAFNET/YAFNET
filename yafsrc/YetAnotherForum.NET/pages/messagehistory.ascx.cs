@@ -36,10 +36,10 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -215,6 +215,15 @@ namespace YAF.Pages
 
                     break;
             }
+        }
+
+        protected string GetIpAddress(object dataItem)
+        {
+            var row = (DataRow)dataItem;
+
+            var ip = IPHelper.GetIp4Address(row["IP"].ToString());
+
+            return ip.IsSet() ? ip : IPHelper.GetIp4Address(row["MessageIP"].ToString());
         }
 
         /// <summary>

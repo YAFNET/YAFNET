@@ -2721,9 +2721,6 @@
       <DependentUpon>jquery.tablesorter.pager.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jsdifflib.js" />
-    <Content Include="Scripts\jsdifflib.min.js">
-      <DependentUpon>jsdifflib.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\ladda.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
@@ -3677,7 +3674,7 @@ del Lucene.Net.Sandbox.pdb
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

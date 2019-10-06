@@ -261,51 +261,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Saves the specified message identifier.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="topicId">The topic identifier.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="message">The message.</param>
-        /// <param name="guestUserName">Name of the guest user.</param>
-        /// <param name="ip">The IP address.</param>
-        /// <param name="posted">The posted.</param>
-        /// <param name="replyTo">The reply to.</param>
-        /// <param name="blogPostId">The blog post identifier.</param>
-        /// <param name="flags">The flags.</param>
-        /// <returns>Returns the new message identifier</returns>
-        public static int Save(
-            this IRepository<Medal> repository,
-            int topicId,
-            int userId,
-            string message,
-            string guestUserName,
-            string ip,
-            DateTime posted,
-            int replyTo,
-            int blogPostId,
-            int flags)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var messageId = (int)repository.DbFunction.Scalar.message_save(
-                TopicID: topicId,
-                UserID: userId,
-                Message: message,
-                UserName: guestUserName,
-                IP: ip,
-                Posted: posted,
-                ReplyTo: replyTo,
-                BlogPostID: null,
-                Flags: flags,
-                UTCTIMESTAMP: DateTime.UtcNow);
-
-            repository.FireNew(messageId);
-
-            return messageId;
-        }
-
-        /// <summary>
         /// Approves the message.
         /// </summary>
         /// <param name="repository">The repository.</param>

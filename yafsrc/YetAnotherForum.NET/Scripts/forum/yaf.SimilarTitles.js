@@ -1,7 +1,7 @@
 ﻿// Generic Functions
 jQuery(document).ready(function () {
     // Numeric Spinner Inputs
-    if (jQuery('.searchSimilarTopics').length) {
+    if (jQuery(".searchSimilarTopics").length) {
 
         jQuery(".searchSimilarTopics").keyup(function () {
 
@@ -30,11 +30,11 @@ jQuery(document).ready(function () {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
                         // show loading screen 
-                        $('#loadModal').modal('show');
+                        $("#loadModal").modal("show");
                     }),
                     complete: (function before() {
                         // show loading screen 
-                        $('#loadModal').modal('hide');
+                        $("#loadModal").modal("hide");
                     }),
                     success: (function success(data) {
                         searchPlaceHolder.empty();
@@ -51,7 +51,7 @@ jQuery(document).ready(function () {
                                         data.TopicUrl +
                                         '" target="_blank">' +
                                         data.Topic +
-                                        '</a></li>');
+                                        "</a></li>");
                                 });
                         }
                     }),

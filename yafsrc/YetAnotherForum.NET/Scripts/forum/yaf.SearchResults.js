@@ -73,37 +73,37 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: (function before() {
-                $('#SearchResultsPlaceholder').empty();
+                $("#SearchResultsPlaceholder").empty();
                 // show loading screen 
-                $('#loadModal').modal('show');
+                $("#loadModal").modal("show");
             }),
             complete: (function before() {
                 // hide loading screen 
-                $("#loadModal").modal('hide');
+                $("#loadModal").modal("hide");
             }),
             success: (function success(data) {
-                $('#loadModal').on('shown.bs.modal',
+                $("#loadModal").on("shown.bs.modal",
                     function () {
-                        $("#loadModal").modal('hide');
+                        $("#loadModal").modal("hide");
                     });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
                 var by = $("#SearchResultsPlaceholder").data("by");
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");
                 var topic = $("#SearchResultsPlaceholder").data("topic");
                 if (data.SearchResults.length === 0) {
-                    var list = $('#SearchResultsPlaceholder');
+                    var list = $("#SearchResultsPlaceholder");
                     var notext = $("#SearchResultsPlaceholder").data("notext");
 
                     list.append('<div class="alert alert-warning text-center mt-3" role="alert">' +
                         notext +
-                        '</div>');
+                        "</div>");
 
-                    $('#SearchResultsPager').empty();
+                    $("#SearchResultsPager").empty();
                     
                 } else {
                     $.each(data.SearchResults,
                         function(id, data) {
-                            var groupHolder = $('#SearchResultsPlaceholder');
+                            var groupHolder = $("#SearchResultsPlaceholder");
 
                             groupHolder.append('<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' +
                                 '<div class="card-header bg-transparent border-top border-bottom-0 px-0 pb-0 pt-4 topicTitle"><h5> ' +
@@ -113,8 +113,8 @@
                                 data.TopicUrl +
                                 '">' +
                                 data.Topic +
-                                '</a>&nbsp;' +
-                                '<a ' +
+                                "</a>&nbsp;" +
+                                "<a " +
                                 'title="' +
                                 lastpost +
                                 '" href="' +
@@ -122,22 +122,22 @@
                                 '"><i class="fas fa-external-link-alt"></i></a>' +
                                 ' <small class="text-muted">(' +
                                 by +
-                                ' ' +
+                                " " +
                                 data.UserName +
-                                ')</small>' +
-                                '</h5></div>' +
+                                ")</small>" +
+                                "</h5></div>" +
                                 '<div class="card-body px-0">' +
                                 '<p class="card-text messageContent">' +
                                 data.Message +
-                                '</p>' +
-                                '</div>' +
+                                "</p>" +
+                                "</div>" +
                                 '<div class="card-footer bg-transparent border-top-0 px-0 py-2"> ' +
                                 '<small class="text-muted">' +
-                                posted + ' ' +
+                                posted + " " +
                                 moment(data.Posted).fromNow() +
-                                '</small> ' +
-                                '</div>' +
-                                '</div></div></div>');
+                                "</small> " +
+                                "</div>" +
+                                "</div></div></div>");
                         });
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
@@ -152,7 +152,7 @@
 
 function setPageNumber(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $('#SearchResultsPager'),
+    var pagerHolder = $("#SearchResultsPager"),
         pagination = $('<ul class="pagination" />');
 
     pagerHolder.empty();
@@ -185,13 +185,13 @@ function setPageNumber(pageSize, pageNumber, total) {
 
     for (var i = start; i < end; i++) {
         if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
+            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
             pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
                 i +
                 ');" class="page-link">' +
                 (i + 1) +
-                '</a></li>');
+                "</a></li>");
         }
     }
 
@@ -201,7 +201,7 @@ function setPageNumber(pageSize, pageNumber, total) {
             (pages - 1) +
             ')" class="page-link">' +
             pages +
-            '</a></li>');
+            "</a></li>");
     }
 
     if (pageNumber < pages - 1) {

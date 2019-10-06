@@ -3481,8 +3481,7 @@ SELECT
         m.IsModeratorChanged,
         m.DeleteReason,
         m.BlogPostID,
-        t.PollID,
-        m.IP
+        t.PollID
     FROM
         [{databaseOwner}].[{objectQualifier}Topic] t
         join  [{databaseOwner}].[{objectQualifier}Message] m ON m.TopicID = t.TopicID
@@ -9225,7 +9224,16 @@ as
      delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
      where DATEDIFF(day,Edited,@UTCTIMESTAMP ) > @DaysToClean
 
-     SELECT mh.*, m.UserID, m.UserName, IsNull(m.UserDisplayName,(SELECT u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = m.UserID)) AS UserDisplayName, t.ForumID, t.TopicID, t.Topic, m.Posted
+     SELECT 
+	 mh.*, 
+	 m.UserID, 
+	 m.UserName, 
+	 IsNull(m.UserDisplayName,(SELECT u.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] u where u.UserID = m.UserID)) AS UserDisplayName, 
+	 t.ForumID, 
+	 t.TopicID, 
+	 t.Topic, 
+	 m.Posted,
+	 MessageIP = m.IP
      FROM [{databaseOwner}].[{objectQualifier}MessageHistory] mh
      LEFT JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mh.MessageID
      LEFT JOIN [{databaseOwner}].[{objectQualifier}Topic] t ON t.TopicID = m.TopicID

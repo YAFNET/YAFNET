@@ -72,7 +72,9 @@ namespace YAF.Pages.moderate
             this.PageLinks.AddRoot();
 
             // moderation index
-            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), YafBuildLink.GetLink(ForumPages.moderate_index));
+            this.PageLinks.AddLink(
+                this.GetText("MODERATE_DEFAULT", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.moderate_index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
@@ -105,7 +107,9 @@ namespace YAF.Pages.moderate
             {
                 // fully format message (YafBBCode)
                 msg = this.Get<IFormatMessage>().FormatMessage(
-                  row["Message"].ToString(), messageFlags, row["IsModeratorChanged"].ToType<bool>());
+                    row["Message"].ToString(),
+                    messageFlags,
+                    row["IsModeratorChanged"].ToType<bool>());
             }
 
             // return formatted message
@@ -129,7 +133,7 @@ namespace YAF.Pages.moderate
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // do this just on page load, not postbacks
+            // do this just on page load, not post-backs
             if (this.IsPostBack)
             {
                 return;

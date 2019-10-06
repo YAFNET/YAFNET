@@ -42694,23 +42694,23 @@ difflib = {
     },
 
     SequenceMatcher: function (a, b, isjunk) {
-        this.set_seqs = function (a, b) {
+        this.set_seqs = function(a, b) {
             this.set_seq1(a);
             this.set_seq2(b);
-        }
+        };
 
-        this.set_seq1 = function (a) {
+        this.set_seq1 = function(a) {
             if (a == this.a) return;
             this.a = a;
             this.matching_blocks = this.opcodes = null;
-        }
+        };
 
-        this.set_seq2 = function (b) {
+        this.set_seq2 = function(b) {
             if (b == this.b) return;
             this.b = b;
             this.matching_blocks = this.opcodes = this.fullbcount = null;
             this.__chain_b();
-        }
+        };
 
         this.__chain_b = function () {
             var b = this.b;
@@ -42754,7 +42754,7 @@ difflib = {
 
             this.isbjunk = difflib.__isindict(junkdict);
             this.isbpopular = difflib.__isindict(populardict);
-        }
+        };
 
         this.find_longest_match = function (alo, ahi, blo, bhi) {
             var a = this.a;
@@ -42809,7 +42809,7 @@ difflib = {
             }
 
             return [besti, bestj, bestsize];
-        }
+        };
 
         this.get_matching_blocks = function () {
             if (this.matching_blocks != null) return this.matching_blocks;
@@ -42863,7 +42863,7 @@ difflib = {
             non_adjacent.push([la, lb, 0]);
             this.matching_blocks = non_adjacent;
             return this.matching_blocks;
-        }
+        };
 
         this.get_opcodes = function () {
             if (this.opcodes != null) return this.opcodes;
@@ -42878,23 +42878,23 @@ difflib = {
                 ai = block[0];
                 bj = block[1];
                 size = block[2];
-                tag = '';
+                tag = "";
                 if (i < ai && j < bj) {
-                    tag = 'replace';
+                    tag = "replace";
                 } else if (i < ai) {
-                    tag = 'delete';
+                    tag = "delete";
                 } else if (j < bj) {
-                    tag = 'insert';
+                    tag = "insert";
                 }
                 if (tag) answer.push([tag, i, ai, j, bj]);
                 i = ai + size;
                 j = bj + size;
 
-                if (size) answer.push(['equal', ai, i, bj, j]);
+                if (size) answer.push(["equal", ai, i, bj, j]);
             }
 
             return answer;
-        }
+        };
 
         // this is a generator function in the python lib, which of course is not supported in javascript
         // the reimplementation builds up the grouped opcodes into a list in their entirety and returns that.
@@ -42903,7 +42903,7 @@ difflib = {
             var codes = this.get_opcodes();
             if (!codes) codes = [["equal", 0, 1, 0, 1]];
             var code, tag, i1, i2, j1, j2;
-            if (codes[0][0] == 'equal') {
+            if (codes[0][0] == "equal") {
                 code = codes[0];
                 tag = code[0];
                 i1 = code[1];
@@ -42912,7 +42912,7 @@ difflib = {
                 j2 = code[4];
                 codes[0] = [tag, Math.max(i1, i2 - n), i2, Math.max(j1, j2 - n), j2];
             }
-            if (codes[codes.length - 1][0] == 'equal') {
+            if (codes[codes.length - 1][0] == "equal") {
                 code = codes[codes.length - 1];
                 tag = code[0];
                 i1 = code[1];
@@ -42931,7 +42931,7 @@ difflib = {
                 i2 = code[2];
                 j1 = code[3];
                 j2 = code[4];
-                if (tag == 'equal' && i2 - i1 > nn) {
+                if (tag == "equal" && i2 - i1 > nn) {
                     groups.push([tag, i1, Math.min(i2, i1 + n), j1, Math.min(j2, j1 + n)]);
                     i1 = Math.max(i1, i2 - n);
                     j1 = Math.max(j1, j2 - n);
@@ -42940,17 +42940,17 @@ difflib = {
                 groups.push([tag, i1, i2, j1, j2]);
             }
 
-            if (groups && groups[groups.length - 1][0] == 'equal') groups.pop();
+            if (groups && groups[groups.length - 1][0] == "equal") groups.pop();
 
             return groups;
-        }
+        };
 
         this.ratio = function () {
             matches = difflib.__reduce(
 							function (sum, triple) { return sum + triple[triple.length - 1]; },
 							this.get_matching_blocks(), 0);
             return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-        }
+        };
 
         this.quick_ratio = function () {
             var fullbcount, elt;
@@ -42978,19 +42978,19 @@ difflib = {
             }
 
             return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-        }
+        };
 
         this.real_quick_ratio = function () {
             var la = this.a.length;
             var lb = this.b.length;
             return _calculate_ratio(Math.min(la, lb), la + lb);
-        }
+        };
 
         this.isjunk = isjunk ? isjunk : difflib.defaultJunkFunction;
         this.a = this.b = null;
         this.set_seqs(a, b);
     }
-}
+};
 
 /***
 This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
@@ -43160,8 +43160,8 @@ diffview = {
                         addCellsInline(node, null, n++, newTextLines, change);
                     } else if (change == "replace") {
                         botrows.push(node2 = document.createElement("tr"));
-                        if (b < be) addCellsInline(node, b++, null, baseTextLines, "delete");
-                        if (n < ne) addCellsInline(node2, null, n++, newTextLines, "insert");
+                        if (b < be) addCellsInline(node, b++, null, baseTextLines, "bg-danger text-white");
+                        if (n < ne) addCellsInline(node2, null, n++, newTextLines, "bg-success text-white");
                     } else if (change == "delete") {
                         addCellsInline(node, b++, null, baseTextLines, change);
                     } else {
@@ -43172,8 +43172,8 @@ diffview = {
                     var wdiff = diffString2(b < be ? baseTextLines[b] : "", n < ne ? newTextLines[n] : "");
                     if (b < be) baseTextLines[b] = wdiff.o;
                     if (n < ne) newTextLines[n] = wdiff.n;
-                    b = addCells(node, b, be, baseTextLines, change == "replace" ? "delete" : change);
-                    n = addCells(node, n, ne, newTextLines, change == "replace" ? "insert" : change);
+                    b = addCells(node, b, be, baseTextLines, change == "replace" ? "bg-danger text-white" : change);
+                    n = addCells(node, n, ne, newTextLines, change == "replace" ? "bg-success text-white" : change);
                 }
             }
 
@@ -43184,17 +43184,17 @@ diffview = {
         var msg = "combined <a href='http://snowtide.com/jsdifflib'>jsdifflib</a> ";
         msg += "and John Resig's <a href='http://ejohn.org/projects/javascript-diff-algorithm/'>diff</a> ";
         msg += "by <a href='http://richardbondi.net'>Richard Bondi</a>";
-        rows.push(node = ctelt("th", "author", msg));
+        rows.push(node = ctelt("th", "author text-muted small", msg));
         node.setAttribute("colspan", inline ? 3 : 4);
 
         tdata.push(node = document.createElement("tbody"));
         for (var idx in rows) node.appendChild(rows[idx]);
 
-        node = celt("table", "diff" + (inline ? " inlinediff" : ""));
+        node = celt("table", "diff" + (inline ? " inlinediff table" : ""));
         for (var idx in tdata) node.appendChild(tdata[idx]);
         return node;
     }
-}
+};
 
 /*
  * Javascript Diff Algorithm
@@ -43220,8 +43220,8 @@ function escape(s) {
 }
 
 function diffString(o, n) {
-    o = o.replace(/\s+$/, '');
-    n = n.replace(/\s+$/, '');
+    o = o.replace(/\s+$/, "");
+    n = n.replace(/\s+$/, "");
 
     var out = diff(o == "" ? [] : o.split(/\s+/), n == "" ? [] : n.split(/\s+/));
     var str = "";
@@ -43241,23 +43241,23 @@ function diffString(o, n) {
 
     if (out.n.length == 0) {
         for (var i = 0; i < out.o.length; i++) {
-            str += '<del>' + escape(out.o[i]) + oSpace[i] + "</del>";
+            str += "<del>" + escape(out.o[i]) + oSpace[i] + "</del>";
         }
     } else {
         if (out.n[0].text == null) {
             for (n = 0; n < out.o.length && out.o[n].text == null; n++) {
-                str += '<del>' + escape(out.o[n]) + oSpace[n] + "</del>";
+                str += "<del>" + escape(out.o[n]) + oSpace[n] + "</del>";
             }
         }
 
         for (var i = 0; i < out.n.length; i++) {
             if (out.n[i].text == null) {
-                str += '<ins>' + escape(out.n[i]) + nSpace[i] + "</ins>";
+                str += "<ins>" + escape(out.n[i]) + nSpace[i] + "</ins>";
             } else {
                 var pre = "";
 
                 for (n = out.n[i].row + 1; n < out.o.length && out.o[n].text == null; n++) {
-                    pre += '<del>' + escape(out.o[n]) + oSpace[n] + "</del>";
+                    pre += "<del>" + escape(out.o[n]) + oSpace[n] + "</del>";
                 }
                 str += " " + out.n[i].text + nSpace[i] + pre;
             }
@@ -43273,8 +43273,8 @@ function randomColor() {
                     (Math.random() * 100) + "%)";
 }
 function diffString2(o, n) {
-    o = o.replace(/\s+$/, '');
-    n = n.replace(/\s+$/, '');
+    o = o.replace(/\s+$/, "");
+    n = n.replace(/\s+$/, "");
 
     var out = diff(o == "" ? [] : o.split(/\s+/), n == "" ? [] : n.split(/\s+/));
 
@@ -53168,60 +53168,37 @@ $(function () {
         return false;
     });
 });
-function toggleNewSelection(source) {
-    var isChecked = source.checked;
-    $("input[id*='New']").each(function () {
-        $(this).prop('checked', false);
-    });
-    source.checked = isChecked;
+function toggleSelection(source) {
+    if ($("input[id*='Compare']:checked").length > 2) {
+        source.checked = false;
+        bootbox.alert("Only 2 Versions can be selected vor comparing!");
+    }
 }
 
-function toggleOldSelection(source) {
-    var isChecked = source.checked;
-    $("input[id*='Old']").each(function () {
-        $(this).prop('checked', false);
-    });
-    source.checked = isChecked;
-}
-
-
-/// <summary>
-/// Renders the message difference.
-/// </summary>
-/// <param name="messageEditedAtText">The message edited at text.</param>
-/// <param name="nothingSelectedText">The nothing selected text.</param>
-/// <param name="selectBothText">The select both text.</param>
-/// <param name="selectDifferentText">The select different text.</param>
-/// <returns></returns>
-function RenderMessageDiff(messageEditedAtText, nothingSelectedText, selectBothText, selectDifferentText) {
-    var oldElement = $("input[id*='New']:checked");
-    var newElement = $("input[id*='Old']:checked");
+function RenderMessageDiff(nothingSelectedText, selectBothText) {
+    var oldElement = $("input[id*='Compare']:checked").first();
+    var newElement = $("input[id*='Compare']:checked").eq(1);
 
     if (newElement.length && oldElement.length) {
-        // check if two different messages are selected
-        if ($("input[id*='Old']:checked").attr('id').slice(-1) == $("input[id*='New']:checked").attr('id').slice(-1)) {
-            alert(selectDifferentText);
-        } else {
-            var base = difflib.stringAsLines($("input[id*='Old']:checked").parent().next().next().find("input[id*='MessageField']").attr('value'));
-            var newtxt = difflib.stringAsLines($("input[id*='New']:checked").parent().next().find("input[id*='MessageField']").attr('value'));
-            var sm = new difflib.SequenceMatcher(base, newtxt);
-            var opcodes = sm.get_opcodes();
+        var oldText = difflib.stringAsLines(oldElement.parent().next().attr("value"));
+        var newText = difflib.stringAsLines(newElement.parent().next().attr("value"));
+        var sm = new difflib.SequenceMatcher(oldText, newText);
+        var opCodes = sm.get_opcodes();
 
-            $("#diffContent").html('<div class="diffContent">' + diffview.buildView({
-                baseTextLines: base,
-                newTextLines: newtxt,
-                opcodes: opcodes,
-                baseTextName: messageEditedAtText + oldElement.parent().next().next().next().next().html(),
-                newTextName: messageEditedAtText + oldElement.parent().next().next().next().next().html(),
-                contextSize: 3,
-                viewType: 0
-            }).outerHTML + '</div>');
-        }
+        $("#diffContent").html('<div class="diffContent table-responsive">' + diffview.buildView({
+            baseTextLines: oldText,
+            newTextLines: newText,
+            opcodes: opCodes,
+            baseTextName: oldElement.parent().parent().next()[0].outerText,
+            newTextName: newElement.parent().parent().next()[0].outerText,
+            contextSize: 3,
+            viewType: 1
+        }).outerHTML + "</div>");
     }
     else if (newElement.length || oldElement.length) {
-        alert(selectBothText);
+        bootbox.alert(selectBothText);
     } else {
-        alert(nothingSelectedText);
+        bootbox.alert(nothingSelectedText);
     }
 }
 function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
@@ -53237,23 +53214,23 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
 
 	$.ajax({
         url: ajaxURL,
-        type: 'POST',
+        type: "POST",
         data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
 		success: (function Success(data) {
-            $('#PostAlbumsListPlaceholder ul').empty();
+            $("#PostAlbumsListPlaceholder ul").empty();
 
             $("#PostAlbumsLoader").hide();
 
             if (data.AttachmentList.length === 0) {
-                var list = $('#PostAlbumsListPlaceholder ul');
+                var list = $("#PostAlbumsListPlaceholder ul");
                 var notext = $("#PostAlbumsListPlaceholder").data("notext");
 
-                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + '</div></li>');
+                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
 			}
 
             $.each(data.AttachmentList, function (id, data) {
-                var list = $('#PostAlbumsListPlaceholder ul'),
+                var list = $("#PostAlbumsListPlaceholder ul"),
                     listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
@@ -53271,13 +53248,13 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
 			setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
-                jQuery(".albums-toggle").dropdown('toggle');
+                jQuery(".albums-toggle").dropdown("toggle");
             }
 
-            jQuery('#PostAlbumsListPlaceholder ul li').tooltip({
+            jQuery("#PostAlbumsListPlaceholder ul li").tooltip({
                 html: true,
                 template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                placement: 'top'
+                placement: "top"
             });
 		}),
         error: (function Error(request, status, error) {
@@ -53292,7 +53269,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
 
 function setPageNumberAlbums(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $('#AlbumsListPager'),
+    var pagerHolder = $("#AlbumsListPager"),
         pagination = $('<ul class="pagination pagination-sm" />');
 
     pagerHolder.empty();
@@ -53302,9 +53279,9 @@ function setPageNumberAlbums(pageSize, pageNumber, total) {
     if (pageNumber > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
-            ',' +
+            "," +
             (pageNumber - 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">&laquo;</a></li>');
     }
@@ -53323,9 +53300,9 @@ function setPageNumberAlbums(pageSize, pageNumber, total) {
     if (start > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
-            ',' +
+            "," +
             0 +
-            ',' +
+            "," +
             total +
             ', true);" class="page-link">1</a></li>');
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
@@ -53333,17 +53310,17 @@ function setPageNumberAlbums(pageSize, pageNumber, total) {
 
     for (var i = start; i < end; i++) {
         if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
+            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
             pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
                 pageSize +
-                ',' +
+                "," +
                 i +
-                ',' +
+                "," +
                 total +
                 ',true);" class="page-link">' +
                 (i + 1) +
-                '</a></li>');
+                "</a></li>");
         }
     }
 
@@ -53351,21 +53328,21 @@ function setPageNumberAlbums(pageSize, pageNumber, total) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
         pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
-            ',' +
+            "," +
             (pages - 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">' +
             pages +
-            '</a></li>');
+            "</a></li>");
     }
 
     if (pageNumber < pages - 1) {
         pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
-            ',' +
+            "," +
             (pageNumber + 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">&raquo;</a></li>');
     }
@@ -53390,19 +53367,19 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		success: (function Success(data, status) {
-			$('#PostAttachmentListPlaceholder ul').empty();
+			$("#PostAttachmentListPlaceholder ul").empty();
 
 			$("#PostAttachmentLoader").hide();
 
 			if (data.AttachmentList.length === 0) {
-				var list = $('#PostAttachmentListPlaceholder ul');
+				var list = $("#PostAttachmentListPlaceholder ul");
 				var notext = $("#PostAttachmentListPlaceholder").data("notext");
 
-                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + '</div></li>');
+                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
 			}
 
             $.each(data.AttachmentList, function (id, data) {
-                var list = $('#PostAttachmentListPlaceholder ul'),
+                var list = $("#PostAttachmentListPlaceholder ul"),
                     listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
@@ -53420,14 +53397,14 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
             setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
-                jQuery(".attachments-toggle").dropdown('toggle');
+                jQuery(".attachments-toggle").dropdown("toggle");
             }
 
-            jQuery('#PostAttachmentListPlaceholder ul li').tooltip({
+            jQuery("#PostAttachmentListPlaceholder ul li").tooltip({
                 html: true,
                 template:
                     '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                placement: 'top'
+                placement: "top"
             });
         }),
 		error: (function Error(request, status, error) {
@@ -53440,7 +53417,7 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
 
 function setPageNumberAttach(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $('#AttachmentsListPager'),
+    var pagerHolder = $("#AttachmentsListPager"),
         pagination = $('<ul class="pagination pagination-sm" />');
 
     pagerHolder.empty();
@@ -53450,9 +53427,9 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     if (pageNumber > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             (pageNumber - 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">&laquo;</a></li>');
     }
@@ -53471,9 +53448,9 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     if (start > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             0 +
-            ',' +
+            "," +
             total +
             ', true);" class="page-link">1</a></li>');
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
@@ -53481,17 +53458,17 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
 
     for (var i = start; i < end; i++) {
         if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
+            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
             pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
                 pageSize +
-                ',' +
+                "," +
                 i +
-                ',' +
+                "," +
                 total +
                 ',true);" class="page-link">' +
                 (i + 1) +
-                '</a></li>');
+                "</a></li>");
         }
     }
 
@@ -53499,21 +53476,21 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             (pages - 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">' +
             pages +
-            '</a></li>');
+            "</a></li>");
     }
 
     if (pageNumber < pages - 1) {
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             (pageNumber + 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">&raquo;</a></li>');
     }
@@ -53595,37 +53572,37 @@ function getSeachResultsData(pageNumber) {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             beforeSend: (function before() {
-                $('#SearchResultsPlaceholder').empty();
+                $("#SearchResultsPlaceholder").empty();
                 // show loading screen 
-                $('#loadModal').modal('show');
+                $("#loadModal").modal("show");
             }),
             complete: (function before() {
                 // hide loading screen 
-                $("#loadModal").modal('hide');
+                $("#loadModal").modal("hide");
             }),
             success: (function success(data) {
-                $('#loadModal').on('shown.bs.modal',
+                $("#loadModal").on("shown.bs.modal",
                     function () {
-                        $("#loadModal").modal('hide');
+                        $("#loadModal").modal("hide");
                     });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
                 var by = $("#SearchResultsPlaceholder").data("by");
                 var lastpost = $("#SearchResultsPlaceholder").data("lastpost");
                 var topic = $("#SearchResultsPlaceholder").data("topic");
                 if (data.SearchResults.length === 0) {
-                    var list = $('#SearchResultsPlaceholder');
+                    var list = $("#SearchResultsPlaceholder");
                     var notext = $("#SearchResultsPlaceholder").data("notext");
 
                     list.append('<div class="alert alert-warning text-center mt-3" role="alert">' +
                         notext +
-                        '</div>');
+                        "</div>");
 
-                    $('#SearchResultsPager').empty();
+                    $("#SearchResultsPager").empty();
                     
                 } else {
                     $.each(data.SearchResults,
                         function(id, data) {
-                            var groupHolder = $('#SearchResultsPlaceholder');
+                            var groupHolder = $("#SearchResultsPlaceholder");
 
                             groupHolder.append('<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' +
                                 '<div class="card-header bg-transparent border-top border-bottom-0 px-0 pb-0 pt-4 topicTitle"><h5> ' +
@@ -53635,8 +53612,8 @@ function getSeachResultsData(pageNumber) {
                                 data.TopicUrl +
                                 '">' +
                                 data.Topic +
-                                '</a>&nbsp;' +
-                                '<a ' +
+                                "</a>&nbsp;" +
+                                "<a " +
                                 'title="' +
                                 lastpost +
                                 '" href="' +
@@ -53644,22 +53621,22 @@ function getSeachResultsData(pageNumber) {
                                 '"><i class="fas fa-external-link-alt"></i></a>' +
                                 ' <small class="text-muted">(' +
                                 by +
-                                ' ' +
+                                " " +
                                 data.UserName +
-                                ')</small>' +
-                                '</h5></div>' +
+                                ")</small>" +
+                                "</h5></div>" +
                                 '<div class="card-body px-0">' +
                                 '<p class="card-text messageContent">' +
                                 data.Message +
-                                '</p>' +
-                                '</div>' +
+                                "</p>" +
+                                "</div>" +
                                 '<div class="card-footer bg-transparent border-top-0 px-0 py-2"> ' +
                                 '<small class="text-muted">' +
-                                posted + ' ' +
+                                posted + " " +
                                 moment(data.Posted).fromNow() +
-                                '</small> ' +
-                                '</div>' +
-                                '</div></div></div>');
+                                "</small> " +
+                                "</div>" +
+                                "</div></div></div>");
                         });
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
@@ -53674,7 +53651,7 @@ function getSeachResultsData(pageNumber) {
 
 function setPageNumber(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $('#SearchResultsPager'),
+    var pagerHolder = $("#SearchResultsPager"),
         pagination = $('<ul class="pagination" />');
 
     pagerHolder.empty();
@@ -53707,13 +53684,13 @@ function setPageNumber(pageSize, pageNumber, total) {
 
     for (var i = start; i < end; i++) {
         if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
+            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
             pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
                 i +
                 ');" class="page-link">' +
                 (i + 1) +
-                '</a></li>');
+                "</a></li>");
         }
     }
 
@@ -53723,7 +53700,7 @@ function setPageNumber(pageSize, pageNumber, total) {
             (pages - 1) +
             ')" class="page-link">' +
             pages +
-            '</a></li>');
+            "</a></li>");
     }
 
     if (pageNumber < pages - 1) {
@@ -53737,7 +53714,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 // Generic Functions
 jQuery(document).ready(function () {
     // Numeric Spinner Inputs
-    if (jQuery('.searchSimilarTopics').length) {
+    if (jQuery(".searchSimilarTopics").length) {
 
         jQuery(".searchSimilarTopics").keyup(function () {
 
@@ -53766,11 +53743,11 @@ jQuery(document).ready(function () {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
                         // show loading screen 
-                        $('#loadModal').modal('show');
+                        $("#loadModal").modal("show");
                     }),
                     complete: (function before() {
                         // show loading screen 
-                        $('#loadModal').modal('hide');
+                        $("#loadModal").modal("hide");
                     }),
                     success: (function success(data) {
                         searchPlaceHolder.empty();
@@ -53787,7 +53764,7 @@ jQuery(document).ready(function () {
                                         data.TopicUrl +
                                         '" target="_blank">' +
                                         data.Topic +
-                                        '</a></li>');
+                                        "</a></li>");
                                 });
                         }
                     }),

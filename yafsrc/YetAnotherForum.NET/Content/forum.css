@@ -35,46 +35,31 @@ or implied, of Chas Emerick.
 .diff * {
   white-space: pre-wrap !important; }
 
-table.diff {
-  border-collapse: collapse;
-  border: 1px solid darkgray; }
-  table.diff tbody {
-    font-family: Courier, monospace; }
-    table.diff tbody th {
-      font-family: verdana, arial, 'Bitstream Vera Sans', helvetica, sans-serif;
-      background: #EED;
-      font-size: 11px;
-      font-weight: normal;
-      border: 1px solid #BBC;
-      color: #886;
-      padding: .3em .5em .1em 2em;
-      text-align: right;
-      vertical-align: top; }
-    table.diff tbody td {
-      padding: 0 .4em;
-      vertical-align: top; }
-  table.diff thead {
-    border-bottom: 1px solid #BBC;
-    background: #EFEFEF;
-    font-family: Verdana; }
-    table.diff thead th.texttitle {
-      text-align: left; }
-  table.diff .empty {
-    background-color: #DDD; }
-  table.diff .replace {
-    background-color: #FFC; }
-  table.diff .delete {
-    background-color: #FCC; }
-  table.diff .skip {
-    background-color: #EFEFEF;
-    border: 1px solid #AAA;
-    border-right: 1px solid #BBC; }
-  table.diff .insert {
-    background-color: #CFC; }
-  table.diff th.author {
-    text-align: right;
-    border-top: 1px solid #BBC;
-    background: #EFEFEF; }
+table.diff tbody th {
+  padding: .3em .5em .1em 2em;
+  text-align: right;
+  vertical-align: top; }
+
+table.diff tbody td {
+  padding: 0 .4em;
+  vertical-align: top; }
+
+table.diff thead th.texttitle {
+  text-align: left; }
+
+table.diff .empty {
+  background-color: #DDD; }
+
+table.diff .replace {
+  background-color: #FFC; }
+
+table.diff .skip {
+  background-color: #EFEFEF;
+  border: 1px solid #AAA;
+  border-right: 1px solid #BBC; }
+
+table.diff th.author {
+  text-align: right; }
 
 del {
   background-color: #EE9999 !important;

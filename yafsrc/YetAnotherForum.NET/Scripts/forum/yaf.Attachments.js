@@ -16,19 +16,19 @@
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		success: (function Success(data, status) {
-			$('#PostAttachmentListPlaceholder ul').empty();
+			$("#PostAttachmentListPlaceholder ul").empty();
 
 			$("#PostAttachmentLoader").hide();
 
 			if (data.AttachmentList.length === 0) {
-				var list = $('#PostAttachmentListPlaceholder ul');
+				var list = $("#PostAttachmentListPlaceholder ul");
 				var notext = $("#PostAttachmentListPlaceholder").data("notext");
 
-                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + '</div></li>');
+                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
 			}
 
             $.each(data.AttachmentList, function (id, data) {
-                var list = $('#PostAttachmentListPlaceholder ul'),
+                var list = $("#PostAttachmentListPlaceholder ul"),
                     listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
@@ -46,14 +46,14 @@
             setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
-                jQuery(".attachments-toggle").dropdown('toggle');
+                jQuery(".attachments-toggle").dropdown("toggle");
             }
 
-            jQuery('#PostAttachmentListPlaceholder ul li').tooltip({
+            jQuery("#PostAttachmentListPlaceholder ul li").tooltip({
                 html: true,
                 template:
                     '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                placement: 'top'
+                placement: "top"
             });
         }),
 		error: (function Error(request, status, error) {
@@ -66,7 +66,7 @@
 
 function setPageNumberAttach(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $('#AttachmentsListPager'),
+    var pagerHolder = $("#AttachmentsListPager"),
         pagination = $('<ul class="pagination pagination-sm" />');
 
     pagerHolder.empty();
@@ -76,9 +76,9 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     if (pageNumber > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             (pageNumber - 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">&laquo;</a></li>');
     }
@@ -97,9 +97,9 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     if (start > 0) {
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             0 +
-            ',' +
+            "," +
             total +
             ', true);" class="page-link">1</a></li>');
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
@@ -107,17 +107,17 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
 
     for (var i = start; i < end; i++) {
         if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
+            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
             pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
                 pageSize +
-                ',' +
+                "," +
                 i +
-                ',' +
+                "," +
                 total +
                 ',true);" class="page-link">' +
                 (i + 1) +
-                '</a></li>');
+                "</a></li>");
         }
     }
 
@@ -125,21 +125,21 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             (pages - 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">' +
             pages +
-            '</a></li>');
+            "</a></li>");
     }
 
     if (pageNumber < pages - 1) {
         pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
             pageSize +
-            ',' +
+            "," +
             (pageNumber + 1) +
-            ',' +
+            "," +
             total +
             ',true)" class="page-link">&raquo;</a></li>');
     }
