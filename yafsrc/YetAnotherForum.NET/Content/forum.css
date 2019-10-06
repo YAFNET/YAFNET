@@ -7959,20 +7959,11 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   width: 40px;
   height: 40px;
   margin-top: -23px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 60px;
+  font-size: 30px;
   font-weight: 100;
   line-height: 30px;
   color: #fff;
   text-decoration: none;
-  text-shadow: 0 0 2px #000;
-  text-align: center;
-  background: #222;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-  border: 3px solid #fff;
-  border-radius: 23px;
   opacity: 0.5;
   cursor: pointer;
   display: none; }
@@ -8064,13 +8055,6 @@ body:last-child .blueimp-gallery > .play-pause {
 
 body:last-child .blueimp-gallery-playing > .play-pause {
   background-position: -20px 0; }
-
-/* IE7 fixes */
-* + html .blueimp-gallery > .slides > .slide {
-  min-height: 300px; }
-
-* + html .blueimp-gallery > .slides > .slide > .slide-content {
-  position: relative; }
 
 .suggest {
   /* position: relative; */

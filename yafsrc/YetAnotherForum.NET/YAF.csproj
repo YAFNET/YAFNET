@@ -1853,9 +1853,7 @@
     <Content Include="Content\favicons\site.webmanifest" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
-    <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error.svg" />
-    <Content Include="Content\images\play-pause.png" />
     <Content Include="Content\images\play-pause.svg" />
     <Content Include="Content\InstallWizard.css">
       <DependentUpon>InstallWizard.scss</DependentUpon>

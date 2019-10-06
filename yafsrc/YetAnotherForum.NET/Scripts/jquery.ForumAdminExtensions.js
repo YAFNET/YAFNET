@@ -35102,7 +35102,8 @@ S2.define('jquery.select2',[
       (widget.length && widget) || $(Gallery.prototype.options.container);
     var callbacks = {
       onopen: function() {
-        container.data('gallery', this).trigger('open');
+            container.data('gallery', this).trigger('open');
+            $("#blueimp-gallery").removeClass("d-none");
       },
       onopened: function() {
         container.trigger('opened');
@@ -35120,7 +35121,8 @@ S2.define('jquery.select2',[
         container.trigger('close');
       },
       onclosed: function() {
-        container.trigger('closed').removeData('gallery');
+          container.trigger('closed').removeData('gallery');
+          $("#blueimp-gallery").addClass("d-none");
       }
     };
     var options = $.extend(
