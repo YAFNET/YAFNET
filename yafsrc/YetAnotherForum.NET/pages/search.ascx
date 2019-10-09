@@ -10,7 +10,7 @@
             Type="Primary"
             Icon="search"
             TextLocalizedTag="btnsearch"
-            NavigateUrl="javascript:getSeachResultsData(0);">
+            NavigateUrl="javascript:getSearchResultsData(0);">
         </YAF:ThemeButton>
         <YAF:ThemeButton runat="server"
                          CssClass="dropdown-toggle"

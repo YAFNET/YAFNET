@@ -1,4 +1,4 @@
-﻿function getSeachResultsData(pageNumber) {
+﻿function getSearchResultsData(pageNumber) {
     var searchInput = jQuery(".searchInput").val();
     var searchInputUser = jQuery(".searchUserInput").val();
 
@@ -39,7 +39,7 @@
                     // Match Any Word
                     searchText += "" + searchInput;
                 } else if (searchWhat === "2") {
-                    // Match Extact Phrase
+                    // Match Exact Phrase
                     searchText += "" + "\"" + searchInput + "\"";
                 }
 //                searchText += " -Author:" + searchInputUser;
@@ -142,10 +142,10 @@
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
             }),
-            error: (function error(request) {
+            error: function(request) {
                 console.log(request);
                 $("#SearchResultsPlaceholder").html(request.responseText).fadeIn(1000);
-            })
+            }
         });
     }
 }
@@ -160,7 +160,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     pagination.wrap('<nav aria-label="Search Page Results" />');
 
     if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             (pageNumber - 1) +
             ')" class="page-link"><i class="fas fas fa-angle-left" aria-hidden="true"></i></a></li>');
     }
@@ -177,7 +177,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     }
 
     if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             0 +
             ');" class="page-link">1</a></li>');
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
@@ -187,7 +187,7 @@ function setPageNumber(pageSize, pageNumber, total) {
         if (i === pageNumber) {
             pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
-            pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+            pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
                 i +
                 ');" class="page-link">' +
                 (i + 1) +
@@ -197,7 +197,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 
     if (end < pages) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             (pages - 1) +
             ')" class="page-link">' +
             pages +
@@ -205,7 +205,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     }
 
     if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             (pageNumber + 1) +
             ')" class="page-link"><i class="fas fas fa-angle-right" aria-hidden="true"></i></a></li>');
     }

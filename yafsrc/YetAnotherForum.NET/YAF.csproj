@@ -1078,7 +1078,7 @@
       <LastGenOutput>Install.de.designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Content Include="auth.aspx" />
-    <Content Include="Content\blueimp-gallery.css" />
+    <None Include="Content\blueimp-gallery.scss" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
@@ -2183,6 +2183,7 @@
     <Content Include="pages\viewthanks.ascx" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
+    <Content Include="Scripts\blueimp-gallery-indicator.js" />
     <Content Include="Scripts\blueimp-gallery.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -3670,7 +3671,7 @@ del Lucene.Net.Sandbox.pdb
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

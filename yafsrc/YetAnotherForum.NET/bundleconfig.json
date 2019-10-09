@@ -37,6 +37,7 @@
       "Scripts/bootstrap-suggest.js",
       "Scripts/select2.js",
       "Scripts/blueimp-gallery.js",
+      "Scripts/blueimp-gallery-indicator.js",
       "Scripts/jquery.blueimp-gallery.js",
       "Scripts/jquery.hovercard.js",
       "Scripts/prism.js",

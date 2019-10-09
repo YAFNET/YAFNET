@@ -35665,6 +35665,153 @@ S2.define('jquery.select2',[
 });
 
 /*
+ * blueimp Gallery Indicator JS
+ * https://github.com/blueimp/Gallery
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * https://opensource.org/licenses/MIT
+ */
+
+/* global define */
+
+;(function(factory) {
+  "use strict";
+  if (typeof define === "function" && define.amd) {
+    // Register as an anonymous AMD module:
+    define(["./blueimp-helper", "./blueimp-gallery"], factory);
+  } else {
+    // Browser globals:
+    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery);
+  }
+})(function($, Gallery) {
+  "use strict";
+
+  $.extend(Gallery.prototype.options, {
+    // The tag name, Id, element or querySelector of the indicator container:
+    indicatorContainer: "ol",
+    // The class for the active indicator:
+    activeIndicatorClass: "active",
+    // The list object property (or data attribute) with the thumbnail URL,
+    // used as alternative to a thumbnail child element:
+    thumbnailProperty: "thumbnail",
+    // Defines if the gallery indicators should display a thumbnail:
+    thumbnailIndicators: true
+  });
+
+  var initSlides = Gallery.prototype.initSlides;
+  var addSlide = Gallery.prototype.addSlide;
+  var resetSlides = Gallery.prototype.resetSlides;
+  var handleClick = Gallery.prototype.handleClick;
+  var handleSlide = Gallery.prototype.handleSlide;
+  var handleClose = Gallery.prototype.handleClose;
+
+  $.extend(Gallery.prototype, {
+    createIndicator: function(obj) {
+      var indicator = this.indicatorPrototype.cloneNode(false);
+      var title = this.getItemProperty(obj, this.options.titleProperty);
+      var thumbnailProperty = this.options.thumbnailProperty;
+      var thumbnailUrl;
+      var thumbnail;
+      if (this.options.thumbnailIndicators) {
+        if (thumbnailProperty) {
+          thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
+        }
+        if (thumbnailUrl === undefined) {
+          thumbnail = obj.getElementsByTagName && $(obj).find("img")[0];
+          if (thumbnail) {
+            thumbnailUrl = thumbnail.src;
+          }
+        }
+        if (thumbnailUrl) {
+          indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
+        }
+      }
+      if (title) {
+        indicator.title = title;
+      }
+      return indicator;
+    },
+
+    addIndicator: function(index) {
+		console.log(index);
+      if (this.indicatorContainer.length) {
+        var indicator = this.createIndicator(this.list[index]);
+        indicator.setAttribute("data-index", index);
+        this.indicatorContainer[0].appendChild(indicator);
+        this.indicators.push(indicator);
+      }
+    },
+
+    setActiveIndicator: function(index) {
+      if (this.indicators) {
+        if (this.activeIndicator) {
+          this.activeIndicator.removeClass(this.options.activeIndicatorClass);
+        }
+        this.activeIndicator = $(this.indicators[index]);
+        this.activeIndicator.addClass(this.options.activeIndicatorClass);
+      }
+    },
+
+    initSlides: function(reload) {
+      if (!reload) {
+        this.indicatorContainer = this.container.find(
+          this.options.indicatorContainer
+        );
+        if (this.indicatorContainer.length) {
+          this.indicatorPrototype = document.createElement("li");
+          this.indicators = this.indicatorContainer[0].children;
+        }
+      }
+      initSlides.call(this, reload);
+    },
+
+    addSlide: function(index) {
+      addSlide.call(this, index);
+      this.addIndicator(index);
+    },
+
+    resetSlides: function() {
+      resetSlides.call(this);
+      this.indicatorContainer.empty();
+      this.indicators = [];
+    },
+
+    handleClick: function(event) {
+      var target = event.target || event.srcElement;
+      var parent = target.parentNode;
+      if (parent === this.indicatorContainer[0]) {
+        // Click on indicator element
+        this.preventDefault(event);
+        this.slide(this.getNodeIndex(target));
+      } else if (parent.parentNode === this.indicatorContainer[0]) {
+        // Click on indicator child element
+        this.preventDefault(event);
+        this.slide(this.getNodeIndex(parent));
+      } else {
+        return handleClick.call(this, event);
+      }
+    },
+
+    handleSlide: function(index) {
+      handleSlide.call(this, index);
+      this.setActiveIndicator(index);
+    },
+
+    handleClose: function() {
+      if (this.activeIndicator) {
+        this.activeIndicator.removeClass(this.options.activeIndicatorClass);
+      }
+      handleClose.call(this);
+    }
+  });
+
+  return Gallery;
+});
+
+/*
  * blueimp Gallery jQuery plugin
  * https://github.com/blueimp/Gallery
  *
@@ -35678,71 +35825,84 @@ S2.define('jquery.select2',[
 /* global define */
 
 ;(function(factory) {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
-    define(['jquery', './blueimp-gallery'], factory);
+  "use strict";
+  if (typeof define === "function" && define.amd) {
+    define(["jquery", "./blueimp-gallery"], factory);
   } else {
     factory(window.jQuery, window.blueimp.Gallery);
   }
 })(function($, Gallery) {
-  'use strict';
+    "use strict";
 
-  // Global click handler to open links with data-gallery attribute
-  // in the Gallery lightbox:
-  $(document).on('click', '[data-gallery]', function(event) {
-    // Get the container id from the data-gallery attribute:
-      var id = $(this).data('gallery');
-      var widget = $(id);
-    var container =
-      (widget.length && widget) || $(Gallery.prototype.options.container);
-    var callbacks = {
-      onopen: function() {
-            container.data('gallery', this).trigger('open');
-            $("#blueimp-gallery").removeClass("d-none");
-      },
-      onopened: function() {
-        container.trigger('opened');
-      },
-      onslide: function() {
-        container.trigger('slide', arguments);
-      },
-      onslideend: function() {
-        container.trigger('slideend', arguments);
-      },
-      onslidecomplete: function() {
-        container.trigger('slidecomplete', arguments);
-      },
-      onclose: function() {
-        container.trigger('close');
-      },
-      onclosed: function() {
-          container.trigger('closed').removeData('gallery');
-          $("#blueimp-gallery").addClass("d-none");
-      }
-    };
-    var options = $.extend(
-      // Retrieve custom options from data-attributes
-      // on the Gallery widget:
-      container.data(),
-      {
-        container: container[0],
-        index: this,
-        event: event
-      },
-      callbacks
-    );
-    // Select all links with the same data-gallery attribute:
-    var links = $(this)
-      .closest('[data-gallery-group], body')
-      .find('[data-gallery="' + id + '"]');
-     if (options.filter) {
-      links = links.filter(options.filter);
-      }
+    // Global click handler to open links with data-gallery attribute
+    // in the Gallery lightbox:
+    $(document).on("click",
+        "[data-gallery]",
+        function(event) {
+            // Get the container id from the data-gallery attribute:
+            var id = $(this).data("gallery");
+            var widget = $(id);
+            var container =
+                (widget.length && widget) || $(Gallery.prototype.options.container);
+            var callbacks = {
+                onopen: function() {
+                    container.data("gallery", this).trigger("open");
+                    $("#blueimp-gallery").removeClass("d-none");
+                },
+                onopened: function() {
+                    container.trigger("opened");
+                },
+                onslide: function() {
+                    container.trigger("slide", arguments);
+                },
+                onslideend: function() {
+                    container.trigger("slideend", arguments);
+                },
+                onslidecomplete: function() {
+                    container.trigger("slidecomplete", arguments);
+                },
+                onclose: function() {
+                    container.trigger("close");
+                },
+                onclosed: function() {
+                    container.trigger("closed").removeData("gallery");
+                    $("#blueimp-gallery").addClass("d-none");
+                }
+            };
+            var indicatorOptions = {
+                // The tag name, Id, element or querySelector of the indicator container:
+                indicatorContainer: "ol",
+                // The class for the active indicator:
+                activeIndicatorClass: "active",
+                // The list object property (or data attribute) with the thumbnail URL,
+                // used as alternative to a thumbnail child element:
+                thumbnailProperty: "thumbnail",
+                // Defines if the gallery indicators should display a thumbnail:
+                thumbnailIndicators: true
+            }
+            var options = $.extend(
+                // Retrieve custom options from data-attributes
+                // on the Gallery widget:
+                container.data(),
+                {
+                    container: container[0],
+                    index: this,
+                    event: event
+                },
+                callbacks,
+                indicatorOptions
+            );
+            // Select all links with the same data-gallery attribute:
+            var links = $(this)
+                .closest("[data-gallery-group], body")
+                .find('[data-gallery="' + id + '"]');
+            if (options.filter) {
+                links = links.filter(options.filter);
+            }
 
-    return new Gallery(links, options);
-  });
+            return new Gallery(links, options);
+        });
 });
-
 //Title: Hovercard plugin by PC
 //Documentation: http://designwithpc.com/Plugins/Hovercard
 //Author: PC
@@ -53504,7 +53664,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
 
     pagerHolder.append(pagination);
 }
-function getSeachResultsData(pageNumber) {
+function getSearchResultsData(pageNumber) {
     var searchInput = jQuery(".searchInput").val();
     var searchInputUser = jQuery(".searchUserInput").val();
 
@@ -53545,7 +53705,7 @@ function getSeachResultsData(pageNumber) {
                     // Match Any Word
                     searchText += "" + searchInput;
                 } else if (searchWhat === "2") {
-                    // Match Extact Phrase
+                    // Match Exact Phrase
                     searchText += "" + "\"" + searchInput + "\"";
                 }
 //                searchText += " -Author:" + searchInputUser;
@@ -53648,10 +53808,10 @@ function getSeachResultsData(pageNumber) {
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
             }),
-            error: (function error(request) {
+            error: function(request) {
                 console.log(request);
                 $("#SearchResultsPlaceholder").html(request.responseText).fadeIn(1000);
-            })
+            }
         });
     }
 }
@@ -53666,7 +53826,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     pagination.wrap('<nav aria-label="Search Page Results" />');
 
     if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             (pageNumber - 1) +
             ')" class="page-link"><i class="fas fas fa-angle-left" aria-hidden="true"></i></a></li>');
     }
@@ -53683,7 +53843,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     }
 
     if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             0 +
             ');" class="page-link">1</a></li>');
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
@@ -53693,7 +53853,7 @@ function setPageNumber(pageSize, pageNumber, total) {
         if (i === pageNumber) {
             pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
-            pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+            pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
                 i +
                 ');" class="page-link">' +
                 (i + 1) +
@@ -53703,7 +53863,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 
     if (end < pages) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             (pages - 1) +
             ')" class="page-link">' +
             pages +
@@ -53711,7 +53871,7 @@ function setPageNumber(pageSize, pageNumber, total) {
     }
 
     if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getSearchResultsData(' +
             (pageNumber + 1) +
             ')" class="page-link"><i class="fas fas fa-angle-right" aria-hidden="true"></i></a></li>');
     }
@@ -53852,7 +54012,7 @@ jQuery(document).ready(function () {
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
-        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") != "yafsignature") {
+        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") !== "yafsignature") {
             var messageId = image.parents(".selectionQuoteable")[0].id;
 
             if (!image.parents("a").length) {
@@ -53896,7 +54056,7 @@ jQuery(document).ready(function () {
                 e.preventDefault();
 
                 var pageNumberSearch = 0;
-                getSeachResultsData(pageNumberSearch);
+                getSearchResultsData(pageNumberSearch);
             }
 
         });

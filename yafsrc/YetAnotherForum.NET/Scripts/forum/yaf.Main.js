@@ -65,7 +65,7 @@ jQuery(document).ready(function () {
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
-        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") != "yafsignature") {
+        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") !== "yafsignature") {
             var messageId = image.parents(".selectionQuoteable")[0].id;
 
             if (!image.parents("a").length) {
@@ -109,7 +109,7 @@ jQuery(document).ready(function () {
                 e.preventDefault();
 
                 var pageNumberSearch = 0;
-                getSeachResultsData(pageNumberSearch);
+                getSearchResultsData(pageNumberSearch);
             }
 
         });

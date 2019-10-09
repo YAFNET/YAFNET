@@ -40,7 +40,7 @@
                                 </li>
                                 <li class="list-inline-item">
                                     <YAF:UserLink  ID="UserProfileLink" runat="server" 
-                                                   UserID='<%# PostData.UserId%>'
+                                                   UserID='<%# this.PostData.UserId%>'
                                                    ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
                                                    PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
                                                    Style='<%# this.DataRow["Style"]%>' 

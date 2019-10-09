@@ -972,7 +972,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull]
         public static string DoSearchJs()
         {
-            return "getSeachResultsData(0);";
+            return "getSearchResultsData(0);";
         }
     }
 }

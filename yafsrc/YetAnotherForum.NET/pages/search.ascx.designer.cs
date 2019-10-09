@@ -8,13 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    using System.Web.UI.WebControls;
-
-    using YAF.Web.Controls;
-
+    
+    
     public partial class search {
         
-
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -22,9 +19,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
         
-
         /// <summary>
         /// searchInput control.
         /// </summary>
@@ -32,9 +28,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox searchInput;
+        protected global::System.Web.UI.WebControls.TextBox searchInput;
         
-
         /// <summary>
         /// GoSearch control.
         /// </summary>
@@ -42,9 +37,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton GoSearch;
+        protected global::YAF.Web.Controls.ThemeButton GoSearch;
         
-
         /// <summary>
         /// txtSearchStringFromWho control.
         /// </summary>
@@ -52,9 +46,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox txtSearchStringFromWho;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchStringFromWho;
         
-
         /// <summary>
         /// listSearchWhat control.
         /// </summary>
@@ -62,9 +55,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList listSearchWhat;
+        protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
         
-
         /// <summary>
         /// listForum control.
         /// </summary>
@@ -72,9 +64,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList listForum;
+        protected global::System.Web.UI.WebControls.DropDownList listForum;
         
-
         /// <summary>
         /// TitleOnly control.
         /// </summary>
@@ -82,9 +73,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList TitleOnly;
+        protected global::System.Web.UI.WebControls.DropDownList TitleOnly;
         
-
         /// <summary>
         /// listResInPage control.
         /// </summary>
@@ -92,6 +82,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList listResInPage;
+        protected global::System.Web.UI.WebControls.DropDownList listResInPage;
     }
 }
