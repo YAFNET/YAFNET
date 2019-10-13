@@ -1871,7 +1871,6 @@
       <DependentUpon>jquery.hovercard.css</DependentUpon>
     </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
-    <Content Include="Content\images\progressbar.gif" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
     <Content Include="Content\jquery.fileupload.comb.css" />
     <Content Include="Content\jquery.fileupload.comb.min.css">
@@ -3665,7 +3664,7 @@ del Lucene.Net.Sandbox.pdb
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

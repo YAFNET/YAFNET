@@ -67,23 +67,21 @@ $border_color_1: #fff;
     -ms-user-select: none;
     user-select: none;
 }
-
-position: relative;
-float: left;
-height: 100%;
-text-align: center;
--webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
--moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
--o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    position: relative;
+    float: left;
+    height: 100%;
+    text-align: center;
+    -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-
-position: relative;
-height: 100%;
-overflow: hidden; > .slide-loading {
-    background-size: 64px 64px;
+    position: relative;
+    height: 100%;
+    overflow: hidden; 
+    > .slide-loading {
+        background-size: 64px 64px;
     > .slide-content
-
 {
     opacity: 0;
 }
@@ -105,15 +103,13 @@ overflow: hidden; > .slide-loading {
     position: absolute;
     top: 50%;
     left: 15px;
-    width: 40px;
-    height: 40px;
     margin-top: -23px;
-    font-size: 30px;
+    font-size: 15px;
     font-weight: 100;
-    line-height: 30px;
+    line-height: 15px;
     color: $color_1 !important;
     text-decoration: none;
-    opacity: 0.5;
+    opacity: 0.9;
     cursor: pointer;
     display: none;
     -webkit-user-select: none;
@@ -133,15 +129,13 @@ overflow: hidden; > .slide-loading {
     position: absolute;
     top: 50%;
     left: 15px;
-    width: 40px;
-    height: 40px;
     margin-top: -23px;
-    font-size: 30px;
+    font-size: 15px;
     font-weight: 100;
-    line-height: 30px;
+    line-height: 15px;
     color: $color_1 !important;
     text-decoration: none;
-    opacity: 0.5;
+    opacity: 0.9;
     cursor: pointer;
     display: none;
     left: auto;
@@ -218,7 +212,7 @@ overflow: hidden; > .slide-loading {
     height: 15px;
     background: url(../Content/images/play-pause.png) 0 0 no-repeat;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.8;
     display: none;
     -webkit-user-select: none;
     -moz-user-select: none;

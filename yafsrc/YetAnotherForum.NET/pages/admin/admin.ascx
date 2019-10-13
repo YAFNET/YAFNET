@@ -276,7 +276,7 @@
                             </tbody>
                         </table>
                         </div>
-                        <div id="ActiveUsersPager"class=" tableSorterPager form-inline">
+                        <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
                             <select class="pagesize custom-select">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
@@ -398,10 +398,10 @@
                 </div>
                     <div id="UnverifiedUsersPager" class=" tableSorterPager form-inline">
                         <select class="pagesize custom-select">
-		                        <option selected="selected"  value="10">10</option>
+		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
-                        	    <option  value="40">40</option>
+                        	    <option value="40">40</option>
                             </select>
                             &nbsp;
                         <div class="btn-group"  role="group">

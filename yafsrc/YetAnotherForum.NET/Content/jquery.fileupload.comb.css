@@ -9,19 +9,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-.fileupload-buttonbar .btn,
-.fileupload-buttonbar .toggle {
-  margin-bottom: 5px;
-}
-.progress-animated .progress-bar,
-.progress-animated .bar {
-    background: url("progressbar.gif") !important;
-    filter: none;
-}
-.fileupload-process {
-  float: right;
-  display: none;
-}
 .fileupload-processing .fileupload-process,
 .files .processing .preview {
     display: block;

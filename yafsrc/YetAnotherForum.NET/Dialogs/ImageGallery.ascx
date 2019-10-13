@@ -3,11 +3,11 @@
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls d-none">
     <div class="slides"></div>
     <h3 class="title"></h3>
-    <a class="prev">
-        <i class="fas fa-chevron-circle-left"></i>
+    <a class="prev btn btn-secondary">
+        <i class="fas fa-chevron-left"></i>
     </a>
-    <a class="next">
-        <i class="fas fa-chevron-circle-right"></i>
+    <a class="next btn btn-secondary">
+        <i class="fas fa-chevron-right"></i>
     </a>
     <a class="close">
         <i class="fas fa-times-circle"></i>

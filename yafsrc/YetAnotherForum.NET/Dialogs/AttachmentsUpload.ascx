@@ -20,10 +20,10 @@
                                   <p class="card-text"><%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "DROP_HERE") %></p>
                               </div>
                           </div>
-                          <div class="alert alert-danger uploadCompleteWarning" role="alert" style="display: none">
+                          <div class="alert alert-danger" role="alert" style="display: none">
                               <%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "COMPLETE_WARNING") %>
                           </div>
-                          <div class="fileupload-buttons">
+                          <div>
                               <span class="btn btn-success fileinput-button">
                                   <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
                                   <input type="file" name="files[]" multiple>
@@ -33,8 +33,12 @@
                               </button>
                               <span class="fileupload-process"></span>
                           </div>
-                          <div class="fileupload-progress fade-ui" style="display:none">
-                              <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                          <div class="col-lg-5 fileupload-progress fade">
+                              <!-- The global progress bar -->
+                              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                              </div>
+                              <!-- The extended global progress state -->
                               <div class="progress-extended">&nbsp;</div>
                           </div>
                       </div>
@@ -52,12 +56,13 @@
     <p class="mb-1"> <p class="name">{%=file.name%}</p>
                                   <strong class="error"></strong>
                                   <div class="progress"></div></p>
-    <small class="text-muted">{% if (!i && !o.options.autoUpload) { %}
-                <button class="start" disabled style="display:none">Start</button>
+    <small class="text-muted"><div class="btn-group" role="group">
+                      {% if (!i && !o.options.autoUpload) { %}
+                <button class="btn btn-success btn-sm start" disabled>Start</button>
             {% } %}
                       {% if (!i) { %}
-                                      <button class="btn btn-danger cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText(page: "COMMON", tag: "CANCEL") %></button>
-                                  {% } %}</small>
+                                      <button class="btn btn-danger btn-sm cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText(page: "COMMON", tag: "CANCEL") %></button>
+                                  {% } %}</div></small>
   </li>
                          
                       {% } %}
