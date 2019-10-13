@@ -10,7 +10,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="min-height:485px">
+      <div class="modal-body">
         <h4><YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" LocalizedPage="ATTACHMENTS" runat="server" /></h4>
         <div>
             <div id="fileupload">
@@ -25,11 +25,11 @@
                           </div>
                           <div class="fileupload-buttons">
                               <span class="btn btn-success fileinput-button">
-                                  <i class="fa fa-plus fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
+                                  <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
                                   <input type="file" name="files[]" multiple>
                               </span>
                               <button type="submit" class="btn btn-primary start">
-                                  <i class="fa fa-upload fa-fw"></i><%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "START_UPLOADS") %>
+                                  <i class="fa fa-upload fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText(page: "ATTACHMENTS", tag: "START_UPLOADS") %>
                               </button>
                               <span class="fileupload-process"></span>
                           </div>
@@ -39,30 +39,27 @@
                           </div>
                       </div>
                       <div id="UploadFilesBox">
-                          <table role="presentation" class="table-striped UploadFiles"><tbody class="files"></tbody></table>
+                          <ul class="list-group files"></ul>
                       </div>
                   </div>
                   <script id="template-upload" type="text/x-tmpl">
                       {% for (var i=0, file; file=o.files[i]; i++) { %}
-                          <tr class="template-upload fade-ui">
-                              <td>
-                                  <span class="preview"></span>
-                              </td>
-                              <td>
-                                  <p class="name">{%=file.name%}</p>
+                      <li class="list-group-item list-group-item-action template-upload fade-ui">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"><span class="preview"></span></h5>
+      <small class="text-muted size">Processing...</small>
+    </div>
+    <p class="mb-1"> <p class="name">{%=file.name%}</p>
                                   <strong class="error"></strong>
-                                  <p class="size">Processing...</p>
-                                  <div class="progress"></div>
-                              </td>
-                              <td>
-                                  {% if (!i && !o.options.autoUpload) { %}
+                                  <div class="progress"></div></p>
+    <small class="text-muted">{% if (!i && !o.options.autoUpload) { %}
                 <button class="start" disabled style="display:none">Start</button>
             {% } %}
                       {% if (!i) { %}
                                       <button class="btn btn-danger cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText(page: "COMMON", tag: "CANCEL") %></button>
-                                  {% } %}
-                              </td>
-                          </tr>
+                                  {% } %}</small>
+  </li>
+                         
                       {% } %}
                   </script>
 

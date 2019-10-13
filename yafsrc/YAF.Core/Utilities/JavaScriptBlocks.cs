@@ -748,10 +748,11 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 }},
                 done: function (e, data) {{
                     insertAttachment(data.result[0].fileID, data.result[0].fileID);
-                    {Config.JQueryAlias}('#fileupload').find('.files tr:first').remove();
+                    {Config.JQueryAlias}('#fileupload').find('.files li:first').remove();
 
-                    if ({Config.JQueryAlias}('#fileupload').find('.files tr').length == 0) {{
-                        {Config.JQueryAlias}('#UploadDialog').modal('hide');
+                    if ({Config.JQueryAlias}('#fileupload').find('.files li').length == 0) {{
+                     {Config.JQueryAlias}('#UploadDialog').modal('hide');
+                     {Config.JQueryAlias}('.uploadCompleteWarning').toggle();
 
                         var pageSize = 5;
                         var pageNumber = 0;

@@ -28,7 +28,6 @@ authors and should not be interpreted as representing official policies, either 
 or implied, of Chas Emerick.
 */
 
-
 .diffContent {
   height: auto;
   overflow: auto;
@@ -39,36 +38,46 @@ or implied, of Chas Emerick.
 }
 
 table.diff {
-  tbody {
-    th {
-      padding: .3em .5em .1em 2em;
-      text-align: right;
-      vertical-align: top;
+    tbody {
+        th {
+            padding: .3em .5em .1em 2em;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        td {
+            padding: 0 .4em;
+            vertical-align: top;
+        }
     }
-    td {
-      padding: 0 .4em;
-      vertical-align: top;
+
+    thead {
+        th.texttitle {
+            text-align: left;
+        }
     }
-  }
-  thead {
-    th.texttitle {
-      text-align: left;
+
+    .empty {
+        background-color: #DDD;
     }
-  }
-  .empty {
-    background-color: #DDD;
-  }
-  .replace {
-    background-color: #FFC;
-  }
-  .skip {
-    background-color: #EFEFEF;
-    border: 1px solid #AAA;
-    border-right: 1px solid #BBC;
-  }
-  th.author {
-    text-align: right;
-  }
+
+    .replace {
+        background-color: #FFC;
+    }
+
+    .insert {
+        background-color: #CFC;
+    }
+
+    .skip {
+        background-color: #EFEFEF;
+        border: 1px solid #AAA;
+        border-right: 1px solid #BBC;
+    }
+
+    th.author {
+        text-align: right;
+    }
 }
 
 del {

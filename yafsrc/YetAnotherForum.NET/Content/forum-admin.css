@@ -7344,11 +7344,12 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
       padding: 0 0 0 10px;
       vertical-align: super; }
 
-.AttachmentsListPager {
-  padding: 10px; }
+#AttachmentsListPager {
+  padding: 0 5px 0 5px; }
 
 .AttachmentList {
-  padding: 10px 0 4px 5px; }
+  padding: 0px 0 4px 5px;
+  margin: -5px 0px 26px 0px; }
   .AttachmentList span {
     width: 210px;
     display: inline-block;
@@ -7396,21 +7397,20 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   padding-left: 80px; }
 
 #dropzone {
-  width: auto;
-  padding: 30px 0;
-  text-align: center;
-  margin: 20px auto; }
+  text-align: center; }
 
 /* Attachments Upload Dialog */
 #UploadFilesBox {
-  min-width: 570px;
-  width: 570px;
+  min-width: 480px;
+  width: 480px;
   float: left;
   overflow: auto;
   padding: 5px;
   margin-bottom: 5px;
   margin-top: 5px;
-  max-height: 275px; }
+  max-height: 295px; }
+  #UploadFilesBox ul {
+    width: 450px; }
 
 #fileupload .preview {
   min-width: 80px;
