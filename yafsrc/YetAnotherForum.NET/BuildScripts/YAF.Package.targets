@@ -140,9 +140,11 @@
 
     <Delete Files="$(MSBuildProjectDirectory)\bin\YAF.DotNetNuke.Module.dll" />
     
-    <CreateItem Include="$(MSBuildProjectDirectory)\bin\*.dll">
-      <Output TaskParameter="Include" ItemName="LibaryFiles" />
-    </CreateItem>
+
+    <ItemGroup>
+     <LibaryFiles Include="$(MSBuildProjectDirectory)\**\*.dll"
+                  Exclude="$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\bin\net472\**;"></LibaryFiles>
+    </ItemGroup>
 
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md" 
           DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
@@ -153,7 +155,7 @@
     <Copy SourceFiles="@(yafInstall-Include)" 
           DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" 
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
+          DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" 
           DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" 
@@ -178,13 +180,13 @@
 
     <ItemGroup>
       <yafDeploy-Include Include="$(MSBuildProjectDirectory)\Package\**\*.*" />
-     <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
     </ItemGroup>
 
     <Copy SourceFiles="@(yafInstall-Include)" 
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" 
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\bin"/>
+          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" 
           DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" 
