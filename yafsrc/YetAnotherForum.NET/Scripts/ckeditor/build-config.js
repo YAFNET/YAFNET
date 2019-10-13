@@ -13,10 +13,10 @@
  * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) https://ckeditor.com/cke4/builder/356bd531241136c3a5797399977759d7
+ * (2) https://ckeditor.com/cke4/builder/756e588ab08e478a5881dd20d23870f0
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) https://ckeditor.com/cke4/builder/download/356bd531241136c3a5797399977759d7
+ * (3) https://ckeditor.com/cke4/builder/download/756e588ab08e478a5881dd20d23870f0
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -59,6 +59,7 @@ var CKBUILDER_CONFIG = {
 		'bidi' : 1,
 		'blockquote' : 1,
 		'clipboard' : 1,
+		'codemirror' : 1,
 		'colorbutton' : 1,
 		'colordialog' : 1,
 		'contextmenu' : 1,
@@ -71,14 +72,12 @@ var CKBUILDER_CONFIG = {
 		'entities' : 1,
 		'filebrowser' : 1,
 		'find' : 1,
-		'flash' : 1,
 		'floatingspace' : 1,
 		'font' : 1,
 		'format' : 1,
 		'forms' : 1,
 		'horizontalrule' : 1,
 		'htmlwriter' : 1,
-		'iframe' : 1,
 		'image' : 1,
 		'indentblock' : 1,
 		'indentlist' : 1,
@@ -89,11 +88,12 @@ var CKBUILDER_CONFIG = {
 		'liststyle' : 1,
 		'magicline' : 1,
 		'maximize' : 1,
-		'mentions' : 1,
 		'newpage' : 1,
 		'pagebreak' : 1,
+		'pastefromgdocs' : 1,
 		'pastefromword' : 1,
 		'pastetext' : 1,
+		'pastetools' : 1,
 		'preview' : 1,
 		'print' : 1,
 		'removeformat' : 1,

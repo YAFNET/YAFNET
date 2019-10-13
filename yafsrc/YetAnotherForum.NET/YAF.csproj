@@ -2275,7 +2275,6 @@
     <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\lang\zh.js" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
@@ -2345,7 +2344,6 @@
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
-    <Content Include="Scripts\ckeditor\plugins\autocomplete\skins\default.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodehtml\plugin.js" />
@@ -2446,8 +2444,6 @@
     <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione-awesome.css" />
     <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione.css" />
     <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
-    <Content Include="Scripts\ckeditor\plugins\flash\dialogs\flash.js" />
-    <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\form.js" />
@@ -2459,8 +2455,6 @@
     <Content Include="Scripts\ckeditor\plugins\forms\images\hiddenfield.gif" />
     <Content Include="Scripts\ckeditor\plugins\icons.png" />
     <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
-    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
-    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
     <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
@@ -3671,7 +3665,7 @@ del Lucene.Net.Sandbox.pdb
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
