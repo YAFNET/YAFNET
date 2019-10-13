@@ -121,7 +121,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2019, 10, 03);
+        public static DateTime AppVersionDate => new DateTime(2019, 10, 13, 06, 00, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
@@ -162,7 +162,7 @@ namespace YAF.Utils
 
             var number = version.ReleaseNumber >= 1
                              ? version.ReleaseNumber.ToString()
-                             : AppVersionDate.ToString("yyyyMMdd");
+                             : AppVersionDate.ToString("yyyyMMddHHmm");
 
             versionString.AppendFormat(" {0} {1}", version.ReleaseType.ToString().ToUpper(), number);
 
