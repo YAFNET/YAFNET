@@ -40,6 +40,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.selectedQuoting.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery-indicator.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-datetimepicker.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-image-gallery.js" />
@@ -62,6 +63,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\emojipicker\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\esm\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\i18n\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\tablesorter\**\*.js" />
@@ -128,7 +130,6 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.eot" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config;$(MSBuildProjectDirectory)\recommended-azure.web.config;$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config;$(MSBuildProjectDirectory)\..\.nuget\NuGet.Config" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.resx" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
     </ItemGroup>
 
