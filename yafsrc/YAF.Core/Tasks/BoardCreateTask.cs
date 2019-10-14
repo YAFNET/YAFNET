@@ -42,14 +42,9 @@ namespace YAF.Core.Tasks
     public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask
     {
         /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _TaskName = "BoardCreateTask";
-
-        /// <summary>
         ///  Gets TaskName.
         /// </summary>
-        public static string TaskName => _TaskName;
+        public static string TaskName { get; } = "BoardCreateTask";
 
         /// <summary>
         /// Gets Blocking Task Names.
@@ -110,8 +105,8 @@ namespace YAF.Core.Tasks
         /// Starts the Board Create Task
         /// </summary>
         /// <param name="adminUserName">Name of the admin user.</param>
-        /// <param name="admiUserEmail">The admi user email.</param>
-        /// <param name="adminUserProviderUserkey">The admin user provider userkey.</param>
+        /// <param name="adminUserEmail">The admin user email.</param>
+        /// <param name="adminUserProviderUserKey">The admin user provider user Key.</param>
         /// <param name="boardName">Name of the board.</param>
         /// <param name="culture">The culture.</param>
         /// <param name="languageFileName">Name of the language file.</param>
@@ -124,8 +119,8 @@ namespace YAF.Core.Tasks
         /// </returns>
         public static long Start(
             object adminUserName,
-            object admiUserEmail,
-            object adminUserProviderUserkey,
+            object adminUserEmail,
+            object adminUserProviderUserKey,
             object boardName,
             object culture,
             object languageFileName,
@@ -148,8 +143,8 @@ namespace YAF.Core.Tasks
                     new BoardCreateTask
                         {
                             AdminUserName = adminUserName,
-                            AdminUserEmail = admiUserEmail,
-                            AdminUserProviderUserKey = adminUserProviderUserkey,
+                            AdminUserEmail = adminUserEmail,
+                            AdminUserProviderUserKey = adminUserProviderUserKey,
                             BoardName = boardName,
                             Culture = culture,
                             LanguageFileName = languageFileName,

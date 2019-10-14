@@ -28,6 +28,7 @@ namespace YAF.Modules
 
     using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;

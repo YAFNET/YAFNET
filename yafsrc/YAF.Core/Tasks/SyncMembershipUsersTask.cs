@@ -27,6 +27,7 @@ namespace YAF.Core.Tasks
 
   using System;
 
+  using YAF.Core.UsersRoles;
   using YAF.Types;
   using YAF.Types.Interfaces;
 
@@ -39,11 +40,6 @@ namespace YAF.Core.Tasks
   {
     #region Constants and Fields
 
-    /// <summary>
-    ///   The _task name.
-    /// </summary>
-    private const string _taskName = "SyncMembershipUsersTask";
-
     #endregion
 
     #region Properties
@@ -52,7 +48,7 @@ namespace YAF.Core.Tasks
     ///   Gets TaskName.
     /// </summary>
     [NotNull]
-    public static string TaskName => _taskName;
+    public static string TaskName { get; } = "SyncMembershipUsersTask";
 
     #endregion
 

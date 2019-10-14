@@ -22,13 +22,12 @@
  * under the License.
  */
 
-using YAF.Types.Constants;
-
 namespace YAF.Core.Tasks
 {
     using System;
 
     using YAF.Core.Model;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -69,14 +68,9 @@ namespace YAF.Core.Tasks
         public static long CategoryOut { get; set; }
 
         /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _taskName = "CategorySaveTask";
-
-        /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName => _taskName;
+        public static string TaskName { get; } = "CategorySaveTask";
 
         /// <summary>
         /// The Blocking Task Names.
@@ -103,7 +97,6 @@ namespace YAF.Core.Tasks
             object sortOrder,
             out string failureMessage)
         {
-
             failureMessage = string.Empty;
             if (YafContext.Current.Get<ITaskModuleManager>() == null)
             {
@@ -127,7 +120,6 @@ namespace YAF.Core.Tasks
             {
                 failureMessage =
                     $"You can't save the category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
-
             }
         }
 

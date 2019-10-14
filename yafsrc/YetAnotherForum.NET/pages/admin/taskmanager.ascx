@@ -3,6 +3,7 @@
 
 <%@ Import Namespace="YAF.Core.Tasks" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 

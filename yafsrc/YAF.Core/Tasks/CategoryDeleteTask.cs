@@ -36,15 +36,6 @@ namespace YAF.Core.Tasks
     /// </summary>
     public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     {
-        #region Constants
-
-        /// <summary>
-        ///     The _task name.
-        /// </summary>
-        private const string _TaskName = "CategoryDeleteTask";
-
-        #endregion
-
         #region Static Fields
 
         /// <summary>
@@ -59,7 +50,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         ///     Gets TaskName.
         /// </summary>
-        public static string TaskName => _TaskName;
+        public static string TaskName { get; } = "CategoryDeleteTask";
 
         /// <summary>
         ///     Gets or sets CategoryId.
@@ -85,7 +76,7 @@ namespace YAF.Core.Tasks
         /// The failure message - is empty if task is launched successfully.
         /// </param>
         /// <returns>
-        /// Returns if Task was Successfull
+        /// Returns if Task was Successful
         /// </returns>
         public static bool Start(int categoryId, out string failureMessage)
         {

@@ -31,6 +31,7 @@ namespace YAF.Core.Nntp
   using System.Web;
 
   using YAF.Core.Model;
+  using YAF.Core.UsersRoles;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;

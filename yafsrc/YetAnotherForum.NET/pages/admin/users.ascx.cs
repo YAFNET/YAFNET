@@ -41,6 +41,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
+    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;

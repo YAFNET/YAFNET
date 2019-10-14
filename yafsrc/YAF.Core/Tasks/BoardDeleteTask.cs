@@ -44,11 +44,6 @@ namespace YAF.Core.Tasks
         #region Constants and Fields
 
         /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _TaskName = "BoardDeleteTask";
-
-        /// <summary>
         /// The Blocking Task Names.
         /// </summary>
         private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
@@ -60,7 +55,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName => _TaskName;
+        public static string TaskName { get; } = "BoardDeleteTask";
 
         /// <summary>
         /// Gets or sets BoardIdToDelete.
@@ -81,7 +76,7 @@ namespace YAF.Core.Tasks
         /// The failure message - is empty if task is launched successfully.
         /// </param>
         /// <returns>
-        /// Returns if Task was Successfull
+        /// Returns if Task was Successful
         /// </returns>
         public static bool Start(int boardId, out string failureMessage)
         {
@@ -101,7 +96,6 @@ namespace YAF.Core.Tasks
             {
                 failureMessage =
                     $"You can't delete the board while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
-
             }
 
             return true;

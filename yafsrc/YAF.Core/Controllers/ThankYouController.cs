@@ -29,6 +29,7 @@ namespace YAF.Core.Controllers
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

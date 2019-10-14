@@ -26,7 +26,6 @@ namespace YAF.Core
 {
     #region Using
 
-    using System;
     using System.Data;
     using System.Web.Security;
 
@@ -165,23 +164,29 @@ namespace YAF.Core
         {
             DataTable dataTable;
 
-            using (dataTable = YafContext.Current.GetRepository<Registry>().ListAsDataTable())
-            {
-                // get all the registry settings into our hash table
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    this._reg.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
-                }
-            }
+            var registryList = YafContext.Current.GetRepository<Registry>().List();
 
-            using (dataTable = YafContext.Current.GetRepository<Registry>().ListAsDataTable(null, this._boardID))
-            {
-                // get all the registry settings into our hash table
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    this._regBoard.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
-                }
-            }
+            // get all the registry settings into our hash table
+            registryList.ForEach(
+                row =>
+                    {
+                        if (!this._reg.ContainsKey(row.Name.ToLower()))
+                        {
+                            this._reg.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                        }
+                    });
+
+            var registryBoardList = YafContext.Current.GetRepository<Registry>().List(this._boardID);
+
+            // get all the registry settings into our hash table
+            registryBoardList.ForEach(
+                row =>
+                    {
+                        if (!this._regBoard.ContainsKey(row.Name.ToLower()))
+                        {
+                            this._regBoard.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                        }
+                    });
         }
 
         /// <summary>

@@ -34,15 +34,10 @@ namespace YAF.Core.Tasks
     using YAF.Types.Models;
 
     /// <summary>
-    /// Does some user clean up tasks such as unsuspending users...
+    /// Does some user clean up tasks such as un-suspending users...
     /// </summary>
     public class UserCleanUpTask : IntermittentBackgroundTask
     {
-        /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _taskName = "UserCleanUpTask";
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UserCleanUpTask"/> class.
         /// </summary>
@@ -56,7 +51,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName => _taskName;
+        public static string TaskName { get; } = "UserCleanUpTask";
 
         /// <summary>
         /// The run once.
@@ -69,28 +64,30 @@ namespace YAF.Core.Tasks
                 var boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
 
                 // go through each board...
-                foreach (var boardId in boardIds)
-                {
-                    // get users for this board...
-                    var users = this.GetRepository<User>().ListAsDataTable(boardId, null, null).Rows.Cast<DataRow>().ToList();
-
-                    // handle unsuspension...
-                    var suspendedUsers = from u in users
-                                         where u["Suspended"] != DBNull.Value && (DateTime)u["Suspended"] < DateTime.UtcNow
-                                         select u;
-
-                    // unsuspend these users...
-                    foreach (var user in suspendedUsers)
+                boardIds.ForEach(
+                    boardId =>
                     {
-                        this.GetRepository<User>().Suspend(user["UserId"].ToType<int>(), null);
+                        // get users for this board...
+                        var users = this.GetRepository<User>().ListAsDataTable(boardId, null, null).Rows.Cast<DataRow>().ToList();
 
-                        // sleep for a quarter of a second so we don't pound the server...
-                        Thread.Sleep(250);
-                    }
+                        // handle un-suspension...
+                        var suspendedUsers = from u in users
+                                             where u["Suspended"] != DBNull.Value && (DateTime)u["Suspended"] < DateTime.UtcNow
+                                             select u;
 
-                    // sleep for a second...
-                    Thread.Sleep(1000);
-                }
+                        // un-suspend these users...
+                        suspendedUsers.ForEach(
+                            user =>
+                            {
+                                this.GetRepository<User>().Suspend(user["UserId"].ToType<int>());
+
+                                // sleep for a quarter of a second so we don't pound the server...
+                                Thread.Sleep(250);
+                            });
+
+                        // sleep for a second...
+                        Thread.Sleep(1000);
+                    });
             }
             catch (Exception x)
             {

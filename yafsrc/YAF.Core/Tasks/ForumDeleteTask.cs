@@ -37,27 +37,17 @@ namespace YAF.Core.Tasks
     /// </summary>
     public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _TaskName = "ForumDeleteTask";
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName => _TaskName;
+        public static string TaskName { get; } = "ForumDeleteTask";
 
         /// <summary>
         /// The Blocking Task Names.
         /// </summary>
         private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
-
 
         /// <summary>
         /// Gets or sets ForumId.
@@ -86,11 +76,10 @@ namespace YAF.Core.Tasks
         /// The failure message - is empty if task is launched successfully.
         /// </param>
         /// <returns>
-        /// Returns if Task was Successfull
+        /// Returns if Task was Successful
         /// </returns>
         public static bool Start(int boardId, int forumId, out string failureMessage)
         {
-
             failureMessage = string.Empty;
             if (YafContext.Current.Get<ITaskModuleManager>() == null)
             {
@@ -112,7 +101,6 @@ namespace YAF.Core.Tasks
 
             return true;
         }
-
 
         /// <summary>
         /// Creates the Forum Delete Task and moves the Messages to a new Forum

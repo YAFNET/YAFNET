@@ -6,6 +6,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <div class="row">
     <div class="col">

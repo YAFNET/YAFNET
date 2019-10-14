@@ -35,14 +35,9 @@ namespace YAF.Core.Tasks
     public class PruneTopicTask : LongBackgroundTask
     {
         /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _taskName = "PruneTopicTask";
-
-        /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName => _taskName;
+        public static string TaskName { get; } = "PruneTopicTask";
 
         /// <summary>
         /// Gets or sets ForumId.
@@ -60,7 +55,7 @@ namespace YAF.Core.Tasks
         public bool PermDelete { get; set; }
 
         /// <summary>
-        /// The start.
+        /// Start Task
         /// </summary>
         /// <param name="boardId">
         /// The board id.

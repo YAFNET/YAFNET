@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;

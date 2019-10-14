@@ -744,7 +744,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dataType: 'json',
                 {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 start: function (e) {{
-                    {Config.JQueryAlias}('.uploadCompleteWarning').toggle();
+                    {Config.JQueryAlias}('#fileupload .alert-danger').toggle();
                 }},
                 done: function (e, data) {{
                     insertAttachment(data.result[0].fileID, data.result[0].fileID);
@@ -752,7 +752,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
                     if ({Config.JQueryAlias}('#fileupload').find('.files li').length == 0) {{
                      {Config.JQueryAlias}('#UploadDialog').modal('hide');
-                     {Config.JQueryAlias}('.uploadCompleteWarning').toggle();
+                     {Config.JQueryAlias}('#fileupload .alert-danger').toggle();
 
                         var pageSize = 5;
                         var pageNumber = 0;

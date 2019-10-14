@@ -33,6 +33,7 @@ namespace YAF.Pages
   using YAF.Controls;
   using YAF.Core;
   using YAF.Core.Model;
+  using YAF.Core.UsersRoles;
   using YAF.Core.Utilities;
   using YAF.Types;
   using YAF.Types.Constants;

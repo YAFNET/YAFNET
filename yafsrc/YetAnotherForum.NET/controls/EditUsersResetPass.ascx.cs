@@ -34,6 +34,7 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Services;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Utils;

@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">

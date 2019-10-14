@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -384,6 +385,8 @@ namespace YAF.Pages
 
                 if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
+                    this.GetRepository<Registry>().IncrementBannedUsers();
+
                     this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
 
                     if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
@@ -408,6 +411,12 @@ namespace YAF.Pages
                                     EventLogTypes.IpBanSet);
                         }
                     }
+
+                    // Ban Name ?
+                    YafContext.Current.GetRepository<BannedName>().Save(null, userName, "Name was reported by the automatic spam system.");
+
+                    // Ban User Email?
+                    YafContext.Current.GetRepository<BannedEmail>().Save(null, this.CreateUserWizard1.Email, "Email was reported by the automatic spam system.");
 
                     e.Cancel = true;
                 }
@@ -828,12 +837,14 @@ namespace YAF.Pages
         {
             this.CreateUserWizard1.FindWizardControlRecursive("RecaptchaPlaceHolder").Visible = true;
 
-            if (this.Get<YafBoardSettings>().RecaptchaPrivateKey.IsNotSet()
-                || this.Get<YafBoardSettings>().RecaptchaPublicKey.IsNotSet())
+            if (this.Get<YafBoardSettings>().RecaptchaPrivateKey.IsSet()
+                && this.Get<YafBoardSettings>().RecaptchaPublicKey.IsSet())
             {
-                this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
-                YafBuildLink.AccessDenied();
+                return;
             }
+
+            this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
+            YafBuildLink.AccessDenied();
         }
 
         /// <summary>
@@ -930,53 +941,55 @@ namespace YAF.Pages
                         EventLogTypes.SpamBotDetected);
             }
 
-            if (!this.IsPossibleSpamBotInternalCheck)
+            if (this.IsPossibleSpamBotInternalCheck)
             {
-                userProfile.Location = locationTextBox.Text.Trim();
-
-                // add http:// by default
-                if (!Regex.IsMatch(homepageTextBox.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
-                {
-                    homepageTextBox.Text = $"http://{homepageTextBox.Text.Trim()}";
-                }
-
-                if (ValidationHelper.IsValidURL(homepageTextBox.Text))
-                {
-                    userProfile.Homepage = homepageTextBox.Text.Trim();
-                }
-
-                userProfile.Save();
-
-                var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
-                                             == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
-                // save the time zone...
-                this.GetRepository<User>().Save(
-                    userID: userId, 
-                    boardID: this.PageContext.PageBoardID, 
-                    userName: null, 
-                    displayName: null, 
-                    email: null, 
-                    timeZone: timeZones.SelectedValue, 
-                    languageFile: null, 
-                    culture: null, 
-                    themeFile: null, 
-                    textEditor: null, 
-                    approved: null,
-                    pmNotification: this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                    autoWatchTopics: autoWatchTopicsEnabled,
-                    dSTUser: dstUser.Checked, 
-                    hideUser: null, 
-                    notificationType: null);
-
-                // save the settings...
-                this.GetRepository<User>().SaveNotification(
-                     userId, 
-                    true, 
-                    autoWatchTopicsEnabled, 
-                    this.Get<YafBoardSettings>().DefaultNotificationSetting, 
-                    this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+                return;
             }
+
+            userProfile.Location = locationTextBox.Text.Trim();
+
+            // add http:// by default
+            if (!Regex.IsMatch(homepageTextBox.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
+            {
+                homepageTextBox.Text = $"http://{homepageTextBox.Text.Trim()}";
+            }
+
+            if (ValidationHelper.IsValidURL(homepageTextBox.Text))
+            {
+                userProfile.Homepage = homepageTextBox.Text.Trim();
+            }
+
+            userProfile.Save();
+
+            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+                                         == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+            // save the time zone...
+            this.GetRepository<User>().Save(
+                userID: userId, 
+                boardID: this.PageContext.PageBoardID, 
+                userName: null, 
+                displayName: null, 
+                email: null, 
+                timeZone: timeZones.SelectedValue, 
+                languageFile: null, 
+                culture: null, 
+                themeFile: null, 
+                textEditor: null, 
+                approved: null,
+                pmNotification: this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopics: autoWatchTopicsEnabled,
+                dSTUser: dstUser.Checked, 
+                hideUser: null, 
+                notificationType: null);
+
+            // save the settings...
+            this.GetRepository<User>().SaveNotification(
+                userId, 
+                true, 
+                autoWatchTopicsEnabled, 
+                this.Get<YafBoardSettings>().DefaultNotificationSetting, 
+                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
         }
 
         #endregion

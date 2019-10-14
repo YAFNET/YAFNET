@@ -29,6 +29,7 @@ namespace YAF.Core.WebService
 
     using YAF.Configuration;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.EventProxies;
     using YAF.Types.Exceptions;

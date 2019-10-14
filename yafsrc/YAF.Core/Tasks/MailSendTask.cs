@@ -61,7 +61,6 @@ namespace YAF.Core.Tasks
 
         #region Constants and Fields
 
-
         /// <summary>
         /// Gets or sets the ServiceLocator.
         /// </summary>

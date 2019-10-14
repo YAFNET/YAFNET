@@ -2,6 +2,7 @@
     Inherits="YAF.Controls.PollChoiceList" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <asp:Repeater ID="Poll" runat="server" 
               OnItemDataBound="Poll_OnItemDataBound" 

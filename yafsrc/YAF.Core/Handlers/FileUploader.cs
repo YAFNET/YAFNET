@@ -35,6 +35,7 @@ namespace YAF.Core.Handlers
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

@@ -32,6 +32,7 @@ namespace YAF.Core.Tasks
 
     using YAF.Configuration;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -44,15 +45,6 @@ namespace YAF.Core.Tasks
     /// </summary>
     public class DigestSendTask : IntermittentBackgroundTask
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _task name.
-        /// </summary>
-        private const string _TaskName = "DigestSendTask";
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -71,7 +63,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         ///   Gets TaskName.
         /// </summary>
-        public static string TaskName => _TaskName;
+        public static string TaskName { get; } = "DigestSendTask";
 
         #endregion
 
@@ -156,32 +148,31 @@ namespace YAF.Core.Tasks
             {
                 var boardIds = this.GetRepository<Board>().ListTyped().Select(b => b.ID);
 
-                foreach (var boardId in boardIds)
-                {
-                    var boardSettings = new YafLoadBoardSettings(boardId);
-
-                    if (!IsTimeToSendDigestForBoard(boardSettings))
+                boardIds.ForEach(
+                    boardId =>
                     {
-                        continue;
-                    }
+                        var boardSettings = new YafLoadBoardSettings(boardId);
 
-                    // get users with digest enabled...
-                    var usersWithDigest =
-                        this.GetRepository<User>().FindUserTyped(filter: false, boardId: boardId, dailyDigest: true)
-                            .Where(x => x.IsGuest != null && !x.IsGuest.Value && (x.IsApproved ?? false));
+                        if (IsTimeToSendDigestForBoard(boardSettings))
+                        {
+                            // get users with digest enabled...
+                            var usersWithDigest = this.GetRepository<User>()
+                                .FindUserTyped(filter: false, boardId: boardId, dailyDigest: true).Where(
+                                    x => x.IsGuest != null && !x.IsGuest.Value && (x.IsApproved ?? false));
 
-                    var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
+                            var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
 
-                    if (typedUserFinds.Any())
-                    {
-                        // start sending...
-                        this.SendDigestToUsers(typedUserFinds, boardSettings);
-                    }
-                    else
-                    {
-                        this.Get<ILogger>().Info("no user found");
-                    }
-                }
+                            if (typedUserFinds.Any())
+                            {
+                                // start sending...
+                                this.SendDigestToUsers(typedUserFinds, boardSettings);
+                            }
+                            else
+                            {
+                                this.Get<ILogger>().Info("no user found");
+                            }
+                        }
+                    });
             }
             catch (Exception ex)
             {

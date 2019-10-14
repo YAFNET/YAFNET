@@ -21,12 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
   #region Using
 
   using System.Web.Security;
 
+  using YAF.Core.UsersRoles;
   using YAF.Types;
   using YAF.Types.Interfaces;
 

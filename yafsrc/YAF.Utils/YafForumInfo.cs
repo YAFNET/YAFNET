@@ -102,7 +102,7 @@ namespace YAF.Utils
                 const byte Sub = 0;
 
                 const ReleaseType ReleaseType = ReleaseType.RC;
-                const byte ReleaseNumber = 2;
+                const byte ReleaseNumber = 3;
 
                 var list = new List<int>
                                       {

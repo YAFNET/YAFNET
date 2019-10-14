@@ -32,7 +32,7 @@ namespace YAF.Core
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-
+    using YAF.Core.Extensions;
 #if DEBUG
     using YAF.Core.Data.Profiling;
 #endif

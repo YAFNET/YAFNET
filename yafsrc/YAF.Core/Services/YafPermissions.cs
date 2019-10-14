@@ -32,6 +32,7 @@ namespace YAF.Core.Services
     using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

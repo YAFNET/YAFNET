@@ -5,6 +5,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <div class="row">
     <div class="col">

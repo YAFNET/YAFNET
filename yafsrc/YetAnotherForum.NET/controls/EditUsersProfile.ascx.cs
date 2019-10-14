@@ -39,6 +39,7 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;

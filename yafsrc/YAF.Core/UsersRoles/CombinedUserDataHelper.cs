@@ -22,13 +22,14 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.UsersRoles
 {
     #region Using
 
     using System;
     using System.Data;
     using System.Web.Security;
+
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
@@ -359,7 +360,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserID => userId?.ToType<int>() ?? 0;
+        public int UserID => this.userId?.ToType<int>() ?? 0;
 
         /// <summary>
         ///   Gets UserName.

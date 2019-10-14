@@ -44,6 +44,7 @@ namespace YAF.Install
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Tasks;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

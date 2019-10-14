@@ -21,12 +21,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Syndication
+namespace YAF.Core.Extensions
 {
     using System;
     using System.Collections.Generic;
     using System.ServiceModel.Syndication;
 
+    using YAF.Core.Syndication;
+    using YAF.Core.UsersRoles;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -85,13 +87,10 @@ namespace YAF.Core.Syndication
                          new TextSyndicationContent(
                              YafContext.Current.Get<IBadWordReplace>().Replace(content),
                              TextSyndicationContentKind.Html),
-
-                         // Alternate Link
                          new Uri(link),
                          id,
-                         new DateTimeOffset(posted)) {
-                                                        PublishDate = new DateTimeOffset(posted) 
-                                                     };
+                         new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
+
             links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
 
             si.Authors.Add(

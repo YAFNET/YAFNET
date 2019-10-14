@@ -34,6 +34,7 @@ namespace YAF.Core.Services.Auth
 
     using YAF.Configuration;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;

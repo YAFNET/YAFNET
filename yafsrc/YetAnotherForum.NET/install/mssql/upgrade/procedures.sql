@@ -5211,30 +5211,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}registry_list](@Name nvarchar(50) = null,@BoardID int = null) as
-BEGIN
-        if @BoardID is null
-    begin
-        IF @Name IS NULL OR @Name = ''
-        BEGIN
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Registry] where BoardID is null
-        END ELSE
-        BEGIN
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER(@Name) and BoardID is null
-        END
-    end else
-    begin
-        IF @Name IS NULL OR @Name = ''
-        BEGIN
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Registry] where BoardID=@BoardID
-        END ELSE
-        BEGIN
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER(@Name) and BoardID=@BoardID
-        END
-    end
-END
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}registry_save](
     @Name nvarchar(50),
     @Value nvarchar(max) = NULL,

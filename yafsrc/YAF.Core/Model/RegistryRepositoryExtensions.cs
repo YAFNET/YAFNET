@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2015 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,7 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Data.SqlClient;
 
     using YAF.Configuration;
@@ -97,20 +97,20 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Lists the specified repository.
+        /// The list.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="settingName">Name of the setting.</param>
-        /// <param name="boardId">The board identifier.</param>
-        /// <returns>Returns the Registry as DataTable</returns>
-        public static DataTable ListAsDataTable(
-            this IRepository<Registry> repository,
-            string settingName = null,
-            int? boardId = null)
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Registry> List(this IRepository<Registry> repository, int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.registry_list(Name: settingName, BoardID: boardId);
+            return repository.Get(r => r.BoardID == boardId); 
         }
 
         /// <summary>
@@ -144,23 +144,9 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
             CodeContracts.VerifyNotNull(settingName, "settingName");
 
-            try
-            {
-                using (var table = ListAsDataTable(repository: repository, settingName: settingName))
-                {
-                    if (table.HasRows())
-                    {
-                        // get the version...
-                        return table.Rows[0]["Value"].ToType<string>();
-                    }
-                }
-            }
-            catch
-            {
-                return string.Empty;
-            }
+            var setting = repository.GetSingle(r => r.Name.ToLower() == settingName.ToLower());
 
-            return string.Empty;
+            return setting != null ? setting.Value : string.Empty;
         }
 
         /// <summary>

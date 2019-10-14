@@ -31,6 +31,7 @@ namespace YAF.Core.Modules
     using Autofac;
     using Autofac.Core;
 
+    using YAF.Core.Extensions;
     using YAF.Core.Services.Logger;
     using YAF.Types;
     using YAF.Types.Interfaces;

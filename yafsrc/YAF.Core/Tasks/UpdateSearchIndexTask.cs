@@ -44,11 +44,6 @@ namespace YAF.Core.Tasks
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The task name.
-        /// </summary>
-        private const string _TaskName = "UpdateSearchIndexTask";
-
         #endregion
 
         #region Constructors and Destructors
@@ -70,7 +65,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         ///   Gets TaskName.
         /// </summary>
-        public static string TaskName => _TaskName;
+        public static string TaskName { get; } = "UpdateSearchIndexTask";
 
         #endregion
 
@@ -90,7 +85,7 @@ namespace YAF.Core.Tasks
                     return;
                 }
 
-                if (!this.IsTimeToUpdateSearchIndex())
+                if (!IsTimeToUpdateSearchIndex())
                 {
                     return;
                 }
@@ -98,17 +93,18 @@ namespace YAF.Core.Tasks
                 var messages = this.GetRepository<Message>().GetAllMessagesByBoard(YafContext.Current.PageBoardID);
 
                 this.Get<ISearch>().AddSearchIndex(messages);
+
+                this.Logger.Info("search index updated");
             }
             catch (Exception x)
             {
                 if (!(x is ThreadAbortException))
                 {
-                    //this.Logger.Error(x, $"Error In {TaskName} Task");
+                    this.Logger.Error(x, $"Error In {TaskName} Task");
                 }
             }
             finally
             {
-                this.Logger.Info($"search index updated");
                 Thread.EndCriticalRegion();
             }
         }
@@ -119,9 +115,9 @@ namespace YAF.Core.Tasks
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        private bool IsTimeToUpdateSearchIndex()
+        private static bool IsTimeToUpdateSearchIndex()
         {
-            var boardSettings = YafContext.Current.Get<YafBoardSettings>();
+            var boardSettings = (YafLoadBoardSettings)YafContext.Current.Get<YafBoardSettings>();
             var lastSend = DateTime.MinValue;
             var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 
@@ -139,16 +135,20 @@ namespace YAF.Core.Tasks
                 }
             }
 
-            var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
+            var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
+                             && DateTime.Now < DateTime.Today.AddHours(6);
 
             if (!updateIndex)
             {
                 return false;
             }
 
-            this.GetRepository<Registry>().Save(
-                "lastsearchindexupdated",
-                DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+
+            boardSettings.SaveRegistry();
+
+            // reload all settings from the DB
+            YafContext.Current.BoardSettings = null;
 
             return true;
         }

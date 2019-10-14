@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 

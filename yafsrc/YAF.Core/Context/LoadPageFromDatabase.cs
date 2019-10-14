@@ -29,6 +29,7 @@ namespace YAF.Core
     using System.Web;
 
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;

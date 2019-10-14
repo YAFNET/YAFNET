@@ -28,6 +28,5 @@ namespace YAF.Core.Tasks
   /// </summary>
   internal interface ICriticalBackgroundTask
   {
-    
   }
 }

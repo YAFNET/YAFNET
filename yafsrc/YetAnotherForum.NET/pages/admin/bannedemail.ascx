@@ -2,6 +2,7 @@
 
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/BannedEmailImport.ascx" %>
 <%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/BannedEmailEdit.ascx" %>
