@@ -143,7 +143,7 @@
 
     <ItemGroup>
      <LibaryFiles Include="$(MSBuildProjectDirectory)\**\*.dll"
-                  Exclude="$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\bin\net472\**;"></LibaryFiles>
+                  Exclude="$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\BuildScripts\**;$(MSBuildProjectDirectory)\**\bin\net472\**;"></LibaryFiles>
     </ItemGroup>
 
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md" 
