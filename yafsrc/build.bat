@@ -15,7 +15,7 @@ If "%Current%" NEQ "15.0" set Current=Current
 
 @set $MSBUILDPATH="%$MSBUILDROOT%\MsBuild\%Current%\Bin\MSBuild.exe"
 
-%$MSBUILDPATH% YAF.NET.sln /t:restore /p:Configuration=%CONFIGURATION% /p:Platform="Any CPU" /p:WarningLevel=0 /flp1:logfile=errors.txt;errorsonly %1 %2 %3 %4 %5 %6 %7 %8 %9
+%$MSBUILDPATH% YAF.NET.sln /p:Configuration=%CONFIGURATION% /p:Platform="Any CPU" /p:WarningLevel=0 /flp1:logfile=errors.txt;errorsonly %1 %2 %3 %4 %5 %6 %7 %8 %9
 
 
 
