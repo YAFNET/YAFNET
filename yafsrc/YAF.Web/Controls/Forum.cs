@@ -362,7 +362,7 @@ namespace YAF.Web.Controls
             var cookieName = "YAF-AcceptCookies";
 
             if (YafContext.Current.Get<HttpRequestBase>().Cookies[cookieName] == null
-                && this.Get<YafBoardSettings>().ShowCookieConsent)
+                && this.Get<YafBoardSettings>().ShowCookieConsent && !Config.IsAnyPortal)
             {
                 // Add cookie consent
                 this.Controls.Add(

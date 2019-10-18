@@ -631,7 +631,8 @@
                                 <span>
                                     <asp:DropDownList ID="Languages" runat="server" 
                                                       AutoPostBack="true"
-                                                      CssClass="custom-select">
+                                                      CssClass="custom-select"
+                                                      Visible='<%# !YAF.Configuration.Config.IsDotNetNuke %>'>
                                         <asp:ListItem Text="Arabic" Value="ar"/>
                                         <asp:ListItem Text="Chinese (Simplified)" Value="zh-CN"/>
                                         <asp:ListItem Text="Chinese (Traditional)" Value="zh-TW"/>
