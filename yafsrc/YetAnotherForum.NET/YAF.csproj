@@ -3477,10 +3477,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>del YAF.dll.config
-del Lucene.Net.Memory.dll
-del Lucene.Net.Memory.pdb
-del Lucene.Net.Sandbox.dll
-del Lucene.Net.Sandbox.pdb
 </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -3664,7 +3660,7 @@ del Lucene.Net.Sandbox.pdb
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

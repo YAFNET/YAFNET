@@ -1,0 +1,191 @@
+﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Queries.Function.DocValues;
+using YAF.Lucene.Net.Search;
+using YAF.Lucene.Net.Util;
+using YAF.Lucene.Net.Util.Mutable;
+using System;
+using System.Collections;
+
+namespace YAF.Lucene.Net.Queries.Function.ValueSources
+{
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+
+    /// <summary>
+    /// Obtains <see cref="long"/> field values from <see cref="IFieldCache.GetInt64s(AtomicReader, string, FieldCache.IInt64Parser, bool)"/> and makes those
+    /// values available as other numeric types, casting as needed.
+    /// <para/>
+    /// NOTE: This was LongFieldSource in Lucene
+    /// </summary>
+    public class Int64FieldSource : FieldCacheSource
+    {
+        protected readonly FieldCache.IInt64Parser m_parser;
+
+        public Int64FieldSource(string field)
+            : this(field, null)
+        {
+        }
+
+        public Int64FieldSource(string field, FieldCache.IInt64Parser parser)
+            : base(field)
+        {
+            this.m_parser = parser;
+        }
+
+        public override string GetDescription()
+        {
+            return "long(" + m_field + ')';
+        }
+
+        /// <summary>
+        /// NOTE: This was externalToLong() in Lucene
+        /// </summary>
+        public virtual long ExternalToInt64(string extVal) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        {
+            return Convert.ToInt64(extVal);
+        }
+
+        /// <summary>
+        /// NOTE: This was longToObject() in Lucene
+        /// </summary>
+        public virtual object Int64ToObject(long val)
+        {
+            return val;
+        }
+
+        /// <summary>
+        /// NOTE: This was longToString() in Lucene
+        /// </summary>
+        public virtual string Int64ToString(long val) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        {
+            return Int64ToObject(val).ToString();
+        }
+
+        public override FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext)
+        {
+            var arr = m_cache.GetInt64s(readerContext.AtomicReader, m_field, m_parser, true);
+            var valid = m_cache.GetDocsWithField(readerContext.AtomicReader, m_field);
+            return new Int64DocValuesAnonymousInnerClassHelper(this, this, arr, valid);
+        }
+
+        private class Int64DocValuesAnonymousInnerClassHelper : Int64DocValues
+        {
+            private readonly Int64FieldSource outerInstance;
+
+            private readonly FieldCache.Int64s arr;
+            private readonly IBits valid;
+
+            public Int64DocValuesAnonymousInnerClassHelper(Int64FieldSource outerInstance, Int64FieldSource @this, FieldCache.Int64s arr, IBits valid)
+                : base(@this)
+            {
+                this.outerInstance = outerInstance;
+                this.arr = arr;
+                this.valid = valid;
+            }
+
+            /// <summary>
+            /// NOTE: This was longVal() in Lucene
+            /// </summary>
+            public override long Int64Val(int doc)
+            {
+                return arr.Get(doc);
+            }
+
+            public override bool Exists(int doc)
+            {
+                return arr.Get(doc) != 0 || valid.Get(doc);
+            }
+
+            public override object ObjectVal(int doc)
+            {
+                return valid.Get(doc) ? outerInstance.Int64ToObject(arr.Get(doc)) : null;
+            }
+
+            public override string StrVal(int doc) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+            {
+                return valid.Get(doc) ? outerInstance.Int64ToString(arr.Get(doc)) : null;
+            }
+
+            /// <summary>
+            /// NOTE: This was externalToLong() in Lucene
+            /// </summary>
+            protected override long ExternalToInt64(string extVal)
+            {
+                return outerInstance.ExternalToInt64(extVal);
+            }
+
+            public override ValueFiller GetValueFiller()
+            {
+                return new ValueFillerAnonymousInnerClassHelper(this);
+            }
+
+            private class ValueFillerAnonymousInnerClassHelper : ValueFiller
+            {
+                private readonly Int64DocValuesAnonymousInnerClassHelper outerInstance;
+
+                public ValueFillerAnonymousInnerClassHelper(Int64DocValuesAnonymousInnerClassHelper outerInstance)
+                {
+                    this.outerInstance = outerInstance;
+                    mval = outerInstance.outerInstance.NewMutableValueInt64();
+                }
+
+                private readonly MutableValueInt64 mval;
+
+                public override MutableValue Value
+                {
+                    get
+                    {
+                        return mval;
+                    }
+                }
+
+                public override void FillValue(int doc)
+                {
+                    mval.Value = outerInstance.arr.Get(doc);
+                    mval.Exists = mval.Value != 0 || outerInstance.valid.Get(doc);
+                }
+            }
+        }
+
+        /// <summary>
+        /// NOTE: This was longToString() in Lucene
+        /// </summary>
+        protected virtual MutableValueInt64 NewMutableValueInt64()
+        {
+            return new MutableValueInt64();
+        }
+
+        public override bool Equals(object o)
+        {
+            if (o.GetType() != this.GetType())
+            {
+                return false;
+            }
+            var other = o as Int64FieldSource;
+            if (other == null)
+                return false;
+            return base.Equals(other) && (this.m_parser == null ? other.m_parser == null : this.m_parser.GetType() == other.m_parser.GetType());
+        }
+
+        public override int GetHashCode()
+        {
+            int h = m_parser == null ? this.GetType().GetHashCode() : m_parser.GetType().GetHashCode();
+            h += base.GetHashCode();
+            return h;
+        }
+    }
+}

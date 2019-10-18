@@ -1,0 +1,243 @@
+﻿using YAF.Lucene.Net.Analysis.Core;
+using YAF.Lucene.Net.Analysis.Miscellaneous;
+using YAF.Lucene.Net.Analysis.Snowball;
+using YAF.Lucene.Net.Analysis.Standard;
+using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Util;
+using System;
+using System.IO;
+using System.Text;
+
+namespace YAF.Lucene.Net.Analysis.Nl
+{
+    /*
+	 * Licensed to the Apache Software Foundation (ASF) under one or more
+	 * contributor license agreements.  See the NOTICE file distributed with
+	 * this work for additional information regarding copyright ownership.
+	 * The ASF licenses this file to You under the Apache License, Version 2.0
+	 * (the "License"); you may not use this file except in compliance with
+	 * the License.  You may obtain a copy of the License at
+	 *
+	 *     http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS" BASIS,
+	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 * See the License for the specific language governing permissions and
+	 * limitations under the License.
+	 */
+
+    /// <summary>
+    /// <see cref="Analyzer"/> for Dutch language. 
+    /// <para>
+    /// Supports an external list of stopwords (words that
+    /// will not be indexed at all), an external list of exclusions (word that will
+    /// not be stemmed, but indexed) and an external list of word-stem pairs that overrule
+    /// the algorithm (dictionary stemming).
+    /// A default set of stopwords is used unless an alternative list is specified, but the
+    /// exclusion list is empty by default.
+    /// </para>
+    /// 
+    /// <para>You must specify the required <see cref="LuceneVersion"/>
+    /// compatibility when creating <see cref="DutchAnalyzer"/>:
+    /// <list type="bullet">
+    ///   <item><description> As of 3.6, <see cref="DutchAnalyzer(LuceneVersion, CharArraySet)"/> and
+    ///        <see cref="DutchAnalyzer(LuceneVersion, CharArraySet, CharArraySet)"/> also populate
+    ///        the default entries for the stem override dictionary</description></item>
+    ///   <item><description> As of 3.1, Snowball stemming is done with SnowballFilter, 
+    ///        LowerCaseFilter is used prior to StopFilter, and Snowball 
+    ///        stopwords are used by default.</description></item>
+    ///   <item><description> As of 2.9, StopFilter preserves position
+    ///        increments</description></item>
+    /// </list>
+    /// 
+    /// </para>
+    /// <para><b>NOTE</b>: This class uses the same <see cref="LuceneVersion"/>
+    /// dependent settings as <see cref="StandardAnalyzer"/>.</para>
+    /// </summary>
+    public sealed class DutchAnalyzer : Analyzer
+    {
+        /// <summary>
+        /// File containing default Dutch stopwords. </summary>
+        public const string DEFAULT_STOPWORD_FILE = "dutch_stop.txt";
+
+        /// <summary>
+        /// Returns an unmodifiable instance of the default stop-words set. </summary>
+        /// <returns> an unmodifiable instance of the default stop-words set. </returns>
+        public static CharArraySet DefaultStopSet
+        {
+            get
+            {
+                return DefaultSetHolder.DEFAULT_STOP_SET;
+            }
+        }
+
+        private class DefaultSetHolder
+        {
+            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            internal static readonly CharArrayMap<string> DEFAULT_STEM_DICT = LoadDefaultStemDict();
+            private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+            {
+                try
+                {
+                    return WordlistLoader.GetSnowballWordSet(
+                        IOUtils.GetDecodingReader(typeof(SnowballFilter), DEFAULT_STOPWORD_FILE, Encoding.UTF8),
+#pragma warning disable 612, 618
+                        LuceneVersion.LUCENE_CURRENT);
+#pragma warning restore 612, 618
+                }
+                catch (IOException ex)
+                {
+                    // default set should always be present as it is part of the
+                    // distribution (JAR)
+                    throw new Exception("Unable to load default stopword set", ex);
+                }
+
+            }
+
+            private static CharArrayMap<string> LoadDefaultStemDict() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+            {
+#pragma warning disable 612, 618
+                var DEFAULT_STEM_DICT = new CharArrayMap<string>(LuceneVersion.LUCENE_CURRENT, 4, false);
+#pragma warning restore 612, 618
+                DEFAULT_STEM_DICT.Put("fiets", "fiets"); //otherwise fiet
+                DEFAULT_STEM_DICT.Put("bromfiets", "bromfiets"); //otherwise bromfiet
+                DEFAULT_STEM_DICT.Put("ei", "eier");
+                DEFAULT_STEM_DICT.Put("kind", "kinder");
+                return DEFAULT_STEM_DICT;
+            }
+        }
+
+
+        /// <summary>
+        /// Contains the stopwords used with the <see cref="StopFilter"/>.
+        /// </summary>
+        private readonly CharArraySet stoptable;
+
+        /// <summary>
+        /// Contains words that should be indexed but not stemmed.
+        /// </summary>
+        private CharArraySet excltable = CharArraySet.EMPTY_SET;
+
+        private readonly StemmerOverrideFilter.StemmerOverrideMap stemdict;
+
+        // null if on 3.1 or later - only for bw compat
+        private readonly CharArrayMap<string> origStemdict;
+        private readonly LuceneVersion matchVersion;
+
+        /// <summary>
+        /// Builds an analyzer with the default stop words (<see cref="DefaultStopSet"/>) 
+        /// and a few default entries for the stem exclusion table.
+        /// </summary>
+        public DutchAnalyzer(LuceneVersion matchVersion)
+              : this(matchVersion, DefaultSetHolder.DEFAULT_STOP_SET, CharArraySet.EMPTY_SET, DefaultSetHolder.DEFAULT_STEM_DICT)
+        {
+            // historically, only this ctor populated the stem dict!!!!!
+        }
+
+        public DutchAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords)
+              : this(matchVersion, stopwords, CharArraySet.EMPTY_SET,
+#pragma warning disable 612, 618
+                    matchVersion.OnOrAfter(LuceneVersion.LUCENE_36) ?
+#pragma warning restore 612, 618
+                    DefaultSetHolder.DEFAULT_STEM_DICT : CharArrayMap<string>.EmptyMap())
+        {
+            // historically, this ctor never the stem dict!!!!!
+            // so we populate it only for >= 3.6
+        }
+
+        public DutchAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords, CharArraySet stemExclusionTable)
+              : this(matchVersion, stopwords, stemExclusionTable,
+#pragma warning disable 612, 618
+                    matchVersion.OnOrAfter(LuceneVersion.LUCENE_36) ?
+#pragma warning restore 612, 618
+                    DefaultSetHolder.DEFAULT_STEM_DICT : CharArrayMap<string>.EmptyMap())
+        {
+            // historically, this ctor never the stem dict!!!!!
+            // so we populate it only for >= 3.6
+        }
+
+        public DutchAnalyzer(LuceneVersion matchVersion, CharArraySet stopwords, CharArraySet stemExclusionTable, CharArrayMap<string> stemOverrideDict)
+        {
+            this.matchVersion = matchVersion;
+            this.stoptable = CharArraySet.UnmodifiableSet(CharArraySet.Copy(matchVersion, stopwords));
+            this.excltable = CharArraySet.UnmodifiableSet(CharArraySet.Copy(matchVersion, stemExclusionTable));
+#pragma warning disable 612, 618
+            if (stemOverrideDict.Count == 0 || !matchVersion.OnOrAfter(LuceneVersion.LUCENE_31))
+#pragma warning restore 612, 618
+            {
+                this.stemdict = null;
+                this.origStemdict = CharArrayMap.UnmodifiableMap(CharArrayMap.Copy(matchVersion, stemOverrideDict));
+            }
+            else
+            {
+                this.origStemdict = null;
+                // we don't need to ignore case here since we lowercase in this analyzer anyway
+                StemmerOverrideFilter.Builder builder = new StemmerOverrideFilter.Builder(false);
+                using (CharArrayMap<string>.EntryIterator iter = (CharArrayMap<string>.EntryIterator)stemOverrideDict.EntrySet().GetEnumerator())
+                {
+                    CharsRef spare = new CharsRef();
+                    while (iter.HasNext)
+                    {
+                        char[] nextKey = iter.NextKey();
+                        spare.CopyChars(nextKey, 0, nextKey.Length);
+                        builder.Add(new string(spare.Chars), iter.CurrentValue);
+                    }
+                }
+                try
+                {
+                    this.stemdict = builder.Build();
+                }
+                catch (IOException ex)
+                {
+                    throw new Exception("can not build stem dict", ex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns a (possibly reused) <see cref="TokenStream"/> which tokenizes all the 
+        /// text in the provided <see cref="TextReader"/>.
+        /// </summary>
+        /// <returns> A <see cref="TokenStream"/> built from a <see cref="StandardTokenizer"/>
+        ///   filtered with <see cref="StandardFilter"/>, <see cref="LowerCaseFilter"/>, 
+        ///   <see cref="StopFilter"/>, <see cref="SetKeywordMarkerFilter"/> if a stem exclusion set is provided,
+        ///   <see cref="StemmerOverrideFilter"/>, and <see cref="SnowballFilter"/> </returns>
+        protected override TokenStreamComponents CreateComponents(string fieldName, TextReader aReader)
+        {
+#pragma warning disable 612, 618
+            if (matchVersion.OnOrAfter(LuceneVersion.LUCENE_31))
+#pragma warning restore 612, 618
+            {
+                Tokenizer source = new StandardTokenizer(matchVersion, aReader);
+                TokenStream result = new StandardFilter(matchVersion, source);
+                result = new LowerCaseFilter(matchVersion, result);
+                result = new StopFilter(matchVersion, result, stoptable);
+                if (excltable.Count > 0)
+                {
+                    result = new SetKeywordMarkerFilter(result, excltable);
+                }
+                if (stemdict != null)
+                {
+                    result = new StemmerOverrideFilter(result, stemdict);
+                }
+                result = new SnowballFilter(result, new Tartarus.Snowball.Ext.DutchStemmer());
+                return new TokenStreamComponents(source, result);
+            }
+            else
+            {
+                Tokenizer source = new StandardTokenizer(matchVersion, aReader);
+                TokenStream result = new StandardFilter(matchVersion, source);
+                result = new StopFilter(matchVersion, result, stoptable);
+                if (excltable.Count > 0)
+                {
+                    result = new SetKeywordMarkerFilter(result, excltable);
+                }
+#pragma warning disable 612, 618
+                result = new DutchStemFilter(result, origStemdict);
+#pragma warning restore 612, 618
+                return new TokenStreamComponents(source, result);
+            }
+        }
+    }
+}

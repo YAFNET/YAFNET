@@ -134,22 +134,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the registry setting by name.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="settingName">Name of the setting.</param>
-        /// <returns>Returns the Setting Value</returns>
-        public static string GetRegistrySetting(this IRepository<Registry> repository, string settingName)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-            CodeContracts.VerifyNotNull(settingName, "settingName");
-
-            var setting = repository.GetSingle(r => r.Name.ToLower() == settingName.ToLower());
-
-            return setting != null ? setting.Value : string.Empty;
-        }
-
-        /// <summary>
         /// Gets the Current DB Version Name
         /// </summary>
         /// <param name="repository">

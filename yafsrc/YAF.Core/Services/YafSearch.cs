@@ -31,18 +31,17 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Threading;
 
-    using Lucene.Net.Analysis;
-    using Lucene.Net.Analysis.Standard;
-    using Lucene.Net.Documents;
-    using Lucene.Net.Index;
-    using Lucene.Net.QueryParsers.Classic;
-    using Lucene.Net.Search;
-    using Lucene.Net.Search.Highlight;
-    using Lucene.Net.Store;
-    using Lucene.Net.Util;
-
     using YAF.Configuration;
     using YAF.Core.Extensions;
+    using YAF.Lucene.Net.Analysis;
+    using YAF.Lucene.Net.Analysis.Standard;
+    using YAF.Lucene.Net.Documents;
+    using YAF.Lucene.Net.Index;
+    using YAF.Lucene.Net.QueryParsers.Classic;
+    using YAF.Lucene.Net.Search;
+    using YAF.Lucene.Net.Search.Highlight;
+    using YAF.Lucene.Net.Store;
+    using YAF.Lucene.Net.Util;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

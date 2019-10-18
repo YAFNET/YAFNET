@@ -1,0 +1,77 @@
+﻿using YAF.Lucene.Net.Analysis;
+using YAF.Lucene.Net.Analysis.TokenAttributes;
+using YAF.Lucene.Net.Queries;
+using YAF.Lucene.Net.Search;
+using YAF.Lucene.Net.Util;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+
+namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
+{
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+
+    /// <summary>
+    /// Builder for <see cref="TermsFilter"/>
+    /// </summary>
+    public class TermsFilterBuilder : IFilterBuilder
+    {
+        private readonly Analyzer analyzer;
+
+        public TermsFilterBuilder(Analyzer analyzer)
+        {
+            this.analyzer = analyzer;
+        }
+
+        /// <summary>
+        /// (non-Javadoc)
+        /// @see org.apache.lucene.xmlparser.FilterBuilder#process(org.w3c.dom.Element)
+        /// </summary>
+        public virtual Filter GetFilter(XmlElement e)
+        {
+            List<BytesRef> terms = new List<BytesRef>();
+            string text = DOMUtils.GetNonBlankTextOrFail(e);
+            string fieldName = DOMUtils.GetAttributeWithInheritanceOrFail(e, "fieldName");
+
+            TokenStream ts = null;
+            try
+            {
+                ts = analyzer.GetTokenStream(fieldName, text);
+                ITermToBytesRefAttribute termAtt = ts.AddAttribute<ITermToBytesRefAttribute>();
+                BytesRef bytes = termAtt.BytesRef;
+                ts.Reset();
+                while (ts.IncrementToken())
+                {
+                    termAtt.FillBytesRef();
+                    terms.Add(BytesRef.DeepCopyOf(bytes));
+                }
+                ts.End();
+            }
+            catch (IOException ioe)
+            {
+                throw new Exception("Error constructing terms from index:" + ioe);
+            }
+            finally
+            {
+                IOUtils.DisposeWhileHandlingException(ts);
+            }
+            return new TermsFilter(fieldName, terms);
+        }
+    }
+}

@@ -33,10 +33,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Lucene.Net" Version="4.8.0-beta00006" />
-    <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00006" />
-    <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00006" />
-    <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00006" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
@@ -76,6 +72,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Analysis.Common\YAF.Lucene.Net.Analysis.Common.csproj" />
+    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Highlighter\YAF.Lucene.Net.Highlighter.csproj" />
+    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Queries\YAF.Lucene.Net.Queries.csproj" />
+    <ProjectReference Include="..\Lucene.Net\Lucene.Net.QueryParser\YAF.Lucene.Net.QueryParser.csproj" />
+    <ProjectReference Include="..\Lucene.Net\Lucene.Net\YAF.Lucene.Net.csproj" />
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />

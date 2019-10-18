@@ -1,0 +1,122 @@
+﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Queries.Function.DocValues;
+using YAF.Lucene.Net.Search;
+using System;
+using System.Collections;
+
+namespace YAF.Lucene.Net.Queries.Function.ValueSources
+{
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+
+    /// <summary>
+    /// <see cref="SumTotalTermFreqValueSource"/> returns the number of tokens.
+    /// (sum of term freqs across all documents, across all terms).
+    /// Returns -1 if frequencies were omitted for the field, or if 
+    /// the codec doesn't support this statistic.
+    /// @lucene.internal
+    /// </summary>
+    public class SumTotalTermFreqValueSource : ValueSource
+    {
+        protected readonly string m_indexedField;
+
+        public SumTotalTermFreqValueSource(string indexedField)
+        {
+            this.m_indexedField = indexedField;
+        }
+
+        public virtual string Name
+        {
+            get { return "sumtotaltermfreq"; }
+        }
+
+        public override string GetDescription()
+        {
+            return Name + '(' + m_indexedField + ')';
+        }
+
+        public override FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext)
+        {
+            return (FunctionValues)context[this];
+        }
+
+        public override void CreateWeight(IDictionary context, IndexSearcher searcher)
+        {
+            long sumTotalTermFreq = 0;
+            foreach (AtomicReaderContext readerContext in searcher.TopReaderContext.Leaves)
+            {
+                Fields fields = readerContext.AtomicReader.Fields;
+                if (fields == null)
+                {
+                    continue;
+                }
+                Terms terms = fields.GetTerms(m_indexedField);
+                if (terms == null)
+                {
+                    continue;
+                }
+                long v = terms.SumTotalTermFreq;
+                if (v == -1)
+                {
+                    sumTotalTermFreq = -1;
+                    break;
+                }
+                else
+                {
+                    sumTotalTermFreq += v;
+                }
+            }
+            long ttf = sumTotalTermFreq;
+            context[this] = new Int64DocValuesAnonymousInnerClassHelper(this, this, ttf);
+        }
+
+        private class Int64DocValuesAnonymousInnerClassHelper : Int64DocValues
+        {
+            private readonly SumTotalTermFreqValueSource outerInstance;
+
+            private long ttf;
+
+            public Int64DocValuesAnonymousInnerClassHelper(SumTotalTermFreqValueSource outerInstance, SumTotalTermFreqValueSource @this, long ttf)
+                : base(@this)
+            {
+                this.outerInstance = outerInstance;
+                this.ttf = ttf;
+            }
+
+            /// <summary>
+            /// NOTE: This was longVal() in Lucene
+            /// </summary>
+            public override long Int64Val(int doc)
+            {
+                return ttf;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.GetType().GetHashCode() + m_indexedField.GetHashCode();
+        }
+
+        public override bool Equals(object o)
+        {
+            var other = o as SumTotalTermFreqValueSource;
+            if (other == null)
+                return false;
+            return this.m_indexedField.Equals(other.m_indexedField, StringComparison.Ordinal);
+        }
+    }
+}
