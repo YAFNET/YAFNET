@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.WebControls;
+namespace YAF.Controls
+{
 
-    using YAF.Web.Controls;
 
-    public partial class TopicLine {
-        
+    public partial class TopicLine
+    {
 
         /// <summary>
         /// SelectionHolder control.
@@ -22,8 +21,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder SelectionHolder;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder SelectionHolder;
 
         /// <summary>
         /// chkSelected control.
@@ -32,8 +30,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox chkSelected;
-        
+        protected global::System.Web.UI.WebControls.CheckBox chkSelected;
 
         /// <summary>
         /// TopicIcon control.
@@ -42,8 +39,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label TopicIcon;
-        
+        protected global::System.Web.UI.WebControls.Label TopicIcon;
 
         /// <summary>
         /// Priority control.
@@ -52,8 +48,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label Priority;
-        
+        protected global::System.Web.UI.WebControls.Label Priority;
 
         /// <summary>
         /// NewMessage control.
@@ -62,8 +57,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label NewMessage;
-        
+        protected global::System.Web.UI.WebControls.Label NewMessage;
 
         /// <summary>
         /// TopicLink control.
@@ -72,8 +66,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HyperLink TopicLink;
-        
+        protected global::System.Web.UI.WebControls.HyperLink TopicLink;
 
         /// <summary>
         /// FavoriteCount control.
@@ -82,8 +75,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label FavoriteCount;
-        
+        protected global::System.Web.UI.WebControls.Label FavoriteCount;
 
         /// <summary>
         /// Description control.
@@ -92,8 +84,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label Description;
-        
+        protected global::System.Web.UI.WebControls.Label Description;
 
         /// <summary>
         /// topicStarterLink control.
@@ -102,8 +93,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected UserLink topicStarterLink;
-        
+        protected global::YAF.Web.Controls.UserLink topicStarterLink;
 
         /// <summary>
         /// StartDate control.
@@ -112,8 +102,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DisplayDateTime StartDate;
-        
+        protected global::YAF.Web.Controls.DisplayDateTime StartDate;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -122,8 +111,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -132,8 +120,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// GoToLastPost control.
@@ -142,8 +129,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton GoToLastPost;
-        
+        protected global::YAF.Web.Controls.ThemeButton GoToLastPost;
 
         /// <summary>
         /// GoToLastUnread control.
@@ -152,8 +138,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton GoToLastUnread;
-        
+        protected global::YAF.Web.Controls.ThemeButton GoToLastUnread;
 
         /// <summary>
         /// UserLast control.
@@ -162,8 +147,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected UserLink UserLast;
-        
+        protected global::YAF.Web.Controls.UserLink UserLast;
 
         /// <summary>
         /// LastDate control.
@@ -172,6 +156,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DisplayDateTime LastDate;
+        protected global::YAF.Web.Controls.DisplayDateTime LastDate;
     }
 }

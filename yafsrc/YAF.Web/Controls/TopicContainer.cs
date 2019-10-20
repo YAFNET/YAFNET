@@ -285,7 +285,7 @@ namespace YAF.Web.Controls
 
             if (this.TopicRow["Description"].ToString().IsSet())
             {
-                writer.Write(this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"])));
+                writer.Write($"<span class=\"font-italic\">{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]))}</span>");
             }
 
             writer.Write(" <p class=\"card-text\">");
