@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="MSBuild.Community.Tasks.Targets" />
-  <Import Project="MSBuild.ExtensionPack.tasks"/>
   <Target Name="PackageModule" Condition=" '$(Configuration)' == 'Release' AND '$(CreatePackages)' == 'true' ">
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\bin\YAF.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyIdentities"/>
@@ -167,10 +166,10 @@
 
     <!-- Create the Install package -->
     <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
-                                           CompressFiles="@(OutputContentInstall)" 
-                                           CompressionLevel="BestCompression" 
-                                           RemoveRoot="$(MSBuildProjectDirectory)\Package\" 
-                                           ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" />
+         CompressFiles="@(OutputContentInstall)" 
+         CompressionLevel="BestCompression" 
+         RemoveRoot="$(MSBuildProjectDirectory)\Package\" 
+         ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" />
 
     <!-- Copy the Install package to the Packages folder -->
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" 
@@ -204,10 +203,10 @@
 
     <!-- Create the Deploy package -->
     <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
-                                           CompressFiles="@(OutputContentDeploy)" 
-                                           CompressionLevel="BestCompression" 
-                                           RemoveRoot="$(MSBuildProjectDirectory)\Package\deploy" 
-                                           ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" />
+         CompressFiles="@(OutputContentDeploy)" 
+         CompressionLevel="BestCompression" 
+         RemoveRoot="$(MSBuildProjectDirectory)\Package\deploy" 
+         ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" />
 
     <!-- Copy the Deploy package to the Packages folder -->
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" 
@@ -237,10 +236,10 @@
 
     <!-- Create the Upgrade package -->
     <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
-                                           CompressFiles="@(OutputContentUpgrade)" 
-                                           CompressionLevel="BestCompression" 
-                                           RemoveRoot="$(MSBuildProjectDirectory)\Package\" 
-                                           ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" />
+         CompressFiles="@(OutputContentUpgrade)" 
+         CompressionLevel="BestCompression" 
+         RemoveRoot="$(MSBuildProjectDirectory)\Package\" 
+         ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" />
 
     <!-- Copy the Upgrade package to the Packages folder -->
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" 
