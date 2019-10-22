@@ -102,9 +102,9 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Gets or sets ServiceLocator.
+        /// Gets the ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator { get; protected set; }
+        public IServiceLocator ServiceLocator { get; }
 
         /// <summary>
         /// Gets the writer.
@@ -126,9 +126,9 @@ namespace YAF.Core.Services
                     {
                         File.Delete(lockFile);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        //this.Get<ILogger>().Log(null, this, ex);
+                        this.Get<ILogger>().Log(null, this, ex);
                     }
                 }
 
@@ -429,23 +429,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The get searcher.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IndexSearcher"/>.
-        /// </returns>
-        public IndexSearcher GetSearcher()
-        {
-            this.searcherManager = this.indexWriter != null
-                                       ? new SearcherManager(this.indexWriter, false, null)
-                                       : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
-
-            this.searcherManager.MaybeRefreshBlocking();
-
-            return this.searcherManager.Acquire();
-        }
-
-        /// <summary>
         /// Parses the query.
         /// </summary>
         /// <param name="searchQuery">The search query.</param>
@@ -537,6 +520,23 @@ namespace YAF.Core.Services
                            ForumName = doc.Get("ForumName"),
                            UserStyle = doc.Get("AuthorStyle")
                        };
+        }
+
+        /// <summary>
+        /// The get searcher.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IndexSearcher"/>.
+        /// </returns>
+        private IndexSearcher GetSearcher()
+        {
+            this.searcherManager = this.indexWriter != null
+                                       ? new SearcherManager(this.indexWriter, false, null)
+                                       : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
+
+            this.searcherManager.MaybeRefreshBlocking();
+
+            return this.searcherManager.Acquire();
         }
 
         /// <summary>

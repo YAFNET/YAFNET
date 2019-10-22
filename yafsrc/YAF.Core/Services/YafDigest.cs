@@ -26,7 +26,6 @@ namespace YAF.Core.Services
     #region Using
 
     using System.Net;
-    using System.Text.RegularExpressions;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -61,9 +60,9 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
-        /// Gets or sets ServiceLocator.
+        /// Gets the ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator { get; protected set; }
+        public IServiceLocator ServiceLocator { get; }
 
         #endregion
 
@@ -151,14 +150,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            var subject = $"Active Topics and New Topics on {forumName}";
-            var match = Regex.Match(
-                digestHtml, @"\<title\>(?<inner>(.*?))\<\/title\>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            if (match.Groups["inner"] != null)
-            {
-                subject = match.Groups["inner"].Value.Trim();
-            }
+            var subject = this.Get<ILocalization>().GetTextFormatted("SUBJECT", forumName);
 
             if (sendQueued)
             {

@@ -55,7 +55,7 @@ namespace YAF.Configuration
         /// </summary>
         public int DeniedRegistrations
         {
-            get => this._regBoard.GetValue<int>("DeniedRegistrations", 0);
+            get => this._regBoard.GetValue("DeniedRegistrations", 0);
 
             set => this._regBoard.SetValue("DeniedRegistrations", value);
         }
@@ -65,7 +65,7 @@ namespace YAF.Configuration
         /// </summary>
         public int BannedUsers
         {
-            get => this._regBoard.GetValue<int>("BannedUsers", 0);
+            get => this._regBoard.GetValue("BannedUsers", 0);
 
             set => this._regBoard.SetValue("BannedUsers", value);
         }
@@ -75,7 +75,7 @@ namespace YAF.Configuration
         /// </summary>
         public int ReportedSpammers
         {
-            get => this._regBoard.GetValue<int>("ReportedSpammers", 0);
+            get => this._regBoard.GetValue("ReportedSpammers", 0);
 
             set => this._regBoard.SetValue("ReportedSpammers", value);
         }
@@ -654,6 +654,9 @@ namespace YAF.Configuration
             set => this._reg.SetValue("DigestSendEveryXHours", value);
         }
 
+        /// <summary>
+        /// Gets or sets the update search index every x hours.
+        /// </summary>
         public int UpdateSearchIndexEveryXHours
         {
             get => this._reg.GetValue("UpdateSearchIndex", 24);
@@ -1950,7 +1953,7 @@ namespace YAF.Configuration
         /// </summary>
         public bool ShowUserOnlineStatus
         {
-            get => this._reg.GetValue("ShowUserOnlineStatus", false);
+            get => this._reg.GetValue("ShowUserOnlineStatus", true);
 
             set => this._reg.SetValue("ShowUserOnlineStatus", value);
         }
@@ -2515,6 +2518,9 @@ namespace YAF.Configuration
             set => this._regBoard.SetValue("LastDigestSend", value);
         }
 
+        /// <summary>
+        /// Gets or sets the last search index updated.
+        /// </summary>
         public string LastSearchIndexUpdated
         {
             get => this._regBoard.GetValue<string>("LastSearchIndexUpdated", null);

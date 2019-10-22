@@ -64,16 +64,19 @@ namespace YAF.Configuration.Pattern
         #region Properties
 
         /// <summary>
+        /// Gets or sets the TypeName.
+        /// </summary>
+        public string TypeName { get; protected set; }
+
+        /// <summary>
         /// Gets or sets TypeInstanceKey.
         /// </summary>
         protected string TypeInstanceKey { get; set; }
 
         /// <summary>
-        /// Gets or sets the TypeName.
+        /// The instance.
         /// </summary>
-        public string TypeName { get; protected set; }
-
-        private object _instance;
+        private object instance;
 
         /// <summary>
         /// Gets or sets ApplicationInstance.
@@ -84,7 +87,7 @@ namespace YAF.Configuration.Pattern
             {
                 if (HttpContext.Current == null)
                 {
-                    return this._instance == null ? default(T) : (T)this._instance;
+                    return this.instance == null ? default : (T)this.instance;
                 }
 
                 return (T)(HttpContext.Current.Application[this.TypeInstanceKey] ?? default(T));
@@ -94,7 +97,7 @@ namespace YAF.Configuration.Pattern
             {
                 if (HttpContext.Current == null)
                 {
-                    this._instance = value;
+                    this.instance = value;
                 }
                 else
                 {

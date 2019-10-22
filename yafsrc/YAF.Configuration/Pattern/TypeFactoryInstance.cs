@@ -23,31 +23,31 @@
  */
 namespace YAF.Configuration.Pattern
 {
-  /// <summary>
-  /// The type factory instance interface
-  /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public interface ITypeFactoryInstance<T>
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets TypeName.
+    /// The type factory instance interface
     /// </summary>
-    string TypeName { get; }
+    /// <typeparam name="T">
+    /// </typeparam>
+    public interface ITypeFactoryInstance<T>
+    {
+        #region Properties
 
-    #endregion
+        /// <summary>
+        /// Gets TypeName.
+        /// </summary>
+        string TypeName { get; }
 
-    #region Public Methods
+        #endregion
 
-    /// <summary>
-    /// Get an instance of the type.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    T Get();
+        #region Public Methods
 
-    #endregion
-  }
+        /// <summary>
+        /// Get an instance of the type.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        T Get();
+
+        #endregion
+    }
 }

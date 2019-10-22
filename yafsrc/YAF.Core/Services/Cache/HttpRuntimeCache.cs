@@ -316,7 +316,8 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     private string CreateKey([NotNull] string key)
     {
-      return this._treatCacheKey.Treat($"{YafCacheKey}${key.Replace('$', '.')}");
+        key = key.Replace('$', '.');
+        return this._treatCacheKey.Treat($"{YafCacheKey}${key}");
     }
 
     /// <summary>
@@ -341,24 +342,28 @@ namespace YAF.Core.Services.Cache
 
       var cachedItem = this.Get<T>(key);
 
-      if (Equals(cachedItem, default(T)))
+      if (!Equals(cachedItem, default(T)))
       {
-        lock (this._haveLockObject.Get(this.CreateKey(key)))
-        {
+          return cachedItem;
+      }
+
+      lock (this._haveLockObject.Get(this.CreateKey(key)))
+      {
           // now that we're on lockdown, try one more time...
           cachedItem = this.Get<T>(key);
 
-          if (Equals(cachedItem, default(T)))
+          if (!Equals(cachedItem, default(T)))
           {
-            // materialize the query
-            cachedItem = getValue();
-
-            if (!Equals(cachedItem, default(T)))
-            {
-              addToCacheFunction(cachedItem);
-            }
+              return cachedItem;
           }
-        }
+
+          // materialize the query
+          cachedItem = getValue();
+
+          if (!Equals(cachedItem, default(T)))
+          {
+              addToCacheFunction(cachedItem);
+          }
       }
 
       return cachedItem;

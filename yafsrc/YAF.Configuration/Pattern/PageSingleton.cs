@@ -23,63 +23,62 @@
  */
 namespace YAF.Configuration.Pattern
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web;
-
-  #endregion
-
-  /// <summary>
-  /// Singleton factory implementation
-  /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public static class PageSingleton<T>
-    where T : class, new()
-  {
-    // static constructor, 
-    // runtime ensures thread safety
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _instance.
-    /// </summary>
-    private static T _instance;
+    using System;
+    using System.Web;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets Instance.
+    /// Singleton factory implementation
     /// </summary>
-    public static T Instance => GetInstance();
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The get instance.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    private static T GetInstance()
+    /// <typeparam name="T">
+    /// </typeparam>
+    public static class PageSingleton<T>
+        where T : class, new()
     {
-      if (HttpContext.Current == null)
-      {
-        return _instance ?? (_instance = (T)Activator.CreateInstance(typeof(T)));
-      }
+        // static constructor, 
+        // runtime ensures thread safety
 
-      var typeStr = typeof(T).ToString();
+        #region Constants and Fields
 
-      return
-        (T)
-        (HttpContext.Current.Items[typeStr] ??
-         (HttpContext.Current.Items[typeStr] = Activator.CreateInstance(typeof(T))));
+        /// <summary>
+        ///   The _instance.
+        /// </summary>
+        private static T _instance;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets Instance.
+        /// </summary>
+        public static T Instance => GetInstance();
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The get instance.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        private static T GetInstance()
+        {
+            if (HttpContext.Current == null)
+            {
+                return _instance ?? (_instance = (T)Activator.CreateInstance(typeof(T)));
+            }
+
+            var typeStr = typeof(T).ToString();
+
+            return (T)(HttpContext.Current.Items[typeStr]
+                       ?? (HttpContext.Current.Items[typeStr] = Activator.CreateInstance(typeof(T))));
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }
