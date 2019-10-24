@@ -58,6 +58,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ForumRegisterClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate();
+
             if (!this.Page.IsValid)
             {
                 return;
@@ -93,12 +95,12 @@ namespace YAF.Pages.Admin
             {
                 // error of some kind
                 this.PageContext.AddLoadMessage(
-                    string.Format(this.GetText("ADMIN_REGUSER", "MSG_ERROR_CREATE"), status),
+                    this.GetTextFormatted("MSG_ERROR_CREATE", status),
                     MessageTypes.danger);
                 return;
             }
 
-            // setup inital roles (if any) for this user
+            // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, newUsername);
 
             // create the user in the YAF DB as well as sync roles...
@@ -107,7 +109,7 @@ namespace YAF.Pages.Admin
             // create profile
             var userProfile = YafUserProfile.GetProfile(newUsername);
 
-            // setup their inital profile information
+            // setup their initial profile information
             userProfile.Location = this.Location.Text.Trim();
             userProfile.Homepage = this.HomePage.Text.Trim();
             userProfile.Save();

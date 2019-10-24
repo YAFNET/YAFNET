@@ -26,10 +26,9 @@
                             </asp:Label>
                             <asp:TextBox CssClass="form-control" id="UserName" runat="server"></asp:TextBox>
                             <asp:RequiredFieldValidator id="Requiredfieldvalidator1" runat="server" 
-                                                        EnableClientScript="False"
                                                         ControlToValidate="UserName" 
                                                         ErrorMessage="User Name is required." 
-                                                        CssClass="form-text text-muted"></asp:RequiredFieldValidator>
+                                                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group col-md-6">
                             <asp:Label runat="server" AssociatedControlID="Email">
@@ -39,10 +38,9 @@
                             <asp:TextBox CssClass="form-control" id="Email" runat="server" 
                                          TextMode="Email"></asp:TextBox>
                             <asp:RequiredFieldValidator id="Requiredfieldvalidator5" runat="server" 
-                                                        EnableClientScript="False"
                                                         ControlToValidate="Email" 
                                                         ErrorMessage="Email address is required." 
-                                                        CssClass="form-text text-muted"></asp:RequiredFieldValidator>
+                                                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="form-row">
@@ -55,10 +53,9 @@
                                          TextMode="Password"
                                          CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator id="Requiredfieldvalidator2" runat="server" 
-                                                        EnableClientScript="False"
                                                         ControlToValidate="Password" 
                                                         ErrorMessage="Password is required." 
-                                                        CssClass="form-text text-muted"></asp:RequiredFieldValidator>
+                                                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group col-md-6">
                             <asp:Label runat="server" AssociatedControlID="Password2">
@@ -70,11 +67,10 @@
                                          CssClass="form-control" ></asp:TextBox>
                             <asp:CompareValidator id="Comparevalidator1" runat="server" 
                                                   Name="Comparevalidator1" 
-                                                  EnableClientScript="False"
                                                   ControlToValidate="Password2" 
                                                   ErrorMessage="Passwords didnt match." 
                                                   ControlToCompare="Password"
-                                                  CssClass="form-text text-muted"></asp:CompareValidator>
+                                                  CssClass="form-text text-danger"></asp:CompareValidator>
                         </div>
                     </div>
                     <div class="form-row">
@@ -86,10 +82,9 @@
                             </asp:Label>
                             <asp:TextBox CssClass="form-control" id="Question" runat="server"></asp:TextBox>
                             <asp:RequiredFieldValidator id="Requiredfieldvalidator3" runat="server" 
-                                                        EnableClientScript="False"
                                                         ControlToValidate="Question" 
                                                         ErrorMessage="Password Question is Required." 
-                                                        CssClass="form-text text-muted"></asp:RequiredFieldValidator>
+                                                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
                         <div class="form-group col-md-6">
                             <asp:Label runat="server" AssociatedControlID="Answer">
@@ -99,10 +94,9 @@
                             </asp:Label>
                             <asp:TextBox CssClass="form-control" id="Answer" runat="server"></asp:TextBox>
                             <asp:RequiredFieldValidator id="Requiredfieldvalidator4" runat="server" 
-                                                        EnableClientScript="False"
                                                         ControlToValidate="Answer" 
                                                         ErrorMessage="Password Answer is Required." 
-                                                        CssClass="form-text text-muted"></asp:RequiredFieldValidator>
+                                                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <h3>
