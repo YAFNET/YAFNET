@@ -1,21 +1,5 @@
 <%@ Page Language="c#" AutoEventWireup="True" Inherits="YAF.Error" CodeBehind="error.aspx.cs" %>
 
-<%@ Import Namespace="System.Security.Cryptography" %>
-<%@ Import Namespace="System.Threading" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-<script runat="server">
-    void Page_Load()
-    {
-        var delay = new byte[1];
-        RandomNumberGenerator prng = new RNGCryptoServiceProvider();
-
-        prng.GetBytes(data: delay);
-        Thread.Sleep(millisecondsTimeout: delay[index0: 0]);
-
-        var disposable = prng.ToType<IDisposable>();
-        disposable.Dispose();
-    }
-</script>
 <!doctype html>
 <html lang="en">
    <head runat="server">
