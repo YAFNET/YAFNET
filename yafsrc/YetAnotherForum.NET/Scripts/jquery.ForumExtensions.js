@@ -52962,6 +52962,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
 function getSearchResultsData(pageNumber) {
     var searchInput = jQuery(".searchInput").val();
     var searchInputUser = jQuery(".searchUserInput").val();
+    var useDisplayName = jQuery(".searchUserInput").data("display") === "True";
 
     // filter options
     var pageSize = jQuery(".resultsPage").val();
@@ -53008,13 +53009,14 @@ function getSearchResultsData(pageNumber) {
         }
 
         if (searchInputUser.length && searchInputUser.length >= 3) {
+            var author = useDisplayName ? "AuthorDisplay" : "Author";
 
             if (searchText.length) searchText += " ";
         
             if (searchInput.length) {
-                searchText += "AND Author:" + searchInputUser;
+                searchText += "AND " + author + ":" + searchInputUser;
             } else {
-                searchText = "+Author:" + searchInputUser;
+                searchText = "+" + author + ":" + searchInputUser;
             }
         }
 
@@ -53081,21 +53083,30 @@ function getSearchResultsData(pageNumber) {
                                 '" href="' +
                                 data.MessageUrl +
                                 '"><i class="fas fa-external-link-alt"></i></a>' +
-                                ' <small class="text-muted">(' +
-                                by +
-                                " " +
-                                data.UserName +
-                                ")</small>" +
+                                ' <small class="text-muted">(<a href="' +
+                                data.ForumUrl +
+                                '">' +
+                                data.ForumName +
+                                "</a>)</small>" +
                                 "</h5></div>" +
                                 '<div class="card-body px-0">' +
+                                '<h6 class="card-subtitle mb-2 text-muted">' +
+                                data.Description +
+                                '</h6>'+ 
                                 '<p class="card-text messageContent">' +
                                 data.Message +
                                 "</p>" +
                                 "</div>" +
                                 '<div class="card-footer bg-transparent border-top-0 px-0 py-2"> ' +
                                 '<small class="text-muted">' +
+                                '<i class="fa fa-calendar-alt fa-fw text-secondary"></i>' +
                                 posted + " " +
                                 moment(data.Posted).fromNow() +
+                                " " + 
+                                '<i class="fa fa-user fa-fw text-secondary"></i>' +
+                                by +
+                                " " +
+                                (useDisplayName ? data.UserDisplayName : data.UserName) +
                                 "</small> " +
                                 "</div>" +
                                 "</div></div></div>");
@@ -53198,9 +53209,9 @@ jQuery(document).ready(function () {
                 $.ajax({
                     type: "POST",
                     url: ajaxUrl,
+                    dataType: "json",
                     data: JSON.stringify(searchTopic),
                     contentType: "application/json; charset=utf-8",
-                    dataType: "json",
                     beforeSend: (function before() {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");

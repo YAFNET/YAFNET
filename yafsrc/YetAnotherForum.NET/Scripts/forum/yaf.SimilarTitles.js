@@ -23,9 +23,9 @@ jQuery(document).ready(function () {
                 $.ajax({
                     type: "POST",
                     url: ajaxUrl,
+                    dataType: "json",
                     data: JSON.stringify(searchTopic),
                     contentType: "application/json; charset=utf-8",
-                    dataType: "json",
                     beforeSend: (function before() {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");

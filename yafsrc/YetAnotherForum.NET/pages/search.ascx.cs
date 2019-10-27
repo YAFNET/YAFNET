@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -97,6 +98,8 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+            this.txtSearchStringFromWho.Attributes.Add("data-display", this.Get<YafBoardSettings>().EnableDisplayName.ToString());
 
             // Load result dropdown
             this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));

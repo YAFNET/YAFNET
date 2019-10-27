@@ -2178,3 +2178,17 @@
     </div>
 
 <asp:HiddenField runat="server" ID="hidLastTab" Value="View1" />
+
+<div>
+    <div id="SearchIndexMessage" style="display:none">
+        <div class="card text-white text-center bg-danger mb-3">
+            <div class="card-body">
+                <blockquote class="blockquote">
+                    <footer>
+                        <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>

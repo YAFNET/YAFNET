@@ -170,6 +170,10 @@ namespace YAF.Pages.Admin
                 "yafTabsJs",
                 JavaScriptBlocks.BootstrapNavsLoadJs("v-pills-tab", this.hidLastTab.ClientID));
 
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "BlockUIExecuteJs",
+                JavaScriptBlocks.BlockUiExecuteJs("SearchIndexMessage", this.IndexSearch.ClientID));
+
             base.OnPreRender(e);
         }
 
