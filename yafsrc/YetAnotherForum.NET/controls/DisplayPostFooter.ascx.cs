@@ -30,7 +30,6 @@ namespace YAF.Controls
     using System.Data;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -98,23 +97,35 @@ namespace YAF.Controls
             var messageFlags =
                 new MessageFlags(this.PostData.DataRow["Flags"]) { IsAnswer = true };
 
-            // Remove Answer from other messages to avoid duplicate answers!
-            this.GetRepository<Topic>().RemoveAnswerMessage(topicId: this.PageContext.PageTopicID);
-
             if (this.PostData.PostIsAnswer)
             {
                 // Remove Current Message 
                 messageFlags.IsAnswer = false;
 
-                this.GetRepository<Message>().UpdateFlags(messageId: this.PostData.MessageId, flags: messageFlags.BitValue);
+                this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
+
+                this.GetRepository<Topic>().RemoveAnswerMessage(this.PageContext.PageTopicID);
             }
             else
             {
+                // Check for duplicates
+                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
+
+                if (answerMessageId != null)
+                {
+                    var message = this.GetRepository<Message>().GetById(answerMessageId.Value);
+
+                    var oldMessageFlags =
+                        new MessageFlags(message.Flags) { IsAnswer = false };
+
+                    this.GetRepository<Message>().UpdateFlags(message.ID, oldMessageFlags.BitValue);
+                }
+
                 messageFlags.IsAnswer = true;
 
-                this.GetRepository<Topic>().SetAnswerMessage(topicId: this.PageContext.PageTopicID, messageId: this.PostData.MessageId);
+                this.GetRepository<Topic>().SetAnswerMessage(this.PageContext.PageTopicID, this.PostData.MessageId);
 
-                this.GetRepository<Message>().UpdateFlags(messageId: this.PostData.MessageId, flags: messageFlags.BitValue);
+                this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
             }
 
             YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId);
@@ -143,26 +154,28 @@ namespace YAF.Controls
             }
 
             // mark post as answer
-            if (!this.PostData.PostDeleted && !this.PageContext.IsGuest && this.PageContext.User != null
-                && this.PageContext.PageUserID.Equals(this.DataRow["TopicOwnerID"].ToType<int>())
-                && !this.PostData.UserId.Equals(this.PageContext.PageUserID))
+            if (this.PostData.PostDeleted || this.PageContext.IsGuest || this.PageContext.User == null
+                || !this.PageContext.PageUserID.Equals(this.DataRow["TopicOwnerID"].ToType<int>())
+                || this.PostData.UserId.Equals(this.PageContext.PageUserID))
             {
-                this.MarkAsAnswer.Visible = true;
+                return;
+            }
 
-                if (this.PostData.PostIsAnswer)
-                {
-                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
-                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
-                    this.MarkAsAnswer.Icon = "minus-square";
-                    this.MarkAsAnswer.IconColor = "text-danger";
-                }
-                else
-                {
-                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER";
-                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_TITLE";
-                    this.MarkAsAnswer.Icon = "check-square";
-                    this.MarkAsAnswer.IconColor = "text-success";
-                }
+            this.MarkAsAnswer.Visible = true;
+
+            if (this.PostData.PostIsAnswer)
+            {
+                this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
+                this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
+                this.MarkAsAnswer.Icon = "minus-square";
+                this.MarkAsAnswer.IconColor = "text-danger";
+            }
+            else
+            {
+                this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER";
+                this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_TITLE";
+                this.MarkAsAnswer.Icon = "check-square";
+                this.MarkAsAnswer.IconColor = "text-success";
             }
         }
 
