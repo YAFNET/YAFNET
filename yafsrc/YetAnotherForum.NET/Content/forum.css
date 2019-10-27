@@ -8289,6 +8289,19 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 .dropdown-toggle {
   margin-right: 0.30rem; }
 
+.dropdown-item {
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important; }
+
+.dropdown-menu {
+  max-height: -webkit-max-content;
+  max-height: -moz-max-content;
+  max-height: max-content;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content; }
+
 /* Select Drop downs */
 .standardSelectMenu-Icon {
   margin-left: 4px;

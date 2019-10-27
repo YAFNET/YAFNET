@@ -42,11 +42,6 @@ namespace YAF.Core.Services
     {
         #region Fields
 
-        /// <summary>
-        ///     The _template Parameters.
-        /// </summary>
-        private IDictionary<string, string> templateParams = new Dictionary<string, string>();
-
         #endregion
 
         #region Constructors and Destructors
@@ -110,14 +105,9 @@ namespace YAF.Core.Services
         public string TemplateName { get; set; }
 
         /// <summary>
-        ///     Gets or sets TemplateParams.
+        ///     Gets or sets Template Parameter
         /// </summary>
-        public IDictionary<string, string> TemplateParams
-        {
-            get => this.templateParams;
-
-            set => this.templateParams = value;
-        }
+        public IDictionary<string, string> TemplateParams { get; set; } = new Dictionary<string, string>();
 
         #endregion
 
@@ -168,9 +158,9 @@ namespace YAF.Core.Services
 
             if (email.IsSet())
             {
-                email = this.templateParams.Keys.Aggregate(
+                email = this.TemplateParams.Keys.Aggregate(
                     email,
-                    (current, key) => current.Replace(key, this.templateParams[key]));
+                    (current, key) => current.Replace(key, this.TemplateParams[key]));
             }
 
             return email;

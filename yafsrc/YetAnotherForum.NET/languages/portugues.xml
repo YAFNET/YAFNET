@@ -1177,6 +1177,8 @@
     <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
     <Resource tag="IMAGES_PER_PAGE">Images Per Page:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Number of images to show per page.</Resource>
+    <Resource tag="INDEX_SEARCH">Re-Index Search</Resource>
+    <Resource tag="INDEX_SEARCH_HELP">Indexes all Messages in all Forums of the current Board for the Search Engine</Resource>
     <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
     <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
     <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
@@ -1496,6 +1498,8 @@
   <page name="ADMIN_MAIL">
     <Resource tag="ALL_USERS">All Users</Resource>
     <Resource tag="CONFIRM_SEND">Are you sure you want to send this mail?</Resource>
+    <Resource tag="FROM_MAIL">From Mail Address:</Resource>
+    <Resource tag="FROM_MAIL_HELP">Enter the From Mail Address</Resource>
     <Resource tag="HEADER">Compose Email</Resource>
     <Resource tag="MAIL_MESSAGE">Message:</Resource>
     <Resource tag="MAIL_SUBJECT">Subject:</Resource>
@@ -1503,7 +1507,12 @@
     <Resource tag="MSG_QUEUED">Mails queued.</Resource>
     <Resource tag="MSG_SUBJECT">Subject is Required</Resource>
     <Resource tag="SEND_MAIL">Send Mail</Resource>
+    <Resource tag="TEST_BODY">The email sending appears to be working from your YAF installation.</Resource>
+    <Resource tag="TEST_SUBJECT">Test Email From Yet Another Forum.NET</Resource>
+    <Resource tag="TEST_SUCCESS">Mail Sent. Verify it's received at your entered email address.</Resource>
     <Resource tag="TITLE">Mail</Resource>
+    <Resource tag="TO_MAIL">To Mail Address:</Resource>
+    <Resource tag="TO_MAIL_HELP">Enter the Email Address where the test email should be send</Resource>
   </page>
   <page name="ADMIN_MEDALS">
     <Resource tag="CONFIRM_DELETE">Delete this Medal?</Resource>
@@ -5257,27 +5266,33 @@ Spoiler Content
   </page>
   <page name="TEMPLATES">
     <Resource tag="CHANGEEMAIL_HTML">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;Change Email&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body&gt;
-&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
-&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
-&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
-&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
-&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
-&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
-&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+    &lt;/head&gt;
+    &lt;body class="bg-light"&gt;
+    &lt;div class="container"&gt;
+    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+    &lt;/div&gt;
+    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+    &lt;div class="card-body"&gt;
+    &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+    &lt;p class="mt-3 mb-4"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+    &lt;p&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+    &lt;p class="mt-3 mb-3 text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;And enter approval key:&lt;/p&gt;
+    &lt;pre class="text-center"&gt;&lt;strong&gt;{key}&lt;/strong&gt;&lt;/pre&gt;
+    &lt;p&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
 </Resource>
     <Resource tag="CHANGEEMAIL_TEXT">
 Hello {user},
@@ -5455,34 +5470,34 @@ The Message was posted in the {forumname} forum.
 
    </Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML">
-      &lt;!DOCTYPE html&gt;
+    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+    &lt;/head&gt;
+    &lt;body class="bg-light"&gt;
+    &lt;div class="container"&gt;
+    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+    &lt;/div&gt;
+    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+    &lt;div class="card-body"&gt;
+    &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+    &lt;p class="mt-3 mb-4"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+    &lt;p&gt;Please return to the site and login using the following information:&lt;/p&gt;
+    &lt;div class="text-center"&gt;&lt;code&gt;
+    User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
+    Password: &lt;strong&gt;{password}&lt;/strong&gt;
+    &lt;/code&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-      &lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
-      &lt;head&gt;
-      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-      &lt;title&gt;Password Retrieval&lt;/title&gt;
-      &lt;style type="text/css"&gt;
-      &lt;!--
-      .style1 {
-      font-family: Verdana, Arial, Helvetica, sans-serif;
-      }
-      --&gt;
-      &lt;/style&gt;
-      &lt;/head&gt;
-      &lt;body&gt;
-      &lt;p class="style1"&gt;Hello {username},&lt;/p&gt;
-      &lt;p class="style1"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
-      &lt;p class="style1"&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-      &lt;p class="style1"&gt;Please return to the site and login using the following information:&lt;/p&gt;
-      &lt;blockquote&gt;
-      &lt;span class="style1"&gt;
-      User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
-      Password: &lt;strong&gt;{password}&lt;/strong&gt;
-      &lt;/span&gt;
-      &lt;/blockquote&gt;
-      &lt;/body&gt;
-      &lt;/html&gt;
-    </Resource>
+    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+</Resource>
     <Resource tag="PASSWORDRETRIEVAL_TEXT">
       Hello {username},
 
@@ -5495,7 +5510,32 @@ The Message was posted in the {forumname} forum.
       User Name: {username}
       Password: {password}
     </Resource>
-    <Resource tag="PMNOTIFICATION_HTML" />
+    <Resource tag="PMNOTIFICATION_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;A new Private Message from {fromuser} about {subject} was send to you at {forumname}.&lt;/p&gt;
+     &lt;p&gt;To read the message, open the following link in your browser:&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
     <Resource tag="PMNOTIFICATION_TEXT">
 A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
 
@@ -5503,7 +5543,38 @@ To read the message, open the following link in your browser:
 
 {link}
 </Resource>
-    <Resource tag="TOPICPOST_HTML" />
+    <Resource tag="TOPICPOST_HTML">
+    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+    &lt;/head&gt;
+    &lt;body class="bg-light"&gt;
+    &lt;div class="container"&gt;
+    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+    &lt;/div&gt;
+    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+    &lt;div class="card-body"&gt;
+    &lt;p class="mt-3 mb-4"&gt;There's a new post in topic "{topic}" at {forumname} By {postedby}:&lt;/p&gt;
+    &lt;p&gt;"{bodytruncated}"
+
+    &lt;p&gt;To read more, click or copy and paste the following link into your browser:&lt;/p&gt;
+
+    &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;You can manage your subscriptions here:&lt;/p&gt;
+
+    &lt;p class="text-center"&gt;&lt;a href="{subscriptionlink}"&gt;{subscriptionlink}&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+  </Resource>
     <Resource tag="TOPICPOST_TEXT">
       A new message has been posted in the thread {topic} at {forumname}.
 
@@ -5515,7 +5586,34 @@ To read the message, open the following link in your browser:
 
       {subscriptionlink}
     </Resource>
-    <Resource tag="VERIFYEMAIL_HTML" />
+    <Resource tag="VERIFYEMAIL_HTML">
+    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+    &lt;/head&gt;
+    &lt;body class="bg-light"&gt;
+    &lt;div class="container"&gt;
+    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+    &lt;/div&gt;
+    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+    &lt;div class="card-body"&gt;
+    &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+    &lt;p class="mt-3 mb-4"&gt;You have requested to join {forumname}, but before you can join your email address must be verified.&lt;/p&gt;
+    &lt;p&gt;To verify your email address open the following link in your web browser:&lt;/p&gt;
+    &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;Your approval key is:&lt;/p&gt;
+    &lt;p class="text-center"&gt;{key}&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+  </Resource>
     <Resource tag="VERIFYEMAIL_TEXT">
 You have requested to join {forumname}, but before you can join your email address must be verified.
 

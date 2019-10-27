@@ -2,6 +2,8 @@
     Inherits="YAF.Controls.emaildigest" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Configuration" %>
+<%@ Import Namespace="ServiceStack" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="en">
 <head id="YafHead" runat="server">
@@ -9,17 +11,18 @@
 </head>
 <body class="bg-light">
 <div class="container">
-  <div class="card mb-4" style="border-top: 5px solid blue;">
+<div class="mx-auto mt-4 mb-3 text-center" 
+     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.Get<YafBoardSettings>().BaseUrlMask, YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
+  <div class="card mb-4" style="border-top: 5px solid #3761b5;">
     <div class="card-body">
       <h4 class="text-center">
-          <a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.forum, true) %>">
-              <%= this.BoardSettings.Name %></a>
+          <%= this.GetText("ACTIVETOPICS") %>
       </h4>
       <h5 class="text-muted text-center">
           <%= this.Get<IDateTime>().FormatDateLong(DateTime.UtcNow) %>
       </h5>
-
-      <hr/>
+    </div>
+  </div>
       
     <% if (this.NewTopics.Any())
                    { %>
@@ -64,9 +67,7 @@
                    } %>
                 <% if (this.ActiveTopics.Any())
                    { %>
-                <h4 class="text-center">
-                    <%= this.GetText("ACTIVETOPICS") %></h4>
-                <%
+                    <%
                     foreach (var f in this.ActiveTopics)
                     { %>
                 <h5 class="text-center">
@@ -102,19 +103,11 @@
                     
                    <% }
                    } %>
-    </div>
-  </div>
 
-  <div class="text-center text-muted"> 
-      <%= this.GetText("REMOVALTEXT") %>
-  </div>
-  <div class="text-center text-muted">
-      <a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.cp_subscriptions, true) %>">
+    <div class="text-center text-muted small"> 
+      <%= this.GetText("REMOVALTEXT") %>&nbsp;<a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.cp_subscriptions, true) %>">
           <%= this.GetText("REMOVALLINK") %></a>
   </div>
-
-  
-
 </div>
 </body>
 </html>

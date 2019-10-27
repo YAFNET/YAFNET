@@ -154,13 +154,27 @@ namespace YAF.Types.Interfaces
             string newUsername = null);
 
         /// <summary>
-        /// Sends the user a suspension notification.
+        /// Send Email Verification to changed Email Address
         /// </summary>
-        /// <param name="suspendedUntil">The suspended until.</param>
-        /// <param name="suspendReason">The suspend reason.</param>
-        /// <param name="email">The email.</param>
-        /// <param name="userName">Name of the user.</param>
-        void SendUserSuspensionNotification(
+        /// <param name="newEmail">
+        /// The new email.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="userName">
+        /// The user Name.
+        /// </param>
+        void SendEmailChangeVerification([NotNull] string newEmail, [NotNull] int userId, string userName);
+
+        /// <summary>
+            /// Sends the user a suspension notification.
+            /// </summary>
+            /// <param name="suspendedUntil">The suspended until.</param>
+            /// <param name="suspendReason">The suspend reason.</param>
+            /// <param name="email">The email.</param>
+            /// <param name="userName">Name of the user.</param>
+            void SendUserSuspensionNotification(
             [NotNull] DateTime suspendedUntil,
             [NotNull] string suspendReason,
             [NotNull] string email,

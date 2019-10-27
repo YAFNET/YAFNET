@@ -2,6 +2,15 @@
     margin-right: 0.30rem;
 }
 
+.dropdown-item {
+    width: max-content !important;
+}
+
+.dropdown-menu {
+    max-height: max-content;
+    max-width: max-content;
+}
+
 /* Select Drop downs */
 .standardSelectMenu-Icon {
     margin-left: 4px;

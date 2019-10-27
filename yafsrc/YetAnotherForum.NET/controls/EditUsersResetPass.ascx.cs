@@ -31,11 +31,11 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Services;
     using YAF.Core.UsersRoles;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -105,12 +105,14 @@ namespace YAF.Controls
                 this.CompareValidator1.ErrorMessage =
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH");
 
-                if (!this.Get<MembershipProvider>().EnablePasswordReset)
+                if (this.Get<MembershipProvider>().EnablePasswordReset)
                 {
-                    this.PasswordResetErrorHolder.Visible = true;
-                    this.btnResetPassword.Enabled = false;
-                    this.rblPasswordResetFunction.Enabled = false;
+                    return;
                 }
+
+                this.PasswordResetErrorHolder.Visible = true;
+                this.btnResetPassword.Enabled = false;
+                this.rblPasswordResetFunction.Enabled = false;
             }
             else
             {
@@ -145,6 +147,8 @@ namespace YAF.Controls
         /// </param>
         protected void btnChangePassword_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate();
+
             if (!this.Page.IsValid)
             {
                 return;
@@ -175,29 +179,33 @@ namespace YAF.Controls
                     // email a notification...
                     var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-                    var subject = string.Format(
-                        this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"),
-                        this.PageContext.BoardSettings.Name);
+                    var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                    var logoUrl =
+                        $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+                    var themeCss =
+                        $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
                     passwordRetrieval.TemplateParams["{username}"] = user.UserName;
                     passwordRetrieval.TemplateParams["{password}"] = newPass;
                     passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-                    passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                    passwordRetrieval.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
+                    passwordRetrieval.TemplateParams["{themecss}"] = themeCss;
+                    passwordRetrieval.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
                     passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
                     this.PageContext.AddLoadMessage(
-                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"));
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"), MessageTypes.success);
                 }
                 else
                 {
                     this.PageContext.AddLoadMessage(
-                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED"));
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED"), MessageTypes.success);
                 }
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage($"Exception: {x.Message}");
+                this.PageContext.AddLoadMessage($"Exception: {x.Message}", MessageTypes.danger);
             }
         }
 
@@ -229,23 +237,27 @@ namespace YAF.Controls
                 // email a notification...
                 var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-                var subject = string.Format(
-                    this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT"),
-                    this.PageContext.BoardSettings.Name);
+                var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                var logoUrl =
+                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+                var themeCss =
+                    $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
                 passwordRetrieval.TemplateParams["{username}"] = user.UserName;
                 passwordRetrieval.TemplateParams["{password}"] = newPassword;
                 passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-                passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                passwordRetrieval.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
+                passwordRetrieval.TemplateParams["{themecss}"] = themeCss;
+                passwordRetrieval.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
                 passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
                 this.PageContext.AddLoadMessage(
-                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_RESET"));
+                    this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_RESET"), MessageTypes.success);
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage($"Exception: {x.Message}");
+                this.PageContext.AddLoadMessage($"Exception: {x.Message}", MessageTypes.danger);
             }
         }
 

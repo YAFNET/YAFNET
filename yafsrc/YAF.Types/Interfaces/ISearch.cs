@@ -24,6 +24,7 @@
 namespace YAF.Types.Interfaces
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using YAF.Types.Objects;
 
@@ -57,7 +58,10 @@ namespace YAF.Types.Interfaces
         /// <param name="messageList">
         /// The message list.
         /// </param>
-        void AddSearchIndex(IEnumerable<SearchMessage> messageList);
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        Task AddSearchIndexAsync(IEnumerable<SearchMessage> messageList);
 
         /// <summary>
         /// The add search index item.

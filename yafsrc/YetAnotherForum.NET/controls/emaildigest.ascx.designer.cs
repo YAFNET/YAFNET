@@ -7,11 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.HtmlControls;
+namespace YAF.Controls
+{
 
-    public partial class emaildigest {
-        
+
+    public partial class emaildigest
+    {
 
         /// <summary>
         /// YafHead control.
@@ -20,6 +21,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HtmlHead YafHead;
+        protected global::System.Web.UI.HtmlControls.HtmlHead YafHead;
     }
 }

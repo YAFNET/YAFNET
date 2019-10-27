@@ -30,6 +30,7 @@ namespace YAF.Core.Services
     using System.IO;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -220,11 +221,14 @@ namespace YAF.Core.Services
         /// <param name="messageList">
         /// The message list.
         /// </param>
-        public void AddSearchIndex(IEnumerable<SearchMessage> messageList)
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        public async Task AddSearchIndexAsync(IEnumerable<SearchMessage> messageList)
         {
             try
             {
-                messageList.ForEach(message => this.UpdateSearchIndexItem(message));
+                messageList.ForEach(message => { this.UpdateSearchIndexItemAsync(message).Wait(); });
             }
             finally
             {
@@ -523,6 +527,70 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// The update search index item async.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="dispose">
+        /// The dispose.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
+        private async Task UpdateSearchIndexItemAsync(SearchMessage message, bool dispose = false)
+        {
+            try
+            {
+                var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+                var userDisplayName = message.UserDisplayName ?? string.Empty;
+                var userStyle = message.UserStyle ?? string.Empty;
+                var description = message.Description ?? (message.Topic ?? string.Empty);
+
+                var doc = new Document
+                              {
+                                  new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+                                  new TextField("Message", message.Message, Field.Store.YES),
+                                  new StoredField("Flags", message.Flags.ToString()),
+                                  new StoredField("Posted", message.Posted),
+                                  new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+                                  new StoredField("TopicId", message.TopicId.ToString()),
+                                  new TextField("Topic", message.Topic, Field.Store.YES),
+                                  new StringField("ForumName", message.ForumName, Field.Store.YES),
+                                  new StoredField("ForumId", message.ForumId.ToString()),
+                                  new StringField("Author", name, Field.Store.YES),
+                                  new StringField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                                  new StoredField("AuthorStyle", userStyle),
+                                  new TextField("Description", description, Field.Store.YES)
+                              };
+
+                try
+                {
+                    this.Writer.UpdateDocument(
+                        new Term("MessageId", message.MessageId.Value.ToString()),
+                        doc,
+                        this.standardAnalyzer);
+                }
+                catch (Exception ex)
+                {
+                    this.Get<ILogger>().Log(null, this, ex);
+                    this.DisposeWriter();
+                    this.Writer.UpdateDocument(
+                        new Term("MessageId", message.MessageId.Value.ToString()),
+                        doc,
+                        this.standardAnalyzer);
+                }
+            }
+            finally
+            {
+                if (dispose)
+                {
+                    this.Optimize();
+                }
+            }
+        }
+
+        /// <summary>
         /// The get searcher.
         /// </summary>
         /// <returns>
@@ -746,7 +814,7 @@ namespace YAF.Core.Services
                 scorer = new QueryScorer(query);
 
                 // sort by date
-                var sort = new Sort(new SortField("Posted", SortFieldType.STRING, true));
+                var sort = new Sort(new SortField("MessageId", SortFieldType.STRING, true));
                 var hits = searcher.Search(query, null, hitsLimit, sort).ScoreDocs;
 
                 totalHits = hits.Length;

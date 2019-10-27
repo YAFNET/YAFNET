@@ -2040,7 +2040,17 @@
                             <div class="custom-control custom-switch">
                                 <asp:CheckBox Text="&nbsp;" ID="ShowQuickSearch" runat="server"></asp:CheckBox>
                             </div>
-                        </div>  
+                        </div> 
+                        <div class="form-group">
+                            <YAF:HelpLabel runat="server"
+                                           LocalizedTag="INDEX_SEARCH"></YAF:HelpLabel>
+                            <YAF:ThemeButton runat="server" ID="IndexSearch"
+                                             TextLocalizedTag="INDEX_SEARCH"
+                                             TitleLocalizedTag="INDEX_SEARCH_HELP"
+                                             Icon="sync"
+                                             Type="Danger"
+                                             OnClick="IndexSearch_OnClick"></YAF:ThemeButton>
+                        </div>
                     </div>
                     <div class="card-footer text-lg-center">
                         <YAF:ThemeButton ID="ThemeButton10" runat="server"  Type="Primary" OnClick="SaveClick"

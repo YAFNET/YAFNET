@@ -31,12 +31,14 @@ namespace YAF.Pages.Admin
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -49,6 +51,24 @@ namespace YAF.Pages.Admin
     public partial class hostsettings : AdminPage
     {
         #region Methods
+
+        /// <summary>
+        /// Updates the Search Index
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void IndexSearch_OnClick(object sender, EventArgs e)
+        {
+            var messages = this.GetRepository<Message>().GetAllSearchMessagesByBoard(YafContext.Current.PageBoardID).ToList();
+
+            this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
+
+            this.Get<ILogger>().Info($"search index force updated ({messages.Count} messages)");
+        }
 
         /// <summary>
         /// Resets the Active Discussions Cache

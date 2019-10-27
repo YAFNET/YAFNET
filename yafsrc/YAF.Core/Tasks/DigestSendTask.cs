@@ -153,24 +153,26 @@ namespace YAF.Core.Tasks
                     {
                         var boardSettings = new YafLoadBoardSettings(boardId);
 
-                        if (IsTimeToSendDigestForBoard(boardSettings))
+                        if (!IsTimeToSendDigestForBoard(boardSettings))
                         {
-                            // get users with digest enabled...
-                            var usersWithDigest = this.GetRepository<User>()
-                                .FindUserTyped(filter: false, boardId: boardId, dailyDigest: true).Where(
-                                    x => x.IsGuest != null && !x.IsGuest.Value && (x.IsApproved ?? false));
+                            return;
+                        }
 
-                            var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
+                        // get users with digest enabled...
+                        var usersWithDigest = this.GetRepository<User>()
+                            .FindUserTyped(filter: false, boardId: boardId, dailyDigest: true).Where(
+                                x => x.IsGuest != null && !x.IsGuest.Value && (x.IsApproved ?? false));
 
-                            if (typedUserFinds.Any())
-                            {
-                                // start sending...
-                                this.SendDigestToUsers(typedUserFinds, boardSettings);
-                            }
-                            else
-                            {
-                                this.Get<ILogger>().Info("no user found");
-                            }
+                        var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
+
+                        if (typedUserFinds.Any())
+                        {
+                            // start sending...
+                            this.SendDigestToUsers(typedUserFinds, boardSettings);
+                        }
+                        else
+                        {
+                            this.Get<ILogger>().Info("no user found");
                         }
                     });
             }
@@ -191,47 +193,46 @@ namespace YAF.Core.Tasks
         {
             var usersSendCount = 0;
 
-            foreach (var user in usersWithDigest)
-            {
-                try
-                {
-                    var digestHtml = this.Get<IDigest>()
-                        .GetDigestHtml(user.ID, boardSettings);
-
-                    if (!digestHtml.IsSet())
+            usersWithDigest.ForEach(
+                user =>
                     {
-                        continue;
-                    }
+                        try
+                        {
+                            var digestHtml = this.Get<IDigest>().GetDigestHtml(user.ID, boardSettings);
 
-                    if (user.ProviderUserKey == null)
-                    {
-                        continue;
-                    }
+                            if (digestHtml.IsNotSet())
+                            {
+                                return;
+                            }
 
-                    var membershipUser = UserMembershipHelper.GetUser(user.Name);
+                            if (user.ProviderUserKey == null)
+                            {
+                                return;
+                            }
 
-                    if (membershipUser == null || membershipUser.Email.IsNotSet())
-                    {
-                        continue;
-                    }
+                            var membershipUser = UserMembershipHelper.GetUser(user.Name);
 
-                    // send the digest...
-                    this.Get<IDigest>()
-                        .SendDigest(
-                            digestHtml,
-                            boardSettings.Name,
-                            boardSettings.ForumEmail,
-                            membershipUser.Email,
-                            user.DisplayName,
-                            true);
+                            if (membershipUser == null || membershipUser.Email.IsNotSet())
+                            {
+                                return;
+                            }
 
-                    usersSendCount++;
-                }
-                catch (Exception e)
-                {
-                    this.Get<ILogger>().Error(e, $"Error In Creating Digest for User {user.ID}");
-                }
-            }
+                            // send the digest...
+                            this.Get<IDigest>().SendDigest(
+                                digestHtml,
+                                boardSettings.Name,
+                                boardSettings.ForumEmail,
+                                membershipUser.Email,
+                                user.DisplayName,
+                                true);
+
+                            usersSendCount++;
+                        }
+                        catch (Exception e)
+                        {
+                            this.Get<ILogger>().Error(e, $"Error In Creating Digest for User {user.ID}");
+                        }
+                    });
 
             this.Get<ILogger>().Info($"Digest send to {usersSendCount} user(s)");
         }

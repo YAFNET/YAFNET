@@ -169,6 +169,10 @@ namespace YAF.Pages
             var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
             var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
             var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
@@ -177,6 +181,8 @@ namespace YAF.Pages
             passwordRetrieval.TemplateParams["{ipaddress}"] = userIpAddress;
             passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
             passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+            passwordRetrieval.TemplateParams["{themecss}"] = themeCss;
+            passwordRetrieval.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
             passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
 

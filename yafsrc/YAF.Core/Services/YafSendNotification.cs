@@ -269,13 +269,13 @@ namespace YAF.Core.Services
                 // user's email
                 var toEMail = string.Empty;
 
-                var userList =
-                    this.GetRepository<User>().UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
+                var toUser =
+                    this.GetRepository<User>().UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).FirstOrDefault();
 
-                if (userList.Any())
+                if (toUser != null)
                 {
-                    privateMessageNotificationEnabled = userList.First().PMNotification ?? false;
-                    toEMail = userList.First().Email;
+                    privateMessageNotificationEnabled = toUser.PMNotification ?? false;
+                    toEMail = toUser.Email;
                 }
 
                 if (!privateMessageNotificationEnabled)
@@ -307,6 +307,15 @@ namespace YAF.Core.Services
                     $"{YafBuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId)}\r\n\r\n";
                 notificationTemplate.TemplateParams["{forumname}"] = this.BoardSettings.Name;
                 notificationTemplate.TemplateParams["{subject}"] = subject;
+                notificationTemplate.TemplateParams["{username}"] = this.BoardSettings.EnableDisplayName ? toUser.DisplayName : toUser.Name;
+
+                var logoUrl =
+                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.BoardSettings.ForumLogo}";
+                var themeCss =
+                    $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+                notificationTemplate.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                notificationTemplate.TemplateParams["{themecss}"] = themeCss;
+                notificationTemplate.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
                 // create notification email subject
                 var emailSubject = string.Format(
@@ -361,6 +370,11 @@ namespace YAF.Core.Services
                 this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
                 boardName);
 
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+
             watchEmail.TemplateParams["{forumname}"] = boardName;
             watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(this.Get<IBadWordReplace>().Replace(message.Topic));
             watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(messageAuthorUserID);
@@ -372,6 +386,10 @@ namespace YAF.Core.Services
                 "m={0}#post{0}",
                 newMessageId);
             watchEmail.TemplateParams["{subscriptionlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.cp_subscriptions, true);
+            watchEmail.TemplateParams["{forumname}"] = this.BoardSettings.Name;
+            watchEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+            watchEmail.TemplateParams["{themecss}"] = themeCss;
+            watchEmail.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
             watchEmail.CreateWatch(
                 message.TopicID ?? 0,
@@ -733,6 +751,10 @@ namespace YAF.Core.Services
 
             var subject = this.Get<ILocalization>()
                 .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.BoardSettings.Name);
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
             verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.approve,
@@ -742,8 +764,65 @@ namespace YAF.Core.Services
             verifyEmail.TemplateParams["{key}"] = hash;
             verifyEmail.TemplateParams["{forumname}"] = this.BoardSettings.Name;
             verifyEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+            verifyEmail.TemplateParams["{username}"] = user.UserName;
+
+            verifyEmail.TemplateParams["{themecss}"] = themeCss;
+            verifyEmail.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
             verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject, true);
+        }
+
+        /// <summary>
+        /// Send Email Verification to changed Email Address
+        /// </summary>
+        /// <param name="newEmail">
+        /// The new email.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="userName">
+        /// The user Name.
+        /// </param>
+        public void SendEmailChangeVerification([NotNull] string newEmail, [NotNull] int userId, string userName)
+        {
+            var hashInput = $"{DateTime.UtcNow}{newEmail}{Security.CreatePassword(20)}";
+            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashInput, "md5");
+
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+
+            // Create Email
+            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
+                                  {
+                                      TemplateParams =
+                                          {
+                                              ["{user}"] = userName,
+                                              ["{link}"] =
+                                                  $"{YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
+                                              ["{newemail}"] = newEmail,
+                                              ["{key}"] = hash,
+                                              ["{forumname}"] = this.Get<YafBoardSettings>().Name,
+                                              ["{forumlink}"] = YafForumInfo.ForumURL,
+                                              ["{themecss}"] = themeCss,
+                                              ["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                          }
+                                  };
+
+            // save a change email reference to the db
+            this.GetRepository<CheckEmail>().Save(userId, hash, newEmail);
+
+            // send a change email message...
+            changeEmail.SendEmail(
+                new MailAddress(newEmail),
+                this.Get<ILocalization>().GetText("COMMON", "CHANGEEMAIL_SUBJECT"),
+                true);
+
+            // show a confirmation
+            YafContext.Current.AddLoadMessage(
+                string.Format(this.Get<ILocalization>().GetText("PROFILE", "mail_sent"), newEmail));
         }
 
         /// <summary>

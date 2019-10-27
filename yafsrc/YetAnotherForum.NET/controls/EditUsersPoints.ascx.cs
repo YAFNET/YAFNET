@@ -64,6 +64,8 @@ namespace YAF.Controls
         /// </param>
         protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate(); 
+            
             if (!this.Page.IsValid)
             {
                 return;
@@ -106,6 +108,8 @@ namespace YAF.Controls
         /// </param>
         protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate();
+
             if (!this.Page.IsValid)
             {
                 return;
@@ -126,6 +130,8 @@ namespace YAF.Controls
         /// </param>
         protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate();
+
             if (!this.Page.IsValid)
             {
                 return;

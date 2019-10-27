@@ -120,25 +120,15 @@ namespace YAF.Pages
         {
             if (this.EmailAddress.Text.Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("need_email"));
+                this.PageContext.AddLoadMessage(this.GetText("need_email"), MessageTypes.warning);
                 return;
             }
 
             try
             {
-                string senderEmail;
-
-                using (var dataTable = this.GetRepository<User>().ListAsDataTable(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID,
-                    true))
-                {
-                    senderEmail = (string)dataTable.Rows[0]["Email"];
-                }
-
                 // send the email...
                 this.Get<ISendMail>().Send(
-                    senderEmail,
+                    this.PageContext.User.Email,
                     this.EmailAddress.Text.Trim(),
                     this.PageContext.BoardSettings.ForumEmail,
                     this.Subject.Text.Trim(),
@@ -149,7 +139,7 @@ namespace YAF.Pages
             catch (Exception x)
             {
                 this.Logger.Log(this.PageContext.PageUserID, this, x);
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message));
+                this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
             }
         }
 

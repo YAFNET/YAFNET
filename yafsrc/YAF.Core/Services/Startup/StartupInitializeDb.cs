@@ -102,7 +102,7 @@ namespace YAF.Core.Services.Startup
             // step 2: validate the database version...
             var redirectString = YafContext.Current.GetRepository<Registry>().ValidateVersion(YafForumInfo.AppVersion);
 
-            if (!redirectString.IsSet())
+            if (redirectString.IsNotSet())
             {
                 return true;
             }

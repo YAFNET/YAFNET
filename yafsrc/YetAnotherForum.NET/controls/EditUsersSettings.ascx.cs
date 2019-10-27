@@ -29,7 +29,6 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Linq;
-    using System.Net.Mail;
     using System.Web.Security;
 
     using YAF.Configuration;
@@ -37,7 +36,6 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -205,7 +203,7 @@ namespace YAF.Controls
 
                 if (this.Get<YafBoardSettings>().EmailVerification)
                 {
-                    this.SendEmailVerification(newEmail);
+                    this.Get<ISendNotification>().SendEmailChangeVerification(newEmail, this.currentUserId, userName);
                 }
                 else
                 {
@@ -404,42 +402,6 @@ namespace YAF.Controls
 
             this.HideMe.Checked = this.UserData.IsActiveExcluded
                                   && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
-        }
-
-        /// <summary>
-        /// The send email verification.
-        /// </summary>
-        /// <param name="newEmail">
-        /// The new email.
-        /// </param>
-        private void SendEmailVerification([NotNull] string newEmail)
-        {
-            var hashinput = $"{DateTime.UtcNow}{this.Email.Text}{Security.CreatePassword(20)}";
-            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
-
-            // Create Email
-            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
-                                  {
-                                      TemplateParams =
-                                          {
-                                              ["{user}"] = this.PageContext.PageUserName,
-                                              ["{link}"] =
-                                                  $"{YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
-                                              ["{newemail}"] = this.Email.Text,
-                                              ["{key}"] = hash,
-                                              ["{forumname}"] = this.Get<YafBoardSettings>().Name,
-                                              ["{forumlink}"] = YafForumInfo.ForumURL
-                                          }
-                                  };
-
-            // save a change email reference to the db
-            this.GetRepository<CheckEmail>().Save(this.currentUserId, hash, newEmail);
-
-            // send a change email message...
-            changeEmail.SendEmail(new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
-
-            // show a confirmation
-            this.PageContext.AddLoadMessage(string.Format(this.GetText("PROFILE", "mail_sent"), this.Email.Text));
         }
 
         #endregion

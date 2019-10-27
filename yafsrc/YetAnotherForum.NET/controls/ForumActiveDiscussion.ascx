@@ -26,30 +26,31 @@
                                                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                                                             LocalizedTag="NEW_POSTS" />
                                                     </asp:Label>
-                                                    &nbsp;<asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />&nbsp;
+                                                    <asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />&nbsp;
                                                     (<asp:HyperLink ID="ForumLink" runat="server" />)&nbsp;
                                                 <YAF:ThemeButton runat="server" 
-                                                                 ID="GoToLastPost" 
-                                                                 Size="Small"
-                                                                 Icon="share-square"
-                                                                 Type="OutlineSecondary"
-                                                                 TextLocalizedTag="GO_LAST_POST"
-                                                                 TitleLocalizedTag="GO_LAST_POST"></YAF:ThemeButton>
-                                                <YAF:ThemeButton runat="server" 
-                                                                 ID="GoToLastUnread" 
-                                                                 Size="Small"
-                                                                 Icon="book-reader"
-                                                                 Type="OutlineSecondary"
-                                                                 TextLocalizedTag="GO_LASTUNREAD_POST"
-                                                                 TitleLocalizedTag="GO_LASTUNREAD_POST"></YAF:ThemeButton>
+                                                                     ID="GoToLastPost" 
+                                                                     Size="Small"
+                                                                     Icon="share-square"
+                                                                     Type="OutlineSecondary"
+                                                                     TextLocalizedTag="GO_LAST_POST"
+                                                                     TitleLocalizedTag="GO_LAST_POST"></YAF:ThemeButton>
+                                                    <YAF:ThemeButton runat="server" 
+                                                                     ID="GoToLastUnread" 
+                                                                     Size="Small"
+                                                                     Icon="book-reader"
+                                                                     Type="OutlineSecondary"
+                                                                     TextLocalizedTag="GO_LASTUNREAD_POST"
+                                                                     TitleLocalizedTag="GO_LASTUNREAD_POST"></YAF:ThemeButton>
                                             </h6>
                                             <small>
-                                                   <YAF:LocalizedLabel ID="ByLabel" runat="server" 
+                                                <YAF:LocalizedLabel ID="ByLabel" runat="server" 
                                                                        LocalizedTag="BY" 
                                                                        LocalizedPage="TOPICS" />
-                                                   &nbsp;<YAF:UserLink ID="LastUserLink"  runat="server" />&nbsp;
-                                                   <i class="fas fa-calendar fa-fw text-secondary"></i>&nbsp;<YAF:DisplayDateTime ID="LastPostDate" runat="server" 
-                                                                                                                                  Format="BothTopic" />
+                                                <YAF:UserLink ID="LastUserLink"  runat="server" />
+                                                <i class="fas fa-calendar fa-fw text-secondary"></i>
+                                                <YAF:DisplayDateTime ID="LastPostDate" runat="server"
+                                                                     Format="BothTopic" />
                                             </small> 
                                         </li>
                                     </ItemTemplate>

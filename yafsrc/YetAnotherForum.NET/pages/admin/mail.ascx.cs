@@ -27,10 +27,12 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -70,7 +72,9 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_MAIL", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -95,29 +99,58 @@ namespace YAF.Pages.Admin
 
             if (subject.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_SUBJECT"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_SUBJECT"), MessageTypes.danger);
             }
             else
             {
                 using (var dt = this.GetRepository<User>().EmailsAsDataTable(this.PageContext.PageBoardID, groupId))
                 {
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        // Wes - Changed to use queue to improve scalability
-                        this.GetRepository<Mail>().Create(
-                            this.Get<YafBoardSettings>().ForumEmail, 
-                            this.Get<YafBoardSettings>().Name,
-                            row["Email"].ToType<string>(),
-                            null,
-                            this.Subject.Text.Trim(), 
-                            this.Body.Text.Trim(),
-                            null);
-                    }
+                    dt.Rows.Cast<DataRow>().ForEach(
+                        row =>
+                            {
+                                // Wes - Changed to use queue to improve scalability
+                                this.GetRepository<Mail>().Create(
+                                    this.Get<YafBoardSettings>().ForumEmail,
+                                    this.Get<YafBoardSettings>().Name,
+                                    row["Email"].ToType<string>(),
+                                    null,
+                                    this.Subject.Text.Trim(),
+                                    this.Body.Text.Trim(),
+                                    null);
+                            });
                 }
 
                 this.Subject.Text = string.Empty;
                 this.Body.Text = string.Empty;
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
+            }
+        }
+
+        /// <summary>
+        /// Send a test email
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void TestSmtpClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            try
+            {
+                this.Get<ISendMail>().Send(
+                    this.TestFromEmail.Text.Trim(),
+                    this.TestToEmail.Text.Trim(),
+                    this.TestFromEmail.Text.Trim(),
+                    this.TestSubject.Text,
+                    this.TestBody.Text);
+
+                this.PageContext.AddLoadMessage(this.GetText("TEST_SUCCESS"), MessageTypes.success);
+            }
+            catch (Exception x)
+            {
+                this.PageContext.AddLoadMessage(x.Message, MessageTypes.danger);
             }
         }
 
@@ -131,6 +164,10 @@ namespace YAF.Pages.Admin
 
             var item = new ListItem(this.GetText("ADMIN_MAIL", "ALL_USERS"), "0");
             this.ToList.Items.Insert(0, item);
+
+            this.TestSubject.Text = this.GetText("TEST_SUBJECT");
+            this.TestBody.Text = this.GetText("TEST_BODY");
+            this.TestFromEmail.Text = this.Get<YafBoardSettings>().ForumEmail;
         }
 
         #endregion

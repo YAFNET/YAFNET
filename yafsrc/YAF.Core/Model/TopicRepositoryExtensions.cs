@@ -60,7 +60,6 @@ namespace YAF.Core.Model
             return YafContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
         }
         
-
         /// <summary>
         /// Sets the answer message.
         /// </summary>

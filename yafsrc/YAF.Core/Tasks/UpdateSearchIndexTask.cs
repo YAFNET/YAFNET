@@ -82,6 +82,7 @@ namespace YAF.Core.Tasks
 
                 if (YafContext.Current == null)
                 {
+                    this.Logger.Info("Current null");
                     return;
                 }
 
@@ -90,18 +91,22 @@ namespace YAF.Core.Tasks
                     return;
                 }
 
-                var messages = this.GetRepository<Message>().GetAllMessagesByBoard(YafContext.Current.PageBoardID);
+                var forums = this.GetRepository<Forum>().List(YafContext.Current.PageBoardID, null);
 
-                this.Get<ISearch>().AddSearchIndex(messages);
+                forums.ForEach(
+                    forum =>
+                        {
+                            var messages =
+                                this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID);
+
+                            this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
+                        });
 
                 this.Logger.Info("search index updated");
             }
             catch (Exception x)
             {
-                if (!(x is ThreadAbortException))
-                {
-                    this.Logger.Error(x, $"Error In {TaskName} Task");
-                }
+                this.Logger.Error(x, $"Error In {TaskName} Task");
             }
             finally
             {
