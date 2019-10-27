@@ -262,8 +262,8 @@ namespace YAF.Core.Services
                                   new TextField("Topic", message.Topic, Field.Store.YES),
                                   new StringField("ForumName", message.ForumName, Field.Store.YES),
                                   new StoredField("ForumId", message.ForumId.ToString()),
-                                  new StringField("Author", name, Field.Store.YES),
-                                  new StringField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                                  new TextField("Author", name, Field.Store.YES),
+                                  new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                                   new StoredField("AuthorStyle", userStyle),
                                   new TextField("Description", description, Field.Store.YES)
                               };
@@ -312,8 +312,8 @@ namespace YAF.Core.Services
                                   new TextField("Topic", message.Topic, Field.Store.YES),
                                   new StringField("ForumName", message.ForumName, Field.Store.YES),
                                   new StoredField("ForumId", message.ForumId.ToString()),
-                                  new StringField("Author", name, Field.Store.YES),
-                                  new StringField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                                  new TextField("Author", name, Field.Store.YES),
+                                  new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                                   new StoredField("AuthorStyle", userStyle),
                                   new TextField("Description", description, Field.Store.YES)
                               };
@@ -558,8 +558,8 @@ namespace YAF.Core.Services
                                   new TextField("Topic", message.Topic, Field.Store.YES),
                                   new StringField("ForumName", message.ForumName, Field.Store.YES),
                                   new StoredField("ForumId", message.ForumId.ToString()),
-                                  new StringField("Author", name, Field.Store.YES),
-                                  new StringField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                                  new TextField("Author", name, Field.Store.YES),
+                                  new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                                   new StoredField("AuthorStyle", userStyle),
                                   new TextField("Description", description, Field.Store.YES)
                               };
@@ -808,7 +808,14 @@ namespace YAF.Core.Services
             }
             else
             {
-                var parser = new MultiFieldQueryParser(MatchVersion, new[] { "Message", "Topic", "Author" }, analyzer);
+                var parser = new MultiFieldQueryParser(
+                    MatchVersion,
+                    new[]
+                        {
+                            "Message", "Topic",
+                            this.Get<YafBoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author"
+                        },
+                    analyzer);
 
                 var query = ParseQuery(searchQuery, parser);
                 scorer = new QueryScorer(query);

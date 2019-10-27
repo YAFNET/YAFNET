@@ -9800,7 +9800,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_list_search](@BoardID int) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_list_search](@ForumID int) AS
 BEGIN
     select
         m.MessageID,
@@ -9818,23 +9818,17 @@ BEGIN
 		t.[Description]
     from
         [{databaseOwner}].[{objectQualifier}Forum] f
-        join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID = f.CategoryID
-		join [{databaseOwner}].[{objectQualifier}Topic] t on t.ForumID = f.ForumID
+        join [{databaseOwner}].[{objectQualifier}Topic] t on t.ForumID = f.ForumID
 		join [{databaseOwner}].[{objectQualifier}Message] m on m.TopicID = t.TopicID
 		join  [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID
     where
-        c.BoardID=@BoardID and
+        f.ForumID=@ForumID and
 		t.IsDeleted = 0 and
 		m.IsDeleted = 0 and
 		m.IsApproved = 1 and
 		t.TopicMovedID is null 
     order by
-        c.SortOrder,
-        f.SortOrder,
-        c.CategoryID,
-        f.ForumID,
-		t.TopicID,
-		m.MessageID
+        m.MessageID desc
 END
 GO
 
