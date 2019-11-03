@@ -33,7 +33,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Dialogs;
@@ -151,7 +150,7 @@ namespace YAF.Controls
         /// <param name="linkText">The link text.</param>
         /// <param name="linkToolTip">The link tool tip.</param>
         /// <param name="linkUrl">The link URL.</param>
-        /// <param name="noFollow">Add rel="nofollow" to the link</param>
+        /// <param name="noFollow">Add rel="noFollow" to the link</param>
         /// <param name="showUnread">The show unread.</param>
         /// <param name="unread">The unread.</param>
         /// <param name="unreadText">The unread text.</param>
@@ -277,22 +276,24 @@ namespace YAF.Controls
             }
 
             // Moderate
-            if (this.PageContext.IsModeratorInAnyForum)
+            if (!this.PageContext.IsModeratorInAnyForum)
             {
-                this.AdminModHolder.Visible = true;
-
-                // Admin
-                RenderMenuItem(
-                    this.menuAdminItems,
-                    "nav-link",
-                    this.GetText("TOOLBAR", "MODERATE"),
-                    this.GetText("TOOLBAR", "MODERATE_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.moderate_index),
-                    false,
-                    this.PageContext.ModeratePosts > 0,
-                    this.PageContext.ModeratePosts.ToString(),
-                    this.GetTextFormatted("TOOLBAR", "MODERATE_NEW", this.PageContext.ModeratePosts));
+                return;
             }
+
+            this.AdminModHolder.Visible = true;
+
+            // Admin
+            RenderMenuItem(
+                this.menuAdminItems,
+                "nav-link",
+                this.GetText("TOOLBAR", "MODERATE"),
+                this.GetText("TOOLBAR", "MODERATE_TITLE"),
+                YafBuildLink.GetLink(ForumPages.moderate_index),
+                false,
+                this.PageContext.ModeratePosts > 0,
+                this.PageContext.ModeratePosts.ToString(),
+                this.GetTextFormatted("TOOLBAR", "MODERATE_NEW", this.PageContext.ModeratePosts));
         }
 
         /// <summary>
@@ -449,7 +450,7 @@ namespace YAF.Controls
             // My Profile
             this.MyProfile.ToolTip = this.GetText("TOOLBAR", "MYPROFILE_TITLE");
             this.MyProfile.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
-            this.MyProfile.Text = $"<i class=\"fa fa-user fa-fw\"></i>  {this.GetText("TOOLBAR", "MYPROFILE")}";
+            this.MyProfile.Text = $"<i class=\"fa fa-address-card fa-fw\"></i>  {this.GetText("TOOLBAR", "MYPROFILE")}";
 
             // My Inbox
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
@@ -464,7 +465,7 @@ namespace YAF.Controls
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
                     this.GetTextFormatted("TOOLBAR", "NEWPM", this.PageContext.UnreadPrivate),
-                    "envelope");
+                    "înbox");
             }
 
             // My Buddies

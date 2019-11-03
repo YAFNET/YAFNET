@@ -165,7 +165,7 @@ namespace YAF.Pages.Admin
                 var userId = this.Request.QueryString.GetFirstOrDefaultAs<int>("u");
                 foreach (RepeaterItem ri in this.AccessList.Items)
                 {
-                    var pageName = ((Label)ri.FindControl("PageName")).Text.Trim();
+                    var pageName = ri.FindControlAs<Label>("PageName").Text.Trim();
 
                     // save it - admin index should be always available
                     if ("admin_admin".ToLowerInvariant() != pageName.ToLowerInvariant())

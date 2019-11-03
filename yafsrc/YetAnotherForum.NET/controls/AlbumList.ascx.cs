@@ -90,7 +90,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void Albums_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            // tha_watcha: TODO: Currently disabled this funtion, until yaf 2.0 build
+            // tha_watcha: TODO: Currently disabled this function, until yaf 2.0 build
             /*var coverImage = (Image)e.Item.FindControl("coverImage");
 
                   if (coverImage == null) return;
@@ -167,11 +167,13 @@ namespace YAF.Controls
                 this.albumsInfo.Visible = true;
             }
 
-            if (this.AddAlbum.Visible)
+            if (!this.AddAlbum.Visible)
             {
-                this.AddAlbum.TextLocalizedPage = "BUTTON";
-                this.AddAlbum.TextLocalizedTag = "BUTTON_ADDALBUM";
+                return;
             }
+
+            this.AddAlbum.TextLocalizedPage = "BUTTON";
+            this.AddAlbum.TextLocalizedTag = "BUTTON_ADDALBUM";
         }
 
         /// <summary>
@@ -191,7 +193,7 @@ namespace YAF.Controls
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumsPerPage;
 
-            // set the Datatable
+            // set the Data table
             var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.UserID);
 
             if (albumListDT == null || !albumListDT.Any())
@@ -201,7 +203,7 @@ namespace YAF.Controls
 
             this.PagerTop.Count = albumListDT.Count;
 
-            // create paged data source for the albumlist
+            // create paged data source for the album list
             var pds = new PagedDataSource
                 {
                     DataSource = albumListDT,

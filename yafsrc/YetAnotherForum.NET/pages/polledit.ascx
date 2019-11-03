@@ -121,7 +121,7 @@
                         <asp:Label runat="server">
 				            <YAF:LocalizedLabel ID="PollGroupListLabel" runat="server" LocalizedTag="pollgroup_list" />
 			            </asp:Label>
-                        <asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="standardSelectMenu" MaxLength="10" />			
+                        <asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="select2-select" MaxLength="10" />			
 		            </div>
                 </asp:PlaceHolder>
             </div>

@@ -29,7 +29,7 @@
     <AssemblyTitle>Lucene.Net.Highlighter</AssemblyTitle>
     <Description>Highlights search keywords in results from the Lucene.Net full-text search engine library from The Apache Software Foundation.</Description>
     <PackageTags>$(PackageTags);highlight;highlighter</PackageTags>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <NoWarn>$(NoWarn);1591;1573</NoWarn>
     <AssemblyName>YAF.Lucene.Net.Highlighter</AssemblyName>
     <RootNamespace>YAF.Lucene.Net.Highlighter</RootNamespace>

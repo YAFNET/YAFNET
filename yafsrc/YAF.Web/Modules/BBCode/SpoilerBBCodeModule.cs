@@ -26,7 +26,6 @@ namespace YAF.Modules
     using System.Text;
     using System.Web.UI;
 
-    using YAF.Core;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
 
@@ -34,32 +33,35 @@ namespace YAF.Modules
     /// The spoiler bb code module.
     /// </summary>
     public class SpoilerBBCodeModule : YafBBCodeControl
-  {
-      /// <summary>
-    /// The render.
-    /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
     {
-      var sb = new StringBuilder();
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render(HtmlTextWriter writer)
+        {
+            var sb = new StringBuilder();
 
-      var spoilerTitle = this.HtmlEncode(this.LocalizedString("SPOILERMOD_TOOLTIP", "Click here to show or hide the hidden text (also known as a spoiler)"));
+            var spoilerTitle = this.HtmlEncode(
+                this.LocalizedString(
+                    "SPOILERMOD_TOOLTIP",
+                    "Click here to show or hide the hidden text (also known as a spoiler)"));
 
-      sb.AppendLine("<!-- BEGIN spoiler -->");
-      sb.AppendLine(@"<div class=""mb-3"">");
-      sb.AppendFormat(
-        @"<input type=""button"" value=""{2}"" class=""btn btn-secondary btn-sm"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' title=""{3}"" /></div><div class=""card card-body"" id=""{1}"" style=""display:none"">", 
-        this.GetUniqueID("spoilerBtn"), 
-        this.GetUniqueID("spoil_"), 
-        this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")), 
-        spoilerTitle);
-      sb.AppendLine(this.Parameters["inner"]);
-      sb.AppendLine("</div>");
-      sb.AppendLine("<!-- END spoiler -->");
+            sb.AppendLine("<!-- BEGIN spoiler -->");
+            sb.AppendLine(@"<div class=""mb-3"">");
+            sb.AppendFormat(
+                @"<input type=""button"" value=""{2}"" class=""btn btn-secondary btn-sm"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' title=""{3}"" /></div><div class=""card card-body"" id=""{1}"" style=""display:none"">",
+                this.GetUniqueID("spoilerBtn"),
+                this.GetUniqueID("spoil_"),
+                this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
+                spoilerTitle);
+            sb.AppendLine(this.Parameters["inner"]);
+            sb.AppendLine("</div>");
+            sb.AppendLine("<!-- END spoiler -->");
 
-      writer.Write(sb.ToString());
+            writer.Write(sb.ToString());
+        }
     }
-  }
 }

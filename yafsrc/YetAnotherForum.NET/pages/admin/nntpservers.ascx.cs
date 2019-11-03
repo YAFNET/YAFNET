@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -73,7 +72,6 @@ namespace YAF.Pages.Admin
         /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             this.InitializeComponent();
             base.OnInit(e);
         }

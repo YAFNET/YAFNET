@@ -217,28 +217,30 @@ namespace YAF.Pages.help
 
             var highlightWords = new List<string> { this.search.Text };
 
-            var searchlist =
+            var searchList =
               this.helpContents.FindAll(
                 check =>
                 check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
                 check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
 
-            foreach (var item in searchlist)
-            {
-                item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
-                  item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
-                item.HelpTitle = this.Get<IFormatMessage>().SurroundWordList(
-                  item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
-            }
+            searchList.ForEach(
+                item =>
+                {
+                    item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
+                        item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
+                    item.HelpTitle = this.Get<IFormatMessage>().SurroundWordList(
+                        item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
+                });
+            
 
-            if (searchlist.Count.Equals(0))
+            if (searchList.Count.Equals(0))
             {
                 this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
 
                 return;
             }
 
-            this.HelpList.DataSource = searchlist;
+            this.HelpList.DataSource = searchList;
             this.HelpList.DataBind();
 
             this.SearchHolder.Visible = false;
@@ -260,7 +262,7 @@ namespace YAF.Pages.help
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath =
-                HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}Resources/{"HelpMenuList.xml"}");
+                HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
 
             if (File.Exists(xmlFilePath))
             {

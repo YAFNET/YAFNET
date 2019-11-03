@@ -378,7 +378,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var deleteAllPosts = (CheckBox)e.Item.FindControl("DeleteAllPosts");
+            var deleteAllPosts = e.Item.FindControlAs<CheckBox>("DeleteAllPosts");
             deleteAllPosts.Checked =
                 deleteAllPosts.Enabled = this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin;
         }

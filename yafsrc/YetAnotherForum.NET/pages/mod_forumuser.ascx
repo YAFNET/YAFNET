@@ -29,13 +29,13 @@
                     <div class="form-group">
                         <asp:DropDownList runat="server" ID="ToList"
                                           Visible="false" 
-                                          CssClass="standardSelectMenu" />
+                                          CssClass="select2-select" />
                     </div>
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="AccessMaskID">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCESSMASK" />
                         </asp:Label>
-                        <asp:DropDownList runat="server" ID="AccessMaskID" CssClass="standardSelectMenu" />
+                        <asp:DropDownList runat="server" ID="AccessMaskID" CssClass="select2-select" />
                     </div>
             </div>
             <div class="card-footer text-center">

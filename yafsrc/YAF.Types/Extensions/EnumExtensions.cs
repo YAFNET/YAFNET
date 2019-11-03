@@ -408,7 +408,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static int ToInt(this Enum value)
         {
-            return Convert.ToInt32(value);
+            return value.ToType<int>();
         }
 
         #endregion

@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Dialogs;
-    using YAF.Web.Controls;
 
-    public partial class bannedip {
-        
+    public partial class bannedip
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -23,8 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -33,8 +30,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// PagerTop control.
@@ -43,8 +39,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerTop;
-        
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -53,8 +48,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
 
         /// <summary>
         /// HelpLabel1 control.
@@ -63,8 +57,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel1;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
 
         /// <summary>
         /// SearchInput control.
@@ -73,8 +66,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox SearchInput;
-        
+        protected global::System.Web.UI.WebControls.TextBox SearchInput;
 
         /// <summary>
         /// search control.
@@ -83,8 +75,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton search;
-        
+        protected global::YAF.Web.Controls.ThemeButton search;
 
         /// <summary>
         /// list control.
@@ -93,8 +84,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater list;
-        
+        protected global::System.Web.UI.WebControls.Repeater list;
 
         /// <summary>
         /// PagerBottom control.
@@ -103,8 +93,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerBottom;
-        
+        protected global::YAF.Web.Controls.Pager PagerBottom;
 
         /// <summary>
         /// ImportDialog control.
@@ -113,8 +102,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected BannedIpImport ImportDialog;
-        
+        protected global::YAF.Dialogs.BannedIpImport ImportDialog;
 
         /// <summary>
         /// EditDialog control.
@@ -123,6 +111,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected BannedIpEdit EditDialog;
+        protected global::YAF.Dialogs.BannedIpEdit EditDialog;
     }
 }

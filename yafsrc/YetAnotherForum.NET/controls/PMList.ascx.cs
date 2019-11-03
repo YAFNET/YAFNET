@@ -97,11 +97,12 @@ namespace YAF.Controls
             {
                 dv.RowFilter = "IsDeleted = False AND IsArchived = False";
 
-                foreach (DataRowView item in dv)
-                {
-                    this.GetRepository<PMessage>().ArchiveMessage(item["UserPMessageID"].ToType<int>());
-                    archivedCount++;
-                }
+                dv.Cast<DataRowView>().ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>().ArchiveMessage(item["UserPMessageID"].ToType<int>());
+                            archivedCount++;
+                        });
             }
 
             this.BindData();
@@ -128,12 +129,14 @@ namespace YAF.Controls
         {
             long archivedCount = 0;
 
-            foreach (var item in this.MessagesView.Rows.Cast<GridViewRow>()
-                .Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
-            {
-                this.GetRepository<PMessage>().ArchiveMessage(this.MessagesView.DataKeys[item.RowIndex].Value);
-                archivedCount++;
-            }
+            this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+                .ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>()
+                                .ArchiveMessage(this.MessagesView.DataKeys[item.RowIndex].Value);
+                            archivedCount++;
+                        });
 
             this.BindData();
             this.ClearCache();
@@ -192,12 +195,13 @@ namespace YAF.Controls
                         break;
                 }
 
-                foreach (DataRowView item in dv)
-                {
-                    this.GetRepository<PMessage>().DeleteMessage(item["UserPMessageID"].ToType<int>());
+                dv.Cast<DataRowView>().ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>().DeleteMessage(item["UserPMessageID"].ToType<int>());
 
-                    itemCount++;
-                }
+                            itemCount++;
+                        });
             }
 
             this.BindData();
@@ -218,14 +222,15 @@ namespace YAF.Controls
         {
             long itemCount = 0;
 
-            foreach (var item in this.MessagesView.Rows.Cast<GridViewRow>()
-                .Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
-            {
-                this.GetRepository<PMessage>()
-                    .DeleteMessage(this.MessagesView.DataKeys[item.RowIndex].Value.ToType<int>());
+            this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+                .ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>().DeleteMessage(
+                                this.MessagesView.DataKeys[item.RowIndex].Value.ToType<int>());
 
-                itemCount++;
-            }
+                            itemCount++;
+                        });
 
             this.BindData();
 
@@ -276,7 +281,7 @@ namespace YAF.Controls
         protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
             var exportPmIds = this.MessagesView.Rows.Cast<GridViewRow>()
-                .Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked)
+                .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
                 .Select(item => (int)this.MessagesView.DataKeys[item.RowIndex].Value).ToList();
 
             var messageList = this.GetMessagesForExport(exportPmIds);
@@ -346,7 +351,7 @@ namespace YAF.Controls
             var dataRowView = dataRow as DataRowView;
             var isRead = dataRowView["IsRead"].ToType<bool>();
 
-            return $"<i class=\"fa fa-{(isRead ? "envelope-open" : "envelope")} fa-2x\"></i>";
+            return $"<i class=\"fa fa-{(isRead ? "envelope-open" : "envelope")} fa-2x text-secondary\"></i>";
         }
 
         /// <summary>
@@ -447,13 +452,14 @@ namespace YAF.Controls
                         break;
                 }
 
-                foreach (DataRowView item in dv)
-                {
-                    this.GetRepository<UserPMessage>().MarkAsRead(item["UserPMessageID"].ToType<int>());
+                dv.Cast<DataRowView>().ForEach(
+                    item =>
+                        {
+                            this.GetRepository<UserPMessage>().MarkAsRead(item["UserPMessageID"].ToType<int>());
 
-                    // Clearing cache with old permissions data...
-                    this.ClearCache();
-                }
+                            // Clearing cache with old permissions data...
+                            this.ClearCache();
+                        });
             }
 
             this.BindData();
@@ -727,7 +733,8 @@ namespace YAF.Controls
         /// </summary>
         private void ClearCache()
         {
-            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
+            this.Get<IDataCache>()
+                .Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
         }
 
         /// <summary>
@@ -763,23 +770,24 @@ namespace YAF.Controls
 
             sw.Write(sw.NewLine);
 
-            foreach (DataRow dr in messageList.Table.Rows)
-            {
-                for (var i = 0; i < columnsCount; i++)
-                {
-                    if (!Convert.IsDBNull(dr[i]))
+            messageList.Table.Rows.Cast<DataRow>().ForEach(
+                dr =>
                     {
-                        sw.Write(dr[i].ToString());
-                    }
+                        for (var i = 0; i < columnsCount; i++)
+                        {
+                            if (!Convert.IsDBNull(dr[i]))
+                            {
+                                sw.Write(dr[i].ToString());
+                            }
 
-                    if (i < columnsCount - 1)
-                    {
-                        sw.Write(",");
-                    }
-                }
+                            if (i < columnsCount - 1)
+                            {
+                                sw.Write(",");
+                            }
+                        }
 
-                sw.Write(sw.NewLine);
-            }
+                        sw.Write(sw.NewLine);
+                    });
 
             sw.Close();
 
@@ -867,10 +875,7 @@ namespace YAF.Controls
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(messageList.Table.DataSet.GetXml());
 
-            foreach (XmlNode node in xmlDocument.ChildNodes)
-            {
-                node.WriteTo(xw);
-            }
+            xmlDocument.ChildNodes.Cast<XmlNode>().ForEach(node => node.WriteTo(xw));
 
             xw.WriteEndDocument();
 
@@ -886,10 +891,10 @@ namespace YAF.Controls
         /// <param name="field">
         /// The field.
         /// </param>
-        /// <param name="asc">
-        /// The asc.
+        /// <param name="ascending">
+        /// The ascending.
         /// </param>
-        private void SetSort([NotNull] string field, bool asc)
+        private void SetSort([NotNull] string field, bool ascending)
         {
             if (this.ViewState["SortField"] != null && (string)this.ViewState["SortField"] == field)
             {
@@ -898,7 +903,7 @@ namespace YAF.Controls
             else
             {
                 this.ViewState["SortField"] = field;
-                this.ViewState["SortAsc"] = asc;
+                this.ViewState["SortAsc"] = ascending;
             }
         }
 

@@ -1,6 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.groups" Codebehind="groups.ascx.cs" %>
-
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
@@ -116,7 +114,7 @@
 					<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="IS_ADMIN" LocalizedPage="ADMIN_GROUPS" />&nbsp;
 					<asp:Label ID="Label4" runat="server" CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>&nbsp;|&nbsp;
 					<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="PMS" LocalizedPage="ADMIN_GROUPS" />&nbsp;
-					 <asp:Label ID="Label6" runat="server" CssClass='<%# this.GetItemColorString(this.Eval("PMLimit").ToType<int>() == int.MaxValue ? "\u221E" : this.Eval("PMLimit").ToString()) %>'><%# Convert.ToInt32(this.Eval("PMLimit")) == int.MaxValue ? "\u221E" : this.Eval("PMLimit").ToString()%></asp:Label>&nbsp;|&nbsp;
+					 <asp:Label ID="Label6" runat="server" CssClass='<%# this.GetItemColorString(this.Eval("PMLimit").ToType<int>() == int.MaxValue ? "\u221E" : this.Eval("PMLimit").ToString()) %>'><%# this.Eval("PMLimit").ToType<int>() == int.MaxValue ? "\u221E" : this.Eval("PMLimit").ToString()%></asp:Label>&nbsp;|&nbsp;
                     <br />
                     <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
                     <asp:Label ID="Label9" runat="server" CssClass='<%# this.GetItemColorString(this.Eval( "UsrAlbums" ).ToString()) %>'><%# this.Eval("UsrAlbums").ToString()%></asp:Label>&nbsp;|&nbsp;

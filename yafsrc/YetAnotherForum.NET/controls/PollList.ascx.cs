@@ -35,7 +35,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -210,8 +209,7 @@ namespace YAF.Controls
                 // Only if show buttons are enabled user can edit poll 
                 return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
                                                                      || this.PageContext.PageUserID
-                                                                     == this._dtPollGroupAllChoices.Rows[0][
-                                                                         "GroupUserID"].ToType<int>()
+                                                                     == this._dtPollGroupAllChoices.Rows[0]["GroupUserID"].ToType<int>()
                                                                      && this.PollHasNoVotes(pollId)
                                                                      && !this.IsPollClosed(pollId));
             }
@@ -329,13 +327,14 @@ namespace YAF.Controls
                     return ts.TotalDays.ToType<int>();
                 }
 
-                if (ts.TotalSeconds > 0)
+                if (!(ts.TotalSeconds > 0))
                 {
-                    soon = true;
-                    return 1;
+                    return 0;
                 }
 
-                return 0;
+                soon = true;
+                return 1;
+
             }
 
             return null;

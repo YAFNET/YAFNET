@@ -36,7 +36,7 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="to" />
                         </asp:Label>
                         <asp:TextBox ID="To" runat="server" CssClass="form-control" />
-                        <asp:DropDownList runat="server" ID="ToList" Visible="false" CssClass="standardSelectMenu" />
+                        <asp:DropDownList runat="server" ID="ToList" Visible="false" CssClass="select2-select" />
                         <div class="btn-group mt-3">
                         <YAF:ThemeButton runat="server" ID="FindUsers" 
                                          Size="Small" 

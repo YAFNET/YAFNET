@@ -418,10 +418,10 @@ namespace YAF.Pages
 
                 foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
                 {
-                    var choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-                    var chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
+                    var choice = ((TextBox)ri.FindControlAs<TextBox>("PollChoice")).Text.Trim();
+                    var chid = ((HiddenField)ri.FindControlAs<HiddenField>("PollChoiceID")).Value;
 
-                    var choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+                    var choiceObjectPath = ((TextBox)ri.FindControlAs<TextBox>("ObjectPath")).Text.Trim();
 
                     var choiceImageMime = string.Empty;
 
@@ -522,7 +522,7 @@ namespace YAF.Pages
                 
                 foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
                 {
-                    var choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+                    var choiceObjectPath = ri.FindControlAs<TextBox>("ObjectPath").Text.Trim();
 
                     var choiceObjectMime = string.Empty;
 
@@ -548,7 +548,7 @@ namespace YAF.Pages
                         }
                     }
 
-                    rawChoices[0, j] = HtmlHelper.StripHtml(((TextBox)ri.FindControl("PollChoice")).Text.Trim());
+                    rawChoices[0, j] = HtmlHelper.StripHtml(((TextBox)ri.FindControlAs<TextBox>("PollChoice")).Text.Trim());
                     rawChoices[1, j] = choiceObjectPath;
                     rawChoices[2, j] = choiceObjectMime;
                     j++;
@@ -600,7 +600,7 @@ namespace YAF.Pages
             this._choices = this.GetRepository<Poll>().StatsAsDataTable(pollID);
             this._choices.Columns.Add("ChoiceOrderID", typeof(int));
 
-            // First existing values alway 1!
+            // First existing values always 1!
             var existingRowsCount = 1;
             var allExistingRowsCount = this._choices.Rows.Count;
 

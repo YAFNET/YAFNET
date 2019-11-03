@@ -31,7 +31,6 @@ namespace YAF.Pages
 
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;

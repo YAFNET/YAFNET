@@ -113,18 +113,18 @@ namespace YAF.Controls
                 case "remove":
                     this.PageContext.AddLoadMessage(
                         string.Format(
-                            this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IBuddy>().Remove(Convert.ToInt32(e.CommandArgument))));
+                            this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IBuddy>().Remove(e.CommandArgument.ToType<int>())));
                     this.CurrentUserID = this.PageContext.PageUserID;
                     break;
                 case "approve":
                     this.PageContext.AddLoadMessage(
                         string.Format(
-                            this.GetText("NOTIFICATION_BUDDYAPPROVED"), this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), false)));
+                            this.GetText("NOTIFICATION_BUDDYAPPROVED"), this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), false)));
                     break;
                 case "approveadd":
                     this.PageContext.AddLoadMessage(
                         string.Format(
-                            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), this.Get<IBuddy>().ApproveRequest(Convert.ToInt32(e.CommandArgument), true)));
+                            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), true)));
                     break;
                 case "approveall":
                     this.Get<IBuddy>().ApproveAllRequests(false);
@@ -135,7 +135,7 @@ namespace YAF.Controls
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"));
                     break;
                 case "deny":
-                    this.Get<IBuddy>().DenyRequest(Convert.ToInt32(e.CommandArgument));
+                    this.Get<IBuddy>().DenyRequest(e.CommandArgument.ToType<int>());
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYDENIED"));
                     break;
                 case "denyall":

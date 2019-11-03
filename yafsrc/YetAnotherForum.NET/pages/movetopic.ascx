@@ -25,7 +25,7 @@
                     <asp:DropDownList ID="ForumList" runat="server"
                                       DataValueField="ForumID" 
                                       DataTextField="Title" 
-                                      CssClass="standardSelectMenu" />
+                                      CssClass="select2-select" />
                 </div>
                 <asp:PlaceHolder id="trLeaveLink" runat="server">
                     <div class="form-check">

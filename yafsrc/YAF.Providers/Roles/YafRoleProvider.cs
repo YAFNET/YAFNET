@@ -387,7 +387,7 @@ namespace YAF.Providers.Roles
             var exists = DB.Current.GetRoleExists(this.ApplicationName, roleName);
 
             // if there are any rows then this role exists...
-            if (Convert.ToInt32(exists) > 0)
+            if (exists.ToType<int>() > 0)
             {
                 return true;
             }

@@ -7,11 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.WebControls;
+namespace YAF.Controls
+{
 
-    public partial class ForumList {
-        
+
+    public partial class ForumList
+    {
 
         /// <summary>
         /// ForumList1 control.
@@ -20,6 +21,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater ForumList1;
+        protected global::System.Web.UI.WebControls.Repeater ForumList1;
     }
 }

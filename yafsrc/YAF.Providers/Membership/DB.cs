@@ -354,7 +354,7 @@ namespace YAF.Providers.Membership
                 p.Direction = ParameterDirection.ReturnValue;
                 cmd.Parameters.Add(p);
                 this.DbAccess.ExecuteNonQuery(cmd);
-                return Convert.ToInt32(cmd.Parameters["ReturnValue"].Value);
+                return cmd.Parameters["ReturnValue"].Value.ToType<int>();
             }
         }
 
@@ -555,7 +555,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.Add(p);
 
                 this.DbAccess.ExecuteNonQuery(cmd); // Execute Non SQL Query
-                return Convert.ToInt32(p.Value); // Return
+                return p.Value.ToType<int>(); // Return
             }
         }
 

@@ -105,7 +105,7 @@
                 <YAF:CountryImageListBox runat="server" ID="Country" 
                                          AutoPostBack="true" 
                                          OnTextChanged="LookForNewRegions"
-                                         CssClass="selectpicker custom-select" />
+                                         CssClass="select2-image-select" />
         
             </div>
             <asp:PlaceHolder id="RegionTr" visible="false" runat="server">
@@ -116,7 +116,7 @@
                                             LocalizedTag="REGION" />
                     </asp:Label>
                     <asp:DropDownList ID="Region" runat="server" 
-                                      CssClass="standardSelectMenu custom-select" />
+                                      CssClass="select2-select" />
                 </div>
             </asp:PlaceHolder>
             <div class="form-group col-md-4">

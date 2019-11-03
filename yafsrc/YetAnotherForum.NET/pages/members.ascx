@@ -43,14 +43,14 @@
                                         <asp:Label runat="server" AssociatedControlID="Group">
                                             <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" LocalizedTag="Search_Role" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="Group" runat="server" CssClass="standardSelectMenu">
+                                        <asp:DropDownList ID="Group" runat="server" CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Ranks">
                                             <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" LocalizedTag="Search_Rank" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="Ranks" runat="server" CssClass="standardSelectMenu">
+                                        <asp:DropDownList ID="Ranks" runat="server" CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                         <asp:Label runat="server" AssociatedControlID="NumPostDDL">
                                             <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" LocalizedTag="NUMPOSTS" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="NumPostDDL" runat="server" CssClass="standardSelectMenu">
+                                        <asp:DropDownList ID="NumPostDDL" runat="server" CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group col-md-6">

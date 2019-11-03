@@ -40,6 +40,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -62,9 +63,9 @@ namespace YAF.Pages.Admin
         {
             // get checked items....
             return (from RepeaterItem item in this.bbCodeList.Items
-                    let sel = (CheckBox)item.FindControl("chkSelected")
+                    let sel = item.FindControlAs<CheckBox>("chkSelected")
                     where sel.Checked
-                    select (HiddenField)item.FindControl("hiddenBBCodeID") into hiddenId
+                    select item.FindControlAs<HiddenField>("hiddenBBCodeID") into hiddenId
                     select hiddenId.Value.ToType<int>()).ToList();
         }
 

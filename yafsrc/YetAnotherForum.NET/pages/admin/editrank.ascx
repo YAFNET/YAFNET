@@ -137,7 +137,7 @@
                         <YAF:HelpLabel ID="HelpLabel14" runat="server"
                                        AssociatedControlID="RankImage"
                                        LocalizedTag="RANK_IMAGE" LocalizedPage="ADMIN_EDITRANK" />
-                        <YAF:ImageListBox ID="RankImage" runat="server" CssClass="selectpicker custom-select" />
+                        <YAF:ImageListBox ID="RankImage" runat="server" CssClass="select2-image-select" />
                     </div>
                 </div>
                 <div class="card-footer text-center">

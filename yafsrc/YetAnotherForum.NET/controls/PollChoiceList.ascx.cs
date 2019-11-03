@@ -33,7 +33,6 @@ namespace YAF.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -222,11 +221,11 @@ namespace YAF.Controls
             var cookieCurrent = string.Empty;
 
             // We check whether is a vote for an option  
-            if (this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))] != null)
+            if (this.Request.Cookies[VotingCookieName(this.PollId.ToType<int>())] != null)
             {
                 // Add the voted option to cookie value string
-                cookieCurrent = $"{this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))].Value},";
-                this.Request.Cookies.Remove(VotingCookieName(Convert.ToInt32(this.PollId)));
+                cookieCurrent = $"{this.Request.Cookies[VotingCookieName(this.PollId.ToType<int>())].Value},";
+                this.Request.Cookies.Remove(VotingCookieName(this.PollId.ToType<int>()));
             }
 
             var c = new HttpCookie(
@@ -312,7 +311,6 @@ namespace YAF.Controls
             // Don't render if it's a standard image
             if (!drowv.Row["ObjectPath"].IsNullOrEmptyDBField())
             {
-                // choiceAnchor.Title = drowv.Row["ObjectPath"].ToString();
                 choiceImage.Src = this.HtmlEncode(drowv.Row["ObjectPath"].ToString());
 
                 if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
@@ -321,7 +319,7 @@ namespace YAF.Controls
                     var imageWidth = 80;
 
                     choiceImage.Width = imageWidth;
-                    choiceImage.Height = Convert.ToInt32(choiceImage.Width / aspect);
+                    choiceImage.Height = (choiceImage.Width / aspect).ToType<int>();
 
                     choiceImage.Attributes["style"] = $"width:{imageWidth}px; height:{choiceImage.Height}px;";
                 }
@@ -361,14 +359,14 @@ namespace YAF.Controls
         /// </returns>
         private static decimal GetImageAspect([NotNull] object mimeType)
         {
-            if (!mimeType.IsNullOrEmptyDBField())
+            if (mimeType.IsNullOrEmptyDBField())
             {
-                var attrs = mimeType.ToString().Split('!')[1].Split(';');
-                var width = attrs[0].ToType<decimal>();
-                return width / attrs[1].ToType<decimal>();
+                return 1;
             }
 
-            return 1;
+            var attrs = mimeType.ToString().Split('!')[1].Split(';');
+            var width = attrs[0].ToType<decimal>();
+            return width / attrs[1].ToType<decimal>();
         }
 
         /// <summary>

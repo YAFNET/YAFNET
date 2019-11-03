@@ -29,7 +29,6 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.Security;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;

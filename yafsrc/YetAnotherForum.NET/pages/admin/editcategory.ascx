@@ -44,7 +44,7 @@
                                        AssociatedControlID="CategoryImages"
                                        LocalizedTag="CATEGORY_IMAGE" LocalizedPage="ADMIN_EDITCATEGORY" />
                         <YAF:ImageListBox ID="CategoryImages" runat="server" 
-                                          CssClass="selectpicker custom-select"/>
+                                          CssClass="select2-image-select"/>
                     </div>
                 </div>
                 <div class="card-footer text-center">

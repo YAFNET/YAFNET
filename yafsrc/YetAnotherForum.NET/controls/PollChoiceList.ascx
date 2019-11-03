@@ -1,6 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="PollChoiceList.ascx.cs"
     Inherits="YAF.Controls.PollChoiceList" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 

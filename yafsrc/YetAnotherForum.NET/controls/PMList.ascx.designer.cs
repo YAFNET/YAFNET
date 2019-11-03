@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.WebControls;
+namespace YAF.Controls
+{
 
-    using YAF.Web.Controls;
 
-    public partial class PMList {
-        
+    public partial class PMList
+    {
 
         /// <summary>
         /// PagerTop control.
@@ -22,8 +21,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerTop;
-        
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
         /// MobileInfo control.
@@ -32,8 +30,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Alert MobileInfo;
-        
+        protected global::YAF.Web.Controls.Alert MobileInfo;
 
         /// <summary>
         /// LocalizedLabel220 control.
@@ -42,8 +39,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel220;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel220;
 
         /// <summary>
         /// MessagesView control.
@@ -52,8 +48,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected GridView MessagesView;
-        
+        protected global::System.Web.UI.WebControls.GridView MessagesView;
 
         /// <summary>
         /// PagerBottom control.
@@ -62,8 +57,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerBottom;
-        
+        protected global::YAF.Web.Controls.Pager PagerBottom;
 
         /// <summary>
         /// lblExportType control.
@@ -72,8 +66,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label lblExportType;
-        
+        protected global::System.Web.UI.WebControls.Label lblExportType;
 
         /// <summary>
         /// ExportType control.
@@ -82,8 +75,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RadioButtonList ExportType;
-        
+        protected global::System.Web.UI.WebControls.RadioButtonList ExportType;
 
         /// <summary>
         /// PMInfoLink control.
@@ -92,6 +84,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label PMInfoLink;
+        protected global::System.Web.UI.WebControls.Label PMInfoLink;
     }
 }

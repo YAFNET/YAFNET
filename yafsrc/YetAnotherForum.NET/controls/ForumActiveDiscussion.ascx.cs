@@ -78,12 +78,12 @@ namespace YAF.Controls
 
             // get the controls
             var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
-            var textMessageLink = (HyperLink)e.Item.FindControl("TextMessageLink");
+            var textMessageLink = e.Item.FindControlAs<HyperLink>("TextMessageLink");
             var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
             var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
-            var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
-            var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
-            var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
+            var lastUserLink = e.Item.FindControlAs<UserLink>("LastUserLink");
+            var lastPostedDateLabel = e.Item.FindControlAs<DisplayDateTime>("LastPostDate");
+            var forumLink = e.Item.FindControlAs<HyperLink>("ForumLink");
             imageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
@@ -131,18 +131,10 @@ namespace YAF.Controls
 
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                        forumId: currentRow["ForumID"].ToType<int>(),
-                        topicId: currentRow["TopicID"].ToType<int>(),
-                        forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                        topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
-
-                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                {
-                    this.Get<IYafSession>().UnreadTopics++;
-
-                    var newMessage = e.Item.FindControlAs<Label>("NewMessage");
-                    newMessage.Visible = true;
-                }
+                        currentRow["ForumID"].ToType<int>(),
+                        currentRow["TopicID"].ToType<int>(),
+                        currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                        currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
                 postIcon.Controls.Add(
                     new Literal
@@ -187,23 +179,23 @@ namespace YAF.Controls
                 if (YafContext.Current.Settings.CategoryID > 0)
                 {
                     activeTopics = this.GetRepository<Topic>().LatestInCategoryAsDataTable(
-                        boardId: this.PageContext.PageBoardID,
-                        categoryId: YafContext.Current.Settings.CategoryID,
-                        numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
-                        pageUserId: this.PageContext.PageUserID,
-                        useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
-                        showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                        findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.PageBoardID,
+                        YafContext.Current.Settings.CategoryID,
+                        this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        this.PageContext.PageUserID,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                 }
                 else
                 {
                     activeTopics = this.GetRepository<Topic>().LatestAsDataTable(
-                        boardId: this.PageContext.PageBoardID,
-                        numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
-                        pageUserId: this.PageContext.PageUserID,
-                        useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
-                        showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                        findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.PageBoardID,
+                        this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        this.PageContext.PageUserID,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                 }
 
                 // Set colorOnly parameter to true, as we get all but color from css in the place

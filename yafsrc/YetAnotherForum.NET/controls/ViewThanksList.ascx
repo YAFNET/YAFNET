@@ -1,7 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.ViewThanksList"
     CodeBehind="ViewThanksList.ascx.cs" %>
-
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>

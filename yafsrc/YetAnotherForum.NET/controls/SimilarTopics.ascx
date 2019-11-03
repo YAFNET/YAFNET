@@ -2,7 +2,6 @@
     Inherits="YAF.Controls.SimilarTopics" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 
 <asp:PlaceHolder id="SimilarTopicsHolder" runat="server" Visible="true">

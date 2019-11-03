@@ -6906,6 +6906,8 @@ td.tablesorter-pager {
   background-color: #fff;
   filter: alpha(opacity=0); }
 
+.select2-image-select,
+.select2-select,
 .select2-hidden-accessible {
   border: 0 !important;
   clip: rect(0 0 0 0) !important;
@@ -8303,10 +8305,10 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   max-width: max-content; }
 
 /* Select Drop downs */
-.standardSelectMenu-Icon {
+.select2-image-select-icon {
   margin-left: 4px;
   padding-right: 5px; }
-  .standardSelectMenu-Icon img {
+  .select2-image-select-icon img {
     max-height: 20px;
     max-width: 20px; }
 

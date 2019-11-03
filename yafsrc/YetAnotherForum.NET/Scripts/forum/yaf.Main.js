@@ -42,7 +42,7 @@ jQuery(document).ready(function () {
         max: 720
     });
 
-    $(".yaf-net .standardSelectMenu").each(function () {
+    $(".yaf-net .select2-select").each(function () {
         $(this).select2({
             theme: "bootstrap4",
             dropdownAutoWidth: true,
@@ -51,7 +51,7 @@ jQuery(document).ready(function () {
         });
     });
 
-    jQuery(".yaf-net .selectpicker").select2({
+    jQuery(".yaf-net .select2-image-select").select2({
         theme: "bootstrap4",
         dropdownAutoWidth: true,
         templateResult: formatState,

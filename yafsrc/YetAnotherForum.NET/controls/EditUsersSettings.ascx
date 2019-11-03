@@ -27,7 +27,7 @@
     <asp:DropDownList runat="server" ID="TimeZones" 
                       DataTextField="Name" 
                       DataValueField="Value" 
-                      CssClass="standardSelectMenu custom-select" />
+                      CssClass="select2-select" />
 </div>
     <asp:PlaceHolder runat="server" id="UserThemeRow">
         <div class="form-group">
@@ -36,7 +36,7 @@
                                 LocalizedPage="CP_EDITPROFILE"
                                 LocalizedTag="SELECT_THEME" />
         </asp:Label>
-        <asp:DropDownList runat="server" ID="Theme" CssClass="standardSelectMenu custom-select" />
+        <asp:DropDownList runat="server" ID="Theme" CssClass="select2-select" />
         </div>
     </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="TrTextEditors">
@@ -47,7 +47,7 @@
         </asp:Label>
         
          <asp:DropDownList ID="ForumEditor" runat="server" 
-                           CssClass="standardSelectMenu custom-select"
+                           CssClass="select2-select"
                            DataValueField="Value" 
                            DataTextField="Name">
          </asp:DropDownList>
@@ -60,7 +60,7 @@
                                 LocalizedPage="CP_EDITPROFILE"
                                 LocalizedTag="SELECT_LANGUAGE" />
         </asp:Label>
-        <asp:DropDownList runat="server" ID="Culture" CssClass="standardSelectMenu custom-select" />
+        <asp:DropDownList runat="server" ID="Culture" CssClass="select2-select" />
         </div>
     </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">

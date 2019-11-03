@@ -27,9 +27,9 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Text;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -62,27 +62,32 @@ namespace YAF.Controls
 
             var userID = Security.StringToIntOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
-            using (var dt2 = this.GetRepository<ForumAccess>().UserAccessMasksAsDataTable(this.PageContext.PageBoardID, userID))
+            using (var dt2 = this.GetRepository<ForumAccess>()
+                .UserAccessMasksAsDataTable(this.PageContext.PageBoardID, userID))
             {
                 var html = new StringBuilder();
                 var lastForumId = 0;
-                foreach (DataRow row in dt2.Rows)
-                {
-                    if (lastForumId != row["ForumID"].ToType<int>())
-                    {
-                        if (lastForumId != 0)
+
+                dt2.Rows.Cast<DataRow>().ForEach(
+                    row =>
                         {
-                            html.AppendFormat("</li>");
-                        }
+                            if (lastForumId != row["ForumID"].ToType<int>())
+                            {
+                                if (lastForumId != 0)
+                                {
+                                    html.AppendFormat("</li>");
+                                }
 
-                        html.AppendFormat(
-                            "<li class=\"list-group-item\"><span class=\"font-weight-bold\">{0}:</span>&nbsp;",
-                            this.HtmlEncode(row["ForumName"]));
-                        lastForumId = row["ForumID"].ToType<int>();
-                    }
+                                html.AppendFormat(
+                                    "<li class=\"list-group-item\"><span class=\"font-weight-bold\">{0}:</span>&nbsp;",
+                                    this.HtmlEncode(row["ForumName"]));
+                                lastForumId = row["ForumID"].ToType<int>();
+                            }
 
-                    html.AppendFormat("<span class=\"badge badge-pill badge-info mr-1\">{0}</span>", row["AccessMaskName"]);
-                }
+                            html.AppendFormat(
+                                "<span class=\"badge badge-pill badge-info mr-1\">{0}</span>",
+                                row["AccessMaskName"]);
+                        });
 
                 if (lastForumId != 0)
                 {

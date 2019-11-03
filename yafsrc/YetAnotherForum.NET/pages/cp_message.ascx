@@ -27,7 +27,7 @@
 
                 <span class="font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                    LocalizedTag="FROM" />:</span>
-                <YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# Convert.ToInt32(this.Eval( "FromUserID" )) %>' />
+                <YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# this.Eval("FromUserID").ToType<int>() %>' />
             </span>
                     </div>
                     <div class="card-body">

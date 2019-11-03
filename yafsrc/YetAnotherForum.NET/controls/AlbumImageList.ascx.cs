@@ -108,21 +108,23 @@ namespace YAF.Controls
 
             var setCover = e.Item.FindControlAs<ThemeButton>("SetCover");
 
-            if (setCover != null)
+            if (setCover == null)
             {
-                // Is this the cover image?
-                if (setCover.CommandArgument == this._coverImageID)
-                {
-                    setCover.TextLocalizedTag = "BUTTON_RESETCOVER";
-                    setCover.Type = ButtonAction.Danger;
-                    setCover.Icon = "trash";
-                }
-                else
-                {
-                    setCover.TextLocalizedTag = "BUTTON_SETCOVER";
-                    setCover.Type = ButtonAction.Success;
-                    setCover.Icon = "tag";
-                }
+                return;
+            }
+
+            // Is this the cover image?
+            if (setCover.CommandArgument == this._coverImageID)
+            {
+                setCover.TextLocalizedTag = "BUTTON_RESETCOVER";
+                setCover.Type = ButtonAction.Danger;
+                setCover.Icon = "trash";
+            }
+            else
+            {
+                setCover.TextLocalizedTag = "BUTTON_SETCOVER";
+                setCover.Type = ButtonAction.Success;
+                setCover.Icon = "tag";
             }
         }
 

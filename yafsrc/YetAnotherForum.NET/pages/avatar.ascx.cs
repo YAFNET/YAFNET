@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -105,7 +106,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var dirName = e.Item.FindControl("dirName") as LinkButton;
+            var dirName = e.Item.FindControlAs<LinkButton>("dirName");
             dirName.CommandArgument = directory + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
             dirName.Text =
                 string
@@ -122,7 +123,7 @@ namespace YAF.Pages
         {
             var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
 
-            var fname = (Literal)e.Item.FindControl("fname");
+            var fname = e.Item.FindControlAs<Literal>("fname");
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
@@ -176,7 +177,7 @@ namespace YAF.Pages
             // get the previous directory...
             var previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
 
-            var up = e.Item.FindControl("up") as LinkButton;
+            var up = e.Item.FindControlAs<LinkButton>("up");
             up.CommandArgument = previousDirectory;
             up.Text = $@"<p style=""text-align:center"">
                      <i class=""far fa-folder-open""style=""font-size:50px""></i><br />

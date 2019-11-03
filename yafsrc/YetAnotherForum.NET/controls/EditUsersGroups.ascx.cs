@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -106,7 +105,7 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -143,14 +142,14 @@ namespace YAF.Controls
                 var item = this.UserGroups.Items[i];
 
                 // get role ID from it
-                var roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
+                var roleID = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
                 // get role name
                 var roleName = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID, groupId: roleID)
                     .FirstOrDefault().Name;
 
                 // is user supposed to be in that role?
-                var isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
+                var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;
 
                 // save user in role
                 this.GetRepository<UserGroup>().Save(this.CurrentUserID, roleID, isChecked);
@@ -179,7 +178,7 @@ namespace YAF.Controls
                     removedRoles.Add(roleName);
                 }
 
-                // Clearing cache with old permisssions data...
+                // Clearing cache with old permissions data...
                 this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID));
             }
 

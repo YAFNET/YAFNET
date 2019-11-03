@@ -1,7 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.ranks" Codebehind="ranks.ascx.cs" %>
-
-
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Flags" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>

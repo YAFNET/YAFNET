@@ -27,7 +27,6 @@ namespace YAF.Web.Controls
 
     using System.Web.UI;
 
-    using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;

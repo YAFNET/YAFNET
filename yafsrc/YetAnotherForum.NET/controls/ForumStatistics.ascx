@@ -3,9 +3,8 @@
 
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <div class="row">
             <asp:PlaceHolder runat="server" ID="InformationPlaceHolder">
-                <div class="col-md-6">
+                <div class="col">
                     <div class="row">
                         <div class="col">
                             <div class="card mb-3">
@@ -58,8 +57,7 @@
                     </div>
                 </div>
             </asp:PlaceHolder>
-
-            <div class="col-md-6">
+        <div class="col">
                 <div class="card mb-3">
                     <div class="card-header d-flex align-items-center">
                         <span class="fa-stack">
@@ -108,6 +106,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </ContentTemplate>
 </asp:UpdatePanel>

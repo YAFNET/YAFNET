@@ -23,7 +23,9 @@
 
 <div class="row">
     <div class="col">
-        <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
-        <YAF:ForumStatistics ID="ForumStats" runat="Server" />
+        <div class="row">
+            <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
+            <YAF:ForumStatistics ID="ForumStats" runat="Server" />
+        </div>
     </div>
 </div>

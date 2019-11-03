@@ -27,7 +27,6 @@ namespace YAF.Modules
 
   using System;
 
-  using YAF.Core;
   using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Attributes;

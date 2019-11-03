@@ -29,7 +29,7 @@
     <AssemblyTitle>Lucene.Net.Analysis.Common</AssemblyTitle>
     <Description>Analyzers for indexing content in different languages and domains for the Lucene.Net full-text search engine library from The Apache Software Foundation.</Description>
     <PackageTags>$(PackageTags);analysis</PackageTags>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <NoWarn>$(NoWarn);1591;1573</NoWarn>
     <AssemblyName>YAF.Lucene.Net.Analysis.Common</AssemblyName>
     <RootNamespace>YAF.Lucene.Net.Analysis.Common</RootNamespace>

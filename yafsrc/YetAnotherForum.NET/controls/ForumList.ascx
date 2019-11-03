@@ -1,6 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.ForumList"
 	EnableViewState="false" Codebehind="ForumList.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="ForumLastPost.ascx" %>

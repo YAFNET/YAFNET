@@ -52,7 +52,7 @@ namespace YAF.Web.Controls
             this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
                 item => item.Attributes.Add(
                     "data-content",
-                    $"<span class=\"flag-icon flag-icon-{item.Value.ToLower()} standardSelectMenu-Icon\" /><span>&nbsp;{item.Text}</span>"));
+                    $"<span class=\"flag-icon flag-icon-{item.Value.ToLower()} select2-image-select-icon\" /><span>&nbsp;{item.Text}</span>"));
             
             base.Render(writer);
         }

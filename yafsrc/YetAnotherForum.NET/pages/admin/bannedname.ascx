@@ -1,6 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.bannedname" Codebehind="bannedname.ascx.cs" %>
 
-<%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 

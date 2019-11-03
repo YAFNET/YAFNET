@@ -32,6 +32,7 @@ namespace YAF.Data.MsSql
     using YAF.Configuration;
     using YAF.Core.Data;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -173,10 +174,7 @@ namespace YAF.Data.MsSql
 
             var connBuilder = new SqlConnectionStringBuilder();
 
-            foreach (var param in parameters)
-            {
-                connBuilder[param.Name] = param.Value;
-            }
+            parameters.ForEach(param => connBuilder[param.Name] = param.Value);
 
             return connBuilder.ConnectionString;
         }

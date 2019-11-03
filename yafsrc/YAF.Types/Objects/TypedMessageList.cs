@@ -28,6 +28,7 @@ namespace YAF.Types.Objects
     using System;
     using System.Data;
 
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
 
     #endregion
@@ -57,7 +58,7 @@ namespace YAF.Types.Objects
             this.TopicID = row.Field<int?>("TopicID");
             this.ForumID = row.Field<int?>("ForumID");
             this.Topic = row.Field<string>("Topic");
-            this.Priority = Convert.ToInt32(row["Priority"]);
+            this.Priority = row["Priority"].ToType<int>();
             this.Flags = new MessageFlags(row.Field<int?>("Flags") ?? 0);
             this.TopicOwnerID = row.Field<int?>("TopicOwnerID");
             this.Edited = row.Field<DateTime?>("Edited");

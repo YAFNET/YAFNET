@@ -46,7 +46,7 @@
             <ContentTemplate>
                 <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-envelope fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="INBOX" />
+                    <i class="fa fa-inbox fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="INBOX" />
                 </div>
                 <div class="card-body">
 							<YAF:PMList runat="server" View="Inbox" ID="InboxPMList" />
@@ -61,7 +61,7 @@
             <ContentTemplate>
                 <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-envelope fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="SENTITEMS" />
+                    <i class="fa fa-inbox fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="SENTITEMS" />
                 </div>
                 <div class="card-body">
 							<YAF:PMList runat="server" View="Outbox" ID="OutboxPMList" />
@@ -77,7 +77,7 @@
             <ContentTemplate>
                 <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-envelope fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="ARCHIVE" />
+                    <i class="fa fa-inbox fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="ARCHIVE" />
                 </div>
                 <div class="card-body">
 							<YAF:PMList runat="server" View="Archive" ID="ArchivePMList" />

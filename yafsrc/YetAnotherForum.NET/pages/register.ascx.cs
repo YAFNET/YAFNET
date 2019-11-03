@@ -240,7 +240,7 @@ namespace YAF.Pages
                 {
                     // get the user email
                     var emailTextBox =
-                        (TextBox)this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email");
+                        this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControlAs<TextBox>("Email");
                     var email = emailTextBox.Text.Trim();
 
                     this.Get<ISendNotification>().SendVerificationEmail(user, email, userID);
@@ -783,12 +783,12 @@ namespace YAF.Pages
             var confirmPasswordRequired =
                 this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>("ConfirmPasswordRequired");
             var emailRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>("EmailRequired");
-            var emailValid = (RegularExpressionValidator)this.CreateUserStepContainer.FindControl("EmailValid");
+            var emailValid = this.CreateUserStepContainer.FindControlAs<RegularExpressionValidator>("EmailValid");
 
             var questionRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>(
                 "QuestionRequired");
             var answerRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>("AnswerRequired");
-            var createUser = (Button)this.CreateUserStepContainer.FindControl("StepNextButton");
+            var createUser = this.CreateUserStepContainer.FindControlAs<Button>("StepNextButton");
 
             usernameRequired.ToolTip = usernameRequired.ErrorMessage = this.GetText("NEED_USERNAME");
             passwordRequired.ToolTip = passwordRequired.ErrorMessage = this.GetText("NEED_PASSWORD");
@@ -799,8 +799,8 @@ namespace YAF.Pages
             answerRequired.ToolTip = answerRequired.ErrorMessage = this.GetText("NEED_ANSWER");
             createUser.ToolTip = createUser.Text = this.GetText("CREATE_USER");
 
-            var captchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("YafCaptchaHolder");
-            var recaptchaPlaceHolder = (PlaceHolder)this.CreateUserStepContainer.FindControl("RecaptchaPlaceHolder");
+            var captchaPlaceHolder = this.CreateUserStepContainer.FindControlAs<PlaceHolder>("YafCaptchaHolder");
+            var recaptchaPlaceHolder = this.CreateUserStepContainer.FindControlAs<PlaceHolder>("RecaptchaPlaceHolder");
 
             if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 1)
             {
@@ -826,7 +826,7 @@ namespace YAF.Pages
             SetupDisplayNameUI(this.CreateUserStepContainer, this.Get<YafBoardSettings>().EnableDisplayName);
 
             var questionAnswerPlaceHolder =
-                (PlaceHolder)this.CreateUserStepContainer.FindControl("QuestionAnswerPlaceHolder");
+                this.CreateUserStepContainer.FindControlAs<PlaceHolder>("QuestionAnswerPlaceHolder");
             questionAnswerPlaceHolder.Visible = this.Get<MembershipProvider>().RequiresQuestionAndAnswer;
         }
 

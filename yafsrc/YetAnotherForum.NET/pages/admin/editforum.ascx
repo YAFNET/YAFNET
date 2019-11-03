@@ -154,7 +154,7 @@
                                    AssociatedControlID="ForumImages"
                                    LocalizedTag="FORUM_IMAGE" LocalizedPage="ADMIN_EDITFORUM" />
                     <YAF:ImageListBox ID="ForumImages" runat="server" 
-                                      CssClass="selectpicker custom-select" />
+                                      CssClass="select2-image-select" />
                 </div>
                 <div class="form-group">
                     <YAF:HelpLabel ID="HelpLabel6" runat="server" 

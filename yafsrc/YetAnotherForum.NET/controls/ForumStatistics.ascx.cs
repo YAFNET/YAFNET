@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Threading;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;

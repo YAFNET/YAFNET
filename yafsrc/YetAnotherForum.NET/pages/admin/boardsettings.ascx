@@ -36,7 +36,7 @@
                 <YAF:HelpLabel ID="HelpLabel14" runat="server"
                                AssociatedControlID="BoardLogo"
                                LocalizedTag="BOARD_LOGO" LocalizedPage="ADMIN_BOARDSETTINGS" />
-                <YAF:ImageListBox ID="BoardLogo" runat="server" CssClass="selectpicker custom-select" />
+                <YAF:ImageListBox ID="BoardLogo" runat="server" CssClass="select2-image-select" />
             </div>
         <div class="form-group">
                 <YAF:HelpLabel ID="HelpLabel5" runat="server"
@@ -68,7 +68,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
                                AssociatedControlID="Theme"
                                LocalizedTag="BOARD_THEME" LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                <asp:DropDownList ID="Theme" runat="server" CssClass="standardSelectMenu"></asp:DropDownList>
+                <asp:DropDownList ID="Theme" runat="server" CssClass="select2-select"></asp:DropDownList>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -76,7 +76,7 @@
                                    AssociatedControlID="ShowTopic"
                                    LocalizedTag="BOARD_TOPIC_DEFAULT"
                                    LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <asp:DropDownList ID="ShowTopic" runat="server" CssClass="standardSelectMenu">
+                    <asp:DropDownList ID="ShowTopic" runat="server" CssClass="select2-select">
                     </asp:DropDownList>
                 </div>
                 <div class="form-group col-md-6">
@@ -94,7 +94,7 @@
                     <YAF:HelpLabel ID="LocalizedLabel10" runat="server"
                                    AssociatedControlID="Culture"
                                    LocalizedTag="BOARD_CULTURE" LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <asp:DropDownList ID="Culture" runat="server" CssClass="standardSelectMenu">
+                    <asp:DropDownList ID="Culture" runat="server" CssClass="select2-select">
                     </asp:DropDownList>
                 </div>
                 <div class="form-group col-md-6">
@@ -113,7 +113,7 @@
                                    AssociatedControlID="PollGroupList"
                                    LocalizedTag="pollgroup_list"/>
                     <asp:DropDownList ID="PollGroupListDropDown" runat="server" 
-                                      CssClass="standardSelectMenu" 
+                                      CssClass="select2-select" 
                                       placeholder='<%# this.GetText("pollgroup_list") %>'/>
                 </div>
             </asp:PlaceHolder>
@@ -123,7 +123,7 @@
                                LocalizedTag="BOARD_DEFAULT_NOTIFICATION"
                                LocalizedPage="ADMIN_BOARDSETTINGS"/>
                 <asp:DropDownList ID="DefaultNotificationSetting" runat="server" 
-                                  CssClass="standardSelectMenu" 
+                                  CssClass="select2-select" 
                                   placeholder='<%# this.GetText("BOARD_DEFAULT_NOTIFICATION") %>'>
                 </asp:DropDownList>
             </div>

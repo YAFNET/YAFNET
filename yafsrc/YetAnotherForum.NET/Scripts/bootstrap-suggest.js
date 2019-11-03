@@ -154,7 +154,7 @@
                 document.body.removeChild(div);
 
                 return coordinates;
-            }
+            };
 
             return getCaretCoordinatesFn(this.$element.get(0), posStart);
         },
@@ -206,7 +206,7 @@
 
             var blur = function (e) {
                 that.hide();
-            }
+            };
 
             $dropdown.on("click", "a.dropdown-item", function (e) {
                 e.preventDefault();
@@ -265,7 +265,7 @@
                                     }
                                     return false;
                                 }
-                            })
+                            });
                             return false;
                     }
                 }
@@ -563,7 +563,7 @@
                         }
                     });
 
-                    $this.data("suggest", $.extend(data, createSuggestions(that, suggestions)))
+                    $this.data("suggest", $.extend(data, createSuggestions(that, suggestions)));
                 }
             }
         });

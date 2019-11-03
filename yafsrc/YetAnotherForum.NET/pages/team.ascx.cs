@@ -93,7 +93,7 @@ namespace YAF.Pages
 
             var gridItem = (RepeaterItem)forumButton.NamingContainer;
 
-            var modForums = (DropDownList)gridItem.FindControl("ModForums");
+            var modForums = gridItem.FindControlAs<DropDownList>("ModForums");
 
             if (int.TryParse(modForums.SelectedValue, out var redirForum))
             {

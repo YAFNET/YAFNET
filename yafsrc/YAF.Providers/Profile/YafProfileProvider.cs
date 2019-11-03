@@ -709,7 +709,7 @@ namespace YAF.Providers.Profile
             }
 
             // get the first record which is the count...
-            totalRecords = Convert.ToInt32(profilesCountDT.Rows[0][0]);
+            totalRecords = profilesCountDT.Rows[0][0].ToType<int>();
 
             return profiles;
         }

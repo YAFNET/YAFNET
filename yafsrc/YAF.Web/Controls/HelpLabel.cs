@@ -32,7 +32,6 @@ namespace YAF.Web.Controls
 
     using ServiceStack;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;

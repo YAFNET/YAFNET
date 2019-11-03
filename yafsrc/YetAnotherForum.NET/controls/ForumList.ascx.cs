@@ -35,7 +35,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -325,7 +324,7 @@ namespace YAF.Controls
                 return;
             }
 
-            var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
+            var moderatorSpan = e.Item.FindControlAs<HtmlGenericControl>("ModListMob_Span");
 
             if (e.Item.FindControl("ForumModeratorListMob") is ForumModeratorList modList1)
             {

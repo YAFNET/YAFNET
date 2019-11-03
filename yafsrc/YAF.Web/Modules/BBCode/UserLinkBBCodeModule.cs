@@ -26,7 +26,6 @@ namespace YAF.Modules
     using System.Text;
     using System.Web.UI;
 
-    using YAF.Core;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;

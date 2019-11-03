@@ -45,6 +45,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -125,7 +126,7 @@ namespace YAF.Pages.Admin
         public void LocalizedTextCheck([NotNull] object sender, [NotNull] ServerValidateEventArgs args)
         {
             foreach (var tbx in this.grdLocals.Items.Cast<DataGridItem>()
-                .Select(item => (TextBox)item.FindControl("txtLocalized")).Where(tbx => args.Value.Equals(tbx.Text)))
+                .Select(item => item.FindControlAs<TextBox>("txtLocalized")).Where(tbx => args.Value.Equals(tbx.Text)))
             {
                 tbx.ForeColor = tbx.Text.Equals(tbx.ToolTip, StringComparison.OrdinalIgnoreCase)
                                     ? Color.Red
@@ -235,9 +236,9 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var txtLocalized = (TextBox)e.Item.FindControl("txtLocalized");
+            var txtLocalized = e.Item.FindControlAs<TextBox>("txtLocalized");
 
-            var txtResource = (TextBox)e.Item.FindControl("txtResource");
+            var txtResource = e.Item.FindControlAs<TextBox>("txtResource");
 
             if (txtResource.Text.Length > 30)
             {
@@ -506,16 +507,18 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void UpdateLocalizedValues()
         {
-            foreach (DataGridItem item in this.grdLocals.Items)
-            {
-                var txtLocalized = (TextBox)item.FindControl("txtLocalized");
+            this.grdLocals.Items.Cast<DataGridItem>().ForEach(
+                item =>
+                    {
+                        var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
 
-                var lblResourceName = (Label)item.FindControl("lblResourceName");
+                        var lblResourceName = (Label)item.FindControlAs<Label>("lblResourceName");
 
-                this.translations.Find(
-                    check => check.PageName.Equals(this.lblPageName.Text)
-                             && check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue = txtLocalized.Text;
-            }
+                        this.translations.Find(
+                                check => check.PageName.Equals(this.lblPageName.Text)
+                                         && check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue =
+                            txtLocalized.Text;
+                    });
         }
 
         #endregion

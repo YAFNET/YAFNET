@@ -218,7 +218,7 @@
 							<div class="form-group">
 								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" />
 								<YAF:CountryImageListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" 
-                                                  CssClass="selectpicker custom-select" />
+                                                  CssClass="select2-image-select" />
 						</div>
 
 							<div class="form-group">
@@ -243,7 +243,7 @@
 								<asp:DropDownList ID="TimeZones" runat="server" 
                                                   DataTextField="Name" 
                                                   DataValueField="Value" 
-                                                  CssClass="standardSelectMenu" />
+                                                  CssClass="select2-select" />
                         </div>
                     <div class="form-group">
                                  <asp:CheckBox runat="server" ID="DSTUser" Visible="False" />

@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.topics" Codebehind="topics.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
@@ -87,7 +86,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />:
                     </div>
                     <div class="col-sm-9">
-                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="standardSelectMenu" />                            
+                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="select2-select" />                            
                     </div>
                 </div>
                 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">

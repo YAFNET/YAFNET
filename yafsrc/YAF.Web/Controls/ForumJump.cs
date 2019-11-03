@@ -29,10 +29,10 @@ namespace YAF.Web.Controls
     using System;
     using System.Collections.Specialized;
     using System.Data;
+    using System.Linq;
     using System.Web.UI;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -145,16 +145,17 @@ namespace YAF.Web.Controls
                 writer.WriteLine("<option/>");
             }
 
-            foreach (DataRow row in forumJump.Rows)
-            {
-                writer.WriteLine(
-                    @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
-                    row["ForumID"],
-                    this.HtmlEncode(row["Title"]),
-                    Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty);
-            }
+           forumJump.Rows.Cast<DataRow>().ForEach(
+                row =>
+                {
+                    writer.WriteLine(
+                        @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
+                        row["ForumID"],
+                        this.HtmlEncode(row["Title"]),
+                        Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty);
+                });
 
-            writer.WriteLine("</select>");
+           writer.WriteLine("</select>");
         }
 
         /// <summary>

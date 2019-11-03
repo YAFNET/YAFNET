@@ -33,6 +33,7 @@ namespace YAF.Providers.Roles
     using YAF.Configuration.Pattern;
     using YAF.Core.Data;
     using YAF.Providers.Utils;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -139,7 +140,7 @@ namespace YAF.Providers.Roles
 
                 this.DbAccess.ExecuteNonQuery(cmd);
 
-                return Convert.ToInt32(cmd.Parameters["ReturnValue"].Value);
+                return cmd.Parameters["ReturnValue"].Value.ToType<int>();
             }
         }
 
