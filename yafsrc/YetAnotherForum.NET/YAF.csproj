@@ -2034,12 +2034,6 @@
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
     <Content Include="Images\noCover.png" />
-    <Content Include="Images\Ranks\Administration.png" />
-    <Content Include="Images\Ranks\Advanced-Member.png" />
-    <Content Include="Images\Ranks\Guest.png" />
-    <Content Include="Images\Ranks\Member.png" />
-    <Content Include="Images\Ranks\Moderator.png" />
-    <Content Include="Images\Ranks\Newbie.png" />
     <Content Include="install\BBCodeExtensions.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -3647,7 +3641,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

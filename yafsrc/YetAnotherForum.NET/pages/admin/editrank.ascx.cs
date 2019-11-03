@@ -27,11 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
-    using System.IO;
-    using System.Linq;
 
-    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -76,8 +72,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.BindData();
-
             if (this.Request.QueryString.GetFirstOrDefault("r") == null)
             {
                 return;
@@ -101,12 +95,7 @@ namespace YAF.Pages.Admin
             this.UsrSigHTMLTags.Text = rank.UsrSigHTMLTags;
             this.Description.Text = rank.Description;
 
-            var item = this.RankImage.Items.FindByText(rank.RankImage);
-
-            if (item != null)
-            {
-                item.Selected = true;
-            }
+            this.DataBind();
         }
 
         /// <summary>
@@ -180,12 +169,6 @@ namespace YAF.Pages.Admin
                 rankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
             }
 
-            object rankImage = null;
-            if (this.RankImage.SelectedIndex > 0)
-            {
-                rankImage = this.RankImage.SelectedItem.Text;
-            }
-
             this.GetRepository<Rank>().Save(
                 rankID,
                 this.PageContext.PageBoardID,
@@ -193,7 +176,7 @@ namespace YAF.Pages.Admin
                 this.IsStart.Checked,
                 this.IsLadder.Checked,
                 this.MinPosts.Text,
-                rankImage,
+                null,
                 this.PMLimit.Text.Trim().ToType<int>(),
                 this.Style.Text.Trim(),
                 this.RankPriority.Text.Trim(),
@@ -212,48 +195,6 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
             YafBuildLink.Redirect(ForumPages.admin_ranks);
-        }
-
-        /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            using (var dt = new DataTable("Files"))
-            {
-                dt.Columns.Add("FileID", typeof(long));
-                dt.Columns.Add("FileName", typeof(string));
-                dt.Columns.Add("Description", typeof(string));
-                var dr = dt.NewRow();
-                dr["FileID"] = 0;
-                dr["FileName"] =
-                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-                dr["Description"] = this.GetText("ADMIN_EDITRANK", "SELECT_IMAGE");
-                dt.Rows.Add(dr);
-
-                var dir = new DirectoryInfo(
-                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Ranks}"));
-                var files = dir.GetFiles("*.*");
-                long fileID = 1;
-
-                foreach (var file in from file in files
-                                     let sExt = file.Extension.ToLower()
-                                     where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
-                                     select file)
-                {
-                    dr = dt.NewRow();
-                    dr["FileID"] = fileID++;
-                    dr["FileName"] = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Ranks}/{file.Name}";
-                    dr["Description"] = file.Name;
-                    dt.Rows.Add(dr);
-                }
-
-                this.RankImage.DataSource = dt;
-                this.RankImage.DataValueField = "FileName";
-                this.RankImage.DataTextField = "Description";
-            }
-
-            this.DataBind();
         }
 
         #endregion
