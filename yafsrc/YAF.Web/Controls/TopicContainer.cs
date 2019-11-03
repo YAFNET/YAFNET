@@ -189,11 +189,19 @@ namespace YAF.Web.Controls
                 return;
             }
 
+            var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                this.TopicRow["ForumID"].ToType<int>(),
+                this.TopicRow["TopicID"].ToType<int>(),
+                this.TopicRow["LastForumAccess"].ToType<DateTime?>()
+                ?? DateTimeHelper.SqlDbMinTime(),
+                this.TopicRow["LastTopicAccess"].ToType<DateTime?>()
+                ?? DateTimeHelper.SqlDbMinTime());
+
             writer.Write("<div class=\"row\">");
             writer.Write("<div class=\"col-md-6\">");
             writer.Write("<h5>");
 
-            writer.Write($"<span class=\"fa-stack fa-1x\">{this.GetTopicImage(this.TopicRow)}</span>");
+            writer.Write($"<span class=\"fa-stack fa-1x\">{this.GetTopicImage(this.TopicRow, lastRead)}</span>");
 
             var priorityMessage = this.GetPriorityMessage(this.TopicRow);
 
@@ -242,19 +250,11 @@ namespace YAF.Web.Controls
                                {
                                    Format = DateTimeFormat.BothTopic,
                                    DateTime = this.TopicRow["LastPosted"],
-                                   Visible = this.ShowTopicPosted
+                                   Visible = this.ShowTopicPosted,
                                };
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                    this.TopicRow["ForumID"].ToType<int>(),
-                    this.TopicRow["TopicID"].ToType<int>(),
-                    this.TopicRow["LastForumAccess"].ToType<DateTime?>()
-                                       ?? DateTimeHelper.SqlDbMinTime(),
-                    this.TopicRow["LastTopicAccess"].ToType<DateTime?>()
-                                       ?? DateTimeHelper.SqlDbMinTime());
-
                 if (this.AltLastPost.IsNotSet())
                 {
                     this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
@@ -290,7 +290,11 @@ namespace YAF.Web.Controls
             writer.Write(" <p class=\"card-text\">");
 
             writer.Write(topicStarterLink.RenderToString());
-            writer.Write("<i class=\"fa fa-calendar-alt fa-fw\"></i>&nbsp;");
+            writer.Write(@"<span class=""fa-stack"">
+                <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                <i class=""fa fa-clock fa-badge text-secondary""></i>
+                </span>&nbsp;");
             writer.Write(startDate.RenderToString());
 
             var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
@@ -308,7 +312,7 @@ namespace YAF.Web.Controls
 
             if (pager != string.Empty)
             {
-                writer.Write("<span> - <i class=\"fa fa-copy fa-fw\"></i>{0}</span>", pager);
+                writer.Write("<span> - <i class=\"fa fa-copy fa-fw text-secondary\"></i>{0}</span>", pager);
             }
 
             writer.Write("</p>");
@@ -362,10 +366,15 @@ namespace YAF.Web.Controls
                 writer.Write(gotoLastUnread.RenderToString());
                 writer.Write("</h6>");
                 writer.Write(" <hr/>");
-                writer.Write(" <h6>");
+                writer.Write(" <h6 class=\"text-secondary\">");
+                writer.Write("{0} {1}:", this.GetText("LASTPOST"), this.GetText("SEARCH", "BY"));
                 writer.Write(userLast.RenderToString());
 
-                writer.Write("&nbsp;<i class=\"fa fa-calendar-alt fa-fw\"></i>&nbsp;");
+                writer.Write(@"&nbsp;<span class=""fa-stack"">
+                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                    </span>&nbsp;");
                 writer.Write(lastDate.RenderToString());
                 writer.Write("</h6>");
                 writer.Write("</div>");
@@ -548,11 +557,16 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Gets the topic image.
         /// </summary>
-        /// <param name="row">The row.</param>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <param name="lastRead">
+        /// The last Read.
+        /// </param>
         /// <returns>
         /// Returns the Topic Image
         /// </returns>
-        protected string GetTopicImage([NotNull] DataRowView row)
+        protected string GetTopicImage([NotNull] DataRowView row, DateTime lastRead)
         {
             CodeContracts.VerifyNotNull(row, "row");
 
@@ -570,16 +584,6 @@ namespace YAF.Web.Controls
                 return
                     "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
             }
-
-            var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                row["ForumID"].ToType<int>(),
-                row["TopicID"].ToType<int>(),
-                row["LastForumAccess"].IsNullOrEmptyDBField()
-                    ? DateTimeHelper.SqlDbMinTime()
-                    : row["LastForumAccess"].ToType<DateTime?>(),
-                row["LastTopicAccess"].IsNullOrEmptyDBField()
-                    ? DateTimeHelper.SqlDbMinTime()
-                    : row["LastForumAccess"].ToType<DateTime?>());
 
             if (lastPosted > lastRead)
             {
@@ -660,7 +664,7 @@ namespace YAF.Web.Controls
         protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
             return
-                $@"<a href=""{link}"" title=""{string.Format(this.GetText("GOTO_POST_PAGER"), pageId)}"" class=""btn btn-secondary btn-sm"">{text}</a>";
+                $@"<a href=""{link}"" title=""{this.GetTextFormatted("GOTO_POST_PAGER", pageId)}"" class=""btn btn-secondary btn-sm"">{text}</a>";
         }
     }
 }

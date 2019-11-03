@@ -21,7 +21,11 @@
                     <div class="card-header">
             <i class="fa fa-envelope-open fa-fw"></i>&nbsp;<%# this.HtmlEncode(this.Eval("Subject")) %>
             <span class="float-right">
-                <time><i class="fa fa-calendar-alt fa-fw"></i>&nbsp;
+                <time><span class="fa-stack">
+                        <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                        <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
+                        <i class="fa fa-clock fa-badge text-secondary"></i>
+                    </span>&nbsp;
                     <YAF:DisplayDateTime ID="CreatedDateTime" runat="server"
                                          DateTime='<%# Container.DataItemToField<DateTime>("Created") %>'></YAF:DisplayDateTime></time>
 

@@ -70,8 +70,7 @@
     },
 
     addIndicator: function(index) {
-		console.log(index);
-      if (this.indicatorContainer.length) {
+        if (this.indicatorContainer.length) {
         var indicator = this.createIndicator(this.list[index]);
         indicator.setAttribute("data-index", index);
         this.indicatorContainer[0].appendChild(indicator);

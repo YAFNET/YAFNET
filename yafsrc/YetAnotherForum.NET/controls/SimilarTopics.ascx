@@ -27,9 +27,14 @@
                        ReplaceName='<%# DataBinder.Eval(Container.DataItem, this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
                        Style='<%# DataBinder.Eval(Container.DataItem, "UserStyle") %>'>
                       </YAF:UserLink>
-                      <YAF:DisplayDateTime ID="CreatedDate" runat="server"
-                          Format="BothTopic" DateTime='<%# DataBinder.Eval(Container.DataItem, "Posted") %>'>
-                      </YAF:DisplayDateTime>
+                <span class="fa-stack">
+                    <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                    <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
+                    <i class="fa fa-clock fa-badge text-secondary"></i>
+                </span>
+                <YAF:DisplayDateTime ID="CreatedDate" runat="server"
+                                     Format="BothTopic" DateTime='<%# DataBinder.Eval(Container.DataItem, "Posted") %>'>
+                </YAF:DisplayDateTime>
             </li>
         </ItemTemplate>
         <FooterTemplate>

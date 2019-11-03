@@ -5302,6 +5302,30 @@ readers do not read off random characters that represent icons */
   font-family: 'Font Awesome 5 Free';
   font-weight: 400; }
 
+/* Extensions */
+.fa-stack > .fa-badge-bg {
+  position: absolute;
+  right: 0%;
+  bottom: -5%;
+  font-size: 91%;
+  height: 60%;
+  width: 60%;
+  line-height: 102%;
+  text-align: center; }
+
+.fa-stack > .fa-badge {
+  position: absolute;
+  right: 16%;
+  bottom: 26%;
+  font-size: 70%;
+  height: 30%;
+  width: 30%;
+  line-height: 120%;
+  text-align: center; }
+
+.fa-outline-inverse {
+  text-shadow: -0.12ex 0 #FFF,-0.1ex -0.1ex #FFF, 0 -0.12ex #FFF, 0.1ex -0.1ex #FFF, 0.12ex 0 #FFF, 0.1ex 0.1ex #FFF, 0 0.12ex #FFF, -0.1ex 0.1ex #FFF; }
+
 .flag-icon-background, .flag-icon {
   background-size: contain;
   background-position: 50%;

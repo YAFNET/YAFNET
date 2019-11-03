@@ -40,7 +40,7 @@
         <div class='input-group mb-3 date datepickerinput'>
             <span class="input-group-prepend">
                 <button class="btn btn-secondary datepickerbutton" type="button">
-                    <i class="fa fa-calendar fa-fw"></i>
+                    <i class="fa fa-calendar-day fa-fw"></i>
                 </button>
             </span>
             <asp:TextBox ID="Birthday" runat="server" 

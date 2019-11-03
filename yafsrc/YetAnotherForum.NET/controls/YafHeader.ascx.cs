@@ -465,7 +465,7 @@ namespace YAF.Controls
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
                     this.GetTextFormatted("TOOLBAR", "NEWPM", this.PageContext.UnreadPrivate),
-                    "înbox");
+                    "inbox");
             }
 
             // My Buddies

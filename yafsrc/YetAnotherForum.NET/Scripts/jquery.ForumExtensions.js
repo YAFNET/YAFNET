@@ -35031,8 +35031,7 @@ S2.define('jquery.select2',[
     },
 
     addIndicator: function(index) {
-		console.log(index);
-      if (this.indicatorContainer.length) {
+        if (this.indicatorContainer.length) {
         var indicator = this.createIndicator(this.list[index]);
         indicator.setAttribute("data-index", index);
         this.indicatorContainer[0].appendChild(indicator);
@@ -53099,7 +53098,11 @@ function getSearchResultsData(pageNumber) {
                                 "</div>" +
                                 '<div class="card-footer bg-transparent border-top-0 px-0 py-2"> ' +
                                 '<small class="text-muted">' +
-                                '<i class="fa fa-calendar-alt fa-fw text-secondary"></i>' +
+                                '<span class="fa-stack">' +
+                                '<i class="fa fa-calendar-day fa-stack-1x text-secondary"></i >' +
+                                '<i class= "fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse" </i > ' +
+                                '<i class= "fa fa-clock fa-badge text-secondary"></i > ' +
+                                '</span>' +
                                 posted + " " +
                                 moment(data.Posted).fromNow() +
                                 " " + 

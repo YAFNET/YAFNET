@@ -45,7 +45,11 @@
                                                                        LocalizedTag="BY" 
                                                                        LocalizedPage="TOPICS" />
                                                 <YAF:UserLink ID="LastUserLink"  runat="server" />
-                                                <i class="fas fa-calendar fa-fw text-secondary"></i>
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                                                    <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
+                                                    <i class="fa fa-clock fa-badge text-secondary"></i>
+                                                </span>
                                                 <YAF:DisplayDateTime ID="LastPostDate" runat="server"
                                                                      Format="BothTopic" />
                                             </small> 

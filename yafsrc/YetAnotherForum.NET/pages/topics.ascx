@@ -66,6 +66,16 @@
                             </div>
                         </div>
                     </SeparatorTemplate>
+                    <FooterTemplate>
+                        <asp:PlaceHolder runat="server" Visible="<%# this.Announcements.Items.Count > 0 %>">
+                            <div class="row">
+                                <div class="col">
+                                    <hr/>
+                                </div>
+                            </div>
+                        </asp:PlaceHolder>
+                        
+                    </FooterTemplate>
                 </asp:Repeater>
                 <asp:Repeater ID="TopicList" runat="server">
                     <ItemTemplate>

@@ -121,7 +121,11 @@
                             </asp:PlaceHolder>
                             <li class="list-inline-item">
                                 <time>
-                                    <i class="fas fa-calendar-alt fa-fw text-secondary"></i>
+                                    <span class="fa-stack">
+                                        <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                                        <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
+                                        <i class="fa fa-clock fa-badge text-secondary"></i>
+                                    </span>
                                     <YAF:DisplayDateTime id="DisplayDateTime" runat="server" 
                                                          DateTime='<%# this.DataRow["Posted"] %>'>
                                     </YAF:DisplayDateTime>
