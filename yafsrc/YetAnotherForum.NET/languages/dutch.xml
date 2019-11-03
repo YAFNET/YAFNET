@@ -528,6 +528,7 @@
     <Resource tag="CATEGORY_NAME">Categorie Naam:</Resource>
     <Resource tag="CATEGORY_NAME_HELP">Naam van deze categorie.</Resource>
     <Resource tag="HEADER">Bewerk Categorie:</Resource>
+    <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
     <Resource tag="MSG_NUMBER">Ongeldige waarde ingegeven voor sorteervolgorde: Het moet een nummer zijn.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">De sorteervolgorde moet een positief geheel getal zijn met een waarde tussen 0 en 32767.</Resource>
     <Resource tag="MSG_VALUE">Je moet een waarde ingeven voor het naam-veld.</Resource>

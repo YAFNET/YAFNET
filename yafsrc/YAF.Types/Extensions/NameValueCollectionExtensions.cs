@@ -30,6 +30,9 @@ namespace YAF.Types.Extensions
     using System.Collections.Specialized;
     using System.Linq;
 
+    /// <summary>
+    /// The name value collection extensions.
+    /// </summary>
     public static class NameValueCollectionExtensions
     {
         #region Public Methods and Operators
@@ -60,6 +63,37 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(paramName, "paramName");
 
             return collection.GetFirstOrDefault(paramName, comparer).ToType<T>();
+        }
+
+        /// <summary>
+        /// Get Parameter as integer.
+        /// </summary>
+        /// <param name="collection">
+        /// The collection.
+        /// </param>
+        /// <param name="paramName">
+        /// The parameter name.
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer.
+        /// </param>
+        /// <returns>
+        /// Returns the integer Value
+        /// </returns>
+        public static int? GetFirstOrDefaultAsInt(
+            [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
+        {
+            CodeContracts.VerifyNotNull(collection, "collection");
+            CodeContracts.VerifyNotNull(paramName, "paramName");
+
+            if (collection.GetFirstOrDefault(paramName, comparer) != null && int.TryParse(
+                    collection.GetFirstOrDefault(paramName),
+                    out var value))
+            {
+                return value;
+            }
+
+            return null;
         }
 
         /// <summary>

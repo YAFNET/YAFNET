@@ -550,6 +550,7 @@
     <Resource tag="CATEGORY_NAME">Category Name:</Resource>
     <Resource tag="CATEGORY_NAME_HELP">Name of this category.</Resource>
     <Resource tag="HEADER">Edit Category:</Resource>
+    <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
     <Resource tag="MSG_NUMBER">Invalid value entered for sort order: must enter a number.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">The Sort Order value should be a positive integer from 0 to 32767.</Resource>
     <Resource tag="MSG_VALUE">Must enter a value for the category name field.</Resource>

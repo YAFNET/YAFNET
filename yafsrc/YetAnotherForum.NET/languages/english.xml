@@ -551,6 +551,7 @@
   <Resource tag="CATEGORY_NAME">Category Name:</Resource>
   <Resource tag="CATEGORY_NAME_HELP">Name of this category.</Resource>
   <Resource tag="HEADER">Edit Category:</Resource>
+   <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
   <Resource tag="MSG_NUMBER">Invalid value entered for sort order: must enter a number.</Resource>
   <Resource tag="MSG_POSITIVE_VALUE">The Sort Order value should be a positive integer from 0 to 32767.</Resource>
   <Resource tag="MSG_VALUE">Must enter a value for the category name field.</Resource>
@@ -578,7 +579,7 @@
   <Resource tag="LOCKED_HELP">If the forum is locked, no one can post or reply in this forum.</Resource>
   <Resource tag="MODERATE_ALL_POSTS">Moderate all Posts</Resource>
   <Resource tag="MODERATED_COUNT">Moderate all Posts or only until a User reaches x amount of Posts</Resource>
-  <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specifify the amount of post a user has to reach to be automatically appproved.</Resource>
+  <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specifify the amount of post a user has to reach to be automatically approved.</Resource>
   <Resource tag="MODERATED_NEWTOPIC_ONLY">Moderate only new Topics but not Replies?</Resource>
   <Resource tag="MODERATED_NEWTOPIC_ONLY_HELP">If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation.</Resource>
   <Resource tag="MSG_CATEGORY">You must select a category for the forum.</Resource>

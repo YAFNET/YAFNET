@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -101,7 +102,6 @@ namespace YAF.Pages.Admin
                             dr["Description"] = file.Name;
                             dt.Rows.Add(dr);
                         });
-                    
                 }
 
                 this.CategoryImages.DataSource = dt;
@@ -187,6 +187,17 @@ namespace YAF.Pages.Admin
             {
                 // error...
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.danger);
+                return;
+            }
+
+            var category = this.GetRepository<Category>().GetSingle(c => c.Name == name);
+
+            // Check Name duplicate
+            if (category != null)
+            {
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
+                    MessageTypes.warning);
                 return;
             }
 

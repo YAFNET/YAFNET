@@ -8,16 +8,21 @@
         <div class="col-xl-12">
             <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                     LocalizedTag="HEADER" 
-                                    LocalizedPage="ADMIN_EDITCATEGORY" />&nbsp;<asp:Label ID="Label1" runat="server"></asp:Label></h1>
+                                    LocalizedPage="ADMIN_EDITCATEGORY" />
+                <asp:Label ID="Label1" runat="server"></asp:Label>
+            </h1>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                                                                 LocalizedTag="HEADER" 
-                                                                                                 LocalizedPage="ADMIN_EDITCATEGORY" />&nbsp;<asp:Label ID="CategoryNameTitle" runat="server"></asp:Label>
+                    <i class="fa fa-comments fa-fw text-secondary pr-1"></i>
+                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                        LocalizedTag="HEADER" 
+                                        LocalizedPage="ADMIN_EDITCATEGORY" />
+                    <asp:Label ID="CategoryNameTitle" runat="server" 
+                               CssClass="font-weight-bold"></asp:Label>
                 </div>
                 <div class="card-body">
                     <div class="form-row">

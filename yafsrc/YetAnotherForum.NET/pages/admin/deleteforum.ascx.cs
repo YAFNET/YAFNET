@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Linq;
+    using System.Web;
 
     using YAF.Core;
     using YAF.Core.Model;
@@ -64,27 +65,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Get query string as integer.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>
-        /// The get query string as integer
-        /// </returns>
-        protected int? GetQueryStringAsInt([NotNull] string name)
-        {
-            if (this.Request.QueryString.GetFirstOrDefault(name) != null && int.TryParse(
-                    this.Request.QueryString.GetFirstOrDefault(name),
-                    out var value))
-            {
-                return value;
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
@@ -111,7 +91,7 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            var forumId = this.GetQueryStringAsInt("fa");
+            var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
             var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, forumId)
                 .FirstOrDefault();
@@ -244,7 +224,7 @@ namespace YAF.Pages.Admin
             if (this.MoveTopics.Checked)
             {
                 // Simply Delete the Forum with all of its Content
-                var forumId = this.GetQueryStringAsInt("fa");
+                var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
                 // schedule...
                 ForumDeleteTask.Start(
@@ -261,7 +241,7 @@ namespace YAF.Pages.Admin
             else
             {
                 // Simply Delete the Forum with all of its Content
-                var forumId = this.GetQueryStringAsInt("fa");
+                var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
                 // schedule...
                 ForumDeleteTask.Start(this.PageContext.PageBoardID, forumId.Value, out errorMessage);

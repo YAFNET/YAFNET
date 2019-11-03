@@ -528,6 +528,7 @@
     <Resource tag="CATEGORY_NAME">Nombre de la categoría:</Resource>
     <Resource tag="CATEGORY_NAME_HELP">Nombre de esta categoría.</Resource>
     <Resource tag="HEADER">Editar categoría:</Resource>
+    <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
     <Resource tag="MSG_NUMBER">Valor inválido para el orden de clasificación: debes introducir un número.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">El valor del orden de clasificación debe ser un valor entero positivo entre 0 y 32767.</Resource>
     <Resource tag="MSG_VALUE">Debes introducir un valor para el campo de nombre de categoría.</Resource>

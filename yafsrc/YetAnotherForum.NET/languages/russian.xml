@@ -528,6 +528,7 @@
     <Resource tag="CATEGORY_NAME">Категория:</Resource>
     <Resource tag="CATEGORY_NAME_HELP">Название этой категории</Resource>
     <Resource tag="HEADER">Редактировать категорию:</Resource>
+    <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
     <Resource tag="MSG_NUMBER">Неверное значение для порядкового номера категории. Ожидается целое число.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">Порядок сортировки должен быть целым числом в диапазоне от 0 до 32767.</Resource>
     <Resource tag="MSG_VALUE">Название категории обязательно.</Resource>

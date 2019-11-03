@@ -6,50 +6,49 @@
 
     <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE"  LocalizedPage="ADMIN_PAGEACCESSEDIT" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                LocalizedTag="TITLE"  
+                                LocalizedPage="ADMIN_PAGEACCESSEDIT" /></h1>
     </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-building fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_PAGEACCESSEDIT" />&nbsp;
-                    <YAF:LocalizedLabel ID="UserNameLabel" runat="server" LocalizedTag="USERNAME" LocalizedPage="ADMIN_PAGEACCESSEDIT" />&nbsp;
-                    <asp:Label ID="UserName" runat="server"  />
+                    <i class="fa fa-building fa-fw text-secondary pr-1"></i>
+                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                        LocalizedTag="HEADER" 
+                                        LocalizedPage="ADMIN_PAGEACCESSEDIT" />
+                    <YAF:LocalizedLabel ID="UserNameLabel" runat="server" 
+                                        LocalizedTag="USERNAME" 
+                                        LocalizedPage="ADMIN_PAGEACCESSEDIT" />:
+                    <asp:Label ID="UserName" runat="server" 
+                               CssClass="font-weight-bold" />
                 </div>
                 <div class="card-body">
-
                     <asp:Repeater ID="AccessList" OnItemDataBound="AccessList_OnItemDataBound" runat="server">
-              <HeaderTemplate>
-                  <ul class="list-group">
-              </HeaderTemplate>
-            <ItemTemplate>
-                <li class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1 text-break">
-                        <asp:Label ID="PageText" runat="server" />
-                    </h5>
-                </div>
-                <p class="mb-1">
-                    <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PAGE" LocalizedPage="ADMIN_PAGEACCESSEDIT" />
-                    </span>
-                    <asp:Label ID="PageName" runat="server" />
-                </p>
-                <small>
-                    <h6>
-                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="CANACCESS"  LocalizedPage="ADMIN_PAGEACCESSEDIT" />
-                    </h6>
-                    <div class="custom-control custom-switch">
-                        <asp:CheckBox  ID="ReadAccess" runat="server" Text="&nbsp;"/>
-                    </div>
-                </small>
-                </li>
-            </ItemTemplate>
-              <FooterTemplate>
-                  </ul>
-              </FooterTemplate>
-        </asp:Repeater>
+                        <HeaderTemplate>
+                            <ul class="list-group">
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li class="list-group-item list-group-item-action">
+                                <span class="font-weight-bold">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                        LocalizedTag="PAGE" 
+                                                        LocalizedPage="ADMIN_PAGEACCESSEDIT" />:
+                                </span>
+                                <asp:Label ID="PageName" runat="server" 
+                                           AssociatedControlID="ReadAccess" />
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox  ID="ReadAccess" runat="server" 
+                                                   Text='<%# this.GetText("CANACCESS") %>'/>
+                                </div>
+                            </li>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
 				    <YAF:ThemeButton ID="Save" runat="server" 

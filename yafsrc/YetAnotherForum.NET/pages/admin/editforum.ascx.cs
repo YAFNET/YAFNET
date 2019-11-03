@@ -29,6 +29,7 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -142,27 +143,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The get query string as int.
-        /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int?"/>.
-        /// </returns>
-        protected int? GetQueryStringAsInt([NotNull] string name)
-        {
-            if (this.Request.QueryString.GetFirstOrDefault(name) != null && int.TryParse(
-                    this.Request.QueryString.GetFirstOrDefault(name),
-                    out var value))
-            {
-                return value;
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
         /// <param name="e">
@@ -210,9 +190,11 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            var forumId = this.GetQueryStringAsInt("fa") ?? this.GetQueryStringAsInt("copy");
+            var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa")
+                          ?? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");
 
-            if (!forumId.HasValue)
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("fa") == null
+                && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("copy") != null || !forumId.HasValue)
             {
                 this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_FORUM";
 
@@ -233,12 +215,14 @@ namespace YAF.Pages.Admin
 
                 this.SortOrder.Text = sortOrder.ToString();
 
-                return;
+                if (!forumId.HasValue)
+                {
+                    return;
+                }
             }
 
-            var dt = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, forumId);
+            var row = this.GetRepository<Forum>().GetById(forumId.Value);
 
-            var row = dt.FirstOrDefault();
             this.Name.Text = row.Name;
             this.Description.Text = row.Description;
             this.SortOrder.Text = row.SortOrder.ToString();
@@ -364,7 +348,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var forumId = this.GetQueryStringAsInt("fa") ?? this.GetQueryStringAsInt("copy");
+            var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa")
+                          ?? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");
 
             this.CategoryList.DataSource = this.GetRepository<Category>().List();
             this.CategoryList.DataBind();
@@ -496,8 +481,8 @@ namespace YAF.Pages.Admin
 
             // Forum
             // vzrus: it's stored in the DB as int
-            var forumId = this.GetQueryStringAsInt("fa");
-            var forumCopyId = this.GetQueryStringAsInt("copy");
+            var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
+            var forumCopyId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");
 
             int? parentId = null;
 

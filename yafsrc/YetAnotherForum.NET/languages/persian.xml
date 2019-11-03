@@ -528,6 +528,7 @@
     <Resource tag="CATEGORY_NAME">نام دسته:</Resource>
     <Resource tag="CATEGORY_NAME_HELP">نام این دسته.</Resource>
     <Resource tag="HEADER">ویرایش دسته:</Resource>
+    <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
     <Resource tag="MSG_NUMBER">مقدار وارد شده برای ترتیب مناسب نیست. باید یک عدد وارد کنید</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">شماره ترتیب می بایست عددی صحیح و مثبت و بین 0 تا 32767 باشد.</Resource>
     <Resource tag="MSG_VALUE">مقدار نام دسته می بایست پر شود.</Resource>

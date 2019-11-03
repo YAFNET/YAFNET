@@ -50,7 +50,8 @@
                                      CommandName="delete" CommandArgument='<%# this.Eval( "CategoryID") %>'
                                      TitleLocalizedTag="DELETE" 
                                      Icon="trash"
-                                     TextLocalizedTag="DELETE">
+                                     TextLocalizedTag="DELETE"
+                                     Visible='<%# !((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category").Any() %>'>
                     </YAF:ThemeButton>
                 </small>
 				</li>
@@ -62,7 +63,7 @@
                                 <h5 class="mb-1">
                                     <%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Name\"]")) %>
                                 </h5>
-                                <small>
+                                <small class="d-none d-md-block">
                                     <YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER" />&nbsp;
                                     <%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>
                                 </small>

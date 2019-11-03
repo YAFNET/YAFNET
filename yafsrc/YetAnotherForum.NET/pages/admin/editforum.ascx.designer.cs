@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Web.Controls;
 
-    public partial class editforum {
-        
+    public partial class editforum
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -22,8 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -32,8 +30,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// Label1 control.
@@ -42,8 +39,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label Label1;
-        
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// LocalizedLabel2 control.
@@ -52,8 +48,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
         /// ForumNameTitle control.
@@ -62,8 +57,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label ForumNameTitle;
-        
+        protected global::System.Web.UI.WebControls.Label ForumNameTitle;
 
         /// <summary>
         /// HelpLabel3 control.
@@ -72,8 +66,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel3;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel3;
 
         /// <summary>
         /// Name control.
@@ -82,8 +75,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Name;
-        
+        protected global::System.Web.UI.WebControls.TextBox Name;
 
         /// <summary>
         /// HelpLabel4 control.
@@ -92,8 +84,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel4;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel4;
 
         /// <summary>
         /// Description control.
@@ -102,8 +93,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Description;
-        
+        protected global::System.Web.UI.WebControls.TextBox Description;
 
         /// <summary>
         /// HelpLabel1 control.
@@ -112,8 +102,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel1;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
 
         /// <summary>
         /// CategoryList control.
@@ -122,8 +111,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList CategoryList;
-        
+        protected global::System.Web.UI.WebControls.DropDownList CategoryList;
 
         /// <summary>
         /// HelpLabel2 control.
@@ -132,8 +120,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel2;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
 
         /// <summary>
         /// ParentList control.
@@ -142,8 +129,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList ParentList;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ParentList;
 
         /// <summary>
         /// HelpLabel14 control.
@@ -152,8 +138,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel14;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel14;
 
         /// <summary>
         /// remoteurl control.
@@ -162,8 +147,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox remoteurl;
-        
+        protected global::System.Web.UI.WebControls.TextBox remoteurl;
 
         /// <summary>
         /// HelpLabel12 control.
@@ -172,8 +156,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel12;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel12;
 
         /// <summary>
         /// SortOrder control.
@@ -182,8 +165,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox SortOrder;
-        
+        protected global::System.Web.UI.WebControls.TextBox SortOrder;
 
         /// <summary>
         /// HelpLabel13 control.
@@ -192,8 +174,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel13;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel13;
 
         /// <summary>
         /// ThemeList control.
@@ -202,8 +183,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList ThemeList;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ThemeList;
 
         /// <summary>
         /// HelpLabel11 control.
@@ -212,8 +192,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel11;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel11;
 
         /// <summary>
         /// HideNoAccess control.
@@ -222,8 +201,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox HideNoAccess;
-        
+        protected global::System.Web.UI.WebControls.CheckBox HideNoAccess;
 
         /// <summary>
         /// HelpLabel10 control.
@@ -232,8 +210,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel10;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel10;
 
         /// <summary>
         /// Locked control.
@@ -242,8 +219,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox Locked;
-        
+        protected global::System.Web.UI.WebControls.CheckBox Locked;
 
         /// <summary>
         /// HelpLabel9 control.
@@ -252,8 +228,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel9;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel9;
 
         /// <summary>
         /// IsTest control.
@@ -262,8 +237,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox IsTest;
-        
+        protected global::System.Web.UI.WebControls.CheckBox IsTest;
 
         /// <summary>
         /// HelpLabel8 control.
@@ -272,8 +246,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel8;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel8;
 
         /// <summary>
         /// Moderated control.
@@ -282,8 +255,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox Moderated;
-        
+        protected global::System.Web.UI.WebControls.CheckBox Moderated;
 
         /// <summary>
         /// ModerateNewTopicOnlyRow control.
@@ -292,8 +264,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder ModerateNewTopicOnlyRow;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder ModerateNewTopicOnlyRow;
 
         /// <summary>
         /// HelpLabel16 control.
@@ -302,8 +273,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel16;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel16;
 
         /// <summary>
         /// ModerateNewTopicOnly control.
@@ -312,8 +282,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox ModerateNewTopicOnly;
-        
+        protected global::System.Web.UI.WebControls.CheckBox ModerateNewTopicOnly;
 
         /// <summary>
         /// ModeratedPostCountRow control.
@@ -322,8 +291,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder ModeratedPostCountRow;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder ModeratedPostCountRow;
 
         /// <summary>
         /// HelpLabel15 control.
@@ -332,8 +300,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel15;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel15;
 
         /// <summary>
         /// ModerateAllPosts control.
@@ -342,8 +309,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox ModerateAllPosts;
-        
+        protected global::System.Web.UI.WebControls.CheckBox ModerateAllPosts;
 
         /// <summary>
         /// ModeratedPostCount control.
@@ -352,8 +318,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox ModeratedPostCount;
-        
+        protected global::System.Web.UI.WebControls.TextBox ModeratedPostCount;
 
         /// <summary>
         /// HelpLabel7 control.
@@ -362,8 +327,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel7;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel7;
 
         /// <summary>
         /// ForumImages control.
@@ -372,8 +336,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ImageListBox ForumImages;
-        
+        protected global::YAF.Web.Controls.ImageListBox ForumImages;
 
         /// <summary>
         /// HelpLabel6 control.
@@ -382,8 +345,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel6;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel6;
 
         /// <summary>
         /// Styles control.
@@ -392,8 +354,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Styles;
-        
+        protected global::System.Web.UI.WebControls.TextBox Styles;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -402,8 +363,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
 
         /// <summary>
         /// NewGroupRow control.
@@ -412,8 +372,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder NewGroupRow;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder NewGroupRow;
 
         /// <summary>
         /// HelpLabel5 control.
@@ -422,8 +381,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel5;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel5;
 
         /// <summary>
         /// AccessMaskID control.
@@ -432,8 +390,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList AccessMaskID;
-        
+        protected global::System.Web.UI.WebControls.DropDownList AccessMaskID;
 
         /// <summary>
         /// AccessList control.
@@ -442,8 +399,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater AccessList;
-        
+        protected global::System.Web.UI.WebControls.Repeater AccessList;
 
         /// <summary>
         /// Save control.
@@ -452,8 +408,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Save;
-        
+        protected global::YAF.Web.Controls.ThemeButton Save;
 
         /// <summary>
         /// Cancel control.
@@ -462,6 +417,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Cancel;
+        protected global::YAF.Web.Controls.ThemeButton Cancel;
     }
 }
