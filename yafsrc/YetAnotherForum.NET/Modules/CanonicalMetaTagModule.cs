@@ -47,7 +47,8 @@
             // in cases where we are not going to index, but follow, we will not add a canonical tag.
             if (this.ForumPageType == ForumPages.posts)
             {
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+                if (this.Get<HttpRequestBase>().QueryString.Exists("m") ||
+                    this.Get<HttpRequestBase>().QueryString.Exists("find"))
                 {
                     // add no-index tag
                     head.Controls.Add(ControlHelper.MakeMetaNoIndexControl()); 
