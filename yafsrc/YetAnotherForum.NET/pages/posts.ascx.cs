@@ -33,6 +33,7 @@ namespace YAF.Pages
     using System.Linq;
     using System.Text;
     using System.Web;
+    using System.Web.SessionState;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
@@ -111,20 +112,20 @@ namespace YAF.Pages
         {
             get
             {
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("threaded") != null)
+                if (this.Get<HttpRequestBase>().QueryString.Exists("threaded"))
                 {
-                    this.Session["IsThreaded"] =
+                    this.Get<HttpSessionState>()["IsThreaded"] =
                         bool.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("threaded"));
                 }
-                else if (this.Session["IsThreaded"] == null)
+                else if (this.Get<HttpSessionState>()["IsThreaded"] == null)
                 {
-                    this.Session["IsThreaded"] = false;
+                    this.Get<HttpSessionState>()["IsThreaded"] = false;
                 }
 
-                return (bool)this.Session["IsThreaded"];
+                return (bool)this.Get<HttpSessionState>()["IsThreaded"];
             }
 
-            set => this.Session["IsThreaded"] = value;
+            set => this.Get<HttpSessionState>()["IsThreaded"] = value;
         }
 
         /// <summary>
@@ -317,8 +318,8 @@ namespace YAF.Pages
             topicFlags.IsLocked = true;
 
             this.GetRepository<Topic>().LockTopic(
-                topicId: this.PageContext.PageTopicID,
-                flags: topicFlags.BitValue);
+                this.PageContext.PageTopicID,
+                topicFlags.BitValue);
 
             this.BindData();
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"));
@@ -434,7 +435,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+                if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
                 {
                     var mentionId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m");
 
@@ -765,8 +766,8 @@ namespace YAF.Pages
             topicFlags.IsLocked = false;
 
             this.GetRepository<Topic>().LockTopic(
-                topicId: this.PageContext.PageTopicID,
-                flags: topicFlags.BitValue);
+                this.PageContext.PageTopicID,
+                topicFlags.BitValue);
 
             this.BindData();
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"));
@@ -1030,11 +1031,11 @@ namespace YAF.Pages
             var firstPost = rowList.First();
 
             // set the sorting
-            this.Pager.Count = firstPost.Field<int>(columnName: "TotalRows");
+            this.Pager.Count = firstPost.Field<int>("TotalRows");
 
             if (findMessageId > 0)
             {
-                this.Pager.CurrentPageIndex = firstPost.Field<int>(columnName: "PageIndex");
+                this.Pager.CurrentPageIndex = firstPost.Field<int>("PageIndex");
 
                 // move to this message on load...
                 if (!this.PageContext.IsCrawler)
@@ -1051,7 +1052,7 @@ namespace YAF.Pages
                     this.PageContext.PageElements.RegisterJsBlockStartup(
                         this,
                         "GotoAnchorJs",
-                        JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.Field<int>(columnName: "MessageID")}"));
+                        JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.Field<int>("MessageID")}"));
                 }
             }
 
@@ -1060,14 +1061,14 @@ namespace YAF.Pages
             // Add thanks info and styled nicks if they are enabled
             if (this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                this.Get<YafDbBroker>().AddThanksInfo(dataRows: pagedData);
+                this.Get<YafDbBroker>().AddThanksInfo(pagedData);
             }
 
             // if current index is 0 we are on the first page and the metadata can be added.
             if (this.Pager.CurrentPageIndex == 0)
             {
                 // handle add description/keywords for SEO
-                this.AddMetaData(firstMessage: pagedData.First()["Message"]);
+                this.AddMetaData(pagedData.First()["Message"]);
             }
 
             // if (pagedData.Any() && this.CurrentMessage == 0)
@@ -1103,19 +1104,19 @@ namespace YAF.Pages
             try
             {
                 // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") == null)
+                if (!this.Get<HttpRequestBase>().QueryString.Exists("find"))
                 {
-                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null && int.TryParse(
+                    if (this.Get<HttpRequestBase>().QueryString.Exists("m") && int.TryParse(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
                             out var messageId))
                     {
                         // we find message position always by time.
                         using (var lastPost = this.GetRepository<Message>().FindUnreadAsDataTable(
-                            topicId: this.PageContext.PageTopicID,
-                            messageId: messageId,
-                            lastRead: DateTimeHelper.SqlDbMinTime(),
-                            showDeleted: showDeleted,
-                            authorUserId: userId))
+                            this.PageContext.PageTopicID,
+                            messageId,
+                            DateTimeHelper.SqlDbMinTime(),
+                            showDeleted,
+                            userId))
                         {
                             var unreadFirst = lastPost.AsEnumerable().FirstOrDefault();
                             if (unreadFirst != null)
@@ -1146,8 +1147,8 @@ namespace YAF.Pages
                                 // find first unread message
                                 var lastRead = !this.PageContext.IsCrawler
                                                    ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                                                       forumId: this.PageContext.PageForumID,
-                                                       topicId: this.PageContext.PageTopicID)
+                                                       this.PageContext.PageForumID,
+                                                       this.PageContext.PageTopicID)
                                                    : DateTime.UtcNow;
 
                                 using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
@@ -1176,11 +1177,11 @@ namespace YAF.Pages
                             break;
                         case "lastpost":
                             using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
-                                topicId: this.PageContext.PageTopicID,
-                                messageId: 0,
-                                lastRead: DateTime.UtcNow,
-                                showDeleted: showDeleted,
-                                authorUserId: userId))
+                                this.PageContext.PageTopicID,
+                                0,
+                                DateTime.UtcNow,
+                                showDeleted,
+                                userId))
                             {
                                 var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                                 if (unreadFirst != null)

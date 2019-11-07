@@ -64,7 +64,7 @@
 
 <div id="SearchResultsListBox">
 
-    <div id="SearchResultsPager" class="mt-3"></div>
+    <div id="SearchResultsPagerTop" class="mt-3"></div>
     <div id="SearchResultsLoader">
         <div class="modal fade" id="loadModal" tabindex="-1" role="dialog" aria-labelledby="loadModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -81,7 +81,7 @@
     </div>
 
 
-    <div id='SearchResultsPlaceholder'
+    <div id="SearchResultsPlaceholder"
         data-url='<%=YafForumInfo.ForumClientFileRoot %>'
         data-userid='<%= YafContext.Current.PageUserID %>'
         data-notext='<%= this.Get<ILocalization>().GetAttributeText("NO_SEARCH_RESULTS") %>'
@@ -89,6 +89,8 @@
         data-by='<%= this.Get<ILocalization>().GetAttributeText("By") %>'
         data-lastpost='<%= this.Get<ILocalization>().GetAttributeText("GO_LAST_POST") %>'
         data-topic='<%= this.Get<ILocalization>().GetAttributeText("COMMON","VIEW_TOPIC") %>'
-        style='clear: both;'>
+        style="clear: both;">
     </div>
+    
+    <div id="SearchResultsPagerBottom" class="mt-3"></div>
 </div>

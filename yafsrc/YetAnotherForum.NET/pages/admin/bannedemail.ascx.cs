@@ -130,7 +130,7 @@ namespace YAF.Pages.Admin
 
                         streamWriter.Close();
 
-                        this.Response.End();
+                        this.Get<HttpResponseBase>().End();
                     }
 
                     break;

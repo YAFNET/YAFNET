@@ -90,7 +90,7 @@ namespace YAF.Pages
             }
 
             // Atom feed as variable
-            var atomFeedByVar = this.Request.QueryString.GetFirstOrDefault("ft")
+            var atomFeedByVar = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ft")
                                  == YafSyndicationFormats.Atom.ToInt().ToString();
 
             YafSyndicationFeed feed = null;
@@ -144,7 +144,7 @@ namespace YAF.Pages
                         YafBuildLink.AccessDenied();
                     }
 
-                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null)
+                    if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
                     {
                         if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"), out var topicId))
                         {
@@ -163,13 +163,9 @@ namespace YAF.Pages
 
                     int? categoryId = null;
 
-                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c") != null)
+                    if (this.Get<HttpRequestBase>().QueryString.Exists("c"))
                     {
-                        if (int.TryParse(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"), out var icategoryId))
-                        {
-                            categoryId = icategoryId;
-                        }
+                        categoryId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("c");
                     }
 
                     this.GetForumFeed(ref feed, feedType, atomFeedByVar, categoryId);
@@ -184,7 +180,7 @@ namespace YAF.Pages
                         YafBuildLink.AccessDenied();
                     }
 
-                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null)
+                    if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
                     {
                         if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out var forumId))
                         {
@@ -202,7 +198,7 @@ namespace YAF.Pages
                     }
 
                     object categoryActiveId = null;
-                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null
+                    if (this.Get<HttpRequestBase>().QueryString.Exists("f")
                         &&
                         int.TryParse(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out var categoryActiveIntId))
@@ -220,7 +216,7 @@ namespace YAF.Pages
                     }
 
                     object categoryFavId = null;
-                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f") != null
+                    if (this.Get<HttpRequestBase>().QueryString.Exists("f")
                         &&
                         int.TryParse(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out var categoryFavIntId))
@@ -239,7 +235,7 @@ namespace YAF.Pages
             // the list should be added after all other feed properties are set
             if (feed != null)
             {
-                var writer = new XmlTextWriter(this.Response.OutputStream, Encoding.UTF8);
+                var writer = new XmlTextWriter(this.Get<HttpResponseBase>()OutputStream, Encoding.UTF8);
                 writer.WriteStartDocument();
 
                 // write the feed to the response writer);
@@ -247,23 +243,23 @@ namespace YAF.Pages
                 {
                     var rssFormatter = new Rss20FeedFormatter(feed);
                     rssFormatter.WriteTo(writer);
-                    this.Response.ContentType = "application/rss+xml";
+                    this.Get<HttpResponseBase>().ContentType = "application/rss+xml";
                 }
                 else
                 {
                     var atomFormatter = new Atom10FeedFormatter(feed);
                     atomFormatter.WriteTo(writer);
 
-                    this.Response.ContentType = "application/atom+xml";
+                    this.Get<HttpResponseBase>().ContentType = "application/atom+xml";
                 }
 
                 writer.WriteEndDocument();
                 writer.Close();
 
-                this.Response.ContentEncoding = Encoding.UTF8;
-                this.Response.Cache.SetCacheability(HttpCacheability.Public);
+                this.Get<HttpResponseBase>().ContentEncoding = Encoding.UTF8;
+                this.Get<HttpResponseBase>().Cache.SetCacheability(HttpCacheability.Public);
 
-                this.Response.End();
+                this.Get<HttpResponseBase>().End();
             }
             else
             {
@@ -355,14 +351,14 @@ namespace YAF.Pages
             var toActDate = DateTime.UtcNow;
             var toActText = this.GetText("MYTOPICS", "LAST_MONTH");
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("txt"))
             {
                 toActText =
                     this.Server.UrlDecode(
                         this.Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt")));
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("d"))
             {
                 if (
                     !DateTime.TryParse(
@@ -482,14 +478,14 @@ namespace YAF.Pages
 
             var toFavText = this.GetText("MYTOPICS", "LAST_MONTH");
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("txt"))
             {
                 toFavText =
                     this.Server.UrlDecode(
                         this.Server.HtmlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("txt")));
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("d") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("d"))
             {
                 if (
                     !DateTime.TryParse(

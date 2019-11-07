@@ -149,8 +149,8 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null
-                || this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("t")
+                || this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // reply to existing topic or editing of existing topic
                 YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
@@ -214,7 +214,7 @@ namespace YAF.Pages
         {
             this._messageRow = null;
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 this._messageRow = this.GetRepository<Message>().ListAsDataTable(
                         Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
@@ -237,13 +237,13 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") == null
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumPostAccess)
             {
                 YafBuildLink.AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null
+            if (this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumReplyAccess)
             {
                 YafBuildLink.AccessDenied();
@@ -267,7 +267,7 @@ namespace YAF.Pages
             this.DeleteReasonRow.Visible = false;
             this.LinkedPosts.Visible = false;
             
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 return;
             }

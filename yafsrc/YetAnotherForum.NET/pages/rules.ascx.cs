@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -83,7 +84,7 @@ namespace YAF.Pages
                 YafBuildLink.Redirect(ForumPages.register);
             }
 
-            this.Response.Redirect(YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
+            this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
         }
 
         /// <summary>

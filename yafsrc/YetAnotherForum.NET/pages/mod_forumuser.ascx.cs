@@ -29,6 +29,7 @@ namespace YAF.Pages
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -89,7 +90,7 @@ namespace YAF.Pages
                 dataTable = this.GetRepository<AccessMask>().GetByBoardId();
             }
 
-            // setup datasource for access masks dropdown
+            // setup data source for access masks dropdown
             this.AccessMaskID.DataSource = dataTable;
             this.AccessMaskID.DataValueField = "ID";
             this.AccessMaskID.DataTextField = "Name";
@@ -187,7 +188,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            // do not repeat on postback
+            // do not repeat on post-back
             if (this.IsPostBack)
             {
                 return;
@@ -203,13 +204,13 @@ namespace YAF.Pages
             this.DataBind();
 
             // if there is concrete user being handled
-            if (this.Request.QueryString.GetFirstOrDefault("u") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
                 return;
             }
 
             using (var dt = this.GetRepository<UserForum>().ListAsDataTable(
-                this.Request.QueryString.GetFirstOrDefault("u"),
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"),
                 this.PageContext.PageForumID))
             {
                 dt.AsEnumerable().ForEach(

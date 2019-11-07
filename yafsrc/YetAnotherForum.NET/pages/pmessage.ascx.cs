@@ -322,12 +322,12 @@ namespace YAF.Pages
             {
                 // PM is a reply or quoted reply (isQuoting)
                 // to the given message id "p"
-                var isQuoting = this.Request.QueryString.GetFirstOrDefault("q") == "1";
+                var isQuoting = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q") == "1";
 
                 // get quoted message
                 var row =
                     this.GetRepository<PMessage>().ListAsDataTable(
-                        Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
+                        Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
                 // there is such a message
                 if (row == null)
@@ -395,8 +395,8 @@ namespace YAF.Pages
                 }
 
                 // PM is being sent to a predefined user
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out var toUser)
-                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out var reportMessage))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out _)
+                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out _))
                 {
                     return;
                 }
@@ -451,7 +451,7 @@ namespace YAF.Pages
                 // PM is being send as a reply to a reported post
 
                 // find user
-                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out var toUserId))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out var toUserId))
                 {
                     return;
                 }
@@ -677,33 +677,36 @@ namespace YAF.Pages
                 }
 
                 // send PM to all recipients
-                foreach (var userId in recipientIds)
-                {
-                    var body = this._editor.Text;
+                recipientIds.ForEach(
+                    userId =>
 
-                    var messageFlags = new MessageFlags
-                                           {
-                                               IsHtml = this._editor.UsesHTML,
-                                               IsBBCode = this._editor.UsesBBCode
-                                           };
+                        {
+                            var body = this._editor.Text;
 
-                    this.GetRepository<PMessage>().SendMessage(
-                        YafContext.Current.PageUserID,
-                        userId,
-                        this.PmSubjectTextBox.Text,
-                        body,
-                        messageFlags.BitValue,
-                        replyTo);
+                            var messageFlags = new MessageFlags
+                                                   {
+                                                       IsHtml = this._editor.UsesHTML,
+                                                       IsBBCode = this._editor.UsesBBCode
+                                                   };
 
-                    // reset lazy data as he should be informed at once
-                    this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
+                            this.GetRepository<PMessage>().SendMessage(
+                                YafContext.Current.PageUserID,
+                                userId,
+                                this.PmSubjectTextBox.Text,
+                                body,
+                                messageFlags.BitValue,
+                                replyTo);
 
-                    if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
-                    {
-                        this.Get<ISendNotification>()
-                            .ToPrivateMessageRecipient(userId, this.PmSubjectTextBox.Text.Trim());
-                    }
-                }
+                            // reset lazy data as he should be informed at once
+                            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
+
+                            if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
+                            {
+                                this.Get<ISendNotification>().ToPrivateMessageRecipient(
+                                    userId,
+                                    this.PmSubjectTextBox.Text.Trim());
+                            }
+                        });
 
                 // redirect to outbox (sent items), not control panel
                 YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");

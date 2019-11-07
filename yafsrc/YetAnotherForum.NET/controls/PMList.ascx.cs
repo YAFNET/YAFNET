@@ -750,7 +750,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ClearHeaders();
 
             this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
-            this.Response.AppendHeader(
+            this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
                 $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
 

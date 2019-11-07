@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
                     return null;
                 }
 
-                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out var boardId))
+                if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b"), out var boardId))
                 {
                     return boardId;
                 }

@@ -613,13 +613,13 @@ namespace YAF.Pages.Admin
         /// </param>
         private void ExportAsCsv(DataTable usersList)
         {
-            this.Response.ContentType = "application/vnd.csv";
+            this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
 
-            this.Response.AppendHeader(
+            this.Get<HttpResponseBase>().AppendHeader(
                 "Content-Disposition",
                 $"attachment; filename=YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.csv");
 
-            var sw = new StreamWriter(this.Response.OutputStream);
+            var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
             // Write Column Headers
             var columnCount = usersList.Columns.Count;
@@ -656,8 +656,8 @@ namespace YAF.Pages.Admin
 
             sw.Close();
 
-            this.Response.Flush();
-            this.Response.End();
+            this.Get<HttpResponseBase>().Flush();
+            this.Get<HttpResponseBase>().End();
         }
 
         /// <summary>
@@ -668,16 +668,16 @@ namespace YAF.Pages.Admin
         /// </param>
         private void ExportAsXml(DataTable usersList)
         {
-            this.Response.ContentType = "text/xml";
+            this.Get<HttpResponseBase>().ContentType = "text/xml";
 
-            this.Response.AppendHeader(
+            this.Get<HttpResponseBase>().AppendHeader(
                 "Content-Disposition",
                 $"attachment; filename=YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
-            usersList.DataSet.WriteXml(this.Response.OutputStream);
+            usersList.DataSet.WriteXml(this.Get<HttpResponseBase>().OutputStream);
 
-            this.Response.Flush();
-            this.Response.End();
+            this.Get<HttpResponseBase>().Flush();
+            this.Get<HttpResponseBase>().End();
         }
 
         #endregion

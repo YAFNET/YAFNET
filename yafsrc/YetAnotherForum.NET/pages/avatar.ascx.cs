@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
@@ -72,11 +73,6 @@ namespace YAF.Pages
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets or sets the Page Number
-        /// </summary>
-        public int Pagenum { get; set; }
 
         /// <summary>
         ///   Gets or sets CurrentDirectory.
@@ -123,11 +119,11 @@ namespace YAF.Pages
         {
             var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
 
-            var fname = e.Item.FindControlAs<Literal>("fname");
+            var fileName = e.Item.FindControlAs<Literal>("fname");
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                var finfo = new FileInfo(
+                var info = new FileInfo(
                     this.Server.MapPath(Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"))));
 
                 if (this.CurrentDirectory.IsSet())
@@ -135,12 +131,12 @@ namespace YAF.Pages
                     directoryPath = this.CurrentDirectory;
                 }
 
-                var tmpExt = finfo.Extension.ToLower();
+                var tmpExt = info.Extension.ToLower();
 
                 if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
                 {
                     string link;
-                    var encodedFileName = finfo.Name.Replace(".", "%2E");
+                    var encodedFileName = info.Name.Replace(".", "%2E");
 
                     if (this.returnUserID > 0)
                     {
@@ -158,13 +154,13 @@ namespace YAF.Pages
                             this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
                     }
 
-                    fname.Text =
+                    fileName.Text =
                         string
                             .Format(
                                 @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}",
                                 link,
-                                $"{directoryPath}/{finfo.Name}",
-                                    finfo.Name,
+                                $"{directoryPath}/{info.Name}",
+                                    info.Name,
                                     Environment.NewLine);
                 }
             }
@@ -222,10 +218,10 @@ namespace YAF.Pages
         [NotNull]
         protected List<FileInfo> FilesListClean([NotNull] DirectoryInfo baseDir)
         {
-            var avatarfiles = baseDir.GetFiles("*.*");
+            var avatarFiles = baseDir.GetFiles("*.*");
 
             return
-                avatarfiles.Where(
+                avatarFiles.Where(
                     file =>
                     (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
                     && (file.Attributes & FileAttributes.System) != FileAttributes.System
@@ -279,9 +275,9 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("u") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                this.returnUserID = this.Request.QueryString.GetFirstOrDefault("u").ToType<int>();
+                this.returnUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>();
             }
 
             if (this.IsPostBack)

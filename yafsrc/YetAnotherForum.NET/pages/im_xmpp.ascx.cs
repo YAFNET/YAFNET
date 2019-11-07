@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Core;
     using YAF.Core.UsersRoles;
@@ -61,7 +62,8 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserID => Security.StringToIntOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+        public int UserID =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -109,7 +111,7 @@ namespace YAF.Pages
                 {
                     if (userHe == null)
                     {
-                        YafBuildLink.AccessDenied(/*No such user exists*/);
+                        YafBuildLink.AccessDenied( /*No such user exists*/);
                     }
 
                     // Data for current page user
@@ -119,8 +121,10 @@ namespace YAF.Pages
                     var userDataHe = new CombinedUserDataHelper(userHe, this.UserID);
                     var userDataMe = new CombinedUserDataHelper(userMe, this.PageContext.PageUserID);
 
-                    var serverHe = userDataHe.Profile.XMPP.Substring(userDataHe.Profile.XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
-                    var serverMe = userDataMe.Profile.XMPP.Substring(userDataMe.Profile.XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+                    var serverHe = userDataHe.Profile.XMPP
+                        .Substring(userDataHe.Profile.XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+                    var serverMe = userDataMe.Profile.XMPP
+                        .Substring(userDataMe.Profile.XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
 
                     this.NotifyLabel.Text = serverMe == serverHe
                                                 ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile.XMPP)

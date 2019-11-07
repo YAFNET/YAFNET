@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -120,7 +121,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("t") == null || !this.PageContext.ForumModeratorAccess)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumModeratorAccess)
             {
                 YafBuildLink.AccessDenied();
             }

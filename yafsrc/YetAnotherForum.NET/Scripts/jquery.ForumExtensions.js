@@ -53060,7 +53060,7 @@ function getSearchResultsData(pageNumber) {
                         notext +
                         "</div>");
 
-                    $("#SearchResultsPager").empty();
+                    $("#SearchResultsPagerTop, #SearchResultsPagerBottom").empty();
                     
                 } else {
                     $.each(data.SearchResults,
@@ -53127,7 +53127,7 @@ function getSearchResultsData(pageNumber) {
 
 function setPageNumber(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $("#SearchResultsPager"),
+    var pagerHolder = $("#SearchResultsPagerTop, #SearchResultsPagerBottom"),
         pagination = $('<ul class="pagination" />');
 
     pagerHolder.empty();

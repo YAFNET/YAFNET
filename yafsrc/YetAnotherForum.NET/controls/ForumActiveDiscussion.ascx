@@ -40,7 +40,7 @@
                                                                      TextLocalizedTag="GO_LASTUNREAD_POST"
                                                                      TitleLocalizedTag="GO_LASTUNREAD_POST"></YAF:ThemeButton>
                                             </h6>
-                                            <small>
+                                            <p>
                                                 <YAF:LocalizedLabel ID="ByLabel" runat="server" 
                                                                        LocalizedTag="BY" 
                                                                        LocalizedPage="TOPICS" />
@@ -52,7 +52,7 @@
                                                 </span>
                                                 <YAF:DisplayDateTime ID="LastPostDate" runat="server"
                                                                      Format="BothTopic" />
-                                            </small> 
+                                            </p> 
                                         </li>
                                     </ItemTemplate>
                                     <FooterTemplate>

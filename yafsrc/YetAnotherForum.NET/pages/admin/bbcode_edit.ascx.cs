@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -70,12 +71,12 @@ namespace YAF.Pages.Admin
                     return this._bbcodeId;
                 }
 
-                if (this.Request.QueryString.GetFirstOrDefault("b") == null)
+                if (!this.Get<HttpRequestBase>().QueryString.Exists("b"))
                 {
                     return null;
                 }
 
-                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out var id))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b"), out var id))
                 {
                     return null;
                 }

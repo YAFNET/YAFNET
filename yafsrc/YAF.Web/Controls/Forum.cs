@@ -420,7 +420,7 @@ namespace YAF.Web.Controls
         {
             var pages = this.Get<IEnumerable<ILocatablePage>>().ToList();
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("g"))
             {
                 var pageQuery = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g");
 

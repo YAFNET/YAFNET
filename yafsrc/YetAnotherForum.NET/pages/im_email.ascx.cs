@@ -36,6 +36,7 @@ namespace YAF.Pages
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Web.Extensions;
@@ -64,7 +65,8 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserId => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]);
+        public int UserId =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -90,9 +92,11 @@ namespace YAF.Pages
             // get user data...
             var user = UserMembershipHelper.GetMembershipUserById(this.UserId);
 
+
             if (user == null)
             {
-                YafBuildLink.AccessDenied(/*No such user exists*/);
+                // No such user exists
+                YafBuildLink.AccessDenied();
             }
             else
             {
@@ -123,13 +127,12 @@ namespace YAF.Pages
                 var toUser = UserMembershipHelper.GetMembershipUserById(this.UserId);
 
                 // send it...
-                this.Get<ISendMail>()
-                    .Send(
-                        new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName),
-                        new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
-                        new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name), 
-                        this.Subject.Text.Trim(),
-                        this.Body.Text.Trim());
+                this.Get<ISendMail>().Send(
+                    new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName),
+                    new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
+                    new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),
+                    this.Subject.Text.Trim(),
+                    this.Body.Text.Trim());
 
                 // redirect to profile page...
                 YafBuildLink.Redirect(ForumPages.profile, false, "u={0}", this.UserId);

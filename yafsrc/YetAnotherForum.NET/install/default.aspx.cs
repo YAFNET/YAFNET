@@ -31,6 +31,7 @@ namespace YAF.Install
     using System.Globalization;
     using System.Linq;
     using System.Security.Permissions;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -450,11 +451,11 @@ namespace YAF.Install
             // done here...
             try
             {
-                this.Response.Redirect(YafBuildLink.GetLink(ForumPages.forum));
+                this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.forum));
             }
             catch (Exception)
             {
-                this.Response.Redirect("default.aspx");
+                this.Get<HttpResponseBase>().Redirect("default.aspx");
             }
         }
 
@@ -593,7 +594,7 @@ namespace YAF.Install
             // reset the board settings...
             YafContext.Current.BoardSettings = null;
 
-            this.Response.Redirect("~/");
+            this.Get<HttpResponseBase>().Redirect("~/");
         }
 
         /// <summary>

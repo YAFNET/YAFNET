@@ -26,6 +26,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Core;
     using YAF.Types;
@@ -71,17 +72,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
-            base.OnInit(e);
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -98,17 +88,18 @@ namespace YAF.Pages
             this.Continue.TextLocalizedTag = "CONTINUE";
 
             // get redirect URL from parameter
-            if (this.Request.QueryString.GetFirstOrDefault("url") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("url"))
             {
-                // unescape ampersands
-                this.RefreshURL = this.Request.QueryString.GetFirstOrDefault("url").Replace("&amp;", "&");
+                // un-escape ampersands
+                this.RefreshURL = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("url")
+                    .Replace("&amp;", "&");
             }
 
-            // try to get infomessage code from parameter
+            // try to get info message code from parameter
             try
             {
                 // compare it converted to enumeration
-                switch ((InfoMessage)this.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
+                switch ((InfoMessage)this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"))
                 {
                     case InfoMessage.Moderated: // Moderated
                         this.Title.Text = this.GetText("title_moderated");
@@ -129,7 +120,7 @@ namespace YAF.Pages
                                 "SUSPENDED",
                                 this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil));
                         }
-                            
+
                         break;
                     case InfoMessage.RegistrationEmail: // Registration email
                         this.Title.Text = this.GetText("title_registration");
@@ -176,7 +167,9 @@ namespace YAF.Pages
 
                 // exception message
                 this.Info.Text = string.Format(
-                    "{1} <strong>{0}</strong>.", this.PageContext.PageUserName, this.GetText("exception"));
+                    "{1} <strong>{0}</strong>.",
+                    this.PageContext.PageUserName,
+                    this.GetText("exception"));
 
                 // redirect to forum main after 2 seconds
                 this.RefreshTime = 2;
@@ -189,14 +182,6 @@ namespace YAF.Pages
 
             // create page links - must be placed after switch to display correct title (last breadcrumb trail)
             this.CreatePageLinks();
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
 
         #endregion

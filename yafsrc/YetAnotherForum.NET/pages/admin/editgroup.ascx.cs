@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
@@ -138,7 +139,7 @@ namespace YAF.Pages.Admin
             this.BindData();
 
             // is this editing of existing role or creation of new one?
-            if (this.Request.QueryString.GetFirstOrDefault("i") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 return;
             }
@@ -148,7 +149,7 @@ namespace YAF.Pages.Admin
 
             // get data about edited role
             var row = this.GetRepository<Group>().List(
-                groupId: this.Request.QueryString.GetFirstOrDefaultAs<int>("i"),
+                groupId: this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"),
                 boardId: this.PageContext.PageBoardID).FirstOrDefault();
 
             // get role flags
@@ -250,9 +251,9 @@ namespace YAF.Pages.Admin
             long roleId = 0;
 
             // get role ID from page's parameter
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
-                roleId = long.Parse(this.Request.QueryString.GetFirstOrDefault("i"));
+                roleId = long.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i"));
             }
 
             // get new and old name
@@ -320,7 +321,7 @@ namespace YAF.Pages.Admin
             }
 
             // Access masks for a newly created or an existing role
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 // go through all forums
                 for (var i = 0; i < this.AccessList.Items.Count; i++)
@@ -385,10 +386,10 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // set data source of access list (list of forums and role's access masks) if we are editing existing mask
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 this.AccessList.DataSource = this.GetRepository<ForumAccess>()
-                    .GroupAsDataTable(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+                    .GroupAsDataTable(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"));
             }
 
             this.AccessMasksList = this.GetRepository<AccessMask>().GetByBoardId();

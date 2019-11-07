@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -103,9 +104,9 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet())
             {
-                this.View = PmViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
+                this.View = PmViewConverter.FromQueryString(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v"));
 
                 this.hidLastTab.Value = $"View{(int)this.View}";
             }

@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -72,7 +73,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (this.Request.QueryString.GetFirstOrDefault("r") == null)
+            if (!this.Request.QueryString.Exists("r"))
             {
                 return;
             }
@@ -164,7 +165,7 @@ namespace YAF.Pages.Admin
 
             // Group
             var rankID = 0;
-            if (this.Request.QueryString.GetFirstOrDefault("r") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("r"))
             {
                 rankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
             }

@@ -29,6 +29,7 @@ namespace YAF.Controls
     using System.Data;
     using System.Linq;
     using System.Text;
+    using System.Web;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -60,7 +61,7 @@ namespace YAF.Controls
                 return;
             }
 
-            var userID = Security.StringToIntOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+            var userID = Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
             using (var dt2 = this.GetRepository<ForumAccess>()
                 .UserAccessMasksAsDataTable(this.PageContext.PageBoardID, userID))

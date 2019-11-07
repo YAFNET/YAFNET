@@ -112,7 +112,7 @@ namespace YAF.Pages.Admin
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}"));
+                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -193,8 +193,8 @@ namespace YAF.Pages.Admin
             var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa")
                           ?? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("fa") == null
-                && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("copy") != null || !forumId.HasValue)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("fa")
+                && this.Get<HttpRequestBase>().QueryString.Exists("copy") || !forumId.HasValue)
             {
                 this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_FORUM";
 
@@ -492,7 +492,7 @@ namespace YAF.Pages.Admin
             }
 
             // parent selection check.
-            if (parentId != null && parentId.ToString() == this.Request.QueryString.GetFirstOrDefault("fa"))
+            if (parentId != null && parentId.ToString() == this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("fa"))
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"));
                 return;

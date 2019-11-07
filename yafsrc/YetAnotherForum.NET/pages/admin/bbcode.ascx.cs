@@ -176,7 +176,7 @@ namespace YAF.Pages.Admin
                         new XElement("ModuleClass", bbCode.ModuleClass),
                         new XElement("ExecOrder", bbCode.ExecOrder)));
 
-                element.Save(this.Response.OutputStream);
+                element.Save(this.Get<HttpResponseBase>().OutputStream);
 
                 this.Get<HttpResponseBase>().Flush();
                 this.Get<HttpResponseBase>().End();

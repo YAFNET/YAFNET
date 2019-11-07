@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.IO;
     using System.Linq;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -81,7 +82,7 @@ namespace YAF.Pages.Admin
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Categories}"));
+                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Categories}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -155,9 +156,9 @@ namespace YAF.Pages.Admin
         {
             var categoryId = 0;
 
-            if (this.Request.QueryString.GetFirstOrDefault("c") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("c"))
             {
-                categoryId = int.Parse(this.Request.QueryString.GetFirstOrDefault("c"));
+                categoryId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"));
             }
 
             var name = this.Name.Text.Trim();
@@ -216,7 +217,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            if (this.Request.QueryString.GetFirstOrDefault("c") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("c"))
             {
                 this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_CATEGORY";
                     
@@ -237,7 +238,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var category = this.GetRepository<Category>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("c"))
+            var category = this.GetRepository<Category>().List(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("c"))
                 .FirstOrDefault();
 
             if (category == null)

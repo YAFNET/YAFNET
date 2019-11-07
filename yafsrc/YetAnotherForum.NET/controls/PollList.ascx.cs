@@ -30,6 +30,7 @@ namespace YAF.Controls
     using System.Collections;
     using System.Data;
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
@@ -423,7 +424,7 @@ namespace YAF.Controls
             pollChoices = null;
 
             // check for voting cookie
-            var httpCookie = this.Request.Cookies[this.VotingCookieName(pollId.ToType<int>())];
+            var httpCookie = this.Get<HttpRequestBase>().Cookies[this.VotingCookieName(pollId.ToType<int>())];
             if (httpCookie?.Value != null)
             {
                 var pchcntr1 = 0;
@@ -1080,7 +1081,7 @@ namespace YAF.Controls
 
                 if (this.Get<YafBoardSettings>().PollVoteTiedToIP)
                 {
-                    remoteIp = IPHelper.IPStringToLong(this.Request.GetUserRealIPAddress()).ToString();
+                    remoteIp = IPHelper.IPStringToLong(this.Get<HttpRequestBase>().GetUserRealIPAddress()).ToString();
                 }
 
                 if (!this.PageContext.IsGuest)

@@ -202,7 +202,7 @@ namespace YAF.Pages.Admin
                 from spamWord in spamwordList
                 select new XElement("YafSpamWords", new XElement("SpamWord", spamWord.SpamWord)));
 
-            element.Save(this.Response.OutputStream);
+            element.Save(this.Get<HttpResponseBase>().OutputStream);
 
             this.Get<HttpResponseBase>().Flush();
             this.Get<HttpResponseBase>().End();

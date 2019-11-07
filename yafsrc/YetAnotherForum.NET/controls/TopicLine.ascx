@@ -58,12 +58,12 @@
             <div>
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                     LocalizedTag="REPLIES" LocalizedPage="MODERATE" />:
-                <% this.Response.Write(this.FormatReplies()); %>
+                <% this.Get<HttpResponseBase>().Write(this.FormatReplies()); %>
             </div>
             <div>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedPage="MODERATE" LocalizedTag="VIEWS" />:
-                <% this.Response.Write(this.FormatViews());%>
+                <% this.Get<HttpResponseBase>().Write(this.FormatViews());%>
             </div>
         </div>
     </div>

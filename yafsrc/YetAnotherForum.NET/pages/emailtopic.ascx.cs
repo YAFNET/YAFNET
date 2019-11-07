@@ -34,6 +34,7 @@ namespace YAF.Pages
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -67,7 +68,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<HttpRequestBase>().QueryString["t"] == null || !this.PageContext.ForumReadAccess
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess
                 || !this.PageContext.BoardSettings.AllowEmailTopic)
             {
                 YafBuildLink.AccessDenied();

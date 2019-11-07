@@ -73,8 +73,8 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u") == null
-                || this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("u")
+                || !this.Get<HttpRequestBase>().QueryString.Exists("a"))
             {
                 YafBuildLink.AccessDenied();
             }

@@ -28,6 +28,7 @@ namespace YAF.Pages
 
     using System;
     using System.Web.Security;
+    using System.Web.SessionState;
 
     using YAF.Core;
     using YAF.Types;
@@ -70,7 +71,7 @@ namespace YAF.Pages
 
             this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageContext.PageUserID));
 
-            this.Session.Abandon();
+            this.Get<HttpSessionState>().Abandon();
 
             YafBuildLink.Redirect(ForumPages.forum);
         }

@@ -814,11 +814,11 @@ namespace YAF.Controls
                     break;
                 case "toggleuserposts_show":
                     this.Get<IUserIgnored>().RemoveIgnored(this.PostData.UserId);
-                    this.Response.Redirect(this.Request.RawUrl);
+                    this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
                     break;
                 case "toggleuserposts_hide":
                     this.Get<IUserIgnored>().AddIgnored(this.PostData.UserId);
-                    this.Response.Redirect(this.Request.RawUrl);
+                    this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
                     break;
                 case "viewthanks":
                     YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);

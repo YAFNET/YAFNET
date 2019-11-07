@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
@@ -78,8 +79,8 @@ namespace YAF.Pages.Admin
         /// The current medal identifier.
         /// </value>
         protected int? CurrentMedalId =>
-            this.Request.QueryString.GetFirstOrDefault("medalid") != null
-                ? this.Request.QueryString.GetFirstOrDefaultAs<int?>("medalid")
+            this.Get<HttpRequestBase>().QueryString.Exists("medalid")
+                ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int?>("medalid")
                 : null;
 
         #region Methods
@@ -411,7 +412,7 @@ namespace YAF.Pages.Admin
 
                 // add files from medals folder
                 var dir = new DirectoryInfo(
-                    this.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}"));
+                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}"));
                 var files = dir.GetFiles("*.*");
 
                 long fileId = 1;

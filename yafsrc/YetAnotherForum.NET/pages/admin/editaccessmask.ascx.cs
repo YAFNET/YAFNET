@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -111,9 +112,9 @@ namespace YAF.Pages.Admin
             // retrieve access mask ID from parameter (if applicable)
             int? accessMaskId = null;
 
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
-                accessMaskId = this.Request.QueryString.GetFirstOrDefaultAs<int>("i");
+                accessMaskId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i");
             }
 
             if (this.Name.Text.Trim().Length <= 0)
@@ -168,10 +169,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 var accessMask = this.GetRepository<AccessMask>()
-                    .GetById(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+                    .GetById(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"));
 
                 if (accessMask != null)
                 {

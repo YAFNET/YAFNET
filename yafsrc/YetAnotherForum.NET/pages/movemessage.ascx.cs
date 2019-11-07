@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Core;
     using YAF.Core.Model;
@@ -81,12 +82,12 @@ namespace YAF.Pages
             if (this.TopicSubject.Text.IsSet())
             {
                 var topicId = this.GetRepository<Topic>().CreateByMessage(
-                    this.Request.QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
                     this.ForumList.SelectedValue.ToType<int>(),
                     this.TopicSubject.Text);
 
                 this.GetRepository<Message>().Move(
-                    this.Request.QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
                     topicId.ToType<int>(),
                     true);
 
@@ -135,7 +136,7 @@ namespace YAF.Pages
             if (this.TopicsList.SelectedValue.ToType<int>() != this.PageContext.PageTopicID)
             {
                 this.GetRepository<Message>().Move(
-                    this.Request.QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
                     this.TopicsList.SelectedValue.ToType<int>(),
                     true);
             }
@@ -150,7 +151,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("m") == null || !this.PageContext.ForumModeratorAccess)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageContext.ForumModeratorAccess)
             {
                 YafBuildLink.AccessDenied();
             }

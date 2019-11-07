@@ -158,7 +158,7 @@ namespace YAF.Pages.Admin
         {
             this.langPath = HttpContext.Current.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}languages");
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("x"))
             {
                 this.xmlFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
 

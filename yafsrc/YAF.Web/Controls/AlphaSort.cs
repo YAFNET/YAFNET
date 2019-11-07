@@ -57,18 +57,20 @@ namespace YAF.Web.Controls
             {
                 var currentLetter = char.MinValue;
 
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("letter") != null)
+                if (!this.Get<HttpRequestBase>().QueryString.Exists("letter"))
                 {
-                    // try to convert to char
-                    char.TryParse(
-                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("letter"),
-                        out currentLetter);
+                    return currentLetter;
+                }
 
-                    // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
-                    if (currentLetter == '_')
-                    {
-                        currentLetter = '#';
-                    }
+                // try to convert to char
+                char.TryParse(
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("letter"),
+                    out currentLetter);
+
+                // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
+                if (currentLetter == '_')
+                {
+                    currentLetter = '#';
                 }
 
                 return currentLetter;

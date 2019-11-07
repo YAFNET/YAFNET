@@ -203,7 +203,7 @@ namespace YAF.Controls
 
             if (this.PageContext.BoardSettings.PollVoteTiedToIP)
             {
-                remoteIP = IPHelper.IPStringToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
+                remoteIP = IPHelper.IPStringToLong(this.Get<HttpRequestBase>().ServerVariables["REMOTE_ADDR"]).ToString();
             }
 
             if (!this.PageContext.IsGuest)
@@ -221,11 +221,11 @@ namespace YAF.Controls
             var cookieCurrent = string.Empty;
 
             // We check whether is a vote for an option  
-            if (this.Request.Cookies[VotingCookieName(this.PollId.ToType<int>())] != null)
+            if (this.Get<HttpRequestBase>().Cookies[VotingCookieName(this.PollId.ToType<int>())] != null)
             {
                 // Add the voted option to cookie value string
-                cookieCurrent = $"{this.Request.Cookies[VotingCookieName(this.PollId.ToType<int>())].Value},";
-                this.Request.Cookies.Remove(VotingCookieName(this.PollId.ToType<int>()));
+                cookieCurrent = $"{this.Get<HttpRequestBase>().Cookies[VotingCookieName(this.PollId.ToType<int>())].Value},";
+                this.Get<HttpRequestBase>().Cookies.Remove(VotingCookieName(this.PollId.ToType<int>()));
             }
 
             var c = new HttpCookie(
@@ -236,7 +236,7 @@ namespace YAF.Controls
                                     .AddYears(1)
                             };
 
-            this.Response.Cookies.Add(c);
+            this.Get<HttpResponseBase>().Cookies.Add(c);
 
             // show an info that the user is voted 
             var msg = this.GetText("INFO_VOTED");

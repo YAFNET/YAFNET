@@ -239,7 +239,7 @@ namespace YAF.Controls
         /// </param>
         protected void OutputError([NotNull] string errorString)
         {
-            this.Response.Write(
+            this.Get<HttpResponseBase>().Write(
                 $"<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{errorString}</h1></body></html>");
         }
 
@@ -279,7 +279,7 @@ namespace YAF.Controls
                         "Invalid Web Service Token. Please go into your host settings and save them committing a unique web service token to the database.");
                 }
 
-                this.Response.End();
+                this.Get<HttpResponseBase>().End();
                 return;
             }
 
@@ -292,7 +292,7 @@ namespace YAF.Controls
                         @"Cannot generate digest unless YAF.ForceScriptName AppSetting is specified in your app.config (default). Please specify the full page name for YAF.NET -- usually ""default.aspx"".");
                 }
 
-                this.Response.End();
+                this.Get<HttpResponseBase>().End();
                 return;
             }
 
@@ -313,10 +313,10 @@ namespace YAF.Controls
                 {
                     this.OutputError($"No topics for the last {this.BoardSettings.DigestSendEveryXHours} hours.");
 
-                     this.Response.Write(this.GetDebug());
+                     this.Get<HttpResponseBase>().Write(this.GetDebug());
                 }
 
-                this.Response.End();
+                this.Get<HttpResponseBase>().End();
                 return;
             }
 

@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
@@ -106,12 +107,12 @@ namespace YAF.Pages.Admin
         protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // retrieve access mask ID from parameter (if applicable)
-            if (this.Request.QueryString.GetFirstOrDefault("u") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
                 return;
             }
 
-            var userId = this.Request.QueryString.GetFirstOrDefaultAs<int>("u");
+            var userId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("u");
 
             this.AccessList.Items.Cast<RepeaterItem>().ForEach(
                 ri =>
@@ -141,9 +142,9 @@ namespace YAF.Pages.Admin
         protected void GrantAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // save permissions to table -  checked only
-            if (this.Request.QueryString.GetFirstOrDefault("u") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                var userId = this.Request.QueryString.GetFirstOrDefaultAs<int>("u");
+                var userId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("u");
 
                 this.AccessList.Items.Cast<RepeaterItem>().ForEach(
                     ri =>
@@ -166,9 +167,9 @@ namespace YAF.Pages.Admin
         protected void RevokeAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // revoke permissions by deleting records from table. Number of records there should be minimal.
-            if (this.Request.QueryString.GetFirstOrDefault("u") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                var userId = this.Request.QueryString.GetFirstOrDefaultAs<int>("u");
+                var userId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("u");
 
                 this.AccessList.Items.Cast<RepeaterItem>().ForEach(ri =>
                     {
@@ -215,11 +216,11 @@ namespace YAF.Pages.Admin
         {
             var found = false;
 
-            if (this.Request.QueryString.GetFirstOrDefault("u") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
                 // Load the page access list.
                 var dt = this.GetRepository<AdminPageUserAccess>().List(
-                    this.Request.QueryString.GetFirstOrDefaultAs<int>("u"),
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("u"),
                     null);
 
                 // Get admin pages by page prefixes.
@@ -248,7 +249,7 @@ namespace YAF.Pages.Admin
                                 adminPageAccesses.Add(
                                     new AdminPageAccess
                                         {
-                                            UserId = this.Request.QueryString.GetFirstOrDefault("u").ToType<int>(),
+                                            UserId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>(),
                                             PageName = listPage,
                                             ReadAccess = true
                                         });
@@ -260,7 +261,7 @@ namespace YAF.Pages.Admin
                                 adminPageAccesses.Add(
                                     new AdminPageAccess
                                         {
-                                            UserId = this.Request.QueryString.GetFirstOrDefault("u").ToType<int>(),
+                                            UserId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>(),
                                             PageName = listPage,
                                             ReadAccess = false
                                         });
@@ -272,7 +273,7 @@ namespace YAF.Pages.Admin
 
                 this.UserName.Text = this.HtmlEncode(
                     this.Get<IUserDisplayName>()
-                        .GetName(this.Request.QueryString.GetFirstOrDefault("u").ToType<int>()));
+                        .GetName(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>()));
 
                 // get admin pages list with access flags.
                 this.AccessList.DataSource = adminPageAccesses.AsEnumerable();

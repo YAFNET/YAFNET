@@ -106,7 +106,7 @@ namespace YAF.Pages
             {
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
                 {
-                    this.Response.Redirect(
+                    this.Get<HttpResponseBase>().Redirect(
                         YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
                 }
 
@@ -118,12 +118,12 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
                 {
-                    this.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=4"));
+                    this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=4"));
                 }
 
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out this.forumID))
                 {
-                    this.Response.Redirect(
+                    this.Get<HttpResponseBase>().Redirect(
                         YafBuildLink.GetLink(ForumPages.error, "Incorrect forum value: {0}", this.forumID));
                 }
 
@@ -134,7 +134,7 @@ namespace YAF.Pages
 
             if (this.originalRow.Rows.Count <= 0)
             {
-                this.Response.Redirect(
+                this.Get<HttpResponseBase>().Redirect(
                     YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
             }
 
@@ -156,7 +156,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));
+            this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Response.Redirect(
+            this.Get<HttpResponseBase>().Redirect(
                 YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, "f={0}", this.forumID));
         }
 

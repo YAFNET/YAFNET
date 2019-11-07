@@ -343,7 +343,7 @@ namespace YAF.Pages
                     this.GetRepository<Message>().MessageList(this.QuotedMessageId.ToType<int>())
                         .FirstOrDefault();
 
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text") != null)
+                if (this.Get<HttpRequestBase>().QueryString.Exists("text"))
                 {
                     var quotedMessage =
                         this.Get<IBBCode>()
@@ -1444,7 +1444,7 @@ namespace YAF.Pages
             // Ederon : 9/9/2007 - moderators can reply in locked topics
             if (topic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
-                this.Response.Redirect(this.Get<HttpRequestBase>().UrlReferrer.ToString());
+                this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().UrlReferrer.ToString());
             }
 
             this.PriorityRow.Visible = false;

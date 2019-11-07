@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
     using System.Web.Security;
 
     using YAF.Core;
@@ -140,9 +141,9 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            if (this.Request.QueryString["k"] != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("k"))
             {
-                this.key.Text = this.Request.QueryString["k"];
+                this.key.Text = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("k");
                 this.ValidateKey_Click(sender, e);
             }
             else

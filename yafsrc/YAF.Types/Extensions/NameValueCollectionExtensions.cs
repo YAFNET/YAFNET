@@ -38,10 +38,20 @@ namespace YAF.Types.Extensions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Gets the first value of <paramref name="paramName" /> in the collection or default (Null).
+        /// Gets the first value of <paramref name="paramName"/> in the collection or default (Null).
         /// </summary>
-        /// <param name="collection"></param>
-        /// <returns></returns>
+        /// <param name="collection">
+        /// The collection.
+        /// </param>
+        /// <param name="paramName">
+        /// The parameter Name.
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string GetFirstOrDefault(
             [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
         {
@@ -52,10 +62,23 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Gets the first value of <paramref name="paramName" /> in the collection as T or default (Null).
+        /// Gets the first value of <paramref name="paramName"/> in the collection as T or default (Null).
         /// </summary>
-        /// <param name="collection"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">
+        /// The typed parameter.
+        /// </typeparam>
+        /// <param name="collection">
+        /// The collection.
+        /// </param>
+        /// <param name="paramName">
+        /// The parameter Name.
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer.
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
         public static T GetFirstOrDefaultAs<T>(
             [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
         {
@@ -97,10 +120,17 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Gets the value as an <see cref="IEnumerable" /> handling splitting the string if needed.
+        /// Gets the value as an <see cref="IEnumerable"/> handling splitting the string if needed.
         /// </summary>
-        /// <param name="collection"></param>
-        /// <returns>Does not return null.</returns>
+        /// <param name="collection">
+        /// The collection.
+        /// </param>
+        /// <param name="paramName">
+        /// The parameter Name.
+        /// </param>
+        /// <returns>
+        /// Does not return null.
+        /// </returns>
         public static IEnumerable<string> GetValueList([NotNull] this NameValueCollection collection, [NotNull] string paramName)
         {
             CodeContracts.VerifyNotNull(collection, "collection");
@@ -110,11 +140,16 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Flattens a <see cref="NameValueCollection" /> to a simple string <see cref="IDictionary{TKey,TValue}" />.
+        /// Flattens a <see cref="NameValueCollection"/> to a simple string <see cref="IDictionary{TKey,TValue}"/>.
         /// </summary>
         /// <param name="collection">
+        /// The collection.
+        /// </param>
+        /// <param name="comparer">
+        /// The comparer.
         /// </param>
         /// <returns>
+        /// The <see cref="ILookup"/>.
         /// </returns>
         [NotNull]
         public static ILookup<string, string> ToLookup([NotNull] this NameValueCollection collection, IEqualityComparer<string> comparer = null)
@@ -122,6 +157,26 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(collection, "collection");
 
             return collection.Cast<string>().ToLookup(key => key, key => collection[key], comparer ?? StringComparer.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Check if Element Exists in the collection
+        /// </summary>
+        /// <param name="collection">
+        /// The collection.
+        /// </param>
+        /// <param name="paramName">
+        /// The parameter name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Exists([NotNull] this NameValueCollection collection, [NotNull] string paramName)
+        {
+            CodeContracts.VerifyNotNull(collection, "collection");
+            CodeContracts.VerifyNotNull(paramName, "paramName");
+
+            return collection[paramName] != null;
         }
 
         #endregion

@@ -229,7 +229,7 @@ namespace YAF.Web.Controls
         {
             base.OnInit(e);
 
-            if (!this.ignorePageIndex && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p") != null)
+            if (!this.ignorePageIndex && this.Get<HttpRequestBase>().QueryString.Exists("p"))
             {
                 // set a new page...
                 this.CurrentPageIndex =

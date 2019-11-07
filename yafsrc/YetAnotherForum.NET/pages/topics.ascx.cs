@@ -243,7 +243,7 @@ namespace YAF.Pages
                 this.HandleWatchForum();
             }
 
-            if (this.Request.QueryString.GetFirstOrDefault("f") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
                 YafBuildLink.AccessDenied();
             }
@@ -266,8 +266,8 @@ namespace YAF.Pages
 
             if (this.forum.RemoteURL.IsSet())
             {
-                this.Response.Clear();
-                this.Response.Redirect(this.forum.RemoteURL);
+                this.Get<HttpResponseBase>().Clear();
+                this.Get<HttpResponseBase>().Redirect(this.forum.RemoteURL);
             }
 
             this.PageTitle.Text = this.forum.Description.IsSet()

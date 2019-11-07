@@ -115,7 +115,7 @@ namespace YAF.Controls
             }
 
             // check if it's a link from the avatar picker
-            if (this.Request.QueryString.GetFirstOrDefault("av") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("av"))
             {
                 // save the avatar right now...
                 this.GetRepository<User>().SaveAvatar(

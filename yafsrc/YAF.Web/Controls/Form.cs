@@ -78,6 +78,12 @@ namespace YAF.Web.Controls
             }
         }
 
+        /// <summary>
+        /// The get id.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         private string GetID()
         {
             return this.ClientID;

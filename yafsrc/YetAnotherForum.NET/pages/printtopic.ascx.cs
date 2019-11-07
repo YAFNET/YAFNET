@@ -29,6 +29,7 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -98,20 +99,8 @@ namespace YAF.Pages
         protected string GetPrintHeader([NotNull] object o)
         {
             var row = (DataRow)o;
-            return string.Format("<strong>{2}: {0}</strong> - {1}", this.Get<YafBoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"], this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
-        }
-
-        /// <summary>
-        /// The on init.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
-            base.OnInit(e);
+            return
+                $"<strong>{this.GetText("postedby")}: {(this.Get<YafBoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"])}</strong> - {this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"])}";
         }
 
         /// <summary>
@@ -125,7 +114,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("t") == null || !this.PageContext.ForumReadAccess)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess)
             {
                 YafBuildLink.AccessDenied();
             }
@@ -186,14 +175,6 @@ namespace YAF.Pages
             this.Posts.DataSource = dt.AsEnumerable();
 
             this.DataBind();
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
 
         #endregion

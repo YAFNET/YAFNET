@@ -23,8 +23,8 @@
                                         LocalizedPage="ADMIN_COMMON" />
                     <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                 </YAF:Alert><div class="table-responsive">
-			    <table class="table sortable tablesorter">
-                    <thead>
+			    <table class="table tablesorter table-bordered table-striped">
+                    <thead class="thead-light">
                         <tr>
                             <th>
                                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="LANG_NAME" LocalizedPage="ADMIN_LANGUAGES" />

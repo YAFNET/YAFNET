@@ -29,6 +29,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.Text;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
@@ -125,7 +126,7 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                this.UserId = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+                this.UserId = (int)Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 this.userGroupsRow.Visible = this.Get<YafBoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
             }
 

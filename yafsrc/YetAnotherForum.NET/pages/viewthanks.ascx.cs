@@ -29,6 +29,7 @@ namespace YAF.Pages
 
   using System;
   using System.Data;
+  using System.Web;
 
   using YAF.Controls;
   using YAF.Core;
@@ -119,7 +120,7 @@ namespace YAF.Pages
       /// </param>
       protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
       {
-          var userId = Security.StringToIntOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+          var userId = Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
           if (userId != this.PageContext.PageUserID)
           {
