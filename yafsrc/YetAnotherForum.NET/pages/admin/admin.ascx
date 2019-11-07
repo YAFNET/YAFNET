@@ -221,8 +221,8 @@
                             <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </YAF:Alert>
                         <div class="table-responsive">
-                        <table class="table tablesorter" id="ActiveUsers">
-                            <thead>
+                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
+                            <thead class="thead-light">
                             <tr>
                                 <th>
                                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
@@ -322,8 +322,8 @@
                     <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                 </YAF:Alert>
                 <div class="table-responsive">
-                <table class="table tablesorter" id="UnverifiedUsers">
-                <thead>
+                <table class="table tablesorter table-bordered table-striped" id="UnverifiedUsers">
+                <thead class="thead-light">
                 <tr>
                     <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME"

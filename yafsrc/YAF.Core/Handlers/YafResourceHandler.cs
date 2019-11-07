@@ -94,29 +94,29 @@ namespace YAF.Core.Handlers
                 }
 
                 /////////////
-                if (context.Request.QueryString.GetFirstOrDefault("twitterinfo") != null)
+                if (context.Request.QueryString.Exists("twitterinfo"))
                 {
                     this.Get<IResources>().GetTwitterUserInfo(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("userinfo") != null)
+                else if (context.Request.QueryString.Exists("userinfo"))
                 {
                     this.Get<IResources>().GetUserInfo(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("bbcodelist") != null)
+                else if (context.Request.QueryString.Exists("bbcodelist"))
                 {
                     this.Get<IResources>().GetCustomBBCodes(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("users") != null)
+                else if (context.Request.QueryString.Exists("users"))
                 {
                     this.Get<IResources>().GetMentionUsers(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("u") != null)
+                else if (context.Request.QueryString.Exists("u"))
                 {
                     this.Get<IResources>().GetResponseLocalAvatar(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("url") != null
-                         && context.Request.QueryString.GetFirstOrDefault("width") != null
-                         && context.Request.QueryString.GetFirstOrDefault("height") != null)
+                else if (context.Request.QueryString.Exists("url")
+                         && context.Request.QueryString.Exists("width")
+                         && context.Request.QueryString.Exists("height"))
                 {
                     var maxWidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
                     var maxHeight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
@@ -129,11 +129,11 @@ namespace YAF.Core.Handlers
                         this.Get<IResources>().GetResponseRemoteAvatar(context);
                     }
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("a") != null)
+                else if (context.Request.QueryString.Exists("a"))
                 {
                     this.Get<IAttachment>().GetResponseAttachment(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("i") != null)
+                else if (context.Request.QueryString.Exists("i"))
                 {
                     var etagCodeCode = $@"""{context.Request.QueryString.GetFirstOrDefault("i")}""";
 
@@ -142,7 +142,7 @@ namespace YAF.Core.Handlers
                         this.Get<IAttachment>().GetResponseImage(context);
                     }
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
+                else if (context.Request.QueryString.Exists("p"))
                 {
                     var etagCodeCode = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
@@ -151,13 +151,13 @@ namespace YAF.Core.Handlers
                         this.Get<IAlbum>().GetResponseImagePreview(context, localizationFile, previewCropped);
                     }
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
+                else if (context.Request.QueryString.Exists("c"))
                 {
                     // captcha
                     this.Get<IResources>().GetResponseCaptcha(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("cover") != null
-                         && context.Request.QueryString.GetFirstOrDefault("album") != null)
+                else if (context.Request.QueryString.Exists("cover")
+                         && context.Request.QueryString.Exists("album"))
                 {
                     var etagCode = $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
 
@@ -167,7 +167,7 @@ namespace YAF.Core.Handlers
                         this.Get<IAlbum>().GetAlbumCover(context, localizationFile, previewCropped);
                     }
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("imgprv") != null)
+                else if (context.Request.QueryString.Exists("imgprv"))
                 {
                     // album image preview
                     var etagCode =
@@ -178,7 +178,7 @@ namespace YAF.Core.Handlers
                         this.Get<IAlbum>().GetAlbumImagePreview(context, localizationFile, previewCropped);
                     }
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("image") != null)
+                else if (context.Request.QueryString.Exists("image"))
                 {
                     var etagCode = $@"""{context.Request.QueryString.GetFirstOrDefault("image")}""";
 
@@ -225,7 +225,7 @@ namespace YAF.Core.Handlers
                 return false;
             }
 
-            if (context.Request.QueryString.GetFirstOrDefault("v") != null)
+            if (context.Request.QueryString.Exists("v"))
             {
                 return false;
             }

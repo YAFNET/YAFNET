@@ -104,28 +104,30 @@ namespace YAF.Core.Services
         {
             if (albumId != null)
             {
-                var dt = YafContext.Current.GetRepository<UserAlbumImage>().List(albumId.ToType<int>());
+                var albums = YafContext.Current.GetRepository<UserAlbumImage>().List(albumId.ToType<int>());
 
-                foreach (var dr in dt)
-                {
-                    var fullName = $"{upDir}/{userID}.{albumId}.{dr.FileName}.yafalbum";
-                    var file = new FileInfo(fullName);
-
-                    try
+                albums.ForEach(
+                    dr =>
                     {
-                        if (file.Exists)
+                        var fullName = $"{upDir}/{userID}.{albumId}.{dr.FileName}.yafalbum";
+                        var file = new FileInfo(fullName);
+
+                        try
                         {
-                            File.SetAttributes(fullName, FileAttributes.Normal);
-                            File.Delete(fullName);
+                            if (file.Exists)
+                            {
+                                File.SetAttributes(fullName, FileAttributes.Normal);
+                                File.Delete(fullName);
+                            }
                         }
-                    }
-                    finally
-                    {
-                        var imageId = dr.ID;
-                        YafContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageId);
-                        YafContext.Current.GetRepository<UserAlbum>().DeleteCover(imageId);
-                    }
-                }
+                        finally
+                        {
+                            var imageId = dr.ID;
+                            YafContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageId);
+                            YafContext.Current.GetRepository<UserAlbum>().DeleteCover(imageId);
+                        }
+                    });
+                
 
                 YafContext.Current.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumId.ToType<int>());
 
@@ -471,7 +473,7 @@ namespace YAF.Core.Services
                 var attachment = this.GetRepository<Attachment>()
                     .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
 
-                var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
+                var boardID = context.Request.QueryString.Exists("b")
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
                                   : YafContext.Current.BoardSettings.BoardID;
 

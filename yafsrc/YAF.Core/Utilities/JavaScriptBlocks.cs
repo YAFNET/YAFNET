@@ -448,7 +448,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string pagerSelector)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
-                        {Config.JQueryAlias}('{selector}').tablesorter( {(options.IsSet() ? $"{{ {options} }}" : string.Empty)} )
+                        {Config.JQueryAlias}('{selector}').tablesorter( {(options.IsSet() ? $"{{ {options},theme : 'bootstrap' }}" : "{{ theme : 'bootstrap'}}")} )
                                   .tablesorterPager({{
                                                      container: $('{pagerSelector}')
                                                      }});

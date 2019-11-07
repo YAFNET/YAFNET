@@ -82,7 +82,7 @@ namespace YAF.Core.Services
                     this.GetRepository<Attachment>()
                         .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
 
-                var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
+                var boardID = context.Request.QueryString.Exists("b")
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
                                   : YafContext.Current.BoardSettings.BoardID;
 
@@ -180,14 +180,14 @@ namespace YAF.Core.Services
                     this.GetRepository<Attachment>()
                         .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
 
-                if (context.Request.QueryString.GetFirstOrDefault("editor") == null)
+                if (!context.Request.QueryString.Exists("editor"))
                 {
                     // add a download count...
                     this.GetRepository<Attachment>()
                         .IncrementDownloadCounter(attachment.ID);
                 }
 
-                var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
+                var boardID = context.Request.QueryString.Exists("b")
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
                                   : YafContext.Current.BoardSettings.BoardID;
 

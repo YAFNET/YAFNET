@@ -4635,7 +4635,7 @@ readers do not read off random characters that represent icons */
   font-weight: 400; }
 
 /* Extensions */
-.fa-stack > .fa-badge-bg {
+.fa-badge-bg {
   position: absolute;
   right: 0%;
   bottom: -5%;
@@ -4645,7 +4645,7 @@ readers do not read off random characters that represent icons */
   line-height: 102%;
   text-align: center; }
 
-.fa-stack > .fa-badge {
+.fa-badge {
   position: absolute;
   right: 16%;
   bottom: 26%;
