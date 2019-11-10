@@ -37,6 +37,7 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -182,19 +183,19 @@ namespace YAF.Controls
 
             if (!this.CanVote)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_ALREADY_VOTED"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
                 return;
             }
 
             if (this.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
                 return;
             }
 
             if (this.IsClosed)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_POLL_CLOSED"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_POLL_CLOSED"), MessageTypes.warning);
                 return;
             }
 
@@ -247,7 +248,7 @@ namespace YAF.Controls
             this.ChoiceVoted?.Invoke(source, e);
 
             // show the notification  window to user
-            this.PageContext.AddLoadMessage(msg);
+            this.PageContext.AddLoadMessage(msg, MessageTypes.success);
         }
 
         /// <summary>

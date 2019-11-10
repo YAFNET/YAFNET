@@ -106,9 +106,9 @@ namespace YAF.Core.Controllers
             var pageNumber = pagedResults.PageNumber;
 
             var albumImages = this.GetRepository<UserAlbumImage>().GetUserAlbumImagesPaged(
-                userId: userId,
-                pageIndex: pageNumber,
-                pageSize: pageSize);
+                userId,
+                pageNumber,
+                pageSize);
 
             var images = new List<AttachmentItem>();
 

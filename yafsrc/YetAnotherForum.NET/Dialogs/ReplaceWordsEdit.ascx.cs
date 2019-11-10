@@ -55,9 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ReplaceWordId
         {
-            get => this.ViewState[key: "ReplaceWordId"].ToType<int?>();
+            get => this.ViewState["ReplaceWordId"].ToType<int?>();
 
-            set => this.ViewState[key: "ReplaceWordId"] = value;
+            set => this.ViewState["ReplaceWordId"] = value;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace YAF.Dialogs
             if (this.ReplaceWordId.HasValue)
             {
                 // Edit
-                var replaceWord = this.GetRepository<Replace_Words>().GetById(id: this.ReplaceWordId.Value);
+                var replaceWord = this.GetRepository<Replace_Words>().GetById(this.ReplaceWordId.Value);
 
                 this.badword.Text = replaceWord.BadWord;
                 this.goodword.Text = replaceWord.GoodWord;
@@ -104,12 +104,15 @@ namespace YAF.Dialogs
         /// </returns>
         protected bool IsValidWordExpression([NotNull] string newExpression)
         {
-            if (!newExpression.Equals(value: "*"))
+            if (!newExpression.Equals("*"))
             {
                 return true;
             }
 
-            this.PageContext.AddLoadMessage(message: this.GetText(page: "ADMIN_REPLACEWORDS_EDIT", tag: "MSG_REGEX_BAD"));
+            this.PageContext.AddLoadMessage(
+                this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
+                MessageTypes.warning);
+
             return false;
         }
 
@@ -120,20 +123,20 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsValidWordExpression(newExpression: this.badword.Text.Trim()))
+            if (!this.IsValidWordExpression(this.badword.Text.Trim()))
             {
                 return;
             }
 
             this.GetRepository<Replace_Words>()
                 .Save(
-                    replaceWordId: this.ReplaceWordId,
-                    badWord: this.badword.Text,
-                    goodWord: this.goodword.Text);
+                    this.ReplaceWordId,
+                    this.badword.Text,
+                    this.goodword.Text);
 
-            this.Get<IDataCache>().Remove(key: Constants.Cache.ReplaceWords);
+            this.Get<IDataCache>().Remove(Constants.Cache.ReplaceWords);
 
-            YafBuildLink.Redirect(page: ForumPages.admin_replacewords);
+            YafBuildLink.Redirect(ForumPages.admin_replacewords);
         }
 
         #endregion

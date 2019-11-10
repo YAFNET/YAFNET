@@ -248,7 +248,7 @@ namespace YAF.Pages
             // no user was specified
             if (this.UserName.Text.Length <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"));
+                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
@@ -264,13 +264,13 @@ namespace YAF.Pages
             // there is no such user or reference is ambiguous
             if (!userId.HasValue)
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"));
+                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
             if (UserMembershipHelper.IsGuestUser(userId))
             {
-                this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"));
+                this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
                 return;
             }
 

@@ -111,7 +111,9 @@ namespace YAF.Pages.Admin
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject, true);
 
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
+                            MessageTypes.success);
                     }
                     else
                     {
@@ -128,7 +130,9 @@ namespace YAF.Pages.Admin
                         this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValue))
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
+                            MessageTypes.warning);
                         return;
                     }
 
@@ -152,7 +156,9 @@ namespace YAF.Pages.Admin
                         this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValueAll))
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
+                            MessageTypes.warning);
                         return;
                     }
 
@@ -464,11 +470,11 @@ namespace YAF.Pages.Admin
             // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.
             var activeUsers = this.GetRepository<Active>()
                 .ListUserAsDataTable(
-                    userID: this.PageContext.PageUserID,
-                    guests: showGuests,
-                    showCrawlers: showCrawlers,
-                    activeTime: this.PageContext.BoardSettings.ActiveListTime,
-                    styledNicks: this.PageContext.BoardSettings.UseStyledNicks);
+                    this.PageContext.PageUserID,
+                    showGuests,
+                    showCrawlers,
+                    this.PageContext.BoardSettings.ActiveListTime,
+                    this.PageContext.BoardSettings.UseStyledNicks);
 
             return activeUsers;
         }

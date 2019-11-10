@@ -141,7 +141,7 @@ namespace YAF.Pages
         {
             if (this.forum.ForumFlags.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
                 return;
             }
 
@@ -328,7 +328,7 @@ namespace YAF.Pages
 
             if (this.PageContext.IsGuest)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_LOGIN_FORUMWATCH"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_LOGIN_FORUMWATCH"), MessageTypes.warning);
                 return;
             }
 

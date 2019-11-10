@@ -409,22 +409,22 @@ namespace YAF.Core.Services.Auth
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             YafContext.Current.GetRepository<User>().Save(
-                userID: userId,
-                boardID: YafContext.Current.PageBoardID,
-                userName: twitterUser.UserName,
-                displayName: twitterUser.UserName,
-                email: email,
-                timeZone: TimeZoneInfo.Local.Id,
-                languageFile: null,
-                culture: null,
-                themeFile: null,
-                textEditor: null,
-                approved: null,
-                pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
-                autoWatchTopics: autoWatchTopicsEnabled,
-                dSTUser: TimeZoneInfo.Local.SupportsDaylightSavingTime,
-                hideUser: null,
-                notificationType: null);
+                userId,
+                YafContext.Current.PageBoardID,
+                twitterUser.UserName,
+                twitterUser.UserName,
+                email,
+                TimeZoneInfo.Local.Id,
+                null,
+                null,
+                null,
+                null,
+                null,
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
+                TimeZoneInfo.Local.SupportsDaylightSavingTime,
+                null,
+                null);
 
             // save the settings...
             YafContext.Current.GetRepository<User>().SaveNotification(

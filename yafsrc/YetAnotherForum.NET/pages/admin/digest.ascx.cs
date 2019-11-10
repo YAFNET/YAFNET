@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin
             this.Get<YafBoardSettings>().ForceDigestSend = true;
             ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
 
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"));
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
         }
 
         /// <summary>

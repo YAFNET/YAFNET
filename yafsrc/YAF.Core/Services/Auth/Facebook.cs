@@ -534,22 +534,22 @@ namespace YAF.Core.Services.Auth
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             YafContext.Current.GetRepository<User>().Save(
-                userID: userId,
-                boardID: YafContext.Current.PageBoardID,
-                userName: facebookUser.UserName,
-                displayName: facebookUser.UserName,
-                email: facebookUser.Email,
-                timeZone: TimeZoneInfo.Local.Id,
-                languageFile: null,
-                culture: null,
-                themeFile: null,
-                textEditor: null,
-                approved: null,
-                pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
-                autoWatchTopics: autoWatchTopicsEnabled,
-                dSTUser: TimeZoneInfo.Local.SupportsDaylightSavingTime,
-                hideUser: null,
-                notificationType: null);
+                userId,
+                YafContext.Current.PageBoardID,
+                facebookUser.UserName,
+                facebookUser.UserName,
+                facebookUser.Email,
+                TimeZoneInfo.Local.Id,
+                null,
+                null,
+                null,
+                null,
+                null,
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
+                TimeZoneInfo.Local.SupportsDaylightSavingTime,
+                null,
+                null);
 
             // save the settings...
             YafContext.Current.GetRepository<User>().SaveNotification(

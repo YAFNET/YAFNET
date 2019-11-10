@@ -235,7 +235,7 @@ namespace YAF.Pages
             // the list should be added after all other feed properties are set
             if (feed != null)
             {
-                var writer = new XmlTextWriter(this.Get<HttpResponseBase>()OutputStream, Encoding.UTF8);
+                var writer = new XmlTextWriter(this.Get<HttpResponseBase>().OutputStream, Encoding.UTF8);
                 writer.WriteStartDocument();
 
                 // write the feed to the response writer);

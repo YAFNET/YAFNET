@@ -228,10 +228,10 @@ namespace YAF.Controls
             var flags = new ForumFlags(row["Flags"]);
 
             var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                forumId: row["ForumID"].ToType<int>(),
-                topicId: row["LastTopicID"].ToType<int>(),
-                forumReadOverride: row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                topicReadOverride: row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                row["ForumID"].ToType<int>(),
+                row["LastTopicID"].ToType<int>(),
+                row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
             var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 

@@ -142,7 +142,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was deleted
-                    this.PageContext.AddLoadMessage(this.GetText("DELETED"));
+                    this.PageContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
                     break;
                 case "view":
 

@@ -55,9 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? SpamWordId
         {
-            get => this.ViewState[key: "SpamWordId"].ToType<int?>();
+            get => this.ViewState["SpamWordId"].ToType<int?>();
 
-            set => this.ViewState[key: "SpamWordId"] = value;
+            set => this.ViewState["SpamWordId"] = value;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace YAF.Dialogs
             if (this.SpamWordId.HasValue)
             {
                 // Edit
-                var spamWord = this.GetRepository<Spam_Words>().GetById(id: this.SpamWordId.Value);
+                var spamWord = this.GetRepository<Spam_Words>().GetById(this.SpamWordId.Value);
 
                 if (spamWord != null)
                 {
@@ -105,7 +105,7 @@ namespace YAF.Dialogs
         /// </returns>
         protected bool IsValidWordExpression([NotNull] string newExpression)
         {
-            return !newExpression.Equals(value: "*");
+            return !newExpression.Equals("*");
         }
 
         /// <summary>
@@ -115,21 +115,21 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsValidWordExpression(newExpression: this.spamword.Text.Trim()))
+            if (!this.IsValidWordExpression(this.spamword.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(
-                    message: this.GetText(page: "ADMIN_SPAMWORDS_EDIT", tag: "MSG_REGEX_SPAM"),
-                    messageType: MessageTypes.danger);
+                    this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
+                    MessageTypes.danger);
             }
             else
             {
                 this.GetRepository<Spam_Words>().Save(
-                     spamWordId: this.SpamWordId,
-                     spamWord: this.spamword.Text);
+                     this.SpamWordId,
+                     this.spamword.Text);
 
-                 this.Get<IDataCache>().Remove(key: Constants.Cache.SpamWords);
+                 this.Get<IDataCache>().Remove(Constants.Cache.SpamWords);
 
-                 YafBuildLink.Redirect(page: ForumPages.admin_spamwords);
+                 YafBuildLink.Redirect(ForumPages.admin_spamwords);
             }
         }
 

@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin
         protected void DeleteAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.GetRepository<EventLog>()
-                .DeleteByUser(userId: this.PageContext.PageUserID, boardId: this.PageContext.PageBoardID);
+                .DeleteByUser(this.PageContext.PageUserID, this.PageContext.PageBoardID);
 
             // re-bind controls
             this.BindData();

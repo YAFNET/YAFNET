@@ -494,7 +494,9 @@ namespace YAF.Pages.Admin
             // parent selection check.
             if (parentId != null && parentId.ToString() == this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("fa"))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"),
+                    MessageTypes.warning);
                 return;
             }
 
@@ -506,7 +508,9 @@ namespace YAF.Pages.Admin
                     .SaveParentsChecker(forumId.Value, parentId.Value);
                 if (dependency > 0)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"),
+                        MessageTypes.warning);
                     return;
                 }
             }

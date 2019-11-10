@@ -403,7 +403,7 @@ namespace YAF.Core.Services
             }
 
             var usersWithAll = this.GetRepository<User>()
-                .FindUserTyped(filter: false, notificationType: UserNotificationSetting.AllTopics.ToInt());
+                .FindUserTyped(false, notificationType: UserNotificationSetting.AllTopics.ToInt());
 
             // create individual watch emails for all users who have All Posts on...
             usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).ForEach(
@@ -822,7 +822,8 @@ namespace YAF.Core.Services
 
             // show a confirmation
             YafContext.Current.AddLoadMessage(
-                string.Format(this.Get<ILocalization>().GetText("PROFILE", "mail_sent"), newEmail));
+                string.Format(this.Get<ILocalization>().GetText("PROFILE", "mail_sent"), newEmail),
+                MessageTypes.info);
         }
 
         /// <summary>

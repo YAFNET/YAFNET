@@ -547,10 +547,10 @@ namespace YAF.Controls
             {
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                        forumId: this.TopicRow["ForumID"].ToType<int>(),
-                        topicId: this.TopicRow["TopicID"].ToType<int>(),
-                        forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                        topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                        this.TopicRow["ForumID"].ToType<int>(),
+                        this.TopicRow["TopicID"].ToType<int>(),
+                        this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                        this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
                 if (this.AltLastPost.IsNotSet())
                 {

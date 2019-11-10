@@ -402,7 +402,7 @@ namespace YAF.Pages
             if (this.NumPostsTB.Text.Trim().IsSet() &&
                 (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
             {
-                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"));
+                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
                 return;
             }
 

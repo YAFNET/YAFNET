@@ -70,37 +70,37 @@ namespace YAF.Dialogs
                 {
                     case "text/xml":
                         {
-                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: true);
+                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, true);
                         }
 
                         break;
                     case "text/csv":
                         {
-                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
                         }
 
                         break;
                     case "text/comma-separated-values":
                         {
-                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
                         }
 
                         break;
                     case "application/csv":
                         {
-                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
                         }
 
                         break;
                     case "application/vnd.csv":
                         {
-                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
                         }
 
                         break;
                     case "application/vnd.ms-excel":
                         {
-                            importedCount = this.ImportingUsers(inputStream: this.importFile.PostedFile.InputStream, isXml: false);
+                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
                         }
 
                         break;
@@ -108,21 +108,21 @@ namespace YAF.Dialogs
                     default:
                         {
                             this.PageContext.AddLoadMessage(
-                                message: this.GetText(page: "ADMIN_USERS_IMPORT", tag: "IMPORT_FAILED_FORMAT"), messageType: MessageTypes.danger);
+                                this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"), MessageTypes.danger);
                             return;
                         }
                 }
 
                 this.PageContext.LoadMessage.AddSession(
-                    message: importedCount > 0
-                        ? string.Format(format: this.GetText(page: "ADMIN_USERS_IMPORT", tag: "IMPORT_SUCESS"), arg0: importedCount)
-                        : this.GetText(page: "ADMIN_USERS_IMPORT", tag: "IMPORT_NOTHING"),
-                    messageType: importedCount > 0 ? MessageTypes.success : MessageTypes.info);
+                    importedCount > 0
+                        ? string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_SUCESS"), importedCount)
+                        : this.GetText("ADMIN_USERS_IMPORT", "IMPORT_NOTHING"),
+                    importedCount > 0 ? MessageTypes.success : MessageTypes.info);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    message: string.Format(format: this.GetText(page: "ADMIN_USERS_IMPORT", tag: "IMPORT_FAILED"), arg0: x.Message), messageType: MessageTypes.danger);
+                    string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
         }
 
@@ -148,45 +148,45 @@ namespace YAF.Dialogs
             if (isXml)
             {
                 var usersDataSet = new DataSet();
-                usersDataSet.ReadXml(stream: inputStream);
+                usersDataSet.ReadXml(inputStream);
 
-                if (usersDataSet.Tables[name: "YafUser"] != null)
+                if (usersDataSet.Tables["YafUser"] != null)
                 {
                     importedCount =
-                        usersDataSet.Tables[name: "YafUser"].Rows.Cast<DataRow>().Where(
-                            predicate: row => this.Get<MembershipProvider>().GetUser(username: (string)row[columnName: "Name"], userIsOnline: false) == null)
+                        usersDataSet.Tables["YafUser"].Rows.Cast<DataRow>().Where(
+                            row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null)
                                                       .Aggregate(
-                                                          seed: importedCount, func: (current, row) => this.ImportUser(row: row, importCount: current));
+                                                          importedCount, (current, row) => this.ImportUser(row, current));
                 }
                 else
                 {
-                    throw new Exception(message: "Import stream is not expected format.");
+                    throw new Exception("Import stream is not expected format.");
                 }
             }
             else
             {
                 var usersTable = new DataTable();
 
-                var streamReader = new StreamReader(stream: inputStream);
+                var streamReader = new StreamReader(inputStream);
 
                 var headers = streamReader.ReadLine().Split(',');
 
-                headers.ForEach(action: header => usersTable.Columns.Add(columnName: header));
+                headers.ForEach(header => usersTable.Columns.Add(header));
 
                 while (streamReader.Peek() >= 0)
                 {
                     var dr = usersTable.NewRow();
                     dr.ItemArray = streamReader.ReadLine().Split(',');
 
-                    usersTable.Rows.Add(row: dr);
+                    usersTable.Rows.Add(dr);
                 }
 
                 streamReader.Close();
 
                 importedCount =
                     usersTable.Rows.Cast<DataRow>().Where(
-                        predicate: row => this.Get<MembershipProvider>().GetUser(username: (string)row[columnName: "Name"], userIsOnline: false) == null).Aggregate(
-                            seed: importedCount, func: (current, row) => this.ImportUser(row: row, importCount: current));
+                        row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null).Aggregate(
+                            importedCount, (current, row) => this.ImportUser(row, current));
             }
 
             return importedCount;
@@ -209,67 +209,67 @@ namespace YAF.Dialogs
             // Also Check if the Email is unique and exists
             if (this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
-                if (this.Get<MembershipProvider>().GetUserNameByEmail(email: (string)row[columnName: "Email"]) != null)
+                if (this.Get<MembershipProvider>().GetUserNameByEmail((string)row["Email"]) != null)
                 {
                     return importCount;
                 }
             }
 
-            var pass = Membership.GeneratePassword(length: 32, numberOfNonAlphanumericCharacters: 16);
-            var securityAnswer = Membership.GeneratePassword(length: 64, numberOfNonAlphanumericCharacters: 30);
+            var pass = Membership.GeneratePassword(32, 16);
+            var securityAnswer = Membership.GeneratePassword(64, 30);
             var securityQuestion = "Answer is a generated Pass";
 
-            if (row.Table.Columns.Contains(name: "Password") && ((string)row[columnName: "Password"]).IsSet()
-                && row.Table.Columns.Contains(name: "SecurityQuestion")
-                && ((string)row[columnName: "SecurityQuestion"]).IsSet()
-                && row.Table.Columns.Contains(name: "SecurityAnswer") && ((string)row[columnName: "SecurityAnswer"]).IsSet())
+            if (row.Table.Columns.Contains("Password") && ((string)row["Password"]).IsSet()
+                && row.Table.Columns.Contains("SecurityQuestion")
+                && ((string)row["SecurityQuestion"]).IsSet()
+                && row.Table.Columns.Contains("SecurityAnswer") && ((string)row["SecurityAnswer"]).IsSet())
             {
-                pass = (string)row[columnName: "Password"];
+                pass = (string)row["Password"];
 
-                securityAnswer = (string)row[columnName: "SecurityAnswer"];
-                securityQuestion = (string)row[columnName: "SecurityQuestion"];
+                securityAnswer = (string)row["SecurityAnswer"];
+                securityQuestion = (string)row["SecurityQuestion"];
             }
 
             var user = YafContext.Current.Get<MembershipProvider>().CreateUser(
-                username: (string)row[columnName: "Name"],
-                password: pass,
-                email: (string)row[columnName: "Email"],
-                passwordQuestion: this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityQuestion : null,
-                passwordAnswer: this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
-                isApproved: true,
-                providerUserKey: null,
-                status: out var status);
+                (string)row["Name"],
+                pass,
+                (string)row["Email"],
+                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityQuestion : null,
+                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
+                true,
+                null,
+                out var status);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(pageBoardID: YafContext.Current.PageBoardID, userName: (string)row[columnName: "Name"]);
+            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, (string)row["Name"]);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user: user, pageBoardID: YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
 
             // create empty profile just so they have one
-            var userProfile = YafUserProfile.GetProfile(userName: (string)row[columnName: "Name"]);
+            var userProfile = YafUserProfile.GetProfile((string)row["Name"]);
 
             // Add Profile Fields to User List Table.
-            if (row.Table.Columns.Contains(name: "RealName") && ((string)row[columnName: "RealName"]).IsSet())
+            if (row.Table.Columns.Contains("RealName") && ((string)row["RealName"]).IsSet())
             {
-                userProfile.RealName = (string)row[columnName: "RealName"];
+                userProfile.RealName = (string)row["RealName"];
             }
 
-            if (row.Table.Columns.Contains(name: "Blog") && ((string)row[columnName: "Blog"]).IsSet())
+            if (row.Table.Columns.Contains("Blog") && ((string)row["Blog"]).IsSet())
             {
-                userProfile.Blog = (string)row[columnName: "Blog"];
+                userProfile.Blog = (string)row["Blog"];
             }
 
-            if (row.Table.Columns.Contains(name: "Gender") && ((string)row[columnName: "Gender"]).IsSet())
+            if (row.Table.Columns.Contains("Gender") && ((string)row["Gender"]).IsSet())
             {
-                int.TryParse(s: (string)row[columnName: "Gender"], result: out var gender);
+                int.TryParse((string)row["Gender"], out var gender);
 
                 userProfile.Gender = gender;
             }
 
-            if (row.Table.Columns.Contains(name: "Birthday") && ((string)row[columnName: "Birthday"]).IsSet())
+            if (row.Table.Columns.Contains("Birthday") && ((string)row["Birthday"]).IsSet())
             {
-                DateTime.TryParse(s: (string)row[columnName: "Birthday"], result: out var userBirthdate);
+                DateTime.TryParse((string)row["Birthday"], out var userBirthdate);
 
                 if (userBirthdate > DateTimeHelper.SqlDbMinTime())
                 {
@@ -277,91 +277,91 @@ namespace YAF.Dialogs
                 }
             }
 
-            if (row.Table.Columns.Contains(name: "BlogServiceUsername")
-                && ((string)row[columnName: "BlogServiceUsername"]).IsSet())
+            if (row.Table.Columns.Contains("BlogServiceUsername")
+                && ((string)row["BlogServiceUsername"]).IsSet())
             {
-                userProfile.BlogServiceUsername = (string)row[columnName: "BlogServiceUsername"];
+                userProfile.BlogServiceUsername = (string)row["BlogServiceUsername"];
             }
 
-            if (row.Table.Columns.Contains(name: "BlogServicePassword")
-                && ((string)row[columnName: "BlogServicePassword"]).IsSet())
+            if (row.Table.Columns.Contains("BlogServicePassword")
+                && ((string)row["BlogServicePassword"]).IsSet())
             {
-                userProfile.BlogServicePassword = (string)row[columnName: "BlogServicePassword"];
+                userProfile.BlogServicePassword = (string)row["BlogServicePassword"];
             }
 
-            if (row.Table.Columns.Contains(name: "GoogleId") && ((string)row[columnName: "GoogleId"]).IsSet())
+            if (row.Table.Columns.Contains("GoogleId") && ((string)row["GoogleId"]).IsSet())
             {
-                userProfile.GoogleId = (string)row[columnName: "GoogleId"];
+                userProfile.GoogleId = (string)row["GoogleId"];
             }
 
-            if (row.Table.Columns.Contains(name: "Location") && ((string)row[columnName: "Location"]).IsSet())
+            if (row.Table.Columns.Contains("Location") && ((string)row["Location"]).IsSet())
             {
-                userProfile.Location = (string)row[columnName: "Location"];
+                userProfile.Location = (string)row["Location"];
             }
 
-            if (row.Table.Columns.Contains(name: "Country") && ((string)row[columnName: "Country"]).IsSet())
+            if (row.Table.Columns.Contains("Country") && ((string)row["Country"]).IsSet())
             {
-                userProfile.Country = (string)row[columnName: "Country"];
+                userProfile.Country = (string)row["Country"];
             }
 
-            if (row.Table.Columns.Contains(name: "Region") && ((string)row[columnName: "Region"]).IsSet())
+            if (row.Table.Columns.Contains("Region") && ((string)row["Region"]).IsSet())
             {
-                userProfile.Region = (string)row[columnName: "Region"];
+                userProfile.Region = (string)row["Region"];
             }
 
-            if (row.Table.Columns.Contains(name: "City") && ((string)row[columnName: "City"]).IsSet())
+            if (row.Table.Columns.Contains("City") && ((string)row["City"]).IsSet())
             {
-                userProfile.City = (string)row[columnName: "City"];
+                userProfile.City = (string)row["City"];
             }
 
-            if (row.Table.Columns.Contains(name: "Interests") && ((string)row[columnName: "Interests"]).IsSet())
+            if (row.Table.Columns.Contains("Interests") && ((string)row["Interests"]).IsSet())
             {
-                userProfile.Interests = (string)row[columnName: "Interests"];
+                userProfile.Interests = (string)row["Interests"];
             }
 
-            if (row.Table.Columns.Contains(name: "Homepage") && ((string)row[columnName: "Homepage"]).IsSet())
+            if (row.Table.Columns.Contains("Homepage") && ((string)row["Homepage"]).IsSet())
             {
-                userProfile.Homepage = (string)row[columnName: "Homepage"];
+                userProfile.Homepage = (string)row["Homepage"];
             }
 
-            if (row.Table.Columns.Contains(name: "Skype") && ((string)row[columnName: "Skype"]).IsSet())
+            if (row.Table.Columns.Contains("Skype") && ((string)row["Skype"]).IsSet())
             {
-                userProfile.Skype = (string)row[columnName: "Skype"];
+                userProfile.Skype = (string)row["Skype"];
             }
 
-            if (row.Table.Columns.Contains(name: "ICQe") && ((string)row[columnName: "ICQ"]).IsSet())
+            if (row.Table.Columns.Contains("ICQe") && ((string)row["ICQ"]).IsSet())
             {
-                userProfile.ICQ = (string)row[columnName: "ICQ"];
+                userProfile.ICQ = (string)row["ICQ"];
             }
 
-            if (row.Table.Columns.Contains(name: "XMPP") && ((string)row[columnName: "XMPP"]).IsSet())
+            if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
             {
-                userProfile.XMPP = (string)row[columnName: "XMPP"];
+                userProfile.XMPP = (string)row["XMPP"];
             }
 
-            if (row.Table.Columns.Contains(name: "Occupation") && ((string)row[columnName: "Occupation"]).IsSet())
+            if (row.Table.Columns.Contains("Occupation") && ((string)row["Occupation"]).IsSet())
             {
-                userProfile.Occupation = (string)row[columnName: "Occupation"];
+                userProfile.Occupation = (string)row["Occupation"];
             }
 
-            if (row.Table.Columns.Contains(name: "Twitter") && ((string)row[columnName: "Twitter"]).IsSet())
+            if (row.Table.Columns.Contains("Twitter") && ((string)row["Twitter"]).IsSet())
             {
-                userProfile.Twitter = (string)row[columnName: "Twitter"];
+                userProfile.Twitter = (string)row["Twitter"];
             }
 
-            if (row.Table.Columns.Contains(name: "TwitterId") && ((string)row[columnName: "TwitterId"]).IsSet())
+            if (row.Table.Columns.Contains("TwitterId") && ((string)row["TwitterId"]).IsSet())
             {
-                userProfile.TwitterId = (string)row[columnName: "TwitterId"];
+                userProfile.TwitterId = (string)row["TwitterId"];
             }
 
-            if (row.Table.Columns.Contains(name: "Facebook") && ((string)row[columnName: "Facebook"]).IsSet())
+            if (row.Table.Columns.Contains("Facebook") && ((string)row["Facebook"]).IsSet())
             {
-                userProfile.Facebook = (string)row[columnName: "Facebook"];
+                userProfile.Facebook = (string)row["Facebook"];
             }
 
-            if (row.Table.Columns.Contains(name: "FacebookId") && ((string)row[columnName: "FacebookId"]).IsSet())
+            if (row.Table.Columns.Contains("FacebookId") && ((string)row["FacebookId"]).IsSet())
             {
-                userProfile.FacebookId = (string)row[columnName: "FacebookId"];
+                userProfile.FacebookId = (string)row["FacebookId"];
             }
 
             userProfile.Save();
@@ -374,54 +374,54 @@ namespace YAF.Dialogs
 
             // send user register notification to the new users
             this.Get<ISendNotification>().SendRegistrationNotificationToUser(
-                user: user, pass: pass, securityAnswer: securityAnswer, templateName: "NOTIFICATION_ON_REGISTER");
+                user, pass, securityAnswer, "NOTIFICATION_ON_REGISTER");
 
             // save the time zone...
-            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(providerUserKey: user.ProviderUserKey);
+            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
             var isDst = false;
 
-            if (row.Table.Columns.Contains(name: "IsDST") && ((string)row[columnName: "IsDST"]).IsSet())
+            if (row.Table.Columns.Contains("IsDST") && ((string)row["IsDST"]).IsSet())
             {
-                bool.TryParse(value: (string)row[columnName: "IsDST"], result: out isDst);
+                bool.TryParse((string)row["IsDST"], out isDst);
             }
 
             var timeZone = 0;
 
-            if (row.Table.Columns.Contains(name: "Timezone") && ((string)row[columnName: "Timezone"]).IsSet())
+            if (row.Table.Columns.Contains("Timezone") && ((string)row["Timezone"]).IsSet())
             {
-                int.TryParse(s: (string)row[columnName: "Timezone"], result: out timeZone);
+                int.TryParse((string)row["Timezone"], out timeZone);
             }
 
             var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             this.GetRepository<User>().Save(
-                userID: userId,
-                boardID: YafContext.Current.PageBoardID,
-                userName: row[columnName: "Name"],
-                displayName: row.Table.Columns.Contains(name: "DisplayName") ? row[columnName: "DisplayName"] : null,
-                email: row[columnName: "Email"],
-                timeZone: timeZone,
-                languageFile: row.Table.Columns.Contains(name: "LanguageFile") ? row[columnName: "LanguageFile"] : null,
-                culture: row.Table.Columns.Contains(name: "Culture") ? row[columnName: "Culture"] : null,
-                themeFile: row.Table.Columns.Contains(name: "ThemeFile") ? row[columnName: "ThemeFile"] : null,
-                textEditor: row.Table.Columns.Contains(name: "TextEditor") ? row[columnName: "TextEditor"] : null,
-                approved: null,
-                pmNotification: null,
-                autoWatchTopics: this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                dSTUser: autoWatchTopicsEnabled,
-                hideUser: isDst,
-                notificationType: null,
+                userId,
+                YafContext.Current.PageBoardID,
+                row["Name"],
+                row.Table.Columns.Contains("DisplayName") ? row["DisplayName"] : null,
+                row["Email"],
+                timeZone,
+                row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"] : null,
+                row.Table.Columns.Contains("Culture") ? row["Culture"] : null,
+                row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"] : null,
+                row.Table.Columns.Contains("TextEditor") ? row["TextEditor"] : null,
+                null,
+                null,
+                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
+                isDst,
+                null,
                 null);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(
-                userID: userId,
-                pmNotification: true,
-                autoWatchTopics: autoWatchTopicsEnabled,
-                notificationType: this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                dailyDigest: this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+                userId,
+                true,
+                autoWatchTopicsEnabled,
+                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
             importCount++;
 

@@ -966,22 +966,22 @@ namespace YAF.Pages
 
             // save the time zone...
             this.GetRepository<User>().Save(
-                userID: userId, 
-                boardID: this.PageContext.PageBoardID, 
-                userName: null, 
-                displayName: null, 
-                email: null, 
-                timeZone: timeZones.SelectedValue, 
-                languageFile: null, 
-                culture: null, 
-                themeFile: null, 
-                textEditor: null, 
-                approved: null,
-                pmNotification: this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                autoWatchTopics: autoWatchTopicsEnabled,
-                dSTUser: dstUser.Checked, 
-                hideUser: null, 
-                notificationType: null);
+                userId, 
+                this.PageContext.PageBoardID, 
+                null, 
+                null, 
+                null, 
+                timeZones.SelectedValue, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null,
+                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
+                dstUser.Checked, 
+                null, 
+                null);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(

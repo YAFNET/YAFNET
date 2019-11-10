@@ -260,7 +260,8 @@ namespace YAF.Controls
             }
 
             this.PageContext.AddLoadMessage(
-                string.Format(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED"), user.UserName));
+                this.GetTextFormatted("MSG_USER_KILLED", user.UserName),
+                MessageTypes.success);
 
             // update the displayed data...
             this.BindData();

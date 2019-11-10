@@ -48,8 +48,9 @@ namespace YAF.Web.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
-#endregion
+    #endregion
 
     /// <summary>
     /// The forum footer.

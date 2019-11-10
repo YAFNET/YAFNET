@@ -119,19 +119,25 @@ namespace YAF.Pages.Admin
 
             if (this.Name.Text.Trim().Length <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_MASK_NAME"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITACCESSMASKS", "MSG_MASK_NAME"),
+                    MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_POSITIVE_SORT"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITACCESSMASKS", "MSG_POSITIVE_SORT"),
+                    MessageTypes.warning);
                 return;
             }
 
             if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITACCESSMASKS", "MSG_NUMBER_SORT"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITACCESSMASKS", "MSG_NUMBER_SORT"),
+                    MessageTypes.warning);
                 return;
             }
 

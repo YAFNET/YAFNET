@@ -92,7 +92,6 @@ namespace YAF.Pages
             // get user data...
             var user = UserMembershipHelper.GetMembershipUserById(this.UserId);
 
-
             if (user == null)
             {
                 // No such user exists
@@ -141,7 +140,9 @@ namespace YAF.Pages
             {
                 this.Logger.Log(this.PageContext.PageUserID, this, x);
 
-                this.PageContext.AddLoadMessage(this.PageContext.IsAdmin ? x.Message : this.GetText("ERROR"));
+                this.PageContext.AddLoadMessage(
+                    this.PageContext.IsAdmin ? x.Message : this.GetText("ERROR"),
+                    MessageTypes.danger);
             }
         }
 

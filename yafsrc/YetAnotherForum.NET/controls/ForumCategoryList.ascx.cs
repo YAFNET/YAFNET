@@ -99,12 +99,12 @@ namespace YAF.Controls
             }
 
             var dt = this.GetRepository<Forum>().ListReadAsDataTable(
-                boardID: this.PageContext.PageBoardID,
-                userID: this.PageContext.PageUserID,
-                categoryID: categoryId,
-                parentID: null,
-                useStyledNicks: false,
-                findLastRead: false);
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                categoryId,
+                null,
+                false,
+                false);
 
             dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()).ForEach(
                 forumId => this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId));
@@ -136,12 +136,12 @@ namespace YAF.Controls
             }
 
             var dt = this.GetRepository<Forum>().ListReadAsDataTable(
-                boardID: this.PageContext.PageBoardID,
-                userID: this.PageContext.PageUserID,
-                categoryID: categoryId,
-                parentID: null,
-                useStyledNicks: false,
-                findLastRead: false);
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                categoryId,
+                null,
+                false,
+                false);
 
             this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
 

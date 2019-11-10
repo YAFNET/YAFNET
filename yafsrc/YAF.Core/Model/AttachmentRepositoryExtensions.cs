@@ -120,7 +120,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateAdd(() => new Attachment { Downloads = 1 }, where: a => a.ID == attachmentId);
+            repository.UpdateAdd(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
         }
 
         /// <summary>

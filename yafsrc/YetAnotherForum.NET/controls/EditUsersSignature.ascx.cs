@@ -286,13 +286,15 @@ namespace YAF.Controls
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
+                    this.PageContext.AddLoadMessage(
+                        this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
+                        MessageTypes.warning);
                     return;
                 }
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -303,13 +305,13 @@ namespace YAF.Controls
                 var detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this.allowedHtml, ',');
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(detectedHtmlTag);
+                    this.PageContext.AddLoadMessage(detectedHtmlTag, MessageTypes.warning);
                     return;
                 }
 
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -370,7 +372,8 @@ namespace YAF.Controls
                 else
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters));
+                        this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters),
+                        MessageTypes.warning);
 
                     return;
                 }
@@ -413,13 +416,15 @@ namespace YAF.Controls
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
+                    this.PageContext.AddLoadMessage(
+                        this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
+                        MessageTypes.warning);
                     return;
                 }
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -431,13 +436,13 @@ namespace YAF.Controls
 
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(detectedHtmlTag);
+                    this.PageContext.AddLoadMessage(detectedHtmlTag, MessageTypes.warning);
                     return;
                 }
 
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -450,7 +455,8 @@ namespace YAF.Controls
             else
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters));
+                    this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters),
+                    MessageTypes.warning);
             }
         }
 

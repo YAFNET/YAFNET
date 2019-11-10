@@ -39,7 +39,7 @@ namespace YAF.Core.Services.Logger
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     using EventLog = YAF.Types.Models.EventLog;
 
@@ -80,9 +80,9 @@ namespace YAF.Core.Services.Logger
         /// <summary>
         ///     The _is debug.
         /// </summary>
-        private bool _isDebug = true;
+        private bool isDebug = true;
 #else
-    private bool _isDebug = false;
+    private bool isDebug = false;
 #endif
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace YAF.Core.Services.Logger
             var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, v => true);
 
             new[] { EventLogTypes.Debug, EventLogTypes.Trace }.ForEach(
-                debugTypes => { logTypes.AddOrUpdate(debugTypes, this._isDebug); });
+                debugTypes => { logTypes.AddOrUpdate(debugTypes, this.isDebug); });
 
             this._eventLogTypeLookup = logTypes;
         }

@@ -201,11 +201,11 @@ namespace YAF.Pages
             // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
             var activeUsers = this.GetRepository<Active>()
                 .ListUserAsDataTable(
-                    userID: this.PageContext.PageUserID,
-                    guests: showGuests,
-                    showCrawlers: showCrawlers,
-                    activeTime: this.PageContext.BoardSettings.ActiveListTime,
-                    styledNicks: this.PageContext.BoardSettings.UseStyledNicks);
+                    this.PageContext.PageUserID,
+                    showGuests,
+                    showCrawlers,
+                    this.PageContext.BoardSettings.ActiveListTime,
+                    this.PageContext.BoardSettings.UseStyledNicks);
 
             return activeUsers;
         }

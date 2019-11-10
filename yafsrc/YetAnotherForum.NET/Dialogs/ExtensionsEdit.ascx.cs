@@ -55,9 +55,9 @@ namespace YAF.Dialogs
         /// </value>
         public int? ExtensionId
         {
-            get => this.ViewState[key: "ExtensionId"].ToType<int?>();
+            get => this.ViewState["ExtensionId"].ToType<int?>();
 
-            set => this.ViewState[key: "ExtensionId"] = value;
+            set => this.ViewState["ExtensionId"] = value;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace YAF.Dialogs
             if (this.ExtensionId.HasValue)
             {
                 // Edit
-                var exten = this.GetRepository<FileExtension>().GetById(id: this.ExtensionId.Value);
+                var exten = this.GetRepository<FileExtension>().GetById(this.ExtensionId.Value);
 
                 if (exten != null)
                 {
@@ -107,13 +107,13 @@ namespace YAF.Dialogs
         {
             if (newExtension.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(message: this.GetText(page: "ADMIN_EXTENSIONS_EDIT", tag: "MSG_ENTER"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EXTENSIONS_EDIT", "MSG_ENTER"), MessageTypes.warning);
                 return false;
             }
 
-            if (newExtension.IndexOf(value: '.') != -1)
+            if (newExtension.IndexOf('.') != -1)
             {
-                this.PageContext.AddLoadMessage(message: this.GetText(page: "ADMIN_EXTENSIONS_EDIT", tag: "MSG_REMOVE"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EXTENSIONS_EDIT", "MSG_REMOVE"), MessageTypes.warning);
                 return false;
             }
 
@@ -130,14 +130,14 @@ namespace YAF.Dialogs
         {
             var fileExtension = this.extension.Text.Trim();
 
-            if (this.IsValidExtension(newExtension: fileExtension))
+            if (this.IsValidExtension(fileExtension))
             {
                 this.GetRepository<FileExtension>().Save(
-                    id: this.ExtensionId,
-                    extension: fileExtension,
-                    boardId: this.PageContext.PageBoardID);
+                    this.ExtensionId,
+                    fileExtension,
+                    this.PageContext.PageBoardID);
 
-                YafBuildLink.Redirect(page: ForumPages.admin_extensions);
+                YafBuildLink.Redirect(ForumPages.admin_extensions);
             }
         }
 

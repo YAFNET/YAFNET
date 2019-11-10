@@ -73,11 +73,6 @@ namespace YAF.Configuration
         public string Medals => $"{this.BoardFolder}Images/Medals";
 
         /// <summary>
-        /// Gets Ranks.
-        /// </summary>
-        public string Ranks => $"{this.BoardFolder}Images/Ranks";
-
-        /// <summary>
         /// Gets Logos.
         /// </summary>
         public string Logos => $"{this.BoardFolder}Images/Logos";

@@ -57,7 +57,7 @@ namespace YAF.Dialogs
         {
             get
             {
-                return this.GetRepository<FileExtension>().Get(criteria: e => e.BoardId == this.PageContext.PageBoardID);
+                return this.GetRepository<FileExtension>().Get(e => e.BoardId == this.PageContext.PageBoardID);
             }
         }
 
@@ -70,7 +70,7 @@ namespace YAF.Dialogs
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.PreRender += this.AttachmentsUploadDialogPreRender;
-            base.OnInit(e: e);
+            base.OnInit(e);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace YAF.Dialogs
             {
                 this.UploadNodePlaceHold.Visible = true;
                 this.UploadNote.Text = this.GetTextFormatted(
-                    tag: "UPLOAD_NOTE",
+                    "UPLOAD_NOTE",
                     (this.Get<YafBoardSettings>().MaxFileSize / 1024).ToString());
             }
             else
@@ -126,15 +126,15 @@ namespace YAF.Dialogs
         {
             // Setup Hover Card JS
             YafContext.Current.PageElements.RegisterJsBlockStartup(
-                name: "fileUploadjs",
-                script: JavaScriptBlocks.FileUploadLoadJs(
-                    acceptedFileTypes: string.Join(separator: "|", values: this.FileExtensions.Select(selector: ext => ext.Extension)),
-                    maxFileSize: this.Get<YafBoardSettings>().MaxFileSize,
-                    fileUploaderUrl: $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
-                    forumId: this.PageContext.PageForumID,
-                    boardId: this.PageContext.PageBoardID,
-                    imageMaxWidth: this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
-                    imageMaxHeight: this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
+                "fileUploadjs",
+                JavaScriptBlocks.FileUploadLoadJs(
+                    string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),
+                    this.Get<YafBoardSettings>().MaxFileSize,
+                    $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageBoardID,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
         }
 
         #endregion

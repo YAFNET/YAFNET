@@ -202,7 +202,7 @@ namespace YAF.Core.Model
                               Flags = flags,
                               RankID = rankID
                           },
-                where: u => u.ID == userId);
+                u => u.ID == userId);
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace YAF.Core.Model
         {
             repository.UpdateOnly(
                 () => new User { AvatarImage = null, Avatar = null, AvatarImageType = null },
-                where: u => u.ID == userId);
+                u => u.ID == userId);
         }
 
         /// <summary>
@@ -1111,7 +1111,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateOnly(() => new User { Signature = signature }, where: u => u.ID == userId);
+            repository.UpdateOnly(() => new User { Signature = signature }, u => u.ID == userId);
         }
 
         /// <summary>
@@ -1137,7 +1137,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateOnly(() => new User { Points = points }, where: u => u.ID == userId);
+            repository.UpdateOnly(() => new User { Points = points }, u => u.ID == userId);
         }
 
         /// <summary>
@@ -1159,7 +1159,7 @@ namespace YAF.Core.Model
 
             repository.UpdateOnly(
                 () => new User { Suspended = suspend, SuspendedReason = suspendReason, SuspendedBy = suspendBy },
-                where: u => u.ID == userId);
+                u => u.ID == userId);
         }
 
         /// <summary>
@@ -1197,7 +1197,7 @@ namespace YAF.Core.Model
                               IsTwitterUser = isTwitterUser,
                               IsGoogleUser = isGoogleUser
                           },
-                where: u => u.ID == userId);
+                u => u.ID == userId);
         }
 
         /// <summary>

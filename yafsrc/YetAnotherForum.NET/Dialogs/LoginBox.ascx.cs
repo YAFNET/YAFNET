@@ -65,7 +65,7 @@ namespace YAF.Dialogs
         {
             e.Authenticated = false;
 
-            var realUserName = this.GetValidUsername(username: this.Login1.UserName, password: this.Login1.Password);
+            var realUserName = this.GetValidUsername(this.Login1.UserName, this.Login1.Password);
 
             if (!realUserName.IsSet())
             {
@@ -86,20 +86,20 @@ namespace YAF.Dialogs
         /// </returns>
         protected virtual string GetValidUsername(string username, string password)
         {
-            if (username.Contains(value: "@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
+            if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // attempt Email Login
-                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(email: username);
+                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
 
                 if (realUsername.IsSet() && this.Get<MembershipProvider>()
-                        .ValidateUser(username: realUsername, password: password))
+                        .ValidateUser(realUsername, password))
                 {
                     return realUsername;
                 }
             }
 
             // Standard user name login
-            if (this.Get<MembershipProvider>().ValidateUser(username: username, password: password))
+            if (this.Get<MembershipProvider>().ValidateUser(username, password))
             {
                 return username;
             }
@@ -111,15 +111,15 @@ namespace YAF.Dialogs
             }
 
             // Display name login
-            var id = this.Get<IUserDisplayName>().GetId(name: username);
+            var id = this.Get<IUserDisplayName>().GetId(username);
 
             if (id.HasValue)
             {
                 // get the username associated with this id...
-                var realUsername = UserMembershipHelper.GetUserNameFromID(userID: id.Value);
+                var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
 
                 // validate again...
-                if (this.Get<MembershipProvider>().ValidateUser(username: realUsername, password: password))
+                if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
                     return realUsername;
                 }
@@ -138,33 +138,33 @@ namespace YAF.Dialogs
         {
             var emptyFields = false;
 
-            var userName = this.Login1.FindControlAs<TextBox>(id: "UserName");
-            var password = this.Login1.FindControlAs<TextBox>(id: "Password");
+            var userName = this.Login1.FindControlAs<TextBox>("UserName");
+            var password = this.Login1.FindControlAs<TextBox>("Password");
 
             if (userName.Text.Trim().Length == 0)
             {
                 this.PageContext.AddLoadMessage(
-                    message: this.GetText(page: "REGISTER", tag: "NEED_USERNAME"),
-                    script: "LoginBox",
-                    messageType: MessageTypes.danger);
+                    this.GetText("REGISTER", "NEED_USERNAME"),
+                    "LoginBox",
+                    MessageTypes.danger);
                 emptyFields = true;
             }
 
             if (password.Text.Trim().Length == 0)
             {
                 this.PageContext.AddLoadMessage(
-                    message: this.GetText(page: "REGISTER", tag: "NEED_PASSWORD"),
-                    script: "LoginBox",
-                    messageType: MessageTypes.danger);
+                    this.GetText("REGISTER", "NEED_PASSWORD"),
+                    "LoginBox",
+                    MessageTypes.danger);
                 emptyFields = true;
             }
 
             if (!emptyFields)
             {
                 this.PageContext.AddLoadMessage(
-                    message: this.Login1.FailureText,
-                    script: "LoginBox",
-                    messageType: MessageTypes.danger);
+                    this.Login1.FailureText,
+                    "LoginBox",
+                    MessageTypes.danger);
             }
         }
 
@@ -178,10 +178,10 @@ namespace YAF.Dialogs
         {
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock(
-                name: "yafmodaldialogJs",
-                script: JavaScriptBlocks.LoginBoxLoadJs(openLink: ".LoginLink", dialogId: "#LoginBox"));
+                "yafmodaldialogJs",
+                JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "#LoginBox"));
 
-            base.OnPreRender(e: e);
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -200,51 +200,51 @@ namespace YAF.Dialogs
 
             // Login1.CreateUserText = "Sign up for a new account.";
             // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
-            this.Login1.PasswordRecoveryText = this.GetText(tag: "lostpassword");
-            this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(page: ForumPages.recoverpassword);
-            this.Login1.FailureText = this.GetText(tag: "password_error");
+            this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
+            this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
+            this.Login1.FailureText = this.GetText("password_error");
 
             this.Login1.DestinationPageUrl = this.Page.Request.RawUrl;
 
             // localize controls
-            var rememberMe = this.Login1.FindControlAs<CheckBox>(id: "RememberMe");
-            var userName = this.Login1.FindControlAs<TextBox>(id: "UserName");
-            var password = this.Login1.FindControlAs<TextBox>(id: "Password");
-            var forumLogin = this.Login1.FindControlAs<Button>(id: "LoginButton");
-            var passwordRecovery = this.Login1.FindControlAs<LinkButton>(id: "PasswordRecovery");
+            var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
+            var userName = this.Login1.FindControlAs<TextBox>("UserName");
+            var password = this.Login1.FindControlAs<TextBox>("Password");
+            var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
+            var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
 
-            var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>(id: "FaceBookHolder");
-            var facebookRegister = this.Login1.FindControlAs<ThemeButton>(id: "FacebookRegister");
+            var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>("FaceBookHolder");
+            var facebookRegister = this.Login1.FindControlAs<ThemeButton>("FacebookRegister");
 
-            var twitterHolder = this.Login1.FindControlAs<PlaceHolder>(id: "TwitterHolder");
-            var twitterRegister = this.Login1.FindControlAs<ThemeButton>(id: "TwitterRegister");
+            var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
+            var twitterRegister = this.Login1.FindControlAs<ThemeButton>("TwitterRegister");
 
-            var googleHolder = this.Login1.FindControlAs<PlaceHolder>(id: "GoogleHolder");
-            var googleRegister = this.Login1.FindControlAs<ThemeButton>(id: "GoogleRegister");
+            var googleHolder = this.Login1.FindControlAs<PlaceHolder>("GoogleHolder");
+            var googleRegister = this.Login1.FindControlAs<ThemeButton>("GoogleRegister");
 
             userName.Focus();
 
             if (rememberMe != null)
             {
-                rememberMe.Text = this.GetText(tag: "auto");
+                rememberMe.Text = this.GetText("auto");
             }
 
             if (forumLogin != null)
             {
-                forumLogin.Text = this.GetText(tag: "forum_login");
+                forumLogin.Text = this.GetText("forum_login");
 
                 var script =
                     $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
                           document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ";
 
-                userName.Attributes.Add(key: "onkeydown", value: script);
+                userName.Attributes.Add("onkeydown", script);
 
-                password.Attributes.Add(key: "onkeydown", value: script);
+                password.Attributes.Add("onkeydown", script);
             }
 
             if (passwordRecovery != null)
             {
-                passwordRecovery.Text = this.GetText(tag: "lostpassword");
+                passwordRecovery.Text = this.GetText("lostpassword");
             }
 
             if (this.Get<YafBoardSettings>().AllowSingleSignOn)
@@ -256,7 +256,7 @@ namespace YAF.Dialogs
                 if (twitterHolder.Visible)
                 {
                     twitterRegister.Visible = true;
-                    twitterRegister.Text = this.GetTextFormatted(tag: "AUTH_CONNECT", "Twitter");
+                    twitterRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Twitter");
                     twitterRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
                     twitterRegister.ParamTitle0 = "Twitter";
                 }
@@ -264,7 +264,7 @@ namespace YAF.Dialogs
                 if (faceBookHolder.Visible)
                 {
                     facebookRegister.Visible = true;
-                    facebookRegister.Text = this.GetTextFormatted(tag: "AUTH_CONNECT", "Facebook");
+                    facebookRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Facebook");
                     facebookRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
                     facebookRegister.ParamTitle0 = "Facebook";
                 }
@@ -272,7 +272,7 @@ namespace YAF.Dialogs
                 if (googleHolder.Visible)
                 {
                     googleRegister.Visible = true;
-                    googleRegister.Text = this.GetTextFormatted(tag: "AUTH_CONNECT", "Google");
+                    googleRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Google");
                     googleRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
                     googleRegister.ParamTitle0 = "Google";
                 }
@@ -292,7 +292,7 @@ namespace YAF.Dialogs
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(page: ForumPages.recoverpassword);
+            YafBuildLink.Redirect(ForumPages.recoverpassword);
         }
 
         #endregion
@@ -305,11 +305,11 @@ namespace YAF.Dialogs
         protected void Login1_LoggedIn(object sender, EventArgs e)
         {
             this.Get<IRaiseEvent>()
-                .Raise(eventObject: new SuccessfulUserLoginEvent(userId: this.PageContext.PageUserID));
+                .Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
 
             this.GetRepository<User>().UpdateAuthServiceStatus(
-                userId: this.PageContext.PageUserID,
-                authService: AuthService.none);
+                this.PageContext.PageUserID,
+                AuthService.none);
         }
 
         /// <summary>
@@ -319,7 +319,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(page: ForumPages.login, format: "auth={0}", AuthService.facebook);
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(page: ForumPages.login, format: "auth={0}", AuthService.twitter);
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
         }
 
         /// <summary>
@@ -339,7 +339,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(page: ForumPages.login, format: "auth={0}", AuthService.google);
+            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
         }
     }
 }

@@ -107,7 +107,7 @@ namespace YAF.Controls
 
             this.BindData();
             this.ClearCache();
-            this.PageContext.AddLoadMessage(string.Format(this.GetText("MSG_ARCHIVED+"), archivedCount));
+            this.PageContext.AddLoadMessage(this.GetTextFormatted("MSG_ARCHIVED+", archivedCount), MessageTypes.success);
         }
 
         /// <summary>
@@ -140,10 +140,12 @@ namespace YAF.Controls
 
             this.BindData();
             this.ClearCache();
+
             this.PageContext.AddLoadMessage(
                 archivedCount == 1
                     ? this.GetText("MSG_ARCHIVED")
-                    : string.Format(this.GetText("MSG_ARCHIVED+"), archivedCount));
+                    : this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
+                MessageTypes.success);
         }
 
         /// <summary>
@@ -205,7 +207,7 @@ namespace YAF.Controls
             }
 
             this.BindData();
-            this.PageContext.AddLoadMessage(this.GetTextFormatted("msgdeleted2", itemCount));
+            this.PageContext.AddLoadMessage(this.GetTextFormatted("msgdeleted2", itemCount), MessageTypes.success);
             this.ClearCache();
         }
 
@@ -235,7 +237,8 @@ namespace YAF.Controls
             this.BindData();
 
             this.PageContext.AddLoadMessage(
-                itemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", itemCount));
+                itemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", itemCount),
+                MessageTypes.success);
             this.ClearCache();
         }
 
@@ -253,7 +256,7 @@ namespace YAF.Controls
             // Return if No Messages are Available to Export
             if (!messageList.Table.HasRows())
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"));
+                this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"), MessageTypes.warning);
                 return;
             }
 
@@ -289,7 +292,7 @@ namespace YAF.Controls
             // Return if No Message Selected
             if (!messageList.Table.HasRows())
             {
-                this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"));
+                this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"), MessageTypes.warning);
 
                 this.BindData();
 

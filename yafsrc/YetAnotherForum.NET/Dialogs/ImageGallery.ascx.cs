@@ -47,7 +47,7 @@ namespace YAF.Dialogs
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            base.OnPreRender(e: e);
+            base.OnPreRender(e);
         }
     }
 }

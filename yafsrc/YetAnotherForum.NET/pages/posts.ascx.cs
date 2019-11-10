@@ -322,7 +322,7 @@ namespace YAF.Pages
                 topicFlags.BitValue);
 
             this.BindData();
-            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"));
+            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
             this.LockTopic1.Visible = !this.LockTopic1.Visible;
             this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
             this.LockTopic2.Visible = this.LockTopic1.Visible;
@@ -384,7 +384,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
         }
 
         /// <summary>
@@ -398,7 +398,7 @@ namespace YAF.Pages
 
             if (nextTopic == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
+                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
                 return;
             }
 
@@ -672,7 +672,7 @@ namespace YAF.Pages
 
             if (this.topic.TopicFlags.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
                 return;
             }
 
@@ -681,7 +681,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
         }
 
         /// <summary>
@@ -695,7 +695,7 @@ namespace YAF.Pages
 
             if (previousTopic == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
+                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
                 return;
             }
 
@@ -728,14 +728,14 @@ namespace YAF.Pages
         {
             if (this.PageContext.IsGuest)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_WATCHLOGIN"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_WATCHLOGIN"), MessageTypes.warning);
                 return;
             }
 
             if (this.WatchTopicID.InnerText == string.Empty)
             {
                 this.GetRepository<WatchTopic>().Add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"));
+                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
             }
             else
             {
@@ -743,7 +743,7 @@ namespace YAF.Pages
 
                 this.GetRepository<WatchTopic>().DeleteById(tmpID);
 
-                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"));
+                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
             }
 
             this.HandleWatchTopic();
@@ -770,7 +770,7 @@ namespace YAF.Pages
                 topicFlags.BitValue);
 
             this.BindData();
-            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"));
+            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
             this.LockTopic1.Visible = !this.LockTopic1.Visible;
             this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
             this.LockTopic2.Visible = this.LockTopic1.Visible;

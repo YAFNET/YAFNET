@@ -188,8 +188,8 @@ namespace YAF.Pages
 
             var dt = this.GetRepository<Attachment>().GetPaged(
                 a => a.UserID == this.PageContext.PageUserID,
-                pageIndex: this.PagerTop.CurrentPageIndex,
-                pageSize: this.PagerTop.PageSize);
+                this.PagerTop.CurrentPageIndex,
+                this.PagerTop.PageSize);
 
             this.List.DataSource = dt;
             this.PagerTop.Count = dt != null && dt.Any()

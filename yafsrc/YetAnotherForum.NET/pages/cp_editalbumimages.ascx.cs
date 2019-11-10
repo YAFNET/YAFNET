@@ -376,7 +376,7 @@ namespace YAF.Pages
                 if (x.GetType() != typeof(ThreadAbortException))
                 {
                     this.Logger.Log(this.PageContext.PageUserID, this, x);
-                    this.PageContext.AddLoadMessage(x.Message);
+                    this.PageContext.AddLoadMessage(x.Message, MessageTypes.danger);
                 }
             }
         }
@@ -446,7 +446,7 @@ namespace YAF.Pages
             if (Array.IndexOf(imageExtensions, extension) == -1 || this.GetRepository<FileExtension>()
                     .Get(e => e.BoardId == this.PageContext.PageBoardID && e.Extension == extension).Count == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension));
+                this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
                 return false;
             }
 
@@ -512,7 +512,7 @@ namespace YAF.Pages
                 // Albums count. If we reached limit then we exit.
                 if (allStats >= usrAlbumsAllowed)
                 {
-                    this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed));
+                    this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
                     return;
                 }
 
@@ -546,7 +546,7 @@ namespace YAF.Pages
                 // Images count. If we reached limit then we exit.
                 if (allStats >= usrAlbumImagesAllowed)
                 {
-                    this.PageContext.AddLoadMessage(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed));
+                    this.PageContext.AddLoadMessage(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
                     return;
                 }
 

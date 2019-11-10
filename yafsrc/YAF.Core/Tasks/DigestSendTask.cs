@@ -160,7 +160,7 @@ namespace YAF.Core.Tasks
 
                         // get users with digest enabled...
                         var usersWithDigest = this.GetRepository<User>()
-                            .FindUserTyped(filter: false, boardId: boardId, dailyDigest: true).Where(
+                            .FindUserTyped(false, boardId, dailyDigest: true).Where(
                                 x => x.IsGuest != null && !x.IsGuest.Value && (x.IsApproved ?? false));
 
                         var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();

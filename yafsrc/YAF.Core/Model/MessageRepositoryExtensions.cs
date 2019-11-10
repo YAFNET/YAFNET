@@ -320,7 +320,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.UpdateOnly(() => new Message { Flags = flags }, where: u => u.ID == messageId);
+            repository.UpdateOnly(() => new Message { Flags = flags }, u => u.ID == messageId);
         }
 
         /// <summary>

@@ -201,12 +201,12 @@ namespace YAF.Core.Handlers
                     if (this.Get<YafBoardSettings>().UseFileTable)
                     {
                         newAttachmentId = this.GetRepository<Attachment>().Save(
-                            messageId: 0,
-                            userId: yafUserId,
-                            fileName: fileName,
-                            bytes: file.ContentLength,
-                            contentType: file.ContentType,
-                            fileData: file.InputStream.ToArray());
+                            0,
+                            yafUserId,
+                            fileName,
+                            file.ContentLength,
+                            file.ContentType,
+                            file.InputStream.ToArray());
                     }
                     else
                     {
@@ -220,11 +220,11 @@ namespace YAF.Core.Handlers
                         }
 
                         newAttachmentId = this.GetRepository<Attachment>().Save(
-                            messageId: 0,
-                            userId: yafUserId,
-                            fileName: fileName,
-                            bytes: file.ContentLength,
-                            contentType: file.ContentType);
+                            0,
+                            yafUserId,
+                            fileName,
+                            file.ContentLength,
+                            file.ContentType);
 
                         file.SaveAs($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload");
                     }

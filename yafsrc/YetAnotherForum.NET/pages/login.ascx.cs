@@ -188,19 +188,19 @@ namespace YAF.Pages
 
             if (userName.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"));
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"), MessageTypes.warning);
                 emptyFields = true;
             }
 
             if (password.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"));
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"), MessageTypes.warning);
                 emptyFields = true;
             }
 
             if (!emptyFields)
             {
-                this.PageContext.AddLoadMessage(this.Login1.FailureText);
+                this.PageContext.AddLoadMessage(this.Login1.FailureText, MessageTypes.danger);
             }
         }
 

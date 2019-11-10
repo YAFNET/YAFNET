@@ -151,7 +151,9 @@ namespace YAF.Pages.Admin
 
             // success
             this.PageContext.AddLoadMessage(
-                string.Format(this.GetText("ADMIN_REGUSER", "MSG_CREATED"), this.UserName.Text.Trim()));
+                this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
+                MessageTypes.success);
+
             YafBuildLink.Redirect(ForumPages.admin_reguser);
         }
 

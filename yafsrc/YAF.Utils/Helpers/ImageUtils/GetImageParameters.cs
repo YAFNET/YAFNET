@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Utils.Helpers
+namespace YAF.Utils.Helpers.ImageUtils
 {
     #region Using
 

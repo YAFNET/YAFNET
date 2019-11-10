@@ -789,7 +789,7 @@ namespace YAF.Controls
                     }
                     else
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"));
+                        this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.success);
                     }
 
                     break;

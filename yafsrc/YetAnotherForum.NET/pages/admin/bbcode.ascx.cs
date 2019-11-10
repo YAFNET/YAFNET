@@ -183,7 +183,9 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"),
+                    MessageTypes.warning);
             }
         }
 

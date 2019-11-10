@@ -25,6 +25,7 @@
 namespace YAF.Utils.Helpers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text.RegularExpressions;
 
     using YAF.Types.Objects;
@@ -50,14 +51,7 @@ namespace YAF.Utils.Helpers
                 @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
                 RegexOptions.Singleline);
 
-            var users = new List<UserSimple>();
-
-            foreach (Match match in mentions)
-            {
-                users.Add(new UserSimple { UserName = match.Groups["user"].Value });
-            }
-
-            return users;
+            return (from Match match in mentions select new UserSimple { UserName = match.Groups["user"].Value }).ToList();
         }
 
         /// <summary>
@@ -73,14 +67,7 @@ namespace YAF.Utils.Helpers
         {
             var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase);
 
-            var users = new List<UserSimple>();
-
-            foreach (Match match in mentions)
-            {
-                users.Add(new UserSimple { UserName = match.Groups["inner"].Value });
-            }
-
-            return users;
+            return (from Match match in mentions select new UserSimple { UserName = match.Groups["inner"].Value }).ToList();
         }
 
 

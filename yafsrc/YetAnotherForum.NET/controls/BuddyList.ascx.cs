@@ -32,6 +32,7 @@ namespace YAF.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
@@ -60,6 +61,9 @@ namespace YAF.Controls
         /// </summary>
         public int Mode { get; set; }
 
+        /// <summary>
+        /// Gets or sets the count.
+        /// </summary>
         public int Count { get; set; }
 
         #endregion
@@ -113,34 +117,40 @@ namespace YAF.Controls
                 case "remove":
                     this.PageContext.AddLoadMessage(
                         string.Format(
-                            this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IBuddy>().Remove(e.CommandArgument.ToType<int>())));
+                            this.GetText("REMOVEBUDDY_NOTIFICATION"),
+                            this.Get<IBuddy>().Remove(e.CommandArgument.ToType<int>())),
+                        MessageTypes.success);
                     this.CurrentUserID = this.PageContext.PageUserID;
                     break;
                 case "approve":
                     this.PageContext.AddLoadMessage(
                         string.Format(
-                            this.GetText("NOTIFICATION_BUDDYAPPROVED"), this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), false)));
+                            this.GetText("NOTIFICATION_BUDDYAPPROVED"),
+                            this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
+                        MessageTypes.success);
                     break;
                 case "approveadd":
                     this.PageContext.AddLoadMessage(
                         string.Format(
-                            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), true)));
+                            this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
+                            this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
+                        MessageTypes.success);
                     break;
                 case "approveall":
                     this.Get<IBuddy>().ApproveAllRequests(false);
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED"));
+                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
                     break;
                 case "approveaddall":
                     this.Get<IBuddy>().ApproveAllRequests(true);
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"));
+                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
                     break;
                 case "deny":
                     this.Get<IBuddy>().DenyRequest(e.CommandArgument.ToType<int>());
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYDENIED"));
+                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
                     break;
                 case "denyall":
                     this.Get<IBuddy>().DenyAllRequests();
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_DENIED"));
+                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
                     break;
             }
 
@@ -207,12 +217,12 @@ namespace YAF.Controls
         {
             this.Pager.PageSize = 20;
 
-            // set the Datatable
+            // set the Data table
             var buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
 
             if (buddyListDataTable != null && buddyListDataTable.HasRows())
             {
-                // get the view from the datatable
+                // get the view from the data table
                 var buddyListDataView = buddyListDataTable.DefaultView;
 
                 // In what mode should this control work?
@@ -221,7 +231,7 @@ namespace YAF.Controls
                 {
                     case 1:
                     case 2:
-                        buddyListDataView.RowFilter = string.Format("Approved = 1", this.CurrentUserID);
+                        buddyListDataView.RowFilter = "Approved = 1";
                         break;
                     case 3:
                         buddyListDataView.RowFilter = $"Approved = 0 AND FromUserID <> {this.CurrentUserID}";
@@ -247,26 +257,6 @@ namespace YAF.Controls
             this.DataBind();
 
             this.Count = this.rptBuddy.Items.Count;
-        }
-
-        /// <summary>
-        /// Helper function for setting up the current sort on the memberlist view
-        /// </summary>
-        /// <param name="field">
-        /// </param>
-        /// <param name="asc">
-        /// </param>
-        private void SetSort([NotNull] string field, bool asc)
-        {
-            if (this.ViewState["SortField"] != null && (string)this.ViewState["SortField"] == field)
-            {
-                this.ViewState["SortAscending"] = !(bool)this.ViewState["SortAscending"];
-            }
-            else
-            {
-                this.ViewState["SortField"] = field;
-                this.ViewState["SortAscending"] = asc;
-            }
         }
 
         /// <summary>

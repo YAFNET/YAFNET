@@ -69,8 +69,8 @@ namespace YAF.Core.Controllers
 
             var attachments = this.GetRepository<Attachment>().GetPaged(
                 a => a.UserID == userId,
-                pageIndex: pageNumber,
-                pageSize: pageSize);
+                pageNumber,
+                pageSize);
 
             var attachmentItems = new List<AttachmentItem>();
 

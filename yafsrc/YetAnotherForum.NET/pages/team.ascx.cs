@@ -119,7 +119,7 @@ namespace YAF.Pages
                 .GetOrSet(
                     Constants.Cache.BoardAdmins,
                     () =>
-                    this.GetRepository<User>().AdminList(useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks),
+                    this.GetRepository<User>().AdminList(this.Get<YafBoardSettings>().UseStyledNicks),
                     TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)

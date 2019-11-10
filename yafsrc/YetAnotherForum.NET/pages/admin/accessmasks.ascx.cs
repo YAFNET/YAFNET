@@ -139,7 +139,9 @@ namespace YAF.Pages.Admin
                     else
                     {
                         // used masks cannot be deleted
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE"),
+                            MessageTypes.warning);
                     }
 
                     // quit switch

@@ -156,10 +156,10 @@ namespace YAF.Controls
 
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                        forumId: this.DataRow["ForumID"].ToType<int>(),
-                        topicId: this.DataRow["LastTopicID"].ToType<int>(),
-                        forumReadOverride: this.DataRow["LastForumAccess"].ToType<DateTime?>(),
-                        topicReadOverride: this.DataRow["LastTopicAccess"].ToType<DateTime?>());
+                        this.DataRow["ForumID"].ToType<int>(),
+                        this.DataRow["LastTopicID"].ToType<int>(),
+                        this.DataRow["LastForumAccess"].ToType<DateTime?>(),
+                        this.DataRow["LastTopicAccess"].ToType<DateTime?>());
 
                 if (this.DataRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {

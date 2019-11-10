@@ -342,7 +342,7 @@ namespace YAF.Core.Services.Import
                 .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])))
             {
                 // add this...
-                repository.Save(spamWordId: null, spamWord: row["spamword"].ToString());
+                repository.Save(null, row["spamword"].ToString());
                 importedCount++;
             }
 

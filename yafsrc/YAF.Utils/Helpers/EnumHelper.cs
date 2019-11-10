@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Utils
+namespace YAF.Utils.Helpers
 {
     #region Using
 
@@ -32,18 +32,19 @@ namespace YAF.Utils
     using System.Reflection;
 
     using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
 
     #endregion
 
     /// <summary>
-    ///     The enum helper.
+    ///     The Enumerator helper.
     /// </summary>
     public static class EnumHelper
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// Converts an Enum to a Dictionary
+        /// Converts an enumerator to a Dictionary
         /// </summary>
         /// <typeparam name="T">
         /// </typeparam>
@@ -56,7 +57,7 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// Converts an Enum to a List
+        /// Converts an enumerator to a List
         /// </summary>
         /// <typeparam name="T">
         /// </typeparam>
@@ -105,7 +106,7 @@ namespace YAF.Utils
 
             var list = new Dictionary<TValue, string>();
 
-            foreach (var field in enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
+            enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public).ForEach(field =>
             {
                 var value = (TValue)field.GetValue(null);
                 var display = Enum.GetName(enumType, value);
@@ -118,7 +119,7 @@ namespace YAF.Utils
 
                 // add the value...
                 list.Add(value, display);
-            }
+            });
 
             return list;
         }

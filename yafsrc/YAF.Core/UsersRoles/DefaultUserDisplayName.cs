@@ -152,7 +152,7 @@ namespace YAF.Core
                 if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
                 {
                     var user =
-                      this.GetRepository<User>().FindUserTyped(filter: true, displayName: name).FirstOrDefault();
+                      this.GetRepository<User>().FindUserTyped(true, displayName: name).FirstOrDefault();
 
                     if (user == null)
                     {
@@ -165,7 +165,7 @@ namespace YAF.Core
                 else
                 {
                     var user =
-                      this.GetRepository<User>().FindUserTyped(filter: true, userName: name).FirstOrDefault();
+                      this.GetRepository<User>().FindUserTyped(true, userName: name).FirstOrDefault();
 
                     if (user == null)
                     {

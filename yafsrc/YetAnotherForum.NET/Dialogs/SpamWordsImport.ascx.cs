@@ -53,30 +53,30 @@ namespace YAF.Dialogs
             try
             {
                 // import selected file (if it's the proper format)...
-                if (!this.importFile.PostedFile.ContentType.StartsWith(value: "text"))
+                if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
                 {
                     this.PageContext.AddLoadMessage(
-                        message: string.Format(
-                            format: this.GetText(page: "ADMIN_SPAMWORDS_IMPORT", tag: "MSG_IMPORTED_FAILEDX"),
-                            arg0: $"Invalid upload format specified: {this.importFile.PostedFile.ContentType}"));
+                        this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
+                        MessageTypes.danger);
 
                     return;
                 }
 
                 var importedCount = DataImport.SpamWordsImport(
-                    boardId: this.PageContext.PageBoardID,
-                    inputStream: this.importFile.PostedFile.InputStream);
+                    this.PageContext.PageBoardID,
+                    this.importFile.PostedFile.InputStream);
 
                 this.PageContext.AddLoadMessage(
-                    message: importedCount > 0
-                        ? string.Format(format: this.GetText(page: "ADMIN_SPAMWORDS_IMPORT", tag: "MSG_IMPORTED"), arg0: importedCount)
-                        : this.GetText(page: "ADMIN_SPAMWORDS_IMPORT", tag: "MSG_NOTHING"),
-                    messageType: importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
+                    importedCount > 0
+                        ? string.Format(this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
+                        : this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_NOTHING"),
+                    importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    message: string.Format(format: this.GetText(page: "ADMIN_SPAMWORDS_IMPORT", tag: "MSG_IMPORTED_FAILEDX"), arg0: x.Message));
+                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", x.Message),
+                    MessageTypes.danger);
             }
         }
 

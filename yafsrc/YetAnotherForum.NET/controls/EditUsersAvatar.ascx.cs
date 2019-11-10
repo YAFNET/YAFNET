@@ -46,6 +46,7 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Utils.Helpers.ImageUtils;
 
     #endregion
 
@@ -203,7 +204,8 @@ namespace YAF.Controls
                     if (img.Width > x || img.Height > y)
                     {
                         this.PageContext.AddLoadMessage(
-                            $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("CP_EDITAVATAR", "WARN_RESIZED")}");
+                            $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("CP_EDITAVATAR", "WARN_RESIZED")}",
+                            MessageTypes.warning);
 
                         resized = ImageHelper.GetResizedImageStreamFromImage(img, x, y);
                     }

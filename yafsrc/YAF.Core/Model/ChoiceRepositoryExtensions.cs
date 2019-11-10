@@ -74,7 +74,7 @@ namespace YAF.Core.Model
         public static void Vote(this IRepository<Choice> repository,
                                         [NotNull] int choiceId)
         {
-            repository.UpdateAdd(() => new Choice { Votes = 1 }, where: a => a.ID == choiceId);
+            repository.UpdateAdd(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
         }
 
         #endregion
