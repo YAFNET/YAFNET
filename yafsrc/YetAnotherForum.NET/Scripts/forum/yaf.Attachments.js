@@ -80,7 +80,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
             (pageNumber - 1) +
             "," +
             total +
-            ',true)" class="page-link">&laquo;</a></li>');
+            ',true)" class="page-link"><i class="fas fa-angle-left"></i></a></li>');
     }
 
     var start = pageNumber - 2;
@@ -141,7 +141,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
             (pageNumber + 1) +
             "," +
             total +
-            ',true)" class="page-link">&raquo;</a></li>');
+            ',true)" class="page-link"><i class="fas fa-angle-right"></i></a></li>');
     }
 
     pagerHolder.append(pagination);

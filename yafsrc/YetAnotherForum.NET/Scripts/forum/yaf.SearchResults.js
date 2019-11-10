@@ -74,16 +74,16 @@
             data: JSON.stringify(searchTopic),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            beforeSend: (function before() {
+            beforeSend: function() {
                 $("#SearchResultsPlaceholder").empty();
                 // show loading screen 
                 $("#loadModal").modal("show");
-            }),
-            complete: (function before() {
+            },
+            complete: function() {
                 // hide loading screen 
                 $("#loadModal").modal("hide");
-            }),
-            success: (function success(data) {
+            },
+            success: function(data) {
                 $("#loadModal").on("shown.bs.modal",
                     function () {
                         $("#loadModal").modal("hide");
@@ -156,7 +156,7 @@
                         });
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
-            }),
+            },
             error: function(request) {
                 console.log(request);
                 $("#SearchResultsPlaceholder").html(request.responseText).fadeIn(1000);

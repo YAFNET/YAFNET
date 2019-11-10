@@ -52744,7 +52744,7 @@ function setPageNumberAlbums(pageSize, pageNumber, total) {
             (pageNumber - 1) +
             "," +
             total +
-            ',true)" class="page-link">&laquo;</a></li>');
+            ',true)" class="page-link"><i class="fas fa-angle-left"></i></a></li>');
     }
 
     var start = pageNumber - 2;
@@ -52805,7 +52805,7 @@ function setPageNumberAlbums(pageSize, pageNumber, total) {
             (pageNumber + 1) +
             "," +
             total +
-            ',true)" class="page-link">&raquo;</a></li>');
+            ',true)" class="page-link"><i class="fas fa-angle-right"></i></a></li>');
     }
 
     pagerHolder.append(pagination);
@@ -52892,7 +52892,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
             (pageNumber - 1) +
             "," +
             total +
-            ',true)" class="page-link">&laquo;</a></li>');
+            ',true)" class="page-link"><i class="fas fa-angle-left"></i></a></li>');
     }
 
     var start = pageNumber - 2;
@@ -52953,7 +52953,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
             (pageNumber + 1) +
             "," +
             total +
-            ',true)" class="page-link">&raquo;</a></li>');
+            ',true)" class="page-link"><i class="fas fa-angle-right"></i></a></li>');
     }
 
     pagerHolder.append(pagination);
@@ -53034,16 +53034,16 @@ function getSearchResultsData(pageNumber) {
             data: JSON.stringify(searchTopic),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            beforeSend: (function before() {
+            beforeSend: function() {
                 $("#SearchResultsPlaceholder").empty();
                 // show loading screen 
                 $("#loadModal").modal("show");
-            }),
-            complete: (function before() {
+            },
+            complete: function() {
                 // hide loading screen 
                 $("#loadModal").modal("hide");
-            }),
-            success: (function success(data) {
+            },
+            success: function(data) {
                 $("#loadModal").on("shown.bs.modal",
                     function () {
                         $("#loadModal").modal("hide");
@@ -53116,7 +53116,7 @@ function getSearchResultsData(pageNumber) {
                         });
                     setPageNumber(pageSize, pageNumber, data.TotalRecords);
                 }
-            }),
+            },
             error: function(request) {
                 console.log(request);
                 $("#SearchResultsPlaceholder").html(request.responseText).fadeIn(1000);
