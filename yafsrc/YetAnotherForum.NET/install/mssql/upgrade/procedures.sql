@@ -9283,7 +9283,7 @@ begin
                                 join [{databaseOwner}].[{objectQualifier}Topic] b ON a.TopicID=b.TopicID
                                 join [{databaseOwner}].[{objectQualifier}Forum] c ON b.ForumID=c.ForumID
                                 join [{databaseOwner}].[{objectQualifier}Category] d ON c.CategoryID=d.CategoryID
-                                 where (a.Flags & 128)=128 and a.IsDeleted = 0 and d.BoardID =1 or a.IsApproved=0 and a.IsDeleted = 0 AND d.BoardID=@BoardID
+                                 where (a.Flags & 128)=128 and a.IsDeleted = 0 and b.IsDeleted = 0 and d.BoardID = @BoardID or a.IsApproved=0 and a.IsDeleted = 0 and b.IsDeleted = 0 AND d.BoardID = @BoardID
                             ),
 		ReceivedThanks      = (select count(1) from [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 1024)=1024 and Notification = 1),
 		Mention             = (select count(1) from [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 512)=512 and Notification = 1),
