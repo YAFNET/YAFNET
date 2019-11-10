@@ -114,18 +114,18 @@ namespace YAF.Pages
             {
                 if (this.Get<HttpRequestBase>().QueryString.Exists("threaded"))
                 {
-                    this.Get<HttpSessionState>()["IsThreaded"] =
+                    this.Get<HttpSessionStateBase>()["IsThreaded"] =
                         bool.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("threaded"));
                 }
-                else if (this.Get<HttpSessionState>()["IsThreaded"] == null)
+                else if (this.Get<HttpSessionStateBase>()["IsThreaded"] == null)
                 {
-                    this.Get<HttpSessionState>()["IsThreaded"] = false;
+                    this.Get<HttpSessionStateBase>()["IsThreaded"] = false;
                 }
 
-                return (bool)this.Get<HttpSessionState>()["IsThreaded"];
+                return (bool)this.Get<HttpSessionStateBase>()["IsThreaded"];
             }
 
-            set => this.Get<HttpSessionState>()["IsThreaded"] = value;
+            set => this.Get<HttpSessionStateBase>()["IsThreaded"] = value;
         }
 
         /// <summary>
