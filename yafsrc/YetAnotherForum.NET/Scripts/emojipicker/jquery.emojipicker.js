@@ -1,18 +1,18 @@
 ;(function($) {
 
-  var pluginName = "emojiPicker",
-      defaults = {
-        width: '200',
-        height: '350',
-        position: 'right',
-        fadeTime: 100,
-        iconColor: 'black',
-        iconBackgroundColor: '#eee',
-        recentCount: 36,
-        emojiSet: 'apple',
-          container: '#emoji-area',
-        button: true
-      };
+    var pluginName = "emojiPicker",
+        defaults = {
+            width: "200",
+            height: "350",
+            position: "right",
+            fadeTime: 100,
+            iconColor: "black",
+            iconBackgroundColor: "#eee",
+            recentCount: 36,
+            emojiSet: "apple",
+            container: "#emoji-area",
+            button: true
+        };
 
   var MIN_WIDTH = 280,
       MAX_WIDTH = 600,
@@ -21,14 +21,14 @@
       MAX_ICON_HEIGHT = 50;
 
   var categories = [
-      { name: 'people', label: 'People', emoji: '😀' },
-      { name: 'nature', label: 'Nature', emoji: '🐳' },
-      { name: 'food', label: 'Food', emoji: '🍔' },
-      { name: 'activity', label: 'Activities', emoji: '🏃' },
-      { name: 'travel', label: 'Travel & Places', emoji: '🚀' },
-      { name: 'object', label: 'Objects', emoji: '💡' },
-      { name: 'symbol', label: 'Symbols', emoji: '🈲' },
-      { name: 'flag', label: 'Flags', emoji: '🏳' }
+      { name: "people", label: "People", emoji: "😀" },
+      { name: "nature", label: "Nature", emoji: "🐳" },
+      { name: "food", label: "Food", emoji: "🍔" },
+      { name: "activity", label: "Activities", emoji: "🏃" },
+      { name: "travel", label: "Travel & Places", emoji: "🚀" },
+      { name: "object", label: "Objects", emoji: "💡" },
+      { name: "symbol", label: "Symbols", emoji: "🈲" },
+      { name: "flag", label: "Flags", emoji: "🏳" }
   ];
 
   function EmojiPicker( element, options ) {
@@ -56,8 +56,8 @@
       this.settings.height = MIN_HEIGHT;
     }
 
-    var possiblePositions = [ 'left',
-                              'right'
+    var possiblePositions = [ "left",
+                              "right"
                               /*,'top',
                               'bottom'*/];
     if($.inArray(this.settings.position,possiblePositions) == -1) {
@@ -103,7 +103,7 @@
           .height(iconHeight)
           .width(iconHeight)
           .addClass(this.settings.iconColor)
-          .css('backgroundColor', this.settings.iconBackgroundColor);
+          .css("backgroundColor", this.settings.iconBackgroundColor);
           this.$wrapper.append( this.$icon );
       }
 
@@ -116,15 +116,15 @@
         .appendTo( this.$container )
         .width(this.settings.width)
         .height(this.settings.height)
-        .css('z-index',10000);
+        .css("z-index",10000);
 
       // Picker height
-      this.$picker.find('.sections')
+      this.$picker.find(".sections")
         .height(parseInt(this.settings.height) - 40); // 40 is height of the tabs
 
       // Tab size based on width
       if (this.settings.width < 240) {
-        this.$picker.find('.emoji').css({'width':'1em', 'height':'1em'});
+        this.$picker.find(".emoji").css({'width':"1em", 'height':"1em"});
       }
 
     },
@@ -132,12 +132,12 @@
     destroyPicker: function() {
       if (this.isMobile) return this;
 
-      this.$picker.unbind('mouseover');
-      this.$picker.unbind('mouseout');
-      this.$picker.unbind('click');
+      this.$picker.unbind("mouseover");
+      this.$picker.unbind("mouseout");
+      this.$picker.unbind("click");
       this.$picker.remove();
 
-      $.removeData(this.$el.get(0), 'emojiPicker');
+      $.removeData(this.$el.get(0), "emojiPicker");
 
       return this;
     },
@@ -147,35 +147,35 @@
       //    and will not need a listener
       if (this.settings.button){
         // Clicking on the picker icon
-        this.$wrapper.find('.emojiPickerIcon')
+        this.$wrapper.find(".emojiPickerIcon")
           .click( $.proxy(this.iconClicked, this) );
       }
 
       // Click event for emoji
-      this.$picker.on('click', 'em', $.proxy(this.emojiClicked, this));
+      this.$picker.on("click", "em", $.proxy(this.emojiClicked, this));
 
       // Hover event for emoji
-      this.$picker.on('mouseover', 'em', $.proxy(this.emojiMouseover, this) );
-      this.$picker.on('mouseout',  'em', $.proxy(this.emojiMouseout, this) );
+      this.$picker.on("mouseover", "em", $.proxy(this.emojiMouseover, this) );
+      this.$picker.on("mouseout",  "em", $.proxy(this.emojiMouseout, this) );
 
       // Click event for active tab
-      this.$picker.find('nav .tab')
+      this.$picker.find("nav .tab")
         .click( $.proxy(this.emojiCategoryClicked, this) )
         .mouseover( $.proxy(this.emojiTabMouseover, this) )
         .mouseout( $.proxy(this.emojiMouseout, this) );
 
       // Scroll event for active tab
-      this.$picker.find('.sections')
+      this.$picker.find(".sections")
         .scroll( $.proxy(this.emojiScroll, this) );
 
       this.$picker.click( $.proxy(this.pickerClicked, this) );
 
       // Key events for search
-      this.$picker.find('section.search input')
-        .on('keyup search', $.proxy(this.searchCharEntered, this) );
+      this.$picker.find("section.search input")
+        .on("keyup search", $.proxy(this.searchCharEntered, this) );
 
       // Shortcode hover
-      this.$picker.find('.shortcode').mouseover(function(e) { e.stopPropagation(); });
+      this.$picker.find(".shortcode").mouseover(function(e) { e.stopPropagation(); });
 
       $(document.body).click( $.proxy(this.clickOutside, this) );
 
@@ -196,7 +196,7 @@
 
       // Step 1
       // Luckily jquery already does this...
-        var parentOffset = $('#emoji').offset(); // now have a top/left object
+        var parentOffset = $("#emoji").offset(); // now have a top/left object
 
       // Step 2
       var elOffset = this.$el.offset();
@@ -208,7 +208,7 @@
        
       // Step 3
       var diffOffset = {
-          top: (parentOffset.top + $('#emoji').outerHeight()),
+          top: (parentOffset.top + $("#emoji").outerHeight()),
         left: (parentOffset.left)
       };
 
@@ -221,7 +221,7 @@
     },
 
     hide: function() {
-      this.$picker.hide(this.settings.fadeTime, 'linear', function() {
+      this.$picker.hide(this.settings.fadeTime, "linear", function() {
         this.active = false;
         if (this.settings.onHide) {
           this.settings.onHide( this.$picker, this.settings, this.active );
@@ -232,7 +232,7 @@
     show: function() {
       this.$el.focus();
       this.updatePosition();
-      this.$picker.show(this.settings.fadeTime, 'linear', function() {
+      this.$picker.show(this.settings.fadeTime, "linear", function() {
         this.active = true;
         if (this.settings.onShow) {
           this.settings.onShow( this.$picker, this.settings, this.active );
@@ -245,10 +245,10 @@
      ************/
 
     iconClicked : function() {
-      if ( this.$picker.is(':hidden') ) {
+      if ( this.$picker.is(":hidden") ) {
         this.show();
-        if( this.$picker.find('.search input').length > 0 ) {
-          this.$picker.find('.search input').focus();
+        if( this.$picker.find(".search input").length > 0 ) {
+          this.$picker.find(".search input").focus();
         }
       } else {
         this.hide();
@@ -257,13 +257,13 @@
 
     emojiClicked: function(e) { var clickTarget = $(e.target);
       var emojiSpan;
-      if (clickTarget.is('em')) {
-        emojiSpan = clickTarget.find('span');
+      if (clickTarget.is("em")) {
+        emojiSpan = clickTarget.find("span");
       } else {
-        emojiSpan = clickTarget.parent().find('.emoji');
+        emojiSpan = clickTarget.parent().find(".emoji");
       }
 
-      var emojiShortcode = emojiSpan.attr('class').split('emoji-')[1];
+      var emojiShortcode = emojiSpan.attr("class").split("emoji-")[1];
       var emojiUnicode = toUnicode(findEmoji(emojiShortcode).unicode[defaults.emojiSet]);
 
       insertAtCaret(this.element, emojiUnicode);
@@ -280,32 +280,32 @@
     },
 
     emojiMouseover: function(e) {
-      var emojiShortcode = $(e.target).parent().find('.emoji').attr('class').split('emoji-')[1];
-      var $shortcode = $(e.target).parents('.emojiPicker').find('.shortcode');
-      $shortcode.find('.random').hide();
-      $shortcode.find('.info').show().html('<div class="emoji emoji-' + emojiShortcode + '"></div><em>' + emojiShortcode + '</em>');
+      var emojiShortcode = $(e.target).parent().find(".emoji").attr("class").split("emoji-")[1];
+      var $shortcode = $(e.target).parents(".emojiPicker").find(".shortcode");
+      $shortcode.find(".random").hide();
+      $shortcode.find(".info").show().html('<div class="emoji emoji-' + emojiShortcode + '"></div><em>' + emojiShortcode + "</em>");
     },
 
     emojiMouseout: function(e) {
-      $(e.target).parents('.emojiPicker').find('.shortcode .info').empty().hide();
-      $(e.target).parents('.emojiPicker').find('.shortcode .random').show();
+      $(e.target).parents(".emojiPicker").find(".shortcode .info").empty().hide();
+      $(e.target).parents(".emojiPicker").find(".shortcode .random").show();
     },
 
     emojiCategoryClicked: function(e) {
-      var section = '';
+      var section = "";
 
       // Update tab
-      this.$picker.find('nav .tab').removeClass('active');
-      if ($(e.target).parent().hasClass('tab')) {
-        section = $(e.target).parent().attr('data-tab');
-        $(e.target).parent('.tab').addClass('active');
+      this.$picker.find("nav .tab").removeClass("active");
+      if ($(e.target).parent().hasClass("tab")) {
+        section = $(e.target).parent().attr("data-tab");
+        $(e.target).parent(".tab").addClass("active");
       }
       else {
-        section = $(e.target).attr('data-tab');
-        $(e.target).addClass('active');
+        section = $(e.target).attr("data-tab");
+        $(e.target).addClass("active");
       }
 
-      var $section = this.$picker.find('section.' + section);
+      var $section = this.$picker.find("section." + section);
 
       var heightOfSectionsHidden = $section.parent().scrollTop();
       var heightOfSectionToPageTop = $section.offset().top;
@@ -315,53 +315,53 @@
                            + heightOfSectionToPageTop
                            - heightOfSectionsToPageTop;
 
-      $('.sections').off('scroll'); // Disable scroll event until animation finishes
+      $(".sections").off("scroll"); // Disable scroll event until animation finishes
 
       var that = this;
-      $('.sections').animate({
+      $(".sections").animate({
         scrollTop: scrollDistance
       }, 250, function() {
-        that.$picker.find('.sections').on('scroll', $.proxy(that.emojiScroll, that) ); // Enable scroll event
+        that.$picker.find(".sections").on("scroll", $.proxy(that.emojiScroll, that) ); // Enable scroll event
       });
     },
 
     emojiTabMouseover: function(e) {
-      var section = '';
-      if ($(e.target).parent().hasClass('tab')) {
-        section = $(e.target).parent().attr('data-tab');
+      var section = "";
+      if ($(e.target).parent().hasClass("tab")) {
+        section = $(e.target).parent().attr("data-tab");
       }
       else {
-        section = $(e.target).attr('data-tab');
+        section = $(e.target).attr("data-tab");
       }
 
-      var categoryTitle = '';
+      var categoryTitle = "";
       for (var i = 0; i < categories.length; i++) {
         if (categories[i].name == section) { categoryTitle = categories[i].label; }
       }
-      if (categoryTitle == '') { categoryTitle = 'Recently Used'; }
+      if (categoryTitle == "") { categoryTitle = "Recently Used"; }
 
-      var categoryCount = $('section.' + section).attr('data-count');
-      var categoryHtml = '<em class="tabTitle">' + categoryTitle + ' <span class="count">(' + categoryCount + ' emojis)</span></em>';
+      var categoryCount = $("section." + section).attr("data-count");
+      var categoryHtml = '<em class="tabTitle">' + categoryTitle + ' <span class="count">(' + categoryCount + " emojis)</span></em>";
 
-      var $shortcode = $(e.target).parents('.emojiPicker').find('.shortcode');
-      $shortcode.find('.random').hide();
-      $shortcode.find('.info').show().html(categoryHtml);
+      var $shortcode = $(e.target).parents(".emojiPicker").find(".shortcode");
+      $shortcode.find(".random").hide();
+      $shortcode.find(".info").show().html(categoryHtml);
     },
 
     emojiScroll: function(e) {
-      var sections = $('section');
+      var sections = $("section");
       $.each(sections, function(key, value) {
         var section = sections[key];
         var offsetFromTop = $(section).position().top;
 
-        if (section.className == 'search' || (section.className == 'people' && offsetFromTop > 0)) {
-          $(section).parents('.emojiPicker').find('nav tab.recent').addClass('active');
+        if (section.className == "search" || (section.className == "people" && offsetFromTop > 0)) {
+          $(section).parents(".emojiPicker").find("nav tab.recent").addClass("active");
           return;
         }
 
         if (offsetFromTop <= 0) {
-          $(section).parents('.emojiPicker').find('nav .tab').removeClass('active');
-          $(section).parents('.emojiPicker').find('nav .tab[data-tab=' + section.className + ']').addClass('active');
+          $(section).parents(".emojiPicker").find("nav .tab").removeClass("active");
+          $(section).parents(".emojiPicker").find("nav .tab[data-tab=" + section.className + "]").addClass("active");
         }
       });
     },
@@ -378,12 +378,12 @@
 
     searchCharEntered: function(e) {
       var searchTerm = $(e.target).val();
-      var searchEmojis = $(e.target).parents('.sections').find('section.search');
-      var searchEmojiWrap = searchEmojis.find('.wrap');
-      var sections = $(e.target).parents('.sections').find('section');
+      var searchEmojis = $(e.target).parents(".sections").find("section.search");
+      var searchEmojiWrap = searchEmojis.find(".wrap");
+      var sections = $(e.target).parents(".sections").find("section");
 
       // Clear if X is clicked within input
-      if (searchTerm == '') {
+      if (searchTerm == "") {
         sections.show();
         searchEmojiWrap.hide();
       }
@@ -394,7 +394,7 @@
         searchEmojiWrap.show();
 
         var results = [];
-        searchEmojiWrap.find('em').remove();
+        searchEmojiWrap.find("em").remove();
 
         $.each($.fn.emojiPicker.emojis, function(i, emoji) {
           var shortcode = emoji.shortcode;
@@ -402,7 +402,7 @@
             results.push('<em><div class="emoji emoji-' + shortcode + '"></div></em>');
           }
         });
-        searchEmojiWrap.append(results.join(''));
+        searchEmojiWrap.append(results.join(""));
       } else {
         sections.show();
         searchEmojiWrap.hide();
@@ -413,14 +413,14 @@
   $.fn[ pluginName ] = function ( options ) {
 
     // Calling a function
-    if (typeof options === 'string') {
+    if (typeof options === "string") {
       this.each(function() {
         var plugin = $.data( this, pluginName );
         switch(options) {
-          case 'toggle':
+          case "toggle":
             plugin.iconClicked();
             break;
-            case 'destroy':
+            case "destroy":
             plugin.destroyPicker();
             break;
         }
@@ -442,10 +442,10 @@
   function getPickerHTML() {
     var nodes = [];
     var aliases = {
-      'undefined': 'object'
+      'undefined': "object"
     }
     var items = {};
-    var localStorageSupport = (typeof(Storage) !== 'undefined') ? true : false;
+    var localStorageSupport = (typeof(Storage) !== "undefined") ? true : false;
 
     // Re-Sort Emoji table
     $.each($.fn.emojiPicker.emojis, function(i, emoji) {
@@ -455,7 +455,7 @@
     });
 
     nodes.push('<div class="emojiPicker">');
-    nodes.push('<nav>');
+    nodes.push("<nav>");
 
     // Recent Tab, if localstorage support
     if (localStorageSupport) {
@@ -466,7 +466,7 @@
     var categories_length = categories.length;
     for (var i = 0; i < categories_length; i++) {
       nodes.push('<div class="tab' +
-      ( !localStorageSupport && i == 0 ? ' active' : '' ) +
+      ( !localStorageSupport && i == 0 ? " active" : "" ) +
       '" data-tab="' +
       categories[i].name +
       '"><div class="emoji emoji-tab-' +
@@ -474,9 +474,9 @@
           '">' +
       categories[i].emoji
       +
-      '</div></div>');
+      "</div></div>");
     }
-    nodes.push('</nav>');
+    nodes.push("</nav>");
     nodes.push('<div class="sections">');
 
     // Recent Section, if localstorage support
@@ -491,35 +491,35 @@
         displayRecentlyUsed = ' style="display:block;"';
       }
 
-      nodes.push('<section class="recent" data-count="' + recentlyUsedEmojis.length + '"' + displayRecentlyUsed + '>');
+      nodes.push('<section class="recent" data-count="' + recentlyUsedEmojis.length + '"' + displayRecentlyUsed + ">");
       nodes.push('<h1>Recently Used</h1><div class="wrap">');
 
       for (var i = recentlyUsedEmojis.length-1; i > -1 ; i--) {
-          nodes.push('<em><span class="emoji emoji-' + recentlyUsedEmojis[i] + '">' + toUnicode(findEmoji(recentlyUsedEmojis[i]).unicode[defaults.emojiSet]) + '</span></em>');
+          nodes.push('<em><span class="emoji emoji-' + recentlyUsedEmojis[i] + '">' + toUnicode(findEmoji(recentlyUsedEmojis[i]).unicode[defaults.emojiSet]) + "</span></em>");
       }
-      nodes.push('</div></section>');
+      nodes.push("</div></section>");
     }
 
     // Emoji sections
     for (var i = 0; i < categories_length; i++) {
       var category_length = items[ categories[i].name ].length;
       nodes.push('<section class="' + categories[i].name + '" data-count="' + category_length + '">');
-      nodes.push('<h1>' + categories[i].label + '</h1><div class="wrap">');
+      nodes.push("<h1>" + categories[i].label + '</h1><div class="wrap">');
       for (var j = 0; j < category_length; j++) {
           var emoji = items[categories[i].name][j];
 
-          nodes.push('<em><span class="emoji emoji-' + emoji.shortcode + '">' + toUnicode(emoji.unicode[defaults.emojiSet]) + '</span></em>');
+          nodes.push('<em><span class="emoji emoji-' + emoji.shortcode + '">' + toUnicode(emoji.unicode[defaults.emojiSet]) + "</span></em>");
       }
-      nodes.push('</div></section>');
+      nodes.push("</div></section>");
     }
-    nodes.push('</div>');
+    nodes.push("</div>");
 
     // Shortcode section
     nodes.push('<div class="shortcode"><span class="random">');
-    nodes.push('<em class="tabTitle">' + generateEmojiOfDay() + '</em>');
+    nodes.push('<em class="tabTitle">' + generateEmojiOfDay() + "</em>");
     nodes.push('</span><span class="info"></span></div>');
 
-    nodes.push('</div>');
+    nodes.push("</div>");
     return nodes.join("\n");
   }
 
@@ -527,7 +527,7 @@
     var emojis = $.fn.emojiPicker.emojis;
     var i = Math.floor(Math.random() * (364 - 0) + 0);
     var emoji = emojis[i];
-    return 'Daily Emoji: <span class="eod"><span class="emoji emoji-' + emoji.name + '"></span> <span class="emojiName">' + toUnicode(emoji.unicode[defaults.emojiSet]) + '</span></span>';
+    return 'Daily Emoji: <span class="eod"><span class="emoji emoji-' + emoji.name + '"></span> <span class="emojiName">' + toUnicode(emoji.unicode[defaults.emojiSet]) + "</span></span>";
   }
 
   function findEmoji(emojiShortcode) {
@@ -547,7 +547,7 @@
       sel.text = myValue;
       inputField.focus();
     }
-    else if (inputField.selectionStart || inputField.selectionStart == '0') {
+    else if (inputField.selectionStart || inputField.selectionStart == "0") {
       //For browsers like Firefox and Webkit based
       var startPos = inputField.selectionStart;
       var endPos = inputField.selectionEnd;
@@ -564,7 +564,7 @@
   }
 
   function toUnicode(code) {
-    var codes = code.split('-').map(function(value, index) {
+    var codes = code.split("-").map(function(value, index) {
       return parseInt(value, 16);
     });
     return String.fromCodePoint.apply(null, codes);
@@ -593,27 +593,27 @@
   function updateRecentlyUsed(emoji) {
     var recentlyUsedEmojis = JSON.parse(localStorage.emojis);
     var emojis = [];
-    var recent = $('section.recent');
+    var recent = $("section.recent");
 
     for (var i = recentlyUsedEmojis.length-1; i >= 0; i--) {
-        emojis.push('<em><span class="emoji emoji-' + recentlyUsedEmojis[i] + '">' + toUnicode(findEmoji(recentlyUsedEmojis[i]).unicode[defaults.emojiSet]) + '</span></em>');
+        emojis.push('<em><span class="emoji emoji-' + recentlyUsedEmojis[i] + '">' + toUnicode(findEmoji(recentlyUsedEmojis[i]).unicode[defaults.emojiSet]) + "</span></em>");
     }
 
     // Fix height as emojis are added
     var prevHeight = recent.outerHeight();
-    $('section.recent .wrap').html(emojis.join(''));
-    var currentScrollTop = $('.sections').scrollTop();
+    $("section.recent .wrap").html(emojis.join(""));
+    var currentScrollTop = $(".sections").scrollTop();
     var newHeight = recent.outerHeight();
     var newScrollToHeight = 0;
 
-    if (!$('section.recent').is(':visible')) {
+    if (!$("section.recent").is(":visible")) {
       recent.show();
       newScrollToHeight = newHeight;
     } else if (prevHeight != newHeight) {
       newScrollToHeight = newHeight - prevHeight;
     }
 
-    $('.sections').animate({
+    $(".sections").animate({
       scrollTop: currentScrollTop + newScrollToHeight
     }, 0);
   }
