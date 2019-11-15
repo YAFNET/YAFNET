@@ -135,10 +135,9 @@ namespace YAF.Core.Services
 
                 IndexWriter writer;
 
-                var indexConfig = new IndexWriterConfig(MatchVersion, this.standardAnalyzer);
-
                 try
                 {
+                    var indexConfig = new IndexWriterConfig(MatchVersion, this.standardAnalyzer);
                     writer = new IndexWriter(FSDirectory.Open(SearchIndexFolder), indexConfig);
                 }
                 catch (LockObtainFailedException)
@@ -147,6 +146,7 @@ namespace YAF.Core.Services
                     var directory = FSDirectory.Open(directoryInfo, new SimpleFSLockFactory(directoryInfo));
                     IndexWriter.Unlock(directory);
 
+                    var indexConfig = new IndexWriterConfig(MatchVersion, this.standardAnalyzer);
                     writer = new IndexWriter(FSDirectory.Open(SearchIndexFolder), indexConfig);
                 }
 
