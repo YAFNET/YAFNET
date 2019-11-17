@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Store
             // Skip provoking the exception unless we know we will use the value
             if (IS_FILESTREAM_LOCKING_PLATFORM)
             {
-                return FileSupport.GetFileIOExceptionHResult(provokeException: (fileName) =>
+                return FileSupport.GetFileIOExceptionHResult((fileName) =>
                 {
                     using (var lockStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
                     {
@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Store
             if (Constants.WINDOWS)
                 return WIN_HRESULT_FILE_SHARE_VIOLATION;
 
-            return FileSupport.GetFileIOExceptionHResult(provokeException: (fileName) =>
+            return FileSupport.GetFileIOExceptionHResult((fileName) =>
             {
                 using (var lockStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, 1, FileOptions.None))
                 // Try to get an exclusive lock on the file - this should throw an IOException with the current platform's HResult value for FileShare violation

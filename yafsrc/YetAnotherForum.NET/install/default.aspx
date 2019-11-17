@@ -44,8 +44,12 @@
                         <%# YAF.App_GlobalResources.Install.WelcomeUpgradeDesc %>
                     </p>
                     <ul class="standardList">
-                        <li><%# YAF.App_GlobalResources.Install.CurrentVersion %><strong>YAF.NET v<asp:Literal runat="server" ID="CurrentVersionName"></asp:Literal></strong></li>
-                        <li><%# YAF.App_GlobalResources.Install.UpgradeVersion %><strong>YAF.NET v<asp:Literal runat="server" ID="UpgradeVersionName"></asp:Literal></strong></li>
+                        <li><%# YAF.App_GlobalResources.Install.CurrentVersion %>
+                            <strong>YAF.NET v<asp:Literal runat="server" ID="CurrentVersionName"></asp:Literal></strong>
+                        </li>
+                        <li><%# YAF.App_GlobalResources.Install.UpgradeVersion %>
+                            <strong>YAF.NET v<asp:Literal runat="server" ID="UpgradeVersionName"></asp:Literal></strong>
+                        </li>
                     </ul>
                     <p>
                        

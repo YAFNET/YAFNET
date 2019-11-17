@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Support.IO
             if (Constants.WINDOWS)
                 return WIN_HRESULT_FILE_ALREADY_EXISTS;
 
-            return GetFileIOExceptionHResult(provokeException: (fileName) =>
+            return GetFileIOExceptionHResult((fileName) =>
             {
                 //Try to create the file again -this should throw an IOException with the correct HResult for the current platform
                 using (var stream = new FileStream(fileName, FileMode.CreateNew, FileAccess.Write, FileShare.Read)) { }

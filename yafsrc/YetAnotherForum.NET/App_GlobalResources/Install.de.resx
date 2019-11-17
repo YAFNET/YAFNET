@@ -379,7 +379,7 @@
     <value>YAF.NET hat Schreibzugriff auf das Verzeichnis "~ / Upload" ...</value>
   </data>
   <data name="Previous" xml:space="preserve">
-    <value>Bisherige</value>
+    <value>Zurück</value>
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Der Authentifizierungsanbieter hat einen Fehler zurückgegeben. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an Ihren Systemadministrator.</value>

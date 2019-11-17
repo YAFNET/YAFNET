@@ -314,15 +314,15 @@ namespace YAF.Lucene.Net.Store
             if (input.memoryMappedFile == null)
             {
                 input.memoryMappedFile = MemoryMappedFile.CreateFromFile(
-                    fileStream: fc, 
-                    mapName: null, 
-                    capacity: length, 
-                    access: MemoryMappedFileAccess.Read,
+                    fc, 
+                    null, 
+                    length, 
+                    MemoryMappedFileAccess.Read,
 #if !NETSTANDARD
-                    memoryMappedFileSecurity: null,
+                    null,
 #endif
-                    inheritability: HandleInheritability.Inheritable, 
-                    leaveOpen: true); // LUCENENET: We explicitly dispose the FileStream separately.
+                    HandleInheritability.Inheritable, 
+                    true); // LUCENENET: We explicitly dispose the FileStream separately.
             }
 
             long bufferStart = 0L;
@@ -341,9 +341,9 @@ namespace YAF.Lucene.Net.Store
 
                 buffers[bufNr] = new MemoryMappedFileByteBuffer(
                     input.memoryMappedFile.CreateViewAccessor(
-                        offset: (offset + bufferStart) - adjust, 
-                        size: bufSize, 
-                        access: MemoryMappedFileAccess.Read), 
+                        (offset + bufferStart) - adjust, 
+                        bufSize, 
+                        MemoryMappedFileAccess.Read), 
                     bufSize);
                 bufferStart += bufSize;
             }

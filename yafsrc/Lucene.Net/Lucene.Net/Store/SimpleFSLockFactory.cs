@@ -145,7 +145,7 @@ namespace YAF.Lucene.Net.Store
             try
             {
                 // Create the file, and close it immediately
-                File.WriteAllText(lockFile.FullName, string.Empty, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false) /* No BOM */);
+                File.WriteAllText(lockFile.FullName, string.Empty, new UTF8Encoding(false) /* No BOM */);
                 return true;
             }
             catch (Exception e) // LUCENENET: Some of the exceptions that can happen are not IOException, so we catch everything

@@ -216,6 +216,9 @@ namespace YAF.Types.Objects
         /// </summary>
         public int? ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum name.
+        /// </summary>
         public string ForumName { get; set; }
 
         /// <summary>

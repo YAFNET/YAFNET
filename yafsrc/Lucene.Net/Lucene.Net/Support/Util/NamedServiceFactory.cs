@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Util
                 type.GetTypeInfo().IsPublic &&
                 !type.GetTypeInfo().IsAbstract &&
                 typeof(TService).GetTypeInfo().IsAssignableFrom(type) &&
-                type.GetTypeInfo().GetCustomAttribute<ExcludeServiceAttribute>(inherit: true) == null;
+                type.GetTypeInfo().GetCustomAttribute<ExcludeServiceAttribute>(true) == null;
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace YAF.Lucene.Net.Util
         public static string GetServiceName(Type type)
         {
             // Check for ServiceName attribute
-            var nameAttributes = type.GetTypeInfo().GetCustomAttributes(typeof(ServiceNameAttribute), inherit: true);
+            var nameAttributes = type.GetTypeInfo().GetCustomAttributes(typeof(ServiceNameAttribute), true);
             if (nameAttributes.Any())
             {
                 ServiceNameAttribute nameAttribute = nameAttributes.FirstOrDefault() as ServiceNameAttribute;
