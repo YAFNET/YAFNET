@@ -53137,7 +53137,7 @@ $(document).on("click",
                     document.location.href = link;
 
                     if (confirmed) {
-                        if (blockUI.length) {
+                        if (typeof (blockUI) != "undefined") {
                             window[blockUI]();
                         }
                     }

@@ -27,6 +27,7 @@ namespace YAF.Web.Controls
 
     using System;
     using System.ComponentModel;
+    using System.Linq;
     using System.Text;
     using System.Web;
     using System.Web.UI;
@@ -243,6 +244,20 @@ namespace YAF.Web.Controls
                     : string.Empty;
 
             set => this.ViewState["ReturnConfirmText"] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the return confirm event.
+        /// </summary>
+        [CanBeNull]
+        public string ReturnConfirmEvent
+        {
+            get =>
+                this.ViewState["ReturnConfirmEvent"] != null
+                    ? this.ViewState["ReturnConfirmEvent"] as string
+                    : string.Empty;
+
+            set => this.ViewState["ReturnConfirmEvent"] = value;
         }
 
         /// <summary>
@@ -482,7 +497,8 @@ namespace YAF.Web.Controls
             if (this.Attributes.Count > 0)
             {
                 // add attributes...
-                foreach (string key in this.Attributes.Keys)
+                this.Attributes.Keys.Cast<string>().ForEach(key =>
+                    
                 {
                     // get the attribute and write it...
                     if (key.ToLower() == "onclick")
@@ -496,7 +512,7 @@ namespace YAF.Web.Controls
                         // only write javascript attributes -- and a few other attributes...
                         output.WriteAttribute(key, this.Attributes[key]);
                     }
-                }
+                });
             }
 
             // Write Confirm Dialog
@@ -506,6 +522,11 @@ namespace YAF.Web.Controls
                 output.WriteAttribute("data-title", this.ReturnConfirmText);
                 output.WriteAttribute("data-yes", this.GetText("YES"));
                 output.WriteAttribute("data-no", this.GetText("NO"));
+
+                if (this.ReturnConfirmEvent.IsSet())
+                {
+                    output.WriteAttribute("data-confirm-event", this.ReturnConfirmEvent);
+                }
             }
 
             // Write Modal

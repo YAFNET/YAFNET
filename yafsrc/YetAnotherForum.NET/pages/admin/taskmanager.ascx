@@ -14,7 +14,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-tasks fa-fw"></i>&nbsp;<asp:Label ID="lblTaskCount" runat="server"></asp:Label>
+                    <i class="fa fa-tasks fa-fw text-secondary"></i>&nbsp;<asp:Label ID="lblTaskCount" runat="server"></asp:Label>
                     </div>
                 <div class="card-body">
         <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="TaskRepeaterItemCommand">

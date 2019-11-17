@@ -13,9 +13,11 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
-            <div class="card-header"> <i class="fa fa-info fa-fw"></i>&nbsp;
-                <yaf:LocalizedLabel id="LocalizedLabel2"
-                runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:LocalizedLabel>
+            <div class="card-header">
+                <i class="fa fa-info fa-fw text-secondary"></i>&nbsp;
+                <yaf:LocalizedLabel id="LocalizedLabel2" runat="server" 
+                                    LocalizedTag="TITLE" 
+                                    LocalizedPage="ADMIN_VERSION"></yaf:LocalizedLabel>
             </div>
             <div class="card-body">
                 <asp:placeholder runat="server" id="UpgradeVersionHolder" visible="false">

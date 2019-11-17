@@ -12,7 +12,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-language fa-fw"></i>&nbsp;<asp:Label runat="server" id="lblPageName"></asp:Label>
+                    <i class="fa fa-language fa-fw text-secondary"></i>&nbsp;<asp:Label runat="server" id="lblPageName"></asp:Label>
                 </div>
                 <div class="card-body text-lg-center">
                  
