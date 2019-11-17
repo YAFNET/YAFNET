@@ -59,6 +59,17 @@ namespace YAF.Core.Controllers
         {
             var results = this.Get<ISearch>().SearchSimilar(searchTopic.UserId, searchTopic.SearchTerm, "Topic");
 
+            if (results == null)
+            {
+                return this.Ok(
+                    new SearchGridDataSet
+                        {
+                            PageNumber = 0,
+                            TotalRecords = 0,
+                            PageSize = 0
+                        });
+            }
+
             return this.Ok(
                 new SearchGridDataSet
                     {

@@ -488,8 +488,9 @@ namespace YAF.Core.Services
             IEnumerable<ScoreDoc> hits,
             List<vaccess> userAccessList)
         {
-            return hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
-                .GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
+            var results = hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList)).ToList();
+            return results.Any() ? null :
+                       results.GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
         }
 
         /// <summary>
