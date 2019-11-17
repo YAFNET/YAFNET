@@ -42,7 +42,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The reindex.
+    /// The Admin Database Maintenance Page
     /// </summary>
     public partial class reindex : AdminPage
     {
@@ -55,10 +55,9 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUiExecuteJs(
-                    "DeleteForumMessage",
-                    $"#{this.Reindex.ClientID},#{this.Shrink.ClientID}"));
+                "BlockUiFunctionJs",
+                JavaScriptBlocks.BlockUiFunctionJs(
+                    "DeleteForumMessage"));
 
             base.OnPreRender(e);
         }
@@ -82,7 +81,11 @@ namespace YAF.Pages.Admin
             this.PanelGetStats.Visible = true;
 
             this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
+            this.Shrink.ReturnConfirmEvent = "blockUIMessage";
+            
             this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
+            this.Reindex.ReturnConfirmEvent = "blockUIMessage";
+
             this.RecoveryMode.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_RECOVERY");
 
             this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1")));
@@ -106,7 +109,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_REINDEX", "TITLE")}";
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMINMENU", "ADMIN_REINDEX")}";
         }
 
         /// <summary>
@@ -127,7 +130,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Sets the Revovery mode
+        /// Sets the Recovery mode
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -152,7 +155,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Reindexing Database
+        /// Re-indexing the Database
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -173,15 +176,15 @@ namespace YAF.Pages.Admin
             {
                 this.Get<IDbFunction>().ShrinkDatabase();
                 this.txtIndexStatistics.Text = string.Empty;
-                this.txtIndexStatistics.Text =
-                    string.Format(this.GetText("ADMIN_REINDEX", "INDEX_SHRINK"), this.Get<IDbFunction>().GetDBSize());
+                this.txtIndexStatistics.Text = this.GetTextFormatted(
+                    "INDEX_SHRINK",
+                    this.Get<IDbFunction>().GetDBSize());
 
                 YafBuildLink.Redirect(ForumPages.admin_reindex);
             }
             catch (Exception error)
             {
-                this.txtIndexStatistics.Text +=
-                    string.Format(this.GetText("ADMIN_REINDEX", "INDEX_STATS_FAIL"), error.Message);
+                this.txtIndexStatistics.Text += this.GetTextFormatted("INDEX_STATS_FAIL", error.Message);
             }
         }
 

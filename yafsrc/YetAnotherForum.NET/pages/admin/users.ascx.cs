@@ -209,30 +209,12 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", this.SyncUsers.ClientID));
+                JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", $"#{this.SyncUsers.ClientID}"));
 
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// The bit set.
-        /// </summary>
-        /// <param name="_o">
-        /// The _o.
-        /// </param>
-        /// <param name="bitmask">
-        /// The bitmask.
-        /// </param>
-        /// <returns>
-        /// The bit set boolean value.
-        /// </returns>
-        protected bool BitSet([NotNull] object _o, int bitmask)
-        {
-            var i = (int)_o;
-            return (i & bitmask) != 0;
         }
 
         /// <summary>
@@ -562,7 +544,7 @@ namespace YAF.Pages.Admin
 
             usersList.AcceptChanges();
 
-            foreach (DataRow user in usersList.Rows)
+            usersList.Rows.Cast<DataRow>().ForEach(user =>
             {
                 var userProfile = YafUserProfile.GetProfile((string)user["Name"]);
 
@@ -592,7 +574,7 @@ namespace YAF.Pages.Admin
                 user["Roles"] = this.Get<RoleProvider>().GetRolesForUser((string)user["Name"]).ToDelimitedString(",");
 
                 usersList.AcceptChanges();
-            }
+            });
 
             switch (type)
             {
@@ -636,7 +618,7 @@ namespace YAF.Pages.Admin
 
             sw.Write(sw.NewLine);
 
-            foreach (DataRow dr in usersList.Rows)
+            usersList.Rows.Cast<DataRow>().ForEach(dr =>
             {
                 for (var i = 0; i < columnCount; i++)
                 {
@@ -652,7 +634,7 @@ namespace YAF.Pages.Admin
                 }
 
                 sw.Write(sw.NewLine);
-            }
+            });
 
             sw.Close();
 

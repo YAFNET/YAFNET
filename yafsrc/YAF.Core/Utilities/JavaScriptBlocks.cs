@@ -290,6 +290,23 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
+        /// Blocks the UI JS
+        /// </summary>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string BlockUiFunctionJs([NotNull] string messageId)
+        {
+            return $@"function blockUIMessage() {{ 
+                                   {Config.JQueryAlias}.blockUI({{ 
+                                                 message: {Config.JQueryAlias}('#{messageId}') }});
+                       }};";
+        }
+
+        /// <summary>
         /// Generates a BootStrap DateTimePicker Script
         /// </summary>
         /// <param name="dateFormat">Localized Date Format</param>

@@ -5,25 +5,37 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REINDEX" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                LocalizedTag="admin_reindex"
+                                LocalizedPage="ADMINMENU"/></h1>
     </div>
 </div>
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-database fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REINDEX" />
+                <i class="fa fa-database fa-fw text-secondary"></i>
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                    LocalizedTag="admin_reindex" 
+                                    LocalizedPage="ADMINMENU" />
             </div>
             <div class="card-body">
-                <asp:TextBox ID="txtIndexStatistics" runat="server" Height="400px" TextMode="MultiLine"
+                <asp:TextBox ID="txtIndexStatistics" runat="server" 
+                             Height="400px" 
+                             TextMode="MultiLine"
                     CssClass="form-control"></asp:TextBox>
                 <asp:Placeholder ID="PanelGetStats" runat="server" Visible="False">
                     <p class="card-text">
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SHOW_STATS" LocalizedPage="ADMIN_REINDEX" />
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                            LocalizedTag="SHOW_STATS" 
+                                            LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
-                        <YAF:ThemeButton ID="GetStats" Type="Primary" runat="server" OnClick="GetStatsClick" 
-                                         Icon="database" TextLocalizedTag="TBLINDEXSTATS_BTN" />
+                        <YAF:ThemeButton ID="GetStats" 
+                                         Type="Primary" runat="server" 
+                                         OnClick="GetStatsClick" 
+                                         Icon="database" 
+                                         TextLocalizedTag="TBLINDEXSTATS_BTN" />
                     </p>
                     <hr />
                 </asp:Placeholder>
@@ -45,7 +57,8 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="REINDEX" LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
-                        <YAF:ThemeButton ID="Reindex" Type="Primary" runat="server" OnClick="ReindexClick"
+                        <YAF:ThemeButton ID="Reindex" Type="Primary" runat="server" 
+                                         OnClick="ReindexClick"
                                          Icon="database" TextLocalizedTag="REINDEXTBL_BTN" />
                     </p>
                     <hr />
@@ -55,8 +68,11 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SHRINK" LocalizedPage="ADMIN_REINDEX" />
 					</p>
                     <p class="card-text">
-                        <YAF:ThemeButton ID="Shrink" Type="Primary" runat="server" OnClick="ShrinkClick"
-                                         Icon="database" TextLocalizedTag="SHRINK_BTN" />
+                        <YAF:ThemeButton ID="Shrink" runat="server" 
+                                         OnClick="ShrinkClick"
+                                         Type="Primary" 
+                                         Icon="database" 
+                                         TextLocalizedTag="SHRINK_BTN" />
                     </p>
                 </asp:Placeholder>
             </div>

@@ -38,6 +38,7 @@ $(document).on("click",
         e.preventDefault();
         var link = $(this).attr("href");
         var text = $(this).data("title");
+        var blockUI = $(this).data("confirm-event");
         bootbox.confirm({
                 centerVertical: true,
                 message: text,
@@ -52,8 +53,12 @@ $(document).on("click",
                     }
                 },
                 callback: function (confirmed) {
+                    document.location.href = link;
+
                     if (confirmed) {
-                        document.location.href = link;
+                        if (blockUI.length) {
+                            window[blockUI]();
+                        }
                     }
                 }
             }

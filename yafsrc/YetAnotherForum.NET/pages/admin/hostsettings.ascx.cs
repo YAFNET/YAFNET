@@ -172,7 +172,7 @@ namespace YAF.Pages.Admin
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUiExecuteJs("SearchIndexMessage", this.IndexSearch.ClientID));
+                JavaScriptBlocks.BlockUiExecuteJs("SearchIndexMessage", $"#{this.IndexSearch.ClientID}"));
 
             base.OnPreRender(e);
         }

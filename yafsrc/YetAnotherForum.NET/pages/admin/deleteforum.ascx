@@ -18,7 +18,7 @@
                     <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                                                                  LocalizedTag="HEADER1" 
                                                                                                  LocalizedPage="ADMIN_DELETEFORUM" />
-                    <asp:Label ID="ForumNameTitle" runat="server"></asp:Label>
+                    <asp:Label ID="ForumNameTitle" runat="server" CssClass="font-weight-bold"></asp:Label>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
@@ -45,8 +45,8 @@
                     <YAF:ThemeButton ID="Delete" runat="server" 
                                      CssClass="btn btn-danger"
                                      Icon="trash" 
-                                     TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE") %>'></YAF:ThemeButton>&nbsp;
+                                     TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM">
+                    </YAF:ThemeButton>&nbsp;
                     <YAF:ThemeButton ID="Cancel" runat="server" 
                                      Type="Secondary"
                                      Icon="times" 

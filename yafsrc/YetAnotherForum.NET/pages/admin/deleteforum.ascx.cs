@@ -58,8 +58,8 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUiExecuteJs("DeleteForumMessage", this.Delete.ClientID));
+                "BlockUiFunctionJs",
+                JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
 
             base.OnPreRender(e);
         }
@@ -73,6 +73,9 @@ namespace YAF.Pages.Admin
             this.MoveTopics.CheckedChanged += this.MoveTopicsCheckedChanged;
             this.Delete.Click += this.SaveClick;
             this.Cancel.Click += this.Cancel_Click;
+
+            this.Delete.ReturnConfirmText = this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE");
+            this.Delete.ReturnConfirmEvent = "blockUIMessage";
 
             base.OnInit(e);
         }
@@ -174,16 +177,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void MoveTopicsCheckedChanged(object sender, EventArgs e)
         {
-            if (this.MoveTopics.Checked)
-            {
-                this.Delete.Attributes.Remove("onclick");
-            }
-            else
-            {
-                this.Delete.Attributes["onclick"] =
-                    $"return (confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE")}') && confirm('{this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE")}'));";
-            }
-
             this.ForumList.Enabled = this.MoveTopics.Checked;
         }
 

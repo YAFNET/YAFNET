@@ -1635,8 +1635,8 @@
   </page>
   <page name="ADMIN_REINDEX">
     <Resource tag="CONFIRM_RECOVERY">Are you sure you want to change your database recovery mode?\nThe operation may make the DB inaccessible and may take a little while.\nDO THIS ONLY IF YOU KNOW WHAT YOU ARE DOING!</Resource>
-    <Resource tag="CONFIRM_REINDEX">Are you sure you want to reindex all YAF tables?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
-    <Resource tag="CONFIRM_SHRINK">Are you sure you want to Shrink database?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
+    <Resource tag="CONFIRM_REINDEX">Are you sure you want to reindex all YAF tables?&lt;br /&gt;The operation may make the DB inaccessible and may take a little while.</Resource>
+    <Resource tag="CONFIRM_SHRINK">Are you sure you want to Shrink database?&lt;br /&gt;The operation may make the DB inaccessible and may take a little while.</Resource>
     <Resource tag="HEADER">YAF DB Operation Report:</Resource>
     <Resource tag="INDEX_SHRINK">Shrink operation was Successful.Your database size is now: {0}MB</Resource>
     <Resource tag="INDEX_STATS">Database recovery mode was successfully set to {0}</Resource>
